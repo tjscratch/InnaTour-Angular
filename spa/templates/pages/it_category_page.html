@@ -1,0 +1,67 @@
+﻿<div class="layout-light">
+    <div class="offers-light-grey">
+        <!--<ul class="breadcrumbs">
+            <li class="crumb"><a href="#">Главная</a></li>
+            <li class="crumb"><a href="#">Индивидуальные программы</a></li>
+        </ul>-->
+        <div class="offers-card-banner-container" ng-controller="SliderCtrl" app-slider>
+            <ul class="offers-card-banner-list Offer-card-banners" ng-show="slides.length > 0">
+                <li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
+                    <img class="img" ng-src="{{slide.Url}}" />
+                    <!--<div class="img" style="background-image: url('{{slide.Url}}')"></div>-->
+                </li>
+            </ul>
+            <div class="darken-container"></div>
+            <div class="info-container" ng-show="slides.length > 0">
+                <div class="info">
+                    <h3 class="name" ng-bind-html="selectedCategory.Name"></h3>
+                    <p class="description" ng-bind-html="selectedCategory.Description | breakFilter"></p>
+                </div>
+            </div>
+            <div class="banner-dots-container" ng-show="slides.length > 0">
+                <ul class="banner-dots Banner-dots"></ul>
+            </div>
+        </div>
+        <div class="offers-filter-container">
+            <div class="offers-filter">
+                <span class="label label-program" ng-show="programsTypeList.length > 2">Тип программы</span>
+                <div style="width: 280px;" class="combo-box offers-filter-programs" ng-click="programmClick($event)" ng-show="programsTypeList.length > 2" combobox>
+                    <div class="combo-box-item-current">
+                        {{filter.selectedProgramm.name}}
+                    </div>
+                    <i class="icon icon-triangle" ng-class="{bottom:!isProgrammOpened}"></i>
+                    <ul style="width: 280px;" class="combo-box-list" style="display:block;" ng-show="isProgrammOpened">
+                        <li class="combo-box-list-item" ng-repeat="prog in programsTypeList" ng-click="programmItemClick(prog, $event)">{{prog.name}}</li>
+                    </ul>
+                </div>
+                <span class="label label-country">Страна</span>
+                <div style="width: 280px;" class="combo-box offers-filter-countries" ng-click="countryClick($event)" combobox>
+                    <div class="combo-box-item-current">
+                        {{filter.selectedCountry.name}}
+                    </div>
+                    <i class="icon icon-triangle"ng-class="{bottom:!isCountryOpened}"></i>
+                    <ul style="width: 280px;" class="combo-box-list" style="display:block;" ng-show="isCountryOpened">
+                        <li class="combo-box-list-item" ng-repeat="country in countriesList" ng-click="countryItemClick(country, $event)">{{country.name}}</li>
+                    </ul>
+                </div>
+                <div class="offers-filter-contacts pull-right">
+                    <span>{{data.Staff.PostName}} {{data.Staff.I}} {{data.Staff.F}}</span>
+                    <span class="phone">{{data.Staff.Phone}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="offers-container">
+            <ul class="offers-card-list">
+                <li class="offer-card" ng-repeat="offer in filteredOffersList track by $index">
+                    <img ng-src="{{offer.ImageUrl}}" alt="" style="width:303px;height:209px;"/><!--
+                    --><div class="offer-card-info">
+                        <h3 class="title" ng-bind-html="offer.Name"></h3>
+                        <p class="description" ng-bind-html="offer.Description | breakFilter"></p>
+                        <span class="presentation-link pdf-link"><a ng-href="{{offer.PdfUrl}}" target="_blank">Описание программы</a><!--???кб--></span>
+                        <button class="button" ng-click="popupForm_Show(offer)">Отправить заявку</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

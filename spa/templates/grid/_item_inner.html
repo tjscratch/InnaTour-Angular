@@ -1,0 +1,22 @@
+﻿<div class="offer-info" ng-if="!showImgOnly(item)">
+    <div class="offer-info-container">
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.FrontTitleRow1)">{{item.FrontTitleRow1}}</h3>
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.FrontTitleRow2)">{{item.FrontTitleRow2}}</h3>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.FrontSubTitleRow1)">{{item.FrontSubTitleRow1}}</p>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.FrontSubTitleRow2)">{{item.FrontSubTitleRow2}}</p>
+        <p class="offer-price" ng-if="!isNullOrEmpty(item.FrontPrice)">
+            от <span class="offer-price-number">{{item.FrontPrice}}-</span>
+        </p>
+    </div>
+</div>
+<div class="offer-info-hover" ng-if="!showImgOnly(item)">
+    <div class="offer-info-container">
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.BackTitleRow1)">{{item.BackTitleRow1}}</h3>
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.BackTitleRow2)">{{item.BackTitleRow2}}</h3>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.BackSubTitleRow1)">{{item.BackSubTitleRow1}}</p>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.BackSubTitleRow2)">{{item.BackSubTitleRow2}}</p>
+        <p class="offer-price" ng-if="!isNullOrEmpty(item.BackPrice)">
+            от <span class="offer-price-number">{{item.BackPrice}}-</span>
+        </p>
+    </div>
+</div>

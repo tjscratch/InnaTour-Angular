@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html>
+<html lang="ru" xmlns:ng="http://angularjs.org">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name='yandex-verification' content='40fd92efcc007a47' />    <title>Инна-Тур - Главная</title>
+
+      <!--[if lte IE 8]>
+        <script>
+          document.createElement('ng-include');
+          document.createElement('ng-pluralize');
+          document.createElement('ng-view');
+ 
+          // Optionally these for CSS
+          document.createElement('ng:include');
+          document.createElement('ng:pluralize');
+          document.createElement('ng:view');
+          document.createElement('ng:any');
+        </script>
+      <![endif]-->
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="/spa/css/main.css?v=9" />
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-32173758-1']);
+        _gaq.push(['_setDomainName', 'inna.ru']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script> 
+
+</head>
+<body id="ng-app" ng-app="innaApp" ng-click="bodyClick()" ng-controller="NavigationCtrl" popup-form>
+	<div class="header Header">
+        <div class="header-info">
+            <div class="header-info-container">
+                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
+                --><span class="header-text"></span><!--
+                --><div class="header-info-container-right">
+                    <ul class="header-info-menu" style="margin-right:0px;">
+                        <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li><!--
+                        --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
+                        --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                    </ul><!--
+                    --><!--<span class="header-login">
+                        <a href="#" class=""><i class="icon icon-user"></i>Войти</a>
+
+                        <form class="header-login-form-popup">
+                            <div class="field-row"><input class="field" type="text" placeholder="Логин" /></div>
+                            <div class="field-row"><input class="field" type="password" placeholder="Пароль" /></div>
+                            <button class="button">Войти</button>
+                        </form>
+                    </span>-->
+                </div>
+            </div>
+        </div>
+        <div class="header-menu">
+            <ul class="header-menu-container-items"><!--
+                --><!--<li class="header-menu-item"><a href="/#/hotelticket/" ng-class="{active:isActive('/hotelticket/')}">Билет + отель</a></li>--><!--
+                --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
+                --><li class="header-menu-item"><a href="http://biletix.ru/" target="_blank" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
+                --><li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
+                --><li class="header-menu-item"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li><!--
+                --><!--<li class="header-menu-item"><a href="/#/autorent/" ng-class="{active:isActive('/autorent/')}">Аренда авто</a></li>--><!--
+                --><!--<li class="header-menu-item"><a href="/#/insurance/" ng-class="{active:isActive('/insurance/')}">Страхование</a></li>--><!--
+                --><!--<li class="header-menu-item"><a href="/#/cruise/" ng-class="{active:isActive('/cruise/')}">Круизы</a></li>-->
+            </ul>
+            <ng:include src="getHeadForm()"></ng:include>
+        </div>
+	</div>
+    <div class="button fixed-request-button" ng-click="popupForm_Show()" ng-show="!isActive('/individualtours/category/')">Отправить заявку</div>
+    
+    <ng:view></ng:view>
+    
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-menu">
+                <ul class="footer-menu-links-list">
+                    <li class="footer-menu-links-list-item"><a href="/#/about/">О компании</a></li>
+                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/corporate/">Корпоративным клиентам</a></li>
+                    <li class="footer-menu-links-list-item"><a href="/#/contacts/">Контакты</a></li>
+                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
+                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/catalog/guide/">Каталог стран</a></li>
+                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/client/abc/">Полезная информация</a></li>
+                </ul>
+                <div class="footer-menu-info">
+                    <ul class="social-list">
+                        <li class="social-list-item">
+                            <a href="https://vk.com/inna_tur_ru" target="_blank"><i class="icon icon-vkontakte"></i></a>
+                        </li>
+                        <li class="social-list-item">
+                            <a href="http://odnoklassniki.ru/innatour" target="_blank"><i class="icon icon-odnoklassniki"></i></a>
+                        </li>
+                        <li class="social-list-item">
+                            <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i class="icon icon-facebook"></i></a>
+                        </li>
+                        <li class="social-list-item">
+                            <a href="https://twitter.com/inna_tour" target="_blank"><i class="icon icon-twitter"></i></a>
+                        </li>
+                        <li class="social-list-item">
+                            <a href="http://www.pinterest.com/innatour/" target="_blank"><i class="icon icon-pinterest"></i></a>
+                        </li>
+                        <li class="social-list-item">
+                            <a href="http://www.youtube.com/user/InnaTourMos/featured" target="_blank"><i class="icon icon-youtube"></i></a>
+                        </li>
+                    </ul>
+                    <p class="phone-info">многоканальный телефон</p>
+                    <p class="phone">+7&nbsp;495 742-1212</p>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p class="info info-left">ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс туристических услуг.
+                    Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию, Камбоджу,
+                    Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
+                </p>
+                <p class="info">
+                    &copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.<br>
+                    <span class="licence">Реестр туроператоров <a href="http://reestr.russiatourism.ru/?ac=view&id_reestr=8893" target="_blank">МТ3 008557</a></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div src="'/popup/mainform.html'"></div>
+    
+    <script type="text/javascript">
+
+
+        var addTourUrlEf = 'http://test.inna.ru/api/v1/Dictionary';
+
+        var getHotelsUrl = 'http://test.inna.ru/api/v1/Dictionary';
+
+        var getCityUrl = 'http://test.inna.ru/api/v1/Dictionary/City/Get';
+        var getDirectoryUrl = 'http://test.inna.ru/api/v1/Dictionary/Directory/Get';
+        var getCountryUrl = 'http://test.inna.ru/api/v1/Dictionary/Country/Get';
+        var getRegionUrl = 'http://test.inna.ru/api/v1/Dictionary/Region/Get';
+
+        var getSletatUrl = 'http://test.inna.ru/api/v1/Dictionary/Sletat/Get';
+        var getSletatCityUrl = 'http://test.inna.ru/api/v1/Dictionary/SletatCity/Get';
+        var getSletatByIdUrl = 'http://test.inna.ru/api/v1/Dictionary/SletatById/Get';
+
+        var getLocationByUrls = 'http://test.inna.ru/Dictionary/LocationByUrl';
+
+        var beginSearchUrl = 'http://test.inna.ru/api/v1/Search/BeginSearch/Get';
+        var checkSearchUrl = 'http://test.inna.ru/api/v1/Search/CheckSearch/Get';
+
+        var beginAviaSearchUrl = 'http://test.inna.ru/api/v1/Avia';
+
+        //var hotelDetailUrl = 'http://test.inna.ru/api/v1/HotelDetail/0';
+
+        //var tourDetailUrl = 'http://test.inna.ru/api/v1/TourDetail/0';
+
+        var hotelDetailUrl = 'http://test.inna.ru/HotelDetail/GetPage';
+
+        var tourDetailUrl = 'http://test.inna.ru/TourDetail/GetPage';
+
+        var getOrderUrl = 'http://test.inna.ru/Order';
+
+        var paymentPageUrl = 'http://test.inna.ru/Payment';
+
+        var payUrl = 'http://test.inna.ru/Payment/Pay';
+
+        var getPassengerUrl = 'http://test.inna.ru/Passenger/GetByCurrentUser';
+
+        var deleteSearchHistoryUrl = 'http://test.inna.ru/api/v1/Search/DeleteHistory/get';
+
+        var getSectionToursUrl = 'http://test.inna.ru/api/v1/Section/1';
+        var getSectionIndividualToursUrl = 'http://test.inna.ru/api/v1/Section/2';
+        var getIndividualToursCategoryUrl = 'http://test.inna.ru/api/v1/IndividualTourCategory';
+
+        var sendITCategoryRequestUrl = 'http://test.inna.ru/api/v1/RequestsTour';
+
+</script>
+
+    
+    
+
+<!--<script src="//code.jquery.com/jquery-2.1.0.min.js"></script>-->
+<script src="//code.jquery.com/jquery-1.8.3.min.js"></script>
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-route.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-sanitize.min.js"></script>
+
+<script src="/spa/lib/jquery-ui-1.10.4.custom.js"></script>
+<script src="/spa/lib/jquery.ui.datepicker-ru.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+
+<!--contacts-->
+<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var app = {};
+    app.version = '12';
+    app.constants = {};
+    app.constants.offersCategoriesProgramm = '1';
+</script>
+
+
+<script src="/SPA/js/angular/api.stub.js?v=51"></script>
+<script src="/SPA/js/angular/app.js?v=51"></script>
+<script src="/SPA/js/angular/cache_keys.js?v=51"></script>
+<script src="/SPA/js/angular/date.helper.js?v=51"></script>
+<script src="/SPA/js/angular/filters.js?v=51"></script>
+<script src="/SPA/js/angular/services.js?v=51"></script>
+<script src="/SPA/js/angular/urlhelper.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.about.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.avia.search.main.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.avia.search.results.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.contacts.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.hotel.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.hotels.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.hotel_plus_ticket.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.individualtours.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.individualtourscategory.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.main.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.navigation.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.offers.list.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.payment.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.search.main.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.search.result.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.slider.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.tour.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.tours.form.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controller.tours.js?v=51"></script>
+<script src="/SPA/js/angular/controllers/controllers.js?v=51"></script>
+<script src="/SPA/js/angular/directives/directive.combobox.js?v=51"></script>
+<script src="/SPA/js/angular/directives/directive.datepicker.custom.js?v=51"></script>
+<script src="/SPA/js/angular/directives/directive.map.js?v=51"></script>
+<script src="/SPA/js/angular/directives/directive.popup.form.js?v=51"></script>
+<script src="/SPA/js/angular/directives/directives.js?v=51"></script>
+<script src="/SPA/js/angular/models/app.model.avia.js?v=51"></script>
+<script src="/SPA/js/angular/models/app.model.js?v=51"></script>
+<script src="/SPA/js/angular/models/app.model.to.api.model.js?v=51"></script>
+<script src="/SPA/js/angular/models/app.model.tours.js?v=51"></script>
+
+
+   
+    
+
+<script type="text/ng-template" id="/grid/_item_inner.html">
+<img ng-src="{{item.Image}}" class="offer-img" alt=""/>
+<div class="darken-container"></div>
+<div class="offer-info" ng-if="!showImgOnly(item)">
+    <div class="offer-info-container">
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.FrontTitleRow1)">{{item.FrontTitleRow1}}</h3>
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.FrontTitleRow2)">{{item.FrontTitleRow2}}</h3>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.FrontSubTitleRow1)">{{item.FrontSubTitleRow1}}</p>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.FrontSubTitleRow2)">{{item.FrontSubTitleRow2}}</p>
+        <p class="offer-price" ng-if="!isNullOrEmpty(item.FrontPrice)">
+            от <span class="offer-price-number">{{item.FrontPrice}}-</span>
+        </p>
+    </div>
+</div>
+<div class="offer-info-hover" ng-if="!showImgOnly(item)" >
+    <div class="offer-info-container">
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.BackTitleRow1)">{{item.BackTitleRow1}}</h3>
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.BackTitleRow2)">{{item.BackTitleRow2}}</h3>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.BackSubTitleRow1)">{{item.BackSubTitleRow1}}</p>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.BackSubTitleRow2)">{{item.BackSubTitleRow2}}</p>
+        <p class="offer-price" ng-if="!isNullOrEmpty(item.BackPrice)">
+            от <span class="offer-price-number">{{item.BackPrice}}-</span>
+        </p>
+    </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/grid/item_2M.html">
+<div class="offer-middle" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event)">
+    <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
+</div>
+<div class="offer-middle" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event)">
+    <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer2] track by $index"></ng:include>
+</div>
+</script>
+
+<script type="text/ng-template" id="/grid/item_2SL.html">
+<div class="offers-column">
+    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event)">
+        <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
+    </div>
+    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event)">
+        <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer2] track by $index"></ng:include>
+    </div>
+</div>
+<div class="offer-large" ng-class="{'offer-animation':!showImgOnly(block.Offer3)}" ng-click="offerClick(block.Offer3, $event)">
+    <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer3] track by $index"></ng:include>
+</div>
+</script>
+
+<script type="text/ng-template" id="/grid/item_L2S.html">
+<div class="offer-large" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event)">
+    <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
+</div>
+<div class="offers-column">
+    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event)">
+        <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer2] track by $index"></ng:include>
+    </div>
+    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer3)}" ng-click="offerClick(block.Offer3, $event)">
+        <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer3] track by $index"></ng:include>
+    </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/grid/item_L3L3L3.html">
+<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event)">
+    <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
+</div>
+<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event)">
+    <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer2] track by $index"></ng:include>
+</div>
+<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer3)}" ng-click="offerClick(block.Offer3, $event)">
+    <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer3] track by $index"></ng:include>
+</div>
+</script>
+
+<script type="text/ng-template" id="/grid/item_XL.html">
+<div class="offer-extra-large" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event)">
+    <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
+</div>
+</script>
+
+<script type="text/ng-template" id="/popup/mainform.html">
+<div class="popup-fade" ng-show="isOpened"></div>
+<div class="popup-container" ng-show="isOpened">
+    <div class="popup">
+        <div class="popup-close-button" ng-click="popupForm_Close()"></div>
+        <form class="offer-order-form">
+            <legend class="form-header">Оставьте вашу заявку</legend>
+            <div class="field-row">
+                <input class="field" type="text" ng-model="request.name" placeholder="Имя"/>
+            </div>
+            <div class="field-row">
+                <input class="field" ng-class="{error:!request.isValid}" type="text" ng-model="request.phone" placeholder="Мобильный телефон"/>
+                <span class="field-error" ng-show="!request.isValid">Необходимо ввести мобильный телефон</span>
+            </div>
+            <div class="field-row">
+                <input class="field" type="text" ng-model="request.email" placeholder="Email"/>
+            </div>
+            <div class="field-row">
+                <textarea name="" class="field-text" ng-model="request.comments">
+                {{request.comments | breakFilter}}
+                </textarea>
+            </div>
+            <div class="description offer-description" ng-click="request.subscribeClick()" ng-show="request.type == requestType.main">
+				<span class="checkbox" ng-class="{checked:request.isSubscribe}"></span><label class="checkbox-label">Я люблю путешествовать и хочу получать рассылку с самыми выгодными и интересными предложениями</label>
+			</div>
+            <!--<div class="description offer-description" ng-show="request.type == requestType.cat_it">Отвечаем в течение 24 часов</div>-->
+            <button type="submit" class="button offer-submit" ng-click="request.send()">Отправить</button>
+        </form>
+    </div>
+</div>
+</script>
+
+
+
+<!-- Yandex.Metrika counter -->
+<div style="display:none;"><script type="text/javascript">
+(function(w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter5467552 = new Ya.Metrika({id:5467552,
+                    clickmap:true,
+                    trackLinks:true});
+        }
+        catch(e) { }
+    });
+})(window, 'yandex_metrika_callbacks');
+</script></div>
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/5467552" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<!-- Yandex.Metrika counter -->
+<div style="display:none;"><script type="text/javascript">
+                               (function (w, c) {
+                                   (w[c] = w[c] || []).push(function () {
+                                       try {
+                                           w.yaCounter12702715 = new Ya.Metrika({ id: 12702715, enableAll: true, webvisor: true });
+                                       }
+                                       catch (e) { }
+                                   });
+                               })(window, "yandex_metrika_callbacks");
+</script></div>
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+</body>
+</html>

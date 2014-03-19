@@ -1,0 +1,12 @@
+﻿<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}">
+    <img ng-src="{{block.Offer1.Image}}" class="offer-img" alt=""/>
+    <div ng-include="" src="getInnerTemplate()" ng-repeat="item in [block.Offer1] track by $index"></div>
+</div>
+<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}">
+    <img ng-src="{{block.Offer2.Image}}" class="offer-img" alt=""/>
+    <div ng-include="" src="getInnerTemplate()" ng-repeat="item in [block.Offer2] track by $index"></div>
+</div>
+<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer3)}">
+    <img ng-src="{{block.Offer3.Image}}" class="offer-img" alt=""/>
+    <div ng-include="" src="getInnerTemplate()" ng-repeat="item in [block.Offer3] track by $index"></div>
+</div>

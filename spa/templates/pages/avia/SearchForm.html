@@ -1,0 +1,73 @@
+﻿<h2>Поиск авиабилетов</h2>
+<div>
+    <table class="table" style="width:500px;">
+        <tr>
+            <td>
+                Откуда:
+                <input class="form-control" type="text" ng-model="criteria.From"
+                       ng-id-model="criteria.FromId" ng-url-model="criteria.FromUrl"
+                       ng-get-url="getDirectoryUrl" auto-complete-directory />
+            </td>
+            <td>
+                Куда:
+                <input class="form-control" type="text" ng-model="criteria.To"
+                       ng-id-model="criteria.ToId" ng-url-model="criteria.ToUrl"
+                       ng-get-url="getDirectoryUrl" auto-complete-directory />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Когда туда:
+                <input class="form-control" type="text" ng-model="criteria.BeginDate" date-picker />
+            </td>
+            <td>
+                Когда обратно:
+                <input class="form-control" type="text" ng-model="criteria.EndDate" date-picker />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Взрослые:
+                <select class="form-control" ng-model="criteria.AdultCount">
+                    <option ng-repeat="item in adultCountList" value="{{item}}" ng-selected="item == criteria.AdultCount">{{item}}</option>
+                </select>
+            </td>
+            <td>
+                Дети:
+                <select class="form-control" ng-model="criteria.ChildCount">
+                    <option ng-repeat="item in childCountList" value="{{item}}" ng-selected="item == criteria.ChildCount">{{item}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Млоденцы:
+                <select class="form-control" ng-model="criteria.InfantsCount">
+                    <option ng-repeat="item in childCountList" value="{{item}}" ng-selected="item == criteria.InfantsCount">{{item}}</option>
+                </select>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                Класс перелета:
+                <select class="form-control" ng-model="criteria.CabinClass">
+                    <option ng-repeat="item in cabinClassList" value="{{item.value}}" ng-selected="item.value == criteria.CabinClass">{{item.name}}</option>
+                </select>
+            </td>
+            <td>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="criteria.IsFlexible"
+                               ng-true-value="1" ng-false-value="0">Гибкий поиск
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button class="btn btn-default" ng-click="searchStart()">Искать</button>
+            </td>
+        </tr>
+    </table>
+</div>

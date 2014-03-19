@@ -1,0 +1,4 @@
+﻿<div class="offer-extra-large" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}">
+    <img ng-src="{{block.Offer1.Image}}" class="offer-img" alt=""/>
+    <div ng-include="" src="getInnerTemplate()" ng-repeat="item in [block.Offer1] track by $index"></div>
+</div>

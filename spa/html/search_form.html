@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../css/styl/search.css" />
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="../css/styl/ie.css" />
+    <![endif]-->
+    <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../lib/jquery.html5-placeholder-shim.js"></script>
+</head>
+
+<body>
+<div style="width: 960px; margin: 0 auto; background: green; padding: 120px;">
+    <!-- Search Form -->
+    <form class="search-form">
+        <div class="search-field-block">
+            <input type="text" class="search-field" placeholder="Откуда" />
+        </div>
+        <div class="search-field-block">
+            <input type="text" class="search-field" placeholder="Куда" />
+        </div>
+        <div class="search-date-block">
+            <input type="text" class="search-date search-date-arr" placeholder="Туда" />
+        </div>
+        <div class="search-date-block">
+            <input type="text" class="search-date search-date-dep" placeholder="Обратно" />
+        </div>
+        <div class="search-people-block">
+            <div class="search-people">5 человек</div>
+        </div>
+        <div class="search-button-block">
+            Найти
+            <input type="submit" value="Найти" />
+        </div>
+        <ul class="search-pref-block">
+            <li class="search-pref current">Туда и обратно</li>
+            <li class="search-pref">В одну сторону</li>
+            <li class="search-pref search-pref-comfort">Эконом
+                <ul class="search-pref-select">
+                    <li>Бизнес</li>
+                </ul>
+            </li>
+        </ul>
+    </form>
+    <!-- /Search Form -->
+</div>
+</body>
+</html>

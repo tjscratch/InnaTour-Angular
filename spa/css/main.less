@@ -1,0 +1,33 @@
+@import "reset";
+@import "lesshat";
+@import "icons";
+@import "flags";
+@import "fonts";
+@import "vars-mixins";
+@import "controls";
+
+@import "header";
+@import "search-form";
+@import "layout";
+@import "offers";
+@import "footer";
+@import "jquery-ui-1.10.4.custom.css";
+@import "datepicker";
+@import "tooltip";
+
+@import "pages/contacts";
+@import "pages/about";
+
+html, body {
+    .font-proxima-regular();
+}
+
+a {
+    &:hover {
+        text-decoration: underline;
+
+        &.active {
+            text-decoration: none;
+        }
+    }
+}
