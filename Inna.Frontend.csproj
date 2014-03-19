@@ -39,19 +39,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="index.html" />
-    <Content Include="spa\css\jquery-ui-1.10.4.custom.css" />
     <Content Include="spa\css\main.css" />
     <Content Include="spa\fonts\proximanova-bold-webfont.svg" />
     <Content Include="spa\fonts\proximanova-light-webfont.svg" />
     <Content Include="spa\fonts\proximanova-reg-webfont.svg" />
-    <Content Include="spa\img\banner.jpg" />
     <Content Include="spa\img\calendar-next-month-notactive.png" />
     <Content Include="spa\img\calendar-next-month.png" />
     <Content Include="spa\img\calendar-prev-month-notactive.png" />
     <Content Include="spa\img\calendar-prev-month.png" />
     <Content Include="spa\img\calendar.png" />
     <Content Include="spa\img\check.png" />
-    <Content Include="spa\img\country\thailand.png" />
     <Content Include="spa\img\email.png" />
     <Content Include="spa\img\facebook.png" />
     <Content Include="spa\img\field-check.png" />
@@ -266,41 +263,12 @@
     <Content Include="spa\img\flags\ZA.png" />
     <Content Include="spa\img\flags\ZM.png" />
     <Content Include="spa\img\flags\ZW.png" />
-    <Content Include="spa\img\Fotolia_39810619_Subscription_XL.jpg" />
-    <Content Include="spa\img\Fotolia_48185885_Subscription_XXL.jpg" />
     <Content Include="spa\img\google.png" />
     <Content Include="spa\img\i.png" />
-    <Content Include="spa\img\individual-tour\img1.jpg" />
-    <Content Include="spa\img\individual-tour\img2.jpg" />
-    <Content Include="spa\img\individual\banner1.jpg" />
-    <Content Include="spa\img\individual\banner2.jpg" />
-    <Content Include="spa\img\individual\banner3.jpg" />
     <Content Include="spa\img\innatour.png" />
     <Content Include="spa\img\logo-ticket.png" />
     <Content Include="spa\img\logo.png" />
-    <Content Include="spa\img\maket_photos\1-london.png" />
-    <Content Include="spa\img\maket_photos\2-Advice.png" />
-    <Content Include="spa\img\maket_photos\2-Egypt small.png" />
-    <Content Include="spa\img\maket_photos\2-Egypt.png" />
-    <Content Include="spa\img\maket_photos\3-Germany.png" />
-    <Content Include="spa\img\maket_photos\3-Norway.png" />
-    <Content Include="spa\img\maket_photos\4-Advice.png" />
-    <Content Include="spa\img\maket_photos\4-Egypt.png" />
-    <Content Include="spa\img\maket_photos\4-Istambul.png" />
     <Content Include="spa\img\mouse.png" />
-    <Content Include="spa\img\Nature___Mountains_A_beautiful_mountains_view_017154_25.jpg" />
-    <Content Include="spa\img\offer1.jpg" />
-    <Content Include="spa\img\offer10.jpg" />
-    <Content Include="spa\img\offer11.jpg" />
-    <Content Include="spa\img\offer12.jpg" />
-    <Content Include="spa\img\offer2.jpg" />
-    <Content Include="spa\img\offer3.jpg" />
-    <Content Include="spa\img\offer4.jpg" />
-    <Content Include="spa\img\offer5.jpg" />
-    <Content Include="spa\img\offer6.jpg" />
-    <Content Include="spa\img\offer7.jpg" />
-    <Content Include="spa\img\offer8.jpg" />
-    <Content Include="spa\img\offer9.jpg" />
     <Content Include="spa\img\pdf-symbol.png" />
     <Content Include="spa\img\pdf_icon.png" />
     <Content Include="spa\img\phone.png" />
@@ -384,11 +352,15 @@
     <Content Include="spa\fonts\proximanova-reg-webfont.eot" />
     <Content Include="spa\fonts\proximanova-reg-webfont.ttf" />
     <Content Include="spa\fonts\proximanova-reg-webfont.woff" />
-    <Content Include="spa\img\individual-tour\.DS_Store" />
-    <Content Include="spa\img\maket_photos\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="spa\img\country\" />
+    <Folder Include="spa\img\individual-tour\" />
+    <Folder Include="spa\img\individual\" />
+    <Folder Include="spa\img\maket_photos\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -415,6 +387,14 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

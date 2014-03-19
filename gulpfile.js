@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 
 // Compiles LESS > CSS 
 gulp.task('build-less', function () {
-    return gulp.src('spa/css/main.less')
+    return gulp.src('spa/css/main/main.less')
         .pipe(less())
         .pipe(gulp.dest('spa/css'));
 });
