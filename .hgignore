@@ -2,6 +2,8 @@ syntax: glob
 node_modules
 Compiled
 _ReSharper.*
+obj/*
+bin/*
 */obj/*
 */bin/*
 *.vssscc
