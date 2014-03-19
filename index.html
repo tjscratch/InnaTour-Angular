@@ -131,53 +131,50 @@
     <div src="'/popup/mainform.html'"></div>
     
     <script type="text/javascript">
+        var addTourUrlEf = 'http://api.test.inna.ru/api/v1/Dictionary';
 
+        var getHotelsUrl = 'http://api.test.inna.ru/api/v1/Dictionary';
 
-        var addTourUrlEf = 'http://test.inna.ru/api/v1/Dictionary';
+        var getCityUrl = 'http://api.test.inna.ru/api/v1/Dictionary/City/Get';
+        var getDirectoryUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Directory/Get';
+        var getCountryUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Country/Get';
+        var getRegionUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Region/Get';
 
-        var getHotelsUrl = 'http://test.inna.ru/api/v1/Dictionary';
+        var getSletatUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Sletat/Get';
+        var getSletatCityUrl = 'http://api.test.inna.ru/api/v1/Dictionary/SletatCity/Get';
+        var getSletatByIdUrl = 'http://api.test.inna.ru/api/v1/Dictionary/SletatById/Get';
 
-        var getCityUrl = 'http://test.inna.ru/api/v1/Dictionary/City/Get';
-        var getDirectoryUrl = 'http://test.inna.ru/api/v1/Dictionary/Directory/Get';
-        var getCountryUrl = 'http://test.inna.ru/api/v1/Dictionary/Country/Get';
-        var getRegionUrl = 'http://test.inna.ru/api/v1/Dictionary/Region/Get';
+        var getLocationByUrls = 'http://api.test.inna.ru/Dictionary/LocationByUrl';
 
-        var getSletatUrl = 'http://test.inna.ru/api/v1/Dictionary/Sletat/Get';
-        var getSletatCityUrl = 'http://test.inna.ru/api/v1/Dictionary/SletatCity/Get';
-        var getSletatByIdUrl = 'http://test.inna.ru/api/v1/Dictionary/SletatById/Get';
+        var beginSearchUrl = 'http://api.test.inna.ru/api/v1/Search/BeginSearch/Get';
+        var checkSearchUrl = 'http://api.test.inna.ru/api/v1/Search/CheckSearch/Get';
 
-        var getLocationByUrls = 'http://test.inna.ru/Dictionary/LocationByUrl';
+        var beginAviaSearchUrl = 'http://api.test.inna.ru/api/v1/Avia';
 
-        var beginSearchUrl = 'http://test.inna.ru/api/v1/Search/BeginSearch/Get';
-        var checkSearchUrl = 'http://test.inna.ru/api/v1/Search/CheckSearch/Get';
+        //var hotelDetailUrl = 'http://api.test.inna.ru/api/v1/HotelDetail/0';
 
-        var beginAviaSearchUrl = 'http://test.inna.ru/api/v1/Avia';
+        //var tourDetailUrl = 'http://api.test.inna.ru/api/v1/TourDetail/0';
 
-        //var hotelDetailUrl = 'http://test.inna.ru/api/v1/HotelDetail/0';
+        var hotelDetailUrl = 'http://api.test.inna.ru/HotelDetail/GetPage';
 
-        //var tourDetailUrl = 'http://test.inna.ru/api/v1/TourDetail/0';
+        var tourDetailUrl = 'http://api.test.inna.ru/TourDetail/GetPage';
 
-        var hotelDetailUrl = 'http://test.inna.ru/HotelDetail/GetPage';
+        var getOrderUrl = 'http://api.test.inna.ru/Order';
 
-        var tourDetailUrl = 'http://test.inna.ru/TourDetail/GetPage';
+        var paymentPageUrl = 'http://api.test.inna.ru/Payment';
 
-        var getOrderUrl = 'http://test.inna.ru/Order';
+        var payUrl = 'http://api.test.inna.ru/Payment/Pay';
 
-        var paymentPageUrl = 'http://test.inna.ru/Payment';
+        var getPassengerUrl = 'http://api.test.inna.ru/Passenger/GetByCurrentUser';
 
-        var payUrl = 'http://test.inna.ru/Payment/Pay';
+        var deleteSearchHistoryUrl = 'http://api.test.inna.ru/api/v1/Search/DeleteHistory/get';
 
-        var getPassengerUrl = 'http://test.inna.ru/Passenger/GetByCurrentUser';
+        var getSectionToursUrl = 'http://api.test.inna.ru/api/v1/Section/1';
+        var getSectionIndividualToursUrl = 'http://api.test.inna.ru/api/v1/Section/2';
+        var getIndividualToursCategoryUrl = 'http://api.test.inna.ru/api/v1/IndividualTourCategory';
 
-        var deleteSearchHistoryUrl = 'http://test.inna.ru/api/v1/Search/DeleteHistory/get';
-
-        var getSectionToursUrl = 'http://test.inna.ru/api/v1/Section/1';
-        var getSectionIndividualToursUrl = 'http://test.inna.ru/api/v1/Section/2';
-        var getIndividualToursCategoryUrl = 'http://test.inna.ru/api/v1/IndividualTourCategory';
-
-        var sendITCategoryRequestUrl = 'http://test.inna.ru/api/v1/RequestsTour';
-
-</script>
+        var sendITCategoryRequestUrl = 'http://api.test.inna.ru/api/v1/RequestsTour';
+    </script>
 
     
     
