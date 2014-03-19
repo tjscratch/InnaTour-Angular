@@ -4,9 +4,9 @@ var gulp = require('gulp'),
 
 // Compiles LESS > CSS 
 gulp.task('build-less', function () {
-    return gulp.src('/spa/css/main.less')
+    return gulp.src('spa/css/main.less')
         .pipe(less())
-        .pipe(gulp.dest('/spa/css'));
+        .pipe(gulp.dest('spa/css'));
 });
 
 gulp.task('default', ['build-less']);
