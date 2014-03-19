@@ -2,13 +2,13 @@
     font-family ProximaNova
     font-weight normal
     font-style normal
-    src url(../../fonts/proximanova-reg-webfont.ttf)
+    src url(../fonts/proximanova-reg-webfont.ttf)
 
 @font-face
     font-family ProximaNova
     font-weight bold
     font-style normal
-    src url(../../fonts/proximanova-bold-webfont.ttf)
+    src url(../fonts/proximanova-bold-webfont.ttf)
 
 // Var
 $ProximaNova = ProximaNova, Arial, sans-serif
@@ -75,7 +75,7 @@ $ProximaNova = ProximaNova, Arial, sans-serif
 
 .search-date
     padding 0 42px 0 12px
-    background-image url(../../img/i.png)
+    background-image url(../img/i.png)
     background-repeat no-repeat
 
 .search-date-arr
@@ -120,11 +120,11 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     padding 0 12px
     font 18px/48px $ProximaNova
     cursor pointer
-    background url(../../img/i.png) no-repeat right 12px top -173px #fff
+    background url(../img/i.png) no-repeat right 12px top -173px #fff
 
 .search-pref-block
     position absolute
-    z-index 100
+    z-index 10
     left 0
     top 49px
     margin 0 0 0 -1px
@@ -144,14 +144,14 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     padding 5px 12px
     cursor pointer
     background #393939
-    background: linear-gradient(to top, #4c4c4c 0%,#393939 50%);
+    background: linear-gradient(to top, #4c4c4c 0%,#393939 50%)
     position relative
 
 .search-pref-comfort
     padding-right 30px
     background #89c13a
     min-width 57px
-    background url(../../img/i.png) no-repeat right 12px top -233px, linear-gradient(to top, #95c74d 0%,#89c13a 50%)
+    background url(../img/i.png) no-repeat right 12px top -233px, linear-gradient(to top, #95c74d 0%,#89c13a 50%)
 
 .search-pref.current
     color #89c13a
@@ -168,6 +168,70 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     background #89c13a
     padding 5px 12px
     box-shadow 0 7px 8px 1px rgba(0,0,0,.3)
+
+.search-people-baloon
+    position absolute
+    right 0
+    padding 12px 20px
+    min-width 250px
+    background #fff
+    box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+    z-index 10
+
+.search-people-baloon-title
+    font-size 18px
+    font-weight bold
+    line-height 1
+    padding 0 0 15px
+
+.search-people-baloon-item
+    overflow hidden
+    padding 0 0 10px
+    font-size 14px
+
+.search-people-baloon-field
+    border 1px solid #CCD2D4
+    display inline-block
+    overflow hidden
+    position relative
+    vertical-align middle
+    margin 0 8px 0 0
+
+.search-people-baloon-field input
+    float left
+    width 30px
+    border 0
+    padding 3px
+    margin 0 20px
+    font 18px $ProximaNova
+    text-align center
+    outline none
+
+.search-people-baloon-minus
+.search-people-baloon-plus
+    color #fff
+    position absolute
+    top 0
+    bottom 0
+    width 20px
+    text-align center
+    line-height 26px
+    cursor pointer
+    font-size 20px
+    user-select none
+
+.search-people-baloon-minus
+    color #FF5C5C
+    left 0
+
+.search-people-baloon-plus
+    color #89C13A
+    right 0
+
+
+
+
+
 
 
 

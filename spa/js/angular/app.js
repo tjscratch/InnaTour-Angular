@@ -35,31 +35,31 @@ var app = angular.module('innaApp', [
     $routeProvider.
         //Главная
         when('/', {
-            templateUrl: '/spa/templates/pages/tours_grid_page.html?v=' + UrlHelper.ver,
+            templateUrl: appPath + 'templates/pages/tours_grid_page.html?v=' + UrlHelper.ver,
             controller: 'ToursCtrl'
         }).
         when('/individualtours/category/:id', {
-            templateUrl: '/spa/templates/pages/it_category_page.html?v=' + UrlHelper.ver,
+            templateUrl: appPath + 'templates/pages/it_category_page.html?v=' + UrlHelper.ver,
             controller: 'IndividualToursCategoryCtrl'
         }).
         when('/individualtours/', {
-            templateUrl: '/spa/templates/pages/it_grid_page.html?v=' + UrlHelper.ver,
+            templateUrl: appPath + 'templates/pages/it_grid_page.html?v=' + UrlHelper.ver,
             controller: 'IndividualToursCtrl'
         }).
         when('/about/', {
-            templateUrl: '/spa/templates/pages/AboutPage.html?v=' + UrlHelper.ver,
+            templateUrl: appPath + 'templates/pages/AboutPage.html?v=' + UrlHelper.ver,
             controller: 'AboutCtrl'
         }).
         when('/contacts/', {
-            templateUrl: '/spa/templates/pages/ContactsPage.html?v=' + UrlHelper.ver,
+            templateUrl: appPath + 'templates/pages/ContactsPage.html?v=' + UrlHelper.ver,
             controller: 'ContactsCtrl'
         }).
         when('/hotelticket/', {
-            templateUrl: '/spa/templates/pages/MainPage.html',
+            templateUrl: appPath + 'templates/pages/MainPage.html',
             controller: 'HotelPlusTicketCtrl'
         }).
         when('/hotels/', {
-            templateUrl: '/spa/templates/pages/MainPage.html',
+            templateUrl: appPath + 'templates/pages/MainPage.html',
             controller: 'HotelsCtrl'
         }).
         //поиск по отелям
@@ -85,15 +85,15 @@ var app = angular.module('innaApp', [
             controller: 'PaymentPageCtrl'
         }).
         when('/avia/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsFlexible', {
-            templateUrl: + '/spa/templates/pages/avia/SearchForm.html',
+            templateUrl: appPath + 'templates/pages/avia/SearchForm.html',
             controller: 'AviaSearchMainCtrl'
         }).
         when('/avia/', {
-            templateUrl: + '/spa/templates/pages/avia/SearchForm.html',
+            templateUrl: appPath + 'templates/pages/avia/SearchForm.html',
             controller: 'AviaSearchMainCtrl'
         }).
         when('/avia/search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsFlexible', {
-            templateUrl: + '/spa/templates/pages/avia/SearchResults.html',
+            templateUrl: appPath + 'templates/pages/avia/SearchResults.html',
             controller: 'AviaSearchResultsCtrl'
         }).
         when('/avia/search/', {

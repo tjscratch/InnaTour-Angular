@@ -2,12 +2,19 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../css/styl/search.css" />
+    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/search.min.css" />
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="../css/styl/ie.css" />
+        <link rel="stylesheet" href="../css/ie.min.css" />
     <![endif]-->
     <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../lib/jquery.html5-placeholder-shim.js"></script>
+    <script src="../lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="../js/jquery.ui.datepicker-ru.js"></script>
+    <!--[if lt IE 10]>
+        <script src="../lib/jquery.html5-placeholder-shim.js"></script>
+    <![endif]-->
+    <script src="../js/search_form.js"></script>
 </head>
 
 <body>
@@ -20,14 +27,43 @@
         <div class="search-field-block">
             <input type="text" class="search-field" placeholder="Куда" />
         </div>
-        <div class="search-date-block">
-            <input type="text" class="search-date search-date-arr" placeholder="Туда" />
+        <div class="search-date-block js-start-date-block">
+            <input type="text" class="search-date search-date-arr js-start-date" placeholder="Туда" />
         </div>
-        <div class="search-date-block">
-            <input type="text" class="search-date search-date-dep" placeholder="Обратно" />
+        <div class="search-date-block js-finish-date-block">
+            <input type="text" class="search-date search-date-dep js-finish-date" placeholder="Обратно" />
         </div>
         <div class="search-people-block">
             <div class="search-people">5 человек</div>
+            <div class="search-people-baloon">
+                <h3 class="search-people-baloon-title">Количество пассажиров</h3>
+                <ul>
+                    <li class="search-people-baloon-item">
+                        <span class="search-people-baloon-field">
+                            <span class="search-people-baloon-minus js-people-minus">-</span>
+                            <input type="text" maxlength="1" value="1" class="js-people-field" />
+                            <span class="search-people-baloon-plus js-people-plus">+</span>
+                        </span>
+                        взрослые
+                    </li>
+                    <li class="search-people-baloon-item">
+                        <span class="search-people-baloon-field">
+                            <span class="search-people-baloon-minus js-people-minus">-</span>
+                            <input type="text" maxlength="1" value="0" class="js-people-field" />
+                            <span class="search-people-baloon-plus js-people-plus">+</span>
+                        </span>
+                        дети от 2 до 11 лет
+                    </li>
+                    <li class="search-people-baloon-item">
+                        <span class="search-people-baloon-field">
+                            <span class="search-people-baloon-minus js-people-minus">-</span>
+                            <input type="text" maxlength="1" value="0" class="js-people-field" />
+                            <span class="search-people-baloon-plus js-people-plus">+</span>
+                        </span>
+                        младенцы до 2 лет
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="search-button-block">
             Найти

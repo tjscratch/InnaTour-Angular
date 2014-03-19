@@ -64,7 +64,7 @@ innaAppDirectives.directive('popupForm', function () {
             $scope.request.init_ITCategory = function (offer) {
                 //log('request.init_ITCategory');
                 $scope.request.type = $scope.requestType.cat_it;
-                $scope.request.offersCategoriesId = app.constants.offersCategoriesProgramm;//тип заявки
+                $scope.request.offersCategoriesId = constants.offersCategoriesProgramm;//тип заявки
                 $scope.request.offer = offer;
                 $scope.request.name = "";
                 $scope.request.phone = "";

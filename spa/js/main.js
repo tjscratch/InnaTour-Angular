@@ -47,7 +47,5 @@ $(function () {
 
     $comboBoxes.each(function (i, element) {
         var $comboBox = $(element);
-
-        console.log(1)
     })
 });

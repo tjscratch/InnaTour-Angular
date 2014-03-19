@@ -8,18 +8,24 @@ var gulp = require('gulp'),
     csscomb = require('gulp-csscomb');
 
 gulp.task('styles', function () {
-    gulp.src('styl/*.styl')
+    gulp.src(['styl/search.styl', 'styl/datepicker.styl'])
+        .pipe(concat('search.min.css'))
         .pipe(stylus({
             use: ['nib'],
             import: ['nib']
         }))
-        .pipe(gulp.dest('css/styl'))
-        .pipe(concat('search.min.css'))
         .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css/styl/min'))
-        .pipe(gzip())
-        .pipe(gulp.dest('css/styl/gzip'))
-        .pipe(livereload());
+        .pipe(gulp.dest('css'))
+        // .pipe(livereload());
+    gulp.src(['styl/ie.styl'])
+        .pipe(concat('ie.min.css'))
+        .pipe(stylus({
+            use: ['nib'],
+            import: ['nib']
+        }))
+        .pipe(minifyCSS(opts))
+        .pipe(gulp.dest('css'))
+        // .pipe(livereload());
 });
 
 gulp.task('watch', function () {

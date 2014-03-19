@@ -141,25 +141,33 @@ innaAppDirectives.directive('appSlider', ['$timeout', function ($timeout) {
                         $banners.each(function () {
                             $dotsContainer.append('<li class="dot" />');
                         });
-                    } else {
-                        return;
+
+                        $dots = $dotsContainer.children();
+
+                        $banners.eq(currentI).css('zIndex', 2);
+                        $dots = $dotsContainer.children();
+                        $dots.eq(currentI).addClass('active');
+
+                        $dotsContainer.on('click', ':not(.active)', function (evt) {
+                            if (animate) {
+                                return;
+                            }
+
+                            var index = $dots.index(evt.target);
+
+                            scroll(currentI, index)
+                        });
+
+                        setInterval($.proxy(function () {
+                            var next = currentI + 1;
+
+                            if (next === length) {
+                                next = 0;
+                            }
+
+                            scroll(currentI, next);
+                        }, this), 7000);
                     }
-
-                    $dots = $dotsContainer.children();
-
-                    $banners.eq(currentI).css('zIndex', 2);
-                    $dots = $dotsContainer.children();
-                    $dots.eq(currentI).addClass('active');
-
-                    $dotsContainer.on('click', ':not(.active)', function (evt) {
-                        if (animate) {
-                            return;
-                        }
-
-                        var index = $dots.index(evt.target);
-
-                        scroll(currentI, index)
-                    });
 
                     function scroll(fromI, toI) {
                         if (animate) {
@@ -237,20 +245,7 @@ innaAppDirectives.directive('appSlider', ['$timeout', function ($timeout) {
                         }
                     }
 
-
-                    if (length > 1) {
-                        setInterval($.proxy(function () {
-                            var next = currentI + 1;
-
-                            if (next === length) {
-                                next = 0;
-                            }
-
-                            scroll(currentI, next);
-                        }, this), 7000);
-                    }
-
-                    $(window).on('resize', function () {
+                    function updateBannerSize() {
                         var w = $(window).width();
                         var h = $('.Offer-card-banners').height();
 
@@ -270,7 +265,14 @@ innaAppDirectives.directive('appSlider', ['$timeout', function ($timeout) {
                             });
 
                         })
-                    });
+                    }
+
+                    $(window).on('resize', updateBannerSize);
+
+
+                    $timeout(function () {
+                        updateBannerSize();
+                    }, 500, false)
 
 
                 }, 0, false);
