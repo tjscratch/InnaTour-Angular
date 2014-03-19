@@ -30,17 +30,17 @@ QueryString = {
 
 UrlHelper = {
     self: this,
-    ver: appVersion,
+    ver: app.version,
 	Prefix: '#',
 	Delimiter: '-',
 	DelimiterReplace: '_',
 
 	addPathAndVersion: function (url) {
 	    //версия нужна чтобы обновлялись шаблоны
-	    return appPath + url + '?v=' + UrlHelper.ver;
+	    return url + '?v=' + UrlHelper.ver;
     },
 	getInnerTemplate: function () {
-	    return UrlHelper.addPathAndVersion('templates/grid/_item_inner.html');
+	    return UrlHelper.addPathAndVersion('/templates/grid/_item_inner.html');
 	},
 	getTemplateUrlByBlockType: function (type) {
 	    var bType = tours.grid.blockType;

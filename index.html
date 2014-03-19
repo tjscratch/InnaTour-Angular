@@ -20,12 +20,8 @@
       <![endif]-->
 
     <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" href="/spa/css/jquery-ui-1.10.4.custom.css" />
     <link rel="stylesheet" type="text/css" href="/spa/css/main.css?v=9" />
-    <link rel="stylesheet" href="/spa/css/search.min.css" />
-    <!--[if lt IE 9]>
-        <link rel="stylesheet" href="/spa/css/ie.min.css" />
-    <![endif]-->
 
     <script type="text/javascript">
 
@@ -188,7 +184,6 @@
     
 
 <script src="//code.jquery.com/jquery-1.8.3.min.js"></script>
-    
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
@@ -203,11 +198,10 @@
 <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
 
 <script type="text/javascript">
-    var constants = {};
-    constants.offersCategoriesProgramm = '1';
-
-    var appPath = '/spa/';
-    var appVersion = '12';
+    var app = {};
+    app.version = '12';
+    app.constants = {};
+    app.constants.offersCategoriesProgramm = '1';
 </script>
 
 
