@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="spa\css\jquery-ui-1.10.4.custom.css" />
     <Content Include="spa\css\main.css" />
     <Content Include="spa\fonts\proximanova-bold-webfont.svg" />
     <Content Include="spa\fonts\proximanova-light-webfont.svg" />
@@ -312,13 +313,11 @@
     <Content Include="spa\js\angular\models\app.model.tours.js" />
     <Content Include="spa\js\angular\services.js" />
     <Content Include="spa\js\angular\urlhelper.js" />
+    <Content Include="spa\js\jquery.ui.datepicker-ru.js" />
     <Content Include="spa\js\main.js" />
-    <Content Include="spa\lib\jquery-ui-1.10.4.custom.css" />
-    <Content Include="spa\lib\jquery-ui-1.10.4.custom.js" />
-    <Content Include="spa\lib\jquery-ui.css" />
-    <Content Include="spa\lib\jquery.html5-placeholder-shim.js" />
-    <Content Include="spa\lib\jquery.ui.datepicker-ru.js" />
-    <Content Include="spa\lib\less-1.6.3.min.js" />
+    <Content Include="spa\js\search_form.js" />
+    <Content Include="spa\lib\jquery-ui-1.10.4.custom\js\jquery-ui-1.10.4.custom.js" />
+    <Content Include="spa\lib\jquery-ui-1.10.4.custom\js\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="spa\templates\grid\item_2M.html" />
     <Content Include="spa\templates\grid\item_2SL.html" />
     <Content Include="spa\templates\grid\item_L2S.html" />
