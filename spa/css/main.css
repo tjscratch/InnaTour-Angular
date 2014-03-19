@@ -1482,22 +1482,19 @@ input::-ms-clear {
   font-size: 14px;
 }
 .fixed-request-button {
-  padding: 9px 18px;
+  height: 193px;
   position: fixed;
   right: 0;
   top: 50%;
-  margin-top: -86px;
-  -webkit-transform: rotate(270deg);
-  -moz-transform: rotate(270deg);
-  -o-transform: rotate(270deg);
-  -ms-transform: rotate(270deg);
-  transform: rotate(270deg);
+  margin-top: -96px;
   z-index: 10;
-  -webkit-transform-origin: 100% 100%;
-  -moz-transform-origin: 100% 100%;
-  -o-transform-origin: 100% 100%;
-  -ms-transform-origin: 100% 100%;
-  transform-origin: 100% 100%;
+  width: 36px;
+}
+.fixed-request-button,
+.fixed-request-button:hover {
+  background-image: url(/spa/img/request-button-text.png);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .header {
   position: fixed;
@@ -2208,10 +2205,10 @@ input::-ms-clear {
   filter: grayscale(100%);
 }
 .offer-animation:hover .offer-info {
-  opacity: 0;
+  display: none;
 }
 .offer-animation:hover .offer-info-hover {
-  opacity: 1;
+  display: block;
 }
 .offer-small {
   height: 209px;
@@ -2232,7 +2229,7 @@ input::-ms-clear {
 .offer-info,
 .offer-info-hover {
   height: 100%;
-  opacity: 1;
+  display: block;
   position: absolute;
   text-align: center;
   top: 0;
@@ -2253,7 +2250,7 @@ input::-ms-clear {
   width: 95%;
 }
 .offer-info-hover {
-  opacity: 0;
+  display: none;
 }
 .offer-title {
   color: #fff;

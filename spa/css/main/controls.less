@@ -216,12 +216,17 @@
 }
 
 .fixed-request-button {
-    padding: 9px 18px;
+    height: 193px;
     position: fixed;
     right: 0;
     top: 50%;
-    margin-top: -86px;
-    .rotate(270);
+    margin-top: -96px;
     z-index: 10;
-    .transform-origin(100%, 100%)
+    width: 36px;
+}
+
+.fixed-request-button, .fixed-request-button:hover {
+    background-image: url(/spa/img/request-button-text.png);
+    background-repeat: no-repeat;
+    background-position: center;
 }
