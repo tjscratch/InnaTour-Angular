@@ -356,12 +356,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="spa\img\country\" />
-    <Folder Include="spa\img\individual-tour\" />
-    <Folder Include="spa\img\individual\" />
-    <Folder Include="spa\img\maket_photos\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
