@@ -850,9 +850,6 @@
     <Content Include="tours\index.html" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="spa\css\controls.less" />
     <Content Include="spa\css\datepicker.less" />
     <Content Include="spa\css\flags.less" />
