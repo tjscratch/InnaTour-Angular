@@ -32,7 +32,8 @@ var app = angular.module('innaApp', [
         //скролим наверх
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
-}]).config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+}]).config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+
     $routeProvider.
         //Главная
         when('/', {

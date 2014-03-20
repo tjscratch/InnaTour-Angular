@@ -5,7 +5,7 @@
     <meta name='yandex-verification' content='40fd92efcc007a47' />
     <title>Инна-Тур - Туры</title>
 
-    <!--[if lte IE 8]>
+    <!--[if lt IE 9]>
     <script>
         document.createElement('ng-include');
         document.createElement('ng-pluralize');
@@ -208,6 +208,16 @@
 <script src="/spa/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="/spa/js/jquery.ui.datepicker-ru.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
+
+<!--[if lt IE 10]>
+<script src="spa/lib/xdomain.min.js"></script>
+<script>
+    xdomain.slaves({
+        "http://api.test.inna.ru": "/proxy.html",
+        "http://api.inna.ru": "/proxy.html"
+    });
+</script>
+<![endif]-->
 
 <!--contacts-->
 <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
