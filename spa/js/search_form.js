@@ -16,7 +16,7 @@
                 var dp = $('.ui-datepicker');
                 dp.appendTo('.js-start-date-block');
                 setTimeout(function() { 
-                    dp.prepend('<div class="calendar-head"><span class="caption">Дата вылета</span><label class="checkbox-label"><input type="checkbox" /><span class="checkbox"></span>+/- 5 дней</label></div>');
+                    dp.prepend('<div class="dtpk-head"><span class="dtpk-caption">Дата вылета</span><label class="dtpk-checkbox-label"><input type="checkbox" /><span class="dtpk-checkbox"></span>+/- 5 дней</label></div>');
                 }, 10);
             }
         });
@@ -32,7 +32,7 @@
                 var dp = $('.ui-datepicker');
                 dp.appendTo('.js-finish-date-block');
                 setTimeout(function() { 
-                    dp.prepend('<div class="calendar-head"><span class="caption">Дата вылета</span></div>');
+                    dp.prepend('<div class="dtpk-head"><span class="dtpk-caption">Дата вылета</span></div>');
                 }, 10);
             }
         });
