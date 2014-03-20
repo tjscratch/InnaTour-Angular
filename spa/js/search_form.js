@@ -3,6 +3,13 @@
     $(function() {
 
         // Datepicker
+        $.datepicker._updateDatepicker_original = $.datepicker._updateDatepicker;
+        $.datepicker._updateDatepicker = function (inst) {
+            $.datepicker._updateDatepicker_original(inst);
+            var afterShow = this._get(inst, 'afterShow');
+            if (afterShow)
+                afterShow.apply((inst.input ? inst.input[0] : null));
+        }
         $.datepicker.setDefaults( $.datepicker.regional[ "ru" ] );
         $('.js-start-date').datepicker({
             defaultDate: "+1w",
@@ -12,12 +19,10 @@
             onClose: function(selectedDate) {
                 $('.js-finish-date').datepicker( "option", "minDate", selectedDate );
             },
-            beforeShow: function(input, inst) {
+            afterShow: function(input, inst) {
                 var dp = $('.ui-datepicker');
                 dp.appendTo('.js-start-date-block');
-                setTimeout(function() { 
-                    dp.prepend('<div class="dtpk-head"><span class="dtpk-caption">Дата вылета</span><label class="dtpk-checkbox-label"><input type="checkbox" /><span class="dtpk-checkbox"></span>+/- 5 дней</label></div>');
-                }, 10);
+                dp.prepend('<div class="dtpk-head"><span class="dtpk-caption">Дата вылета</span><label class="dtpk-checkbox-label"><input type="checkbox" /><span class="dtpk-checkbox"></span>+/- 5 дней</label></div>');
             }
         });
         $('.js-finish-date').datepicker({
@@ -28,12 +33,10 @@
             onClose: function(selectedDate) {
                 $('.js-start-date').datepicker( "option", "maxDate", selectedDate );
             },
-            beforeShow: function(input, inst) {
+            afterShow: function(input, inst) {
                 var dp = $('.ui-datepicker');
                 dp.appendTo('.js-finish-date-block');
-                setTimeout(function() { 
-                    dp.prepend('<div class="dtpk-head"><span class="dtpk-caption">Дата вылета</span></div>');
-                }, 10);
+                dp.prepend('<div class="dtpk-head"><span class="dtpk-caption">Дата вылета</span></div>');
             }
         });
 
