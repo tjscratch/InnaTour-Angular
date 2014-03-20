@@ -20,7 +20,7 @@
     <![endif]-->
 
     <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="/spa/css/main.css?v=24" />
+    <link rel="stylesheet" type="text/css" href="/spa/css/main.css" />
 
     <script type="text/javascript">
 
@@ -147,7 +147,7 @@
         </div>
     </div>
 
-    <div ng-include="" src="'/popup/mainform.html'"></div>
+    <ng:include src="'/popup/mainform.html'"></ng:include>
 
     <script type="text/javascript">
         var addTourUrlEf = 'http://api.test.inna.ru/api/v1/Dictionary';
@@ -213,49 +213,50 @@
 <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
 
 <script type="text/javascript">
-    var app = {};
-    app.version = '12';
-    app.constants = {};
-    app.constants.offersCategoriesProgramm = '1';
+    var app_main = {};
+    app_main.version = '12';
+    app_main.constants = {};
+    app_main.constants.offersCategoriesProgramm = '1';
 </script>
 
 
-<script src="/SPA/js/angular/api.stub.js?v=51"></script>
-<script src="/SPA/js/angular/app.js?v=51"></script>
-<script src="/SPA/js/angular/cache_keys.js?v=51"></script>
-<script src="/SPA/js/angular/date.helper.js?v=51"></script>
-<script src="/SPA/js/angular/filters.js?v=51"></script>
-<script src="/SPA/js/angular/services.js?v=51"></script>
-<script src="/SPA/js/angular/urlhelper.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.about.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.avia.search.main.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.avia.search.results.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.contacts.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.hotel.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.hotels.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.hotel_plus_ticket.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.individualtours.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.individualtourscategory.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.main.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.navigation.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.offers.list.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.payment.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.search.main.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.search.result.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.slider.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.tour.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.tours.form.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controller.tours.js?v=51"></script>
-<script src="/SPA/js/angular/controllers/controllers.js?v=51"></script>
-<script src="/SPA/js/angular/directives/directive.combobox.js?v=51"></script>
-<script src="/SPA/js/angular/directives/directive.datepicker.custom.js?v=51"></script>
-<script src="/SPA/js/angular/directives/directive.map.js?v=51"></script>
-<script src="/SPA/js/angular/directives/directive.popup.form.js?v=51"></script>
-<script src="/SPA/js/angular/directives/directives.js?v=51"></script>
-<script src="/SPA/js/angular/models/app.model.avia.js?v=51"></script>
-<script src="/SPA/js/angular/models/app.model.js?v=51"></script>
-<script src="/SPA/js/angular/models/app.model.to.api.model.js?v=51"></script>
-<script src="/SPA/js/angular/models/app.model.tours.js?v=51"></script>
+<script src="/SPA/js/angular/urlhelper.js"></script>
+<script src="/SPA/js/angular/date.helper.js"></script>
+<script src="/SPA/js/angular/api.stub.js"></script>
+<script src="/SPA/js/angular/cache_keys.js"></script>
+
+<script src="/SPA/js/angular/app.js"></script>
+<script src="/SPA/js/angular/filters.js"></script>
+<script src="/SPA/js/angular/services.js"></script>
+<script src="/SPA/js/angular/controllers/controller.about.js"></script>
+<script src="/SPA/js/angular/controllers/controller.avia.search.main.js"></script>
+<script src="/SPA/js/angular/controllers/controller.avia.search.results.js"></script>
+<script src="/SPA/js/angular/controllers/controller.contacts.js"></script>
+<script src="/SPA/js/angular/controllers/controller.hotel.js"></script>
+<script src="/SPA/js/angular/controllers/controller.hotels.js"></script>
+<script src="/SPA/js/angular/controllers/controller.hotel_plus_ticket.js"></script>
+<script src="/SPA/js/angular/controllers/controller.individualtours.js"></script>
+<script src="/SPA/js/angular/controllers/controller.individualtourscategory.js"></script>
+<script src="/SPA/js/angular/controllers/controller.main.js"></script>
+<script src="/SPA/js/angular/controllers/controller.navigation.js"></script>
+<script src="/SPA/js/angular/controllers/controller.offers.list.js"></script>
+<script src="/SPA/js/angular/controllers/controller.payment.js"></script>
+<script src="/SPA/js/angular/controllers/controller.search.main.js"></script>
+<script src="/SPA/js/angular/controllers/controller.search.result.js"></script>
+<script src="/SPA/js/angular/controllers/controller.slider.js"></script>
+<script src="/SPA/js/angular/controllers/controller.tour.js"></script>
+<script src="/SPA/js/angular/controllers/controller.tours.form.js"></script>
+<script src="/SPA/js/angular/controllers/controller.tours.js"></script>
+<script src="/SPA/js/angular/controllers/controllers.js"></script>
+<script src="/SPA/js/angular/directives/directive.combobox.js"></script>
+<script src="/SPA/js/angular/directives/directive.datepicker.custom.js"></script>
+<script src="/SPA/js/angular/directives/directive.map.js"></script>
+<script src="/SPA/js/angular/directives/directive.popup.form.js"></script>
+<script src="/SPA/js/angular/directives/directives.js"></script>
+<script src="/SPA/js/angular/models/app.model.avia.js"></script>
+<script src="/SPA/js/angular/models/app.model.js"></script>
+<script src="/SPA/js/angular/models/app.model.to.api.model.js"></script>
+<script src="/SPA/js/angular/models/app.model.tours.js"></script>
 
 
 

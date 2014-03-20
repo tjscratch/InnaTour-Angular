@@ -5,7 +5,7 @@
 
 innaAppDirectives.directive('popupForm', function () {
     return {
-        controller: ['$scope', 'dataService', function ($scope, dataService) {
+        controller: ['$scope', '$log', 'dataService', function ($scope, $log, dataService) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -64,7 +64,7 @@ innaAppDirectives.directive('popupForm', function () {
             $scope.request.init_ITCategory = function (offer) {
                 //log('request.init_ITCategory');
                 $scope.request.type = $scope.requestType.cat_it;
-                $scope.request.offersCategoriesId = app.constants.offersCategoriesProgramm;//тип заявки
+                $scope.request.offersCategoriesId = app_main.constants.offersCategoriesProgramm;//тип заявки
                 $scope.request.offer = offer;
                 $scope.request.name = "";
                 $scope.request.phone = "";
