@@ -30,7 +30,7 @@ QueryString = {
 
 UrlHelper = {
     self: this,
-    ver: app.version,
+    ver: app_main.version,
 	Prefix: '#',
 	Delimiter: '-',
 	DelimiterReplace: '_',

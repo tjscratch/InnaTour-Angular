@@ -25,13 +25,15 @@ var app = angular.module('innaApp', [
     $rootScope.$on('$routeChangeSuccess', function () {
         //аналитика
         //console.log('$window._gaq.push $location.path(): ' + $location.path());
-        $window._gaq.push(['_trackPageview', $location.path()]);
+        if ($window._gaq != null)
+            $window._gaq.push(['_trackPageview', $location.path()]);
 
         //console.log('$routeChangeSuccess');
         //скролим наверх
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
-}]).config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+}]).config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+
     $routeProvider.
         //Главная
         when('/', {
