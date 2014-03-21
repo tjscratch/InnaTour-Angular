@@ -193,6 +193,7 @@ innaAppControllers.
                 else
                 {
                     log('updateModel - nothing to update, data is empty');
+                    $scope.isDataLoading = false;
                 }
             };
 
