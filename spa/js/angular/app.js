@@ -56,6 +56,22 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/ContactsPage.html?v=' + UrlHelper.ver,
             controller: 'ContactsCtrl'
         }).
+        when('/avia/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsFlexible', {
+            templateUrl: '/spa/templates/pages/avia/SearchForm.html',
+            controller: 'AviaSearchMainCtrl'
+        }).
+        when('/avia/', {
+            templateUrl: '/spa/templates/pages/avia/SearchForm.html',
+            controller: 'AviaSearchMainCtrl'
+        }).
+        when('/avia/search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsFlexible', {
+            templateUrl: '/spa/templates/pages/avia/SearchResults.html',
+            controller: 'AviaSearchResultsCtrl'
+        }).
+        //when('/avia/search/', {
+        //    templateUrl: '/TemplatesAvia/Search',
+        //    controller: 'AviaSearchResultsCtrl'
+        //}).
         when('/hotelticket/', {
             templateUrl: '/spa/templates/pages/MainPage.html',
             controller: 'HotelPlusTicketCtrl'
@@ -85,22 +101,6 @@ var app = angular.module('innaApp', [
         when('/payment/:orderId', {
             templateUrl: '/AngularTemplates/PaymentPage',
             controller: 'PaymentPageCtrl'
-        }).
-        when('/avia/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsFlexible', {
-            templateUrl: + '/spa/templates/pages/avia/SearchForm.html',
-            controller: 'AviaSearchMainCtrl'
-        }).
-        when('/avia/', {
-            templateUrl: + '/spa/templates/pages/avia/SearchForm.html',
-            controller: 'AviaSearchMainCtrl'
-        }).
-        when('/avia/search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsFlexible', {
-            templateUrl: + '/spa/templates/pages/avia/SearchResults.html',
-            controller: 'AviaSearchResultsCtrl'
-        }).
-        when('/avia/search/', {
-            templateUrl: '/TemplatesAvia/Search',
-            controller: 'AviaSearchResultsCtrl'
         })
         //.
         //otherwise({

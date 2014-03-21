@@ -5,195 +5,206 @@
         margin-top: -10px;
         margin-bottom: -10px;
     }
+
     .pad-left {
         padding-left: 10px;
     }
+
     .cap-avia {
         cursor: pointer;
     }
 </style>
 
 <div style="width: 100%;">
-    <!--Фильтр-->
-    <div style="width:200px; border: solid 1px black; border-top: none; float: left;">
-        <div>
-            Результатов всего: <b>{{ticketsList.length}}</b><br />
-            После фильтрации: <b>{{filteredTicketsList.length}}</b>
-        </div>
-        <hr />
-
-        <div>Цена</div>
-        <div class="slider-div">
-            <slider floor="{{filter.minPriceInitial}}" ceiling="{{filter.maxPriceInitial}}" ng-model-low="filter.minPrice" ng-model-high="filter.maxPrice"></slider>
-        </div>
-        <div>
-            от <b>{{filter.minPrice}} р</b> до <b>{{filter.maxPrice}} р</b>
-        </div>
-        <hr />
-
-        <div>Количество пересадок туда</div>
-        <div class="pad-left">
-            <div ng-repeat="item in filter.ToTransferCountList">
-                <input type="checkbox" ng-model="item.checked" />
-                <span ng-show="item.value == 0">Без пересадок</span>
-                <span ng-show="item.value > 0">{{item.value}}</span>
-            </div>
-        </div>
-        <hr />
-
-        <div>Количество пересадок обратно</div>
-        <div class="pad-left">
-            <div ng-repeat="item in filter.BackTransferCountList">
-                <input type="checkbox" ng-model="item.checked" />
-                <span ng-show="item.value == 0">Без пересадок</span>
-                <span ng-show="item.value > 0">{{item.value}}</span>
-            </div>
-        </div>
-        <hr />
-
-        <div ng-init="showCompany = true">
-            Авиакомпании 
-            <a ng-show="showCompany" ng-click="showCompany = !showCompany">(свернуть)</a>
-            <a ng-show="!showCompany" ng-click="showCompany = !showCompany">(развернуть)</a>
-        </div>
-        <div class="pad-left">
-            <div ng-show="showCompany" ng-repeat="item in filter.TransporterList">
-                <input type="checkbox" ng-model="item.checked" />
-                <span class="cap-avia" ng-click="item.checked = !item.checked">{{item.TransporterName}}</span>
-            </div>
-        </div>
-        <hr />
-
-        <div>Время отправления ТУДА</div>
-        <div class="slider-div">
-            <slider floor="{{filter.minDepartureDateInitial}}" ceiling="{{filter.maxDepartureDateInitial}}" ng-model-low="filter.minDepartureDate" ng-model-high="filter.maxDepartureDate"></slider>
-        </div>
-        <div>
-            от <b>{{filter.minDepartureDate | date:timeFormat}}</b><br />
-            до <b>{{filter.maxDepartureDate | date:timeFormat}}</b>
-        </div>
-        <hr />
-
-        <div>Время прибытия ТУДА</div>
-        <div class="slider-div">
-            <slider floor="{{filter.minArrivalDateInitial}}" ceiling="{{filter.maxArrivalDateInitial}}" ng-model-low="filter.minArrivalDate" ng-model-high="filter.maxArrivalDate"></slider>
-        </div>
-        <div>
-            от <b>{{filter.minArrivalDate | date:timeFormat}}</b><br />
-            до <b>{{filter.maxArrivalDate | date:timeFormat}}</b>
-        </div>
-        <hr />
-
-        <div>Время отправления ОБРАТНО</div>
-        <div class="slider-div">
-            <slider floor="{{filter.minBackDepartureDateInitial}}" ceiling="{{filter.maxBackDepartureDateInitial}}" ng-model-low="filter.minBackDepartureDate" ng-model-high="filter.maxBackDepartureDate"></slider>
-        </div>
-        <div>
-            от <b>{{filter.minBackDepartureDate | date:timeFormat}}</b><br />
-            до <b>{{filter.maxBackDepartureDate | date:timeFormat}}</b>
-        </div>
-        <hr />
-
-        <div>Время прибытия ОБРАТНО</div>
-        <div class="slider-div">
-            <slider floor="{{filter.minBackArrivalDateInitial}}" ceiling="{{filter.maxBackArrivalDateInitial}}" ng-model-low="filter.minBackArrivalDate" ng-model-high="filter.maxBackArrivalDate"></slider>
-        </div>
-        <div>
-            от <b>{{filter.minBackArrivalDate | date:timeFormat}}</b><br />
-            до <b>{{filter.maxBackArrivalDate | date:timeFormat}}</b>
-        </div>
-        <hr />
-    </div>
-    <div style="margin-left: 220px;">
-        <div ng-show="isDataLoading">
-            <h1>Поиск...</h1>
-        </div>
-        <div ng-show="isDataLoading == false && (filteredTicketsList == null || filteredTicketsList.length == 0)">
-            <h1>Ничего не найдено</h1>
-        </div>
-        <!--Сортировки-->
-        <table class="table table-striped">
-            <tr>
-                <td title="по рекомендованности (по умолчанию), затем по дате/времени отправления">
-                    <span ng-show="sort == sortType.byRecommend && reverse == true">-</span>
-                    <span ng-show="sort == sortType.byRecommend"><b><a href="" ng-click="applySort(sortType.byRecommend)">сортировка по рекомендованности</a></b></span>
-                    <span ng-show="sort != sortType.byRecommend"><a href="" ng-click="applySort(sortType.byRecommend)">сортировка по рекомендованности</a></span>
-                </td>
-                <td title="по цене, затем по дате/времени отправления">
-                    <span ng-show="sort == sortType.byPrice && reverse == true">-</span>
-                    <span ng-show="sort == sortType.byPrice"><b><a href="" ng-click="applySort(sortType.byPrice)">по цене</a></b></span>
-                    <span ng-show="sort != sortType.byPrice"><a href="" ng-click="applySort(sortType.byPrice)">по цене</a></span>
-                </td>
-                <td title="по времени в пути (и затем по стоимости), затем по дате/времени отправления">
-                    <span ng-show="sort == sortType.byTripTime && reverse == true">-</span>
-                    <span ng-show="sort == sortType.byTripTime"><b><a href="" ng-click="applySort(sortType.byTripTime)">по времени в пути</a></b></span>
-                    <span ng-show="sort != sortType.byTripTime"><a href="" ng-click="applySort(sortType.byTripTime)">по времени в пути</a></span>
-                </td>
-                <td title="по времени отправления">
-                    <span ng-show="sort == sortType.byDepartureTime && reverse == true">-</span>
-                    <span ng-show="sort == sortType.byDepartureTime"><b><a href="" ng-click="applySort(sortType.byDepartureTime)">по времени отправления</a></b></span>
-                    <span ng-show="sort != sortType.byDepartureTime"><a href="" ng-click="applySort(sortType.byDepartureTime)">по времени отправления</a></span>
-                </td>
-                <td title="по времени прибытия">
-                    <span ng-show="sort == sortType.byArrivalTime && reverse == true">-</span>
-                    <span ng-show="sort == sortType.byArrivalTime"><b><a href="" ng-click="applySort(sortType.byArrivalTime)">по времени прибытия</a></b></span>
-                    <span ng-show="sort != sortType.byArrivalTime"><a href="" ng-click="applySort(sortType.byArrivalTime)">по времени прибытия</a></span>
-                </td>
-            </tr>
-        </table>
-        <!--Результаты-->
-        <table class="table table-striped" ng-init="num = 1;" ng-show="filteredTicketsList != null && filteredTicketsList.length > 0">
-            <thead>
-                <tr>
-                    <!--<th>#</th>-->
-                    <th>Откуда / Куда</th>
-                    <th>Туда</th>
-                    <th>Обратно</th>
-                    <th>Цена / Класс</th>
-                </tr>
-            </thead>
-            <tr ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">
-                <!--<td>{{num}}</td>-->
-                <td>
-                    откуда<br />
-                    <b>{{item.CityFrom}} ({{item.AirportFrom}})</b><br /><br />
-                    куда<br />
-                    <b>{{item.CityTo}} ({{item.AirportTo}})</b>
-                </td>
-                <td style="vertical-align: top;">
-                    вылет <b>{{item.DepartureDate | date:dateFormat}}</b><br />
-                    прилет <b>{{item.ArrivalDate | date:dateFormat}}</b><br />
-                    время в пути <b>{{item.TimeTo}} минут</b><br />
-                    <b>количество пересадок {{item.ToTransferCount}}</b><br />
-                    <div ng-repeat="transfer in item.EtapsTo">
-                        <!--<img ng-src="{{transfer.TransporterLogo}}" />-->
-                        <img />
-                        <span>перевозчик {{transfer.TransporterName}}  {{transfer.VehicleName}}</span><br />
-                        <span>{{transfer.OutPort}} ({{transfer.OutTime | date:dateFormat}}) =>  {{transfer.InPort}} ({{transfer.InTime | date:dateFormat}}) {{transfer.WayTime}}</span><br />
-                        <br />
+    <table class="table" style="width: 100%; background-color: white;">
+        <tr>
+            <td>
+                <!--Фильтр-->
+                <div style="width: 200px; border: solid 1px black; border-top: none; float: left; margin-top: 200px; background-color: white;">
+                    <div>
+                        Результатов всего: <b>{{ticketsList.length}}</b><br />
+                        После фильтрации: <b>{{filteredTicketsList.length}}</b>
                     </div>
-                </td>
-                <td style="vertical-align: top;">
-                    вылет <b>{{item.BackDepartureDate | date:dateFormat}}</b><br />
-                    прилет <b>{{item.BackArrivalDate | date:dateFormat}}</b><br />
-                    время в пути <b>{{item.TimeBack}} минут</b><br />
-                    <b>количество пересадок {{item.BackTransferCount}}</b>
-                    <br />
+                    <hr />
 
-                    <div ng-repeat="transfer in item.EtapsBack">
-                        <!--<img ng-src="transfer.TransporterLogo" />-->
-                        <img />
-                        <span>перевозчик {{transfer.TransporterName}}  {{transfer.VehicleName}}</span><br />
-                        <span>{{transfer.OutPort}} ({{transfer.OutTime | date:dateFormat}}) =>  {{transfer.InPort}} ({{transfer.InTime | date:dateFormat}})  {{transfer.WayTime}}</span><br />
+                    <div>Цена</div>
+                    <div class="slider-div">
+                        <slider floor="{{filter.minPriceInitial}}" ceiling="{{filter.maxPriceInitial}}" ng-model-low="filter.minPrice" ng-model-high="filter.maxPrice"></slider>
                     </div>
-                </td>
-                <td>
-                    <b>цена {{item.Price}}</b><br /><br />
-                    <nobr>Класс {{item.CabineClass}}</nobr><br /><br />
-                    <span ng-show="item.IsRecomendation">рекомендуем</span><span ng-show="!item.IsRecomendation">не рекомендуем</span>
-                </td>
-            </tr>
-        </table>
-    </div>
+                    <div>
+                        от <b>{{filter.minPrice}} р</b> до <b>{{filter.maxPrice}} р</b>
+                    </div>
+                    <hr />
+
+                    <div>Количество пересадок туда</div>
+                    <div class="pad-left">
+                        <div ng-repeat="item in filter.ToTransferCountList">
+                            <input type="checkbox" ng-model="item.checked" />
+                            <span ng-show="item.value == 0">Без пересадок</span>
+                            <span ng-show="item.value > 0">{{item.value}}</span>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div>Количество пересадок обратно</div>
+                    <div class="pad-left">
+                        <div ng-repeat="item in filter.BackTransferCountList">
+                            <input type="checkbox" ng-model="item.checked" />
+                            <span ng-show="item.value == 0">Без пересадок</span>
+                            <span ng-show="item.value > 0">{{item.value}}</span>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div ng-init="showCompany = true">
+                        Авиакомпании
+                        <a ng-show="showCompany" ng-click="showCompany = !showCompany">(свернуть)</a>
+                        <a ng-show="!showCompany" ng-click="showCompany = !showCompany">(развернуть)</a>
+                    </div>
+                    <div class="pad-left">
+                        <div ng-show="showCompany" ng-repeat="item in filter.TransporterList">
+                            <input type="checkbox" ng-model="item.checked" />
+                            <span class="cap-avia" ng-click="item.checked = !item.checked">{{item.TransporterName}}</span>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div>Время отправления ТУДА</div>
+                    <div class="slider-div">
+                        <slider floor="{{filter.minDepartureDateInitial}}" ceiling="{{filter.maxDepartureDateInitial}}" ng-model-low="filter.minDepartureDate" ng-model-high="filter.maxDepartureDate"></slider>
+                    </div>
+                    <div>
+                        от <b>{{filter.minDepartureDate | date:timeFormat}}</b><br />
+                        до <b>{{filter.maxDepartureDate | date:timeFormat}}</b>
+                    </div>
+                    <hr />
+
+                    <div>Время прибытия ТУДА</div>
+                    <div class="slider-div">
+                        <slider floor="{{filter.minArrivalDateInitial}}" ceiling="{{filter.maxArrivalDateInitial}}" ng-model-low="filter.minArrivalDate" ng-model-high="filter.maxArrivalDate"></slider>
+                    </div>
+                    <div>
+                        от <b>{{filter.minArrivalDate | date:timeFormat}}</b><br />
+                        до <b>{{filter.maxArrivalDate | date:timeFormat}}</b>
+                    </div>
+                    <hr />
+
+                    <div>Время отправления ОБРАТНО</div>
+                    <div class="slider-div">
+                        <slider floor="{{filter.minBackDepartureDateInitial}}" ceiling="{{filter.maxBackDepartureDateInitial}}" ng-model-low="filter.minBackDepartureDate" ng-model-high="filter.maxBackDepartureDate"></slider>
+                    </div>
+                    <div>
+                        от <b>{{filter.minBackDepartureDate | date:timeFormat}}</b><br />
+                        до <b>{{filter.maxBackDepartureDate | date:timeFormat}}</b>
+                    </div>
+                    <hr />
+
+                    <div>Время прибытия ОБРАТНО</div>
+                    <div class="slider-div">
+                        <slider floor="{{filter.minBackArrivalDateInitial}}" ceiling="{{filter.maxBackArrivalDateInitial}}" ng-model-low="filter.minBackArrivalDate" ng-model-high="filter.maxBackArrivalDate"></slider>
+                    </div>
+                    <div>
+                        от <b>{{filter.minBackArrivalDate | date:timeFormat}}</b><br />
+                        до <b>{{filter.maxBackArrivalDate | date:timeFormat}}</b>
+                    </div>
+                    <hr />
+                </div>
+            </td>
+            <td>
+                <div style="margin-left: 220px;">
+                    <div ng-show="isDataLoading">
+                        <h1>Поиск...</h1>
+                    </div>
+                    <div ng-show="isDataLoading == false && (filteredTicketsList == null || filteredTicketsList.length == 0)">
+                        <h1>Ничего не найдено</h1>
+                    </div>
+                    <!--Сортировки-->
+                    <table class="table table-striped">
+                        <tr>
+                            <td title="по рекомендованности (по умолчанию), затем по дате/времени отправления">
+                                <span ng-show="sort == sortType.byRecommend && reverse == true">-</span>
+                                <span ng-show="sort == sortType.byRecommend"><b><a href="" ng-click="applySort(sortType.byRecommend)">сортировка по рекомендованности</a></b></span>
+                                <span ng-show="sort != sortType.byRecommend"><a href="" ng-click="applySort(sortType.byRecommend)">сортировка по рекомендованности</a></span>
+                            </td>
+                            <td title="по цене, затем по дате/времени отправления">
+                                <span ng-show="sort == sortType.byPrice && reverse == true">-</span>
+                                <span ng-show="sort == sortType.byPrice"><b><a href="" ng-click="applySort(sortType.byPrice)">по цене</a></b></span>
+                                <span ng-show="sort != sortType.byPrice"><a href="" ng-click="applySort(sortType.byPrice)">по цене</a></span>
+                            </td>
+                            <td title="по времени в пути (и затем по стоимости), затем по дате/времени отправления">
+                                <span ng-show="sort == sortType.byTripTime && reverse == true">-</span>
+                                <span ng-show="sort == sortType.byTripTime"><b><a href="" ng-click="applySort(sortType.byTripTime)">по времени в пути</a></b></span>
+                                <span ng-show="sort != sortType.byTripTime"><a href="" ng-click="applySort(sortType.byTripTime)">по времени в пути</a></span>
+                            </td>
+                            <td title="по времени отправления">
+                                <span ng-show="sort == sortType.byDepartureTime && reverse == true">-</span>
+                                <span ng-show="sort == sortType.byDepartureTime"><b><a href="" ng-click="applySort(sortType.byDepartureTime)">по времени отправления</a></b></span>
+                                <span ng-show="sort != sortType.byDepartureTime"><a href="" ng-click="applySort(sortType.byDepartureTime)">по времени отправления</a></span>
+                            </td>
+                            <td title="по времени прибытия">
+                                <span ng-show="sort == sortType.byArrivalTime && reverse == true">-</span>
+                                <span ng-show="sort == sortType.byArrivalTime"><b><a href="" ng-click="applySort(sortType.byArrivalTime)">по времени прибытия</a></b></span>
+                                <span ng-show="sort != sortType.byArrivalTime"><a href="" ng-click="applySort(sortType.byArrivalTime)">по времени прибытия</a></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--Результаты-->
+                    <table class="table table-striped" ng-init="num = 1;" ng-show="filteredTicketsList != null && filteredTicketsList.length > 0">
+                        <thead>
+                            <tr>
+                                <!--<th>#</th>-->
+                                <th>Откуда / Куда</th>
+                                <th>Туда</th>
+                                <th>Обратно</th>
+                                <th>Цена / Класс</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">
+                            <!--<td>{{num}}</td>-->
+                            <td>
+                                откуда<br />
+                                <b>{{item.CityFrom}} ({{item.AirportFrom}})</b><br /><br />
+                                куда<br />
+                                <b>{{item.CityTo}} ({{item.AirportTo}})</b>
+                            </td>
+                            <td style="vertical-align: top;">
+                                вылет <b>{{item.DepartureDate | date:dateFormat}}</b><br />
+                                прилет <b>{{item.ArrivalDate | date:dateFormat}}</b><br />
+                                время в пути <b>{{item.TimeTo}} минут</b><br />
+                                <b>количество пересадок {{item.ToTransferCount}}</b><br />
+                                <div ng-repeat="transfer in item.EtapsTo">
+                                    <!--<img ng-src="{{transfer.TransporterLogo}}" />-->
+                                    <img />
+                                    <span>перевозчик {{transfer.TransporterName}}  {{transfer.VehicleName}}</span><br />
+                                    <span>{{transfer.OutPort}} ({{transfer.OutTime | date:dateFormat}}) =>  {{transfer.InPort}} ({{transfer.InTime | date:dateFormat}}) {{transfer.WayTime}}</span><br />
+                                    <br />
+                                </div>
+                            </td>
+                            <td style="vertical-align: top;">
+                                вылет <b>{{item.BackDepartureDate | date:dateFormat}}</b><br />
+                                прилет <b>{{item.BackArrivalDate | date:dateFormat}}</b><br />
+                                время в пути <b>{{item.TimeBack}} минут</b><br />
+                                <b>количество пересадок {{item.BackTransferCount}}</b>
+                                <br />
+
+                                <div ng-repeat="transfer in item.EtapsBack">
+                                    <!--<img ng-src="transfer.TransporterLogo" />-->
+                                    <img />
+                                    <span>перевозчик {{transfer.TransporterName}}  {{transfer.VehicleName}}</span><br />
+                                    <span>{{transfer.OutPort}} ({{transfer.OutTime | date:dateFormat}}) =>  {{transfer.InPort}} ({{transfer.InTime | date:dateFormat}})  {{transfer.WayTime}}</span><br />
+                                </div>
+                            </td>
+                            <td>
+                                <b>цена {{item.Price}}</b><br /><br />
+                                <nobr>Класс {{item.CabineClass}}</nobr><br /><br />
+                                <span ng-show="item.IsRecomendation">рекомендуем</span><span ng-show="!item.IsRecomendation">не рекомендуем</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
 </div>
 
