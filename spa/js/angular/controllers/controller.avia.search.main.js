@@ -89,7 +89,7 @@ innaAppControllers.
             function setFromAndToFieldsFromUrl() {
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
                     $scope.criteria.From = 'загружается...';
-                    dataService.getDirectoryByUrl(log, routeCriteria.FromUrl, function (data) {
+                    dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
                         //обновляем данные
                         if (data != null) {
                             $scope.criteria.From = data.name;
@@ -105,7 +105,7 @@ innaAppControllers.
 
                 if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
                     $scope.criteria.To = 'загружается...';
-                    dataService.getDirectoryByUrl(log, routeCriteria.ToUrl, function (data) {
+                    dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
                         //обновляем данные
                         if (data != null) {
                             $scope.criteria.To = data.name;

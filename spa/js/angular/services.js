@@ -11,38 +11,32 @@ innaAppServices.
 
 
 innaAppServices.
-    factory('dataService', ['$rootScope', '$http', '$q', 'cache', function ($rootScope, $http, $q, cache) {
-        return {
-            getDirectoryByUrl: function (log, term, successCallback, errCallback) {
+    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', function ($rootScope, $http, $q, $log, cache) {
+        function log(msg) {
+            $log.log(msg);
+        }
 
-                var key = cacheKeys.getDirectoryByUrl(term);
-                var res = cache.get(key);
-                if (res == null) {
-                    //запрос по критериям поиска
-                    $http.get(getDirectoryUrl + '?term=' + term).success(function (data, status) {
-                        if (data != null && data.length > 0)
-                        {
-                            var urlKey = UrlHelper.getUrlFromData(data[0]);
-                            var cdata = new directoryCacheData(data[0].id, data[0].name, urlKey);
-                            //добавляем в кэш
-                            cache.put(key, cdata);
-                            //присваиваем значение через функцию коллбэк
-                            successCallback(cdata);
-                        }
-                        else
-                            errCallback(data, status);
-                    }).
-                    error(function (data, status) {
-                        //вызываем err callback
+        return {
+            getDirectoryByUrl: function (term, successCallback, errCallback) {
+                //log('getDirectoryByUrl, term: ' + term);
+                //запрос по критериям поиска
+                $http({ method: 'GET', url: getDirectoryUrl, params: { term: term }, cache: true }).success(function (data, status) {
+                    if (data != null && data.length > 0) {
+                        var urlKey = UrlHelper.getUrlFromData(data[0]);
+                        var cdata = new directoryCacheData(data[0].Id, data[0].Name, urlKey);
+                        //присваиваем значение через функцию коллбэк
+                        successCallback(cdata);
+                    }
+                    else {
                         errCallback(data, status);
-                    });
-                }
-                else
-                {
-                    successCallback(res);
-                }
+                    }
+                }).error(function (data, status) {
+                    //вызываем err callback
+                    errCallback(data, status);
+                });
             },
-            getSletatDirectoryByTerm: function (log, term, successCallback, errCallback) {
+            
+            getSletatDirectoryByTerm: function (term, successCallback, errCallback) {
                 //log('getSletatDirectoryByTerm: ' + term);
                 //принудительно энкодим
                 term = encodeURIComponent(term);
@@ -56,7 +50,7 @@ innaAppServices.
                     errCallback(data, status);
                 });
             },
-            getSletatCity: function (log, successCallback, errCallback) {
+            getSletatCity: function (successCallback, errCallback) {
                 //log('getSletatCity: ' + term);
                 //запрос по критериям поиска
                 $http.get(getSletatCityUrl, { cache: true }).success(function (data, status) {
@@ -80,7 +74,7 @@ innaAppServices.
                     errCallback(data, status);
                 });
             },
-            startAviaSearch: function (log, criteria, successCallback, errCallback) {
+            startAviaSearch: function (criteria, successCallback, errCallback) {
                 //запрос по критериям поиска
                 var apiCriteria = new aviaCriteriaToApiCriteria(criteria);
                 log('apiCriteria: ' + angular.toJson(apiCriteria));
@@ -100,7 +94,7 @@ innaAppServices.
                     });
                 }
             },
-            startSearchTours: function (log, criteria, successCallback, errCallback) {
+            startSearchTours: function (criteria, successCallback, errCallback) {
                 //запрос по критериям поиска
                 $http.post(beginSearchUrl, angular.toJson(criteria)).success(function (data, status) {
                     //присваиваем значение через функцию коллбэк
@@ -111,7 +105,7 @@ innaAppServices.
                     errCallback(data, status);
                 });
             },
-            checkSearchTours: function (log, searchIdObj, successCallback, errCallback) {
+            checkSearchTours: function (searchIdObj, successCallback, errCallback) {
                 $http.post(checkSearchUrl, angular.toJson(searchIdObj)).success(function (data, status) {
                     successCallback(data);
                 }).
@@ -119,7 +113,7 @@ innaAppServices.
                     errCallback(data, status);
                 });
             },
-            getLocationsByUrls: function (log, queryData, successCallback, errCallback) {
+            getLocationsByUrls: function (queryData, successCallback, errCallback) {
                 $http.post(getLocationByUrls, angular.toJson(queryData)).success(function (data, status) {
                     successCallback(data);
                 }).
@@ -127,7 +121,7 @@ innaAppServices.
                     errCallback(data, status);
                 });
             },
-            getHotelDetail: function (log, queryData, successCallback, errCallback) {
+            getHotelDetail: function (queryData, successCallback, errCallback) {
                 $http.post(hotelDetailUrl, angular.toJson(queryData)).success(function (data, status) {
                     successCallback(data);
                 }).
@@ -135,7 +129,7 @@ innaAppServices.
                     errCallback(data, status);
                 });
             },
-            getTourDetail: function (log, queryData, successCallback, errCallback) {
+            getTourDetail: function (queryData, successCallback, errCallback) {
                 $http.post(tourDetailUrl, angular.toJson(queryData)).success(function (data, status) {
                     successCallback(data);
                 }).
@@ -143,7 +137,7 @@ innaAppServices.
                     errCallback(data, status);
                 });
             },
-            getOrder: function (log, queryData, successCallback, errCallback) {
+            getOrder: function (queryData, successCallback, errCallback) {
                 //запрос по критериям поиска
                 $http.post(getOrderUrl, angular.toJson(queryData)).success(function (data, status) {
                     //присваиваем значение через функцию коллбэк
@@ -154,7 +148,7 @@ innaAppServices.
                     errCallback(data, status);
                 });
             },
-            getPaymentPage: function (log, queryData, successCallback, errCallback) {
+            getPaymentPage: function (queryData, successCallback, errCallback) {
                 //запрос по критериям поиска
                 $http.post(paymentPageUrl, angular.toJson(queryData)).success(function (data, status) {
                     //присваиваем значение через функцию коллбэк
@@ -165,7 +159,7 @@ innaAppServices.
                     errCallback(data, status);
                 });
             },
-            pay: function(log, queryData, successCallback, errCallback) {
+            pay: function(queryData, successCallback, errCallback) {
                 $http.post(payUrl, angular.toJson(queryData)).success(function(data) {
                     successCallback(data);
                 }).
@@ -193,7 +187,7 @@ innaAppServices.
                     errCallback(data, status);
                 });
             },
-            getIndividualToursCategory: function (log, id, successCallback, errCallback) {
+            getIndividualToursCategory: function (id, successCallback, errCallback) {
                 $http({ method: 'GET', url: getIndividualToursCategoryUrl + '/' + id, cache: true }).success(function (data, status) {
                     //присваиваем значение через функцию коллбэк
                     successCallback(data);

@@ -47,6 +47,7 @@ innaAppControllers.
             //обрабатываем параметры из url'а
             var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
+            log('$scope.criteria: ' + angular.toJson($scope.criteria));
 
             //запрашиваем парамерты по их Url'ам
             setFromAndToFieldsFromUrl();
@@ -91,7 +92,7 @@ innaAppControllers.
             function initFuctions() {
                 $scope.startSearch = function () {
                     log('$scope.startSearch');
-                    dataService.startAviaSearch(log, $scope.criteria, function (data) {
+                    dataService.startAviaSearch($scope.criteria, function (data) {
                         //обновляем данные
                         if (data != null) {
                             //log('data: ' + angular.toJson(data));
@@ -120,7 +121,7 @@ innaAppControllers.
             function setFromAndToFieldsFromUrl() {
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
                     $scope.criteria.From = 'загружается...';
-                    dataService.getDirectoryByUrl(log, routeCriteria.FromUrl, function (data) {
+                    dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
                         //обновляем данные
                         if (data != null) {
                             $scope.criteria.From = data.name;
@@ -140,7 +141,7 @@ innaAppControllers.
 
                 if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
                     $scope.criteria.To = 'загружается...';
-                    dataService.getDirectoryByUrl(log, routeCriteria.ToUrl, function (data) {
+                    dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
                         //обновляем данные
                         if (data != null) {
                             $scope.criteria.To = data.name;
@@ -160,7 +161,6 @@ innaAppControllers.
             };
 
             function updateModel(data) {
-                $scope.isDataLoading = false;
                 log('updateModel');
 
                 function dateToMillisecs(date) {
@@ -320,5 +320,7 @@ innaAppControllers.
 
                     $scope.filteredTicketsList = filteredList;
                 }
+
+                $scope.isDataLoading = false;
             };
         }]);

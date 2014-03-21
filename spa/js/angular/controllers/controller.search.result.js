@@ -28,7 +28,7 @@ innaAppControllers.
 
             //запрашиваем парамерты по их Url'ам
             $scope.isDataLoading = true;
-            dataService.getLocationsByUrls(log, locationParams, function (data) {
+            dataService.getLocationsByUrls(locationParams, function (data) {
                 //обновляем данные
                 if (data.city != null) {
                     $scope.criteria.FromCity = data.city.name;
@@ -202,7 +202,7 @@ innaAppControllers.
 
                     log('search: ' + angular.toJson($scope.criteria));
                     //передаем критерии поиска, и класс hotel, чтобы привести результат к нему
-                    dataService.startSearchTours(log, $scope.criteria, function (data) {
+                    dataService.startSearchTours($scope.criteria, function (data) {
                         //обновляем данные
                         updateHotels(data);
                     }, function (data, status) {
@@ -217,7 +217,7 @@ innaAppControllers.
                     log('checkSearchTours in progress...');
                     $scope.isDataLoading = true;
 
-                    dataService.checkSearchTours(log, { SearchId: $scope.searchId }, function (data) {
+                    dataService.checkSearchTours({ SearchId: $scope.searchId }, function (data) {
                         //обновляем данные
                         updateHotels(data);
                     }, function (data, status) {
