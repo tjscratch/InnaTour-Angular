@@ -362,6 +362,9 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="spa\templates\pages\avia\Web.config" />
+    <Content Include="spa\templates\pages\Web.config" />
+    <Content Include="spa\templates\nav_forms\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

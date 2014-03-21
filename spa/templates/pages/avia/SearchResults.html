@@ -16,11 +16,11 @@
 </style>
 
 <div style="width: 100%;">
-    <table class="table" style="width: 100%; background-color: white;">
-        <tr>
+    <table class="table" style="width: 100%; padding-top: 120px; background-color: white;">
+        <tr style="vertical-align:top;">
             <td>
                 <!--Фильтр-->
-                <div style="width: 200px; border: solid 1px black; border-top: none; float: left; margin-top: 200px; background-color: white;">
+                <div style="width: 200px; border: solid 1px black; border-top: none; float: left; background-color: white;">
                     <div>
                         Результатов всего: <b>{{ticketsList.length}}</b><br />
                         После фильтрации: <b>{{filteredTicketsList.length}}</b>
@@ -111,7 +111,7 @@
                 </div>
             </td>
             <td>
-                <div style="margin-left: 220px;">
+                <div style="margin-left: 220px; ">
                     <div ng-show="isDataLoading">
                         <h1>Поиск...</h1>
                     </div>
