@@ -8,8 +8,8 @@ var gulp = require('gulp'),
     csscomb = require('gulp-csscomb');
 
 gulp.task('styles', function () {
-    gulp.src(['styl/search.styl', 'styl/datepicker.styl'])
-        .pipe(concat('search.min.css'))
+    gulp.src(['styl/search.styl', 'styl/datepicker.styl', 'styl/results.styl'])
+        .pipe(concat('tickets.min.css'))
         .pipe(stylus({
             use: ['nib'],
             import: ['nib']
