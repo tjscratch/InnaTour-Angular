@@ -29,8 +29,7 @@ innaAppControllers.
             ];
 
             //запрашиваем список слетать
-            dataService.getSletatCity(log,
-                function (data) {
+            dataService.getSletatCity(function (data) {
                     var list = [];
                     _.each(data, function (item) {
                         list.push(new fromItem(item.id, item.name, item.name));
@@ -401,7 +400,7 @@ innaAppControllers.
                 if ($scope.form.toText != null && $scope.form.toText.length > 0) {
                     var term = prepareToTerm($scope.form.toText);
                     //console.log('getCountry:' + term);
-                    dataService.getSletatDirectoryByTerm(log, term,
+                    dataService.getSletatDirectoryByTerm(term,
                         function (data) {
                             if (data != null && data.length > 0) {
                                 var toList = [];

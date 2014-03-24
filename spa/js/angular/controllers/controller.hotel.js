@@ -25,7 +25,7 @@ innaAppControllers.
             if (angular.toJson($routeParams) != '{}') {
                 $scope.isDataLoading = true;
                 //запрос данных для отеля
-                dataService.getHotelDetail(log, { hotelId: $routeParams.hotelId, searchId: $routeParams.searchId }, function (data) {
+                dataService.getHotelDetail({ hotelId: $routeParams.hotelId, searchId: $routeParams.searchId }, function (data) {
                     //обновляем данные
                     $scope.updateHotelDetail(data);
                 }, function (data, status) {

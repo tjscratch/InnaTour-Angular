@@ -23,7 +23,7 @@ innaAppControllers.
             if (angular.toJson($routeParams) != '{}') {
                 $scope.isDataLoading = true;
                 //запрос данных для отеля
-                dataService.getPaymentPage(log, $routeParams, function (data) {
+                dataService.getPaymentPage($routeParams, function (data) {
                     //обновляем данные
                     $scope.updatePaymentPage(data);
                 }, function (data, status) {
@@ -60,7 +60,7 @@ innaAppControllers.
                 
 
                 //alert('Еще не реализовано');
-                dataService.pay(log, payData, function (data) {
+                dataService.pay(payData, function (data) {
                     //обновляем данные
                     alert('Забронировано!');
                 }, function (data, status) {
