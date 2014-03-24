@@ -42,10 +42,12 @@
     <Content Include="spa\css\jquery-ui-1.10.4.custom.css" />
     <Content Include="spa\css\main.css" />
     <Content Include="spa\css\search.min.css" />
+    <Content Include="spa\css\ticket.css" />
     <Content Include="spa\fonts\proximanova-bold-webfont.svg" />
     <Content Include="spa\fonts\proximanova-light-webfont.svg" />
     <Content Include="spa\fonts\proximanova-reg-webfont.svg" />
     <Content Include="spa\html\search_form.html" />
+    <Content Include="spa\html\ticket.html" />
     <Content Include="spa\img\calendar-next-month-notactive.png" />
     <Content Include="spa\img\calendar-next-month.png" />
     <Content Include="spa\img\calendar-prev-month-notactive.png" />
