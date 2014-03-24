@@ -49,23 +49,23 @@ var app = angular.module('innaApp', [
             controller: 'IndividualToursCtrl'
         }).
         when('/about/', {
-            templateUrl: '/spa/templates/pages/AboutPage.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/about_page.html?v=' + UrlHelper.ver,
             controller: 'AboutCtrl'
         }).
         when('/contacts/', {
-            templateUrl: '/spa/templates/pages/ContactsPage.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/contacts_page.html?v=' + UrlHelper.ver,
             controller: 'ContactsCtrl'
         }).
         when('/avia/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsFlexible', {
-            templateUrl: '/spa/templates/pages/avia/SearchForm.html',
+            templateUrl: '/spa/templates/pages/avia/search_form.html',
             controller: 'AviaSearchMainCtrl'
         }).
         when('/avia/', {
-            templateUrl: '/spa/templates/pages/avia/SearchForm.html',
+            templateUrl: '/spa/templates/pages/avia/search_form.html',
             controller: 'AviaSearchMainCtrl'
         }).
         when('/avia/search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsFlexible', {
-            templateUrl: '/spa/templates/pages/avia/SearchResults.html',
+            templateUrl: '/spa/templates/pages/avia/search_results.html',
             controller: 'AviaSearchResultsCtrl'
         }).
         //when('/avia/search/', {
@@ -73,18 +73,13 @@ var app = angular.module('innaApp', [
         //    controller: 'AviaSearchResultsCtrl'
         //}).
         when('/hotelticket/', {
-            templateUrl: '/spa/templates/pages/MainPage.html',
+            templateUrl: '/spa/templates/pages/hotelticket_page.html',
             controller: 'HotelPlusTicketCtrl'
         }).
         when('/hotels/', {
-            templateUrl: '/spa/templates/pages/MainPage.html',
+            templateUrl: '/spa/templates/pages/hotels_page.html',
             controller: 'HotelsCtrl'
         }).
-        //поиск по отелям
-        //when('/hotels/', {
-        //    templateUrl: '/AngularTemplates',
-        //    controller: 'SearchMainCtrl'
-        //}).
         //результаты поиска по отелям
         when('/hotels/search/:FromCityUrl-:ToCountryUrl-:ToRegionUrl-:StartMinString-:StartDateVariance-:AdultNumber-:ChildAgesString-:DurationMin', {
             templateUrl: '/AngularTemplates/Search',

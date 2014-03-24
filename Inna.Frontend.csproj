@@ -336,13 +336,12 @@
     <Content Include="spa\templates\grid\_item_inner.html" />
     <Content Include="spa\templates\nav_forms\empty.html" />
     <Content Include="spa\templates\nav_forms\tours.html" />
-    <Content Include="spa\templates\pages\AboutPage.html" />
-    <Content Include="spa\templates\pages\avia\SearchForm.html" />
-    <Content Include="spa\templates\pages\avia\SearchResults.html" />
-    <Content Include="spa\templates\pages\ContactsPage.html" />
+    <Content Include="spa\templates\pages\about_page.html" />
+    <Content Include="spa\templates\pages\avia\search_form.html" />
+    <Content Include="spa\templates\pages\avia\search_results.html" />
+    <Content Include="spa\templates\pages\contacts_page.html" />
     <Content Include="spa\templates\pages\it_category_page.html" />
     <Content Include="spa\templates\pages\it_grid_page.html" />
-    <Content Include="spa\templates\pages\MainPage.html" />
     <Content Include="spa\templates\pages\tours_grid_page.html" />
     <Content Include="tours\index.html" />
   </ItemGroup>
