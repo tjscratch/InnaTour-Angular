@@ -39,15 +39,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="spa\css\ie.min.css" />
     <Content Include="spa\css\jquery-ui-1.10.4.custom.css" />
     <Content Include="spa\css\main.css" />
-    <Content Include="spa\css\search.min.css" />
     <Content Include="spa\css\ticket.css" />
+    <Content Include="spa\css\tickets.min.css" />
     <Content Include="spa\fonts\proximanova-bold-webfont.svg" />
     <Content Include="spa\fonts\proximanova-light-webfont.svg" />
     <Content Include="spa\fonts\proximanova-reg-webfont.svg" />
-    <Content Include="spa\html\search_form.html" />
     <Content Include="spa\html\ticket.html" />
+    <Content Include="spa\html\tickets.html" />
     <Content Include="spa\img\calendar-next-month-notactive.png" />
     <Content Include="spa\img\calendar-next-month.png" />
     <Content Include="spa\img\calendar-prev-month-notactive.png" />
@@ -318,8 +319,11 @@
     <Content Include="spa\js\angular\models\app.model.tours.js" />
     <Content Include="spa\js\angular\services.js" />
     <Content Include="spa\js\angular\urlhelper.js" />
+    <Content Include="spa\js\aside.js" />
+    <Content Include="spa\js\ie.placeholder.js" />
     <Content Include="spa\js\jquery.ui.datepicker-ru.js" />
     <Content Include="spa\js\main.js" />
+    <Content Include="spa\js\results.js" />
     <Content Include="spa\js\search_form.js" />
     <Content Include="spa\lib\jquery-ui-1.10.4.custom\css\no-theme\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="spa\lib\jquery-ui-1.10.4.custom\js\jquery-ui-1.10.4.custom.js" />
@@ -336,8 +340,9 @@
     <Content Include="spa\templates\grid\item_SSL.html" />
     <Content Include="spa\templates\grid\item_XL.html" />
     <Content Include="spa\templates\grid\_item_inner.html" />
+    <Content Include="spa\templates\nav_forms\avia_search_form.html" />
     <Content Include="spa\templates\nav_forms\empty.html" />
-    <Content Include="spa\templates\nav_forms\tours.html" />
+    <Content Include="spa\templates\nav_forms\tours_search_form.html" />
     <Content Include="spa\templates\pages\about_page.html" />
     <Content Include="spa\templates\pages\avia\search_form.html" />
     <Content Include="spa\templates\pages\avia\search_results.html" />
@@ -345,6 +350,37 @@
     <Content Include="spa\templates\pages\it_category_page.html" />
     <Content Include="spa\templates\pages\it_grid_page.html" />
     <Content Include="spa\templates\pages\tours_grid_page.html" />
+    <Content Include="spa\uploads\banner.jpg" />
+    <Content Include="spa\uploads\Fotolia_39810619_Subscription_XL.jpg" />
+    <Content Include="spa\uploads\Fotolia_48185885_Subscription_XXL.jpg" />
+    <Content Include="spa\uploads\individual-tour\img1.jpg" />
+    <Content Include="spa\uploads\individual-tour\img2.jpg" />
+    <Content Include="spa\uploads\individual\banner1.jpg" />
+    <Content Include="spa\uploads\individual\banner2.jpg" />
+    <Content Include="spa\uploads\individual\banner3.jpg" />
+    <Content Include="spa\uploads\maket_photos\1-london.png" />
+    <Content Include="spa\uploads\maket_photos\2-Advice.png" />
+    <Content Include="spa\uploads\maket_photos\2-Egypt small.png" />
+    <Content Include="spa\uploads\maket_photos\2-Egypt.png" />
+    <Content Include="spa\uploads\maket_photos\3-Germany.png" />
+    <Content Include="spa\uploads\maket_photos\3-Norway.png" />
+    <Content Include="spa\uploads\maket_photos\4-Advice.png" />
+    <Content Include="spa\uploads\maket_photos\4-Egypt.png" />
+    <Content Include="spa\uploads\maket_photos\4-Istambul.png" />
+    <Content Include="spa\uploads\Nature___Mountains_A_beautiful_mountains_view_017154_25.jpg" />
+    <Content Include="spa\uploads\offer1.jpg" />
+    <Content Include="spa\uploads\offer10.jpg" />
+    <Content Include="spa\uploads\offer11.jpg" />
+    <Content Include="spa\uploads\offer12.jpg" />
+    <Content Include="spa\uploads\offer2.jpg" />
+    <Content Include="spa\uploads\offer3.jpg" />
+    <Content Include="spa\uploads\offer4.jpg" />
+    <Content Include="spa\uploads\offer5.jpg" />
+    <Content Include="spa\uploads\offer6.jpg" />
+    <Content Include="spa\uploads\offer7.jpg" />
+    <Content Include="spa\uploads\offer8.jpg" />
+    <Content Include="spa\uploads\offer9.jpg" />
+    <Content Include="spa\uploads\un.png" />
     <Content Include="tours\index.html" />
   </ItemGroup>
   <ItemGroup>
@@ -366,6 +402,7 @@
     <Content Include="spa\templates\pages\avia\Web.config" />
     <Content Include="spa\templates\pages\Web.config" />
     <Content Include="spa\templates\nav_forms\Web.config" />
+    <Content Include="spa\uploads\maket_photos\Thumbs.db" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

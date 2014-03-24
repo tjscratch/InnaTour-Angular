@@ -1,0 +1,61 @@
+﻿<!-- Search Form -->
+<form class="search-form">
+    <div class="search-field-block">
+        <input type="text" class="search-field" placeholder="Откуда" />
+    </div>
+    <div class="search-field-block">
+        <input type="text" class="search-field" placeholder="Куда" />
+    </div>
+    <div class="search-date-block js-start-date-block">
+        <input type="text" class="search-date search-date-arr js-start-date" placeholder="Туда" />
+    </div>
+    <div class="search-date-block js-finish-date-block">
+        <input type="text" class="search-date search-date-dep js-finish-date" placeholder="Обратно" />
+    </div>
+    <div class="search-people-block">
+        <div class="search-people">5 человек</div>
+        <div class="search-people-baloon">
+            <h3 class="search-people-baloon-title">Количество пассажиров</h3>
+            <ul>
+                <li class="search-people-baloon-item">
+                    <span class="search-people-baloon-field">
+                        <span class="search-people-baloon-minus js-people-minus">-</span>
+                        <input type="text" maxlength="1" value="1" class="js-people-field" />
+                        <span class="search-people-baloon-plus js-people-plus">+</span>
+                    </span>
+                    взрослые
+                </li>
+                <li class="search-people-baloon-item">
+                    <span class="search-people-baloon-field">
+                        <span class="search-people-baloon-minus js-people-minus">-</span>
+                        <input type="text" maxlength="1" value="0" class="js-people-field" />
+                        <span class="search-people-baloon-plus js-people-plus">+</span>
+                    </span>
+                    дети от 2 до 11 лет
+                </li>
+                <li class="search-people-baloon-item">
+                    <span class="search-people-baloon-field">
+                        <span class="search-people-baloon-minus js-people-minus">-</span>
+                        <input type="text" maxlength="1" value="0" class="js-people-field" />
+                        <span class="search-people-baloon-plus js-people-plus">+</span>
+                    </span>
+                    младенцы до 2 лет
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="search-button-block">
+        Найти
+        <input type="submit" value="Найти" />
+    </div>
+    <ul class="search-pref-block">
+        <li class="search-pref current">Туда и обратно</li>
+        <li class="search-pref">В одну сторону</li>
+        <li class="search-pref search-pref-comfort">Эконом
+            <ul class="search-pref-select">
+                <li>Бизнес</li>
+            </ul>
+        </li>
+    </ul>
+</form>
+<!-- /Search Form -->
