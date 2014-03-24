@@ -336,8 +336,9 @@
     <Content Include="spa\templates\grid\item_SSL.html" />
     <Content Include="spa\templates\grid\item_XL.html" />
     <Content Include="spa\templates\grid\_item_inner.html" />
+    <Content Include="spa\templates\nav_forms\avia_search_form.html" />
     <Content Include="spa\templates\nav_forms\empty.html" />
-    <Content Include="spa\templates\nav_forms\tours.html" />
+    <Content Include="spa\templates\nav_forms\tours_search_form.html" />
     <Content Include="spa\templates\pages\about_page.html" />
     <Content Include="spa\templates\pages\avia\search_form.html" />
     <Content Include="spa\templates\pages\avia\search_results.html" />

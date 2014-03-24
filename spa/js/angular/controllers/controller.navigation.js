@@ -31,9 +31,13 @@ innaAppControllers.
 
             $scope.getHeadForm = function () {
                 var loc = $location.path();
+                //log('$scope.getHeadForm, loc:' + loc);
                 var abs = $location.absUrl();
                 if (loc == '/' || abs.indexOf('/tours/?') > -1) {
-                    return addPathAndVersion('/spa/templates/nav_forms/tours.html');
+                    return addPathAndVersion('/spa/templates/nav_forms/tours_search_form.html');
+                }
+                else if (loc.indexOf('/avia/') > -1) {
+                    return addPathAndVersion('/spa/templates/nav_forms/avia_search_form.html');
                 }
                 else {
                     return addPathAndVersion('/spa/templates/nav_forms/empty.html');
