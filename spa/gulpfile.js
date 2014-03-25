@@ -26,6 +26,15 @@ gulp.task('styles', function () {
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest('css'))
         // .pipe(livereload());
+    gulp.src(['styl/ticket.styl'])
+        .pipe(concat('ticket.min.css'))
+        .pipe(stylus({
+            use: ['nib'],
+            import: ['nib']
+        }))
+        .pipe(minifyCSS(opts))
+        .pipe(gulp.dest('css'))
+        // .pipe(livereload());
 });
 
 gulp.task('watch', function () {
