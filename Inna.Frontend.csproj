@@ -404,6 +404,7 @@
     <Content Include="spa\templates\pages\Web.config" />
     <Content Include="spa\templates\nav_forms\Web.config" />
     <Content Include="spa\uploads\maket_photos\Thumbs.db" />
+    <None Include="Properties\PublishProfiles\Ftp.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
