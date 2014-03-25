@@ -94,15 +94,15 @@ innaAppDirectives.
                             var urlKey = UrlHelper.getUrlFromData(ui.item);
 
                             // Change binded variable
-                            ngModel.assign(scope, ui.item.name);
-                            //ngHidModel.assign(scope, ui.item.id);
-                            ngIdModel.assign(scope, ui.item.id);
+                            ngModel.assign(scope, ui.item.Name);
+                            //ngHidModel.assign(scope, ui.item.Id);
+                            ngIdModel.assign(scope, ui.item.Id);
                             ngUrlModel.assign(scope, urlKey);
 
                             //добавляем в кэш
-                            var key = cacheKeys.getDirectoryByUrl(urlKey);
-                            var cdata = new directoryCacheData(ui.item.Id, ui.item.Name, urlKey);
-                            cache.put(key, cdata);
+                            //var key = cacheKeys.getDirectoryByUrl(urlKey);
+                            //var cdata = new directoryCacheData(ui.item.Id, ui.item.Name, urlKey);
+                            //cache.put(key, cdata);
                         });
 
                         return false;

@@ -4,8 +4,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaSearchMainCtrl', ['$log', '$scope', '$routeParams', '$filter', '$location', 'dataService', 'cache',
-        function AviaSearchMainCtrl($log, $scope, $routeParams, $filter, $location, dataService, cache) {
+    controller('AviaSearchMainCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService', 'cache',
+        function AviaSearchMainCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, cache) {
 
             var self = this;
             function log(msg) {
@@ -23,12 +23,12 @@ innaAppControllers.
             //значения по-умобчанию
             var defaultCriteria = getDefaultCriteria();
             //добавляем в кэш откуда, куда
-            addDefaultFromToDirectionsToCache(defaultCriteria);
+            //addDefaultFromToDirectionsToCache(defaultCriteria);
             //списки по-умолчанию
             $scope.adultCountList = [1, 2, 3, 4, 5, 6];
             $scope.childCountList = [0, 1, 2, 3, 4, 5, 6];
             $scope.cabinClassList = [{ name: 'Эконом', value: 0 }, { name: 'Бизнес', value: 1 }];
-
+            
             //критерии из урла
             var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
@@ -42,14 +42,15 @@ innaAppControllers.
             //при изменении полей формы - обновляем url
             //сейчас есть баг - если урл #/avia/ и начинаем вводить что-нить в поле откуда - то ввод срывает
             //т.к. срабатывает смена модели и меняется урл, и происходит перезагрузка страницы
-            $scope.$watch('criteria', function (newValue, oldValue) {
-                if (newValue === oldValue) {
-                    return;
-                }
+            //$scope.$watch('criteria', function (newValue, oldValue) {
+            //    if (newValue === oldValue) {
+            //        return;
+            //    }
+            //    //log('watch criteria From: ' + newValue.From);
 
-                var url = UrlHelper.UrlToAviaMain(angular.copy($scope.criteria));
-                $location.path(url);
-            }, true);
+            //    var url = UrlHelper.UrlToAviaMain(angular.copy($scope.criteria));
+            //    $location.path(url);
+            //}, true);
 
             //тут меняем урл для поиска
             $scope.searchStart = function () {
@@ -74,17 +75,17 @@ innaAppControllers.
                 
             };
 
-            function addDefaultFromToDirectionsToCache(defaultCriteria) {
-                //добавляем в кэш откуда
-                var key = cacheKeys.getDirectoryByUrl(defaultCriteria.FromUrl);
-                var cdata = new directoryCacheData(defaultCriteria.FromId, defaultCriteria.From, defaultCriteria.FromUrl);
-                cache.put(key, cdata);
+            //function addDefaultFromToDirectionsToCache(defaultCriteria) {
+            //    //добавляем в кэш откуда
+            //    var key = cacheKeys.getDirectoryByUrl(defaultCriteria.FromUrl);
+            //    var cdata = new directoryCacheData(defaultCriteria.FromId, defaultCriteria.From, defaultCriteria.FromUrl);
+            //    cache.put(key, cdata);
 
-                //добавляем в кэш - куда
-                key = cacheKeys.getDirectoryByUrl(defaultCriteria.ToUrl);
-                cdata = new directoryCacheData(defaultCriteria.ToId, defaultCriteria.To, defaultCriteria.ToUrl);
-                cache.put(key, cdata);
-            };
+            //    //добавляем в кэш - куда
+            //    key = cacheKeys.getDirectoryByUrl(defaultCriteria.ToUrl);
+            //    cdata = new directoryCacheData(defaultCriteria.ToId, defaultCriteria.To, defaultCriteria.ToUrl);
+            //    cache.put(key, cdata);
+            //};
 
             function setFromAndToFieldsFromUrl() {
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
@@ -119,4 +120,60 @@ innaAppControllers.
                     });
                 }
             };
+
+
+            //поведение
+            var skipCloseType = { from: 'from', to: 'to', dateFrom: 'dateFrom', dateTo: 'dateTo', people: 'people' };
+
+            $scope.form = {};
+            $scope.form.isPeopleOpened = false;
+
+            //добавляем в список обработчиков наш контроллер (мы хотим ловить клик по body)
+            $rootScope.addBodyClickListner('avia.form', bodyClick);
+
+            //обработчик клика на body
+            function bodyClick() {
+                //log('avia.form bodyClick');
+                closeAllPopups();
+            }
+
+            $scope.preventBubbling = function ($event) {
+                preventBubbling($event);
+            }
+
+            //отключаем бабблинг событий
+            function preventBubbling($event) {
+                if ($event.stopPropagation) $event.stopPropagation();
+                if ($event.preventDefault) $event.preventDefault();
+                $event.cancelBubble = true;
+                $event.returnValue = false;
+            }
+
+            //закрывает все открытые попапы
+            function closeAllPopups(skipClose) {
+                if (skipClose != skipCloseType.people)
+                    $scope.form.isPeopleOpened = false;
+            }
+
+            $scope.form.peoplePopupClick = function ($event) {
+                preventBubbling($event);
+                $scope.form.isPeopleOpened = !$scope.form.isPeopleOpened;
+            }
+
+            $scope.countPlus = function (value) {
+                var v = parseInt(value, 10) + 1;
+                if (v > 6)
+                    v = 6;
+                return ("" + v);
+            }
+            $scope.countMinus = function (value) {
+                var v = parseInt(value, 10) - 1;
+                if (v < 0)
+                    v = 0;
+                return ("" + v);
+            }
+
+            $scope.getAppPeopleCount = function () {
+                return parseInt($scope.criteria.AdultCount, 10) + parseInt($scope.criteria.ChildCount, 10) + parseInt($scope.criteria.InfantsCount, 10);
+            }
         }]);
