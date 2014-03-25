@@ -166,7 +166,8 @@ UrlHelper = {
 
 	    var dl = this.Delimiter;
 	    return '/avia/search/' + criteria.FromUrl + dl + criteria.ToUrl + dl + criteria.BeginDate + dl + criteria.EndDate
-			+ dl + criteria.AdultCount + dl + criteria.ChildCount + dl + criteria.InfantsCount + dl + criteria.CabinClass + dl + criteria.IsFlexible;
+			+ dl + criteria.AdultCount + dl + criteria.ChildCount + dl + criteria.InfantsCount + dl + criteria.CabinClass
+            + dl + criteria.IsToFlexible + dl + criteria.IsBackFlexible;
 	},
 
 	UrlToSletatTours: function (city, country, resort, hotel, date, nightsMin, nightsMax, adults, kids, kids_ages) {
