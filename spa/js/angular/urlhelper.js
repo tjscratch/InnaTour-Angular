@@ -80,7 +80,7 @@ UrlHelper = {
 	        if (data.CodeIata != null && data.CodeIata.length > 0)
 	            return data.CodeIata;
 	        else if (data.NameEn != null && data.NameEn.length > 0)
-	            return data.CodeIata;
+	            return data.NameEn;
 	    }
 
 	    return '';
