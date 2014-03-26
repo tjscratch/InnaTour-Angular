@@ -4,10 +4,10 @@
 /* Directives */
 
 innaAppDirectives.
-    directive('datePickerTwoMonths', ['$parse', function ($parse) {
+    directive('datePickerTwoMonths', ['$parse', '$rootScope', function ($parse, $rootScope) {
         return {
             restrict: 'A',
-            link: function (scope, element, attrs, ngModelCtrl) {
+            link: function (scope, element, attrs) {
                 //добавляем событие afterShow к datepicker
                 element.datepicker._updateDatepicker_original = element.datepicker._updateDatepicker;
                 element.datepicker._updateDatepicker = function (inst) {
@@ -17,29 +17,54 @@ innaAppDirectives.
                         afterShow.apply((inst.input ? inst.input[0] : null));  // trigger custom callback
                 }
 
-                var minDate = new Date();
-                minDate.setDate(minDate.getDate());
+                //клики по форме пикера гасим, чтобы не срабатывал клик по body
+                element.datepicker("widget").on("click", function (event) {
+                    event.stopPropagation();
+                });
 
                 var ngModel = $parse(attrs.ngModel);
+                //чекбокс
+                var ngCheckModel = $parse(attrs.ngCheckModel);
+
+                //отпределяем from или to контрол
+                var ngModelFrom = scope.$eval(attrs.ngModelFrom);
+                var ngModelTo = scope.$eval(attrs.ngModelTo);
+                //console.log('ngModelFrom: ' + ngModelFrom + '; ngModelTo: ' + ngModelTo);
+
                 element.datepicker({
-                    //minDate: minDate,
-                    //onSelect: function (dateText) {
-                    //    scope.$apply(function (scope) {
-                    //        // Change binded variable
-                    //        ngModel.assign(scope, dateText);
-                    //    });
-                    //}
+                    onSelect: function (dateText) {
+                        scope.$apply(function (scope) {
+                            // Change binded variable
+                            ngModel.assign(scope, dateText);
+                            //уведмляем dateTo контрол о выборе в первом контроле
+                            if (ngModelFrom == true)
+                                scope.$broadcast("date.from.close", dateText);
+                        });
+                    },
                     defaultDate: "+1w",
                     numberOfMonths: 2,
                     minDate: 0,
-                    dateFormat: 'd M, D',
+                    dateFormat: 'dd.mm.yy',
                     onClose: function(selectedDate) {
-                        $('.js-finish-date').datepicker( "option", "minDate", selectedDate );
+                        
                     },
-                    afterShow: function(input, inst) {
+                    afterShow: function (input, inst) {
+
                         var dp = $('.ui-datepicker');
                         dp.appendTo(element.parent());
                         dp.prepend('<div class="dtpk-head"><span class="dtpk-caption">Дата вылета</span><label class="dtpk-checkbox-label"><input type="checkbox" /><span class="dtpk-checkbox"></span>+/- 5 дней</label></div>');
+                        updateCheck();
+
+                        $(":checkbox", dp).on("click", function (event) {
+                            event.stopPropagation();
+                            //клик по чекбоксу
+                            var isDateChecked = scope.$eval(attrs.ngCheckModel);
+                            isDateChecked = (isDateChecked == 0 ? 1 : 0);
+
+                            scope.$apply(function (scope) {
+                                ngCheckModel.assign(scope, isDateChecked);
+                            });
+                        });
                     }
                 });
 
@@ -47,6 +72,29 @@ innaAppDirectives.
                     element.datepicker('hide');
                     $('.Calendar-input').blur();
                 });
+
+                function updateCheck() {
+                    //обновляем checkbox
+                    var isDateChecked = scope.$eval(attrs.ngCheckModel);
+                    var dp = $('.ui-datepicker');
+                    //console.log('updateCheck: ' + isDateChecked);
+                    if (isDateChecked)
+                        $(":checkbox", dp).prop('checked', true);
+                    else
+                        $(":checkbox", dp).prop('checked', false);
+                }
+
+                //ловим изменение флага
+                scope.$watch(attrs.ngCheckModel, function (value) {
+                    updateCheck();
+                });
+
+                if (ngModelTo == true) {
+                    scope.$on('date.from.close', function (event, args) {
+                        //console.log('date.from.close params: ' + angular.toJson(args));
+                        $(element).datepicker("option", "minDate", args);
+                    });
+                }
             }
         };
     }]);

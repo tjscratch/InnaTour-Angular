@@ -309,6 +309,7 @@
     <Content Include="spa\js\angular\date.helper.js" />
     <Content Include="spa\js\angular\directives\directive.combobox.js" />
     <Content Include="spa\js\angular\directives\directive.autocomplete.custom.js" />
+    <Content Include="spa\js\angular\directives\directive.datepicker.2months.js" />
     <Content Include="spa\js\angular\directives\directive.datepicker.custom.js" />
     <Content Include="spa\js\angular\directives\directive.map.js" />
     <Content Include="spa\js\angular\directives\directive.popup.form.js" />
