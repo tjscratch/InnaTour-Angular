@@ -5,7 +5,8 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     minifyCSS = require('gulp-minify-css'),
     gzip = require("gulp-gzip"),
-    csscomb = require('gulp-csscomb');
+    csscomb = require('gulp-csscomb'),
+    less = require('gulp-less');
 
 gulp.task('styles', function () {
     gulp.src(['styl/search.styl', 'styl/datepicker.styl', 'styl/results.styl'])
@@ -35,6 +36,10 @@ gulp.task('styles', function () {
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest('css'))
         // .pipe(livereload());
+    gulp.src(['css/main/*.less'])
+        .pipe(concat('main.css'))
+        .pipe(less())
+        .pipe(gulp.dest('css'))
 });
 
 gulp.task('watch', function () {
