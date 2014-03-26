@@ -68,11 +68,11 @@
         <input type="submit" value="Найти" ng-click="searchStart()" />
     </div>
     <ul class="search-pref-block">
-        <li class="search-pref current">Туда и обратно</li>
-        <li class="search-pref">В одну сторону</li>
-        <li class="search-pref search-pref-comfort">Эконом
-            <ul class="search-pref-select">
-                <li>Бизнес</li>
+        <li class="search-pref" ng-class="{current:criteria.PathType == 0}" ng-click="pathTypeClick(0)">Туда и обратно</li>
+        <li class="search-pref" ng-class="{current:criteria.PathType == 1}" ng-click="pathTypeClick(1)">В одну сторону</li>
+        <li class="search-pref search-pref-comfort" ng-click="cabinClassListClick($event)">{{getSelectedCabinClassName()}}
+            <ul class="search-pref-select" ng-show="form.isCabinClassOpened">
+                <li ng-repeat="cabinClass in cabinClassList" ng-click="cabinClassClick(cabinClass, $event)">{{cabinClass.name}}</li>
             </ul>
         </li>
     </ul>

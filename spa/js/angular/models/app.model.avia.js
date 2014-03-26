@@ -16,7 +16,9 @@ function aviaCriteria(data) {
     self.ChildCount = data.ChildCount;
     self.InfantsCount = data.InfantsCount;
     self.CabinClass = data.CabinClass;
-    self.IsFlexible = data.IsFlexible;
+    self.IsToFlexible = data.IsToFlexible;
+    self.IsBackFlexible = data.IsBackFlexible;
+    self.PathType = data.PathType;
 
     self.toJson = function () { return angular.toJson(self); };
 };

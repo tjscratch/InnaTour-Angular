@@ -56,7 +56,7 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/contacts_page.html?v=' + UrlHelper.ver,
             controller: 'ContactsCtrl'
         }).
-        when('/avia/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsFlexible', {
+        when('/avia/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
             templateUrl: '/spa/templates/pages/avia/search_form.html',
             controller: 'AviaSearchMainCtrl'
         }).
@@ -64,7 +64,7 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/avia/search_form.html',
             controller: 'AviaSearchMainCtrl'
         }).
-        when('/avia/search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsFlexible', {
+        when('/avia/search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
             templateUrl: '/spa/templates/pages/avia/search_results.html',
             controller: 'AviaSearchResultsCtrl'
         }).

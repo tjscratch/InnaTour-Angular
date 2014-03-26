@@ -42,7 +42,7 @@
     <Content Include="spa\css\ie.min.css" />
     <Content Include="spa\css\jquery-ui-1.10.4.custom.css" />
     <Content Include="spa\css\main.css" />
-    <Content Include="spa\css\ticket.css" />
+    <Content Include="spa\css\ticket.min.css" />
     <Content Include="spa\css\tickets.min.css" />
     <Content Include="spa\fonts\proximanova-bold-webfont.svg" />
     <Content Include="spa\fonts\proximanova-light-webfont.svg" />
@@ -308,6 +308,7 @@
     <Content Include="spa\js\angular\controllers\controllers.js" />
     <Content Include="spa\js\angular\date.helper.js" />
     <Content Include="spa\js\angular\directives\directive.combobox.js" />
+    <Content Include="spa\js\angular\directives\directive.autocomplete.custom.js" />
     <Content Include="spa\js\angular\directives\directive.datepicker.custom.js" />
     <Content Include="spa\js\angular\directives\directive.map.js" />
     <Content Include="spa\js\angular\directives\directive.popup.form.js" />
@@ -403,6 +404,7 @@
     <Content Include="spa\templates\pages\Web.config" />
     <Content Include="spa\templates\nav_forms\Web.config" />
     <Content Include="spa\uploads\maket_photos\Thumbs.db" />
+    <None Include="Properties\PublishProfiles\Ftp.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

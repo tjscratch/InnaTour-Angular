@@ -29,6 +29,8 @@ innaAppControllers.
             $scope.childCountList = [0, 1, 2, 3, 4, 5, 6];
             $scope.cabinClassList = [{ name: 'Эконом', value: 0 }, { name: 'Бизнес', value: 1 }];
             
+            $scope.pathTypeList = [{ name: 'Туда обратно', value: 0 }, { name: 'Туда', value: 1 }];
+            
             //критерии из урла
             var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
@@ -70,7 +72,8 @@ innaAppControllers.
                     "From": "Москва", "FromId": 6733, "FromUrl": "MOW",
                     "To": "Мюнхен", "ToId": 1357, "ToUrl": "MUC",
                     "BeginDate": f_now, "EndDate": f_nowAdd5days,
-                    "AdultCount": "2", "ChildCount": "0", "InfantsCount": "0", "CabinClass": "0", "IsFlexible": "0"
+                    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
+                    "PathType": 0
                 });
                 
             };
@@ -123,10 +126,11 @@ innaAppControllers.
 
 
             //поведение
-            var skipCloseType = { from: 'from', to: 'to', dateFrom: 'dateFrom', dateTo: 'dateTo', people: 'people' };
+            var skipCloseType = { from: 'from', to: 'to', dateFrom: 'dateFrom', dateTo: 'dateTo', people: 'people', cabinClass: 'cabinClass' };
 
             $scope.form = {};
             $scope.form.isPeopleOpened = false;
+            $scope.form.isCabinClassOpened = false;
 
             //добавляем в список обработчиков наш контроллер (мы хотим ловить клик по body)
             $rootScope.addBodyClickListner('avia.form', bodyClick);
@@ -153,6 +157,8 @@ innaAppControllers.
             function closeAllPopups(skipClose) {
                 if (skipClose != skipCloseType.people)
                     $scope.form.isPeopleOpened = false;
+                if (skipClose != skipCloseType.cabinClass)
+                    $scope.form.isCabinClassOpened = false;
             }
 
             $scope.form.peoplePopupClick = function ($event) {
@@ -161,19 +167,38 @@ innaAppControllers.
             }
 
             $scope.countPlus = function (value) {
-                var v = parseInt(value, 10) + 1;
-                if (v > 6)
-                    v = 6;
-                return ("" + v);
+                var value = value + 1;
+                if (value > 6)
+                    value = 6;
+                return value;
             }
             $scope.countMinus = function (value) {
-                var v = parseInt(value, 10) - 1;
-                if (v < 0)
-                    v = 0;
-                return ("" + v);
+                var value = value - 1;
+                if (value < 0)
+                    value = 0;
+                return value;
             }
 
             $scope.getAppPeopleCount = function () {
                 return parseInt($scope.criteria.AdultCount, 10) + parseInt($scope.criteria.ChildCount, 10) + parseInt($scope.criteria.InfantsCount, 10);
+            }
+
+            $scope.getSelectedCabinClassName = function () {
+                return _.find($scope.cabinClassList, function (item) { return item.value == $scope.criteria.CabinClass; }).name;
+            }
+
+            $scope.cabinClassListClick = function ($event) {
+                preventBubbling($event);
+                $scope.form.isCabinClassOpened = !$scope.form.isCabinClassOpened;
+            }
+
+            $scope.cabinClassClick = function (item, $event) {
+                preventBubbling($event);
+                $scope.criteria.CabinClass = item.value;
+                closeAllPopups();
+            }
+
+            $scope.pathTypeClick = function (val) {
+                $scope.criteria.PathType = val;
             }
         }]);
