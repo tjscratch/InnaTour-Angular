@@ -94,15 +94,15 @@ innaAppDirectives.
                             var urlKey = UrlHelper.getUrlFromData(ui.item);
 
                             // Change binded variable
-                            ngModel.assign(scope, ui.item.name);
-                            //ngHidModel.assign(scope, ui.item.id);
-                            ngIdModel.assign(scope, ui.item.id);
+                            ngModel.assign(scope, ui.item.Name);
+                            //ngHidModel.assign(scope, ui.item.Id);
+                            ngIdModel.assign(scope, ui.item.Id);
                             ngUrlModel.assign(scope, urlKey);
 
                             //добавляем в кэш
-                            var key = cacheKeys.getDirectoryByUrl(urlKey);
-                            var cdata = new directoryCacheData(ui.item.id, ui.item.name, urlKey);
-                            cache.put(key, cdata);
+                            //var key = cacheKeys.getDirectoryByUrl(urlKey);
+                            //var cdata = new directoryCacheData(ui.item.Id, ui.item.Name, urlKey);
+                            //cache.put(key, cdata);
                         });
 
                         return false;
@@ -112,10 +112,10 @@ innaAppDirectives.
                     $(this).autocomplete("search", "");
                 }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     var code = "";
-                    if (item.code_iata != null && item.code_iata.length > 0)
-                        code = ' ' + item.code_iata + ' ';
+                    if (item.CodeIata != null && item.CodeIata.length > 0)
+                        code = ' ' + item.CodeIata + ' ';
                     return $("<li>")
-                        .append("<a>(" + item.id + ")  " + code + item.name + "</a>")
+                        .append("<a>(" + item.Id + ")  " + code + item.Name + "</a>")
                         .appendTo(ul);
                 };
             }

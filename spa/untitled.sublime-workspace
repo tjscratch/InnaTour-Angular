@@ -35,6 +35,39 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "html/tickets.html",
+			"settings":
+			{
+				"buffer_size": 21428,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/0range/Desktop/data.json",
+			"settings":
+			{
+				"buffer_size": 736,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "styl/results.styl",
+			"settings":
+			{
+				"buffer_size": 4807,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/aside.js",
+			"settings":
+			{
+				"buffer_size": 521,
+				"line_ending": "Unix",
+				"name": "$( \"#slider-range\" ).slider({"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -81,6 +114,19 @@
 	},
 	"file_history":
 	[
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna.ru/spa/js/search_form.js",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna.ru/spa/styl/search.styl",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna.ru/spa/gulpfile.js",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna.ru/spa/styl/ie.styl",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna.ru/spa/styl/datepicker.styl",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna.ru/spa/package.json",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna/MVC/Inna.Frontend/SPA/js/search_form.js",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna/MVC/Inna.Frontend/SPA/styl/search.styl",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna/MVC/Inna.Frontend/SPA/html/search_form.html",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna/MVC/Inna.Frontend/SPA/styl/datepicker.styl",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna/MVC/Inna.Frontend/SPA/styl/ie.styl",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna/MVC/Inna.Frontend/SPA/gulpfile.js",
+		"/Users/0range/Dropbox/Webserver/InnaTour/inna/MVC/Inna.Frontend/SPA/js/jquery.ui.datepicker-ru.js",
 		"/Users/0range/Dropbox/Webserver/InnaTour/inna/MVC/Inna.Frontend/SPA/js/angular/date.helper.js",
 		"/Users/0range/test/package.json",
 		"/Users/0range/Dropbox/Webserver/InnaTour/inna/MVC/Inna.Frontend/SPA/js/main.js",
@@ -195,24 +241,11 @@
 		"/Users/0range/WebServer/Kribrum/otchet_obzor_category.php",
 		"/Users/0range/WebServer/Kribrum/otchet_prosmotry.php",
 		"/Users/0range/WebServer/Kribrum/role.php",
-		"/Users/0range/WebServer/Kribrum/Role_edit.php",
-		"/Users/0range/WebServer/Kribrum/tags.php",
-		"/Users/0range/WebServer/Kribrum/zadaniya.php",
-		"/Users/0range/WebServer/Kribrum/css/pref.css",
-		"/Users/0range/WebServer/Kribrum/css/graphics.css",
-		"/Users/0range/WebServer/Kribrum/index.php",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/Emmet/Default (OSX).sublime-keymap",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/Alignment/Default (OSX).sublime-keymap",
-		"/Users/0range/WebServer/Kribrum/test.html",
-		"/Users/0range/WebServer/Kribrum/step2.html",
-		"/Users/0range/WebServer/Kribrum/content.html",
-		"/Users/0range/Desktop/Kribrum/js/common.js",
-		"/Users/0range/Desktop/Kribrum/css/style.css",
-		"/Users/0range/Desktop/Kribrum/step2.html"
+		"/Users/0range/WebServer/Kribrum/Role_edit.php"
 	],
 	"find":
 	{
-		"height": 25.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -227,6 +260,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"rlf-aviacompany",
+			".results",
+			";",
+			"checkbox-label",
+			".checkbox-label",
+			"checkbox-label",
+			"check-container",
+			" 0px",
+			"calendar-head",
+			".ui-datepicker td a",
+			"z-inde",
+			".ui-datepicker",
+			"../../",
+			".datepicker",
+			"datepicker",
 			"#lx-watch",
 			"lx-flogo",
 			"lx-video",
@@ -328,6 +376,9 @@
 		"replace_history":
 		[
 			"",
+			" 0",
+			"../",
+			"",
 			".",
 			"",
 			"<td class=\"logs-user\"><a href=\"#\">egor</a></td>",
@@ -357,11 +408,134 @@
 		"whole_word": false,
 		"wrap": true
 	},
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "/Users/0range/Dropbox/Webserver/InnaTour/inna.ru/spa"
+		}
+	],
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "html/tickets.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21428,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15935,
+								15935
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3568.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/0range/Desktop/data.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 736,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								736,
+								736
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 4722.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "styl/results.styl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4807,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4791,
+								4791
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Stylus/Stylus.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 4192.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "js/aside.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 521,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								303,
+								303
+							]
+						],
+						"settings":
+						{
+							"auto_name": "$( \"#slider-range\" ).slider({",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -400,7 +574,7 @@
 	{
 		"height": 0.0
 	},
-	"project": "untitled.sublime-project",
+	"project": "",
 	"replace":
 	{
 		"height": 46.0

@@ -69,7 +69,7 @@ innaAppControllers.
             //получаем категорию
             var categoryId = $routeParams.id;
             //log('$scope.getIndividualToursCategory, categoryId:' + categoryId);
-            dataService.getIndividualToursCategory(log, categoryId, function (data) {
+            dataService.getIndividualToursCategory(categoryId, function (data) {
                 //обновляем данные
                 if (data != null) {
                     //log('data: ' + angular.toJson(data));

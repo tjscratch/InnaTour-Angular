@@ -1,2 +1,2 @@
-npm install gulp -g
+gulp build-ticket
 read -p "Press [Enter] key to close..."

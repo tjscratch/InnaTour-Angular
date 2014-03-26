@@ -1,0 +1,82 @@
+﻿<style type="text/css">
+    .ui-autocomplete{
+        background-color: white;
+    }
+</style>
+<!-- Search Form -->
+<form class="search-ticket-form" ng-controller="AviaSearchMainCtrl">
+    <div class="search-field-block">
+        <input type="text" class="search-field" placeholder="Откуда" ng-model="criteria.From"
+                       ng-id-model="criteria.FromId" ng-url-model="criteria.FromUrl"
+                       ng-get-url="getDirectoryUrl" auto-complete-directory />
+        <!--<ul class="search-form-list search-form-list-to" ng-show="form.toListIsNotEmpty()">
+            <ng:any ng-repeat="item in form.toList">
+                <li class="search-form-list-item-separator" ng-show="isNeedInsertDelimiter(item, $index)"></li>
+                <li class="search-form-list-item search-form-list-item-country" ng-click="toItemClick(item,$event)"
+                    ng-class="{selected:form.toListSelectedIndex == $index}">
+                    {{item.name}}<span class="description">{{getToItemDescription(item)}}</span>
+                    <i class="icon icon-flag" ng-class="'icon-flag-' + item.codeIcao" ng-show="isNeedToShowFlag(item)"></i>
+                </li>
+            </ng:any>
+        </ul>-->
+    </div>
+    <div class="search-field-block">
+        <input type="text" class="search-field" placeholder="Куда" ng-model="criteria.To"
+                       ng-id-model="criteria.ToId" ng-url-model="criteria.ToUrl"
+                       ng-get-url="getDirectoryUrl" auto-complete-directory />
+    </div>
+    <div class="search-date-block js-start-date-block">
+        <input type="text" class="search-date search-date-arr js-start-date" placeholder="Туда"
+               ng-model="criteria.BeginDate" ng-model-from="true" ng-check-model="criteria.IsToFlexible" date-picker-two-months />
+    </div>
+    <div class="search-date-block js-finish-date-block">
+        <input type="text" class="search-date search-date-dep js-finish-date" placeholder="Обратно"
+               ng-model="criteria.EndDate" ng-model-to="true" ng-check-model="criteria.IsBackFlexible" date-picker-two-months />
+    </div>
+    <div class="search-people-block" ng-click="form.peoplePopupClick($event)">
+        <div class="search-people">{{getAppPeopleCount()}} человек</div>
+        <div class="search-people-baloon" ng-show="form.isPeopleOpened" ng-click="preventBubbling($event)">
+            <h3 class="search-people-baloon-title">Количество пассажиров</h3>
+            <ul>
+                <li class="search-people-baloon-item">
+                    <span class="search-people-baloon-field">
+                        <span class="search-people-baloon-minus js-people-minus" ng-click="criteria.AdultCount = countMinus(criteria.AdultCount)">-</span>
+                        <input type="text" maxlength="1" value="1" class="js-people-field" ng-model="criteria.AdultCount" />
+                        <span class="search-people-baloon-plus js-people-plus" ng-click="criteria.AdultCount = countPlus(criteria.AdultCount)">+</span>
+                    </span>
+                    взрослые
+                </li>
+                <li class="search-people-baloon-item">
+                    <span class="search-people-baloon-field">
+                        <span class="search-people-baloon-minus js-people-minus" ng-click="criteria.ChildCount = countMinus(criteria.ChildCount)">-</span>
+                        <input type="text" maxlength="1" value="0" class="js-people-field" ng-model="criteria.ChildCount" />
+                        <span class="search-people-baloon-plus js-people-plus" ng-click="criteria.ChildCount = countPlus(criteria.ChildCount)">+</span>
+                    </span>
+                    дети от 2 до 11 лет
+                </li>
+                <li class="search-people-baloon-item">
+                    <span class="search-people-baloon-field">
+                        <span class="search-people-baloon-minus js-people-minus" ng-click="criteria.InfantsCount = countMinus(criteria.InfantsCount)">-</span>
+                        <input type="text" maxlength="1" value="0" class="js-people-field" ng-model="criteria.InfantsCount" />
+                        <span class="search-people-baloon-plus js-people-plus" ng-click="criteria.InfantsCount = countPlus(criteria.InfantsCount)">+</span>
+                    </span>
+                    младенцы до 2 лет
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="search-button-block">
+        Найти
+        <input type="submit" value="Найти" ng-click="searchStart()" />
+    </div>
+    <ul class="search-pref-block">
+        <li class="search-pref" ng-class="{current:criteria.PathType == 0}" ng-click="pathTypeClick(0)">Туда и обратно</li>
+        <li class="search-pref" ng-class="{current:criteria.PathType == 1}" ng-click="pathTypeClick(1)">В одну сторону</li>
+        <li class="search-pref search-pref-comfort" ng-click="cabinClassListClick($event)">{{getSelectedCabinClassName()}}
+            <ul class="search-pref-select" ng-show="form.isCabinClassOpened">
+                <li ng-repeat="cabinClass in cabinClassList" ng-click="cabinClassClick(cabinClass, $event)">{{cabinClass.name}}</li>
+            </ul>
+        </li>
+    </ul>
+</form>
+<!-- /Search Form -->

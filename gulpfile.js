@@ -9,4 +9,10 @@ gulp.task('build-less', function () {
         .pipe(gulp.dest('spa/css'));
 });
 
+gulp.task('build-ticket', function () {
+    return gulp.src('spa/css/ticket.less')
+        .pipe(less())
+        .pipe(gulp.dest('spa/css'));
+});
+
 gulp.task('default', ['build-less']);

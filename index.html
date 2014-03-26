@@ -20,26 +20,34 @@
       <![endif]-->
 
     <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="/spa/css/jquery-ui-1.10.4.custom.css" />
-    <link rel="stylesheet" type="text/css" href="/spa/css/main.css" />
+
+    <!--<link rel="stylesheet" href="/spa/css/jquery-ui-1.10.4.custom.css" />
+    <link rel="stylesheet" type="text/css" href="/spa/css/main.css" />-->
+
+    <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" href="/spa/css/main.css" />
+    <link rel="stylesheet" href="/spa/css/tickets.min.css" />
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="/spa/css/ie.min.css" />
+    <![endif]-->
 
     <script type="text/javascript">
 
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-32173758-1']);
-        _gaq.push(['_setDomainName', 'inna.ru']);
-        _gaq.push(['_trackPageview']);
+        //var _gaq = _gaq || [];
+        //_gaq.push(['_setAccount', 'UA-32173758-1']);
+        //_gaq.push(['_setDomainName', 'inna.ru']);
+        //_gaq.push(['_trackPageview']);
 
-        (function () {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
+        //(function () {
+        //    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        //    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        //    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        //})();
 
     </script> 
 
 </head>
-<body id="ng-app" ng-app="innaApp" ng-click="bodyClick()" ng-controller="NavigationCtrl" popup-form>
+<body id="ng-app" class="light-theme" ng-app="innaApp" ng-click="bodyClick()" ng-controller="NavigationCtrl" popup-form>
 
 	<div class="header Header">
         
@@ -69,7 +77,7 @@
             <ul class="header-menu-container-items"><!--
                 --><!--<li class="header-menu-item"><a href="/#/hotelticket/" ng-class="{active:isActive('/hotelticket/')}">Билет + отель</a></li>--><!--
                 --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
-                --><li class="header-menu-item"><a href="http://www.inna.ru/Booking/avia/Search/Flights/Search.aspx" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
+                --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
                 --><li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
                 --><li class="header-menu-item"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li><!--
                 --><!--<li class="header-menu-item"><a href="/#/autorent/" ng-class="{active:isActive('/autorent/')}">Аренда авто</a></li>--><!--
@@ -194,6 +202,11 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
 
 <!--[if lt IE 10]>
+    <script src="/spa/js/ie.placeholder.js"></script>
+<![endif]-->
+<script src="/spa/js/search_form.js"></script>
+
+<!--[if lt IE 10]>
 <script src="spa/lib/xdomain.min.js"></script>
 <script>
     xdomain.slaves({
@@ -214,43 +227,44 @@
 </script>
 
 
-<script src="/SPA/js/angular/urlhelper.js"></script>
-<script src="/SPA/js/angular/date.helper.js"></script>
-<script src="/SPA/js/angular/api.stub.js"></script>
-<script src="/SPA/js/angular/cache_keys.js"></script>
+<script src="spa/js/angular/urlhelper.js"></script>
+<script src="spa/js/angular/date.helper.js"></script>
+<script src="spa/js/angular/api.stub.js"></script>
+<script src="spa/js/angular/cache_keys.js"></script>
 
-<script src="/SPA/js/angular/app.js"></script>
-<script src="/SPA/js/angular/filters.js"></script>
-<script src="/SPA/js/angular/services.js"></script>
-<script src="/SPA/js/angular/controllers/controller.about.js"></script>
-<script src="/SPA/js/angular/controllers/controller.avia.search.main.js"></script>
-<script src="/SPA/js/angular/controllers/controller.avia.search.results.js"></script>
-<script src="/SPA/js/angular/controllers/controller.contacts.js"></script>
-<script src="/SPA/js/angular/controllers/controller.hotel.js"></script>
-<script src="/SPA/js/angular/controllers/controller.hotels.js"></script>
-<script src="/SPA/js/angular/controllers/controller.hotel_plus_ticket.js"></script>
-<script src="/SPA/js/angular/controllers/controller.individualtours.js"></script>
-<script src="/SPA/js/angular/controllers/controller.individualtourscategory.js"></script>
-<script src="/SPA/js/angular/controllers/controller.main.js"></script>
-<script src="/SPA/js/angular/controllers/controller.navigation.js"></script>
-<script src="/SPA/js/angular/controllers/controller.offers.list.js"></script>
-<script src="/SPA/js/angular/controllers/controller.payment.js"></script>
-<script src="/SPA/js/angular/controllers/controller.search.main.js"></script>
-<script src="/SPA/js/angular/controllers/controller.search.result.js"></script>
-<script src="/SPA/js/angular/controllers/controller.slider.js"></script>
-<script src="/SPA/js/angular/controllers/controller.tour.js"></script>
-<script src="/SPA/js/angular/controllers/controller.tours.form.js"></script>
-<script src="/SPA/js/angular/controllers/controller.tours.js"></script>
-<script src="/SPA/js/angular/controllers/controllers.js"></script>
-<script src="/SPA/js/angular/directives/directive.combobox.js"></script>
-<script src="/SPA/js/angular/directives/directive.datepicker.custom.js"></script>
-<script src="/SPA/js/angular/directives/directive.map.js"></script>
-<script src="/SPA/js/angular/directives/directive.popup.form.js"></script>
-<script src="/SPA/js/angular/directives/directives.js"></script>
-<script src="/SPA/js/angular/models/app.model.avia.js"></script>
-<script src="/SPA/js/angular/models/app.model.js"></script>
-<script src="/SPA/js/angular/models/app.model.to.api.model.js"></script>
-<script src="/SPA/js/angular/models/app.model.tours.js"></script>
+<script src="spa/js/angular/app.js"></script>
+<script src="spa/js/angular/filters.js"></script>
+<script src="spa/js/angular/services.js"></script>
+<script src="spa/js/angular/controllers/controller.about.js"></script>
+<script src="spa/js/angular/controllers/controller.avia.search.main.js"></script>
+<script src="spa/js/angular/controllers/controller.avia.search.results.js"></script>
+<script src="spa/js/angular/controllers/controller.contacts.js"></script>
+<script src="spa/js/angular/controllers/controller.hotel.js"></script>
+<script src="spa/js/angular/controllers/controller.hotels.js"></script>
+<script src="spa/js/angular/controllers/controller.hotel_plus_ticket.js"></script>
+<script src="spa/js/angular/controllers/controller.individualtours.js"></script>
+<script src="spa/js/angular/controllers/controller.individualtourscategory.js"></script>
+<script src="spa/js/angular/controllers/controller.main.js"></script>
+<script src="spa/js/angular/controllers/controller.navigation.js"></script>
+<script src="spa/js/angular/controllers/controller.offers.list.js"></script>
+<script src="spa/js/angular/controllers/controller.payment.js"></script>
+<script src="spa/js/angular/controllers/controller.search.main.js"></script>
+<script src="spa/js/angular/controllers/controller.search.result.js"></script>
+<script src="spa/js/angular/controllers/controller.slider.js"></script>
+<script src="spa/js/angular/controllers/controller.tour.js"></script>
+<script src="spa/js/angular/controllers/controller.tours.form.js"></script>
+<script src="spa/js/angular/controllers/controller.tours.js"></script>
+<script src="spa/js/angular/controllers/controllers.js"></script>
+<script src="spa/js/angular/directives/directive.combobox.js"></script>
+<script src="spa/js/angular/directives/directive.datepicker.2months.js"></script>
+<script src="spa/js/angular/directives/directive.datepicker.custom.js"></script>
+<script src="spa/js/angular/directives/directive.map.js"></script>
+<script src="spa/js/angular/directives/directive.popup.form.js"></script>
+<script src="spa/js/angular/directives/directives.js"></script>
+<script src="spa/js/angular/models/app.model.avia.js"></script>
+<script src="spa/js/angular/models/app.model.js"></script>
+<script src="spa/js/angular/models/app.model.to.api.model.js"></script>
+<script src="spa/js/angular/models/app.model.tours.js"></script>
 
 
    
@@ -373,7 +387,7 @@
 
 
 <!-- Yandex.Metrika counter -->
-<div style="display:none;"><script type="text/javascript">
+<!--<div style="display:none;"><script type="text/javascript">
 (function(w, c) {
     (w[c] = w[c] || []).push(function() {
         try {
@@ -386,10 +400,10 @@
 })(window, 'yandex_metrika_callbacks');
 </script></div>
 <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-<noscript><div><img src="//mc.yandex.ru/watch/5467552" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="//mc.yandex.ru/watch/5467552" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
 <!-- /Yandex.Metrika counter -->
 <!-- Yandex.Metrika counter -->
-<div style="display:none;"><script type="text/javascript">
+<!--<div style="display:none;"><script type="text/javascript">
                                (function (w, c) {
                                    (w[c] = w[c] || []).push(function () {
                                        try {
@@ -400,7 +414,7 @@
                                })(window, "yandex_metrika_callbacks");
 </script></div>
 <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-<noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
 <!-- /Yandex.Metrika counter -->
 
 

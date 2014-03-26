@@ -13,7 +13,10 @@
 // Var
 $ProximaNova = ProximaNova, Arial, sans-serif
 
-.search-form
+.hidden
+    display none
+
+.search-ticket-form
     font-size 0
     line-height 0
     letter-spacing -1px
@@ -21,6 +24,8 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     padding 0
     color #242424
     position relative
+    width 960px
+    margin 0 auto
 
 .search-field-block
 .search-date-block
@@ -96,6 +101,10 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     line-height 48px
     width 117px
     font-weight bold
+    transition background-color 0.3s linear
+
+.search-button-block:hover
+    background #95cd47
 
 .search-button-block input
     position absolute

@@ -5,11 +5,12 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     minifyCSS = require('gulp-minify-css'),
     gzip = require("gulp-gzip"),
-    csscomb = require('gulp-csscomb');
+    csscomb = require('gulp-csscomb'),
+    less = require('gulp-less');
 
 gulp.task('styles', function () {
-    gulp.src(['styl/search.styl', 'styl/datepicker.styl'])
-        .pipe(concat('search.min.css'))
+    gulp.src(['styl/search.styl', 'styl/datepicker.styl', 'styl/results.styl'])
+        .pipe(concat('tickets.min.css'))
         .pipe(stylus({
             use: ['nib'],
             import: ['nib']
@@ -26,6 +27,19 @@ gulp.task('styles', function () {
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest('css'))
         // .pipe(livereload());
+    gulp.src(['styl/ticket.styl'])
+        .pipe(concat('ticket.min.css'))
+        .pipe(stylus({
+            use: ['nib'],
+            import: ['nib']
+        }))
+        .pipe(minifyCSS(opts))
+        .pipe(gulp.dest('css'))
+        // .pipe(livereload());
+    gulp.src(['css/main/*.less'])
+        .pipe(concat('main.css'))
+        .pipe(less())
+        .pipe(gulp.dest('css'))
 });
 
 gulp.task('watch', function () {

@@ -77,10 +77,10 @@ UrlHelper = {
 	getUrlFromData: function(data){
 	    if (data != null)
 	    {
-	        if (data.code_iata != null && data.code_iata.length > 0)
-	            return data.code_iata;
-	        else if (data.name_en != null && data.name_en.length > 0)
-	            return data.code_iata;
+	        if (data.CodeIata != null && data.CodeIata.length > 0)
+	            return data.CodeIata;
+	        else if (data.NameEn != null && data.NameEn.length > 0)
+	            return data.NameEn;
 	    }
 
 	    return '';
@@ -162,11 +162,12 @@ UrlHelper = {
 	UrlToAviaSearch: function (criteria) {
 
 	    criteria = this.changeNullsToAny(criteria);
-	    console.log('UrlToAviaSearch changeNullsToAny: ' + angular.toJson(criteria));
+	    //console.log('UrlToAviaSearch changeNullsToAny: ' + angular.toJson(criteria));
 
 	    var dl = this.Delimiter;
 	    return '/avia/search/' + criteria.FromUrl + dl + criteria.ToUrl + dl + criteria.BeginDate + dl + criteria.EndDate
-			+ dl + criteria.AdultCount + dl + criteria.ChildCount + dl + criteria.InfantsCount + dl + criteria.CabinClass + dl + criteria.IsFlexible;
+			+ dl + criteria.AdultCount + dl + criteria.ChildCount + dl + criteria.InfantsCount + dl + criteria.CabinClass
+            + dl + criteria.IsToFlexible + dl + criteria.IsBackFlexible;
 	},
 
 	UrlToSletatTours: function (city, country, resort, hotel, date, nightsMin, nightsMax, adults, kids, kids_ages) {
