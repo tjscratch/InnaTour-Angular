@@ -26,10 +26,10 @@
                        ng-get-url="getDirectoryUrl" auto-complete-directory />
     </div>
     <div class="search-date-block js-start-date-block">
-        <input type="text" class="search-date search-date-arr js-start-date" placeholder="Туда" ng-model="criteria.BeginDate" date-picker />
+        <input type="text" class="search-date search-date-arr js-start-date" placeholder="Туда" ng-model="criteria.BeginDate" date-picker-two-months />
     </div>
     <div class="search-date-block js-finish-date-block">
-        <input type="text" class="search-date search-date-dep js-finish-date" placeholder="Обратно" ng-model="criteria.EndDate" date-picker />
+        <input type="text" class="search-date search-date-dep js-finish-date" placeholder="Обратно" ng-model="criteria.EndDate" date-picker-two-months />
     </div>
     <div class="search-people-block" ng-click="form.peoplePopupClick($event)">
         <div class="search-people">{{getAppPeopleCount()}} человек</div>
