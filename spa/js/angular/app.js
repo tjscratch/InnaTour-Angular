@@ -68,6 +68,10 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/avia/search_results.html',
             controller: 'AviaSearchResultsCtrl'
         }).
+        when('/avia/search_old/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
+            templateUrl: '/spa/templates/pages/avia/search_results_old.html',
+            controller: 'AviaSearchResultsCtrl'
+        }).
         //when('/avia/search/', {
         //    templateUrl: '/TemplatesAvia/Search',
         //    controller: 'AviaSearchResultsCtrl'

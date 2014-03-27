@@ -347,6 +347,7 @@
     <Content Include="spa\templates\nav_forms\tours_search_form.html" />
     <Content Include="spa\templates\pages\about_page.html" />
     <Content Include="spa\templates\pages\avia\search_form.html" />
+    <Content Include="spa\templates\pages\avia\search_results_old.html" />
     <Content Include="spa\templates\pages\avia\search_results.html" />
     <Content Include="spa\templates\pages\contacts_page.html" />
     <Content Include="spa\templates\pages\it_category_page.html" />
