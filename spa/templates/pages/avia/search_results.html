@@ -5,7 +5,9 @@
     <!-- Results List -->
     <div class="results-list">
         <header class="rl-header">
-            <h3 class="rl-flights-number">{{filteredTicketsList.length}} из {{ticketsList.length}} рейсов</h3>
+            <h3 class="rl-flights-number" ng-if="ticketsList.length > 0">{{filteredTicketsList.length}} из {{ticketsList.length}} рейсов</h3>
+            <h3 class="rl-flights-number" ng-if="ticketsList.length == 0">рейсов не найдено</h3>
+            <h3 class="rl-flights-number" ng-if="ticketsList == null">поиск рейсов...</h3>
             <div class="rl-filter">
                 <div class="rl-filter-current">По стоимости</div>
                 <ul class="rl-filter-menu" style="display:none;">
@@ -15,7 +17,62 @@
                 </ul>
             </div>
         </header>
-        <div class="rl-item">
+
+        <!--<div class="rl-item" ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">-->
+        <div class="rl-item" ng-repeat="item in filteredTicketsList">
+            <header class="rl-item-header">
+                <span class="rl-price">
+                    <span class="rl-price-item">{{item.Price}}</span> руб.
+                </span>
+                <a href="#" class="rl-buy-button">Купить</a>
+                <span class="rl-airline">British Airways / Aeroflot</span>
+            </header>
+            <div class="rl-content">
+                <img ng-src="{{item.EtapsToTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
+                <div class="rl-fly">
+                    <b class="rl-fly-time">{{item.DepartureTimeFormatted}}</b>  <span class="rl-airport js-title" title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
+                    <div class="rl-fly-date">{{item.DepartureDateFormatted}}</div>
+                </div>
+                <div class="rl-travel-time">{{item.TimeToFormatted}}</div>
+                <div class="rl-fly">
+                    <b class="rl-fly-time">{{item.ArrivalTimeFormatted}}</b>  <span class="rl-airport js-title" title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
+                    <div class="rl-fly-date">{{item.ArrivalDateFormatted}}</div>
+                </div>
+                <div class="rl-fly-type" ng-if="item.ToTransferCount > 0">
+                    <div class="rl-fly-transplant">2 пересадки</div>
+                    <div class="rl-fly-transplant-time">AMS 14 ч 35 мин, PAR 26 ч 45 мин</div>
+                </div>
+                <div class="rl-fly-type" ng-if="item.ToTransferCount == 0">
+                    <div class="rl-fly-transplant">Прямой</div>
+                </div>
+            </div>
+            <div class="rl-content">
+                <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsBackTransporterName}}">
+                <div class="rl-fly">
+                    <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}}</b>  <span class="rl-airport js-title" title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
+                    <div class="rl-fly-date">{{item.BackDepartureDateFormatted}}</div>
+                </div>
+                <div class="rl-travel-time">{{item.TimeBackFormatted}}</div>
+                <div class="rl-fly">
+                    <b class="rl-fly-time">{{item.BackArrivalTimeFormatted}}</b>  <span class="rl-airport js-title" title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
+                    <div class="rl-fly-date">{{item.BackArrivalDateFormatted}}</div>
+                </div>
+                <div class="rl-fly-type" ng-if="item.BackTransferCount > 0">
+                    <div class="rl-fly-transplant">2 пересадки</div>
+                    <div class="rl-fly-transplant-time">AMS 14 ч 35 мин, PAR 26 ч 45 мин</div>
+                </div>
+                <div class="rl-fly-type" ng-if="item.BackTransferCount == 0">
+                    <div class="rl-fly-transplant">Прямой</div>
+                </div>
+            </div>
+            <footer class="rl-footer">
+                <a href="#" class="rl-more-info"><span>Подробнее</span></a>
+                <span class="rl-tickets-number">Последние 3 места</span>
+                <span class="rl-class">{{item.CabineClass}}</span>
+            </footer>
+        </div>
+
+        <!--<div class="rl-item">
             <header class="rl-item-header">
                 <span class="rl-price">
                     <span class="rl-price-item">69 450</span> руб.
@@ -134,7 +191,6 @@
                 <span class="rl-tickets-number">Последние 3 места</span>
                 <span class="rl-class">Эконом</span>
             </footer>
-            <!-- FullInfo -->
             <div class="rl-fullinfo">
                 <div class="rlf-oneway">
                     <div class="rlf-fly">
@@ -294,8 +350,7 @@
                     <a href="#" class="rl-more-info"><span>Свернуть</span></a>
                 </footer>
             </div>
-            <!-- /FullInfo -->
-        </div>
+        </div>-->
     </div>
     <!-- /Results List -->
 

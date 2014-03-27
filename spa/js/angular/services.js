@@ -77,7 +77,7 @@ innaAppServices.
             startAviaSearch: function (criteria, successCallback, errCallback) {
                 //запрос по критериям поиска
                 var apiCriteria = new aviaCriteriaToApiCriteria(criteria);
-                log('apiCriteria: ' + angular.toJson(apiCriteria));
+                log('startAviaSearch, apiCriteria: ' + angular.toJson(apiCriteria));
 
                 //debug
                 if (avia.useAviaServiceStub) {

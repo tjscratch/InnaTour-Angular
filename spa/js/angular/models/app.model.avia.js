@@ -100,9 +100,9 @@ function transporter(name, code, logo) {
 
 //namespace
 var avia = {
-    useAviaServiceStub: false,
-    dateFormat: 'MM.dd.yyyy HH:mm:ss',
-    timeFormat: 'MM.dd.yyyy HH:mm:ss',
+    useAviaServiceStub: true,
+    dateFormat: 'dd MMMM yyyy, EEE',
+    timeFormat: 'HH:mm',
     sortType: {
         byRecommend: ['-IsRecomendation', 'sort.DepartureDate'],
         byPrice: ['Price', 'sort.DepartureDate'],

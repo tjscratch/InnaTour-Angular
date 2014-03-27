@@ -4,11 +4,11 @@
     }
 </style>
 <!-- Search Form -->
-<form class="search-ticket-form" ng-controller="AviaSearchMainCtrl">
+<form class="search-ticket-form" ng-controller="AviaFormCtrl">
     <div class="search-field-block">
         <input type="text" class="search-field" placeholder="Откуда" ng-model="criteria.From"
-                       ng-id-model="criteria.FromId" ng-url-model="criteria.FromUrl"
-                       ng-get-url="getDirectoryUrl" auto-complete-directory />
+               ng-id-model="criteria.FromId" ng-url-model="criteria.FromUrl"
+               ng-get-url="getDirectoryUrl" auto-complete-directory />
         <!--<ul class="search-form-list search-form-list-to" ng-show="form.toListIsNotEmpty()">
             <ng:any ng-repeat="item in form.toList">
                 <li class="search-form-list-item-separator" ng-show="isNeedInsertDelimiter(item, $index)"></li>
@@ -22,8 +22,8 @@
     </div>
     <div class="search-field-block">
         <input type="text" class="search-field" placeholder="Куда" ng-model="criteria.To"
-                       ng-id-model="criteria.ToId" ng-url-model="criteria.ToUrl"
-                       ng-get-url="getDirectoryUrl" auto-complete-directory />
+               ng-id-model="criteria.ToId" ng-url-model="criteria.ToUrl"
+               ng-get-url="getDirectoryUrl" auto-complete-directory />
     </div>
     <div class="search-date-block js-start-date-block">
         <input type="text" class="search-date search-date-arr js-start-date" placeholder="Туда"
@@ -72,7 +72,8 @@
     <ul class="search-pref-block">
         <li class="search-pref" ng-class="{current:criteria.PathType == 0}" ng-click="pathTypeClick(0)">Туда и обратно</li>
         <li class="search-pref" ng-class="{current:criteria.PathType == 1}" ng-click="pathTypeClick(1)">В одну сторону</li>
-        <li class="search-pref search-pref-comfort" ng-click="cabinClassListClick($event)">{{getSelectedCabinClassName()}}
+        <li class="search-pref search-pref-comfort" ng-click="cabinClassListClick($event)">
+            {{getSelectedCabinClassName()}}
             <ul class="search-pref-select" ng-show="form.isCabinClassOpened">
                 <li ng-repeat="cabinClass in cabinClassList" ng-click="cabinClassClick(cabinClass, $event)">{{cabinClass.name}}</li>
             </ul>

@@ -12,11 +12,6 @@ innaAppControllers.
                 $log.log(msg);
             }
 
-            //пишем в лог раз в 300мс
-            var logCriteriaData = _.debounce(function () {
-                log('criteria: ' + angular.toJson($scope.criteria));
-            }, 300);
-
             var urlDataLoaded = { fromLoaded: false, toLoaded: false };
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {
@@ -47,7 +42,7 @@ innaAppControllers.
             //обрабатываем параметры из url'а
             var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
-            log('$scope.criteria: ' + angular.toJson($scope.criteria));
+            log('routeCriteria: ' + angular.toJson($scope.criteria));
 
             //запрашиваем парамерты по их Url'ам
             setFromAndToFieldsFromUrl();
@@ -127,7 +122,8 @@ innaAppControllers.
                             $scope.criteria.From = data.name;
                             $scope.criteria.FromId = data.id;
                             $scope.criteria.FromUrl = data.url;
-                            logCriteriaData();
+                            //logCriteriaData();
+                            log('$scope.criteria.From: ' + angular.toJson($scope.criteria));
                             urlDataLoaded.fromLoaded = true;
                             ifDataLoadedStartSearch();
                         }
@@ -147,7 +143,8 @@ innaAppControllers.
                             $scope.criteria.To = data.name;
                             $scope.criteria.ToId = data.id;
                             $scope.criteria.ToUrl = data.url;
-                            logCriteriaData();
+                            //logCriteriaData();
+                            log('$scope.criteria.To: ' + angular.toJson($scope.criteria));
                             urlDataLoaded.toLoaded = true;
                             ifDataLoadedStartSearch();
                         }
@@ -171,7 +168,104 @@ innaAppControllers.
                         return null;
                 };
 
-                if (data != null && data.Items != null) {
+                //формат дат
+                var monthEnToRus = [
+                    { En: "Jan", Ru: "января" },
+                    { En: "Feb", Ru: "февраля" },
+                    { En: "Mar", Ru: "марта" },
+                    { En: "Apr", Ru: "апреля" },
+                    { En: "May", Ru: "мая" },
+                    { En: "Jun", Ru: "июня" },
+                    { En: "Jul", Ru: "июля" },
+                    { En: "Aug", Ru: "августа" },
+                    { En: "Sep", Ru: "сентября" },
+                    { En: "Oct", Ru: "октября" },
+                    { En: "Nov", Ru: "ноября" },
+                    { En: "Dec", Ru: "декабря" }];
+
+                var weekDaysEnToRus = [
+                    { En: "Mon", Ru: "пн" },
+                    { En: "Tue", Ru: "вт" },
+                    { En: "Wed", Ru: "ср" },
+                    { En: "Thu", Ru: "чт" },
+                    { En: "Fri", Ru: "пт" },
+                    { En: "Sat", Ru: "сб" },
+                    { En: "Sun", Ru: "вс" }];
+
+                function changeEnToRu(text) {
+                    var dic = monthEnToRus;
+                    for (var i = 0; i < dic.length; i++) {
+                        var dicItem = dic[i];
+                        if (text.indexOf(dicItem.En) > -1) {
+                            text = text.replace(dicItem.En, dicItem.Ru);
+                            break;
+                        }
+                    }
+                    dic = weekDaysEnToRus;
+                    for (var i = 0; i < dic.length; i++) {
+                        var dicItem = dic[i];
+                        if (text.indexOf(dicItem.En) > -1) {
+                            text = text.replace(dicItem.En, dicItem.Ru);
+                            break;
+                        }
+                    }
+                    return text;
+                }
+
+                var timeFormat = "HH:mm";
+                var dateFormat = "dd MMM yyyy, EEE";
+
+                function getTimeFormat(dateText) {
+                    return $filter("date")(dateText, timeFormat);
+                }
+
+                function getDateFormat(dateText) {
+                    return changeEnToRu($filter("date")(dateText, dateFormat));
+                }
+
+                //код компании
+                function getTransporterCode(etapsTo) {
+                    var manyCode = "any";
+                    var manyName = "any";
+                    if (etapsTo != null)
+                    {
+                        if (etapsTo.length == 1){
+                            return { name: etapsTo[0].TransporterName, code: etapsTo[0].TransporterCode };
+                        }
+                        else if (etapsTo.length > 1)
+                        {
+                            var firstCode = etapsTo[0].TransporterCode;
+                            var firstName = etapsTo[0].TransporterName;
+                            for (var i = 1; i < etapsTo.length; i++) {
+                                if (etapsTo[i].TransporterCode != firstCode)
+                                {
+                                    //коды отличаются - возвращаем 
+                                    return { name: manyName, code: manyCode };
+                                }
+                            }
+                            //коды не отличаются - возвращаем код
+                            return { name: firstName, code: firstCode };
+                        }
+                    }
+                }
+
+                //время в пути
+                function getFlightTimeFormatted(time) {
+                    if (time != null)
+                    {
+                        //вычисляем сколько полных часов
+                        var h = Math.floor(time / 60);
+                        var addMins = time - h * 60;
+                        //return h + " ч " + addMins + " мин" + " (" + time + ")";//debug
+                        if (addMins == 0)
+                            return h + " ч";
+                        else
+                            return h + " ч " + addMins + " мин";
+                    }
+                    return "";
+                }
+
+                if (data != null && data.Items != null && data.Items.length > 0) {
                     var list = [];
                     //нужно добавить служебные поля для сортировки по датам
                     //в этих полях дата будет в миллисекундах
@@ -183,6 +277,29 @@ innaAppControllers.
                             BackDepartureDate: dateToMillisecs(item.BackDepartureDate),
                             BackArrivalDate: dateToMillisecs(item.BackArrivalDate)
                         };
+                        //дополняем полями с форматированной датой и временем
+                        item.DepartureTimeFormatted = getTimeFormat(item.DepartureDate);
+                        item.DepartureDateFormatted = getDateFormat(item.DepartureDate);
+                        item.ArrivalTimeFormatted = getTimeFormat(item.ArrivalDate);
+                        item.ArrivalDateFormatted = getDateFormat(item.ArrivalDate);
+
+                        item.BackDepartureTimeFormatted = getTimeFormat(item.BackDepartureDate);
+                        item.BackDepartureDateFormatted = getDateFormat(item.BackDepartureDate);
+                        item.BackArrivalTimeFormatted = getTimeFormat(item.BackArrivalDate);
+                        item.BackArrivalDateFormatted = getDateFormat(item.BackArrivalDate);
+
+                        //TransporterCode
+                        var codeEtapsTo = getTransporterCode(item.EtapsTo);
+                        var codeEtapsBack = getTransporterCode(item.EtapsBack);
+                        item.EtapsToTransporterCodeUrl = "http://adioso.com/media/i/airlines/" + codeEtapsTo.code + ".png";
+                        item.EtapsToTransporterName = codeEtapsTo.name;
+                        item.EtapsBackTransporterCodeUrl = "http://adioso.com/media/i/airlines/" + codeEtapsBack.code + ".png";
+                        item.EtapsBackTransporterName = codeEtapsBack.name;
+
+                        //время в пути
+                        item.TimeToFormatted = getFlightTimeFormatted(item.TimeTo);
+                        item.TimeBackFormatted = getFlightTimeFormatted(item.TimeBack);
+
                         list.push(item);
                     }
                     //добавляем список
@@ -192,6 +309,7 @@ innaAppControllers.
                 }
                 else
                 {
+                    $scope.ticketsList = [];
                     log('updateModel - nothing to update, data is empty');
                     $scope.isDataLoading = false;
                 }
