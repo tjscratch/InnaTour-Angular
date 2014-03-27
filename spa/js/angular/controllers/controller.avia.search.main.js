@@ -22,6 +22,25 @@ innaAppControllers.
 
             //значения по-умобчанию
             var defaultCriteria = getDefaultCriteria();
+            function getDefaultCriteria() {
+                //даты по-умолчанию: сегодня и +5 дней
+                var now = new Date();
+                var nowAdd5days = now.setDate(now.getDate() + 5);
+                var f_now = $filter('date')(new Date(), 'dd.MM.yyyy');
+                var f_nowAdd5days = $filter('date')(nowAdd5days, 'dd.MM.yyyy');
+                //f_now = null;
+                //f_nowAdd5days = null;
+
+                return new aviaCriteria({
+                    "From": "Москва", "FromId": 6733, "FromUrl": "MOW",
+                    "To": "Мюнхен", "ToId": 1357, "ToUrl": "MUC",
+                    "BeginDate": f_now, "EndDate": f_nowAdd5days,
+                    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
+                    "PathType": 0
+                });
+
+            };
+
             //добавляем в кэш откуда, куда
             //addDefaultFromToDirectionsToCache(defaultCriteria);
             //списки по-умолчанию
@@ -59,23 +78,6 @@ innaAppControllers.
                 //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
                 var url = UrlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
                 $location.path(url);
-            };
-
-            function getDefaultCriteria() {
-                //даты по-умолчанию: сегодня и +5 дней
-                var now = new Date();
-                var nowAdd5days = now.setDate(now.getDate() + 5);
-                var f_now = $filter('date')(new Date(), 'dd.MM.yyyy');
-                var f_nowAdd5days = $filter('date')(nowAdd5days, 'dd.MM.yyyy');
-
-                return new aviaCriteria({
-                    "From": "Москва", "FromId": 6733, "FromUrl": "MOW",
-                    "To": "Мюнхен", "ToId": 1357, "ToUrl": "MUC",
-                    "BeginDate": f_now, "EndDate": f_nowAdd5days,
-                    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
-                    "PathType": 0
-                });
-                
             };
 
             //function addDefaultFromToDirectionsToCache(defaultCriteria) {
