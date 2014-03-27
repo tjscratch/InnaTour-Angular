@@ -18,12 +18,20 @@ innaAppControllers.
             //$routeParams
             $scope.$on('avia.page.loaded', function (event, $routeParams) {
                 log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams));
+
+                //если пусто
+                if ($routeParams.FromUrl == null || $routeParams.BeginDate == null) {
+                    log('$routeParams is empty');
+                    return;
+                }
+
                 //критерии из урла
                 var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+
                 log('AviaFormCtrl routeCriteria: ' + angular.toJson(routeCriteria));
                 $scope.criteria = routeCriteria;
-                //начальные условия поиска, если из урла ничего не пришло
-                //_.defaults($scope.criteria, defaultCriteria);
+
+                $scope.criteria.PathType = 0;
 
                 //по url вытягиваем Id и name для города, региона и т.д.
                 setFromAndToFieldsFromUrl(routeCriteria);
@@ -65,37 +73,12 @@ innaAppControllers.
             //logCriteriaData();
             log('AviaFormCtrl defaultCriteria: ' + angular.toJson($scope.criteria));
 
-            //при изменении полей формы - обновляем url
-            //сейчас есть баг - если урл #/avia/ и начинаем вводить что-нить в поле откуда - то ввод срывает
-            //т.к. срабатывает смена модели и меняется урл, и происходит перезагрузка страницы
-            //$scope.$watch('criteria', function (newValue, oldValue) {
-            //    if (newValue === oldValue) {
-            //        return;
-            //    }
-            //    //log('watch criteria From: ' + newValue.From);
-
-            //    var url = UrlHelper.UrlToAviaMain(angular.copy($scope.criteria));
-            //    $location.path(url);
-            //}, true);
-
             //тут меняем урл для поиска
             $scope.searchStart = function () {
                 //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
                 var url = UrlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
                 $location.path(url);
             };
-
-            //function addDefaultFromToDirectionsToCache(defaultCriteria) {
-            //    //добавляем в кэш откуда
-            //    var key = cacheKeys.getDirectoryByUrl(defaultCriteria.FromUrl);
-            //    var cdata = new directoryCacheData(defaultCriteria.FromId, defaultCriteria.From, defaultCriteria.FromUrl);
-            //    cache.put(key, cdata);
-
-            //    //добавляем в кэш - куда
-            //    key = cacheKeys.getDirectoryByUrl(defaultCriteria.ToUrl);
-            //    cdata = new directoryCacheData(defaultCriteria.ToId, defaultCriteria.To, defaultCriteria.ToUrl);
-            //    cache.put(key, cdata);
-            //};
 
             function setFromAndToFieldsFromUrl(routeCriteria) {
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
