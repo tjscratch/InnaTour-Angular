@@ -100,7 +100,7 @@ function transporter(name, code, logo) {
 
 //namespace
 var avia = {
-    useAviaServiceStub: true,
+    useAviaServiceStub: false,
     dateFormat: 'dd MMMM yyyy, EEE',
     timeFormat: 'HH:mm',
     sortType: {

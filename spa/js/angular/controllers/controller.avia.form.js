@@ -4,8 +4,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaFormCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService', 'cache',
-        function AviaFormCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, cache) {
+    controller('AviaFormCtrl', ['$log', '$scope', '$rootScope', '$filter', '$location', 'dataService', 'cache',
+        function AviaFormCtrl($log, $scope, $rootScope, $filter, $location, dataService, cache) {
 
             var self = this;
             function log(msg) {
@@ -14,6 +14,20 @@ innaAppControllers.
 
             //флаг индикатор загрузки
             $scope.isDataLoading = false;
+
+            //$routeParams
+            $scope.$on('avia.page.loaded', function (event, $routeParams) {
+                log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams));
+                //критерии из урла
+                var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+                log('AviaFormCtrl routeCriteria: ' + angular.toJson(routeCriteria));
+                $scope.criteria = routeCriteria;
+                //начальные условия поиска, если из урла ничего не пришло
+                //_.defaults($scope.criteria, defaultCriteria);
+
+                //по url вытягиваем Id и name для города, региона и т.д.
+                setFromAndToFieldsFromUrl(routeCriteria);
+            });
 
             //значения по-умобчанию
             var defaultCriteria = getDefaultCriteria();
@@ -45,18 +59,11 @@ innaAppControllers.
 
             $scope.pathTypeList = [{ name: 'Туда обратно', value: 0 }, { name: 'Туда', value: 1 }];
 
-            log('AviaFormCtrl $routeParams: ' + angular.toJson($routeParams));
+            
             //критерии из урла
-            var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
-            log('AviaFormCtrl routeCriteria: ' + angular.toJson(routeCriteria));
-            $scope.criteria = routeCriteria;
-            //начальные условия поиска, если из урла ничего не пришло
-            _.defaults($scope.criteria, defaultCriteria);
+            $scope.criteria = defaultCriteria;
             //logCriteriaData();
-            log('AviaFormCtrl criteria: ' + angular.toJson($scope.criteria));
-
-            //по url вытягиваем Id и name для города, региона и т.д.
-            setFromAndToFieldsFromUrl();
+            log('AviaFormCtrl defaultCriteria: ' + angular.toJson($scope.criteria));
 
             //при изменении полей формы - обновляем url
             //сейчас есть баг - если урл #/avia/ и начинаем вводить что-нить в поле откуда - то ввод срывает
@@ -90,7 +97,7 @@ innaAppControllers.
             //    cache.put(key, cdata);
             //};
 
-            function setFromAndToFieldsFromUrl() {
+            function setFromAndToFieldsFromUrl(routeCriteria) {
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
                     $scope.criteria.From = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {

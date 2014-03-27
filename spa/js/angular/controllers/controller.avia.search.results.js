@@ -4,13 +4,16 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaSearchResultsCtrl', ['$log', '$scope', '$routeParams', '$filter', '$location', 'dataService',
-        function AviaSearchResultsCtrl($log, $scope, $routeParams, $filter, $location, dataService) {
+    controller('AviaSearchResultsCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService',
+        function AviaSearchResultsCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService) {
 
             var self = this;
             function log(msg) {
                 $log.log(msg);
             }
+
+            //нужно передать в шапку (AviaFormCtrl) $routeParams
+            $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
             var urlDataLoaded = { fromLoaded: false, toLoaded: false };
             //начинаем поиск, после того, как подтянули все данные
@@ -223,10 +226,10 @@ innaAppControllers.
                     return changeEnToRu($filter("date")(dateText, dateFormat));
                 }
 
+                var manyCode = "any";
+                var manyName = "any";
                 //код компании
                 function getTransporterCode(etapsTo) {
-                    var manyCode = "any";
-                    var manyName = "any";
                     if (etapsTo != null)
                     {
                         if (etapsTo.length == 1){
@@ -299,6 +302,16 @@ innaAppControllers.
                         //время в пути
                         item.TimeToFormatted = getFlightTimeFormatted(item.TimeTo);
                         item.TimeBackFormatted = getFlightTimeFormatted(item.TimeBack);
+
+                        //авиакомпании
+                        item.TransporterListText = "Разные авиакомпании";
+                        if (codeEtapsTo.code != manyCode && codeEtapsBack.code != manyCode)
+                        {
+                            if (codeEtapsTo.code == codeEtapsBack.code)
+                                item.TransporterListText = codeEtapsTo.name;
+                            else
+                                item.TransporterListText = codeEtapsTo.name + " / " + codeEtapsBack.name;
+                        }
 
                         list.push(item);
                     }

@@ -303,6 +303,7 @@
     <Content Include="spa\js\angular\controllers\controller.search.result.js" />
     <Content Include="spa\js\angular\controllers\controller.slider.js" />
     <Content Include="spa\js\angular\controllers\controller.tour.js" />
+    <Content Include="spa\js\angular\controllers\controller.avia.form.js" />
     <Content Include="spa\js\angular\controllers\controller.tours.form.js" />
     <Content Include="spa\js\angular\controllers\controller.tours.js" />
     <Content Include="spa\js\angular\controllers\controllers.js" />
