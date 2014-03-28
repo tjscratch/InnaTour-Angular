@@ -82,6 +82,10 @@ innaAppControllers.
                 log('getIndividualToursCategory error; status:' + status);
             });
 
+            $scope.programClick = function (offer) {
+                track.programDownload(offer.Name, offer.DirectoryName, offer.IndividualTourCategoryName);
+            }
+
             function updateModel(data) {
                 $scope.data = data;
 

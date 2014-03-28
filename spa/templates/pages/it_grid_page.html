@@ -4,8 +4,8 @@
             <li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
                 <img class="img" ng-src="{{slide.Image}}" />
                 <!--<div class="img" style="background-image: url('{{slide.Image}}')"></div>-->
-                <div class="darken-container" ng-click="offerClick(slide, $event)"></div>
-                <div class="info-container" ng-click="offerClick(slide, $event)">
+                <div class="darken-container" ng-click="offerClickSlider(slide, $event, $index)"></div>
+                <div class="info-container" ng-click="offerClickSlider(slide, $event, $index)">
                     <div class="info">
                         <h3 class="name" ng-show="!isNullOrEmpty(slide.FrontTitleRow1)">{{slide.FrontTitleRow1}}</h3>
                         <h3 class="name" ng-show="!isNullOrEmpty(slide.FrontTitleRow2)">{{slide.FrontTitleRow2}}</h3>

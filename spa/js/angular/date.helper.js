@@ -93,5 +93,32 @@
         }
     },
 
+    getTimeSpanFromMilliseconds: function (ms) {
+        var x = ms / 1000;
+        var seconds = Math.floor(x % 60);
+        x /= 60;
+        var minutes = Math.floor(x % 60);
+        x /= 60;
+        var hours = Math.floor(x % 24);
+        x /= 24;
+        var days = Math.floor(x);
+        return { seconds: seconds, minutes: minutes, hours: hours, days: days };
+    },
+
+    getTimeSpanMaxDays: function (ts){
+        var days = ts.days;
+        if (ts.hours > 0 || ts.minutes > 0 || ts.seconds > 0)
+            days++;
+        return days;
+    },
+
+    getTodayDate: function () {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        return new Date(yyyy, mm, dd);
+    },
+
     eof: null
 };

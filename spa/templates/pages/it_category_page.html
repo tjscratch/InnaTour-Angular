@@ -57,7 +57,7 @@
                     --><div class="offer-card-info">
                         <h3 class="title" ng-bind-html="offer.Name"></h3>
                         <p class="description" ng-bind-html="offer.Description | breakFilter"></p>
-                        <span class="presentation-link pdf-link"><a ng-href="{{offer.PdfUrl}}" target="_blank">Описание программы</a><!--???кб--></span>
+                        <span class="presentation-link pdf-link"><a ng-click="programClick(offer)" ng-href="{{offer.PdfUrl}}" target="_blank">Описание программы</a><!--???кб--></span>
                         <button class="button" ng-click="popupForm_Show(offer)">Отправить заявку</button>
                     </div>
                 </li>

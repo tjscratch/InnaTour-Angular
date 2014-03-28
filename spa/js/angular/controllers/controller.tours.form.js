@@ -795,8 +795,26 @@ innaAppControllers.
                     url = UrlHelper.UrlToSletatTours(city, country, resort, hotel, encodeURIComponent(date), nightsMin, nightsMax, adults, kids, kids_ages);
                 else
                     url = UrlHelper.UrlToSletatToursDatesInterval(city, country, resort, hotel, encodeURIComponent(dateFrom), encodeURIComponent(dateTo), nightsMin, nightsMax, adults, kids, kids_ages);
-                //переходим на поиск туров
-                window.location.href = url;
+
+                //search_depth - как далеко вперед дата поиска в днях (дата отправления минус текущая дата)
+                var departure_date = dateHelper.dateToJsDate($scope.form.beginDate);
+                var search_depth = Math.abs(departure_date - dateHelper.getTodayDate());
+                search_depth = dateHelper.getTimeSpanFromMilliseconds(search_depth);
+                search_depth = dateHelper.getTimeSpanMaxDays(search_depth);
+
+                //source - откуда вызван поиск (main/search_result)
+                var source = "main";
+                if ($location.absUrl().indexOf('/tours/?') > -1) {
+                    source = "search_result";
+                }
+
+                //пишем статистику
+                track.formSearch($scope.form.from.name, $scope.form.toText, $scope.form.beginDate, $scope.form.beginDateIntervalChecked,
+                    search_depth, $scope.form.nights.name, $scope.form.people.adultsCount, $scope.form.people.childsCount, source,
+                    function () {
+                        //переходим на поиск туров
+                        window.location.href = url;
+                    });
             };
 
             function logState() {

@@ -321,6 +321,7 @@
     <Content Include="spa\js\angular\models\app.model.to.api.model.js" />
     <Content Include="spa\js\angular\models\app.model.tours.js" />
     <Content Include="spa\js\angular\services.js" />
+    <Content Include="spa\js\angular\tracking.js" />
     <Content Include="spa\js\angular\urlhelper.js" />
     <Content Include="spa\js\aside.js" />
     <Content Include="spa\js\ie.placeholder.js" />
