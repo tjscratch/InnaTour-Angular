@@ -37,7 +37,8 @@ UrlHelper = {
 
 	addPathAndVersion: function (url) {
 	    //версия нужна чтобы обновлялись шаблоны
-	    return url + '?v=' + UrlHelper.ver;
+	    //return url + '?v=' + UrlHelper.ver;
+	    return url;
     },
 	getInnerTemplate: function () {
 	    return UrlHelper.addPathAndVersion('/templates/grid/_item_inner.html');

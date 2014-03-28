@@ -37,23 +37,23 @@ var app = angular.module('innaApp', [
     $routeProvider.
         //Главная
         when('/', {
-            templateUrl: '/spa/templates/pages/tours_grid_page.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/tours_grid_page.html',
             controller: 'ToursCtrl'
         }).
         when('/individualtours/category/:id', {
-            templateUrl: '/spa/templates/pages/it_category_page.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/it_category_page.html',
             controller: 'IndividualToursCategoryCtrl'
         }).
         when('/individualtours/', {
-            templateUrl: '/spa/templates/pages/it_grid_page.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/it_grid_page.html',
             controller: 'IndividualToursCtrl'
         }).
         when('/about/', {
-            templateUrl: '/spa/templates/pages/about_page.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/about_page.html',
             controller: 'AboutCtrl'
         }).
         when('/contacts/', {
-            templateUrl: '/spa/templates/pages/contacts_page.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/contacts_page.html',
             controller: 'ContactsCtrl'
         }).
         when('/avia/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
