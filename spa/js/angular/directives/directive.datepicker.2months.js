@@ -3,20 +3,22 @@
 
 /* Directives */
 
+// Datepicker
+if ($.datepicker._updateDatepicker_original == null) {
+    $.datepicker._updateDatepicker_original = $.datepicker._updateDatepicker;
+    $.datepicker._updateDatepicker = function (inst) {
+        $.datepicker._updateDatepicker_original(inst);
+        var afterShow = this._get(inst, 'afterShow');
+        if (afterShow)
+            afterShow.apply((inst.input ? inst.input[0] : null));
+    }
+}
+
 innaAppDirectives.
     directive('datePickerTwoMonths', ['$parse', '$rootScope', function ($parse, $rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                //добавляем событие afterShow к datepicker
-                element.datepicker._updateDatepicker_original = element.datepicker._updateDatepicker;
-                element.datepicker._updateDatepicker = function (inst) {
-                    element.datepicker._updateDatepicker_original(inst);
-                    var afterShow = this._get(inst, 'afterShow');
-                    if (afterShow)
-                        afterShow.apply((inst.input ? inst.input[0] : null));  // trigger custom callback
-                }
-
                 //клики по форме пикера гасим, чтобы не срабатывал клик по body
                 element.datepicker("widget").on("click", function (event) {
                     event.stopPropagation();

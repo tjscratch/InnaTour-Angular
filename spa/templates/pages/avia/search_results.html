@@ -30,17 +30,21 @@
             <div class="rl-content">
                 <img ng-src="{{item.EtapsToTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
                 <div class="rl-fly">
-                    <b class="rl-fly-time">{{item.DepartureTimeFormatted}}</b>  <span class="rl-airport js-title" title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
+                    <b class="rl-fly-time">{{item.DepartureTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
                     <div class="rl-fly-date">{{item.DepartureDateFormatted}}</div>
                 </div>
                 <div class="rl-travel-time">{{item.TimeToFormatted}}</div>
                 <div class="rl-fly">
-                    <b class="rl-fly-time">{{item.ArrivalTimeFormatted}}</b>  <span class="rl-airport js-title" title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
+                    <b class="rl-fly-time">{{item.ArrivalTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
                     <div class="rl-fly-date">{{item.ArrivalDateFormatted}}</div>
                 </div>
                 <div class="rl-fly-type" ng-if="item.ToTransferCount > 0">
-                    <div class="rl-fly-transplant">2 пересадки</div>
-                    <div class="rl-fly-transplant-time">AMS 14 ч 35 мин, PAR 26 ч 45 мин</div>
+                    <div class="rl-fly-transplant">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</div>
+                    <div class="rl-fly-transplant-time">
+                        <span ng-repeat="etap in item.EtapsToItems">
+                            <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">, </span>
+                        </span>
+                    </div>
                 </div>
                 <div class="rl-fly-type" ng-if="item.ToTransferCount == 0">
                     <div class="rl-fly-transplant">Прямой</div>
@@ -49,17 +53,21 @@
             <div class="rl-content">
                 <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsBackTransporterName}}">
                 <div class="rl-fly">
-                    <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}}</b>  <span class="rl-airport js-title" title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
+                    <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
                     <div class="rl-fly-date">{{item.BackDepartureDateFormatted}}</div>
                 </div>
                 <div class="rl-travel-time">{{item.TimeBackFormatted}}</div>
                 <div class="rl-fly">
-                    <b class="rl-fly-time">{{item.BackArrivalTimeFormatted}}</b>  <span class="rl-airport js-title" title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
+                    <b class="rl-fly-time">{{item.BackArrivalTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
                     <div class="rl-fly-date">{{item.BackArrivalDateFormatted}}</div>
                 </div>
                 <div class="rl-fly-type" ng-if="item.BackTransferCount > 0">
-                    <div class="rl-fly-transplant">2 пересадки</div>
-                    <div class="rl-fly-transplant-time">AMS 14 ч 35 мин, PAR 26 ч 45 мин</div>
+                    <div class="rl-fly-transplant">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</div>
+                    <div class="rl-fly-transplant-time">
+                        <span ng-repeat="etap in item.EtapsBackItems">
+                            <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">, </span>
+                        </span>
+                    </div>
                 </div>
                 <div class="rl-fly-type" ng-if="item.BackTransferCount == 0">
                     <div class="rl-fly-transplant">Прямой</div>

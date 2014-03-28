@@ -114,6 +114,24 @@ innaAppControllers.
                     $scope.sort = type;
                     $scope.reverse = reverse;
                 };
+
+                $scope.getTransferCountText = function (count) {
+                    switch(count)
+                    {
+                        case 0: return "пересадок";
+                        case 1: return "пересадка";
+                        case 2: return "пересадки";
+                        case 3: return "пересадки";
+                        case 4: return "пересадки";
+                        case 5: return "пересадок";
+                        case 6: return "пересадок";
+                        case 7: return "пересадок";
+                        case 8: return "пересадок";
+                        case 9: return "пересадок";
+                        case 10: return "пересадок";
+                        default: return "пересадок";
+                    }
+                }
             };
 
             function setFromAndToFieldsFromUrl() {
@@ -311,6 +329,24 @@ innaAppControllers.
                                 item.TransporterListText = codeEtapsTo.name;
                             else
                                 item.TransporterListText = codeEtapsTo.name + " / " + codeEtapsBack.name;
+                        }
+
+                        //этапы
+                        if (item.EtapsTo.length > 1) {
+                            item.EtapsToItems = [];
+                            for (var k = 0; k < item.EtapsTo.length - 1; k++) {
+                                var etap = item.EtapsTo[k];
+                                var waitTime = getFlightTimeFormatted(etap.TransferWaitTime);
+                                item.EtapsToItems.push({ code: etap.InCode, name: etap.InPort, waitTime: waitTime });
+                            }
+                        }
+                        if (item.EtapsBack.length > 1) {
+                            item.EtapsBackItems = [];
+                            for (var k = 0; k < item.EtapsBack.length - 1; k++) {
+                                var etap = item.EtapsBack[k];
+                                var waitTime = getFlightTimeFormatted(etap.TransferWaitTime);
+                                item.EtapsBackItems.push({ code: etap.InCode, name: etap.InPort, waitTime: waitTime });
+                            }
                         }
 
                         list.push(item);

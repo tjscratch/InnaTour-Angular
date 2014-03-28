@@ -18,12 +18,20 @@ innaAppServices.
 
         return {
             getDirectoryByUrl: function (term, successCallback, errCallback) {
-                //log('getDirectoryByUrl, term: ' + term);
+                log('getDirectoryByUrl, term: ' + term);
                 //запрос по критериям поиска
                 $http({ method: 'GET', url: getDirectoryUrl, params: { term: term }, cache: true }).success(function (data, status) {
                     if (data != null && data.length > 0) {
-                        var urlKey = UrlHelper.getUrlFromData(data[0]);
-                        var cdata = new directoryCacheData(data[0].Id, data[0].Name, urlKey);
+                        //ищем запись с кодом IATA
+                        var resItem = _.find(data, function (item) {
+                            return item.CodeIata == term;
+                        });
+                        //если не нашли - берем первый
+                        if (resItem == null)
+                            resItem = data[0];
+
+                        var urlKey = UrlHelper.getUrlFromData(resItem);
+                        var cdata = new directoryCacheData(resItem.Id, resItem.Name, urlKey);
                         //присваиваем значение через функцию коллбэк
                         successCallback(cdata);
                     }

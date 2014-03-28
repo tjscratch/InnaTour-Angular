@@ -292,6 +292,19 @@ innaAppDirectives.directive('tooltip', [function () {
     };
 }]);
 
+innaAppDirectives.directive('tooltipTitle', [function () {
+    return {
+        link: function ($scope, element, attrs) {
+            var $to = $(element);
+            $to.tooltip({
+                position: {
+                    my: "center top+10", at: 'center bottom'
+                }
+            });
+        }
+    };
+}]);
+
 
 //innaAppDirectives.directive('onTouch', function () {
 //    return {

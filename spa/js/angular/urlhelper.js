@@ -95,10 +95,13 @@ UrlHelper = {
 	        if (val == undefined || val === '')
 	            obj[prop] = 'any';
 
-            //меняем '-' на '.'
-	        while (angular.isString(val) && val.indexOf(dl) > -1) {
-	            obj[prop] = val.replace(dl, dlReplace);
-			}
+	        //меняем '-' на '.'
+	        if (angular.isString(val)) {
+	            while (val.indexOf(dl) > -1) {
+	                val = val.replace(dl, dlReplace);
+	            }
+	        }
+	        obj[prop] = val;
 			//console.log(prop + ': ' + obj[prop]);
 		}
 		return obj;
@@ -113,10 +116,13 @@ UrlHelper = {
 			if (val == 'any')
 			    obj[prop] = null;
 
-		    //меняем '.' на '-'
-			while (angular.isString(val) && val.indexOf(dlReplace) > -1) {
-			    obj[prop] = val.replace(dlReplace, dl);
+	        //меняем '.' на '-'
+			if (angular.isString(val)) {
+			    while (val.indexOf(dlReplace) > -1) {
+			        val = val.replace(dlReplace, dl);
+			    }
 			}
+			obj[prop] = val;
 			//console.log(prop + ': ' + obj[prop]);
 		}
 		return obj;
