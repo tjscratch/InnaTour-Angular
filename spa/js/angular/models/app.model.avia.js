@@ -69,6 +69,9 @@ function aviaFilter(data) {
     //для фильтра {value:0, checked: true}
     self.ToTransferCountList = null;
     self.BackTransferCountList = null;
+    //список: [без пересадок, 1 пересадка, 2 и более]
+    self.ToTransferCountListAgg = null;
+    self.BackTransferCountListAgg = null;
     //список авиакомпаний
     self.TransporterList = null;
 
@@ -100,7 +103,7 @@ function transporter(name, code, logo) {
 
 //namespace
 var avia = {
-    useAviaServiceStub: false,
+    useAviaServiceStub: true,
     dateFormat: 'dd MMMM yyyy, EEE',
     timeFormat: 'HH:mm',
     sortType: {

@@ -18,7 +18,7 @@ innaAppServices.
 
         return {
             getDirectoryByUrl: function (term, successCallback, errCallback) {
-                log('getDirectoryByUrl, term: ' + term);
+                //log('getDirectoryByUrl, term: ' + term);
                 //запрос по критериям поиска
                 $http({ method: 'GET', url: getDirectoryUrl, params: { term: term }, cache: true }).success(function (data, status) {
                     if (data != null && data.length > 0) {
@@ -85,7 +85,7 @@ innaAppServices.
             startAviaSearch: function (criteria, successCallback, errCallback) {
                 //запрос по критериям поиска
                 var apiCriteria = new aviaCriteriaToApiCriteria(criteria);
-                log('startAviaSearch, apiCriteria: ' + angular.toJson(apiCriteria));
+                //log('startAviaSearch, apiCriteria: ' + angular.toJson(apiCriteria));
 
                 //debug
                 if (avia.useAviaServiceStub) {

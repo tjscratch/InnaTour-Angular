@@ -305,7 +305,6 @@ innaAppDirectives.directive('tooltipTitle', [function () {
     };
 }]);
 
-
 //innaAppDirectives.directive('onTouch', function () {
 //    return {
 //        restrict: 'A',

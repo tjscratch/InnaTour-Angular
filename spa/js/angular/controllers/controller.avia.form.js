@@ -9,7 +9,7 @@ innaAppControllers.
 
             var self = this;
             function log(msg) {
-                $log.log(msg);
+                //$log.log(msg);
             }
 
             //флаг индикатор загрузки

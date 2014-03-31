@@ -75,7 +75,7 @@
         <li class="search-pref search-pref-comfort" ng-click="cabinClassListClick($event)">
             {{getSelectedCabinClassName()}}
             <ul class="search-pref-select" ng-show="form.isCabinClassOpened">
-                <li ng-repeat="cabinClass in cabinClassList" ng-click="cabinClassClick(cabinClass, $event)">{{cabinClass.name}}</li>
+                <li ng-repeat="cabinClass in cabinClassList" ng-click="cabinClassClick(cabinClass, $event)" ng-show="criteria.CabinClass != cabinClass.value">{{cabinClass.name}}</li>
             </ul>
         </li>
     </ul>

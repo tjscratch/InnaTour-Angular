@@ -37,6 +37,13 @@ innaAppControllers.
                 $scope.$apply(function () { applyFilter($scope); });
             };
 
+            function preventBubbling($event) {
+                if ($event.stopPropagation) $event.stopPropagation();
+                if ($event.preventDefault) $event.preventDefault();
+                $event.cancelBubble = true;
+                $event.returnValue = false;
+            }
+
             //инициализация
             initValues();
             initFuctions();
@@ -45,7 +52,7 @@ innaAppControllers.
             //обрабатываем параметры из url'а
             var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
-            log('routeCriteria: ' + angular.toJson($scope.criteria));
+            //log('routeCriteria: ' + angular.toJson($scope.criteria));
 
             //запрашиваем парамерты по их Url'ам
             setFromAndToFieldsFromUrl();
@@ -79,9 +86,9 @@ innaAppControllers.
             function initWatch() {
                 //изменение модели фильтра
                 $scope.$watch('filter', function (newValue, oldValue) {
-                    if (newValue === oldValue) {
-                        return;
-                    }
+                    //if (newValue === oldValue) {
+                    //    return;
+                    //}
                     //log('$scope.$watch filter, scope:' + $scope);
                     applyFilterThrottled($scope);
                 }, true);
@@ -89,7 +96,7 @@ innaAppControllers.
 
             function initFuctions() {
                 $scope.startSearch = function () {
-                    log('$scope.startSearch');
+                    //log('$scope.startSearch');
                     dataService.startAviaSearch($scope.criteria, function (data) {
                         //обновляем данные
                         if (data != null) {
@@ -132,6 +139,26 @@ innaAppControllers.
                         default: return "пересадок";
                     }
                 }
+
+                $scope.resetAll = function ($event) {
+                    $scope.resetPrice($event);
+                    $scope.resetTransfers($event);
+                };
+
+                $scope.resetPrice = function ($event) {
+                    preventBubbling($event);
+                    $scope.filter.minPrice = $scope.filter.minPriceInitial;
+                    $scope.filter.maxPrice = $scope.filter.maxPriceInitial;
+                };
+
+                $scope.resetTransfers = function ($event, toOrBack) {
+                    preventBubbling($event);
+
+                    if (toOrBack == null || toOrBack == true)
+                        _.each($scope.filter.ToTransferCountListAgg, function (item) { item.checked = true });
+                    if (toOrBack == null || toOrBack == false)
+                        _.each($scope.filter.BackTransferCountListAgg, function (item) { item.checked = true });
+                };
             };
 
             function setFromAndToFieldsFromUrl() {
@@ -143,8 +170,7 @@ innaAppControllers.
                             $scope.criteria.From = data.name;
                             $scope.criteria.FromId = data.id;
                             $scope.criteria.FromUrl = data.url;
-                            //logCriteriaData();
-                            log('$scope.criteria.From: ' + angular.toJson($scope.criteria));
+                            //log('$scope.criteria.From: ' + angular.toJson($scope.criteria));
                             urlDataLoaded.fromLoaded = true;
                             ifDataLoadedStartSearch();
                         }
@@ -164,8 +190,7 @@ innaAppControllers.
                             $scope.criteria.To = data.name;
                             $scope.criteria.ToId = data.id;
                             $scope.criteria.ToUrl = data.url;
-                            //logCriteriaData();
-                            log('$scope.criteria.To: ' + angular.toJson($scope.criteria));
+                            //log('$scope.criteria.To: ' + angular.toJson($scope.criteria));
                             urlDataLoaded.toLoaded = true;
                             ifDataLoadedStartSearch();
                         }
@@ -383,6 +408,36 @@ innaAppControllers.
                 filter.ToTransferCountList = _.sortBy(filter.ToTransferCountList,
                     function (item) { return item.value; });
 
+
+                function fillTransferCountListAgg(transferCountList) {
+                    var res = [];
+                    if (_.any(transferCountList, function (item) { return item.value == 0 }))//если без пересадок
+                        res.push({ name: "Без пересадок", value: 0, checked: true, price: 0 });
+                    if (_.any(transferCountList, function (item) { return item.value == 1 }))//если есть одна пересадка
+                        res.push({ name: "1 пересадка", value: 1, checked: true, price: 0 });
+                    if (_.any(transferCountList, function (item) { return item.value >= 2 }))//если больше 2-х пересадок
+                        res.push({ name: "2 и более", value: 2, checked: true, price: 0 });
+                    return res;
+                };
+
+                //список: [без пересадок, 1 пересадка, 2 и более]
+                filter.ToTransferCountListAgg = fillTransferCountListAgg(filter.ToTransferCountList);
+
+                //вычисляем мин цену (рядом со значением фильтра)
+                function calcPrices(transferCountListAgg, toOrBackFieldFn) {
+                    _.each(transferCountListAgg, function (agg) {
+                        //находим жлементы с нужным кол-вом пересадок
+                        var list = _.filter(items, function (item) {
+                            if (agg.value < 2)
+                                return toOrBackFieldFn(item) == agg.value;
+                            else
+                                return toOrBackFieldFn(item) >= agg.value;
+                        });
+                        agg.price = _.min(list, function (item) { return item.Price; }).Price;
+                    });
+                }
+                calcPrices(filter.ToTransferCountListAgg, function (item) { return item.ToTransferCount });
+
                 //пересадки обратно
                 var backList = _.map(items, function (item) { return item.BackTransferCount; });
                 backList = _.uniq(backList);
@@ -394,6 +449,10 @@ innaAppControllers.
                 });
                 filter.BackTransferCountList = _.sortBy(filter.BackTransferCountList,
                     function (item) { return item.value; });
+
+                //список: [без пересадок, 1 пересадка, 2 и более]
+                filter.BackTransferCountListAgg = fillTransferCountListAgg(filter.BackTransferCountList);
+                calcPrices(filter.BackTransferCountListAgg, function (item) { return item.BackTransferCount });
 
                 //список авиа компаний
                 filter.TransporterList = [];
@@ -431,17 +490,16 @@ innaAppControllers.
 
             function applyFilter($scope) {
                 var filteredList = [];
+                //log('applyFilter ' + new Date());
 
                 //туда, флаг, что хоть что-то выбрано
-                var anyToTransferCountChecked = _.any($scope.filter.ToTransferCountList, function (item) { return item.checked == true });
+                var anyToTransferCountChecked = _.any($scope.filter.ToTransferCountListAgg, function (item) { return item.checked == true });
                 //список выбранных значений
-                var toTransferCountCheckedList = _.filter($scope.filter.ToTransferCountList, function (item) { return item.checked == true });
-                toTransferCountCheckedList = _.map(toTransferCountCheckedList, function (item) { return item.value });
+                var toTransferCountCheckedList = _.filter($scope.filter.ToTransferCountListAgg, function (item) { return item.checked == true });
 
                 //обратно
-                var anyBackTransferCountChecked = _.any($scope.filter.BackTransferCountList, function (item) { return item.checked == true });
-                var backTransferCountCheckedList = _.filter($scope.filter.BackTransferCountList, function (item) { return item.checked == true });
-                backTransferCountCheckedList = _.map(backTransferCountCheckedList, function (item) { return item.value });
+                var anyBackTransferCountChecked = _.any($scope.filter.BackTransferCountListAgg, function (item) { return item.checked == true });
+                var backTransferCountCheckedList = _.filter($scope.filter.BackTransferCountListAgg, function (item) { return item.checked == true });
 
                 //выбрана хотя бы одна компания
                 var anyTransporterChecked = _.any($scope.filter.TransporterList, function (item) { return item.checked == true });
@@ -454,9 +512,19 @@ innaAppControllers.
                         var item = $scope.ticketsList[i];
 
                         //итем в массиве выбранных значений туда
-                        var itemInToCount = (_.indexOf(toTransferCountCheckedList, item.ToTransferCount) > -1);
+                        var itemInToCount = _.any(toTransferCountCheckedList, function (toCheck) {
+                            if (toCheck.value < 2)
+                                return item.ToTransferCount == toCheck.value;
+                            else
+                                return item.ToTransferCount >= toCheck.value;
+                        });
                         //обратно
-                        var itemInBackCount = (_.indexOf(backTransferCountCheckedList, item.BackTransferCount) > -1);
+                        var itemInBackCount = _.any(backTransferCountCheckedList, function (toCheck) {
+                            if (toCheck.value < 2)
+                                return item.BackTransferCount == toCheck.value;
+                            else
+                                return item.BackTransferCount >= toCheck.value;
+                        });
 
                         //а/к - авиакомпании item'а входят в разрешенный список
                         var itemInTransportTo = _.all(item.EtapsTo, function (etap) {

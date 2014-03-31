@@ -367,29 +367,58 @@
         <div class="ra-block">
             <header class="ra-header">
                 <h4 class="ra-title">Фильтр</h4>
-                <a href="#" class="ra-header-link">Сбросить все</a>
+                <a href="#" class="ra-header-link" ng-click="resetAll($event)">Сбросить все</a>
             </header>
         </div>
         <div class="ra-block">
             <header class="ra-header">
                 <h4 class="ra-title">Стоимость</h4>
-                <a href="#" class="ra-header-link">Сбросить</a>
+                <a href="#" class="ra-header-link" ng-click="resetPrice($event)">Сбросить</a>
             </header>
             <div class="ra-content">
-                <div class="js-trackbar-price ra-trackbar"></div>
-                <div class="js-amount-price ra-amount-price"></div>
+                <div class="ra-trackbar" ng-model="filter" price-slider></div>
+                <div class="ra-amount-price" ng-show="filter.minPrice != null && filter.maxPrice != null">От {{filter.minPrice}} р. до {{filter.maxPrice}} р.</div>
             </div>
         </div>
         <div class="ra-block">
             <header class="ra-header">
-                <h4 class="ra-title">Пересадки</h4>
-                <a href="#" class="ra-header-link">Сбросить</a>
+                <h4 class="ra-title">Пересадки туда</h4>
+                <a href="#" class="ra-header-link" ng-click="resetTransfers($event, true)">Сбросить</a>
             </header>
             <div class="ra-content">
                 <ul class="ra-fly-type-list">
-                    <li><label><input type="checkbox" name="fly" checked /><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250 216 р.</span></label></li>
+                    <li ng-repeat="trAggItem in filter.ToTransferCountListAgg">
+                        <label>
+                            <input type="checkbox" name="fly" ng-model="trAggItem.checked" />
+                            <span class="ra-checkbox"></span>
+                            <span class="ra-fly-type">{{trAggItem.name}}</span>
+                            <span class="ra-fly-price">{{trAggItem.price}} р.</span>
+                        </label>
+                    </li>
+                    <!--<li><label><input type="checkbox" name="fly" checked /><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250 216 р.</span></label></li>
                     <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25 216 р.</span></label></li>
-                    <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">2 и более</span><span class="ra-fly-price">150 216 р.</span></label></li>
+                    <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">2 и более</span><span class="ra-fly-price">150 216 р.</span></label></li>-->
+                </ul>
+            </div>
+        </div>
+        <div class="ra-block">
+            <header class="ra-header">
+                <h4 class="ra-title">Пересадки обратно</h4>
+                <a href="#" class="ra-header-link" ng-click="resetTransfers($event, false)">Сбросить</a>
+            </header>
+            <div class="ra-content">
+                <ul class="ra-fly-type-list">
+                    <li ng-repeat="trAggItem in filter.BackTransferCountListAgg">
+                        <label>
+                            <input type="checkbox" name="fly" ng-model="trAggItem.checked" />
+                            <span class="ra-checkbox"></span>
+                            <span class="ra-fly-type">{{trAggItem.name}}</span>
+                            <span class="ra-fly-price">{{trAggItem.price}} р.</span>
+                        </label>
+                    </li>
+                    <!--<li><label><input type="checkbox" name="fly" checked /><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250 216 р.</span></label></li>
+                    <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25 216 р.</span></label></li>
+                    <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">2 и более</span><span class="ra-fly-price">150 216 р.</span></label></li>-->
                 </ul>
             </div>
         </div>
