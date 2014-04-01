@@ -22,7 +22,7 @@
         <div class="rl-item" ng-repeat="item in filteredTicketsList">
             <header class="rl-item-header">
                 <span class="rl-price">
-                    <span class="rl-price-item">{{item.Price}}</span> руб.
+                    <span class="rl-price-item">{{item.Price| price}}</span> руб.
                 </span>
                 <a href="#" class="rl-buy-button">Купить</a>
                 <span class="rl-airline">{{item.TransporterListText}}</span>
@@ -377,7 +377,7 @@
             </header>
             <div class="ra-content">
                 <div class="ra-trackbar" ng-model="filter" price-slider></div>
-                <div class="ra-amount-price" ng-show="filter.minPrice != null && filter.maxPrice != null">От {{filter.minPrice}} р. до {{filter.maxPrice}} р.</div>
+                <div class="ra-amount-price" ng-show="filter.minPrice != null && filter.maxPrice != null">От {{filter.minPrice | price}} р. до {{filter.maxPrice| price}} р.</div>
             </div>
         </div>
         <div class="ra-block">
@@ -392,12 +392,9 @@
                             <input type="checkbox" name="fly" ng-model="trAggItem.checked" />
                             <span class="ra-checkbox"></span>
                             <span class="ra-fly-type">{{trAggItem.name}}</span>
-                            <span class="ra-fly-price">{{trAggItem.price}} р.</span>
+                            <span class="ra-fly-price">{{trAggItem.price | price}} р.</span>
                         </label>
                     </li>
-                    <!--<li><label><input type="checkbox" name="fly" checked /><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250 216 р.</span></label></li>
-                    <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25 216 р.</span></label></li>
-                    <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">2 и более</span><span class="ra-fly-price">150 216 р.</span></label></li>-->
                 </ul>
             </div>
         </div>
@@ -413,19 +410,16 @@
                             <input type="checkbox" name="fly" ng-model="trAggItem.checked" />
                             <span class="ra-checkbox"></span>
                             <span class="ra-fly-type">{{trAggItem.name}}</span>
-                            <span class="ra-fly-price">{{trAggItem.price}} р.</span>
+                            <span class="ra-fly-price">{{trAggItem.price| price}} р.</span>
                         </label>
                     </li>
-                    <!--<li><label><input type="checkbox" name="fly" checked /><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250 216 р.</span></label></li>
-                    <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25 216 р.</span></label></li>
-                    <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">2 и более</span><span class="ra-fly-price">150 216 р.</span></label></li>-->
                 </ul>
             </div>
         </div>
         <div class="ra-block">
             <header class="ra-header">
                 <h4 class="ra-title">Время вылета</h4>
-                <a href="#" class="ra-header-link">Сбросить</a>
+                <a href="#" class="ra-header-link" ng-click="resetTime($event)">Сбросить</a>
             </header>
             <div class="ra-content">
                 <div class="js-amount-arrive ra-amount-time"></div>

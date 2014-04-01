@@ -143,6 +143,7 @@ innaAppControllers.
                 $scope.resetAll = function ($event) {
                     $scope.resetPrice($event);
                     $scope.resetTransfers($event);
+                    $scope.resetTime($event);
                 };
 
                 $scope.resetPrice = function ($event) {
@@ -158,6 +159,10 @@ innaAppControllers.
                         _.each($scope.filter.ToTransferCountListAgg, function (item) { item.checked = true });
                     if (toOrBack == null || toOrBack == false)
                         _.each($scope.filter.BackTransferCountListAgg, function (item) { item.checked = true });
+                };
+
+                $scope.resetTime = function ($event) {
+                    preventBubbling($event);
                 };
             };
 
