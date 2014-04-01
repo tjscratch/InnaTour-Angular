@@ -152,13 +152,9 @@ innaAppControllers.
                     $scope.filter.maxPrice = $scope.filter.maxPriceInitial;
                 };
 
-                $scope.resetTransfers = function ($event, toOrBack) {
+                $scope.resetTransfers = function ($event) {
                     preventBubbling($event);
-
-                    if (toOrBack == null || toOrBack == true)
-                        _.each($scope.filter.ToTransferCountListAgg, function (item) { item.checked = true });
-                    if (toOrBack == null || toOrBack == false)
-                        _.each($scope.filter.BackTransferCountListAgg, function (item) { item.checked = true });
+                    _.each($scope.filter.TransferCountListAgg, function (item) { item.checked = true });
                 };
 
                 $scope.resetTime = function ($event) {
@@ -401,63 +397,85 @@ innaAppControllers.
                 filter.minPrice = _.min(items, function (item) { return item.Price; }).Price;
                 filter.maxPrice = _.max(items, function (item) { return item.Price; }).Price;
 
-                //получаем список кол-ва пересадок [{count:0, checked: false}, {count:1, checked: false}]
-                var toList = _.map(items, function (item) { return item.ToTransferCount; });
-                toList = _.uniq(toList);
-                filter.ToTransferCountList = _.map(toList, function (item) {
-                    return {
-                        value: item,
-                        checked: true
+                //пересадки =============================================================================================
+
+                //заполняем список фильтров по пересадкам
+                var transferCountListAgg = [];
+                var InTransferCount0Added = false;
+                var InTransferCount1Added = false;
+                var InTransferCount2Added = false;
+                _.each(items, function (item) {
+                    //в каждом элементе сразу вычисляем принадлежность к фильтру (для ускорения фильтрации)
+                    item.InTransferCount0 = false;
+                    item.InTransferCount1 = false;
+                    item.InTransferCount2 = false;
+
+                    if (item.ToTransferCount == 0 && item.BackTransferCount == 0)
+                    {
+                        //есть без пересадок
+                        item.InTransferCount0 = true;
+                        if (!InTransferCount0Added) {
+                            InTransferCount0Added = true;
+                            transferCountListAgg.push({ name: "Без пересадок", value: 0, checked: true, price: 0 });
+                        }
                     }
+                    else if (item.ToTransferCount >= 2 || item.BackTransferCount >= 2) {
+                        //2 и более пересадок
+                        item.InTransferCount2 = true;
+                        if (!InTransferCount2Added) {
+                            InTransferCount2Added = true;
+                            transferCountListAgg.push({ name: "2 и более", value: 2, checked: true, price: 0 });
+                        }
+                    }
+                    else if (item.ToTransferCount <= 1 && item.BackTransferCount <= 1 && item.InTransferCount0 == false)
+                    {
+                        //1 пересадка, но не включает в себя без пересадок
+                        item.InTransferCount1 = true;
+                        if (!InTransferCount1Added) {
+                            InTransferCount1Added = true;
+                            transferCountListAgg.push({ name: "1 пересадка", value: 1, checked: true, price: 0 });
+                        }
+                    }
+                    else
+                    {
+                        log('Warning! item miss filter: ' + item.ToTransferCount + ' ' + item.BackTransferCount);
+                    }
+                    
                 });
-                filter.ToTransferCountList = _.sortBy(filter.ToTransferCountList,
-                    function (item) { return item.value; });
+                //фильтр сразу сортируем
+                filter.TransferCountListAgg = _.sortBy(transferCountListAgg, function (item) { return item.value; });
 
-
-                function fillTransferCountListAgg(transferCountList) {
-                    var res = [];
-                    if (_.any(transferCountList, function (item) { return item.value == 0 }))//если без пересадок
-                        res.push({ name: "Без пересадок", value: 0, checked: true, price: 0 });
-                    if (_.any(transferCountList, function (item) { return item.value == 1 }))//если есть одна пересадка
-                        res.push({ name: "1 пересадка", value: 1, checked: true, price: 0 });
-                    if (_.any(transferCountList, function (item) { return item.value >= 2 }))//если больше 2-х пересадок
-                        res.push({ name: "2 и более", value: 2, checked: true, price: 0 });
-                    return res;
-                };
-
-                //список: [без пересадок, 1 пересадка, 2 и более]
-                filter.ToTransferCountListAgg = fillTransferCountListAgg(filter.ToTransferCountList);
-
-                //вычисляем мин цену (рядом со значением фильтра)
-                function calcPrices(transferCountListAgg, toOrBackFieldFn) {
-                    _.each(transferCountListAgg, function (agg) {
-                        //находим жлементы с нужным кол-вом пересадок
-                        var list = _.filter(items, function (item) {
-                            if (agg.value < 2)
-                                return toOrBackFieldFn(item) == agg.value;
-                            else
-                                return toOrBackFieldFn(item) >= agg.value;
-                        });
-                        agg.price = _.min(list, function (item) { return item.Price; }).Price;
+                function calcPrices(tcAgg, fnInTransferCount) {
+                    //находим элементы с нужным кол-вом пересадок
+                    var list = _.filter(items, function (item) {
+                        return fnInTransferCount(item) == true;
                     });
+                    tcAgg.price = _.min(list, function (item) { return item.Price; }).Price;
                 }
-                calcPrices(filter.ToTransferCountListAgg, function (item) { return item.ToTransferCount });
-
-                //пересадки обратно
-                var backList = _.map(items, function (item) { return item.BackTransferCount; });
-                backList = _.uniq(backList);
-                filter.BackTransferCountList = _.map(backList, function (item) {
-                    return {
-                        value: item,
-                        checked: true
+                //вычисляем мин цену (рядом со значением фильтра)
+                _.each(filter.TransferCountListAgg, function (tcAgg) {
+                    switch(tcAgg.value)
+                    {
+                        case 0:
+                            {
+                                //находим элементы с нужным кол-вом пересадок
+                                calcPrices(tcAgg, function (item) { return item.InTransferCount0; });
+                                break;
+                            }
+                        case 1:
+                            {
+                                calcPrices(tcAgg, function (item) { return item.InTransferCount1; });
+                                break;
+                            }
+                        case 2:
+                            {
+                                calcPrices(tcAgg, function (item) { return item.InTransferCount2; });
+                                break;
+                            }
                     }
                 });
-                filter.BackTransferCountList = _.sortBy(filter.BackTransferCountList,
-                    function (item) { return item.value; });
 
-                //список: [без пересадок, 1 пересадка, 2 и более]
-                filter.BackTransferCountListAgg = fillTransferCountListAgg(filter.BackTransferCountList);
-                calcPrices(filter.BackTransferCountListAgg, function (item) { return item.BackTransferCount });
+                //пересадки =============================================================================================
 
                 //список авиа компаний
                 filter.TransporterList = [];
@@ -475,7 +493,6 @@ innaAppControllers.
                 filter.TransporterList = _.uniq(filter.TransporterList, false, function (item) {
                     return item.TransporterCode;
                 });
-
 
                 //мин / макс время отправления туда обратно
                 filter.minDepartureDate = _.min(items, function (item) { return item.sort.DepartureDate; }).sort.DepartureDate;
@@ -497,14 +514,10 @@ innaAppControllers.
                 var filteredList = [];
                 //log('applyFilter ' + new Date());
 
-                //туда, флаг, что хоть что-то выбрано
-                var anyToTransferCountChecked = _.any($scope.filter.ToTransferCountListAgg, function (item) { return item.checked == true });
                 //список выбранных значений
-                var toTransferCountCheckedList = _.filter($scope.filter.ToTransferCountListAgg, function (item) { return item.checked == true });
-
-                //обратно
-                var anyBackTransferCountChecked = _.any($scope.filter.BackTransferCountListAgg, function (item) { return item.checked == true });
-                var backTransferCountCheckedList = _.filter($scope.filter.BackTransferCountListAgg, function (item) { return item.checked == true });
+                var transferCountCheckedList = _.filter($scope.filter.TransferCountListAgg, function (item) { return item.checked == true });
+                //туда, флаг, что хоть что-то выбрано
+                var anyTransferCountChecked = (transferCountCheckedList != null && transferCountCheckedList.length > 0);
 
                 //выбрана хотя бы одна компания
                 var anyTransporterChecked = _.any($scope.filter.TransporterList, function (item) { return item.checked == true });
@@ -517,18 +530,12 @@ innaAppControllers.
                         var item = $scope.ticketsList[i];
 
                         //итем в массиве выбранных значений туда
-                        var itemInToCount = _.any(toTransferCountCheckedList, function (toCheck) {
-                            if (toCheck.value < 2)
-                                return item.ToTransferCount == toCheck.value;
-                            else
-                                return item.ToTransferCount >= toCheck.value;
-                        });
-                        //обратно
-                        var itemInBackCount = _.any(backTransferCountCheckedList, function (toCheck) {
-                            if (toCheck.value < 2)
-                                return item.BackTransferCount == toCheck.value;
-                            else
-                                return item.BackTransferCount >= toCheck.value;
+                        var itemInTransferCount = _.any(transferCountCheckedList, function (toCheck) {
+                            switch (toCheck.value) {
+                                case 0: return item.InTransferCount0 == true;
+                                case 1: return item.InTransferCount1 == true;
+                                case 2: return item.InTransferCount2 == true;
+                            }
                         });
 
                         //а/к - авиакомпании item'а входят в разрешенный список
@@ -542,10 +549,8 @@ innaAppControllers.
 
                         //проверяем цену
                         if (item.Price >= $scope.filter.minPrice && item.Price <= $scope.filter.maxPrice
-                            //пересадки туда
-                            && (anyToTransferCountChecked && itemInToCount)
-                            //пересадки обратно
-                            && (anyBackTransferCountChecked && itemInBackCount)
+                            //пересадки
+                            && (anyTransferCountChecked && itemInTransferCount)
                             //а/к
                             && (anyTransporterChecked && itemInTransport)
                             //дата отправления / прибытия  туда / обратно

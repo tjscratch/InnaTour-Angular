@@ -380,37 +380,19 @@
                 <div class="ra-amount-price" ng-show="filter.minPrice != null && filter.maxPrice != null">От {{filter.minPrice | price}} р. до {{filter.maxPrice| price}} р.</div>
             </div>
         </div>
-        <div class="ra-block">
+        <div class="ra-block" ng-show="filter.TransferCountListAgg.length > 1">
             <header class="ra-header">
-                <h4 class="ra-title">Пересадки туда</h4>
-                <a href="#" class="ra-header-link" ng-click="resetTransfers($event, true)">Сбросить</a>
+                <h4 class="ra-title">Пересадки</h4>
+                <a href="#" class="ra-header-link" ng-click="resetTransfers($event)">Сбросить</a>
             </header>
             <div class="ra-content">
                 <ul class="ra-fly-type-list">
-                    <li ng-repeat="trAggItem in filter.ToTransferCountListAgg">
+                    <li ng-repeat="trAggItem in filter.TransferCountListAgg">
                         <label>
                             <input type="checkbox" name="fly" ng-model="trAggItem.checked" />
                             <span class="ra-checkbox"></span>
                             <span class="ra-fly-type">{{trAggItem.name}}</span>
                             <span class="ra-fly-price">{{trAggItem.price | price}} р.</span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="ra-block">
-            <header class="ra-header">
-                <h4 class="ra-title">Пересадки обратно</h4>
-                <a href="#" class="ra-header-link" ng-click="resetTransfers($event, false)">Сбросить</a>
-            </header>
-            <div class="ra-content">
-                <ul class="ra-fly-type-list">
-                    <li ng-repeat="trAggItem in filter.BackTransferCountListAgg">
-                        <label>
-                            <input type="checkbox" name="fly" ng-model="trAggItem.checked" />
-                            <span class="ra-checkbox"></span>
-                            <span class="ra-fly-type">{{trAggItem.name}}</span>
-                            <span class="ra-fly-price">{{trAggItem.price| price}} р.</span>
                         </label>
                     </li>
                 </ul>
