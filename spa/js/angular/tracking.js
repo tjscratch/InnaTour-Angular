@@ -1,7 +1,11 @@
 ﻿
 var track = {
     gotoBooking: function () {
+        //отслеживаем в mixpanel
         mixpanel.track("redirect", { "service": "booking" });
+        //отслеживаем в гугл аналитике
+        ga('send', 'pageview', 'bookingcom');
+
     },
     offerClick: function (sectionName, type, name, position, fn) {
         //type -  XXL, XL, L...

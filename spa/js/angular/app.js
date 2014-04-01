@@ -25,8 +25,7 @@ var app = angular.module('innaApp', [
     $rootScope.$on('$routeChangeSuccess', function () {
         //аналитика
         //console.log('$window._gaq.push $location.path(): ' + $location.path());
-        if ($window._gaq != null)
-            $window._gaq.push(['_trackPageview', $location.path()]);
+        $window.ga('send', 'pageview', $location.path());
 
         //console.log('$routeChangeSuccess');
         //скролим наверх
