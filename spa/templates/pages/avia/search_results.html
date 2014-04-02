@@ -22,7 +22,7 @@
         <!--<ng:any ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">-->
         <ng:any ng-repeat="item in filteredTicketsList">
             <div class="rl-title-best rl-title-recommended" ng-show="item.IsRecomendation">мы рекомендуем</div>
-            <div class="rl-title-best rl-title-cheapest" ng-show="item.isCheapest">Самый дешевый</div>
+            <div class="rl-title-best rl-title-cheapest" ng-show="item.isCheapest">самый дешевый</div>
             <div class="rl-item">
                 <header class="rl-item-header">
                     <span class="rl-price">
@@ -446,6 +446,23 @@
                 <div jq-ui-slider ng-model="filter"
                      init-min-value="filter.minBackArrivalDateInitial" init-max-value="filter.maxBackArrivalDateInitial"
                      min-value="filter.minBackArrivalDate" max-value="filter.maxBackArrivalDate"></div>
+            </div>
+        </div>
+        <div class="ra-block" ng-show="filter.TransporterList.length > 1">
+            <header class="ra-header">
+                <h4 class="ra-title">Авиакомпании</h4>
+                <a href="#" class="ra-header-link" ng-click="resetCompanies($event)">Сбросить</a>
+            </header>
+            <div class="ra-content">
+                <ul class="ra-fly-type-list">
+                    <li ng-repeat="item in filter.TransporterList">
+                        <label>
+                            <input type="checkbox" name="fly" ng-model="item.checked" />
+                            <span class="ra-checkbox"></span>
+                            <span class="ra-fly-type">{{item.TransporterName}}</span>
+                        </label>
+                    </li>
+                </ul>
             </div>
         </div>
     </aside>

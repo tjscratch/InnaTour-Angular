@@ -158,6 +158,7 @@ innaAppControllers.
                     $scope.resetTransfers($event);
                     $scope.resetArrivalTime($event);
                     $scope.resetDepartureTime($event);
+                    $scope.resetCompanies($event);
                 };
 
                 $scope.resetPrice = function ($event) {
@@ -184,6 +185,10 @@ innaAppControllers.
                     $scope.filter.maxArrivalDate = $scope.filter.maxArrivalDateInitial;
                     $scope.filter.minBackArrivalDate = $scope.filter.minBackArrivalDateInitial;
                     $scope.filter.maxBackArrivalDate = $scope.filter.maxBackArrivalDateInitial;
+                };
+                $scope.resetCompanies = function ($event) {
+                    preventBubbling($event);
+                    _.each($scope.filter.TransporterList, function (item) { item.checked = true });
                 };
             };
 
