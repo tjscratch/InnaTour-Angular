@@ -1,8 +1,11 @@
 {
-	"dependencies": {
-		"connect": "*",
-		"gulp": "*",
-		"gulp-concat": "*",
-		"gulp-less": "*"
-	}
+  "dependencies": {
+    "connect": "*",
+    "gulp": "*",
+    "gulp-concat": "*",
+    "gulp-less": "*",
+    "gulp-stylus": "*",
+    "gulp-minify-css": "*",
+    "gulp-uglify": "*"
+  }
 }
