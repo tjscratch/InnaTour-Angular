@@ -61,7 +61,7 @@ innaAppControllers.
 
             $scope.$watch('dateBegin', function(newVal) {
                 console.log('TODO do not forget to update cache');
-            })
+            });
         }
     ]);
 

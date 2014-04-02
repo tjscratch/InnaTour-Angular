@@ -14,18 +14,40 @@ innaAppDirectives.directive('datePickerWidget', [function(){
             }
         }],
         link: function(scope, element, attrs){
+            var checker = scope.$eval(attrs.interval);
+            var caption = attrs.caption;
             var uiWidget = $('.Calendar-input', element);
-            var doc = $(document);
+
+            uiWidget.datepicker({
+                minDate: new Date(),
+                onSelect: function (dateText) {
+                    scope.$apply(function (scope) {
+                        scope.date = dateText;
+                    });
+                },
+                afterShow: function(){
+                    var calendarNode = $('#'+$.datepicker._mainDivId);
+                    var headerNode = $("<div class='calendar-head'></div>");
+
+                    if(caption) {
+                        headerNode.prepend("<span class='caption'>" + caption + "</span>")
+                    }
+
+                    if(checker) {
+                        //TODO
+                    }
+
+                    calendarNode.prepend(headerNode);
+                }
+            });
 
             $(document).click(function(event){
                 var isInsideComponent = !!$(event.target).closest(element).length;
 
                 if(isInsideComponent) {
-                    console.log('inside');
                     uiWidget.datepicker("show");
                     uiWidget.focus();
                 } else {
-                    console.log('outside');
                     uiWidget.datepicker("hide");
                     uiWidget.blur();
                 }
