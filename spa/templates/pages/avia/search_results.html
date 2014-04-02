@@ -10,17 +10,17 @@
             <h3 class="rl-flights-number" ng-if="ticketsList.length == 0">рейсов не найдено</h3>
             <h3 class="rl-flights-number" ng-if="ticketsList == null">поиск рейсов...</h3>
             <div class="rl-filter">
-                <div class="rl-filter-current">По стоимости</div>
-                <ul class="rl-filter-menu" style="display:none;">
-                    <li>По стоимости</li>
-                    <li>По популярности</li>
-                    <li>Только прямые</li>
+                <div class="rl-filter-current" ng-click="isSortListOpened = !isSortListOpened">{{getCurrentSortName()}}</div>
+                <ul class="rl-filter-menu" ng-show="isSortListOpened" style="z-index: 1;">
+                    <ng:any ng-repeat="item in sortList">
+                        <li ng-click="applySort($event, item.sort)" ng-show="isSortVisible(item.sort)">{{item.name}}</li>
+                    </ng:any>
                 </ul>
             </div>
         </header>
 
-        <!--<ng:any ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">-->
-        <ng:any ng-repeat="item in filteredTicketsList">
+        <ng:any ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">
+        <!--<ng:any ng-repeat="item in filteredTicketsList">-->
             <div class="rl-title-best rl-title-recommended" ng-show="item.IsRecomendation">мы рекомендуем</div>
             <div class="rl-title-best rl-title-cheapest" ng-show="item.isCheapest">самый дешевый</div>
             <div class="rl-item">
@@ -367,7 +367,7 @@
     </div>
     <!-- /Results List -->
 
-    <!-- Results Aside -->
+    <!-- Results Aside Фильтры -->
     <aside class="results-aside">
         <div class="ra-block">
             <header class="ra-header">
