@@ -40,7 +40,7 @@ innaAppControllers.
 
 	        $scope.provideSuggestToToField = function(preparedText, rawText) {
 	        	dataService.getSletatDirectoryByTerm(preparedText, function (data) {
-		        	if (data != null && data.length > 0) {
+		        	if (data) {
 		        		$scope.toList = [];
 
 			            _.each(data, function (item) { $scope.toList.push(new toItemData(item)); });
@@ -55,6 +55,13 @@ innaAppControllers.
             $scope.$watch('toCurrent', function(newValue){
                 //TODO save new value to future autocomplete
             });
+
+            /*Begin date*/
+            $scope.dateBegin = null;
+
+            $scope.$watch('dateBegin', function(newVal) {
+                console.log('TODO do not forget to update cache');
+            })
         }
     ]);
 
