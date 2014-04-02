@@ -1,4 +1,5 @@
 ﻿
+<div class="results-body">
 <!-- Search Results -->
 <div class="results-container">
 
@@ -18,67 +19,71 @@
             </div>
         </header>
 
-        <!--<div class="rl-item" ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">-->
-        <div class="rl-item" ng-repeat="item in filteredTicketsList">
-            <header class="rl-item-header">
-                <span class="rl-price">
-                    <span class="rl-price-item">{{item.Price| price}}</span> руб.
-                </span>
-                <a href="#" class="rl-buy-button">Купить</a>
-                <span class="rl-airline">{{item.TransporterListText}}</span>
-            </header>
-            <div class="rl-content">
-                <img ng-src="{{item.EtapsToTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
-                <div class="rl-fly">
-                    <b class="rl-fly-time">{{item.DepartureTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
-                    <div class="rl-fly-date">{{item.DepartureDateFormatted}}</div>
-                </div>
-                <div class="rl-travel-time">{{item.TimeToFormatted}}</div>
-                <div class="rl-fly">
-                    <b class="rl-fly-time">{{item.ArrivalTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
-                    <div class="rl-fly-date">{{item.ArrivalDateFormatted}}</div>
-                </div>
-                <div class="rl-fly-type" ng-if="item.ToTransferCount > 0">
-                    <div class="rl-fly-transplant">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</div>
-                    <div class="rl-fly-transplant-time">
-                        <span ng-repeat="etap in item.EtapsToItems">
-                            <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">, </span>
-                        </span>
+        <!--<ng:any ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">-->
+        <ng:any ng-repeat="item in filteredTicketsList">
+            <div class="rl-title-best rl-title-recommended" ng-show="item.IsRecomendation">мы рекомендуем</div>
+            <div class="rl-title-best rl-title-cheapest" ng-show="item.isCheapest">Самый дешевый</div>
+            <div class="rl-item">
+                <header class="rl-item-header">
+                    <span class="rl-price">
+                        <span class="rl-price-item">{{item.Price| price}}</span> руб.
+                    </span>
+                    <a href="#" class="rl-buy-button">Купить</a>
+                    <span class="rl-airline">{{item.TransporterListText}}</span>
+                </header>
+                <div class="rl-content">
+                    <img ng-src="{{item.EtapsToTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
+                    <div class="rl-fly">
+                        <b class="rl-fly-time">{{item.DepartureTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
+                        <div class="rl-fly-date">{{item.DepartureDateFormatted}}</div>
+                    </div>
+                    <div class="rl-travel-time">{{item.TimeToFormatted}}</div>
+                    <div class="rl-fly">
+                        <b class="rl-fly-time">{{item.ArrivalTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
+                        <div class="rl-fly-date">{{item.ArrivalDateFormatted}}</div>
+                    </div>
+                    <div class="rl-fly-type" ng-if="item.ToTransferCount > 0">
+                        <div class="rl-fly-transplant">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</div>
+                        <div class="rl-fly-transplant-time">
+                            <span ng-repeat="etap in item.EtapsToItems">
+                                <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">, </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="rl-fly-type" ng-if="item.ToTransferCount == 0">
+                        <div class="rl-fly-transplant">Прямой</div>
                     </div>
                 </div>
-                <div class="rl-fly-type" ng-if="item.ToTransferCount == 0">
-                    <div class="rl-fly-transplant">Прямой</div>
-                </div>
-            </div>
-            <div class="rl-content">
-                <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsBackTransporterName}}">
-                <div class="rl-fly">
-                    <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
-                    <div class="rl-fly-date">{{item.BackDepartureDateFormatted}}</div>
-                </div>
-                <div class="rl-travel-time">{{item.TimeBackFormatted}}</div>
-                <div class="rl-fly">
-                    <b class="rl-fly-time">{{item.BackArrivalTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
-                    <div class="rl-fly-date">{{item.BackArrivalDateFormatted}}</div>
-                </div>
-                <div class="rl-fly-type" ng-if="item.BackTransferCount > 0">
-                    <div class="rl-fly-transplant">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</div>
-                    <div class="rl-fly-transplant-time">
-                        <span ng-repeat="etap in item.EtapsBackItems">
-                            <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">, </span>
-                        </span>
+                <div class="rl-content">
+                    <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsBackTransporterName}}">
+                    <div class="rl-fly">
+                        <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
+                        <div class="rl-fly-date">{{item.BackDepartureDateFormatted}}</div>
+                    </div>
+                    <div class="rl-travel-time">{{item.TimeBackFormatted}}</div>
+                    <div class="rl-fly">
+                        <b class="rl-fly-time">{{item.BackArrivalTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
+                        <div class="rl-fly-date">{{item.BackArrivalDateFormatted}}</div>
+                    </div>
+                    <div class="rl-fly-type" ng-if="item.BackTransferCount > 0">
+                        <div class="rl-fly-transplant">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</div>
+                        <div class="rl-fly-transplant-time">
+                            <span ng-repeat="etap in item.EtapsBackItems">
+                                <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">, </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="rl-fly-type" ng-if="item.BackTransferCount == 0">
+                        <div class="rl-fly-transplant">Прямой</div>
                     </div>
                 </div>
-                <div class="rl-fly-type" ng-if="item.BackTransferCount == 0">
-                    <div class="rl-fly-transplant">Прямой</div>
-                </div>
+                <footer class="rl-footer">
+                    <a href="#" class="rl-more-info"><span>Подробнее</span></a>
+                    <span class="rl-tickets-number">Последние 3 места</span>
+                    <span class="rl-class">{{item.CabineClass}}</span>
+                </footer>
             </div>
-            <footer class="rl-footer">
-                <a href="#" class="rl-more-info"><span>Подробнее</span></a>
-                <span class="rl-tickets-number">Последние 3 места</span>
-                <span class="rl-class">{{item.CabineClass}}</span>
-            </footer>
-        </div>
+        </ng:any>
 
         <!--<div class="rl-item">
             <header class="rl-item-header">
@@ -376,7 +381,8 @@
                 <a href="#" class="ra-header-link" ng-click="resetPrice($event)">Сбросить</a>
             </header>
             <div class="ra-content">
-                <div class="ra-trackbar" ng-model="filter" price-slider></div>
+                <div class="ra-trackbar" jq-ui-slider ng-model="filter" init-min-value="filter.minPriceInitial" init-max-value="filter.maxPriceInitial"
+                     min-value="filter.minPrice" max-value="filter.maxPrice"></div>
                 <div class="ra-amount-price" ng-show="filter.minPrice != null && filter.maxPrice != null">От {{filter.minPrice | price}} р. до {{filter.maxPrice| price}} р.</div>
             </div>
         </div>
@@ -401,13 +407,45 @@
         <div class="ra-block">
             <header class="ra-header">
                 <h4 class="ra-title">Время вылета</h4>
-                <a href="#" class="ra-header-link" ng-click="resetTime($event)">Сбросить</a>
+                <a href="#" class="ra-header-link" ng-click="resetDepartureTime($event)">Сбросить</a>
             </header>
             <div class="ra-content">
-                <div class="js-amount-arrive ra-amount-time"></div>
-                <div class="js-trackbar-arrive"></div>
-                <div class="js-amount-depart ra-amount-time"></div>
-                <div class="js-trackbar-depart"></div>
+                <div class="ra-amount-time" ng-show="filter.minDepartureDate > 0 && filter.maxDepartureDate > 0">
+                    Вылет: {{getCityFrom()}}<br />
+                    {{getSliderTimeFormat(filter.minDepartureDate)}} - {{filter.maxDepartureDate | date:timeFormat}}
+                </div>
+                <div jq-ui-slider ng-model="filter"
+                     init-min-value="filter.minDepartureDateInitial" init-max-value="filter.maxDepartureDateInitial"
+                     min-value="filter.minDepartureDate" max-value="filter.maxDepartureDate"></div>
+                <div class="ra-amount-time" ng-show="filter.minBackDepartureDate > 0 && filter.maxBackDepartureDate > 0">
+                    Вылет: {{getCityTo()}}<br />
+                    {{getSliderTimeFormat(filter.minBackDepartureDate)}} - {{filter.maxBackDepartureDate | date:timeFormat}}
+                </div>
+                <div jq-ui-slider ng-model="filter"
+                     init-min-value="filter.minBackDepartureDateInitial" init-max-value="filter.maxBackDepartureDateInitial"
+                     min-value="filter.minBackDepartureDate" max-value="filter.maxBackDepartureDate"></div>
+            </div>
+        </div>
+        <div class="ra-block">
+            <header class="ra-header">
+                <h4 class="ra-title">Время посадки</h4>
+                <a href="#" class="ra-header-link" ng-click="resetArrivalTime($event)">Сбросить</a>
+            </header>
+            <div class="ra-content">
+                <div class="ra-amount-time" ng-show="filter.minArrivalDate > 0 && filter.maxArrivalDate > 0">
+                    Вылет: {{getCityFrom()}}<br />
+                    {{getSliderTimeFormat(filter.minArrivalDate)}} - {{filter.maxArrivalDate | date:timeFormat}}
+                </div>
+                <div jq-ui-slider ng-model="filter"
+                     init-min-value="filter.minArrivalDateInitial" init-max-value="filter.maxArrivalDateInitial"
+                     min-value="filter.minArrivalDate" max-value="filter.maxArrivalDate"></div>
+                <div class="ra-amount-time" ng-show="filter.minBackArrivalDate > 0 && filter.maxBackArrivalDate > 0">
+                    Вылет: {{getCityTo()}}<br />
+                    {{getSliderTimeFormat(filter.minBackArrivalDate)}} - {{filter.maxBackArrivalDate | date:timeFormat}}
+                </div>
+                <div jq-ui-slider ng-model="filter"
+                     init-min-value="filter.minBackArrivalDateInitial" init-max-value="filter.maxBackArrivalDateInitial"
+                     min-value="filter.minBackArrivalDate" max-value="filter.maxBackArrivalDate"></div>
             </div>
         </div>
     </aside>
@@ -415,3 +453,4 @@
 
 </div>
 <!-- Search Results -->
+</div>
