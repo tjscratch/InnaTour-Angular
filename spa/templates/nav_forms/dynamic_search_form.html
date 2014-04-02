@@ -1,14 +1,35 @@
 <style>.b-wrapp_type_inline{display:inline;}</style>
 
 <form class="search-form" ng-controller="DynamicFormCtrl">
-	<div select options="fromList" caption="Откуда" current="fromCurrent" class="b-wrapp_type_inline"></div><!-- 
-	--><div dropdown-input-to provide-suggest-callback="provideSuggestToToField" suggest="toList" result="toCurrent" class="b-wrapp_type_inline"></div><!--
-	--><div date-picker-widget interval="false" caption="Дата отправления" date="dateBegin" class="b-wrapp_type_inline"></div><!--
-	--><div date-picker-widget interval="false" caption="Дата прибытия" date="dateEnd" class="b-wrapp_type_inline"></div>
+	<div select
+         options="fromList"
+         caption="Откуда"
+         current="fromCurrent"
+         class="b-wrapp_type_inline"></div><!--
+	--><div dropdown-input-to
+            provide-suggest-callback="provideSuggestToToField"
+            suggest="toList"
+            result="toCurrent"
+            class="b-wrapp_type_inline"></div><!--
+	--><div date-picker-widget
+            interval="false"
+            caption="Дата отправления"
+            date="dateBegin"
+            class="b-wrapp_type_inline"></div><!--
+	--><div date-picker-widget
+            interval="false"
+            caption="Дата прибытия"
+            date="dateEnd"
+            class="b-wrapp_type_inline"></div><!--
+	--><div counter-people
+            adult-count="adultCount"
+            children-count="childrenCount"
+            childrens-age="childrensAge"
+            class="b-wrapp_type_inline"></div>
 	
 	
 	<!--
-	PEOPLE: <div counter-people></div>
+	PEOPLE:
 	CLASS: <div select></div>
 	 -->
 </form>

@@ -7,6 +7,15 @@ if(!angular.isFunction(String.prototype.trim)) {
 	}
 }
 
+_.generateRange = function(start, end){
+    var list = [start];
+    while(start !== end) {
+        start++;
+        list.push(start);
+    }
+    return list;
+}
+
 /* Controllers */
 
 innaAppControllers.
@@ -63,17 +72,23 @@ innaAppControllers.
                 //TODO save new value to future autocomplete
             });
 
-            /*Begin date*/
+            /*End date*/
             $scope.dateEnd = null;
 
             $scope.$watch('dateEnd', function(newVal) {
                 //TODO save new value to future autocomplete
             });
+
+            /*Adult count*/
+            $scope.adultCount = 1;
+
+            /*Children count*/
+            $scope.childrenCount = 0;
+
+            /*Children ages*/
+            //TODO fix English
+            $scope.childrensAge = [];
+
+            //TODO set watchers
         }
     ]);
-
-innaAppDirectives.directive('counterPeople', [function(){
-    return {
-        templateUrl: '/spa/templates/components/counter_people.html'
-    }
-}]);
