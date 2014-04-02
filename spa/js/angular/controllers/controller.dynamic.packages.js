@@ -60,7 +60,14 @@ innaAppControllers.
             $scope.dateBegin = null;
 
             $scope.$watch('dateBegin', function(newVal) {
-                console.log('TODO do not forget to update cache');
+                //TODO save new value to future autocomplete
+            });
+
+            /*Begin date*/
+            $scope.dateEnd = null;
+
+            $scope.$watch('dateEnd', function(newVal) {
+                //TODO save new value to future autocomplete
             });
         }
     ]);
