@@ -25,8 +25,7 @@ var app = angular.module('innaApp', [
     $rootScope.$on('$routeChangeSuccess', function () {
         //аналитика
         //console.log('$window._gaq.push $location.path(): ' + $location.path());
-        if ($window._gaq != null)
-            $window._gaq.push(['_trackPageview', $location.path()]);
+        $window.ga('send', 'pageview', $location.path());
 
         //console.log('$routeChangeSuccess');
         //скролим наверх
@@ -37,23 +36,23 @@ var app = angular.module('innaApp', [
     $routeProvider.
         //Главная
         when('/', {
-            templateUrl: '/spa/templates/pages/tours_grid_page.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/tours_grid_page.html',
             controller: 'ToursCtrl'
         }).
         when('/individualtours/category/:id', {
-            templateUrl: '/spa/templates/pages/it_category_page.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/it_category_page.html',
             controller: 'IndividualToursCategoryCtrl'
         }).
         when('/individualtours/', {
-            templateUrl: '/spa/templates/pages/it_grid_page.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/it_grid_page.html',
             controller: 'IndividualToursCtrl'
         }).
         when('/about/', {
-            templateUrl: '/spa/templates/pages/about_page.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/about_page.html',
             controller: 'AboutCtrl'
         }).
         when('/contacts/', {
-            templateUrl: '/spa/templates/pages/contacts_page.html?v=' + UrlHelper.ver,
+            templateUrl: '/spa/templates/pages/contacts_page.html',
             controller: 'ContactsCtrl'
         }).
         when('/avia/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
@@ -66,6 +65,10 @@ var app = angular.module('innaApp', [
         }).
         when('/avia/search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
             templateUrl: '/spa/templates/pages/avia/search_results.html',
+            controller: 'AviaSearchResultsCtrl'
+        }).
+        when('/avia/search_old/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
+            templateUrl: '/spa/templates/pages/avia/search_results_old.html',
             controller: 'AviaSearchResultsCtrl'
         }).
         //when('/avia/search/', {

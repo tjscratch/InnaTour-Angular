@@ -37,7 +37,11 @@ innaAppControllers.
                 return url;
             };
 
-            $scope.offerClick = function (item, $event) {
+            $scope.offerClickSlider = function (slide, $event, position) {
+                $scope.offerClickSliderInternal(slide, $event, position, "slider", "слайдер");
+            };
+
+            $scope.offerClickSliderInternal = function (item, $event, position, blockType, sectionName) {
                 preventBubbling($event);
                 //на компе - кликаем сразу
                 click(item);
@@ -47,7 +51,11 @@ innaAppControllers.
                     ////log('offerClick, url: ' + url);
                     //$location.path(url);
 
-                    location.href = item.Url;
+                    //пишем статистику и делаем переход
+                    track.offerClick(sectionName, blockType, item.Name, position, function () {
+                        location.href = item.Url;
+                    });
+                    //location.href = item.Url;
                 }
             };
 

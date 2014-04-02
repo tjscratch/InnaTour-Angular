@@ -15,7 +15,9 @@ function aviaCriteriaToApiCriteria(data) {
     self.ChildCount = data.ChildCount;
     self.BabyCount = data.InfantsCount;
     self.CabinClass = data.CabinClass;
-    self.IsFlexible = data.IsFlexible == 1 ? true : false;
+    //self.IsFlexible = data.IsFlexible == 1 ? true : false;
+    self.IsToFlexible = data.IsToFlexible == 1 ? true : false;
+    self.IsBackFlexible = data.IsBackFlexible == 1 ? true : false;
 
     self.BeginDate = dateHelper.dateToApiDate(data.BeginDate);
     self.ReturnDate = dateHelper.dateToApiDate(data.EndDate);

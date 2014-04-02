@@ -5,19 +5,19 @@
     <meta name='yandex-verification' content='40fd92efcc007a47' />
     <title>Инна-Тур - Главная</title>
 
-      <!--[if lt IE 9]>
-        <script>
-          document.createElement('ng-include');
-          document.createElement('ng-pluralize');
-          document.createElement('ng-view');
+    <!--[if lt IE 9]>
+    <script>
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
  
-          // Optionally these for CSS
-          document.createElement('ng:include');
-          document.createElement('ng:pluralize');
-          document.createElement('ng:view');
-          document.createElement('ng:any');
-        </script>
-      <![endif]-->
+        // Optionally these for CSS
+        document.createElement('ng:include');
+        document.createElement('ng:pluralize');
+        document.createElement('ng:view');
+        document.createElement('ng:any');
+    </script>
+    <![endif]-->
 
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -31,20 +31,22 @@
         <link rel="stylesheet" href="/spa/css/ie.min.css" />
     <![endif]-->
 
-    <script type="text/javascript">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        //var _gaq = _gaq || [];
-        //_gaq.push(['_setAccount', 'UA-32173758-1']);
-        //_gaq.push(['_setDomainName', 'inna.ru']);
-        //_gaq.push(['_trackPageview']);
+      ga('create', 'UA-32173758-1', 'inna.ru');
+      ga('send', 'pageview');
 
-        //(function () {
-        //    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        //    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        //    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        //})();
+    </script>
 
-    </script> 
+
+<!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
+mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
+
 
 </head>
 <body id="ng-app" class="light-theme" ng-app="innaApp" ng-click="bodyClick()" ng-controller="NavigationCtrl" popup-form>
@@ -78,7 +80,7 @@
                 --><!--<li class="header-menu-item"><a href="/#/hotelticket/" ng-class="{active:isActive('/hotelticket/')}">Билет + отель</a></li>--><!--
                 --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
                 --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
-                --><li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
+                --><li class="header-menu-item"><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
                 --><li class="header-menu-item"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li><!--
                 --><!--<li class="header-menu-item"><a href="/#/autorent/" ng-class="{active:isActive('/autorent/')}">Аренда авто</a></li>--><!--
                 --><!--<li class="header-menu-item"><a href="/#/insurance/" ng-class="{active:isActive('/insurance/')}">Страхование</a></li>--><!--
@@ -204,7 +206,8 @@
 <!--[if lt IE 10]>
     <script src="/spa/js/ie.placeholder.js"></script>
 <![endif]-->
-<script src="/spa/js/search_form.js"></script>
+<!--<script src="/spa/js/search_form.js"></script>-->
+
 
 <!--[if lt IE 10]>
 <script src="spa/lib/xdomain.min.js"></script>
@@ -227,44 +230,48 @@
 </script>
 
 
-<script src="spa/js/angular/urlhelper.js"></script>
-<script src="spa/js/angular/date.helper.js"></script>
-<script src="spa/js/angular/api.stub.js"></script>
-<script src="spa/js/angular/cache_keys.js"></script>
+<script src="/spa/js/angular/urlhelper.js"></script>
+<script src="/spa/js/angular/date.helper.js"></script>
+<script src="/spa/js/angular/api.stub.js"></script>
+<script src="/spa/js/angular/cache_keys.js"></script>
 
-<script src="spa/js/angular/app.js"></script>
-<script src="spa/js/angular/filters.js"></script>
-<script src="spa/js/angular/services.js"></script>
-<script src="spa/js/angular/controllers/controller.about.js"></script>
-<script src="spa/js/angular/controllers/controller.avia.search.main.js"></script>
-<script src="spa/js/angular/controllers/controller.avia.search.results.js"></script>
-<script src="spa/js/angular/controllers/controller.contacts.js"></script>
-<script src="spa/js/angular/controllers/controller.hotel.js"></script>
-<script src="spa/js/angular/controllers/controller.hotels.js"></script>
-<script src="spa/js/angular/controllers/controller.hotel_plus_ticket.js"></script>
-<script src="spa/js/angular/controllers/controller.individualtours.js"></script>
-<script src="spa/js/angular/controllers/controller.individualtourscategory.js"></script>
-<script src="spa/js/angular/controllers/controller.main.js"></script>
-<script src="spa/js/angular/controllers/controller.navigation.js"></script>
-<script src="spa/js/angular/controllers/controller.offers.list.js"></script>
-<script src="spa/js/angular/controllers/controller.payment.js"></script>
-<script src="spa/js/angular/controllers/controller.search.main.js"></script>
-<script src="spa/js/angular/controllers/controller.search.result.js"></script>
-<script src="spa/js/angular/controllers/controller.slider.js"></script>
-<script src="spa/js/angular/controllers/controller.tour.js"></script>
-<script src="spa/js/angular/controllers/controller.tours.form.js"></script>
-<script src="spa/js/angular/controllers/controller.tours.js"></script>
-<script src="spa/js/angular/controllers/controllers.js"></script>
-<script src="spa/js/angular/directives/directive.combobox.js"></script>
-<script src="spa/js/angular/directives/directive.datepicker.2months.js"></script>
-<script src="spa/js/angular/directives/directive.datepicker.custom.js"></script>
-<script src="spa/js/angular/directives/directive.map.js"></script>
-<script src="spa/js/angular/directives/directive.popup.form.js"></script>
-<script src="spa/js/angular/directives/directives.js"></script>
-<script src="spa/js/angular/models/app.model.avia.js"></script>
-<script src="spa/js/angular/models/app.model.js"></script>
-<script src="spa/js/angular/models/app.model.to.api.model.js"></script>
-<script src="spa/js/angular/models/app.model.tours.js"></script>
+<script src="/spa/js/angular/tracking.js"></script>
+
+<script src="/spa/js/angular/app.js"></script>
+<script src="/spa/js/angular/filters.js"></script>
+<script src="/spa/js/angular/services.js"></script>
+<script src="/spa/js/angular/controllers/controller.about.js"></script>
+<script src="/spa/js/angular/controllers/controller.avia.form.js"></script>
+<script src="/spa/js/angular/controllers/controller.avia.search.main.js"></script>
+<script src="/spa/js/angular/controllers/controller.avia.search.results.js"></script>
+<script src="/spa/js/angular/controllers/controller.contacts.js"></script>
+<script src="/spa/js/angular/controllers/controller.hotel.js"></script>
+<script src="/spa/js/angular/controllers/controller.hotels.js"></script>
+<script src="/spa/js/angular/controllers/controller.hotel_plus_ticket.js"></script>
+<script src="/spa/js/angular/controllers/controller.individualtours.js"></script>
+<script src="/spa/js/angular/controllers/controller.individualtourscategory.js"></script>
+<script src="/spa/js/angular/controllers/controller.main.js"></script>
+<script src="/spa/js/angular/controllers/controller.navigation.js"></script>
+<script src="/spa/js/angular/controllers/controller.offers.list.js"></script>
+<script src="/spa/js/angular/controllers/controller.payment.js"></script>
+<script src="/spa/js/angular/controllers/controller.search.main.js"></script>
+<script src="/spa/js/angular/controllers/controller.search.result.js"></script>
+<script src="/spa/js/angular/controllers/controller.slider.js"></script>
+<script src="/spa/js/angular/controllers/controller.tour.js"></script>
+<script src="/spa/js/angular/controllers/controller.tours.form.js"></script>
+<script src="/spa/js/angular/controllers/controller.tours.js"></script>
+<script src="/spa/js/angular/controllers/controllers.js"></script>
+<script src="/spa/js/angular/directives/directive.combobox.js"></script>
+<script src="/spa/js/angular/directives/directive.datepicker.2months.js"></script>
+<script src="/spa/js/angular/directives/directive.datepicker.custom.js"></script>
+<script src="/spa/js/angular/directives/directive.jq.ui.slider.js"></script>
+<script src="/spa/js/angular/directives/directive.map.js"></script>
+<script src="/spa/js/angular/directives/directive.popup.form.js"></script>
+<script src="/spa/js/angular/directives/directives.js"></script>
+<script src="/spa/js/angular/models/app.model.avia.js"></script>
+<script src="/spa/js/angular/models/app.model.js"></script>
+<script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
+<script src="/spa/js/angular/models/app.model.tours.js"></script>
 
 
    
@@ -298,56 +305,56 @@
 </script>
 
 <script type="text/ng-template" id="/grid/item_2M.html">
-<div class="offer-middle" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event)">
+<div class="offer-middle" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event, $index, block, section)">
     <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
 </div>
-<div class="offer-middle" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event)">
+<div class="offer-middle" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event, $index, block, section)">
     <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer2] track by $index"></ng:include>
 </div>
 </script>
 
 <script type="text/ng-template" id="/grid/item_2SL.html">
 <div class="offers-column">
-    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event)">
+    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event, $index, block, section)">
         <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
     </div>
-    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event)">
+    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event, $index, block, section)">
         <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer2] track by $index"></ng:include>
     </div>
 </div>
-<div class="offer-large" ng-class="{'offer-animation':!showImgOnly(block.Offer3)}" ng-click="offerClick(block.Offer3, $event)">
+<div class="offer-large" ng-class="{'offer-animation':!showImgOnly(block.Offer3)}" ng-click="offerClick(block.Offer3, $event, $index, block, section)">
     <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer3] track by $index"></ng:include>
 </div>
 </script>
 
 <script type="text/ng-template" id="/grid/item_L2S.html">
-<div class="offer-large" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event)">
+<div class="offer-large" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event, $index, block, section)">
     <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
 </div>
 <div class="offers-column">
-    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event)">
+    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event, $index, block, section)">
         <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer2] track by $index"></ng:include>
     </div>
-    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer3)}" ng-click="offerClick(block.Offer3, $event)">
+    <div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer3)}" ng-click="offerClick(block.Offer3, $event, $index, block, section)">
         <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer3] track by $index"></ng:include>
     </div>
 </div>
 </script>
 
 <script type="text/ng-template" id="/grid/item_L3L3L3.html">
-<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event)">
+<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event, $index, block, section)">
     <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
 </div>
-<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event)">
+<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer2)}" ng-click="offerClick(block.Offer2, $event, $index, block, section)">
     <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer2] track by $index"></ng:include>
 </div>
-<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer3)}" ng-click="offerClick(block.Offer3, $event)">
+<div class="offer-small" ng-class="{'offer-animation':!showImgOnly(block.Offer3)}" ng-click="offerClick(block.Offer3, $event, $index, block, section)">
     <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer3] track by $index"></ng:include>
 </div>
 </script>
 
 <script type="text/ng-template" id="/grid/item_XL.html">
-<div class="offer-extra-large" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event)">
+<div class="offer-extra-large" ng-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event, $index, block, section)">
     <ng:include src="'/grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
 </div>
 </script>
@@ -387,7 +394,7 @@
 
 
 <!-- Yandex.Metrika counter -->
-<!--<div style="display:none;"><script type="text/javascript">
+<div style="display:none;"><script type="text/javascript">
 (function(w, c) {
     (w[c] = w[c] || []).push(function() {
         try {
@@ -400,10 +407,10 @@
 })(window, 'yandex_metrika_callbacks');
 </script></div>
 <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-<noscript><div><img src="//mc.yandex.ru/watch/5467552" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
+<noscript><div><img src="//mc.yandex.ru/watch/5467552" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 <!-- Yandex.Metrika counter -->
-<!--<div style="display:none;"><script type="text/javascript">
+<div style="display:none;"><script type="text/javascript">
                                (function (w, c) {
                                    (w[c] = w[c] || []).push(function () {
                                        try {
@@ -414,9 +421,8 @@
                                })(window, "yandex_metrika_callbacks");
 </script></div>
 <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-<noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
+<noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-
 
 
 </body>

@@ -64,7 +64,12 @@ innaAppControllers.
 
             //нужно, чтобы кликалось со второго раза на планшетах
             $scope.lastClickedItem = null;
-            $scope.offerClick = function (item, $event) {
+
+            $scope.offerClick = function (item, $event, position, block, section) {
+                $scope.offerClickInternal(item, $event, position, block.OfferLayoutType, section.Name);
+            };
+
+            $scope.offerClickInternal = function (item, $event, position, blockType, sectionName) {
                 preventBubbling($event);
 
                 function click(item) {
@@ -72,8 +77,11 @@ innaAppControllers.
                     //url = '/tours/?sta=on&city=832&country=77&resorts=&hotels=&stars=&meals=&currency=RUB&adults=2&kids=0&kids_ages=0,0,0&priceMin=0&priceMax=0&nightsMin=10&nightsMax=14&date1=25%2F03%2F2014&date2=04%2F04%2F2014';
                     //url = '#/individualtours/category/12';
                     //url = 'http://beta.inna.ru/tours/?sta=on&city=832&country=125&resorts=&hotels=&stars=401&meals=114&currency=RUB&adults=1&kids=0&kid1=0&kid2=0&kid3=0&priceMin=0&priceMax=0&nightsMin=7&nightsMax=7&date1=03%2F05%2F2014&date2=03%2F05%2F2014';
-                    //log('offerClick, url: ' + url);
-                    location.href = item.Url;
+                    //log('offerClick, sectionName: ' + section.Name + '; name: ' + item.Name + '; url: ' + item.Url + '; position: ' + position + '; type: ' + block.OfferLayoutType);
+                    track.offerClick(sectionName, blockType, item.Name, position, function () {
+                        location.href = item.Url;
+                    });
+                    //location.href = item.Url;
                 }
 
                 //если без хувера, просто картинка - то сразу кликаем
