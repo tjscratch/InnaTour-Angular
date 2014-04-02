@@ -1,7 +1,7 @@
 <div class="search-form-item search-form-from">
-    <div class="search-form-item-current">{{caption}}</div>
-    <i class="icon icon-triangle"></i>
-    <ul id="fFrom" class="search-form-list">
-        <li ng-repeat="option in options"  data-id="{{item.id}}" class="search-form-list-item" >{{option.name}}</li>
+    <div class="search-form-item-current">{{current.name || caption}}</div>
+    <i class="icon icon-triangle" ng-class="{bottom:!isOpen}"></i>
+    <ul id="fFrom" class="search-form-list" ng-show="isOpen">
+        <li ng-repeat="option in options" class="search-form-list-item" ng-click="setCurrent(option)">{{option.name}}</li>
     </ul>
 </div>

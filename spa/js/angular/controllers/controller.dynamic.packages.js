@@ -21,20 +21,25 @@ innaAppControllers.
         function($scope, dataService){
     		/* From field */
 	    	$scope.fromList = [];
+	    	
 	        dataService.getSletatCity(function (data) {
 	            _.each(data, function (item) {
 	            	$scope.fromList.push(new fromItem(item.id, item.name, item.name));
 	            });
 	        }, function (data, status) {});
 	        
-	        $scope.fromCaption = 'Откуда';
+	        $scope.fromCurrent = null;
+	        
+	        $scope.$watch('fromCurrent', function(newValue){
+	        	//TODO save new value for future autocomplete
+	        });
+	        
 	        
 	        /* To field */
 	        $scope.toList = [];
 	        $scope.provideSuggestToToField = function(preparedText, rawText) {
 	        	dataService.getSletatDirectoryByTerm(preparedText, function (data) {
 		        	if (data != null && data.length > 0) {
-			            //маппим объекты
 		        		$scope.toList = [];
 			            _.each(data, function (item) { $scope.toList.push(new toItemData(item)); });
 	                } else {
