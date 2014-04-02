@@ -11,7 +11,7 @@
             <h3 class="rl-flights-number" ng-if="ticketsList == null">поиск рейсов...</h3>
             <div class="rl-filter">
                 <div class="rl-filter-current" ng-click="isSortListOpened = !isSortListOpened">{{getCurrentSortName()}}</div>
-                <ul class="rl-filter-menu" ng-show="isSortListOpened" style="z-index: 1;">
+                <ul class="rl-filter-menu" ng-show="isSortListOpened">
                     <ng:any ng-repeat="item in sortList">
                         <li ng-click="applySort($event, item.sort)" ng-show="isSortVisible(item.sort)">{{item.name}}</li>
                     </ng:any>

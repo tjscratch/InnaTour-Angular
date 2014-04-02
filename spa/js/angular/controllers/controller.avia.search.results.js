@@ -122,7 +122,7 @@ innaAppControllers.
                 $scope.applySort = function ($event, type) {
                     preventBubbling($event);
                     $scope.isSortListOpened = false;
-                    log('applySort: ' + type + ', $scope.sort:' + $scope.sort + ', $scope.reverse:' + $scope.reverse);
+                    //log('applySort: ' + type + ', $scope.sort:' + $scope.sort + ', $scope.reverse:' + $scope.reverse);
 
                     var reverse = false;
                     if ($scope.sort == type)

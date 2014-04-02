@@ -47,6 +47,7 @@
     <Content Include="spa\fonts\proximanova-bold-webfont.svg" />
     <Content Include="spa\fonts\proximanova-light-webfont.svg" />
     <Content Include="spa\fonts\proximanova-reg-webfont.svg" />
+    <Content Include="spa\html\buy_tickets.html" />
     <Content Include="spa\html\ticket.html" />
     <Content Include="spa\html\tickets.html" />
     <Content Include="spa\img\calendar-next-month-notactive.png" />
@@ -54,6 +55,8 @@
     <Content Include="spa\img\calendar-prev-month-notactive.png" />
     <Content Include="spa\img\calendar-prev-month.png" />
     <Content Include="spa\img\calendar.png" />
+    <Content Include="spa\img\cc-bg.png" />
+    <Content Include="spa\img\cc.png" />
     <Content Include="spa\img\check.png" />
     <Content Include="spa\img\email.png" />
     <Content Include="spa\img\facebook.png" />
@@ -408,7 +411,6 @@
     <Content Include="spa\templates\pages\avia\Web.config" />
     <Content Include="spa\templates\pages\Web.config" />
     <Content Include="spa\templates\nav_forms\Web.config" />
-    <Content Include="spa\uploads\maket_photos\Thumbs.db" />
     <None Include="Properties\PublishProfiles\Ftp.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
