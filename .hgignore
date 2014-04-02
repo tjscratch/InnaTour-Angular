@@ -41,3 +41,8 @@ bin/*
 .settings/.jsdtscope
 .settings/org.eclipse.wst.jsdt.ui.superType.container
 .settings/org.eclipse.wst.jsdt.ui.superType.name
+spa/html/verstka_Vaneltin/img/.DS_Store
+spa/html/verstka_Vaneltin/img/flags/.DS_Store
+spa/html/verstka_Vaneltin/img/individual-tour/.DS_Store
+spa/html/verstka_Vaneltin/img/individual/.DS_Store
+spa/uploads/maket_photos/Thumbs.db

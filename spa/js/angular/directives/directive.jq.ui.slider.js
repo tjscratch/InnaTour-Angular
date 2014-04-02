@@ -4,19 +4,26 @@
 /* Directives */
 
 innaAppDirectives.
-    directive('priceSlider', ['$parse', function ($parse) {
+    directive('jqUiSlider', ['$parse', function ($parse) {
         return {
-            link: function (scope, element, attrs) {
+            require: 'ngModel',
+            scope: {
+                initMinValue: '=',
+                initMaxValue: '=',
+                minValue: '=',
+                maxValue: '='
+            },
+            link: function (scope, element, attrs, ngModel) {
 
                 $(element).slider({
                     range: true,
-                    min: 0,
-                    max: 10,
-                    values: [0, 10],
+                    min: scope.initMinValue,
+                    max: scope.initMaxValue,
+                    values: [scope.minValue, scope.maxValue],
                     slide: function (event, ui) {
                         scope.$apply(function (scope) {
-                            scope.filter.minPrice = ui.values[0];
-                            scope.filter.maxPrice = ui.values[1];
+                            scope.minValue = ui.values[0];
+                            scope.maxValue = ui.values[1];
                         });
                     }
                 });
@@ -30,14 +37,14 @@ innaAppDirectives.
                     //console.log('slider option change');
                     $(element).slider("option",
                         {
-                            min: filter.minPriceInitial,
-                            max: filter.maxPriceInitial,
-                            values: [filter.minPrice, filter.maxPrice]
+                            min: scope.initMinValue,
+                            max: scope.initMaxValue,
+                            values: [scope.minValue, scope.maxValue]
                         });
                 };
 
                 //мониторим изменения filter
-                scope.$watch("filter", function (filter) {
+                scope.$watch(function () { return ngModel.$modelValue; }, function (filter) {
                     applyWatchThrottled(filter);
                 }, true);
             }
