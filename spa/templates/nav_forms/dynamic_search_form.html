@@ -1,8 +1,14 @@
-<form ng-controller="DynamicFormCtrl">
-	FROM: <div select></div>
-	TO: <div dropdown-input-to></div>
+<style>.b-wrapp_type_inline{display:inline;}</style>
+
+<form class="search-form" ng-controller="DynamicFormCtrl">
+	<div select options="fromList" caption="fromCaption" class="b-wrapp_type_inline"></div><!-- 
+	 --><div dropdown-input-to class="b-wrapp_type_inline" provide-suggest-callback="provideSuggestToToField" suggest="toList"></div> <span style="color:red;">{{toText}}</span>
+	
+	
+	<!-- 
 	DATE_BEGIN: <div date-picker-custom></div>
 	DATE_END: <div date-picker-custom></div>
 	PEOPLE: <div counter-people></div>
 	CLASS: <div select></div>
+	 -->
 </form>

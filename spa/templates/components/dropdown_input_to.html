@@ -1,1 +1,11 @@
-<input type="text" value="TO">
+<div class="search-form-item search-form-to">
+    <input type="text" class="search-form-item-current SearchTo" ng-change="onTextChange(rawText)" ng-model="rawText"/> 
+    <ul class="search-form-list search-form-list-to">
+        <ng:any ng-repeat="item in suggest">
+            <li class="search-form-list-item search-form-list-item-country">
+                {{item.name}}<span class="description">{{getToItemDescription(item)}}</span>
+                <i class="icon icon-flag" ng-class="'icon-flag-' + item.codeIcao"></i>
+            </li>
+        </ng:any>
+    </ul>
+</div>
