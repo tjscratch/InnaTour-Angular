@@ -45,16 +45,6 @@ innaAppControllers.
         }
     ]);
 
-innaAppDirectives.directive('select', [function(){
-    return {
-        templateUrl: '/spa/templates/components/select.html',
-        scope: {
-        	options: '=',
-        	caption: '='
-        }
-    }
-}]);
-
 innaAppDirectives.directive('dropdownInputTo', [function(){
     return {
         templateUrl: '/spa/templates/components/dropdown_input_to.html',
