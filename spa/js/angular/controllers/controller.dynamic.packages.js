@@ -37,16 +37,24 @@ innaAppControllers.
 	        
 	        /* To field */
 	        $scope.toList = [];
+
 	        $scope.provideSuggestToToField = function(preparedText, rawText) {
 	        	dataService.getSletatDirectoryByTerm(preparedText, function (data) {
 		        	if (data != null && data.length > 0) {
 		        		$scope.toList = [];
+
 			            _.each(data, function (item) { $scope.toList.push(new toItemData(item)); });
 	                } else {
 	                	$scope.toList = [];
 	                }
 		        }, function (data, status) {});
 	        }
+
+            $scope.toCurrent = null;
+
+            $scope.$watch('toCurrent', function(newValue){
+                //TODO save new value to future autocomplete
+            });
         }
     ]);
 

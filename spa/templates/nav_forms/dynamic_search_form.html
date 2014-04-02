@@ -2,7 +2,7 @@
 
 <form class="search-form" ng-controller="DynamicFormCtrl">
 	<div select options="fromList" caption="Откуда" current="fromCurrent" class="b-wrapp_type_inline"></div><!-- 
-	 --><div dropdown-input-to class="b-wrapp_type_inline" provide-suggest-callback="provideSuggestToToField" suggest="toList"></div> <span style="color:red;">{{toText}}</span>
+	 --><div dropdown-input-to provide-suggest-callback="provideSuggestToToField" suggest="toList" result="toCurrent" class="b-wrapp_type_inline"></div>
 	
 	
 	<!-- 

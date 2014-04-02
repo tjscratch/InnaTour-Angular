@@ -3,37 +3,32 @@ innaAppDirectives.directive('dropdownInputTo', [function(){
         templateUrl: '/spa/templates/components/dropdown_input_to.html',
         scope: {
         	provideSuggestCallback: '=', //callback for ngChange
-        	suggest: '=' //list of suggested objects
+        	suggest: '=', //list of suggested objects
+            result: '='
         },
         controller: ['$scope', function($scope){
-        	$scope.rawText = '';
-        	$scope.onTextChange = function(){
-        		var preparedText = $scope.rawText.split(',')[0].trim();
-        		$scope.provideSuggestCallback(preparedText, $scope.rawText);
+        	/*Properties*/
+        	$scope.fulfilled = false;
+        	
+        	/*Events*/
+        	$scope.setCurrent = function(option) {
+        		$scope.input.val(option.name + option.description());
+        		$scope.fulfilled = true;
         	}
-        	$scope.getToItemDescription = function (item) {
-        		var toItemType = { country: 'country', resort: 'resort', hotel: 'hotel' };
-                var country = "";
-                var resort = "";
-                
-                if (item.countryName != null) {
-                	country = item.countryName;
-                }
-                
-                if (item.resortName != null) {
-                	resort = item.resortName;
-                }
-                
-                
+            $scope.unfulfill = function(){
+                $scope.fulfilled = false;
+                $scope.result = null;
+            }
+        }],
+        link: function(scope, elem, attrs){
+        	scope.input = $('input[type="text"]', elem);
 
-                if (item.type == toItemType.country)  {
-                	return ", по всей стране";
-                } else if (item.type == toItemType.resort) {
-                    return ", " + country;
-                } else if (item.type == toItemType.hotel) {
-                    return ", " + country + ", " + resort;
-                }
-            };
-        }]
+            scope.input.keypress(_.debounce(function(event){
+                var value = scope.input.val();
+        		var preparedText = value.split(', ')[0].trim();
+
+        		scope.provideSuggestCallback(preparedText, value);
+        	}, 200));
+        }
     }
 }]);
