@@ -559,6 +559,8 @@ innaAppControllers.
                 if ($scope.ticketsList != null) {
                     for (var i = 0; i < $scope.ticketsList.length; i++) {
                         var item = $scope.ticketsList[i];
+                        //признак самого дешевого
+                        item.isCheapest = false;
 
                         //итем в массиве выбранных значений туда
                         var itemInTransferCount = _.any(transferCountCheckedList, function (toCheck) {
