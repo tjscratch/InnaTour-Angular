@@ -88,6 +88,12 @@ innaAppControllers.
 
             //TODO set watchers
 
+            /*Klass*/
+            $scope.klass = TripKlass.options[0];
+
+            //TODO set watchers
+
+
             /*Methods*/
             $scope.searchStart = function(){
                 $rootScope.$broadcast('inna.DynamicPackages.Search', {
@@ -96,7 +102,8 @@ innaAppControllers.
                     begin: $scope.dateBegin,
                     end: $scope.dateEnd,
                     adultsCount: $scope.adultCount,
-                    children: _.map($scope.childrensAge, function(selector, n){ return selector.value; })
+                    children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
+                    klass: $scope.klass
                 });
             }
         }
