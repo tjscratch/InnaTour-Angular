@@ -14,6 +14,7 @@
             /*Events*/
             $scope.setCurrent = function(option) {
                 $scope.input.val(option.Name);
+                $scope.result = option.Id;
                 $scope.fulfilled = true;
             }
             $scope.unfulfill = function(){

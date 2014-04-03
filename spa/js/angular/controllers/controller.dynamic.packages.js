@@ -20,14 +20,16 @@ _.generateRange = function(start, end){
 
 innaAppControllers.
     controller('DynamicPackageCtrl', ['$scope', 'DynamicPackagesDataProvider',
-        function DynamicPackageCtrl($scope, DynamicPackagesDataProvider) {
-    		
+        function ($scope, DynamicPackagesDataProvider) {
+    		$scope.$on('inna.DynamicPackages.Search', function(event, data){
+                console.log(data);
+            })
         }
     ]);
 
 innaAppControllers.
-    controller('DynamicFormCtrl', ['$scope', 'DynamicPackagesDataProvider',
-        function($scope, DynamicPackagesDataProvider){
+    controller('DynamicFormCtrl', ['$scope', 'DynamicPackagesDataProvider', '$rootScope',
+        function($scope, DynamicPackagesDataProvider, $rootScope){
     		/* From field */
             $scope.fromList = []
 
@@ -37,7 +39,7 @@ innaAppControllers.
                 })
             }
 
-            $scope.fromCurrent = '';
+            $scope.fromCurrent = null;
 
             $scope.$watch('fromCurrent', function(newVal){
                 //TODO
@@ -85,5 +87,17 @@ innaAppControllers.
             $scope.childrensAge = [];
 
             //TODO set watchers
+
+            /*Methods*/
+            $scope.searchStart = function(){
+                $rootScope.$broadcast('inna.DynamicPackages.Search', {
+                    from: $scope.fromCurrent,
+                    to: $scope.toCurrent,
+                    begin: $scope.dateBegin,
+                    end: $scope.dateEnd,
+                    adultsCount: $scope.adultCount,
+                    children: _.map($scope.childrensAge, function(n, selector){ return selector.value; })
+                });
+            }
         }
     ]);
