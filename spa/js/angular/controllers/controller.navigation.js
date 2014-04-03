@@ -41,6 +41,40 @@ innaAppControllers.
                 }
             };
 
+            $scope.getTitle = function () {
+                
+                var loc = $location.path();
+                var abs = $location.absUrl();
 
+                if (loc == '/') {
+                    return "Главная";
+                } else if (loc.indexOf(app.URL_DYNAMIC_PACKAGES) > -1) {
+                    return "Динамические пакеты";
+                }
+                else if (loc.indexOf(app.URL_AVIA) > -1) {
+                    return "Авиа";
+                }
+                else if (loc.indexOf(app.URL_PROGRAMMS) > -1) {
+                    return "Программы";
+                }
+                else if (loc.indexOf(app.URL_ABOUT) > -1) {
+                    return "О компании";
+                }
+                else if (loc.indexOf(app.URL_CONTACTS) > -1) {
+                    return "Контакты";
+                }
+                else {
+                    return "Главная";
+                }
+            };
+
+            setTitle();
+            function setTitle() {
+                $scope.title = "Инна-Тур - " + $scope.getTitle();
+            };
+
+            $scope.$on('$routeChangeSuccess', function () {
+                setTitle();
+            });
 
         }]);

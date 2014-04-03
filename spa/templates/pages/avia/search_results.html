@@ -21,8 +21,8 @@
 
         <ng:any ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">
         <!--<ng:any ng-repeat="item in filteredTicketsList">-->
-            <div class="rl-title-best rl-title-recommended" ng-show="item.IsRecomendation">мы рекомендуем</div>
             <div class="rl-title-best rl-title-cheapest" ng-show="item.isCheapest">самый дешевый</div>
+            <div class="rl-title-best rl-title-recommended" ng-show="item.IsRecomendation">мы рекомендуем</div>
             <div class="rl-item">
                 <header class="rl-item-header">
                     <span class="rl-price">

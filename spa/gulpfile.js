@@ -36,7 +36,7 @@ gulp.task('styles', function () {
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest('css'))
         // .pipe(livereload());
-    gulp.src(['css/main/*.less'])
+    gulp.src(['css/main/*.less', 'css/pages/*.less'])
         .pipe(concat('main.css'))
         .pipe(less())
         .pipe(gulp.dest('css'))
