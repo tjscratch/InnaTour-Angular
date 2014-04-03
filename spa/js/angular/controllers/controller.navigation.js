@@ -52,7 +52,7 @@ innaAppControllers.
                     return "Динамические пакеты";
                 }
                 else if (loc.indexOf(app.URL_AVIA) > -1) {
-                    return "Авиа";
+                    return "Авиабилеты";
                 }
                 else if (loc.indexOf(app.URL_PROGRAMMS) > -1) {
                     return "Программы";

@@ -2,16 +2,21 @@
 var track = {
     gotoBooking: function () {
         //отслеживаем в mixpanel
-        mixpanel.track("redirect", { "service": "booking" });
+        if (window.mixpanel != null)
+            mixpanel.track("redirect", { "service": "booking" });
         //отслеживаем в гугл аналитике
-        ga('send', 'pageview', 'bookingcom');
+        if (ga != null)
+            ga('send', 'pageview', 'bookingcom');
 
     },
     offerClick: function (sectionName, type, name, position, fn) {
         //type -  XXL, XL, L...
         //name - название офера
         //position - порядковый номер в секции оферов
-        mixpanel.track("offer.click", { "section": sectionName, "type": type, "name": name, "position": position }, fn);
+        if (window.mixpanel != null)
+            mixpanel.track("offer.click", { "section": sectionName, "type": type, "name": name, "position": position }, fn);
+        else
+            fn();
     },
     formSearch: function (departure_city_name, country_name, departure_date, flex_date, search_depth, duration, adt_count, chd_count, source, fn) {
         //departure_city_name - город вылета
@@ -23,11 +28,14 @@ var track = {
         //adt_count - количество взр
         //chd_count -  количество детей
         //source - откуда вызван поиск (main/search_result)
-        mixpanel.track("form.search", {
-            "departure_city_name": departure_city_name, "country_name": country_name, "departure_date": departure_date,
-            "flex_date": flex_date, "search_depth": search_depth, "duration": duration, "adt_count": adt_count,
-            "chd_count": chd_count, "source": source
-        }, fn);
+        if (window.mixpanel != null)
+            mixpanel.track("form.search", {
+                "departure_city_name": departure_city_name, "country_name": country_name, "departure_date": departure_date,
+                "flex_date": flex_date, "search_depth": search_depth, "duration": duration, "adt_count": adt_count,
+                "chd_count": chd_count, "source": source
+            }, fn);
+        else
+            fn();
     },
     programDownload: function (name, program_country, category, fn)
     {
@@ -37,7 +45,10 @@ var track = {
         name = name == null ? "" : name;
         program_country = program_country == null ? "" : program_country;
         category = category == null ? "" : category;
-        mixpanel.track("program.download", { "name": name, "program_country": program_country, "category": category }, fn);
+        if (window.mixpanel != null)
+            mixpanel.track("program.download", { "name": name, "program_country": program_country, "category": category }, fn);
+        else
+            fn();
     }
 };
 
