@@ -96,7 +96,7 @@ innaAppControllers.
                     begin: $scope.dateBegin,
                     end: $scope.dateEnd,
                     adultsCount: $scope.adultCount,
-                    children: _.map($scope.childrensAge, function(n, selector){ return selector.value; })
+                    children: _.map($scope.childrensAge, function(selector, n){ return selector.value; })
                 });
             }
         }
