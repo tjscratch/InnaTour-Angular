@@ -1,17 +1,20 @@
 <style>.b-wrapp_type_inline{display:inline;}</style>
 
-<form class="search-form" ng-controller="DynamicFormCtrl">
-	<div select
-         options="fromList"
-         caption="Откуда"
-         current="fromCurrent"
+<form class="search-ticket-form" ng-controller="DynamicFormCtrl">
+	<div dropdown-input
+         theme="search-field-block search-field-block_pos_first"
+         provide-suggest-callback="provideSuggestToFromList"
+         suggest="fromList"
+         result="fromCurrent"
          class="b-wrapp_type_inline"></div><!--
-	--><div dropdown-input-to
+	--><div dropdown-input
+            theme="search-field-block"
             provide-suggest-callback="provideSuggestToToField"
             suggest="toList"
             result="toCurrent"
             class="b-wrapp_type_inline"></div><!--
 	--><div date-picker-widget
+            theme="search-date-block"
             interval="false"
             caption="Дата отправления"
             date="dateBegin"
@@ -26,10 +29,4 @@
             children-count="childrenCount"
             childrens-age="childrensAge"
             class="b-wrapp_type_inline"></div>
-	
-	
-	<!--
-	PEOPLE:
-	CLASS: <div select></div>
-	 -->
 </form>

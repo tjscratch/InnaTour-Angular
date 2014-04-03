@@ -16,9 +16,7 @@ innaAppDirectives.directive('select', [function(){
         	}
         },
         link: function(scope, element, attrs){
-        	var doc = $(document);
-			
-        	doc.click(function bodyClick(event){
+        	$(document).click(function(event){
         		var isInsideComponent = !!$(event.target).closest(element).length;
         		
         		if(!isInsideComponent) {
