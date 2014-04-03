@@ -30,6 +30,8 @@ innaAppControllers.
                 var abs = $location.absUrl();
                 if (loc == '/' || abs.indexOf('/tours/?') > -1) {
                     return UrlHelper.addPathAndVersion('/spa/templates/nav_forms/tours_search_form.html');
+                } else if(loc == app.URL_DYNAMIC_PACKAGES) {
+                	return UrlHelper.addPathAndVersion('/spa/templates/nav_forms/dynamic_search_form.html');
                 }
                 else if (loc.indexOf('/avia/') > -1) {
                     return UrlHelper.addPathAndVersion('/spa/templates/nav_forms/avia_search_form.html');

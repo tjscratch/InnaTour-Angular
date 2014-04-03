@@ -47,6 +47,7 @@
     <Content Include="spa\fonts\proximanova-bold-webfont.svg" />
     <Content Include="spa\fonts\proximanova-light-webfont.svg" />
     <Content Include="spa\fonts\proximanova-reg-webfont.svg" />
+    <Content Include="spa\html\buy_tickets.html" />
     <Content Include="spa\html\ticket.html" />
     <Content Include="spa\html\tickets.html" />
     <Content Include="spa\img\calendar-next-month-notactive.png" />
@@ -54,6 +55,8 @@
     <Content Include="spa\img\calendar-prev-month-notactive.png" />
     <Content Include="spa\img\calendar-prev-month.png" />
     <Content Include="spa\img\calendar.png" />
+    <Content Include="spa\img\cc-bg.png" />
+    <Content Include="spa\img\cc.png" />
     <Content Include="spa\img\check.png" />
     <Content Include="spa\img\email.png" />
     <Content Include="spa\img\facebook.png" />
@@ -290,6 +293,7 @@
     <Content Include="spa\js\angular\controllers\controller.avia.search.main.js" />
     <Content Include="spa\js\angular\controllers\controller.avia.search.results.js" />
     <Content Include="spa\js\angular\controllers\controller.contacts.js" />
+    <Content Include="spa\js\angular\controllers\controller.dynamic.packages.js" />
     <Content Include="spa\js\angular\controllers\controller.hotel.js" />
     <Content Include="spa\js\angular\controllers\controller.hotels.js" />
     <Content Include="spa\js\angular\controllers\controller.hotel_plus_ticket.js" />
@@ -310,11 +314,15 @@
     <Content Include="spa\js\angular\date.helper.js" />
     <Content Include="spa\js\angular\directives\directive.combobox.js" />
     <Content Include="spa\js\angular\directives\directive.autocomplete.custom.js" />
+    <Content Include="spa\js\angular\directives\directive.counter_people.component.js" />
     <Content Include="spa\js\angular\directives\directive.datepicker.2months.js" />
     <Content Include="spa\js\angular\directives\directive.datepicker.custom.js" />
+    <Content Include="spa\js\angular\directives\directive.date_picker_widget.component.js" />
+    <Content Include="spa\js\angular\directives\directive.dropdown_input_to.component.js" />
     <Content Include="spa\js\angular\directives\directive.jq.ui.slider.js" />
     <Content Include="spa\js\angular\directives\directive.map.js" />
     <Content Include="spa\js\angular\directives\directive.popup.form.js" />
+    <Content Include="spa\js\angular\directives\directive.select.component.js" />
     <Content Include="spa\js\angular\directives\directives.js" />
     <Content Include="spa\js\angular\filters.js" />
     <Content Include="spa\js\angular\models\app.model.avia.js" />
@@ -334,6 +342,10 @@
     <Content Include="spa\lib\jquery-ui-1.10.4.custom\js\jquery-ui-1.10.4.custom.js" />
     <Content Include="spa\lib\jquery-ui-1.10.4.custom\js\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="spa\lib\xdomain.min.js" />
+    <Content Include="spa\templates\components\counter_people.html" />
+    <Content Include="spa\templates\components\date_picker_widget.html" />
+    <Content Include="spa\templates\components\dropdown_input_to.html" />
+    <Content Include="spa\templates\components\select.html" />
     <Content Include="spa\templates\grid\item_2M.html" />
     <Content Include="spa\templates\grid\item_2SL.html" />
     <Content Include="spa\templates\grid\item_L2S.html" />
@@ -353,6 +365,7 @@
     <Content Include="spa\templates\pages\avia\search_results_old.html" />
     <Content Include="spa\templates\pages\avia\search_results.html" />
     <Content Include="spa\templates\pages\contacts_page.html" />
+    <Content Include="spa\templates\pages\dynamic_package_page.html" />
     <Content Include="spa\templates\pages\it_category_page.html" />
     <Content Include="spa\templates\pages\it_grid_page.html" />
     <Content Include="spa\templates\pages\tours_grid_page.html" />
@@ -408,7 +421,6 @@
     <Content Include="spa\templates\pages\avia\Web.config" />
     <Content Include="spa\templates\pages\Web.config" />
     <Content Include="spa\templates\nav_forms\Web.config" />
-    <Content Include="spa\uploads\maket_photos\Thumbs.db" />
     <None Include="Properties\PublishProfiles\Ftp.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

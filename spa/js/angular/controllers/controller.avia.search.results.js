@@ -75,6 +75,16 @@ innaAppControllers.
                 $scope.sort = avia.sortType.byRecommend;
                 $scope.reverse = false;
                 $scope.sortType = avia.sortType;
+                $scope.sortList = [
+                    { name: "По рекомендованности", sort: avia.sortType.byRecommend },
+                    { name: "По цене", sort: avia.sortType.byPrice },
+                    { name: "По времени в пути", sort: avia.sortType.byTripTime },
+                    { name: "По времени отправления ТУДА", sort: avia.sortType.byDepartureTime },
+                    { name: "По времени отправления ОБРАТНО", sort: avia.sortType.byBackDepartureTime },
+                    { name: "По времени прибытия ТУДА", sort: avia.sortType.byArrivalTime },
+                    { name: "По времени прибытия ОБРАТНО", sort: avia.sortType.byBackArrivalTime }
+                ];
+                $scope.isSortListOpened = false;
                 $scope.dateFormat = avia.dateFormat;
                 $scope.timeFormat = avia.timeFormat;
 
@@ -109,8 +119,10 @@ innaAppControllers.
                     });
                 };
 
-                $scope.applySort = function(type){
-                    log('applySort: ' + type + ', $scope.sort:' + $scope.sort + ', $scope.reverse:' + $scope.reverse);
+                $scope.applySort = function ($event, type) {
+                    preventBubbling($event);
+                    $scope.isSortListOpened = false;
+                    //log('applySort: ' + type + ', $scope.sort:' + $scope.sort + ', $scope.reverse:' + $scope.reverse);
 
                     var reverse = false;
                     if ($scope.sort == type)
@@ -120,6 +132,14 @@ innaAppControllers.
 
                     $scope.sort = type;
                     $scope.reverse = reverse;
+                };
+
+                $scope.getCurrentSortName = function () {
+                    return _.find($scope.sortList, function (item) { return item.sort == $scope.sort }).name;
+                };
+
+                $scope.isSortVisible = function (sort) {
+                    return sort != $scope.sort;
                 };
 
                 $scope.getTransferCountText = function (count) {
@@ -560,7 +580,7 @@ innaAppControllers.
                 transporterListCheckedList = _.map(transporterListCheckedList, function (item) { return item.TransporterCode });
 
                 //заодно в цикле вычисляем признак самого дешевого билета
-                var minPriceItem = { item: null, price: 0 };
+                var minPriceItem = { item: null, price: 1000000000000000000 };
                 if ($scope.ticketsList != null) {
                     for (var i = 0; i < $scope.ticketsList.length; i++) {
                         var item = $scope.ticketsList[i];
@@ -599,7 +619,7 @@ innaAppControllers.
                             )
                         {
                             //вычисляем самый дешевый
-                            if (item.Price > minPriceItem.price)
+                            if (item.Price < minPriceItem.price)
                             {
                                 minPriceItem.item = item;
                                 minPriceItem.price = item.Price;

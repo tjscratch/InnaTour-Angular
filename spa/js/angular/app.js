@@ -32,6 +32,8 @@ var app = angular.module('innaApp', [
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
 }]).config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+	
+	app.URL_DYNAMIC_PACKAGES = '/packages/';
 
     $routeProvider.
         //Главная
@@ -77,7 +79,7 @@ var app = angular.module('innaApp', [
         //}).
         when('/hotelticket/', {
             templateUrl: '/spa/templates/pages/hotelticket_page.html',
-            controller: 'HotelPlusTicketCtrl'
+            controller: 'HotelPlusTicketCtrl',
         }).
         when('/hotels/', {
             templateUrl: '/spa/templates/pages/hotels_page.html',
@@ -99,7 +101,11 @@ var app = angular.module('innaApp', [
         when('/payment/:orderId', {
             templateUrl: '/AngularTemplates/PaymentPage',
             controller: 'PaymentPageCtrl'
-        })
+        }).
+        when(app.URL_DYNAMIC_PACKAGES, {
+            templateUrl: '/spa/templates/pages/dynamic_package_page.html',
+            controller: 'DynamicPackageCtrl'
+        });
         //.
         //otherwise({
         //    redirectTo: '/'

@@ -91,6 +91,30 @@ function toItemData(data) {
     self.codeIcao = data.codeIcao;
 }
 
+toItemData.prototype.description = function() {
+	var toItemType = { country: 'country', resort: 'resort', hotel: 'hotel' };
+    var country = "";
+    var resort = "";
+    
+    if (this.countryName != null) {
+    	country = this.countryName;
+    }
+    
+    if (this.resortName != null) {
+    	resort = this.resortName;
+    }
+    
+    
+
+    if (this.type == toItemType.country)  {
+    	return ", по всей стране";
+    } else if (this.type == toItemType.resort) {
+        return ", " + country;
+    } else if (this.type == toItemType.hotel) {
+        return ", " + country + ", " + resort;
+    }
+}
+
 function nightItem(name, min, max) {
     var self = this;
     self.name = name;
