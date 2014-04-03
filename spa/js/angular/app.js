@@ -33,7 +33,11 @@ var app = angular.module('innaApp', [
     });
 }]).config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 	
-	app.URL_DYNAMIC_PACKAGES = '/packages/';
+    app.URL_AVIA = '/avia/';
+    app.URL_DYNAMIC_PACKAGES = '/packages/';
+    app.URL_PROGRAMMS = '/individualtours/';
+    app.URL_ABOUT = '/about/';
+    app.URL_CONTACTS = '/contacts/';
 
     $routeProvider.
         //Главная
@@ -41,35 +45,35 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/tours_grid_page.html',
             controller: 'ToursCtrl'
         }).
-        when('/individualtours/category/:id', {
+        when(app.URL_PROGRAMMS + 'category/:id', {
             templateUrl: '/spa/templates/pages/it_category_page.html',
             controller: 'IndividualToursCategoryCtrl'
         }).
-        when('/individualtours/', {
+        when(app.URL_PROGRAMMS, {
             templateUrl: '/spa/templates/pages/it_grid_page.html',
             controller: 'IndividualToursCtrl'
         }).
-        when('/about/', {
+        when(app.URL_ABOUT, {
             templateUrl: '/spa/templates/pages/about_page.html',
             controller: 'AboutCtrl'
         }).
-        when('/contacts/', {
+        when(app.URL_CONTACTS, {
             templateUrl: '/spa/templates/pages/contacts_page.html',
             controller: 'ContactsCtrl'
         }).
-        when('/avia/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
+        when(app.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
             templateUrl: '/spa/templates/pages/avia/search_form.html',
             controller: 'AviaSearchMainCtrl'
         }).
-        when('/avia/', {
+        when(app.URL_AVIA, {
             templateUrl: '/spa/templates/pages/avia/search_form.html',
             controller: 'AviaSearchMainCtrl'
         }).
-        when('/avia/search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
+        when(app.URL_AVIA + 'search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
             templateUrl: '/spa/templates/pages/avia/search_results.html',
             controller: 'AviaSearchResultsCtrl'
         }).
-        when('/avia/search_old/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
+        when(app.URL_AVIA + 'search_old/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
             templateUrl: '/spa/templates/pages/avia/search_results_old.html',
             controller: 'AviaSearchResultsCtrl'
         }).

@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<html xmlns:ng="http://angularjs.org">
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="NavigationCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name='yandex-verification' content='40fd92efcc007a47' />
-    <title>Инна-Тур - Главная</title>
+    <title ng-bind="title">Инна-Тур - Главная</title>
 
     <!--[if lt IE 9]>
     <script>
@@ -49,7 +49,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
 
 
 </head>
-<body id="ng-app" class="light-theme" ng-app="innaApp" ng-click="bodyClick()" ng-controller="NavigationCtrl" popup-form>
+<body class="light-theme" ng-click="bodyClick()" popup-form>
 
 	<div class="header Header">
         
