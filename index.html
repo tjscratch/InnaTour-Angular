@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<html xmlns:ng="http://angularjs.org">
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="NavigationCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name='yandex-verification' content='40fd92efcc007a47' />
-    <title>Инна-Тур - Главная</title>
+    <title ng-bind="title">Инна-Тур - Главная</title>
 
     <!--[if lt IE 9]>
     <script>
@@ -49,7 +49,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
 
 
 </head>
-<body id="ng-app" class="light-theme" ng-app="innaApp" ng-click="bodyClick()" ng-controller="NavigationCtrl" popup-form>
+<body class="light-theme" ng-click="bodyClick()" popup-form>
 
 	<div class="header Header">
         
@@ -240,6 +240,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
 <script src="/spa/js/angular/app.js"></script>
 <script src="/spa/js/angular/filters.js"></script>
 <script src="/spa/js/angular/services.js"></script>
+<script src="/spa/js/angular/services/service.dynamic.packages.js"></script>
 <script src="/spa/js/angular/controllers/controller.about.js"></script>
 <script src="/spa/js/angular/controllers/controller.avia.form.js"></script>
 <script src="/spa/js/angular/controllers/controller.avia.search.main.js"></script>
@@ -270,9 +271,10 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
 <script src="/spa/js/angular/directives/directive.popup.form.js"></script>
 <script src="/spa/js/angular/directives/directives.js"></script>
 <script src="/spa/js/angular/directives/directive.select.component.js"></script>
-<script src="/spa/js/angular/directives/directive.dropdown_input_to.component.js"></script>
+<script src="/spa/js/angular/directives/directive.autocomplete.component.js"></script>
 <script src="/spa/js/angular/directives/directive.date_picker_widget.component.js"></script>
-    <script src="/spa/js/angular/directives/directive.counter_people.component.js"></script>
+<script src="/spa/js/angular/directives/directive.counter_people.component.js"></script>
+<script src="/spa/js/angular/directives/directive.trip_preferences.component.js"></script>
 <script src="/spa/js/angular/models/app.model.avia.js"></script>
 <script src="/spa/js/angular/models/app.model.js"></script>
 <script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
