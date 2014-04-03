@@ -1,6 +1,3 @@
-
-'use strict';
-
 if(!_.isFunction(String.prototype.trim)) {
 	String.prototype.trim = function() {
 		return this.replace(/^\s+|\s+$/g, ''); 
@@ -14,6 +11,16 @@ _.generateRange = function(start, end){
         list.push(start);
     }
     return list;
+}
+
+Date.fromDDMMYY = function(ddmmyy, asTS){
+    var bits = ddmmyy.split('.');
+    var mmddyy = [bits[1], bits[0], bits[2]].join('.');
+    var date = new Date(mmddyy);
+
+    if(asTS) return +date;
+
+    return date;
 }
 
 /* Controllers */
@@ -30,6 +37,14 @@ innaAppControllers.
 innaAppControllers.
     controller('DynamicFormCtrl', ['$scope', 'DynamicPackagesDataProvider', '$rootScope',
         function($scope, DynamicPackagesDataProvider, $rootScope){
+            function validate(){
+                if(!$scope.fromCurrent) throw Error('fromCurrent');
+
+                if(!$scope.toCurrent) throw Error('toCurrent');
+
+                if($scope.fromCurrent == $scope.toCurrent) throw Error('toCurrent');
+            }
+
     		/* From field */
             $scope.fromList = []
 
@@ -43,7 +58,7 @@ innaAppControllers.
 
             $scope.$watch('fromCurrent', function(newVal){
                 //TODO
-            })
+            });
 
 	        
 	        
@@ -77,7 +92,7 @@ innaAppControllers.
             });
 
             /*Adult count*/
-            $scope.adultCount = 1;
+            $scope.adultCount = 2;
 
             /*Children count*/
             $scope.childrenCount = 0;
@@ -96,15 +111,24 @@ innaAppControllers.
 
             /*Methods*/
             $scope.searchStart = function(){
-                $rootScope.$broadcast('inna.DynamicPackages.Search', {
-                    from: $scope.fromCurrent,
-                    to: $scope.toCurrent,
-                    begin: $scope.dateBegin,
-                    end: $scope.dateEnd,
-                    adultsCount: $scope.adultCount,
-                    children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
-                    klass: $scope.klass
-                });
+                try {
+                    validate();
+                    //if ok
+                    $rootScope.$broadcast('inna.DynamicPackages.Search', {
+                        from: $scope.fromCurrent,
+                        to: $scope.toCurrent,
+                        begin: $scope.dateBegin,
+                        end: $scope.dateEnd,
+                        adultsCount: $scope.adultCount,
+                        children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
+                        klass: $scope.klass
+                    });
+                } catch(e) {
+                    console.warn(e);
+                    if($scope.hasOwnProperty(e.message)) {
+                        $scope[e.message] = e;
+                    }
+                }
             }
         }
     ]);

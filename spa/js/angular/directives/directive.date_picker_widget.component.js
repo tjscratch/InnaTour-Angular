@@ -2,24 +2,38 @@ innaAppDirectives.directive('datePickerWidget', [function(){
     return {
         templateUrl: '/spa/templates/components/date_picker_widget.html',
         scope: {
-            date: '='
+            date: '=',
+            minDate: '='
         },
-        controller: ['$scope', function($scope){
+        controller: ['$scope', '$timeout', function($scope, $timeout){
             /*Methods*/
             $scope.short = function(ddmmyy) {
                 if(!ddmmyy) return '';
 
                 var bits = ddmmyy.split('.');
                 return [bits[0], bits[1]].join('.');
-            }
+            };
+
+            /*Watchers*/
+            $scope.$watch('minDate', function (newVal) {
+                var date;
+
+                if (newVal) {
+                    date = Date.fromDDMMYY(newVal);
+                } else {
+                    date = new Date();
+                }
+
+                $scope.uiWidget.datepicker("option", "minDate", date);
+            });
         }],
         link: function(scope, element, attrs){
             var checker = scope.$eval(attrs.interval);
             var caption = attrs.caption;
-            var uiWidget = $('.Calendar-input', element);
+            scope.uiWidget = $('.Calendar-input', element);
 
-            uiWidget.datepicker({
-                minDate: new Date(),
+            scope.uiWidget.datepicker({
+                minDate: scope.minDate && Date.fromDDMMYY(scope.minDate) || new Date(),
                 onSelect: function (dateText) {
                     scope.$apply(function (scope) {
                         scope.date = dateText;
@@ -45,11 +59,11 @@ innaAppDirectives.directive('datePickerWidget', [function(){
                 var isInsideComponent = !!$(event.target).closest(element).length;
 
                 if(isInsideComponent) {
-                    uiWidget.datepicker("show");
-                    uiWidget.focus();
+                    scope.uiWidget.datepicker("show");
+                    scope.uiWidget.focus();
                 } else {
-                    uiWidget.datepicker("hide");
-                    uiWidget.blur();
+                    scope.uiWidget.datepicker("hide");
+                    scope.uiWidget.blur();
                 }
             });
         }
