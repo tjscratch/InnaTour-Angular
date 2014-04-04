@@ -40,10 +40,19 @@
         });
 
         // People
+        $('.js-people-field').each(function() {
+            var val = $(this).val();
+            if(val==0) {
+                $(this).parent().addClass('search-people-baloon-null').find('.js-people-minus').hide();    
+            }
+        });
         $('.js-people-minus').on('click', function() {
             var field = $(this).parent().find('.js-people-field');
             var val = field.val();
             if(val>0) {
+                if(val==1) {
+                    $(this).hide().parent().addClass('search-people-baloon-null');
+                }
                 val = parseInt(val) - 1;
                 field.val(val);
             }
@@ -51,6 +60,7 @@
         $('.js-people-plus').on('click', function() {
             var field = $(this).parent().find('.js-people-field');
             var val = field.val();
+            $(this).parent().removeClass('search-people-baloon-null').find('.js-people-minus').show();
             if(val<6) {
                 val = parseInt(val) + 1;
                 field.val(val);

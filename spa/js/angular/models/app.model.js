@@ -204,3 +204,14 @@ function paymentPage(data) {
 
     self.toJson = function () { return angular.toJSON(self); };
 };
+
+function TripKlass(val, display) {
+    this.value = val;
+    this.display = display;
+}
+
+TripKlass.options = [new TripKlass(0, 'Эконом'), new TripKlass(1, 'Бизнес')];
+
+TripKlass.prototype.getOptions = function(){
+    return TripKlass.options;
+}

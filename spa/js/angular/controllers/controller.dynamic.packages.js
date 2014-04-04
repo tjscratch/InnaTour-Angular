@@ -1,7 +1,7 @@
 
 'use strict';
 
-if(!angular.isFunction(String.prototype.trim)) {
+if(!_.isFunction(String.prototype.trim)) {
 	String.prototype.trim = function() {
 		return this.replace(/^\s+|\s+$/g, ''); 
 	}
@@ -19,44 +19,41 @@ _.generateRange = function(start, end){
 /* Controllers */
 
 innaAppControllers.
-    controller('DynamicPackageCtrl', ['$scope', 'dataService',
-        function DynamicPackageCtrl($scope, dataService) {
-    		
+    controller('DynamicPackageCtrl', ['$scope', 'DynamicPackagesDataProvider',
+        function ($scope, DynamicPackagesDataProvider) {
+    		$scope.$on('inna.DynamicPackages.Search', function(event, data){
+                console.log(data);
+            })
         }
     ]);
 
 innaAppControllers.
-    controller('DynamicFormCtrl', ['$scope', 'dataService',
-        function($scope, dataService){
+    controller('DynamicFormCtrl', ['$scope', 'DynamicPackagesDataProvider', '$rootScope',
+        function($scope, DynamicPackagesDataProvider, $rootScope){
     		/* From field */
-	    	$scope.fromList = [];
-	    	
-	        dataService.getSletatCity(function (data) {
-	            _.each(data, function (item) {
-	            	$scope.fromList.push(new fromItem(item.id, item.name, item.name));
-	            });
-	        }, function (data, status) {});
-	        
-	        $scope.fromCurrent = null;
-	        
-	        $scope.$watch('fromCurrent', function(newValue){
-	        	//TODO save new value for future autocomplete
-	        });
+            $scope.fromList = []
+
+            $scope.provideSuggestToFromList = function(preparedText, rawText){
+                DynamicPackagesDataProvider.getFromListByTerm(preparedText, function(data){
+                    $scope.fromList = data;
+                })
+            }
+
+            $scope.fromCurrent = null;
+
+            $scope.$watch('fromCurrent', function(newVal){
+                //TODO
+            })
+
 	        
 	        
 	        /* To field */
 	        $scope.toList = [];
 
 	        $scope.provideSuggestToToField = function(preparedText, rawText) {
-	        	dataService.getSletatDirectoryByTerm(preparedText, function (data) {
-		        	if (data) {
-		        		$scope.toList = [];
-
-			            _.each(data, function (item) { $scope.toList.push(new toItemData(item)); });
-	                } else {
-	                	$scope.toList = [];
-	                }
-		        }, function (data, status) {});
+                DynamicPackagesDataProvider.getToListByTerm(preparedText, function(data){
+                    $scope.toList = data;
+                })
 	        }
 
             $scope.toCurrent = null;
@@ -90,5 +87,24 @@ innaAppControllers.
             $scope.childrensAge = [];
 
             //TODO set watchers
+
+            /*Klass*/
+            $scope.klass = TripKlass.options[0];
+
+            //TODO set watchers
+
+
+            /*Methods*/
+            $scope.searchStart = function(){
+                $rootScope.$broadcast('inna.DynamicPackages.Search', {
+                    from: $scope.fromCurrent,
+                    to: $scope.toCurrent,
+                    begin: $scope.dateBegin,
+                    end: $scope.dateEnd,
+                    adultsCount: $scope.adultCount,
+                    children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
+                    klass: $scope.klass
+                });
+            }
         }
     ]);
