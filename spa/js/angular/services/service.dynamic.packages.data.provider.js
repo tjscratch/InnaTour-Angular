@@ -1,6 +1,6 @@
 innaAppServices.factory('DynamicPackagesDataProvider', [
-    '$http',
-    function($http){
+    '$http', '$timeout',
+    function($http, $timeout){
         var FROM_SUGGEST = 'http://api.test.inna.ru/api/v1/Packages/From';
         var TO_SUGGEST = 'http://api.test.inna.ru/api/v1/Packages/To';
 
@@ -27,6 +27,13 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                     Name: 'Test Ok',
                     Id: id
                 });
+            },
+            getLocation: function(callback){
+                //TODO
+
+                $timeout(function(){ callback(25); }, 500); // 25 is the fish! it's not a "magic" number
+
+                return null;
             }
         }
     }

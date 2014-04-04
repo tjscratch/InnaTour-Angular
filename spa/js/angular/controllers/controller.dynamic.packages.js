@@ -58,7 +58,12 @@ innaAppControllers.
                 })
             }
 
-            $scope.fromCurrent = DynamicPackagesCacheWizard.require('fromCurrent');
+            $scope.fromCurrent = DynamicPackagesCacheWizard.require('fromCurrent', function(){
+                DynamicPackagesDataProvider.getLocation(function(data){
+
+                    $scope.fromCurrent = data;
+                });
+            });
 
             $scope.$watch('fromCurrent', function(newVal){
                 DynamicPackagesCacheWizard.put('fromCurrent', newVal);

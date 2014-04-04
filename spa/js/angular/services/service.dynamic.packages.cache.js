@@ -1,14 +1,42 @@
 innaAppServices.factory('DynamicPackagesCacheWizard', [
-    function(){
+    function() {
         var PREFIX = 'DynamicPackagesCacheWizard__';
 
-        return {
-            require: function(key){
-                return $.cookie(PREFIX + key) || null;
+        var validators = {};
+
+        var o = {
+            require: function(key, ifNullCallback){
+                var value = $.cookie(PREFIX + key) || null;
+
+                if(validators[key]) {
+                    if(validators[key](value)) {
+                        return value;
+                    } else {
+                        o.drop(key);
+
+                        return null;
+                    }
+                } else {
+                    if(value === null && ifNullCallback) {
+                        ifNullCallback();
+                    } else {
+                        return value;
+                    }
+                }
             },
             put: function(key, value){
-                $.cookie(PREFIX + key, value);
+                if(value !== null) {
+                    $.cookie(PREFIX + key, value);
+                } else {
+                    o.drop(key);
+                }
+
+            },
+            drop: function(key) {
+                $.removeCookie(PREFIX + key);
             }
         }
+
+        return o;
     }
 ]);

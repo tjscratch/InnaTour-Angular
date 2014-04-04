@@ -29,6 +29,12 @@
 
                     $scope.input.tooltip('enable');
                     $scope.input.tooltip('open');
+                } else if(!$scope.input.val()) {
+                    if(newValue != null && newValue != 'null' && $scope.askForData) {
+                        $scope.askForData(newValue, function (data) {
+                            $scope.setCurrent(data);
+                        });
+                    }
                 }
             });
         }],
@@ -68,15 +74,6 @@
             });
 
             scope.input.tooltip('disable');
-
-            /*Cache*/
-            if(scope.result && scope.askForData) {
-                scope.askForData(scope.result, function(data){
-                    scope.setCurrent(data);
-                });
-            }
-
-
         }
     }
 }]);
