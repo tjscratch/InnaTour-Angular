@@ -7,6 +7,7 @@ var app = angular.module('innaApp', [
   'innaApp.services',
   'innaApp.directives',
   'innaApp.controllers',
+  'innaApp.API',
   'ngSanitize'
 ]).run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
     $rootScope.bodyClickListeners = [];
