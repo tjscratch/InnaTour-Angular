@@ -5,7 +5,8 @@
             provideSuggestCallback: '=', //callback for ngChange
             suggest: '=', //list of suggested objects
             result: '=',
-            theme: '@'
+            theme: '@',
+            askForData: '='
         },
         controller: ['$scope', function($scope){
             /*Properties*/
@@ -34,6 +35,7 @@
         link: function(scope, elem, attrs){
             scope.input = $('input[type="text"]', elem);
 
+            /*Events*/
             scope.input.keypress(_.debounce(function(event){
                 var value = scope.input.val();
                 var preparedText = value.split(', ')[0].trim();
@@ -56,6 +58,12 @@
                 }
             });
             scope.input.tooltip('disable');
+
+            if(scope.result && scope.askForData) {
+                scope.askForData(scope.result, function(data){
+                    scope.setCurrent(data);
+                });
+            }
 
             $(document).click(function(event){
                 var isInsideComponent = !!$(event.target).closest(elem).length;

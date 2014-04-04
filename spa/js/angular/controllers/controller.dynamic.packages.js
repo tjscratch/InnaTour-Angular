@@ -35,8 +35,8 @@ innaAppControllers.
     ]);
 
 innaAppControllers.
-    controller('DynamicFormCtrl', ['$scope', 'DynamicPackagesDataProvider', '$rootScope',
-        function($scope, DynamicPackagesDataProvider, $rootScope){
+    controller('DynamicFormCtrl', ['$scope', 'DynamicPackagesDataProvider', '$rootScope', 'DynamicPackagesCacheWizard',
+        function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard){
             function validate(){
                 if(!$scope.fromCurrent) throw Error('fromCurrent');
 
@@ -45,8 +45,12 @@ innaAppControllers.
                 if($scope.fromCurrent == $scope.toCurrent) throw Error('toCurrent');
             }
 
+            $scope.loadObjectById = function(id, callback){
+                DynamicPackagesDataProvider.getObjectById(id, callback);
+            }
+
     		/* From field */
-            $scope.fromList = []
+            $scope.fromList = [];
 
             $scope.provideSuggestToFromList = function(preparedText, rawText){
                 DynamicPackagesDataProvider.getFromListByTerm(preparedText, function(data){
@@ -54,10 +58,10 @@ innaAppControllers.
                 })
             }
 
-            $scope.fromCurrent = null;
+            $scope.fromCurrent = DynamicPackagesCacheWizard.require('fromCurrent');
 
             $scope.$watch('fromCurrent', function(newVal){
-                //TODO
+                DynamicPackagesCacheWizard.put('fromCurrent', newVal);
             });
 
 	        
