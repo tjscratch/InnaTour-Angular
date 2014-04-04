@@ -116,7 +116,7 @@ var app = angular.module('innaApp', [
         }).
         when(app.URL_DYNAMIC_PACKAGES, {
             templateUrl: '/spa/templates/pages/dynamic_package_page.html',
-            controller: 'DynamicPackageCtrl'
+            controller: 'DynamicPackageMordaCtrl'
         });
         //.
         //otherwise({
