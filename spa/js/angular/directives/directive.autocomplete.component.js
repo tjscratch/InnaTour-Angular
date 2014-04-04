@@ -51,20 +51,6 @@
                 scope.input.tooltip('disable');
             });
 
-            scope.input.tooltip({
-                position: {
-                    my: 'center top+22',
-                    at: 'center bottom'
-                }
-            });
-            scope.input.tooltip('disable');
-
-            if(scope.result && scope.askForData) {
-                scope.askForData(scope.result, function(data){
-                    scope.setCurrent(data);
-                });
-            }
-
             $(document).click(function(event){
                 var isInsideComponent = !!$(event.target).closest(elem).length;
 
@@ -72,6 +58,25 @@
                     scope.fulfilled = true;
                 }
             });
+
+            /*Tooltip*/
+            scope.input.tooltip({
+                position: {
+                    my: 'center top+22',
+                    at: 'center bottom'
+                }
+            });
+
+            scope.input.tooltip('disable');
+
+            /*Cache*/
+            if(scope.result && scope.askForData) {
+                scope.askForData(scope.result, function(data){
+                    scope.setCurrent(data);
+                });
+            }
+
+
         }
     }
 }]);
