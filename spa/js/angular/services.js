@@ -226,7 +226,7 @@ innaAppServices.
         return {
 
             checkAvailability: function (queryData, successCallback, errCallback) {
-                $http.post(paymentCheckAvailabilityUrl, queryData).success(function (data) {
+                $http.get(paymentCheckAvailabilityUrl, { params: queryData }).success(function (data) {
                     successCallback(data);
                 }).
                 error(function (data, status) {
