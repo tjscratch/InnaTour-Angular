@@ -166,10 +166,18 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     <ng:include src="'/popup/mainform.html'"></ng:include>
 
     <script type="text/javascript">
-        var getSletatUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Sletat/Get';
-        var getSletatCityUrl = 'http://api.test.inna.ru/api/v1/Dictionary/SletatCity/Get';
-        var getSletatByIdUrl = 'http://api.test.inna.ru/api/v1/Dictionary/SletatById/Get';
-        var sendITCategoryRequestUrl = 'http://api.test.inna.ru/api/v1/RequestsTour/Post';
+        var app_main = {};
+        //<!-- build:app-host -->
+        app_main.host = 'http://api.test.inna.ru';
+        //<!-- endbuild -->
+        app_main.version = '12';
+        app_main.constants = {};
+        app_main.constants.offersCategoriesProgramm = '1';
+
+        var getSletatUrl = app_main.host + '/api/v1/Dictionary/Sletat/Get';
+        var getSletatCityUrl = app_main.host + '/api/v1/Dictionary/SletatCity/Get';
+        var getSletatByIdUrl = app_main.host + '/api/v1/Dictionary/SletatById/Get';
+        var sendITCategoryRequestUrl = app_main.host + '/api/v1/RequestsTour/Post';
     </script>
 
 
@@ -202,14 +210,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     <!--contacts-->
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
 
-    <script type="text/javascript">
-        var app_main = {};
-        app_main.version = '12';
-        app_main.constants = {};
-        app_main.constants.offersCategoriesProgramm = '1';
-    </script>
-
-
+    <!-- build:app-main-js -->
     <script src="/spa/js/angular/urlhelper.js"></script>
     <script src="/spa/js/angular/date.helper.js"></script>
     <script src="/spa/js/angular/api.stub.js"></script>
@@ -252,7 +253,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     <script src="/spa/js/angular/models/app.model.js"></script>
     <script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
     <script src="/spa/js/angular/models/app.model.tours.js"></script>
-
+    <!-- endbuild -->
 
     <script type="text/ng-template" id="/grid/_item_inner.html">
         <img ng-src="{{item.Image}}" class="offer-img" alt="" />

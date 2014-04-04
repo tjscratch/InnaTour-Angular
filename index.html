@@ -52,7 +52,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 
 </head>
 <body class="light-theme" ng-click="bodyClick()" popup-form>
-
+    
 	<div class="header Header">
         
 <div class="header-info">
@@ -145,48 +145,57 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 </div>
 
 <ng:include src="'/popup/mainform.html'"></ng:include>
-    
-    <script type="text/javascript">
-        var addTourUrlEf = 'http://api.test.inna.ru/api/v1/Dictionary';
 
-        var getHotelsUrl = 'http://api.test.inna.ru/api/v1/Dictionary';
 
-        var getCityUrl = 'http://api.test.inna.ru/api/v1/Dictionary/City/Get';
-        var getDirectoryUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Directory/Get';
-        var getCountryUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Country/Get';
-        var getRegionUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Region/Get';
+<script type="text/javascript">
+    var app_main = {};
+    //<!-- build:app-host -->
+    app_main.host = 'http://api.test.inna.ru';
+    //<!-- endbuild -->
+    app_main.version = '12';
+    app_main.constants = {};
+    app_main.constants.offersCategoriesProgramm = '1';
 
-        var getSletatUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Sletat/Get';
-        var getSletatCityUrl = 'http://api.test.inna.ru/api/v1/Dictionary/SletatCity/Get';
-        var getSletatByIdUrl = 'http://api.test.inna.ru/api/v1/Dictionary/SletatById/Get';
+    var addTourUrlEf = app_main.host + '/api/v1/Dictionary';
 
-        var getLocationByUrls = 'http://api.test.inna.ru/Dictionary/LocationByUrl';
+    var getHotelsUrl = app_main.host + '/api/v1/Dictionary';
 
-        var beginSearchUrl = 'http://api.test.inna.ru/api/v1/Search/BeginSearch/Get';
-        var checkSearchUrl = 'http://api.test.inna.ru/api/v1/Search/CheckSearch/Get';
+    var getCityUrl = app_main.host + '/api/v1/Dictionary/City/Get';
+    var getDirectoryUrl = app_main.host + '/api/v1/Dictionary/Directory/Get';
+    var getCountryUrl = app_main.host + '/api/v1/Dictionary/Country/Get';
+    var getRegionUrl = app_main.host + '/api/v1/Dictionary/Region/Get';
 
-        var beginAviaSearchUrl = 'http://api.test.inna.ru/api/v1/Avia/Get';
+    var getSletatUrl = app_main.host + '/api/v1/Dictionary/Sletat/Get';
+    var getSletatCityUrl = app_main.host + '/api/v1/Dictionary/SletatCity/Get';
+    var getSletatByIdUrl = app_main.host + '/api/v1/Dictionary/SletatById/Get';
 
-        var hotelDetailUrl = 'http://api.test.inna.ru/HotelDetail/GetPage';
+    var getLocationByUrls = app_main.host + '/Dictionary/LocationByUrl';
 
-        var tourDetailUrl = 'http://api.test.inna.ru/TourDetail/GetPage';
+    var beginSearchUrl = app_main.host + '/api/v1/Search/BeginSearch/Get';
+    var checkSearchUrl = app_main.host + '/api/v1/Search/CheckSearch/Get';
 
-        var getOrderUrl = 'http://api.test.inna.ru/Order';
+    var beginAviaSearchUrl = app_main.host + '/api/v1/Avia/Get';
 
-        var paymentPageUrl = 'http://api.test.inna.ru/Payment';
+    var hotelDetailUrl = app_main.host + '/HotelDetail/GetPage';
 
-        var payUrl = 'http://api.test.inna.ru/Payment/Pay';
+    var tourDetailUrl = app_main.host + '/TourDetail/GetPage';
 
-        var deleteSearchHistoryUrl = 'http://api.test.inna.ru/api/v1/Search/DeleteHistory/Get';
+    var getOrderUrl = app_main.host + '/Order';
 
-        var getSectionToursUrl = 'http://api.test.inna.ru/api/v1/Section/Get/1';
-        var getSectionIndividualToursUrl = 'http://api.test.inna.ru/api/v1/Section/Get/2';
-        var getIndividualToursCategoryUrl = 'http://api.test.inna.ru/api/v1/IndividualTourCategory/Get';
+    var paymentPageUrl = app_main.host + '/Payment';
 
-        var sendITCategoryRequestUrl = 'http://api.test.inna.ru/api/v1/RequestsTour/Post';
+    var payUrl = app_main.host + '/Payment/Pay';
 
-        var paymentCheckAvailabilityUrl = 'http://api.test.inna.ru/api/v1/avia/IsActual';
-    </script>
+    var deleteSearchHistoryUrl = app_main.host + '/api/v1/Search/DeleteHistory/Get';
+
+    var getSectionToursUrl = app_main.host + '/api/v1/Section/Get/1';
+    var getSectionIndividualToursUrl = app_main.host + '/api/v1/Section/Get/2';
+    var getIndividualToursCategoryUrl = app_main.host + '/api/v1/IndividualTourCategory/Get';
+
+    var sendITCategoryRequestUrl = app_main.host + '/api/v1/RequestsTour/Post';
+
+    var paymentCheckAvailabilityUrl = app_main.host + '/api/v1/avia/IsActual';
+</script>
 
     
 <!--<script src="//code.jquery.com/jquery-1.8.3.min.js"></script>-->
@@ -220,14 +229,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <!--contacts-->
 <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
 
-<script type="text/javascript">
-    var app_main = {};
-    app_main.version = '12';
-    app_main.constants = {};
-    app_main.constants.offersCategoriesProgramm = '1';
-</script>
-
-
+<!-- build:app-main-js -->  <!--файлы заменяются при билде на app-main.js-->
 <script src="/spa/js/angular/urlhelper.js"></script>
 <script src="/spa/js/angular/date.helper.js"></script>
 <script src="/spa/js/angular/api.stub.js"></script>
@@ -281,10 +283,8 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/models/app.model.js"></script>
 <script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
 <script src="/spa/js/angular/models/app.model.tours.js"></script>
+<!-- endbuild -->
 
-
-   
-    
 
 <script type="text/ng-template" id="/grid/_item_inner.html">
 <img ng-src="{{item.Image}}" class="offer-img" alt=""/>

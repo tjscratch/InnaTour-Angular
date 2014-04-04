@@ -1,0 +1,2 @@
+build-test.bat - собирает тестовую версию сайта в папку publish_test
+build-release.bat - собирает релизную версию сайта в папку publish_release

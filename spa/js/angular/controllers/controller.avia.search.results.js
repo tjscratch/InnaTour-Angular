@@ -217,11 +217,11 @@ innaAppControllers.
                     //проверяем, что остались билеты для покупки
                     paymentService.checkAvailability({ variantTo: item.VariantId1, varianBack: item.VariantId2 },
                         function (data) {
-                            log('paymentService.checkAvailability, data: ' + angular.toJson(data));
+                            //log('paymentService.checkAvailability, data: ' + angular.toJson(data));
                             if (data == true)
                             {
                                 //все норм - отправляем на страницу покупки
-                                var url = 
+                                var url = "";
                                 $location.path(url);
                             }
                         },
