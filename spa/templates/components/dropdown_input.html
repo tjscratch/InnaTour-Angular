@@ -4,15 +4,20 @@
 </style>
 
 <div class="{{theme}}">
-    <input type="text" title="Поле заполнено не корректно" class="search-field" ng-keydown="unfulfill()"/>
+    <input type="text" title="Поле заполнено не корректно" class="search-field" placeholder="Откуда" ng-keydown="unfulfill()"/>
     <input type="hidden" ng-model="result"/>
-    <ul class="search-form-list" ng-show="!fulfilled && suggest">
-        <li class="search-form-list-item search-form-list-item-country"  ng-repeat="item in suggest" ng-click="setCurrent(item)">
-            {{item.Name}} ({{item.CountryName}})
-            <i class="icon icon-flag" ng-class="'icon-flag-' + item.codeIcao"></i>
-            <ul class="airports" ng-show="item.Airport">
-                <li ng-repeat="airport in item.Airport">
-                    {{airport.Name}}
+    <ul class="search-autocomplete" ng-show="!fulfilled && suggest">
+        <li ng-repeat="item in suggest" ng-click="!item.Airport && setCurrent(item)">
+            <span class="search-autocomplete-block">
+                <span class="search-autocomplete-city">{{item.Name}}, <b>{{item.CountryName}}</b>, <em>(все аэропорты)</em></span>
+                <span class="search-autocomplete-abbr">{{item.CodeIata}}</span>
+            </span>
+            <ul ng-show="item.Airport">
+                <li ng-repeat="airport in item.Airport" ng-click="setCurrent(item)">
+                    <span class="search-autocomplete-block">
+                        <span class="search-autocomplete-city">{{airport.Name}}</span>
+                        <span class="search-autocomplete-abbr">{{airport.CodeIata}}</span>
+                    </span>
                 </li>
             </ul>
         </li>
