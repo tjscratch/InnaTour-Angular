@@ -77,11 +77,11 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
 </div>
         <div class="header-menu">
             <ul class="header-menu-container-items"><!--
-                --><!--<li class="header-menu-item"><a href="/#/hotelticket/" ng-class="{active:isActive('/hotelticket/')}">Билет + отель</a></li>--><!--
                 --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
                 --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
                 --><li class="header-menu-item"><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
                 --><li class="header-menu-item"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li><!--
+                --><li class="header-menu-item"><a href="/#/packages/" ng-class="{active:isActive('/packages/')}">Билет + отель</a></li><!--
                 --><!--<li class="header-menu-item"><a href="/#/autorent/" ng-class="{active:isActive('/autorent/')}">Аренда авто</a></li>--><!--
                 --><!--<li class="header-menu-item"><a href="/#/insurance/" ng-class="{active:isActive('/insurance/')}">Страхование</a></li>--><!--
                 --><!--<li class="header-menu-item"><a href="/#/cruise/" ng-class="{active:isActive('/cruise/')}">Круизы</a></li>-->
@@ -241,6 +241,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
 <script src="/spa/js/angular/filters.js"></script>
 <script src="/spa/js/angular/services.js"></script>
 <script src="/spa/js/angular/services/service.dynamic.packages.data.provider.js"></script>
+<script src="/spa/js/angular/services/service.dynamic.packages.cache.js"></script>
 <script src="/spa/js/angular/controllers/controller.about.js"></script>
 <script src="/spa/js/angular/controllers/controller.avia.form.js"></script>
 <script src="/spa/js/angular/controllers/controller.avia.search.main.js"></script>
