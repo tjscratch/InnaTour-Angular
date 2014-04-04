@@ -5,7 +5,7 @@ var track = {
         if (window.mixpanel != null)
             mixpanel.track("redirect", { "service": "booking" });
         //отслеживаем в гугл аналитике
-        if (ga != null)
+        if (window.ga != null)
             ga('send', 'pageview', 'bookingcom');
 
     },
@@ -16,7 +16,7 @@ var track = {
         if (window.mixpanel != null)
             mixpanel.track("offer.click", { "section": sectionName, "type": type, "name": name, "position": position }, fn);
         else
-            fn();
+            if (fn != null) fn();
     },
     formSearch: function (departure_city_name, country_name, departure_date, flex_date, search_depth, duration, adt_count, chd_count, source, fn) {
         //departure_city_name - город вылета
@@ -35,7 +35,7 @@ var track = {
                 "chd_count": chd_count, "source": source
             }, fn);
         else
-            fn();
+            if (fn != null) fn();
     },
     programDownload: function (name, program_country, category, fn)
     {
@@ -48,7 +48,7 @@ var track = {
         if (window.mixpanel != null)
             mixpanel.track("program.download", { "name": name, "program_country": program_country, "category": category }, fn);
         else
-            fn();
+            if (fn != null) fn();
     }
 };
 

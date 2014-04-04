@@ -207,11 +207,29 @@ innaAppServices.
             },
             sendITCategoryRequest: function (queryData, successCallback, errCallback) {
                 var apiData = new sendRequestData(queryData);
-                //console.log('sendITCategoryRequest, apiData: ' + angular.toJson(apiData));
-                $http.post(sendITCategoryRequestUrl, angular.toJson(apiData)).success(function (data) {
+                $http.post(sendITCategoryRequestUrl, apiData).success(function (data) {
                     successCallback(data);
                 }).
-                error(function(data, status) {
+                error(function (data, status) {
+                    errCallback(data, status);
+                });
+            }
+        };
+    }]);
+
+innaAppServices.
+    factory('paymentService', ['$rootScope', '$http', '$q', '$log', 'cache', function ($rootScope, $http, $q, $log, cache) {
+        function log(msg) {
+            $log.log(msg);
+        }
+
+        return {
+
+            checkAvailability: function (queryData, successCallback, errCallback) {
+                $http.post(paymentCheckAvailabilityUrl, queryData).success(function (data) {
+                    successCallback(data);
+                }).
+                error(function (data, status) {
                     errCallback(data, status);
                 });
             }
