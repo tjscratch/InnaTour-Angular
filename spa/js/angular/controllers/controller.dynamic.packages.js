@@ -59,8 +59,7 @@ innaAppControllers.
             }
 
             $scope.fromCurrent = DynamicPackagesCacheWizard.require('fromCurrent', function(){
-                DynamicPackagesDataProvider.getLocation(function(data){
-
+                DynamicPackagesDataProvider.getUserLocation(function(data){
                     $scope.fromCurrent = data;
                 });
             });
@@ -87,17 +86,17 @@ innaAppControllers.
             });
 
             /*Begin date*/
-            $scope.dateBegin = null;
+            $scope.dateBegin = DynamicPackagesCacheWizard.require('dateBegin');
 
             $scope.$watch('dateBegin', function(newVal) {
-                //TODO save new value to future autocomplete
+                DynamicPackagesCacheWizard.put('dateBegin', newVal);
             });
 
             /*End date*/
-            $scope.dateEnd = null;
+            $scope.dateEnd = DynamicPackagesCacheWizard.require('dateEnd');
 
             $scope.$watch('dateEnd', function(newVal) {
-                //TODO save new value to future autocomplete
+                DynamicPackagesCacheWizard.put('dateEnd', newVal);
             });
 
             /*Adult count*/
@@ -110,12 +109,15 @@ innaAppControllers.
             //TODO fix English
             $scope.childrensAge = [];
 
-            //TODO set watchers
-
             /*Klass*/
-            $scope.klass = TripKlass.options[0];
+            $scope.klass = TripKlass.options[
+                DynamicPackagesCacheWizard.require('klass', function(){ return 0; })
+            ];
 
-            //TODO set watchers
+            $scope.$watch('klass', function(newVal){
+                newVal = newVal || {value: 0}
+                DynamicPackagesCacheWizard.put('klass', newVal.value)
+            })
 
 
             /*Methods*/
