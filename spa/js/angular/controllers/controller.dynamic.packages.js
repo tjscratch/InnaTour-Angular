@@ -75,10 +75,10 @@ innaAppControllers.
                 })
 	        }
 
-            $scope.toCurrent = null;
+            $scope.toCurrent = DynamicPackagesCacheWizard.require('toCurrent');
 
-            $scope.$watch('toCurrent', function(newValue){
-                //TODO save new value to future autocomplete
+            $scope.$watch('toCurrent', function(newVal){
+                DynamicPackagesCacheWizard.put('toCurrent', newVal);
             });
 
             /*Begin date*/
