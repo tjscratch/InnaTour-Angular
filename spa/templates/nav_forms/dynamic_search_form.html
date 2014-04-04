@@ -2,16 +2,18 @@
 
 <form class="search-ticket-form" ng-controller="DynamicFormCtrl">
 	<div dropdown-input
-         theme="search-field-block search-field-block_pos_first"
+         theme="search-field-block"
          provide-suggest-callback="provideSuggestToFromList"
          suggest="fromList"
          result="fromCurrent"
+         ask-for-data="loadObjectById"
          class="b-wrapp_type_inline"></div><!--
 	--><div dropdown-input
             theme="search-field-block"
             provide-suggest-callback="provideSuggestToToField"
             suggest="toList"
             result="toCurrent"
+            ask-for-data="loadObjectById"
             class="b-wrapp_type_inline"></div><!--
 	--><div date-picker-widget
             theme="search-date-block"
@@ -23,6 +25,7 @@
             interval="false"
             caption="Дата прибытия"
             date="dateEnd"
+            min-date="dateBegin"
             class="b-wrapp_type_inline"></div><!--
 	--><div counter-people
             adult-count="adultCount"
@@ -33,4 +36,5 @@
     --><div trip-preferences
             show-back-trip-options="false"
             klass-model="klass"></div>
+
 </form>

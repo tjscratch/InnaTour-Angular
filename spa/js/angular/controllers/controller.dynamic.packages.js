@@ -1,6 +1,3 @@
-
-'use strict';
-
 if(!_.isFunction(String.prototype.trim)) {
 	String.prototype.trim = function() {
 		return this.replace(/^\s+|\s+$/g, ''); 
@@ -16,6 +13,16 @@ _.generateRange = function(start, end){
     return list;
 }
 
+Date.fromDDMMYY = function(ddmmyy, asTS){
+    var bits = ddmmyy.split('.');
+    var mmddyy = [bits[1], bits[0], bits[2]].join('.');
+    var date = new Date(mmddyy);
+
+    if(asTS) return +date;
+
+    return date;
+}
+
 /* Controllers */
 
 innaAppControllers.
@@ -28,10 +35,22 @@ innaAppControllers.
     ]);
 
 innaAppControllers.
-    controller('DynamicFormCtrl', ['$scope', 'DynamicPackagesDataProvider', '$rootScope',
-        function($scope, DynamicPackagesDataProvider, $rootScope){
+    controller('DynamicFormCtrl', ['$scope', 'DynamicPackagesDataProvider', '$rootScope', 'DynamicPackagesCacheWizard',
+        function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard){
+            function validate(){
+                if(!$scope.fromCurrent) throw Error('fromCurrent');
+
+                if(!$scope.toCurrent) throw Error('toCurrent');
+
+                if($scope.fromCurrent == $scope.toCurrent) throw Error('toCurrent');
+            }
+
+            $scope.loadObjectById = function(id, callback){
+                DynamicPackagesDataProvider.getObjectById(id, callback);
+            }
+
     		/* From field */
-            $scope.fromList = []
+            $scope.fromList = [];
 
             $scope.provideSuggestToFromList = function(preparedText, rawText){
                 DynamicPackagesDataProvider.getFromListByTerm(preparedText, function(data){
@@ -39,11 +58,15 @@ innaAppControllers.
                 })
             }
 
-            $scope.fromCurrent = null;
+            $scope.fromCurrent = DynamicPackagesCacheWizard.require('fromCurrent', function(){
+                DynamicPackagesDataProvider.getUserLocation(function(data){
+                    $scope.fromCurrent = data;
+                });
+            });
 
             $scope.$watch('fromCurrent', function(newVal){
-                //TODO
-            })
+                DynamicPackagesCacheWizard.put('fromCurrent', newVal);
+            });
 
 	        
 	        
@@ -56,28 +79,28 @@ innaAppControllers.
                 })
 	        }
 
-            $scope.toCurrent = null;
+            $scope.toCurrent = DynamicPackagesCacheWizard.require('toCurrent');
 
-            $scope.$watch('toCurrent', function(newValue){
-                //TODO save new value to future autocomplete
+            $scope.$watch('toCurrent', function(newVal){
+                DynamicPackagesCacheWizard.put('toCurrent', newVal);
             });
 
             /*Begin date*/
-            $scope.dateBegin = null;
+            $scope.dateBegin = DynamicPackagesCacheWizard.require('dateBegin');
 
             $scope.$watch('dateBegin', function(newVal) {
-                //TODO save new value to future autocomplete
+                DynamicPackagesCacheWizard.put('dateBegin', newVal);
             });
 
             /*End date*/
-            $scope.dateEnd = null;
+            $scope.dateEnd = DynamicPackagesCacheWizard.require('dateEnd');
 
             $scope.$watch('dateEnd', function(newVal) {
-                //TODO save new value to future autocomplete
+                DynamicPackagesCacheWizard.put('dateEnd', newVal);
             });
 
             /*Adult count*/
-            $scope.adultCount = 1;
+            $scope.adultCount = 2;
 
             /*Children count*/
             $scope.childrenCount = 0;
@@ -86,25 +109,37 @@ innaAppControllers.
             //TODO fix English
             $scope.childrensAge = [];
 
-            //TODO set watchers
-
             /*Klass*/
-            $scope.klass = TripKlass.options[0];
+            $scope.klass = TripKlass.options[
+                DynamicPackagesCacheWizard.require('klass', function(){ return 0; })
+            ];
 
-            //TODO set watchers
+            $scope.$watch('klass', function(newVal){
+                newVal = newVal || {value: 0}
+                DynamicPackagesCacheWizard.put('klass', newVal.value)
+            })
 
 
             /*Methods*/
             $scope.searchStart = function(){
-                $rootScope.$broadcast('inna.DynamicPackages.Search', {
-                    from: $scope.fromCurrent,
-                    to: $scope.toCurrent,
-                    begin: $scope.dateBegin,
-                    end: $scope.dateEnd,
-                    adultsCount: $scope.adultCount,
-                    children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
-                    klass: $scope.klass
-                });
+                try {
+                    validate();
+                    //if ok
+                    $rootScope.$broadcast('inna.DynamicPackages.Search', {
+                        from: $scope.fromCurrent,
+                        to: $scope.toCurrent,
+                        begin: $scope.dateBegin,
+                        end: $scope.dateEnd,
+                        adultsCount: $scope.adultCount,
+                        children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
+                        klass: $scope.klass
+                    });
+                } catch(e) {
+                    console.warn(e);
+                    if($scope.hasOwnProperty(e.message)) {
+                        $scope[e.message] = e;
+                    }
+                }
             }
         }
     ]);

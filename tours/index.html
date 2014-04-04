@@ -32,7 +32,7 @@
     <![endif]-->
 
 
-    <script>
+    <!--<script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -41,12 +41,14 @@
       ga('create', 'UA-32173758-1', 'inna.ru');
       ga('send', 'pageview');
 
-    </script>
+    </script>-->
 
 
-<!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+<!-- start Mixpanel -->
+<!--<script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
 for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
-mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
+mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
+<!-- end Mixpanel -->
 
 </head>
 <body id="ng-app" ng-app="innaApp" ng-click="bodyClick()" ng-controller="NavigationCtrl" popup-form>
@@ -164,61 +166,20 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
     <ng:include src="'/popup/mainform.html'"></ng:include>
 
     <script type="text/javascript">
-        var addTourUrlEf = 'http://api.test.inna.ru/api/v1/Dictionary';
-
-        var getHotelsUrl = 'http://api.test.inna.ru/api/v1/Dictionary';
-
-        var getCityUrl = 'http://api.test.inna.ru/api/v1/Dictionary/City/Get';
-        var getDirectoryUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Directory/Get';
-        var getCountryUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Country/Get';
-        var getRegionUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Region/Get';
-
         var getSletatUrl = 'http://api.test.inna.ru/api/v1/Dictionary/Sletat/Get';
         var getSletatCityUrl = 'http://api.test.inna.ru/api/v1/Dictionary/SletatCity/Get';
         var getSletatByIdUrl = 'http://api.test.inna.ru/api/v1/Dictionary/SletatById/Get';
-
-        var getLocationByUrls = 'http://api.test.inna.ru/Dictionary/LocationByUrl';
-
-        var beginSearchUrl = 'http://api.test.inna.ru/api/v1/Search/BeginSearch/Get';
-        var checkSearchUrl = 'http://api.test.inna.ru/api/v1/Search/CheckSearch/Get';
-
-        var beginAviaSearchUrl = 'http://api.test.inna.ru/api/v1/Avia';
-
-        //var hotelDetailUrl = 'http://api.test.inna.ru/api/v1/HotelDetail/0';
-
-        //var tourDetailUrl = 'http://api.test.inna.ru/api/v1/TourDetail/0';
-
-        var hotelDetailUrl = 'http://api.test.inna.ru/HotelDetail/GetPage';
-
-        var tourDetailUrl = 'http://api.test.inna.ru/TourDetail/GetPage';
-
-        var getOrderUrl = 'http://api.test.inna.ru/Order';
-
-        var paymentPageUrl = 'http://api.test.inna.ru/Payment';
-
-        var payUrl = 'http://api.test.inna.ru/Payment/Pay';
-
-        var getPassengerUrl = 'http://api.test.inna.ru/Passenger/GetByCurrentUser';
-
-        var deleteSearchHistoryUrl = 'http://api.test.inna.ru/api/v1/Search/DeleteHistory/get';
-
-        var getSectionToursUrl = 'http://api.test.inna.ru/api/v1/Section/1';
-        var getSectionIndividualToursUrl = 'http://api.test.inna.ru/api/v1/Section/2';
-        var getIndividualToursCategoryUrl = 'http://api.test.inna.ru/api/v1/IndividualTourCategory';
-
-        var sendITCategoryRequestUrl = 'http://api.test.inna.ru/api/v1/RequestsTour';
+        var sendITCategoryRequestUrl = 'http://api.test.inna.ru/api/v1/RequestsTour/Post';
     </script>
-
-
 
 
     <!--<script src="//code.jquery.com/jquery-1.8.3.min.js"></script>-->
     <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-route.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-sanitize.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js"></script>
 
     <script src="/spa/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="/spa/js/jquery.ui.datepicker-ru.js"></script>
@@ -291,47 +252,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
     <script src="/spa/js/angular/models/app.model.js"></script>
     <script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
     <script src="/spa/js/angular/models/app.model.tours.js"></script>
-
-
-
-    <!-- Yandex.Metrika counter -->
-    <div style="display:none;">
-        <script type="text/javascript">
-        (function (w, c) {
-            (w[c] = w[c] || []).push(function () {
-                try {
-                    w.yaCounter5467552 = new Ya.Metrika({
-                        id: 5467552,
-                        clickmap: true,
-                        trackLinks: true
-                    });
-                }
-                catch (e) { }
-            });
-        })(window, 'yandex_metrika_callbacks');
-        </script>
-    </div>
-    <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-    <noscript><div><img src="//mc.yandex.ru/watch/5467552" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-    <!-- Yandex.Metrika counter -->
-    <div style="display:none;">
-        <script type="text/javascript">
-        (function (w, c) {
-            (w[c] = w[c] || []).push(function () {
-                try {
-                    w.yaCounter12702715 = new Ya.Metrika({ id: 12702715, enableAll: true, webvisor: true });
-                }
-                catch (e) { }
-            });
-        })(window, "yandex_metrika_callbacks");
-        </script>
-    </div>
-    <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-    <noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-
-
 
 
     <script type="text/ng-template" id="/grid/_item_inner.html">
@@ -469,5 +389,43 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script><!-- end Mixpanel -->
         }, 100);
 
     </script>
+
+    <!-- Yandex.Metrika counter -->
+    <!--<div style="display:none;">
+        <script type="text/javascript">
+        (function (w, c) {
+            (w[c] = w[c] || []).push(function () {
+                try {
+                    w.yaCounter5467552 = new Ya.Metrika({
+                        id: 5467552,
+                        clickmap: true,
+                        trackLinks: true
+                    });
+                }
+                catch (e) { }
+            });
+        })(window, 'yandex_metrika_callbacks');
+        </script>
+    </div>
+    <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+    <noscript><div><img src="//mc.yandex.ru/watch/5467552" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
+    <!-- /Yandex.Metrika counter -->
+    <!-- Yandex.Metrika counter -->
+    <!--<div style="display:none;">
+        <script type="text/javascript">
+        (function (w, c) {
+            (w[c] = w[c] || []).push(function () {
+                try {
+                    w.yaCounter12702715 = new Ya.Metrika({ id: 12702715, enableAll: true, webvisor: true });
+                }
+                catch (e) { }
+            });
+        })(window, "yandex_metrika_callbacks");
+        </script>
+    </div>
+    <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+    <noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
+    <!-- /Yandex.Metrika counter -->
+
 </body>
 </html>
