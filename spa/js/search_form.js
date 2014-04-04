@@ -15,6 +15,9 @@
             numberOfMonths: 2,
             minDate: 0,
             dateFormat: 'd M, D',
+            // beforeShowDay: function ( date ) {
+            //     return [true, 'date-range-selected'];
+            // },
             onClose: function(selectedDate) {
                 $('.js-finish-date').datepicker( "option", "minDate", selectedDate );
             },
@@ -29,6 +32,9 @@
             numberOfMonths: 2,
             minDate: 0,
             dateFormat: 'd M, D',
+            // beforeShowDay: function ( date ) {
+            //     return [true, 'date-range-selected'];
+            // },
             onClose: function(selectedDate) {
                 $('.js-start-date').datepicker( "option", "maxDate", selectedDate );
             },
