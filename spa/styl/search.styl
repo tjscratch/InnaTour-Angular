@@ -1,14 +1,21 @@
-@font-face
-    font-family ProximaNova
+@font-face {
+    font-family: 'ProximaNova';
     font-weight normal
     font-style normal
-    src url(../fonts/proximanova-reg-webfont.ttf)
-
-@font-face
-    font-family ProximaNova
+    src: url('../fonts/proximanova-reg-webfont.eot?') format('eot'), 
+         url('../fonts/proximanova-reg-webfont.woff') format('woff'), 
+         url('../fonts/proximanova-reg-webfont.ttf')  format('truetype'),
+         url('../fonts/proximanova-reg-webfont.svg#svgFontName') format('svg');
+}
+@font-face {
+    font-family: 'ProximaNova';
     font-weight bold
     font-style normal
-    src url(../fonts/proximanova-bold-webfont.ttf)
+    src: url('../fonts/proximanova-bold-webfont.eot?') format('eot'), 
+         url('../fonts/proximanova-bold-webfont.woff') format('woff'), 
+         url('../fonts/proximanova-bold-webfont.ttf')  format('truetype'),
+         url('../fonts/proximanova-bold-webfont.svg#svgFontName') format('svg');
+}
 
 // Var
 $ProximaNova = ProximaNova, Arial, sans-serif
@@ -26,6 +33,7 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     position relative
     width 960px
     margin 0 auto
+    font-family $ProximaNova
 
 .search-field-block
 .search-date-block
@@ -182,7 +190,7 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     position absolute
     right 0
     padding 12px 20px
-    min-width 250px
+    min-width 200px
     background #fff
     box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
     z-index 10
@@ -191,51 +199,134 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     font-size 18px
     font-weight bold
     line-height 1
-    padding 0 0 15px
+    padding 0 0 22px
 
 .search-people-baloon-item
     overflow hidden
-    padding 0 0 10px
+    padding 0 0 14px
     font-size 14px
 
 .search-people-baloon-field
-    border 1px solid #CCD2D4
-    display inline-block
-    overflow hidden
+    float left
     position relative
-    vertical-align middle
-    margin 0 8px 0 0
 
 .search-people-baloon-field input
-    float left
-    width 30px
+    display block
     border 0
     padding 3px
-    margin 0 20px
+    margin 0 25px
     font 18px $ProximaNova
     text-align center
     outline none
+    border 1px solid #ccd2d4
+    width 38px
+    height 33px
+    box-sizing border-box
 
 .search-people-baloon-minus
 .search-people-baloon-plus
-    color #fff
+    color #999
     position absolute
     top 0
     bottom 0
-    width 20px
+    width 24px
     text-align center
-    line-height 26px
+    line-height 33px
     cursor pointer
+    height 33px
     font-size 20px
     user-select none
 
+    &:hover
+        background #e6eaed
+        color #333
+
+    &:active
+        background #89c13a
+
+.search-people-baloon-null input
+    color #ccc
+
 .search-people-baloon-minus
-    color #FF5C5C
     left 0
 
 .search-people-baloon-plus
-    color #89C13A
     right 0
+
+.search-people-type
+    float left
+    width 100px
+    margin 0 10px 0 0
+    font-size 14px
+    line-height 16px
+    color #999
+    letter-spacing -.025em
+
+.search-people-type b
+    font-weight normal
+    display block
+    color #333
+
+.search-autocomplete
+    width 340px
+    background #fff
+    overflow auto
+    overflow-x none
+    overflow-y scroll
+    max-height 360px
+    position absolute
+    z-index 50
+    font-size 16px
+    letter-spacing -.025em
+    padding 5px 0
+    box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+
+.search-autocomplete-block
+    padding 6px 15px
+    display block
+    font-size 16px
+    clearfix()
+    cursor pointer
+
+    &:hover
+        background #eff2f3
+
+.search-autocomplete-city
+    float left
+
+.search-autocomplete-city em
+    font-style normal
+    font-size 14px
+    color #666
+
+.search-autocomplete-city b
+    color #8c98a9
+    font-weight normal
+
+.search-autocomplete-abbr
+    float right
+    color #666
+    font-size 13px
+    text-transform uppercase
+    margin-top 3px
+
+.search-autocomplete li li .search-autocomplete-block
+    padding-left 53px
+
+.search-autocomplete ul
+    position relative
+    margin 0 0 2px
+
+.search-autocomplete ul:after
+    content ''
+    display block
+    border-bottom 1px solid #dbdbdb
+    position absolute
+    left 13px
+    right 13px
+    bottom 0
+
+
 
 
 
