@@ -28,7 +28,7 @@
                     <span class="rl-price">
                         <span class="rl-price-item">{{item.Price| price}}</span> руб.
                     </span>
-                    <a href="#" class="rl-buy-button">Купить</a>
+                    <a href="#" class="rl-buy-button" ng-click="goToPaymentClick($event, item)">Купить</a>
                     <span class="rl-airline">{{item.TransporterListText}}</span>
                 </header>
                 <div class="rl-content">

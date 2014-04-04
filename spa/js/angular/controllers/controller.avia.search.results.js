@@ -4,8 +4,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaSearchResultsCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService',
-        function AviaSearchResultsCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService) {
+    controller('AviaSearchResultsCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService', 'paymentService',
+        function AviaSearchResultsCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService) {
 
             var self = this;
             function log(msg) {
@@ -209,6 +209,25 @@ innaAppControllers.
                 $scope.resetCompanies = function ($event) {
                     preventBubbling($event);
                     _.each($scope.filter.TransporterList, function (item) { item.checked = true });
+                };
+
+                $scope.goToPaymentClick = function ($event, item) {
+                    preventBubbling($event);
+
+                    //проверяем, что остались билеты для покупки
+                    paymentService.checkAvailability({ variantTo: item.VariantId1, varianBack: item.VariantId2 },
+                        function (data) {
+                            log('paymentService.checkAvailability, data: ' + angular.toJson(data));
+                            if (data == true)
+                            {
+                                //все норм - отправляем на страницу покупки
+                                var url = 
+                                $location.path(url);
+                            }
+                        },
+                        function (data, status) {
+                            //error
+                        });
                 };
             };
 

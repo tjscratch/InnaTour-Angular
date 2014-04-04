@@ -312,17 +312,17 @@
     <Content Include="spa\js\angular\controllers\controller.tours.js" />
     <Content Include="spa\js\angular\controllers\controllers.js" />
     <Content Include="spa\js\angular\date.helper.js" />
+    <Content Include="spa\js\angular\directives\directive.autocomplete.component.js" />
     <Content Include="spa\js\angular\directives\directive.combobox.js" />
-    <Content Include="spa\js\angular\directives\directive.autocomplete.custom.js" />
     <Content Include="spa\js\angular\directives\directive.counter_people.component.js" />
     <Content Include="spa\js\angular\directives\directive.datepicker.2months.js" />
     <Content Include="spa\js\angular\directives\directive.datepicker.custom.js" />
     <Content Include="spa\js\angular\directives\directive.date_picker_widget.component.js" />
-    <Content Include="spa\js\angular\directives\directive.dropdown_input_to.component.js" />
     <Content Include="spa\js\angular\directives\directive.jq.ui.slider.js" />
     <Content Include="spa\js\angular\directives\directive.map.js" />
     <Content Include="spa\js\angular\directives\directive.popup.form.js" />
     <Content Include="spa\js\angular\directives\directive.select.component.js" />
+    <Content Include="spa\js\angular\directives\directive.trip_preferences.component.js" />
     <Content Include="spa\js\angular\directives\directives.js" />
     <Content Include="spa\js\angular\filters.js" />
     <Content Include="spa\js\angular\models\app.model.avia.js" />
@@ -330,6 +330,7 @@
     <Content Include="spa\js\angular\models\app.model.to.api.model.js" />
     <Content Include="spa\js\angular\models\app.model.tours.js" />
     <Content Include="spa\js\angular\services.js" />
+    <Content Include="spa\js\angular\services\service.dynamic.packages.js" />
     <Content Include="spa\js\angular\tracking.js" />
     <Content Include="spa\js\angular\urlhelper.js" />
     <Content Include="spa\js\aside.js" />
@@ -344,8 +345,9 @@
     <Content Include="spa\lib\xdomain.min.js" />
     <Content Include="spa\templates\components\counter_people.html" />
     <Content Include="spa\templates\components\date_picker_widget.html" />
-    <Content Include="spa\templates\components\dropdown_input_to.html" />
+    <Content Include="spa\templates\components\dropdown_input.html" />
     <Content Include="spa\templates\components\select.html" />
+    <Content Include="spa\templates\components\trip_preferences.html" />
     <Content Include="spa\templates\grid\item_2M.html" />
     <Content Include="spa\templates\grid\item_2SL.html" />
     <Content Include="spa\templates\grid\item_L2S.html" />
@@ -358,6 +360,7 @@
     <Content Include="spa\templates\grid\item_XL.html" />
     <Content Include="spa\templates\grid\_item_inner.html" />
     <Content Include="spa\templates\nav_forms\avia_search_form.html" />
+    <Content Include="spa\templates\nav_forms\dynamic_search_form.html" />
     <Content Include="spa\templates\nav_forms\empty.html" />
     <Content Include="spa\templates\nav_forms\tours_search_form.html" />
     <Content Include="spa\templates\pages\about_page.html" />
