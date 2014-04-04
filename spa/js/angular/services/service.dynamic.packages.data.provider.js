@@ -1,10 +1,6 @@
 innaAppServices.factory('DynamicPackagesDataProvider', [
-    '$http', '$timeout',
-    function($http, $timeout){
-        var FROM_SUGGEST = 'http://api.test.inna.ru/api/v1/Packages/From';
-        var TO_SUGGEST = 'http://api.test.inna.ru/api/v1/Packages/To';
-        var OBJECT_BY_ID = 'http://api.test.inna.ru/api/v1/Packages/DirectoryById';
-
+    'innaApp.API.const', '$http', '$timeout',
+    function(api, $http, $timeout){
         function http(url, send, callback) {
             $http({
                 method: 'GET',
@@ -17,13 +13,13 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
 
         return {
             getFromListByTerm: function(term, callback) {
-                http(FROM_SUGGEST, {term: term}, callback);
+                http(api.DYNAMIC_FROM_SUGGEST, {term: term}, callback);
             },
             getToListByTerm: function(term, callback) {
-                http(TO_SUGGEST, {term: term}, callback);
+                http(api.DYNAMIC_TO_SUGGEST, {term: term}, callback);
             },
             getObjectById: function(id, callback){
-                http(OBJECT_BY_ID, {id: id}, callback);
+                http(api.DYNAMIC_GET_OBJECT_BY_ID, {id: id}, callback);
             },
             getUserLocation: function(callback){
                 //TODO
