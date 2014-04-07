@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "connect": "*",
+    "gulp": "*",
+	"gulp-concat": "*",
+	"gulp-html-replace": "*",
+	"run-sequence": "*"
+  }
+}

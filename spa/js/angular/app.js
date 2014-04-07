@@ -7,6 +7,7 @@ var app = angular.module('innaApp', [
   'innaApp.services',
   'innaApp.directives',
   'innaApp.controllers',
+  'innaApp.API',
   'ngSanitize'
 ]).run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
     $rootScope.bodyClickListeners = [];
@@ -32,7 +33,9 @@ var app = angular.module('innaApp', [
         //скролим наверх
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
-}]).config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+}]).config([
+    '$routeProvider', '$locationProvider', '$httpProvider',
+    function ($routeProvider, $locationProvider, $httpProvider) {
 
     //чтобы работал кросдоменный post
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -45,6 +48,7 @@ var app = angular.module('innaApp', [
     app.URL_PROGRAMMS = '/individualtours/';
     app.URL_ABOUT = '/about/';
     app.URL_CONTACTS = '/contacts/';
+    app.URL_AUTH_RESTORE = '/account/restore-password/';
 
     $routeProvider.
         //Главная
@@ -68,7 +72,7 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/contacts_page.html',
             controller: 'ContactsCtrl'
         }).
-        when(app.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
+        when(app.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
             templateUrl: '/spa/templates/pages/avia/search_form.html',
             controller: 'AviaSearchMainCtrl'
         }).
@@ -76,18 +80,15 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/avia/search_form.html',
             controller: 'AviaSearchMainCtrl'
         }).
-        when(app.URL_AVIA + 'search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
+        when(app.URL_AVIA + 'search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
             templateUrl: '/spa/templates/pages/avia/search_results.html',
             controller: 'AviaSearchResultsCtrl'
         }).
-        when(app.URL_AVIA + 'search_old/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
-            templateUrl: '/spa/templates/pages/avia/search_results_old.html',
-            controller: 'AviaSearchResultsCtrl'
+        when(app.URL_AVIA + 'buy/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
+            ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
+            templateUrl: '/spa/templates/pages/avia/buy_tickets.html',
+            controller: 'AviaBuyTicketsCtrl'
         }).
-        //when('/avia/search/', {
-        //    templateUrl: '/TemplatesAvia/Search',
-        //    controller: 'AviaSearchResultsCtrl'
-        //}).
         when('/hotelticket/', {
             templateUrl: '/spa/templates/pages/hotelticket_page.html',
             controller: 'HotelPlusTicketCtrl',
@@ -115,7 +116,11 @@ var app = angular.module('innaApp', [
         }).
         when(app.URL_DYNAMIC_PACKAGES, {
             templateUrl: '/spa/templates/pages/dynamic_package_page.html',
-            controller: 'DynamicPackageCtrl'
+            controller: 'DynamicPackageMordaCtrl'
+        }).
+        when(app.URL_AUTH_RESTORE, { //same as main
+            templateUrl: '/spa/templates/pages/tours_grid_page.html',
+            controller: 'ToursCtrl'
         });
         //.
         //otherwise({
@@ -123,7 +128,8 @@ var app = angular.module('innaApp', [
         //});
 
     //$locationProvider.html5Mode(false);
-}]);
+    }
+]);
 
 
 var innaAppControllers = angular.module('innaApp.controllers', []);

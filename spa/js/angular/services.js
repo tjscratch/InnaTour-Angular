@@ -11,8 +11,10 @@ innaAppServices.
 
 
 innaAppServices.
-    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', function ($rootScope, $http, $q, $log, cache) {
-        function log(msg) {
+    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', 'storageService',
+        function ($rootScope, $http, $q, $log, cache, storageService)
+        {
+            function log(msg) {
             $log.log(msg);
         }
 
@@ -92,14 +94,23 @@ innaAppServices.
                     successCallback(angular.fromJson(apiSearchAviaDataJsonStub));
                 }
                 else {
-                    $http({ method: 'GET', url: beginAviaSearchUrl, params: apiCriteria }).success(function (data, status) {
-                        //присваиваем значение через функцию коллбэк
-                        successCallback(data);
-                    }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
+                    //сначала проверяем в html5 storage
+                    var res = storageService.getAviaSearchResults(apiCriteria);
+                    if (res != null) {
+                        successCallback(res);
+                    }
+                    else {
+                        $http({ method: 'GET', url: beginAviaSearchUrl, params: apiCriteria }).success(function (data, status) {
+                            //сохраняем в хранилище (сохраняем только последний результат)
+                            storageService.setAviaSearchResults(apiCriteria, data);
+                            //присваиваем значение через функцию коллбэк
+                            successCallback(data);
+                        }).
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
+                    }
                 }
             },
             startSearchTours: function (criteria, successCallback, errCallback) {
@@ -226,7 +237,7 @@ innaAppServices.
         return {
 
             checkAvailability: function (queryData, successCallback, errCallback) {
-                $http.post(paymentCheckAvailabilityUrl, queryData).success(function (data) {
+                $http.get(paymentCheckAvailabilityUrl, { params: queryData }).success(function (data) {
                     successCallback(data);
                 }).
                 error(function (data, status) {
@@ -234,6 +245,66 @@ innaAppServices.
                 });
             }
         };
+    }]);
+
+innaAppServices.
+    factory('storageService', ['$rootScope', '$http', '$log', function ($rootScope, $http, $log) {
+        function log(msg) {
+            $log.log(msg);
+        }
+
+        return {
+            setAviaBuyItem: function (model) {
+                sessionStorage.AviaBuyItem = angular.toJson(model);
+            },
+            getAviaBuyItem: function () {
+                return angular.fromJson(sessionStorage.AviaBuyItem);
+            },
+            setAviaSearchResults: function (criteria, data) {
+                sessionStorage.AviaSearchResults = angular.toJson({ criteria: criteria, data: data });
+            },
+            getAviaSearchResults: function (criteria) {
+                var res = angular.fromJson(sessionStorage.AviaSearchResults);
+                //проверяем, что достаем данные для нужных критериев поиска
+                if (res != null && angular.toJson(criteria) == angular.toJson(res.criteria))
+                {
+                    return res.data;
+                }
+                return null;
+            }
+        }
+    }]);
+
+innaAppServices.
+    factory('aviaHelper', ['$rootScope', '$http', '$log', function ($rootScope, $http, $log) {
+        function log(msg) {
+            $log.log(msg);
+        }
+
+        return {
+            getTransferCountText: function (count) {
+                switch (count) {
+                    case 0: return "пересадок";
+                    case 1: return "пересадка";
+                    case 2: return "пересадки";
+                    case 3: return "пересадки";
+                    case 4: return "пересадки";
+                    case 5: return "пересадок";
+                    case 6: return "пересадок";
+                    case 7: return "пересадок";
+                    case 8: return "пересадок";
+                    case 9: return "пересадок";
+                    case 10: return "пересадок";
+                    default: return "пересадок";
+                }
+            },
+            preventBubbling: function ($event) {
+                if ($event.stopPropagation) $event.stopPropagation();
+                if ($event.preventDefault) $event.preventDefault();
+                $event.cancelBubble = true;
+                $event.returnValue = false;
+            }
+        }
     }]);
 
 

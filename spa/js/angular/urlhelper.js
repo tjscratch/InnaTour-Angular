@@ -157,24 +157,29 @@ UrlHelper = {
 		//	+ dl + criteria.HotelStarsMin + dl + criteria.HotelStarsMax;
 	},
 
-    UrlToAviaMain: function (criteria) {
-
-        criteria = this.changeNullsToAny(criteria);
-
-        var dl = this.Delimiter;
-        return '/avia/' + criteria.FromUrl + dl + criteria.ToUrl + dl + criteria.BeginDate + dl + criteria.EndDate
-			+ dl + criteria.AdultCount + dl + criteria.ChildCount + dl + criteria.InfantsCount + dl + criteria.CabinClass + dl + criteria.IsFlexible;
-    }, 
-
-	UrlToAviaSearch: function (criteria) {
-
+	UrlToAvia: function (criteria){
 	    criteria = this.changeNullsToAny(criteria);
-	    //console.log('UrlToAviaSearch changeNullsToAny: ' + angular.toJson(criteria));
+	    //console.log('UrlToAvia changeNullsToAny: ' + angular.toJson(criteria));
 
 	    var dl = this.Delimiter;
-	    return '/avia/search/' + criteria.FromUrl + dl + criteria.ToUrl + dl + criteria.BeginDate + dl + criteria.EndDate
+	    var res = '' + criteria.FromUrl + dl + criteria.ToUrl + dl + criteria.BeginDate + dl + criteria.EndDate
 			+ dl + criteria.AdultCount + dl + criteria.ChildCount + dl + criteria.InfantsCount + dl + criteria.CabinClass
-            + dl + criteria.IsToFlexible + dl + criteria.IsBackFlexible;
+            + dl + criteria.IsToFlexible + dl + criteria.IsBackFlexible + dl + criteria.PathType;
+
+	    if (criteria.QueryId > 0 && criteria.VariantId1 > 0 && criteria.VariantId2 > 0)
+	    {
+	        res += dl + criteria.QueryId + dl + criteria.VariantId1 + dl + criteria.VariantId2;
+	    }
+	    return res;
+	},
+    UrlToAviaMain: function (criteria) {
+        return '/avia/' + UrlHelper.UrlToAvia(criteria);
+    }, 
+	UrlToAviaSearch: function (criteria) {
+	    return '/avia/search/' + UrlHelper.UrlToAvia(criteria);
+	},
+	UrlToAviaTicketsBuy: function (criteria) {
+	    return '/avia/buy/' + UrlHelper.UrlToAvia(criteria);;
 	},
 
 	UrlToSletatTours: function (city, country, resort, hotel, date, nightsMin, nightsMax, adults, kids, kids_ages) {
