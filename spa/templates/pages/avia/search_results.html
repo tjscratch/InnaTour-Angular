@@ -22,7 +22,7 @@
         <ng:any ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">
         <!--<ng:any ng-repeat="item in filteredTicketsList">-->
             <div class="rl-title-best rl-title-cheapest" ng-show="item.isCheapest">самый дешевый</div>
-            <div class="rl-title-best rl-title-recommended" ng-show="item.IsRecomendation">мы рекомендуем</div>
+            <div class="rl-title-best rl-title-recommended" ng-show="item.IsRecomendation && !item.isCheapest">мы рекомендуем</div>
             <div class="rl-item">
                 <header class="rl-item-header">
                     <span class="rl-price">
@@ -54,7 +54,7 @@
                         <div class="rl-fly-transplant">Прямой</div>
                     </div>
                 </div>
-                <div class="rl-content">
+                <div class="rl-content" ng-if="item.EtapsBack.length > 0">
                     <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsBackTransporterName}}">
                     <div class="rl-fly">
                         <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>

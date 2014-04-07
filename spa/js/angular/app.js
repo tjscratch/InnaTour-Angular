@@ -69,7 +69,7 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/contacts_page.html',
             controller: 'ContactsCtrl'
         }).
-        when(app.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
+        when(app.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
             templateUrl: '/spa/templates/pages/avia/search_form.html',
             controller: 'AviaSearchMainCtrl'
         }).
@@ -77,18 +77,10 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/avia/search_form.html',
             controller: 'AviaSearchMainCtrl'
         }).
-        when(app.URL_AVIA + 'search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
+        when(app.URL_AVIA + 'search/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
             templateUrl: '/spa/templates/pages/avia/search_results.html',
             controller: 'AviaSearchResultsCtrl'
         }).
-        when(app.URL_AVIA + 'search_old/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible', {
-            templateUrl: '/spa/templates/pages/avia/search_results_old.html',
-            controller: 'AviaSearchResultsCtrl'
-        }).
-        //when('/avia/search/', {
-        //    templateUrl: '/TemplatesAvia/Search',
-        //    controller: 'AviaSearchResultsCtrl'
-        //}).
         when('/hotelticket/', {
             templateUrl: '/spa/templates/pages/hotelticket_page.html',
             controller: 'HotelPlusTicketCtrl',

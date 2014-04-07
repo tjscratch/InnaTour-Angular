@@ -107,7 +107,13 @@ innaAppControllers.
             function initFuctions() {
                 $scope.startSearch = function () {
                     //log('$scope.startSearch');
-                    dataService.startAviaSearch($scope.criteria, function (data) {
+                    var searchCriteria = angular.copy($scope.criteria);
+                    if (searchCriteria.PathType == 1)//только туда
+                    {
+                        //нужно передать только дату туда
+                        searchCriteria.EndDate = null;
+                    }
+                    dataService.startAviaSearch(searchCriteria, function (data) {
                         //обновляем данные
                         if (data != null) {
                             //log('data: ' + angular.toJson(data));
@@ -309,6 +315,9 @@ innaAppControllers.
                     { En: "Sun", Ru: "вс" }];
 
                 function changeEnToRu(text) {
+                    if (text == null || text.length == 0)
+                        return text;
+
                     var dic = monthEnToRus;
                     for (var i = 0; i < dic.length; i++) {
                         var dicItem = dic[i];
@@ -413,8 +422,10 @@ innaAppControllers.
                         var codeEtapsBack = getTransporterCode(item.EtapsBack);
                         item.EtapsToTransporterCodeUrl = "http://adioso.com/media/i/airlines/" + codeEtapsTo.code + ".png";
                         item.EtapsToTransporterName = codeEtapsTo.name;
-                        item.EtapsBackTransporterCodeUrl = "http://adioso.com/media/i/airlines/" + codeEtapsBack.code + ".png";
-                        item.EtapsBackTransporterName = codeEtapsBack.name;
+                        if (codeEtapsBack != null) {
+                            item.EtapsBackTransporterCodeUrl = "http://adioso.com/media/i/airlines/" + codeEtapsBack.code + ".png";
+                            item.EtapsBackTransporterName = codeEtapsBack.name;
+                        }
 
                         //время в пути
                         item.TimeToFormatted = getFlightTimeFormatted(item.TimeTo);
@@ -422,12 +433,20 @@ innaAppControllers.
 
                         //авиакомпании
                         item.TransporterListText = "Разные авиакомпании";
-                        if (codeEtapsTo.code != manyCode && codeEtapsBack.code != manyCode)
+                        if (codeEtapsBack != null) {
+                            if (codeEtapsTo.code != manyCode && codeEtapsBack.code != manyCode) {
+                                if (codeEtapsTo.code == codeEtapsBack.code)
+                                    item.TransporterListText = codeEtapsTo.name;
+                                else
+                                    item.TransporterListText = codeEtapsTo.name + " / " + codeEtapsBack.name;
+                            }
+                        }
+                        else
                         {
-                            if (codeEtapsTo.code == codeEtapsBack.code)
+                            if (codeEtapsTo.code != manyCode)
+                            {
                                 item.TransporterListText = codeEtapsTo.name;
-                            else
-                                item.TransporterListText = codeEtapsTo.name + " / " + codeEtapsBack.name;
+                            }
                         }
 
                         //этапы
