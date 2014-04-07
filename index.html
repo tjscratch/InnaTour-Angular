@@ -93,6 +93,8 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     <div class="button fixed-request-button" ng-click="popupForm_Show()" ng-show="!isActive('/individualtours/category/')" title="Отправить заявку"></div>
     
     <ng:view></ng:view>
+
+    <ng:include src="'/spa/templates/auth_form.html'"></ng:include>
     
     <div class="footer">
     <div class="footer-content">
@@ -240,8 +242,14 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/api.js"></script>
 <script src="/spa/js/angular/filters.js"></script>
 <script src="/spa/js/angular/services.js"></script>
+<script src="/spa/js/angular/services/service.validator.js"></script>
 <script src="/spa/js/angular/services/service.dynamic.packages.data.provider.js"></script>
 <script src="/spa/js/angular/services/service.dynamic.packages.cache.js"></script>
+<script src="/spa/js/angular/services/service.auth.data.provider.js"></script>
+<script src="/spa/js/angular/controllers/controller.auth.js"></script>
+<script src="/spa/js/angular/controllers/controller.auth.registration.js"></script>
+<script src="/spa/js/angular/controllers/controller.auth.auth.js"></script>
+<script src="/spa/js/angular/controllers/controller.auth.restore.js"></script>
 <script src="/spa/js/angular/controllers/controller.about.js"></script>
 <script src="/spa/js/angular/controllers/controller.avia.buy.tickets.js"></script>
 <script src="/spa/js/angular/controllers/controller.avia.form.js"></script>

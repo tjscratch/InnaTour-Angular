@@ -33,7 +33,9 @@ var app = angular.module('innaApp', [
         //скролим наверх
         document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
-}]).config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+}]).config([
+    '$routeProvider', '$locationProvider', '$httpProvider',
+    function ($routeProvider, $locationProvider, $httpProvider) {
 
     //чтобы работал кросдоменный post
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -46,6 +48,7 @@ var app = angular.module('innaApp', [
     app.URL_PROGRAMMS = '/individualtours/';
     app.URL_ABOUT = '/about/';
     app.URL_CONTACTS = '/contacts/';
+    app.URL_AUTH_RESTORE = '/account/restore-password/';
 
     $routeProvider.
         //Главная
@@ -114,6 +117,10 @@ var app = angular.module('innaApp', [
         when(app.URL_DYNAMIC_PACKAGES, {
             templateUrl: '/spa/templates/pages/dynamic_package_page.html',
             controller: 'DynamicPackageMordaCtrl'
+        }).
+        when(app.URL_AUTH_RESTORE, { //same as main
+            templateUrl: '/spa/templates/pages/tours_grid_page.html',
+            controller: 'ToursCtrl'
         });
         //.
         //otherwise({
@@ -121,7 +128,8 @@ var app = angular.module('innaApp', [
         //});
 
     //$locationProvider.html5Mode(false);
-}]);
+    }
+]);
 
 
 var innaAppControllers = angular.module('innaApp.controllers', []);
