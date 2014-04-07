@@ -7,11 +7,10 @@ angular.module('innaApp.controllers')
             }
 
             function sendToken() {
-                console.log('sending..');
                 AuthDataProvider.sendToken({
                     Email: $scope.email
                 }, function(){ //success
-                    $scope.showLanding = false;
+                    $scope.showLanding = true;
                 }, function(){ //error
                     $scope.requestFailure = true;
                 });
@@ -53,15 +52,14 @@ angular.module('innaApp.controllers')
             }
 
             function setNewPassword(){
-                AuthDataProvider.setNewPassword({
-                    token: $scope.restoreToken,
+                AuthDataProvider.setNewPassword($scope.restoreToken, {
                     newPassword: $scope.password,
                     confirmPassword: $scope.password2
                 }, function(){
                     $scope.success = true;
 
                     $timeout(function(){
-                        $location.path('/')
+                        $location.path('/');
                     }, 1500);
                 }, function(){
                     $scope.requestFailed = true;

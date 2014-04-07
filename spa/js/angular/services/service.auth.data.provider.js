@@ -18,18 +18,19 @@ angular.module('innaApp.services')
                     }).success(callbackSuccess).error(callbackError);
                 },
                 sendToken: function(data, success, error){
+
                     $http({
                         method: 'POST',
                         data: data,
                         url: urls.AUTH_RESTORE_A
-                    }).success(callbackSuccess).error(callbackError);
+                    }).success(success).error(error);
                 },
-                setNewPassword: function(data, callback, error){
+                setNewPassword: function(token, data, success, error){
                     $http({
                         method: 'POST',
                         data: data,
-                        url: urls.AUTH_RESTORE_B
-                    }).success(callbackSuccess).error(callbackError);
+                        url: urls.AUTH_RESTORE_B + '?token=' + token,
+                    }).success(success).error(error);
                 }
             }
         }
