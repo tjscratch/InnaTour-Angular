@@ -15,10 +15,10 @@ var RELEASE_API_HOST = 'http://api.inna.ru';
 function copyFiles(destFolder){
     var res = null;
     //главная
-    res = gulp.src('../index.html')
+    res = gulp.src(['../index.html', '../web.config'])
         .pipe(gulp.dest(destFolder));
     //страница результатов поиска туров
-    res = gulp.src('../tours/index.html')
+    res = gulp.src(['../tours/index.html', '../tours/web.config'])
         .pipe(gulp.dest(destFolder + '/tours'));
 
     //папка spa, кроме node_modules
