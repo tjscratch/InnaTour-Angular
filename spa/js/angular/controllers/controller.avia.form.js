@@ -31,8 +31,6 @@ innaAppControllers.
                 log('AviaFormCtrl routeCriteria: ' + angular.toJson(routeCriteria));
                 $scope.criteria = routeCriteria;
 
-                $scope.criteria.PathType = 0;
-
                 //по url вытягиваем Id и name для города, региона и т.д.
                 setFromAndToFieldsFromUrl(routeCriteria);
             });
@@ -56,6 +54,12 @@ innaAppControllers.
                     "PathType": 0
                 });
 
+                //return new aviaCriteria({
+                //    "BeginDate": f_now, "EndDate": f_nowAdd5days,
+                //    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
+                //    "PathType": 0
+                //});
+
             };
 
             //добавляем в кэш откуда, куда
@@ -75,9 +79,14 @@ innaAppControllers.
 
             //тут меняем урл для поиска
             $scope.searchStart = function () {
-                //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
-                var url = UrlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
-                $location.path(url);
+                if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0) {
+                    //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
+                    var url = UrlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+                    $location.path(url);
+                }
+                else {
+                    alert('Не заполнены поля Откуда, Куда');
+                }
             };
 
             function setFromAndToFieldsFromUrl(routeCriteria) {
