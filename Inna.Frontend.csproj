@@ -292,6 +292,7 @@
     <Content Include="spa\js\angular\cache_keys.js" />
     <Content Include="spa\js\angular\controllers\controller.about.js" />
     <Content Include="spa\js\angular\controllers\controller.avia.search.main.js" />
+    <Content Include="spa\js\angular\controllers\controller.avia.buy.tickets.js" />
     <Content Include="spa\js\angular\controllers\controller.avia.search.results.js" />
     <Content Include="spa\js\angular\controllers\controller.contacts.js" />
     <Content Include="spa\js\angular\controllers\controller.dynamic.packages.form.js" />
@@ -369,6 +370,7 @@
     <Content Include="spa\templates\nav_forms\empty.html" />
     <Content Include="spa\templates\nav_forms\tours_search_form.html" />
     <Content Include="spa\templates\pages\about_page.html" />
+    <Content Include="spa\templates\pages\avia\buy_tickets.html" />
     <Content Include="spa\templates\pages\avia\search_form.html" />
     <Content Include="spa\templates\pages\avia\search_results_old.html" />
     <Content Include="spa\templates\pages\avia\search_results.html" />
