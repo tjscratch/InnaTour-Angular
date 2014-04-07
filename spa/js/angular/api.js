@@ -10,6 +10,6 @@ angular.module('innaApp.API', [])
             DYNAMIC_GET_OBJECT_BY_ID: url('/Packages/DirectoryById'),
 
             AUTH_SIGN_UP: url('/Account/Register/Post'),
-            AUTH_SIGN_IN: url('SIGNIN')
+            AUTH_SIGN_IN: url('/Account/Login/Post')
         }
     })
