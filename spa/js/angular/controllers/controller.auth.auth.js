@@ -22,7 +22,15 @@ angular.module('innaApp.controllers')
             /*Properties*/
             $scope.username = '';
 
+            $scope.$watch('username', function(){
+                $scope.errors.username = false;
+            });
+
             $scope.password = '';
+
+            $scope.$watch('password', function(){
+                $scope.errors.password = false;
+            });
 
             $scope.errors = {};
 
