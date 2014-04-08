@@ -1,0 +1,27 @@
+<div class="b-auth-block__section" ng-controller="AuthSignInCtrl">
+    <h1>Авторизация</h1>
+    <div>
+        <label>Почта</label>
+        <input ng-model="username">
+        <div class="b-validation-error" ng-show="errors.username">Поле должно быть заполнено</div>
+    </div>
+    <div>
+        <label>Пароль</label>
+        <input ng-model="password">
+        <div class="b-validation-error" ng-show="errors.password">Поле должно быть заполнено</div>
+    </div>
+    <div>
+        <button ng-click="signIn()">Погнали!</button>
+    </div>
+    <div ng-show="requestFailure">
+        Неверное имя пользователя или пароль
+    </div>
+    <!-- Social -->
+    <div>
+        <button ng-click="signInWith('fb')">FB</button>
+        <button ng-click="signInWith('tw')">TW</button>
+        <button ng-click="signInWith('ok')">OK</button>
+        <button ng-click="signInWith('google')">Google</button>
+        <button ng-click="signInWith('vk')">vk</button>
+    </div>
+</div>

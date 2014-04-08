@@ -1,0 +1,43 @@
+<div class="b-auth-block__section" ng-controller="AuthPwdRerstoreCtrl_A">
+    <h1>Восстановление пароля</h1>
+    <div>
+        <label>Email</label>
+        <input ng-model="email">
+        <div class="b-validation-error" ng-show="errors.email">Поле должно быть заполнено</div>
+    </div>
+    <div>
+        <button ng-click="sendToken()">Погнали!</button>
+    </div>
+    <div ng-show="requestFailure">
+        Такой пользователь не зарегистрирован
+    </div>
+    <div ng-show="showLanding">
+        Вам все выслано на почту, ляляля
+    </div>
+</div>
+
+<div class="b-auth-block__section" ng-show="restoreToken">
+    <div ng-controller="AuthPwdRerstoreCtrl_B">
+        <h1>Восстановление пароля-2</h1>
+        <div>
+            <label>pwd</label>
+            <input ng-model="password">
+            <div class="b-validation-error" ng-show="errors.password">Поле должно быть заполнено</div>
+            <div class="b-validation-error" ng-show="errors.passwordMinLength">Пароль должен бы тьне короче 6 символов</div>
+        </div>
+        <div>
+            <label>pwd2</label>
+            <input ng-model="password2">
+            <div class="b-validation-error" ng-show="errors.password2">didn't match</div>
+        </div>
+        <div>
+            <button ng-click="setNewPassword()">Погнали!</button>
+        </div>
+        <div ng-show="requestFailed">
+            Что-то пошло не так... Попробуйте начать процедуру восстановления пароля сначала.
+        </div>
+        <div ng-show="success">
+            Новый пароль успешно установлен. Через несколько секунд вы будете перенаправлены на главную страницу.
+        </div>
+    </div>
+</div>
