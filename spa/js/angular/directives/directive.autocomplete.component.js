@@ -75,6 +75,8 @@
 
                 if(!isInsideComponent) {
                     scope.fulfilled = true;
+                    //select all
+                    $(event.target).select();
                 }
             });
 
