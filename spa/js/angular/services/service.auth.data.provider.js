@@ -29,11 +29,13 @@ angular.module('innaApp.services')
                     $http({
                         method: 'POST',
                         data: data,
-                        url: urls.AUTH_RESTORE_B + '?token=' + token,
+                        url: urls.AUTH_RESTORE_B + '?token=' + token
                     }).success(success).error(error);
                 },
                 socialBrockerURL: function(method){
-                    return urls.AUTH_SOCIAL_BROKER + '?provider=' + method;
+                    return urls.AUTH_SOCIAL_BROKER +
+                        '?provider=' + method +
+                        '&returnUrl=' + encodeURIComponent(document.location.protocol + '//' + document.location.host + '/closer.html');
                 }
             }
         }

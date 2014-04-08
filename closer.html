@@ -6,7 +6,8 @@
 </head>
 <body>
     <script>
-          console.log(window.opener);
+        window.opener.$('#social-broker-listener').trigger('inna.Auth.SocialBroker.Result', window.location.href);
+        window.close();
     </script>
 
     popup
