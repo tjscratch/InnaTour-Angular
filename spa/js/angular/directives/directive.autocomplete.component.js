@@ -53,7 +53,7 @@
             scope.input = $('input[type="text"]', elem);
 
             /*Events*/
-            scope.input.keypress(function(event){
+            scope.input.keyup(function(event){
                 var value = scope.input.val();
                 var preparedText = value.split(', ')[0].trim();
 

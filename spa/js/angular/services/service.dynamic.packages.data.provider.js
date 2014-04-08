@@ -1,6 +1,6 @@
 innaAppServices.factory('DynamicPackagesDataProvider', [
-    'innaApp.API.const', '$http', '$timeout',
-    function(api, $http, $timeout){
+    'innaApp.API.const', '$timeout',
+    function(api, $timeout){
         function http(url, send, callback) {
             if(http.running[url]) {
                 http.running[url].abort();
