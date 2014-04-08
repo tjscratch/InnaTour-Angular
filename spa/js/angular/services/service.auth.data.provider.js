@@ -31,6 +31,9 @@ angular.module('innaApp.services')
                         data: data,
                         url: urls.AUTH_RESTORE_B + '?token=' + token,
                     }).success(success).error(error);
+                },
+                socialBrockerURL: function(method){
+                    return urls.AUTH_SOCIAL_BROKER + method;
                 }
             }
         }

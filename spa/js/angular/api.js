@@ -12,6 +12,7 @@ angular.module('innaApp.API', [])
             AUTH_SIGN_UP: url('/Account/Register/Post'),
             AUTH_SIGN_IN: url('/Account/Login/Post'),
             AUTH_RESTORE_A: url('/Account/ForgotPassword/Post'),
-            AUTH_RESTORE_B: url('/Account/ResetPassword/Post')
+            AUTH_RESTORE_B: url('/Account/ResetPassword/Post'),
+            AUTH_SOCIAL_BROKER: url('/Account/Broker/')
         }
     })
