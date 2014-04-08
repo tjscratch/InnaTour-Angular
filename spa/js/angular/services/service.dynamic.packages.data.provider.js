@@ -2,14 +2,19 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
     'innaApp.API.const', '$http', '$timeout',
     function(api, $http, $timeout){
         function http(url, send, callback) {
-            $http({
-                method: 'GET',
-                params: send,
+            if(http.running[url]) {
+                http.running[url].abort();
+            }
+
+            http.running[url] = $.ajax({
+                type: 'GET',
+                data: send,
                 url: url,
-            }).success(function(data){
-                callback(data);
-            });
+                dataType: 'JSON'
+            }).success(callback);
         }
+
+        http.running = {};
 
         return {
             getFromListByTerm: function(term, callback) {
