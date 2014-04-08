@@ -5,9 +5,9 @@
 
 innaAppControllers.
     controller('AviaSearchResultsCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper',
+        'dataService', 'paymentService', 'storageService', 'eventsHelper', 'aviaHelper',
         function AviaSearchResultsCtrl($log, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper) {
+            dataService, paymentService, storageService, eventsHelper, aviaHelper) {
 
             var self = this;
             function log(msg) {
@@ -121,7 +121,7 @@ innaAppControllers.
                 };
 
                 $scope.applySort = function ($event, type) {
-                    aviaHelper.preventBubbling($event);
+                    eventsHelper.preventBubbling($event);
                     $scope.isSortListOpened = false;
                     //log('applySort: ' + type + ', $scope.sort:' + $scope.sort + ', $scope.reverse:' + $scope.reverse);
 
@@ -168,37 +168,37 @@ innaAppControllers.
                 };
 
                 $scope.resetPrice = function ($event) {
-                    aviaHelper.preventBubbling($event);
+                    eventsHelper.preventBubbling($event);
                     $scope.filter.minPrice = $scope.filter.minPriceInitial;
                     $scope.filter.maxPrice = $scope.filter.maxPriceInitial;
                 };
 
                 $scope.resetTransfers = function ($event) {
-                    aviaHelper.preventBubbling($event);
+                    eventsHelper.preventBubbling($event);
                     _.each($scope.filter.TransferCountListAgg, function (item) { item.checked = true });
                 };
 
                 $scope.resetDepartureTime = function ($event) {
-                    aviaHelper.preventBubbling($event);
+                    eventsHelper.preventBubbling($event);
                     $scope.filter.minDepartureDate = $scope.filter.minDepartureDateInitial;
                     $scope.filter.maxDepartureDate = $scope.filter.maxDepartureDateInitial;
                     $scope.filter.minBackDepartureDate = $scope.filter.minBackDepartureDateInitial;
                     $scope.filter.maxBackDepartureDate = $scope.filter.maxBackDepartureDateInitial;
                 };
                 $scope.resetArrivalTime = function ($event) {
-                    aviaHelper.preventBubbling($event);
+                    eventsHelper.preventBubbling($event);
                     $scope.filter.minArrivalDate = $scope.filter.minArrivalDateInitial;
                     $scope.filter.maxArrivalDate = $scope.filter.maxArrivalDateInitial;
                     $scope.filter.minBackArrivalDate = $scope.filter.minBackArrivalDateInitial;
                     $scope.filter.maxBackArrivalDate = $scope.filter.maxBackArrivalDateInitial;
                 };
                 $scope.resetCompanies = function ($event) {
-                    aviaHelper.preventBubbling($event);
+                    eventsHelper.preventBubbling($event);
                     _.each($scope.filter.TransporterList, function (item) { item.checked = true });
                 };
 
                 $scope.goToPaymentClick = function ($event, item) {
-                    aviaHelper.preventBubbling($event);
+                    eventsHelper.preventBubbling($event);
 
                     //проверяем, что остались билеты для покупки
                     paymentService.checkAvailability({ variantTo: item.VariantId1, varianBack: item.VariantId2 },

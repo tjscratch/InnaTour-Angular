@@ -1,4 +1,4 @@
-﻿innaAppDirectives.directive('dropdownInput', [function(){
+﻿innaAppDirectives.directive('dropdownInput', ['eventsHelper', function (eventsHelper) {
     return {
         templateUrl: '/spa/templates/components/dropdown_input.html',
         scope: {
@@ -12,9 +12,20 @@
             /*Properties*/
             $scope.fulfilled = false;
             /*Events*/
-            $scope.setCurrent = function(option) {
-                $scope.input.val(option.Name);
-                $scope.result = option.Id;
+            $scope.setCurrent = function ($event, option, airport) {
+                //запрещаем баблинг
+                eventsHelper.preventBubbling($event);
+
+                if (option != null) {
+                    if (airport != null) {
+                        $scope.input.val(airport.Name);
+                        $scope.result = airport.Id;
+                    }
+                    else {
+                        $scope.input.val(option.Name);
+                        $scope.result = option.Id;
+                    }
+                }
                 $scope.fulfilled = true;
             }
             $scope.unfulfill = function(){
