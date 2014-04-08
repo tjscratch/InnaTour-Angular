@@ -8,6 +8,7 @@ angular.module('innaApp.API', [])
             DYNAMIC_FROM_SUGGEST: url('/Packages/From'),
             DYNAMIC_TO_SUGGEST: url('/Packages/To'),
             DYNAMIC_GET_OBJECT_BY_ID: url('/Packages/DirectoryById'),
+            DYNAMIC_SEARCH: url('/Packages/Search'),
 
             AUTH_SIGN_UP: url('/Account/Register/Post'),
             AUTH_SIGN_IN: url('/Account/Login/Post'),

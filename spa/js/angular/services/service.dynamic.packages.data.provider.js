@@ -38,6 +38,9 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                 $timeout(function(){ callback(25); }, 500); // 25 is the fish! it's not a "magic" number
 
                 return null;
+            },
+            search: function(o, callback){
+                http(api.DYNAMIC_SEARCH, o, callback);
             }
         }
     }
