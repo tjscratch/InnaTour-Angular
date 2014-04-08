@@ -1,17 +1,23 @@
 innaAppServices.factory('DynamicPackagesDataProvider', [
     'innaApp.API.const', '$timeout',
     function(api, $timeout){
-        function http(url, send, callback) {
-            if(http.running[url]) {
-                http.running[url].abort();
+        function http(url, send, callback, noAbort) {
+            var key = noAbort ? ('_' + Math.random()) : url;
+
+            if(http.running[key]) {
+                http.running[key].abort();
             }
 
-            http.running[url] = $.ajax({
+            http.running[key] = $.ajax({
                 type: 'GET',
                 data: send,
                 url: url,
                 dataType: 'JSON'
-            }).success(callback);
+            }).success(function(resp){
+                delete http.running[key];
+
+                callback(resp);
+            });
         }
 
         http.running = {};
@@ -24,7 +30,7 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                 http(api.DYNAMIC_TO_SUGGEST, {term: term}, callback);
             },
             getObjectById: function(id, callback){
-                http(api.DYNAMIC_GET_OBJECT_BY_ID, {id: id}, callback);
+                http(api.DYNAMIC_GET_OBJECT_BY_ID, {id: id}, callback, true);
             },
             getUserLocation: function(callback){
                 //TODO
