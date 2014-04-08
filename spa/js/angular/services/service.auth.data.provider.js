@@ -33,7 +33,7 @@ angular.module('innaApp.services')
                     }).success(success).error(error);
                 },
                 socialBrockerURL: function(method){
-                    return urls.AUTH_SOCIAL_BROKER + method;
+                    return urls.AUTH_SOCIAL_BROKER + '?provider=' + method;
                 }
             }
         }

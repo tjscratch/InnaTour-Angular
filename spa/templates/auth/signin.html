@@ -1,4 +1,4 @@
-<div class="b-auth-block__section" ng-controller="AuthSignInCtrl">
+<div class="b-auth-block__section" ng-controller="AuthSignInCtrl" id="social-broker-listener">
     <h1>Авторизация</h1>
     <div>
         <label>Почта</label>
@@ -18,10 +18,13 @@
     </div>
     <!-- Social -->
     <div>
-        <button ng-click="signInWith('fb')">FB</button>
-        <button ng-click="signInWith('tw')">TW</button>
-        <button ng-click="signInWith('ok')">OK</button>
+        <button ng-click="signInWith('facebook')">FB</button>
+        <button ng-click="signInWith('twitter')">TW</button>
+        <button ng-click="signInWith('odnoklassniki')">OK</button>
         <button ng-click="signInWith('google')">Google</button>
-        <button ng-click="signInWith('vk')">vk</button>
+        <button ng-click="signInWith('vkontakte')">vk</button>
+    </div>
+    <div>
+        <button ng-click="testPopup()">popup</button>
     </div>
 </div>

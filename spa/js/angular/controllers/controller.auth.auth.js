@@ -53,7 +53,17 @@ angular.module('innaApp.controllers')
 
                 brokerWindow.focus();
 
-                $(window).on('inna.Auth.SocialBroker.Result', function(event, data){
+                $('#social-broker-listener').on('inna.Auth.SocialBroker.Result', function(event, data){
+                    console.log('inna.Auth.SocialBroker.Result!');
+                    console.log(data);
+                });
+            }
+
+            $scope.testPopup = function(){
+                window.open("http://another-local.test.inna.ru:8181/test.html");
+
+                $('#social-broker-listener').on('inna.Auth.SocialBroker.Result', function(event, data){
+                    console.log('inna.Auth.SocialBroker.Result!');
                     console.log(data);
                 });
             }
