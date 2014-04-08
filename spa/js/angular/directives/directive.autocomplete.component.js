@@ -53,12 +53,19 @@
             scope.input = $('input[type="text"]', elem);
 
             /*Events*/
-            scope.input.keypress(_.debounce(function(event){
+            //scope.input.keypress(_.debounce(function(event){
+            //    var value = scope.input.val();
+            //    var preparedText = value.split(', ')[0].trim();
+
+            //    scope.provideSuggestCallback(preparedText, value);
+            //}, 2000));
+
+            scope.input.keypress(function (event) {
                 var value = scope.input.val();
                 var preparedText = value.split(', ')[0].trim();
 
                 scope.provideSuggestCallback(preparedText, value);
-            }, 200));
+            });
 
             scope.input.focus(function(){
                 scope.$apply(function($scope){
