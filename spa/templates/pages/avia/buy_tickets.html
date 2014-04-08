@@ -39,7 +39,7 @@
                         <div class="rl-fly-transplant">Прямой</div>
                     </div>
                     </div>
-                    <div class="rl-content">
+                    <div class="rl-content" ng-if="item.VariantId2 > 0">
                         <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
                         <div class="rl-fly">
                             <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}} {{item.BackDepartureDateFormatted}}</b>

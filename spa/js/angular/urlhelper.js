@@ -166,7 +166,7 @@ UrlHelper = {
 			+ dl + criteria.AdultCount + dl + criteria.ChildCount + dl + criteria.InfantsCount + dl + criteria.CabinClass
             + dl + criteria.IsToFlexible + dl + criteria.IsBackFlexible + dl + criteria.PathType;
 
-	    if (criteria.QueryId > 0 && criteria.VariantId1 > 0 && criteria.VariantId2 > 0)
+	    if (criteria.QueryId > 0 && criteria.VariantId1 > 0)
 	    {
 	        res += dl + criteria.QueryId + dl + criteria.VariantId1 + dl + criteria.VariantId2;
 	    }
