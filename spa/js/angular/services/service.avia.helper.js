@@ -1,4 +1,4 @@
-innaAppServices.
+п»їinnaAppServices.
     factory('aviaHelper', ['$rootScope', '$http', '$log', function ($rootScope, $http, $log) {
         function log(msg) {
             $log.log(msg);
@@ -7,18 +7,18 @@ innaAppServices.
         return {
             getTransferCountText: function (count) {
                 switch (count) {
-                    case 0: return "пересадок";
-                    case 1: return "пересадка";
-                    case 2: return "пересадки";
-                    case 3: return "пересадки";
-                    case 4: return "пересадки";
-                    case 5: return "пересадок";
-                    case 6: return "пересадок";
-                    case 7: return "пересадок";
-                    case 8: return "пересадок";
-                    case 9: return "пересадок";
-                    case 10: return "пересадок";
-                    default: return "пересадок";
+                    case 0: return "РїРµСЂРµСЃР°РґРѕРє";
+                    case 1: return "РїРµСЂРµСЃР°РґРєР°";
+                    case 2: return "РїРµСЂРµСЃР°РґРєРё";
+                    case 3: return "РїРµСЂРµСЃР°РґРєРё";
+                    case 4: return "РїРµСЂРµСЃР°РґРєРё";
+                    case 5: return "РїРµСЂРµСЃР°РґРѕРє";
+                    case 6: return "РїРµСЂРµСЃР°РґРѕРє";
+                    case 7: return "РїРµСЂРµСЃР°РґРѕРє";
+                    case 8: return "РїРµСЂРµСЃР°РґРѕРє";
+                    case 9: return "РїРµСЂРµСЃР°РґРѕРє";
+                    case 10: return "РїРµСЂРµСЃР°РґРѕРє";
+                    default: return "РїРµСЂРµСЃР°РґРѕРє";
                 }
             }
         }
