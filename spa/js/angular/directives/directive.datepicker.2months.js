@@ -80,10 +80,10 @@ innaAppDirectives.
                     var isDateChecked = scope.$eval(attrs.ngCheckModel);
                     var dp = $('.ui-datepicker');
                     //console.log('updateCheck: ' + isDateChecked);
-                    if (isDateChecked)
-                        $(":checkbox", dp).prop('checked', true);
+                    if (isDateChecked == true)
+                        $(":checkbox", dp).attr('checked', true);
                     else
-                        $(":checkbox", dp).prop('checked', false);
+                        $(":checkbox", dp).attr('checked', false);
                 }
 
                 //ловим изменение флага

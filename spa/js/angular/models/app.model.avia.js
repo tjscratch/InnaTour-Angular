@@ -20,6 +20,15 @@ function aviaCriteria(data) {
     self.IsBackFlexible = data.IsBackFlexible;
     self.PathType = data.PathType;
 
+    //для покупки
+    self.QueryId = data.QueryId;
+    self.VariantId1 = data.VariantId1;
+    self.VariantId2 = data.VariantId2;
+
+    //self.QueryId = data.QueryId;
+    //self.VariantId1 = data.VariantId1;
+    //self.VariantId2 = data.VariantId2;
+
     self.toJson = function () { return angular.toJson(self); };
 };
 

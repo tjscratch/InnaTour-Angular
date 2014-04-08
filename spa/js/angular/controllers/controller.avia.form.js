@@ -168,12 +168,14 @@ innaAppControllers.
             }
 
             $scope.countPlus = function (value) {
+                value = parseInt(value, 10);
                 var value = value + 1;
                 if (value > 6)
                     value = 6;
                 return value;
             }
             $scope.countMinus = function (value) {
+                value = parseInt(value, 10);
                 var value = value - 1;
                 if (value < 0)
                     value = 0;

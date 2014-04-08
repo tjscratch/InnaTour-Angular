@@ -291,7 +291,12 @@
     <Content Include="spa\js\angular\app.js" />
     <Content Include="spa\js\angular\cache_keys.js" />
     <Content Include="spa\js\angular\controllers\controller.about.js" />
+    <Content Include="spa\js\angular\controllers\controller.auth.auth.js" />
+    <Content Include="spa\js\angular\controllers\controller.auth.js" />
+    <Content Include="spa\js\angular\controllers\controller.auth.registration.js" />
+    <Content Include="spa\js\angular\controllers\controller.auth.restore.js" />
     <Content Include="spa\js\angular\controllers\controller.avia.search.main.js" />
+    <Content Include="spa\js\angular\controllers\controller.avia.buy.tickets.js" />
     <Content Include="spa\js\angular\controllers\controller.avia.search.results.js" />
     <Content Include="spa\js\angular\controllers\controller.contacts.js" />
     <Content Include="spa\js\angular\controllers\controller.dynamic.packages.form.js" />
@@ -333,8 +338,10 @@
     <Content Include="spa\js\angular\models\app.model.to.api.model.js" />
     <Content Include="spa\js\angular\models\app.model.tours.js" />
     <Content Include="spa\js\angular\services.js" />
+    <Content Include="spa\js\angular\services\service.auth.data.provider.js" />
     <Content Include="spa\js\angular\services\service.dynamic.packages.cache.js" />
     <Content Include="spa\js\angular\services\service.dynamic.packages.data.provider.js" />
+    <Content Include="spa\js\angular\services\service.validator.js" />
     <Content Include="spa\js\angular\tracking.js" />
     <Content Include="spa\js\angular\urlhelper.js" />
     <Content Include="spa\js\aside.js" />
@@ -348,6 +355,7 @@
     <Content Include="spa\lib\jquery-ui-1.10.4.custom\js\jquery-ui-1.10.4.custom.js" />
     <Content Include="spa\lib\jquery-ui-1.10.4.custom\js\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="spa\lib\xdomain.min.js" />
+    <Content Include="spa\templates\auth_form.html" />
     <Content Include="spa\templates\components\counter_people.html" />
     <Content Include="spa\templates\components\date_picker_widget.html" />
     <Content Include="spa\templates\components\dropdown_input.html" />
@@ -369,8 +377,8 @@
     <Content Include="spa\templates\nav_forms\empty.html" />
     <Content Include="spa\templates\nav_forms\tours_search_form.html" />
     <Content Include="spa\templates\pages\about_page.html" />
+    <Content Include="spa\templates\pages\avia\buy_tickets.html" />
     <Content Include="spa\templates\pages\avia\search_form.html" />
-    <Content Include="spa\templates\pages\avia\search_results_old.html" />
     <Content Include="spa\templates\pages\avia\search_results.html" />
     <Content Include="spa\templates\pages\contacts_page.html" />
     <Content Include="spa\templates\pages\dynamic_package_page.html" />
@@ -430,6 +438,9 @@
     <Content Include="spa\templates\pages\Web.config" />
     <Content Include="spa\templates\nav_forms\Web.config" />
     <None Include="Properties\PublishProfiles\Ftp.pubxml" />
+    <Content Include="spa\templates\Web.config" />
+    <Content Include="spa\templates\grid\Web.config" />
+    <Content Include="spa\templates\components\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

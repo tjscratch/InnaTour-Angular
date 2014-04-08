@@ -54,29 +54,28 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <body class="light-theme" ng-click="bodyClick()" popup-form>
     
 	<div class="header Header">
-        
-<div class="header-info">
-    <div class="header-info-container">
-        <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
-        --><span class="header-text"></span><!--
-        --><div class="header-info-container-right">
-            <ul class="header-info-menu" style="margin-right:0px;">
-                <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li><!--
-                --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
-                --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
-            </ul><!--
-            --><!--<span class="header-login">
-                <a href="#" class=""><i class="icon icon-user"></i>Войти</a>
+        <div class="header-info">
+            <div class="header-info-container">
+                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
+                --><span class="header-text"></span><!--
+                --><div class="header-info-container-right">
+                    <ul class="header-info-menu" style="margin-right:0px;">
+                        <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li><!--
+                        --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
+                        --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                    </ul><!--
+                    --><!--<span class="header-login">
+                        <a href="#" class=""><i class="icon icon-user"></i>Войти</a>
 
-                <form class="header-login-form-popup">
-                    <div class="field-row"><input class="field" type="text" placeholder="Логин" /></div>
-                    <div class="field-row"><input class="field" type="password" placeholder="Пароль" /></div>
-                    <button class="button">Войти</button>
-                </form>
-            </span>-->
+                        <form class="header-login-form-popup">
+                            <div class="field-row"><input class="field" type="text" placeholder="Логин" /></div>
+                            <div class="field-row"><input class="field" type="password" placeholder="Пароль" /></div>
+                            <button class="button">Войти</button>
+                        </form>
+                    </span>-->
+                </div>
+            </div>
         </div>
-    </div>
-</div>
         <div class="header-menu">
             <ul class="header-menu-container-items"><!--
                 --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
@@ -245,15 +244,20 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/api.js"></script>
 <script src="/spa/js/angular/filters.js"></script>
 <script src="/spa/js/angular/services.js"></script>
+<script src="/spa/js/angular/services/service.data.js"></script>
 <script src="/spa/js/angular/services/service.validator.js"></script>
 <script src="/spa/js/angular/services/service.dynamic.packages.data.provider.js"></script>
 <script src="/spa/js/angular/services/service.dynamic.packages.cache.js"></script>
 <script src="/spa/js/angular/services/service.auth.data.provider.js"></script>
+<script src="/spa/js/angular/services/service.events.helper.js"></script>
+<script src="/spa/js/angular/services/service.payment.js"></script>
+<script src="/spa/js/angular/services/service.avia.helper.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth.registration.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth.auth.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth.restore.js"></script>
 <script src="/spa/js/angular/controllers/controller.about.js"></script>
+<script src="/spa/js/angular/controllers/controller.avia.buy.tickets.js"></script>
 <script src="/spa/js/angular/controllers/controller.avia.form.js"></script>
 <script src="/spa/js/angular/controllers/controller.avia.search.main.js"></script>
 <script src="/spa/js/angular/controllers/controller.avia.search.results.js"></script>

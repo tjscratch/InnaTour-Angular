@@ -11,231 +11,32 @@ innaAppServices.
 
 
 innaAppServices.
-    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', function ($rootScope, $http, $q, $log, cache) {
+    factory('storageService', ['$rootScope', '$http', '$log', function ($rootScope, $http, $log) {
         function log(msg) {
             $log.log(msg);
         }
 
         return {
-            getDirectoryByUrl: function (term, successCallback, errCallback) {
-                //log('getDirectoryByUrl, term: ' + term);
-                //запрос по критериям поиска
-                $http({ method: 'GET', url: getDirectoryUrl, params: { term: term }, cache: true }).success(function (data, status) {
-                    if (data != null && data.length > 0) {
-                        //ищем запись с кодом IATA
-                        var resItem = _.find(data, function (item) {
-                            return item.CodeIata == term;
-                        });
-                        //если не нашли - берем первый
-                        if (resItem == null)
-                            resItem = data[0];
-
-                        var urlKey = UrlHelper.getUrlFromData(resItem);
-                        var cdata = new directoryCacheData(resItem.Id, resItem.Name, urlKey);
-                        //присваиваем значение через функцию коллбэк
-                        successCallback(cdata);
-                    }
-                    else {
-                        errCallback(data, status);
-                    }
-                }).error(function (data, status) {
-                    //вызываем err callback
-                    errCallback(data, status);
-                });
+            setAviaBuyItem: function (model) {
+                sessionStorage.AviaBuyItem = angular.toJson(model);
             },
-            
-            getSletatDirectoryByTerm: function (term, successCallback, errCallback) {
-                //log('getSletatDirectoryByTerm: ' + term);
-                //принудительно энкодим
-                term = encodeURIComponent(term);
-                //запрос по критериям поиска
-                $http.get(getSletatUrl + '?term=' + term, { cache: true }).success(function (data, status) {
-                    //присваиваем значение через функцию коллбэк
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    //вызываем err callback
-                    errCallback(data, status);
-                });
+            getAviaBuyItem: function () {
+                return angular.fromJson(sessionStorage.AviaBuyItem);
             },
-            getSletatCity: function (successCallback, errCallback) {
-                //log('getSletatCity: ' + term);
-                //запрос по критериям поиска
-                $http.get(getSletatCityUrl, { cache: true }).success(function (data, status) {
-                    //присваиваем значение через функцию коллбэк
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    //вызываем err callback
-                    errCallback(data, status);
-                });
+            setAviaSearchResults: function (criteria, data) {
+                sessionStorage.AviaSearchResults = angular.toJson({ criteria: criteria, data: data });
             },
-            getSletatById: function (id, successCallback, errCallback) {
-                //log('getSletatById: ' + term);
-                //запрос по критериям поиска
-                $http.get(getSletatByIdUrl + '?id=' + id, { cache: true }).success(function (data, status) {
-                    //присваиваем значение через функцию коллбэк
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    //вызываем err callback
-                    errCallback(data, status);
-                });
-            },
-            startAviaSearch: function (criteria, successCallback, errCallback) {
-                //запрос по критериям поиска
-                var apiCriteria = new aviaCriteriaToApiCriteria(criteria);
-                //log('startAviaSearch, apiCriteria: ' + angular.toJson(apiCriteria));
-
-                //debug
-                if (avia.useAviaServiceStub) {
-                    successCallback(angular.fromJson(apiSearchAviaDataJsonStub));
+            getAviaSearchResults: function (criteria) {
+                var res = angular.fromJson(sessionStorage.AviaSearchResults);
+                //проверяем, что достаем данные для нужных критериев поиска
+                if (res != null && angular.toJson(criteria) == angular.toJson(res.criteria))
+                {
+                    return res.data;
                 }
-                else {
-                    $http({ method: 'GET', url: beginAviaSearchUrl, params: apiCriteria }).success(function (data, status) {
-                        //присваиваем значение через функцию коллбэк
-                        successCallback(data);
-                    }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
-                }
-            },
-            startSearchTours: function (criteria, successCallback, errCallback) {
-                //запрос по критериям поиска
-                $http.post(beginSearchUrl, angular.toJson(criteria)).success(function (data, status) {
-                    //присваиваем значение через функцию коллбэк
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    //вызываем err callback
-                    errCallback(data, status);
-                });
-            },
-            checkSearchTours: function (searchIdObj, successCallback, errCallback) {
-                $http.post(checkSearchUrl, angular.toJson(searchIdObj)).success(function (data, status) {
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    errCallback(data, status);
-                });
-            },
-            getLocationsByUrls: function (queryData, successCallback, errCallback) {
-                $http.post(getLocationByUrls, angular.toJson(queryData)).success(function (data, status) {
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    errCallback(data, status);
-                });
-            },
-            getHotelDetail: function (queryData, successCallback, errCallback) {
-                $http.post(hotelDetailUrl, angular.toJson(queryData)).success(function (data, status) {
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    errCallback(data, status);
-                });
-            },
-            getTourDetail: function (queryData, successCallback, errCallback) {
-                $http.post(tourDetailUrl, angular.toJson(queryData)).success(function (data, status) {
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    errCallback(data, status);
-                });
-            },
-            getOrder: function (queryData, successCallback, errCallback) {
-                //запрос по критериям поиска
-                $http.post(getOrderUrl, angular.toJson(queryData)).success(function (data, status) {
-                    //присваиваем значение через функцию коллбэк
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    //вызываем err callback
-                    errCallback(data, status);
-                });
-            },
-            getPaymentPage: function (queryData, successCallback, errCallback) {
-                //запрос по критериям поиска
-                $http.post(paymentPageUrl, angular.toJson(queryData)).success(function (data, status) {
-                    //присваиваем значение через функцию коллбэк
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    //вызываем err callback
-                    errCallback(data, status);
-                });
-            },
-            pay: function(queryData, successCallback, errCallback) {
-                $http.post(payUrl, angular.toJson(queryData)).success(function(data) {
-                    successCallback(data);
-                }).
-                error(function(data, status) {
-                        errCallback(data, status);
-                });
-            },
-            getSectionTours: function (params, successCallback, errCallback) {
-                $http({ method: 'GET', url: getSectionToursUrl, params: params, cache: true }).success(function (data, status) {
-                    //присваиваем значение через функцию коллбэк
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    //вызываем err callback
-                    errCallback(data, status);
-                });
-            },
-            getSectionIndividualTours: function (params, successCallback, errCallback) {
-                $http({ method: 'GET', url: getSectionIndividualToursUrl, params: params, cache: true }).success(function (data, status) {
-                    //присваиваем значение через функцию коллбэк
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    //вызываем err callback
-                    errCallback(data, status);
-                });
-            },
-            getIndividualToursCategory: function (id, successCallback, errCallback) {
-                $http({ method: 'GET', url: getIndividualToursCategoryUrl + '/' + id, cache: true }).success(function (data, status) {
-                    //присваиваем значение через функцию коллбэк
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    //вызываем err callback
-                    errCallback(data, status);
-                });
-            },
-            sendITCategoryRequest: function (queryData, successCallback, errCallback) {
-                var apiData = new sendRequestData(queryData);
-                $http.post(sendITCategoryRequestUrl, apiData).success(function (data) {
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    errCallback(data, status);
-                });
+                return null;
             }
-        };
-    }]);
-
-innaAppServices.
-    factory('paymentService', ['$rootScope', '$http', '$q', '$log', 'cache', function ($rootScope, $http, $q, $log, cache) {
-        function log(msg) {
-            $log.log(msg);
         }
-
-        return {
-
-            checkAvailability: function (queryData, successCallback, errCallback) {
-                $http.get(paymentCheckAvailabilityUrl, { params: queryData }).success(function (data) {
-                    successCallback(data);
-                }).
-                error(function (data, status) {
-                    errCallback(data, status);
-                });
-            }
-        };
     }]);
-
 
 innaAppServices.
     factory('sharedProperties', ['$rootScope', '$http', '$q', 'cache', function ($rootScope, $http, $q, cache) {
