@@ -75,14 +75,15 @@ innaAppControllers
             $scope.childrensAge = [];
 
             /*Klass*/
-            $scope.klass = TripKlass.options[
-                DynamicPackagesCacheWizard.require('klass', function(){ return 2; })
-            ];
+            $scope.klass = _.filter(TripKlass.options, function(klass){
+                var cached = DynamicPackagesCacheWizard.require('klass', function(){ return TripKlass.ECONOM; });
+                return (klass.value == cached);
+            })[0];
 
             $scope.$watch('klass', function(newVal){
-                newVal = newVal || {value: 2}
+                newVal = newVal || TripKlass.options[0];
                 DynamicPackagesCacheWizard.put('klass', newVal.value)
-            })
+            });
 
 
             /*Methods*/
