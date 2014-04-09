@@ -87,19 +87,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         </div>
         <div style="margin: auto; width: 970px; min-height:100px;">
 
-            <div style="height: 1px !important;overflow: hidden;">
-                <script type="text/javascript" src="//ui.sletat.ru/module-4.0/core.js" charset="utf-8"></script>
-                <script type="text/javascript">
-                    sletat.FrameSearch.$create({
-                        useCard: false,
-                        results: "group",
-                        namespace: "macstyle",
-                        jumpToTarget: "self",
-                        jumpToAddress: "http://test.inna.ru/tours"
-                    });</script>
-                <span style="visibility:hidden;" class="sletat-copyright">Идет загрузка модуля <a href="http://sletat.ru/" title="поиск туров" target="_blank">поиска туров</a> &hellip;</span>
-            </div>
-
             <script type="text/javascript" src="//ui.sletat.ru/module-4.0/core.js" charset="utf-8"></script>
             <script type="text/javascript">
                 sletat.FrameSearch.$create({
@@ -395,7 +382,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         //фикс для закрытия выпадалок
         var intervalId = setInterval(function () {
             //console.log('frame setTimeout');
-            var frame_sletat = document.getElementById("sletat-frame-4");
+            var frame_sletat = document.getElementById("sletat-frame-2");
             if (frame_sletat != null) {
                 var iframe_body = frame_sletat.contentWindow.document.body;
                 $(iframe_body).click(function () {

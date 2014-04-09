@@ -1,5 +1,5 @@
 innaAppServices.
-    factory('paymentService', ['$rootScope', '$http', '$q', '$log', 'cache', function ($rootScope, $http, $q, $log, cache) {
+    factory('paymentService', ['$rootScope', '$http', '$q', '$log', 'cache', 'innaApp.API.const', function ($rootScope, $http, $q, $log, cache, apiUrls) {
         function log(msg) {
             $log.log(msg);
         }
@@ -12,6 +12,17 @@ innaAppServices.
                 error(function (data, status) {
                     errCallback(data, status);
                 });
-            }
+            },
+
+            getTransportersInAlliances: function (queryData, successCallback, errCallback) {
+                $http.get(apiUrls.PURCHASE_TRANSPORTER_GET_ALLIANCE, { cache: false, params: { names: queryData } }).success(function (data, status) {
+                    successCallback(data);
+                }).
+                error(function (data, status) {
+                    errCallback(data, status);
+                });
+            },
+
+            eof: null
         };
     }]);

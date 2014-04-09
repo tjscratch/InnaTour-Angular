@@ -1,0 +1,11 @@
+<style>
+    .b-auth-block{background:#fff;color:#000;}
+    .b-auth-block__section{border-bottom:1px solid #ccc;margin-bottom:15px;padding-bottom:15px;}
+    .b-validation-error{color:red;}
+</style>
+
+<div class="b-auth-block" ng-controller="AuthCtrl">
+    <ng:include src="'/spa/templates/auth/registration.html'"></ng:include>
+    <ng:include src="'/spa/templates/auth/signin.html'"></ng:include>
+    <ng:include src="'/spa/templates/auth/restore.html'"></ng:include>
+</div>

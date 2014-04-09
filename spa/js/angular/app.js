@@ -45,6 +45,7 @@ var app = angular.module('innaApp', [
 
     app.URL_AVIA = '/avia/';
     app.URL_DYNAMIC_PACKAGES = '/packages/';
+    app.URL_DYNAMIC_PACKAGES_SEARCH = app.URL_DYNAMIC_PACKAGES + 'search/';
     app.URL_PROGRAMMS = '/individualtours/';
     app.URL_ABOUT = '/about/';
     app.URL_CONTACTS = '/contacts/';
@@ -117,6 +118,10 @@ var app = angular.module('innaApp', [
         when(app.URL_DYNAMIC_PACKAGES, {
             templateUrl: '/spa/templates/pages/dynamic_package_page.html',
             controller: 'DynamicPackageMordaCtrl'
+        }).
+        when(app.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult', {
+            templateUrl: '/spa/templates/pages/dynamic_package_serp.html',
+            controller: 'DynamicPackageSERPCtrl'
         }).
         when(app.URL_AUTH_RESTORE, { //same as main
             templateUrl: '/spa/templates/pages/tours_grid_page.html',

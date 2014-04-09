@@ -38,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="closer.html" />
     <Content Include="index.html" />
     <Content Include="spa\css\ie.min.css" />
     <Content Include="spa\css\jquery-ui-1.10.4.custom.css" />
@@ -339,8 +340,12 @@
     <Content Include="spa\js\angular\models\app.model.tours.js" />
     <Content Include="spa\js\angular\services.js" />
     <Content Include="spa\js\angular\services\service.auth.data.provider.js" />
+    <Content Include="spa\js\angular\services\service.avia.helper.js" />
+    <Content Include="spa\js\angular\services\service.data.js" />
     <Content Include="spa\js\angular\services\service.dynamic.packages.cache.js" />
     <Content Include="spa\js\angular\services\service.dynamic.packages.data.provider.js" />
+    <Content Include="spa\js\angular\services\service.events.helper.js" />
+    <Content Include="spa\js\angular\services\service.payment.js" />
     <Content Include="spa\js\angular\services\service.validator.js" />
     <Content Include="spa\js\angular\tracking.js" />
     <Content Include="spa\js\angular\urlhelper.js" />
@@ -355,7 +360,10 @@
     <Content Include="spa\lib\jquery-ui-1.10.4.custom\js\jquery-ui-1.10.4.custom.js" />
     <Content Include="spa\lib\jquery-ui-1.10.4.custom\js\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="spa\lib\xdomain.min.js" />
-    <Content Include="spa\templates\auth_form.html" />
+    <Content Include="spa\templates\auth\form.html" />
+    <Content Include="spa\templates\auth\registration.html" />
+    <Content Include="spa\templates\auth\restore.html" />
+    <Content Include="spa\templates\auth\signin.html" />
     <Content Include="spa\templates\components\counter_people.html" />
     <Content Include="spa\templates\components\date_picker_widget.html" />
     <Content Include="spa\templates\components\dropdown_input.html" />
@@ -441,6 +449,8 @@
     <Content Include="spa\templates\Web.config" />
     <Content Include="spa\templates\grid\Web.config" />
     <Content Include="spa\templates\components\Web.config" />
+    <Content Include="tours\Web.config" />
+    <Content Include="spa\templates\auth\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

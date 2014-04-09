@@ -207,11 +207,12 @@ innaAppControllers.
                             if (data == "true")
                             {
                                 storageService.setAviaBuyItem({ searchId: $scope.searchId, item: item });
-
                                 var buyCriteria = angular.copy($scope.criteria);
                                 buyCriteria.QueryId = $scope.searchId;
                                 buyCriteria.VariantId1 = item.VariantId1;
-                                buyCriteria.VariantId2 = item.VariantId2;
+                                buyCriteria.VariantId2 = item.VariantId2 != null ? item.VariantId2 : 0;
+
+                                //log('buyCriteria: ' + angular.toJson(buyCriteria));
                                 //все норм - отправляем на страницу покупки
                                 var url = UrlHelper.UrlToAviaTicketsBuy(buyCriteria);
                                 //log('Url: ' + url);

@@ -15,7 +15,7 @@ var RELEASE_API_HOST = 'http://api.inna.ru';
 function copyFiles(destFolder){
     var res = null;
     //главная
-    res = gulp.src(['../index.html', '../web.config'])
+    res = gulp.src(['../index.html', '../web.config', '../closer.html'])//closer.html (для авторизации)
         .pipe(gulp.dest(destFolder));
     //страница результатов поиска туров
     res = gulp.src(['../tours/index.html', '../tours/web.config'])

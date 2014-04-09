@@ -14,7 +14,7 @@
             /*Events*/
             $scope.setCurrent = function ($event, option, airport) {
                 //запрещаем баблинг
-                eventsHelper.preventBubbling($event);
+                $event && eventsHelper.preventBubbling($event);
 
                 if (option != null) {
                     if (airport != null) {
@@ -43,7 +43,7 @@
                 } else if(!$scope.input.val()) {
                     if(newValue != null && newValue != 'null' && $scope.askForData) {
                         $scope.askForData(newValue, function (data) {
-                            $scope.setCurrent(data);
+                            $scope.setCurrent(null, data);
                         });
                     }
                 }
@@ -53,12 +53,14 @@
             scope.input = $('input[type="text"]', elem);
 
             /*Events*/
-            scope.input.keypress(_.debounce(function(event){
+            scope.input.keyup(function(event){
                 var value = scope.input.val();
                 var preparedText = value.split(', ')[0].trim();
 
-                scope.provideSuggestCallback(preparedText, value);
-            }, 200));
+                if(preparedText.length) {
+                    scope.provideSuggestCallback(preparedText, value);
+                }
+            });
 
             scope.input.focus(function(){
                 scope.$apply(function($scope){
@@ -73,6 +75,8 @@
 
                 if(!isInsideComponent) {
                     scope.fulfilled = true;
+                    //select all
+                    $(event.target).select();
                 }
             });
 
