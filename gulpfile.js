@@ -30,9 +30,3 @@ gulp.task('build-styl', function () {
 });
 
 gulp.task('default', ['build-less']);
-
-gulp.task('grundiss', function(){
-    console.log(123);
-});
-
-//gulp.watch('spa/js/angular/**/*.coffee', )

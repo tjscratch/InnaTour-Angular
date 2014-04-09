@@ -1,34 +1,6 @@
-if(!_.isFunction(String.prototype.trim)) {
-	String.prototype.trim = function() {
-		return this.replace(/^\s+|\s+$/g, ''); 
-	}
-}
-
-_.generateRange = function(start, end){
-    var list = [start];
-    while(start !== end) {
-        start++;
-        list.push(start);
-    }
-    return list;
-}
-
-Date.fromDDMMYY = function(ddmmyy, asTS){
-    var bits = ddmmyy.split('.');
-    var mmddyy = [bits[1], bits[0], bits[2]].join('.');
-    var date = new Date(mmddyy);
-
-    if(asTS) return +date;
-
-    return date;
-}
-
-/* Controllers */
-
-
-
-innaAppControllers.
-    controller('DynamicFormCtrl', ['$scope', 'DynamicPackagesDataProvider', '$rootScope', 'DynamicPackagesCacheWizard',
+innaAppControllers
+    .controller('DynamicFormCtrl', [
+        '$scope', 'DynamicPackagesDataProvider', '$rootScope', 'DynamicPackagesCacheWizard',
         function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard){
             function validate(){
                 if(!$scope.fromCurrent) throw Error('fromCurrent');
@@ -104,11 +76,11 @@ innaAppControllers.
 
             /*Klass*/
             $scope.klass = TripKlass.options[
-                DynamicPackagesCacheWizard.require('klass', function(){ return 0; })
+                DynamicPackagesCacheWizard.require('klass', function(){ return 2; })
             ];
 
             $scope.$watch('klass', function(newVal){
-                newVal = newVal || {value: 0}
+                newVal = newVal || {value: 2}
                 DynamicPackagesCacheWizard.put('klass', newVal.value)
             })
 
@@ -118,15 +90,16 @@ innaAppControllers.
                 try {
                     validate();
                     //if ok
-                    $rootScope.$broadcast('inna.DynamicPackages.Search', {
-                        from: $scope.fromCurrent,
-                        to: $scope.toCurrent,
-                        begin: $scope.dateBegin,
-                        end: $scope.dateEnd,
-                        adultsCount: $scope.adultCount,
-                        children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
-                        klass: $scope.klass
-                    });
+                    var o = {
+                        ArrivalId: $scope.toCurrent,
+                        DepartureId: $scope.fromCurrent,
+                        StartVoyageDate: $scope.dateBegin,
+                        EndVoyageDate: $scope.dateEnd,
+                        TicketClass: $scope.klass.value,
+                        Adult: $scope.adultCount,
+                        // children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
+                    }
+                    $rootScope.$emit('inna.DynamicPackages.Search', o);
                 } catch(e) {
                     console.warn(e);
                     if($scope.hasOwnProperty(e.message)) {

@@ -119,6 +119,20 @@
         var yyyy = today.getFullYear();
         return new Date(yyyy, mm, dd);
     },
+    ddmmyyyy2yyyymmdd: function(ddmmyy){
+        var date = Date.fromDDMMYY(ddmmyy);
+        return date.toISOString().split('T')[0];
+    },
 
     eof: null
+};
+
+Date.fromDDMMYY = function(ddmmyy, asTS){
+    var bits = ddmmyy.split('.');
+    var mmddyy = [+bits[1], +bits[0], +bits[2]].join('.');
+    var date = new Date(mmddyy);
+
+    if(asTS) return +date;
+
+    return date;
 };

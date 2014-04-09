@@ -1,6 +1,10 @@
 innaAppControllers.
-    controller('DynamicPackageMordaCtrl', ['$scope', 'DynamicPackagesDataProvider',
-        function ($scope, DynamicPackagesDataProvider) {
-            
+    controller('DynamicPackageMordaCtrl', [
+        '$scope', 'DynamicFormSubmitListener',
+        function ($scope, DynamicFormSubmitListener) {
+            /*EventListeners*/
+            DynamicFormSubmitListener.listen();
+
+
         }
     ]);

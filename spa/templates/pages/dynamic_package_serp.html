@@ -1,0 +1,21 @@
+<div class="layout" style="color:#fff;">
+    <div ng-show="showLanding">Ищу...</div>
+    <div ng-show="!showLanding">
+        <h1>Hotels</h1>
+        <ul style="list-style:circle;margin-left:10px;">
+            <li ng-repeat="hotel in hotels" style="list-style:circle;padding-left:10px;">
+                <div>{{hotel.HotelId}} / {{hotel.HotelName}}</div>
+                <div ng-show="hotel.HotelPhoto"><img src="{{hotel.HotelPhoto}}"></div>
+            </li>
+        </ul>
+        <h1>Tickets</h1>
+        <ul style="list-style:circle;margin-left:10px;">
+            <li ng-repeat="ticket in tickets" style="list-style:circle;padding-left:10px;">
+                {{ticket.To.TicketId}} - {{ticket.Back.TicketId}}
+                <ul style="list-style:circle;margin-left:10px;">
+                    <li ng-repeat="backleg in ticket.BackLegs">{{backleg.AirPlane}}</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
