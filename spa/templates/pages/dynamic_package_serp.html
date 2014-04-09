@@ -1,14 +1,28 @@
 <div class="layout" style="color:#fff;">
     <div ng-show="showLanding">Ищу...</div>
     <div ng-show="!showLanding">
-        <h1>Hotels</h1>
+        <h1>First combination</h1>
+        <table>
+            <tr>
+                <th>Ticket</th>
+                <th>Hotel</th>
+                <th>Combination properties</th>
+            </tr>
+            <tr>
+                <td>{{getHotelByCombination(currentCombination)}}</td>
+                <td>{{getTiketByCombiantion(currentCombination)}}</td>
+                <td>minPrice = {{currentCombination.MinimalPrice}}</td>
+            </tr>
+        </table>
+
+        <h1>All Hotels</h1>
         <ul style="list-style:circle;margin-left:10px;">
             <li ng-repeat="hotel in hotels" style="list-style:circle;padding-left:10px;">
                 <div>{{hotel.HotelId}} / {{hotel.HotelName}}</div>
                 <div ng-show="hotel.HotelPhoto"><img src="{{hotel.HotelPhoto}}"></div>
             </li>
         </ul>
-        <h1>Tickets</h1>
+        <h1>All Tickets</h1>
         <ul style="list-style:circle;margin-left:10px;">
             <li ng-repeat="ticket in tickets" style="list-style:circle;padding-left:10px;">
                 {{ticket.To.TicketId}} - {{ticket.Back.TicketId}}
