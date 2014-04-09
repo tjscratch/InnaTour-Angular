@@ -13,6 +13,9 @@ angular.module('innaApp.services')
             equals: function(s1, s2, error){
                 if(s1 != s2) throw error;
             },
+            notEqual: function(s1, s2, error){
+                if(s1 == s2) throw error;
+            },
             minLength: function(s, len, error){
                 if(!s.length || s.length < len) throw error;
             }
