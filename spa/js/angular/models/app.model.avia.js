@@ -32,16 +32,6 @@ function aviaCriteria(data) {
     self.toJson = function () { return angular.toJson(self); };
 };
 
-function directoryCacheData(id, name, url) {
-    var self = this;
-
-    self.id = id;
-    self.name = name;
-    self.url = url;
-
-    self.toJson = function () { return angular.toJson(self); };
-};
-
 //параметры для клиентской фильтрации
 function aviaFilter(data) {
     var self = this;
