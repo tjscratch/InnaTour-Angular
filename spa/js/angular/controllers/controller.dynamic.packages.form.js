@@ -1,7 +1,23 @@
 innaAppControllers
     .controller('DynamicFormCtrl', [
-        '$scope', 'DynamicPackagesDataProvider', '$rootScope', 'DynamicPackagesCacheWizard', '$routeParams', 'Validators',
-        function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, $routeParams, Validators){
+        '$scope', 'DynamicPackagesDataProvider', '$rootScope', 'DynamicPackagesCacheWizard', 'Validators', '$location',
+        function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location){
+            var routeParams = (function(path){
+                path = path.split('/');
+                path = path[path.length - 1] || path[path.length - 2];
+
+                var bits = path.split('-');
+
+                return {
+                    DepartureId: bits[0],
+                    ArrivalId: bits[1],
+                    StartVoyageDate: bits[2],
+                    EndVoyageDate: bits[3],
+                    TicketClass: bits[4],
+                    Adult: bits[5]
+                }
+            })($location.path());
+
             function validate(){
                 Validators.defined($scope.fromCurrent, Error('fromCurrent'));
                 Validators.defined($scope.toCurrent, Error('toCurrent'));
@@ -21,7 +37,7 @@ innaAppControllers
                 })
             }
 
-            $scope.fromCurrent = $routeParams.DepartureId || DynamicPackagesCacheWizard.require('fromCurrent', function(){
+            $scope.fromCurrent = routeParams.DepartureId || DynamicPackagesCacheWizard.require('fromCurrent', function(){
                 DynamicPackagesDataProvider.getUserLocation(function(data){
                     $scope.fromCurrent = data;
                 });
@@ -31,8 +47,6 @@ innaAppControllers
                 DynamicPackagesCacheWizard.put('fromCurrent', newVal);
             });
 
-	        
-	        
 	        /* To field */
 	        $scope.toList = [];
 
@@ -42,28 +56,28 @@ innaAppControllers
                 })
 	        }
 
-            $scope.toCurrent = $routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
+            $scope.toCurrent = routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
 
             $scope.$watch('toCurrent', function(newVal){
                 DynamicPackagesCacheWizard.put('toCurrent', newVal);
             });
 
             /*Begin date*/
-            $scope.dateBegin = $routeParams.StartVoyageDate || DynamicPackagesCacheWizard.require('dateBegin');
+            $scope.dateBegin = routeParams.StartVoyageDate || DynamicPackagesCacheWizard.require('dateBegin');
 
             $scope.$watch('dateBegin', function(newVal) {
                 DynamicPackagesCacheWizard.put('dateBegin', newVal);
             });
 
             /*End date*/
-            $scope.dateEnd = $routeParams.EndVoyageDate || DynamicPackagesCacheWizard.require('dateEnd');
+            $scope.dateEnd = routeParams.EndVoyageDate || DynamicPackagesCacheWizard.require('dateEnd');
 
             $scope.$watch('dateEnd', function(newVal) {
                 DynamicPackagesCacheWizard.put('dateEnd', newVal);
             });
 
             /*Adult count*/
-            $scope.adultCount = $routeParams.Adult || 2;
+            $scope.adultCount = routeParams.Adult || 2;
 
             /*Children count*/
             $scope.childrenCount = 0;
@@ -73,7 +87,7 @@ innaAppControllers
             $scope.childrensAge = [];
 
             /*Klass*/
-            $scope.klass = _.filter(TripKlass.options, function(klass){
+            $scope.klass = routeParams.TripClass || _.filter(TripKlass.options, function(klass){
                 var cached = DynamicPackagesCacheWizard.require('klass', function(){ return TripKlass.ECONOM; });
                 return (klass.value == cached);
             })[0];
