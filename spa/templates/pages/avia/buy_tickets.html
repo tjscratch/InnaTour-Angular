@@ -5,72 +5,71 @@
         <form action="" class="b-tickets-form">
             <h1 class="title">Оплата авиабилетов</h1>
 
-
-                <div class="rl-item rl-item-payment">
-                    <header class="rl-item-header">
-                        <span class="rl-price">
-                            <span class="rl-price-item">{{item.Price| price}}</span> руб.
+            <div class="rl-item rl-item-payment">
+                <header class="rl-item-header">
+                    <span class="rl-price">
+                        <span class="rl-price-item">{{item.Price| price}}</span> руб.
+                    </span>
+                    <span class="rl-airline">{{item.TransporterListText}}</span>
+                </header>
+                <div class="rl-content">
+                    <img ng-src="{{item.EtapsToTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
+                    <div class="rl-fly">
+                        <b class="rl-fly-time">{{item.DepartureTimeFormatted}} {{item.DepartureDateFormatted}}</b>
+                        <div class="rl-fly-date">{{item.CityFrom}}, <br />{{item.AirportFrom}} ({{item.OutCode}})</div>
+                    </div>
+                    <div class="rl-travel-time">{{item.TimeToFormatted}}</div>
+                    <div class="rl-fly">
+                        <b class="rl-fly-time">{{item.ArrivalTimeFormatted}} {{item.ArrivalDateFormatted}}</b>
+                        <div class="rl-fly-date">{{item.CityTo}}, <br />{{item.AirportTo}} ({{item.InCode}})</div>
+                    </div>
+                    <div class="rl-weight">
+                        <span>20 kg</span>
+                    </div>
+                    <div class="rl-fly-type" ng-if="item.ToTransferCount > 0">
+                        <div class="rl-fly-transplant">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</div>
+                        <div class="rl-fly-transplant-time">
+                            <span ng-repeat="etap in item.EtapsToItems">
+                            <span>{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">,<br /></span>
                         </span>
-                        <span class="rl-airline">{{item.TransporterListText}}</span>
-                    </header>
-                    <div class="rl-content">
-                        <img ng-src="{{item.EtapsToTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
-                        <div class="rl-fly">
-                            <b class="rl-fly-time">{{item.DepartureTimeFormatted}} {{item.DepartureDateFormatted}}</b>
-                            <div class="rl-fly-date">{{item.CityFrom}}, <br />{{item.AirportFrom}} ({{item.OutCode}})</div>
                         </div>
-                        <div class="rl-travel-time">{{item.TimeToFormatted}}</div>
-                        <div class="rl-fly">
-                            <b class="rl-fly-time">{{item.ArrivalTimeFormatted}} {{item.ArrivalDateFormatted}}</b>
-                            <div class="rl-fly-date">{{item.CityTo}}, <br />{{item.AirportTo}} ({{item.InCode}})</div>
-                        </div>
-                        <div class="rl-weight">
-                            <span>20 kg</span>
-                        </div>
-                        <div class="rl-fly-type" ng-if="item.ToTransferCount > 0">
-                            <div class="rl-fly-transplant">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</div>
-                            <div class="rl-fly-transplant-time">
-                                <span ng-repeat="etap in item.EtapsToItems">
+                    </div>
+                    <div class="rl-fly-type" ng-if="item.ToTransferCount == 0">
+                    <div class="rl-fly-transplant">Прямой</div>
+                </div>
+                </div>
+                <div class="rl-content" ng-if="item.VariantId2 > 0">
+                    <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
+                    <div class="rl-fly">
+                        <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}} {{item.BackDepartureDateFormatted}}</b>
+                        <div class="rl-fly-date">{{item.CityTo}}, <br />{{item.AirportTo}} ({{item.InCode}})</div>
+                    </div>
+                    <div class="rl-travel-time">{{item.TimeBackFormatted}}</div>
+                    <div class="rl-fly">
+                        <b class="rl-fly-time">{{item.BackArrivalTimeFormatted}} {{item.BackArrivalDateFormatted}}</b>
+                        <div class="rl-fly-date">{{item.CityFrom}}, <br />{{item.AirportFrom}} ({{item.OutCode}})</div>
+                    </div>
+                    <div class="rl-weight">
+                        <span>120 kg</span>
+                    </div>
+                    <div class="rl-fly-type" ng-if="item.BackTransferCount > 0">
+                        <div class="rl-fly-transplant">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</div>
+                        <div class="rl-fly-transplant-time">
+                            <span ng-repeat="etap in item.EtapsBackItems">
                                 <span>{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">,<br /></span>
                             </span>
-                            </div>
                         </div>
-                        <div class="rl-fly-type" ng-if="item.ToTransferCount == 0">
-                        <div class="rl-fly-transplant">Прямой</div>
                     </div>
-                    </div>
-                    <div class="rl-content" ng-if="item.VariantId2 > 0">
-                        <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
-                        <div class="rl-fly">
-                            <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}} {{item.BackDepartureDateFormatted}}</b>
-                            <div class="rl-fly-date">{{item.CityTo}}, <br />{{item.AirportTo}} ({{item.InCode}})</div>
-                        </div>
-                        <div class="rl-travel-time">{{item.TimeBackFormatted}}</div>
-                        <div class="rl-fly">
-                            <b class="rl-fly-time">{{item.BackArrivalTimeFormatted}} {{item.BackArrivalDateFormatted}}</b>
-                            <div class="rl-fly-date">{{item.CityFrom}}, <br />{{item.AirportFrom}} ({{item.OutCode}})</div>
-                        </div>
-                        <div class="rl-weight">
-                            <span>120 kg</span>
-                        </div>
-                        <div class="rl-fly-type" ng-if="item.BackTransferCount > 0">
-                            <div class="rl-fly-transplant">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</div>
-                            <div class="rl-fly-transplant-time">
-                                <span ng-repeat="etap in item.EtapsBackItems">
-                                    <span>{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">,<br /></span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="rl-fly-type" ng-if="item.BackTransferCount == 0">
-                        <div class="rl-fly-transplant">Прямой</div>
-                    </div>
-                    </div>
-                    <footer class="rl-footer">
-                        <a href="#" class="rl-more-info" ng-click="moreClick($event)"><span>Подробнее</span></a>
-                        <span class="rl-tickets-number">Последние 3 места</span>
-                        <span class="rl-class">{{item.CabineClass}}</span>
-                    </footer>
+                    <div class="rl-fly-type" ng-if="item.BackTransferCount == 0">
+                    <div class="rl-fly-transplant">Прямой</div>
                 </div>
+                </div>
+                <footer class="rl-footer">
+                    <a href="#" class="rl-more-info" ng-click="moreClick($event)"><span>Подробнее</span></a>
+                    <span class="rl-tickets-number">Последние 3 места</span>
+                    <span class="rl-class">{{item.CabineClass}}</span>
+                </footer>
+            </div>
 
             <div class="warning">
                 <b class="warning-title">Обратите внимание!</b>
@@ -82,15 +81,15 @@
                     <div class="b-field-group">
                         <div class="b-field-block b-field-block-130">
                             <label class="b-field-label">Имя</label>
-                            <input type="text" value="Александр" class="b-field-text">
+                            <input type="text" ng-model="payModel.name" placeholder="Иван" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-190">
                             <label class="b-field-label">Фамилия</label>
-                            <input type="text" value="Константинопольский" class="b-field-text error">
+                            <input type="text" ng-model="payModel.secondName" placeholder="Иванов" class="b-field-text error">
                         </div>
                         <div class="b-field-block b-field-block-290 b-field-block-auth">
                             <label class="b-field-label">E-mail</label>
-                            <input type="text" value="ratunkov@gmail.com" class="b-field-text">
+                            <input type="text" ng-model="payModel.email" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
                             <div class="b-auth">
                                 <a href="#" class="b-auth-close"></a>
                                 <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
@@ -99,7 +98,7 @@
                         </div>
                         <div class="b-field-block b-field-block-290">
                             <label class="b-field-label">Мобильный телефон</label>
-                            <input type="text" value="+7 (910) 123-45-67" class="b-field-text">
+                            <input type="text" ng-model="payModel.phone" placeholder="+7 (123) 123-45-67" class="b-field-text">
                         </div>
                     </div>
                     <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div>
@@ -108,47 +107,57 @@
             </div>
             <h2 class="title">Пасажиры</h2>
             <div class="form-body">
-                <fieldset class="form-container">
+                <fieldset class="form-container" ng-repeat="passenger in payModel.passengers">
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-block">
                             <label class="b-field-label">Пол</label>
-                            <ul class="radio-list error">
-                                <li><label><input type="radio" name="male3"><ins class="radio">М</ins></label></li>
-                                <li><label><input type="radio" name="male3"><ins class="radio">Ж</ins></label></li>
+                            <ul class="radio-list " ng-class="{error:passenger.sex == null}">
+                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}"><ins class="radio">М</ins></label></li>
+                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}"><ins class="radio">Ж</ins></label></li>
                             </ul>
                         </div>
                         <div class="b-field-block b-field-block-120">
                             <label class="b-field-label">Имя (латиницей)</label>
-                            <input type="text" value="ALEXANDER" class="b-field-text">
+                            <input type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-195 b-field-block-surname">
                             <label class="b-field-label">Фамилия (латиницей)</label>
-                            <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text">
+                            <input type="text" ng-model="passenger.secondName" placeholder="IVANOV" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-94">
                             <label class="b-field-label">Дата рождения</label>
-                            <input type="text" value="18.07.1976" class="b-field-text">
+                            <input type="text" ng-model="passenger.birthday" placeholder="дд.мм.гггг" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-170">
                             <label class="b-field-label">Гражданство</label>
-                            <input type="text" value="Великобритания" class="b-field-text b-field-select">
+                            <input type="text" value="{{passenger.citizenship.name}}" placeholder="Выберите" class="b-field-text b-field-select">
                         </div>
                         <div class="b-field-block b-field-block-123">
                             <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
-                            <input type="text" value="77123456789" class="b-field-text">
+                            <input type="text" ng-model="passenger.document.series_and_number" placeholder="1104 046100" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-105">
                             <label class="b-field-label">Действителен до</label>
-                            <input type="text" placeholder="дд.мм.гггг" class="b-field-text" value="18.07.1976">
+                            <input type="text" ng-model="passenger.document.expirationDate" placeholder="дд.мм.гггг" class="b-field-text">
                         </div>
                     </div>
-                    <div class="b-field-group b-field-group-passport"><div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block b-field-block-192">
-                            <label class="b-agreement"><input type="checkbox" checked><ins class="b-checkbox"></ins>Есть бонусная карта</label>
+                    <div class="b-field-group b-field-group-passport">
+                        <div class="b-field-group b-field-group-passport">
+                            <div class="b-field-block b-field-block-192">
+                                <label class="b-agreement"><input type="checkbox" ng-model="passenger.haveBonusCard"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
+                            </div>
+                            <div class="b-field-block b-field-block-195" ng-show="passenger.haveBonusCard == true">
+                                <label class="b-field-label">Авиакомпания</label>
+                                <input type="text" value="{{passenger.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
+                            </div>
+                            <div class="b-field-block b-field-block-143" ng-show="passenger.haveBonusCard == true">
+                                <label class="b-field-label">Номер карты</label>
+                                <input type="text" ng-model="passenger.bonuscard.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
+                            </div>
                         </div>
                     </div>
                 </fieldset>
-                <fieldset class="form-container">
+                <!--<fieldset class="form-container">
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-block">
                             <label class="b-field-label">Пол</label>
@@ -243,11 +252,11 @@
                             <input type="text" value="12134а3454" class="b-field-text" placeholder="ХХХХХХХХХХХ">
                         </div>
                     </div>
-                </fieldset>
+                </fieldset>-->
             </div>
 
             <div class="b-sum-container">
-                Сумма к оплате: <b>170 920</b> <span class="b-sum-rub">руб.</span>
+                Сумма к оплате: <b>{{item.Price| price}}</b> <span class="b-sum-rub">руб.</span>
                 <a href="#" class="button b-sum-button">Перейти к оплате</a>
             </div>
         </form>

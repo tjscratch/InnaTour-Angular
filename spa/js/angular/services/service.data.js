@@ -1,11 +1,19 @@
 ﻿innaAppServices.
-    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', 'storageService',
-        function ($rootScope, $http, $q, $log, cache, storageService) {
+    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', 'storageService', 'innaApp.API.const',
+        function ($rootScope, $http, $q, $log, cache, storageService, apiUrls) {
             function log(msg) {
                 $log.log(msg);
             }
 
             return {
+                getAllCountries: function (successCallback, errCallback) {
+                    $http.get(apiUrls.DICTIONARY_ALL_COUNTRIES, { cache: true }).success(function (data, status) {
+                        successCallback(data);
+                    }).
+                    error(function (data, status) {
+                        errCallback(data, status);
+                    });
+                },
                 getDirectoryByUrl: function (term, successCallback, errCallback) {
                     //log('getDirectoryByUrl, term: ' + term);
                     //запрос по критериям поиска
@@ -20,9 +28,13 @@
                                 resItem = data[0];
 
                             var urlKey = UrlHelper.getUrlFromData(resItem);
-                            var cdata = new directoryCacheData(resItem.Id, resItem.Name, urlKey);
+                            //добавляем поле url
+                            resItem.id = resItem.Id;
+                            resItem.name = resItem.Name;
+                            resItem.url = urlKey;
+
                             //присваиваем значение через функцию коллбэк
-                            successCallback(cdata);
+                            successCallback(resItem);
                         }
                         else {
                             errCallback(data, status);
