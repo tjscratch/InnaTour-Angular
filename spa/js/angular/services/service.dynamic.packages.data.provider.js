@@ -1,8 +1,8 @@
 innaAppServices.factory('DynamicPackagesDataProvider', [
     'innaApp.API.const', '$timeout',
     function(api, $timeout){
-        function http(url, send, callback, noAbort) {
-            var key = noAbort ? ('_' + Math.random()) : url;
+        function http(url, send, callback, allowMultiple) {
+            var key = allowMultiple ? ('_' + Math.random()) : url;
 
             if(http.running[key]) {
                 http.running[key].abort();
@@ -41,6 +41,13 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
             },
             search: function(o, callback){
                 http(api.DYNAMIC_SEARCH, o, callback);
+            },
+            hotelDetails: function(hotelId, providerId, callback){
+                http(api.DYNAMIC_HOTEL_DETAILS, {
+                    HotelId: hotelId,
+                    HotelProviderId: providerId,
+                    ExtendRoomInfo: 'true'
+                }, callback, true);
             }
         }
     }
