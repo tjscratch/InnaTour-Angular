@@ -23,6 +23,8 @@ innaAppControllers.
             var storeItem = storageService.getAviaBuyItem();
             //log('storeItem: ' + angular.toJson(storeItem));
             if (storeItem != null) {
+                if (storeItem.item.VariantId2 == null)
+                    storeItem.item.VariantId2 = 0;
                 //проверяем, что там наш итем
                 if ($scope.criteria.QueryId == storeItem.searchId &&
                     $scope.criteria.VariantId1 == storeItem.item.VariantId1 && $scope.criteria.VariantId2 == storeItem.item.VariantId2)
