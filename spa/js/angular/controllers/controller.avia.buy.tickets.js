@@ -16,6 +16,44 @@ innaAppControllers.
 
             $scope.helloMsg = 'Привет из AviaBuyTicketsCtrl';
 
+            function initPayModel() {
+
+                var sexType = { man: 'man', woman: 'woman' };
+                $scope.sexType = sexType;
+
+                var passengerModel = {
+                    sex: sexType.name,
+                    name: '',
+                    secondName: '',
+                    birthday: '',
+                    document: {//документ
+                        series: '',//серия
+                        number: '',//номер
+                        expirationDate: ''//дествителен до
+                    },
+                    citizenship: {//Гражданство
+                        id: 0,
+                        name: ''
+                    },
+                    haveBonusCard: false,//Есть бонусная карта
+                    airCompany: {
+                        id: 0,
+                        name: ''
+                    }
+                };
+
+                $scope.userModel = {
+                    price: 0,
+                    name: '',
+                    secondName: '',
+                    email: '',
+                    phone: '',
+                    wannaNewsletter: false,//Я хочу получать рассылку спецпредложений
+                    passengers: []
+
+                };
+            };
+
             //обрабатываем параметры из url'а
             var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
