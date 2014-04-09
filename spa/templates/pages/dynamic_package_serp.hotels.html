@@ -1,6 +1,6 @@
 <h1>Hotels</h1>
 <ul>
-    <li ng-repeat="hotel in getAllHotelsByCombination(currentCombination)" style="border:1px solid red;">
+    <li ng-repeat="hotel in getAllHotelsForCurrentCombination()" style="border:1px solid red;">
         <table>
             <tr>
                 <td>{{hotel | json}}</td>

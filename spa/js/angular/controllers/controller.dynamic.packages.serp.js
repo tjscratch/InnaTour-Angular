@@ -48,36 +48,36 @@ innaAppControllers.
             })(angular.copy($routeParams));
 
             /*Methods*/
-            $scope.getTicketByCombination = function(combination) {
-                if(!combination) return [];
+            $scope.getTicketForCurrentCombination = function() {
+                if(!$scope.currentCombination) return [];
 
                 return _.find($scope.tickets, function(ticket){
-                    return (combination.TicketId == ticket.To.TicketId);
+                    return ($scope.currentCombination.TicketId == ticket.To.TicketId);
                 });
             }
 
-            $scope.getHotelByCombination = function(combination) {
-                if(!combination) return [];
+            $scope.getHotelForCurrentCombination = function() {
+                if(!$scope.currentCombination) return [];
 
                 return _.find($scope.hotels, function(hotel){
-                    return (hotel.HotelId == combination.HotelId);
+                    return (hotel.HotelId == $scope.currentCombination.HotelId);
                 });
             }
 
-            $scope.getAllHotelsByCombination = function(combination) {
-                if(!combination) return [];
+            $scope.getAllHotelsForCurrentCombination = function() {
+                if(!$scope.currentCombination) return [];
 
-                var similarCombinations = _.where($scope.combinations, {TicketId: combination.TicketId});
+                var similarCombinations = _.where($scope.combinations, {TicketId: $scope.currentCombination.TicketId});
 
                 return _.map(similarCombinations, function(combination){
                     return _.findWhere($scope.hotels, {HotelId: combination.HotelId});
                 });
             }
 
-            $scope.getAllTicketsByCombination = function(combination) {
-                if(!combination) return [];
+            $scope.getAllTicketsForCurrentCombination = function() {
+                if(!$scope.currentCombination) return [];
 
-                var similarCombinations = _.where($scope.combinations, {HotelId: combination.HotelId});
+                var similarCombinations = _.where($scope.combinations, {HotelId: $scope.currentCombination.HotelId});
 
                 return _.map(similarCombinations, function(combination){
                     return _.find($scope.tickets, function(ticket){
