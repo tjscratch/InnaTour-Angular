@@ -1,6 +1,22 @@
 <h1>Hotels</h1>
 <ul>
     <li ng-repeat="hotel in getAllHotelsByCombination(currentCombination)" style="border:1px solid red;">
-        {{hotel | json}}
+        <table>
+            <tr>
+                <td>{{hotel | json}}</td>
+                <td>
+                    <button ng-show="hotel.HotelId != currentCombination.HotelId" ng-click="updateHotel(hotel)">SET CURRENT</button>
+                    <div ng-show="hotel.HotelId == currentCombination.HotelId">CURRENT</div>
+                </td>
+                <td>
+                    <div ng-show="!hotel.detais">
+                        <button ng-click="requireHotelDetails(hotel)">REQUIRE DETAILS</button>
+                    </div>
+                    <div ng-show="hotel.details">
+                        {{hotel.details | json}}
+                    </div>
+                </td>
+            </tr>
+        </table>
     </li>
 </ul>

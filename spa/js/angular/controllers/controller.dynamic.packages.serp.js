@@ -85,5 +85,29 @@ innaAppControllers.
                     });
                 });
             }
+
+            $scope.updateHotel = function(hotel){
+                var ticketId = $scope.currentCombination.TicketId;
+                var hotelId = hotel.HotelId;
+                var newCombination = _.findWhere($scope.combinations, {TicketId: ticketId, HotelId: hotelId});
+
+                $scope.currentCombination = newCombination;
+            }
+
+            $scope.updateTicket = function(ticket){
+                var ticketId = ticket.To.TicketId;
+                var hotelId = $scope.currentCombination.HotelId;
+                var newCombination = _.findWere($scope.combinations, {TicketId: ticketId, HotelId: hotelId});
+
+                $scope.currentCombination = newCombination;
+            }
+
+            $scope.requireHotelDetails = function(hotel){
+                hotel.details = {}
+
+                DynamicPackagesDataProvider.hotelDetails(hotel.HotelId, hotel.ProviderId, function(data){
+                    hotel.details = data;
+                });
+            }
         }
     ]);
