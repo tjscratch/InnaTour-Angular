@@ -106,7 +106,9 @@ innaAppControllers.
                 hotel.details = {}
 
                 DynamicPackagesDataProvider.hotelDetails(hotel.HotelId, hotel.ProviderId, function(data){
-                    hotel.details = data;
+                    $scope.$apply(function(){
+                        hotel.details = data;
+                    });
                 });
             }
         }
