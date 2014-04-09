@@ -2,34 +2,31 @@
     <div ng-show="showLanding">Ищу...</div>
     <div ng-show="!showLanding">
         <h1>First combination</h1>
-        <table>
+        <table border="1" bordercolor="#666" cellpadding="15" cellspacing="0">
             <tr>
-                <th>Ticket</th>
                 <th>Hotel</th>
+                <th>ticket</th>
                 <th>Combination properties</th>
             </tr>
             <tr>
-                <td>{{getHotelByCombination(currentCombination)}}</td>
-                <td>{{getTiketByCombiantion(currentCombination)}}</td>
-                <td>minPrice = {{currentCombination.MinimalPrice}}</td>
+                <td>
+                    {{getHotelByCombination(currentCombination) | json}}
+                    <div ng-show="show != HOTELS_TAB">
+                        <button ng-click="show = HOTELS_TAB">Show Hotels</button>
+                    </div>
+                </td>
+                <td>
+                    {{getTicketByCombination(currentCombination) | json}}
+                    <div ng-show="show != TICKETS_TAB">
+                        <button ng-click="show = TICKETS_TAB">Show Tickets</button>
+                    </div>
+                </td>
+                <td>
+                    {{currentCombination | json}}
+                </td>
             </tr>
         </table>
 
-        <h1>All Hotels</h1>
-        <ul style="list-style:circle;margin-left:10px;">
-            <li ng-repeat="hotel in hotels" style="list-style:circle;padding-left:10px;">
-                <div>{{hotel.HotelId}} / {{hotel.HotelName}}</div>
-                <div ng-show="hotel.HotelPhoto"><img src="{{hotel.HotelPhoto}}"></div>
-            </li>
-        </ul>
-        <h1>All Tickets</h1>
-        <ul style="list-style:circle;margin-left:10px;">
-            <li ng-repeat="ticket in tickets" style="list-style:circle;padding-left:10px;">
-                {{ticket.To.TicketId}} - {{ticket.Back.TicketId}}
-                <ul style="list-style:circle;margin-left:10px;">
-                    <li ng-repeat="backleg in ticket.BackLegs">{{backleg.AirPlane}}</li>
-                </ul>
-            </li>
-        </ul>
+        <ng:include src="show"></ng:include>
     </div>
 </div>

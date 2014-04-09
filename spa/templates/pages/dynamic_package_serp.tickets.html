@@ -1,0 +1,6 @@
+<h1>Tickets</h1>
+<ul>
+    <li ng-repeat="ticket in getAllTicketsByCombination(currentCombination)" style="border:1px solid red;">
+        {{ticket | json}}
+    </li>
+</ul>
