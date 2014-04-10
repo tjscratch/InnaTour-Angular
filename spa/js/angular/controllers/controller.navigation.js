@@ -3,8 +3,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('NavigationCtrl', ['$log', '$scope', '$location', 'dataService',
-        function NavigationCtrl($log, $scope, $location, dataService) {
+    controller('NavigationCtrl', ['$log', '$scope', '$location', 'dataService', 'eventsHelper',
+        function NavigationCtrl($log, $scope, $location, dataService, eventsHelper) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -76,5 +76,11 @@ innaAppControllers.
             $scope.$on('$routeChangeSuccess', function () {
                 setTitle();
             });
+
+            $scope.isLoginPopupOpened = false;
+            $scope.headLoginBtnclick = function ($event) {
+                eventsHelper.preventBubbling($event);
+                $scope.isLoginPopupOpened = !$scope.isLoginPopupOpened;
+            };
 
         }]);

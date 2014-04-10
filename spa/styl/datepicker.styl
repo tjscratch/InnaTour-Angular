@@ -144,3 +144,101 @@
 
 .search-ticket-form .ui-datepicker
     position absolute !important
+
+
+// New DatePicker
+.datepickerBorderT
+.datepickerBorderB
+.datepickerBorderL
+.datepickerBorderR
+.datepickerBorderTL
+.datepickerBorderTR
+.datepickerBorderBL
+.datepickerBorderBR
+    display none
+
+.datepickerContainer
+    background #fff
+    padding 26px
+    font-family ProximaNova,Arial,sans-serif
+    box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+
+.datepickerDays a
+    border 3px solid transparent
+    height 34px
+    line-height 32px
+    display block
+    width 35px
+    margin 1px 1px 1px 0
+    font-size 20px
+    text-align center
+    color #292929 !important
+
+    &:hover
+        background #89C13A
+        color #fff !important
+
+.datepickerNotInMonth a
+    color #ACACAC !important
+
+.datepickerDays tr
+    border-top 1px solid #E7E7E7
+
+    &:first-child
+        border 0
+
+.datepickerSaturday a
+.datepickerSunday a
+    color #FF5C5C !important
+
+.datepickerNotInMonth.datepickerSaturday a
+.datepickerNotInMonth.datepickerSunday a
+    color #FFA3A3 !important
+
+.datepickerDoW span
+    color #ACACAC
+    font-size 11px
+    text-transform uppercase
+    text-align center
+    display block
+    font-weight bold
+    padding-bottom 6px
+    padding-top 3px
+
+.datepickerDoW th:nth-child(7) span
+.datepickerDoW th:nth-child(8) span
+    color #FF5C5C !important
+
+.datepickerSelected
+    background none !important
+
+.datepickerSelected a
+    background #eff2f3
+
+.datepickerMonth span
+    font-size 20px
+    color #292929
+    display block
+
+.datepickerMonth a
+    margin 0 0 15px !important
+
+.datepickerGoPrev a
+.datepickerGoNext a
+    height 30px
+    width 29px
+    display block
+    font-size 0
+    top -7px
+    position relative
+    cursor pointer
+
+.datepickerGoPrev a
+    background url(../img/i.png) no-repeat 0 -392px
+    margin-left 8px
+
+.datepickerGoNext a
+    background url(../img/i.png) no-repeat 0 -532px
+    margin-right 8px
+
+

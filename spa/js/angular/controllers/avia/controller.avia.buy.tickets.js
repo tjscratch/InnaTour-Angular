@@ -5,9 +5,9 @@
 
 innaAppControllers.
     controller('AviaBuyTicketsCtrl', ['$log', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper',
+        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper',
         function AviaBuyTicketsCtrl($log, $timeout, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper) {
+            dataService, paymentService, storageService, aviaHelper, eventsHelper) {
 
             var self = this;
             function log(msg) {
@@ -18,17 +18,23 @@ innaAppControllers.
 
             //критерии из урла
             $scope.criteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+            $scope.searchId = null;
+            $scope.item = null;
+            $scope.citizenshipList = null;
+            $scope.bonusCardTransportersList = null;
+
             //$timeout(function () {
             //    loadToCountryAndInit(routeCriteria);
             //}, 2000);
 
             var urlDataLoaded = { selectedItem: false, routeCriteriaTo: false, allCountries: false };
 
+            function isAllDataLoaded() {
+                return urlDataLoaded.selectedItem && urlDataLoaded.routeCriteriaTo && urlDataLoaded.allCountries;
+            }
             function initIfDataLoaded() {
                 //все данные были загружены
-                if (urlDataLoaded.selectedItem &&
-                    urlDataLoaded.routeCriteriaTo &&
-                    urlDataLoaded.allCountries) {
+                if (isAllDataLoaded()) {
                     //инициализация
                     initPayModel();
                 }
@@ -80,7 +86,7 @@ innaAppControllers.
             (function loadAllCountries() {
                 dataService.getAllCountries(function (data) {
                     if (data != null) {
-                        $scope.countries = data;
+                        $scope.citizenshipList = data;
                         urlDataLoaded.allCountries = true;
                         initIfDataLoaded();
                     }
@@ -108,9 +114,7 @@ innaAppControllers.
 
                 paymentService.getTransportersInAlliances(transportersNames, function (data) {
                     if (data != null) {
-                        $scope.criteria.To = data.name;
-                        $scope.criteria.ToId = data.id;
-                        $scope.criteria.ToCountryName = data.CountryName;
+                        $scope.bonusCardTransportersList = data;
 
                         urlDataLoaded.selectedItem = true;
                         initIfDataLoaded();
@@ -177,6 +181,16 @@ innaAppControllers.
             $scope.getTransferCountText = aviaHelper.getTransferCountText;
 
             $scope.moreClick = function ($event) {
-                aviaHelper.preventBubbling($event);
+                eventsHelper.preventBubbling($event);
+            };
+
+            $scope.processToPayment = function ($event) {
+                eventsHelper.preventBubbling($event);
+
+                if (isAllDataLoaded()) {
+                    var url = UrlHelper.UrlToAviaTicketsBuyReserved($scope.criteria);
+                    //log('processToPayment, url: ' + url);
+                    $location.path(url);
+                }
             };
         }]);

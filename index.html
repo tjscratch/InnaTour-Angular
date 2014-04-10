@@ -64,15 +64,14 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                         --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
                         --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
                     </ul><!--
-                    --><!--<span class="header-login">
-                        <a href="#" class=""><i class="icon icon-user"></i>Войти</a>
-
-                        <form class="header-login-form-popup">
+                    --><span class="header-login">
+                        <a href="#" class="" ng-click="headLoginBtnclick($event)"><i class="icon icon-user"></i>Войти</a>
+                        <!--<form class="header-login-form-popup">
                             <div class="field-row"><input class="field" type="text" placeholder="Логин" /></div>
                             <div class="field-row"><input class="field" type="password" placeholder="Пароль" /></div>
                             <button class="button">Войти</button>
-                        </form>
-                    </span>-->
+                        </form>-->
+                    </span>
                 </div>
             </div>
         </div>
@@ -92,10 +91,10 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 	</div>
     <div class="button fixed-request-button" ng-click="popupForm_Show()" ng-show="!isActive('/individualtours/category/')" title="Отправить заявку"></div>
     
+    <ng:include src="'/spa/templates/auth/form.html'"></ng:include>
+
     <ng:view></ng:view>
 
-    <ng:include src="'/spa/templates/auth/form.html'"></ng:include>
-    
     <div class="footer">
     <div class="footer-content">
         <div class="footer-menu">
@@ -232,19 +231,19 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
 
 <!-- build:app-main-js -->  <!--файлы заменяются при билде на app-main.js-->
-<script src="/spa/js/angular/urlhelper.js"></script>
-<script src="/spa/js/angular/date.helper.js"></script>
-<script src="/spa/js/angular/string.helper.js"></script>
-<script src="/spa/js/angular/collections.helper.js"></script>
-<script src="/spa/js/angular/api.stub.js"></script>
-<script src="/spa/js/angular/cache_keys.js"></script>
+<script src="/spa/js/angular/helpers/urlhelper.js"></script>
+<script src="/spa/js/angular/helpers/date.helper.js"></script>
+<script src="/spa/js/angular/helpers/string.helper.js"></script>
+<script src="/spa/js/angular/helpers/collections.helper.js"></script>
+<script src="/spa/js/angular/helpers/api.stub.js"></script>
+<script src="/spa/js/angular/helpers/cache_keys.js"></script>
 
 <script src="/spa/js/angular/tracking.js"></script>
 <script src="/spa/js/datepicker.js"></script>
 <script src="/spa/js/angular/app.js"></script>
-<script src="/spa/js/angular/api.js"></script>
+<script src="/spa/js/angular/helpers/api.js"></script>
 <script src="/spa/js/angular/filters.js"></script>
-<script src="/spa/js/angular/services.js"></script>
+<script src="/spa/js/angular/services/services.js"></script>
 <script src="/spa/js/angular/services/service.data.js"></script>
 <script src="/spa/js/angular/services/service.validator.js"></script>
 <script src="/spa/js/angular/services/service.dynamic.packages.data.provider.js"></script>
@@ -259,26 +258,26 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.auth.auth.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth.restore.js"></script>
 <script src="/spa/js/angular/controllers/controller.about.js"></script>
-<script src="/spa/js/angular/controllers/controller.avia.buy.tickets.js"></script>
-<script src="/spa/js/angular/controllers/controller.avia.form.js"></script>
-<script src="/spa/js/angular/controllers/controller.avia.search.main.js"></script>
-<script src="/spa/js/angular/controllers/controller.avia.search.results.js"></script>
+<script src="/spa/js/angular/controllers/avia/controller.avia.buy.tickets.js"></script>
+<script src="/spa/js/angular/controllers/avia/controller.avia.form.js"></script>
+<script src="/spa/js/angular/controllers/avia/controller.avia.search.main.js"></script>
+<script src="/spa/js/angular/controllers/avia/controller.avia.search.results.js"></script>
+<script src="/spa/js/angular/controllers/avia/controller.avia.payment.js"></script>
 <script src="/spa/js/angular/controllers/controller.contacts.js"></script>
-<script src="/spa/js/angular/controllers/controller.hotel.js"></script>
-<script src="/spa/js/angular/controllers/controller.hotels.js"></script>
-<script src="/spa/js/angular/controllers/controller.hotel_plus_ticket.js"></script>
+<script src="/spa/js/angular/controllers/hotels/controller.hotel.js"></script>
+<script src="/spa/js/angular/controllers/hotels/controller.hotels.js"></script>
+<script src="/spa/js/angular/controllers/hotels/controller.hotel_plus_ticket.js"></script>
 <script src="/spa/js/angular/controllers/controller.individualtours.js"></script>
 <script src="/spa/js/angular/controllers/controller.individualtourscategory.js"></script>
 <script src="/spa/js/angular/controllers/controller.main.js"></script>
 <script src="/spa/js/angular/controllers/controller.navigation.js"></script>
 <script src="/spa/js/angular/controllers/controller.offers.list.js"></script>
-<script src="/spa/js/angular/controllers/controller.payment.js"></script>
-<script src="/spa/js/angular/controllers/controller.search.main.js"></script>
-<script src="/spa/js/angular/controllers/controller.search.result.js"></script>
+<script src="/spa/js/angular/controllers/search/controller.search.main.js"></script>
+<script src="/spa/js/angular/controllers/search/controller.search.result.js"></script>
 <script src="/spa/js/angular/controllers/controller.slider.js"></script>
-<script src="/spa/js/angular/controllers/controller.tour.js"></script>
-<script src="/spa/js/angular/controllers/controller.tours.form.js"></script>
-<script src="/spa/js/angular/controllers/controller.tours.js"></script>
+<script src="/spa/js/angular/controllers/tours/controller.tour.js"></script>
+<script src="/spa/js/angular/controllers/tours/controller.tours.form.js"></script>
+<script src="/spa/js/angular/controllers/tours/controller.tours.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic.packages.form.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic.packages.morda.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic.packages.serp.js"></script>

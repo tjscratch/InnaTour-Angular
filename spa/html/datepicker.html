@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>Инна-Тур - Авиа</title>
+    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../lib/datepicker/datepicker.css" />
+    <link rel="stylesheet" href="../css/tickets.min.css" />
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="../css/ie.min.css" />
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="../js/jquery.ui.datepicker-ru.js"></script>
+    <script src="../lib/datepicker/datepicker.js"></script>
+    <!--[if lt IE 10]>
+        <script src="../js/ie.placeholder.js"></script>
+    <![endif]-->
+    <script src="../js/search_form.js"></script>
+    <script src="../js/results.js"></script>
+    <script src="../js/aside.js"></script>
+</head>
+
+<body>
+
+            <!-- Search Form -->
+            <form class="search-ticket-form">
+
+                <div class="search-date-block">
+                    <input type="text" class="search-date search-date-arr" placeholder="Туда" />
+                </div>
+                <div class="search-date-block">
+                    <input type="text" class="search-date search-date-dep" placeholder="Обратно" />
+                </div>
+
+            </form>
+            <!-- /Search Form -->
+<div id="DATE_PICKER_TEST"></div>
+<script>
+$(function(){
+    $('#DATE_PICKER_TEST').DatePicker({
+        flat: true,
+        date: new Date(),
+        calendars: 2,
+        mode: 'range',
+        starts: 1,
+        onChange: function(formated, dates)
+            { console.log(formated, dates); }
+    });
+});
+</script>
+</body>
+</html>
