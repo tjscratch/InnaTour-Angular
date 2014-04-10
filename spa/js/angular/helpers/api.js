@@ -1,7 +1,9 @@
 angular.module('innaApp.API', [])
     .factory('innaApp.API.const', function(){
         function url(s){
-            return (app_main.host || 'http://api.test.inna.ru') + '/api/v1' + s;
+            var DEV = true;
+
+            return (DEV ? 'http://api.lh.inna.ru/' :(app_main.host || 'http://api.test.inna.ru')) + '/api/v1' + s;
         }
 
         return {

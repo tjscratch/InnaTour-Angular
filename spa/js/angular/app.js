@@ -90,6 +90,11 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/avia/buy_tickets.html',
             controller: 'AviaBuyTicketsCtrl'
         }).
+        when(app.URL_AVIA + 'buy/reserved/:FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
+            ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
+                templateUrl: '/spa/templates/pages/avia/buy_tickets_reserved.html',
+                controller: 'AviaBuyTicketsCtrl'
+            }).
         when('/hotelticket/', {
             templateUrl: '/spa/templates/pages/hotelticket_page.html',
             controller: 'HotelPlusTicketCtrl',

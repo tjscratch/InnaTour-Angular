@@ -10,13 +10,13 @@
             </tr>
             <tr>
                 <td>
-                    {{getHotelByCombination(currentCombination) | json}}
+                    {{getHotelByCombination() | json}}
                     <div ng-show="show != HOTELS_TAB">
                         <button ng-click="show = HOTELS_TAB">Show Hotels</button>
                     </div>
                 </td>
                 <td>
-                    {{getTicketByCombination(currentCombination) | json}}
+                    {{getTicketByCombination() | json}}
                     <div ng-show="show != TICKETS_TAB">
                         <button ng-click="show = TICKETS_TAB">Show Tickets</button>
                     </div>

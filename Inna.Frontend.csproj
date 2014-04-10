@@ -49,6 +49,7 @@
     <Content Include="spa\fonts\proximanova-light-webfont.svg" />
     <Content Include="spa\fonts\proximanova-reg-webfont.svg" />
     <Content Include="spa\html\buy_tickets.html" />
+    <Content Include="spa\html\datepicker.html" />
     <Content Include="spa\html\ticket.html" />
     <Content Include="spa\html\tickets.html" />
     <Content Include="spa\img\calendar-next-month-notactive.png" />
@@ -385,11 +386,15 @@
     <Content Include="spa\templates\nav_forms\empty.html" />
     <Content Include="spa\templates\nav_forms\tours_search_form.html" />
     <Content Include="spa\templates\pages\about_page.html" />
+    <Content Include="spa\templates\pages\avia\buy_tickets_reserved.html" />
     <Content Include="spa\templates\pages\avia\buy_tickets.html" />
     <Content Include="spa\templates\pages\avia\search_form.html" />
     <Content Include="spa\templates\pages\avia\search_results.html" />
     <Content Include="spa\templates\pages\contacts_page.html" />
     <Content Include="spa\templates\pages\dynamic_package_page.html" />
+    <Content Include="spa\templates\pages\dynamic_package_serp.hotels.html" />
+    <Content Include="spa\templates\pages\dynamic_package_serp.html" />
+    <Content Include="spa\templates\pages\dynamic_package_serp.tickets.html" />
     <Content Include="spa\templates\pages\it_category_page.html" />
     <Content Include="spa\templates\pages\it_grid_page.html" />
     <Content Include="spa\templates\pages\tours_grid_page.html" />

@@ -4,7 +4,7 @@
     .b-validation-error{color:red;}
 </style>
 
-<div class="b-auth-block" ng-controller="AuthCtrl">
+<div class="b-auth-block" ng-controller="AuthCtrl" ng-show="isLoginPopupOpened">
     <ng:include src="'/spa/templates/auth/registration.html'"></ng:include>
     <ng:include src="'/spa/templates/auth/signin.html'"></ng:include>
     <ng:include src="'/spa/templates/auth/restore.html'"></ng:include>

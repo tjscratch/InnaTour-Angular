@@ -181,6 +181,9 @@ UrlHelper = {
 	UrlToAviaTicketsBuy: function (criteria) {
 	    return '/avia/buy/' + UrlHelper.UrlToAvia(criteria);;
 	},
+	UrlToAviaTicketsBuyReserved: function (criteria) {
+	    return '/avia/buy/reserved/' + UrlHelper.UrlToAvia(criteria);;
+	},
 
 	UrlToSletatTours: function (city, country, resort, hotel, date, nightsMin, nightsMax, adults, kids, kids_ages) {
 	    return "/tours/?sta=on&city=" + city + "&country=" + country + "&resorts=" + resort + "&hotels=" + hotel + "&stars=&meals=&currency=RUB&adults=" + adults + "&kids=" + kids + "&kids_ages=" + kids_ages + "&priceMin=0&priceMax=0&nightsMin=" + nightsMin + "&nightsMax=" + nightsMax + "&date=" + date;

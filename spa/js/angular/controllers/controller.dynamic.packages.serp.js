@@ -2,6 +2,8 @@ innaAppControllers.
     controller('DynamicPackageSERPCtrl', [
         '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', '$routeParams',
         function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams) {
+            /*Private*/
+
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
@@ -34,50 +36,59 @@ innaAppControllers.
                     $scope.$apply(function($scope){
                         console.time('rendering');
 
-                        $scope.combinations = data.Combinations;
-                        $scope.hotels = data.Hotels;
-                        $scope.tickets = data.Tickets;
+                        $scope.combinations = _.map(data.Combinations, function(combiantion){
+                            return new DynamicModels.Combination(combiantion, data.Reductions);
+                        });
+                        $scope.hotels = _.map(data.Hotels, function(hotel){
+                            return new DynamicModels.Hotel(hotel, data.Reductions);
+                        });
+                        $scope.tickets = _.map(data.Tickets, function(ticket){
+                            return new DynamicModels.Ticket(ticket, data.Reductions);
+                        });
 
                         $scope.showLanding = false;
 
                         $scope.currentCombination = $scope.combinations[0];
 
                         console.timeEnd('rendering');
+
+                        console.log($scope.hotels, $scope.tickets, $scope.combinations);
                     });
                 });
             })(angular.copy($routeParams));
 
             /*Methods*/
-            $scope.getTicketByCombination = function(combination) {
-                if(!combination) return [];
+            //TODO make it methods of models
+            $scope.getTicketForCurrentCombination = function() {
+                if(!$scope.currentCombination) return [];
 
                 return _.find($scope.tickets, function(ticket){
-                    return (combination.TicketId == ticket.To.TicketId);
+                    return ($scope.currentCombination.TicketId == ticket.To.TicketId);
                 });
             }
 
-            $scope.getHotelByCombination = function(combination) {
-                if(!combination) return [];
+            $scope.getHotelForCurrentCombination = function() {
+                if(!$scope.currentCombination) return [];
 
                 return _.find($scope.hotels, function(hotel){
-                    return (hotel.HotelId == combination.HotelId);
+                    return (hotel.HotelId == $scope.currentCombination.HotelId);
                 });
             }
 
-            $scope.getAllHotelsByCombination = function(combination) {
-                if(!combination) return [];
+            $scope.getAllHotelsForCurrentCombination = function() {
+                if(!$scope.currentCombination) return [];
 
-                var similarCombinations = _.where($scope.combinations, {TicketId: combination.TicketId});
+                var similarCombinations = _.where($scope.combinations, {TicketId: $scope.currentCombination.TicketId});
 
                 return _.map(similarCombinations, function(combination){
                     return _.findWhere($scope.hotels, {HotelId: combination.HotelId});
                 });
             }
 
-            $scope.getAllTicketsByCombination = function(combination) {
-                if(!combination) return [];
+            $scope.getAllTicketsForCurrentCombination = function() {
+                if(!$scope.currentCombination) return [];
 
-                var similarCombinations = _.where($scope.combinations, {HotelId: combination.HotelId});
+                var similarCombinations = _.where($scope.combinations, {HotelId: $scope.currentCombination.HotelId});
 
                 return _.map(similarCombinations, function(combination){
                     return _.find($scope.tickets, function(ticket){
