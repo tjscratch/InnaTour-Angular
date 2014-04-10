@@ -13,7 +13,7 @@ innaAppControllers.
                     );
                 } else if($scope.show == $scope.TICKETS_TAB) {
                     DynamicPackagesDataProvider.getTicketsByCombination(
-                        $scope.combination.HotelId, $scope.key,
+                        $scope.combination.Hotel.HotelId, $scope.key,
                         function(data){
                             $scope.tickets = _.map(data, function(hotel){ return new DynamicModels.Ticket(data); });
                         }

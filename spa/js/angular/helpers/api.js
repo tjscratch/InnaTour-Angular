@@ -3,7 +3,7 @@ angular.module('innaApp.API', [])
         function url(s){
             var DEV = true;
 
-            return (DEV ? 'http://api.lh.inna.ru/' :(app_main.host || 'http://api.test.inna.ru')) + '/api/v1' + s;
+            return (DEV ? 'http://api.lh.inna.ru' :(app_main.host || 'http://api.test.inna.ru')) + '/api/v1' + s;
         }
 
         return {
