@@ -1,7 +1,7 @@
 <div class="layout" style="color:#fff;">
     <div ng-show="showLanding">Ищу...</div>
     <div ng-show="!showLanding">
-        <h1>First combination</h1>
+        <h1>Best combination</h1>
         <table border="1" bordercolor="#666" cellpadding="15" cellspacing="0">
             <tr>
                 <th>Hotel</th>
@@ -9,21 +9,9 @@
                 <th>Combination properties</th>
             </tr>
             <tr>
-                <td>
-                    {{getHotelForCurrentCombination() | json}}
-                    <div ng-show="show != HOTELS_TAB">
-                        <button ng-click="show = HOTELS_TAB">Show Hotels</button>
-                    </div>
-                </td>
-                <td>
-                    {{getTicketForCurrentCombination() | json}}
-                    <div ng-show="show != TICKETS_TAB">
-                        <button ng-click="show = TICKETS_TAB">Show Tickets</button>
-                    </div>
-                </td>
-                <td>
-                    {{currentCombination | json}}
-                </td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
         </table>
 
