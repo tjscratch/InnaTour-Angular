@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     htmlreplace = require('gulp-html-replace'),
     concat = require('gulp-concat'),
+    clean = require('gulp-clean'),
     runSequence = require('run-sequence');
 
 //===============Константы========================
@@ -10,6 +11,23 @@ var TEST_API_HOST = 'http://api.test.inna.ru';
 var BUILD_RELEASE_FOLDER = 'publish_release';
 var RELEASE_API_HOST = 'http://api.inna.ru';
 //===============Константы========================
+
+//===============Очистка========================
+function cleanFiles(destFolder) {
+    var res = null;
+    //удаляем все в папке [publish_test] или [publish_release], кроме
+    res = gulp.src([destFolder + '/**', '!' + destFolder, '!' + destFolder + '/App_Data', '!' + destFolder + '/App_Data/**', '!' + destFolder + '/website.publishproj'], { read: false })
+        .pipe(clean({ force: true }));
+    return res;
+}
+
+gulp.task('test-clean', function () {
+    return cleanFiles(BUILD_TEST_FOLDER);
+});
+
+gulp.task('release-clean', function () {
+    return cleanFiles(BUILD_RELEASE_FOLDER);
+});
 
 //===============Копирование файлов========================
 function copyFiles(destFolder){
@@ -81,7 +99,8 @@ gulp.task('release-build-app-main-js', function () {
 
 //собираем все для теста
 gulp.task('build-test', function (callback) {
-    runSequence('test-copy-files-for-publish',
+    runSequence('test-clean',
+              'test-copy-files-for-publish',
               'test-html-replace',
               'test-build-app-main-js',
               callback);
@@ -89,7 +108,8 @@ gulp.task('build-test', function (callback) {
 
 //собираем все для релиза
 gulp.task('build-release', function (callback) {
-    runSequence('release-copy-files-for-publish',
+    runSequence('release-clean',
+              'release-copy-files-for-publish',
               'release-html-replace',
               'release-build-app-main-js',
               callback);
