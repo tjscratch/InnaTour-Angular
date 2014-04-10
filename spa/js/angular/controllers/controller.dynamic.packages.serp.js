@@ -2,6 +2,8 @@ innaAppControllers.
     controller('DynamicPackageSERPCtrl', [
         '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', '$routeParams',
         function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams) {
+            /*Private*/
+
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
@@ -34,20 +36,29 @@ innaAppControllers.
                     $scope.$apply(function($scope){
                         console.time('rendering');
 
-                        $scope.combinations = data.Combinations;
-                        $scope.hotels = data.Hotels;
-                        $scope.tickets = data.Tickets;
+                        $scope.combinations = _.map(data.Combinations, function(combiantion){
+                            return new DynamicModels.Combination(combiantion, data.Reductions);
+                        });
+                        $scope.hotels = _.map(data.Hotels, function(hotel){
+                            return new DynamicModels.Hotel(hotel, data.Reductions);
+                        });
+                        $scope.tickets = _.map(data.Tickets, function(ticket){
+                            return new DynamicModels.Ticket(ticket, data.Reductions);
+                        });
 
                         $scope.showLanding = false;
 
                         $scope.currentCombination = $scope.combinations[0];
 
                         console.timeEnd('rendering');
+
+                        console.log($scope.hotels, $scope.tickets, $scope.combinations);
                     });
                 });
             })(angular.copy($routeParams));
 
             /*Methods*/
+            //TODO make it methods of models
             $scope.getTicketForCurrentCombination = function() {
                 if(!$scope.currentCombination) return [];
 
