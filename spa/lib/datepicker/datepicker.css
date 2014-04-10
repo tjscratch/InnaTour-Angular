@@ -16,7 +16,7 @@ div.datepicker {
 	top: 10px;
 	left: 10px;
 }
-.datepickerBorderT {
+/*.datepickerBorderT {
 	position: absolute;
 	left: 10px;
 	top: 0;
@@ -79,7 +79,7 @@ div.datepicker {
 	width: 10px;
 	height: 10px;
 	background: url(../images/datepicker_br.png);
-}
+}*/
 .datepickerHidden {
 	display: none;
 }
