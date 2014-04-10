@@ -1,18 +1,13 @@
 var DynamicModels = {
-    __expand: function(data, reduction){
+    __expand: function(data){
         for(var prop in data) if(data.hasOwnProperty(prop)) {
-            if(_.isObject(data[prop])){
-                this[reduction[prop]] = {};
-                DynamicModels.__expand.call(this[reduction[prop]], data[prop], reduction);
-            } else {
-                this[reduction[prop]] = data[prop];
-            }
+            this[prop] = data[prop];
         }
     }
 };
 
-DynamicModels.Hotel = function(data, reduction){ DynamicModels.__expand.call(this, data, reduction); }
+DynamicModels.Hotel = function(data){ DynamicModels.__expand.call(this, data); }
 
-DynamicModels.Combination = function(data, reduction){ DynamicModels.__expand.call(this, data, reduction); }
+DynamicModels.Combination = function(data){ DynamicModels.__expand.call(this, data); }
 
-DynamicModels.Ticket = function(data, reduction){ DynamicModels.__expand.call(this, data, reduction); }
+DynamicModels.Ticket = function(data){ DynamicModels.__expand.call(this, data); }

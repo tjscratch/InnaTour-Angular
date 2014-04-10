@@ -11,6 +11,8 @@ angular.module('innaApp.API', [])
             DYNAMIC_TO_SUGGEST: url('/Packages/To'),
             DYNAMIC_GET_OBJECT_BY_ID: url('/Packages/DirectoryById'),
             DYNAMIC_SEARCH: url('/Packages/Search'),
+            DYNAMIC_SEARCH_HOTELS: url('/Packages/SearchHotels'),
+            DYNAMIC_SEARCH_TICKETS: url('/Packages/SearchTickets'),
             DYNAMIC_HOTEL_DETAILS: url('/Packages/SearchHotel'),
 
             AUTH_SIGN_UP: url('/Account/Register/Post'),

@@ -40,9 +40,13 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                 return null;
             },
             search: function(o, callback){
-                o.Min = 'true';
-
                 http(api.DYNAMIC_SEARCH, o, callback);
+            },
+            getHotelsByCombination: function(ticketId, key, callback){
+                http(api.DYNAMIC_SEARCH_HOTELS, {Key: key, Id: ticketId}, callback);
+            },
+            getTicketsByCombination: function(hotelId, key, callback){
+                http(api.DYNAMIC_SEARCH_TICKETS, {Key: key, Id: hotelId}, callback);
             },
             hotelDetails: function(hotelId, providerId, callback){
                 http(api.DYNAMIC_HOTEL_DETAILS, {
