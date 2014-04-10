@@ -3,7 +3,7 @@ var DynamicModels = {
         for(var prop in data) if(data.hasOwnProperty(prop)) {
             if(_.isObject(data[prop])){
                 this[reduction[prop]] = {};
-                DynamicModels.__expand.call(this[reduction[prop]], data[prop]);
+                DynamicModels.__expand.call(this[reduction[prop]], data[prop], reduction);
             } else {
                 this[reduction[prop]] = data[prop];
             }
