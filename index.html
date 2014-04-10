@@ -64,15 +64,14 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                         --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
                         --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
                     </ul><!--
-                    --><!--<span class="header-login">
-                        <a href="#" class=""><i class="icon icon-user"></i>Войти</a>
-
-                        <form class="header-login-form-popup">
+                    --><span class="header-login">
+                        <a href="#" class="" ng-click="headLoginBtnclick($event)"><i class="icon icon-user"></i>Войти</a>
+                        <!--<form class="header-login-form-popup">
                             <div class="field-row"><input class="field" type="text" placeholder="Логин" /></div>
                             <div class="field-row"><input class="field" type="password" placeholder="Пароль" /></div>
                             <button class="button">Войти</button>
-                        </form>
-                    </span>-->
+                        </form>-->
+                    </span>
                 </div>
             </div>
         </div>
@@ -92,10 +91,10 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 	</div>
     <div class="button fixed-request-button" ng-click="popupForm_Show()" ng-show="!isActive('/individualtours/category/')" title="Отправить заявку"></div>
     
+    <ng:include src="'/spa/templates/auth/form.html'"></ng:include>
+
     <ng:view></ng:view>
 
-    <ng:include src="'/spa/templates/auth/form.html'"></ng:include>
-    
     <div class="footer">
     <div class="footer-content">
         <div class="footer-menu">
