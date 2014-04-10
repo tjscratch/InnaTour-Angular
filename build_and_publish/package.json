@@ -4,6 +4,7 @@
     "gulp": "*",
 	"gulp-concat": "*",
 	"gulp-html-replace": "*",
+	"gulp-clean": "*",
 	"run-sequence": "*"
   }
 }
