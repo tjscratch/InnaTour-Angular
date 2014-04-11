@@ -274,6 +274,12 @@ innaAppControllers.
                 //
                 paymentService.reserve(apiModel,
                     function (data) {
+                        log('orderId: ' + data);
+                        if (data != null)
+                        {
+                            //сохраняем orderId
+                            storageService.setAviaOrderId(data);
+                        }
                         //успешно
                         call();
                     },
@@ -296,6 +302,10 @@ innaAppControllers.
                         $location.path(url);
                     }
                 });
+            };
+
+            $scope.processToBuy = function ($event) {
+
             };
 
             //ToDo: debug

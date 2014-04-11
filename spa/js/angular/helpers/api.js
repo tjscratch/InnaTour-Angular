@@ -23,8 +23,8 @@ angular.module('innaApp.API', [])
 
             PURCHASE_TRANSPORTER_GET_ALLIANCE: url('/Transporter/GetAllianceByName'),
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),
-            AVIA_RESERVATION: url('/AviaOrder/Reservation'),
-            //AVIA_RESERVATION: 'http://api.lh.inna.ru/api/v1/AviaOrder/Reservation',
+            //AVIA_RESERVATION: url('/AviaOrder/Reservation'),
+            AVIA_RESERVATION: 'http://api.lh.inna.ru/api/v1/AviaOrder/Reservation',
 
             eof: null
         }
