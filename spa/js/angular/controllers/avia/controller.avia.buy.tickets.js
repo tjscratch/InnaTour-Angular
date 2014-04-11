@@ -106,11 +106,13 @@ innaAppControllers.
                         log('\npaymentService.pay, data: ' + angular.toJson(data));
                         if (data != null) {
                             //успешно
+                            alert('Успешно!!! \n' + angular.toJson(data));
                         }
                     },
                     function (data, status) {
                         //ошибка
                         log('paymentService.pay error');
+                        alert('Ошибка!!! \n' + angular.toJson(data));
                     });
                 }
             };

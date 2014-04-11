@@ -26,11 +26,6 @@
             return changeEnToRu($filter("date")(dateText, dateFormat));
         }
 
-        function getSliderTimeFormat (text) {
-            text = $filter("date")(text, 'EEE HH:mm');
-            return changeEnToRu(text);
-        }
-
         //формат дат
         var monthEnToRus = [
             { En: "Jan", Ru: "января" },
@@ -111,6 +106,14 @@
                     case 10: return "пересадок";
                     default: return "пересадок";
                 }
+            },
+
+            getSliderTimeFormat: function(text) {
+                if (text != null) {
+                    text = $filter("date")(text, 'EEE HH:mm');
+                    return changeEnToRu(text);
+                }
+                return '';
             },
 
             addFormattedDatesFields: function (item) {

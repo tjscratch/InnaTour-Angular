@@ -17,6 +17,9 @@ innaAppControllers.
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
+            $scope.getSliderTimeFormat = aviaHelper.getSliderTimeFormat;
+            $scope.getTransferCountText = aviaHelper.getTransferCountText;
+
             var urlDataLoaded = { fromLoaded: false, toLoaded: false };
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {
@@ -86,6 +89,8 @@ innaAppControllers.
                 //флаг, когда нужно придержать обновление фильтра
                 $scope.isSuspendFilterWatch = false;
 
+                
+
             };
 
             function initWatch() {
@@ -142,8 +147,6 @@ innaAppControllers.
                 $scope.isSortVisible = function (sort) {
                     return sort != $scope.sort;
                 };
-
-                $scope.getTransferCountText = aviaHelper.getTransferCountText;
 
                 $scope.getCityFrom = function () {
                     if ($scope.ticketsList != null && $scope.ticketsList.length > 0) {
@@ -271,8 +274,6 @@ innaAppControllers.
             function updateModel(data) {
                 //log('updateModel');
 
-                $scope.getSliderTimeFormat = aviaHelper.getSliderTimeFormat;
-
                 if (data != null && data.Items != null && data.Items.length > 0) {
                     var list = [];
                     //id поиска
@@ -284,6 +285,11 @@ innaAppControllers.
                         
                         //дополняем полями 
                         aviaHelper.addCustomFields(item);
+
+                        if (i == 0)
+                        {
+                            log('item: ' + angular.toJson(item));
+                        }
                         
                         list.push(item);
                     }
