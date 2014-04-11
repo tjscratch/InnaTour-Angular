@@ -206,6 +206,7 @@ innaAppControllers.
                             //log('paymentService.checkAvailability, data: ' + angular.toJson(data));
                             if (data == "true")
                             {
+                                //сохраняем в хранилище
                                 storageService.setAviaBuyItem({ searchId: $scope.searchId, item: item });
                                 var buyCriteria = angular.copy($scope.criteria);
                                 buyCriteria.QueryId = $scope.searchId;

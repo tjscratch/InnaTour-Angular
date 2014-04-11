@@ -140,6 +140,11 @@
                 if (criteria.QueryId > 0 && criteria.VariantId1 > 0) {
                     res += dl + criteria.QueryId + dl + criteria.VariantId1 + dl + criteria.VariantId2;
                 }
+
+                if (criteria.OrderId > 0) {
+                    res += dl + criteria.OrderId;
+                }
+
                 return res;
             },
             UrlToAviaMain: function (criteria) {

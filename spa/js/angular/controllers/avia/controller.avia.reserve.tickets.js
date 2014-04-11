@@ -19,7 +19,7 @@ innaAppControllers.
 
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
-            $scope.searchId = $scope.criteria.QueryId;;
+            $scope.searchId = $scope.criteria.QueryId;
             $scope.item = null;
             $scope.citizenshipList = null;
             $scope.bonusCardTransportersList = null;
@@ -207,7 +207,6 @@ innaAppControllers.
                     return self;
                 }
 
-
                 var passengers = [];
                 var peopleCount = $scope.criteria.AdultCount;
                 for (var i = 0; i < peopleCount; i++) {
@@ -216,7 +215,7 @@ innaAppControllers.
                 }
 
                 $scope.payModel = {
-                    price: 0,
+                    price: $scope.item.Price,
                     name: '',
                     secondName: '',
                     email: '',
@@ -235,6 +234,7 @@ innaAppControllers.
                 eventsHelper.preventBubbling($event);
             };
 
+            //бронируем
             function reserve(afterCompleteCallback) {
                 function call() { if (afterCompleteCallback) afterCompleteCallback(); };
 
@@ -276,6 +276,7 @@ innaAppControllers.
                     };
                     return m;
                 };
+
                 var apiModel = getApiModel($scope.payModel);
                 log('');
                 log('payModel: ' + angular.toJson($scope.payModel));
@@ -288,7 +289,8 @@ innaAppControllers.
                         if (data != null)
                         {
                             //сохраняем orderId
-                            storageService.setAviaOrderId(data);
+                            //storageService.setAviaOrderId(data);
+                            $scope.criteria.OrderId = data;
                         }
                         //успешно
                         call();
@@ -312,10 +314,6 @@ innaAppControllers.
                         $location.path(url);
                     }
                 });
-            };
-
-            $scope.processToBuy = function ($event) {
-
             };
 
             //ToDo: debug
