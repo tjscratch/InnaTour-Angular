@@ -1,1 +1,10 @@
 <h1>Hotels</h1>
+<div>
+    <div dynamic-serp-filter-category
+            hotels="hotels"></div>
+</div>
+
+
+<ul>
+    <li ng-repeat="hotel in filteredHotels(hotelFilters)" style="border:1px solid red;">{{hotel | json}}</li>
+</ul>

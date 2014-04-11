@@ -1,21 +1,27 @@
-innaAppControllers.
-    controller('DynamicPackageSERPCtrl', [
+innaAppControllers
+    .controller('DynamicPackageSERPCtrl', [
         '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', '$routeParams',
         function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams) {
             /*Private*/
+            var searchParams = {};
+
             function loadTab() {
                 if($scope.show == $scope.HOTELS_TAB) {
                     DynamicPackagesDataProvider.getHotelsByCombination(
-                        $scope.combination.Ticket.To.TicketId, $scope.key,
+                        $scope.combination.Ticket.To.TicketId, searchParams,
                         function(data){
-                            $scope.hotels = _.map(data, function(hotel){ return new DynamicModels.Hotel(data); });
+                            $scope.$apply(function($scope){
+                                $scope.hotels = data.Hotels;
+                            });
                         }
                     );
                 } else if($scope.show == $scope.TICKETS_TAB) {
                     DynamicPackagesDataProvider.getTicketsByCombination(
-                        $scope.combination.Hotel.HotelId, $scope.key,
+                        $scope.combination.Hotel.HotelId, searchParams,
                         function(data){
-                            $scope.tickets = _.map(data, function(hotel){ return new DynamicModels.Ticket(data); });
+                            $scope.$apply(function($scope) {
+                                $scope.tickets = data.Tickets;
+                            });
                         }
                     );
                 }
@@ -30,20 +36,26 @@ innaAppControllers.
 
             /*Properties*/
             $scope.hotels = [];
+            $scope.hotelFilters = {};
             $scope.tickets = [];
+            $scope.ticketFilters = {};
             $scope.combination = null;
-            $scope.key = '';
             $scope.showLanding = true;
+
             $scope.show = $scope.HOTELS_TAB;
 
             $scope.$watch('show', function(newVal, oldVal){
                 if($scope.combination) loadTab();
             });
 
+
+
             /*Data fetching*/
             (function loadData(params){
                 params.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(params.StartVoyageDate);
                 params.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(params.EndVoyageDate);
+
+                searchParams = params;
 
                 console.time('loading_packages');
                 console.log('loading data by params', angular.toParam(params));
@@ -53,7 +65,6 @@ innaAppControllers.
 
                     $scope.$apply(function($scope){
                         $scope.combination = data.RecommendedPair;
-                        $scope.key = data.CacheKey;
 
                         $scope.showLanding = false;
 
@@ -62,6 +73,10 @@ innaAppControllers.
                 });
             })(angular.copy($routeParams));
 
-            /*Watchers*/
+            /*Methods*/
+            $scope.filteredHotels = function(filters){
+                console.log('filteredHotels : filter = ', filters);
+                return $scope.hotels;
+            }
         }
     ]);

@@ -42,11 +42,11 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
             search: function(o, callback){
                 http(api.DYNAMIC_SEARCH, o, callback);
             },
-            getHotelsByCombination: function(ticketId, key, callback){
-                http(api.DYNAMIC_SEARCH_HOTELS, {Key: key, Id: ticketId}, callback);
+            getHotelsByCombination: function(ticketId, params, callback){
+                http(api.DYNAMIC_SEARCH_HOTELS, _.extend({Id: ticketId}, params), callback);
             },
-            getTicketsByCombination: function(hotelId, key, callback){
-                http(api.DYNAMIC_SEARCH_TICKETS, {Key: key, Id: hotelId}, callback);
+            getTicketsByCombination: function(hotelId, params, callback){
+                http(api.DYNAMIC_SEARCH_TICKETS, _.extend({Id: hotelId}, params), callback);
             },
             hotelDetails: function(hotelId, providerId, callback){
                 http(api.DYNAMIC_HOTEL_DETAILS, {
