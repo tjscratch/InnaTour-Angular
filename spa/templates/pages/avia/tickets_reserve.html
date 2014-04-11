@@ -19,7 +19,7 @@
         <form action="" class="b-tickets-form">
             <h1 class="title">Оплата авиабилетов</h1>
 
-            <div class="rl-item rl-item-payment">
+            <div class="rl-item rl-item-payment" ng-show="item != null">
                 <header class="rl-item-header">
                     <span class="rl-price">
                         <span class="rl-price-item">{{item.Price| price}}</span> руб.
@@ -126,8 +126,8 @@
                         <div class="b-field-block">
                             <label class="b-field-label">Пол</label>
                             <ul class="radio-list " ng-class="{error:passenger.sex == null}">
-                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}"><ins class="radio">М</ins></label></li>
-                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}"><ins class="radio">Ж</ins></label></li>
+                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.man" ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}"><ins class="radio">М</ins></label></li>
+                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.woman" ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}"><ins class="radio">Ж</ins></label></li>
                             </ul>
                         </div>
                         <div class="b-field-block b-field-block-120">

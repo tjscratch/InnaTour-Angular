@@ -100,7 +100,7 @@ app.config([
             when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
                 ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
                     templateUrl: '/spa/templates/pages/avia/tickets_reserve.html',
-                    controller: 'AviaBuyTicketsCtrl'
+                    controller: 'AviaReserveTicketsCtrl'
                 }).
             when(url.URL_AVIA_BUY + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
                 ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
