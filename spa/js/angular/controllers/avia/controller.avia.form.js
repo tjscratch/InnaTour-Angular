@@ -187,7 +187,10 @@ innaAppControllers.
             }
 
             $scope.getSelectedCabinClassName = function () {
-                return _.find($scope.cabinClassList, function (item) { return item.value == $scope.criteria.CabinClass; }).name;
+                var res = _.find($scope.cabinClassList, function (item) { return item.value == $scope.criteria.CabinClass; });
+                if (res != null)
+                    return res.name;
+                return '';
             }
 
             $scope.cabinClassListClick = function ($event) {
