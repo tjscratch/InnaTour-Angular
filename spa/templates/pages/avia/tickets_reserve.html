@@ -95,15 +95,15 @@
                     <div class="b-field-group">
                         <div class="b-field-block b-field-block-130">
                             <label class="b-field-label">Имя</label>
-                            <input type="text" ng-model="payModel.name" placeholder="Иван" class="b-field-text">
+                            <input type="text" ng-model="reservationModel.name" placeholder="Иван" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-190">
                             <label class="b-field-label">Фамилия</label>
-                            <input type="text" ng-model="payModel.secondName" placeholder="Иванов" class="b-field-text error">
+                            <input type="text" ng-model="reservationModel.secondName" placeholder="Иванов" class="b-field-text error">
                         </div>
                         <div class="b-field-block b-field-block-290 b-field-block-auth">
                             <label class="b-field-label">E-mail</label>
-                            <input type="text" ng-model="payModel.email" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
+                            <input type="text" ng-model="reservationModel.email" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
                             <div class="b-auth">
                                 <a href="#" class="b-auth-close"></a>
                                 <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="b-field-block b-field-block-290">
                             <label class="b-field-label">Мобильный телефон</label>
-                            <input type="text" ng-model="payModel.phone" placeholder="+7 (123) 123-45-67" class="b-field-text">
+                            <input type="text" ng-model="reservationModel.phone" placeholder="+7 (123) 123-45-67" class="b-field-text">
                         </div>
                     </div>
                     <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div>
@@ -121,7 +121,7 @@
             </div>
             <h2 class="title">Пасажиры</h2>
             <div class="form-body">
-                <fieldset class="form-container" ng-repeat="passenger in payModel.passengers">
+                <fieldset class="form-container" ng-repeat="passenger in reservationModel.passengers">
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-block">
                             <label class="b-field-label">Пол</label>

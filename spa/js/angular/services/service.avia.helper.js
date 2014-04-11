@@ -94,6 +94,8 @@
         }
 
         var helper = {
+            sexType: { man: 1, woman: 2 },
+
             getTransferCountText: function (count) {
                 switch (count) {
                     case 0: return "пересадок";
