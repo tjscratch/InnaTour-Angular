@@ -4,8 +4,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('TourDetailsCtrl', ['$log', '$scope', '$routeParams', '$filter', 'dataService',
-        function TourDetailsCtrl($log, $scope, $routeParams, $filter, dataService) {
+    controller('TourDetailsCtrl', ['$log', '$scope', '$routeParams', '$filter', 'dataService', 'urlHelper',
+        function TourDetailsCtrl($log, $scope, $routeParams, $filter, dataService, urlHelper) {
             var self = this;
             function log(msg) {
                 $log.log(msg);
@@ -65,7 +65,7 @@ innaAppControllers.
                 //alert('Еще не реализовано');
                 dataService.getOrder(payData, function (orderId) {
 
-                    var url = UrlHelper.UrlToPaymentPage(orderId);
+                    var url = urlHelper.UrlToPaymentPage(orderId);
                     $location.path(url);
 
                 }, function (data, status) {

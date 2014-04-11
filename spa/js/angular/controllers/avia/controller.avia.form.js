@@ -4,8 +4,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaFormCtrl', ['$log', '$scope', '$rootScope', '$filter', '$location', 'dataService', 'cache',
-        function AviaFormCtrl($log, $scope, $rootScope, $filter, $location, dataService, cache) {
+    controller('AviaFormCtrl', ['$log', '$scope', '$rootScope', '$filter', '$location', 'dataService', 'cache', 'urlHelper',
+        function AviaFormCtrl($log, $scope, $rootScope, $filter, $location, dataService, cache, urlHelper) {
 
             var self = this;
             function log(msg) {
@@ -26,7 +26,7 @@ innaAppControllers.
                 }
 
                 //критерии из урла
-                var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+                var routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
 
                 log('AviaFormCtrl routeCriteria: ' + angular.toJson(routeCriteria));
                 $scope.criteria = routeCriteria;
@@ -81,7 +81,7 @@ innaAppControllers.
             $scope.searchStart = function () {
                 if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0) {
                     //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
-                    var url = UrlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+                    var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
                     $location.path(url);
                 }
                 else {

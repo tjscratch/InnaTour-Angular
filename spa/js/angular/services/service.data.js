@@ -1,6 +1,6 @@
 ﻿innaAppServices.
-    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', 'storageService', 'innaApp.API.const',
-        function ($rootScope, $http, $q, $log, cache, storageService, apiUrls) {
+    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', 'storageService', 'innaApp.API.const', 'urlHelper',
+        function ($rootScope, $http, $q, $log, cache, storageService, apiUrls, urlHelper) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -27,7 +27,7 @@
                             if (resItem == null)
                                 resItem = data[0];
 
-                            var urlKey = UrlHelper.getUrlFromData(resItem);
+                            var urlKey = urlHelper.getUrlFromData(resItem);
                             //добавляем поле url
                             resItem.id = resItem.Id;
                             resItem.name = resItem.Name;

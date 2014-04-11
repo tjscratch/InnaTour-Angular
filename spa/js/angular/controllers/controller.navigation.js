@@ -3,8 +3,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('NavigationCtrl', ['$log', '$scope', '$location', 'dataService', 'eventsHelper',
-        function NavigationCtrl($log, $scope, $location, dataService, eventsHelper) {
+    controller('NavigationCtrl', ['$log', '$scope', '$location', 'dataService', 'eventsHelper', 'urlHelper',
+        function NavigationCtrl($log, $scope, $location, dataService, eventsHelper, urlHelper) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -29,15 +29,15 @@ innaAppControllers.
                 //log('$scope.getHeadForm, loc:' + loc);
                 var abs = $location.absUrl();
                 if (loc == '/' || abs.indexOf('/tours/?') > -1) {
-                    return UrlHelper.addPathAndVersion('/spa/templates/nav_forms/tours_search_form.html');
+                    return urlHelper.addPathAndVersion('/spa/templates/nav_forms/tours_search_form.html');
                 } else if(loc.startsWith(app.URL_DYNAMIC_PACKAGES)) {
-                	return UrlHelper.addPathAndVersion('/spa/templates/nav_forms/dynamic_search_form.html');
+                	return urlHelper.addPathAndVersion('/spa/templates/nav_forms/dynamic_search_form.html');
                 }
                 else if (loc.indexOf('/avia/') > -1) {
-                    return UrlHelper.addPathAndVersion('/spa/templates/nav_forms/avia_search_form.html');
+                    return urlHelper.addPathAndVersion('/spa/templates/nav_forms/avia_search_form.html');
                 }
                 else {
-                    return UrlHelper.addPathAndVersion('/spa/templates/nav_forms/empty.html');
+                    return urlHelper.addPathAndVersion('/spa/templates/nav_forms/empty.html');
                 }
             };
 

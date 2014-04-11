@@ -5,9 +5,9 @@
 
 innaAppControllers.
     controller('AviaSearchResultsCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'eventsHelper', 'aviaHelper',
+        'dataService', 'paymentService', 'storageService', 'eventsHelper', 'aviaHelper', 'urlHelper',
         function AviaSearchResultsCtrl($log, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, eventsHelper, aviaHelper) {
+            dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper) {
 
             var self = this;
             function log(msg) {
@@ -45,7 +45,7 @@ innaAppControllers.
             initWatch();
 
             //обрабатываем параметры из url'а
-            var routeCriteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+            var routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
             //log('routeCriteria: ' + angular.toJson($scope.criteria));
 
@@ -214,7 +214,7 @@ innaAppControllers.
 
                                 //log('buyCriteria: ' + angular.toJson(buyCriteria));
                                 //все норм - отправляем на страницу покупки
-                                var url = UrlHelper.UrlToAviaTicketsBuy(buyCriteria);
+                                var url = urlHelper.UrlToAviaTicketsReservation(buyCriteria);
                                 //log('Url: ' + url);
                                 $location.path(url);
                             }

@@ -1,4 +1,19 @@
-﻿<!-- Search Results -->
+﻿<style type="text/css">
+    .cit-cont {
+        padding: 0;
+        max-height: 300px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .cit-item {
+        padding: 3px;
+    }
+    .cit-item:hover {
+        cursor: default;
+        background-color: #edeff0;
+    }
+</style>
+<!-- Search Results -->
 <div class="results-body">
     <div class="results-container results-container__tickets" style="padding-top: 190px;">
         <form action="" class="b-tickets-form">
@@ -29,7 +44,7 @@
                         <div class="rl-fly-transplant">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</div>
                         <div class="rl-fly-transplant-time">
                             <span ng-repeat="etap in item.EtapsToItems">
-                            <span>{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">,<br /></span>
+                            <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">,<br /></span>
                         </span>
                         </div>
                     </div>
@@ -55,7 +70,7 @@
                         <div class="rl-fly-transplant">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</div>
                         <div class="rl-fly-transplant-time">
                             <span ng-repeat="etap in item.EtapsBackItems">
-                                <span>{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">,<br /></span>
+                                <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">,<br /></span>
                             </span>
                         </div>
                     </div>
@@ -129,7 +144,10 @@
                         </div>
                         <div class="b-field-block b-field-block-170">
                             <label class="b-field-label">Гражданство</label>
-                            <input type="text" value="{{passenger.citizenship.name}}" placeholder="Выберите" class="b-field-text b-field-select">
+                            <input ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.name}}" placeholder="Выберите" class="b-field-text b-field-select">
+                            <div partial-select list="citizenshipList" result="passenger.citizenship" callback="passenger.dir.cit.saveDirCallback">
+                            </div>
+                            
                         </div>
                         <div class="b-field-block b-field-block-123">
                             <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
@@ -143,13 +161,15 @@
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-group b-field-group-passport">
                             <div class="b-field-block b-field-block-192">
-                                <label class="b-agreement"><input type="checkbox" ng-model="passenger.haveBonusCard"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
+                                <label class="b-agreement"><input type="checkbox" ng-model="passenger.bonuscard.haveBonusCard"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
                             </div>
-                            <div class="b-field-block b-field-block-195" ng-show="passenger.haveBonusCard == true">
+                            <div class="b-field-block b-field-block-195" ng-show="passenger.bonuscard.haveBonusCard == true">
                                 <label class="b-field-label">Авиакомпания</label>
-                                <input type="text" value="{{passenger.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
+                                <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
+                                <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.airCompany" callback="passenger.dir.card.saveDirCallback">
+                                </div>
                             </div>
-                            <div class="b-field-block b-field-block-143" ng-show="passenger.haveBonusCard == true">
+                            <div class="b-field-block b-field-block-143" ng-show="passenger.bonuscard.haveBonusCard == true">
                                 <label class="b-field-label">Номер карты</label>
                                 <input type="text" ng-model="passenger.bonuscard.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
                             </div>

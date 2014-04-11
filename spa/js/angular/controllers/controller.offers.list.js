@@ -4,18 +4,18 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('OffersListCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService', 'sharedProperties',
-        function OffersListCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, sharedProperties) {
+    controller('OffersListCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService', 'sharedProperties', 'urlHelper',
+        function OffersListCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, sharedProperties, urlHelper) {
             function log(msg) {
                 $log.log(msg);
             }
 
             $scope.getInnerTemplate = function () {
-                return UrlHelper.getInnerTemplate();
+                return urlHelper.getInnerTemplate();
             };
 
             $scope.getTemplateUrlByBlockType = function (type) {
-                return UrlHelper.getTemplateUrlByBlockType(type);
+                return urlHelper.getTemplateUrlByBlockType(type);
             };
 
             $scope.isNullOrEmpty = function (item) {

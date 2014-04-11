@@ -4,8 +4,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('SearchResultCtrl', ['$log', '$scope', '$routeParams', '$filter', '$location', 'dataService',
-        function SearchResultCtrl($log, $scope, $routeParams, $filter, $location, dataService) {
+    controller('SearchResultCtrl', ['$log', '$scope', '$routeParams', '$filter', '$location', 'dataService', 'urlHelper',
+        function SearchResultCtrl($log, $scope, $routeParams, $filter, $location, dataService, urlHelper) {
 
             var self = this;
             function log(msg) {
@@ -19,7 +19,7 @@ innaAppControllers.
 
             //обрабатываем параметры из queryString'а
             var params = $routeParams;
-            $scope.criteria = UrlHelper.restoreAnyToNulls(params);
+            $scope.criteria = urlHelper.restoreAnyToNulls(params);
             //log('$routeParams: ' + angular.toJson($routeParams));
             //log('$scope.criteria: ' + angular.toJson($scope.criteria));
             //$scope.startSearchTours();
@@ -183,7 +183,7 @@ innaAppControllers.
             function initFuctions() {
                 //тут меняем урл для поиска
                 $scope.searchTours = function () {
-                    var url = UrlHelper.UrlToSearch(angular.copy($scope.criteria));
+                    var url = urlHelper.UrlToSearch(angular.copy($scope.criteria));
 
                     //делаем переход и соответственно новый поиск только если url изменился
                     if ($location.path() != url) {
@@ -350,7 +350,7 @@ innaAppControllers.
 
                 //переход на страницу отеля
                 $scope.goToHotelDetails = function (hotel) {
-                    window.open(UrlHelper.UrlToHotelDetails(hotel.HotelId, $scope.searchId));
+                    window.open(urlHelper.UrlToHotelDetails(hotel.HotelId, $scope.searchId));
                 };
             };
         }]);
