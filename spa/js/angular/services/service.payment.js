@@ -42,6 +42,24 @@ innaAppServices.
                     });
                 },
 
+                getPaymentData: function(queryData, successCallback, errCallback){
+                    $http.get(apiUrls.AVIA_RESERVATION_GET_PAY_DATA, { cache: true, params: queryData }).success(function (data, status) {
+                        successCallback(data);
+                    }).
+                    error(function (data, status) {
+                        errCallback(data, status);
+                    });
+                },
+
+                pay: function (queryData, successCallback, errCallback) {
+                    $http.post(apiUrls.AVIA_PAY, queryData).success(function (data, status) {
+                        successCallback(data);
+                    }).
+                    error(function (data, status) {
+                        errCallback(data, status);
+                    });
+                },
+
                 eof: null
             };
         }]);

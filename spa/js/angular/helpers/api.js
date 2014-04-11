@@ -1,7 +1,14 @@
 angular.module('innaApp.API', [])
     .factory('innaApp.API.const', function () {
         function url(s) {
-            return (window.DEV ? 'http://api.lh.inna.ru:8077' :(app_main.host || 'http://api.test.inna.ru')) + '/api/v1' + s;
+            window.DEV = false;
+            window.DEV2 = false;
+
+            var host = app_main.host || 'http://api.test.inna.ru';
+            if (DEV) host = 'http://api.lh.inna.ru:8077';
+            if (DEV2) host = 'http://api.lh.inna.ru';
+
+            return host + '/api/v1' + s;
         }
 
         return {
@@ -21,9 +28,10 @@ angular.module('innaApp.API', [])
 
             PURCHASE_TRANSPORTER_GET_ALLIANCE: url('/Transporter/GetAllianceByName'),
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),
-            //AVIA_RESERVATION: url('/AviaOrder/Reservation'),
-            AVIA_RESERVATION: 'http://api.lh.inna.ru/api/v1/AviaOrder/Reservation',
-            AVIA_RESERVATION_GET_VARIANT: 'http://api.lh.inna.ru/api/v1/AviaOrder/GetVariant',
+            AVIA_RESERVATION: url('/AviaOrder/Reservation'),
+            AVIA_RESERVATION_GET_VARIANT: url('/AviaOrder/GetVariant'),
+            AVIA_RESERVATION_GET_PAY_DATA: url('/Payment/Index'),
+            AVIA_PAY: url('/Psb/Pay'),
 
             eof: null
         }

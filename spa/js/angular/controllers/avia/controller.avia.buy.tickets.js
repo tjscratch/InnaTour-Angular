@@ -20,12 +20,28 @@ innaAppControllers.
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.searchId = $scope.criteria.QueryId;
-            $scope.payModel = null;
+            $scope.reservationModel = null;
+            $scope.payModel = {
+                num: {
+                    num1: '1345',
+                    num2: '2322',
+                    num3: '3456',
+                    num4: '4876'
+                    
+                },
+                cvc2: '123',
+                cardHolder: 'Ivan Ivanov',
+                cardMonth: '02',
+                cardYear: '15',
+                agree: true
+            };
 
-            var urlDataLoaded = { selectedItem: false, routeCriteriaTo: false };
+            $scope.sexType = aviaHelper.sexType;
+
+            var urlDataLoaded = { model: false };
 
             function isAllDataLoaded() {
-                return urlDataLoaded.selectedItem && urlDataLoaded.routeCriteriaTo && urlDataLoaded.allCountries;
+                return urlDataLoaded.model;
             }
             function initIfDataLoaded() {
                 //все данные были загружены
@@ -36,8 +52,32 @@ innaAppControllers.
             };
 
             //data loading ===========================================================================
-            (function getStoreItem() {
-
+            (function getPayModel() {
+                var reservationModel = storageService.getReservationModel();
+                log('\nReservationModel: ' + angular.toJson(reservationModel));
+                if (reservationModel != null) {
+                    urlDataLoaded.model = true;
+                    $scope.reservationModel = reservationModel;
+                    initIfDataLoaded();
+                }
+                else {
+                    //запрос в api
+                    //paymentService.getPaymentData({
+                    //    orderId: $scope.criteria.OrderId
+                    //},
+                    //function (data) {
+                    //    if (data != null) {
+                    //        //log('getPaymentData data: ' + angular.toJson(data));
+                    //        urlDataLoaded.model = true;
+                    //        $scope.reservationModel = data;
+                    //        //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
+                    //        $scope();
+                    //    }
+                    //},
+                    //function (data, status) {
+                    //    log('paymentService.getPaymentData error');
+                    //});
+                }
             })();
 
             function initPayModel() {
@@ -45,7 +85,34 @@ innaAppControllers.
             };
             
             $scope.processToBuy = function ($event) {
+                eventsHelper.preventBubbling($event);
 
+                if ($scope.payModel.agree && isAllDataLoaded()) {
+                    var cardNum = $scope.payModel.num.num1 + $scope.payModel.num.num2 + $scope.payModel.num.num3 + $scope.payModel.num.num4;
+
+                    var apiPayModel = {
+                        OrderId: $scope.criteria.OrderId,
+                        CardNumber: cardNum,
+                        Cvc2: $scope.payModel.cvc2,
+                        CardHolder: $scope.payModel.cardHolder,
+                        CardMonth: $scope.payModel.cardMonth,
+                        CardYear: $scope.payModel.cardYear
+                    };
+
+                    log('\napiPayModel: ' + angular.toJson(apiPayModel));
+
+                    paymentService.pay(apiPayModel,
+                    function (data) {
+                        log('\npaymentService.pay, data: ' + angular.toJson(data));
+                        if (data != null) {
+                            //успешно
+                        }
+                    },
+                    function (data, status) {
+                        //ошибка
+                        log('paymentService.pay error');
+                    });
+                }
             };
 
             

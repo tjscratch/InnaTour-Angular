@@ -23,7 +23,7 @@ innaAppControllers.
             $scope.item = null;
             $scope.citizenshipList = null;
             $scope.bonusCardTransportersList = null;
-            $scope.payModel = null;
+            $scope.reservationModel = null;
 
             //$timeout(function () {
             //    loadToCountryAndInit(routeCriteria);
@@ -86,7 +86,7 @@ innaAppControllers.
                         idQuery: $scope.criteria.QueryId
                     },
                     function (data) {
-                        if (data != null) {
+                        if (data != null && data != 'null') {
                             //дополняем полями 
                             aviaHelper.addCustomFields(data);
                             //log('getSelectedVariant dataItem: ' + angular.toJson(data));
@@ -94,9 +94,11 @@ innaAppControllers.
                             //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
                             loadTransporters();
                         }
+                        else
+                            $log.error('paymentService.getSelectedVariant error, data is null');
                     },
                     function (data, status) {
-                        log('paymentService.getSelectedVariant error');
+                        $log.error('paymentService.getSelectedVariant error');
                     });
                 }
             })();
@@ -145,8 +147,7 @@ innaAppControllers.
 
             function initPayModel() {
 
-                var sexType = { man: 1, woman: 2 };
-                $scope.sexType = sexType;
+                $scope.sexType = aviaHelper.sexType;
 
                 function passengerModel(index) {
                     var self = this;
@@ -214,7 +215,7 @@ innaAppControllers.
                     passengers.push(item);
                 }
 
-                $scope.payModel = {
+                $scope.reservationModel = {
                     price: $scope.item.Price,
                     name: '',
                     secondName: '',
@@ -277,9 +278,9 @@ innaAppControllers.
                     return m;
                 };
 
-                var apiModel = getApiModel($scope.payModel);
+                var apiModel = getApiModel($scope.reservationModel);
                 log('');
-                log('payModel: ' + angular.toJson($scope.payModel));
+                log('reservationModel: ' + angular.toJson($scope.reservationModel));
                 log('');
                 log('apiModel: ' + angular.toJson(apiModel));
                 //
@@ -291,6 +292,9 @@ innaAppControllers.
                             //сохраняем orderId
                             //storageService.setAviaOrderId(data);
                             $scope.criteria.OrderId = data;
+
+                            //сохраняем модель
+                            storageService.setReservationModel($scope.reservationModel);
                         }
                         //успешно
                         call();
@@ -319,11 +323,11 @@ innaAppControllers.
             //ToDo: debug
             function fillDefaultModelDelay() {
                 $timeout(function () {
-                    $scope.payModel.name = 'Александр';
-                    $scope.payModel.secondName = 'Константинопольский';
-                    $scope.payModel.email = 'ratunkov@gmail.com';
-                    $scope.payModel.phone = '+7 (910) 123-45-67';
-                    _.each($scope.payModel.passengers, function (pas) {
+                    $scope.reservationModel.name = 'Александр';
+                    $scope.reservationModel.secondName = 'Константинопольский';
+                    $scope.reservationModel.email = 'ratunkov@gmail.com';
+                    $scope.reservationModel.phone = '+7 (910) 123-45-67';
+                    _.each($scope.reservationModel.passengers, function (pas) {
                         pas.name = 'ALEXANDER';
                         pas.secondName = 'KONSTANTINOPLOLSKY';
                         pas.sex = $scope.sexType.man;
