@@ -23,6 +23,15 @@ innaAppServices.
                 });
             },
 
+            reserve: function (queryData, successCallback, errCallback) {
+                $http.post(apiUrls.AVIA_RESERVATION, queryData).success(function (data, status) {
+                    successCallback(data);
+                }).
+                error(function (data, status) {
+                    errCallback(data, status);
+                });
+            },
+
             eof: null
         };
     }]);
