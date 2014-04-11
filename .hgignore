@@ -48,3 +48,4 @@ spa/html/verstka_Vaneltin/img/individual/.DS_Store
 spa/uploads/maket_photos/Thumbs.db
 build_and_publish/publish_release/*
 build_and_publish/publish_test/*
+spa/js/debug.js
