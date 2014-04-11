@@ -23,6 +23,7 @@ angular.module('innaApp.API', [])
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),
             //AVIA_RESERVATION: url('/AviaOrder/Reservation'),
             AVIA_RESERVATION: 'http://api.lh.inna.ru/api/v1/AviaOrder/Reservation',
+            AVIA_RESERVATION_GET_VARIANT: 'http://api.lh.inna.ru/api/v1/AviaOrder/GetVariant',
 
             eof: null
         }

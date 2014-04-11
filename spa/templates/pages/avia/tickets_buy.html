@@ -5,43 +5,62 @@
 
             <h2 class="title">Пасажиры</h2>
             <div class="form-body">
-                <fieldset class="form-container">
+                <fieldset class="form-container" ng-repeat="passenger in payModel.passengers">
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-block">
                             <label class="b-field-label">Пол</label>
-                            <ul class="radio-list">
-                                <li><label><input type="radio" name="male1" checked disabled><ins class="radio">М</ins></label></li>
-                                <li><label><input type="radio" name="male1" disabled><ins class="radio">Ж</ins></label></li>
+                            <ul class="radio-list " ng-class="{error:passenger.sex == null}">
+                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.man" ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}"><ins class="radio">М</ins></label></li>
+                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.woman" ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}"><ins class="radio">Ж</ins></label></li>
                             </ul>
                         </div>
                         <div class="b-field-block b-field-block-120">
                             <label class="b-field-label">Имя (латиницей)</label>
-                            <input type="text" disabled value="ALEXANDER" class="b-field-text">
+                            <input type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-195 b-field-block-surname">
                             <label class="b-field-label">Фамилия (латиницей)</label>
-                            <input type="text" disabled value="KONSTANTINOPLOLSKY" class="b-field-text">
+                            <input type="text" ng-model="passenger.secondName" placeholder="IVANOV" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-94">
                             <label class="b-field-label">Дата рождения</label>
-                            <input type="text" disabled value="18.07.1976" class="b-field-text">
+                            <input type="text" ng-model="passenger.birthday" placeholder="дд.мм.гггг" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-170">
                             <label class="b-field-label">Гражданство</label>
-                            <input type="text" disabled value="Великобритания" class="b-field-text">
+                            <input ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.name}}" placeholder="Выберите" class="b-field-text b-field-select">
+                            <div partial-select list="citizenshipList" result="passenger.citizenship" callback="passenger.dir.cit.saveDirCallback">
+                            </div>
+                            
                         </div>
                         <div class="b-field-block b-field-block-123">
                             <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
-                            <input type="text" disabled value="77123456789" class="b-field-text">
+                            <input type="text" ng-model="passenger.document.series_and_number" placeholder="1104 046100" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-105">
                             <label class="b-field-label">Действителен до</label>
-                            <input type="text" disabled placeholder="дд.мм.гггг" class="b-field-text" value="18.07.1976">
+                            <input type="text" ng-model="passenger.document.expirationDate" placeholder="дд.мм.гггг" class="b-field-text">
                         </div>
                     </div>
-                        
+                    <div class="b-field-group b-field-group-passport">
+                        <div class="b-field-group b-field-group-passport">
+                            <div class="b-field-block b-field-block-192">
+                                <label class="b-agreement"><input type="checkbox" ng-model="passenger.bonuscard.haveBonusCard"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
+                            </div>
+                            <div class="b-field-block b-field-block-195" ng-show="passenger.bonuscard.haveBonusCard == true">
+                                <label class="b-field-label">Авиакомпания</label>
+                                <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
+                                <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.airCompany" callback="passenger.dir.card.saveDirCallback">
+                                </div>
+                            </div>
+                            <div class="b-field-block b-field-block-143" ng-show="passenger.bonuscard.haveBonusCard == true">
+                                <label class="b-field-label">Номер карты</label>
+                                <input type="text" ng-model="passenger.bonuscard.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
+                            </div>
+                        </div>
+                    </div>
                 </fieldset>
-                <fieldset class="form-container">
+                <!--<fieldset class="form-container">
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-block">
                             <label class="b-field-label">Пол</label>
@@ -89,7 +108,7 @@
                         </div>
                     </div>
                         
-                </fieldset>
+                </fieldset>-->
             </div>
 
             <div class="b-tickets-info-container">

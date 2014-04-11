@@ -3,8 +3,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('NavigationCtrl', ['$log', '$scope', '$location', 'dataService', 'eventsHelper', 'urlHelper',
-        function NavigationCtrl($log, $scope, $location, dataService, eventsHelper, urlHelper) {
+    controller('NavigationCtrl', ['$log', '$scope', '$location', 'dataService', 'eventsHelper', 'urlHelper', 'innaApp.Urls',
+        function NavigationCtrl($log, $scope, $location, dataService, eventsHelper, urlHelper, appUrls) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -30,7 +30,7 @@ innaAppControllers.
                 var abs = $location.absUrl();
                 if (loc == '/' || abs.indexOf('/tours/?') > -1) {
                     return urlHelper.addPathAndVersion('/spa/templates/nav_forms/tours_search_form.html');
-                } else if(loc.startsWith(app.URL_DYNAMIC_PACKAGES)) {
+                } else if(loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES)) {
                 	return urlHelper.addPathAndVersion('/spa/templates/nav_forms/dynamic_search_form.html');
                 }
                 else if (loc.indexOf('/avia/') > -1) {
@@ -48,19 +48,19 @@ innaAppControllers.
 
                 if (loc == '/') {
                     return "Главная";
-                } else if (loc.indexOf(app.URL_DYNAMIC_PACKAGES) > -1) {
+                } else if (loc.indexOf(appUrls.URL_DYNAMIC_PACKAGES) > -1) {
                     return "Динамические пакеты";
                 }
-                else if (loc.indexOf(app.URL_AVIA) > -1) {
+                else if (loc.indexOf(appUrls.URL_AVIA) > -1) {
                     return "Авиабилеты";
                 }
-                else if (loc.indexOf(app.URL_PROGRAMMS) > -1) {
+                else if (loc.indexOf(appUrls.URL_PROGRAMMS) > -1) {
                     return "Программы";
                 }
-                else if (loc.indexOf(app.URL_ABOUT) > -1) {
+                else if (loc.indexOf(appUrls.URL_ABOUT) > -1) {
                     return "О компании";
                 }
-                else if (loc.indexOf(app.URL_CONTACTS) > -1) {
+                else if (loc.indexOf(appUrls.URL_CONTACTS) > -1) {
                     return "Контакты";
                 }
                 else {
