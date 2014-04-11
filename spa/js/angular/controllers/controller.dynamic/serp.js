@@ -37,6 +37,14 @@ innaAppControllers
                     if(value == 'all') return true;
 
                     return (hotel.Stars == value);
+                },
+                Price: function(hotel, value){
+                    return (hotel.MinimalPackagePrice <= value);
+                },
+                Name: function(hotel, value){
+                    if(!value) return true;
+
+                    return (hotel.HotelName && hotel.HotelName.indexOf(value) !== -1);
                 }
             }
 
@@ -44,7 +52,6 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             $scope.$on('inna.Dynamic.SERP.Hotel.Filter', function(event, data){
-                console.log('Cought inna.Dynamic.SERP.Hotel.Filter', data);
                 $scope.hotelFilters[data.filter] = data.value;
             });
 
