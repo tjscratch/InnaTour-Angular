@@ -2,12 +2,14 @@
 <div>
     <div dynamic-serp-filter-category
             hotels="hotels"></div>
+    <div dynamic-serp-filter-price
+         hotels="hotels"></div>
 </div>
 
 
 <ul>
     <li ng-repeat="hotel in filteredHotels(hotelFilters)" style="border:1px solid red;">
         {{hotel | json}}
-        <button ng-click="getHotelDetails(hotel)"></button>
+        <button ng-click="getHotelDetails(hotel)">details</button>
     </li>
 </ul>

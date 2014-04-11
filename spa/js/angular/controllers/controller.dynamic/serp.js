@@ -37,6 +37,9 @@ innaAppControllers
                     if(value == 'all') return true;
 
                     return (hotel.Stars == value);
+                },
+                Price: function(hotel, value){
+                    return (hotel.MinimalPackagePrice <= value);
                 }
             }
 
