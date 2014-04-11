@@ -31,7 +31,7 @@ function aviaCriteria(data) {
 
 //параметры для клиентской фильтрации
 function aviaFilter(data) {
-    var self = this;
+    var self = {};
 
     //поля по-умолчанию
     self.minPrice = null;
@@ -86,6 +86,8 @@ function aviaFilter(data) {
     self.maxBackDepartureDateInitial = self.maxBackDepartureDate;
     self.minBackArrivalDateInitial = self.minBackArrivalDate;
     self.maxBackArrivalDateInitial = self.maxBackArrivalDate;
+
+    return self;
 };
 
 //ававкомпания для фильтра
