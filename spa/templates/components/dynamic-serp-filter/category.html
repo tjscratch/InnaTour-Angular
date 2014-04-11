@@ -1,7 +1,6 @@
 <div style="border:1px solid blue;">
     <h2>Фильтр по категориям</h2>
     <div ng-repeat="(option, count) in options">
-        <input type="radio" name="dynamic-serp-filter-category" ng-model="selectedOption" value="{{option}}" ng-change="setStars(option)"> {{option}} ({{count}})
+        <button ng-click="setCurrent(option)">{{ ({"true":"*", "false":""})[currentOption == option] }}{{option}}-звездочный ({{count}} отелей)</button>
     </div>
-    <div>{{selectedOption}}</div>
 </div>

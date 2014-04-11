@@ -34,6 +34,8 @@ innaAppControllers
 
             doesHotelFit.comparators = {
                 Stars: function(hotel, value){
+                    if(value == 'all') return true;
+
                     return (hotel.Stars == value);
                 }
             }
@@ -42,7 +44,7 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             $scope.$on('inna.Dynamic.SERP.Hotel.Filter', function(event, data){
-                console.log(data);
+                console.log('Cought inna.Dynamic.SERP.Hotel.Filter', data);
                 $scope.hotelFilters[data.filter] = data.value;
             });
 

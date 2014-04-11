@@ -9,6 +9,8 @@ angular.module('innaApp.directives')
                 controller: [
                     '$scope',
                     function($scope){
+                        var ALL = 'all';
+
                         $scope.options = {};
 
                         $scope.$watchCollection('hotels', function(newVal){
@@ -19,11 +21,19 @@ angular.module('innaApp.directives')
                                     $scope.options[hotel.Stars] = 1;
                                 }
                             });
+
+                            $scope.options[ALL] = newVal.length;
                         });
 
-                        $scope.setStars = function(stars){
-                            console.log(stars);
-                            $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: 'Stars', value: stars});
+                        $scope.currentOption = ALL;
+
+                        $scope.$watch('currentOption', function(newVal){
+                            console.log(newVal);
+                            $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: 'Stars', value: newVal});
+                        });
+
+                        $scope.setCurrent = function(option){
+                            $scope.currentOption = option;
                         }
                     }
                 ]
