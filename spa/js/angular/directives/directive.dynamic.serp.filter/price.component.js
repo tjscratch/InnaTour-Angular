@@ -27,7 +27,7 @@ angular.module('innaApp.directives')
                                 if(price > $scope.max) $scope.max = price;
                             });
 
-                            $scope.price = $scope.min;
+                            $scope.price = $scope.max;
                         });
                     }
                 ]
