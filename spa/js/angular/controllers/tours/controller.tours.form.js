@@ -4,8 +4,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('ToursFormCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService',
-        function ToursFormCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService) {
+    controller('ToursFormCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService', 'urlHelper',
+        function ToursFormCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, urlHelper) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -792,9 +792,9 @@ innaAppControllers.
 
                 var url = '';
                 if (!isDateIntervalChecked)
-                    url = UrlHelper.UrlToSletatTours(city, country, resort, hotel, encodeURIComponent(date), nightsMin, nightsMax, adults, kids, kids_ages);
+                    url = urlHelper.UrlToSletatTours(city, country, resort, hotel, encodeURIComponent(date), nightsMin, nightsMax, adults, kids, kids_ages);
                 else
-                    url = UrlHelper.UrlToSletatToursDatesInterval(city, country, resort, hotel, encodeURIComponent(dateFrom), encodeURIComponent(dateTo), nightsMin, nightsMax, adults, kids, kids_ages);
+                    url = urlHelper.UrlToSletatToursDatesInterval(city, country, resort, hotel, encodeURIComponent(dateFrom), encodeURIComponent(dateTo), nightsMin, nightsMax, adults, kids, kids_ages);
 
                 //search_depth - как далеко вперед дата поиска в днях (дата отправления минус текущая дата)
                 var departure_date = dateHelper.dateToJsDate($scope.form.beginDate);

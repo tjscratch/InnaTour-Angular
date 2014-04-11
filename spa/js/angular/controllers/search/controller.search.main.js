@@ -4,8 +4,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('SearchMainCtrl', ['$log', '$scope', '$routeParams', '$filter', '$location', 'dataService',
-        function SearchMainCtrl($log, $scope, $routeParams, $filter, $location, dataService) {
+    controller('SearchMainCtrl', ['$log', '$scope', '$routeParams', '$filter', '$location', 'dataService', 'urlHelper',
+        function SearchMainCtrl($log, $scope, $routeParams, $filter, $location, dataService, urlHelper) {
 
             var self = this;
             function log(msg) {
@@ -30,7 +30,7 @@ innaAppControllers.
             //тут меняем урл для поиска
             $scope.searchTours = function () {
                 log('$scope.criteria: ' + angular.toJson($scope.criteria));
-                var url = UrlHelper.UrlToSearch(angular.copy($scope.criteria));
+                var url = urlHelper.UrlToSearch(angular.copy($scope.criteria));
                 $location.path(url);
             };
         }]);

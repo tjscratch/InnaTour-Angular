@@ -75,7 +75,7 @@ innaAppDirectives.
     }]);
 
 innaAppDirectives.
-    directive('autoCompleteDirectory', ['$parse', 'cache', function ($parse, cache) {
+    directive('autoCompleteDirectory', ['$parse', 'cache', 'urlHelper', function ($parse, cache, urlHelper) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs, ngModelCtrl) {
@@ -91,7 +91,7 @@ innaAppDirectives.
                     select: function (event, ui) {
                         scope.$apply(function (scope) {
                             //получаем то, что будет ключом в урле
-                            var urlKey = UrlHelper.getUrlFromData(ui.item);
+                            var urlKey = urlHelper.getUrlFromData(ui.item);
 
                             // Change binded variable
                             ngModel.assign(scope, ui.item.Name);

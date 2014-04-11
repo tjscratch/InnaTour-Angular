@@ -5,9 +5,9 @@
 
 innaAppControllers.
     controller('AviaBuyTicketsCtrl', ['$log', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper',
+        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper',
         function AviaBuyTicketsCtrl($log, $timeout, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper, eventsHelper) {
+            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper) {
 
             var self = this;
             function log(msg) {
@@ -24,7 +24,7 @@ innaAppControllers.
             $scope.helloMsg = 'Привет из AviaBuyTicketsCtrl';
 
             //критерии из урла
-            $scope.criteria = new aviaCriteria(UrlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+            $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.searchId = null;
             $scope.item = null;
             $scope.citizenshipList = null;
@@ -71,7 +71,7 @@ innaAppControllers.
 
             (function getStoreItem() {
                 var storeItem = storageService.getAviaBuyItem();
-                log('storeItem: ' + angular.toJson(storeItem));
+                //log('storeItem: ' + angular.toJson(storeItem));
                 if (storeItem != null) {
                     if (storeItem.item.VariantId2 == null)
                         storeItem.item.VariantId2 = 0;
@@ -225,8 +225,8 @@ innaAppControllers.
                 eventsHelper.preventBubbling($event);
             };
 
-            $scope.processToPayment = function ($event) {
-                eventsHelper.preventBubbling($event);
+            function reserve(afterCompleteCallback) {
+                function call() { if (afterCompleteCallback) afterCompleteCallback(); };
 
                 function getPassenger(data) {
                     var m = this;
@@ -274,18 +274,31 @@ innaAppControllers.
                 //
                 paymentService.reserve(apiModel,
                     function (data) {
+                        //успешно
+                        call();
                     },
                     function (data, status) {
+                        //ошибка
+                        log('paymentService.reserve error');
+                        call();
                     });
-
-                //if (isAllDataLoaded()) {
-                //    var url = UrlHelper.UrlToAviaTicketsBuyReserved($scope.criteria);
-                //    //log('processToPayment, url: ' + url);
-                //    $location.path(url);
-                //}
             };
 
+            $scope.processToPayment = function ($event) {
+                eventsHelper.preventBubbling($event);
 
+                //бронируем
+                reserve(function () {
+                    if (isAllDataLoaded()) {
+                        //переходим на страницу оплаты
+                        var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria);
+                        //log('processToPayment, url: ' + url);
+                        $location.path(url);
+                    }
+                });
+            };
+
+            //ToDo: debug
             function fillDefaultModelDelay() {
                 $timeout(function () {
                     $scope.payModel.name = 'Александр';

@@ -6,8 +6,8 @@
 //такой синтаксис['$log', '$scope', '$http', '$filter', 'dataService',
 //нужен чтобы работали внедрения зависимостей после минификации
 innaAppControllers.
-    controller('HotelsDetailsCtrl', ['$log', '$scope', '$routeParams', '$filter', '$location', 'dataService',
-        function HotelsDetailsCtrl($log, $scope, $routeParams, $filter, $location, dataService) {
+    controller('HotelsDetailsCtrl', ['$log', '$scope', '$routeParams', '$filter', '$location', 'dataService', 'urlHelper',
+        function HotelsDetailsCtrl($log, $scope, $routeParams, $filter, $location, dataService, urlHelper) {
             var self = this;
             function log(msg) {
                 $log.log(msg);
@@ -57,7 +57,7 @@ innaAppControllers.
             $scope.goToTourDetail = function (tour) {
                 //log('tour: ' + angular.toJson(tour));
                 //alert('Еще не реализовано');
-                var url = UrlHelper.UrlToTourDetails($routeParams.hotelId, $routeParams.searchId, tour.UID);
+                var url = urlHelper.UrlToTourDetails($routeParams.hotelId, $routeParams.searchId, tour.UID);
                 $location.path(url);
             };
         }]);

@@ -1,9 +1,9 @@
 angular.module('innaApp.API', [])
-    .factory('innaApp.API.const', function(){
-        function url(s){
+    .factory('innaApp.API.const', function () {
+        function url(s) {
             var DEV = false;
 
-            return (DEV ? 'http://api.lh.inna.ru' :(app_main.host || 'http://api.test.inna.ru')) + '/api/v1' + s;
+            return (DEV ? 'http://api.lh.inna.ru' : (app_main.host || 'http://api.test.inna.ru')) + '/api/v1' + s;
         }
 
         return {
@@ -23,8 +23,8 @@ angular.module('innaApp.API', [])
 
             PURCHASE_TRANSPORTER_GET_ALLIANCE: url('/Transporter/GetAllianceByName'),
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),
-            //AVIA_RESERVATION: url('/AviaOrder/Reservation'),
-            AVIA_RESERVATION: 'http://api.lh.inna.ru/api/v1/AviaOrder/Reservation',
+            AVIA_RESERVATION: url('/AviaOrder/Reservation'),
+            //AVIA_RESERVATION: 'http://api.lh.inna.ru/api/v1/AviaOrder/Reservation',
 
             eof: null
         }
