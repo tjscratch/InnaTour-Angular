@@ -4,6 +4,7 @@ innaAppControllers
         function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams) {
             /*Private*/
             var searchParams = {};
+            var cacheKey = '';
 
             function loadTab() {
                 if($scope.show == $scope.HOTELS_TAB) {
@@ -27,8 +28,25 @@ innaAppControllers
                 }
             }
 
+            function doesHotelFit(hotel, filter, value) {
+                return doesHotelFit.comparators[filter](hotel, value);
+            }
+
+            doesHotelFit.comparators = {
+                Stars: function(hotel, value){
+                    if(value == 'all') return true;
+
+                    return (hotel.Stars == value);
+                }
+            }
+
             /*EventListener*/
             DynamicFormSubmitListener.listen();
+
+            $scope.$on('inna.Dynamic.SERP.Hotel.Filter', function(event, data){
+                console.log('Cought inna.Dynamic.SERP.Hotel.Filter', data);
+                $scope.hotelFilters[data.filter] = data.value;
+            });
 
             /*Constants*/
             $scope.HOTELS_TAB = '/spa/templates/pages/dynamic_package_serp.hotels.html';
@@ -63,9 +81,10 @@ innaAppControllers
                 DynamicPackagesDataProvider.search(params, function(data){
                     console.timeEnd('loading_packages');
 
+                    cacheKey = data.SearchId;
+
                     $scope.$apply(function($scope){
                         $scope.combination = data.RecommendedPair;
-
                         $scope.showLanding = false;
 
                         loadTab();
@@ -76,7 +95,26 @@ innaAppControllers
             /*Methods*/
             $scope.filteredHotels = function(filters){
                 console.log('filteredHotels : filter = ', filters);
-                return $scope.hotels;
+                return _.filter($scope.hotels, function(hotel){
+                    var show = true;
+
+                    $.each(filters, function(filter, value){
+                        show = show && doesHotelFit(hotel, filter, value);
+
+                        return show;
+                    });
+
+                    return show;
+                });
+            }
+
+            $scope.getHotelDetails = function(hotel){
+                DynamicPackagesDataProvider.hotelDetails(
+                    hotel.HotelId, hotel.ProviderId,
+                    $scope.combination.Ticket.To.TicketId, $scope.combination.Ticket.Back.TicketId,
+                    cacheKey, function(resp){
+                        console.log(resp);
+                    });
             }
         }
     ]);

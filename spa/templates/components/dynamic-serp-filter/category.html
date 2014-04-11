@@ -1,3 +1,6 @@
 <div style="border:1px solid blue;">
-    Фильтр по категориям
+    <h2>Фильтр по категориям</h2>
+    <div ng-repeat="(option, count) in options">
+        <button ng-click="setCurrent(option)">{{ ({"true":"*", "false":""})[currentOption == option] }}{{option}}-звездочный ({{count}} отелей)</button>
+    </div>
 </div>

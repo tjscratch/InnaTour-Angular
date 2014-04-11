@@ -4,12 +4,37 @@ angular.module('innaApp.directives')
             return {
                 templateUrl: '/spa/templates/components/dynamic-serp-filter/category.html',
                 scope: {
-                    hotels: '&'
+                    hotels: '='
                 },
                 controller: [
                     '$scope',
                     function($scope){
-                        console.log('dynamicSerpFilterCategory: $scope = ', $scope);
+                        var ALL = 'all';
+
+                        $scope.options = {};
+
+                        $scope.$watchCollection('hotels', function(newVal){
+                            _.each(newVal, function(hotel){
+                                if (hotel.Stars in $scope.options) {
+                                    $scope.options[hotel.Stars]++;
+                                } else {
+                                    $scope.options[hotel.Stars] = 1;
+                                }
+                            });
+
+                            $scope.options[ALL] = newVal.length;
+                        });
+
+                        $scope.currentOption = ALL;
+
+                        $scope.$watch('currentOption', function(newVal){
+                            console.log(newVal);
+                            $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: 'Stars', value: newVal});
+                        });
+
+                        $scope.setCurrent = function(option){
+                            $scope.currentOption = option;
+                        }
                     }
                 ]
             }
