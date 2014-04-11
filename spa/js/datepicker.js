@@ -22,7 +22,7 @@
 						'<thead>',
 							'<tr>',
 								'<th class="datepickerGoPrev"><a href="#"><span><%=prev%></span></a></th>',
-								'<th colspan="6" class="datepickerMonth"><a href="#"><span></span></a></th>',
+								'<th colspan="5" class="datepickerMonth"><a href="#"><span></span></a></th>',
 								'<th class="datepickerGoNext"><a href="#"><span><%=next%></span></a></th>',
 							'</tr>',
 							'<tr class="datepickerDoW">',
@@ -168,8 +168,14 @@
                         if(options.mode == 'range' && options.date[0] == val){
                             data.weeks[indic].days[indic2].classname.push('datepickerSelected-start');
                         }
-                        if(options.mode == 'range' && options.date[1] == val){
-                            data.weeks[indic].days[indic2].classname.push('datepickerSelected-end');
+                        if(options.mode == 'range'){
+                            var endDate = new Date(options.date[1]);
+                            endDate.setHours(0);
+                            endDate.setMinutes(0);
+                            endDate.setSeconds(0);
+                            if(+endDate == val) {
+                                data.weeks[indic].days[indic2].classname.push('datepickerSelected-end');
+                            }
                         }
 						if (fromUser.disabled) {
 							data.weeks[indic].days[indic2].classname.push('datepickerDisabled');
