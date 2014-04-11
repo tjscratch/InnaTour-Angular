@@ -240,8 +240,7 @@ innaAppControllers.
                 function call() { if (afterCompleteCallback) afterCompleteCallback(); };
 
                 function getPassenger(data) {
-                    var m = this;
-                    m = m || {};
+                    var m = {};
                     m.Sex = data.sex;
                     m.I = data.name;
                     m.F = data.secondName;
@@ -257,8 +256,7 @@ innaAppControllers.
                     return m;
                 }
                 function getApiModel(data) {
-                    var m = this;
-                    m = m || {};
+                    var m = {};
                     m.I = data.name;
                     m.F = data.secondName;
                     m.Email = data.email;
