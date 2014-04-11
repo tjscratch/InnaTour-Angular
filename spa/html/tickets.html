@@ -5,6 +5,7 @@
     <title>Инна-Тур - Авиа</title>
     <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../lib/datepicker/datepicker.css" />
     <link rel="stylesheet" href="../css/tickets.min.css" />
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="../css/ie.min.css" />
@@ -13,6 +14,7 @@
     <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
     <script src="../lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="../js/jquery.ui.datepicker-ru.js"></script>
+    <script src="../js/datepicker.js"></script>
     <!--[if lt IE 10]>
         <script src="../js/ie.placeholder.js"></script>
     <![endif]-->
@@ -167,7 +169,10 @@
                     <input type="text" class="search-field" placeholder="Куда" />
                 </div>
                 <div class="search-date-block js-start-date-block">
-                    <input type="text" class="search-date search-date-arr js-start-date" placeholder="Туда" />
+                    <input type="text" class="search-date search-date-arr" placeholder="Туда" />
+                    <div class="js-datepicker datepicker-body">
+                        
+                    </div>
                 </div>
                 <div class="search-date-block js-finish-date-block">
                     <input type="text" class="search-date search-date-dep js-finish-date" placeholder="Обратно" />
