@@ -5,7 +5,7 @@
 
             <h2 class="title">Пасажиры</h2>
             <div class="form-body">
-                <fieldset class="form-container" ng-repeat="passenger in payModel.passengers">
+                <fieldset class="form-container" ng-repeat="passenger in reservationModel.passengers">
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-block">
                             <label class="b-field-label">Пол</label>
@@ -60,7 +60,7 @@
 
             <div class="b-tickets-info-container">
                 <div class="b-tickets-ok">Ваши билеты забронированы</div>
-                <div class="b-tickets-sum">Сумма к оплате: <b>{{payModel.price| price}}</b> <span class="b-sum-rub">руб.</span></div>
+                <div class="b-tickets-sum">Сумма к оплате: <b>{{reservationModel.price| price}}</b> <span class="b-sum-rub">руб.</span></div>
                 <div class="b-tickets-info">
                     Авиабилеты нужно оплатить <b>до 19:00 часов, 24 марта 2014 года</b><div class="br"></div>
                     Для оплаты осталось: <b>1 час : 49 минут</b>
