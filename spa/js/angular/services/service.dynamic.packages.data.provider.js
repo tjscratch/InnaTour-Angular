@@ -48,11 +48,14 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
             getTicketsByCombination: function(hotelId, params, callback){
                 http(api.DYNAMIC_SEARCH_TICKETS, _.extend({Id: hotelId}, params), callback);
             },
-            hotelDetails: function(hotelId, providerId, callback){
+            hotelDetails: function(hotelId, providerId, ticketToId, ticketBackId, searchId, callback){
                 http(api.DYNAMIC_HOTEL_DETAILS, {
                     HotelId: hotelId,
                     HotelProviderId: providerId,
-                    ExtendRoomInfo: 'true'
+                    TicketToId: ticketToId,
+                    TicketBackId: ticketBackId,
+                    SearchId: searchId
+                    //ExtendRoomInfo: true
                 }, callback, true);
             }
         }
