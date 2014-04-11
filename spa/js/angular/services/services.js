@@ -23,6 +23,12 @@ innaAppServices.
             getAviaBuyItem: function () {
                 return angular.fromJson(sessionStorage.AviaBuyItem);
             },
+            setAviaOrderId: function (model) {
+                sessionStorage.OrderId = angular.toJson(model);
+            },
+            getAviaOrderId: function () {
+                return angular.fromJson(sessionStorage.OrderId);
+            },
             setAviaSearchResults: function (criteria, data) {
                 sessionStorage.AviaSearchResults = angular.toJson({ criteria: criteria, data: data });
             },
