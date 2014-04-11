@@ -2,69 +2,46 @@ innaAppDirectives.directive('datePickerWidget', [function(){
     return {
         templateUrl: '/spa/templates/components/date_picker_widget.html',
         scope: {
-            date: '=',
+            date1: '=',
+            date2: '=',
             minDate: '='
         },
         controller: ['$scope', '$timeout', function($scope, $timeout){
-            /*Methods*/
-            $scope.short = function(ddmmyy) {
-                if(!ddmmyy) return '';
+            /*Properties*/
+            $scope.isOpen = false;
 
-                var bits = ddmmyy.split('.');
+            /*Methods*/
+            $scope.short = function(date) {
+                if(!date) return '';
+
+                var bits = date.split('.');
                 return [bits[0], bits[1]].join('.');
             };
-
-            /*Watchers*/
-            $scope.$watch('minDate', function (newVal) {
-                var date;
-
-                if (newVal) {
-                    date = Date.fromDDMMYY(newVal);
-                } else {
-                    date = new Date();
-                }
-
-                $scope.uiWidget.datepicker("option", "minDate", date);
-            });
         }],
         link: function(scope, element, attrs){
-            var checker = scope.$eval(attrs.interval);
-            var caption = attrs.caption;
-            scope.uiWidget = $('.Calendar-input', element);
+            $('.js-datepicker', element).DatePicker({
+                flat: true,
+                date: new Date(),
+                calendars: 2,
+                mode: 'range',
+                format: 'd.m.Y',
+                starts: 1,
+                onChange: function(formated, dates){
+                    console.log(formated);
 
-            scope.uiWidget.datepicker({
-                minDate: scope.minDate && Date.fromDDMMYY(scope.minDate) || new Date(),
-                onSelect: function (dateText) {
-                    scope.$apply(function (scope) {
-                        scope.date = dateText;
+                    scope.$apply(function($scope){
+                        $scope.date1 = formated[0];
+                        $scope.date2 = formated[1];
                     });
-                },
-                afterShow: function(){
-                    var calendarNode = $('#'+$.datepicker._mainDivId);
-                    var headerNode = $("<div class='calendar-head'></div>");
-
-                    if(caption) {
-                        headerNode.prepend("<span class='caption'>" + caption + "</span>")
-                    }
-
-                    if(checker) {
-                        //TODO
-                    }
-
-                    calendarNode.prepend(headerNode);
                 }
             });
 
             $(document).click(function(event){
                 var isInsideComponent = !!$(event.target).closest(element).length;
 
-                if(isInsideComponent) {
-                    scope.uiWidget.datepicker("show");
-                    scope.uiWidget.focus();
-                } else {
-                    scope.uiWidget.datepicker("hide");
-                    scope.uiWidget.blur();
-                }
+                scope.$apply(function($scope){
+                    $scope.isOpen = isInsideComponent;
+                });
             });
         }
     }
