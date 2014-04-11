@@ -179,6 +179,7 @@
         color #fff !important
 
 .datepickerNotInMonth a
+.datePicker-unavailable a
     color #ACACAC !important
 
 .datepickerDays tr
@@ -240,3 +241,43 @@
 .datepickerGoNext a
     background url(../img/i.png) no-repeat 0 -532px
     margin-right 8px
+
+.datePicker-today a
+    border-color #89C13A
+
+.datepickerSelected-start a
+.datepickerSelected-End a
+    background #89c13a
+    color #fff !important
+    position relative
+
+.datepickerSelected-start a span
+.datepickerSelected-End a span
+    position absolute
+    font-size 18px
+    right 2px
+    top 1px
+    letter-spacing -.025em
+    line-height 1
+
+.datepickerSelected-start a:before
+.datepickerSelected-End a:before
+    display block
+    content ''
+    width 24px
+    height 22px
+    position absolute
+    left 1px
+    bottom 0
+
+.datepickerSelected-start a:before
+    background url(../img/1way.png) no-repeat
+
+.datepickerSelected-End a:before
+    background url(../img/2ways.png) no-repeat
+
+.datepicker-body
+    position absolute
+    left -10px
+    top 38px
+    z-index 900

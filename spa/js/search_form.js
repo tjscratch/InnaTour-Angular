@@ -99,5 +99,16 @@
             }
         });
 
+        // New Datepicker
+        $('.js-datepicker').DatePicker({
+            flat: true,
+            date: new Date(),
+            calendars: 2,
+            mode: 'range',
+            starts: 1,
+            onChange: function(formated, dates)
+                { console.log(formated, dates); }
+        });
+
     });
 })(jQuery);
