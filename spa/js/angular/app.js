@@ -103,23 +103,23 @@ var app = angular.module('innaApp', [
             templateUrl: '/spa/templates/pages/hotels_page.html',
             controller: 'HotelsCtrl'
         }).
-        //результаты поиска по отелям
-        when('/hotels/search/:FromCityUrl-:ToCountryUrl-:ToRegionUrl-:StartMinString-:StartDateVariance-:AdultNumber-:ChildAgesString-:DurationMin', {
-            templateUrl: '/AngularTemplates/Search',
-            controller: 'SearchResultCtrl'
-        }).
-        when('/hotel/:hotelId/:searchId', {
-            templateUrl: '/AngularTemplates/HotelDetail',
-            controller: 'HotelsDetailsCtrl'
-        }).
-        when('/hotel/:hotelId/:searchId/tour/:tourId', {
-            templateUrl: '/AngularTemplates/TourDetail',
-            controller: 'TourDetailsCtrl'
-        }).
-        when('/payment/:orderId', {
-            templateUrl: '/AngularTemplates/PaymentPage',
-            controller: 'PaymentPageCtrl'
-        }).
+        ////результаты поиска по отелям
+        //when('/hotels/search/:FromCityUrl-:ToCountryUrl-:ToRegionUrl-:StartMinString-:StartDateVariance-:AdultNumber-:ChildAgesString-:DurationMin', {
+        //    templateUrl: '/AngularTemplates/Search',
+        //    controller: 'SearchResultCtrl'
+        //}).
+        //when('/hotel/:hotelId/:searchId', {
+        //    templateUrl: '/AngularTemplates/HotelDetail',
+        //    controller: 'HotelsDetailsCtrl'
+        //}).
+        //when('/hotel/:hotelId/:searchId/tour/:tourId', {
+        //    templateUrl: '/AngularTemplates/TourDetail',
+        //    controller: 'TourDetailsCtrl'
+        //}).
+        //when('/payment/:orderId', {
+        //    templateUrl: '/AngularTemplates/PaymentPage',
+        //    controller: 'PaymentPageCtrl'
+        //}).
         when(app.URL_DYNAMIC_PACKAGES, {
             templateUrl: '/spa/templates/pages/dynamic_package_page.html',
             controller: 'DynamicPackageMordaCtrl'

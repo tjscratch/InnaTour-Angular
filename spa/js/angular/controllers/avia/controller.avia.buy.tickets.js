@@ -14,6 +14,13 @@ innaAppControllers.
                 $log.log(msg);
             }
 
+            $scope.showCitListClick = function () {
+                log('showCitListClick');
+            };
+
+            //нужно передать в шапку (AviaFormCtrl) $routeParams
+            $rootScope.$broadcast("avia.page.loaded", $routeParams);
+
             $scope.helloMsg = 'Привет из AviaBuyTicketsCtrl';
 
             //критерии из урла
@@ -22,6 +29,7 @@ innaAppControllers.
             $scope.item = null;
             $scope.citizenshipList = null;
             $scope.bonusCardTransportersList = null;
+            $scope.payModel = null;
 
             //$timeout(function () {
             //    loadToCountryAndInit(routeCriteria);
@@ -63,7 +71,7 @@ innaAppControllers.
 
             (function getStoreItem() {
                 var storeItem = storageService.getAviaBuyItem();
-                //log('storeItem: ' + angular.toJson(storeItem));
+                log('storeItem: ' + angular.toJson(storeItem));
                 if (storeItem != null) {
                     if (storeItem.item.VariantId2 == null)
                         storeItem.item.VariantId2 = 0;
@@ -104,7 +112,7 @@ innaAppControllers.
                         transportersNames.push(item.TransporterCode);
                     });
                 }
-                if ($scope.item.EtapsBack.length > 0) {
+                if ($scope.item.EtapsBack != null&& $scope.item.EtapsBack.length > 0) {
                     _.each($scope.item.EtapsBack, function (item) {
                         transportersNames.push(item.TransporterCode);
                     });
@@ -127,11 +135,12 @@ innaAppControllers.
 
             function initPayModel() {
 
-                var sexType = { man: 'man', woman: 'woman' };
+                var sexType = { man: 1, woman: 2 };
                 $scope.sexType = sexType;
 
                 function passengerModel(index) {
-                    var passengerModel = {
+                    var self = this;
+                    self = {
                         index: index,
                         sex: null,
                         name: '',
@@ -147,23 +156,53 @@ innaAppControllers.
                             number: '',//номер
                             expirationDate: ''//дествителен до
                         },
-                        haveBonusCard: false,//Есть бонусная карта
-                        airCompany: {
-                            id: 0,
-                            name: ''
-                        },
                         bonuscard: {
+                            haveBonusCard: false,//Есть бонусная карта
+                            airCompany: {
+                                id: 0,
+                                name: ''
+                            },
                             number: ''
-                        }
+                        },
+                        dir: {
+                            cit:{
+                                callback: null, //колбэк директивы на открытие списка гражданств
+                                saveDirCallback: function (cb) {
+                                    //директива передала колбэк на открытие списка, сохраняем колбэк
+                                    self.dir.cit.callback = cb;
+                                },
+                            },
+                            card: {
+                                callback: null, //колбэк директивы на открытие списка гражданств
+                                saveDirCallback: function (cb) {
+                                    //директива передала колбэк на открытие списка, сохраняем колбэк
+                                    self.dir.card.callback = cb;
+                                }
+                            }
+                        },
+                        showCitListClick: function ($event) {
+                            eventsHelper.preventBubbling($event);
+                            //открываем список в директиве
+                            if (self.dir.cit.callback)
+                                self.dir.cit.callback();
+                        },
+                        showCardListClick: function ($event) {
+                            eventsHelper.preventBubbling($event);
+                            //открываем список в директиве
+                            if (self.dir.card.callback)
+                                self.dir.card.callback();
+                        },
                     };
-                    return passengerModel;
+                    //log('passengerModel showCitListClick: ' + passengerModel.showCitListClick)
+                    return self;
                 }
 
 
                 var passengers = [];
                 var peopleCount = $scope.criteria.AdultCount;
                 for (var i = 0; i < peopleCount; i++) {
-                    passengers.push(passengerModel(i));
+                    var item = new passengerModel(i);
+                    passengers.push(item);
                 }
 
                 $scope.payModel = {
@@ -176,6 +215,8 @@ innaAppControllers.
                     passengers: passengers
 
                 };
+
+                fillDefaultModelDelay();
             };
 
             $scope.getTransferCountText = aviaHelper.getTransferCountText;
@@ -187,10 +228,85 @@ innaAppControllers.
             $scope.processToPayment = function ($event) {
                 eventsHelper.preventBubbling($event);
 
-                if (isAllDataLoaded()) {
-                    var url = UrlHelper.UrlToAviaTicketsBuyReserved($scope.criteria);
-                    //log('processToPayment, url: ' + url);
-                    $location.path(url);
+                function getPassenger(data) {
+                    var m = this;
+                    m = m || {};
+                    m.Sex = data.sex;
+                    m.I = data.name;
+                    m.F = data.secondName;
+                    m.Birthday = data.birthday;
+                    m.DocumentId = null;
+                    var docsn = data.document.series_and_number.split(' ');
+                    m.Series = docsn[0];
+                    m.Number = docsn[1];
+                    m.ExpirationDate = data.document.expirationDate;
+                    m.Citizen = data.citizenship.id;
+                    m.Index = data.index;
+                    m.BonusCard = data.bonuscard.number;
+                    return m;
                 }
+                function getApiModel(data) {
+                    var m = this;
+                    m = m || {};
+                    m.I = data.name;
+                    m.F = data.secondName;
+                    m.Email = data.email;
+                    m.Phone = data.phone;
+
+                    var pasList = [];
+                    _.each(data.passengers, function (item) {
+                        pasList.push(getPassenger(item));
+                    });
+                    m.Passengers = pasList;
+
+                    m.SearchParams = {
+                        SearchId: $scope.searchId,
+                        VariantId1: $scope.item.VariantId1,
+                        VariantId2: $scope.item.VariantId2
+                    };
+                    return m;
+                };
+                var apiModel = getApiModel($scope.payModel);
+                log('');
+                log('payModel: ' + angular.toJson($scope.payModel));
+                log('');
+                log('apiModel: ' + angular.toJson(apiModel));
+                //
+                paymentService.reserve(apiModel,
+                    function (data) {
+                    },
+                    function (data, status) {
+                    });
+
+                //if (isAllDataLoaded()) {
+                //    var url = UrlHelper.UrlToAviaTicketsBuyReserved($scope.criteria);
+                //    //log('processToPayment, url: ' + url);
+                //    $location.path(url);
+                //}
+            };
+
+
+            function fillDefaultModelDelay() {
+                $timeout(function () {
+                    $scope.payModel.name = 'Александр';
+                    $scope.payModel.secondName = 'Константинопольский';
+                    $scope.payModel.email = 'ratunkov@gmail.com';
+                    $scope.payModel.phone = '+7 (910) 123-45-67';
+                    _.each($scope.payModel.passengers, function (pas) {
+                        pas.name = 'ALEXANDER';
+                        pas.secondName = 'KONSTANTINOPLOLSKY';
+                        pas.sex = $scope.sexType.man;
+                        pas.birthday = '18.07.1976';
+                        pas.citizenship.id = 189;
+                        pas.citizenship.name = 'Россия';
+                        pas.document.series_and_number = '7712 3456789';
+                        pas.document.expirationDate = '18.07.1976';
+                        pas.bonuscard.haveBonusCard = true;
+                        pas.bonuscard.airCompany.id = 2;
+                        pas.bonuscard.airCompany.name = 'Aeroflot';
+                        pas.bonuscard.number = '12134а3454';
+                    });
+                    
+                }, 1000);
             };
         }]);
