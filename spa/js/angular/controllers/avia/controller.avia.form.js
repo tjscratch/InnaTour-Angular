@@ -9,8 +9,10 @@ innaAppControllers.
 
             var self = this;
             function log(msg) {
-                //$log.log(msg);
+                //$log.log.apply($log, arguments);
             }
+
+            var AVIA_COOK_NAME = "form_avia_cook";
 
             //флаг индикатор загрузки
             $scope.isDataLoading = false;
@@ -36,30 +38,105 @@ innaAppControllers.
             });
 
             //значения по-умобчанию
-            var defaultCriteria = getDefaultCriteria();
-            function getDefaultCriteria() {
+            (function getDefaultCriteria() {
                 //даты по-умолчанию: сегодня и +5 дней
-                var now = new Date();
-                var nowAdd5days = now.setDate(now.getDate() + 5);
+                var now = dateHelper.getTodayDate();
+                var nowAdd5days = dateHelper.getTodayDate();
+                nowAdd5days = nowAdd5days.setDate(now.getDate() + 5);
                 var f_now = $filter('date')(new Date(), 'dd.MM.yyyy');
                 var f_nowAdd5days = $filter('date')(nowAdd5days, 'dd.MM.yyyy');
                 //f_now = null;
                 //f_nowAdd5days = null;
 
-                return new aviaCriteria({
-                    "From": "Москва", "FromId": 6733, "FromUrl": "MOW",
-                    "To": "Мюнхен", "ToId": 1357, "ToUrl": "MUC",
-                    "BeginDate": f_now, "EndDate": f_nowAdd5days,
-                    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
-                    "PathType": 0
-                });
-
                 //return new aviaCriteria({
+                //    "From": "Москва", "FromId": 6733, "FromUrl": "MOW",
+                //    "To": "Мюнхен", "ToId": 1357, "ToUrl": "MUC",
                 //    "BeginDate": f_now, "EndDate": f_nowAdd5days,
                 //    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
                 //    "PathType": 0
                 //});
 
+                var defaultCriteria = getParamsFromCookie();
+
+                if (defaultCriteria == null) {
+                    defaultCriteria = new aviaCriteria({
+                        "BeginDate": f_now, "EndDate": f_nowAdd5days,
+                        "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
+                        "PathType": 0
+                    });
+                }
+
+                //проверка актуальности дат
+                if (defaultCriteria.BeginDate != null && defaultCriteria.BeginDate.length > 0) {
+                    var critDateFrom = dateHelper.dateToJsDate(defaultCriteria.BeginDate);
+                    if (critDateFrom < now) {
+                        log('cookie dates overriden by default dates: %s %s', f_now, f_nowAdd5days);
+                        defaultCriteria.BeginDate = f_now;
+                        defaultCriteria.EndDate = f_nowAdd5days;
+                    }
+                }
+
+                //установка дефолтных дат
+                if (defaultCriteria.BeginDate == null || defaultCriteria.BeginDate.length == 0)
+                {
+                    log('BeginDate, set default date');
+                    defaultCriteria.BeginDate = f_now;
+                }
+                if (defaultCriteria.EndDate == null || defaultCriteria.EndDate.length == 0) {
+                    log('EndDate, set default date');
+                    defaultCriteria.EndDate = f_nowAdd5days;
+                }
+
+                $scope.criteria = defaultCriteria;
+
+                //заполняем From To
+                setFromAndToFieldsFromUrl(defaultCriteria);
+            })();
+            
+            function getParamsFromCookie() {
+                var cookVal = $.cookie(AVIA_COOK_NAME);
+                var resCriteria = null;
+                log('getParamsFromCookie, cookVal: ' + cookVal);
+                if (cookVal != null) {
+                    var formVal = angular.fromJson(cookVal);
+
+                    resCriteria = {};
+                    resCriteria.FromUrl = formVal.FromUrl;
+                    resCriteria.ToUrl = formVal.ToUrl;
+                    resCriteria.BeginDate = formVal.BeginDate;
+                    resCriteria.EndDate = formVal.EndDate;
+                    resCriteria.AdultCount = formVal.AdultCount;
+                    resCriteria.ChildCount = formVal.ChildCount;
+                    resCriteria.InfantsCount = formVal.InfantsCount;
+                    resCriteria.CabinClass = formVal.CabinClass;
+                    resCriteria.IsToFlexible = formVal.IsToFlexible;
+                    resCriteria.IsBackFlexible = formVal.IsBackFlexible;
+                    resCriteria.PathType = formVal.PathType;
+                }
+                return resCriteria;
+            };
+
+            function saveParamsToCookie() {
+                var saveObj = {};
+                saveObj.FromUrl = $scope.criteria.FromUrl;
+                saveObj.ToUrl = $scope.criteria.ToUrl;
+                saveObj.BeginDate = $scope.criteria.BeginDate;
+                saveObj.EndDate = $scope.criteria.EndDate;
+                saveObj.AdultCount = $scope.criteria.AdultCount;
+                saveObj.ChildCount = $scope.criteria.ChildCount;
+                saveObj.InfantsCount = $scope.criteria.InfantsCount;
+                saveObj.CabinClass = $scope.criteria.CabinClass;
+                saveObj.IsToFlexible = $scope.criteria.IsToFlexible;
+                saveObj.IsBackFlexible = $scope.criteria.IsBackFlexible;
+                saveObj.PathType = $scope.criteria.PathType;
+
+                var cookVal = angular.toJson(saveObj);
+                log('saveParamsToCookie, cookVal: ' + cookVal);
+                //сохраняем сессионную куку
+                $.cookie(AVIA_COOK_NAME, cookVal);
+
+                var testVal = $.cookie(AVIA_COOK_NAME);
+                log('saveParamsToCookie, testVal: ' + testVal);
             };
 
             //добавляем в кэш откуда, куда
@@ -72,14 +149,13 @@ innaAppControllers.
             $scope.pathTypeList = [{ name: 'Туда обратно', value: 0 }, { name: 'Туда', value: 1 }];
 
             
-            //критерии из урла
-            $scope.criteria = defaultCriteria;
             //logCriteriaData();
             log('AviaFormCtrl defaultCriteria: ' + angular.toJson($scope.criteria));
 
             //тут меняем урл для поиска
             $scope.searchStart = function () {
                 if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0) {
+                    saveParamsToCookie();
                     //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
                     var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
                     $location.path(url);
