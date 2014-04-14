@@ -210,9 +210,9 @@ function TripKlass(val, display) {
     this.display = display;
 }
 
-TripKlass.ECONOM = 0;
+TripKlass.ECONOM = 1;
 
-TripKlass.BUSINESS = 1;
+TripKlass.BUSINESS = 2;
 
 TripKlass.options = [new TripKlass(TripKlass.ECONOM, 'Эконом'), new TripKlass(TripKlass.BUSINESS, 'Бизнес')];
 
