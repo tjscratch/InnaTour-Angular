@@ -1,10 +1,11 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
-        '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', '$routeParams',
-        function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams) {
+        '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard', '$routeParams',
+        function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams) {
             /*Private*/
             var searchParams = {};
             var cacheKey = '';
+            var AS_MAP_CACHE_KEY = 'serp-as-map';
 
             function loadTab() {
                 if($scope.show == $scope.HOTELS_TAB) {
@@ -70,6 +71,10 @@ innaAppControllers
                 if($scope.combination) loadTab();
             });
 
+            $scope.$watch('asMap', function(newVal) {
+                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
+            })
+
             /*Constants*/
             $scope.HOTELS_TAB = '/spa/templates/pages/dynamic_package_serp.hotels.html';
             $scope.TICKETS_TAB = '/spa/templates/pages/dynamic_package_serp.tickets.html';
@@ -83,7 +88,9 @@ innaAppControllers
             $scope.showLanding = true;
 
             $scope.show = $scope.HOTELS_TAB;
-            $scope.asMap = false;
+            $scope.asMap = !!DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
+
+
 
             /*Data fetching*/
             (function loadData(params){
