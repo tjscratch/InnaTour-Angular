@@ -45,6 +45,17 @@ innaAppControllers
                     if(!value) return true;
 
                     return (hotel.HotelName && hotel.HotelName.indexOf(value) !== -1);
+                },
+                Extra: function(hotel, value){
+                    var show = true;
+
+                    for(var option in value) if(value.hasOwnProperty(option)) {
+                        if(!value[option]) continue;
+
+                        show = show && hotel[option];
+                    }
+
+                    return show;
                 }
             }
 
