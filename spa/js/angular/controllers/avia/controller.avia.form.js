@@ -50,13 +50,13 @@ innaAppControllers.
                     "From": "Москва", "FromId": 6733, "FromUrl": "MOW",
                     "To": "Мюнхен", "ToId": 1357, "ToUrl": "MUC",
                     "BeginDate": f_now, "EndDate": f_nowAdd5days,
-                    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 100, "IsToFlexible": 0, "IsBackFlexible": 0,
+                    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
                     "PathType": 0
                 });
 
                 //return new aviaCriteria({
                 //    "BeginDate": f_now, "EndDate": f_nowAdd5days,
-                //    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 100, "IsToFlexible": 0, "IsBackFlexible": 0,
+                //    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
                 //    "PathType": 0
                 //});
 
@@ -67,7 +67,7 @@ innaAppControllers.
             //списки по-умолчанию
             $scope.adultCountList = [1, 2, 3, 4, 5, 6];
             $scope.childCountList = [0, 1, 2, 3, 4, 5, 6];
-            $scope.cabinClassList = [{ name: 'Эконом', value: 100 }, { name: 'Бизнес', value: 101 }];
+            $scope.cabinClassList = [{ name: 'Эконом', value: 0 }, { name: 'Бизнес', value: 1 }];
 
             $scope.pathTypeList = [{ name: 'Туда обратно', value: 0 }, { name: 'Туда', value: 1 }];
 
