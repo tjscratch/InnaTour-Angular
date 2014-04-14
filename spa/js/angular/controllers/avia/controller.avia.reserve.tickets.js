@@ -25,6 +25,8 @@ innaAppControllers.
             $scope.bonusCardTransportersList = null;
             $scope.reservationModel = null;
 
+            $scope.sexType = aviaHelper.sexType;
+
             //$timeout(function () {
             //    loadToCountryAndInit(routeCriteria);
             //}, 2000);
@@ -146,8 +148,6 @@ innaAppControllers.
             //data loading ===========================================================================
 
             function initPayModel() {
-
-                $scope.sexType = aviaHelper.sexType;
 
                 function passengerModel(index) {
                     var self = this;
@@ -318,26 +318,54 @@ innaAppControllers.
                 });
             };
 
+            var debugPassengersList = [
+                { name: 'IVAN', secondName: 'IVANOV', sex: $scope.sexType.man, birthday: '18.07.1976', series_and_number: '4507 048200' },
+                { name: 'TATIANA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '25.09.1978', series_and_number: '4507 048232' },
+                { name: 'SERGEY', secondName: 'IVANOV', sex: $scope.sexType.man, birthday: '12.07.2006', series_and_number: '4507 028530' },
+                { name: 'ELENA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '12.11.2013', series_and_number: '4507 018530' },
+            ];
+
             //ToDo: debug
             function fillDefaultModelDelay() {
                 $timeout(function () {
-                    $scope.reservationModel.name = 'Александр';
-                    $scope.reservationModel.secondName = 'Константинопольский';
-                    $scope.reservationModel.email = 'ratunkov@gmail.com';
+                    $scope.reservationModel.name = 'Иван';
+                    $scope.reservationModel.secondName = 'Иванов';
+                    $scope.reservationModel.email = 'ivan.ivanov@gmail.com';
                     $scope.reservationModel.phone = '+7 (910) 123-45-67';
+                    var index = 0;
                     _.each($scope.reservationModel.passengers, function (pas) {
-                        pas.name = 'ALEXANDER';
-                        pas.secondName = 'KONSTANTINOPLOLSKY';
-                        pas.sex = $scope.sexType.man;
-                        pas.birthday = '18.07.1976';
-                        pas.citizenship.id = 189;
-                        pas.citizenship.name = 'Россия';
-                        pas.document.series_and_number = '7712 3456789';
-                        pas.document.expirationDate = '18.07.1976';
-                        pas.bonuscard.haveBonusCard = true;
-                        pas.bonuscard.airCompany.id = 2;
-                        pas.bonuscard.airCompany.name = 'Aeroflot';
-                        pas.bonuscard.number = '12134а3454';
+
+                        if (index < debugPassengersList.length) {
+                            var debugItem = debugPassengersList[index];
+                            index++;
+
+                            pas.name = debugItem.name;
+                            pas.secondName = debugItem.secondName;
+                            pas.sex = debugItem.sex;
+                            pas.birthday = debugItem.birthday;
+                            pas.citizenship.id = 189;
+                            pas.citizenship.name = 'Россия';
+                            pas.document.series_and_number = debugItem.series_and_number;
+                            pas.document.expirationDate = '18.07.2015';
+                            pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
+                            pas.bonuscard.airCompany.id = 2;
+                            pas.bonuscard.airCompany.name = 'Aeroflot';
+                            pas.bonuscard.number = '12134а3454';
+                        }
+                        else {
+                            pas.name = 'IVAN';
+                            pas.secondName = 'IVANOV';
+                            pas.sex = $scope.sexType.man;
+                            pas.birthday = '18.07.1976';
+                            pas.citizenship.id = 189;
+                            pas.citizenship.name = 'Россия';
+                            pas.document.series_and_number = '4507 048200';
+                            pas.document.expirationDate = '18.07.2015';
+                            pas.bonuscard.haveBonusCard = true;
+                            pas.bonuscard.airCompany.id = 2;
+                            pas.bonuscard.airCompany.name = 'Aeroflot';
+                            pas.bonuscard.number = '12134а3454';
+                        }
                     });
                     
                 }, 1000);
