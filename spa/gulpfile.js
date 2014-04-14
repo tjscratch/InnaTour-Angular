@@ -9,7 +9,7 @@ var gulp = require('gulp'),
     less = require('gulp-less');
 
 gulp.task('styles', function () {
-    gulp.src(['styl/search.styl', 'styl/datepicker.styl', 'styl/results.styl', 'styl/buy.styl', 'styl/balloon.styl'])
+    gulp.src(['styl/search.styl', 'lib/datepicker/datepicker.css', 'styl/datepicker.styl', 'styl/results.styl', 'styl/buy.styl', 'styl/balloon.styl'])
         .pipe(concat('tickets.min.css'))
         .pipe(stylus({
             use: ['nib'],
