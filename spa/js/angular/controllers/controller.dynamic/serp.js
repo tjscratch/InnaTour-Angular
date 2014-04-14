@@ -85,10 +85,6 @@ innaAppControllers
             $scope.show = $scope.HOTELS_TAB;
             $scope.asMap = false;
 
-
-
-
-
             /*Data fetching*/
             (function loadData(params){
                 params.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(params.StartVoyageDate);

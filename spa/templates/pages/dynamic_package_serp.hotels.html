@@ -23,4 +23,4 @@
 
 <div dynamic-serp-map
      hotels="{{filteredHotels(hotelFilters)}}"
-     ng-show="asMap"></div>
+     ng-style="asMap ? {} : {position: 'absolute', left: '-9999px'}"></div>
