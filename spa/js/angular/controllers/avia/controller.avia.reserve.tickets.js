@@ -209,7 +209,7 @@ innaAppControllers.
                 }
 
                 var passengers = [];
-                var peopleCount = $scope.criteria.AdultCount;
+                var peopleCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + parseInt($scope.criteria.InfantsCount);
                 for (var i = 0; i < peopleCount; i++) {
                     var item = new passengerModel(i);
                     passengers.push(item);
