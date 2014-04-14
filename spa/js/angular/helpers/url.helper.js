@@ -137,14 +137,15 @@
                     + dl + criteria.AdultCount + dl + criteria.ChildCount + dl + criteria.InfantsCount + dl + criteria.CabinClass
                     + dl + criteria.IsToFlexible + dl + criteria.IsBackFlexible + dl + criteria.PathType;
 
-                if (criteria.QueryId > 0 && criteria.VariantId1 > 0) {
-                    res += dl + criteria.QueryId + dl + criteria.VariantId1 + dl + criteria.VariantId2;
-                }
+                return res;
+            },
 
+            UrlToAviaAddBuy: function (criteria) {
+                var dl = this.Delimiter;
+                var res = url;
                 if (criteria.OrderId > 0) {
                     res += dl + criteria.OrderId;
                 }
-
                 return res;
             },
             UrlToAviaMain: function (criteria) {
@@ -154,10 +155,17 @@
                 return appUrls.URL_AVIA_SEARCH + helper.UrlToAvia(criteria);
             },
             UrlToAviaTicketsReservation: function (criteria) {
-                return appUrls.URL_AVIA_RESERVATION + helper.UrlToAvia(criteria);;
+                var dl = this.Delimiter;
+                var res = appUrls.URL_AVIA_RESERVATION + helper.UrlToAvia(criteria);
+                res += dl + criteria.QueryId + dl + criteria.VariantId1 + dl + criteria.VariantId2;
+                return res;
             },
             UrlToAviaTicketsBuy: function (criteria) {
-                return appUrls.URL_AVIA_BUY + helper.UrlToAvia(criteria);;
+                var dl = this.Delimiter;
+                var res = appUrls.URL_AVIA_BUY + helper.UrlToAvia(criteria);
+                res += dl + criteria.QueryId + dl + criteria.VariantId1 + dl + criteria.VariantId2;
+                res += dl + criteria.OrderId;
+                return res;
             },
 
             UrlToSletatTours: function (city, country, resort, hotel, date, nightsMin, nightsMax, adults, kids, kids_ages) {
