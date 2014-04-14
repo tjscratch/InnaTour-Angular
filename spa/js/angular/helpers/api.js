@@ -1,12 +1,9 @@
 angular.module('innaApp.API', [])
     .factory('innaApp.API.const', function () {
         function url(s) {
-            window.DEV = false;
-            window.DEV2 = false;
-
             var host = app_main.host || 'http://api.test.inna.ru';
-            if (DEV) host = 'http://api.lh.inna.ru:8077';
-            if (DEV2) host = 'http://api.lh.inna.ru';
+            if (window.DEV) host = 'http://api.lh.inna.ru:8077';
+            if (window.DEV2) host = 'http://api.lh.inna.ru';
 
             return host + '/api/v1' + s;
         }
