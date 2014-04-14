@@ -66,6 +66,10 @@ innaAppControllers
                 $scope.hotelFilters[data.filter] = data.value;
             });
 
+            $scope.$watch('show', function(newVal, oldVal){
+                if($scope.combination) loadTab();
+            });
+
             /*Constants*/
             $scope.HOTELS_TAB = '/spa/templates/pages/dynamic_package_serp.hotels.html';
             $scope.TICKETS_TAB = '/spa/templates/pages/dynamic_package_serp.tickets.html';
@@ -79,10 +83,9 @@ innaAppControllers
             $scope.showLanding = true;
 
             $scope.show = $scope.HOTELS_TAB;
+            $scope.asMap = false;
 
-            $scope.$watch('show', function(newVal, oldVal){
-                if($scope.combination) loadTab();
-            });
+
 
 
 
@@ -112,8 +115,7 @@ innaAppControllers
 
             /*Methods*/
             $scope.filteredHotels = function(filters){
-                console.log('filteredHotels : filter = ', filters);
-                return _.filter($scope.hotels, function(hotel){
+                var hotelsToShow =  _.filter($scope.hotels, function(hotel){
                     var show = true;
 
                     $.each(filters, function(filter, value){
@@ -124,6 +126,8 @@ innaAppControllers
 
                     return show;
                 });
+
+                return hotelsToShow;
             }
 
             $scope.getHotelDetails = function(hotel){
