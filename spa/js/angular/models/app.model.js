@@ -210,7 +210,7 @@ function TripKlass(val, display) {
     this.display = display;
 }
 
-TripKlass.ECONOM = 2;
+TripKlass.ECONOM = 0;
 
 TripKlass.BUSINESS = 1;
 

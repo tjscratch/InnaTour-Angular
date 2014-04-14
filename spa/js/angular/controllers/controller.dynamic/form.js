@@ -1,8 +1,10 @@
 innaAppControllers
     .controller('DynamicFormCtrl', [
-        '$scope', 'DynamicPackagesDataProvider', '$rootScope', 'DynamicPackagesCacheWizard', 'Validators', '$location',
-        function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location){
+        '$scope', 'DynamicPackagesDataProvider', '$rootScope', 'DynamicPackagesCacheWizard', 'Validators', '$location', 'innaApp.Urls',
+        function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs){
             var routeParams = (function(path){
+                if(path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) === -1) return {};
+
                 path = path.split('/');
                 path = path[path.length - 1] || path[path.length - 2];
 
@@ -96,7 +98,7 @@ innaAppControllers
 
             $scope.$watch('klass', function(newVal){
                 newVal = newVal || TripKlass.options[0];
-                DynamicPackagesCacheWizard.put('klass', newVal.value)
+                DynamicPackagesCacheWizard.put('klass', newVal.value);
             });
 
 

@@ -1,10 +1,11 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
-        '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', '$routeParams',
-        function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams) {
+        '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard', '$routeParams',
+        function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams) {
             /*Private*/
             var searchParams = {};
             var cacheKey = '';
+            var AS_MAP_CACHE_KEY = 'serp-as-map';
 
             function loadTab() {
                 if($scope.show == $scope.HOTELS_TAB) {
@@ -45,6 +46,17 @@ innaAppControllers
                     if(!value) return true;
 
                     return (hotel.HotelName && hotel.HotelName.indexOf(value) !== -1);
+                },
+                Extra: function(hotel, value){
+                    var show = true;
+
+                    for(var option in value) if(value.hasOwnProperty(option)) {
+                        if(!value[option]) continue;
+
+                        show = show && hotel[option];
+                    }
+
+                    return show;
                 }
             }
 
@@ -54,6 +66,14 @@ innaAppControllers
             $scope.$on('inna.Dynamic.SERP.Hotel.Filter', function(event, data){
                 $scope.hotelFilters[data.filter] = data.value;
             });
+
+            $scope.$watch('show', function(newVal, oldVal){
+                if($scope.combination) loadTab();
+            });
+
+            $scope.$watch('asMap', function(newVal) {
+                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
+            })
 
             /*Constants*/
             $scope.HOTELS_TAB = '/spa/templates/pages/dynamic_package_serp.hotels.html';
@@ -68,10 +88,7 @@ innaAppControllers
             $scope.showLanding = true;
 
             $scope.show = $scope.HOTELS_TAB;
-
-            $scope.$watch('show', function(newVal, oldVal){
-                if($scope.combination) loadTab();
-            });
+            $scope.asMap = !!DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
 
 
 
@@ -101,8 +118,7 @@ innaAppControllers
 
             /*Methods*/
             $scope.filteredHotels = function(filters){
-                console.log('filteredHotels : filter = ', filters);
-                return _.filter($scope.hotels, function(hotel){
+                var hotelsToShow =  _.filter($scope.hotels, function(hotel){
                     var show = true;
 
                     $.each(filters, function(filter, value){
@@ -113,6 +129,8 @@ innaAppControllers
 
                     return show;
                 });
+
+                return hotelsToShow;
             }
 
             $scope.getHotelDetails = function(hotel){

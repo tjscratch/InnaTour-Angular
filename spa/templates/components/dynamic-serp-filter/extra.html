@@ -1,0 +1,6 @@
+<div style="border:1px solid blue;">
+    <h2>Фильтр по "Плюшкам"</h2>
+    <div ng-repeat="(option, value) in models">
+        <div ng-show="atLeastOne(option)"><input type="checkbox" ng-model="models[option]" ng-change="onChange(option)"> {{option}}</div>
+    </div>
+</div>

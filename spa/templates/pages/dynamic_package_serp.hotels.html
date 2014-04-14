@@ -1,4 +1,7 @@
 <h1>Hotels</h1>
+
+<div><button ng-click="asMap = !asMap">Карта/список</button></div>
+
 <div>
     <div dynamic-serp-filter-category
             hotels="hotels"></div>
@@ -6,12 +9,18 @@
          hotels="hotels"></div>
     <div dynamic-serp-filter-name
          hotels="hotels"></div>
+    <div dynamic-serp-filter-extra
+         hotels="hotels"></div>
 </div>
 
 
-<ul>
+<ul ng-show="!asMap">
     <li ng-repeat="hotel in filteredHotels(hotelFilters)" style="border:1px solid red;">
         {{hotel | json}}
         <button ng-click="getHotelDetails(hotel)">details</button>
     </li>
 </ul>
+
+<div dynamic-serp-map
+     hotels="{{filteredHotels(hotelFilters)}}"
+     ng-style="asMap ? {} : {position: 'absolute', left: '-9999px'}"></div>
