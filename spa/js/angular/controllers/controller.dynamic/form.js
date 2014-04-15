@@ -44,7 +44,9 @@ innaAppControllers
 
             $scope.provideSuggestToFromList = function(preparedText, rawText){
                 DynamicPackagesDataProvider.getFromListByTerm(preparedText, function(data){
-                    $scope.fromList = data;
+                    $scope.$apply(function($scope) {
+                        $scope.fromList = data;
+                    });
                 })
             }
 
@@ -63,7 +65,9 @@ innaAppControllers
 
 	        $scope.provideSuggestToToField = function(preparedText, rawText) {
                 DynamicPackagesDataProvider.getToListByTerm(preparedText, function(data){
-                    $scope.toList = data;
+                    $scope.$apply(function($scope) {
+                        $scope.toList = data;
+                    });
                 })
 	        }
 
