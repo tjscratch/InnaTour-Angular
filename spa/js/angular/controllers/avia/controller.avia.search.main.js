@@ -18,16 +18,12 @@ innaAppControllers.
             dataService.getSectionTours(params, function (data) {
                 //обновляем данные
                 if (data != null) {
-                    updateModel(data);
+                    $scope.sections = data.SectionLayouts;
+                    $scope.slides = data.Slider;
+                    sharedProperties.setSlider($scope.slides);
                 }
             });
 
-
-            function updateModel(data) {
-                $scope.sections = data.SectionLayouts;
-                $scope.slides = data.Slider;
-                sharedProperties.setSlider($scope.slides);
-            }
 
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams, true);
