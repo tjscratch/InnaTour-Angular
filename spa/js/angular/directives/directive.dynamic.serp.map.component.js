@@ -33,11 +33,12 @@ angular.module('innaApp.directives')
 
                             markers.push(new google.maps.Marker({
                                 position: pos,
-                                title: hotel.HotelName,
-                                map: map
+                                title: hotel.HotelName
                             }));
                         }
                     });
+
+                    new MarkerClusterer(map, markers, {gridSize: 20});
 
                     map.fitBounds(bounds);
                 });
