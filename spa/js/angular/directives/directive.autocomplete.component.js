@@ -38,8 +38,12 @@
                 if(newValue instanceof Error) {
                     $scope.result = oldValue;
 
-                    $scope.input.tooltip('enable');
-                    $scope.input.tooltip('open');
+                    $scope.input.tooltip({
+                        position: {
+                            my: 'center top+22',
+                            at: 'center bottom'
+                        }
+                    }).tooltip('open');
                 } else if(!$scope.input.val()) {
                     if(newValue != null && newValue != 'null' && $scope.askForData) {
                         $scope.askForData(newValue, function (data) {
@@ -67,7 +71,9 @@
                     $scope.fulfilled = false;
                 });
 
-                scope.input.tooltip('disable');
+                try{
+                    scope.input.tooltip('destroy');
+                } catch(e) {}
             });
 
             $(document).click(function(event){
@@ -79,16 +85,6 @@
                     $(event.target).select();
                 }
             });
-
-            /*Tooltip*/
-            scope.input.tooltip({
-                position: {
-                    my: 'center top+22',
-                    at: 'center bottom'
-                }
-            });
-
-            scope.input.tooltip('disable');
         }
     }
 }]);
