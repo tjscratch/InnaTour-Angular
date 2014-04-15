@@ -91,6 +91,12 @@
         var helper = {
             sexType: { man: 1, woman: 2 },
 
+            cabinClassList: [{ name: 'Эконом', value: 0 }, { name: 'Бизнес', value: 1 }],
+            getCabinClassName: function (value){
+                var res = _.find(helper.cabinClassList, function (item) { return item.value == value });
+                return res != null ? res.name : "";
+            },
+
             getTransferCountText: function (count) {
                 switch (count) {
                     case 0: return "пересадок";

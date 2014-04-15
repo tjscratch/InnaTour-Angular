@@ -30,6 +30,6 @@ innaAppControllers.
             }
 
             //нужно передать в шапку (AviaFormCtrl) $routeParams
-            $rootScope.$broadcast("avia.page.loaded", $routeParams);
+            $rootScope.$broadcast("avia.page.loaded", $routeParams, true);
         }
     ]);

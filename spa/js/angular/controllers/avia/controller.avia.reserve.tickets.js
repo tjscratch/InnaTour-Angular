@@ -26,6 +26,7 @@ innaAppControllers.
             $scope.reservationModel = null;
 
             $scope.sexType = aviaHelper.sexType;
+            $scope.helper = aviaHelper;
 
             //$timeout(function () {
             //    loadToCountryAndInit(routeCriteria);

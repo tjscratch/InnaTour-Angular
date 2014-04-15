@@ -4,12 +4,12 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaFormCtrl', ['$log', '$scope', '$rootScope', '$filter', '$location', 'dataService', 'cache', 'urlHelper',
-        function AviaFormCtrl($log, $scope, $rootScope, $filter, $location, dataService, cache, urlHelper) {
+    controller('AviaFormCtrl', ['$log', '$scope', '$rootScope', '$filter', '$location', 'dataService', 'cache', 'urlHelper', 'aviaHelper',
+        function AviaFormCtrl($log, $scope, $rootScope, $filter, $location, dataService, cache, urlHelper, aviaHelper) {
 
             var self = this;
             function log(msg) {
-                //$log.log.apply($log, arguments);
+                $log.log.apply($log, arguments);
             }
 
             var AVIA_COOK_NAME = "form_avia_cook";
@@ -18,43 +18,62 @@ innaAppControllers.
             $scope.isDataLoading = false;
 
             //$routeParams
-            $scope.$on('avia.page.loaded', function (event, $routeParams) {
-                log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams));
+            $scope.$on('avia.page.loaded', function (event, $routeParams, validateDate) {
+                log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams) + ' validateDate: ' + validateDate);
 
+                var routeCriteria = null;
                 //если пусто
                 if ($routeParams.FromUrl == null || $routeParams.BeginDate == null) {
                     log('$routeParams is empty');
-                    return;
+                    routeCriteria = getDefaultCriteria();
+                }
+                else {
+                    //критерии из урла
+                    routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
                 }
 
-                //критерии из урла
-                var routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
-
                 log('AviaFormCtrl routeCriteria: ' + angular.toJson(routeCriteria));
-                $scope.criteria = routeCriteria;
 
+                if (validateDate) {
+                    validateDates(routeCriteria);
+                }
+
+                $scope.criteria = routeCriteria;
                 //по url вытягиваем Id и name для города, региона и т.д.
                 setFromAndToFieldsFromUrl(routeCriteria);
             });
 
-            //значения по-умобчанию
-            (function getDefaultCriteria() {
+            function validateDates(crit) {
                 //даты по-умолчанию: сегодня и +5 дней
                 var now = dateHelper.getTodayDate();
                 var nowAdd5days = dateHelper.getTodayDate();
                 nowAdd5days = nowAdd5days.setDate(now.getDate() + 5);
                 var f_now = $filter('date')(new Date(), 'dd.MM.yyyy');
                 var f_nowAdd5days = $filter('date')(nowAdd5days, 'dd.MM.yyyy');
-                //f_now = null;
-                //f_nowAdd5days = null;
 
-                //return new aviaCriteria({
-                //    "From": "Москва", "FromId": 6733, "FromUrl": "MOW",
-                //    "To": "Мюнхен", "ToId": 1357, "ToUrl": "MUC",
-                //    "BeginDate": f_now, "EndDate": f_nowAdd5days,
-                //    "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
-                //    "PathType": 0
-                //});
+                //проверка актуальности дат
+                if (crit.BeginDate != null && crit.BeginDate.length > 0) {
+                    var critDateFrom = dateHelper.dateToJsDate(crit.BeginDate);
+                    if (critDateFrom < now) {
+                        log('cookie dates overriden by default dates: %s %s', f_now, f_nowAdd5days);
+                        crit.BeginDate = f_now;
+                        crit.EndDate = f_nowAdd5days;
+                    }
+                }
+            }
+
+            //значения по-умобчанию
+            $scope.criteria = getDefaultCriteria();
+            //заполняем From To
+            setFromAndToFieldsFromUrl($scope.criteria);
+
+            function getDefaultCriteria() {
+                //даты по-умолчанию: сегодня и +5 дней
+                var now = dateHelper.getTodayDate();
+                var nowAdd5days = dateHelper.getTodayDate();
+                nowAdd5days = nowAdd5days.setDate(now.getDate() + 5);
+                var f_now = $filter('date')(new Date(), 'dd.MM.yyyy');
+                var f_nowAdd5days = $filter('date')(nowAdd5days, 'dd.MM.yyyy');
 
                 var defaultCriteria = getParamsFromCookie();
 
@@ -67,14 +86,8 @@ innaAppControllers.
                 }
 
                 //проверка актуальности дат
-                if (defaultCriteria.BeginDate != null && defaultCriteria.BeginDate.length > 0) {
-                    var critDateFrom = dateHelper.dateToJsDate(defaultCriteria.BeginDate);
-                    if (critDateFrom < now) {
-                        log('cookie dates overriden by default dates: %s %s', f_now, f_nowAdd5days);
-                        defaultCriteria.BeginDate = f_now;
-                        defaultCriteria.EndDate = f_nowAdd5days;
-                    }
-                }
+                //проверка актуальности дат
+                validateDates(defaultCriteria);
 
                 //установка дефолтных дат
                 if (defaultCriteria.BeginDate == null || defaultCriteria.BeginDate.length == 0)
@@ -87,11 +100,8 @@ innaAppControllers.
                     defaultCriteria.EndDate = f_nowAdd5days;
                 }
 
-                $scope.criteria = defaultCriteria;
-
-                //заполняем From To
-                setFromAndToFieldsFromUrl(defaultCriteria);
-            })();
+                return defaultCriteria;
+            };
             
             function getParamsFromCookie() {
                 var cookVal = $.cookie(AVIA_COOK_NAME);
@@ -144,7 +154,7 @@ innaAppControllers.
             //списки по-умолчанию
             $scope.adultCountList = [1, 2, 3, 4, 5, 6];
             $scope.childCountList = [0, 1, 2, 3, 4, 5, 6];
-            $scope.cabinClassList = [{ name: 'Эконом', value: 0 }, { name: 'Бизнес', value: 1 }];
+            $scope.cabinClassList = aviaHelper.cabinClassList;
 
             $scope.pathTypeList = [{ name: 'Туда обратно', value: 0 }, { name: 'Туда', value: 1 }];
 

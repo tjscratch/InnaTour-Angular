@@ -88,9 +88,6 @@ innaAppControllers.
 
                 //флаг, когда нужно придержать обновление фильтра
                 $scope.isSuspendFilterWatch = false;
-
-                
-
             };
 
             function initWatch() {
