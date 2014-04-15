@@ -300,6 +300,27 @@ innaAppDirectives.directive('tooltipTitle', [function () {
     };
 }]);
 
+innaAppDirectives.directive('maskedInput', ['$parse', function ($parse) {
+    return {
+        link: function (scope, element, attrs) {
+            var m = attrs.mask;
+            element.mask(m);
+
+            //var ngModel = $parse(attrs.ngModel);
+
+            //element.mask(m, {
+            //    completed: function () {
+            //        var val = this.val();
+            //        console.log('completed, val: ' + val);
+            //        scope.$apply(function (scope) {
+            //            ngModel.assign(scope, val);
+            //        })
+            //    }
+            //});
+        }
+    };
+}]);
+
 //innaAppDirectives.directive('onTouch', function () {
 //    return {
 //        restrict: 'A',
