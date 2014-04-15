@@ -90,7 +90,7 @@ app.config([
                 controller: 'AviaSearchMainCtrl'
             }).
             when(url.URL_AVIA, {
-                templateUrl: '/spa/templates/pages/avia/search_form.html',
+                templateUrl: '/spa/templates/pages/tours_grid_page.html',
                 controller: 'AviaSearchMainCtrl'
             }).
             when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {

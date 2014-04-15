@@ -4,8 +4,8 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('ToursCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService', 'sharedProperties',
-        function ToursCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, sharedProperties) {
+    controller('ToursCtrl', ['$log', '$scope', '$rootScope', '$routeParams', 'dataService', 'sharedProperties',
+        function ToursCtrl($log, $scope, $rootScope, $routeParams, dataService, sharedProperties) {
             function log(msg) {
                 $log.log(msg);
             }
