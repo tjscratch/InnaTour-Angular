@@ -4,8 +4,9 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('IndividualToursCategoryCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$timeout', 'dataService', 'sharedProperties',
-        function IndividualToursCategoryCtrl($log, $scope, $rootScope, $routeParams, $filter, $timeout, dataService, sharedProperties) {
+    controller('IndividualToursCategoryCtrl', [
+        '$log', '$scope', '$rootScope', '$routeParams', '$location', 'dataService', 'sharedProperties',
+        function ($log, $scope, $rootScope, $routeParams, $location, dataService, sharedProperties) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -50,13 +51,15 @@ innaAppControllers.
                 $scope.isCountryOpened = !$scope.isCountryOpened;
                 preventBubbling($event);
             };
-            $scope.programmItemClick = function (item, $event) {
+            $scope.programmItemClick = function (item) {
                 $scope.filter.selectedProgramm = item;
+                $location.search('type', item.id);
                 applyFilter();
                 scrollToTop();
             };
-            $scope.countryItemClick = function (item, $event) {
+            $scope.countryItemClick = function (item) {
                 $scope.filter.selectedCountry = item;
+                $location.search('country', item.id);
                 applyFilter();
             };
 
@@ -112,6 +115,7 @@ innaAppControllers.
                 programsTypeList = _.uniq(programsTypeList, false, function (item) {
                     return item.id;
                 });
+
                 programsTypeList.unshift(new idNameItem(0, "Все"));
                 $scope.programsTypeList = programsTypeList;
 
@@ -126,14 +130,17 @@ innaAppControllers.
                 $scope.countriesList = countriesList;
 
                 //ставим выбранные
-                if ($scope.programsTypeList.length > 0)
-                    $scope.filter.selectedProgramm = $scope.programsTypeList[0];
-                if ($scope.countriesList.length > 0)
-                    $scope.filter.selectedCountry = $scope.countriesList[0];
+                $scope.filter.selectedProgramm = $location.search().type &&
+                    _.find($scope.programsTypeList, function(type){ return type.id == $location.search().type; }) ||
+                    $scope.programsTypeList[0];
+                $scope.filter.selectedCountry = $location.search().country &&
+                    _.find($scope.countriesList, function(country){ return country.id == $location.search().country }) ||
+                    $scope.countriesList[0];
 
-                //выводим сразу нефильтрованные значения
                 $scope.offersList = data.IndividualTourList;
-                $scope.filteredOffersList = $scope.offersList;
+
+
+                applyFilter();
 
                 $scope.slides = data.Slider;
                 //данные для слайдера - нужны другому контроллеру
@@ -177,4 +184,5 @@ innaAppControllers.
                     $scope.selectedCategory = $scope.rootCategory;
                 }
             };
-        }]);
+        }
+    ]);
