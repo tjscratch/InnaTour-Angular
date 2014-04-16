@@ -20,6 +20,8 @@ innaAppControllers.
             $scope.getSliderTimeFormat = aviaHelper.getSliderTimeFormat;
             $scope.getTransferCountText = aviaHelper.getTransferCountText;
 
+            $scope.helper = aviaHelper;
+
             var urlDataLoaded = { fromLoaded: false, toLoaded: false };
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {

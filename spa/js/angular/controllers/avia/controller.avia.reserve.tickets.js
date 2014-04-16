@@ -28,6 +28,61 @@ innaAppControllers.
             $scope.sexType = aviaHelper.sexType;
             $scope.helper = aviaHelper;
 
+            $scope.login = {
+                isOpened: false,
+                isLogged: false,
+                closeClick: function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    $scope.login.isOpened = false;
+                }
+            };
+
+            $scope.validation = {
+                searchPressed: false,
+                list: ['name', 'secName', 'email', 'phone'],
+                listPopup: ['email', 'phone'],
+                setDirtyAll: function () {
+                    //сбрасываем чистость, все становится красным
+                    _.each($scope.validation.list, function (item) {
+                        $scope.f[item].$pristine = false;
+                    });
+                },
+                change: function (state)
+                {
+                    var elName = state.$name;
+                    //log('tooltip change: ' + elName);
+                    if (state.$valid)
+                    {
+                        $scope.validation.hide(elName);
+                    }
+                },
+                show: function (elName) {
+                    //log('tooltip show: ' + elName);
+                    var sel = "input[name=" + elName + "]";
+                    var $to = $(sel);
+                    //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+                    $to.tooltip("enable");
+                    $to.tooltip("open");
+                },
+                hide: function (elName) {
+                    //log('tooltip hide: ' + elName);
+                    var sel = "input[name=" + elName + "]";
+                    var $to = $(sel);
+                    //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+                    $to.tooltip("disable");
+                }
+            };
+
+            //$scope.$watch('reservationModel.name', function (newVal, oldVal) {
+                
+            //    log('reservationModel.name watch, reservationModel.name isValid: ' + $scope.f.name.$valid);
+            //    if ($scope.f.name.$invalid && !$scope.f.name.$pristine)
+            //        $scope.validation.show('name');
+            //    else if ($scope.f.name.$valid)
+            //        $scope.validation.hide('name');
+
+            //}, true);
+
             //$timeout(function () {
             //    loadToCountryAndInit(routeCriteria);
             //}, 2000);
@@ -308,6 +363,23 @@ innaAppControllers.
             $scope.processToPayment = function ($event) {
                 eventsHelper.preventBubbling($event);
 
+                //сбрасываем чистость, все становится красным
+                $scope.validation.setDirtyAll();
+
+                //показываем попап на первом неправильном поле
+                if ($scope.f.$invalid) {
+                    for (var i = 0; i < $scope.validation.list.length; i++) {
+                        var fieldName = $scope.validation.list[i];
+                        var item = $scope.f[fieldName];
+                        if (item.$invalid && item.$viewValue != null && item.$viewValue.length > 0) {
+                            $scope.validation.show(fieldName);
+                            return;
+                        }
+                    }
+                    
+                    return;
+                }
+
                 //бронируем
                 reserve(function () {
                     if (isAllDataLoaded()) {
@@ -332,7 +404,7 @@ innaAppControllers.
                     $scope.reservationModel.name = 'Иван';
                     $scope.reservationModel.secondName = 'Иванов';
                     $scope.reservationModel.email = 'ivan.ivanov@gmail.com';
-                    $scope.reservationModel.phone = '+7 (910) 123-45-67';
+                    $scope.reservationModel.phone = '+79101234567';
                     var index = 0;
                     _.each($scope.reservationModel.passengers, function (pas) {
 
@@ -369,6 +441,8 @@ innaAppControllers.
                         }
                     });
                     
-                }, 1000);
+                    //$scope.login.isOpened = true;
+                    //$scope.login.isLogged = true;
+                }, 500000);
             };
         }]);

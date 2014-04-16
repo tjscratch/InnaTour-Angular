@@ -12,11 +12,15 @@
         cursor: default;
         background-color: #edeff0;
     }
+    .ui-tooltip {
+        background-color: #de0000;
+        z-index: 0;
+    }
 </style>
 <!-- Search Results -->
 <div class="results-body">
     <div class="results-container results-container__tickets" style="padding-top: 190px;">
-        <form action="" class="b-tickets-form">
+        <form name="f" action="" class="b-tickets-form">
             <h1 class="title">Оплата авиабилетов</h1>
 
             <div class="rl-item rl-item-payment" ng-show="item != null">
@@ -95,27 +99,34 @@
                     <div class="b-field-group">
                         <div class="b-field-block b-field-block-130">
                             <label class="b-field-label">Имя</label>
-                            <input type="text" ng-model="reservationModel.name" placeholder="Иван" class="b-field-text">
+                            <input tooltip title="Нужно ввести имя" name="name" type="text" ng-change="validation.change(f.name)"
+                                   ng-model="reservationModel.name" required ng-class="{error:f.name.$invalid && !f.name.$pristine }"  placeholder="Иван" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-190">
                             <label class="b-field-label">Фамилия</label>
-                            <input type="text" ng-model="reservationModel.secondName" placeholder="Иванов" class="b-field-text error">
+                            <input tooltip title="Нужно ввести фамилию" name="secName" type="text" ng-change="validation.change(f.secName)"
+                                   ng-model="reservationModel.secondName" required ng-class="{error:f.secName.$invalid && !f.secName.$pristine }" placeholder="Иванов" class="b-field-text">
                         </div>
-                        <div class="b-field-block b-field-block-290 b-field-block-auth">
+                        <div class="b-field-block b-field-block-290" ng-class="{'b-field-block-auth':login.isLogged && (f.email.$valid || f.email.$pristine)}">
                             <label class="b-field-label">E-mail</label>
-                            <input type="text" ng-model="reservationModel.email" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
-                            <div class="b-auth">
-                                <a href="#" class="b-auth-close"></a>
+                            <input tooltip title="Неправильно введен email" name="email" type="email" ng-change="validation.change(f.email)"
+                                   ng-model="reservationModel.email" required ng-pattern="/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,63})+$/"
+                                   ng-class="{error:f.email.$invalid && !f.email.$pristine}" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
+                            <div class="b-auth" ng-show="login.isOpened">
+                                <a ng-href="#" ng-click="login.closeClick($event)" class="b-auth-close"></a>
                                 <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
-                                <a href="#" class="button b-auth-button">Войти</a>
+                                <a ng-href="#" class="button b-auth-button">Войти</a>
                             </div>
                         </div>
                         <div class="b-field-block b-field-block-290">
                             <label class="b-field-label">Мобильный телефон</label>
-                            <input type="text" ng-model="reservationModel.phone" placeholder="+7 (123) 123-45-67" class="b-field-text">
+                            <input tooltip title="Неправильно введен мобильный телефон" name="phone" type="text" ng-change="validation.change(f.phone)"
+                                   ng-model="reservationModel.phone" required ng-minlength="12" ng-maxlength="21"
+                                   ng-class="{error:f.phone.$invalid && !f.phone.$pristine}"
+                                   masked-input mask="+99999999999?999999999" placeholder="+74951234567" class="b-field-text">
                         </div>
                     </div>
-                    <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div>
+                    <!--<div ng-show="(f.name.$invalid && !f.name.$pristine) || (f.secName.$invalid && !f.secName.$pristine) || (f.email.$invalid && !f.email.$pristine) || (f.phone.$invalid && !f.phone.$pristine)" class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div>-->
                     <label class="b-agreement"><input type="checkbox"><ins class="b-checkbox"></ins>Я хочу получать рассылку спецпредложений</label>
                 </fieldset>
             </div>
@@ -125,18 +136,18 @@
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-block">
                             <label class="b-field-label">Пол</label>
-                            <ul class="radio-list " ng-class="{error:passenger.sex == null}">
+                            <ul class="radio-list " ng-class="{error:passenger.sex == null && !f.male3.$pristine }">
                                 <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.man" ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}"><ins class="radio">М</ins></label></li>
                                 <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.woman" ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}"><ins class="radio">Ж</ins></label></li>
                             </ul>
                         </div>
                         <div class="b-field-block b-field-block-120">
                             <label class="b-field-label">Имя (латиницей)</label>
-                            <input type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
+                            <input name="pasName" type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-195 b-field-block-surname">
                             <label class="b-field-label">Фамилия (латиницей)</label>
-                            <input type="text" ng-model="passenger.secondName" placeholder="IVANOV" class="b-field-text">
+                            <input name="pasSecName" type="text" ng-model="passenger.secondName" placeholder="IVANOV" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-94">
                             <label class="b-field-label">Дата рождения</label>
