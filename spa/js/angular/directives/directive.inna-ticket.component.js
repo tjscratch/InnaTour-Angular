@@ -10,6 +10,9 @@ angular.module('innaApp.directives')
                 var daysOfWeek = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
                 var months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
 
+                $scope.collectCompanies = function(){
+                    return [1, 2, 3];
+                }
 
                 $scope.isoDateTimeString2time = function(isoDateTimeString) {
                     var bits = isoDateTimeString.split('T')[1].split(':');
