@@ -38,7 +38,15 @@ innaAppControllers.
             };
 
             $scope.validation = {
+                searchPressed: false,
                 list: ['name', 'secName', 'email', 'phone'],
+                listPopup: ['email', 'phone'],
+                setDirtyAll: function () {
+                    //сбрасываем чистость, все становится красным
+                    _.each($scope.validation.list, function (item) {
+                        $scope.f[item].$pristine = false;
+                    });
+                },
                 change: function (state)
                 {
                     var elName = state.$name;
@@ -352,15 +360,19 @@ innaAppControllers.
                     });
             };
 
-            $scope.processToPayment = function ($event, formState) {
+            $scope.processToPayment = function ($event) {
                 eventsHelper.preventBubbling($event);
 
+                //сбрасываем чистость, все становится красным
+                $scope.validation.setDirtyAll();
+
                 //показываем попап на первом неправильном поле
-                if (formState.$invalid) {
+                if ($scope.f.$invalid) {
                     for (var i = 0; i < $scope.validation.list.length; i++) {
-                        var item = $scope.validation.list[i];
-                        if (formState[item].$invalid) {
-                            $scope.validation.show(item);
+                        var fieldName = $scope.validation.list[i];
+                        var item = $scope.f[fieldName];
+                        if (item.$invalid && item.$viewValue != null && item.$viewValue.length > 0) {
+                            $scope.validation.show(fieldName);
                             return;
                         }
                     }
@@ -431,6 +443,6 @@ innaAppControllers.
                     
                     //$scope.login.isOpened = true;
                     //$scope.login.isLogged = true;
-                }, 5000);
+                }, 500000);
             };
         }]);
