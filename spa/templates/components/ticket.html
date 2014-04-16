@@ -1,8 +1,8 @@
 <div class="b-ticket">
     <div class="b-ticket__info">
         <!-- todo change to iterator-->
-        <ul class="b-ticket__companies b-ticket__companies_dir_{{dir}}" ng-repeat="collectCompanies()">
-            <div class="b-ticket-company">
+        <ul class="b-ticket__companies">
+            <div class="b-ticket-company" ng-repeat="company in collectCompanies()">
                 <img src="http://upload.wikimedia.org/wikipedia/kv/0/0b/Aeroflot_logo.png">
             </div>
         </ul>
