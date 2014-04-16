@@ -1,16 +1,27 @@
 <div class="b-ticket">
     <div class="b-ticket__info">
+        <!-- todo change to iterator-->
         <div class="b-ticket__company"><img src="http://upload.wikimedia.org/wikipedia/kv/0/0b/Aeroflot_logo.png"></div>
-        <div class="b-ticket-flight">
+
+        <div class="b-ticket-flight" ng-repeat="dir in ['To', 'Back']">
             <div class="b-ticket-flight__from">
-                <div class="b-ticket-flight__date"><span class="b-ticket-flight__date-time">20:00</span> 26 sept, sat</div>
-                <div class="b-ticket-flight__airport">Moscow (MOW)</div>
+                <div class="b-ticket-flight__date">
+                    <span class="b-ticket-flight__date-time">{{isoDateTimeString2time(ticket[dir].DepartureDateTime)}}</span> {{isoDateTimeString2date(ticket[dir].DepartureDateTime)}}, {{isoDateTimeString2day(ticket[dir].DepartureDateTime)}}
+                </div>
+                <div class="b-ticket-flight__airport">{{ticket[dir].Departure.City}} ({{ticket[dir].Departure.AirportCode}})</div>
             </div>
             <div class="b-ticket-flight__way">
-                <div class="b-ticket-glight__way-time">24 h 10 m</div>
-                <div class="b-ticket-flight__way-jumps">2 jumps</div>
+                <div class="b-ticket-glight__way-time">В пути: {{duration(ticket[dir].Legs)}}</div>
+                <div class="b-ticket-flight__way-jumps">Пересадок: {{ticket[dir].Legs.length}}</div>
+            </div>
+            <div class="b-ticket-flight__to">
+                <div class="b-ticket-flight__date">
+                    <span class="b-ticket-flight__date-time">{{isoDateTimeString2time(ticket[dir].ArrivalDateTime)}}</span> {{isoDateTimeString2date(ticket[dir].ArrivalDateTime)}}, {{isoDateTimeString2day(ticket[dir].ArrivalDateTime)}}
+                </div>
+                <div class="b-ticket-flight__airport">{{ticket[dir].Arrival.City}} ({{ticket[dir].Arrival.AirportCode}})</div>
             </div>
         </div>
+
         <div class="b-ticket-extra b-ticket-extra_message_last">Last 3 seats</div>
         <div class="b-ticket-moar">Moar!</div>
     </div>
