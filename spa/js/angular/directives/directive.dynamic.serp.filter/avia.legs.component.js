@@ -9,8 +9,24 @@ angular.module('innaApp.directives')
                 controller: [
                     '$scope',
                     function($scope){
-                        $scope.$watchCollection('tickets', function(newVal){
+                        $scope.options = [{
+                            title: 'Прямой',
+                            show: false,
+                            comparator: function(l){ return l == 1; }
+                        }, {
+                            title: '1 пересадка',
+                            show: false,
+                            comporator: function(l){ return l == 2; }
+                        }, {
+                            title: '2+ пересадки',
+                            show: false
+                            comparator: function(l) { return l > 2; }
+                        }]
 
+                        $scope.$watchCollection('tickets', function(newVal){
+                            _.each($scope.options, function(option){
+
+                            });
                         });
                     }
                 ]
