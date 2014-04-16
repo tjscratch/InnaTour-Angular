@@ -58,7 +58,13 @@ innaAppControllers
 
                     return show;
                 }
+            };
+
+            function doesTicketFit(ticket, filter, value) {
+                return doesTicketFit.comparators[filter](hotel, value);
             }
+
+            doesTicketFit.comparators = {};
 
             /*EventListener*/
             DynamicFormSubmitListener.listen();
@@ -148,6 +154,8 @@ innaAppControllers
 
                     $.each(filters, function(filter, value){
                         show = show && doesTicketFit(ticket, filter, value);
+
+                        return show;
                     });
 
                     return show;
