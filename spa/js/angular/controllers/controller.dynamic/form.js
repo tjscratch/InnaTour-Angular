@@ -24,6 +24,15 @@ innaAppControllers
                 Validators.defined($scope.fromCurrent, Error('fromCurrent'));
                 Validators.defined($scope.toCurrent, Error('toCurrent'));
                 Validators.notEqual($scope.fromCurrent, $scope.toCurrent, Error('toCurrent'));
+
+                var children = _.partition($scope.childrensAge, function(ageSelector){ return ageSelector.value < 2;});
+                var infants = children[0].length;
+                children = children[1].length;
+                var separatedInfants = infants - $scope.adultCount;
+                if(separatedInfants < 0) separatedInfants = 0;
+                console.log('adults = %s, children = %s, separatedInfants = %s, sum = %s', $scope.adultCount, children, separatedInfants, $scope.adultCount + children + separatedInfants);
+
+                if(+$scope.adultCount + children + separatedInfants > 6) throw Error('adultCount');
             }
 
             $scope.loadObjectById = function(id, callback){
@@ -35,7 +44,9 @@ innaAppControllers
 
             $scope.provideSuggestToFromList = function(preparedText, rawText){
                 DynamicPackagesDataProvider.getFromListByTerm(preparedText, function(data){
-                    $scope.fromList = data;
+                    $scope.$apply(function($scope) {
+                        $scope.fromList = data;
+                    });
                 })
             }
 
@@ -54,7 +65,9 @@ innaAppControllers
 
 	        $scope.provideSuggestToToField = function(preparedText, rawText) {
                 DynamicPackagesDataProvider.getToListByTerm(preparedText, function(data){
-                    $scope.toList = data;
+                    $scope.$apply(function($scope) {
+                        $scope.toList = data;
+                    });
                 })
 	        }
 

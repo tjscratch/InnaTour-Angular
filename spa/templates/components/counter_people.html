@@ -1,6 +1,6 @@
 <div class="search-form-item search-form-humans" ng-click="peopleFormClick($event)">
-    <div class="search-form-item-current">
-        {{adultCount + childrenCount}} человек
+    <div class="search-form-item-current" title="Колчиство пассажиров с местом может быть не больше 6">
+        {{sum(adultCount, childrenCount)}} человек
     </div>
     <i class="icon icon-triangle" ng-class="{bottom:!isOpen}"></i>
     <div class="search-form-human-dialog" style="display:block;" ng-show="isOpen">
@@ -32,6 +32,6 @@
     <div class="child-years-select-value">{{selector.value}}</div>
     <i class="icon icon-triangle" ng-class="{bottom: !isOpen}"></i>
     <ul class="search-form-list" ng-show="isOpen">
-        <li class="search-form-list-item" ng-repeat="age in range(0, 5)" ng-click="onChoose(age)">{{age}}</li>
+        <li class="search-form-list-item" ng-repeat="age in range(0, 17)" ng-click="onChoose(age)">{{age}}</li>
     </ul>
 </script>

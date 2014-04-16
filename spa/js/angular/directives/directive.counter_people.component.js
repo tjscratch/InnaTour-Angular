@@ -21,9 +21,11 @@ innaAppDirectives.directive('counterPeople', [function(){
             $scope.onCounterClick = function(model, count){
                 $scope[model] = count;
 
-                $scope.childrensAge = [];
-                for(var i = 0; i < $scope.childrenCount; i++) {
-                    $scope.childrensAge.push(new ChildAgeSelector());
+                if(model == 'childrenCount') {
+                    $scope.childrensAge = [];
+                    for(var i = 0; i < $scope.childrenCount; i++) {
+                        $scope.childrensAge.push(new ChildAgeSelector());
+                    }
                 }
             }
 
@@ -31,8 +33,35 @@ innaAppDirectives.directive('counterPeople', [function(){
                 var selector = $scope.childrensAge[num];
                 selector.isOpen = !selector.isOpen;
             }
+
+            $scope.sum = function(a, b){
+                return +a + +b;
+            }
+
+            /*Watchers*/
+            $scope.$watch('adultCount', function(newValue, oldValue){
+                if(newValue instanceof Error) {
+                    $scope.adultCount = oldValue;
+
+                    $scope.rootElement.tooltip({
+                        position: {
+                            my: 'center top+22',
+                            at: 'center bottom'
+                        }
+                    });
+                    $scope.rootElement.tooltip('open');
+                }
+            });
+
+            $scope.$watch('isOpen', function(newValue){
+                if(newValue === true) try {
+                    $scope.rootElement.tooltip('destroy');
+                } catch(e) {}
+            });
         }],
         link: function(scope, element, attrs){
+            scope.rootElement = $('.search-form-item-current', element);
+
             $(document).click(function bodyClick(event){
                 var isInsideComponent = !!$(event.target).closest(element).length;
 
