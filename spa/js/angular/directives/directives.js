@@ -321,6 +321,55 @@ innaAppDirectives.directive('maskedInput', ['$parse', function ($parse) {
     };
 }]);
 
+innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', function ($rootScope, $parse) {
+    return {
+        require: 'ngModel',
+        scope: {
+            ngValidationModel: '=',
+            validateType: '=',
+            validate: '&'
+        },
+        link: function ($scope, element, attrs, ngModel) {
+            var $elem = $(element);
+
+            function validate() {
+                $scope.validate({ model: $scope.ngValidationModel, type: $scope.validateType });
+            };
+
+            $elem.on('blur', function () {
+                validate();
+            //}).on('change', function () {
+            //    validateThrottled();
+            }).on('keypress', function (event) {
+                var theEvent = event || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+                if (key == 13) {//enter
+                    validate();
+                }
+            });
+
+
+            //обновляем раз в 300мс
+            var validateThrottled = _.debounce(function () {
+                applyValidateDelayed();
+            }, 300);
+
+            var applyValidateDelayed = function () {
+                $scope.$apply(function () {
+                    validate();
+                });
+
+            };
+
+            //мониторим изменения ngModel
+            $scope.$watch(function () { return ngModel.$modelValue; }, function (newVal, oldVal) {
+                //validateThrottled();
+                validate();
+            }, true);
+        }
+    };
+}]);
+
 //innaAppDirectives.directive('onTouch', function () {
 //    return {
 //        restrict: 'A',

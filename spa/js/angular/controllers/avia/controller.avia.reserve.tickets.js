@@ -5,9 +5,9 @@
 
 innaAppControllers.
     controller('AviaReserveTicketsCtrl', ['$log', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper',
+        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'Validators',
         function AviaReserveTicketsCtrl($log, $timeout, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper) {
+            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators) {
 
             var self = this;
             function log(msg) {
@@ -23,7 +23,7 @@ innaAppControllers.
             $scope.item = null;
             $scope.citizenshipList = null;
             $scope.bonusCardTransportersList = null;
-            $scope.reservationModel = null;
+            $scope.model = null;
 
             $scope.sexType = aviaHelper.sexType;
             $scope.helper = aviaHelper;
@@ -37,51 +37,122 @@ innaAppControllers.
                 }
             };
 
-            $scope.validation = {
-                searchPressed: false,
-                list: ['name', 'secName', 'email', 'phone'],
-                listPopup: ['email', 'phone'],
-                setDirtyAll: function () {
-                    //сбрасываем чистость, все становится красным
-                    _.each($scope.validation.list, function (item) {
-                        $scope.f[item].$pristine = false;
-                    });
-                },
-                change: function (state)
-                {
-                    var elName = state.$name;
-                    //log('tooltip change: ' + elName);
-                    if (state.$valid)
-                    {
-                        $scope.validation.hide(elName);
-                    }
-                },
-                show: function (elName) {
-                    //log('tooltip show: ' + elName);
-                    var sel = "input[name=" + elName + "]";
-                    var $to = $(sel);
-                    //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
-                    $to.tooltip("enable");
-                    $to.tooltip("open");
-                },
-                hide: function (elName) {
-                    //log('tooltip hide: ' + elName);
-                    var sel = "input[name=" + elName + "]";
-                    var $to = $(sel);
-                    //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
-                    $to.tooltip("disable");
+            var validateType = {
+                required: 'required',
+                email: 'email',
+                phone: 'phone'
+            };
+            $scope.validateType = validateType;
+
+            function getValidationItem(key, value, type) {
+                return {
+                    id: _.uniqueId(),
+                    key: key,
+                    value: value,
+                    isValid: true,
+                    isInvalid: false,
+                    validationType: null
                 }
             };
 
-            //$scope.$watch('reservationModel.name', function (newVal, oldVal) {
-                
-            //    log('reservationModel.name watch, reservationModel.name isValid: ' + $scope.f.name.$valid);
-            //    if ($scope.f.name.$invalid && !$scope.f.name.$pristine)
-            //        $scope.validation.show('name');
-            //    else if ($scope.f.name.$valid)
-            //        $scope.validation.hide('name');
+            function updateValidationModel()
+            {
+                function tryValidate(model, fn) {
+                    try {
+                        fn();
+                        model.isValid = true;
+                        model.isInvalid = false;
+                    }
+                    catch (err) {
+                        model.isValid = false;
+                        model.isInvalid = true;
+                    }
+                    log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid);
+                };
 
-            //}, true);
+                $scope.validate = function (model, type) {
+                    if (model != null) {
+                        //сохраняем тип валидации
+                        model.validationType = type;
+                        switch (type) {
+                            case validateType.required:
+                                {
+                                    tryValidate(model, function () {
+                                        Validators.defined(model.value, 'err');
+                                    });
+                                    break;
+                                }
+                            case validateType.email:
+                                {
+                                    tryValidate(model, function () {
+                                        Validators.email(model.value, 'err');
+                                    });
+                                    break;
+                                }
+                            case validateType.phone:
+                                {
+                                    tryValidate(model, function () {
+                                        Validators.phone(model.value, 'err');
+                                    });
+                                    break;
+                                }
+                        }
+                    }
+                };
+
+                //основная модель для валидации
+                $scope.validationModel = {
+                    pureModel: true//модель не проверялась
+                };
+
+                //создаем поля из модели данных
+                var keys = _.keys($scope.model);
+                _.each(keys, function (key) {
+                    $scope.validationModel[key] = getValidationItem(key, $scope.model[key]);
+                });
+            }
+            updateValidationModel();
+
+            $scope.$watch('model', function (newVal, oldVal) {
+                updateValidationModel();
+            }, true);
+
+
+            //$scope.validation = {
+            //    searchPressed: false,
+            //    list: ['name', 'secName', 'email', 'phone'],
+            //    listPopup: ['email', 'phone'],
+            //    setDirtyAll: function () {
+            //        //сбрасываем чистость, все становится красным
+            //        _.each($scope.validation.list, function (item) {
+            //            $scope.f[item].$pristine = false;
+            //        });
+            //    },
+            //    change: function (state)
+            //    {
+            //        var elName = state.$name;
+            //        //log('tooltip change: ' + elName);
+            //        if (state.$valid)
+            //        {
+            //            $scope.validation.hide(elName);
+            //        }
+            //    },
+            //    show: function (elName) {
+            //        //log('tooltip show: ' + elName);
+            //        var sel = "input[name=" + elName + "]";
+            //        var $to = $(sel);
+            //        //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+            //        $to.tooltip("enable");
+            //        $to.tooltip("open");
+            //    },
+            //    hide: function (elName) {
+            //        //log('tooltip hide: ' + elName);
+            //        var sel = "input[name=" + elName + "]";
+            //        var $to = $(sel);
+            //        //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+            //        $to.tooltip("disable");
+            //    }
+            //};
 
             //$timeout(function () {
             //    loadToCountryAndInit(routeCriteria);
@@ -182,7 +253,7 @@ innaAppControllers.
                         transportersNames.push(item.TransporterCode);
                     });
                 }
-                if ($scope.item.EtapsBack != null&& $scope.item.EtapsBack.length > 0) {
+                if ($scope.item.EtapsBack != null && $scope.item.EtapsBack.length > 0) {
                     _.each($scope.item.EtapsBack, function (item) {
                         transportersNames.push(item.TransporterCode);
                     });
@@ -271,7 +342,7 @@ innaAppControllers.
                     passengers.push(item);
                 }
 
-                $scope.reservationModel = {
+                $scope.model = {
                     price: $scope.item.Price,
                     name: '',
                     secondName: '',
@@ -332,9 +403,9 @@ innaAppControllers.
                     return m;
                 };
 
-                var apiModel = getApiModel($scope.reservationModel);
+                var apiModel = getApiModel($scope.model);
                 log('');
-                log('reservationModel: ' + angular.toJson($scope.reservationModel));
+                log('reservationModel: ' + angular.toJson($scope.model));
                 log('');
                 log('apiModel: ' + angular.toJson(apiModel));
                 //
@@ -348,7 +419,7 @@ innaAppControllers.
                             $scope.criteria.OrderId = data;
 
                             //сохраняем модель
-                            storageService.setReservationModel($scope.reservationModel);
+                            storageService.setReservationModel($scope.model);
                         }
                         //успешно
                         call();
@@ -364,7 +435,7 @@ innaAppControllers.
                 eventsHelper.preventBubbling($event);
 
                 //сбрасываем чистость, все становится красным
-                $scope.validation.setDirtyAll();
+                //$scope.validation.setDirtyAll();
 
                 //показываем попап на первом неправильном поле
                 if ($scope.f.$invalid) {
@@ -401,12 +472,12 @@ innaAppControllers.
             //ToDo: debug
             function fillDefaultModelDelay() {
                 $timeout(function () {
-                    $scope.reservationModel.name = 'Иван';
-                    $scope.reservationModel.secondName = 'Иванов';
-                    $scope.reservationModel.email = 'ivan.ivanov@gmail.com';
-                    $scope.reservationModel.phone = '+79101234567';
+                    $scope.model.name = 'Иван';
+                    $scope.model.secondName = 'Иванов';
+                    $scope.model.email = 'ivan.ivanov@gmail.com';
+                    $scope.model.phone = '+79101234567';
                     var index = 0;
-                    _.each($scope.reservationModel.passengers, function (pas) {
+                    _.each($scope.model.passengers, function (pas) {
 
                         if (index < debugPassengersList.length) {
                             var debugItem = debugPassengersList[index];
@@ -443,6 +514,6 @@ innaAppControllers.
                     
                     //$scope.login.isOpened = true;
                     //$scope.login.isLogged = true;
-                }, 500000);
+                }, 2000);
             };
         }]);
