@@ -142,8 +142,18 @@ innaAppControllers
                     });
             }
 
-            $scope.filteredTickets = function(filter) {
-                return $scope.tickets;
+            $scope.filteredTickets = function(filters) {
+                var ticketsToShow = _.filter($scope.tickets, function(ticket) {
+                    var show = true;
+
+                    $.each(filters, function(filter, value){
+                        show = show && doesTicketFit(ticket, filter, value);
+                    });
+
+                    return show;
+                });
+
+                return ticketsToShow;
             }
         }
     ]);
