@@ -19,7 +19,7 @@ angular.module('innaApp.directives')
                             comporator: function(l){ return l == 2; }
                         }, {
                             title: '2+ пересадки',
-                            show: false
+                            show: false,
                             comparator: function(l) { return l > 2; }
                         }]
 
