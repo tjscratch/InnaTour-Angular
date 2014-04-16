@@ -58,7 +58,13 @@ innaAppControllers
 
                     return show;
                 }
+            };
+
+            function doesTicketFit(ticket, filter, value) {
+                return doesTicketFit.comparators[filter](ticket, value);
             }
+
+            doesTicketFit.comparators = {};
 
             /*EventListener*/
             DynamicFormSubmitListener.listen();
@@ -142,8 +148,20 @@ innaAppControllers
                     });
             }
 
-            $scope.filteredTickets = function(filter) {
-                return $scope.tickets;
+            $scope.filteredTickets = function(filters) {
+                var ticketsToShow = _.filter($scope.tickets, function(ticket) {
+                    var show = true;
+
+                    $.each(filters, function(filter, value){
+                        show = show && doesTicketFit(ticket, filter, value);
+
+                        return show;
+                    });
+
+                    return show;
+                });
+
+                return ticketsToShow;
             }
         }
     ]);
