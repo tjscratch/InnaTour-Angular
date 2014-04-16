@@ -61,7 +61,7 @@ innaAppControllers
             };
 
             function doesTicketFit(ticket, filter, value) {
-                return doesTicketFit.comparators[filter](hotel, value);
+                return doesTicketFit.comparators[filter](ticket, value);
             }
 
             doesTicketFit.comparators = {};
