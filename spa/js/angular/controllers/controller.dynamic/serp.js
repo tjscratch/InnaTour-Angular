@@ -92,7 +92,7 @@ innaAppControllers
 
 
 
-            /*Data fetching*/
+            /*Initial Data fetching*/
             (function loadData(params){
                 params.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(params.StartVoyageDate);
                 params.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(params.EndVoyageDate);
@@ -140,6 +140,10 @@ innaAppControllers
                     cacheKey, function(resp){
                         console.log(resp);
                     });
+            }
+
+            $scope.filteredTickets = function(filter) {
+                return $scope.tickets;
             }
         }
     ]);
