@@ -122,6 +122,14 @@ angular.module('innaApp.directives')
                             scope.models[period][data.property].show = true;
                         }
                     });
+
+                    scope.$watch('property', function(newVal, oldVal){
+                        _.each(scope.models, function(period){
+                            period[oldVal].checked = false;
+                        });
+
+                        scope.onChange();
+                    });
                 }
             }
         }
