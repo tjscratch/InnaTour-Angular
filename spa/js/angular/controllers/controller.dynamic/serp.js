@@ -77,6 +77,11 @@ innaAppControllers
                     });
 
                     return show;
+                },
+                Price: function(ticket, value) {
+                    if(!value) return true;
+                    
+                    return ticket.Price <= value;
                 }
             };
 
