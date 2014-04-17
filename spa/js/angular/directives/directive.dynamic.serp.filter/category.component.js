@@ -28,7 +28,6 @@ angular.module('innaApp.directives')
                         $scope.currentOption = ALL;
 
                         $scope.$watch('currentOption', function(newVal){
-                            console.log(newVal);
                             $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: 'Stars', value: newVal});
                         });
 

@@ -64,13 +64,32 @@ innaAppControllers
                 return doesTicketFit.comparators[filter](ticket, value);
             }
 
-            doesTicketFit.comparators = {};
+            doesTicketFit.comparators = {
+                Legs: function(ticket, options){
+                    var selected = _.where(options, {selected: true});
+                    var show = false;
+
+                    if(!selected.length) return true;
+
+                    $.each(selected, function(i, option){
+                        show = show ||
+                            (option.comparator(ticket.EtapsTo.length) && option.comparator(ticket.EtapsBack.length));
+                    });
+
+                    return show;
+                }
+            };
 
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
             $scope.$on('inna.Dynamic.SERP.Hotel.Filter', function(event, data){
                 $scope.hotelFilters[data.filter] = data.value;
+            });
+
+            $scope.$on('inna.Dynamic.SERP.Ticket.Filter', function(event, data){
+                console.log('inna.Dynamic.SERP.Ticket.Filter', data);
+                $scope.ticketFilters[data.filter] = data.value;
             });
 
             $scope.$watch('show', function(newVal, oldVal){
@@ -160,6 +179,8 @@ innaAppControllers
 
                     return show;
                 });
+
+                console.log('show %s tickets of %s', ticketsToShow.length, $scope.tickets.length);
 
                 return ticketsToShow;
             }
