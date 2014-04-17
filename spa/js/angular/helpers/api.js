@@ -30,7 +30,7 @@ angular.module('innaApp.API', [])
             AVIA_RESERVATION_GET_PAY_DATA: url('/Payment/Index'),
             AVIA_PAY: url('/Psb/Pay'),
 
-            "*_PAGE_CONTENT": url('/api/v1/Section/Get/'),
+            "*_PAGE_CONTENT": url('/Section/Get/'),
 
             eof: null
         }
