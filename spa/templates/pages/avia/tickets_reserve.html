@@ -99,23 +99,24 @@
                     <div class="b-field-group">
                         <div class="b-field-block b-field-block-130">
                             <label class="b-field-label">Имя</label>
-                            <input validate-events-dir ng-validation-model="validationModel.name" validate="validate(model, type)"
-                                   tooltip title="Нужно ввести имя" name="name" type="text"
-                                   ng-model="validationModel.name.value" validate-type="validateType.required"
+                            <input validate-events-dir ng-model="validationModel.name.value" 
+                                   ng-validation-model="validationModel.name" validate="validate(item)" validate-type="validateType.required"
+                                   title="Нужно ввести имя" name="name" type="text"
                                    ng-class="{error:validationModel.name.isInvalid}" placeholder="Иван" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-190">
                             <label class="b-field-label">Фамилия</label>
-                            <input validate-events-dir ng-validation-model="validationModel.secondName"
-                                   tooltip title="Нужно ввести фамилию" name="secName" type="text" validate="validate(model, type)"
-                                   ng-model="validationModel.secondName.value" validate-type="validateType.required"
-                                   ng-class="{error:validationModel.secondName.isInvalid }" placeholder="Иванов" class="b-field-text">
+                            <input validate-events-dir ng-model="validationModel.secondName.value" 
+                                   ng-validation-model="validationModel.secondName" validate="validate(item)" validate-type="validateType.required"
+                                   title="Нужно ввести фамилию" name="secName" type="text" 
+                                   ng-class="{error:validationModel.secondName.isInvalid}" placeholder="Иванов" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-290" ng-class="{'b-field-block-auth':login.isLogged && (f.email.$valid || f.email.$pristine)}">
                             <label class="b-field-label">E-mail</label>
-                            <input tooltip title="Неправильно введен email" name="email" type="email" ng-change="validation.change(f.email)"
-                                   ng-model="model.email" required ng-pattern="/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,63})+$/"
-                                   ng-class="{error:f.email.$invalid && !f.email.$pristine}" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
+                            <input validate-events-dir ng-model="validationModel.email.value"
+                                   ng-validation-model="validationModel.email" validate="validate(item)" validate-type="validateType.email"
+                                   title="Неправильно введен email" name="email" type="email"
+                                   ng-class="{error:validationModel.email.isInvalid}" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
                             <div class="b-auth" ng-show="login.isOpened">
                                 <a ng-href="#" ng-click="login.closeClick($event)" class="b-auth-close"></a>
                                 <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
@@ -124,10 +125,11 @@
                         </div>
                         <div class="b-field-block b-field-block-290">
                             <label class="b-field-label">Мобильный телефон</label>
-                            <input tooltip title="Неправильно введен мобильный телефон" name="phone" type="text" ng-change="validation.change(f.phone)"
-                                   ng-model="model.phone" required ng-minlength="12" ng-maxlength="21"
-                                   ng-class="{error:f.phone.$invalid && !f.phone.$pristine}"
-                                   masked-input mask="+99999999999?999999999" placeholder="+74951234567" class="b-field-text">
+                            <input validate-events-dir ng-model="validationModel.phone.value"
+                                   ng-validation-model="validationModel.phone" validate="validate(item)" validate-type="validateType.phone"
+                                   title="Неправильно введен мобильный телефон" name="phone" type="text"
+                                   ng-class="{error:validationModel.phone.isInvalid}"
+                                   phone-input placeholder="+79261234567" class="b-field-text">
                         </div>
                     </div>
                     <!--<div ng-show="(f.name.$invalid && !f.name.$pristine) || (f.secName.$invalid && !f.secName.$pristine) || (f.email.$invalid && !f.email.$pristine) || (f.phone.$invalid && !f.phone.$pristine)" class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div>-->

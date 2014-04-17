@@ -23,7 +23,8 @@
             //мониторим, когда нам передадут функцию, для открытия списка
             $scope.$watch('callback', function (newValue, oldValue) {
                 //передали, посылаем в нее функцию, что открывает список
-                newValue($scope.openListFn);
+                if (newValue != undefined)
+                    newValue($scope.openListFn);
             });
         },
         link: function (scope, element, attrs) {
