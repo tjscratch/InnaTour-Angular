@@ -44,8 +44,7 @@ angular.module('innaApp.directives')
 
                                     _.each([self.ARRIVAL, self.DEPARTURE], function(property){
                                         if(_.find(newVal, function(ticket){
-                                            var h = dateHelper.apiDateToJsDate(ticket[prefix + property]).getHours();
-                                            return start < end ? (h >= start && h < end) : (h >= start || h < end);
+                                            return dateHelper.isHoursBetween(ticket[prefix + property], start, end);
                                         })) {
                                             var eData = {
                                                 property: property
@@ -67,7 +66,12 @@ angular.module('innaApp.directives')
                                 });
                             });
 
-                            //$scope.$emit('inna.Dynamic.SERP.Ticket.Filter')
+                            var compact = {}
+                            _.each($scope.flat, function(value, key){
+                                if(value) compact[key] = value;
+                            });
+
+                            $scope.$emit('inna.Dynamic.SERP.Ticket.Filter', {filter: 'Time', value: compact});
                         });
                     }
                 ]
