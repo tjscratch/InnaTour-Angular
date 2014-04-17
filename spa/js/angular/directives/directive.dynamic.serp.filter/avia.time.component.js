@@ -22,16 +22,16 @@ angular.module('innaApp.directives')
                         var self = this;
 
                         var starts = {};
-                        starts[this.MORNING] = 5;
-                        starts[this.DAY] = 13;
+                        starts[this.MORNING] = 6;
+                        starts[this.DAY] = 12;
                         starts[this.EVENING] = 18;
-                        starts[this.NIGHT] = 23;
+                        starts[this.NIGHT] = 0;
 
                         var ends = {};
-                        ends[this.MORNING] = 13;
+                        ends[this.MORNING] = 12;
                         ends[this.DAY] = 18;
-                        ends[this.EVENING] = 23;
-                        ends[this.NIGHT] = 5;
+                        ends[this.EVENING] = 24;
+                        ends[this.NIGHT] = 6;
 
                         var prefixes = {To: '', Back: 'Back'};
 
