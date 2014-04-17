@@ -1,28 +1,45 @@
 <div class="b-ticket">
     <div class="b-ticket__info">
-        <!-- todo change to iterator-->
         <ul class="b-ticket__companies">
             <div class="b-ticket-company" ng-repeat="company in collectCompanies()">
                 <img src="http://upload.wikimedia.org/wikipedia/kv/0/0b/Aeroflot_logo.png">
             </div>
         </ul>
 
-        <div class="b-ticket-flight" ng-repeat="dir in ['To', 'Back']">
+        <div class="b-ticket-flight">
             <div class="b-ticket-flight__from">
                 <div class="b-ticket-flight__date">
-                    <span class="b-ticket-flight__date-time">{{isoDateTimeString2time(ticket[dir].DepartureDateTime)}}</span> {{isoDateTimeString2date(ticket[dir].DepartureDateTime)}}, {{isoDateTimeString2day(ticket[dir].DepartureDateTime)}}
+                    <span class="b-ticket-flight__date-time">{{isoDateTimeString2time(ticket.DepartureDate)}}</span> {{isoDateTimeString2date(ticket.DepartureDate)}}, {{isoDateTimeString2day(ticket.DepartureDate)}}
                 </div>
-                <div class="b-ticket-flight__airport">{{ticket[dir].Departure.City}} ({{ticket[dir].Departure.AirportCode}})</div>
+                <div class="b-ticket-flight__airport">{{ticket.AirportFrom}} (?ticket.CityFrom?, ?ticket.AirportFromCode?)</div>
             </div>
             <div class="b-ticket-flight__way">
-                <div class="b-ticket-glight__way-time">В пути: {{duration(ticket[dir].Legs)}}</div>
-                <div class="b-ticket-flight__way-jumps">Пересадок: {{ticket[dir].Legs.length}}</div>
+                <div class="b-ticket-glight__way-time">В пути: ?ticket.ToDuration?</div>
+                <div class="b-ticket-flight__way-jumps">Пересадок: {{ticket.EtapsTo.length}}</div>
             </div>
             <div class="b-ticket-flight__to">
                 <div class="b-ticket-flight__date">
-                    <span class="b-ticket-flight__date-time">{{isoDateTimeString2time(ticket[dir].ArrivalDateTime)}}</span> {{isoDateTimeString2date(ticket[dir].ArrivalDateTime)}}, {{isoDateTimeString2day(ticket[dir].ArrivalDateTime)}}
+                    <span class="b-ticket-flight__date-time">{{isoDateTimeString2time(ticket.ArrivalDate)}}</span> {{isoDateTimeString2date(ticket.ArrivalDate)}}, {{isoDateTimeString2day(ticket.ArrivalDate)}}
                 </div>
-                <div class="b-ticket-flight__airport">{{ticket[dir].Arrival.City}} ({{ticket[dir].Arrival.AirportCode}})</div>
+                <div class="b-ticket-flight__airport">{{ticket.AirportTo}} (?ticket.CityTo?, ?ticket.AirportToCode?)</div>
+            </div>
+        </div>
+        <div class="b-ticket-flight">
+            <div class="b-ticket-flight__from">
+                <div class="b-ticket-flight__date">
+                    <span class="b-ticket-flight__date-time">{{isoDateTimeString2time(ticket.BackDepartureDate)}}</span> {{isoDateTimeString2date(ticket.BackDepartureDate)}}, {{isoDateTimeString2day(ticket.BackDepartureDate)}}
+                </div>
+                <div class="b-ticket-flight__airport">?ticket.BackAirportFrom? (?ticket.CityFrom?, ?ticket.AirportFromCode?)</div>
+            </div>
+            <div class="b-ticket-flight__way">
+                <div class="b-ticket-glight__way-time">В пути: ?ticket.BackDuration?</div>
+                <div class="b-ticket-flight__way-jumps">Пересадок: {{ticket.EtapsBack.length}}</div>
+            </div>
+            <div class="b-ticket-flight__to">
+                <div class="b-ticket-flight__date">
+                    <span class="b-ticket-flight__date-time">{{isoDateTimeString2time(ticket.BackArrivalDate)}}</span> {{isoDateTimeString2date(ticket.BackArrivalDate)}}, {{isoDateTimeString2day(ticket.BackArrivalDate)}}
+                </div>
+                <div class="b-ticket-flight__airport">?ticket.BackAirportTo? (?ticket.BackCityTo?, ?ticket.BackAirportToCode?)</div>
             </div>
         </div>
 
