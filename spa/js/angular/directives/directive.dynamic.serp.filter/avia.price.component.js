@@ -9,8 +9,6 @@ angular.module('innaApp.directives')
                 controller: [
                     '$scope',
                     function($scope){
-                        console.log('hello from dynamicSerpFilterAviaPrice');
-
                         $scope.min = Number.MAX_VALUE;
                         $scope.max = 0;
 
