@@ -1,0 +1,6 @@
+(Фильтр про пересадки)
+<div ng-repeat="option in options">
+    <div ng-show="option.show">
+        <input type="checkbox" ng-model="option.selected" ng-change="onChange(option)"> {{option.title}}
+    </div>
+</div>

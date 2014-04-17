@@ -22,7 +22,7 @@ innaAppControllers
                         $scope.combination.Hotel.HotelId, searchParams,
                         function(data){
                             $scope.$apply(function($scope) {
-                                $scope.tickets = data.Tickets;
+                                $scope.tickets = data.AviaInfos;
                             });
                         }
                     );
@@ -58,13 +58,38 @@ innaAppControllers
 
                     return show;
                 }
+            };
+
+            function doesTicketFit(ticket, filter, value) {
+                return doesTicketFit.comparators[filter](ticket, value);
             }
+
+            doesTicketFit.comparators = {
+                Legs: function(ticket, options){
+                    var selected = _.where(options, {selected: true});
+                    var show = false;
+
+                    if(!selected.length) return true;
+
+                    $.each(selected, function(i, option){
+                        show = show ||
+                            (option.comparator(ticket.EtapsTo.length) && option.comparator(ticket.EtapsBack.length));
+                    });
+
+                    return show;
+                }
+            };
 
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
             $scope.$on('inna.Dynamic.SERP.Hotel.Filter', function(event, data){
                 $scope.hotelFilters[data.filter] = data.value;
+            });
+
+            $scope.$on('inna.Dynamic.SERP.Ticket.Filter', function(event, data){
+                console.log('inna.Dynamic.SERP.Ticket.Filter', data);
+                $scope.ticketFilters[data.filter] = data.value;
             });
 
             $scope.$watch('show', function(newVal, oldVal){
@@ -92,7 +117,7 @@ innaAppControllers
 
 
 
-            /*Data fetching*/
+            /*Initial Data fetching*/
             (function loadData(params){
                 params.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(params.StartVoyageDate);
                 params.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(params.EndVoyageDate);
@@ -140,6 +165,24 @@ innaAppControllers
                     cacheKey, function(resp){
                         console.log(resp);
                     });
+            }
+
+            $scope.filteredTickets = function(filters) {
+                var ticketsToShow = _.filter($scope.tickets, function(ticket) {
+                    var show = true;
+
+                    $.each(filters, function(filter, value){
+                        show = show && doesTicketFit(ticket, filter, value);
+
+                        return show;
+                    });
+
+                    return show;
+                });
+
+                console.log('show %s tickets of %s', ticketsToShow.length, $scope.tickets.length);
+
+                return ticketsToShow;
             }
         }
     ]);
