@@ -9,7 +9,7 @@ innaAppControllers.
 
             var self = this;
             function log(msg) {
-                $log.log.apply($log, arguments);
+                //$log.log.apply($log, arguments);
             }
 
             var AVIA_COOK_NAME = "form_avia_cook";

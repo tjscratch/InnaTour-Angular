@@ -20,6 +20,8 @@ innaAppControllers.
             $scope.getSliderTimeFormat = aviaHelper.getSliderTimeFormat;
             $scope.getTransferCountText = aviaHelper.getTransferCountText;
 
+            $scope.helper = aviaHelper;
+
             var urlDataLoaded = { fromLoaded: false, toLoaded: false };
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {
@@ -283,11 +285,6 @@ innaAppControllers.
                         //дополняем полями 
                         aviaHelper.addCustomFields(item);
 
-                        //if (i == 0)
-                        //{
-                        //    log('item: ' + angular.toJson(item));
-                        //}
-                        
                         list.push(item);
                     }
                     //добавляем список
