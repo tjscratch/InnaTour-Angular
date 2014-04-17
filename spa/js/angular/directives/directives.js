@@ -1,4 +1,4 @@
-﻿﻿﻿
+﻿﻿
 'use strict';
 
 /* Directives */
@@ -323,6 +323,39 @@ innaAppDirectives.directive('maskedInput', ['$parse', function ($parse) {
     };
 }]);
 
+innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
+    return {
+        link: function ($scope, element, attrs) {
+            var $elem = $(element);
+            $elem.on('keypress', function (event) {
+                var theEvent = event || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+
+                //console.log('phoneInput, key: ' + key);
+                //48-57 - цифры
+                //43 +
+
+                var plusEntered = $elem.val() == '+' || $elem.val().substring(0, 1) == '+';
+
+                //пока не введем первый плюс
+                if (!plusEntered) {
+                    if (key != 43) {
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+                else {
+                    //введен плюс, даем вводить только цифры
+                    if (!(key > 48 && key < 57)) {
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+            });
+        }
+    };
+}]);
+
 innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', function ($rootScope, $parse) {
     return {
         require: 'ngModel',
@@ -335,8 +368,11 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
             var $elem = $(element);
 
             function validate() {
-                $scope.validate({ model: $scope.ngValidationModel, type: $scope.validateType });
+                //$scope.validate({ model: $scope.ngValidationModel, type: $scope.validateType });
+                $scope.validate({ item: { model: $scope.ngValidationModel, type: $scope.validateType, $element: $elem } });
             };
+
+            //validate();
 
             $elem.on('blur', function () {
                 validate();

@@ -19,11 +19,45 @@ innaAppControllers.
 
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+            $scope.peopleCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + parseInt($scope.criteria.InfantsCount);
             $scope.searchId = $scope.criteria.QueryId;
             $scope.item = null;
             $scope.citizenshipList = null;
             $scope.bonusCardTransportersList = null;
-            $scope.model = null;
+            //$scope.model = getDefaultModel();
+
+            function getDefaultModel() {
+
+                var maxPassCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + parseInt($scope.criteria.InfantsCount);
+
+                var model = {};
+                model.name = '';
+                model.secondName = '';
+                model.email = '';
+                model.phone = '';
+                model.passengers = [];
+                for (var i = 0; i < maxPassCount; i++) {
+                    var pas = {};
+                    pas.name = '';
+                    pas.secondName = '';
+                    pas.sex = null;
+                    pas.birthday = '';
+                    pas.citizenship = {};
+                    pas.citizenship.id = 0;
+                    pas.citizenship.name = '';
+                    pas.document = {};
+                    pas.document.series_and_number = '';
+                    pas.document.expirationDate = '';
+                    pas.bonuscard = {};
+                    pas.bonuscard.haveBonusCard = null;
+                    pas.bonuscard.airCompany = {};
+                    pas.bonuscard.airCompany.id = 0;
+                    pas.bonuscard.airCompany.name = '';
+                    pas.bonuscard.number = '';
+                    model.passengers.push(pas);
+                }
+                return model;
+            }
 
             $scope.sexType = aviaHelper.sexType;
             $scope.helper = aviaHelper;
@@ -51,7 +85,8 @@ innaAppControllers.
                     value: value,
                     isValid: true,
                     isInvalid: false,
-                    validationType: null
+                    validationType: null,
+                    $element: null
                 }
             };
 
@@ -67,13 +102,19 @@ innaAppControllers.
                         model.isValid = false;
                         model.isInvalid = true;
                     }
-                    log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid);
+                    log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid + ', isInvalid: ' + model.isInvalid);
                 };
 
-                $scope.validate = function (model, type) {
-                    if (model != null) {
+                $scope.validate = function (item) {
+                    if (item != null && item.model != null) {
+                        var model = item.model;
+                        var type = item.type;
                         //сохраняем тип валидации
                         model.validationType = type;
+                        //сохраняем element
+                        model.$element = item.$element;
+                        //console.log('validate, key: %s, element: %s', model.key, model.$element.get(0));
+                        //console.log('validate, key:\'%s\'; value:\'%s\'', model.key, model.value);
                         switch (type) {
                             case validateType.required:
                                 {
@@ -97,62 +138,68 @@ innaAppControllers.
                                     break;
                                 }
                         }
+
+                        //прячем тултип, если показывали
+                        if (model.haveTooltip == true)
+                        {
+                            var $to = item.$element;
+                            $to.tooltip("disable");
+                        }
                     }
                 };
 
                 //основная модель для валидации
-                $scope.validationModel = {
-                    pureModel: true//модель не проверялась
+                var validationModel = {
+                    //pureModel: true,//модель не проверялась
+                    getFields: function(){
+                        var keys = _.keys(validationModel);
+                        var validList = _.map(keys, function (key) {
+                            return validationModel[key];
+                        });
+                        //отбрасываем лишние поля
+                        validList = _.filter(validList, function (item) { return item.isValid != undefined });
+                        return validList;
+                    },
+                    isModelValid: function () {
+                        var list = validationModel.getFields();
+                        var mValid = _.all(list, function (item) { return item.isValid; })
+                        return mValid;
+                    },
+                    getFirstInvalidItem: function (conditionFn) {
+                        var list = validationModel.getFields();
+                        var firstItem = _.find(list, function (item) {
+                            if (conditionFn == null) {
+                                return item.isValid == false;
+                            }
+                            else
+                            {
+                                return (item.isValid == false) && conditionFn(item);
+                            }
+                        });
+                        return firstItem;
+                    },
+                    validateAll: function () {
+                        var list = validationModel.getFields();
+                        _.each(list, function (item) {
+                            $scope.validate({ item: item });
+                        });
+                    }
                 };
 
                 //создаем поля из модели данных
                 var keys = _.keys($scope.model);
                 _.each(keys, function (key) {
-                    $scope.validationModel[key] = getValidationItem(key, $scope.model[key]);
+                    validationModel[key] = getValidationItem(key, $scope.model[key]);
                 });
+
+                $scope.validationModel = validationModel;
             }
-            updateValidationModel();
 
             $scope.$watch('model', function (newVal, oldVal) {
+                //console.log('updateValidationModel, val: %s\n', angular.toJson(newVal));
                 updateValidationModel();
             }, true);
 
-
-            //$scope.validation = {
-            //    searchPressed: false,
-            //    list: ['name', 'secName', 'email', 'phone'],
-            //    listPopup: ['email', 'phone'],
-            //    setDirtyAll: function () {
-            //        //сбрасываем чистость, все становится красным
-            //        _.each($scope.validation.list, function (item) {
-            //            $scope.f[item].$pristine = false;
-            //        });
-            //    },
-            //    change: function (state)
-            //    {
-            //        var elName = state.$name;
-            //        //log('tooltip change: ' + elName);
-            //        if (state.$valid)
-            //        {
-            //            $scope.validation.hide(elName);
-            //        }
-            //    },
-            //    show: function (elName) {
-            //        //log('tooltip show: ' + elName);
-            //        var sel = "input[name=" + elName + "]";
-            //        var $to = $(sel);
-            //        //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
-            //        $to.tooltip("enable");
-            //        $to.tooltip("open");
-            //    },
-            //    hide: function (elName) {
-            //        //log('tooltip hide: ' + elName);
-            //        var sel = "input[name=" + elName + "]";
-            //        var $to = $(sel);
-            //        //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
-            //        $to.tooltip("disable");
-            //    }
-            //};
 
             //$timeout(function () {
             //    loadToCountryAndInit(routeCriteria);
@@ -264,6 +311,8 @@ innaAppControllers.
                 paymentService.getTransportersInAlliances(transportersNames, function (data) {
                     if (data != null) {
                         $scope.bonusCardTransportersList = data;
+                        if (data.length == 0)
+                            log('bonusCardTransportersList empty');
 
                         urlDataLoaded.selectedItem = true;
                         initIfDataLoaded();
@@ -275,10 +324,10 @@ innaAppControllers.
             //data loading ===========================================================================
 
             function initPayModel() {
+                //log('initPayModel');
 
                 function passengerModel(index) {
-                    var self = this;
-                    self = {
+                    var self = {
                         index: index,
                         sex: null,
                         name: '',
@@ -304,31 +353,21 @@ innaAppControllers.
                         },
                         dir: {
                             cit:{
-                                callback: null, //колбэк директивы на открытие списка гражданств
-                                saveDirCallback: function (cb) {
-                                    //директива передала колбэк на открытие списка, сохраняем колбэк
-                                    self.dir.cit.callback = cb;
-                                },
+                                isOpen: false
                             },
                             card: {
-                                callback: null, //колбэк директивы на открытие списка гражданств
-                                saveDirCallback: function (cb) {
-                                    //директива передала колбэк на открытие списка, сохраняем колбэк
-                                    self.dir.card.callback = cb;
-                                }
+                                isOpen: false
                             }
                         },
                         showCitListClick: function ($event) {
                             eventsHelper.preventBubbling($event);
                             //открываем список в директиве
-                            if (self.dir.cit.callback)
-                                self.dir.cit.callback();
+                            self.dir.cit.isOpen = !self.dir.cit.isOpen;
                         },
                         showCardListClick: function ($event) {
                             eventsHelper.preventBubbling($event);
                             //открываем список в директиве
-                            if (self.dir.card.callback)
-                                self.dir.card.callback();
+                            self.dir.card.isOpen = !self.dir.card.isOpen;
                         },
                     };
                     //log('passengerModel showCitListClick: ' + passengerModel.showCitListClick)
@@ -336,8 +375,7 @@ innaAppControllers.
                 }
 
                 var passengers = [];
-                var peopleCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + parseInt($scope.criteria.InfantsCount);
-                for (var i = 0; i < peopleCount; i++) {
+                for (var i = 0; i < $scope.peopleCount; i++) {
                     var item = new passengerModel(i);
                     passengers.push(item);
                 }
@@ -434,22 +472,27 @@ innaAppControllers.
             $scope.processToPayment = function ($event) {
                 eventsHelper.preventBubbling($event);
 
-                //сбрасываем чистость, все становится красным
-                //$scope.validation.setDirtyAll();
+                $scope.validationModel.validateAll();
 
-                //показываем попап на первом неправильном поле
-                if ($scope.f.$invalid) {
-                    for (var i = 0; i < $scope.validation.list.length; i++) {
-                        var fieldName = $scope.validation.list[i];
-                        var item = $scope.f[fieldName];
-                        if (item.$invalid && item.$viewValue != null && item.$viewValue.length > 0) {
-                            $scope.validation.show(fieldName);
-                            return;
-                        }
+                //ищем первый невалидный элемент, берем только непустые
+                var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
+                    return (item.value != null && item.value.length > 0);
+                });
+                if (invalidItem != null)
+                {
+                    //показываем тултип
+                    var $to = invalidItem.$element;
+                    //не навешивали тултип
+                    if (!invalidItem.haveTooltip) {
+                        $to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
                     }
-                    
+                    invalidItem.haveTooltip = true;
+                    $to.tooltip("enable");
+                    $to.tooltip("open");
+                     
                     return;
                 }
+                return;
 
                 //бронируем
                 reserve(function () {
@@ -514,6 +557,6 @@ innaAppControllers.
                     
                     //$scope.login.isOpened = true;
                     //$scope.login.isLogged = true;
-                }, 2000);
+                }, 200000);
             };
         }]);
