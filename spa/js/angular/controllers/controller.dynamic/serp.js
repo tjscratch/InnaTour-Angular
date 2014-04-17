@@ -80,7 +80,7 @@ innaAppControllers
                 },
                 Price: function(ticket, value) {
                     if(!value) return true;
-                    
+
                     return ticket.Price <= value;
                 }
             };
@@ -118,9 +118,8 @@ innaAppControllers
             $scope.showLanding = true;
 
             $scope.show = $scope.HOTELS_TAB;
-            $scope.asMap = !!DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
-
-
+            // JFYI !!+val does the following magic: convert val into integer (+val) and then convert to boolean (!!)
+            $scope.asMap = !!+DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
 
             /*Initial Data fetching*/
             (function loadData(params){
@@ -188,6 +187,10 @@ innaAppControllers
                 console.log('show %s tickets of %s', ticketsToShow.length, $scope.tickets.length);
 
                 return ticketsToShow;
+            }
+
+            $scope.changeHotelsView = function(){
+                $scope.asMap = !$scope.asMap;
             }
         }
     ]);
