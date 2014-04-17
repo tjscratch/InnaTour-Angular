@@ -1,1 +1,21 @@
-(Время перелета)
+<h1>Время перелета</h1>
+
+<div inna-dynamic-serp-filter-avia-time-section
+     inna-dynamic-serp-filter-avia-time-section-caption="Перелет туда"
+     inna-dynamic-serp-filter-avia-time-section-dir="To"></div>
+
+<div inna-dynamic-serp-filter-avia-time-section
+     inna-dynamic-serp-filter-avia-time-section-caption="Перелет обратно"
+     inna-dynamic-serp-filter-avia-time-section-dir="Back"></div>
+
+<script type="text/ng-template" id="/spa/templates/components/dynamic-serp-filter/avia.time.html/section">
+    <form style="border:1px solid green;">
+        <div><input type="radio" name="inna-dynamic-serp-filter-avia-time-section-radio">Вылет</div>
+        <div><input type="radio" name="inna-dynamic-serp-filter-avia-time-section-radio">Прилет</div>
+
+        <div ng-show="models.Morning.show"><input type="checkbox">Утро</div>
+        <div ng-show="models.Day.show"><input type="checkbox">День</div>
+        <div ng-show="models.Evening.show"><input type="checkbox">Вечер</div>
+        <div ng-show="models.Night.show"><input type="checkbox">Ночь</div>
+    </form>
+</script>

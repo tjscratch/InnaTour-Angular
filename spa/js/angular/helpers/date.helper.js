@@ -77,8 +77,7 @@
         return (addZero(curr_date) + "." + addZero(curr_month) + "." + curr_year);
     },
 
-    dateToJsDate: function (sDate) {//"25.03.2014"
-        //дата
+    dateToJsDate: function (sDate) {
         var dParts = sDate.split('.');
         if (dParts.length == 3) {
             //день
