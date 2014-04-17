@@ -115,7 +115,7 @@
                             <label class="b-field-label">E-mail</label>
                             <input validate-events-dir ng-model="validationModel.email.value"
                                    ng-validation-model="validationModel.email" validate="validate(item)" validate-type="validateType.email"
-                                   title="Неправильно введен email" name="email" type="email"
+                                   title="Неправильно введен email" type="text"
                                    ng-class="{error:validationModel.email.isInvalid}" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
                             <div class="b-auth" ng-show="login.isOpened">
                                 <a ng-href="#" ng-click="login.closeClick($event)" class="b-auth-close"></a>
@@ -162,7 +162,7 @@
                         <div class="b-field-block b-field-block-170">
                             <label class="b-field-label">Гражданство</label>
                             <input ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.name}}" placeholder="Выберите" class="b-field-text b-field-select">
-                            <div partial-select list="citizenshipList" result="passenger.citizenship" callback="passenger.dir.cit.saveDirCallback">
+                            <div partial-select list="citizenshipList" result="passenger.citizenship" is-open="passenger.dir.cit.isOpen">
                             </div>
                             
                         </div>
@@ -183,7 +183,7 @@
                             <div class="b-field-block b-field-block-195" ng-show="passenger.bonuscard.haveBonusCard == true">
                                 <label class="b-field-label">Авиакомпания</label>
                                 <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
-                                <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.airCompany" callback="passenger.dir.card.saveDirCallback">
+                                <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.airCompany" is-open="passenger.dir.card.isOpen">
                                 </div>
                             </div>
                             <div class="b-field-block b-field-block-143" ng-show="passenger.bonuscard.haveBonusCard == true">

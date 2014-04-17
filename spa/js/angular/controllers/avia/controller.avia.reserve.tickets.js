@@ -113,7 +113,8 @@ innaAppControllers.
                         model.validationType = type;
                         //сохраняем element
                         model.$element = item.$element;
-                        console.log('validate, key: %s, element: %s', model.key, model.$element.get(0));
+                        //console.log('validate, key: %s, element: %s', model.key, model.$element.get(0));
+                        //console.log('validate, key:\'%s\'; value:\'%s\'', model.key, model.value);
                         switch (type) {
                             case validateType.required:
                                 {
@@ -193,11 +194,10 @@ innaAppControllers.
 
                 $scope.validationModel = validationModel;
             }
-            //updateValidationModel();
 
             $scope.$watch('model', function (newVal, oldVal) {
-                console.log('updateValidationModel, val: %s\n', angular.toJson(newVal));
-                //updateValidationModel();
+                //console.log('updateValidationModel, val: %s\n', angular.toJson(newVal));
+                updateValidationModel();
             }, true);
 
 
@@ -311,6 +311,8 @@ innaAppControllers.
                 paymentService.getTransportersInAlliances(transportersNames, function (data) {
                     if (data != null) {
                         $scope.bonusCardTransportersList = data;
+                        if (data.length == 0)
+                            log('bonusCardTransportersList empty');
 
                         urlDataLoaded.selectedItem = true;
                         initIfDataLoaded();
@@ -322,7 +324,7 @@ innaAppControllers.
             //data loading ===========================================================================
 
             function initPayModel() {
-                log('initPayModel');
+                //log('initPayModel');
 
                 function passengerModel(index) {
                     var self = {
@@ -351,31 +353,21 @@ innaAppControllers.
                         },
                         dir: {
                             cit:{
-                                callback: null, //колбэк директивы на открытие списка гражданств
-                                saveDirCallback: function (cb) {
-                                    //директива передала колбэк на открытие списка, сохраняем колбэк
-                                    self.dir.cit.callback = cb;
-                                },
+                                isOpen: false
                             },
                             card: {
-                                callback: null, //колбэк директивы на открытие списка гражданств
-                                saveDirCallback: function (cb) {
-                                    //директива передала колбэк на открытие списка, сохраняем колбэк
-                                    self.dir.card.callback = cb;
-                                }
+                                isOpen: false
                             }
                         },
                         showCitListClick: function ($event) {
                             eventsHelper.preventBubbling($event);
                             //открываем список в директиве
-                            if (self.dir.cit.callback)
-                                self.dir.cit.callback();
+                            self.dir.cit.isOpen = !self.dir.cit.isOpen;
                         },
                         showCardListClick: function ($event) {
                             eventsHelper.preventBubbling($event);
                             //открываем список в директиве
-                            if (self.dir.card.callback)
-                                self.dir.card.callback();
+                            self.dir.card.isOpen = !self.dir.card.isOpen;
                         },
                     };
                     //log('passengerModel showCitListClick: ' + passengerModel.showCitListClick)
