@@ -182,7 +182,7 @@
   position: fixed;
   left: 0;
   text-align: center;
-  z-index: 100;
+  z-index: 301;
 }
 .popup-container:before {
   content: '';
