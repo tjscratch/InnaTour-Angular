@@ -28,17 +28,6 @@ angular.module('innaApp.directives')
                     var date = new Date(isoDateTimeString);
                     return daysOfWeek[date.getDay()];
                 }
-
-                $scope.duration = function(legs) {
-                    var mins = _.reduce(legs, function(memo, leg){ return memo + leg.Duration; }, 0);
-                    var hours = parseInt(mins / 60);
-                    mins = mins - (hours * 60);
-                    var result = [mins + 'м.'];
-
-                    if(hours) result.unshift(hours + 'ч.');
-
-                    return result.join(' ')
-                }
             }
         }
     })

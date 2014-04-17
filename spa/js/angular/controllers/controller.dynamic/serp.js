@@ -22,7 +22,7 @@ innaAppControllers
                         $scope.combination.Hotel.HotelId, searchParams,
                         function(data){
                             $scope.$apply(function($scope) {
-                                $scope.tickets = data.Tickets;
+                                $scope.tickets = data.AviaInfos;
                             });
                         }
                     );
