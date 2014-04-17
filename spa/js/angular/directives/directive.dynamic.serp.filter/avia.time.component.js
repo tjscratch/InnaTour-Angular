@@ -9,43 +9,65 @@ angular.module('innaApp.directives')
                 controller: [
                     '$scope',
                     function($scope) {
-                        var self = this;
-
                         this.HAS_EVENT = 'inna.innaDynamicSerpFilterAviaTime.Has';
+                        this.CHANGE_EVENT = 'inna.innaDynamicSerpFilterAviaTime.Changed';
+
                         this.MORNING = 'Morning';
                         this.DAY = 'Day';
                         this.EVENING = 'Evening';
                         this.NIGHT = 'Night';
+                        this.ARRIVAL = 'ArrivalDate';
+                        this.DEPARTURE = 'DepartureDate';
 
-                        function generatePredicate(property, start, end){
-                            return function(ticket){
-                                var h = dateHelper.apiDateToJsDate(ticket[property]).getHours();
-                                return start < end ? (h >= start && h < end) : (h >= start || h < end);
-                            }
-                        }
+                        var self = this;
+
+                        var starts = {};
+                        starts[this.MORNING] = 5;
+                        starts[this.DAY] = 13;
+                        starts[this.EVENING] = 18;
+                        starts[this.NIGHT] = 23;
+
+                        var ends = {};
+                        ends[this.MORNING] = 13;
+                        ends[this.DAY] = 18;
+                        ends[this.EVENING] = 23;
+                        ends[this.NIGHT] = 5;
+
+                        var prefixes = {To: '', Back: 'Back'};
+
+                        $scope.flat = {};
 
                         $scope.$watch('tickets', function(newVal){
-                            _.each({To: '', Back: 'Back'}, function(prefix, dir){
-                                _.each([
-                                    [self.MORNING, 5, 13],
-                                    [self.DAY, 13, 18],
-                                    [self.EVENING, 18, 23],
-                                    [self.NIGHT, 23, 5]
-                                ], function(period){
-                                    var start = period[1], end = period[2];
+                            _.each(prefixes, function(prefix, dir){
+                                _.each([self.MORNING, self.DAY, self.EVENING, self.NIGHT], function(period){
+                                    var start = starts[period], end = ends[period];
 
-                                    _.each(['DepartureDate', 'ArrivalDate'], function(property){
+                                    _.each([self.ARRIVAL, self.DEPARTURE], function(property){
                                         if(_.find(newVal, function(ticket){
                                             var h = dateHelper.apiDateToJsDate(ticket[prefix + property]).getHours();
                                             return start < end ? (h >= start && h < end) : (h >= start || h < end);
                                         })) {
-                                            var eData = {}
-                                            eData[dir] = period[0];
+                                            var eData = {
+                                                property: property
+                                            };
+                                            eData[dir] = period;
+
                                             $scope.$broadcast(self.HAS_EVENT, eData);
                                         }
                                     });
                                 });
                             });
+                        });
+
+                        $scope.$on(this.CHANGE_EVENT, function(event, data){
+                            _.each(data.value, function(period, periodName){
+                                _.each(period, function(model, property){
+                                    var name = [prefixes[data.dir] + property, periodName].join('.');
+                                    $scope.flat[name] = model.checked && [starts[periodName], ends[periodName]];
+                                });
+                            });
+
+                            //$scope.$emit('inna.Dynamic.SERP.Ticket.Filter')
                         });
                     }
                 ]
@@ -61,34 +83,39 @@ angular.module('innaApp.directives')
                     caption: '@innaDynamicSerpFilterAviaTimeSectionCaption',
                     dir: '@innaDynamicSerpFilterAviaTimeSectionDir'
                 },
-                controller: [
-                    '$scope',
-                    function($scope){
-                        $scope.models = {
-                            Morning: {
-                                show: false,
-                                checked: false
-                            },
-                            Day: {
-                                show: false,
-                                checked: false
-                            },
-                            Evening: {
-                                show: false,
-                                checked: false
-                            },
-                            Night: {
+                link: function(scope, element, attrs, parentCtrl){
+                    scope.ARRIVAL = parentCtrl.ARRIVAL;
+                    scope.DEPARTURE = parentCtrl.DEPARTURE;
+
+                    scope.property = scope.ARRIVAL;
+
+                    scope.names = {}
+                    scope.names[parentCtrl.MORNING] = "Утро";
+                    scope.names[parentCtrl.DAY] = "День";
+                    scope.names[parentCtrl.EVENING] = "Вечер";
+                    scope.names[parentCtrl.NIGHT] = "Ночь";
+
+
+                    scope.models = {}
+                    _.each([parentCtrl.MORNING, parentCtrl.DAY, parentCtrl.EVENING, parentCtrl.NIGHT], function(period){
+                        scope.models[period] = {}
+
+                        _.each([scope.ARRIVAL, scope.DEPARTURE], function(prop){
+                            scope.models[period][prop] = {
                                 show: false,
                                 checked: false
                             }
-                        }
-                    }
-                ],
-                link: function(scope, element, attrs, parentCtrl){
+                        });
+                    });
+
+                    scope.onChange = function(){
+                        scope.$emit(parentCtrl.CHANGE_EVENT, {dir: scope.dir, value: angular.copy(scope.models)});
+                    };
+
                     scope.$on(parentCtrl.HAS_EVENT, function(event, data){
                         if(scope.dir in data) {
-                            var model = data[scope.dir];
-                            scope.models[model].show = true;
+                            var period = data[scope.dir];
+                            scope.models[period][data.property].show = true;
                         }
                     });
                 }
