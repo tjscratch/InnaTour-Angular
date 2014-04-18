@@ -360,16 +360,14 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
 
 innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', function ($rootScope, $parse) {
     return {
-        require: 'ngModel',
         scope: {
             ngValidationModel: '=',
             validateType: '=',
             validate: '&'
         },
-        link: function ($scope, element, attrs, ngModel) {
+        link: function ($scope, element, attrs) {
             var idAttrIsSet = false;
             var eid = 'dir_inp_' + _.uniqueId();
-
             var $elem = $(element);
 
             function validate(isUserAction) {
@@ -407,13 +405,13 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
 
 
             //обновляем раз в 300мс
-            var validateThrottled = _.debounce(function () {
-                applyValidateDelayed();
+            var validateThrottled = _.debounce(function (isUserAction) {
+                applyValidateDelayed(isUserAction);
             }, 300);
 
-            var applyValidateDelayed = function () {
+            var applyValidateDelayed = function (isUserAction) {
                 $scope.$apply(function () {
-                    validate();
+                    validate(isUserAction);
                 });
 
             };
@@ -422,7 +420,6 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
             function updateAttrId(model) {
                 if (!idAttrIsSet && model != null)
                 {
-                    
                     //проставляем уникальный id элементу
                     $elem.attr("id", eid);
                     idAttrIsSet = true;
@@ -430,12 +427,11 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
             }
 
             //мониторим изменения ngModel
-            $scope.$watch('ngValidationModel', function (newVal, oldVal) {
+            $scope.$watch('ngValidationModel.value', function (newVal, oldVal) {
                 updateAttrId(newVal);
                 //console.log('validateEventsDir watch: val: ' + newVal);
 
-                //validateThrottled();
-                validate();
+                validateThrottled();
             });
         }
     };

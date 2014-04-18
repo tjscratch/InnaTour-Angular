@@ -17,8 +17,6 @@ innaAppControllers.
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
-            $scope.modelLoading = false;
-
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.peopleCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + parseInt($scope.criteria.InfantsCount);
@@ -42,15 +40,15 @@ innaAppControllers.
 
             var validateType = {
                 required: 'required',
+                cit_required: 'cit_required',
                 email: 'email',
-                phone: 'phone'
+                phone: 'phone',
+                date: 'date'
             };
             $scope.validateType = validateType;
 
             function updateValidationModel()
             {
-                if ($scope.modelLoading)
-                    return;
                 //log('updateValidationModel');
 
                 function getValidationItem(key, value, type) {
@@ -60,24 +58,34 @@ innaAppControllers.
                         value: value,
                         isValid: true,
                         isInvalid: false,
-                        validationType: null,
-                        $element: null
+                        validationType: null
                     }
                 };
 
                 function tryValidate(model, fn) {
                     try {
                         fn();
+                        $scope.setValid(model, true);
+                    }
+                    catch (err) {
+                        $scope.setValid(model, false);
+                    }
+                    log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid);
+                };
+
+                $scope.setValid = function (model, isValid) {
+                    if (model == null) return;
+                    if (isValid)
+                    {
                         model.isValid = true;
                         model.isInvalid = false;
                     }
-                    catch (err) {
+                    else
+                    {
                         model.isValid = false;
                         model.isInvalid = true;
                     }
-                    log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid + ', isInvalid: ' + model.isInvalid);
-                };
-
+                }
                 $scope.validate = function (item, type) {
                     if (item != null) {
                         //console.log('validate, key: %s, element: %s', model.key, model.$element.get(0));
@@ -87,6 +95,14 @@ innaAppControllers.
                                 {
                                     tryValidate(item, function () {
                                         Validators.defined(item.value, 'err');
+                                    });
+                                    break;
+                                }
+                            case validateType.cit_required://для гражданства - проверяем, что id > 0 и name заполнен
+                                {
+                                    tryValidate(item, function () {
+                                        Validators.gtZero(item.value.id, 'err');
+                                        Validators.defined(item.value.name, 'err');
                                     });
                                     break;
                                 }
@@ -101,6 +117,13 @@ innaAppControllers.
                                 {
                                     tryValidate(item, function () {
                                         Validators.phone(item.value, 'err');
+                                    });
+                                    break;
+                                }
+                            case validateType.date:
+                                {
+                                    tryValidate(item, function () {
+                                        Validators.date(item.value, 'err');
                                     });
                                     break;
                                 }
@@ -122,14 +145,42 @@ innaAppControllers.
 
                 //сохраняем некоторые поля из старой модели
                 function updateFields(validationModel) {
+                    var ignoreKeys = ['dir'];
+
                     //создаем поля из модели данных
                     var keys = _.keys($scope.model);
                     _.each(keys, function (key) {
                         var oldItem = null;
                         if ($scope.validationModel != null) {
-                            oldItem = $scope.validationModel[key];
+                            oldItem = validationModel[key];
                         }
-                        var newItem = getValidationItem(key, $scope.model[key]);
+
+                        var newItem = null;
+                        if (_.isArray($scope.model[key]))
+                        {
+                            newItem = [];
+                            _.each($scope.model[key], function (item, index) {
+                                var itemKeys = _.keys(item);
+                                var newIntItem = {};
+                                _.each(itemKeys, function (inKey) {
+                                    if (_.isFunction(item[inKey]) || _.any(ignoreKeys, function (item) { return item == inKey; }))
+                                    {
+                                        newIntItem[inKey] = angular.copy(item[inKey]);
+                                    }
+                                    else
+                                    {
+                                        newIntItem[inKey] = getValidationItem(inKey, angular.copy(item[inKey]));
+                                    }
+                                });
+                                
+                                newItem.push(newIntItem);
+                            });
+                        }
+                        else
+                        {
+                            newItem = getValidationItem(key, angular.copy($scope.model[key]));
+                        }
+                        
                         //сохраняем id и тип валидации
                         if (oldItem != null) {
                             newItem.id = oldItem.id;
@@ -195,6 +246,8 @@ innaAppControllers.
                     $scope.validationModel = validationModel;
                 }
                 updateFields($scope.validationModel);
+
+                //console.log($scope.validationModel);
             }
 
             $scope.$watch('model', function (newVal, oldVal) {
@@ -346,11 +399,11 @@ innaAppControllers.
                             id: 0,
                             name: ''
                         },
+                        doc_series_and_number: '',//серия номер
+                        doc_expirationDate: '',//дествителен до
                         document: {//документ
-                            series_and_number: '',
                             series: '',//серия
-                            number: '',//номер
-                            expirationDate: ''//дествителен до
+                            number: ''//номер
                         },
                         bonuscard: {
                             haveBonusCard: false,//Есть бонусная карта
@@ -490,9 +543,7 @@ innaAppControllers.
                 if (invalidItem != null)
                 {
                     //показываем тултип
-                    var eid = "#" + invalidItem.id;
-                    var $to = $(eid);
-                    console.log($to);
+                    var $to = $("#" + invalidItem.id);
                     //не навешивали тултип
                     if (!invalidItem.haveTooltip) {
                         $to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
@@ -543,8 +594,8 @@ innaAppControllers.
                             pas.birthday = debugItem.birthday;
                             pas.citizenship.id = 189;
                             pas.citizenship.name = 'Россия';
-                            pas.document.series_and_number = debugItem.series_and_number;
-                            pas.document.expirationDate = '18.07.2015';
+                            pas.doc_series_and_number = debugItem.series_and_number;
+                            pas.doc_expirationDate = '18.07.2015';
                             pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
                             pas.bonuscard.airCompany.id = 2;
                             pas.bonuscard.airCompany.name = 'Aeroflot';
@@ -557,8 +608,8 @@ innaAppControllers.
                             pas.birthday = '18.07.1976';
                             pas.citizenship.id = 189;
                             pas.citizenship.name = 'Россия';
-                            pas.document.series_and_number = '4507 048200';
-                            pas.document.expirationDate = '18.07.2015';
+                            pas.doc_series_and_number = '4507 048200';
+                            pas.doc_expirationDate = '18.07.2015';
                             pas.bonuscard.haveBonusCard = true;
                             pas.bonuscard.airCompany.id = 2;
                             pas.bonuscard.airCompany.name = 'Aeroflot';

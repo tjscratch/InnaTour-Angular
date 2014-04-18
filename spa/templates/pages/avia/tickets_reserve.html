@@ -101,22 +101,25 @@
                             <label class="b-field-label">Имя</label>
                             <input validate-events-dir ng-model="validationModel.name.value"
                                    ng-validation-model="validationModel.name" validate="validate(item, type)" validate-type="validateType.required"
+                                   ng-class="{error:validationModel.name.isInvalid && !validationModel.formPure}"
                                    title="Нужно ввести имя" name="name" type="text"
-                                   ng-class="{error:validationModel.name.isInvalid && !validationModel.formPure}" placeholder="Иван" class="b-field-text">
+                                   placeholder="Иван" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-190">
                             <label class="b-field-label">Фамилия</label>
                             <input validate-events-dir ng-model="validationModel.secondName.value" 
                                    ng-validation-model="validationModel.secondName" validate="validate(item, type)" validate-type="validateType.required"
+                                   ng-class="{error:validationModel.secondName.isInvalid && !validationModel.formPure}"
                                    title="Нужно ввести фамилию" name="secName" type="text" 
-                                   ng-class="{error:validationModel.secondName.isInvalid && !validationModel.formPure}" placeholder="Иванов" class="b-field-text">
+                                   placeholder="Иванов" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-290" ng-class="{'b-field-block-auth':login.isLogged && (f.email.$valid || f.email.$pristine)}">
                             <label class="b-field-label">E-mail</label>
                             <input validate-events-dir ng-model="validationModel.email.value"
                                    ng-validation-model="validationModel.email" validate="validate(item, type)" validate-type="validateType.email"
+                                   ng-class="{error:validationModel.email.isInvalid && !validationModel.formPure}"
                                    title="Неправильно введен email" type="text"
-                                   ng-class="{error:validationModel.email.isInvalid && !validationModel.formPure}" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
+                                   placeholder="ivan.ivanov@gmail.com" class="b-field-text">
                             <div class="b-auth" ng-show="login.isOpened">
                                 <a ng-href="#" ng-click="login.closeClick($event)" class="b-auth-close"></a>
                                 <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
@@ -127,8 +130,8 @@
                             <label class="b-field-label">Мобильный телефон</label>
                             <input validate-events-dir ng-model="validationModel.phone.value"
                                    ng-validation-model="validationModel.phone" validate="validate(item, type)" validate-type="validateType.phone"
-                                   title="Неправильно введен мобильный телефон" name="phone" type="text"
                                    ng-class="{error:validationModel.phone.isInvalid && !validationModel.formPure}"
+                                   title="Неправильно введен мобильный телефон" name="phone" type="text"
                                    phone-input placeholder="+79261234567" class="b-field-text">
                         </div>
                     </div>
@@ -138,57 +141,80 @@
             </div>
             <h2 class="title">Пасажиры</h2>
             <div class="form-body">
-                <fieldset class="form-container" ng-repeat="passenger in model.passengers">
+                <fieldset class="form-container" ng-repeat="passenger in validationModel.passengers">
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-block">
                             <label class="b-field-label">Пол</label>
-                            <ul class="radio-list " ng-class="{error:passenger.sex == null && !f.male3.$pristine }">
-                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.man" ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}"><ins class="radio">М</ins></label></li>
-                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.woman" ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}"><ins class="radio">Ж</ins></label></li>
+                            <ul class="radio-list" ng-class="{error:passenger.sex.isInvalid && !validationModel.formPure }"
+                                ng-init="setValid(passenger.sex, passenger.sex.value != null)">
+                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex.value" 
+                                    ng-change="setValid(passenger.sex, passenger.sex.value != null)"
+                                    ng-checked="passenger.sex.value == sexType.man" ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}"><ins class="radio">М</ins></label></li>
+                                <li><label><input type="checkbox" name="male3" ng-model="passenger.sex.value" 
+                                    ng-change="setValid(passenger.sex, passenger.sex.value != null)"
+                                    ng-checked="passenger.sex.value == sexType.woman" ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}"><ins class="radio">Ж</ins></label></li>
                             </ul>
                         </div>
                         <div class="b-field-block b-field-block-120">
                             <label class="b-field-label">Имя (латиницей)</label>
-                            <input name="pasName" type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
+                            <input validate-events-dir ng-model="passenger.name.value" 
+                                   ng-validation-model="passenger.name" validate="validate(item, type)" validate-type="validateType.required"
+                                   ng-class="{error:passenger.name.isInvalid && !validationModel.formPure}"
+                                   name="pasName" type="text" placeholder="IVAN" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-195 b-field-block-surname">
                             <label class="b-field-label">Фамилия (латиницей)</label>
-                            <input name="pasSecName" type="text" ng-model="passenger.secondName" placeholder="IVANOV" class="b-field-text">
+                            <input validate-events-dir ng-model="passenger.secondName.value" 
+                                   ng-validation-model="passenger.secondName" validate="validate(item, type)" validate-type="validateType.required"
+                                   ng-class="{error:passenger.secondName.isInvalid && !validationModel.formPure}"
+                                   name="pasSecName" type="text" placeholder="IVANOV" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-94">
                             <label class="b-field-label">Дата рождения</label>
-                            <input type="text" ng-model="passenger.birthday" placeholder="дд.мм.гггг" class="b-field-text">
+                            <input validate-events-dir ng-model="passenger.birthday.value" 
+                                   ng-validation-model="passenger.birthday" validate="validate(item, type)" validate-type="validateType.date"
+                                   ng-class="{error:passenger.birthday.isInvalid && !validationModel.formPure}"
+                                   masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-170">
                             <label class="b-field-label">Гражданство</label>
-                            <input ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.name}}" placeholder="Выберите" class="b-field-text b-field-select">
-                            <div partial-select list="citizenshipList" result="passenger.citizenship" is-open="passenger.dir.cit.isOpen">
+                            <input validate-events-dir
+                                   ng-validation-model="passenger.citizenship" validate="validate(item, type)" validate-type="validateType.cit_required"
+                                   ng-class="{error:passenger.citizenship.isInvalid && !validationModel.formPure}"
+                                   ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.value.name}}" placeholder="Выберите" class="b-field-text b-field-select">
+                            <div partial-select list="citizenshipList" result="passenger.citizenship.value" is-open="passenger.dir.cit.isOpen">
                             </div>
                             
                         </div>
                         <div class="b-field-block b-field-block-123">
                             <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
-                            <input type="text" ng-model="passenger.document.series_and_number" placeholder="1104 046100" class="b-field-text">
+                            <input validate-events-dir ng-model="passenger.doc_series_and_number.value" 
+                                   ng-validation-model="passenger.doc_series_and_number" validate="validate(item, type)" validate-type="validateType.required"
+                                   ng-class="{error:passenger.doc_series_and_number.isInvalid && !validationModel.formPure}"
+                                   type="text" placeholder="1104 046100" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-105">
                             <label class="b-field-label">Действителен до</label>
-                            <input type="text" ng-model="passenger.document.expirationDate" placeholder="дд.мм.гггг" class="b-field-text">
+                            <input validate-events-dir ng-model="passenger.doc_expirationDate.value" 
+                                   ng-validation-model="passenger.doc_expirationDate" validate="validate(item, type)" validate-type="validateType.date"
+                                   ng-class="{error:passenger.doc_expirationDate.isInvalid && !validationModel.formPure}"
+                                   masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг" class="b-field-text">
                         </div>
                     </div>
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-group b-field-group-passport">
                             <div class="b-field-block b-field-block-192">
-                                <label class="b-agreement"><input type="checkbox" ng-model="passenger.bonuscard.haveBonusCard"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
+                                <label class="b-agreement"><input type="checkbox" ng-model="passenger.bonuscard.haveBonusCard.value"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
                             </div>
-                            <div class="b-field-block b-field-block-195" ng-show="passenger.bonuscard.haveBonusCard == true">
+                            <div class="b-field-block b-field-block-195" ng-show="passenger.bonuscard.haveBonusCard.value == true">
                                 <label class="b-field-label">Авиакомпания</label>
-                                <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
-                                <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.airCompany" is-open="passenger.dir.card.isOpen">
+                                <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.airCompany.value.name}}" class="b-field-text b-field-select" placeholder="Выберите">
+                                <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.airCompany.value" is-open="passenger.dir.card.isOpen">
                                 </div>
                             </div>
-                            <div class="b-field-block b-field-block-143" ng-show="passenger.bonuscard.haveBonusCard == true">
+                            <div class="b-field-block b-field-block-143" ng-show="passenger.bonuscard.haveBonusCard.value == true">
                                 <label class="b-field-label">Номер карты</label>
-                                <input type="text" ng-model="passenger.bonuscard.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
+                                <input type="text" ng-model="passenger.bonuscard.number.value" class="b-field-text" placeholder="ХХХХХХХХХХХ">
                             </div>
                         </div>
                     </div>

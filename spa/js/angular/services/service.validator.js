@@ -18,6 +18,13 @@ angular.module('innaApp.services')
             },
             minLength: function(s, len, error){
                 if(!s.length || s.length < len) throw error;
-            }
+            },
+            date: function (s, error) {
+                if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
+            },
+            gtZero: function (s, error) {
+                var val = parseInt(s);
+                if (isNaN(val) || val <= 0) throw error;
+            },
         }
     }])
