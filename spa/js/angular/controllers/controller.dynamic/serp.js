@@ -69,13 +69,12 @@ innaAppControllers
             }
 
             doesTicketFit.comparators = {
-                Legs: function(ticket, options){
-                    var selected = _.where(options, {selected: true});
+                Legs: function(ticket, value){
+                    if(angular.equals(value, {})) return true;
+
                     var show = false;
 
-                    if(!selected.length) return true;
-
-                    $.each(selected, function(i, option){
+                    $.each(value, function(i, option){
                         show = show ||
                             (option.comparator(ticket.EtapsTo.length) && option.comparator(ticket.EtapsBack.length));
                     });
