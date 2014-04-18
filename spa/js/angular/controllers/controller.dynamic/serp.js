@@ -114,8 +114,12 @@ innaAppControllers
             });
 
             $scope.$on('inna.Dynamic.SERP.Ticket.Filter', function(event, data){
-                console.log('inna.Dynamic.SERP.Ticket.Filter', data);
                 $scope.ticketFilters[data.filter] = data.value;
+
+                $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
+                    type: 'ticket',
+                    filters: angular.copy($scope.ticketFilters)
+                });
             });
 
             $scope.$on(Events.DYNAMIC_SERP_FILTER_ANY_DROP, function(event, data){
@@ -209,8 +213,6 @@ innaAppControllers
 
                     return show;
                 });
-
-                console.log('show %s tickets of %s', ticketsToShow.length, $scope.tickets.length);
 
                 return ticketsToShow;
             }
