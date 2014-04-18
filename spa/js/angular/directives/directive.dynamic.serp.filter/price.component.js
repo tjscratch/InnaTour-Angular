@@ -7,12 +7,14 @@ angular.module('innaApp.directives')
                     hotels: '='
                 },
                 controller: [
-                    '$scope',
-                    function($scope){
+                    '$scope', 'innaApp.API.events',
+                    function($scope, Events){
+                        var DEFAULT = 0;
+
                         $scope.min = Number.MAX_VALUE;
                         $scope.max = 0;
 
-                        $scope.price = 0;
+                        $scope.price = DEFAULT;
 
                         $scope.$watch('price', function(newVal){
                             $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: 'Price', value: newVal});
@@ -27,6 +29,10 @@ angular.module('innaApp.directives')
                                 if(price > $scope.max) $scope.max = price;
                             });
                         });
+
+                        $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, 'Price'), function(){
+                            $scope.price = DEFAULT;
+                        })
                     }
                 ]
             }
