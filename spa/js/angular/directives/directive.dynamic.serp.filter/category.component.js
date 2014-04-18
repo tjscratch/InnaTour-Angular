@@ -7,9 +7,10 @@ angular.module('innaApp.directives')
                     hotels: '='
                 },
                 controller: [
-                    '$scope',
-                    function($scope){
+                    '$scope', 'innaApp.API.events',
+                    function($scope, Events){
                         var ALL = 'all';
+                        var DEFAULT = ALL;
 
                         $scope.options = {};
 
@@ -25,10 +26,14 @@ angular.module('innaApp.directives')
                             $scope.options[ALL] = newVal.length;
                         });
 
-                        $scope.currentOption = ALL;
+                        $scope.currentOption = DEFAULT;
 
                         $scope.$watch('currentOption', function(newVal){
                             $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: 'Stars', value: newVal});
+                        });
+
+                        $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, 'Stars'), function(event, data){
+                            $scope.currentOption = DEFAULT;
                         });
 
                         $scope.setCurrent = function(option){
