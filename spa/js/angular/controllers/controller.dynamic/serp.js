@@ -117,8 +117,7 @@ innaAppControllers
             });
 
             $scope.$on(Events.DYNAMIC_SERP_FILTER_ANY_DROP, function(event, data){
-                var filters = ({hotel: $scope.hotelFilters, ticket: $scope.ticketFilters})[data.type];
-                _.dropByJPath(filters, data.filter);
+                $scope.$broadcast(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, data.filter));
             });
 
             $scope.$watch('show', function(newVal, oldVal){
