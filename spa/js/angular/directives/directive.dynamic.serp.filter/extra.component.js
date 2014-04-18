@@ -5,23 +5,35 @@ angular.module('innaApp.directives')
             scope: {
                 'hotels': '='
             },
-            controller: ['$scope', function($scope){
-                $scope.models = {
-                    IsHasInternet: false,
-                    IsHasKitchen: false,
-                    IsHasParking: false,
-                    IsHasSwimmingPool: false
-                }
+            controller: [
+                '$scope', 'innaApp.API.events',
+                function($scope, Events){
+                    var NAME = 'Extra.*';
+                    var DEFAULT = false;
 
-                $scope.atLeastOne = function(option){
-                    return !!_.find($scope.hotels, function(hotel){
-                        return hotel[option];
-                    });
-                }
+                    $scope.models = {
+                        IsHasInternet: DEFAULT,
+                        IsHasKitchen: DEFAULT,
+                        IsHasParking: DEFAULT,
+                        IsHasSwimmingPool: DEFAULT
+                    }
 
-                $scope.onChange = function(option) {
-                    $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: 'Extra', value: angular.copy($scope.models)});
+                    $scope.atLeastOne = function(option){
+                        return !!_.find($scope.hotels, function(hotel){
+                            return hotel[option];
+                        });
+                    }
+
+                    $scope.onChange = function() {
+                        $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: 'Extra', value: angular.copy($scope.models)});
+                    }
+
+                    $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, NAME), function(event, data){
+                        var propertyName = data.split('.')[1];
+                        $scope.models[propertyName] = DEFAULT;
+                        $scope.onChange();
+                    })
                 }
-            }]
+            ]
         }
     }]);

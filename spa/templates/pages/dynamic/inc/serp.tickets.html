@@ -1,9 +1,16 @@
+<ng:include
+        src="'/spa/templates/pages/dynamic/inc/serp.filters-indicators.html'"
+        ng-controller="DynamicPackageSERPFilterIndicatorCtrl"></ng:include>
+
 <div class="b-filters">
     <div inna-dynamic-serp-filter-avia-legs
          inna-dynamic-serp-filter-avia-legs-tickets="tickets"
          class="b-filters__filter b-filters__filter_type_legs"></div>
     <div inna-dynamic-serp-filter-avia-price
          inna-dynamic-serp-filter-avia-price-tickets="tickets"
+         class="b-filters__filter b-filters__filter_type_price"></div>
+    <div inna-dynamic-serp-filter-avia-time
+         inna-dynamic-serp-filter-avia-time-tickets="tickets"
          class="b-filters__filter b-filters__filter_type_price"></div>
 </div>
 
