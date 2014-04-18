@@ -1,7 +1,7 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
-        '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard', '$routeParams',
-        function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams) {
+        '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard', '$routeParams', 'innaApp.API.events',
+        function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams, Events) {
             /*Private*/
             var searchParams = {};
             var cacheKey = '';
@@ -10,7 +10,7 @@ innaAppControllers
             function loadTab() {
                 if($scope.show == $scope.HOTELS_TAB) {
                     DynamicPackagesDataProvider.getHotelsByCombination(
-                        $scope.combination.Ticket.To.TicketId, searchParams,
+                        $scope.combination.AviaInfo.VariantId1, searchParams,
                         function(data){
                             $scope.$apply(function($scope){
                                 $scope.hotels = data.Hotels;
@@ -40,6 +40,8 @@ innaAppControllers
                     return (hotel.Stars == value);
                 },
                 Price: function(hotel, value){
+                    if(!value) return true;
+
                     return (hotel.MinimalPackagePrice <= value);
                 },
                 Name: function(hotel, value){
@@ -102,6 +104,11 @@ innaAppControllers
 
             $scope.$on('inna.Dynamic.SERP.Hotel.Filter', function(event, data){
                 $scope.hotelFilters[data.filter] = data.value;
+
+                $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
+                    type: 'hotel',
+                    filters: angular.copy($scope.hotelFilters)
+                });
             });
 
             $scope.$on('inna.Dynamic.SERP.Ticket.Filter', function(event, data){

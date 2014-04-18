@@ -3,6 +3,13 @@
 <div><button ng-click="changeHotelsView()">Карта/список</button></div>
 
 <div>
+    <h1>Filters</h1>
+
+    <div ng-controller="DynamicPackageSERPFilterIndicatorCtrl">
+        CurrentFilters
+        <button ng-repeat="(filterName, filterValue) in filters">{{filterName}} = {{filterValue|json}}</button>
+    </div>
+
     <div dynamic-serp-filter-category
             hotels="hotels"></div>
     <div dynamic-serp-filter-price

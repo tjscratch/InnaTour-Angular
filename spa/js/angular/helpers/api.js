@@ -35,5 +35,10 @@ angular.module('innaApp.API', [])
             eof: null
         }
     })
+    .factory('innaApp.API.events', function(){
+        return {
+            DYNAMIC_SERP_FILTER_ANY_CHANGE: 'inna.Dynamic.SERP.*.Filter'
+        }
+    })
     .constant('innaApp.API.pageContent.DYNAMIC', 4)
     .constant('innaApp.API.pageContent.AVIA', 3);

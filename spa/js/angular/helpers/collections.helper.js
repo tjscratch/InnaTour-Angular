@@ -6,3 +6,28 @@ _.generateRange = function(start, end){
     }
     return list;
 }
+
+_.dropEmptyKeys = function(obj, supposeEmpty) {
+    for(var p in obj) if(obj.hasOwnProperty(p)) {
+        if(!obj[p]) delete obj[p];
+    }
+
+    return obj;
+}
+
+_.flattenObject = function(obj, _prefix, _result) {
+    _result = _result || {}
+    _prefix = _prefix || '';
+
+    for(var p in obj) if(obj.hasOwnProperty(p)) {
+        var key = _prefix && [_prefix, p].join('.') || p;
+
+        if(_.isObject(obj[p]) && !_.isArray(obj[p])) {
+            _.flattenObject(obj[p], key, _result);
+        } else {
+            _result[key] = obj[p];
+        }
+    }
+
+    return _result;
+};
