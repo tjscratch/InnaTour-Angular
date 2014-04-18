@@ -337,16 +337,18 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
 
                 var plusEntered = $elem.val() == '+' || $elem.val().substring(0, 1) == '+';
 
-                //пока не введем первый плюс
                 if (!plusEntered) {
-                    if (key != 43) {
+                    //плюс не введен, даем ввести, или дописываем сами
+                    if (key != 43)
+                    {
+                        $elem.val("+");
                         event.preventDefault();
                         return false;
                     }
                 }
                 else {
                     //введен плюс, даем вводить только цифры
-                    if (!(key > 48 && key < 57)) {
+                    if (!(key >= 48 && key <= 57)) {
                         event.preventDefault();
                         return false;
                     }
@@ -388,14 +390,18 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
             };
 
             $elem.on('blur', function () {
-                validate(true);
+                $scope.$apply(function () {
+                    validate(true);
+                });
             //}).on('change', function () {
             //    validate();
             }).on('keypress', function (event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
                 if (key == 13) {//enter
-                    validate(true);
+                    $scope.$apply(function () {
+                        validate(true);
+                    });
                 }
             });
 
