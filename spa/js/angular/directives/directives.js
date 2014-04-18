@@ -358,6 +358,44 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
     };
 }]);
 
+innaAppDirectives.directive('upperLatin', ['$filter', function ($filter) {
+    return {
+        require: 'ngModel',
+        link: function ($scope, element, attrs, ngModel) {
+
+            var ruLetters = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
+            var latLetters = ['A', 'B', 'V', 'G', 'D', 'E', 'E', 'ZH', 'Z', 'I', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'KH', 'TS', 'CH', 'SH', 'SHCH', '', 'Y', '', 'E', 'IU', 'IA'];
+
+            var capitalize = function (inputValue) {
+                if (inputValue == null) return;
+
+                var capitalized = inputValue.toUpperCase();
+
+                var letters = [];
+                _.each(capitalized, function (l) {
+                    var index = ruLetters.indexOf(l);
+                    if (index > -1)
+                    {
+                        l = latLetters[index];
+                    }
+                    letters.push(l);
+                });
+
+                capitalized = letters.join('');
+
+                if (capitalized !== inputValue) {
+                    ngModel.$setViewValue(capitalized);
+                    ngModel.$render();
+                }
+                return capitalized;
+            }
+
+            ngModel.$parsers.push(capitalize);
+            capitalize($scope[attrs.ngModel]);// capitalize initial value
+        }
+    };
+}]);
+
 innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', function ($rootScope, $parse) {
     return {
         scope: {
@@ -407,7 +445,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
             //обновляем раз в 300мс
             var validateThrottled = _.debounce(function (isUserAction) {
                 applyValidateDelayed(isUserAction);
-            }, 300);
+            }, 200);
 
             var applyValidateDelayed = function (isUserAction) {
                 $scope.$apply(function () {

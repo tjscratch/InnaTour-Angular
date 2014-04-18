@@ -26,5 +26,33 @@ angular.module('innaApp.services')
                 var val = parseInt(s);
                 if (isNaN(val) || val <= 0) throw error;
             },
+            birthdate: function (s, error) {
+                if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
+
+                //от 01.01.1900 до текущей даты
+                var dParts = s.split('.');
+                if (dParts.length == 3) {
+                    var y = parseInt(dParts[2], 10);
+
+                    var today = new Date();
+                    var yyyy = today.getFullYear();
+                    if (!(y >= 1900 && y <= yyyy))
+                        throw error;
+                }
+            },
+            expire: function (s, error) {
+                if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
+
+                //Дата должна быть в диапазоне от текущей даты + 100 лет
+                var dParts = s.split('.');
+                if (dParts.length == 3) {
+                    var y = parseInt(dParts[2], 10);
+
+                    var today = new Date();
+                    var yyyy = today.getFullYear();
+                    if (!(y >= yyyy && y <= (yyyy + 100)))
+                        throw error;
+                }
+            }
         }
     }])

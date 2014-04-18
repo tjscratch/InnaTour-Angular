@@ -43,7 +43,9 @@ innaAppControllers.
                 cit_required: 'cit_required',
                 email: 'email',
                 phone: 'phone',
-                date: 'date'
+                date: 'date',
+                birthdate: 'birthdate',
+                expire: 'expire'
             };
             $scope.validateType = validateType;
 
@@ -70,7 +72,7 @@ innaAppControllers.
                     catch (err) {
                         $scope.setValid(model, false);
                     }
-                    log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid);
+                    //log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid);
                 };
 
                 $scope.setValid = function (model, isValid) {
@@ -86,6 +88,7 @@ innaAppControllers.
                         model.isInvalid = true;
                     }
                 }
+
                 $scope.validate = function (item, type) {
                     if (item != null) {
                         //console.log('validate, key: %s, element: %s', model.key, model.$element.get(0));
@@ -127,13 +130,27 @@ innaAppControllers.
                                     });
                                     break;
                                 }
+                            case validateType.birthdate:
+                                {
+                                    tryValidate(item, function () {
+                                        Validators.birthdate(item.value, 'err');
+                                    });
+                                    break;
+                                }
+                            case validateType.expire:
+                                {
+                                    tryValidate(item, function () {
+                                        Validators.expire(item.value, 'err');
+                                    });
+                                    break;
+                                }
                         }
 
                         //прячем тултип, если показывали
                         if (item.haveTooltip == true)
                         {
                             var $to = $('#' + item.id);
-                            $to.tooltip("disable");
+                            tooltipControl.close($to);
                         }
                     }
 
@@ -195,46 +212,82 @@ innaAppControllers.
                     //основная модель для валидации
                     var validationModel = {
                         formPure: true,
-                        getFields: function () {
+                        getFields: function (model) {
                             var self = this;
-                            var keys = _.keys(this);
+                            var keys = _.keys(model);
                             var validList = _.map(keys, function (key) {
-                                return self[key];
+                                return model[key];
                             });
                             //отбрасываем лишние поля
                             validList = _.filter(validList, function (item) { return item.isValid != undefined });
                             return validList;
                         },
+                        getArrayFileds: function() {
+                            var self = this;
+                            var keys = _.keys(this);
+                            keys = _.filter(keys, function(k){
+                                return _.isArray(self[k]);
+                            });
+                            var validList = _.map(keys, function (key) {
+                                return self[key];
+                            });
+                            return validList;
+                        },
                         isModelValid: function () {
-                            var list = this.getFields();
+                            var list = this.getFields(this);
                             var mValid = _.all(list, function (item) { return item.isValid; })
                             return mValid;
                         },
                         getFirstInvalidItem: function (conditionFn) {
-                            var list = this.getFields();
-                            var firstItem = _.find(list, function (item) {
-                                if (conditionFn == null) {
-                                    return item.isValid == false;
+                            var self = this;
+                            function findInModel(model) {
+                                var list = self.getFields(model);
+                                var firstItem = _.find(list, function (item) {
+                                    if (conditionFn == null) {
+                                        return item.isValid == false;
+                                    }
+                                    else {
+                                        return (item.isValid == false) && conditionFn(item);
+                                    }
+                                });
+                                return firstItem;
+                            };
+                            var firstItem = findInModel(this);
+
+                            //если не нашли в полях, смотрим во вложенных
+                            if (firstItem == null) {
+                                var arFields = this.getArrayFileds();
+                                for (var i = 0; i < arFields.length; i++) {
+                                    var field = arFields[i];
+                                    for (var j = 0; j < field.length; j++) {
+                                        var f = field[j];
+                                        firstItem = findInModel(f);
+                                        if (firstItem != null)
+                                            return firstItem;
+                                    }
                                 }
-                                else {
-                                    return (item.isValid == false) && conditionFn(item);
-                                }
-                            });
+                            }
                             return firstItem;
                         },
                         validateAll: function () {
-                            var list = this.getFields();
+                            var list = this.getFields(this);
                             _.each(list, function (item) {
                                 $scope.validate(item);
                             });
+
+                            //вложенные свойства
+                            var arFields = this.getArrayFileds();
+                            for (var i = 0; i < arFields.length; i++) {
+                                var field = arFields[i];
+                                for (var j = 0; j < field.length; j++) {
+                                    var f = field[j];
+                                    _.each(f, function (item) {
+                                        $scope.validate(item);
+                                    });
+                                }
+                            }
+
                             this.formPure = false;
-                        },
-                        resetAll: function () {
-                            var list = this.getFields();
-                            _.each(list, function (item) {
-                                item.isValid = true;
-                                item.isInvalid = false;
-                            });
                         }
                     };
                     return validationModel;
@@ -257,11 +310,11 @@ innaAppControllers.
                 updateValidationModel();
             }, true);
 
-            $scope.$watch('validationModel', function (newVal, oldVal) {
-                if (newVal === oldVal)
-                    return;
+            //$scope.$watch('validationModel', function (newVal, oldVal) {
+            //    if (newVal === oldVal)
+            //        return;
 
-            }, true);
+            //}, true);
 
             //$timeout(function () {
             //    loadToCountryAndInit(routeCriteria);
@@ -531,6 +584,24 @@ innaAppControllers.
                     });
             };
 
+            var tooltipControl = {
+                init: function ($to){
+                    //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+                    $to.tooltipX({ autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' } });
+                },
+                open: function ($to) {
+                    //$to.tooltip("enable");
+                    //$to.tooltip("open");
+                    setTimeout(function () {
+                        $to.tooltipX("open");
+                    }, 300);
+                },
+                close: function ($to) {
+                    //$to.tooltip("disable");
+                    $to.tooltipX("close");
+                }
+            };
+
             $scope.processToPayment = function ($event) {
                 eventsHelper.preventBubbling($event);
 
@@ -546,11 +617,10 @@ innaAppControllers.
                     var $to = $("#" + invalidItem.id);
                     //не навешивали тултип
                     if (!invalidItem.haveTooltip) {
-                        $to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+                        tooltipControl.init($to);
+                        invalidItem.haveTooltip = true;
                     }
-                    invalidItem.haveTooltip = true;
-                    $to.tooltip("enable");
-                    $to.tooltip("open");
+                    tooltipControl.open($to);
                      
                     return;
                 }
