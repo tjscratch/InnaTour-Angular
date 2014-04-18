@@ -31,3 +31,11 @@ _.flattenObject = function(obj, _prefix, _result) {
 
     return _result;
 };
+
+_.dropByJPath = function(object, jPath){
+    var dropper = new Function('obj', 'delete obj.' + jPath);
+
+    dropper(object);
+
+    return object;
+}

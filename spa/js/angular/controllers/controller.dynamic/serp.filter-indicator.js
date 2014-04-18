@@ -14,5 +14,9 @@ innaAppControllers
 
                 $scope.filters = filters;
             });
+
+            $scope.dropFilter = function(filterName){
+                $scope.$emit(Events.DYNAMIC_SERP_FILTER_ANY_DROP, {type: $scope.type, filter: filterName});
+            }
         }
     ]);

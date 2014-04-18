@@ -7,7 +7,7 @@
 
     <div ng-controller="DynamicPackageSERPFilterIndicatorCtrl">
         CurrentFilters
-        <button ng-repeat="(filterName, filterValue) in filters">{{filterName}} = {{filterValue|json}}</button>
+        <button ng-repeat="(filterName, filterValue) in filters" ng-click="dropFilter(filterName)">{{filterName}} = {{filterValue}}</button>
     </div>
 
     <div dynamic-serp-filter-category
