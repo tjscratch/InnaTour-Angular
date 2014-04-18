@@ -119,7 +119,8 @@ innaAppControllers
             });
 
             $scope.$on(Events.DYNAMIC_SERP_FILTER_ANY_DROP, function(event, data){
-                $scope.$broadcast(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, data.filter));
+                var eventNameComponent = _.map(data.filter.split('.'), function(component, i){ return i == 0 ? component : '*'; }).join('.');
+                $scope.$broadcast(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, eventNameComponent), data.filter);
             });
 
             $scope.$watch('show', function(newVal, oldVal){
