@@ -191,15 +191,6 @@ innaAppControllers
                 return hotelsToShow;
             }
 
-            $scope.getHotelDetails = function(hotel){
-                DynamicPackagesDataProvider.hotelDetails(
-                    hotel.HotelId, hotel.ProviderId,
-                    $scope.combination.Ticket.To.TicketId, $scope.combination.Ticket.Back.TicketId,
-                    cacheKey, function(resp){
-                        console.log(resp);
-                    });
-            }
-
             $scope.filteredTickets = function(filters) {
                 var ticketsToShow = _.filter($scope.tickets, function(ticket) {
                     var show = true;
@@ -214,6 +205,15 @@ innaAppControllers
                 });
 
                 return ticketsToShow;
+            }
+
+            $scope.getHotelDetails = function(hotel){
+                DynamicPackagesDataProvider.hotelDetails(
+                    hotel.HotelId, hotel.ProviderId,
+                    $scope.combination.AviaInfo.VariantId1, $scope.combination.AviaInfo.VariantId2,
+                    cacheKey, function(resp){
+                        console.log(resp);
+                    });
             }
 
             $scope.changeHotelsView = function(){
