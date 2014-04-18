@@ -1,4 +1,4 @@
-﻿﻿﻿
+﻿﻿
 'use strict';
 
 /* Directives */
@@ -126,35 +126,43 @@ innaAppDirectives.directive('appSlider', ['$timeout', function ($timeout) {
                 $timeout(function () { // You might need this timeout to be sure its run after DOM render.
                     //jq script
                     var $banners = $('.Offer-card-banners > .offer-card-banner-item'),
-                                length = $banners.length,
-                                $dotsContainer = $('.Banner-dots'),
-                                currentI = 0,
-                                $dots,
-                                animate = false;
+                        length = $banners.length,
+                        $dotsContainer = $('.Banner-dots'),
+                        currentI = 0,
+                        $dots,
+                        animate = false;
 
                     if (length > 1) {
                         $banners.each(function () {
                             $dotsContainer.append('<li class="dot" />');
                         });
-                    } else {
-                        return;
+
+                        $dots = $dotsContainer.children();
+
+                        $banners.eq(currentI).css('zIndex', 2);
+                        $dots = $dotsContainer.children();
+                        $dots.eq(currentI).addClass('active');
+
+                        $dotsContainer.on('click', ':not(.active)', function (evt) {
+                            if (animate) {
+                                return;
+                            }
+
+                            var index = $dots.index(evt.target);
+
+                            scroll(currentI, index)
+                        });
+
+                        setInterval($.proxy(function () {
+                            var next = currentI + 1;
+
+                            if (next === length) {
+                                next = 0;
+                            }
+
+                            scroll(currentI, next);
+                        }, this), 7000);
                     }
-
-                    $dots = $dotsContainer.children();
-
-                    $banners.eq(currentI).css('zIndex', 2);
-                    $dots = $dotsContainer.children();
-                    $dots.eq(currentI).addClass('active');
-
-                    $dotsContainer.on('click', ':not(.active)', function (evt) {
-                        if (animate) {
-                            return;
-                        }
-
-                        var index = $dots.index(evt.target);
-
-                        scroll(currentI, index)
-                    });
 
                     function scroll(fromI, toI) {
                         if (animate) {
@@ -232,20 +240,7 @@ innaAppDirectives.directive('appSlider', ['$timeout', function ($timeout) {
                         }
                     }
 
-
-                    if (length > 1) {
-                        setInterval($.proxy(function () {
-                            var next = currentI + 1;
-
-                            if (next === length) {
-                                next = 0;
-                            }
-
-                            scroll(currentI, next);
-                        }, this), 7000);
-                    }
-
-                    $(window).on('resize', function () {
+                    function updateBannerSize() {
                         var w = $(window).width();
                         var h = $('.Offer-card-banners').height();
 
@@ -265,7 +260,14 @@ innaAppDirectives.directive('appSlider', ['$timeout', function ($timeout) {
                             });
 
                         })
-                    });
+                    }
+
+                    $(window).on('resize', updateBannerSize);
+
+
+                    $timeout(function () {
+                        updateBannerSize();
+                    }, 500, false)
 
 
                 }, 0, false);
@@ -317,6 +319,91 @@ innaAppDirectives.directive('maskedInput', ['$parse', function ($parse) {
             //        })
             //    }
             //});
+        }
+    };
+}]);
+
+innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
+    return {
+        link: function ($scope, element, attrs) {
+            var $elem = $(element);
+            $elem.on('keypress', function (event) {
+                var theEvent = event || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+
+                //console.log('phoneInput, key: ' + key);
+                //48-57 - цифры
+                //43 +
+
+                var plusEntered = $elem.val() == '+' || $elem.val().substring(0, 1) == '+';
+
+                //пока не введем первый плюс
+                if (!plusEntered) {
+                    if (key != 43) {
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+                else {
+                    //введен плюс, даем вводить только цифры
+                    if (!(key > 48 && key < 57)) {
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+            });
+        }
+    };
+}]);
+
+innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', function ($rootScope, $parse) {
+    return {
+        require: 'ngModel',
+        scope: {
+            ngValidationModel: '=',
+            validateType: '=',
+            validate: '&'
+        },
+        link: function ($scope, element, attrs, ngModel) {
+            var $elem = $(element);
+
+            function validate() {
+                //$scope.validate({ model: $scope.ngValidationModel, type: $scope.validateType });
+                $scope.validate({ item: { model: $scope.ngValidationModel, type: $scope.validateType, $element: $elem } });
+            };
+
+            //validate();
+
+            $elem.on('blur', function () {
+                validate();
+            //}).on('change', function () {
+            //    validateThrottled();
+            }).on('keypress', function (event) {
+                var theEvent = event || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+                if (key == 13) {//enter
+                    validate();
+                }
+            });
+
+
+            //обновляем раз в 300мс
+            var validateThrottled = _.debounce(function () {
+                applyValidateDelayed();
+            }, 300);
+
+            var applyValidateDelayed = function () {
+                $scope.$apply(function () {
+                    validate();
+                });
+
+            };
+
+            //мониторим изменения ngModel
+            $scope.$watch(function () { return ngModel.$modelValue; }, function (newVal, oldVal) {
+                //validateThrottled();
+                validate();
+            }, true);
         }
     };
 }]);

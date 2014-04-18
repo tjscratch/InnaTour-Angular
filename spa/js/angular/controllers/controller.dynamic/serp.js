@@ -1,7 +1,9 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
-        '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard', '$routeParams',
-        function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams) {
+        '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard',
+        '$routeParams', 'innaApp.API.events',
+        function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard,
+                  $routeParams, Events) {
             /*Private*/
             var searchParams = {};
             var cacheKey = '';
@@ -10,7 +12,7 @@ innaAppControllers
             function loadTab() {
                 if($scope.show == $scope.HOTELS_TAB) {
                     DynamicPackagesDataProvider.getHotelsByCombination(
-                        $scope.combination.Ticket.To.TicketId, searchParams,
+                        $scope.combination.AviaInfo.VariantId1, searchParams,
                         function(data){
                             $scope.$apply(function($scope){
                                 $scope.hotels = data.Hotels;
@@ -40,6 +42,8 @@ innaAppControllers
                     return (hotel.Stars == value);
                 },
                 Price: function(hotel, value){
+                    if(!value) return true;
+
                     return (hotel.MinimalPackagePrice <= value);
                 },
                 Name: function(hotel, value){
@@ -64,13 +68,59 @@ innaAppControllers
                 return doesTicketFit.comparators[filter](ticket, value);
             }
 
-            doesTicketFit.comparators = {};
+            doesTicketFit.comparators = {
+                Legs: function(ticket, options){
+                    var selected = _.where(options, {selected: true});
+                    var show = false;
+
+                    if(!selected.length) return true;
+
+                    $.each(selected, function(i, option){
+                        show = show ||
+                            (option.comparator(ticket.EtapsTo.length) && option.comparator(ticket.EtapsBack.length));
+                    });
+
+                    return show;
+                },
+                Price: function(ticket, value) {
+                    if(!value) return true;
+
+                    return ticket.Price <= value;
+                },
+                Time: function(ticket, value) {
+                    var show = false;
+
+                    if(angular.equals(value, {})) return true;
+
+                    $.each(value, function(key, range){
+                        var prop = key.split('.')[0];
+                        show = show || dateHelper.isHoursBetween(ticket[prop], range);
+                    });
+
+                    return show;
+                }
+            };
 
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
             $scope.$on('inna.Dynamic.SERP.Hotel.Filter', function(event, data){
                 $scope.hotelFilters[data.filter] = data.value;
+
+                $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
+                    type: 'hotel',
+                    filters: angular.copy($scope.hotelFilters)
+                });
+            });
+
+            $scope.$on('inna.Dynamic.SERP.Ticket.Filter', function(event, data){
+                console.log('inna.Dynamic.SERP.Ticket.Filter', data);
+                $scope.ticketFilters[data.filter] = data.value;
+            });
+
+            $scope.$on(Events.DYNAMIC_SERP_FILTER_ANY_DROP, function(event, data){
+                var eventNameComponent = _.map(data.filter.split('.'), function(component, i){ return i == 0 ? component : '*'; }).join('.');
+                $scope.$broadcast(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, eventNameComponent), data.filter);
             });
 
             $scope.$watch('show', function(newVal, oldVal){
@@ -82,8 +132,8 @@ innaAppControllers
             })
 
             /*Constants*/
-            $scope.HOTELS_TAB = '/spa/templates/pages/dynamic_package_serp.hotels.html';
-            $scope.TICKETS_TAB = '/spa/templates/pages/dynamic_package_serp.tickets.html';
+            $scope.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
+            $scope.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
 
             /*Properties*/
             $scope.hotels = [];
@@ -94,9 +144,8 @@ innaAppControllers
             $scope.showLanding = true;
 
             $scope.show = $scope.HOTELS_TAB;
-            $scope.asMap = !!DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
-
-
+            // JFYI !!+val does the following magic: convert val into integer (+val) and then convert to boolean (!!)
+            $scope.asMap = !!+DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
 
             /*Initial Data fetching*/
             (function loadData(params){
@@ -161,7 +210,13 @@ innaAppControllers
                     return show;
                 });
 
+                console.log('show %s tickets of %s', ticketsToShow.length, $scope.tickets.length);
+
                 return ticketsToShow;
+            }
+
+            $scope.changeHotelsView = function(){
+                $scope.asMap = !$scope.asMap;
             }
         }
     ]);

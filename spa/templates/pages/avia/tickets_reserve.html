@@ -99,19 +99,24 @@
                     <div class="b-field-group">
                         <div class="b-field-block b-field-block-130">
                             <label class="b-field-label">Имя</label>
-                            <input tooltip title="Нужно ввести имя" name="name" type="text" ng-change="validation.change(f.name)"
-                                   ng-model="reservationModel.name" required ng-class="{error:f.name.$invalid && !f.name.$pristine }"  placeholder="Иван" class="b-field-text">
+                            <input validate-events-dir ng-model="validationModel.name.value" 
+                                   ng-validation-model="validationModel.name" validate="validate(item)" validate-type="validateType.required"
+                                   title="Нужно ввести имя" name="name" type="text"
+                                   ng-class="{error:validationModel.name.isInvalid}" placeholder="Иван" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-190">
                             <label class="b-field-label">Фамилия</label>
-                            <input tooltip title="Нужно ввести фамилию" name="secName" type="text" ng-change="validation.change(f.secName)"
-                                   ng-model="reservationModel.secondName" required ng-class="{error:f.secName.$invalid && !f.secName.$pristine }" placeholder="Иванов" class="b-field-text">
+                            <input validate-events-dir ng-model="validationModel.secondName.value" 
+                                   ng-validation-model="validationModel.secondName" validate="validate(item)" validate-type="validateType.required"
+                                   title="Нужно ввести фамилию" name="secName" type="text" 
+                                   ng-class="{error:validationModel.secondName.isInvalid}" placeholder="Иванов" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-290" ng-class="{'b-field-block-auth':login.isLogged && (f.email.$valid || f.email.$pristine)}">
                             <label class="b-field-label">E-mail</label>
-                            <input tooltip title="Неправильно введен email" name="email" type="email" ng-change="validation.change(f.email)"
-                                   ng-model="reservationModel.email" required ng-pattern="/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,63})+$/"
-                                   ng-class="{error:f.email.$invalid && !f.email.$pristine}" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
+                            <input validate-events-dir ng-model="validationModel.email.value"
+                                   ng-validation-model="validationModel.email" validate="validate(item)" validate-type="validateType.email"
+                                   title="Неправильно введен email" type="text"
+                                   ng-class="{error:validationModel.email.isInvalid}" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
                             <div class="b-auth" ng-show="login.isOpened">
                                 <a ng-href="#" ng-click="login.closeClick($event)" class="b-auth-close"></a>
                                 <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
@@ -120,10 +125,11 @@
                         </div>
                         <div class="b-field-block b-field-block-290">
                             <label class="b-field-label">Мобильный телефон</label>
-                            <input tooltip title="Неправильно введен мобильный телефон" name="phone" type="text" ng-change="validation.change(f.phone)"
-                                   ng-model="reservationModel.phone" required ng-minlength="12" ng-maxlength="21"
-                                   ng-class="{error:f.phone.$invalid && !f.phone.$pristine}"
-                                   masked-input mask="+99999999999?999999999" placeholder="+74951234567" class="b-field-text">
+                            <input validate-events-dir ng-model="validationModel.phone.value"
+                                   ng-validation-model="validationModel.phone" validate="validate(item)" validate-type="validateType.phone"
+                                   title="Неправильно введен мобильный телефон" name="phone" type="text"
+                                   ng-class="{error:validationModel.phone.isInvalid}"
+                                   phone-input placeholder="+79261234567" class="b-field-text">
                         </div>
                     </div>
                     <!--<div ng-show="(f.name.$invalid && !f.name.$pristine) || (f.secName.$invalid && !f.secName.$pristine) || (f.email.$invalid && !f.email.$pristine) || (f.phone.$invalid && !f.phone.$pristine)" class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div>-->
@@ -132,7 +138,7 @@
             </div>
             <h2 class="title">Пасажиры</h2>
             <div class="form-body">
-                <fieldset class="form-container" ng-repeat="passenger in reservationModel.passengers">
+                <fieldset class="form-container" ng-repeat="passenger in model.passengers">
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-block">
                             <label class="b-field-label">Пол</label>
@@ -156,7 +162,7 @@
                         <div class="b-field-block b-field-block-170">
                             <label class="b-field-label">Гражданство</label>
                             <input ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.name}}" placeholder="Выберите" class="b-field-text b-field-select">
-                            <div partial-select list="citizenshipList" result="passenger.citizenship" callback="passenger.dir.cit.saveDirCallback">
+                            <div partial-select list="citizenshipList" result="passenger.citizenship" is-open="passenger.dir.cit.isOpen">
                             </div>
                             
                         </div>
@@ -177,7 +183,7 @@
                             <div class="b-field-block b-field-block-195" ng-show="passenger.bonuscard.haveBonusCard == true">
                                 <label class="b-field-label">Авиакомпания</label>
                                 <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
-                                <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.airCompany" callback="passenger.dir.card.saveDirCallback">
+                                <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.airCompany" is-open="passenger.dir.card.isOpen">
                                 </div>
                             </div>
                             <div class="b-field-block b-field-block-143" ng-show="passenger.bonuscard.haveBonusCard == true">

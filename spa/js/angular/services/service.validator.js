@@ -2,13 +2,13 @@ angular.module('innaApp.services')
     .factory('Validators', [function(){
         return {
             email: function(s, error){
-                if(!/^[a-z0-9\+\.\-]+@[a-z0-9\+\.\-]+\.[a-z]+$/i.test(s)) throw error;
+                if (!/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,63})+$/i.test(s)) throw error;
             },
             defined: function(s, error){
                 if(!s) throw error;
             },
             phone: function(s, error){
-                if(!/^\d{10,}$/.test(s)) throw error;
+                if(!/^[+]\d{11,}$/.test(s)) throw error;//+79101234567
             },
             equals: function(s1, s2, error){
                 if(s1 != s2) throw error;

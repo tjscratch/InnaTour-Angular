@@ -77,8 +77,7 @@
         return (addZero(curr_date) + "." + addZero(curr_month) + "." + curr_year);
     },
 
-    dateToJsDate: function (sDate) {//"25.03.2014"
-        //дата
+    dateToJsDate: function (sDate) {
         var dParts = sDate.split('.');
         if (dParts.length == 3) {
             //день
@@ -119,9 +118,30 @@
         var yyyy = today.getFullYear();
         return new Date(yyyy, mm, dd);
     },
+
     ddmmyyyy2yyyymmdd: function(ddmmyy){
         var date = Date.fromDDMMYY(ddmmyy);
         return date.toISOString().split('T')[0];
+    },
+
+    isHoursBetween: function(date) {
+        var start, end;
+
+        if(!(date instanceof Date)) {
+            date = dateHelper.apiDateToJsDate(date);
+        }
+
+        if(arguments[1] instanceof Array) {
+            start = arguments[1][0];
+            end = arguments[1][1];
+        } else {
+            start = arguments[1];
+            end = arguments[0];
+        }
+
+        var h = date.getHours();
+
+        return start < end ? (h >= start && h < end) : (h >= start || h < end);
     },
 
     eof: null

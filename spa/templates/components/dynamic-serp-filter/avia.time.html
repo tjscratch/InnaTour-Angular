@@ -1,0 +1,23 @@
+<h1>Время перелета</h1>
+
+<div inna-dynamic-serp-filter-avia-time-section
+     inna-dynamic-serp-filter-avia-time-section-caption="Перелет туда"
+     inna-dynamic-serp-filter-avia-time-section-dir="To"></div>
+
+<div inna-dynamic-serp-filter-avia-time-section
+     inna-dynamic-serp-filter-avia-time-section-caption="Перелет обратно"
+     inna-dynamic-serp-filter-avia-time-section-dir="Back"></div>
+
+<script type="text/ng-template" id="/spa/templates/components/dynamic-serp-filter/avia.time.html/section">
+    <h2>{{caption}}</h2>
+    <form style="border:1px solid green;">
+        <div><input type="radio" name="inna-dynamic-serp-filter-avia-time-section-radio" ng-model="property" ng-value="DEPARTURE">Вылет</div>
+        <div><input type="radio" name="inna-dynamic-serp-filter-avia-time-section-radio" ng-model="property" ng-value="ARRIVAL">Прилет</div>
+
+        <div ng-repeat="prop in [DEPARTURE, ARRIVAL]" ng-show="property == prop">
+            <div ng-repeat="(modelName, model) in models"  ng-show="model[prop].show">
+                <input type="checkbox" ng-model="model[prop].checked" ng-change="onChange()">{{names[modelName]}}
+            </div>
+        </div>
+    </form>
+</script>

@@ -30,9 +30,19 @@ angular.module('innaApp.API', [])
             AVIA_RESERVATION_GET_PAY_DATA: url('/Payment/Index'),
             AVIA_PAY: url('/Psb/Pay'),
 
-            "*_PAGE_CONTENT": url('/api/v1/Section/Get/'),
+            "*_PAGE_CONTENT": url('/Section/Get/'),
 
             eof: null
+        }
+    })
+    .factory('innaApp.API.events', function(){
+        return {
+            build: function(eventName, subs){
+                return eventName.split('*').join(subs);
+            },
+
+            DYNAMIC_SERP_FILTER_ANY_CHANGE: 'inna.Dynamic.SERP.*.Filter',
+            DYNAMIC_SERP_FILTER_ANY_DROP: 'inna.Dynamic.SERP.*.Filter.Drop'
         }
     })
     .constant('innaApp.API.pageContent.DYNAMIC', 4)

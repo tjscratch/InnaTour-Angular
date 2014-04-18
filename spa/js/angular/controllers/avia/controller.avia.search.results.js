@@ -285,11 +285,6 @@ innaAppControllers.
                         //дополняем полями 
                         aviaHelper.addCustomFields(item);
 
-                        //if (i == 0)
-                        //{
-                        //    log('item: ' + angular.toJson(item));
-                        //}
-                        
                         list.push(item);
                     }
                     //добавляем список
