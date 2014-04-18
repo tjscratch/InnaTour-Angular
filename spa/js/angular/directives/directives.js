@@ -365,24 +365,37 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
             validate: '&'
         },
         link: function ($scope, element, attrs, ngModel) {
+            var idAttrIsSet = false;
+            var eid = 'dir_inp_' + _.uniqueId();
+
             var $elem = $(element);
 
-            function validate() {
-                //$scope.validate({ model: $scope.ngValidationModel, type: $scope.validateType });
-                $scope.validate({ item: { model: $scope.ngValidationModel, type: $scope.validateType, $element: $elem } });
+            function validate(isUserAction) {
+                //заполняем поля в модели
+                if ($scope.ngValidationModel != null &&
+                    $scope.ngValidationModel.validationType == null &&
+                    $scope.ngValidationModel.id == null) {
+
+                    $scope.ngValidationModel.validationType = $scope.validateType;
+                    $scope.ngValidationModel.id = eid;
+                }
+
+                var type = null;
+                if (isUserAction)
+                    type = 'userAction';
+
+                $scope.validate({ item: $scope.ngValidationModel, type: type });
             };
 
-            //validate();
-
             $elem.on('blur', function () {
-                validate();
+                validate(true);
             //}).on('change', function () {
-            //    validateThrottled();
+            //    validate();
             }).on('keypress', function (event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
                 if (key == 13) {//enter
-                    validate();
+                    validate(true);
                 }
             });
 
@@ -399,11 +412,25 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
 
             };
 
+            //когда придет модель - проставим аттрибут id элементу
+            function updateAttrId(model) {
+                if (!idAttrIsSet && model != null)
+                {
+                    
+                    //проставляем уникальный id элементу
+                    $elem.attr("id", eid);
+                    idAttrIsSet = true;
+                }
+            }
+
             //мониторим изменения ngModel
-            $scope.$watch(function () { return ngModel.$modelValue; }, function (newVal, oldVal) {
+            $scope.$watch('ngValidationModel', function (newVal, oldVal) {
+                updateAttrId(newVal);
+                //console.log('validateEventsDir watch: val: ' + newVal);
+
                 //validateThrottled();
                 validate();
-            }, true);
+            });
         }
     };
 }]);

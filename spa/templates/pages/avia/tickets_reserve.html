@@ -99,24 +99,24 @@
                     <div class="b-field-group">
                         <div class="b-field-block b-field-block-130">
                             <label class="b-field-label">Имя</label>
-                            <input validate-events-dir ng-model="validationModel.name.value" 
-                                   ng-validation-model="validationModel.name" validate="validate(item)" validate-type="validateType.required"
+                            <input validate-events-dir ng-model="validationModel.name.value"
+                                   ng-validation-model="validationModel.name" validate="validate(item, type)" validate-type="validateType.required"
                                    title="Нужно ввести имя" name="name" type="text"
-                                   ng-class="{error:validationModel.name.isInvalid}" placeholder="Иван" class="b-field-text">
+                                   ng-class="{error:validationModel.name.isInvalid && !validationModel.formPure}" placeholder="Иван" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-190">
                             <label class="b-field-label">Фамилия</label>
                             <input validate-events-dir ng-model="validationModel.secondName.value" 
-                                   ng-validation-model="validationModel.secondName" validate="validate(item)" validate-type="validateType.required"
+                                   ng-validation-model="validationModel.secondName" validate="validate(item, type)" validate-type="validateType.required"
                                    title="Нужно ввести фамилию" name="secName" type="text" 
-                                   ng-class="{error:validationModel.secondName.isInvalid}" placeholder="Иванов" class="b-field-text">
+                                   ng-class="{error:validationModel.secondName.isInvalid && !validationModel.formPure}" placeholder="Иванов" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-290" ng-class="{'b-field-block-auth':login.isLogged && (f.email.$valid || f.email.$pristine)}">
                             <label class="b-field-label">E-mail</label>
                             <input validate-events-dir ng-model="validationModel.email.value"
-                                   ng-validation-model="validationModel.email" validate="validate(item)" validate-type="validateType.email"
+                                   ng-validation-model="validationModel.email" validate="validate(item, type)" validate-type="validateType.email"
                                    title="Неправильно введен email" type="text"
-                                   ng-class="{error:validationModel.email.isInvalid}" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
+                                   ng-class="{error:validationModel.email.isInvalid && !validationModel.formPure}" placeholder="ivan.ivanov@gmail.com" class="b-field-text">
                             <div class="b-auth" ng-show="login.isOpened">
                                 <a ng-href="#" ng-click="login.closeClick($event)" class="b-auth-close"></a>
                                 <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
@@ -126,9 +126,9 @@
                         <div class="b-field-block b-field-block-290">
                             <label class="b-field-label">Мобильный телефон</label>
                             <input validate-events-dir ng-model="validationModel.phone.value"
-                                   ng-validation-model="validationModel.phone" validate="validate(item)" validate-type="validateType.phone"
+                                   ng-validation-model="validationModel.phone" validate="validate(item, type)" validate-type="validateType.phone"
                                    title="Неправильно введен мобильный телефон" name="phone" type="text"
-                                   ng-class="{error:validationModel.phone.isInvalid}"
+                                   ng-class="{error:validationModel.phone.isInvalid && !validationModel.formPure}"
                                    phone-input placeholder="+79261234567" class="b-field-text">
                         </div>
                     </div>
