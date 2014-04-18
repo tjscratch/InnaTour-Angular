@@ -133,11 +133,11 @@ app.config([
             //    controller: 'PaymentPageCtrl'
             //}).
             when(url.URL_DYNAMIC_PACKAGES, {
-                templateUrl: '/spa/templates/pages/dynamic_package_page.html',
+                templateUrl: '/spa/templates/pages/dynamic/page.html',
                 controller: 'DynamicPackageMordaCtrl'
             }).
             when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult', {
-                templateUrl: '/spa/templates/pages/dynamic_package_serp.html',
+                templateUrl: '/spa/templates/pages/dynamic/serp.html',
                 controller: 'DynamicPackageSERPCtrl'
             }).
             when(url.URL_AUTH_RESTORE, { //same as main

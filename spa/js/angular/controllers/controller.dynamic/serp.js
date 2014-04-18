@@ -132,8 +132,8 @@ innaAppControllers
             })
 
             /*Constants*/
-            $scope.HOTELS_TAB = '/spa/templates/pages/dynamic_package_serp.hotels.html';
-            $scope.TICKETS_TAB = '/spa/templates/pages/dynamic_package_serp.tickets.html';
+            $scope.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
+            $scope.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
 
             /*Properties*/
             $scope.hotels = [];

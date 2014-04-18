@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
     .directive('dynamicSerpMap', function(){
         return {
-            templateUrl: '/spa/templates/pages/dynamic_package_serp.map.html',
+            templateUrl: '/spa/templates/pages/dynamic/inc/serp.hotels.map.html',
             scope: {
                 hotels: '@'
             },
