@@ -24,7 +24,7 @@
 
             <ng:include src="objectToReserveTemplate"></ng:include>
 
-            <div class="warning">
+            <div class="warning" ng-show="visaNeeded">
                 <b class="warning-title">Обратите внимание!</b>
                 <p class="warning-info">При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование авиакомпании.</p>
             </div>

@@ -18,6 +18,8 @@ innaAppControllers.
             $scope.bonusCardTransportersList = null;
             $scope.model = null;
 
+            $scope.visaNeeded = false;
+
             $scope.sexType = aviaHelper.sexType;
             $scope.helper = aviaHelper;
 
@@ -43,6 +45,50 @@ innaAppControllers.
                 document: 'document'
             };
             $scope.validateType = validateType;
+
+            function visaNeededCheck() {
+                var visaCitNeeded = false;
+                var visaEtapNeeded = false;
+
+                if ($scope.validationModel != null && $scope.validationModel.passengers != null &&
+                    $scope.item != null) {
+                    for (var i = 0; i < $scope.validationModel.passengers.length; i++) {
+                        var pas = $scope.validationModel.passengers[i];
+                        if (pas.citizenship.value.id == 189)//Россия
+                        {
+                            visaCitNeeded = true;
+                        }
+                    }
+
+                    if ($scope.item.EtapsTo != null)
+                    {
+                        for (var i = 0; i < $scope.item.EtapsTo.length; i++) {
+                            var etap = $scope.item.EtapsTo[i];
+                            if (etap.InVisaGroup != 0 || etap.OutVisaGroup != 0) {
+                                visaEtapNeeded = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (visaEtapNeeded == false && $scope.item.EtapsBack != null) {
+                        for (var i = 0; i < $scope.item.EtapsBack.length; i++) {
+                            var etap = $scope.item.EtapsBack[i];
+                            if (etap.InVisaGroup != 0 || etap.OutVisaGroup != 0) {
+                                visaEtapNeeded = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (visaCitNeeded && visaEtapNeeded) {
+                    $scope.visaNeeded = true;
+                }
+                else
+                {
+                    $scope.visaNeeded = false;
+                }
+            };
 
             function updateValidationModel()
             {
@@ -399,6 +445,8 @@ innaAppControllers.
                 }
                 updateFields($scope.validationModel);
 
+                visaNeededCheck();
+
                 //console.log($scope.validationModel);
             }
 
@@ -421,8 +469,8 @@ innaAppControllers.
                         secondName: '',
                         birthday: '',
                         citizenship: {//Гражданство
-                            id: 0,
-                            name: ''
+                            id: 189,
+                            name: 'Россия'
                         },
                         doc_series_and_number: '',//серия номер
                         doc_expirationDate: '',//дествителен до
