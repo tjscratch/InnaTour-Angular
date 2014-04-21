@@ -1,11 +1,61 @@
-<style>
-    .b-auth-block{background:#fff;color:#000;}
-    .b-auth-block__section{border-bottom:1px solid #ccc;margin-bottom:15px;padding-bottom:15px;}
-    .b-validation-error{color:red;}
-</style>
+<div ng-controller="AuthCtrl" ng-show="isLoginPopupOpened">
+    <div class="popup-fade"></div>
+    <div class="popup-container">
+        <div class="popup">
+            <div class="popup-close-button" ng-click="isLoginPopupOpened = false"></div>
+            <ng:include src="'/spa/templates/auth/signin.html'"></ng:include>
+            <!--
+        --><form class="popup-form auth-form reg-form">
+            <h3 class="popup-form-title">Регистрация</h3>
+            <div class="popup-form-row">
+                <label for="" class="popup-form-label">Логин</label>
+                <input type="text" class="popup-form-field" />
+            </div>
+            <div class="popup-form-row">
+                <label for="" class="popup-form-label">Пароль</label>
+                <input type="password" class="popup-form-field" />
+            </div>
+            <div class="popup-form-row">
+                <label for="" class="popup-form-label">Пароль еще раз</label>
+                <input type="password" class="popup-form-field" />
+            </div>
+            <div class="popup-form-row popup-form-row-submit">
+                <button type="submit" class="button">Отправить</button>
+                <label class="popup-form-label">Отправить регистрационное письмо</label>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 <div class="b-auth-block" ng-controller="AuthCtrl" ng-show="isLoginPopupOpened">
     <ng:include src="'/spa/templates/auth/registration.html'"></ng:include>
-    <ng:include src="'/spa/templates/auth/signin.html'"></ng:include>
+
     <ng:include src="'/spa/templates/auth/restore.html'"></ng:include>
 </div>
+-->
