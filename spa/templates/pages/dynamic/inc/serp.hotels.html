@@ -24,6 +24,7 @@
     <li ng-repeat="hotel in filteredHotels(hotelFilters)" style="border:1px solid red;">
         {{hotel | json}}
         <button ng-click="getHotelDetails(hotel)">details</button>
+        <button ng-click="setHotel(hotel)" ng-hide="combination.Hotel.HotelId == hotel.HotelId">set current</button>
     </li>
 </ul>
 

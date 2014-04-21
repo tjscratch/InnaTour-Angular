@@ -25,7 +25,7 @@ angular.module('innaApp.directives')
                     }
 
                     $scope.onChange = function() {
-                        $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: 'Extra', value: angular.copy($scope.models)});
+                        $scope.$emit(Events.DYNAMIC_SERP_FILTER_HOTEL, {filter: 'Extra', value: angular.copy($scope.models)});
                     }
 
                     $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, NAME), function(event, data){

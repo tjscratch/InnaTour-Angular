@@ -53,6 +53,18 @@ angular.module('innaApp.services')
                     if (!(y >= yyyy && y <= (yyyy + 100)))
                         throw error;
                 }
-            }
+            },
+            ruPassport: function (s, error) {
+                //10 öèôğ - ğîññèéñêèé ïàñïîğò
+                if (!/^(\d{10})+$/.test(s)) throw error;
+            },
+            enPassport: function (s, error) {
+                //9 öèôğ - çàãğàíïàñïîğò
+                if (!/^(\d{9})+$/.test(s)) throw error;
+            },
+            birthPassport: function (s, error) {
+                //áóêâû (õîòÿ áû îäíà) + 6 ïîñëåäíèõ öèôğ - ñâ-âî î ğîæäåíèè (II-ËÎ 599785)
+                if (!/^.*([à-ÿÀ-ß¸¨a-zA-Z]).*(\d{6})+$/.test(s)) throw error;
+            },
         }
     }])

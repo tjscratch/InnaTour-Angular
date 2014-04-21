@@ -1,11 +1,12 @@
 {
   "dependencies": {
-    "connect": "*",
+    "connect": "2.14.4",
     "gulp": "*",
     "gulp-concat": "*",
     "gulp-less": "*",
     "gulp-stylus": "*",
     "gulp-minify-css": "*",
-    "gulp-uglify": "*"
+    "gulp-uglify": "*",
+    "nib": "1.0.2"
   }
 }

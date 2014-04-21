@@ -52,7 +52,7 @@ angular.module('innaApp.directives')
 
                                 return memo;
                             }, {});
-                            $scope.$emit('inna.Dynamic.SERP.Ticket.Filter', {filter: 'Legs', value: legs});
+                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Legs', value: legs});
                         };
 
                         $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, 'Legs.*'), function(event, data){

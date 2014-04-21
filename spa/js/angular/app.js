@@ -138,7 +138,8 @@ app.config([
             }).
             when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult', {
                 templateUrl: '/spa/templates/pages/dynamic/serp.html',
-                controller: 'DynamicPackageSERPCtrl'
+                controller: 'DynamicPackageSERPCtrl',
+                reloadOnSearch: false
             }).
             when(url.URL_AUTH_RESTORE, { //same as main
                 templateUrl: '/spa/templates/pages/tours_grid_page.html',
