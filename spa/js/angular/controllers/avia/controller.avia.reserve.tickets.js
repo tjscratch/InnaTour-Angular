@@ -321,5 +321,5 @@ innaAppControllers.
                 }, 2000);
             };
 
-            //$scope.afterPayModelInit = fillDefaultModelDelay;
+            $scope.afterPayModelInit = fillDefaultModelDelay;
         }]);

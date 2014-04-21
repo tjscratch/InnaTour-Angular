@@ -13,6 +13,17 @@
             $scope.itemClick = function (option) {
                 $scope.result = { id: option.Id, name: option.Name };
             }
+
+            function setResultIfOneItem() {
+                if ($scope.list != null && $scope.list.length == 1) {
+                    var option = $scope.list[0];
+                    $scope.result = { id: option.Id, name: option.Name };
+                }
+            }
+
+            $scope.$watch('list', function (newVal, oldVal) {
+                setResultIfOneItem();
+            });
         },
         link: function ($scope, element, attrs) {
             $(document).click(function (event) {
