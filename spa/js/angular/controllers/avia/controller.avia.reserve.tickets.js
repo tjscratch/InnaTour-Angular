@@ -44,10 +44,10 @@ innaAppControllers.
             //    loadToCountryAndInit(routeCriteria);
             //}, 2000);
 
-            var urlDataLoaded = { selectedItem: false, routeCriteriaTo: false, allCountries: false };
+            var urlDataLoaded = { routeCriteriaTo: false, storeItem: false };
 
             function isAllDataLoaded() {
-                return urlDataLoaded.selectedItem && urlDataLoaded.routeCriteriaTo && urlDataLoaded.allCountries;
+                return urlDataLoaded.routeCriteriaTo && urlDataLoaded.storeItem;
             }
             function initIfDataLoaded() {
                 //все данные были загружены
@@ -90,7 +90,8 @@ innaAppControllers.
                         $scope.searchId = storeItem.searchId;
                         $scope.item = storeItem.item;
 
-                        loadTransporters();
+                        urlDataLoaded.storeItem = true;
+                        initIfDataLoaded();
                     }
                 }
                 else {
@@ -107,7 +108,8 @@ innaAppControllers.
                             //log('getSelectedVariant dataItem: ' + angular.toJson(data));
                             $scope.item = data;
                             //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
-                            loadTransporters();
+                            urlDataLoaded.storeItem = true;
+                            initIfDataLoaded();
                         }
                         else
                             $log.error('paymentService.getSelectedVariant error, data is null');
@@ -118,48 +120,6 @@ innaAppControllers.
                 }
             })();
 
-            (function loadAllCountries() {
-                dataService.getAllCountries(function (data) {
-                    if (data != null) {
-                        $scope.citizenshipList = data;
-                        urlDataLoaded.allCountries = true;
-                        initIfDataLoaded();
-                    }
-                }, function (data, status) {
-                    log('getAllCountries error: status:' + status);
-                });
-            })();
-
-            function loadTransporters() {
-                var transportersNames = [];
-
-                if ($scope.item.EtapsTo.length > 0)
-                {
-                    _.each($scope.item.EtapsTo, function (item) {
-                        transportersNames.push(item.TransporterCode);
-                    });
-                }
-                if ($scope.item.EtapsBack != null && $scope.item.EtapsBack.length > 0) {
-                    _.each($scope.item.EtapsBack, function (item) {
-                        transportersNames.push(item.TransporterCode);
-                    });
-                }
-                //берем уникальные
-                transportersNames = _.uniq(transportersNames);
-
-                paymentService.getTransportersInAlliances(transportersNames, function (data) {
-                    if (data != null) {
-                        $scope.bonusCardTransportersList = data;
-                        if (data.length == 0)
-                            log('bonusCardTransportersList empty');
-
-                        urlDataLoaded.selectedItem = true;
-                        initIfDataLoaded();
-                    }
-                }, function (data, status) {
-                    log('getTransportersInAlliances error: ' + transportersNames + ' status:' + status);
-                });
-            };
             //data loading ===========================================================================
 
             //бронируем

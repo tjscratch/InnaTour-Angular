@@ -533,8 +533,72 @@ innaAppControllers.
                 updateValidationModel();
             }, true);
 
+            var dataLoaded = { country: false, transports: false };
+
+            function loadAllCountries(onCompleteFnRun) {
+                dataService.getAllCountries(function (data) {
+                    if (data != null) {
+                        $scope.citizenshipList = data;
+                        dataLoaded.country = true;
+                        initIfDataLoaded(onCompleteFnRun);
+                    }
+                }, function (data, status) {
+                    log('getAllCountries error: status:' + status);
+                });
+            };
+
+            function loadTransporters(onCompleteFnRun) {
+                var transportersNames = [];
+
+                if ($scope.item.EtapsTo.length > 0) {
+                    _.each($scope.item.EtapsTo, function (item) {
+                        transportersNames.push(item.TransporterCode);
+                    });
+                }
+                if ($scope.item.EtapsBack != null && $scope.item.EtapsBack.length > 0) {
+                    _.each($scope.item.EtapsBack, function (item) {
+                        transportersNames.push(item.TransporterCode);
+                    });
+                }
+                //берем уникальные
+                transportersNames = _.uniq(transportersNames);
+
+                paymentService.getTransportersInAlliances(transportersNames, function (data) {
+                    if (data != null) {
+                        $scope.bonusCardTransportersList = data;
+                        if (data.length == 0)
+                            log('bonusCardTransportersList empty');
+
+                        dataLoaded.transports = true;
+                        initIfDataLoaded(onCompleteFnRun);
+                    }
+                }, function (data, status) {
+                    log('getTransportersInAlliances error: ' + transportersNames + ' status:' + status);
+                });
+            };
+
+            function initIfDataLoaded(onCompleteFnRun) {
+                if (dataLoaded.country && dataLoaded.transports)
+                {
+                    onCompleteFnRun();
+                }
+            };
+
+            function loadHelperListData(onCompleteFnRun) {
+                loadAllCountries(onCompleteFnRun);
+                loadTransporters(onCompleteFnRun);
+            }
+
             $scope.afterPayModelInit = null;
-            $scope.initPayModel = function() {
+
+            $scope.initPayModel = function () {
+                //log('$scope.initPayModel');
+                loadHelperListData(function () {
+                    initPayModel();
+                });
+            }
+
+            var initPayModel = function() {
                 //log('initPayModel');
 
                 function passengerModel(index) {
