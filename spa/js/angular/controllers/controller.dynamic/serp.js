@@ -167,7 +167,7 @@ innaAppControllers
             (function loadData(){
                 searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
                 searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);
-                searchParams.ChildrenAges = searchParams.Children.split('_');
+                searchParams.Children && (searchParams.ChildrenAges = searchParams.Children.split('_'));
 
                 if($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
                 if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
