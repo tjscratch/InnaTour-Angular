@@ -401,6 +401,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
         scope: {
             ngValidationModel: '=',
             validateType: '=',
+            dependsOn: '=',
             validate: '&'
         },
         link: function ($scope, element, attrs) {
@@ -416,6 +417,8 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
 
                     $scope.ngValidationModel.validationType = $scope.validateType;
                     $scope.ngValidationModel.id = eid;
+                    //валидация зависит от поля
+                    $scope.ngValidationModel.dependsOnField = $scope.dependsOn;
                 }
 
                 var type = null;

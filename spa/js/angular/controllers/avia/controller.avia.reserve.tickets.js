@@ -45,7 +45,8 @@ innaAppControllers.
                 phone: 'phone',
                 date: 'date',
                 birthdate: 'birthdate',
-                expire: 'expire'
+                expire: 'expire',
+                document: 'document'
             };
             $scope.validateType = validateType;
 
@@ -58,6 +59,7 @@ innaAppControllers.
                         id: null,
                         key: key,
                         value: value,
+                        dependsOnField: null,//валидация зависит от поля
                         isValid: true,
                         isInvalid: false,
                         validationType: null
@@ -144,6 +146,29 @@ innaAppControllers.
                                     });
                                     break;
                                 }
+                            case validateType.document:
+                                {
+                                    //гражданство
+                                    var citizenship = item.dependsOnField;
+
+                                    //логика описана тут https://innatec.atlassian.net/browse/IN-746
+                                    tryValidate(item, function () {
+                                        Validators.defined(item.value, 'err');
+
+                                        //
+                                        if (citizenship == null || citizenship.value == null)
+                                            throw 'err';
+
+                                        if (citizenship.value.id == 189)//Россия
+                                        {
+
+                                        }
+                                        //нужно определить
+                                        //для граждан РФ, летящих внутри стран РФ, Абхазия, Белоруссия, Казахстан, Нагорный Карабах, 
+                                        //Приднестровье, Таджикистан, Украина, Южная Осетия
+                                    });
+                                    break;
+                                }
                         }
 
                         //прячем тултип, если показывали
@@ -173,6 +198,7 @@ innaAppControllers.
                         }
 
                         var newItem = null;
+                        //поля типа passengers - копируем в модель, и для них - на каждое поле создаем validation model
                         if (_.isArray($scope.model[key]))
                         {
                             newItem = [];
