@@ -103,7 +103,7 @@ innaAppControllers
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
-            $scope.$on('inna.Dynamic.SERP.Hotel.Filter', function(event, data){
+            $scope.$on(Events.DYNAMIC_SERP_FILTER_HOTEL, function(event, data){
                 $scope.hotelFilters[data.filter] = data.value;
 
                 $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
@@ -112,7 +112,7 @@ innaAppControllers
                 });
             });
 
-            $scope.$on('inna.Dynamic.SERP.Ticket.Filter', function(event, data){
+            $scope.$on(Events.DYNAMIC_SERP_FILTER_TICKET, function(event, data){
                 $scope.ticketFilters[data.filter] = data.value;
 
                 $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
