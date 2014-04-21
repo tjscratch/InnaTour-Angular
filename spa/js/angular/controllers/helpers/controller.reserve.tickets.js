@@ -154,9 +154,6 @@ innaAppControllers.
                                 case peopleType.infant: availableInfantsCount--; break;
                             }
                         }
-                        else {
-                            return false;
-                        }
                     }
 
                     //console.log('a: %d, c: %d, i: %d', availableAdultCount, availableChildCount, availableInfantsCount);
