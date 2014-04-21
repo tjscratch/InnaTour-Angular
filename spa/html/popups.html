@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="../css/ie.min.css" />
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <!-- <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script> -->
+    <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
     <script src="../lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="../js/jquery.ui.datepicker-ru.js"></script>
     <script src="../js/datepicker.js"></script>
@@ -800,6 +800,13 @@ FARES GOVERNED BY THIS RULE CAN BE USED TO CREATE ROUND-TRIP/CIRCLE-TRIP/OPEN-JA
         </div>
     </div>
     <!-- /Baloon -->
+
+<script type="text/javascript">
+    $(".baloon-close").on("click", function () {
+        //$(this).parent().hide();
+        $(this).parent().parent().hide();
+    });
+</script>
 
 </body>
 </html>
