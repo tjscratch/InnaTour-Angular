@@ -19,6 +19,7 @@ innaAppControllers.
 
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+            $scope.peopleCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + parseInt($scope.criteria.InfantsCount);
             $scope.searchId = $scope.criteria.QueryId;
             $scope.item = null;
             $scope.citizenshipList = null;
@@ -39,120 +40,281 @@ innaAppControllers.
 
             var validateType = {
                 required: 'required',
+                cit_required: 'cit_required',
                 email: 'email',
-                phone: 'phone'
+                phone: 'phone',
+                date: 'date',
+                birthdate: 'birthdate',
+                expire: 'expire'
             };
             $scope.validateType = validateType;
 
-            function getValidationItem(key, value, type) {
-                return {
-                    id: _.uniqueId(),
-                    key: key,
-                    value: value,
-                    isValid: true,
-                    isInvalid: false,
-                    validationType: null
-                }
-            };
-
             function updateValidationModel()
             {
+                //log('updateValidationModel');
+
+                function getValidationItem(key, value, type) {
+                    return {
+                        id: null,
+                        key: key,
+                        value: value,
+                        isValid: true,
+                        isInvalid: false,
+                        validationType: null
+                    }
+                };
+
                 function tryValidate(model, fn) {
                     try {
                         fn();
+                        $scope.setValid(model, true);
+                    }
+                    catch (err) {
+                        $scope.setValid(model, false);
+                    }
+                    //log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid);
+                };
+
+                $scope.setValid = function (model, isValid) {
+                    if (model == null) return;
+                    if (isValid)
+                    {
                         model.isValid = true;
                         model.isInvalid = false;
                     }
-                    catch (err) {
+                    else
+                    {
                         model.isValid = false;
                         model.isInvalid = true;
                     }
-                    log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid);
-                };
+                }
 
-                $scope.validate = function (model, type) {
-                    if (model != null) {
-                        //сохраняем тип валидации
-                        model.validationType = type;
-                        switch (type) {
+                $scope.validate = function (item, type) {
+                    if (item != null) {
+                        //console.log('validate, key: %s, element: %s', model.key, model.$element.get(0));
+                        //console.log('validate, key:\'%s\'; value:\'%s\'', model.key, model.value);
+                        switch (item.validationType) {
                             case validateType.required:
                                 {
-                                    tryValidate(model, function () {
-                                        Validators.defined(model.value, 'err');
+                                    tryValidate(item, function () {
+                                        Validators.defined(item.value, 'err');
+                                    });
+                                    break;
+                                }
+                            case validateType.cit_required://для гражданства - проверяем, что id > 0 и name заполнен
+                                {
+                                    tryValidate(item, function () {
+                                        Validators.gtZero(item.value.id, 'err');
+                                        Validators.defined(item.value.name, 'err');
                                     });
                                     break;
                                 }
                             case validateType.email:
                                 {
-                                    tryValidate(model, function () {
-                                        Validators.email(model.value, 'err');
+                                    tryValidate(item, function () {
+                                        Validators.email(item.value, 'err');
                                     });
                                     break;
                                 }
                             case validateType.phone:
                                 {
-                                    tryValidate(model, function () {
-                                        Validators.phone(model.value, 'err');
+                                    tryValidate(item, function () {
+                                        Validators.phone(item.value, 'err');
+                                    });
+                                    break;
+                                }
+                            case validateType.date:
+                                {
+                                    tryValidate(item, function () {
+                                        Validators.date(item.value, 'err');
+                                    });
+                                    break;
+                                }
+                            case validateType.birthdate:
+                                {
+                                    tryValidate(item, function () {
+                                        Validators.birthdate(item.value, 'err');
+                                    });
+                                    break;
+                                }
+                            case validateType.expire:
+                                {
+                                    tryValidate(item, function () {
+                                        Validators.expire(item.value, 'err');
                                     });
                                     break;
                                 }
                         }
+
+                        //прячем тултип, если показывали
+                        if (item.haveTooltip == true)
+                        {
+                            var $to = $('#' + item.id);
+                            tooltipControl.close($to);
+                        }
+                    }
+
+                    if ($scope.validationModel != null && type != null)
+                    {
+                        $scope.validationModel.formPure = false;
                     }
                 };
 
-                //основная модель для валидации
-                $scope.validationModel = {
-                    pureModel: true//модель не проверялась
+                //сохраняем некоторые поля из старой модели
+                function updateFields(validationModel) {
+                    var ignoreKeys = ['dir'];
+
+                    //создаем поля из модели данных
+                    var keys = _.keys($scope.model);
+                    _.each(keys, function (key) {
+                        var oldItem = null;
+                        if ($scope.validationModel != null) {
+                            oldItem = validationModel[key];
+                        }
+
+                        var newItem = null;
+                        if (_.isArray($scope.model[key]))
+                        {
+                            newItem = [];
+                            _.each($scope.model[key], function (item, index) {
+                                var itemKeys = _.keys(item);
+                                var newIntItem = {};
+                                _.each(itemKeys, function (inKey) {
+                                    if (_.isFunction(item[inKey]) || _.any(ignoreKeys, function (item) { return item == inKey; }))
+                                    {
+                                        newIntItem[inKey] = angular.copy(item[inKey]);
+                                    }
+                                    else
+                                    {
+                                        newIntItem[inKey] = getValidationItem(inKey, angular.copy(item[inKey]));
+                                    }
+                                });
+                                
+                                newItem.push(newIntItem);
+                            });
+                        }
+                        else
+                        {
+                            newItem = getValidationItem(key, angular.copy($scope.model[key]));
+                        }
+                        
+                        //сохраняем id и тип валидации
+                        if (oldItem != null) {
+                            newItem.id = oldItem.id;
+                            newItem.validationType = oldItem.validationType;
+                        }
+                        validationModel[key] = newItem;
+                    });
                 };
 
-                //создаем поля из модели данных
-                var keys = _.keys($scope.model);
-                _.each(keys, function (key) {
-                    $scope.validationModel[key] = getValidationItem(key, $scope.model[key]);
-                });
+                function getValidationModel()
+                {
+                    //основная модель для валидации
+                    var validationModel = {
+                        formPure: true,
+                        getFields: function (model) {
+                            var self = this;
+                            var keys = _.keys(model);
+                            var validList = _.map(keys, function (key) {
+                                return model[key];
+                            });
+                            //отбрасываем лишние поля
+                            validList = _.filter(validList, function (item) { return item.isValid != undefined });
+                            return validList;
+                        },
+                        getArrayFileds: function() {
+                            var self = this;
+                            var keys = _.keys(this);
+                            keys = _.filter(keys, function(k){
+                                return _.isArray(self[k]);
+                            });
+                            var validList = _.map(keys, function (key) {
+                                return self[key];
+                            });
+                            return validList;
+                        },
+                        isModelValid: function () {
+                            var list = this.getFields(this);
+                            var mValid = _.all(list, function (item) { return item.isValid; })
+                            return mValid;
+                        },
+                        getFirstInvalidItem: function (conditionFn) {
+                            var self = this;
+                            function findInModel(model) {
+                                var list = self.getFields(model);
+                                var firstItem = _.find(list, function (item) {
+                                    if (conditionFn == null) {
+                                        return item.isValid == false;
+                                    }
+                                    else {
+                                        return (item.isValid == false) && conditionFn(item);
+                                    }
+                                });
+                                return firstItem;
+                            };
+                            var firstItem = findInModel(this);
+
+                            //если не нашли в полях, смотрим во вложенных
+                            if (firstItem == null) {
+                                var arFields = this.getArrayFileds();
+                                for (var i = 0; i < arFields.length; i++) {
+                                    var field = arFields[i];
+                                    for (var j = 0; j < field.length; j++) {
+                                        var f = field[j];
+                                        firstItem = findInModel(f);
+                                        if (firstItem != null)
+                                            return firstItem;
+                                    }
+                                }
+                            }
+                            return firstItem;
+                        },
+                        validateAll: function () {
+                            var list = this.getFields(this);
+                            _.each(list, function (item) {
+                                $scope.validate(item);
+                            });
+
+                            //вложенные свойства
+                            var arFields = this.getArrayFileds();
+                            for (var i = 0; i < arFields.length; i++) {
+                                var field = arFields[i];
+                                for (var j = 0; j < field.length; j++) {
+                                    var f = field[j];
+                                    _.each(f, function (item) {
+                                        $scope.validate(item);
+                                    });
+                                }
+                            }
+
+                            this.formPure = false;
+                        }
+                    };
+                    return validationModel;
+                }
+                
+                if ($scope.validationModel == null)
+                {
+                    var validationModel = getValidationModel();
+                    $scope.validationModel = validationModel;
+                }
+                updateFields($scope.validationModel);
+
+                //console.log($scope.validationModel);
             }
-            updateValidationModel();
 
             $scope.$watch('model', function (newVal, oldVal) {
+                if (newVal === oldVal)
+                    return;
+
                 updateValidationModel();
             }, true);
 
+            //$scope.$watch('validationModel', function (newVal, oldVal) {
+            //    if (newVal === oldVal)
+            //        return;
 
-            //$scope.validation = {
-            //    searchPressed: false,
-            //    list: ['name', 'secName', 'email', 'phone'],
-            //    listPopup: ['email', 'phone'],
-            //    setDirtyAll: function () {
-            //        //сбрасываем чистость, все становится красным
-            //        _.each($scope.validation.list, function (item) {
-            //            $scope.f[item].$pristine = false;
-            //        });
-            //    },
-            //    change: function (state)
-            //    {
-            //        var elName = state.$name;
-            //        //log('tooltip change: ' + elName);
-            //        if (state.$valid)
-            //        {
-            //            $scope.validation.hide(elName);
-            //        }
-            //    },
-            //    show: function (elName) {
-            //        //log('tooltip show: ' + elName);
-            //        var sel = "input[name=" + elName + "]";
-            //        var $to = $(sel);
-            //        //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
-            //        $to.tooltip("enable");
-            //        $to.tooltip("open");
-            //    },
-            //    hide: function (elName) {
-            //        //log('tooltip hide: ' + elName);
-            //        var sel = "input[name=" + elName + "]";
-            //        var $to = $(sel);
-            //        //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
-            //        $to.tooltip("disable");
-            //    }
-            //};
+            //}, true);
 
             //$timeout(function () {
             //    loadToCountryAndInit(routeCriteria);
@@ -264,6 +426,8 @@ innaAppControllers.
                 paymentService.getTransportersInAlliances(transportersNames, function (data) {
                     if (data != null) {
                         $scope.bonusCardTransportersList = data;
+                        if (data.length == 0)
+                            log('bonusCardTransportersList empty');
 
                         urlDataLoaded.selectedItem = true;
                         initIfDataLoaded();
@@ -275,10 +439,10 @@ innaAppControllers.
             //data loading ===========================================================================
 
             function initPayModel() {
+                //log('initPayModel');
 
                 function passengerModel(index) {
-                    var self = this;
-                    self = {
+                    var model = {
                         index: index,
                         sex: null,
                         name: '',
@@ -288,11 +452,11 @@ innaAppControllers.
                             id: 0,
                             name: ''
                         },
+                        doc_series_and_number: '',//серия номер
+                        doc_expirationDate: '',//дествителен до
                         document: {//документ
-                            series_and_number: '',
                             series: '',//серия
-                            number: '',//номер
-                            expirationDate: ''//дествителен до
+                            number: ''//номер
                         },
                         bonuscard: {
                             haveBonusCard: false,//Есть бонусная карта
@@ -304,40 +468,29 @@ innaAppControllers.
                         },
                         dir: {
                             cit:{
-                                callback: null, //колбэк директивы на открытие списка гражданств
-                                saveDirCallback: function (cb) {
-                                    //директива передала колбэк на открытие списка, сохраняем колбэк
-                                    self.dir.cit.callback = cb;
-                                },
+                                isOpen: false
                             },
                             card: {
-                                callback: null, //колбэк директивы на открытие списка гражданств
-                                saveDirCallback: function (cb) {
-                                    //директива передала колбэк на открытие списка, сохраняем колбэк
-                                    self.dir.card.callback = cb;
-                                }
+                                isOpen: false
                             }
                         },
                         showCitListClick: function ($event) {
                             eventsHelper.preventBubbling($event);
                             //открываем список в директиве
-                            if (self.dir.cit.callback)
-                                self.dir.cit.callback();
+                            this.dir.cit.isOpen = !this.dir.cit.isOpen;
                         },
                         showCardListClick: function ($event) {
                             eventsHelper.preventBubbling($event);
                             //открываем список в директиве
-                            if (self.dir.card.callback)
-                                self.dir.card.callback();
+                            this.dir.card.isOpen = !this.dir.card.isOpen;
                         },
                     };
                     //log('passengerModel showCitListClick: ' + passengerModel.showCitListClick)
-                    return self;
+                    return model;
                 }
 
                 var passengers = [];
-                var peopleCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + parseInt($scope.criteria.InfantsCount);
-                for (var i = 0; i < peopleCount; i++) {
+                for (var i = 0; i < $scope.peopleCount; i++) {
                     var item = new passengerModel(i);
                     passengers.push(item);
                 }
@@ -431,25 +584,47 @@ innaAppControllers.
                     });
             };
 
+            var tooltipControl = {
+                init: function ($to){
+                    //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
+                    $to.tooltipX({ autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' } });
+                },
+                open: function ($to) {
+                    //$to.tooltip("enable");
+                    //$to.tooltip("open");
+                    setTimeout(function () {
+                        $to.tooltipX("open");
+                    }, 300);
+                },
+                close: function ($to) {
+                    //$to.tooltip("disable");
+                    $to.tooltipX("close");
+                }
+            };
+
             $scope.processToPayment = function ($event) {
                 eventsHelper.preventBubbling($event);
 
-                //сбрасываем чистость, все становится красным
-                //$scope.validation.setDirtyAll();
+                $scope.validationModel.validateAll();
 
-                //показываем попап на первом неправильном поле
-                if ($scope.f.$invalid) {
-                    for (var i = 0; i < $scope.validation.list.length; i++) {
-                        var fieldName = $scope.validation.list[i];
-                        var item = $scope.f[fieldName];
-                        if (item.$invalid && item.$viewValue != null && item.$viewValue.length > 0) {
-                            $scope.validation.show(fieldName);
-                            return;
-                        }
+                //ищем первый невалидный элемент, берем только непустые
+                var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
+                    return (item.value != null && item.value.length > 0);
+                });
+                if (invalidItem != null)
+                {
+                    //показываем тултип
+                    var $to = $("#" + invalidItem.id);
+                    //не навешивали тултип
+                    if (!invalidItem.haveTooltip) {
+                        tooltipControl.init($to);
+                        invalidItem.haveTooltip = true;
                     }
-                    
+                    tooltipControl.open($to);
+                     
                     return;
                 }
+                return;
 
                 //бронируем
                 reserve(function () {
@@ -473,7 +648,7 @@ innaAppControllers.
             function fillDefaultModelDelay() {
                 $timeout(function () {
                     $scope.model.name = 'Иван';
-                    $scope.model.secondName = 'Иванов';
+                    $scope.model.secondName = '';
                     $scope.model.email = 'ivan.ivanov@gmail.com';
                     $scope.model.phone = '+79101234567';
                     var index = 0;
@@ -489,8 +664,8 @@ innaAppControllers.
                             pas.birthday = debugItem.birthday;
                             pas.citizenship.id = 189;
                             pas.citizenship.name = 'Россия';
-                            pas.document.series_and_number = debugItem.series_and_number;
-                            pas.document.expirationDate = '18.07.2015';
+                            pas.doc_series_and_number = debugItem.series_and_number;
+                            pas.doc_expirationDate = '18.07.2015';
                             pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
                             pas.bonuscard.airCompany.id = 2;
                             pas.bonuscard.airCompany.name = 'Aeroflot';
@@ -503,8 +678,8 @@ innaAppControllers.
                             pas.birthday = '18.07.1976';
                             pas.citizenship.id = 189;
                             pas.citizenship.name = 'Россия';
-                            pas.document.series_and_number = '4507 048200';
-                            pas.document.expirationDate = '18.07.2015';
+                            pas.doc_series_and_number = '4507 048200';
+                            pas.doc_expirationDate = '18.07.2015';
                             pas.bonuscard.haveBonusCard = true;
                             pas.bonuscard.airCompany.id = 2;
                             pas.bonuscard.airCompany.name = 'Aeroflot';

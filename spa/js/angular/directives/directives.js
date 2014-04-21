@@ -1,4 +1,4 @@
-﻿﻿﻿
+﻿﻿
 'use strict';
 
 /* Directives */
@@ -323,51 +323,154 @@ innaAppDirectives.directive('maskedInput', ['$parse', function ($parse) {
     };
 }]);
 
-innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', function ($rootScope, $parse) {
+innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
+    return {
+        link: function ($scope, element, attrs) {
+            var $elem = $(element);
+            $elem.on('keypress', function (event) {
+                var theEvent = event || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+
+                //console.log('phoneInput, key: ' + key);
+                //48-57 - цифры
+                //43 +
+
+                var plusEntered = $elem.val() == '+' || $elem.val().substring(0, 1) == '+';
+
+                if (!plusEntered) {
+                    //плюс не введен, даем ввести, или дописываем сами
+                    if (key != 43)
+                    {
+                        $elem.val("+");
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+                else {
+                    //введен плюс, даем вводить только цифры
+                    if (!(key >= 48 && key <= 57)) {
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+            });
+        }
+    };
+}]);
+
+innaAppDirectives.directive('upperLatin', ['$filter', function ($filter) {
     return {
         require: 'ngModel',
+        link: function ($scope, element, attrs, ngModel) {
+
+            var ruLetters = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
+            var latLetters = ['A', 'B', 'V', 'G', 'D', 'E', 'E', 'ZH', 'Z', 'I', 'I', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'KH', 'TS', 'CH', 'SH', 'SHCH', '', 'Y', '', 'E', 'IU', 'IA'];
+
+            var capitalize = function (inputValue) {
+                if (inputValue == null) return;
+
+                var capitalized = inputValue.toUpperCase();
+
+                var letters = [];
+                _.each(capitalized, function (l) {
+                    var index = ruLetters.indexOf(l);
+                    if (index > -1)
+                    {
+                        l = latLetters[index];
+                    }
+                    letters.push(l);
+                });
+
+                capitalized = letters.join('');
+
+                if (capitalized !== inputValue) {
+                    ngModel.$setViewValue(capitalized);
+                    ngModel.$render();
+                }
+                return capitalized;
+            }
+
+            ngModel.$parsers.push(capitalize);
+            capitalize($scope[attrs.ngModel]);// capitalize initial value
+        }
+    };
+}]);
+
+innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', function ($rootScope, $parse) {
+    return {
         scope: {
             ngValidationModel: '=',
             validateType: '=',
             validate: '&'
         },
-        link: function ($scope, element, attrs, ngModel) {
+        link: function ($scope, element, attrs) {
+            var idAttrIsSet = false;
+            var eid = 'dir_inp_' + _.uniqueId();
             var $elem = $(element);
 
-            function validate() {
-                $scope.validate({ model: $scope.ngValidationModel, type: $scope.validateType });
+            function validate(isUserAction) {
+                //заполняем поля в модели
+                if ($scope.ngValidationModel != null &&
+                    $scope.ngValidationModel.validationType == null &&
+                    $scope.ngValidationModel.id == null) {
+
+                    $scope.ngValidationModel.validationType = $scope.validateType;
+                    $scope.ngValidationModel.id = eid;
+                }
+
+                var type = null;
+                if (isUserAction)
+                    type = 'userAction';
+
+                $scope.validate({ item: $scope.ngValidationModel, type: type });
             };
 
             $elem.on('blur', function () {
-                validate();
+                $scope.$apply(function () {
+                    validate(true);
+                });
             //}).on('change', function () {
-            //    validateThrottled();
+            //    validate();
             }).on('keypress', function (event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
                 if (key == 13) {//enter
-                    validate();
+                    $scope.$apply(function () {
+                        validate(true);
+                    });
                 }
             });
 
 
             //обновляем раз в 300мс
-            var validateThrottled = _.debounce(function () {
-                applyValidateDelayed();
-            }, 300);
+            var validateThrottled = _.debounce(function (isUserAction) {
+                applyValidateDelayed(isUserAction);
+            }, 200);
 
-            var applyValidateDelayed = function () {
+            var applyValidateDelayed = function (isUserAction) {
                 $scope.$apply(function () {
-                    validate();
+                    validate(isUserAction);
                 });
 
             };
 
+            //когда придет модель - проставим аттрибут id элементу
+            function updateAttrId(model) {
+                if (!idAttrIsSet && model != null)
+                {
+                    //проставляем уникальный id элементу
+                    $elem.attr("id", eid);
+                    idAttrIsSet = true;
+                }
+            }
+
             //мониторим изменения ngModel
-            $scope.$watch(function () { return ngModel.$modelValue; }, function (newVal, oldVal) {
-                //validateThrottled();
-                validate();
-            }, true);
+            $scope.$watch('ngValidationModel.value', function (newVal, oldVal) {
+                updateAttrId(newVal);
+                //console.log('validateEventsDir watch: val: ' + newVal);
+
+                validateThrottled();
+            });
         }
     };
 }]);

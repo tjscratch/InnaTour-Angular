@@ -11,7 +11,9 @@ innaAppControllers.
             PageContentLoader.getSectionById(sectionID, function (data) {
                 //обновляем данные
                 if (data != null) {
-                    $scope.sections = data.SectionLayouts;
+                    $scope.$apply(function($scope) {
+                        $scope.sections = data.SectionLayouts;
+                    });
                 }
             });
 

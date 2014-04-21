@@ -1,9 +1,4 @@
-﻿﻿
-'use strict';
-
-/* Directives */
-
-innaAppDirectives.directive('ymap', function () {
+﻿innaAppDirectives.directive('ymap', function () {
     return {
         link: function (scope, element, attrs) {
             //console.log('ymap');
