@@ -1,9 +1,9 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
         '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard',
-        '$routeParams', 'innaApp.API.events',
+        '$routeParams', 'innaApp.API.events', '$location',
         function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard,
-                  $routeParams, Events) {
+                  $routeParams, Events, $location) {
             /*Private*/
             var searchParams = {};
             var cacheKey = '';
@@ -100,6 +100,19 @@ innaAppControllers
                 }
             };
 
+            function updateCombination(o) {
+                if(!$scope.combination) $scope.combination = {};
+
+                for(var p in o) if(o.hasOwnProperty(p)) {
+                    $scope.combination[p] = o[p];
+                }
+
+                $location.search({
+                    hotel: $scope.combination.Hotel.HotelId,
+                    ticket: $scope.combination.AviaInfo.VariantId1
+                });
+            }
+
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
@@ -132,7 +145,7 @@ innaAppControllers
 
             $scope.$watch('asMap', function(newVal) {
                 DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
-            })
+            });
 
             /*Constants*/
             $scope.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
@@ -166,11 +179,15 @@ innaAppControllers
                     cacheKey = data.SearchId;
 
                     $scope.$apply(function($scope){
-                        $scope.combination = data.RecommendedPair;
-                        $scope.showLanding = false;
+                        updateCombination({
+                            Hotel: data.RecommendedPair.Hotel,
+                            AviaInfo: data.RecommendedPair.AviaInfo
+                        });
 
-                        loadTab();
+                        $scope.showLanding = false;
                     });
+
+                    loadTab();
                 });
             })(angular.copy($routeParams));
 
@@ -218,6 +235,10 @@ innaAppControllers
 
             $scope.changeHotelsView = function(){
                 $scope.asMap = !$scope.asMap;
+            }
+
+            $scope.setHotel = function(hotel){
+                updateCombination({Hotel: hotel});
             }
         }
     ]);
