@@ -18,9 +18,18 @@ innaAppControllers.
 
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
-            $scope.peopleCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + parseInt($scope.criteria.InfantsCount);
-            $scope.searchId = $scope.criteria.QueryId;
 
+            //====================================================
+            //нужны в родителе
+            $scope.fromDate = $scope.criteria.BeginDate;
+            $scope.AdultCount = parseInt($scope.criteria.AdultCount);
+            $scope.ChildCount = parseInt($scope.criteria.ChildCount);
+            $scope.InfantsCount = parseInt($scope.criteria.InfantsCount);
+            $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
+            //нужны в родителе
+            //====================================================
+
+            $scope.searchId = $scope.criteria.QueryId;
 
             $scope.objectToReserveTemplate = '/spa/templates/pages/avia/variant_partial.html';
 
@@ -312,5 +321,5 @@ innaAppControllers.
                 }, 2000);
             };
 
-            $scope.afterPayModelInit = fillDefaultModelDelay;
+            //$scope.afterPayModelInit = fillDefaultModelDelay;
         }]);

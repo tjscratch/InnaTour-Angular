@@ -13,6 +13,11 @@ innaAppControllers.
             }
 
             $scope.peopleCount = 0;
+            $scope.AdultCount = 0;
+            $scope.ChildCount = 0;
+            $scope.InfantsCount = 0;
+            $scope.fromDate = null;
+
             $scope.item = null;
             $scope.citizenshipList = null;
             $scope.bonusCardTransportersList = null;
@@ -111,6 +116,57 @@ innaAppControllers.
                 }
             };
 
+            function validatePeopleCount() {
+                if ($scope.validationModel != null && $scope.validationModel.passengers != null && $scope.validationModel.passengers.length > 0) {
+                    var availableAdultCount = $scope.AdultCount;
+                    var availableChildCount = $scope.ChildCount;
+                    var availableInfantsCount = $scope.InfantsCount;
+
+                    var peopleType = {
+                        adult: 'adult',
+                        child: 'child',
+                        infant: 'infant'
+                    };
+
+
+                    function getPeopleType(birthdate) {
+                        var fromDate = dateHelper.dateToJsDate($scope.fromDate);
+                        var bdate = dateHelper.dateToJsDate(birthdate);
+                        var age = dateHelper.calculateAge(bdate, fromDate);
+                        //console.log('age: %d', age);
+                        if (age < 2)
+                            return peopleType.infant;
+                        else if (age >= 2 && age <= 11)
+                            return peopleType.child;
+                        else
+                            return peopleType.adult;
+                    };
+
+                    for (var i = 0; i < $scope.validationModel.passengers.length; i++) {
+                        var pas = $scope.validationModel.passengers[i];
+
+                        if (pas.birthday.value != null && pas.birthday.value.length > 0) {
+                            //определяем тип человек (взрослый, ребенок, младенец)
+                            var type = getPeopleType(pas.birthday.value);
+                            switch (type) {
+                                case peopleType.adult: availableAdultCount--; break;
+                                case peopleType.child: availableChildCount--; break;
+                                case peopleType.infant: availableInfantsCount--; break;
+                            }
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+
+                    //console.log('a: %d, c: %d, i: %d', availableAdultCount, availableChildCount, availableInfantsCount);
+                    if (availableAdultCount < 0 || availableChildCount < 0 || availableInfantsCount < 0) {
+                        return false;
+                    }
+                }
+                return true;
+            };
+
             function updateValidationModel()
             {
                 //log('updateValidationModel');
@@ -197,6 +253,8 @@ innaAppControllers.
                                 {
                                     tryValidate(item, function () {
                                         Validators.birthdate(item.value, 'err');
+                                        if (!validatePeopleCount())
+                                            throw 'err';
                                     });
                                     break;
                                 }
