@@ -3,7 +3,14 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
 	minifyCSS = require('gulp-minify-css'),
 	uglify = require('gulp-uglify'),
-	stylus = require('gulp-stylus');
+	stylus = require('gulp-stylus'),
+    nib = require('nib');
+
+
+var paths = {
+    styles: 'spa/styl/**/*'
+};
+
 
 // Compiles LESS > CSS 
 gulp.task('build-less', function () {
@@ -19,14 +26,24 @@ gulp.task('build-ticket', function () {
 });
 
 gulp.task('build-styl', function () {
-    gulp.src(['spa/styl/search.styl', 'spa/styl/datepicker.styl', 'spa/styl/results.styl', 'spa/styl/buy.styl', 'spa/styl/balloon.styl'])
-		.pipe(concat('tickets.min.styl'))
+    gulp.src([
+            'spa/styl/search.styl',
+            'spa/styl/datepicker.styl',
+            'spa/styl/results.styl',
+            'spa/styl/buy.styl',
+            'spa/styl/balloon.styl',
+            'spa/styl/reg/registration.styl'
+        ])
+		.pipe(concat('styles.min.styl'))
 		.pipe(stylus({
-            use: ['nib'],
-            import: ['nib']
+            use: nib()
         }))
 		.pipe(minifyCSS(opts))
         .pipe(gulp.dest('spa/css'));
+});
+
+gulp.task('watch', function() {
+    gulp.watch(paths.styles, ['build-styl']);
 });
 
 gulp.task('default', ['build-less']);

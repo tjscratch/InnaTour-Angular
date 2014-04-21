@@ -26,7 +26,7 @@
 
     <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="/spa/css/main.css" />
-    <link rel="stylesheet" href="/spa/css/tickets.min.css" />
+    <link rel="stylesheet" href="/spa/css/styles.min.css" />
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="/spa/css/ie.min.css" />
     <![endif]-->
@@ -211,8 +211,8 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js"></script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFfw0SZX3LR9RKjnb05jqLS79kfBQ8kzc&sensor=false"></script>
-<script type="text/javascript" src="/spa/js/google.maps.clustering.js"></script>
+<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFfw0SZX3LR9RKjnb05jqLS79kfBQ8kzc&sensor=false"></script>-->
+<!--<script type="text/javascript" src="/spa/js/google.maps.clustering.js"></script>-->
 
 
 
@@ -469,6 +469,60 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
 <noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
 <!-- /Yandex.Metrika counter -->
+
+<div class="popup-fade"></div>
+<div class="popup-container">
+    <div class="popup">
+        <div class="popup-close-button"></div>
+        <form class="popup-form auth-form">
+            <h3 class="popup-form-title">Войти</h3>
+            <div class="popup-form-row">
+                <label for="" class="popup-form-label">Логин</label>
+                <input type="text" class="popup-form-field"/>
+            </div>
+            <div class="popup-form-row">
+                <label for="" class="popup-form-label">
+                    Пароль
+                    <a href="" class="forgot-password">Забыли пароль?</a>
+                </label>
+                <input type="password" class="popup-form-field"/>
+            </div>
+            <div class="popup-form-row popup-form-row-submit">
+                <div class="remember-me">
+                    <span class="checkbox"></span><label class="checkbox-label">Запомнить меня</label>
+                </div>
+                <button type="submit" class="button">Войти</button>
+            </div>
+            <div class="popup-form-row popup-form-row-submit popup-form-row-social-buttons">
+                <a href="" class="social-button social-button-fb"></a>
+                <a href="" class="social-button social-button-google"></a>
+                <a href="" class="social-button social-button-vk"></a>
+                <a href="" class="social-button social-button-twitter"></a>
+                <a href="" class="social-button social-button-odnoklassniki"></a>
+                <label class="popup-form-label">Войти через соц. сети</label>
+            </div>
+        </form><!--
+        --><form class="popup-form auth-form reg-form">
+            <h3 class="popup-form-title">Регистрация</h3>
+            <div class="popup-form-row">
+                <label for="" class="popup-form-label">Логин</label>
+                <input type="text" class="popup-form-field" />
+            </div>
+            <div class="popup-form-row">
+                <label for="" class="popup-form-label">Пароль</label>
+                <input type="password" class="popup-form-field" />
+            </div>
+            <div class="popup-form-row">
+                <label for="" class="popup-form-label">Пароль еще раз</label>
+                <input type="password" class="popup-form-field" />
+            </div>
+            <div class="popup-form-row popup-form-row-submit">
+                <button type="submit" class="button">Отправить</button>
+                <label class="popup-form-label">Отправить регистрационное письмо</label>
+            </div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>
