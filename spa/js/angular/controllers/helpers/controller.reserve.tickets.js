@@ -19,6 +19,7 @@ innaAppControllers.
             $scope.model = null;
 
             $scope.visaNeeded = false;
+            $scope.visaNeeded_rules = false;
 
             $scope.sexType = aviaHelper.sexType;
             $scope.helper = aviaHelper;
@@ -47,8 +48,9 @@ innaAppControllers.
             $scope.validateType = validateType;
 
             function visaNeededCheck() {
-                var visaCitNeeded = false;
+                var isCitRussia = false;
                 var visaEtapNeeded = false;
+                var visaEtapRulesNeeded = false;
 
                 if ($scope.validationModel != null && $scope.validationModel.passengers != null &&
                     $scope.item != null) {
@@ -56,16 +58,28 @@ innaAppControllers.
                         var pas = $scope.validationModel.passengers[i];
                         if (pas.citizenship.value.id == 189)//Россия
                         {
-                            visaCitNeeded = true;
+                            isCitRussia = true;
                         }
                     }
+
+                    var outVisaGroup = null;
+                    //берем визовую группу
+                    if ($scope.item.EtapsTo != null && $scope.item.EtapsTo.length > 0)
+                    {
+                        outVisaGroup = $scope.item.EtapsTo[0].OutVisaGroup;
+
+                        if (outVisaGroup != null && outVisaGroup != 0) {
+                            visaEtapNeeded = true;
+                        }
+                    }
+                    
 
                     if ($scope.item.EtapsTo != null)
                     {
                         for (var i = 0; i < $scope.item.EtapsTo.length; i++) {
                             var etap = $scope.item.EtapsTo[i];
-                            if (etap.InVisaGroup != 0 || etap.OutVisaGroup != 0) {
-                                visaEtapNeeded = true;
+                            if (etap.InVisaGroup != outVisaGroup || etap.OutVisaGroup != outVisaGroup) {
+                                visaEtapRulesNeeded = true;
                                 break;
                             }
                         }
@@ -73,20 +87,27 @@ innaAppControllers.
                     if (visaEtapNeeded == false && $scope.item.EtapsBack != null) {
                         for (var i = 0; i < $scope.item.EtapsBack.length; i++) {
                             var etap = $scope.item.EtapsBack[i];
-                            if (etap.InVisaGroup != 0 || etap.OutVisaGroup != 0) {
-                                visaEtapNeeded = true;
+                            if (etap.InVisaGroup != outVisaGroup || etap.OutVisaGroup != outVisaGroup) {
+                                visaEtapRulesNeeded = true;
                                 break;
                             }
                         }
                     }
                 }
 
-                if (visaCitNeeded && visaEtapNeeded) {
+                if (isCitRussia && visaEtapNeeded) {
                     $scope.visaNeeded = true;
                 }
                 else
                 {
                     $scope.visaNeeded = false;
+                }
+
+                if (isCitRussia && visaEtapRulesNeeded) {
+                    $scope.visaNeeded_rules = true;
+                }
+                else {
+                    $scope.visaNeeded_rules = false;
                 }
             };
 
