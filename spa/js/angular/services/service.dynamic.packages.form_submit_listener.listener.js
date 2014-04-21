@@ -13,7 +13,8 @@ angular.module('innaApp.services')
                                 data.StartVoyageDate,
                                 data.EndVoyageDate,
                                 data.TicketClass,
-                                data.Adult
+                                data.Adult,
+                                data.children.join('_')
                             ].join('-')
                         );
                     });

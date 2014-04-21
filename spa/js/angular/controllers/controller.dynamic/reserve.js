@@ -1,11 +1,13 @@
 angular.module('innaApp.controllers')
     .controller('DynamicReserveTicketsCtrl', [
-        '$scope', '$controller',
-        function($scope, $controller){
-            $controller('AviaReserveTicketsCtrl', {$scope: $scope});
+        '$scope', '$controller', '$routeParams', 'DynamicFormSubmitListener',
+        function($scope, $controller, $routeParams, DynamicFormSubmitListener){
+            DynamicFormSubmitListener.listen();
+
+            $controller('ReserveTicketsCtrl', { $scope: $scope });
 
             $scope.objectToReserveTemplate = '/spa/templates/pages/dynamic/inc/reserve.html';
 
-            console.log('hi from DynamicReserveTicketsCtrl');
+            console.log('hi from DynamicReserveTicketsCtrl', $routeParams);
         }
     ]);

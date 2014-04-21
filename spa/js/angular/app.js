@@ -137,12 +137,12 @@ app.config([
                 templateUrl: '/spa/templates/pages/dynamic/page.html',
                 controller: 'DynamicPackageMordaCtrl'
             }).
-            when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult', {
+            when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children', {
                 templateUrl: '/spa/templates/pages/dynamic/serp.html',
                 controller: 'DynamicPackageSERPCtrl',
                 reloadOnSearch: false
             }).
-            when(url.URL_DYNAMIC_PACKAGES_RESERVATION, {
+            when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children', {
                 templateUrl: '/spa/templates/pages/avia/tickets_reserve.html',
                 controller: 'DynamicReserveTicketsCtrl'
             }).

@@ -1,30 +1,26 @@
-<div class="b-auth-block__section" ng-controller="AuthSignInCtrl" id="social-broker-listener">
-    <h1>Авторизация</h1>
-    <div>
-        <label>Почта</label>
-        <input ng-model="username">
+<form class="popup-form auth-form" ng-controller="AuthSignInCtrl">
+    <h3 class="popup-form-title">Войти</h3>
+    <div class="popup-form-row">
+        <label for="" class="popup-form-label">Логин</label>
+        <input type="text" class="popup-form-field" ng-model="username"/>
         <div class="b-validation-error" ng-show="errors.username">Поле должно быть заполнено</div>
     </div>
-    <div>
-        <label>Пароль</label>
-        <input ng-model="password">
+    <div class="popup-form-row">
+        <label for="" class="popup-form-label">
+            Пароль
+            <a href="javascript:void(0);" class="forgot-password" ng-click="forgotten()">Забыли пароль?</a>
+        </label>
+        <input type="password" class="popup-form-field" ng-model="password"/>
         <div class="b-validation-error" ng-show="errors.password">Поле должно быть заполнено</div>
     </div>
-    <div>
-        <button ng-click="signIn()">Погнали!</button>
+    <div class="popup-form-row popup-form-row-submit">
+        <div class="remember-me">
+            <span class="checkbox"></span><label class="checkbox-label">Запомнить меня</label>
+        </div>
+        <button type="submit" class="button" ng-click="signIn()">Войти</button>
     </div>
     <div ng-show="requestFailure">
         Неверное имя пользователя или пароль
     </div>
-    <!-- Social -->
-    <div>
-        <button ng-click="signInWith('facebook')">FB</button>
-        <button ng-click="signInWith('twitter')">TW</button>
-        <button ng-click="signInWith('odnoklassniki')">OK</button>
-        <button ng-click="signInWith('google')">Google</button>
-        <button ng-click="signInWith('vkontakte')">vk</button>
-    </div>
-    <div>
-        <button ng-click="testPopup()">popup</button>
-    </div>
-</div>
+    <ng:include src="'/spa/templates/auth/social.inc.html'"></ng:include>
+</form>

@@ -5,7 +5,7 @@ innaAppControllers
         function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard,
                   $routeParams, Events, $location, Urls) {
             /*Private*/
-            var searchParams = {};
+            var searchParams = angular.copy($routeParams);
             var cacheKey = '';
             var AS_MAP_CACHE_KEY = 'serp-as-map';
 
@@ -164,17 +164,16 @@ innaAppControllers
             $scope.asMap = !!+DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
 
             /*Initial Data fetching*/
-            (function loadData(params){
-                params.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(params.StartVoyageDate);
-                params.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(params.EndVoyageDate);
-
-                searchParams = params;
+            (function loadData(){
+                searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
+                searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);
+                searchParams.ChildrenAges = searchParams.Children.split('_');
 
                 if($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
                 if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
 
                 console.time('loading_packages');
-                console.log('loading data by params', angular.toParam(params));
+                console.log('loading data by params', angular.toParam(searchParams));
 
                 DynamicPackagesDataProvider.search(searchParams, function(data){
                     console.timeEnd('loading_packages');
@@ -192,7 +191,7 @@ innaAppControllers
 
                     loadTab();
                 });
-            })(angular.copy($routeParams));
+            })();
 
             /*Methods*/
             $scope.filteredHotels = function(filters){
@@ -246,7 +245,13 @@ innaAppControllers
 
             $scope.goReservation = function(){
                 $location.path(Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
-
+                    $routeParams.DepartureId,
+                    $routeParams.ArrivalId,
+                    $routeParams.StartVoyageDate,
+                    $routeParams.EndVoyageDate,
+                    $routeParams.TicketClass,
+                    $routeParams.Adult,
+                    $routeParams.Children
                 ].join('-'));
             }
         }
