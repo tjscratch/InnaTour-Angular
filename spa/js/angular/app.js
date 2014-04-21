@@ -19,6 +19,7 @@ app.constant('innaApp.Urls', {
     URL_AVIA_BUY: '/avia/buy/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
+    URL_DYNAMIC_PACKAGES_RESERVATION: '/packages/reservation/',
     URL_PROGRAMMS: '/individualtours/',
     URL_ABOUT: '/about/',
     URL_CONTACTS: '/contacts/',
@@ -140,6 +141,10 @@ app.config([
                 templateUrl: '/spa/templates/pages/dynamic/serp.html',
                 controller: 'DynamicPackageSERPCtrl',
                 reloadOnSearch: false
+            }).
+            when(url.URL_DYNAMIC_PACKAGES_RESERVATION, {
+                templateUrl: '/spa/templates/pages/avia/tickets_reserve.html',
+                controller: 'DynamicReserveTicketsCtrl'
             }).
             when(url.URL_AUTH_RESTORE, { //same as main
                 templateUrl: '/spa/templates/pages/tours_grid_page.html',
