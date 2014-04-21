@@ -1,9 +1,9 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
         '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard',
-        '$routeParams', 'innaApp.API.events',
+        '$routeParams', 'innaApp.API.events', '$location',
         function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard,
-                  $routeParams, Events) {
+                  $routeParams, Events, $location) {
             /*Private*/
             var searchParams = {};
             var cacheKey = '';
@@ -100,10 +100,23 @@ innaAppControllers
                 }
             };
 
+            function updateCombination(o) {
+                if(!$scope.combination) $scope.combination = {};
+
+                for(var p in o) if(o.hasOwnProperty(p)) {
+                    $scope.combination[p] = o[p];
+                }
+
+                $location.search({
+                    hotel: $scope.combination.Hotel.HotelId,
+                    ticket: $scope.combination.AviaInfo.VariantId1
+                });
+            }
+
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
-            $scope.$on('inna.Dynamic.SERP.Hotel.Filter', function(event, data){
+            $scope.$on(Events.DYNAMIC_SERP_FILTER_HOTEL, function(event, data){
                 $scope.hotelFilters[data.filter] = data.value;
 
                 $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
@@ -112,7 +125,7 @@ innaAppControllers
                 });
             });
 
-            $scope.$on('inna.Dynamic.SERP.Ticket.Filter', function(event, data){
+            $scope.$on(Events.DYNAMIC_SERP_FILTER_TICKET, function(event, data){
                 $scope.ticketFilters[data.filter] = data.value;
 
                 $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
@@ -132,7 +145,7 @@ innaAppControllers
 
             $scope.$watch('asMap', function(newVal) {
                 DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
-            })
+            });
 
             /*Constants*/
             $scope.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
@@ -157,20 +170,27 @@ innaAppControllers
 
                 searchParams = params;
 
+                if($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
+                if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
+
                 console.time('loading_packages');
                 console.log('loading data by params', angular.toParam(params));
 
-                DynamicPackagesDataProvider.search(params, function(data){
+                DynamicPackagesDataProvider.search(searchParams, function(data){
                     console.timeEnd('loading_packages');
 
                     cacheKey = data.SearchId;
 
                     $scope.$apply(function($scope){
-                        $scope.combination = data.RecommendedPair;
-                        $scope.showLanding = false;
+                        updateCombination({
+                            Hotel: data.RecommendedPair.Hotel,
+                            AviaInfo: data.RecommendedPair.AviaInfo
+                        });
 
-                        loadTab();
+                        $scope.showLanding = false;
                     });
+
+                    loadTab();
                 });
             })(angular.copy($routeParams));
 
@@ -191,15 +211,6 @@ innaAppControllers
                 return hotelsToShow;
             }
 
-            $scope.getHotelDetails = function(hotel){
-                DynamicPackagesDataProvider.hotelDetails(
-                    hotel.HotelId, hotel.ProviderId,
-                    $scope.combination.Ticket.To.TicketId, $scope.combination.Ticket.Back.TicketId,
-                    cacheKey, function(resp){
-                        console.log(resp);
-                    });
-            }
-
             $scope.filteredTickets = function(filters) {
                 var ticketsToShow = _.filter($scope.tickets, function(ticket) {
                     var show = true;
@@ -216,8 +227,21 @@ innaAppControllers
                 return ticketsToShow;
             }
 
+            $scope.getHotelDetails = function(hotel){
+                DynamicPackagesDataProvider.hotelDetails(
+                    hotel.HotelId, hotel.ProviderId,
+                    $scope.combination.AviaInfo.VariantId1, $scope.combination.AviaInfo.VariantId2,
+                    cacheKey, function(resp){
+                        console.log(resp);
+                    });
+            }
+
             $scope.changeHotelsView = function(){
                 $scope.asMap = !$scope.asMap;
+            }
+
+            $scope.setHotel = function(hotel){
+                updateCombination({Hotel: hotel});
             }
         }
     ]);

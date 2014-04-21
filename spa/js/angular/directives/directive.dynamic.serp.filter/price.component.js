@@ -17,7 +17,7 @@ angular.module('innaApp.directives')
                         $scope.price = DEFAULT;
 
                         $scope.$watch('price', function(newVal){
-                            $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: 'Price', value: newVal});
+                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_HOTEL, {filter: 'Price', value: newVal});
                         });
 
                         $scope.$watchCollection('hotels', function(newVal) {
