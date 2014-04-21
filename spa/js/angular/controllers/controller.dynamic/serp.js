@@ -170,10 +170,13 @@ innaAppControllers
 
                 searchParams = params;
 
+                if($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
+                if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
+
                 console.time('loading_packages');
                 console.log('loading data by params', angular.toParam(params));
 
-                DynamicPackagesDataProvider.search(params, function(data){
+                DynamicPackagesDataProvider.search(searchParams, function(data){
                     console.timeEnd('loading_packages');
 
                     cacheKey = data.SearchId;
