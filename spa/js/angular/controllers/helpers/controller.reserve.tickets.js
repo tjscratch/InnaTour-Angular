@@ -162,8 +162,9 @@ innaAppControllers.
                                             //Приднестровье, Таджикистан, Украина, Южная Осетия
                                             function isTripInsideRF(item) {
                                                                                         //Нагорный Карабах, Приднестровье
-                                                var insideRFcase = [189, 69829, 35, 124, 0, 0, 215, 226, 0];
+                                                //var insideRFcase = [189, 69829, 35, 124, 0, 0, 215, 226, 0];
                                                                                                         //Южная Осетия
+                                                var insideRFcase = [189, 69829, 35, 124, 215, 226];
 
                                                 var etapCountries = [];
                                                 if (item.EtapsTo != null) {
@@ -182,7 +183,7 @@ innaAppControllers.
                                                 //проверяем все страны в этапах
                                                 for (var i = 0; i < etapCountries.length; i++) {
                                                     var etapCountry = etapCountries[i];
-                                                    if (_.indexOf(insideRFcase) < 0) //на каком-то этапе мы не попали в этот кейс
+                                                    if (_.indexOf(insideRFcase, etapCountry) < 0) //на каком-то этапе мы не попали в этот кейс
                                                     {
                                                         return false;
                                                     }
