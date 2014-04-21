@@ -1,9 +1,9 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
         '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard',
-        '$routeParams', 'innaApp.API.events', '$location',
+        '$routeParams', 'innaApp.API.events', '$location', 'innaApp.Urls',
         function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard,
-                  $routeParams, Events, $location) {
+                  $routeParams, Events, $location, Urls) {
             /*Private*/
             var searchParams = {};
             var cacheKey = '';
@@ -242,6 +242,12 @@ innaAppControllers
 
             $scope.setHotel = function(hotel){
                 updateCombination({Hotel: hotel});
+            }
+
+            $scope.goReservation = function(){
+                $location.path(Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
+
+                ].join('-'));
             }
         }
     ]);
