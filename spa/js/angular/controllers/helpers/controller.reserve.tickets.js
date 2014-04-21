@@ -530,8 +530,8 @@ innaAppControllers.
             }
 
             $scope.$watch('model', function (newVal, oldVal) {
-                if (newVal === oldVal)
-                    return;
+//                if (newVal === oldVal)
+//                    return;
 
                 updateValidationModel();
             }, true);
