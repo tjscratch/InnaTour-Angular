@@ -205,7 +205,7 @@
   background: #000;
   opacity: .2;
   filter: alpha(opacity=20);
-  z-index: 300;
+  z-index: 301;
 }
 .popup-close-button {
   background-color: #cecece;
