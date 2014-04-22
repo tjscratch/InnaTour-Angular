@@ -44,22 +44,11 @@ innaAppControllers.
             //    loadToCountryAndInit(routeCriteria);
             //}, 2000);
 
-            var urlDataLoaded = { routeCriteriaTo: false, storeItem: false };
-
-            function isAllDataLoaded() {
-                return urlDataLoaded.routeCriteriaTo && urlDataLoaded.storeItem;
-            }
-            function initIfDataLoaded() {
-                //все данные были загружены
-                if (isAllDataLoaded()) {
-                    //инициализация
-                    $scope.initPayModel();
-                }
-            };
+            var loader = new utils.loader();
 
             //data loading ===========================================================================
-            (function loadToCountry()
-            {
+            function loadToCountry() {
+                var self = this;
                 //log('loadToCountryAndInit');
                 if ($scope.criteria.ToUrl != null && $scope.criteria.ToUrl.length > 0) {
 
@@ -68,17 +57,17 @@ innaAppControllers.
                             $scope.criteria.To = data.name;
                             $scope.criteria.ToId = data.id;
                             $scope.criteria.ToCountryName = data.CountryName;
-
-                            urlDataLoaded.routeCriteriaTo = true;
-                            initIfDataLoaded();
+                            //оповещаем лоадер, что метод отработал
+                            loader.complete(self);
                         }
                     }, function (data, status) {
                         log('loadToCountry error: ' + $scope.criteria.ToUrl + ' status:' + status);
                     });
                 }
-            })();
+            };
 
-            (function getStoreItem() {
+            function getStoreItem() {
+                var self = this;
                 var storeItem = null;//storageService.getAviaBuyItem();
                 //log('storeItem: ' + angular.toJson(storeItem));
                 if (storeItem != null) {
@@ -90,8 +79,8 @@ innaAppControllers.
                         $scope.searchId = storeItem.searchId;
                         $scope.item = storeItem.item;
 
-                        urlDataLoaded.storeItem = true;
-                        initIfDataLoaded();
+                        //оповещаем лоадер, что метод отработал
+                        loader.complete(self);
                     }
                 }
                 else {
@@ -108,8 +97,9 @@ innaAppControllers.
                             //log('getSelectedVariant dataItem: ' + angular.toJson(data));
                             $scope.item = data;
                             //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
-                            urlDataLoaded.storeItem = true;
-                            initIfDataLoaded();
+                            
+                            //оповещаем лоадер, что метод отработал
+                            loader.complete(self);
                         }
                         else
                             $log.error('paymentService.getSelectedVariant error, data is null');
@@ -118,7 +108,9 @@ innaAppControllers.
                         $log.error('paymentService.getSelectedVariant error');
                     });
                 }
-            })();
+            };
+
+            loader.init([loadToCountry, getStoreItem], $scope.initPayModel).run();
 
             //data loading ===========================================================================
 
