@@ -21,9 +21,10 @@ angular.module('innaApp.controllers')
 
             $scope.$watch('email', function(){
                 $scope.errors.email = false;
+                $scope.requestFailure = false;
             });
 
-            $scope.errors = '';
+            $scope.errors = {};
 
             $scope.requestFailure = false;
 
@@ -59,7 +60,7 @@ angular.module('innaApp.controllers')
                     $scope.success = true;
 
                     $timeout(function(){
-                        $location.path('/');
+                        document.location = '/';
                     }, 1500);
                 }, function(){
                     $scope.requestFailed = true;
@@ -96,6 +97,12 @@ angular.module('innaApp.controllers')
                 } catch(fieldName) {
                     $scope.errors[fieldName] = true;
                 }
+            }
+
+            $scope.hasError = function(fieldName) {
+                if($scope.errors[fieldName]) return 'error';
+
+                return '';
             }
         }
     ]);

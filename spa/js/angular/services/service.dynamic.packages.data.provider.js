@@ -12,7 +12,8 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                 type: 'GET',
                 data: send,
                 url: url,
-                dataType: 'JSON'
+                dataType: 'JSON',
+                traditional: true
             }).success(function(resp){
                 delete http.running[key];
 

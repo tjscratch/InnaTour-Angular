@@ -19,6 +19,7 @@ app.constant('innaApp.Urls', {
     URL_AVIA_BUY: '/avia/buy/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
+    URL_DYNAMIC_PACKAGES_RESERVATION: '/packages/reservation/',
     URL_PROGRAMMS: '/individualtours/',
     URL_ABOUT: '/about/',
     URL_CONTACTS: '/contacts/',
@@ -136,9 +137,14 @@ app.config([
                 templateUrl: '/spa/templates/pages/dynamic/page.html',
                 controller: 'DynamicPackageMordaCtrl'
             }).
-            when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult', {
+            when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
                 templateUrl: '/spa/templates/pages/dynamic/serp.html',
-                controller: 'DynamicPackageSERPCtrl'
+                controller: 'DynamicPackageSERPCtrl',
+                reloadOnSearch: false
+            }).
+            when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
+                templateUrl: '/spa/templates/pages/avia/tickets_reserve.html',
+                controller: 'DynamicReserveTicketsCtrl'
             }).
             when(url.URL_AUTH_RESTORE, { //same as main
                 templateUrl: '/spa/templates/pages/tours_grid_page.html',
@@ -206,3 +212,29 @@ app.factory('cache',['$cacheFactory', function ($cacheFactory) {
     }
 
 }());
+
+
+(function ($) {
+    $.widget("custom.tooltipX", $.ui.tooltip, {
+        options: {
+            autoShow: true,
+            autoHide: true
+        },
+
+        _create: function () {
+            this._super();
+            if (!this.options.autoShow) {
+                this._off(this.element, "mouseover focusin");
+            }
+        },
+
+        _open: function (event, target, content) {
+            this._superApply(arguments);
+
+            if (!this.options.autoHide) {
+                this._off(target, "mouseleave focusout");
+            }
+        }
+    });
+
+}(jQuery));

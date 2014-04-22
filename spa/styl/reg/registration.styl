@@ -1,0 +1,195 @@
+.icon-letter
+  width 38px
+  height 37px
+  display inline-block
+  background url(../img/letter.png)
+
+
+
+.popup-form
+  font-family $ProximaNova
+  vertical-align top
+
+  .button
+    font-family $ProximaNova
+    font-size 16px
+    font-weight bold
+    height 37px
+    padding 0 17px
+
+  &-row
+    margin 12px 0 0
+
+    &-submit
+      margin 20px 0 0
+      text-align right
+      position relative
+
+      .popup-form-label
+        margin 17px 0 0
+
+    .message
+      display block
+      font-family $ProximaNova
+      font-size 14px
+      text-align center
+      margin 16px 0 0
+
+  &-title
+    font-size 25px
+    font-weight bold
+    text-align center
+    padding 0 0 5px
+
+  &-label
+    color #666
+    display block
+    font-size 14px
+
+  &-field
+    border 1px solid #d1d8d9
+    width 100%
+    height: 37px
+    font-family $ProximaNova
+    font-weight bold
+    font-size 16px
+    padding 0 10px
+    margin 3px 0 0
+    box-sizing border-box
+
+    &.error
+      border 2px solid #e20000
+      padding 0 9px
+
+.popup-form-row-social-buttons
+  text-align center
+  margin 26px 0 0
+
+.social-button
+  display inline-block
+  width 37px
+  height 37px
+
+  &-fb
+    background url(../img/auth-social/fb.png)
+  &-google
+    background url(../img/auth-social/google.png)
+  &-vk
+    background url(../img/auth-social/vk.png)
+  &-twitter
+    background url(../img/auth-social/twitter.png)
+  &-odnoklassniki
+    background url(../img/auth-social/odnoklassniki.png)
+
+
+
+.auth-form
+  display inline-block
+  width 240px
+  margin 44px 70px 60px
+
+  .remember-me
+    position absolute
+    left 0
+    top 5px
+
+  .forgot-password
+    float right
+    color #a9a9a9
+    border-bottom 1px dashed #a9a9a9
+
+
+.reg-form
+
+  &-result
+    width: 250px;
+    margin 44px 130px 60px
+    text-align center
+
+    .icon-letter
+      margin 67px 0 0
+
+    &-text
+      margin 4px 0 0
+      color #666
+
+      &-warning
+        color #000
+
+
+
+
+.recover-password-form
+  width 254px
+  margin 44px 140px 60px
+
+  .popup-form-row-submit
+    text-align center
+
+  .message
+    margin-left -20px
+    margin-right -20px
+
+
+.profile-form
+  width  370px
+  margin 44px 140px 60px
+
+  .popup-form-row
+    position: relative
+    
+  .description
+    position absolute
+    width 140px
+    left -165px
+    text-align right
+    top 16px
+    font-size 11px
+    color #a9a9a9
+
+  &-offset
+    width 240px
+    margin-left 132px
+
+
+  &-photo
+    position: absolute
+
+    &-upload
+      width 106px
+      height 106px
+      position relative
+      overflow hidden
+      color #fff
+      text-align center
+
+      &.empty
+        background #ccc
+
+        &:before
+          display block
+          content '+'
+          font-weight bold
+          font-size 75px
+          position: absolute;
+          width 100%
+          line-height 106px
+
+        &:after
+          content 'Загрузить'
+          width 100%
+          position: absolute
+          font-size 12px
+          top 80px
+          left 0
+
+
+      .hidden-input
+        width 100%
+        height 100%
+        opacity 0
+        position absolute
+        z-index 2
+        left 0
+        top 0
+        cursor pointer

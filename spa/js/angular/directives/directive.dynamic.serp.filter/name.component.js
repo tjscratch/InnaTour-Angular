@@ -15,7 +15,7 @@ angular.module('innaApp.directives')
                         $scope.name = DEFAULT;
 
                         $scope.$watch('name', function(newVal){
-                            $scope.$emit('inna.Dynamic.SERP.Hotel.Filter', {filter: NAME, value: newVal});
+                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_HOTEL, {filter: NAME, value: newVal});
                         });
 
                         $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, NAME), function(){

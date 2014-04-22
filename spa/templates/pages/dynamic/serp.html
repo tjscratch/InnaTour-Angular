@@ -18,7 +18,10 @@
                     {{combination.AviaInfo | json}}
                     <div ng-show="show == HOTELS_TAB"><button ng-click="show = TICKETS_TAB">tickets</button></div>
                 </td>
-                <td>{{combination | json}}</td>
+                <td>
+                    {{combination | json}}
+                    <div><button ng-click="goReservation()">Reserve</button></div>
+                </td>
             </tr>
         </table>
 

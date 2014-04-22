@@ -1,43 +1,48 @@
-<div class="b-auth-block__section" ng-controller="AuthPwdRerstoreCtrl_A">
-    <h1>Восстановление пароля</h1>
-    <div>
-        <label>Email</label>
-        <input ng-model="email">
-        <div class="b-validation-error" ng-show="errors.email">Поле должно быть заполнено</div>
-    </div>
-    <div>
-        <button ng-click="sendToken()">Погнали!</button>
-    </div>
-    <div ng-show="requestFailure">
-        Такой пользователь не зарегистрирован
+<form class="popup-form recover-password-form {{({'true': 'reg-form-result', 'false': ''})[showLanding]}}"
+      ng-controller="AuthPwdRerstoreCtrl_A"
+      ng-show="!restoreToken">
+    <h3 class="popup-form-title">Восстановить пароль</h3>
+    <div ng-show="!showLanding">
+        <div class="popup-form-row">
+            <label for="" class="popup-form-label">E-mail при регистрации</label>
+            <input type="text" class="popup-form-field {{({'true': 'error', 'false': ''})[errors.email || requestFailure]}}" ng-model="email"/>
+            <span class="message" ng-show="errors.email">Пожалуйста, введите действующий адрес электронно почты</span>
+            <span class="message" ng-show="requestFailure">Пользователь с таким адресом электронной почты не обнаружен</span>
+        </div>
+        <div class="popup-form-row popup-form-row-submit">
+            <button type="submit" class="button" ng-click="sendToken()">Отправить</button>
+        </div>
+        <ng:include src="'/spa/templates/auth/social.inc.html'"></ng:include>
     </div>
     <div ng-show="showLanding">
-        Вам все выслано на почту, ляляля
+        <span class="icon-letter"></span>
+        <p class="reg-form-result-text">
+            <b class="reg-form-result-text-warning">Письмо успешно выслано</b><br>
+            Проверьте свой электронный ящик {{email}}
+        </p>
     </div>
-</div>
+</form>
 
-<div class="b-auth-block__section" ng-show="restoreToken">
-    <div ng-controller="AuthPwdRerstoreCtrl_B">
-        <h1>Восстановление пароля-2</h1>
-        <div>
-            <label>pwd</label>
-            <input ng-model="password">
-            <div class="b-validation-error" ng-show="errors.password">Поле должно быть заполнено</div>
-            <div class="b-validation-error" ng-show="errors.passwordMinLength">Пароль должен бы тьне короче 6 символов</div>
-        </div>
-        <div>
-            <label>pwd2</label>
-            <input ng-model="password2">
-            <div class="b-validation-error" ng-show="errors.password2">didn't match</div>
-        </div>
-        <div>
-            <button ng-click="setNewPassword()">Погнали!</button>
-        </div>
-        <div ng-show="requestFailed">
-            Что-то пошло не так... Попробуйте начать процедуру восстановления пароля сначала.
-        </div>
-        <div ng-show="success">
-            Новый пароль успешно установлен. Через несколько секунд вы будете перенаправлены на главную страницу.
-        </div>
+<form class="popup-form recover-password-form {{({'true': 'reg-form-result', 'false': ''})[showLanding]}}"
+      ng-controller="AuthPwdRerstoreCtrl_B"
+      ng-show="restoreToken">
+    <h3 class="popup-form-title">Новый пароль</h3>
+    <div class="popup-form-row">
+        <label for="" class="popup-form-label">Введите новый пароль</label>
+        <input type="password" class="popup-form-field {{hasError('password')}} {{hasError('passwordMinLength')}} " ng-model="password"/>
+        <span class="message" ng-show="errors.password">Пароль не может быть пустым!</span>
+        <span class="message" ng-show="errors.passwordMinLength">Минимальная длина пароля - 6 символов</span>
+        <label for="" class="popup-form-label">И еще раз</label>
+        <input type="password" class="popup-form-field {{hasError('password2')}}" ng-model="password2"/>
+        <span class="message" ng-show="errors.password2">Пароли не совпадают</span>
     </div>
-</div>
+    <div class="popup-form-row popup-form-row-submit">
+        <button type="submit" class="button" ng-click="setNewPassword()">Отправить</button>
+    </div>
+    <div ng-show="requestFailed">
+        Что-то пошло не так... Попробуйте начать процедуру восстановления пароля сначала.
+    </div>
+    <div ng-show="success">
+        Новый пароль успешно установлен. Через несколько секунд вы будете перенаправлены на главную страницу.
+    </div>
+</form>

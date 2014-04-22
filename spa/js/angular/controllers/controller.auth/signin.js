@@ -1,7 +1,7 @@
 angular.module('innaApp.controllers')
     .controller('AuthSignInCtrl', [
-        '$scope', 'Validators', 'AuthDataProvider', '$rootScope', '$http',
-        function($scope, Validators, AuthDataProvider, $rootScope, $http){
+        '$scope', 'Validators', 'AuthDataProvider', '$rootScope', 'innaApp.API.events',
+        function($scope, Validators, AuthDataProvider, $rootScope, Events){
             function validate() {
                 Validators.defined($scope.username, 'username');
                 Validators.defined($scope.password, 'password');
@@ -32,6 +32,8 @@ angular.module('innaApp.controllers')
                 $scope.errors.password = false;
             });
 
+            $scope.rememberMe = true;
+
             $scope.errors = {};
 
             $scope.requestFailure = false;
@@ -46,17 +48,14 @@ angular.module('innaApp.controllers')
                 } catch(fieldName) {
                     $scope.errors[fieldName] = true;
                 }
+            };
+
+            $scope.forgotten = function(){
+                $scope.$emit(Events.AUTH_FORGOTTEN_LINK_CLICKED);
             }
 
-            $scope.signInWith = function(method){
-                var brokerWindow = window.open(AuthDataProvider.socialBrockerURL(method), "width=300;height=300", "SocialBrocker");
-
-                brokerWindow.focus();
-
-                $('#social-broker-listener').on('inna.Auth.SocialBroker.Result', function(event, data){
-                    console.log('inna.Auth.SocialBroker.Result!');
-                    console.log(data);
-                });
+            $scope.switchRememberMe = function(){
+                $scope.rememberMe = !$scope.rememberMe;
             }
         }
     ]);
