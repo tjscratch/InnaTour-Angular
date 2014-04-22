@@ -13,9 +13,6 @@ innaAppControllers.
                 $log.log(msg);
             }
 
-            $scope.baloon = aviaHelper.baloon;
-            $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
-
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
@@ -36,32 +33,6 @@ innaAppControllers.
 
             $scope.objectToReserveTemplate = '/spa/templates/pages/avia/variant_partial.html';
 
-            //для начала нужно проверить доступность билетов
-            //проверяем, что остались билеты для покупки
-            paymentService.checkAvailability({ variantTo: $routeParams.VariantId1, varianBack: $routeParams.VariantId2 },
-                function (data) {
-                    if (data == "true") {
-                        //log('checkAvailability, true');
-                        $scope.baloon.show("Билеты доступны", "Идет загрузка");
-                        //загружаем все
-                        loadDataAndInit();
-                    }
-                    else {
-                        //log('checkAvailability, false');
-                        $scope.baloon.show("Вариант больше недоступен", "Вы будете направлены на поиск билетов");
-
-                        $timeout(function () {
-                            //билеты не доступны - отправляем на поиск
-                            var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
-                            //$location.path(url);
-                            log('redirect to url: ' + url);
-                        }, 3000);
-                        
-                    }
-                },
-                function (data, status) {
-                    //error
-                });
 
             //$scope.$watch('validationModel', function (newVal, oldVal) {
             //    if (newVal === oldVal)
@@ -73,80 +44,73 @@ innaAppControllers.
             //    loadToCountryAndInit(routeCriteria);
             //}, 2000);
 
-            function loadDataAndInit() {
-                var loader = new utils.loader();
+            var loader = new utils.loader();
 
-                //data loading ===========================================================================
-                function loadToCountry() {
-                    var self = this;
-                    //log('loadToCountryAndInit');
-                    if ($scope.criteria.ToUrl != null && $scope.criteria.ToUrl.length > 0) {
+            //data loading ===========================================================================
+            function loadToCountry() {
+                var self = this;
+                //log('loadToCountryAndInit');
+                if ($scope.criteria.ToUrl != null && $scope.criteria.ToUrl.length > 0) {
 
-                        dataService.getDirectoryByUrl($scope.criteria.ToUrl, function (data) {
-                            if (data != null) {
-                                $scope.criteria.To = data.name;
-                                $scope.criteria.ToId = data.id;
-                                $scope.criteria.ToCountryName = data.CountryName;
-                                //оповещаем лоадер, что метод отработал
-                                loader.complete(self);
-                            }
-                        }, function (data, status) {
-                            log('loadToCountry error: ' + $scope.criteria.ToUrl + ' status:' + status);
-                        });
-                    }
-                };
-
-                function getStoreItem() {
-                    var self = this;
-                    var storeItem = null;//storageService.getAviaBuyItem();
-                    //log('storeItem: ' + angular.toJson(storeItem));
-                    if (storeItem != null) {
-                        if (storeItem.item.VariantId2 == null)
-                            storeItem.item.VariantId2 = 0;
-                        //проверяем, что там наш итем
-                        if ($scope.criteria.QueryId == storeItem.searchId &&
-                            $scope.criteria.VariantId1 == storeItem.item.VariantId1 && $scope.criteria.VariantId2 == storeItem.item.VariantId2) {
-                            $scope.searchId = storeItem.searchId;
-                            $scope.item = storeItem.item;
-
+                    dataService.getDirectoryByUrl($scope.criteria.ToUrl, function (data) {
+                        if (data != null) {
+                            $scope.criteria.To = data.name;
+                            $scope.criteria.ToId = data.id;
+                            $scope.criteria.ToCountryName = data.CountryName;
                             //оповещаем лоадер, что метод отработал
                             loader.complete(self);
                         }
-                    }
-                    else {
-                        //запрос в api
-                        paymentService.getSelectedVariant({
-                            variantId1: $scope.criteria.VariantId1,
-                            variantId2: $scope.criteria.VariantId2,
-                            idQuery: $scope.criteria.QueryId
-                        },
-                        function (data) {
-                            if (data != null && data != 'null') {
-                                //дополняем полями 
-                                aviaHelper.addCustomFields(data);
-                                //log('getSelectedVariant dataItem: ' + angular.toJson(data));
-                                $scope.item = data;
-                                //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
-
-                                //оповещаем лоадер, что метод отработал
-                                loader.complete(self);
-                            }
-                            else
-                                $log.error('paymentService.getSelectedVariant error, data is null');
-                        },
-                        function (data, status) {
-                            $log.error('paymentService.getSelectedVariant error');
-                        });
-                    }
-                };
-
-                loader.init([loadToCountry, getStoreItem], init).run();
+                    }, function (data, status) {
+                        log('loadToCountry error: ' + $scope.criteria.ToUrl + ' status:' + status);
+                    });
+                }
             };
 
-            function init() {
-                $scope.baloon.hide();
-                $scope.initPayModel;
-            }
+            function getStoreItem() {
+                var self = this;
+                var storeItem = null;//storageService.getAviaBuyItem();
+                //log('storeItem: ' + angular.toJson(storeItem));
+                if (storeItem != null) {
+                    if (storeItem.item.VariantId2 == null)
+                        storeItem.item.VariantId2 = 0;
+                    //проверяем, что там наш итем
+                    if ($scope.criteria.QueryId == storeItem.searchId &&
+                        $scope.criteria.VariantId1 == storeItem.item.VariantId1 && $scope.criteria.VariantId2 == storeItem.item.VariantId2) {
+                        $scope.searchId = storeItem.searchId;
+                        $scope.item = storeItem.item;
+
+                        //оповещаем лоадер, что метод отработал
+                        loader.complete(self);
+                    }
+                }
+                else {
+                    //запрос в api
+                    paymentService.getSelectedVariant({ 
+                        variantId1: $scope.criteria.VariantId1, 
+                        variantId2: $scope.criteria.VariantId2,
+                        idQuery: $scope.criteria.QueryId
+                    },
+                    function (data) {
+                        if (data != null && data != 'null') {
+                            //дополняем полями 
+                            aviaHelper.addCustomFields(data);
+                            //log('getSelectedVariant dataItem: ' + angular.toJson(data));
+                            $scope.item = data;
+                            //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
+                            
+                            //оповещаем лоадер, что метод отработал
+                            loader.complete(self);
+                        }
+                        else
+                            $log.error('paymentService.getSelectedVariant error, data is null');
+                    },
+                    function (data, status) {
+                        $log.error('paymentService.getSelectedVariant error');
+                    });
+                }
+            };
+
+            loader.init([loadToCountry, getStoreItem], $scope.initPayModel).run();
 
             //data loading ===========================================================================
 

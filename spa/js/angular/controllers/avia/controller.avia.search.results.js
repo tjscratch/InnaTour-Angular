@@ -1,21 +1,18 @@
 ﻿
+'use strict';
+
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaSearchResultsCtrl', ['$log', '$scope', '$rootScope', '$timeout', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'eventsHelper', 'aviaHelper', 'urlHelper', 'innaApp.Urls',
-        function AviaSearchResultsCtrl($log, $scope, $rootScope, $timeout, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls) {
+    controller('AviaSearchResultsCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
+        'dataService', 'paymentService', 'storageService', 'eventsHelper', 'aviaHelper', 'urlHelper',
+        function AviaSearchResultsCtrl($log, $scope, $rootScope, $routeParams, $filter, $location,
+            dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper) {
 
             var self = this;
             function log(msg) {
                 $log.log(msg);
             }
-
-            $scope.baloon = aviaHelper.baloon;
-            $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может затять несколько минут', function () {
-                $location.path(Urls.URL_AVIA);
-            });
 
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
@@ -50,6 +47,7 @@ innaAppControllers.
             //инициализация
             initValues();
             initFuctions();
+            initWatch();
 
             //обрабатываем параметры из url'а
             var routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
@@ -94,17 +92,16 @@ innaAppControllers.
                 $scope.isSuspendFilterWatch = false;
             };
 
-            //изменение модели фильтра
-            $scope.$watch('filter', function (newValue, oldValue) {
-                if ($scope.isDataLoading)
-                    return;
-
-                //if (newValue === oldValue) {
-                //    return;
-                //}
-                //log('$scope.$watch filter, scope:' + $scope);
-                applyFilterThrottled($scope);
-            }, true);
+            function initWatch() {
+                //изменение модели фильтра
+                $scope.$watch('filter', function (newValue, oldValue) {
+                    //if (newValue === oldValue) {
+                    //    return;
+                    //}
+                    //log('$scope.$watch filter, scope:' + $scope);
+                    applyFilterThrottled($scope);
+                }, true);
+            };
 
             function initFuctions() {
                 $scope.startSearch = function () {
@@ -121,15 +118,9 @@ innaAppControllers.
                             //log('data: ' + angular.toJson(data));
                             updateModel(data);
                         }
-                        else {
-                            $scope.baloon.showErr('Ничего не найдено', 'Попробуйте поискать на другие даты, направления', function () {
-                                $location.path(Urls.URL_AVIA);
-                            });
-                        }
                     }, function (data, status) {
                         //ошибка получения данных
                         log('startSearchTours error; status:' + status);
-                        $scope.baloon.showGlobalAviaErr();
                     });
                 };
 
@@ -211,7 +202,6 @@ innaAppControllers.
                 $scope.goToPaymentClick = function ($event, item) {
                     eventsHelper.preventBubbling($event);
 
-                    $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
                     //проверяем, что остались билеты для покупки
                     paymentService.checkAvailability({ variantTo: item.VariantId1, varianBack: item.VariantId2 },
                         function (data) {
@@ -231,26 +221,9 @@ innaAppControllers.
                                 //log('Url: ' + url);
                                 $location.path(url);
                             }
-                            else {
-                                function noVariant() {
-                                    $scope.baloon.hide();
-                                    //выкидываем билет из выдачи
-                                    $scope.ticketsList = _.without($scope.ticketsList, item);
-                                    $scope.filteredTicketsList = _.without($scope.filteredTicketsList, item);
-                                }
-
-                                $scope.baloon.showErr('К сожалению, билеты не доступны', 'Попробуйте выбрать другие', function () {
-                                    noVariant();
-                                    $timeout.cancel(popupTimeout);
-                                });
-                                var popupTimeout = $timeout(function () {
-                                    noVariant();
-                                }, 3000);
-                            }
                         },
                         function (data, status) {
                             //error
-                            $scope.baloon.showGlobalAviaErr();
                         });
                 };
             };
@@ -445,8 +418,6 @@ innaAppControllers.
                 $scope.filter = new aviaFilter(filter);
                 //log('updateFilter ' + angular.toJson($scope.filter));
                 //log('updateFilter');
-
-                applyFilter($scope);
             };
 
             function applyFilter($scope) {
@@ -523,6 +494,5 @@ innaAppControllers.
                 }
 
                 $scope.isDataLoading = false;
-                $scope.baloon.hide();
             };
         }]);
