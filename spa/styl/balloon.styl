@@ -222,12 +222,13 @@
 
     .rlf-part
         background #fbfbfb
-        border solid #d2d2d2
-        border-width 1px 0
+        border 0
 
     .rlf-part_transfer
         border 0
         background #f1f1f2
+        border solid #d2d2d2
+        border-width 1px 0
 
     .rlf-aviacompany
         float right
@@ -295,31 +296,125 @@
     text-align center
     margin 0 0 40px
 
+.b-tickets__icons
+    float left
 
+    li
+        float left
+        margin 0 8px 0 0
 
+        a
+            display block
+            width 31px
+            height 29px
+            border-radius 3px
+            border 1px solid transparent
+            position relative
 
+            &:before
+                content ''
+                display block
+                position absolute
+                background url(../img/ticket.png) no-repeat
 
+            &:hover
+                border-color #89c13a
 
+        .b-tickets__icons-link:before
+            width 17px
+            height 18px
+            background-position 0 -3px
+            left 7px
+            top 6px
 
+        .b-tickets__icons-link:hover:before
+            background-position 0 -82px
 
+        .b-tickets__icons-print:before
+            width 16px
+            height 16px
+            background-position -40px -4px
+            left 8px
+            top 6px
 
+        .b-tickets__icons-print:hover:before
+            background-position -40px -83px
 
+        .b-tickets__icons-share:before
+            width 16px
+            height 17px
+            background-position -80px -4px
+            left 7px
+            top 6px
 
+        .b-tickets__icons-share:hover:before
+            background-position -80px -83px
 
+.b-tickets__footer
+    clearfix()
+    padding 14px 12px 14px 6px
 
+.b-tickets__footer-inner
+    float right
 
+    .rl-buy-button
+        min-width 125px
+        text-align center
+        border-radius 3px
+        font-size 18px
 
+.b-tickets__footer-price-block
+    float left
+    text-align right
+    line-height 1
+    margin 0 10px 0 0
 
+.b-tickets__footer-price
+    font-size 24px
+    font-weight bold
+    margin-top -1px
 
+    .rub
+        font-weight normal
 
+.b-tickets__footer-price-info
+    font-size 12px
+    margin-top -3px
 
+.b-ticket_2ways
+    clearfix()
 
+    .rlf-fly
+        float left
+        width 450px
+        box-sizing border-box
 
+.baloon_2ticket
+    width 960px
+    margin-left -480px
 
+.b-ticket_2ways
+    clearfix()
+    position relative
 
+.b-ticket_2ways-sep
+.b-ticket_1way-cont
+    border solid #d2d2d2
+    border-width 1px 0
+    background #fbfbfb
 
+.b-ticket_2ways-sep:before
+    content ''
+    display block
+    position absolute
+    left 480px
+    top 0
+    bottom 0
+    border-left 1px solid #d2d2d2
 
-
+.b-ticket_2ways-block
+    float left
+    width 480px
 
 
 
