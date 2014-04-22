@@ -14,8 +14,7 @@ innaAppControllers.
             }
 
             $scope.baloon = aviaHelper.baloon;
-            $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
-
+            
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
@@ -37,23 +36,41 @@ innaAppControllers.
             $scope.objectToReserveTemplate = '/spa/templates/pages/avia/variant_partial.html';
 
             //для начала нужно проверить доступность билетов
+            var availableChecktimeout = $timeout(function () {
+                $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
+            }, 300);
+            
             //проверяем, что остались билеты для покупки
             paymentService.checkAvailability({ variantTo: $routeParams.VariantId1, varianBack: $routeParams.VariantId2 },
                 function (data) {
+                    //data = false;
                     if (data == "true") {
+                        //если проверка из кэша - то отменяем попап
+                        $timeout.cancel(availableChecktimeout);
+
                         //log('checkAvailability, true');
-                        $scope.baloon.show("Билеты доступны", "Идет загрузка");
+                        //$scope.baloon.show("Билеты доступны", "Идет загрузка, пожалуйста подождите");
+
                         //загружаем все
                         loadDataAndInit();
+
+                        //ToDo: debug
+                        //$timeout(function () {
+                        //    loadDataAndInit();
+                        //}, 1000);
                     }
                     else {
                         //log('checkAvailability, false');
-                        $scope.baloon.show("Вариант больше недоступен", "Вы будете направлены на поиск билетов");
+                        $timeout.cancel(availableChecktimeout);
+
+                        $scope.baloon.show("Вариант больше недоступен", "Вы будете направлены на результаты поиска билетов");
 
                         $timeout(function () {
+                            //очищаем хранилище для нового поиска
+                            storageService.clearAviaSearchResults();
                             //билеты не доступны - отправляем на поиск
                             var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
-                            //$location.path(url);
+                            $location.path(url);
                             log('redirect to url: ' + url);
                         }, 3000);
                         
@@ -61,6 +78,7 @@ innaAppControllers.
                 },
                 function (data, status) {
                     //error
+                    $timeout.cancel(availableChecktimeout);
                 });
 
             //$scope.$watch('validationModel', function (newVal, oldVal) {
@@ -145,7 +163,7 @@ innaAppControllers.
 
             function init() {
                 $scope.baloon.hide();
-                $scope.initPayModel;
+                $scope.initPayModel();
             }
 
             //data loading ===========================================================================

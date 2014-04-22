@@ -234,7 +234,7 @@
             baloonType: baloonType,
 
             baloon: {
-                isVisible: true,
+                isVisible: false,
                 caption: '',
                 text: '',
                 type: baloonType.msg,

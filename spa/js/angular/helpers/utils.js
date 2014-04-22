@@ -36,6 +36,15 @@ var utils = {
         return self;
     },
 
+    normalize: function(data){
+        var normData = {};
+        _.each(_.keys(data), function (key) {
+            normData[key] = '' + data[key];
+        });
+        data = normData;
+        return data;
+    },
+
     eof: null
 };
 
