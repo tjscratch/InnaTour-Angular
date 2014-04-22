@@ -1,30 +1,34 @@
-<form class="popup-form auth-form reg-form" ng-controller="AuthRegistrationCtrl">
+<form class="popup-form auth-form reg-form ({'true': 'reg-form-result', 'false': ''})[showLanding]" ng-controller="AuthRegistrationCtrl">
     <h3 class="popup-form-title">Регистрация</h3>
-    <div class="popup-form-row">
-        <label for="" class="popup-form-label">Логин</label>
-        <input type="text" class="popup-form-field" ng-model="email"/>
-        <div class="b-validation-error" ng-show="errors.email">Ошибка валидации</div>
-    </div>
-    <div class="popup-form-row">
-        <label for="" class="popup-form-label">Пароль</label>
-        <input type="password" class="popup-form-field" ng-model="password"/>
-        <div class="b-validation-error" ng-show="errors.password">Ошибка валидации</div>
-        <div class="b-validation-error" ng-show="errors.passwordMinLength">Ошибка валидации (6 символов)</div>
-    </div>
-    <div class="popup-form-row">
-        <label for="" class="popup-form-label">Пароль еще раз</label>
-        <input type="password" class="popup-form-field" ng-model="password2"/>
-        <div class="b-validation-error" ng-show="errors.password2">Пароли не совпадают</div>
-    </div>
-    <div class="popup-form-row popup-form-row-submit">
-        <button type="submit" class="button" ng-click="register()">Отправить</button>
-        <label class="popup-form-label">Отправить регистрационное письмо</label>
-        <div ng-show="showLanding">
-            Вам все выслано на почту, ляляля
+    <div ng-show="!showLanding">
+        <div class="popup-form-row">
+            <label for="" class="popup-form-label">Email</label>
+            <input type="text" class="popup-form-field {{hasError('email')}}" ng-model="email"/>
+            <span class="message" ng-show="errors.email">Пожалуйста, введите действующий адрес эелектронной почты</span>
         </div>
-        <div ng-show="requestFailure">
-            Данный email уже зарегистрирован.
+        <div class="popup-form-row">
+            <label for="" class="popup-form-label">Пароль</label>
+            <input type="password" class="popup-form-field {{hasError('password')}} {{hasError('passwordMinLength')}}" ng-model="password"/>
+            <span class="message" ng-show="errors.password">Пожалуйста, придумайте пароль</span>
+            <span class="message" ng-show="errors.passwordMinLength">Пароль не может быть короче 6 символов</span>
         </div>
+        <div class="popup-form-row">
+            <label for="" class="popup-form-label">Пароль еще раз</label>
+            <input type="password" class="popup-form-field {{hasError('password2')}}" ng-model="password2"/>
+            <span class="message" ng-show="errors.password2">Пароли не совпадают</span>
+        </div>
+        <div class="popup-form-row popup-form-row-submit">
+            <button type="submit" class="button" ng-click="register()">Отправить</button>
+            <label class="popup-form-label" ng-if="!requestFailure">Отправить регистрационное письмо</label>
+            <label class="popup-form-label" ng-if="requestFailure">Этот почтовый ящик уже зарегистрирован</label>
+        </div>
+    </div>
+    <div ng-show="showLanding">
+        <span class="icon-letter"></span>
+        <p class="reg-form-result-text">
+            <b class="reg-form-result-text-warning">Письмо успешно выслано</b><br>
+            Проверьте свой электронный ящик {{email}}
+        </p>
     </div>
 </form>
 
