@@ -21,9 +21,10 @@ angular.module('innaApp.controllers')
 
             $scope.$watch('email', function(){
                 $scope.errors.email = false;
+                $scope.requestFailure = false;
             });
 
-            $scope.errors = '';
+            $scope.errors = {};
 
             $scope.requestFailure = false;
 

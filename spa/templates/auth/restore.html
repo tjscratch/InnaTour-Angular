@@ -1,15 +1,24 @@
-<form class="popup-form recover-password-form" ng-controller="AuthPwdRerstoreCtrl_A">
+<form class="popup-form recover-password-form {{({'true': 'reg-form-result', 'false': ''})[showLanding]}}" ng-controller="AuthPwdRerstoreCtrl_A">
     <h3 class="popup-form-title">Восстановить пароль</h3>
-    <div class="popup-form-row">
-        <label for="" class="popup-form-label">E-mail при регистрации</label>
-        <input type="text" class="popup-form-field" ng-model="email"/>
-        <span class="message" ng-show="errors.email">Пользователь с таким адресом электронной почты не обнаружен</span>
-        <span class="message" ng-show="requestFailure">Пользователь с таким адресом электронной почты не обнаружен</span>
+    <div ng-show="!showLanding">
+        <div class="popup-form-row">
+            <label for="" class="popup-form-label">E-mail при регистрации</label>
+            <input type="text" class="popup-form-field {{({'true': 'error', 'false': ''})[errors.email || requestFailure]}}" ng-model="email"/>
+            <span class="message" ng-show="errors.email">Пожалуйста, введите действующий адрес электронно почты</span>
+            <span class="message" ng-show="requestFailure">Пользователь с таким адресом электронной почты не обнаружен</span>
+        </div>
+        <div class="popup-form-row popup-form-row-submit">
+            <button type="submit" class="button" ng-click="sendToken()">Отправить</button>
+        </div>
+        <ng:include src="'/spa/templates/auth/social.inc.html'"></ng:include>
     </div>
-    <div class="popup-form-row popup-form-row-submit">
-        <button type="submit" class="button" ng-click="sendToken()">Отправить</button>
+    <div ng-show="showLanding">
+        <span class="icon-letter"></span>
+        <p class="reg-form-result-text">
+            <b class="reg-form-result-text-warning">Письмо успешно выслано</b><br>
+            Проверьте свой электронный ящик {{email}}
+        </p>
     </div>
-    <ng:include src="'/spa/templates/auth/social.inc.html'"></ng:include>
 </form>
 
 <form class="popup-form recover-password-form" ng-controller="AuthPwdRerstoreCtrl_B" ng-show="restoreToken">
