@@ -38,7 +38,7 @@ innaAppControllers.
                 }
             };
 
-            $scope.objectToReserveTemplate = '/spa/templates/pages/avia/variant_partial.html';
+            //$scope.objectToReserveTemplate = '/spa/templates/pages/avia/variant_partial.html';
 
             var validateType = {
                 required: 'required',
