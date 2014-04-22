@@ -55,14 +55,12 @@ innaAppDirectives.
                 }
 
                 $scope.$watch('isShow', function (newVal, oldVal) {
-                    if (newVal == oldVal)
-                        return;
-
                     $scope.isVisible = $scope.isShow;
                     updateDisplay();
                 });
 
                 $scope.close = function ($event) {
+                    //console.log('baloon dir close');
                     eventsHelper.preventBubbling($event);
                     if ($scope.closeFn != null) {
                         $scope.closeFn();

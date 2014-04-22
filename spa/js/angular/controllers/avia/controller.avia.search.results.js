@@ -13,10 +13,7 @@ innaAppControllers.
             }
 
             $scope.baloon = aviaHelper.baloon;
-            $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может затять несколько минут', function () {
-                $location.path(Urls.URL_AVIA);
-            });
-
+            
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
@@ -109,6 +106,13 @@ innaAppControllers.
             function initFuctions() {
                 $scope.startSearch = function () {
                     //log('$scope.startSearch');
+                    $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может затять несколько минут', function () {
+                        $location.path(Urls.URL_AVIA);
+                    });
+
+                    $scope.ticketsList = null;
+                    $scope.filteredTicketsList = null;
+
                     var searchCriteria = angular.copy($scope.criteria);
                     if (searchCriteria.PathType == 1)//только туда
                     {
