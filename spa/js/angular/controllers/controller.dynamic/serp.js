@@ -1,9 +1,9 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
         '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard',
-        '$routeParams', 'innaApp.API.events', '$location', 'innaApp.Urls',
+        '$routeParams', 'innaApp.API.events', '$location', 'innaApp.Urls', 'aviaHelper',
         function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard,
-                  $routeParams, Events, $location, Urls) {
+                  $routeParams, Events, $location, Urls, aviaHelper) {
             /*Private*/
             var searchParams = angular.copy($routeParams);
             var cacheKey = '';
@@ -157,11 +157,16 @@ innaAppControllers
             $scope.tickets = [];
             $scope.ticketFilters = {};
             $scope.combination = null;
-            $scope.showLanding = true;
 
             $scope.show = $scope.HOTELS_TAB;
             // JFYI !!+val does the following magic: convert val into integer (+val) and then convert to boolean (!!)
             $scope.asMap = !!+DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
+
+            $scope.showLanding = true;
+            $scope.baloon = aviaHelper.baloon;
+            $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', function(){
+                console.log('CLOSED');
+            });
 
             /*Initial Data fetching*/
             (function loadData(){
@@ -187,6 +192,7 @@ innaAppControllers
                         });
 
                         $scope.showLanding = false;
+                        //$scope.baloon.hide();
                     });
 
                     loadTab();
