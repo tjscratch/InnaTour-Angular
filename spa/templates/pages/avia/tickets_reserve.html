@@ -21,77 +21,15 @@
 <div class="results-body">
     <div class="results-container results-container__tickets" style="padding-top: 190px;">
         <form name="f" action="" class="b-tickets-form">
-            <h1 class="title">Оплата авиабилетов</h1>
 
-            <div class="rl-item rl-item-payment" ng-show="item != null">
-                <header class="rl-item-header">
-                    <span class="rl-price">
-                        <span class="rl-price-item">{{item.Price| price}}</span> руб.
-                    </span>
-                    <span class="rl-airline">{{item.TransporterListText}}</span>
-                </header>
-                <div class="rl-content">
-                    <img ng-src="{{item.EtapsToTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
-                    <div class="rl-fly">
-                        <b class="rl-fly-time">{{item.DepartureTimeFormatted}} {{item.DepartureDateFormatted}}</b>
-                        <div class="rl-fly-date">{{item.CityFrom}}, <br />{{item.AirportFrom}} ({{item.OutCode}})</div>
-                    </div>
-                    <div class="rl-travel-time">{{item.TimeToFormatted}}</div>
-                    <div class="rl-fly">
-                        <b class="rl-fly-time">{{item.ArrivalTimeFormatted}} {{item.ArrivalDateFormatted}}</b>
-                        <div class="rl-fly-date">{{item.CityTo}}, <br />{{item.AirportTo}} ({{item.InCode}})</div>
-                    </div>
-                    <div class="rl-weight">
-                        <span>20 kg</span>
-                    </div>
-                    <div class="rl-fly-type" ng-if="item.ToTransferCount > 0">
-                        <div class="rl-fly-transplant">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</div>
-                        <div class="rl-fly-transplant-time">
-                            <span ng-repeat="etap in item.EtapsToItems">
-                            <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">,<br /></span>
-                        </span>
-                        </div>
-                    </div>
-                    <div class="rl-fly-type" ng-if="item.ToTransferCount == 0">
-                    <div class="rl-fly-transplant">Прямой</div>
-                </div>
-                </div>
-                <div class="rl-content" ng-if="item.VariantId2 > 0">
-                    <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
-                    <div class="rl-fly">
-                        <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}} {{item.BackDepartureDateFormatted}}</b>
-                        <div class="rl-fly-date">{{item.CityTo}}, <br />{{item.AirportTo}} ({{item.InCode}})</div>
-                    </div>
-                    <div class="rl-travel-time">{{item.TimeBackFormatted}}</div>
-                    <div class="rl-fly">
-                        <b class="rl-fly-time">{{item.BackArrivalTimeFormatted}} {{item.BackArrivalDateFormatted}}</b>
-                        <div class="rl-fly-date">{{item.CityFrom}}, <br />{{item.AirportFrom}} ({{item.OutCode}})</div>
-                    </div>
-                    <div class="rl-weight">
-                        <span>120 kg</span>
-                    </div>
-                    <div class="rl-fly-type" ng-if="item.BackTransferCount > 0">
-                        <div class="rl-fly-transplant">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</div>
-                        <div class="rl-fly-transplant-time">
-                            <span ng-repeat="etap in item.EtapsBackItems">
-                                <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">,<br /></span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="rl-fly-type" ng-if="item.BackTransferCount == 0">
-                    <div class="rl-fly-transplant">Прямой</div>
-                </div>
-                </div>
-                <footer class="rl-footer">
-                    <a href="#" class="rl-more-info" ng-click="moreClick($event)"><span>Подробнее</span></a>
-                    <span class="rl-tickets-number">Последние 3 места</span>
-                    <span class="rl-class">{{helper.getCabinClassName(item.CabineClass)}}</span>
-                </footer>
-            </div>
+            <ng:include src="objectToReserveTemplate"></ng:include>
 
-            <div class="warning">
+            <div class="warning" ng-show="visaNeeded">
                 <b class="warning-title">Обратите внимание!</b>
-                <p class="warning-info">При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование авиакомпании.</p>
+                <p class="warning-info">
+                    <div>Требуется виза.</div>
+                    <div ng-show="visaNeeded_rules">Обратите внимание на визовые правила.</div>
+                </p>
             </div>
             <h2 class="title">Информация о покупателе</h2>
             <div class="form-body">
@@ -189,9 +127,10 @@
                         </div>
                         <div class="b-field-block b-field-block-123">
                             <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
-                            <input validate-events-dir ng-model="passenger.doc_series_and_number.value" 
-                                   ng-validation-model="passenger.doc_series_and_number" validate="validate(item, type)" validate-type="validateType.required"
+                            <input validate-events-dir ng-model="passenger.doc_series_and_number.value" depends-on="passenger.citizenship"
+                                   ng-validation-model="passenger.doc_series_and_number" validate="validate(item, type)" validate-type="validateType.document"
                                    ng-class="{error:passenger.doc_series_and_number.isInvalid && !validationModel.formPure}"
+                                   title="Неправильный номер документа"
                                    type="text" placeholder="1104 046100" class="b-field-text">
                         </div>
                         <div class="b-field-block b-field-block-105">
@@ -221,102 +160,6 @@
                         </div>
                     </div>
                 </fieldset>
-                <!--<fieldset class="form-container">
-                    <div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block">
-                            <label class="b-field-label">Пол</label>
-                            <ul class="radio-list">
-                                <li><label><input type="radio" name="male4" checked><ins class="radio">М</ins></label></li>
-                                <li><label><input type="radio" name="male4"><ins class="radio">Ж</ins></label></li>
-                            </ul>
-                        </div>
-                        <div class="b-field-block b-field-block-120">
-                            <label class="b-field-label">Имя (латиницей)</label>
-                            <input type="text" value="ALEXANDER" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-195 b-field-block-surname">
-                            <label class="b-field-label">Фамилия (латиницей)</label>
-                            <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-94">
-                            <label class="b-field-label">Дата рождения</label>
-                            <input type="text" value="18.07.1976" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-170">
-                            <label class="b-field-label">Гражданство</label>
-                            <input type="text" value="Великобритания" class="b-field-text b-field-select">
-                        </div>
-                        <div class="b-field-block b-field-block-123">
-                            <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
-                            <input type="text" value="77123456789" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-105">
-                            <label class="b-field-label">Действителен до</label>
-                            <input type="text" placeholder="дд.мм.гггг" class="b-field-text" value="18.07.1976">
-                        </div>
-                    </div>
-                    <div class="b-field-group b-field-group-passport"><div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block b-field-block-192">
-                            <label class="b-agreement"><input type="checkbox" checked><ins class="b-checkbox"></ins>Есть бонусная карта</label>
-                        </div>
-                        <div class="b-field-block b-field-block-195">
-                            <label class="b-field-label">Авиакомпания</label>
-                            <input type="text" value="Аэрофлот" class="b-field-text b-field-select" placeholder="Выберите">
-                        </div>
-                        <div class="b-field-block b-field-block-143">
-                            <label class="b-field-label">Номер карты</label>
-                            <input type="text" value="12134а3454" class="b-field-text" placeholder="ХХХХХХХХХХХ">
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset class="form-container">
-                    <div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block">
-                            <label class="b-field-label">Пол</label>
-                            <ul class="radio-list">
-                                <li><label><input type="radio" name="male5" checked><ins class="radio">М</ins></label></li>
-                                <li><label><input type="radio" name="male5"><ins class="radio">Ж</ins></label></li>
-                            </ul>
-                        </div>
-                        <div class="b-field-block b-field-block-120">
-                            <label class="b-field-label">Имя (латиницей)</label>
-                            <input type="text" value="ALEXANDER" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-195 b-field-block-surname">
-                            <label class="b-field-label">Фамилия (латиницей)</label>
-                            <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-94">
-                            <label class="b-field-label">Дата рождения</label>
-                            <input type="text" value="18.07.1976" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-170">
-                            <label class="b-field-label">Гражданство</label>
-                            <input type="text" value="Великобритания" class="b-field-text b-field-select">
-                        </div>
-                        <div class="b-field-block b-field-block-123">
-                            <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
-                            <input type="text" value="77123456789" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-105">
-                            <label class="b-field-label">Действителен до</label>
-                            <input type="text" placeholder="дд.мм.гггг" class="b-field-text" value="18.07.1976">
-                        </div>
-                    </div>
-                    <div class="b-field-group b-field-group-passport"><div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block b-field-block-192">
-                            <label class="b-agreement"><input type="checkbox" checked><ins class="b-checkbox"></ins>Есть бонусная карта</label>
-                        </div>
-                        <div class="b-field-block b-field-block-195">
-                            <label class="b-field-label">Авиакомпания</label>
-                            <input type="text" value="Аэрофлот" class="b-field-text b-field-select" placeholder="Выберите">
-                        </div>
-                        <div class="b-field-block b-field-block-143">
-                            <label class="b-field-label">Номер карты</label>
-                            <input type="text" value="12134а3454" class="b-field-text" placeholder="ХХХХХХХХХХХ">
-                        </div>
-                    </div>
-                </fieldset>-->
             </div>
 
             <div class="b-sum-container">

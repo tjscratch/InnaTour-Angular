@@ -1,11 +1,11 @@
-<style>
-    .b-auth-block{background:#fff;color:#000;}
-    .b-auth-block__section{border-bottom:1px solid #ccc;margin-bottom:15px;padding-bottom:15px;}
-    .b-validation-error{color:red;}
-</style>
-
-<div class="b-auth-block" ng-controller="AuthCtrl" ng-show="isLoginPopupOpened">
-    <ng:include src="'/spa/templates/auth/registration.html'"></ng:include>
-    <ng:include src="'/spa/templates/auth/signin.html'"></ng:include>
-    <ng:include src="'/spa/templates/auth/restore.html'"></ng:include>
+<div ng-controller="AuthCtrl" ng-show="isLoginPopupOpened" id="social-broker-listener">
+    <div class="popup-fade"></div>
+    <div class="popup-container">
+        <div class="popup">
+            <div class="popup-close-button" ng-click="close()"></div>
+            <ng:include src="'/spa/templates/auth/signin.html'" ng-show="display == DISPLAY_SIGNIN"></ng:include><!--
+            --><ng:include src="'/spa/templates/auth/registration.html'" ng-show="display == DISPLAY_SIGNIN"></ng:include><!--
+            --><ng:include src="'/spa/templates/auth/restore.html'" ng-show="display == DISPLAY_FORGOTTEN"></ng:include>
+        </div>
+    </div>
 </div>

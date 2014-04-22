@@ -127,7 +127,7 @@ innaAppControllers
                         EndVoyageDate: $scope.dateEnd,
                         TicketClass: $scope.klass.value,
                         Adult: $scope.adultCount,
-                        // children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
+                        children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
                     }
                     $rootScope.$emit('inna.DynamicPackages.Search', o);
                 } catch(e) {

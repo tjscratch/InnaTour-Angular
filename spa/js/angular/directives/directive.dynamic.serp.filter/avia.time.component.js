@@ -71,7 +71,7 @@ angular.module('innaApp.directives')
                                 if(value) compact[key] = value;
                             });
 
-                            $scope.$emit('inna.Dynamic.SERP.Ticket.Filter', {filter: 'Time', value: compact});
+                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Time', value: compact});
                         });
                     }
                 ]

@@ -1,11 +1,39 @@
-<div class="b-auth-block__section" ng-controller="AuthRegistrationCtrl">
+<form class="popup-form auth-form reg-form" ng-controller="AuthRegistrationCtrl">
+    <h3 class="popup-form-title">Регистрация</h3>
+    <div class="popup-form-row">
+        <label for="" class="popup-form-label">Логин</label>
+        <input type="text" class="popup-form-field" ng-model="email"/>
+        <div class="b-validation-error" ng-show="errors.email">Ошибка валидации</div>
+    </div>
+    <div class="popup-form-row">
+        <label for="" class="popup-form-label">Пароль</label>
+        <input type="password" class="popup-form-field" ng-model="password"/>
+        <div class="b-validation-error" ng-show="errors.password">Ошибка валидации</div>
+        <div class="b-validation-error" ng-show="errors.passwordMinLength">Ошибка валидации (6 символов)</div>
+    </div>
+    <div class="popup-form-row">
+        <label for="" class="popup-form-label">Пароль еще раз</label>
+        <input type="password" class="popup-form-field" ng-model="password2"/>
+        <div class="b-validation-error" ng-show="errors.password2">Пароли не совпадают</div>
+    </div>
+    <div class="popup-form-row popup-form-row-submit">
+        <button type="submit" class="button" ng-click="register()">Отправить</button>
+        <label class="popup-form-label">Отправить регистрационное письмо</label>
+        <div ng-show="showLanding">
+            Вам все выслано на почту, ляляля
+        </div>
+        <div ng-show="requestFailure">
+            Данный email уже зарегистрирован.
+        </div>
+    </div>
+</form>
+
+
+
+<!--
+<div class="b-auth-block__section">
     <h1>Регистрация</h1>
     <form>
-        <div>
-            <label>Почта</label>
-            <input ng-model="email">
-            <div class="b-validation-error" ng-show="errors.email">Ошибка валидации</div>
-        </div>
         <div>
             <label>Имя</label>
             <input ng-model="firstName">
@@ -21,25 +49,6 @@
             <input ng-model="phone">
             <div class="b-validation-error" ng-show="errors.phone">Ошибка валидации</div>
         </div>
-        <div>
-            <label>Пароль</label>
-            <input ng-model="password">
-            <div class="b-validation-error" ng-show="errors.password">Ошибка валидации</div>
-            <div class="b-validation-error" ng-show="errors.passwordMinLength">Ошибка валидации (6 символов)</div>
-        </div>
-        <div>
-            <label>Подтверждение</label>
-            <input ng-model="password2">
-            <div class="b-validation-error" ng-show="errors.password2">Ошибка валидации</div>
-        </div>
-        <div>
-            <button ng-click="register()">Погнали!</button>
-        </div>
     </form>
-    <div ng-show="showLanding">
-        Вам все выслано на почту, ляляля
-    </div>
-    <div ng-show="requestFailure">
-        Данный email уже зарегистрирован.
-    </div>
 </div>
+-->
