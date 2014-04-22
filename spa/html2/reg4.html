@@ -26,7 +26,6 @@
 
     <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="/spa/css/main.css" />
-    <link rel="stylesheet" href="/spa/css/tickets.min.css" />
     <link rel="stylesheet" href="/spa/css/styles.min.css" />
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="/spa/css/ie.min.css" />
@@ -212,8 +211,8 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js"></script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFfw0SZX3LR9RKjnb05jqLS79kfBQ8kzc&sensor=false"></script>
-<script type="text/javascript" src="/spa/js/google.maps.clustering.js"></script>
+<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFfw0SZX3LR9RKjnb05jqLS79kfBQ8kzc&sensor=false"></script>-->
+<!--<script type="text/javascript" src="/spa/js/google.maps.clustering.js"></script>-->
 
 
 
@@ -269,7 +268,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.auth/signin.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/restore.js"></script>
 <script src="/spa/js/angular/controllers/controller.about.js"></script>
-<script src="/spa/js/angular/controllers/helpers/controller.reserve.tickets.js"></script>
 <script src="/spa/js/angular/controllers/avia/controller.avia.reserve.tickets.js"></script>
 <script src="/spa/js/angular/controllers/avia/controller.avia.buy.tickets.js"></script>
 <script src="/spa/js/angular/controllers/avia/controller.avia.form.js"></script>
@@ -294,7 +292,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.dynamic/morda.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/serp.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/serp.filter-indicator.js"></script>
-<script src="/spa/js/angular/controllers/controller.dynamic/reserve.js"></script>
 <script src="/spa/js/angular/controllers/controllers.js"></script>
 <script src="/spa/js/angular/directives/directive.combobox.js"></script>
 <script src="/spa/js/angular/directives/directive.datepicker.2months.js"></script>
@@ -472,6 +469,51 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
 <noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
 <!-- /Yandex.Metrika counter -->
+
+<div class="popup-fade"></div>
+<div class="popup-container">
+    <div class="popup">
+        <div class="popup-close-button"></div>
+        <form class="popup-form profile-form">
+            <h3 class="popup-form-title">Настройки профиля</h3>
+            <div class="profile-form-photo">
+                <div class="popup-form-row">
+                    <label for="" class="popup-form-label">Фото</label>
+                    <div class="profile-form-photo-upload empty">
+                        <input type="file" class="hidden-input"/>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-form-offset">
+                <div class="popup-form-row">
+                    <label for="" class="popup-form-label">Имя</label>
+                    <input type="text" class="popup-form-field"/>
+                </div>
+                <div class="popup-form-row">
+                    <label for="" class="popup-form-label">Фамилия</label>
+                    <input type="text" class="popup-form-field"/>
+                </div>
+                <div class="popup-form-row">
+                    <label for="" class="popup-form-label">Email</label>
+                    <input type="text" class="popup-form-field"/>
+                    <div class="description">
+                        На этот адрес мы отправим Ваш электронный билет
+                    </div>
+                </div>
+                <div class="popup-form-row">
+                    <label for="" class="popup-form-label">Телефон</label>
+                    <input type="text" class="popup-form-field"/>
+                    <div class="description">
+                        Мы обязательно позвоним, если ваш рейс отменят или перенесут
+                    </div>
+                </div>
+                <div class="popup-form-row">
+                    <button type="submit" class="button">Отправить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

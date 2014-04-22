@@ -77,10 +77,10 @@ innaAppControllers.
                 setTitle();
             });
 
-            $scope.isLoginPopupOpened = false;
+            $scope.$root.isLoginPopupOpened = false;
             $scope.headLoginBtnclick = function ($event) {
                 eventsHelper.preventBubbling($event);
-                $scope.isLoginPopupOpened = !$scope.isLoginPopupOpened;
+                $scope.$root.isLoginPopupOpened = true;
             };
 
         }]);

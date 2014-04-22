@@ -101,7 +101,9 @@
         var hours = Math.floor(x % 24);
         x /= 24;
         var days = Math.floor(x);
-        return { seconds: seconds, minutes: minutes, hours: hours, days: days };
+        x /= 365;
+        var years = Math.floor(x);
+        return { seconds: seconds, minutes: minutes, hours: hours, days: days, years: years };
     },
 
     getTimeSpanMaxDays: function (ts){
@@ -117,6 +119,27 @@
         var mm = today.getMonth();
         var yyyy = today.getFullYear();
         return new Date(yyyy, mm, dd);
+    },
+
+    calculateAge: function (birthday, now) {
+        if (now == null) {
+            now = new Date();
+        }
+        var years = now.getFullYear() - birthday.getFullYear();
+
+        var now_m = now.getMonth();
+        var now_d = now.getDate();
+        var b_m = birthday.getMonth();
+        var b_d = birthday.getDate();
+
+        if (b_m < now_m){
+            years++;
+        }
+        else if (b_m == now_m && b_d < now_d) {
+            years++;
+        }
+
+        return years;
     },
 
     ddmmyyyy2yyyymmdd: function(ddmmyy){

@@ -1,3 +1,11 @@
+.icon-letter
+  width 38px
+  height 37px
+  display inline-block
+  background url(../img/letter.png)
+
+
+
 .popup-form
   font-family $ProximaNova
   vertical-align top
@@ -92,13 +100,26 @@
 
 
 .reg-form
-  .popup-form-row-submit
+
+  &-result
+    width: 250px;
+    margin 44px 130px 60px
     text-align center
+
+    .icon-letter
+      margin 67px 0 0
+
+    &-text
+      margin 4px 0 0
+      color #666
+
+      &-warning
+        color #000
+
 
 
 
 .recover-password-form
-  display inline-block
   width 254px
   margin 44px 140px 60px
 
@@ -108,3 +129,67 @@
   .message
     margin-left -20px
     margin-right -20px
+
+
+.profile-form
+  width  370px
+  margin 44px 140px 60px
+
+  .popup-form-row
+    position: relative
+    
+  .description
+    position absolute
+    width 140px
+    left -165px
+    text-align right
+    top 16px
+    font-size 11px
+    color #a9a9a9
+
+  &-offset
+    width 240px
+    margin-left 132px
+
+
+  &-photo
+    position: absolute
+
+    &-upload
+      width 106px
+      height 106px
+      position relative
+      overflow hidden
+      color #fff
+      text-align center
+
+      &.empty
+        background #ccc
+
+        &:before
+          display block
+          content '+'
+          font-weight bold
+          font-size 75px
+          position: absolute;
+          width 100%
+          line-height 106px
+
+        &:after
+          content 'Загрузить'
+          width 100%
+          position: absolute
+          font-size 12px
+          top 80px
+          left 0
+
+
+      .hidden-input
+        width 100%
+        height 100%
+        opacity 0
+        position absolute
+        z-index 2
+        left 0
+        top 0
+        cursor pointer

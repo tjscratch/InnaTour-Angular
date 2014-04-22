@@ -22,11 +22,14 @@
     <div class="results-container results-container__tickets" style="padding-top: 190px;">
         <form name="f" action="" class="b-tickets-form">
 
-            <ng:include src="'/spa/templates/pages/avia/variant_partial.html'"></ng:include>
+            <ng:include src="objectToReserveTemplate"></ng:include>
 
-            <div class="warning">
+            <div class="warning" ng-show="visaNeeded">
                 <b class="warning-title">Обратите внимание!</b>
-                <p class="warning-info">При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование авиакомпании.</p>
+                <p class="warning-info">
+                    <div>Требуется виза.</div>
+                    <div ng-show="visaNeeded_rules">Обратите внимание на визовые правила.</div>
+                </p>
             </div>
             <h2 class="title">Информация о покупателе</h2>
             <div class="form-body">
@@ -157,102 +160,6 @@
                         </div>
                     </div>
                 </fieldset>
-                <!--<fieldset class="form-container">
-                    <div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block">
-                            <label class="b-field-label">Пол</label>
-                            <ul class="radio-list">
-                                <li><label><input type="radio" name="male4" checked><ins class="radio">М</ins></label></li>
-                                <li><label><input type="radio" name="male4"><ins class="radio">Ж</ins></label></li>
-                            </ul>
-                        </div>
-                        <div class="b-field-block b-field-block-120">
-                            <label class="b-field-label">Имя (латиницей)</label>
-                            <input type="text" value="ALEXANDER" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-195 b-field-block-surname">
-                            <label class="b-field-label">Фамилия (латиницей)</label>
-                            <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-94">
-                            <label class="b-field-label">Дата рождения</label>
-                            <input type="text" value="18.07.1976" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-170">
-                            <label class="b-field-label">Гражданство</label>
-                            <input type="text" value="Великобритания" class="b-field-text b-field-select">
-                        </div>
-                        <div class="b-field-block b-field-block-123">
-                            <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
-                            <input type="text" value="77123456789" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-105">
-                            <label class="b-field-label">Действителен до</label>
-                            <input type="text" placeholder="дд.мм.гггг" class="b-field-text" value="18.07.1976">
-                        </div>
-                    </div>
-                    <div class="b-field-group b-field-group-passport"><div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block b-field-block-192">
-                            <label class="b-agreement"><input type="checkbox" checked><ins class="b-checkbox"></ins>Есть бонусная карта</label>
-                        </div>
-                        <div class="b-field-block b-field-block-195">
-                            <label class="b-field-label">Авиакомпания</label>
-                            <input type="text" value="Аэрофлот" class="b-field-text b-field-select" placeholder="Выберите">
-                        </div>
-                        <div class="b-field-block b-field-block-143">
-                            <label class="b-field-label">Номер карты</label>
-                            <input type="text" value="12134а3454" class="b-field-text" placeholder="ХХХХХХХХХХХ">
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset class="form-container">
-                    <div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block">
-                            <label class="b-field-label">Пол</label>
-                            <ul class="radio-list">
-                                <li><label><input type="radio" name="male5" checked><ins class="radio">М</ins></label></li>
-                                <li><label><input type="radio" name="male5"><ins class="radio">Ж</ins></label></li>
-                            </ul>
-                        </div>
-                        <div class="b-field-block b-field-block-120">
-                            <label class="b-field-label">Имя (латиницей)</label>
-                            <input type="text" value="ALEXANDER" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-195 b-field-block-surname">
-                            <label class="b-field-label">Фамилия (латиницей)</label>
-                            <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-94">
-                            <label class="b-field-label">Дата рождения</label>
-                            <input type="text" value="18.07.1976" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-170">
-                            <label class="b-field-label">Гражданство</label>
-                            <input type="text" value="Великобритания" class="b-field-text b-field-select">
-                        </div>
-                        <div class="b-field-block b-field-block-123">
-                            <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
-                            <input type="text" value="77123456789" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-105">
-                            <label class="b-field-label">Действителен до</label>
-                            <input type="text" placeholder="дд.мм.гггг" class="b-field-text" value="18.07.1976">
-                        </div>
-                    </div>
-                    <div class="b-field-group b-field-group-passport"><div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block b-field-block-192">
-                            <label class="b-agreement"><input type="checkbox" checked><ins class="b-checkbox"></ins>Есть бонусная карта</label>
-                        </div>
-                        <div class="b-field-block b-field-block-195">
-                            <label class="b-field-label">Авиакомпания</label>
-                            <input type="text" value="Аэрофлот" class="b-field-text b-field-select" placeholder="Выберите">
-                        </div>
-                        <div class="b-field-block b-field-block-143">
-                            <label class="b-field-label">Номер карты</label>
-                            <input type="text" value="12134а3454" class="b-field-text" placeholder="ХХХХХХХХХХХ">
-                        </div>
-                    </div>
-                </fieldset>-->
             </div>
 
             <div class="b-sum-container">
