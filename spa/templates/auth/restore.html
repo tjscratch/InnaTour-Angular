@@ -1,4 +1,6 @@
-<form class="popup-form recover-password-form {{({'true': 'reg-form-result', 'false': ''})[showLanding]}}" ng-controller="AuthPwdRerstoreCtrl_A">
+<form class="popup-form recover-password-form {{({'true': 'reg-form-result', 'false': ''})[showLanding]}}"
+      ng-controller="AuthPwdRerstoreCtrl_A"
+      ng-show="!restoreToken">
     <h3 class="popup-form-title">Восстановить пароль</h3>
     <div ng-show="!showLanding">
         <div class="popup-form-row">
@@ -21,15 +23,18 @@
     </div>
 </form>
 
-<form class="popup-form recover-password-form" ng-controller="AuthPwdRerstoreCtrl_B" ng-show="restoreToken">
+<form class="popup-form recover-password-form {{({'true': 'reg-form-result', 'false': ''})[showLanding]}}"
+      ng-controller="AuthPwdRerstoreCtrl_B"
+      ng-show="restoreToken">
     <h3 class="popup-form-title">Новый пароль</h3>
     <div class="popup-form-row">
-        <input type="password" class="popup-form-field" ng-model="password"/>
-        <label for="" class="popup-form-label">И еще раз</label>
-        <input type="password" class="popup-form-field" ng-model="password2"/>
-        <span class="message" ng-show="errors.password2">Пароли не совпадают</span>
+        <label for="" class="popup-form-label">Введите новый пароль</label>
+        <input type="password" class="popup-form-field {{hasError('password')}} {{hasError('passwordMinLength')}} " ng-model="password"/>
         <span class="message" ng-show="errors.password">Пароль не может быть пустым!</span>
         <span class="message" ng-show="errors.passwordMinLength">Минимальная длина пароля - 6 символов</span>
+        <label for="" class="popup-form-label">И еще раз</label>
+        <input type="password" class="popup-form-field {{hasError('password2')}}" ng-model="password2"/>
+        <span class="message" ng-show="errors.password2">Пароли не совпадают</span>
     </div>
     <div class="popup-form-row popup-form-row-submit">
         <button type="submit" class="button" ng-click="setNewPassword()">Отправить</button>
@@ -41,12 +46,3 @@
         Новый пароль успешно установлен. Через несколько секунд вы будете перенаправлены на главную страницу.
     </div>
 </form>
-
-
-<!--
-<div class="b-auth-block__section">
-    <div ng-show="showLanding">
-        Вам все выслано на почту, ляляля
-    </div>
-</div>
--->
