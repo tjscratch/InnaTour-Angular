@@ -1,5 +1,6 @@
 ﻿innaAppServices.
-    factory('aviaHelper', ['$rootScope', '$http', '$log', '$filter', function ($rootScope, $http, $log, $filter) {
+    factory('aviaHelper', ['$rootScope', '$http', '$log', '$filter', '$location', 'innaApp.Urls',
+        function ($rootScope, $http, $log, $filter, $location, Urls) {
         function log(msg) {
             $log.log(msg);
         }
@@ -87,6 +88,12 @@
             }
             return "";
         }
+        
+        var baloonType = {
+            msg: 'msg',
+            err: 'err',
+            msgClose: 'msgClose'
+        };
 
         var helper = {
             sexType: { man: 1, woman: 2 },
@@ -221,6 +228,45 @@
                         var waitTime = getFlightTimeFormatted(etap.TransferWaitTime);
                         item.EtapsBackItems.push({ code: etap.InCode, name: etap.InPort, waitTime: waitTime });
                     }
+                }
+            },
+
+            baloonType: baloonType,
+
+            baloon: {
+                isVisible: true,
+                caption: '',
+                text: '',
+                type: baloonType.msg,
+                closeFn: null,
+                showGlobalAviaErr: function() {
+                    helper.baloon.show("Что-то пошло не так", "Свяжитесь с оператором по телефону +7 495 742-1212",
+                        baloonType.err, function () {
+                            $location.path(Urls.URL_AVIA);
+                        });
+                },
+                showErr: function (caption, text, closeFn) {
+                    helper.baloon.show(caption, text, baloonType.err, closeFn);
+                },
+                showWithClose: function (caption, text, closeFn) {
+                    helper.baloon.show(caption, text, baloonType.msgClose, closeFn);
+                },
+                show: function (caption, text, type, closeFn) {
+                    if (type == null){
+                        helper.baloon.type = baloonType.msg;
+                    }
+                    else {
+                        helper.baloon.type = type;
+                    }
+
+                    helper.baloon.caption = caption;
+                    helper.baloon.text = text;
+                    helper.baloon.isVisible = true;
+
+                    helper.baloon.closeFn = closeFn;
+                },
+                hide: function () {
+                    helper.baloon.isVisible = false;
                 }
             },
 

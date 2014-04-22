@@ -94,7 +94,8 @@
                     }
                     else {
                         //сначала проверяем в html5 storage
-                        var res = storageService.getAviaSearchResults(apiCriteria);
+                        var res = null;
+                        //var res = storageService.getAviaSearchResults(apiCriteria);
                         if (res != null) {
                             successCallback(res);
                         }
