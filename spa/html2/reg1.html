@@ -63,15 +63,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                         <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li><!--
                         --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
                         --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
-                    </ul><!--
-                    --><span class="header-login">
-                        <a href="#" class="" ng-click="headLoginBtnclick($event)"><i class="icon icon-user"></i>Войти</a>
-                        <!--<form class="header-login-form-popup">
-                            <div class="field-row"><input class="field" type="text" placeholder="Логин" /></div>
-                            <div class="field-row"><input class="field" type="password" placeholder="Пароль" /></div>
-                            <button class="button">Войти</button>
-                        </form>-->
-                    </span>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -85,6 +77,9 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                 --><!--<li class="header-menu-item"><a href="/#/autorent/" ng-class="{active:isActive('/autorent/')}">Аренда авто</a></li>--><!--
                 --><!--<li class="header-menu-item"><a href="/#/insurance/" ng-class="{active:isActive('/insurance/')}">Страхование</a></li>--><!--
                 --><!--<li class="header-menu-item"><a href="/#/cruise/" ng-class="{active:isActive('/cruise/')}">Круизы</a></li>-->
+                <li class="header-menu-item header-login">
+                    <a href="#" class="header-login-link" ng-click="headLoginBtnclick($event)"><i class="icon icon-user"></i>Регистрация и вход</a>
+                </li>
             </ul>
         <ng:include src="getHeadForm()"></ng:include>
         </div>

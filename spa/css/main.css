@@ -99,6 +99,10 @@
 .button:hover {
   background: #95cd47;
 }
+.button.disabled {
+  background: #e4e4e4;
+  cursor: auto
+}
 .field,
 .field-text {
   border: 1px solid #cecece;
@@ -1581,6 +1585,9 @@
 .header-info-menu-item:first-child {
   border: 0;
 }
+.header-info-menu-item:last-child {
+  padding-right: 0;
+}
 .header-text {
   display: inline-block;
   font-size: 12px;
@@ -1592,9 +1599,29 @@
   display: inline-block;
   font-size: 14px;
   position: relative;
+  color: #989898;
+  float: right;
+  margin-top: 14px;
+}
+.header-login .header-login-link {
+  color: #989898;
+}
+.header-login .header-logout-link {
+    color: #989898;
+    margin-left: 6px;
+    padding-left: 8px;
+    border-left: 1px solid #434343;
 }
 .header-login .icon-user {
   margin-right: 7px;
+}
+.header-login-user-link {
+    position: relative;
+}
+.header-login-user-link .user-pic {
+    position: relative;
+    top: 4px;
+    right: 2px;
 }
 .header-phone {
   font-size: 16px;
