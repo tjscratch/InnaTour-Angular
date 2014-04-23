@@ -1,15 +1,20 @@
 angular.module('innaApp.controllers')
     .controller('AuthCtrl', [
-        '$scope', '$location', 'innaApp.API.events', 'AuthDataProvider',
-        function($scope, $location, Events, AuthDataProvider){
-            $scope.hasPasswordRestoreToken = ($location.path() == app.URL_AUTH_RESTORE && !!$location.search().token);
+        '$scope', '$location', 'innaApp.API.events', 'AuthDataProvider', 'innaApp.Urls',
+        function($scope, $location, Events, AuthDataProvider, app){
+            $scope.restoreToken = ($location.path() == app.URL_AUTH_RESTORE) && $location.search().token;
 
-            $scope.restoreToken = $scope.hasPasswordRestoreToken && $location.search().token;
+            console.log('AuthCtrl: restore', $scope.restoreToken);
 
             $scope.DISPLAY_SIGNIN = 1;
             $scope.DISPLAY_FORGOTTEN = 2;
 
             $scope.display = $scope.DISPLAY_SIGNIN;
+
+            if($scope.restoreToken) {
+                $scope.display = $scope.DISPLAY_FORGOTTEN;
+                $scope.$root.isLoginPopupOpened = true;
+            }
 
 
             $scope.$on(Events.AUTH_FORGOTTEN_LINK_CLICKED, function(){

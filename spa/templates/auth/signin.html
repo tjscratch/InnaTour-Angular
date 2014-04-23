@@ -15,7 +15,8 @@
     </div>
     <div class="popup-form-row popup-form-row-submit">
         <div class="remember-me">
-            <span class="checkbox"></span><label class="checkbox-label">Запомнить меня</label>
+            <span class="checkbox {{({'true': 'checked', 'false': ''})[rememberMe]}}" ng-click="switchRememberMe()"></span>
+            <label class="checkbox-label" ng-click="switchRememberMe()">Запомнить меня</label>
         </div>
         <button type="submit" class="button" ng-click="signIn()">Войти</button>
     </div>

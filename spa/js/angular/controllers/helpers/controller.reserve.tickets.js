@@ -38,8 +38,6 @@ innaAppControllers.
                 }
             };
 
-            $scope.objectToReserveTemplate = '/spa/templates/pages/avia/variant_partial.html';
-
             var validateType = {
                 required: 'required',
                 cit_required: 'cit_required',
@@ -588,8 +586,6 @@ innaAppControllers.
                 loadAllCountries(onCompleteFnRun);
                 loadTransporters(onCompleteFnRun);
             }
-
-            $scope.afterPayModelInit = null;
 
             $scope.initPayModel = function () {
                 //log('$scope.initPayModel');
