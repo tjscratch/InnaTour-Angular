@@ -16,6 +16,10 @@ innaAppServices.
             $log.log(msg);
         }
 
+        function isOlderMinute(ms) {
+            return !((ms + 1000 * 60) > (new Date()).getTime());
+        }
+
         return {
             setAviaBuyItem: function (model) {
                 sessionStorage.AviaBuyItem = angular.toJson(model);
@@ -45,14 +49,33 @@ innaAppServices.
                 return angular.fromJson(sessionStorage.PayModel);
             },
 
-            setAviaSearchResults: function (criteria, data) {
-                sessionStorage.AviaSearchResults = angular.toJson({ criteria: criteria, data: data });
+            setAviaSearchResults: function (model) {
+                sessionStorage.AviaSearchResults = angular.toJson(model);
             },
             getAviaSearchResults: function (criteria) {
                 var res = angular.fromJson(sessionStorage.AviaSearchResults);
                 //проверяем, что достаем данные для нужных критериев поиска
-                if (res != null && angular.toJson(criteria) == angular.toJson(res.criteria))
+                if (res != null && angular.toJson(criteria) == angular.toJson(res.criteria) && !isOlderMinute(res.date))
                 {
+                    return res.data;
+                }
+                return null;
+            },
+            clearAviaSearchResults: function () {
+                sessionStorage.AviaSearchResults = null;
+            },
+
+            setAviaVariantCheck: function (model) {
+                if (model != null) {
+                    model.params = utils.normalize(model.params);
+                }
+                sessionStorage.AviaVariantCheck = angular.toJson(model);
+            },
+            getAviaVariantCheck: function (params) {
+                params = utils.normalize(params);
+                var res = angular.fromJson(sessionStorage.AviaVariantCheck);
+                //проверяем, что достаем данные для нужных критериев поиска
+                if (res != null && angular.toJson(params) == angular.toJson(res.params) && !isOlderMinute(res.date)) {
                     return res.data;
                 }
                 return null;

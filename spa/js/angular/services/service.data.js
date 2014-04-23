@@ -94,15 +94,16 @@
                     }
                     else {
                         //сначала проверяем в html5 storage
-                        var res = null;
-                        //var res = storageService.getAviaSearchResults(apiCriteria);
+                        //var res = null;
+                        var res = storageService.getAviaSearchResults(apiCriteria);
+                        //проверяем что данные не старше минуты
                         if (res != null) {
                             successCallback(res);
                         }
                         else {
                             $http({ method: 'GET', url: beginAviaSearchUrl, params: apiCriteria }).success(function (data, status) {
                                 //сохраняем в хранилище (сохраняем только последний результат)
-                                storageService.setAviaSearchResults(apiCriteria, data);
+                                storageService.setAviaSearchResults({ date: new Date().getTime(), criteria: apiCriteria, data: data });
                                 //присваиваем значение через функцию коллбэк
                                 successCallback(data);
                             }).
