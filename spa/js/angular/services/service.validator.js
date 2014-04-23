@@ -1,4 +1,4 @@
-angular.module('innaApp.services')
+п»їangular.module('innaApp.services')
     .factory('Validators', [function(){
         return {
             email: function(s, error){
@@ -29,7 +29,7 @@ angular.module('innaApp.services')
             birthdate: function (s, error) {
                 if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
 
-                //от 01.01.1900 до текущей даты
+                //РѕС‚ 01.01.1900 РґРѕ С‚РµРєСѓС‰РµР№ РґР°С‚С‹
                 var dParts = s.split('.');
                 if (dParts.length == 3) {
                     var y = parseInt(dParts[2], 10);
@@ -43,7 +43,7 @@ angular.module('innaApp.services')
             expire: function (s, error) {
                 if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
 
-                //Дата должна быть в диапазоне от текущей даты + 100 лет
+                //Р”Р°С‚Р° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РІ РґРёР°РїР°Р·РѕРЅРµ РѕС‚ С‚РµРєСѓС‰РµР№ РґР°С‚С‹ + 100 Р»РµС‚
                 var dParts = s.split('.');
                 if (dParts.length == 3) {
                     var y = parseInt(dParts[2], 10);
@@ -55,16 +55,16 @@ angular.module('innaApp.services')
                 }
             },
             ruPassport: function (s, error) {
-                //10 цифр - российский паспорт
+                //10 С†РёС„СЂ - СЂРѕСЃСЃРёР№СЃРєРёР№ РїР°СЃРїРѕСЂС‚
                 if (!/^(\d{10})+$/.test(s)) throw error;
             },
             enPassport: function (s, error) {
-                //9 цифр - загранпаспорт
+                //9 С†РёС„СЂ - Р·Р°РіСЂР°РЅРїР°СЃРїРѕСЂС‚
                 if (!/^(\d{9})+$/.test(s)) throw error;
             },
             birthPassport: function (s, error) {
-                //буквы (хотя бы одна) + 6 последних цифр - св-во о рождении (II-ЛО 599785)
-                if (!/^.*([а-яА-ЯёЁa-zA-Z]).*(\d{6})+$/.test(s)) throw error;
+                //Р±СѓРєРІС‹ (С…РѕС‚СЏ Р±С‹ РѕРґРЅР°) + 6 РїРѕСЃР»РµРґРЅРёС… С†РёС„СЂ - СЃРІ-РІРѕ Рѕ СЂРѕР¶РґРµРЅРёРё (II-Р›Рћ 599785)
+                if (!/^.*([Р°-СЏРђ-РЇС‘РЃa-zA-Z]).*(\d{6})+$/.test(s)) throw error;
             },
         }
     }])

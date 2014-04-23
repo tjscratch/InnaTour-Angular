@@ -172,16 +172,56 @@ innaAppControllers.
             function reserve(afterCompleteCallback) {
                 function call() { if (afterCompleteCallback) afterCompleteCallback(); };
 
+                function isCaseValid(fn) {
+                    try {
+                        fn();
+                        return true;
+                    }
+                    catch (err) {
+                        return false;
+                    }
+                }
+
+                function getDocType(number) {
+                    //var doc_num = number.replace(/\s+/g, '');
+
+                    if (isCaseValid(function () {
+                        Validators.ruPassport(doc_num, 'err');
+                    })) {
+                        return 0;//паспорт
+                    }
+                    
+                    if (isCaseValid(function () {
+                        Validators.enPassport(doc_num, 'err');
+                    })) {
+                        return 1;//загран
+                    }
+
+                    if (isCaseValid(function () {
+                        Validators.birthPassport(doc_num, 'err');
+                    })) {
+                        return 2;//свидетельство о рождении
+                    }
+
+                    if (isCaseValid(function () {
+                       Validators.defined(doc_num, 'err');
+                    })) {
+                        return 3;//Иностранный документ
+                    }
+
+                    return null;
+                }
+
                 function getPassenger(data) {
+                    var doc_num = data.doc_series_and_number.replace(/\s+/g, '');
+
                     var m = {};
                     m.Sex = data.sex;
                     m.I = data.name;
                     m.F = data.secondName;
                     m.Birthday = data.birthday;
-                    m.DocumentId = null;
-                    var docsn = data.doc_series_and_number.split(' ');
-                    m.Series = docsn[0];
-                    m.Number = docsn[1];
+                    m.DocumentId = getDocType(doc_num);
+                    m.Number = doc_num;
                     m.ExpirationDate = data.doc_expirationDate;
                     m.Citizen = data.citizenship.id;
                     m.Index = data.index;
