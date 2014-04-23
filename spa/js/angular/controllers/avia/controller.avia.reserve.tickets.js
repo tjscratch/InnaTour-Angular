@@ -172,17 +172,57 @@ innaAppControllers.
             function reserve(afterCompleteCallback) {
                 function call() { if (afterCompleteCallback) afterCompleteCallback(); };
 
+                function isCaseValid(fn) {
+                    try {
+                        fn();
+                        return true;
+                    }
+                    catch (err) {
+                        return false;
+                    }
+                }
+
+                function getDocType(number) {
+                    //var doc_num = number.replace(/\s+/g, '');
+
+                    if (isCaseValid(function () {
+                        Validators.ruPassport(doc_num, 'err');
+                    })) {
+                        return 0;//паспорт
+                    }
+                    
+                    if (isCaseValid(function () {
+                        Validators.enPassport(doc_num, 'err');
+                    })) {
+                        return 1;//загран
+                    }
+
+                    if (isCaseValid(function () {
+                        Validators.birthPassport(doc_num, 'err');
+                    })) {
+                        return 2;//свидетельство о рождении
+                    }
+
+                    if (isCaseValid(function () {
+                       Validators.defined(doc_num, 'err');
+                    })) {
+                        return 3;//Иностранный документ
+                    }
+
+                    return null;
+                }
+
                 function getPassenger(data) {
+                    var doc_num = data.doc_series_and_number.replace(/\s+/g, '');
+
                     var m = {};
                     m.Sex = data.sex;
                     m.I = data.name;
                     m.F = data.secondName;
                     m.Birthday = data.birthday;
-                    m.DocumentId = null;
-                    var docsn = data.document.series_and_number.split(' ');
-                    m.Series = docsn[0];
-                    m.Number = docsn[1];
-                    m.ExpirationDate = data.document.expirationDate;
+                    m.DocumentId = getDocType(doc_num);
+                    m.Number = doc_num;
+                    m.ExpirationDate = data.doc_expirationDate;
                     m.Citizen = data.citizenship.id;
                     m.Index = data.index;
                     m.BonusCard = data.bonuscard.number;
@@ -208,10 +248,44 @@ innaAppControllers.
                     };
                     return m;
                 };
+                function getModelFromValidationModel(validationModel) {
+                    var keys = _.keys(validationModel);
+                    var model = {};
+                    _.each(keys, function (key) {
+                        if (_.isArray(validationModel[key])) {
+                            model[key] = [];
+                            _.each(validationModel[key], function (item) {
+                                var iKeys = _.keys(item);
+                                var iItem = {};
+                                _.each(iKeys, function (iKey) {
+                                    if (_.isArray(item[iKey])) {
+                                        //пропускаем
+                                    }
+                                    else if (_.isFunction(item[iKey])) {
+                                        //пропускаем
+                                    }
+                                    else {
+                                        iItem[iKey] = angular.copy(item[iKey].value);
+                                    }
+                                });
+                                model[key].push(iItem);
+                            });
+                        }
+                        else if (_.isFunction(validationModel[key])) {
+                            //пропускаем
+                        }
+                        else {
+                            model[key] = angular.copy(validationModel[key].value);
+                        }
+                    });
+                    return model;
+                }
 
-                var apiModel = getApiModel($scope.model);
+                var model = getModelFromValidationModel($scope.validationModel);
+
+                var apiModel = getApiModel(model);
                 log('');
-                log('reservationModel: ' + angular.toJson($scope.model));
+                log('reservationModel: ' + angular.toJson(model));
                 log('');
                 log('apiModel: ' + angular.toJson(apiModel));
                 //
@@ -225,7 +299,7 @@ innaAppControllers.
                             $scope.criteria.OrderId = data;
 
                             //сохраняем модель
-                            storageService.setReservationModel($scope.model);
+                            storageService.setReservationModel(model);
                         }
                         //успешно
                         call();
@@ -259,16 +333,13 @@ innaAppControllers.
                      
                     return;
                 }
-                return;
 
                 //бронируем
                 reserve(function () {
-                    if (isAllDataLoaded()) {
-                        //переходим на страницу оплаты
-                        var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria);
-                        //log('processToPayment, url: ' + url);
-                        $location.path(url);
-                    }
+                    //переходим на страницу оплаты
+                    var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria);
+                    //log('processToPayment, url: ' + url);
+                    $location.path(url);
                 });
             };
 
