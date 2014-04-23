@@ -11,11 +11,12 @@ angular.module('innaApp.controllers')
                 AuthDataProvider.signIn({
                     Email: $scope.username,
                     Password: $scope.password
-                }, function(data){ //success
-                    console.log(data);
+                }, function(data, state, jqXHR){ //success
                     $rootScope.$broadcast('inna.Auth.SignIn');
                 }, function(){ //error
-                    $scope.requestFailure = true;
+                    $scope.$apply(function($scope){
+                        $scope.requestFailure = true;
+                    });
                 });
             }
 
