@@ -172,40 +172,5 @@
 <!-- Search Results -->
 
 <!-- Baloon -->
-<div class="overlay js-overlay" style="display: none">
-    <div class="balloon">
-        <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
-        <div class="baloon-title">Бронирование авиабилетов</div>
-        <p class="balloon-info">подождите пожалуйста, это может затять несколько минут</p>
-    </div>
-    <div class="balloon">
-        <div class="baloon-loading"></div>
-        <div class="baloon-title">Подождите, идет оплата</div>
-        <p class="balloon-info">это может занять до нескольких минут</p>
-    </div>
-    <div class="balloon">
-        <div class="baloon-loading"></div>
-        <div class="baloon-title">Выписываем авиабилеты</div>
-        <p class="balloon-info">это может занять до нескольких минут</p>
-    </div>
-    <div class="balloon">
-        <div class="baloon-mail"></div>
-        <div class="baloon-title">Билеты успешно выписаны</div>
-        <p class="balloon-info">и отправлены на электронную почту ratunkov@gmail.com</p>
-        <a href="#" class="button baloon-button">Распечатать билеты</a>
-    </div>
-    <div class="balloon">
-        <div class="baloon-close" title="Закрыть"></div>
-        <div class="baloon-canceled"></div>
-        <div class="baloon-title baloon-error">Бронирование анулировано</div>
-        <p class="balloon-info">истек срок ожидания оплаты</p>
-        <a href="#" class="button baloon-button">Повторить поиск</a>
-    </div>
-    <div class="balloon">
-        <div class="baloon-close" title="Закрыть"></div>
-        <div class="baloon-problem"></div>
-        <div class="baloon-title baloon-error">Что-то пошло не так</div>
-        <p class="balloon-info">cвяжитесь с оператором по телефону +7 495 742-1212</p>
-    </div>
-</div>
+<div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type" close-fn="baloon.closeFn"></div>
 <!-- /Baloon -->

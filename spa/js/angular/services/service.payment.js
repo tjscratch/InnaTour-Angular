@@ -1,18 +1,32 @@
-innaAppServices.
-    factory('paymentService', ['$rootScope', '$http', '$q', '$log', 'cache', 'innaApp.API.const',
-        function ($rootScope, $http, $q, $log, cache, apiUrls) {
+﻿innaAppServices.
+    factory('paymentService', ['$rootScope', '$timeout', '$http', '$q', '$log', 'cache', 'storageService', 'innaApp.API.const',
+        function ($rootScope, $timeout, $http, $q, $log, cache, storageService, apiUrls) {
             function log(msg) {
                 $log.log(msg);
             }
 
             return {
                 checkAvailability: function (queryData, successCallback, errCallback) {
-                    $http.get(paymentCheckAvailabilityUrl, { params: queryData }).success(function (data) {
-                        successCallback(data);
-                    }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                    
+                    //проверяем что данные не старше минуты
+                    var res = storageService.getAviaVariantCheck(queryData);
+                    if (res != null) {
+                        successCallback(res);
+                    }
+                    else {
+                        $http.get(paymentCheckAvailabilityUrl, { params: queryData }).success(function (data) {
+                            storageService.setAviaVariantCheck({ date: new Date().getTime(), params: queryData, data: data });
+                            successCallback(data);
+                            //ToDo: debug
+                            //$timeout(function () {
+                            //    storageService.setAviaVariantCheck({ date: new Date().getTime(), params: queryData, data: data });
+                            //    successCallback(data);
+                            //}, 1000);
+                        }).
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
+                    }
                 },
 
                 getTransportersInAlliances: function (queryData, successCallback, errCallback) {

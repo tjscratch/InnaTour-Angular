@@ -11,11 +11,12 @@ angular.module('innaApp.controllers')
                 AuthDataProvider.signIn({
                     Email: $scope.username,
                     Password: $scope.password
-                }, function(data){ //success
-                    console.log(data);
+                }, function(data, state, jqXHR){ //success
                     $rootScope.$broadcast('inna.Auth.SignIn');
                 }, function(){ //error
-                    $scope.requestFailure = true;
+                    $scope.$apply(function($scope){
+                        $scope.requestFailure = true;
+                    });
                 });
             }
 
@@ -31,6 +32,8 @@ angular.module('innaApp.controllers')
             $scope.$watch('password', function(){
                 $scope.errors.password = false;
             });
+
+            $scope.rememberMe = true;
 
             $scope.errors = {};
 
@@ -50,6 +53,10 @@ angular.module('innaApp.controllers')
 
             $scope.forgotten = function(){
                 $scope.$emit(Events.AUTH_FORGOTTEN_LINK_CLICKED);
+            }
+
+            $scope.switchRememberMe = function(){
+                $scope.rememberMe = !$scope.rememberMe;
             }
         }
     ]);

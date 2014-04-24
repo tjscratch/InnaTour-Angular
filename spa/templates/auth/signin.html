@@ -2,7 +2,7 @@
     <h3 class="popup-form-title">Войти</h3>
     <div class="popup-form-row">
         <label for="" class="popup-form-label">Логин</label>
-        <input type="text" class="popup-form-field" ng-model="username"/>
+        <input type="text" class="popup-form-field" ng-model="username" tabindex="1"/>
         <div class="b-validation-error" ng-show="errors.username">Поле должно быть заполнено</div>
     </div>
     <div class="popup-form-row">
@@ -10,14 +10,15 @@
             Пароль
             <a href="javascript:void(0);" class="forgot-password" ng-click="forgotten()">Забыли пароль?</a>
         </label>
-        <input type="password" class="popup-form-field" ng-model="password"/>
+        <input type="password" class="popup-form-field" ng-model="password" tabindex="2"/>
         <div class="b-validation-error" ng-show="errors.password">Поле должно быть заполнено</div>
     </div>
     <div class="popup-form-row popup-form-row-submit">
         <div class="remember-me">
-            <span class="checkbox"></span><label class="checkbox-label">Запомнить меня</label>
+            <span class="checkbox {{({'true': 'checked', 'false': ''})[rememberMe]}}" ng-click="switchRememberMe()"></span>
+            <label class="checkbox-label" ng-click="switchRememberMe()">Запомнить меня</label>
         </div>
-        <button type="submit" class="button" ng-click="signIn()">Войти</button>
+        <button type="submit" class="button" ng-click="signIn()" tabindex="3">Войти</button>
     </div>
     <div ng-show="requestFailure">
         Неверное имя пользователя или пароль

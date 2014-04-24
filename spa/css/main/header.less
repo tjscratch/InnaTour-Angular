@@ -63,6 +63,10 @@
                 &:first-child {
                     border: 0;
                 }
+
+                &:last-child {
+                    padding-right: 0;
+                }
             }
         }
     }
@@ -79,9 +83,33 @@
         display: inline-block;
         font-size: 14px;
         position: relative;
+        color: #989898;
+        float: right;
+        margin-top: 14px;
 
         .icon-user {
             margin-right: 7px;
+        }
+
+        .header-login-link {
+            color: #989898;
+        }
+
+        .header-logout-link {
+            color: #989898;
+            margin-left: 6px;
+            padding-left: 8px;
+            border-left: 1px solid #434343;
+        }
+
+        &-user-link {
+            position: relative;
+
+            .user-pic {
+                position: relative;
+                top: 4px;
+                right: 2px;
+            }
         }
     }
 
