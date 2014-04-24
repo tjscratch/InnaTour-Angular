@@ -1,0 +1,433 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>Инна-Тур - Авиа</title>
+    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../lib/datepicker/datepicker.css" />
+    <link rel="stylesheet" href="../css/tickets.min.css" />
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="../css/ie.min.css" />
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="../js/jquery.ui.datepicker-ru.js"></script>
+    <script src="../js/datepicker.js"></script>
+    <!--[if lt IE 10]>
+        <script src="../js/ie.placeholder.js"></script>
+    <![endif]-->
+    <script src="../js/search_form.js"></script>
+    <script src="../js/results.js"></script>
+    <script src="../js/aside.js"></script>
+</head>
+
+<body>
+    <div class="header Header">
+        <div class="header-info">
+            <div class="header-info-container">
+                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
+                --><span class="header-text"></span><!--
+                --><div class="header-info-container-right">
+                    <ul class="header-info-menu" style="margin-right:0px;">
+                        <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li><!--
+                        --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
+                        --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header-menu">
+            <ul class="header-menu-container-items"><!--
+                --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
+                --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
+                --><li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
+                --><li class="header-menu-item"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
+            </ul>
+
+            <!-- Search Form -->
+            <!-- <form class="search-ticket-form">
+                <div class="search-field-block">
+                    <input type="text" class="search-field" placeholder="Откуда" />
+                    <ul class="search-autocomplete">
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b>, <em>(все аэропорты)</em></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                            <ul>
+                                <li>
+                                    <span class="search-autocomplete-block">
+                                        <span class="search-autocomplete-city">Шереметьево</span>
+                                        <span class="search-autocomplete-abbr">SVO</span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="search-autocomplete-block">
+                                        <span class="search-autocomplete-city">Домодедово</span>
+                                        <span class="search-autocomplete-abbr">DME</span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="search-autocomplete-block">
+                                        <span class="search-autocomplete-city">Внуково</span>
+                                        <span class="search-autocomplete-abbr">VKO</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                            <ul>
+                                <li>
+                                    <span class="search-autocomplete-block">
+                                        <span class="search-autocomplete-city">Шереметьево</span>
+                                        <span class="search-autocomplete-abbr">SVO</span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="search-autocomplete-block">
+                                        <span class="search-autocomplete-city">Домодедово</span>
+                                        <span class="search-autocomplete-abbr">DME</span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="search-autocomplete-block">
+                                        <span class="search-autocomplete-city">Внуково</span>
+                                        <span class="search-autocomplete-abbr">VKO</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="search-autocomplete-block">
+                                <span class="search-autocomplete-city">Mехико, <b>Мексика</b></span>
+                                <span class="search-autocomplete-abbr">MOW</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="search-field-block">
+                    <input type="text" class="search-field" placeholder="Куда" />
+                </div>
+                <div class="search-date-block js-start-date-block">
+                    <input type="text" class="search-date search-date-arr" placeholder="Туда" />
+                    <div class="js-datepicker datepicker-body">
+                        
+                    </div>
+                </div>
+                <div class="search-date-block js-finish-date-block">
+                    <input type="text" class="search-date search-date-dep js-finish-date" placeholder="Обратно" />
+                </div>
+                <div class="search-people-block">
+                    <div class="search-people">5 человек</div>
+                    <div class="search-people-baloon">
+                        <h3 class="search-people-baloon-title">Пассажиры</h3>
+                        <ul>
+                            <li class="search-people-baloon-item">
+                                <span class="search-people-type">
+                                    <b>Взрослые,</b>
+                                    12 лет и старше
+                                </span> 
+                                <span class="search-people-baloon-field">
+                                    <span class="search-people-baloon-minus js-people-minus">&minus;</span>
+                                    <input type="text" maxlength="1" value="1" class="js-people-field" />
+                                    <span class="search-people-baloon-plus js-people-plus">+</span>
+                                </span>
+                            </li>
+                            <li class="search-people-baloon-item">
+                                <span class="search-people-type">
+                                    <b>Дети,</b>
+                                    2-11 лет
+                                </span>
+                                <span class="search-people-baloon-field">
+                                    <span class="search-people-baloon-minus js-people-minus">&minus;</span>
+                                    <input type="text" maxlength="1" value="0" class="js-people-field" />
+                                    <span class="search-people-baloon-plus js-people-plus">+</span>
+                                </span>
+                                
+                            </li>
+                            <li class="search-people-baloon-item">
+                                <span class="search-people-type">
+                                    <b>Младенцы,</b>
+                                    0-2 лет
+                                </span>
+                                <span class="search-people-baloon-field">
+                                    <span class="search-people-baloon-minus js-people-minus">&minus;</span>
+                                    <input type="text" maxlength="1" value="0" class="js-people-field" />
+                                    <span class="search-people-baloon-plus js-people-plus">+</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="search-button-block">
+                    Найти
+                    <input type="submit" value="Найти" />
+                </div>
+                <ul class="search-pref-block">
+                    <li class="search-pref current">Туда и обратно</li>
+                    <li class="search-pref">В одну сторону</li>
+                    <li class="search-pref search-pref-comfort">Эконом
+                        <ul class="search-pref-select hidden">
+                            <li>Бизнес</li>
+                        </ul>
+                    </li>
+                </ul>
+            </form> -->
+            <!-- /Search Form -->
+
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="results-body">
+        <div class="results-container">
+
+            <!-- Results List -->
+            <div class="results-list" style="width: 720px;">
+                <div class="rl-item">
+                    <header class="rl-item-header">
+                        <img src="../uploads/logo.png" class="rl-airline" alt="">
+                        <img src="../uploads/logo1.png" class="rl-airline" alt="">
+                        <img src="../uploads/logo.png" class="rl-airline" alt="">
+                    </header>
+                    <div class="rl-content">
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>20:00</b>, 26 сен, сб<br>
+                                Москва MOW
+                            </div>
+                        </div>
+                        <div class="rl-travel-time">в пути: 24 ч 10 мин <br>2 пересадки</div>
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>20:00</b>, 26 сен, сб<br>
+                                Москва MOW
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rl-content">
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>20:00</b>, 26 сен, сб<br>
+                                Москва MOW
+                            </div>
+                        </div>
+                        <div class="rl-travel-time">2 ч 50 мин</div>
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>20:00</b>, 26 сен, сб<br>
+                                Москва MOW
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="rl-footer">
+                        <span class="rl-tickets-number">Последние 3 места</span>
+                        <a href="#" class="rl-more-info">Подробнее</a>
+                    </footer>
+                    <div class="rl-aside">
+                        <span class="rl-price">
+                            <span class="rl-price-item">69 450</span> руб.
+                        </span>
+                        <a href="#" class="rl-buy-button">Купить</a>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <ul class="filters__container">
+                    <li>
+                        <a href="#" class="filters__link">Пересадки</a>
+                        <div class="filters__baloon">
+                            <header class="ra-header">
+                                <h4 class="ra-title">Пересадки</h4>
+                                <a class="ra-header-link" href="#">Сбросить</a>
+                            </header>
+                            <div class="ra-content">
+                                <ul class="ra-fly-type-list">
+                                    <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">2 и более</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="filters__link">Цена</a>
+                    </li>
+                    <li>
+                        <a href="#" class="filters__link">Время</a>
+                    </li>
+                    <li>
+                        <a href="#" class="filters__link">Авиакомпания</a>
+                    </li>
+                    <li>
+                        <a href="#" class="filters__link">Аэропорт</a>
+                    </li>
+                    <li>
+                        <a href="#" class="filters__link">Сортировать</a>
+                    </li>
+                </ul>
+                <!-- /Filters -->
+
+            </div>
+            <!-- /Results List -->
+
+            <!-- Results Aside -->
+            <aside class="results-aside">
+                <div class="ra-block">
+                    <header class="ra-header">
+                        <h4 class="ra-title">Фильтр</h4>
+                        <a href="#" class="ra-header-link">Сбросить все</a>
+                    </header>
+                </div>
+                <div class="ra-block">
+                    <header class="ra-header">
+                        <h4 class="ra-title">Стоимость</h4>
+                        <a href="#" class="ra-header-link">Сбросить</a>
+                    </header>
+                    <div class="ra-content">
+                        <div class="js-trackbar-price ra-trackbar"></div>
+                        <div class="js-amount-price ra-amount-price"></div>
+                    </div>
+                </div>
+                <div class="ra-block">
+                    <header class="ra-header">
+                        <h4 class="ra-title">Пересадки</h4>
+                        <a href="#" class="ra-header-link">Сбросить</a>
+                    </header>
+                    <div class="ra-content">
+                        <ul class="ra-fly-type-list">
+                            <li><label><input type="checkbox" name="fly" checked /><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250 216 р.</span></label></li>
+                            <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25 216 р.</span></label></li>
+                            <li><label><input type="checkbox" name="fly" /><span class="ra-checkbox"></span><span class="ra-fly-type">2 и более</span><span class="ra-fly-price">150 216 р.</span></label></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ra-block">
+                    <header class="ra-header">
+                        <h4 class="ra-title">Время вылета</h4>
+                        <a href="#" class="ra-header-link">Сбросить</a>
+                    </header>
+                    <div class="ra-content">
+                        <div class="js-amount-arrive ra-amount-time"></div>
+                        <div class="js-trackbar-arrive"></div>
+                        <div class="js-amount-depart ra-amount-time"></div>
+                        <div class="js-trackbar-depart"></div>
+                    </div>
+                </div>
+            </aside>
+            <!-- /Results Aside -->
+
+        </div>
+    </div>
+    <!-- Search Results -->
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-menu">
+                <ul class="footer-menu-links-list">
+                    <li class="footer-menu-links-list-item"><a href="/#/about/">О компании</a></li>
+                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/corporate/">Корпоративным клиентам</a></li>
+                    <li class="footer-menu-links-list-item"><a href="/#/contacts/">Контакты</a></li>
+                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
+                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/catalog/guide/">Каталог стран</a></li>
+                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/client/abc/">Полезная информация</a></li>
+                </ul>
+                <div class="footer-menu-info">
+                    <ul class="social-list">
+                        <li class="social-list-item">
+                            <a href="https://vk.com/inna_tur_ru" target="_blank"><i class="icon icon-vkontakte"></i></a>
+                        </li>
+                        <li class="social-list-item">
+                            <a href="http://odnoklassniki.ru/innatour" target="_blank"><i class="icon icon-odnoklassniki"></i></a>
+                        </li>
+                        <li class="social-list-item">
+                            <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i class="icon icon-facebook"></i></a>
+                        </li>
+                        <li class="social-list-item">
+                            <a href="https://twitter.com/inna_tour" target="_blank"><i class="icon icon-twitter"></i></a>
+                        </li>
+                        <li class="social-list-item">
+                            <a href="http://www.pinterest.com/innatour/" target="_blank"><i class="icon icon-pinterest"></i></a>
+                        </li>
+                        <li class="social-list-item">
+                            <a href="http://www.youtube.com/user/InnaTourMos/featured" target="_blank"><i class="icon icon-youtube"></i></a>
+                        </li>
+                    </ul>
+                    <p class="phone-info">многоканальный телефон</p>
+                    <p class="phone">+7&nbsp;495 742-1212</p>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p class="info info-left">ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс туристических услуг.
+                    Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию, Камбоджу,
+                    Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
+                </p>
+                <p class="info">
+                    &copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.<br>
+                    <span class="licence">Реестр туроператоров <a href="http://reestr.russiatourism.ru/?ac=view&id_reestr=8893" target="_blank">МТ3 008557</a></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
