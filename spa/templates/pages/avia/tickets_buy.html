@@ -73,10 +73,10 @@
                     <div class="b-cc-block">
                         <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
                         <div class="b-cc">
-                            <input type="text" ng-model="payModel.num.num1" class="b-field-text b-field-text-small" maxlength="4">
-                            <input type="text" ng-model="payModel.num.num2" class="b-field-text b-field-text-small" maxlength="4">
-                            <input type="text" ng-model="payModel.num.num3" class="b-field-text b-field-text-small" maxlength="4">
-                            <input type="text" ng-model="payModel.num.num4" class="b-field-text b-field-text-small" maxlength="4">
+                            <input digits-input type="text" ng-model="payModel.num.num1" class="b-field-text b-field-text-small" maxlength="4">
+                            <input digits-input type="text" ng-model="payModel.num.num2" class="b-field-text b-field-text-small" maxlength="4">
+                            <input digits-input type="text" ng-model="payModel.num.num3" class="b-field-text b-field-text-small" maxlength="4">
+                            <input digits-input type="text" ng-model="payModel.num.num4" class="b-field-text b-field-text-small" maxlength="4">
                         </div>
                     </div>
                     <div class="b-cc-block">
@@ -84,11 +84,11 @@
                         <div class="b-cc">
                             <div class="b-cc-date">
                                 Месяц
-                                <input ng-model="payModel.cardMonth" type="text" class="b-field-text b-field-text-small" maxlength="2">
+                                <input digits-input ng-model="payModel.cardMonth" type="text" class="b-field-text b-field-text-small" maxlength="2">
                             </div>
                             <div class="b-cc-date">
                                 Год
-                                <input ng-model="payModel.cardYear" type="text" class="b-field-text b-field-text-small" maxlength="2">
+                                <input digits-input ng-model="payModel.cardYear" type="text" class="b-field-text b-field-text-small" maxlength="2">
                             </div>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                 </div>
                 <div class="b-cc-end">
                     <div class="b-cvc">
-                        <input ng-model="payModel.cvc2" type="password" class="b-field-text" maxlength="3" id="CVC">
+                        <input digits-input ng-model="payModel.cvc2" type="password" class="b-field-text" maxlength="3" id="CVC">
                         <label for="CVC">CVV/CVC</label>
                     </div>
                 </div>
@@ -114,40 +114,5 @@
 <!-- Search Results -->
 
 <!-- Baloon -->
-<div class="overlay js-overlay" style="display: none">
-    <div class="balloon">
-        <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
-        <div class="baloon-title">Бронирование авиабилетов</div>
-        <p class="balloon-info">подождите пожалуйста, это может затять несколько минут</p>
-    </div>
-    <div class="balloon">
-        <div class="baloon-loading"></div>
-        <div class="baloon-title">Подождите, идет оплата</div>
-        <p class="balloon-info">это может занять до нескольких минут</p>
-    </div>
-    <div class="balloon">
-        <div class="baloon-loading"></div>
-        <div class="baloon-title">Выписываем авиабилеты</div>
-        <p class="balloon-info">это может занять до нескольких минут</p>
-    </div>
-    <div class="balloon">
-        <div class="baloon-mail"></div>
-        <div class="baloon-title">Билеты успешно выписаны</div>
-        <p class="balloon-info">и отправлены на электронную почту ratunkov@gmail.com</p>
-        <a href="#" class="button baloon-button">Распечатать билеты</a>
-    </div>
-    <div class="balloon">
-        <div class="baloon-close" title="Закрыть"></div>
-        <div class="baloon-canceled"></div>
-        <div class="baloon-title baloon-error">Бронирование анулировано</div>
-        <p class="balloon-info">истек срок ожидания оплаты</p>
-        <a href="#" class="button baloon-button">Повторить поиск</a>
-    </div>
-    <div class="balloon">
-        <div class="baloon-close" title="Закрыть"></div>
-        <div class="baloon-problem"></div>
-        <div class="baloon-title baloon-error">Что-то пошло не так</div>
-        <p class="balloon-info">cвяжитесь с оператором по телефону +7 495 742-1212</p>
-    </div>
-</div>
+
 <!-- /Baloon -->

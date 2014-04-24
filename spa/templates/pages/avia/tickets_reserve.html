@@ -145,17 +145,17 @@
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-group b-field-group-passport">
                             <div class="b-field-block b-field-block-192">
-                                <label class="b-agreement"><input type="checkbox" ng-model="passenger.bonuscard.haveBonusCard.value"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
+                                <label class="b-agreement"><input type="checkbox" ng-model="passenger.bonuscard.value.haveBonusCard"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
                             </div>
-                            <div class="b-field-block b-field-block-195" ng-show="passenger.bonuscard.haveBonusCard.value == true">
+                            <div class="b-field-block b-field-block-195" ng-show="passenger.bonuscard.value.haveBonusCard == true">
                                 <label class="b-field-label">Авиакомпания</label>
-                                <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.airCompany.value.name}}" class="b-field-text b-field-select" placeholder="Выберите">
-                                <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.airCompany.value" is-open="passenger.dir.card.isOpen">
+                                <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.value.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
+                                <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.value.airCompany" is-open="passenger.dir.card.isOpen">
                                 </div>
                             </div>
-                            <div class="b-field-block b-field-block-143" ng-show="passenger.bonuscard.haveBonusCard.value == true">
+                            <div class="b-field-block b-field-block-143" ng-show="passenger.bonuscard.value.haveBonusCard == true">
                                 <label class="b-field-label">Номер карты</label>
-                                <input type="text" ng-model="passenger.bonuscard.number.value" class="b-field-text" placeholder="ХХХХХХХХХХХ">
+                                <input digits-input type="text" ng-model="passenger.bonuscard.value.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
                             </div>
                         </div>
                     </div>

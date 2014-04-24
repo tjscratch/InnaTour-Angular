@@ -453,9 +453,8 @@ innaAppControllers.
                             return validList;
                         },
                         isModelValid: function () {
-                            var list = this.getFields(this);
-                            var mValid = _.all(list, function (item) { return item.isValid; })
-                            return mValid;
+                            var invalidItem = validationModel.getFirstInvalidItem();
+                            return invalidItem == null;
                         },
                         getFirstInvalidItem: function (conditionFn) {
                             var self = this;

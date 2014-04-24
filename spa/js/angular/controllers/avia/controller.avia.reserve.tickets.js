@@ -222,7 +222,11 @@ innaAppControllers.
                     m.ExpirationDate = data.doc_expirationDate;
                     m.Citizen = data.citizenship.id;
                     m.Index = data.index;
-                    m.BonusCard = data.bonuscard.number;
+                    if (data.bonuscard.haveBonusCard) {
+                        m.BonusCard = data.bonuscard.number;
+                        m.TransporterId = data.bonuscard.airCompany.id;
+                        m.TransporterName = data.bonuscard.airCompany.name;
+                    }
                     return m;
                 }
                 function getApiModel(data) {
@@ -279,12 +283,14 @@ innaAppControllers.
                 }
 
                 var model = getModelFromValidationModel($scope.validationModel);
+                model.price = $scope.item.Price;
 
                 var apiModel = getApiModel(model);
                 log('');
                 log('reservationModel: ' + angular.toJson(model));
                 log('');
                 log('apiModel: ' + angular.toJson(apiModel));
+
 
                 //
                 function showReserveError() {
@@ -296,7 +302,6 @@ innaAppControllers.
                 paymentService.reserve(apiModel,
                     function (data) {
                         log('order: ' + angular.toJson(data));
-                        //data.OrderNum = "add-asd_06";
                         if (data != null && data.OrderNum != null && data.OrderNum.length > 0)
                         {
                             //сохраняем orderId
@@ -343,14 +348,18 @@ innaAppControllers.
                     return;
                 }
 
-                $scope.baloon.show("Бронирование авиабилетов", "Подождите пожалуйста, это может затять несколько минут");
-                //бронируем
-                reserve(function () {
-                    //переходим на страницу оплаты
-                    var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria);
-                    //log('processToPayment, url: ' + url);
-                    $location.path(url);
-                });
+                //если модель валидна - бронируем
+                if ($scope.validationModel.isModelValid()) {
+
+                    $scope.baloon.show("Бронирование авиабилетов", "Подождите пожалуйста, это может затять несколько минут");
+                    //бронируем
+                    reserve(function () {
+                        //переходим на страницу оплаты
+                        var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria);
+                        //log('processToPayment, url: ' + url);
+                        $location.path(url);
+                    });
+                }
             };
 
             var debugPassengersList = [
@@ -364,7 +373,7 @@ innaAppControllers.
             function fillDefaultModelDelay() {
                 $timeout(function () {
                     $scope.model.name = 'Иван';
-                    $scope.model.secondName = '';
+                    $scope.model.secondName = 'Иванов';
                     $scope.model.email = 'ivan.ivanov@gmail.com';
                     $scope.model.phone = '+79101234567';
                     var index = 0;
@@ -385,7 +394,7 @@ innaAppControllers.
                             pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
                             pas.bonuscard.airCompany.id = 2;
                             pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '12134а3454';
+                            pas.bonuscard.number = '1213473454';
                         }
                         else {
                             pas.name = 'IVAN';
@@ -399,13 +408,13 @@ innaAppControllers.
                             pas.bonuscard.haveBonusCard = true;
                             pas.bonuscard.airCompany.id = 2;
                             pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '12134а3454';
+                            pas.bonuscard.number = '1213463454';
                         }
                     });
                     
                     //$scope.login.isOpened = true;
                     //$scope.login.isLogged = true;
-                }, 2000);
+                }, 500);
             };
 
             $scope.afterPayModelInit = fillDefaultModelDelay;

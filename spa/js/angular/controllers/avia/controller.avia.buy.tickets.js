@@ -1,6 +1,4 @@
 ﻿
-'use strict';
-
 /* Controllers */
 
 innaAppControllers.
@@ -38,51 +36,104 @@ innaAppControllers.
 
             $scope.sexType = aviaHelper.sexType;
 
-            var urlDataLoaded = { model: false };
-
-            function isAllDataLoaded() {
-                return urlDataLoaded.model;
-            }
-            function initIfDataLoaded() {
-                //все данные были загружены
-                if (isAllDataLoaded()) {
-                    //инициализация
-                    initPayModel();
-                }
-            };
-
             //data loading ===========================================================================
-            (function getPayModel() {
-                var reservationModel = storageService.getReservationModel();
-                log('\nReservationModel: ' + angular.toJson(reservationModel));
-                if (reservationModel != null) {
-                    urlDataLoaded.model = true;
-                    $scope.reservationModel = reservationModel;
-                    initIfDataLoaded();
-                }
-                else {
-                    //запрос в api
-                    //paymentService.getPaymentData({
-                    //    orderNum: $scope.criteria.orderNum
-                    //},
-                    //function (data) {
-                    //    if (data != null) {
-                    //        //log('getPaymentData data: ' + angular.toJson(data));
-                    //        urlDataLoaded.model = true;
-                    //        $scope.reservationModel = data;
-                    //        //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
-                    //        $scope();
-                    //    }
-                    //},
-                    //function (data, status) {
-                    //    log('paymentService.getPaymentData error');
-                    //});
-                }
-            })();
-
             function initPayModel() {
+                var loader = new utils.loader();
+
+                function getPayModel() {
+                    var self = this;
+                    var reservationModel = storageService.getReservationModel();
+                    log('\nReservationModel: ' + angular.toJson(reservationModel));
+
+                    //reservationModel = null;
+                    if (reservationModel != null) {
+                        $scope.reservationModel = reservationModel;
+                        //оповещаем лоадер, что метод отработал
+                        loader.complete(self);
+                    }
+                    else {
+                        //запрос в api
+                        paymentService.getPaymentData({
+                            orderNum: $scope.criteria.OrderNum
+                        },
+                        function (data) {
+                            if (data != null) {
+                                log('\ngetPaymentData data: ' + angular.toJson(data));
+
+                                function cutZero(val) {
+                                    return val.replace(' 0:00:00', '');
+                                }
+                                function getPassenger(data) {
+                                    var m = {};
+                                    m.sex = data.Sex;
+                                    m.name = data.I;
+                                    m.secondName = data.F;
+                                    m.birthday = cutZero(data.Birthday);
+                                    m.doc_series_and_number = data.Number;
+                                    m.doc_expirationDate = cutZero(data.ExpirationDate);
+                                    m.citizenship = {};
+                                    m.citizenship.id = data.Citizen;
+                                    m.citizenship.name = data.CitizenName;
+                                    m.index = data.Index;
+
+                                    m.bonuscard = {};
+                                    m.bonuscard.airCompany = {};
+                                    m.bonuscard.haveBonusCard = false;
+                                    if (data.BonusCard != null && data.BonusCard.length > 0 &&
+                                        data.TransporterName != null && data.TransporterName.length > 0) {
+                                        m.bonuscard.haveBonusCard = true;
+                                        m.bonuscard.number = data.BonusCard;
+                                        m.bonuscard.airCompany.id = data.TransporterId;
+                                        m.bonuscard.airCompany.name = data.TransporterName;
+                                    }
+
+                                    return m;
+                                }
+
+                                function bindApiModelToModel(data) {
+                                    var m = {};
+                                    //m.name = data.I;
+                                    //m.secondName = data.F;
+                                    //m.email = data.Email;
+                                    //m.phone = data.Phone;
+
+                                    var pasList = [];
+                                    _.each(data.Passengers, function (item) {
+                                        pasList.push(getPassenger(item));
+                                    });
+                                    m.passengers = pasList;
+
+                                    m.price = data.Price;
+
+                                    //m.SearchParams = {
+                                    //    SearchId: $scope.searchId,
+                                    //    VariantId1: $scope.item.VariantId1,
+                                    //    VariantId2: $scope.item.VariantId2
+                                    //};
+                                    return m;
+                                }
+
+                                $scope.reservationModel = bindApiModelToModel(data);
+                                log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
+
+                                //оповещаем лоадер, что метод отработал
+                                loader.complete(self);
+                            }
+                        },
+                        function (data, status) {
+                            log('paymentService.getPaymentData error');
+                        });
+                    }
+                };
+
+                loader.init([getPayModel], init).run();
+            };
+            initPayModel();
+
+            function init() {
 
             };
+            //data loading ===========================================================================
             
             $scope.processToBuy = function ($event) {
                 eventsHelper.preventBubbling($event);
@@ -116,6 +167,4 @@ innaAppControllers.
                     });
                 }
             };
-
-            
         }]);
