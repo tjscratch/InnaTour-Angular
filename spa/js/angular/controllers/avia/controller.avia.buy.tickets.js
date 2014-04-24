@@ -137,7 +137,7 @@ innaAppControllers.
                 _.each(_.keys($scope.validate), function (key) {
                     var $to = $('#' + key);
                     if ($to.attr('tt') == 'true') {
-                        console.log('closeErrPopups, id: ' + key);
+                        //console.log('closeErrPopups, id: ' + key);
                         $to.tooltipX("close");
                     }
                 });
