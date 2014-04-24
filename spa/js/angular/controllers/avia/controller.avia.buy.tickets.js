@@ -286,8 +286,6 @@ innaAppControllers.
 
                 if (validateAndShowPopup()) {
 
-                    return;
-
                     var cardNum = $scope.payModel.num1 + $scope.payModel.num2 + $scope.payModel.num3 + $scope.payModel.num4;
 
                     var apiPayModel = {
