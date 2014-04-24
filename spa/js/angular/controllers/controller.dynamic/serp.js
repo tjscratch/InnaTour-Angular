@@ -9,6 +9,11 @@ innaAppControllers
             var cacheKey = '';
             var AS_MAP_CACHE_KEY = 'serp-as-map';
 
+            /*Models*/
+            function TicketList() {
+                this.list = [];
+            }
+
             function loadTab() {
                 if($scope.show == $scope.HOTELS_TAB) {
                     DynamicPackagesDataProvider.getHotelsByCombination(
@@ -192,7 +197,7 @@ innaAppControllers
                         });
 
                         $scope.showLanding = false;
-                        //$scope.baloon.hide();
+                        $scope.baloon.hide();
                     });
 
                     loadTab();
@@ -260,5 +265,11 @@ innaAppControllers
                     $routeParams.Children
                 ].join('-'));
             }
+        }
+    ])
+    .controller('DynamicPackageSERPTicketPopupCtrl', [
+        '$scope',
+        function($scope){
+            $scope.ticket = null;
         }
     ]);
