@@ -1,4 +1,10 @@
-﻿<!-- Search Results -->
+﻿<style type="text/css">
+    .ui-tooltip {
+        background-color: #de0000;
+        z-index: 10;
+    }
+</style>
+<!-- Search Results -->
 <div class="results-body">
     <div class="results-container results-container__tickets" style="padding-top: 190px;">
         <form action="" class="b-tickets-form">
@@ -72,11 +78,11 @@
                     <img src="spa/img/cc.png" class="b-cc-type" alt="">
                     <div class="b-cc-block">
                         <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
-                        <div class="b-cc">
-                            <input digits-input type="text" ng-model="payModel.num.num1" class="b-field-text b-field-text-small" maxlength="4">
-                            <input digits-input type="text" ng-model="payModel.num.num2" class="b-field-text b-field-text-small" maxlength="4">
-                            <input digits-input type="text" ng-model="payModel.num.num3" class="b-field-text b-field-text-small" maxlength="4">
-                            <input digits-input type="text" ng-model="payModel.num.num4" class="b-field-text b-field-text-small" maxlength="4">
+                        <div id="num1" class="b-cc" title="Неправильно введен номер карты">
+                            <input ng-class="{error:!isValid.num1}" digits-input type="text" ng-model="payModel.num1" class="b-field-text b-field-text-small" maxlength="4">
+                            <input ng-class="{error:!isValid.num2}" digits-input type="text" ng-model="payModel.num2" class="b-field-text b-field-text-small" maxlength="4">
+                            <input ng-class="{error:!isValid.num3}" digits-input type="text" ng-model="payModel.num3" class="b-field-text b-field-text-small" maxlength="4">
+                            <input ng-class="{error:!isValid.num4}" digits-input type="text" ng-model="payModel.num4" class="b-field-text b-field-text-small" maxlength="4">
                         </div>
                     </div>
                     <div class="b-cc-block">
@@ -84,27 +90,27 @@
                         <div class="b-cc">
                             <div class="b-cc-date">
                                 Месяц
-                                <input digits-input ng-model="payModel.cardMonth" type="text" class="b-field-text b-field-text-small" maxlength="2">
+                                <input ng-class="{error:!isValid.cardMonth}" id="cardMonth" title="Неправильно введен месяц" digits-input ng-model="payModel.cardMonth" type="text" class="b-field-text b-field-text-small" maxlength="2">
                             </div>
                             <div class="b-cc-date">
                                 Год
-                                <input digits-input ng-model="payModel.cardYear" type="text" class="b-field-text b-field-text-small" maxlength="2">
+                                <input ng-class="{error:!isValid.cardYear}" id="cardYear" title="Неправильно введен год" digits-input ng-model="payModel.cardYear" type="text" class="b-field-text b-field-text-small" maxlength="2">
                             </div>
                         </div>
                     </div>
                     <div class="b-cc-block">
                         <label class="b-cc-block-label">Держатель карты</label>
-                        <input ng-model="payModel.cardHolder" type="text" class="b-field-text b-field-text-name">
+                        <input ng-class="{error:!isValid.cardHolder}" id="cardHolder" title="Нужно ввести держателя карты" ng-model="payModel.cardHolder" type="text" class="b-field-text b-field-text-name">
                     </div>
                 </div>
                 <div class="b-cc-end">
                     <div class="b-cvc">
-                        <input digits-input ng-model="payModel.cvc2" type="password" class="b-field-text" maxlength="3" id="CVC">
+                        <input ng-class="{error:!isValid.cvc2}" id="cvc2" digits-input ng-model="payModel.cvc2" type="password" class="b-field-text" maxlength="3" id="CVC">
                         <label for="CVC">CVV/CVC</label>
                     </div>
                 </div>
             </div>
-            <label class="b-agreement b-agreement-cc"><input ng-model="payModel.agree" type="checkbox"><ins class="b-checkbox"></ins>Я согласен с условиями договора-оферты, ознакомлен с правилами изменения и отмены бронирования и не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
+            <label class="b-agreement b-agreement-cc"><input ng-model="payModel.agree" type="checkbox"><ins id="agree" title="Нужно согласиться с условиями" class="b-checkbox"></ins>Я согласен с условиями договора-оферты, ознакомлен с правилами изменения и отмены бронирования и не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
             <div class="b-pay-button-block">
                 <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить" ng-click="processToBuy($event)"></span>
             </div>
