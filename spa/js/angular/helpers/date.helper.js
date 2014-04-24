@@ -167,6 +167,19 @@
         return start < end ? (h >= start && h < end) : (h >= start || h < end);
     },
 
+    translateMonth: function(n) {
+        return [
+            'января', 'февраля', 'марта',
+            'апреля', 'мая', 'июня',
+            'июля', 'августа', 'сентября',
+            'октября', 'ноября', 'декабря'
+        ][n]
+    },
+
+    translateDay: function(n){
+        return ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'][n]
+    },
+
     eof: null
 };
 

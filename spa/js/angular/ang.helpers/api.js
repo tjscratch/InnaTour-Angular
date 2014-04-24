@@ -45,6 +45,7 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_FILTER_TICKET: 'inna.Dynamic.SERP.Ticket.Filter',
             DYNAMIC_SERP_FILTER_ANY_CHANGE: 'inna.Dynamic.SERP.*.Filter',
             DYNAMIC_SERP_FILTER_ANY_DROP: 'inna.Dynamic.SERP.*.Filter.Drop',
+            DYNAMIC_SERP_TICKED_DETAILED_REQUESTED: 'inna.Dynamic.SERP.Tickets.Detailed',
 
             AUTH_FORGOTTEN_LINK_CLICKED: 'inna.Auth.Forgotten-link-clicked'
         }

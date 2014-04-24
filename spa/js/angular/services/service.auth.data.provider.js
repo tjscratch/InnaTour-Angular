@@ -1,29 +1,18 @@
 angular.module('innaApp.services')
     .factory('AuthDataProvider', [
-        'innaApp.API.const', '$http',
-        function(urls, $http){
+        'innaApp.API.const', 'AjaxHelper',
+        function(urls, AjaxHelper){
+
+
             return {
                 signUp: function(data, callbackSuccess, callbackError){
-                    $http({
-                        method: 'POST',
-                        data: data,
-                        url: urls.AUTH_SIGN_UP
-                    }).success(callbackSuccess).error(callbackError);
+                    AjaxHelper.postDebaunced(urls.AUTH_SIGN_UP, data, callbackSuccess, callbackError);
                 },
                 signIn: function(data, callbackSuccess, callbackError){
-                    $http({
-                        method: 'POST',
-                        data: data,
-                        url: urls.AUTH_SIGN_IN
-                    }).success(callbackSuccess).error(callbackError);
+                    AjaxHelper.postDebaunced(urls.AUTH_SIGN_IN, data, callbackSuccess, callbackError);
                 },
-                sendToken: function(data, success, error){
-
-                    $http({
-                        method: 'POST',
-                        data: data,
-                        url: urls.AUTH_RESTORE_A
-                    }).success(success).error(error);
+                sendToken: function(data, callbackSuccess, callbackError){
+                    AjaxHelper.postDebaunced(urls.AUTH_RESTORE_A, data, callbackSuccess, callbackError);
                 },
                 setNewPassword: function(token, data, success, error){
                     $http({
