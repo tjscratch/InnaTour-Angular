@@ -15,9 +15,8 @@ angular.module('innaApp.services')
                     dataType: 'json',
                     traditional: true,
                     data: data,
-                    headers: {
-                        'X-Inna-Auth': $.cookie('x-inna-auth') || 'not-authorized'
-                    }
+                    xhrFields: { withCredentials: true },
+                    crossDomain: true
                 }
             }
 

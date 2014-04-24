@@ -244,6 +244,10 @@ innaAppControllers
                     cacheKey, function(resp){
                         console.log(resp);
                     });
+            };
+
+            $scope.getTicketDetails = function(ticket){
+                $scope.$broadcast(Events.DYNAMIC_SERP_TICKED_DETAILED_REQUESTED, ticket);
             }
 
             $scope.changeHotelsView = function(){
@@ -268,8 +272,90 @@ innaAppControllers
         }
     ])
     .controller('DynamicPackageSERPTicketPopupCtrl', [
-        '$scope',
-        function($scope){
-            $scope.ticket = null;
+        '$scope', '$element', 'innaApp.API.events', 'aviaHelper',
+        function($scope, $element, Events, aviaHelper){
+            /*DOM dirty hacks*/
+            $(function(){
+                $(document.body).append($element);
+            });
+
+            /*Models*/
+            function Ticket(){
+                this.data = null;
+            }
+
+            Ticket.prototype.setData = function(data) {
+                this.data = data;
+
+                for(var i = 0, dir = ''; dir = ['To', 'Back'][i++];) {
+                    var etaps = this.data['Etaps' + dir];
+
+                    for(var j = 0, len = etaps.length; j < len; j++) {
+                        etaps[j] = new Ticket.Etap(etaps[j]);
+                    }
+                }
+
+                console.log(this);
+            };
+
+            Ticket.__getDuration = function(raw, hoursIndicator, minutesIndicator){
+                var hours = Math.floor(raw / 60);
+                var mins = raw % 60;
+
+                return hours + ' ' + hoursIndicator + (
+                    mins ? (' ' + mins + ' ' + minutesIndicator) : ''
+                );
+            }
+
+            Ticket.prototype.dropData = function(){
+                this.setData(null);
+            }
+
+            Ticket.prototype.getDuration = function(dir){
+                return Ticket.__getDuration(this.data['Time' + dir], 'ч.', 'мин.');
+            }
+
+            Ticket.prototype.getEtaps = function(dir) {
+                return this.data['Etaps' + dir];
+            }
+
+            Ticket.Etap = function(data){
+                this.data = data;
+            }
+
+            Ticket.Etap.prototype.getDateTime = function(dir) {
+                return dateHelper.apiDateToJsDate(this.data[dir + 'Time']);
+            }
+
+            Ticket.Etap.prototype.getDuration = function(){
+                return Ticket.__getDuration(this.data.WayTime, 'ч.', 'м');
+            }
+
+            /*Scope Properties*/
+            $scope.ticket = new Ticket();
+
+            /*Scope Methods*/
+            $scope.closePopup = function(){
+                $scope.ticket.dropData();
+            };
+
+            $scope.getTime = function(date) {
+                return [date.getHours(), date.getMinutes()].join(':');
+            }
+
+            $scope.getDate = function(date) {
+                return [date.getDate(), dateHelper.translateMonth(date.getMonth())].join(' ')
+            }
+
+            $scope.getDay = function(date) {
+                return dateHelper.translateDay(date.getDay());
+            }
+
+            $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+
+            /*Listeners*/
+            $scope.$on(Events.DYNAMIC_SERP_TICKED_DETAILED_REQUESTED, function(event, data){
+                $scope.ticket.setData(data);
+            });
         }
     ]);
