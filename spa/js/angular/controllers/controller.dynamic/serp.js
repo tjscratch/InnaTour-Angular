@@ -247,6 +247,7 @@ innaAppControllers
             };
 
             $scope.getTicketDetails = function(ticket){
+                //$location.hash();
                 $scope.$broadcast(Events.DYNAMIC_SERP_TICKED_DETAILED_REQUESTED, ticket);
             }
 
@@ -329,6 +330,17 @@ innaAppControllers
 
             Ticket.Etap.prototype.getDuration = function(){
                 return Ticket.__getDuration(this.data.WayTime, 'ч.', 'м');
+            }
+
+            Ticket.Etap.prototype.getLegDuration = function(){
+                var a = dateHelper.apiDateToJsDate(this.data.InTime);
+                var b = dateHelper.apiDateToJsDate(this.data.NextTime);
+                var diffMSec = b - a;
+                var diffMin = Math.floor(diffMSec / 60000);
+
+                console.log(diffMin)
+
+                return Ticket.__getDuration(diffMin, 'ч.', 'мин.');
             }
 
             /*Scope Properties*/
