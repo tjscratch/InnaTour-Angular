@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <!--<div ng-show="(f.name.$invalid && !f.name.$pristine) || (f.secName.$invalid && !f.secName.$pristine) || (f.email.$invalid && !f.email.$pristine) || (f.phone.$invalid && !f.phone.$pristine)" class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div>-->
-                    <label class="b-agreement"><input type="checkbox"><ins class="b-checkbox"></ins>Я хочу получать рассылку спецпредложений</label>
+                    <label class="b-agreement"><input ng-model="validationModel.wannaNewsletter.value" type="checkbox"><ins class="b-checkbox"></ins>Я хочу получать рассылку спецпредложений</label>
                 </fieldset>
             </div>
             <h2 class="title">Пасажиры</h2>

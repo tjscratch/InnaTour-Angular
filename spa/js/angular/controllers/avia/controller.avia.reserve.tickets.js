@@ -36,9 +36,11 @@ innaAppControllers.
             $scope.objectToReserveTemplate = '/spa/templates/pages/avia/variant_partial.html';
 
             //для начала нужно проверить доступность билетов
-            var availableChecktimeout = $timeout(function () {
-                $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
-            }, 300);
+            //var availableChecktimeout = $timeout(function () {
+            //    $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
+            //}, 300);
+
+            $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
             
             //проверяем, что остались билеты для покупки
             paymentService.checkAvailability({ variantTo: $routeParams.VariantId1, varianBack: $routeParams.VariantId2 },
@@ -46,7 +48,7 @@ innaAppControllers.
                     //data = false;
                     if (data == "true") {
                         //если проверка из кэша - то отменяем попап
-                        $timeout.cancel(availableChecktimeout);
+                        //$timeout.cancel(availableChecktimeout);
 
                         //загружаем все
                         loadDataAndInit();
@@ -58,24 +60,31 @@ innaAppControllers.
                     }
                     else {
                         //log('checkAvailability, false');
-                        $timeout.cancel(availableChecktimeout);
+                        //$timeout.cancel(availableChecktimeout);
 
-                        $scope.baloon.show("Вариант больше недоступен", "Вы будете направлены на результаты поиска билетов");
+                        function goToSearch() {
+                            var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+                            //log('redirect to url: ' + url);
+                            $location.path(url);
+                        }
+
+                        $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска билетов",
+                            function () {
+                                goToSearch();
+                            });
 
                         $timeout(function () {
                             //очищаем хранилище для нового поиска
                             storageService.clearAviaSearchResults();
                             //билеты не доступны - отправляем на поиск
-                            var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
-                            $location.path(url);
-                            log('redirect to url: ' + url);
+                            goToSearch();
                         }, 3000);
                         
                     }
                 },
                 function (data, status) {
                     //error
-                    $timeout.cancel(availableChecktimeout);
+                    //$timeout.cancel(availableChecktimeout);
                 });
 
             //$scope.$watch('validationModel', function (newVal, oldVal) {
@@ -159,9 +168,13 @@ innaAppControllers.
             };
 
             function init() {
-                $scope.baloon.hide();
                 $scope.initPayModel();
             }
+
+            $scope.afterPayModelInit = function () {
+                $scope.baloon.hide();
+                fillDefaultModelDelay();
+            };
 
             //data loading ===========================================================================
 
@@ -235,6 +248,7 @@ innaAppControllers.
                     m.F = data.secondName;
                     m.Email = data.email;
                     m.Phone = data.phone;
+                    m.IsSubscribe = data.wannaNewsletter;
 
                     var pasList = [];
                     _.each(data.passengers, function (item) {
@@ -416,6 +430,4 @@ innaAppControllers.
                     //$scope.login.isLogged = true;
                 }, 500);
             };
-
-            $scope.afterPayModelInit = fillDefaultModelDelay;
         }]);
