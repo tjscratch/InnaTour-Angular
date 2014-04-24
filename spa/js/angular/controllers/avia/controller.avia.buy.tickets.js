@@ -63,7 +63,7 @@ innaAppControllers.
                 else {
                     //запрос в api
                     //paymentService.getPaymentData({
-                    //    orderId: $scope.criteria.OrderId
+                    //    orderNum: $scope.criteria.orderNum
                     //},
                     //function (data) {
                     //    if (data != null) {
@@ -91,7 +91,7 @@ innaAppControllers.
                     var cardNum = $scope.payModel.num.num1 + $scope.payModel.num.num2 + $scope.payModel.num.num3 + $scope.payModel.num.num4;
 
                     var apiPayModel = {
-                        OrderId: $scope.criteria.OrderId,
+                        OrderNum: $scope.criteria.OrderNum,
                         CardNumber: cardNum,
                         Cvc2: $scope.payModel.cvc2,
                         CardHolder: $scope.payModel.cardHolder,

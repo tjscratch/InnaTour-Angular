@@ -3,9 +3,9 @@
 
 innaAppControllers.
     controller('AviaReserveTicketsCtrl', ['$log', '$controller', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'Validators',
+        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'Validators', 'innaApp.Urls',
         function AviaReserveTicketsCtrl($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators) {
+            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls) {
             $controller('ReserveTicketsCtrl', { $scope: $scope });
 
             var self = this;
@@ -14,7 +14,7 @@ innaAppControllers.
             }
 
             $scope.baloon = aviaHelper.baloon;
-            
+
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
@@ -47,9 +47,6 @@ innaAppControllers.
                     if (data == "true") {
                         //если проверка из кэша - то отменяем попап
                         $timeout.cancel(availableChecktimeout);
-
-                        //log('checkAvailability, true');
-                        //$scope.baloon.show("Билеты доступны", "Идет загрузка, пожалуйста подождите");
 
                         //загружаем все
                         loadDataAndInit();
@@ -182,7 +179,7 @@ innaAppControllers.
                     }
                 }
 
-                function getDocType(number) {
+                function getDocType(doc_num) {
                     //var doc_num = number.replace(/\s+/g, '');
 
                     if (isCaseValid(function () {
@@ -288,26 +285,38 @@ innaAppControllers.
                 log('reservationModel: ' + angular.toJson(model));
                 log('');
                 log('apiModel: ' + angular.toJson(apiModel));
+
                 //
+                function showReserveError() {
+                    $scope.baloon.showErr("Что-то пошло не так", "Ожидайте, служба поддержки свяжется с вами, \nили свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
+                        function () {
+                            $location.path(Urls.URL_AVIA);
+                        });
+                }
                 paymentService.reserve(apiModel,
                     function (data) {
-                        log('orderId: ' + data);
-                        if (data != null)
+                        log('order: ' + angular.toJson(data));
+                        //data.OrderNum = "add-asd_06";
+                        if (data != null && data.OrderNum != null && data.OrderNum.length > 0)
                         {
                             //сохраняем orderId
-                            //storageService.setAviaOrderId(data);
-                            $scope.criteria.OrderId = data;
+                            //storageService.setAviaOrderNum(data.OrderNum);
+                            $scope.criteria.OrderNum = data.OrderNum;
 
                             //сохраняем модель
                             storageService.setReservationModel(model);
+
+                            //успешно
+                            call();
                         }
-                        //успешно
-                        call();
+                        else {
+                            showReserveError();
+                        }
                     },
                     function (data, status) {
                         //ошибка
                         log('paymentService.reserve error');
-                        call();
+                        showReserveError();
                     });
             };
 
@@ -330,10 +339,11 @@ innaAppControllers.
                         invalidItem.haveTooltip = true;
                     }
                     $scope.tooltipControl.open($to);
-                     
+                    //прерываемся
                     return;
                 }
 
+                $scope.baloon.show("Бронирование авиабилетов", "Подождите пожалуйста, это может затять несколько минут");
                 //бронируем
                 reserve(function () {
                     //переходим на страницу оплаты
