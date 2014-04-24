@@ -170,7 +170,7 @@ innaAppControllers
             $scope.showLanding = true;
             $scope.baloon = aviaHelper.baloon;
             $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', function(){
-                console.log('CLOSED');
+                console.log('SEARCH BALLOON IS CLOSED');
             });
 
             /*Initial Data fetching*/
@@ -182,12 +182,7 @@ innaAppControllers
                 if($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
                 if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
 
-                console.time('loading_packages');
-                console.log('loading data by params', angular.toParam(searchParams));
-
                 DynamicPackagesDataProvider.search(searchParams, function(data){
-                    console.timeEnd('loading_packages');
-
                     cacheKey = data.SearchId;
 
                     $scope.$apply(function($scope){
@@ -242,12 +237,11 @@ innaAppControllers
                     hotel.HotelId, hotel.ProviderId,
                     $scope.combination.AviaInfo.VariantId1, $scope.combination.AviaInfo.VariantId2,
                     cacheKey, function(resp){
-                        console.log(resp);
+                        console.log('HOTEL DETAILS', resp);
                     });
             };
 
             $scope.getTicketDetails = function(ticket){
-                //$location.hash();
                 $scope.$broadcast(Events.DYNAMIC_SERP_TICKED_DETAILED_REQUESTED, ticket);
             }
 
@@ -273,8 +267,8 @@ innaAppControllers
         }
     ])
     .controller('DynamicPackageSERPTicketPopupCtrl', [
-        '$scope', '$element', 'innaApp.API.events', 'aviaHelper',
-        function($scope, $element, Events, aviaHelper){
+        '$scope', '$element', '$location', 'innaApp.API.events', 'aviaHelper',
+        function($scope, $element, $location, Events, aviaHelper){
             /*DOM dirty hacks*/
             $(function(){
                 $(document.body).append($element);
@@ -286,17 +280,17 @@ innaAppControllers
             }
 
             Ticket.prototype.setData = function(data) {
-                this.data = data;
+                this.data = angular.copy(data);
 
-                for(var i = 0, dir = ''; dir = ['To', 'Back'][i++];) {
-                    var etaps = this.data['Etaps' + dir];
+                if(this.data) {
+                    for(var i = 0, dir = ''; dir = ['To', 'Back'][i++];) {
+                        var etaps = this.data['Etaps' + dir];
 
-                    for(var j = 0, len = etaps.length; j < len; j++) {
-                        etaps[j] = new Ticket.Etap(etaps[j]);
+                        for(var j = 0, len = etaps.length; j < len; j++) {
+                            etaps[j] = new Ticket.Etap(etaps[j]);
+                        }
                     }
                 }
-
-                console.log(this);
             };
 
             Ticket.__getDuration = function(raw, hoursIndicator, minutesIndicator){
@@ -306,31 +300,31 @@ innaAppControllers
                 return hours + ' ' + hoursIndicator + (
                     mins ? (' ' + mins + ' ' + minutesIndicator) : ''
                 );
-            }
+            };
 
             Ticket.prototype.dropData = function(){
                 this.setData(null);
-            }
+            };
 
             Ticket.prototype.getDuration = function(dir){
                 return Ticket.__getDuration(this.data['Time' + dir], 'ч.', 'мин.');
-            }
+            };
 
             Ticket.prototype.getEtaps = function(dir) {
                 return this.data['Etaps' + dir];
-            }
+            };
 
             Ticket.Etap = function(data){
                 this.data = data;
-            }
+            };
 
             Ticket.Etap.prototype.getDateTime = function(dir) {
                 return dateHelper.apiDateToJsDate(this.data[dir + 'Time']);
-            }
+            };
 
             Ticket.Etap.prototype.getDuration = function(){
                 return Ticket.__getDuration(this.data.WayTime, 'ч.', 'м');
-            }
+            };
 
             Ticket.Etap.prototype.getLegDuration = function(){
                 var a = dateHelper.apiDateToJsDate(this.data.InTime);
@@ -338,36 +332,48 @@ innaAppControllers
                 var diffMSec = b - a;
                 var diffMin = Math.floor(diffMSec / 60000);
 
-                console.log(diffMin)
-
                 return Ticket.__getDuration(diffMin, 'ч.', 'мин.');
-            }
+            };
 
             /*Scope Properties*/
             $scope.ticket = new Ticket();
 
             /*Scope Methods*/
             $scope.closePopup = function(){
+                //drop ?displayTicket = ...
+                delete $location.$$search.displayTicket;
+                $location.$$compose();
+
                 $scope.ticket.dropData();
             };
 
             $scope.getTime = function(date) {
                 return [date.getHours(), date.getMinutes()].join(':');
-            }
+            };
 
             $scope.getDate = function(date) {
                 return [date.getDate(), dateHelper.translateMonth(date.getMonth())].join(' ')
-            }
+            };
 
             $scope.getDay = function(date) {
                 return dateHelper.translateDay(date.getDay());
-            }
+            };
 
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
 
             /*Listeners*/
             $scope.$on(Events.DYNAMIC_SERP_TICKED_DETAILED_REQUESTED, function(event, data){
+                console.log('DynamicPackageSERPTicketPopupCtrl.%s:', Events.DYNAMIC_SERP_TICKED_DETAILED_REQUESTED, data);
+
                 $scope.ticket.setData(data);
+
+                $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
+            });
+
+            $scope.$on('$locationChangeSuccess', function(event, data){
+                if($location.search().displayTicket && !$scope.ticket.data) {
+                    console.log('DynamicPackageSERPTicketPopupCtrl.$locationChangeSuccess: I can see ?displayTicket=%s, but $scope.ticket.data is null', $location.search().displayTicket);
+                }
             });
         }
     ]);
