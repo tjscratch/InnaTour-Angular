@@ -71,7 +71,7 @@
                                     <div class="rlf-colum2">
                                         <div class="rlf-flight-info">
                                             <b>вылет {{getTime(etap.getDateTime('Out'))}}</b>, {{getDate(etap.getDateTime('Out'))}}, {{getDay(etap.getDateTime('Out'))}} <br>
-                                            {{etap.data.OutCity}}, {{etap.date.OutPort}}
+                                            {{etap.data.OutCity}}, {{etap.data.OutPort}}
                                         </div>
                                     </div>
                                 </div>
@@ -92,49 +92,16 @@
                         <div class="rlf-part rlf-part_transfer" ng-if="!$last">
                             <div class="rlf-column1">
                                 <div class="rlf-airport">Пересадка</div>
-                                <div class="rlf-travel-time">3 часа 30 минут</div>
+                                <div class="rlf-travel-time">{{etap.getLegDuration()}}</div>
                             </div>
                             <div class="rlf-colum4">
-                                Амстердам, Схипхол (AMS), Нидерланды
-                                <div class="rlf-transfer">Внимание: смена аэропорта!</div>
+                                {{etap.data.InCity}}, {{etap.date.InPort}} ({{etap.data.InCityCode}}), ПЕЛЬМЕНЕСТАН
+                                <div class="rlf-transfer" ng-repeat="next in [ticket.getNextEtap(dir, etap)]">
+                                    <span ng-if="next.data.OutPort != etap.data.InPort">Внимание: смена аэропорта!</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!--<div class="rlf-part">-->
-                        <!--<div class="rfl-column3">-->
-                            <!--<div class="rlf-aviacompany">-->
-                                <!--<img src="../uploads/logo.png" alt="">-->
-                                <!--Transaero <br>-->
-                                <!--рейс 1023 <br>-->
-                                <!--Airbus A 319-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="b-tickets__container">-->
-                            <!--<div class="b-tickets__block">-->
-                                <!--<div class="rlf-column1">-->
-                                    <!--<div class="rlf-airport">LED</div>-->
-                                <!--</div>-->
-                                <!--<div class="rlf-colum2">-->
-                                    <!--<div class="rlf-flight-info">-->
-                                        <!--<b>вылет 20:00</b>, 25 сентября, пт <br>-->
-                                        <!--Санкт-Петербург, Пулково-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="rlf-travel-time">3 часа 30 минут</div>-->
-                            <!--<div class="b-tickets__block">-->
-                                <!--<div class="rlf-column1">-->
-                                    <!--<div class="rlf-airport"><br>AMS</div>-->
-                                <!--</div>-->
-                                <!--<div class="rlf-colum2">-->
-                                    <!--<div class="rlf-flight-info">-->
-                                        <!--<b>вылет 20:00</b>, 25 сентября, пт <br>-->
-                                        <!--Санкт-Петербург, Пулково-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -145,11 +112,7 @@
                 <li><a href="#" class="b-tickets__icons-share"></a></li>
             </ul>
             <div class="b-tickets__footer-inner">
-                <div class="b-tickets__footer-price-block">
-                    <div class="b-tickets__footer-price">69 450 <span class="rub">Р</span></div>
-                    <div class="b-tickets__footer-price-info">за 4 билета эконом класса</div>
-                </div>
-                <a class="rl-buy-button" href="#">Купить</a>
+                <a class="rl-buy-button" href="javascrip:void(0);" ng-click="setCurrent()">Выбрать</a>
             </div>
         </div>
     </div>

@@ -247,9 +247,8 @@
                     <div class="rl-item-separator"></div>
                     <div class="rl-left">
                         <header class="rl-item-header">
-                            <img src="../uploads/logo.png" class="rl-airline" alt="">
-                            <img src="../uploads/logo1.png" class="rl-airline" alt="">
-                            <img src="../uploads/logo.png" class="rl-airline" alt="">
+                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
+                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
                         </header>
                         <div class="rl-content">
                             <div class="rl-fly">
@@ -308,32 +307,101 @@
             </aside>
             <!-- /Results Aside -->
         </div>
-        <div class="results-container results-container_top">
-            <!-- Results List -->
-            <div class="results-list results-list_720">
-                <!-- Filters -->
+
+        <!-- Filters -->
                 <ul class="filters__container">
                     <li>
                         <a href="#" class="filters__link">Пересадки</a>
                         <div class="filters__baloon">
                             <header class="ra-header">
-                                <h4 class="ra-title">Пересадки</h4>
+                                <h4 class="ra-title">Колличество пересадок</h4>
                                 <a class="ra-header-link" href="#">Сбросить</a>
                             </header>
                             <div class="ra-content">
                                 <ul class="ra-fly-type-list">
                                     <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
                                     <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
-                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">2 и более</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">2+ пересадки</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
                                 </ul>
+                            </div>
+                            <div class="ra-separator"></div>
+                            <header class="ra-header">
+                                <h4 class="ra-title">Пункты пересадок</h4>
+                            </header>
+                            <div class="ra-content">
+                                <div class="ra-fly-type-list-container">
+                                    <ul class="ra-fly-type-list">
+                                        <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li>
                         <a href="#" class="filters__link">Цена</a>
+                        <div class="filters__baloon filters__baloon_240">
+                            <div class="filter__range-container">
+                                <span class="filter__range">до <input type="text" value="126 162" class="js-range-val"> <span class="rub">Р</span></span>
+                                <a href="#" class="ra-header-link">Сбросить</a>
+                            </div>
+                            <div class="js-range filter__range-trackbar"></div>
+                        </div>
                     </li>
                     <li>
                         <a href="#" class="filters__link">Время</a>
+                        <div class="filters__baloon filters__baloon_240">
+                            <header class="ra-header">
+                                <h4 class="ra-title">Перелет туда</h4>
+                                <a class="ra-header-link" href="#">Сбросить</a>
+                            </header>
+                            <ul class="filters__baloon-radio">
+                                <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Вылет</span></label></li>
+                                <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Прилет</span></label></li>
+                            </ul>
+                            <div class="filters__baloon-days">
+                                <ul class="ra-fly-type-list">
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
+                                </ul>
+                                <ul class="ra-fly-type-list">
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
+                                </ul>
+                            </div>
+                            <div class="ra-separator"></div>
+                            <header class="ra-header">
+                                <h4 class="ra-title">Перелет обратно</h4>
+                                <a class="ra-header-link" href="#">Сбросить</a>
+                            </header>
+                            <ul class="filters__baloon-radio">
+                                <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Вылет</span></label></li>
+                                <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Прилет</span></label></li>
+                            </ul>
+                            <div class="filters__baloon-days">
+                                <ul class="ra-fly-type-list">
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
+                                </ul>
+                                <ul class="ra-fly-type-list">
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
                     </li>
                     <li>
                         <a href="#" class="filters__link">Авиакомпания</a>
@@ -341,17 +409,22 @@
                     <li>
                         <a href="#" class="filters__link">Аэропорт</a>
                     </li>
-                    <li>
-                        <a href="#" class="filters__link">Сортировать</a>
+                    <li class="filters__sort">
+                        <a href="#" class="filters__link">Сортировать по времени прилета</a>
                     </li>
                 </ul>
                 <!-- /Filters -->
+
+        <div class="results-container results-container_top">
+            <!-- Results List -->
+            <div class="results-list results-list_720">
 
                 <div class="rl-item">
                     <div class="rl-item-separator"></div>
                     <div class="rl-left">
                         <header class="rl-item-header">
-                            <img src="../uploads/logo1.png" class="rl-airline" alt="">
+                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
+                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
                         </header>
                         <div class="rl-content">
                             <div class="rl-fly">
@@ -399,7 +472,7 @@
                     <div class="rl-item-separator"></div>
                     <div class="rl-left">
                         <header class="rl-item-header">
-                            <img src="../uploads/logo1.png" class="rl-airline" alt="">
+                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
                         </header>
                         <div class="rl-content">
                             <div class="rl-fly">
@@ -447,7 +520,7 @@
                     <div class="rl-item-separator"></div>
                     <div class="rl-left">
                         <header class="rl-item-header">
-                            <img src="../uploads/logo1.png" class="rl-airline" alt="">
+                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
                         </header>
                         <div class="rl-content">
                             <div class="rl-fly">

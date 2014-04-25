@@ -31,6 +31,15 @@
                 $( ".js-amount-depart" ).html("Вылет: Москва<br>Пт " +valToTime(ui.values[0])+ " - " +valToTime(ui.values[1]));
             }
         });
+        $('.js-range').slider({
+            range: "min",
+            min: 0,
+            max: 144000,
+            value: 12700,
+            slide: function( event, ui ) {
+                $( ".js-range-val" ).val(ui.value);
+            }
+        });
         $( ".js-amount-depart" ).html("Вылет: Москва<br>Пт " + valToTime($( ".js-trackbar-depart" ).slider( "values", 0 )) + " - " + valToTime($( ".js-trackbar-depart" ).slider( "values", 1 )));
         function valToTime(v) {
             var hours = [], 
