@@ -354,6 +354,24 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
     };
 }]);
 
+innaAppDirectives.directive('digitsInput', ['$parse', function ($parse) {
+    return {
+        link: function ($scope, element, attrs) {
+            var $elem = $(element);
+            $elem.on('keypress', function (event) {
+                var theEvent = event || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+
+                //введен плюс, даем вводить только цифры
+                if (!(key >= 48 && key <= 57)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        }
+    };
+}]);
+
 innaAppDirectives.directive('upperLatin', ['$filter', function ($filter) {
     return {
         require: 'ngModel',

@@ -3,9 +3,9 @@
 
 innaAppControllers.
     controller('AviaReserveTicketsCtrl', ['$log', '$controller', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'Validators',
+        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'Validators', 'innaApp.Urls',
         function AviaReserveTicketsCtrl($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators) {
+            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls) {
             $controller('ReserveTicketsCtrl', { $scope: $scope });
 
             var self = this;
@@ -14,7 +14,7 @@ innaAppControllers.
             }
 
             $scope.baloon = aviaHelper.baloon;
-            
+
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
@@ -36,9 +36,11 @@ innaAppControllers.
             $scope.objectToReserveTemplate = '/spa/templates/pages/avia/variant_partial.html';
 
             //для начала нужно проверить доступность билетов
-            var availableChecktimeout = $timeout(function () {
-                $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
-            }, 300);
+            //var availableChecktimeout = $timeout(function () {
+            //    $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
+            //}, 300);
+
+            $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
             
             //проверяем, что остались билеты для покупки
             paymentService.checkAvailability({ variantTo: $routeParams.VariantId1, varianBack: $routeParams.VariantId2 },
@@ -46,10 +48,7 @@ innaAppControllers.
                     //data = false;
                     if (data == "true") {
                         //если проверка из кэша - то отменяем попап
-                        $timeout.cancel(availableChecktimeout);
-
-                        //log('checkAvailability, true');
-                        //$scope.baloon.show("Билеты доступны", "Идет загрузка, пожалуйста подождите");
+                        //$timeout.cancel(availableChecktimeout);
 
                         //загружаем все
                         loadDataAndInit();
@@ -61,24 +60,31 @@ innaAppControllers.
                     }
                     else {
                         //log('checkAvailability, false');
-                        $timeout.cancel(availableChecktimeout);
+                        //$timeout.cancel(availableChecktimeout);
 
-                        $scope.baloon.show("Вариант больше недоступен", "Вы будете направлены на результаты поиска билетов");
+                        function goToSearch() {
+                            var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+                            //log('redirect to url: ' + url);
+                            $location.path(url);
+                        }
+
+                        $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска билетов",
+                            function () {
+                                goToSearch();
+                            });
 
                         $timeout(function () {
                             //очищаем хранилище для нового поиска
                             storageService.clearAviaSearchResults();
                             //билеты не доступны - отправляем на поиск
-                            var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
-                            $location.path(url);
-                            log('redirect to url: ' + url);
+                            goToSearch();
                         }, 3000);
                         
                     }
                 },
                 function (data, status) {
                     //error
-                    $timeout.cancel(availableChecktimeout);
+                    //$timeout.cancel(availableChecktimeout);
                 });
 
             //$scope.$watch('validationModel', function (newVal, oldVal) {
@@ -162,9 +168,13 @@ innaAppControllers.
             };
 
             function init() {
-                $scope.baloon.hide();
                 $scope.initPayModel();
             }
+
+            $scope.afterPayModelInit = function () {
+                $scope.baloon.hide();
+                fillDefaultModelDelay();
+            };
 
             //data loading ===========================================================================
 
@@ -182,7 +192,7 @@ innaAppControllers.
                     }
                 }
 
-                function getDocType(number) {
+                function getDocType(doc_num) {
                     //var doc_num = number.replace(/\s+/g, '');
 
                     if (isCaseValid(function () {
@@ -225,7 +235,11 @@ innaAppControllers.
                     m.ExpirationDate = data.doc_expirationDate;
                     m.Citizen = data.citizenship.id;
                     m.Index = data.index;
-                    m.BonusCard = data.bonuscard.number;
+                    if (data.bonuscard.haveBonusCard) {
+                        m.BonusCard = data.bonuscard.number;
+                        m.TransporterId = data.bonuscard.airCompany.id;
+                        m.TransporterName = data.bonuscard.airCompany.name;
+                    }
                     return m;
                 }
                 function getApiModel(data) {
@@ -234,6 +248,7 @@ innaAppControllers.
                     m.F = data.secondName;
                     m.Email = data.email;
                     m.Phone = data.phone;
+                    m.IsSubscribe = data.wannaNewsletter;
 
                     var pasList = [];
                     _.each(data.passengers, function (item) {
@@ -282,32 +297,45 @@ innaAppControllers.
                 }
 
                 var model = getModelFromValidationModel($scope.validationModel);
+                model.price = $scope.item.Price;
 
                 var apiModel = getApiModel(model);
                 log('');
                 log('reservationModel: ' + angular.toJson(model));
                 log('');
                 log('apiModel: ' + angular.toJson(apiModel));
+
+
                 //
+                function showReserveError() {
+                    $scope.baloon.showErr("Что-то пошло не так", "Ожидайте, служба поддержки свяжется с вами, \nили свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
+                        function () {
+                            $location.path(Urls.URL_AVIA);
+                        });
+                }
                 paymentService.reserve(apiModel,
                     function (data) {
-                        log('orderId: ' + data);
-                        if (data != null)
+                        log('order: ' + angular.toJson(data));
+                        if (data != null && data.OrderNum != null && data.OrderNum.length > 0)
                         {
                             //сохраняем orderId
-                            //storageService.setAviaOrderId(data);
-                            $scope.criteria.OrderId = data;
+                            //storageService.setAviaOrderNum(data.OrderNum);
+                            $scope.criteria.OrderNum = data.OrderNum;
 
                             //сохраняем модель
                             storageService.setReservationModel(model);
+
+                            //успешно
+                            call();
                         }
-                        //успешно
-                        call();
+                        else {
+                            showReserveError();
+                        }
                     },
                     function (data, status) {
                         //ошибка
                         log('paymentService.reserve error');
-                        call();
+                        showReserveError();
                     });
             };
 
@@ -330,17 +358,22 @@ innaAppControllers.
                         invalidItem.haveTooltip = true;
                     }
                     $scope.tooltipControl.open($to);
-                     
+                    //прерываемся
                     return;
                 }
 
-                //бронируем
-                reserve(function () {
-                    //переходим на страницу оплаты
-                    var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria);
-                    //log('processToPayment, url: ' + url);
-                    $location.path(url);
-                });
+                //если модель валидна - бронируем
+                if ($scope.validationModel.isModelValid()) {
+
+                    $scope.baloon.show("Бронирование авиабилетов", "Подождите пожалуйста, это может затять несколько минут");
+                    //бронируем
+                    reserve(function () {
+                        //переходим на страницу оплаты
+                        var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria);
+                        //log('processToPayment, url: ' + url);
+                        $location.path(url);
+                    });
+                }
             };
 
             var debugPassengersList = [
@@ -354,7 +387,7 @@ innaAppControllers.
             function fillDefaultModelDelay() {
                 $timeout(function () {
                     $scope.model.name = 'Иван';
-                    $scope.model.secondName = '';
+                    $scope.model.secondName = 'Иванов';
                     $scope.model.email = 'ivan.ivanov@gmail.com';
                     $scope.model.phone = '+79101234567';
                     var index = 0;
@@ -375,7 +408,7 @@ innaAppControllers.
                             pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
                             pas.bonuscard.airCompany.id = 2;
                             pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '12134а3454';
+                            pas.bonuscard.number = '1213473454';
                         }
                         else {
                             pas.name = 'IVAN';
@@ -389,14 +422,12 @@ innaAppControllers.
                             pas.bonuscard.haveBonusCard = true;
                             pas.bonuscard.airCompany.id = 2;
                             pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '12134а3454';
+                            pas.bonuscard.number = '1213463454';
                         }
                     });
                     
                     //$scope.login.isOpened = true;
                     //$scope.login.isLogged = true;
-                }, 2000);
+                }, 500);
             };
-
-            $scope.afterPayModelInit = fillDefaultModelDelay;
         }]);
