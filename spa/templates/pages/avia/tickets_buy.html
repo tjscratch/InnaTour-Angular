@@ -68,8 +68,8 @@
                 <div class="b-tickets-ok">Ваши билеты забронированы</div>
                 <div class="b-tickets-sum">Сумма к оплате: <b>{{reservationModel.price| price}}</b> <span class="b-sum-rub">руб.</span></div>
                 <div class="b-tickets-info">
-                    Авиабилеты нужно оплатить <b>до 19:00 часов, 24 марта 2014 года</b><div class="br"></div>
-                    Для оплаты осталось: <b>1 час : 49 минут</b>
+                    Авиабилеты нужно оплатить <b>до {{reservationModel.expirationDate | date:'HH:mm'}} часов, {{reservationModel.expirationDateFormatted}} года</b><div class="br"></div>
+                    Для оплаты осталось: <b>{{reservationModel.experationMinuteFormatted}}</b>
                 </div>
             </div>
 
@@ -120,5 +120,5 @@
 <!-- Search Results -->
 
 <!-- Baloon -->
-
+<div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type" close-fn="baloon.closeFn"></div>
 <!-- /Baloon -->

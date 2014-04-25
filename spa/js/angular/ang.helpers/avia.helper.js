@@ -23,8 +23,10 @@
             return $filter("date")(dateText, timeFormat);
         }
 
-        function getDateFormat(dateText) {
-            return changeEnToRu($filter("date")(dateText, dateFormat));
+        function getDateFormat(dateText, customDateFormat) {
+            if (customDateFormat == null)
+                customDateFormat = dateFormat;
+            return changeEnToRu($filter("date")(dateText, customDateFormat));
         }
 
         //формат дат
@@ -87,6 +89,20 @@
                     return h + " ч " + addMins + " мин";
             }
             return "";
+        }
+
+        function pluralForm(i, str1, str2, str3) {
+            function plural(a) {
+                if (a % 10 == 1 && a % 100 != 11) return 0
+                else if (a % 10 >= 2 && a % 10 <= 4 && (a % 100 < 10 || a % 100 >= 20)) return 1
+                else return 2;
+            }
+
+            switch (plural(i)) {
+                case 0: return str1;
+                case 1: return str2;
+                default: return str3;
+            }
         }
         
         var baloonType = {
@@ -268,6 +284,14 @@
                 hide: function () {
                     helper.baloon.isVisible = false;
                 }
+            },
+
+            getDateFormat: function (dateText, customDateFormat) {
+                return getDateFormat(dateText, customDateFormat);
+            },
+
+            pluralForm: function (i, str1, str2, str3) {
+                return pluralForm(i, str1, str2, str3);
             },
 
             eof: null
