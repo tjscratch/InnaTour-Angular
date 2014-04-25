@@ -114,39 +114,16 @@ innaAppControllers
                     .search('ticket', $scope.combination.AviaInfo.VariantId1);
             }
 
-            /*EventListener*/
-            DynamicFormSubmitListener.listen();
+            function searchTicket(id1, id2){
+                var DEFAULT = null;
+                var ticket = DEFAULT;
 
-            $scope.$on(Events.DYNAMIC_SERP_FILTER_HOTEL, function(event, data){
-                $scope.hotelFilters[data.filter] = data.value;
+                for(var i = 0; ticket = $scope.tickets[i++];) {
+                    if(ticket.VariantId1 == id1 && ticket.VariantId2 == id2) break;
+                }
 
-                $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
-                    type: 'hotel',
-                    filters: angular.copy($scope.hotelFilters)
-                });
-            });
-
-            $scope.$on(Events.DYNAMIC_SERP_FILTER_TICKET, function(event, data){
-                $scope.ticketFilters[data.filter] = data.value;
-
-                $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
-                    type: 'ticket',
-                    filters: angular.copy($scope.ticketFilters)
-                });
-            });
-
-            $scope.$on(Events.DYNAMIC_SERP_FILTER_ANY_DROP, function(event, data){
-                var eventNameComponent = _.map(data.filter.split('.'), function(component, i){ return i == 0 ? component : '*'; }).join('.');
-                $scope.$broadcast(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, eventNameComponent), data.filter);
-            });
-
-            $scope.$watch('show', function(newVal, oldVal){
-                if($scope.combination) loadTab();
-            });
-
-            $scope.$watch('asMap', function(newVal) {
-                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
-            });
+                return ticket || DEFAULT;
+            }
 
             /*Constants*/
             $scope.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
@@ -217,7 +194,7 @@ innaAppControllers
             };
 
             $scope.getTicketDetails = function(ticket){
-                $scope.$broadcast(Events.DYNAMIC_SERP_TICKED_DETAILED_REQUESTED, ticket);
+                $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
             };
 
             $scope.changeHotelsView = function(){
@@ -227,6 +204,10 @@ innaAppControllers
             $scope.setHotel = function(hotel){
                 updateCombination({Hotel: hotel});
             };
+
+            $scope.setTicket = function(ticket){
+                updateCombination({Ticket: ticket});
+            }
 
             $scope.goReservation = function(){
                 $location.path(Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
@@ -239,6 +220,46 @@ innaAppControllers
                     $routeParams.Children
                 ].join('-'));
             };
+
+            /*EventListener*/
+            DynamicFormSubmitListener.listen();
+
+            $scope.$on(Events.DYNAMIC_SERP_FILTER_HOTEL, function(event, data){
+                $scope.hotelFilters[data.filter] = data.value;
+
+                $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
+                    type: 'hotel',
+                    filters: angular.copy($scope.hotelFilters)
+                });
+            });
+
+            $scope.$on(Events.DYNAMIC_SERP_FILTER_TICKET, function(event, data){
+                $scope.ticketFilters[data.filter] = data.value;
+
+                $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
+                    type: 'ticket',
+                    filters: angular.copy($scope.ticketFilters)
+                });
+            });
+
+            $scope.$on(Events.DYNAMIC_SERP_FILTER_ANY_DROP, function(event, data){
+                var eventNameComponent = _.map(data.filter.split('.'), function(component, i){ return i == 0 ? component : '*'; }).join('.');
+                $scope.$broadcast(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, eventNameComponent), data.filter);
+            });
+
+            $scope.$on(Events.DYNAMIC_SERP_TICKET_SET_CURRENT_BY_IDS, function(event, data) {
+                var ticket = searchTicket(data.id2, data.id2);
+
+                $scope.setTicket(ticket);
+            });
+
+            $scope.$watch('show', function(newVal, oldVal){
+                if($scope.combination) loadTab();
+            });
+
+            $scope.$watch('asMap', function(newVal) {
+                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
+            });
 
             /*Initial Data fetching*/
             (function() {
@@ -266,11 +287,7 @@ innaAppControllers
                         if($location.search().displayTicket) {
                             try{
                                 var ticketIds = $location.search().displayTicket.split('_');
-                                var ticket = null;
-
-                                for(var i = 0; ticket = $scope.tickets[i++];) {
-                                    if(ticket.VariantId1 == ticketIds[0] && ticket.VariantId2 == ticketIds[1]) break;
-                                }
+                                var ticket = searchTicket(ticketIds[0], ticketIds[1]);
 
                                 if(ticket) {
                                     $scope.getTicketDetails(ticket);
@@ -384,10 +401,19 @@ innaAppControllers
                 return dateHelper.translateDay(date.getDay());
             };
 
+            $scope.setCurrent = function(){
+                $scope.$emit(Events.DYNAMIC_SERP_TICKET_SET_CURRENT_BY_IDS, {
+                    id1: $scope.ticket.data.VariantId1,
+                    id2: $scope.ticket.data.VariantId2
+                });
+
+                $scope.closePopup();
+            }
+
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
 
             /*Listeners*/
-            $scope.$on(Events.DYNAMIC_SERP_TICKED_DETAILED_REQUESTED, function(event, data){
+            $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function(event, data){
                 $scope.ticket.setData(data);
 
                 $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
