@@ -240,7 +240,7 @@
                 type: baloonType.msg,
                 closeFn: null,
                 showGlobalAviaErr: function() {
-                    helper.baloon.show("Что-то пошло не так", "Свяжитесь с оператором по телефону +7 495 742-1212",
+                    helper.baloon.show("Что-то пошло не так", "Свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
                         baloonType.err, function () {
                             $location.path(Urls.URL_AVIA);
                         });

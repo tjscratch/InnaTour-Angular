@@ -143,8 +143,8 @@
             UrlToAviaAddBuy: function (criteria) {
                 var dl = this.Delimiter;
                 var res = url;
-                if (criteria.OrderId > 0) {
-                    res += dl + criteria.OrderId;
+                if (criteria.OrderNum > 0) {
+                    res += dl + criteria.OrderNum;
                 }
                 return res;
             },
@@ -164,7 +164,7 @@
                 var dl = this.Delimiter;
                 var res = appUrls.URL_AVIA_BUY + helper.UrlToAvia(criteria);
                 res += dl + criteria.QueryId + dl + criteria.VariantId1 + dl + criteria.VariantId2;
-                res += dl + criteria.OrderId;
+                res += dl + criteria.OrderNum;
                 return res;
             },
 

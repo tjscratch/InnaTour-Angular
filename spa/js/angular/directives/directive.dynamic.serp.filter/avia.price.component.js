@@ -7,8 +7,8 @@ angular.module('innaApp.directives')
                     tickets: '=innaDynamicSerpFilterAviaPriceTickets'
                 },
                 controller: [
-                    '$scope',
-                    function($scope){
+                    '$scope', 'innaApp.API.events',
+                    function($scope, Events){
                         $scope.min = Number.MAX_VALUE;
                         $scope.max = 0;
 

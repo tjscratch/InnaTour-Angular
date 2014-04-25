@@ -453,9 +453,8 @@ innaAppControllers.
                             return validList;
                         },
                         isModelValid: function () {
-                            var list = this.getFields(this);
-                            var mValid = _.all(list, function (item) { return item.isValid; })
-                            return mValid;
+                            var invalidItem = validationModel.getFirstInvalidItem();
+                            return invalidItem == null;
                         },
                         getFirstInvalidItem: function (conditionFn) {
                             var self = this;
@@ -531,70 +530,60 @@ innaAppControllers.
                 updateValidationModel();
             }, true);
 
-            var dataLoaded = { country: false, transports: false };
+            function loadHelpersDataAndInitModel() {
+                var loader = new utils.loader();
 
-            function loadAllCountries(onCompleteFnRun) {
-                dataService.getAllCountries(function (data) {
-                    if (data != null) {
-                        $scope.citizenshipList = data;
-                        dataLoaded.country = true;
-                        initIfDataLoaded(onCompleteFnRun);
-                    }
-                }, function (data, status) {
-                    log('getAllCountries error: status:' + status);
-                });
-            };
-
-            function loadTransporters(onCompleteFnRun) {
-                var transportersNames = [];
-
-                if ($scope.item.EtapsTo.length > 0) {
-                    _.each($scope.item.EtapsTo, function (item) {
-                        transportersNames.push(item.TransporterCode);
+                function loadAllCountries(onCompleteFnRun) {
+                    var self = this;
+                    dataService.getAllCountries(function (data) {
+                        if (data != null) {
+                            $scope.citizenshipList = data;
+                            loader.complete(self);
+                        }
+                    }, function (data, status) {
+                        log('getAllCountries error: status:' + status);
                     });
-                }
-                if ($scope.item.EtapsBack != null && $scope.item.EtapsBack.length > 0) {
-                    _.each($scope.item.EtapsBack, function (item) {
-                        transportersNames.push(item.TransporterCode);
-                    });
-                }
-                //берем уникальные
-                transportersNames = _.uniq(transportersNames);
+                };
 
-                paymentService.getTransportersInAlliances(transportersNames, function (data) {
-                    if (data != null) {
-                        $scope.bonusCardTransportersList = data;
-                        if (data.length == 0)
-                            log('bonusCardTransportersList empty');
+                function loadTransporters(onCompleteFnRun) {
+                    var self = this;
+                    var transportersNames = [];
 
-                        dataLoaded.transports = true;
-                        initIfDataLoaded(onCompleteFnRun);
+                    if ($scope.item.EtapsTo.length > 0) {
+                        _.each($scope.item.EtapsTo, function (item) {
+                            transportersNames.push(item.TransporterCode);
+                        });
                     }
-                }, function (data, status) {
-                    log('getTransportersInAlliances error: ' + transportersNames + ' status:' + status);
-                });
-            };
+                    if ($scope.item.EtapsBack != null && $scope.item.EtapsBack.length > 0) {
+                        _.each($scope.item.EtapsBack, function (item) {
+                            transportersNames.push(item.TransporterCode);
+                        });
+                    }
+                    //берем уникальные
+                    transportersNames = _.uniq(transportersNames);
 
-            function initIfDataLoaded(onCompleteFnRun) {
-                if (dataLoaded.country && dataLoaded.transports)
-                {
-                    onCompleteFnRun();
-                }
-            };
+                    paymentService.getTransportersInAlliances(transportersNames, function (data) {
+                        if (data != null) {
+                            $scope.bonusCardTransportersList = data;
+                            if (data.length == 0)
+                                log('bonusCardTransportersList empty');
 
-            function loadHelperListData(onCompleteFnRun) {
-                loadAllCountries(onCompleteFnRun);
-                loadTransporters(onCompleteFnRun);
+                            loader.complete(self);
+                        }
+                    }, function (data, status) {
+                        log('getTransportersInAlliances error: ' + transportersNames + ' status:' + status);
+                    });
+                };
+
+                loader.init([loadAllCountries, loadTransporters], initPayModel).run();
             }
 
             $scope.initPayModel = function () {
                 //log('$scope.initPayModel');
-                loadHelperListData(function () {
-                    initPayModel();
-                });
+                loadHelpersDataAndInitModel();
             }
 
-            var initPayModel = function() {
+            function initPayModel() {
                 //log('initPayModel');
 
                 function passengerModel(index) {
