@@ -121,6 +121,59 @@ innaAppControllers.
             }
             initValidateModel();
 
+            function tarifs() {
+                //log('tarifs');
+                var self = this;
+
+                self.isOpened = false;
+
+                self.list = [];
+
+                self.fillInfo = function () {
+                    _.each($scope.aviaInfo.EtapsTo, function (etap) {
+                        self.list.push({
+                            from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
+                            num: etap.TransporterCode + '-' + etap.Number
+                        });
+                    });
+
+                    if ($scope.aviaInfo.EtapsBack != null) {
+                        _.each($scope.aviaInfo.EtapsBack, function (etap) {
+                            self.list.push({
+                                from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
+                                num: etap.TransporterCode + '-' + etap.Number
+                            });
+                        });
+                    }
+                }
+
+                self.selectedIndex = 0;
+                self.setected = null;
+                self.class = $scope.criteria.CabinClass == 0 ? 'Эконом' : 'Бизнес';
+
+                self.tarifsData = null;
+                self.tarifItem = null;
+
+                self.tarifClick = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    self.setected = item;
+                    var index = self.list.indexOf(item);
+                    self.tarifItem = self.tarifsData[index];
+                }
+                self.show = function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    self.selectedIndex = 0;
+                    self.setected = self.list[0];
+                    self.tarifItem = self.tarifsData[0];
+                    self.isOpened = true;
+                }
+                self.close = function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    self.isOpened = false;
+                }
+            }
+            $scope.tarifs = new tarifs();
+
             $scope.validateError = function () {
                 this.field = '';
                 this.isValid = false;
@@ -272,6 +325,7 @@ innaAppControllers.
                                 }
 
                                 $scope.reservationModel = bindApiModelToModel(data);
+                                $scope.aviaInfo = data.AviaInfo;
                                 log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
 
                                 $scope.baloon.hide();
@@ -291,13 +345,31 @@ innaAppControllers.
                     }
                 };
 
-                loader.init([getPayModel], init).run();
+                function loadTarifs() {
+                    var self = this;
+                    getTarifs();
+
+                    function getTarifs() {
+                        paymentService.getTarifs({ variantTo: $scope.criteria.VariantId1, varianBack: $scope.criteria.VariantId2 },
+                            function (data) {
+                                //log('paymentService.getTarifs, data: ' + angular.toJson(data));
+                                $scope.tarifs.tarifsData = data;
+                                loader.complete(self);
+                            },
+                            function (data, status) {
+                                log('paymentService.getTarifs error');
+                            });
+                    }
+                }
+
+                loader.init([getPayModel, loadTarifs], init).run();
             };
             initPayModel();
 
             function init() {
-
+                $scope.tarifs.fillInfo();
             };
+            
             //data loading ===========================================================================
             
             $scope.processToBuy = function ($event) {

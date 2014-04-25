@@ -110,7 +110,7 @@
                     </div>
                 </div>
             </div>
-            <label class="b-agreement b-agreement-cc"><input ng-model="payModel.agree" type="checkbox"><ins id="agree" title="Нужно согласиться с условиями" class="b-checkbox"></ins>Я согласен с условиями договора-оферты, ознакомлен с правилами изменения и отмены бронирования и не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
+            <label class="b-agreement b-agreement-cc"><input ng-model="payModel.agree" type="checkbox"><ins id="agree" title="Нужно согласиться с условиями" class="b-checkbox"></ins>Я согласен с условиями договора-оферты, ознакомлен с <a ng-href="#" ng-click="tarifs.show($event)">правилами изменения и отмены бронирования</a> и не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
             <div class="b-pay-button-block">
                 <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить" ng-click="processToBuy($event)"></span>
             </div>
@@ -122,3 +122,32 @@
 <!-- Baloon -->
 <div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type" close-fn="baloon.closeFn" data="baloon.data"></div>
 <!-- /Baloon -->
+
+    <!-- Baloon -->
+    <div style="display: block" class="overlay js-overlay" ng-show="tarifs.isOpened">
+        <div class="balloon baloon_medium">
+            <div title="Закрыть" class="baloon-close" ng-click="tarifs.close($event)"></div>
+            <div class="b__rules-container">
+                <div class="b__rules_attention">
+                    <h3>Обратите внимание!</h3>
+                    <p>При не использовании одного из сегментов маршрута, последующие сегменты могут быть автоматически аннулированы авиакомпанией. </p>
+                    <p>Если по перелёту используется несколько разных правил/тарифов, то при обмене/возврате применяются более строгие правила. При обмене/возврате к возможным штрафным санкциям авиакомпании по правилам тарифа, дополнительно взымается сервисный сбор за услугу оформления обмена/возврата билета.</p>
+                </div>
+                <div class="b__rules-grey">
+                    <ul class="b__rules-flies">
+                        <!--<li><a href="#" class="current"><span><b>Москва → Амстердам,</b> KL-900, Эконом (L)</span></a></li>
+                        <li><a href="#"><span><b>Москва → Амстердам,</b> AZ-3627, Эконом (K)</span></a></li>
+                        <li><a href="#"><span><span><b>Москва → Амстердам,</b> AZ-3627, Эконом (K)</span></a></li>
+                        <li><a href="#"><span><b>Москва → Амстердам,</b> AZ-3627, Эконом (K)</span></a></li>
+                        <li><a href="#"><span><b>Москва → Амстердам,</b> AZ-3627, Эконом (K)</span></a></li>-->
+                        <li ng-class="{current:item === tarifs.setected}" ng-repeat="item in tarifs.list"><a ng-href="#" ng-click="tarifs.tarifClick($event, item)"><span><b>{{item.from}} → {{item.to}},</b> {{item.num}}, {{tarifs.class}} (K)</span></a></li>
+                    </ul>
+                    <h3>{{tarifs.setected.from}} → {{tarifs.setected.to}}</h3>
+                    <h4>Полные правила применения тарифа</h4>
+                    <p>Пожалуйста, ознакомьтесь детальнее с условиями <a href="#">обмена/возврата</a>.</p>
+                    <p ng-bind-html="tarifs.tarifItem.Text | breakFilter"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Baloon -->
