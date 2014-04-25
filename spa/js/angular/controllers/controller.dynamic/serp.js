@@ -332,6 +332,13 @@ innaAppControllers
                 return this.data['Etaps' + dir];
             };
 
+            Ticket.prototype.getNextEtap = function(dir, current){
+                var etaps = this.getEtaps(dir);
+                var i = etaps.indexOf(current);
+
+                return etaps[++i];
+            }
+
             Ticket.Etap = function(data){
                 this.data = data;
             };
@@ -381,8 +388,6 @@ innaAppControllers
 
             /*Listeners*/
             $scope.$on(Events.DYNAMIC_SERP_TICKED_DETAILED_REQUESTED, function(event, data){
-                console.log('DynamicPackageSERPTicketPopupCtrl.%s:', Events.DYNAMIC_SERP_TICKED_DETAILED_REQUESTED, data);
-
                 $scope.ticket.setData(data);
 
                 $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));

@@ -71,7 +71,7 @@
                                     <div class="rlf-colum2">
                                         <div class="rlf-flight-info">
                                             <b>вылет {{getTime(etap.getDateTime('Out'))}}</b>, {{getDate(etap.getDateTime('Out'))}}, {{getDay(etap.getDateTime('Out'))}} <br>
-                                            {{etap.data.OutCity}}, {{etap.date.OutPort}}
+                                            {{etap.data.OutCity}}, {{etap.data.OutPort}}
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +96,9 @@
                             </div>
                             <div class="rlf-colum4">
                                 {{etap.data.InCity}}, {{etap.date.InPort}} ({{etap.data.InCityCode}}), ПЕЛЬМЕНЕСТАН
-                                <div class="rlf-transfer">Внимание: смена аэропорта!</div>
+                                <div class="rlf-transfer" ng-repeat="next in [ticket.getNextEtap(dir, etap)]">
+                                    <span ng-if="next.data.OutPort != etap.data.InPort">Внимание: смена аэропорта!</span>
+                                </div>
                             </div>
                         </div>
                     </div>
