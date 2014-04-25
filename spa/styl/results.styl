@@ -28,7 +28,7 @@
 
 .ra-header
     clearfix()
-    padding 12px 14px
+    padding 12px 14px 6px
 
 .ra-title
     float left
@@ -52,14 +52,44 @@
     margin-top 6px !important
 
 .ra-fly-type-list
-    padding 0 0 3px
+    padding 5px 14px 0 0
     color #1a1a1a
-    margin -3px 0 0
+    margin 0 -14px 0 0
+    max-height 280px
+    overflow auto
+    overflow-x none
+    overflow-y scroll
+    position relative
+
+.ra-fly-type-list-container
+    position relative
+
+    &:before
+        content ''
+        display block
+        position absolute
+        left 0
+        right 0
+        top 0
+        height 10px
+        background linear-gradient(to bottom, rgba(255, 255, 255, 1) 0,rgba(255, 255, 255, 0) 100%)
+        z-index 5
+
+    &:after
+        content ''
+        display block
+        position absolute
+        left 0
+        right 0
+        bottom 0
+        height 10px
+        background linear-gradient(to top, rgba(255, 255, 255, 1) 0,rgba(255, 255, 255, 0) 100%)
+        z-index 5
 
 .ra-fly-type-list li
     clearfix()
     font-size 14px
-    padding 4px 0
+    padding 6px 0
     position relative
 
 .ra-fly-type-list input
@@ -105,10 +135,15 @@
     background url(../img/i.png) no-repeat 0 -639px
     width 15px !important
     height 22px !important
-    top -12px
+    top -8px
+    transform rotate(180deg)
+    outline none
 
 .ui-slider-horizontal .ui-slider-handle
     margin-left -7px
+
+.ui-slider-range
+    background #89c13a !important
 
 .results-list
     float left
@@ -162,13 +197,13 @@
     background #fff
     margin 0 0 10px
     border-radius 4px
-    box-shadow 0 2px 4px rgba(0,0,0,.8)
+    box-shadow 0 2px 3px rgba(0,0,0,.8)
     clearfix()
     position relative
 
 .rl-item-header
     clearfix()
-    padding 9px 14px 22px
+    padding 9px 14px 2px
     display block
 
 .rl-price
@@ -210,6 +245,18 @@
     display inline-block
     vertical-align middle
     margin 0 20px 0 0
+    font-size 15px
+    line-height 25px
+    font-weight bold
+
+    img
+        max-height 25px
+        vertical-align middle
+        margin 0 5px 0 0
+
+.rl-airline-text
+    position relative
+    top 2px
 
 .rl-footer
     clearfix()
@@ -434,27 +481,20 @@
 // Filters
 .filters__container
     background #fff
-    margin 0 0 10px
+    margin 0 auto
     box-shadow 0 3px 5px rgba(0,0,0,.3)
-    text-align justify
-    font-size 0
-
-    &:after
-        content ''
-        width 100%
-        display inline-block
-        height 0
+    width 960px
+    clearfix()
 
     > li
-        display inline-block
-        vertical-align top
-        line-height auto
+        float left
         position relative
+        margin 0 26px 0 0
 
 .filters__link
     display block
-    padding 13px 35px 11px 12px
-    color #666
+    padding 14px 35px 13px 12px
+    color #89c13a
     font-size 14px
     line-height 1
     transition all .3s
@@ -468,7 +508,7 @@
         top 19px
         width 12px
         height 12px
-        background url("../img/i.png") no-repeat right -194px
+        background url("../img/i.png") no-repeat right -195px
 
     &:hover
         background-color #e6e7e9
@@ -482,7 +522,91 @@
     z-index 100
     width 320px
     box-shadow 0 3px 5px rgba(0,0,0,.3)
-    display none
+    padding 3px 0
+
+.filters__baloon_240
+    width 240px
+
+.filters__container .filters__sort
+    float right
+    margin 0
+
+    a
+        color #666
+
+.filter__range-container
+    clearfix()
+    padding 14px 12px 21px
+
+    .ra-header-link
+        margin-top 5px
+
+.filter__range
+    float left
+    font-size 14px
+    color #1a1a1a
+
+    input
+        border 1px solid #c0c0c2
+        border-radius 3px
+        width 90px
+        box-sizing border-box
+        margin 0 5px
+        padding 5px 7px
+
+        &:focus
+            border-color #89c13a
+
+.filter__range-trackbar
+    position relative
+    margin 0 12px 30px
+
+.filters__baloon-radio
+    margin 0 12px 5px
+    clearfix()
+
+    input
+        display none
+
+        &:checked + .ra-radio
+            background #89c13a
+            color #fff
+
+    li
+        float left
+        border-left 1px solid #fff
+
+        &:first-child
+            border 0
+
+            .ra-radio
+                border-radius 3px 0 0 3px
+
+        &:last-child .ra-radio
+            border-radius 0 3px 3px 0
+
+    label
+        display block
+        width 107px
+
+.filters__baloon-days
+    margin 0 12px
+    clearfix()
+
+    .ra-fly-type-list
+        float left
+        overflow hidden
+        width 108px
+
+
+.ra-radio
+    text-align center
+    font-size 14px
+    background #e6e7e9
+    padding 6px 0
+    cursor pointer
+    display block
+
 
 .rl-left
     float left
@@ -496,6 +620,26 @@
     display block
     width 1px
     background #ccc
+
+    &:before
+        content ''
+        display block
+        position absolute
+        left -5px
+        top -3px
+        background url(../img/corner-top.png) no-repeat
+        width 10px
+        height 8px
+
+    &:after
+        content ''
+        display block
+        position absolute
+        left -5px
+        bottom -5px
+        background url(../img/corner-bot.png) no-repeat
+        width 10px
+        height 10px
 
 .rl-aside
     float right
@@ -566,6 +710,7 @@
     box-shadow 1px 1px 4px rgba(0,0,0,.1)
     padding 16px 10px 54px
     text-align center
+    margin 0 0 10px
 
 .ra-best-select
     font-size 15px
@@ -606,7 +751,10 @@
     padding 0 0 7px
     text-shadow 0 3px 3px rgba(0,0,0,.25)
 
-
+.ra-separator
+    height 1px
+    background #c0c0c2
+    margin 10px 0 0
 
 
 
