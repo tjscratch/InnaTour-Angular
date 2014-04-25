@@ -2,9 +2,9 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaBuyTicketsCtrl', ['$log', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
+    controller('AviaBuyTicketsCtrl', ['$log', '$timeout', '$interval', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
         'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper',
-        function AviaBuyTicketsCtrl($log, $timeout, $scope, $rootScope, $routeParams, $filter, $location,
+        function AviaBuyTicketsCtrl($log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location,
             dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper) {
 
             var self = this;
@@ -21,15 +21,15 @@ innaAppControllers.
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.searchId = $scope.criteria.QueryId;
             $scope.reservationModel = null;
-            $scope.payModel = {
-                num1: '1345',
-                num2: '2322',
-                num3: '3456',
-                num4: '4876',
-                cvc2: '123',
-                cardHolder: 'Ivan Ivanov',
-                cardMonth: '02',
-                cardYear: '15',
+            $scope.payModel = {//4268 0371 1270 0449
+                num1: '4268',
+                num2: '0371',
+                num3: '1270',
+                num4: '0449',
+                cvc2: '253',
+                cardHolder: 'TEST',
+                cardMonth: '12',
+                cardYear: '17',
                 agree: false
             };
 
@@ -199,7 +199,7 @@ innaAppControllers.
                         loader.complete(self);
                     }
                     else {
-                        $scope.baloon.show('Подождите пожалуйста', 'Проверка билетов');
+                        $scope.baloon.show('Проверка билетов', 'Подождите пожалуйста, это может затять несколько минут');
                         //запрос в api
                         paymentService.getPaymentData({
                             orderNum: $scope.criteria.OrderNum
@@ -324,12 +324,12 @@ innaAppControllers.
                         log('\npaymentService.pay, data: ' + angular.toJson(data));
                         if (data != null && data.Status == 0) {
                             //успешно
-                            console.log(data);
                             if (data.PreauthStatus == 1) {
                                 //3dSecure
                             }
                             else if (data.PreauthStatus == 2) {
                                 //без 3dSecure
+                                checkPayment($scope.criteria.OrderNum);
                             }
                             else {
                                 //ошибка
@@ -349,4 +349,41 @@ innaAppControllers.
                     });
                 }
             };
+
+            function checkPayment() {
+                $scope.isCkeckProcessing = false;
+                check();
+
+                var intCheck = $interval(function () {
+                    check();
+                }, 5000);
+
+                function check() {
+                    if (!$scope.isCkeckProcessing) {
+                        $scope.isCkeckProcessing = true;
+                        paymentService.payCheck($scope.criteria.OrderNum, function (data) {
+                            $scope.isCkeckProcessing = false;
+                            log('paymentService.payCheck, data: ' + angular.toJson(data));
+                            //data = true;
+                            if (data != null) {
+                                if (data == true) {
+                                    //прекращаем дергать
+                                    $interval.cancel(intCheck);
+
+                                    $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту',
+                                        aviaHelper.baloonType.success, function () {
+                                            //print
+                                            log('print tickets');
+                                            alert('Не реализовано');
+                                        }, { buttonCaption: 'Распечатать билеты' });
+                                }
+                            }
+                        }, function (data, status) {
+                            $scope.isCkeckProcessing = false;
+                            log('paymentService.payCheck error, data: ' + angular.toJson(data));
+                        });
+                    }
+                }
+                
+            }
         }]);

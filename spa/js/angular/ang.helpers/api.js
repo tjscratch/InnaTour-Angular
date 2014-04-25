@@ -29,6 +29,7 @@ angular.module('innaApp.API', [])
             AVIA_RESERVATION_GET_VARIANT: url('/AviaOrder/GetVariant'),
             AVIA_RESERVATION_GET_PAY_DATA: url('/Payment/Index'),
             AVIA_PAY: url('/Psb/Pay'),
+            AVIA_PAY_CHECK: url('/AviaOrder/CheckOrder'),
 
             "*_PAGE_CONTENT": url('/Section/Get/'),
 

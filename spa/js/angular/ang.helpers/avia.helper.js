@@ -108,7 +108,8 @@
         var baloonType = {
             msg: 'msg',
             err: 'err',
-            msgClose: 'msgClose'
+            msgClose: 'msgClose',
+            success: 'success'
         };
 
         var helper = {
@@ -253,6 +254,7 @@
                 isVisible: false,
                 caption: '',
                 text: '',
+                data: null,
                 type: baloonType.msg,
                 closeFn: null,
                 showGlobalAviaErr: function() {
@@ -267,7 +269,8 @@
                 showWithClose: function (caption, text, closeFn) {
                     helper.baloon.show(caption, text, baloonType.msgClose, closeFn);
                 },
-                show: function (caption, text, type, closeFn) {
+                show: function (caption, text, type, closeFn, data) {
+                    //console.log('show', caption, text, type);
                     if (type == null){
                         helper.baloon.type = baloonType.msg;
                     }
@@ -277,9 +280,9 @@
 
                     helper.baloon.caption = caption;
                     helper.baloon.text = text;
-                    helper.baloon.isVisible = true;
-
                     helper.baloon.closeFn = closeFn;
+                    helper.baloon.isVisible = true;
+                    helper.baloon.data = data;
                 },
                 hide: function () {
                     helper.baloon.isVisible = false;

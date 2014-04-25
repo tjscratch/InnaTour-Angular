@@ -74,6 +74,15 @@
                     });
                 },
 
+                payCheck: function (orderNum, successCallback, errCallback) {
+                    $http.post(apiUrls.AVIA_PAY_CHECK, { value: orderNum }).success(function (data, status) {
+                        successCallback(data);
+                    }).
+                    error(function (data, status) {
+                        errCallback(data, status);
+                    });
+                },
+
                 eof: null
             };
         }]);

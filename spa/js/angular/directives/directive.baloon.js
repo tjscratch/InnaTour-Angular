@@ -12,13 +12,16 @@ innaAppDirectives.
                 caption: '=',
                 text: '=',
                 type: '=',
-                closeFn: '='
+                closeFn: '=',
+                data: '='
             },
             controller: function ($scope) {
                 $scope.isVisible = false;
+
                 updateDisplay();
 
                 function updateDisplay() {
+                    //console.log('updateDisplay, isVisible: ' + $scope.isVisible);
                     if ($scope.isVisible) {
                         $scope.display = 'block';
                     }
@@ -26,6 +29,14 @@ innaAppDirectives.
                         $scope.display = 'none';
                     }
                 }
+
+                $scope.$watch('data', function (newVal, oldVal) {
+                    //console.log('$scope.data: ' + angular.toJson($scope.data));
+                    //доп данные для названий нкопок и т.д.
+                    if ($scope.data != null && $scope.data.hasOwnProperty('buttonCaption')) {
+                        $scope.buttonCaption = $scope.data.buttonCaption;
+                    }
+                });
 
                 $scope.baloonType = aviaHelper.baloonType;
 
@@ -49,6 +60,12 @@ innaAppDirectives.
                 function show() {
                     if ($scope.caption != null && $scope.caption.length > 0 &&
                         $scope.text != null && $scope.text.length > 0) {
+
+                        //доп данные для названий нкопок и т.д.
+                        if ($scope.data != null && data.hasOwnProperty('buttonCaption')) {
+                            $scope.buttonCaption = data.buttonCaption;
+                        }
+
                         $scope.isVisible = true;
                         updateDisplay();
                     }
@@ -69,6 +86,13 @@ innaAppDirectives.
                         $scope.isShow = false;
                         $scope.isVisible = false;
                         updateDisplay();
+                    }
+                };
+
+                $scope.clickFn = function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    if ($scope.closeFn != null) {
+                        $scope.closeFn();
                     }
                 };
             },
