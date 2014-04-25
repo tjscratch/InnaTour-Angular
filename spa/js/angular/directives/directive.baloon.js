@@ -33,7 +33,7 @@ innaAppDirectives.
                 $scope.$watch('data', function (newVal, oldVal) {
                     //console.log('$scope.data: ' + angular.toJson($scope.data));
                     //доп данные для названий нкопок и т.д.
-                    if ($scope.data != null && $scope.data.hasOwnProperty('buttonCaption')) {
+                    if ($scope.data != null && _.has($scope.data, 'buttonCaption')) {
                         $scope.buttonCaption = $scope.data.buttonCaption;
                     }
                 });
