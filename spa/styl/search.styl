@@ -16,9 +16,19 @@
          url('../fonts/proximanova-bold-webfont.ttf')  format('truetype'),
          url('../fonts/proximanova-bold-webfont.svg#svgFontName') format('svg');
 }
+@font-face {
+    font-family: 'ProximaNovaLight';
+    font-weight normal
+    font-style normal
+    src: url('../fonts/proximanova-light-webfont.eot?') format('eot'), 
+         url('../fonts/proximanova-light-webfont.woff') format('woff'), 
+         url('../fonts/proximanova-light-webfont.ttf')  format('truetype'),
+         url('../fonts/proximanova-light-webfont.svg#svgFontName') format('svg');
+}
 
 // Var
 $ProximaNova = ProximaNova, Arial, sans-serif
+$ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
 
 .hidden
     display none
@@ -39,12 +49,13 @@ $ProximaNova = ProximaNova, Arial, sans-serif
 .search-date-block
 .search-button-block
 .search-people-block
-    font-size 18px
+.search-button-block_small
+    font-size 14px
     line-height normal
     letter-spacing normal
     display inline-block
     vertical-align top
-    border-right 1px solid #ccd2d4
+    border-right 1px solid #9f9f9f
     position relative
 
 .b-wrapp_type_inline
@@ -64,44 +75,54 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     background #fff
     width 100%
     border 0
-    font 18px $ProximaNova
+    font 14px $ProximaNova
     color #242424
     box-sizing border-box
     height 48px
+    color #000
 
 .search-field::-webkit-input-placeholder
-    color #242424
-.search-field:-moz-placeholder
+    color #878787
     opacity 1
-.search-field::-moz-placeholder
-    opacity 1
+    font-family $ProximaNovaLight
 .search-field:-ms-input-placeholder
-    color #242424
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
 .search-date::-webkit-input-placeholder
-    color #242424
-.search-date:-moz-placeholder
+    color #878787
     opacity 1
-.search-date::-moz-placeholder
-    opacity 1
+    font-family $ProximaNovaLight
 .search-date:-ms-input-placeholder
-    color #242424
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
+.search-people-baloon-field input::-webkit-input-placeholder
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
+.search-people-baloon-field input:-ms-input-placeholder
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
+.search-people-baloon-field input::-webkit-input-placeholder
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
+.search-people-baloon-field input:-ms-input-placeholder
+    color #878787
+    opacity 1
+    font-family $ProximaNovaLight
 
 .search-field
-    padding 0 12px
+    padding 0 10px
 
 .search-date-block
     width 179px
 
 .search-date
-    padding 0 42px 0 12px
-    background-image url(../img/i.png)
-    background-repeat no-repeat
-
-.search-date-arr
-    background-position right 12px top 13px
-
-.search-date-dep
-    background-position right 12px top -71px
+    padding 0 28px 0 10px
+    background url(../img/i.png) no-repeat right 5px top -1813px #fff
 
 .search-button-block
     border-left 1px solid #1c1c1c
@@ -118,9 +139,21 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     font-weight bold
     transition background-color 0.3s linear
 
-.search-button-block:hover
-    background #95cd47
+.search-button-block_small
+    border 0
+    position relative
+    overflow hidden
+    height 48px
+    line-height 48px
+    width 58px
+    transition background-color 0.3s linear
+    background url(../img/i.png) no-repeat 14px -1937px #89c13a
 
+.search-button-block:hover
+.search-button-block_small:hover
+    background-color #95cd47
+
+.search-button-block_small input
 .search-button-block input
     position absolute
     display block
@@ -141,10 +174,10 @@ $ProximaNova = ProximaNova, Arial, sans-serif
 .search-people
     background #fff
     height 48px
-    padding 0 12px
-    font 18px/48px $ProximaNova
+    padding 0 10px
+    font 14px/48px $ProximaNova
     cursor pointer
-    background url(../img/i.png) no-repeat right 12px top -173px #fff
+    background url(../img/i.png) no-repeat right 7px top -1875px #fff
 
 .search-pref-block
     position absolute
@@ -195,18 +228,18 @@ $ProximaNova = ProximaNova, Arial, sans-serif
 
 .search-people-baloon
     position absolute
-    right 0
-    padding 12px 20px
-    min-width 200px
+    left 0
+    padding 12px 12px 0
+    min-width 215px
     background #fff
     box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
     z-index 10
+    margin-top 1px
 
 .search-people-baloon-title
-    font-size 18px
-    font-weight bold
+    font-size 14px
     line-height 1
-    padding 0 0 22px
+    padding 0 0 14px
 
 .search-people-baloon-item
     overflow hidden
@@ -221,36 +254,38 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     display block
     border 0
     padding 3px
-    margin 0 25px
-    font 18px $ProximaNova
+    margin 0 31px
+    font 14px $ProximaNova
     text-align center
     outline none
     border 1px solid #ccd2d4
-    width 38px
-    height 33px
+    width 30px
+    height 30px
     box-sizing border-box
+    border-radius 3px
 
 .search-people-baloon-minus
 .search-people-baloon-plus
-    color #999
+    color #878787
     position absolute
     top 0
     bottom 0
-    width 24px
+    width 30px
+    border-radius 3px
     text-align center
-    line-height 33px
+    line-height 30px
     cursor pointer
-    height 33px
+    height 30px
     font-size 20px
     user-select none
     font-weight bold
 
     &:hover
-        background #e6eaed
-        color #333
+        background #e6e7e9
 
-    &:active
-        background #89c13a
+.search-people-baloon-plus:hover
+    background #89c13a
+    color #fff
 
 .search-people-baloon-null input
     color #ccc
@@ -263,10 +298,9 @@ $ProximaNova = ProximaNova, Arial, sans-serif
 
 .search-people-type
     float left
-    width 100px
+    width 110px
     margin 0 10px 0 0
     font-size 14px
-    line-height 16px
     color #999
     letter-spacing -.025em
 
@@ -288,35 +322,37 @@ $ProximaNova = ProximaNova, Arial, sans-serif
     letter-spacing -.025em
     padding 5px 0
     box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+    margin-top 1px
 
 .search-autocomplete-block
-    padding 6px 15px
+    padding 6px 8px 6px 15px
     display block
-    font-size 16px
+    font-size 14px
+    color #333
     clearfix()
     cursor pointer
 
     &:hover
-        background #eff2f3
+        background #e6e7e9
 
 .search-autocomplete-city
     float left
+    letter-spacing -.025em
 
 .search-autocomplete-city em
     font-style normal
     font-size 14px
-    color #666
+    color #878787
 
 .search-autocomplete-city b
-    color #8c98a9
+    color #878787
     font-weight normal
 
 .search-autocomplete-abbr
     float right
-    color #666
-    font-size 13px
+    color #878787
+    font 14px $ProximaNovaLight
     text-transform uppercase
-    margin-top 3px
 
 .search-autocomplete li li .search-autocomplete-block
     padding-left 53px
@@ -328,16 +364,14 @@ $ProximaNova = ProximaNova, Arial, sans-serif
 .search-autocomplete ul:after
     content ''
     display block
-    border-bottom 1px solid #dbdbdb
+    border-bottom 1px solid #c0c0c2
     position absolute
-    left 13px
-    right 13px
+    left 0
+    right 0
     bottom 0
 
 .b-wrapp_type_inline .search-field-block
     float left
-    // border-right 1px solid #CCD2D4
-    // width 247px
 
 .b-wrapp_type_inline .search-date
 .b-wrapp_type_inline .search-field
@@ -353,8 +387,42 @@ $ProximaNova = ProximaNova, Arial, sans-serif
 .search-form-dialog-row .child-years-select-container
     margin-left 3px
 
+.search__city
+    width 210px
 
+.search__120
+    width 119px
 
+.search__list
+    position absolute
+    left 0
+    padding 10px 0
+    min-width 240px
+    background #fff
+    box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+    z-index 10
+    margin-top 1px
+    overflow auto
+    max-height 360px
 
+    li
+        padding 7px 33px 5px
+        cursor pointer
+        font-size 14px
+        position relative
 
+        &:hover
+            background-color #e6e7e9
 
+    .current
+        background-color #e6e7e9
+
+        &:before
+            content ''
+            width 12px
+            height 10px
+            background url(../img/i.png) no-repeat 0 -2030px
+            display block
+            position absolute
+            left 12px
+            top 11px

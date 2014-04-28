@@ -43,7 +43,11 @@ gulp.task('build-styl', function () {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(paths.styles, ['build-styl']);
+    gulp.watch(paths.styles, ['build-styl'])
+        .on('error', function(err) {
+            console.log(err.toString());
+        });
 });
+
 
 gulp.task('default', ['build-less']);

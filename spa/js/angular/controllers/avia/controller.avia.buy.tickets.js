@@ -2,15 +2,17 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaBuyTicketsCtrl', ['$log', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
+    controller('AviaBuyTicketsCtrl', ['$log', '$timeout', '$interval', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
         'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper',
-        function AviaBuyTicketsCtrl($log, $timeout, $scope, $rootScope, $routeParams, $filter, $location,
+        function AviaBuyTicketsCtrl($log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location,
             dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper) {
 
             var self = this;
             function log(msg) {
                 $log.log(msg);
             }
+
+            $scope.baloon = aviaHelper.baloon;
 
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
@@ -19,15 +21,15 @@ innaAppControllers.
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.searchId = $scope.criteria.QueryId;
             $scope.reservationModel = null;
-            $scope.payModel = {
-                num1: '1345',
-                num2: '2322',
-                num3: '3456',
-                num4: '4876',
-                cvc2: '123',
-                cardHolder: 'Ivan Ivanov',
-                cardMonth: '02',
-                cardYear: '15',
+            $scope.payModel = {//4268 0371 1270 0449
+                num1: '4268',
+                num2: '0371',
+                num3: '1270',
+                num4: '0449',
+                cvc2: '253',
+                cardHolder: 'TEST',
+                cardMonth: '12',
+                cardYear: '17',
                 agree: false
             };
 
@@ -119,6 +121,59 @@ innaAppControllers.
             }
             initValidateModel();
 
+            function tarifs() {
+                //log('tarifs');
+                var self = this;
+
+                self.isOpened = false;
+
+                self.list = [];
+
+                self.fillInfo = function () {
+                    _.each($scope.aviaInfo.EtapsTo, function (etap) {
+                        self.list.push({
+                            from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
+                            num: etap.TransporterCode + '-' + etap.Number
+                        });
+                    });
+
+                    if ($scope.aviaInfo.EtapsBack != null) {
+                        _.each($scope.aviaInfo.EtapsBack, function (etap) {
+                            self.list.push({
+                                from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
+                                num: etap.TransporterCode + '-' + etap.Number
+                            });
+                        });
+                    }
+                }
+
+                self.selectedIndex = 0;
+                self.setected = null;
+                self.class = $scope.criteria.CabinClass == 0 ? 'Эконом' : 'Бизнес';
+
+                self.tarifsData = null;
+                self.tarifItem = null;
+
+                self.tarifClick = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    self.setected = item;
+                    var index = self.list.indexOf(item);
+                    self.tarifItem = self.tarifsData[index];
+                }
+                self.show = function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    self.selectedIndex = 0;
+                    self.setected = self.list[0];
+                    self.tarifItem = self.tarifsData[0];
+                    self.isOpened = true;
+                }
+                self.close = function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    self.isOpened = false;
+                }
+            }
+            $scope.tarifs = new tarifs();
+
             $scope.validateError = function () {
                 this.field = '';
                 this.isValid = false;
@@ -188,16 +243,16 @@ innaAppControllers.
 
                 function getPayModel() {
                     var self = this;
-                    var reservationModel = storageService.getReservationModel();
-                    log('\nReservationModel: ' + angular.toJson(reservationModel));
+                    var reservationModel = null;//storageService.getReservationModel();
+                    //log('\nReservationModel: ' + angular.toJson(reservationModel));
 
-                    //reservationModel = null;
                     if (reservationModel != null) {
                         $scope.reservationModel = reservationModel;
                         //оповещаем лоадер, что метод отработал
                         loader.complete(self);
                     }
                     else {
+                        $scope.baloon.show('Проверка билетов', 'Подождите пожалуйста, это может затять несколько минут');
                         //запрос в api
                         paymentService.getPaymentData({
                             orderNum: $scope.criteria.OrderNum
@@ -236,49 +291,85 @@ innaAppControllers.
                                     return m;
                                 }
 
+                                function getExpTimeFormatted(time) {
+                                    if (time != null) {
+                                        //вычисляем сколько полных часов
+                                        var h = Math.floor(time / 60);
+                                        var addMins = time - h * 60;
+
+                                        var hPlural = aviaHelper.pluralForm(h, 'час', 'часа', 'часов');
+
+                                        if (addMins == 0) {
+                                            return h + " " + hPlural;
+                                        }
+                                        else {
+                                            return h + " " + hPlural + ": " + addMins + " минут";
+                                        }
+                                    }
+                                    return "";
+                                }
+
                                 function bindApiModelToModel(data) {
                                     var m = {};
-                                    //m.name = data.I;
-                                    //m.secondName = data.F;
-                                    //m.email = data.Email;
-                                    //m.phone = data.Phone;
-
                                     var pasList = [];
                                     _.each(data.Passengers, function (item) {
                                         pasList.push(getPassenger(item));
                                     });
                                     m.passengers = pasList;
-
                                     m.price = data.Price;
-
-                                    //m.SearchParams = {
-                                    //    SearchId: $scope.searchId,
-                                    //    VariantId1: $scope.item.VariantId1,
-                                    //    VariantId2: $scope.item.VariantId2
-                                    //};
+                                    m.expirationDate = dateHelper.apiDateToJsDate(data.ExperationDate);
+                                    m.expirationDateFormatted = aviaHelper.getDateFormat(m.expirationDate, 'dd MMM yyyy');
+                                    m.experationMinute = data.ExperationMinute;
+                                    m.experationMinuteFormatted = getExpTimeFormatted(Math.abs(data.ExperationMinute));
                                     return m;
                                 }
 
                                 $scope.reservationModel = bindApiModelToModel(data);
+                                $scope.aviaInfo = data.AviaInfo;
                                 log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
+
+                                $scope.baloon.hide();
 
                                 //оповещаем лоадер, что метод отработал
                                 loader.complete(self);
                             }
+                            else {
+                                log('paymentService.getPaymentData error, data is null');
+                                $scope.baloon.showGlobalAviaErr();
+                            }
                         },
                         function (data, status) {
                             log('paymentService.getPaymentData error');
+                            $scope.baloon.showGlobalAviaErr();
                         });
                     }
                 };
 
-                loader.init([getPayModel], init).run();
+                function loadTarifs() {
+                    var self = this;
+                    getTarifs();
+
+                    function getTarifs() {
+                        paymentService.getTarifs({ variantTo: $scope.criteria.VariantId1, varianBack: $scope.criteria.VariantId2 },
+                            function (data) {
+                                //log('paymentService.getTarifs, data: ' + angular.toJson(data));
+                                $scope.tarifs.tarifsData = data;
+                                loader.complete(self);
+                            },
+                            function (data, status) {
+                                log('paymentService.getTarifs error');
+                            });
+                    }
+                }
+
+                loader.init([getPayModel, loadTarifs], init).run();
             };
             initPayModel();
 
             function init() {
-
+                $scope.tarifs.fillInfo();
             };
+            
             //data loading ===========================================================================
             
             $scope.processToBuy = function ($event) {
@@ -299,19 +390,72 @@ innaAppControllers.
 
                     log('\napiPayModel: ' + angular.toJson(apiPayModel));
 
+                    $scope.baloon.show('Подождите, идет оплата', 'Это может затять несколько минут');
                     paymentService.pay(apiPayModel,
                     function (data) {
                         log('\npaymentService.pay, data: ' + angular.toJson(data));
-                        if (data != null) {
+                        if (data != null && data.Status == 0) {
                             //успешно
-                            alert('Успешно!!! \n' + angular.toJson(data));
+                            if (data.PreauthStatus == 1) {
+                                //3dSecure
+                            }
+                            else if (data.PreauthStatus == 2) {
+                                //без 3dSecure
+                                checkPayment($scope.criteria.OrderNum);
+                            }
+                            else {
+                                //ошибка
+                                log('paymentService.pay error, data.PreauthStatus: ' + data.PreauthStatus);
+                                $scope.baloon.showGlobalAviaErr();
+                            }
+                        }
+                        else {
+                            log('paymentService.pay error, data is null');
+                            $scope.baloon.showGlobalAviaErr();
                         }
                     },
                     function (data, status) {
                         //ошибка
-                        log('paymentService.pay error');
-                        alert('Ошибка!!! \n' + angular.toJson(data));
+                        log('paymentService.pay error, data: ' + angular.toJson(data));
+                        $scope.baloon.showGlobalAviaErr();
                     });
                 }
             };
+
+            function checkPayment() {
+                $scope.isCkeckProcessing = false;
+                check();
+
+                var intCheck = $interval(function () {
+                    check();
+                }, 5000);
+
+                function check() {
+                    if (!$scope.isCkeckProcessing) {
+                        $scope.isCkeckProcessing = true;
+                        paymentService.payCheck($scope.criteria.OrderNum, function (data) {
+                            $scope.isCkeckProcessing = false;
+                            log('paymentService.payCheck, data: ' + angular.toJson(data));
+                            //data = true;
+                            if (data != null) {
+                                if (data == true) {
+                                    //прекращаем дергать
+                                    $interval.cancel(intCheck);
+
+                                    $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту',
+                                        aviaHelper.baloonType.success, function () {
+                                            //print
+                                            log('print tickets');
+                                            alert('Не реализовано');
+                                        }, { buttonCaption: 'Распечатать билеты' });
+                                }
+                            }
+                        }, function (data, status) {
+                            $scope.isCkeckProcessing = false;
+                            log('paymentService.payCheck error, data: ' + angular.toJson(data));
+                        });
+                    }
+                }
+                
+            }
         }]);

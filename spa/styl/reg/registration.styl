@@ -21,9 +21,7 @@
     margin 12px 0 0
 
     &-submit
-      margin 20px 0 0
-      text-align right
-      position relative
+      text-align center
 
       .popup-form-label
         margin 17px 0 0
@@ -34,6 +32,14 @@
       font-size 14px
       text-align center
       margin 16px 0 0
+
+      &:before
+        content ''
+        display: inline-block
+        width 15px
+        height 15px
+        background url(../img/attension-symbol.png)
+        margin-right 5px
 
   &-title
     font-size 25px
@@ -98,8 +104,17 @@
     color #a9a9a9
     border-bottom 1px dashed #a9a9a9
 
+  .popup-form-row-submit
+    margin 20px 0 0
+    text-align right
+    position relative
+
+
 
 .reg-form
+  display: inline-block
+  width 240px
+  margin 44px 70px 60px
 
   &-result
     width: 250px;
@@ -123,73 +138,42 @@
   width 254px
   margin 44px 140px 60px
 
-  .popup-form-row-submit
-    text-align center
-
   .message
-    margin-left -20px
-    margin-right -20px
+    margin-left -10px
+    margin-right -10px
+    font-size 16px
+    color #e20000
 
 
 .profile-form
-  width  370px
-  margin 44px 140px 60px
+  width  320px
+  margin 44px 165px 60px
 
   .popup-form-row
     position: relative
+    margin-left 65px
+
+  .forgot-password
+    position: absolute
+    color #a9a9a9
+    border-bottom 1px dashed #a9a9a9
+    font-size 14px
+    right 0;
+    top -18px
+
+  .popup-form-label
+    display: inline-block
+    width: 80px
+    position: absolute
+    left -90px
+    top 11px
+    text-align right
+
+  .popup-form-row-submit
+    margin-left 0
+
     
   .description
-    position absolute
-    width 140px
-    left -165px
-    text-align right
-    top 16px
     font-size 11px
+    margin 10px 0 20px
     color #a9a9a9
-
-  &-offset
-    width 240px
-    margin-left 132px
-
-
-  &-photo
-    position: absolute
-
-    &-upload
-      width 106px
-      height 106px
-      position relative
-      overflow hidden
-      color #fff
-      text-align center
-
-      &.empty
-        background #ccc
-
-        &:before
-          display block
-          content '+'
-          font-weight bold
-          font-size 75px
-          position: absolute;
-          width 100%
-          line-height 106px
-
-        &:after
-          content 'Загрузить'
-          width 100%
-          position: absolute
-          font-size 12px
-          top 80px
-          left 0
-
-
-      .hidden-input
-        width 100%
-        height 100%
-        opacity 0
-        position absolute
-        z-index 2
-        left 0
-        top 0
-        cursor pointer
