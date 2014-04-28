@@ -124,6 +124,19 @@ var avia = {
 * */
 _.provide('inna.Models.Avia');
 
+inna.Models.Avia.TicketCollection = inna.Models._CollectionFactory();
+
+inna.Models.Avia.TicketCollection.prototype.search = function(id1, id2){
+    var DEFAULT = null;
+    var ticket = DEFAULT;
+
+    for(var i = 0; ticket = this.list[i++];) {
+        if(ticket.data.VariantId1 == id1 && ticket.data.VariantId2 == id2) break;
+    }
+
+    return ticket || DEFAULT;
+}
+
 inna.Models.Avia.Ticket = function (){
     this.data = null;
 }

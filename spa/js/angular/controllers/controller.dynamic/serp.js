@@ -22,7 +22,7 @@ innaAppControllers
                     method = 'getTicketsByCombination';
                     param = $scope.combination.Hotel.HotelId;
                     apply = function($scope, data){
-                        $scope.tickets = [];
+                        $scope.tickets.flush();
 
                         for(var i = 0, raw = null; raw = data.AviaInfos[i++];) {
                             var ticket = new inna.Models.Avia.Ticket();
@@ -126,17 +126,6 @@ innaAppControllers
                     .search('ticket', $scope.combination.AviaInfo.VariantId1);
             }
 
-            function searchTicket(id1, id2){
-                var DEFAULT = null;
-                var ticket = DEFAULT;
-
-                for(var i = 0; ticket = $scope.tickets[i++];) {
-                    if(ticket.data.VariantId1 == id1 && ticket.data.VariantId2 == id2) break;
-                }
-
-                return ticket || DEFAULT;
-            }
-
             function balloonCloser() {
                 $location.path(Urls.URL_DYNAMIC_PACKAGES);
             }
@@ -148,7 +137,7 @@ innaAppControllers
             /*Properties*/
             $scope.hotels = [];
             $scope.hotelFilters = {};
-            $scope.tickets = [];
+            $scope.tickets = new inna.Models.Avia.TicketCollection();
             $scope.ticketFilters = {};
             $scope.combination = null;
 
@@ -183,7 +172,7 @@ innaAppControllers
             }
 
             $scope.filteredTickets = function(filters) {
-                var ticketsToShow = _.filter($scope.tickets, function(ticket) {
+                var ticketsToShow = _.filter($scope.tickets.list, function(ticket) {
                     var show = true;
 
                     $.each(filters, function(filter, value){
@@ -262,7 +251,7 @@ innaAppControllers
             });
 
             $scope.$on(Events.DYNAMIC_SERP_TICKET_SET_CURRENT_BY_IDS, function(event, data) {
-                var ticket = searchTicket(data.id2, data.id2);
+                var ticket = $scope.tickets.search(data.id2, data.id2);
 
                 $scope.setTicket(ticket);
             });
