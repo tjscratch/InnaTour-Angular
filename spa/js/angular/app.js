@@ -24,6 +24,7 @@ app.constant('innaApp.Urls', {
     URL_ABOUT: '/about/',
     URL_CONTACTS: '/contacts/',
     URL_AUTH_RESTORE: '/account/restore-password/',
+    URL_AUTH_SIGNUP: '/account/signup/',
 
     eof: null
 });
@@ -58,6 +59,13 @@ app.config([
     '$routeProvider', '$locationProvider', '$httpProvider', 'innaApp.Urls',
     function ($routeProvider, $locationProvider, $httpProvider, url) {
 
+        function morda(){
+            return {
+                templateUrl: '/spa/templates/pages/tours_grid_page.html',
+                controller: 'ToursCtrl'
+            }
+        }
+
         //чтобы работал кросдоменный post
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $httpProvider.defaults.transformRequest = function (data) {
@@ -66,10 +74,7 @@ app.config([
 
         $routeProvider.
             //Главная
-            when('/', {
-                templateUrl: '/spa/templates/pages/tours_grid_page.html',
-                controller: 'ToursCtrl'
-            }).
+            when('/', morda()).
             when(url.URL_PROGRAMMS + 'category/:id', {
                 templateUrl: '/spa/templates/pages/it_category_page.html',
                 controller: 'IndividualToursCategoryCtrl'
@@ -146,10 +151,8 @@ app.config([
                 templateUrl: '/spa/templates/pages/avia/tickets_reserve.html',
                 controller: 'DynamicReserveTicketsCtrl'
             }).
-            when(url.URL_AUTH_RESTORE, { //same as main
-                templateUrl: '/spa/templates/pages/tours_grid_page.html',
-                controller: 'ToursCtrl'
-            });
+            when(url.URL_AUTH_RESTORE, morda()).
+            when(url.URL_AUTH_SIGNUP, morda());
         //.
         //otherwise({
         //    redirectTo: '/'
