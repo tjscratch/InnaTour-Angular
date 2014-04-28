@@ -6,26 +6,30 @@
 </style>
 <!-- Search Form -->
 <form class="search-ticket-form" ng-controller="AviaFormCtrl">
-    <div class="search-field-block">
+    <!--<div class="search-field-block">
         <input type="text" class="search-field" placeholder="Откуда" ng-model="criteria.From"
                ng-id-model="criteria.FromId" ng-url-model="criteria.FromUrl"
                ng-get-url="getDirectoryUrl" auto-complete-directory />
-        <!--<ul class="search-form-list search-form-list-to" ng-show="form.toListIsNotEmpty()">
-            <ng:any ng-repeat="item in form.toList">
-                <li class="search-form-list-item-separator" ng-show="isNeedInsertDelimiter(item, $index)"></li>
-                <li class="search-form-list-item search-form-list-item-country" ng-click="toItemClick(item,$event)"
-                    ng-class="{selected:form.toListSelectedIndex == $index}">
-                    {{item.name}}<span class="description">{{getToItemDescription(item)}}</span>
-                    <i class="icon icon-flag" ng-class="'icon-flag-' + item.codeIcao" ng-show="isNeedToShowFlag(item)"></i>
-                </li>
-            </ng:any>
-        </ul>-->
-    </div>
-    <div class="search-field-block">
+    </div>-->
+    <div dropdown-input
+        theme="search-field-block search__city"
+        provide-suggest-callback="provideSuggestToFromList"
+        suggest="fromList"
+        result="criteria.FromId"
+        ask-for-data="loadObjectById"
+        placeholder="Откуда"></div>
+    <!--<div class="search-field-block">
         <input type="text" class="search-field" placeholder="Куда" ng-model="criteria.To"
                ng-id-model="criteria.ToId" ng-url-model="criteria.ToUrl"
                ng-get-url="getDirectoryUrl" auto-complete-directory />
-    </div>
+    </div>-->
+    <div dropdown-input
+        theme="search-field-block search__city"
+        provide-suggest-callback="provideSuggestToToField"
+        suggest="toList"
+        result="criteria.ToId"
+        ask-for-data="loadObjectById"
+        placeholder="Куда"></div>
     <div class="search-date-block js-start-date-block">
         <input type="text" class="search-date search-date-arr js-start-date" placeholder="Туда"
                ng-model="criteria.BeginDate" ng-model-from="true" ng-check-model="criteria.IsToFlexible" date-picker-two-months />

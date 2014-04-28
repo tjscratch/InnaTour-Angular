@@ -5,7 +5,9 @@
 
 innaAppControllers.
     controller('AviaFormCtrl', ['$log', '$scope', '$rootScope', '$filter', '$location', 'dataService', 'cache', 'urlHelper', 'aviaHelper',
-        function AviaFormCtrl($log, $scope, $rootScope, $filter, $location, dataService, cache, urlHelper, aviaHelper) {
+        'aviaService', 'Validators',
+        function AviaFormCtrl($log, $scope, $rootScope, $filter, $location, dataService, cache, urlHelper, aviaHelper,
+            aviaService, Validators) {
 
             var self = this;
             function log(msg) {
@@ -164,15 +166,28 @@ innaAppControllers.
 
             //тут меняем урл для поиска
             $scope.searchStart = function () {
-                if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0) {
-                    saveParamsToCookie();
-                    //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
-                    var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
-                    $location.path(url);
-                }
-                else {
-                    alert('Не заполнены поля Откуда, Куда');
-                }
+                try {
+                    validate();
+                    //if ok
+
+                    if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0) {
+                        fillFromAndTo();
+                        saveParamsToCookie();
+                        //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
+                        var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+                        $location.path(url);
+                    }
+                    else {
+                        alert('Не заполнены поля Откуда, Куда');
+                    }
+
+                    //$rootScope.$emit('inna.DynamicPackages.Search', o);
+                } catch (e) {
+                    console.warn(e);
+                    if ($scope.criteria.hasOwnProperty(e.message)) {
+                        $scope.criteria[e.message] = e;
+                    }
+                }   
             };
 
             function setFromAndToFieldsFromUrl(routeCriteria) {
@@ -292,5 +307,63 @@ innaAppControllers.
 
             $scope.pathTypeClick = function (val) {
                 $scope.criteria.PathType = val;
+            }
+
+
+
+
+            function fillFromAndTo() {
+                $scope.loadObjectById($scope.criteria.FromId, function (data) {
+                    if (data != null) {
+                        $scope.criteria.FromUrl = data.CodeIata;
+                    }
+                }, false);
+                
+                $scope.loadObjectById($scope.criteria.ToId, function (data) {
+                    if (data != null) {
+                        $scope.criteria.ToUrl = data.CodeIata;
+                    }
+                }, false);
+            }
+
+            function validate() {
+                Validators.defined($scope.criteria.FromId, Error('FromId'));
+                Validators.defined($scope.criteria.ToId, Error('ToId'));
+                Validators.notEqual($scope.criteria.FromId, $scope.criteria.ToId, Error('ToId'));
+
+                //var children = _.partition($scope.childrensAge, function (ageSelector) { return ageSelector.value < 2; });
+                //var infants = children[0].length;
+                //children = children[1].length;
+                //var separatedInfants = infants - $scope.adultCount;
+                //if (separatedInfants < 0) separatedInfants = 0;
+                //console.log('adults = %s, children = %s, separatedInfants = %s, sum = %s', $scope.adultCount, children, separatedInfants, $scope.adultCount + children + separatedInfants);
+
+                //if (+$scope.adultCount + children + separatedInfants > 6) throw Error('adultCount');
+            }
+
+            /* From field */
+            $scope.fromList = [];
+
+            $scope.provideSuggestToFromList = function (preparedText, rawText) {
+                aviaService.getDirectoryByUrl(preparedText, function (data) {
+                    $scope.$apply(function ($scope) {
+                        $scope.fromList = data;
+                    });
+                })
+            }
+
+            $scope.loadObjectById = function (id, callback, async) {
+                aviaService.getObjectById(id, callback, null, async);
+            }
+
+            /* To field */
+            $scope.toList = [];
+
+            $scope.provideSuggestToToField = function (preparedText, rawText) {
+                aviaService.getDirectoryByUrl(preparedText, function (data) {
+                    $scope.$apply(function ($scope) {
+                        $scope.toList = data;
+                    });
+                })
             }
         }]);

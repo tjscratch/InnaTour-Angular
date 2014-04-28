@@ -1,5 +1,5 @@
 <div class="{{theme}}">
-    <input type="text" title="Поле заполнено не корректно" class="search-field" placeholder="Откуда" ng-keydown="unfulfill()"/>
+    <input type="text" title="Поле заполнено не корректно" class="search-field" placeholder="{{getPlaceholder()}}" ng-keydown="unfulfill()"/>
     <input type="hidden" ng-model="result"/>
     <ul class="search-autocomplete" ng-show="!fulfilled && suggest">
         <li ng-repeat="item in suggest" ng-click="setCurrent($event, item)">
