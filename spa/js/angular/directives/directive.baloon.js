@@ -1,4 +1,4 @@
-﻿﻿'use strict';
+﻿'use strict';
 
 /* Directives */
 
@@ -65,15 +65,17 @@ innaAppDirectives.
                     if ($scope.closeFn != null) {
                         $scope.closeFn();
                     }
-                    else {
-                        $scope.isShow = false;
-                        $scope.isVisible = false;
-                        updateDisplay();
-                    }
+
+                    $scope.isShow = false;
+                    $scope.isVisible = false;
+                    updateDisplay();
                 };
             },
-            link: function ($scope, element, attrs) {
-                
+            link: function ($scope, $element, attrs) {
+                //Dirty DOM hack
+                $(function(){
+                    $element.appendTo(document.body);
+                });
             }
         };
     }]);

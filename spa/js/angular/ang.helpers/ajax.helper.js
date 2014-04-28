@@ -16,7 +16,9 @@ angular.module('innaApp.services')
                     traditional: true,
                     data: data,
                     xhrFields: { withCredentials: true },
-                    crossDomain: true
+                    crossDomain: true,
+
+                    eol: null
                 }
             }
 
