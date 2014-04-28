@@ -1,3 +1,42 @@
+<div class="rl-item">
+    <div class="rl-item-separator"></div>
+    <div class="rl-left">
+        <header class="rl-item-header">
+            <span class="rl-airline" ng-repeat="(code, name) in ticket.collectAirlines()">
+                <img ng-src="{{airLogo(code)}}" alt=""><span class="rl-airline-text">{{name}}</span>
+            </span>
+        </header>
+        <div class="rl-content" ng-repeat="dir in ['To', 'Back']">
+            <div class="rl-fly">
+                <div class="rlf-flight-info">
+                    <b>{{dateHelper.getTime(ticket.data.DepartureDate)}}</b>, {{dateHelper.getDateShort(ticket.data.DepartureDate)}}, {{dateHelper.getDay(ticket.data.DepartureDate)}}<br>
+                    <div ng-if="dir == 'To'">{{ticket.data.CityFrom}} {{ticket.data.OutCode}}</div>
+                    <div ng-if="dir == 'Back'">{{ticket.data.CityTo}} {{ticket.data.InCode}}</div>
+                </div>
+            </div>
+            <div class="rl-travel-time">в пути: {{ticket.getDuration(dir)}} <br>{{ticket.getEtaps(dir).length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}}</div>
+            <div class="rl-fly">
+                <div class="rlf-flight-info">
+                    <b>{{dateHelper.getTime(ticket.data.ArrivalDate)}}</b>, {{dateHelper.getDateShort(ticket.data.ArrivalDate)}}, {{dateHelper.getDay(ticket.data.ArrivalDate)}}<br>
+                    <div ng-if="dir == 'To'">{{ticket.data.CityTo}} {{ticket.data.InCode}}</div>
+                    <div ng-if="dir == 'Back'">{{ticket.data.CityFrom}} {{ticket.data.OutCode}}</div>
+                </div>
+            </div>
+        </div>
+        <footer class="rl-footer">
+            <a href="javascript:void(0);" class="rl-more-info" ng-click="getTicketDetails(ticket)">Подробнее</a>
+        </footer>
+    </div>
+    <div class="rl-aside">
+                        <span class="rl-price">
+                            <span class="rl-price-item">69 450</span> <span class="rub">Р</span>
+                        </span>
+        <a href="#" class="rl-buy-button">Купить</a>
+    </div>
+</div>
+
+<!--
+
 <div class="b-ticket">
     <div class="b-ticket__info">
         <ul class="b-ticket__companies">
@@ -48,3 +87,5 @@
     </div>
     <div class="b-ticket__price" ng-transclude></div>
 </div>
+
+-->

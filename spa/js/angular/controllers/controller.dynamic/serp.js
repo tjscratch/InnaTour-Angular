@@ -15,11 +15,23 @@ innaAppControllers
                 if($scope.show == $scope.HOTELS_TAB) {
                     method = 'getHotelsByCombination';
                     param = $scope.combination.AviaInfo.VariantId1;
-                    apply = function($scope, data){ $scope.hotels = data.Hotels; };
+                    apply = function($scope, data){
+                        $scope.hotels = data.Hotels;
+                    };
                 } else if($scope.show == $scope.TICKETS_TAB) {
                     method = 'getTicketsByCombination';
                     param = $scope.combination.Hotel.HotelId;
-                    apply = function($scope, data){ $scope.tickets = data.AviaInfos; };
+                    apply = function($scope, data){
+                        $scope.tickets = [];
+
+                        for(var i = 0, raw = null; raw = data.AviaInfos[i++];) {
+                            var ticket = new inna.Models.Avia.Ticket();
+
+                            ticket.setData(raw);
+
+                            $scope.tickets.push(ticket);
+                        }
+                    };
                 }
 
                 if(!method || !param) return;
@@ -119,7 +131,7 @@ innaAppControllers
                 var ticket = DEFAULT;
 
                 for(var i = 0; ticket = $scope.tickets[i++];) {
-                    if(ticket.VariantId1 == id1 && ticket.VariantId2 == id2) break;
+                    if(ticket.data.VariantId1 == id1 && ticket.data.VariantId2 == id2) break;
                 }
 
                 return ticket || DEFAULT;
@@ -307,7 +319,11 @@ innaAppControllers
                                     $scope.getTicketDetails(ticket);
                                 } else throw 1;
                             } catch(e) {
-                                $scope.baloon.showErr("Запрашиваемая билетная пара не найдена", "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!", angular.noop);
+                                $scope.baloon.showErr(
+                                    "Запрашиваемая билетная пара не найдена",
+                                    "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
+                                    angular.noop
+                                );
                             }
                         }
                     });
@@ -323,76 +339,8 @@ innaAppControllers
                 $(document.body).append($element);
             });
 
-            /*Models*/
-            function Ticket(){
-                this.data = null;
-            }
-
-            Ticket.prototype.setData = function(data) {
-                this.data = angular.copy(data);
-
-                if(this.data) {
-                    for(var i = 0, dir = ''; dir = ['To', 'Back'][i++];) {
-                        var etaps = this.data['Etaps' + dir];
-
-                        for(var j = 0, len = etaps.length; j < len; j++) {
-                            etaps[j] = new Ticket.Etap(etaps[j]);
-                        }
-                    }
-                }
-            };
-
-            Ticket.__getDuration = function(raw, hoursIndicator, minutesIndicator){
-                var hours = Math.floor(raw / 60);
-                var mins = raw % 60;
-
-                return hours + ' ' + hoursIndicator + (
-                    mins ? (' ' + mins + ' ' + minutesIndicator) : ''
-                );
-            };
-
-            Ticket.prototype.dropData = function(){
-                this.setData(null);
-            };
-
-            Ticket.prototype.getDuration = function(dir){
-                return Ticket.__getDuration(this.data['Time' + dir], 'ч.', 'мин.');
-            };
-
-            Ticket.prototype.getEtaps = function(dir) {
-                return this.data['Etaps' + dir];
-            };
-
-            Ticket.prototype.getNextEtap = function(dir, current){
-                var etaps = this.getEtaps(dir);
-                var i = etaps.indexOf(current);
-
-                return etaps[++i];
-            }
-
-            Ticket.Etap = function(data){
-                this.data = data;
-            };
-
-            Ticket.Etap.prototype.getDateTime = function(dir) {
-                return dateHelper.apiDateToJsDate(this.data[dir + 'Time']);
-            };
-
-            Ticket.Etap.prototype.getDuration = function(){
-                return Ticket.__getDuration(this.data.WayTime, 'ч.', 'м');
-            };
-
-            Ticket.Etap.prototype.getLegDuration = function(){
-                var a = dateHelper.apiDateToJsDate(this.data.InTime);
-                var b = dateHelper.apiDateToJsDate(this.data.NextTime);
-                var diffMSec = b - a;
-                var diffMin = Math.floor(diffMSec / 60000);
-
-                return Ticket.__getDuration(diffMin, 'ч.', 'мин.');
-            };
-
             /*Scope Properties*/
-            $scope.ticket = new Ticket();
+            $scope.ticket = null;
 
             /*Scope Methods*/
             $scope.closePopup = function(){
@@ -400,19 +348,7 @@ innaAppControllers
                 delete $location.$$search.displayTicket;
                 $location.$$compose();
 
-                $scope.ticket.dropData();
-            };
-
-            $scope.getTime = function(date) {
-                return [date.getHours(), date.getMinutes()].join(':');
-            };
-
-            $scope.getDate = function(date) {
-                return [date.getDate(), dateHelper.translateMonth(date.getMonth())].join(' ')
-            };
-
-            $scope.getDay = function(date) {
-                return dateHelper.translateDay(date.getDay());
+                $scope.ticket = null;
             };
 
             $scope.setCurrent = function(){
@@ -422,13 +358,16 @@ innaAppControllers
                 });
 
                 $scope.closePopup();
-            }
+            };
 
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+            $scope.dateHelper = dateHelper;
 
             /*Listeners*/
-            $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function(event, data){
-                $scope.ticket.setData(data);
+            $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function(event, ticket){
+                console.log(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
+
+                $scope.ticket = ticket;
 
                 $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
             });

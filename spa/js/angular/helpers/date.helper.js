@@ -180,6 +180,18 @@
         return ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'][n]
     },
 
+    getTime: function(date) {
+        return [date.getHours(), date.getMinutes()].join(':');
+    },
+
+    getDateShort: function(date) {
+        return [date.getDate(), dateHelper.translateMonth(date.getMonth())].join(' ');
+    },
+
+    getDay: function(date){
+        return dateHelper.translateDay(date.getDay());
+    },
+
     eof: null
 };
 

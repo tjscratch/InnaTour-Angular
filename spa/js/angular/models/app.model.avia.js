@@ -116,3 +116,90 @@ var avia = {
 
     endOfClass: null
 };
+
+
+
+/*
+* Other way
+* */
+_.provide('inna.Models.Avia');
+
+inna.Models.Avia.Ticket = function (){
+    this.data = null;
+}
+
+inna.Models.Avia.Ticket.prototype.setData = function(data) {
+    this.data = angular.copy(data);
+
+    if(this.data) {
+        for(var i = 0, dir = ''; dir = ['To', 'Back'][i++];) {
+            var etaps = this.data['Etaps' + dir];
+
+            for(var j = 0, len = etaps.length; j < len; j++) {
+                etaps[j] = new inna.Models.Avia.Ticket.Etap(etaps[j]);
+            }
+        }
+
+        this.data.ArrivalDate = dateHelper.apiDateToJsDate(this.data.ArrivalDate);
+        this.data.BackArrivalDate = dateHelper.apiDateToJsDate(this.data.BackArrivalDate);
+        this.data.DepartureDate = dateHelper.apiDateToJsDate(this.data.DepartureDate);
+        this.data.BackDepartureDate = dateHelper.apiDateToJsDate(this.data.BackDepartureDate);
+    }
+};
+
+inna.Models.Avia.Ticket.__getDuration = function(raw, hoursIndicator, minutesIndicator){
+    var hours = Math.floor(raw / 60);
+    var mins = raw % 60;
+
+    return hours + ' ' + hoursIndicator + (
+        mins ? (' ' + mins + ' ' + minutesIndicator) : ''
+        );
+};
+
+inna.Models.Avia.Ticket.prototype.getDuration = function(dir){
+    return inna.Models.Avia.Ticket.__getDuration(this.data['Time' + dir], 'ч.', 'мин.');
+};
+
+inna.Models.Avia.Ticket.prototype.getEtaps = function(dir) {
+    return this.data['Etaps' + dir];
+};
+
+inna.Models.Avia.Ticket.prototype.getNextEtap = function(dir, current){
+    var etaps = this.getEtaps(dir);
+    var i = etaps.indexOf(current);
+
+    return etaps[++i];
+};
+
+inna.Models.Avia.Ticket.prototype.collectAirlines = function(){
+    var airlines = [];
+
+    for(var i = 0, dir = null; dir = ['To', 'Back'][i++];) {
+        for(var j = 0, etap = null; etap = this.data['Etaps' + dir][j++];) {
+            airlines.push([etap.data.TransporterCode, etap.data.TransporterName]);
+        }
+    }
+
+    return _.object(airlines);
+};
+
+inna.Models.Avia.Ticket.Etap = function(data){
+    this.data = data;
+};
+
+inna.Models.Avia.Ticket.Etap.prototype.getDateTime = function(dir) {
+    return dateHelper.apiDateToJsDate(this.data[dir + 'Time']);
+};
+
+inna.Models.Avia.Ticket.Etap.prototype.getDuration = function(){
+    return inna.Models.Avia.Ticket.__getDuration(this.data.WayTime, 'ч.', 'м');
+};
+
+inna.Models.Avia.Ticket.Etap.prototype.getLegDuration = function(){
+    var a = dateHelper.apiDateToJsDate(this.data.InTime);
+    var b = dateHelper.apiDateToJsDate(this.data.NextTime);
+    var diffMSec = b - a;
+    var diffMin = Math.floor(diffMSec / 60000);
+
+    return inna.Models.Avia.Ticket.__getDuration(diffMin, 'ч.', 'мин.');
+};
