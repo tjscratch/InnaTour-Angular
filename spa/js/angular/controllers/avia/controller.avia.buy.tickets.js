@@ -21,12 +21,19 @@ innaAppControllers.
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.searchId = $scope.criteria.QueryId;
             $scope.reservationModel = null;
-            $scope.payModel = {//4268 0371 1270 0449
-                num1: '4268',
-                num2: '0371',
-                num3: '1270',
-                num4: '0449',
-                cvc2: '253',
+
+            /*
+CardNumber = "4012 0010 3714 1112";
+Month = "12";
+Year = "17";
+Cvc = "486";
+            */
+            $scope.payModel = {
+                num1: '4012',
+                num2: '0010',
+                num3: '3714',
+                num4: '1112',
+                cvc2: '486',
                 cardHolder: 'TEST',
                 cardMonth: '12',
                 cardYear: '17',
@@ -438,7 +445,7 @@ innaAppControllers.
                             log('paymentService.payCheck, data: ' + angular.toJson(data));
                             //data = true;
                             if (data != null) {
-                                if (data == true) {
+                                if (data == "true") {
                                     //прекращаем дергать
                                     $interval.cancel(intCheck);
 

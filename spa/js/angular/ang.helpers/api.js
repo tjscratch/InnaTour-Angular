@@ -18,6 +18,7 @@ angular.module('innaApp.API', [])
             DYNAMIC_HOTEL_DETAILS: url('/Packages/SearchHotel'),
 
             AUTH_SIGN_UP: url('/Account/Register/Post'),
+            AUTH_SIGN_UP_STEP_2: url('/Account/Confirm'),
             AUTH_SIGN_IN: url('/Account/Login/Post'),
             AUTH_RESTORE_A: url('/Account/ForgotPassword/Post'),
             AUTH_RESTORE_B: url('/Account/ResetPassword/Post'),
@@ -25,6 +26,7 @@ angular.module('innaApp.API', [])
 
             PURCHASE_TRANSPORTER_GET_ALLIANCE: url('/Transporter/GetAllianceByName'),
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),
+            AVIA_FROM_SUGGEST: url('/Dictionary/Directory/Get'),
             AVIA_RESERVATION: url('/AviaOrder/Reservation'),
             AVIA_RESERVATION_GET_VARIANT: url('/AviaOrder/GetVariant'),
             AVIA_RESERVATION_GET_PAY_DATA: url('/Payment/Index'),

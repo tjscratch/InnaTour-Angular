@@ -1,15 +1,15 @@
-<style>.b-wrapp_type_inline{display:inline;}</style>
+<style>.b-wrapp_type_inline{display:inline;} .search-form-humans{width:120px;}</style>
 
 <form class="search-ticket-form" ng-controller="DynamicFormCtrl">
 	<div dropdown-input
-         theme="search-field-block"
+         theme="search-field-block search__city"
          provide-suggest-callback="provideSuggestToFromList"
          suggest="fromList"
          result="fromCurrent"
          ask-for-data="loadObjectById"
          class="b-wrapp_type_inline"></div><!--
 	--><div dropdown-input
-            theme="search-field-block"
+            theme="search-field-block search__city"
             provide-suggest-callback="provideSuggestToToField"
             suggest="toList"
             result="toCurrent"
@@ -25,9 +25,8 @@
             children-count="childrenCount"
             childrens-age="childrensAge"
             class="b-wrapp_type_inline"></div><!--
-    --><div class="search-button-block">Найти<input type="submit" value="Найти" ng-click="searchStart()"></div><!--
     --><div trip-preferences
             show-back-trip-options="false"
-            klass-model="klass"></div>
-
+            klass-model="klass"></div><!--
+    --><div class="search-button-block_small"><input type="submit" value="Найти" ng-click="searchStart()"></div>
 </form>

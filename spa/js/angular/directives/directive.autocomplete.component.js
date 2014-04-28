@@ -1,16 +1,26 @@
 ﻿innaAppDirectives.directive('dropdownInput', ['eventsHelper', function (eventsHelper) {
     return {
+        replace: true,
         templateUrl: '/spa/templates/components/dropdown_input.html',
         scope: {
             provideSuggestCallback: '=', //callback for ngChange
             suggest: '=', //list of suggested objects
             result: '=',
             theme: '@',
-            askForData: '='
+            askForData: '=',
+            placeholder: '@'
         },
         controller: ['$scope', function($scope){
             /*Properties*/
             $scope.fulfilled = false;
+
+            $scope.getPlaceholder = function () {
+                if ($scope.placeholder == null || $scope.placeholder.length == 0)
+                    return 'Откуда';
+                else
+                    return $scope.placeholder;
+            }
+
             /*Events*/
             $scope.setCurrent = function ($event, option, airport) {
                 //запрещаем баблинг
@@ -66,7 +76,7 @@
                 }
             });
 
-            scope.input.focus(function(){
+            scope.input.focus(function () {
                 scope.$apply(function($scope){
                     $scope.fulfilled = false;
                 });
@@ -76,13 +86,15 @@
                 } catch(e) {}
             });
 
-            $(document).click(function(event){
+            $(document).click(function (event) {
                 var isInsideComponent = !!$(event.target).closest(elem).length;
 
-                if(!isInsideComponent) {
-                    scope.fulfilled = true;
-                    //select all
-                    $(event.target).select();
+                if (!isInsideComponent) {
+                    scope.$apply(function ($scope) {
+                        scope.fulfilled = true;
+                        //select all
+                        $(event.target).select();
+                    });
                 }
             });
         }

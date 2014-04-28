@@ -1,6 +1,7 @@
 innaAppDirectives.directive('tripPreferences', [function(){
     return {
         templateUrl: '/spa/templates/components/trip_preferences.html',
+        replace: true,
         scope: {
             showBackTripOptions: '@',
             klassModel: '='
