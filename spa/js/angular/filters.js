@@ -46,48 +46,24 @@ innaAppFilters.filter('price', function () {
     };
 });
 
-////фильтр по названию, мин, макс цене
-//innaAppFilters.filter('filterByParams', function () {
-//    return function (input, filter) {
+innaAppFilters.filter('asQuantity', function(){
+    function chooseForm(n, f1, f2, f5) {
+        //only 2 last digits
+        n = n % 100;
 
-//        var minPrice = filter.minPrice;
-//        var maxPrice = filter.maxPrice;
-//        var hotelName = filter.hotelName;
+        //11, 12, ..., 19
+        if(n % 10 + 10 == n) return f5;
 
-//        //пропускаем пустые
-//        if (minPrice == null || maxPrice == null)
-//            return input;
+        //only one last digit
+        n = n % 10;
 
-//        console.log('filterByParams: ' + angular.toJson(filter));
+        if(n == 1) return f1;
+        if(n == 2 || n == 3 || n == 4) return f2;
 
-//        var out = [];
-//        //если не изменился - возвращаем тот же объект
-//        var isChanged = false;
-//        if (input != null) {
-//            for (var i = 0; i < input.length; i++) {
-//                var fPrice = parseFloat(input[i].Price);
+        return f5;
+    }
 
-//                var isFilterByName = true;
-//                //если задан фильтр по имени
-//                if (hotelName != null && hotelName.length > 0) {
-//                    //не чувств. к регистру
-//                    if (input[i].HotelName.toLowerCase().indexOf(hotelName.toLowerCase()) > -1)
-//                        isFilterByName = true;
-//                    else
-//                        isFilterByName = false;
-//                }
-
-//                if (isFilterByName && fPrice >= minPrice && fPrice <= maxPrice) {
-//                    out.push(input[i]);
-//                }
-//                else
-//                    isChanged = true;
-//            }
-//        }
-
-//        if (isChanged)
-//            return out;
-//        else
-//            return input;
-//    }
-//});
+    return function(n, f1, f2, f5, joiner){
+        return [n, chooseForm(n, f1, f2, f5)].join(joiner || ' ');
+    }
+})

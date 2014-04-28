@@ -28,39 +28,39 @@
     margin-left -350px !important
     top 48px !important
 
-.ui-datepicker .dtpk-head
-    border-bottom 1px solid #e7e7e7
-    padding 0 0 15px
+.dtpk-head
+    border-bottom 1px solid #c0c0c2
+    padding 0 0 12px
+    margin 0 0 18px
     overflow hidden
 
-.ui-datepicker .dtpk-caption
-    font-size 18px
-    font-weight bold
+.dtpk-caption
+    font bold 14px $ProximaNova
     float left
-    font-family $ProximaNova
 
 .dtpk-checkbox-label
     color #242424
-    font-size 15px
+    font-size 14px
     line-height 19px
     float right
+    margin 0 0 0 30px
 
 .dtpk-checkbox
-    background-color #89c13a
+    border 2px solid #89c13a
+    background #fff
     display inline-block
-    height 19px
+    height 20px
     margin-right 9px
     vertical-align top
-    width 19px
-    border-radius 4px
+    width 20px
+    border-radius 3px
+    box-sizing border-box
 
 .dtpk-checkbox-label input
     display none
 
 .dtpk-checkbox-label input:checked + .dtpk-checkbox, .dtpk-checked
-    background-image url(../img/i.png)
-    background-repeat no-repeat
-    background-position 4px -588px
+    background url(../img/i.png) no-repeat 2px -589px #89c13a
 
 
 .ui-datepicker .ui-datepicker-header
@@ -159,18 +159,18 @@
 
 .datepickerContainer
     background #fff
-    padding 26px
-    font-family ProximaNova,Arial,sans-serif
+    padding 14px 7px
+    font-family $ProximaNova
     box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+    margin-top 1px
 
 .datepickerDays a
     border 3px solid transparent
-    height 34px
-    line-height 32px
+    height 28px
     display block
-    width 35px
-    margin 1px 1px 1px 0
-    font-size 20px
+    width 27px
+    margin 2px
+    font 20px/28px $ProximaNovaLight
     text-align center
     color #292929 !important
 
@@ -178,72 +178,89 @@
         background #89C13A
         color #fff !important
 
-.datepickerNotInMonth a
 .datePicker-unavailable a
     color #ACACAC !important
-
-.datepickerDays tr
-    border-top 1px solid #E7E7E7
-
-    &:first-child
-        border 0
 
 .datepickerSaturday a
 .datepickerSunday a
     color #FF5C5C !important
 
-.datepickerNotInMonth.datepickerSaturday a
-.datepickerNotInMonth.datepickerSunday a
-    color #FFA3A3 !important
-
 .datepickerDoW span
-    color #ACACAC
-    font-size 11px
-    text-transform uppercase
+    color #666
+    font-size 14px
+    text-transform lowercase
     text-align center
     display block
-    font-weight bold
     padding-bottom 6px
     padding-top 3px
 
 .datepickerDoW th:nth-child(7) span
 .datepickerDoW th:nth-child(8) span
-    color #FF5C5C !important
+    color #dd3e14 !important
 
 .datepickerSelected
     background none !important
 
 .datepickerSelected a
-    background #eff2f3
+    background #e6e7e9
 
 .datepickerMonth span
-    font-size 20px
+    font 20px $ProximaNovaLight
     color #292929
     display block
 
 .datepickerMonth a
-    margin 0 0 15px !important
+    margin 6px 0 15px !important
 
 .datepickerGoPrev a
 .datepickerGoNext a
-    height 30px
-    width 29px
+    height 35px
+    width 35px
     display block
     font-size 0
-    top -7px
+    top -3px
     position relative
     cursor pointer
+    border-radius 3px
+    background #e6e7e9
+
+    &:hover
+        background #89c13a
 
 .datepickerGoPrev a
-    background url(../img/i.png) no-repeat 0 -392px
     margin-left 8px
 
+    &:before
+        content ''
+        display block
+        width 5px
+        height 9px
+        position absolute
+        left 14px
+        top 13px
+        background url(../img/i.png) no-repeat 0 -2113px
+
+    &:hover:before
+        background-position 0 -2139px
+
 .datepickerGoNext a
-    background url(../img/i.png) no-repeat 0 -532px
     margin-right 8px
 
-.datePicker-today a
-    border-color #89C13A
+    &:before
+        content ''
+        display block
+        width 5px
+        height 9px
+        position absolute
+        left 16px
+        top 13px
+        background url(../img/i.png) no-repeat 0 -2126px
+
+    &:hover:before
+        background-position 0 -2155px
+
+// .datePicker-today a
+//     border-color #89C13A
 
 .datepickerSelected-start a
 .datepickerSelected-end a
@@ -254,8 +271,8 @@
 .datepickerSelected-start a span
 .datepickerSelected-end a span
     position absolute
-    font-size 14px
-    right 2px
+    font 14px $ProximaNova
+    right 1px
     top 1px
     letter-spacing -.025em
     line-height 1
@@ -264,17 +281,18 @@
 .datepickerSelected-end a:before
     display block
     content ''
-    width 24px
-    height 22px
+    width 16px
+    height 15px
     position absolute
-    left 1px
+    left 0
     bottom 0
+    background url(../img/i.png) no-repeat
 
 .datepickerSelected-start a:before
-    background url(../img/1way.png) no-repeat
+    background-position 0 -2057px
 
 .datepickerSelected-end a:before
-    background url(../img/2ways.png) no-repeat
+    background-position 0 -2088px
 
 .datepicker-body
     position absolute
@@ -283,15 +301,18 @@
     z-index 900
 
 .datepickerDisabled a
-.datepickerNotInMonth a
     color #ACACAC !important
 
     &:hover
         background none !important
         color #ACACAC !important
 
+.datepickerNotInMonth a
+    opacity 0
+
 .datepickerDisabled.datepickerSaturday a
 .datepickerDisabled.datepickerSunday a
-.datepickerNotInMonth.datepickerSaturday a
-.datepickerNotInMonth.datepickerSunday a
     color #FFA3A3 !important
+
+.datepickerSpace div
+    width 38px

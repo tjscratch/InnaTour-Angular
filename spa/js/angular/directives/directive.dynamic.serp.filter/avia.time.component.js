@@ -7,8 +7,8 @@ angular.module('innaApp.directives')
                     tickets: '=innaDynamicSerpFilterAviaTimeTickets'
                 },
                 controller: [
-                    '$scope',
-                    function($scope) {
+                    '$scope', 'innaApp.API.events',
+                    function($scope, Events) {
                         this.HAS_EVENT = 'inna.innaDynamicSerpFilterAviaTime.Has';
                         this.CHANGE_EVENT = 'inna.innaDynamicSerpFilterAviaTime.Changed';
 

@@ -24,7 +24,7 @@ function aviaCriteria(data) {
     self.QueryId = data.QueryId;
     self.VariantId1 = data.VariantId1;
     self.VariantId2 = data.VariantId2;
-    self.OrderId = data.OrderId;
+    self.OrderNum = data.OrderNum;
 
     self.toJson = function () { return angular.toJson(self); };
 };

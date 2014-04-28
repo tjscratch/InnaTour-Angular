@@ -29,6 +29,8 @@ angular.module('innaApp.API', [])
             AVIA_RESERVATION_GET_VARIANT: url('/AviaOrder/GetVariant'),
             AVIA_RESERVATION_GET_PAY_DATA: url('/Payment/Index'),
             AVIA_PAY: url('/Psb/Pay'),
+            AVIA_PAY_CHECK: url('/AviaOrder/CheckOrder'),
+            AVIA_TARIFS: url('/Avia/GetRule'),
 
             "*_PAGE_CONTENT": url('/Section/Get/'),
 
@@ -45,6 +47,8 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_FILTER_TICKET: 'inna.Dynamic.SERP.Ticket.Filter',
             DYNAMIC_SERP_FILTER_ANY_CHANGE: 'inna.Dynamic.SERP.*.Filter',
             DYNAMIC_SERP_FILTER_ANY_DROP: 'inna.Dynamic.SERP.*.Filter.Drop',
+            DYNAMIC_SERP_TICKET_DETAILED_REQUESTED: 'inna.Dynamic.SERP.Tickets.Detailed',
+            DYNAMIC_SERP_TICKET_SET_CURRENT_BY_IDS: 'inna.Dynamic.SERP.Tickets.SetCurrentById',
 
             AUTH_FORGOTTEN_LINK_CLICKED: 'inna.Auth.Forgotten-link-clicked'
         }

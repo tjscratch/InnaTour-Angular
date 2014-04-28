@@ -26,8 +26,8 @@
 
     <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="/spa/css/main.css" />
-    <link rel="stylesheet" href="/spa/css/tickets.min.css" />
     <link rel="stylesheet" href="/spa/css/styles.min.css" />
+    <link rel="stylesheet" href="/spa/css/tickets.min.css" />
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="/spa/css/ie.min.css" />
     <![endif]-->
@@ -65,14 +65,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                         --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
                         --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
                     </ul><!--
-                    --><span class="header-login">
-                        <a href="#" class="" ng-click="headLoginBtnclick($event)"><i class="icon icon-user"></i>Войти</a>
-                        <!--<form class="header-login-form-popup">
-                            <div class="field-row"><input class="field" type="text" placeholder="Логин" /></div>
-                            <div class="field-row"><input class="field" type="password" placeholder="Пароль" /></div>
-                            <button class="button">Войти</button>
-                        </form>-->
-                    </span>
+                    -->
                 </div>
             </div>
         </div>
@@ -86,6 +79,9 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                 --><!--<li class="header-menu-item"><a href="/#/autorent/" ng-class="{active:isActive('/autorent/')}">Аренда авто</a></li>--><!--
                 --><!--<li class="header-menu-item"><a href="/#/insurance/" ng-class="{active:isActive('/insurance/')}">Страхование</a></li>--><!--
                 --><!--<li class="header-menu-item"><a href="/#/cruise/" ng-class="{active:isActive('/cruise/')}">Круизы</a></li>-->
+                <li class="header-menu-item header-login">
+                    <a href="#" class="header-login-link" ng-click="headLoginBtnclick($event)"><i class="icon icon-user"></i>Регистрация и вход</a>
+                </li>
             </ul>
         <ng:include src="getHeadForm()"></ng:include>
         </div>
@@ -254,6 +250,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/ang.helpers/url.helper.js"></script>
 <script src="/spa/js/angular/ang.helpers/api.js"></script>
 <script src="/spa/js/angular/ang.helpers/avia.helper.js"></script>
+<script src="/spa/js/angular/ang.helpers/ajax.helper.js"></script>
 <script src="/spa/js/angular/filters.js"></script>
 <script src="/spa/js/angular/services/services.js"></script>
 <script src="/spa/js/angular/services/service.data.js"></script>
