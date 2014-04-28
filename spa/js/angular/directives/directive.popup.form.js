@@ -13,9 +13,15 @@ innaAppDirectives.directive('popupForm', function () {
 
             $scope.popupForm_Show = function (offer) {
                 if (offer == null) {
+                    //аналитика
+                    track.requestOpened('side', location.href);
+                    //
                     $scope.request.init_main();
                 }
                 else {
+                    //аналитика
+                    track.requestOpened('program', location.href);
+                    //
                     $scope.request.init_ITCategory(offer);
                 }
                 $scope.isOpened = true;
@@ -88,6 +94,13 @@ innaAppDirectives.directive('popupForm', function () {
                     //alert($scope.request.comments);
                     //return;
                     $scope.popupForm_Close();
+
+                    if ($scope.request.offer == null) {
+                        //аналитика
+                        track.requestSend('side', location.href);
+                    } else {
+                        track.requestSend('program', location.href);
+                    }
 
                     //send
                     dataService.sendITCategoryRequest($scope.request, function (data) {

@@ -49,6 +49,26 @@ var track = {
             mixpanel.track("program.download", { "name": name, "program_country": program_country, "category": category }, fn);
         else
             if (fn != null) fn();
+    },
+    requestOpened: function (type, url) {
+        //type - откуда кликали на форму из заявки или из блока сбоку (side/program)
+        //category - главная страница, раздел экскурсионные туры, образование за рубежом и т.д.
+        if (window.mixpanel != null) {
+            mixpanel.track("inquiry.form", { "type": type, "url": url });
+        }
+        if (window.ga != null) {
+            ga('send', 'pageview', url + '/inquiry');
+        }
+    },
+    requestSend: function (type, url) {
+        //type - откуда кликали на форму из заявки или из блока сбоку (side/program)
+        //category - главная страница, раздел экскурсионные туры, образование за рубежом и т.д.
+        if (window.mixpanel != null) {
+            mixpanel.track("inquiry.send", { "type": type, "url": url });
+        }
+        if (window.ga != null) {
+            ga('send', 'pageview', url + '/inquiry_sent');
+        }
     }
 };
 
