@@ -125,6 +125,10 @@ innaAppControllers
                 return ticket || DEFAULT;
             }
 
+            function balloonCloser() {
+                $location.path(Urls.URL_DYNAMIC_PACKAGES);
+            }
+
             /*Constants*/
             $scope.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
             $scope.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
@@ -147,9 +151,7 @@ innaAppControllers
 
             $scope.showLanding = true;
             $scope.baloon = aviaHelper.baloon;
-            $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', function(){
-                console.log('SEARCH BALLOON IS CLOSED');
-            });
+            $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
 
             /*Methods*/
             $scope.filteredHotels = function(filters){
@@ -271,6 +273,18 @@ innaAppControllers
                 if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
 
                 DynamicPackagesDataProvider.search(searchParams, function(data){
+                    if(!data.RecommendedPair) {
+                        $scope.$apply(function($scope){
+                            $scope.baloon.showErr(
+                                "Не удалось найти ни одной подходящей комбинации",
+                                "Попробуйте изменить параметры поиска",
+                                balloonCloser
+                            );
+                        });
+
+                        return;
+                    }
+
                     cacheKey = data.SearchId;
 
                     $scope.$apply(function($scope){
@@ -293,7 +307,7 @@ innaAppControllers
                                     $scope.getTicketDetails(ticket);
                                 } else throw 1;
                             } catch(e) {
-                                //todo display error allert "Can't load ticket, it's most probably already sold"
+                                $scope.baloon.showErr("Запрашиваемая билетная пара не найдена", "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!", angular.noop);
                             }
                         }
                     });

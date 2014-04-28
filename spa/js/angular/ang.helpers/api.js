@@ -18,6 +18,7 @@ angular.module('innaApp.API', [])
             DYNAMIC_HOTEL_DETAILS: url('/Packages/SearchHotel'),
 
             AUTH_SIGN_UP: url('/Account/Register/Post'),
+            AUTH_SIGN_UP_STEP_2: url('/Account/Confirm'),
             AUTH_SIGN_IN: url('/Account/Login/Post'),
             AUTH_RESTORE_A: url('/Account/ForgotPassword/Post'),
             AUTH_RESTORE_B: url('/Account/ResetPassword/Post'),

@@ -2,8 +2,6 @@ angular.module('innaApp.services')
     .factory('AuthDataProvider', [
         'innaApp.API.const', 'AjaxHelper',
         function(urls, AjaxHelper){
-
-
             return {
                 signUp: function(data, callbackSuccess, callbackError){
                     AjaxHelper.postDebaunced(urls.AUTH_SIGN_UP, data, callbackSuccess, callbackError);
@@ -25,6 +23,9 @@ angular.module('innaApp.services')
                     return urls.AUTH_SOCIAL_BROKER +
                         '?provider=' + method +
                         '&returnUrl=' + encodeURIComponent(document.location.protocol + '//' + document.location.host + '/closer.html');
+                },
+                confirmRegistration: function(token, callbackSuccess, callbackError) {
+                    AjaxHelper.postDebaunced(urls.AUTH_SIGN_UP_STEP_2, {token: token}, callbackSuccess, callbackError);
                 }
             }
         }

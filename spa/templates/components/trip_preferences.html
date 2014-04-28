@@ -1,10 +1,9 @@
-<ul class="search-pref-block">
-    <!-- TODO trip-back-option -->
-    <li class="search-pref search-pref-comfort">
-        {{klassModel.display}}
-
-        <ul class="search-pref-select" ng-show="isOpen">
-            <li ng-repeat="option in klassModel.getOptions()" ng-hide="option == klassModel" ng-click="onChoose(option)">{{option.display}}</li>
-        </ul>
-    </li>
-</ul>
+<div class="search-people-block search__120">
+    <div class="search-people">{{klassModel.display}}</div>
+    <ul class="search__list" ng-show="isOpen">
+        <li
+                ng-repeat="option in klassModel.getOptions()"
+                ng-class="({'true': 'current', 'false':''})[option == klassModel]"
+                ng-click="onChoose(option)">{{option.display}}</li>
+    </ul>
+</div>
