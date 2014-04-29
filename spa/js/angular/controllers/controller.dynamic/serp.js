@@ -134,7 +134,7 @@ innaAppControllers
             $scope.asMap = !!+DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
 
             $scope.showLanding = true;
-            $scope.baloon = aviaHelper.baloon;
+            //$scope.baloon = aviaHelper.baloon;
             $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
 
             /*Methods*/

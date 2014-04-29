@@ -1,6 +1,6 @@
 ﻿innaAppServices.
-    factory('aviaHelper', ['$rootScope', '$http', '$log', '$filter', '$location', 'innaApp.Urls',
-        function ($rootScope, $http, $log, $filter, $location, Urls) {
+    factory('aviaHelper', ['$rootScope', '$http', '$log', '$filter', '$timeout', '$location', 'innaApp.Urls',
+        function ($rootScope, $http, $log, $filter, $timeout, $location, Urls) {
         function log(msg) {
             $log.log(msg);
         }
@@ -283,9 +283,12 @@
                     helper.baloon.closeFn = closeFn;
                     helper.baloon.isVisible = true;
                     helper.baloon.data = data;
+                    //$rootScope.$broadcast('baloon.show');
                 },
                 hide: function () {
+                    //console.log('baloon hide');
                     helper.baloon.isVisible = false;
+                    //$rootScope.$broadcast('baloon.hide');
                 }
             },
 
