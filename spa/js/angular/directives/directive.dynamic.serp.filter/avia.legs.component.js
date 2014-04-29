@@ -7,8 +7,8 @@ angular.module('innaApp.directives')
                     tickets: '=innaDynamicSerpFilterAviaLegsTickets'
                 },
                 controller: [
-                    '$scope', 'innaApp.API.events',
-                    function($scope, Events){
+                    '$scope', 'innaApp.API.events', '$element',
+                    function($scope, Events, $element){
                         /*Models*/
                         function Option(id, title, comparator){
                             this.id = id;
@@ -90,6 +90,26 @@ angular.module('innaApp.directives')
                                 unwatchCollectionTickets();
                             }
                         });
+
+                        (function(){
+                            var doc = $(document);
+
+                            function onClick(event){
+                                var isInsideComponent = $.contains($($element)[0], event.target);
+
+                                if(!isInsideComponent) {
+                                    $scope.$apply(function($scope){
+                                        $scope.isOpen = false;
+                                    });
+                                }
+                            }
+
+                            doc.on('click', onClick);
+
+                            $scope.$on('$destroy', function(){
+                                doc.off('click', onClick);
+                            });
+                        })();
 
                         $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, 'Legs.*'), function(event, data){
                             var optionToTurnOff = _.findWhere($scope.options, {id: data.split('.')[1]});
