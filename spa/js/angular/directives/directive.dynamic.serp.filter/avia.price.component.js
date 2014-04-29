@@ -7,27 +7,62 @@ angular.module('innaApp.directives')
                     tickets: '=innaDynamicSerpFilterAviaPriceTickets'
                 },
                 controller: [
-                    '$scope', 'innaApp.API.events',
-                    function($scope, Events){
-                        $scope.min = Number.MAX_VALUE;
-                        $scope.max = 0;
+                    '$scope', 'innaApp.API.events', '$element', '$controller',
+                    function($scope, Events, $element, $controller){
+                        /*Mixins*/
+                        $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
+                        /*DOM*/
+                        var slider = $('.js-range', $element);
+                        var input = $('.js-range-val', $element);
+
+                        /*Private*/
+                        var min = Number.MAX_VALUE;
+                        var max = 0;
+                        var normalizedPrice = function(){
+                            if($scope.price < min) return min;
+                            if($scope.price > max) return max;
+
+                            return $scope.price;
+                        }
+
+                        /*Properties*/
                         $scope.price = 0;
+                        $scope.isOpen = false;
 
-                        $scope.$watch('price', function(newVal){
-                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Price', value: newVal});
-                        });
+                        /*Methods*/
+                        $scope.onChange = function(){
+                            slider.slider('value', $scope.price);
+                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Price', value: normalizedPrice()});
+                        };
 
-                        $scope.$watchCollection('hotels', function(newVal) {
-                            _.each(newVal, function(hotel) {
-                                var price = ticket.Price;
+                        $scope.reset = function(){
+                            $scope.price = max;
+                            $scope.onChange();
+                        };
 
-                                if(price < $scope.min) $scope.min = price;
+                        var unwatchCollectionTickets = $scope.$watchCollection('tickets', function(newVal) {
+                            if(!newVal || !newVal.list.length) return;
 
-                                if(price > $scope.max) $scope.max = price;
+                            min = newVal.getMinPrice();
+                            max = newVal.getMaxPrice();
+
+                            slider.slider({
+                                range: "min",
+                                min: min,
+                                max: max,
+                                value: max,
+                                slide: function(event, ui) {
+                                    $scope.$apply(function($scope){
+                                        $scope.price = ui.value;
+                                        $scope.onChange();
+                                    });
+                                }
                             });
 
-                            $scope.price = $scope.max;
+                            $scope.reset();
+
+                            unwatchCollectionTickets();
                         });
                     }
                 ]

@@ -145,7 +145,17 @@ inna.Models.Avia.TicketCollection.prototype.getMinPrice = function(){
     }
 
     return min;
-}
+};
+
+inna.Models.Avia.TicketCollection.prototype.getMaxPrice = function(){
+    var max = 0;
+
+    for(var i = 0, ticket = null; ticket = this.list[i++];) {
+        if(ticket.data.Price > max) max = ticket.data.Price;
+    }
+
+    return max;
+};
 
 inna.Models.Avia.TicketCollection.prototype.filter = function(filters) {
     this.each(function(ticket){ ticket.hidden = false; });
@@ -172,6 +182,14 @@ inna.Models.Avia.TicketCollection.prototype._filterByLegs = function(filter) {
         });
 
         ticket.hidden = hide;
+    });
+};
+
+inna.Models.Avia.TicketCollection.prototype._filterByPrice = function(filter){
+    this.each(function(ticket){
+        if(ticket.data.Price > filter) {
+            ticket.hidden = true;
+        }
     });
 }
 
