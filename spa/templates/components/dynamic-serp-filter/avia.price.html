@@ -1,5 +1,21 @@
-<div style="border:1px solid blue;">
-    <h2>Фильтр по цене</h2>
-    <input ng-model="price">
-    (min = {{min}}, max = {{max}})
+<span class="filters__link" ng-click="popup.toggle()">Цена</span>
+<div class="filters__baloon filters__baloon_240" ng-show="popup.isOpen">
+    <div class="filter__range-container">
+        <span class="filter__range">до <input type="text" class="js-range-val" ng-model="price" ng-change="onChange()"> <span class="rub">Р</span></span>
+        <a href="javascript:void(0);" class="ra-header-link" ng-click="reset()">Сбросить</a>
+    </div>
+    <div class="js-range filter__range-trackbar"></div>
 </div>
+
+
+
+
+
+
+
+
+<!--<div style="border:1px solid blue;">-->
+    <!--<h2>Фильтр по цене</h2>-->
+    <!--<input ng-model="price">-->
+    <!--(min = {{min}}, max = {{max}})-->
+<!--</div>-->
