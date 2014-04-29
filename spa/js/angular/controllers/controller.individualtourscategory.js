@@ -125,6 +125,7 @@ innaAppControllers.
                 });
                 //пропускаем пустые страны
                 countriesList = _.filter(countriesList, function (item) { return item.id > 0; });
+				countriesList = _.sortBy(countriesList, function(item) { return item.name; });
                 //добавляем путнкт все в начало
                 countriesList.unshift(new idNameItem(0, "Все"));
                 $scope.countriesList = countriesList;
