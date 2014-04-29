@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="/spa/css/main.css" />
     <link rel="stylesheet" href="/spa/css/styles.min.css" />
-    <link rel="stylesheet" href="/spa/css/tickets.min.css" />
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="/spa/css/ie.min.css" />
     <![endif]-->
@@ -61,11 +60,18 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                 --><span class="header-text"></span><!--
                 --><div class="header-info-container-right">
                     <ul class="header-info-menu" style="margin-right:0px;">
-                        <li class="header-info-menu-item"><a href="http://www.inna.ru/booking/tour/search/">Агентам</a></li><!--
+                        <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li><!--
                         --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
                         --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
                     </ul><!--
-                    -->
+                    --><span class="header-login">
+                        <a href="#" class="" ng-click="headLoginBtnclick($event)"><i class="icon icon-user"></i>Войти</a>
+                        <!--<form class="header-login-form-popup">
+                            <div class="field-row"><input class="field" type="text" placeholder="Логин" /></div>
+                            <div class="field-row"><input class="field" type="password" placeholder="Пароль" /></div>
+                            <button class="button">Войти</button>
+                        </form>-->
+                    </span>
                 </div>
             </div>
         </div>
@@ -79,9 +85,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                 --><!--<li class="header-menu-item"><a href="/#/autorent/" ng-class="{active:isActive('/autorent/')}">Аренда авто</a></li>--><!--
                 --><!--<li class="header-menu-item"><a href="/#/insurance/" ng-class="{active:isActive('/insurance/')}">Страхование</a></li>--><!--
                 --><!--<li class="header-menu-item"><a href="/#/cruise/" ng-class="{active:isActive('/cruise/')}">Круизы</a></li>-->
-                <li class="header-menu-item header-login">
-                    <a href="#" class="header-login-link" ng-click="headLoginBtnclick($event)"><i class="icon icon-user"></i>Регистрация и вход</a>
-                </li>
             </ul>
         <ng:include src="getHeadForm()"></ng:include>
         </div>
@@ -208,8 +211,8 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js"></script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFfw0SZX3LR9RKjnb05jqLS79kfBQ8kzc&sensor=false"></script>
-<script type="text/javascript" src="/spa/js/google.maps.clustering.js"></script>
+<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFfw0SZX3LR9RKjnb05jqLS79kfBQ8kzc&sensor=false"></script>-->
+<!--<script type="text/javascript" src="/spa/js/google.maps.clustering.js"></script>-->
 
 
 
@@ -235,7 +238,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <!-- build:app-main-js -->  <!--файлы заменяются при билде на app-main.js-->
 <script src="/spa/js/debug.js"></script>
 
-<script src="/spa/js/angular/helpers/utils.js"></script>
 <script src="/spa/js/angular/helpers/urlhelper.js"></script>
 <script src="/spa/js/angular/helpers/date.helper.js"></script>
 <script src="/spa/js/angular/helpers/string.helper.js"></script>
@@ -247,13 +249,10 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/datepicker.js"></script>
 <script src="/spa/js/angular/app.js"></script>
 
-<script src="/spa/js/angular/ang.helpers/url.helper.js"></script>
-<script src="/spa/js/angular/ang.helpers/api.js"></script>
-<script src="/spa/js/angular/ang.helpers/avia.helper.js"></script>
-<script src="/spa/js/angular/ang.helpers/ajax.helper.js"></script>
+<script src="/spa/js/angular/helpers/url.helper.js"></script>
+<script src="/spa/js/angular/helpers/api.js"></script>
 <script src="/spa/js/angular/filters.js"></script>
 <script src="/spa/js/angular/services/services.js"></script>
-<script src="/spa/js/angular/services/service.avia.js"></script>
 <script src="/spa/js/angular/services/service.data.js"></script>
 <script src="/spa/js/angular/services/service.page.js"></script>
 <script src="/spa/js/angular/services/service.validator.js"></script>
@@ -263,12 +262,12 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/services/service.auth.data.provider.js"></script>
 <script src="/spa/js/angular/services/service.events.helper.js"></script>
 <script src="/spa/js/angular/services/service.payment.js"></script>
+<script src="/spa/js/angular/services/service.avia.helper.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/auth.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/signup.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/signin.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/restore.js"></script>
 <script src="/spa/js/angular/controllers/controller.about.js"></script>
-<script src="/spa/js/angular/controllers/helpers/controller.reserve.tickets.js"></script>
 <script src="/spa/js/angular/controllers/avia/controller.avia.reserve.tickets.js"></script>
 <script src="/spa/js/angular/controllers/avia/controller.avia.buy.tickets.js"></script>
 <script src="/spa/js/angular/controllers/avia/controller.avia.form.js"></script>
@@ -293,9 +292,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.dynamic/morda.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/serp.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/serp.filter-indicator.js"></script>
-<script src="/spa/js/angular/controllers/controller.dynamic/reserve.js"></script>
 <script src="/spa/js/angular/controllers/controllers.js"></script>
-<script src="/spa/js/angular/directives/directive.baloon.js"></script>
 <script src="/spa/js/angular/directives/directive.combobox.js"></script>
 <script src="/spa/js/angular/directives/directive.datepicker.2months.js"></script>
 <script src="/spa/js/angular/directives/directive.datepicker.custom.js"></script>
@@ -318,12 +315,11 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/directives/directive.dynamic.serp.map.component.js"></script>
 <script src="/spa/js/angular/directives/directive.partial.select.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-ticket.component.js"></script>
-<script src="/spa/js/angular/models/app.model.js"></script>
 <script src="/spa/js/angular/models/app.model.avia.js"></script>
+<script src="/spa/js/angular/models/app.model.js"></script>
 <script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
 <script src="/spa/js/angular/models/app.model.tours.js"></script>
 <script src="/spa/js/angular/models/app.model.dynamic.js"></script>
-<script src="/spa/js/angular/models/auth.js"></script>
 <!-- endbuild -->
 
 
@@ -473,6 +469,23 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
 <noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>-->
 <!-- /Yandex.Metrika counter -->
+
+<div class="popup-fade"></div>
+<div class="popup-container">
+    <div class="popup recover-password-form step-3">
+        <div class="popup-close-button"></div>
+        <form class="popup-form reg-form-result">
+            <span class="icon-check-green"></span>
+            <p class="reg-form-result-text">
+                <b class="reg-form-result-text-warning">Новый пароль создан</b><br/>
+                Войдите на сайт по новым паролем
+            </p>
+            <div class="popup-form-row popup-form-row-submit">
+                <button class="button">Войти</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

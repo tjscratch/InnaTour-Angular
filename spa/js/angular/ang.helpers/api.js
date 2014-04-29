@@ -26,6 +26,7 @@ angular.module('innaApp.API', [])
 
             PURCHASE_TRANSPORTER_GET_ALLIANCE: url('/Transporter/GetAllianceByName'),
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),
+            AVIA_FROM_SUGGEST: url('/Dictionary/Directory/Get'),
             AVIA_RESERVATION: url('/AviaOrder/Reservation'),
             AVIA_RESERVATION_GET_VARIANT: url('/AviaOrder/GetVariant'),
             AVIA_RESERVATION_GET_PAY_DATA: url('/Payment/Index'),
