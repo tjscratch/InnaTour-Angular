@@ -12,10 +12,12 @@ innaAppControllers.
                 $log.log(msg);
             }
 
-            $scope.baloon = aviaHelper.baloon;
-            
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
+
+            $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может затять несколько минут', function () {
+                $location.path(Urls.URL_AVIA);
+            });
 
             $scope.getSliderTimeFormat = aviaHelper.getSliderTimeFormat;
             $scope.getTransferCountText = aviaHelper.getTransferCountText;

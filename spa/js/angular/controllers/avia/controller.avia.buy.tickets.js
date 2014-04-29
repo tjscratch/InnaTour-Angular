@@ -12,8 +12,6 @@ innaAppControllers.
                 $log.log(msg);
             }
 
-            $scope.baloon = aviaHelper.baloon;
-
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
@@ -405,10 +403,27 @@ Cvc = "486";
                             //успешно
                             if (data.PreauthStatus == 1) {
                                 //3dSecure
+                                var jData = angular.fromJson(data.Data);
+                                console.log(jData);
+                                var params = '';
+                                var keys = _.keys(jData);
+                                _.each(keys, function (key) {
+                                    if (keys.indexOf(key) > 0) {
+                                        params += '&';
+                                    }
+                                    params += key + '=' + encodeURIComponent(jData[key]);
+                                });
+                                $scope.baloon.hide();
+                                $scope.iframeUrl = ('http://spa.inna.travel/spa/templates/pages/avia/pay_form.html?' + params);
+                                //location.href = $scope.iframeUrl;
+
+                                $scope.is3dscheck = true;
+                                checkPayment();
                             }
                             else if (data.PreauthStatus == 2) {
+                                $scope.is3dscheck = false;
                                 //без 3dSecure
-                                checkPayment($scope.criteria.OrderNum);
+                                checkPayment();
                             }
                             else {
                                 //ошибка
@@ -448,6 +463,11 @@ Cvc = "486";
                                 if (data == "true") {
                                     //прекращаем дергать
                                     $interval.cancel(intCheck);
+
+                                    //скрываем попап с фреймом 3ds
+                                    if ($scope.is3dscheck) {
+                                        $scope.iframeUrl = null;
+                                    }
 
                                     $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту',
                                         aviaHelper.baloonType.success, function () {
