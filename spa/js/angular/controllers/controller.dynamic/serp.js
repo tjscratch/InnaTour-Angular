@@ -83,11 +83,6 @@ innaAppControllers
             }
 
 //            doesTicketFit.comparators = {
-//                Price: function(ticket, value) {
-//                    if(!value) return true;
-//
-//                    return ticket.Price <= value;
-//                },
 //                Time: function(ticket, value) {
 //                    var show = false;
 //
