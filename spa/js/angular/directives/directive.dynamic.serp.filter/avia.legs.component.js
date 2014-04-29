@@ -9,51 +9,87 @@ angular.module('innaApp.directives')
                 controller: [
                     '$scope', 'innaApp.API.events',
                     function($scope, Events){
-                        $scope.options = [{
-                            id: 'Stright',
-                            title: 'Прямой',
-                            show: false,
-                            comparator: function(l){ return l == 1; },
-                            selected: false
-                        }, {
-                            id: 'OneJump',
-                            title: '1 пересадка',
-                            show: false,
-                            comparator: function(l){ return l == 2; },
-                            selected: false
-                        }, {
-                            id: 'MultipleJumps',
-                            title: '2+ пересадки',
-                            show: false,
-                            comparator: function(l) { return l > 2; },
-                            selected: false
-                        }];
+                        /*Models*/
+                        function Option(id, title, comparator){
+                            this.id = id;
+                            this.title = title;
+                            this.comparator = comparator;
 
-                        $scope.$watchCollection('tickets', function(newVal){
-                            _.each($scope.options, function(option){
-                                var ticket = _.find(newVal, function(ticket){
-                                    return option.comparator(ticket.EtapsTo.length) || option.comparator(ticket.EtapsBack.length);
+                            this.shown = false;
+                            this.selected = false;
+                            this.minPrice = NaN;
+                        }
+
+                        function Options(options){
+                            this.options = options;
+                        }
+
+                        Options.prototype.each = function(fn){
+                            for(var i = 0, option = null; option = this.options[i++];) {
+                                fn.call(this, option);
+                            }
+                        };
+
+                        Options.prototype.hasSelected = function(){
+                            var hasSelected = false;
+
+                            this.each(function(option){
+                                hasSelected = hasSelected || option.selected;
+                            });
+
+                            return hasSelected;
+                        };
+
+                        /*Properties*/
+                        $scope.options = new Options([
+                            new Option('Stright', 'Прямой', function(l){ return l == 1; }),
+                            new Option('OneJump', '1 пересадка', function(l){ return l == 2; }),
+                            new Option('MultipleJumps', '2+ пересадки', function(l) { return l > 2; })
+                        ]);
+
+                        $scope.isOpen = false;
+
+                        /*Methods*/
+                        $scope.onChange = function(){
+                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Legs', value: angular.copy($scope.options)});
+                        };
+
+                        $scope.reset = function(){
+                            $scope.options.each(function(option){
+                                option.selected = false;
+                            });
+
+                            $scope.onChange();
+                        };
+
+                        $scope.toggle = function(){
+                            $scope.isOpen = !$scope.isOpen;
+                        }
+
+                        /*Watchers*/
+                        var unwatchCollectionTickets = $scope.$watchCollection('tickets', function(newVal){
+                            if(newVal && newVal.list.length){
+                                $scope.options.each(function(option){
+                                    var tickets = new inna.Models.Avia.TicketCollection();
+
+                                    newVal.each(function(ticket){
+                                        var fits = option.comparator(ticket.getEtaps('To').length) ||
+                                            option.comparator(ticket.getEtaps('Back').length);
+
+                                        if(fits) {
+                                            tickets.push(ticket);
+                                        }
+                                    });
+
+                                    if(tickets.size()) {
+                                        option.shown = true;
+                                        option.minPrice = tickets.getMinPrice();
+                                    }
                                 });
 
-                                if(ticket) { //at least one
-                                    option.show = true;
-                                }
-                            });
+                                unwatchCollectionTickets();
+                            }
                         });
-
-                        $scope.onChange = function(){
-                            var legs = _.reduce($scope.options, function(memo, option){
-                                if(option.selected) {
-                                    memo[option.id] = {
-                                        title: option.title,
-                                        comparator: option.comparator
-                                    }
-                                }
-
-                                return memo;
-                            }, {});
-                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Legs', value: legs});
-                        };
 
                         $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, 'Legs.*'), function(event, data){
                             var optionToTurnOff = _.findWhere($scope.options, {id: data.split('.')[1]});

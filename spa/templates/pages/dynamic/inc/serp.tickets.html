@@ -8,35 +8,23 @@
 
 
 
-
-            <li>
-                <span href="#" class="filters__link">Пересадки</span>
-            </li>
-            <li>
-                <span href="#" class="filters__link">Цена</span>
-            </li>
-            <li>
-                <span href="#" class="filters__link">Время</span>
-            </li>
-            <li>
-                <span href="#" class="filters__link">Авиакомпания</span>
-            </li>
-            <li>
-                <span href="#" class="filters__link">Аэропорт</span>
-            </li>
+<!--
             <li class="filters__sort">
                 <span href="#" class="filters__link">Сортировать по времени прилета</span>
             </li>
+-->
         </ul>
     </div>
 </div>
 
 <div class="results-container results-container_top">
     <div class="results-list results-list_720">
-        <div ng-repeat="ticket in filteredTickets(ticketFilters)"
+        <div ng-repeat="ticket in tickets.list"
+             ng-if="!ticket.hidden"
              inna-ticket
              inna-ticket-ticket="ticket"
-             inna-ticket-get-ticket-details="getTicketDetails(ticket)"></div>
+             inna-ticket-get-ticket-details="getTicketDetails(ticket)">
+        </div>
     </div>
 </div>
 

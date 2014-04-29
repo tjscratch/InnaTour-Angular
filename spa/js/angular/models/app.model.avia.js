@@ -135,11 +135,50 @@ inna.Models.Avia.TicketCollection.prototype.search = function(id1, id2){
     }
 
     return ticket || DEFAULT;
+};
+
+inna.Models.Avia.TicketCollection.prototype.getMinPrice = function(){
+    var min = Number.MAX_VALUE;
+
+    for(var i = 0, ticket = null; ticket = this.list[i++];) {
+        if(ticket.data.Price < min) min = ticket.data.Price;
+    }
+
+    return min;
+}
+
+inna.Models.Avia.TicketCollection.prototype.filter = function(filters) {
+    this.each(function(ticket){ ticket.hidden = false; });
+
+    for(var filterName in filters) if(filters.hasOwnProperty(filterName)) {
+        this['_filterBy' + filterName](filters[filterName]);
+    }
+
+    return this.list;
+}
+
+inna.Models.Avia.TicketCollection.prototype._filterByLegs = function(filter) {
+    if(!filter.hasSelected()) return;
+
+    this.each(function(ticket){
+        var hide = true;
+        var legsTo = ticket.getEtaps('To').length;
+        var legsBack = ticket.getEtaps('Back').length;
+
+        filter.each(function(option){
+            if(!option.selected) return;
+
+            hide = hide && !(option.comparator(legsTo) && option.comparator(legsBack));
+        });
+
+        ticket.hidden = hide;
+    });
 }
 
 inna.Models.Avia.Ticket = function (){
     this.data = null;
-}
+    this.hidden = false;
+};
 
 inna.Models.Avia.Ticket.prototype.setData = function(data) {
     this.data = angular.copy(data);

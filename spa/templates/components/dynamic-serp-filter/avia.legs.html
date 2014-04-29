@@ -1,31 +1,19 @@
-<span class="filters__link">Пересадки</span>
-<div class="filters__baloon">
+<span class="filters__link" ng-click="toggle()">Пересадки</span>
+<div class="filters__baloon" ng-if="isOpen">
     <header class="ra-header">
         <h4 class="ra-title">Колличество пересадок</h4>
-        <a class="ra-header-link" href="#">Сбросить</a>
+        <a class="ra-header-link" href="javascript:void(0);" ng-click="reset()">Сбросить</a>
     </header>
     <div class="ra-content">
         <ul class="ra-fly-type-list">
-            <li>
+            <li ng-repeat="option in options.options" ng-if="option.shown">
                 <label>
-                    <input type="checkbox" checked="" name="fly">
+                    <input type="checkbox" ng-model="option.selected"  ng-change="onChange(option)" name="fly">
                     <span class="ra-checkbox"></span>
-                    <span class="ra-fly-type">Без пересадок</span>
-                    <span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span>
+                    <span class="ra-fly-type">{{option.title}}</span>
+                    <span class="ra-fly-price">{{option.minPrice}}&nbsp;<span class="rub">Р</span></span>
                 </label>
             </li>
-
-            <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
-            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
-            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">2+ пересадки</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
         </ul>
     </div>
 </div>
-
-        <!--
-<div ng-repeat="option in options">
-    <div ng-show="option.show">
-        <input type="checkbox" ng-model="option.selected" ng-change="onChange(option)"> {{option.title}}
-    </div>
-</div>
-        -->

@@ -82,37 +82,25 @@ innaAppControllers
                 return doesTicketFit.comparators[filter](ticket, value);
             }
 
-            doesTicketFit.comparators = {
-                Legs: function(ticket, value){
-                    if(angular.equals(value, {})) return true;
-
-                    var show = false;
-
-                    $.each(value, function(i, option){
-                        show = show ||
-                            (option.comparator(ticket.EtapsTo.length) && option.comparator(ticket.EtapsBack.length));
-                    });
-
-                    return show;
-                },
-                Price: function(ticket, value) {
-                    if(!value) return true;
-
-                    return ticket.Price <= value;
-                },
-                Time: function(ticket, value) {
-                    var show = false;
-
-                    if(angular.equals(value, {})) return true;
-
-                    $.each(value, function(key, range){
-                        var prop = key.split('.')[0];
-                        show = show || dateHelper.isHoursBetween(ticket[prop], range);
-                    });
-
-                    return show;
-                }
-            };
+//            doesTicketFit.comparators = {
+//                Price: function(ticket, value) {
+//                    if(!value) return true;
+//
+//                    return ticket.Price <= value;
+//                },
+//                Time: function(ticket, value) {
+//                    var show = false;
+//
+//                    if(angular.equals(value, {})) return true;
+//
+//                    $.each(value, function(key, range){
+//                        var prop = key.split('.')[0];
+//                        show = show || dateHelper.isHoursBetween(ticket[prop], range);
+//                    });
+//
+//                    return show;
+//                }
+//            };
 
             function updateCombination(o) {
                 if(!$scope.combination) $scope.combination = {};
@@ -171,22 +159,6 @@ innaAppControllers
                 return hotelsToShow;
             }
 
-            $scope.filteredTickets = function(filters) {
-                var ticketsToShow = _.filter($scope.tickets.list, function(ticket) {
-                    var show = true;
-
-                    $.each(filters, function(filter, value){
-                        show = show && doesTicketFit(ticket, filter, value);
-
-                        return show;
-                    });
-
-                    return show;
-                });
-
-                return ticketsToShow;
-            }
-
             $scope.getHotelDetails = function(hotel){
                 DynamicPackagesDataProvider.hotelDetails(
                     hotel.HotelId, hotel.ProviderId,
@@ -238,6 +210,8 @@ innaAppControllers
 
             $scope.$on(Events.DYNAMIC_SERP_FILTER_TICKET, function(event, data){
                 $scope.ticketFilters[data.filter] = data.value;
+
+                $scope.tickets.filter($scope.ticketFilters)
 
                 $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
                     type: 'ticket',

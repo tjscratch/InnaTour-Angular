@@ -225,18 +225,28 @@ _.provide('inna.Models');
 inna.Models._CollectionFactory = function(){
     function Collection(){
         this.list = [];
-    }
+    };
+
+    Collection.prototype.size = function(){
+        return this.list.length;
+    };
 
     Collection.prototype.push = function(smth){
         this.list.push(smth);
-    }
+    };
 
     Collection.prototype.flush = function(){
         this.list = [];
-    }
+    };
 
     Collection.prototype.setList = function(list){
         this.list = list;
+    };
+
+    Collection.prototype.each = function(fn){
+        for(var i = 0, item = null; item = this.list[i++];) {
+            fn.call(this, item);
+        }
     }
 
     return Collection;
