@@ -259,13 +259,35 @@ inna.Models.Avia.TicketCollection.prototype._filterByAirlines = function(options
         if(!selected.length) return;
 
         for(var i = 0, option = null; option = selected[i++];) {
-            if(!option.selected) continue;
 
             var airlines = ticket.collectAirlines();
 
             for(var code in airlines) if(airlines.hasOwnProperty(code)) {
                 show = show || (airlines[code] == option.name);
             }
+        }
+
+        if(!show) {
+            ticket.hidden = true;
+        }
+    });
+};
+
+inna.Models.Avia.TicketCollection.prototype._filterByAirports = function(options){
+    this.each(function(ticket){
+        var show = false;
+
+        var selected = [];
+        for(var i = 0, option = null; option = options.options[i++];) {
+            if(option.selected) selected.push(option);
+        }
+
+        if(!selected.length) return;
+
+        for(var i = 0, option = null; option = selected[i++];) {
+            ticket.everyEtap(function(etap){
+                show = show || etap.data.InCode == option.code || etap.data.OutCode == option.code;
+            });
         }
 
         if(!show) {
@@ -314,6 +336,14 @@ inna.Models.Avia.Ticket.prototype.getDuration = function(dir){
 inna.Models.Avia.Ticket.prototype.getEtaps = function(dir) {
     return this.data['Etaps' + dir];
 };
+
+inna.Models.Avia.Ticket.prototype.everyEtap = function(cb){
+    for(var i = 0, dir = '', etaps = null; (dir = ['To', 'Back'][i++]) && (etaps = this.getEtaps(dir));) {
+        for(var j = 0, etap = null; etap = etaps[j++];) {
+            cb.call(this, etap);
+        }
+    }
+}
 
 inna.Models.Avia.Ticket.prototype.getNextEtap = function(dir, current){
     var etaps = this.getEtaps(dir);
