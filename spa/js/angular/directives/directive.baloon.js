@@ -35,6 +35,9 @@ innaAppDirectives.
                     //доп данные для названий нкопок и т.д.
                     if ($scope.data != null && _.has($scope.data, 'buttonCaption')) {
                         $scope.buttonCaption = $scope.data.buttonCaption;
+                        if (_.has($scope.data, 'successFn')) {
+                            $scope.successFn = $scope.data.successFn;
+                        }
                     }
                 });
 
@@ -89,8 +92,8 @@ innaAppDirectives.
 
                 $scope.clickFn = function ($event) {
                     eventsHelper.preventBubbling($event);
-                    if ($scope.closeFn != null) {
-                        $scope.closeFn();
+                    if ($scope.successFn != null) {
+                        $scope.successFn();
                     }
                 };
 

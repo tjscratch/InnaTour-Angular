@@ -28,6 +28,7 @@
         <a href="#" class="button baloon-button">Повторить поиск</a>
     </div>-->
     <div class="balloon" ng-show="(type == baloonType.success)">
+        <div class="baloon-close" title="Закрыть" ng-click="close($event)"></div>
         <div class="baloon-mail"></div>
         <div class="baloon-title" ng-bind-html="caption | breakFilter"></div>
         <p class="balloon-info" ng-bind-html="text | breakFilter"></p>

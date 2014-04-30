@@ -1,16 +1,37 @@
-﻿<html>
+﻿<html style="background-color:white;">
+<head>
+    <link rel="stylesheet" href="http://spa.inna.travel/spa/css/tickets.min.css" />
+</head>
 <body>
     <form method="post" action="">
         <input name="PaReq" type="hidden" value="" />
         <input name="TermUrl" type="hidden" value="" />
         <input name="MD" type="hidden" value="" />
-        <input type="submit" value="submit" />
+        <input type="submit" value="submit" style="visibility:hidden;"/>
+        <!--<input type="submit" value="submit"/>-->
     </form>
+
+<div class="overlay js-overlay" style="display:block;">
+    <div class="balloon">
+        <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
+        <div class="baloon-title">Подождите, идет оплата</div>
+            <p class="balloon-info">это может занять до нескольких минут</p>
+    </div>
+</div>
+
     <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
-    <script src="http://spa.inna.travel/spa/js/angular/helpers/urlhelper.js"></script>
 </body>
 </html>
 <script type="text/javascript">
+    QueryString = {
+        getByName: function (name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+    };
+
     var actionUrl = QueryString.getByName('redirect');
     var PaReq = QueryString.getByName('PaReq');
     var TermUrl = QueryString.getByName('TermUrl');
