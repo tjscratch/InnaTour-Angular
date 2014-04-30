@@ -85,7 +85,11 @@ gulp.task('release-html-replace', function () {
 
 //===============Склеиваем app-main.js========================
 function getSrcFiles(folder){
-	return [folder + '/spa/js/angular/helpers/*.js', folder + '/spa/js/angular/models/app.model.js', folder + '/spa/js/angular/**/*.js'];
+    gulp.src(['../index.html']).pipe(function(){
+        console.log(arguments);
+    });
+
+    return [folder + '/spa/js/angular/helpers/*.js', folder + '/spa/js/angular/models/app.model.js', folder + '/spa/js/angular/**/*.js'];
 }
 
 gulp.task('test-build-app-main-js', function () {

@@ -78,25 +78,6 @@ innaAppControllers
                 }
             };
 
-            function doesTicketFit(ticket, filter, value) {
-                return doesTicketFit.comparators[filter](ticket, value);
-            }
-
-//            doesTicketFit.comparators = {
-//                Time: function(ticket, value) {
-//                    var show = false;
-//
-//                    if(angular.equals(value, {})) return true;
-//
-//                    $.each(value, function(key, range){
-//                        var prop = key.split('.')[0];
-//                        show = show || dateHelper.isHoursBetween(ticket[prop], range);
-//                    });
-//
-//                    return show;
-//                }
-//            };
-
             function updateCombination(o) {
                 if(!$scope.combination) $scope.combination = {};
 
