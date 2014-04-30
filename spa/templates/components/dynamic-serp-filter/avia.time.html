@@ -1,80 +1,31 @@
 <span class="filters__link" ng-click="popup.toggle()">Время</span>
 <div class="filters__baloon filters__baloon_240" ng-show="popup.isOpen">
-    <header class="ra-header">
-        <h4 class="ra-title">Перелет туда</h4>
-        <a class="ra-header-link" href="#">Сбросить</a>
-    </header>
-    <ul class="filters__baloon-radio">
-        <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Вылет</span></label></li>
-        <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Прилет</span></label></li>
-    </ul>
-    <div class="filters__baloon-days">
-        <ul class="ra-fly-type-list">
-            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
-            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
-        </ul>
-        <ul class="ra-fly-type-list">
-            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
-            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
-        </ul>
-    </div>
-    <div class="ra-separator"></div>
-    <header class="ra-header">
-        <h4 class="ra-title">Перелет обратно</h4>
-        <a class="ra-header-link" href="#">Сбросить</a>
-    </header>
-    <ul class="filters__baloon-radio">
-        <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Вылет</span></label></li>
-        <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Прилет</span></label></li>
-    </ul>
-    <div class="filters__baloon-days">
-        <ul class="ra-fly-type-list">
-            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
-            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
-        </ul>
-        <ul class="ra-fly-type-list">
-            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
-            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
-        </ul>
+    <div ng-repeat="direction in directions.directions">
+        <header class="ra-header">
+            <h4 class="ra-title">{{direction.caption}}</h4>
+            <a class="ra-header-link" href="javascript:void(0)" ng-click="reset(direction)">Сбросить</a>
+        </header>
+        <form>
+            <ul class="filters__baloon-radio">
+                <li ng-repeat="state in direction.states.states">
+                    <label ng-click="changeState(direction, state)">
+                        <input type="radio" name="fly-side1" ng-checked="state == direction.states.getCurrent()">
+                        <span class="ra-radio">{{state.caption}}</span>
+                    </label>
+                </li>
+            </ul>
+            <div class="filters__baloon-days">
+                <ul class="ra-fly-type-list">
+                    <li ng-repeat="option in options.options" ng-if="option.isAvailable && option.direction == direction && option.state == direction.states.getCurrent()">
+                        <label>
+                            <input type="checkbox" ng-model="option.isChecked" ng-change="onChangeOption()">
+                            <span class="ra-checkbox"></span>
+                            <span class="ra-fly-type">{{option.caption}}</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </form>
+        <div class="ra-separator" ng-show="!$last"></div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-<!--
-
-
-
-
-
-
-<h1>Время перелета</h1>
-
-<div inna-dynamic-serp-filter-avia-time-section
-     inna-dynamic-serp-filter-avia-time-section-caption="Перелет туда"
-     inna-dynamic-serp-filter-avia-time-section-dir="To"></div>
-
-<div inna-dynamic-serp-filter-avia-time-section
-     inna-dynamic-serp-filter-avia-time-section-caption="Перелет обратно"
-     inna-dynamic-serp-filter-avia-time-section-dir="Back"></div>
-
-<script type="text/ng-template" id="/spa/templates/components/dynamic-serp-filter/avia.time.html/section">
-    <h2>{{caption}}</h2>
-    <form style="border:1px solid green;">
-        <div><input type="radio" name="inna-dynamic-serp-filter-avia-time-section-radio" ng-model="property" ng-value="DEPARTURE">Вылет</div>
-        <div><input type="radio" name="inna-dynamic-serp-filter-avia-time-section-radio" ng-model="property" ng-value="ARRIVAL">Прилет</div>
-
-        <div ng-repeat="prop in [DEPARTURE, ARRIVAL]" ng-show="property == prop">
-            <div ng-repeat="(modelName, model) in models"  ng-show="model[prop].show">
-                <input type="checkbox" ng-model="model[prop].checked" ng-change="onChange()">{{names[modelName]}}
-            </div>
-        </div>
-    </form>
-</script>
-
--->

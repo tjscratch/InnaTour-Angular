@@ -9,130 +9,146 @@ angular.module('innaApp.directives')
                 controller: [
                     '$scope', 'innaApp.API.events', '$element', '$controller',
                     function($scope, Events, $element, $controller) {
+                        /*Mixins*/
                         $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
-                        this.HAS_EVENT = 'inna.innaDynamicSerpFilterAviaTime.Has';
-                        this.CHANGE_EVENT = 'inna.innaDynamicSerpFilterAviaTime.Changed';
+                        /*Models*/
+                        function BaseOption(caption, start, end){
+                            this.start = start;
+                            this.end = end;
+                            this.caption = caption;
+                        }
 
-                        this.MORNING = 'Morning';
-                        this.DAY = 'Day';
-                        this.EVENING = 'Evening';
-                        this.NIGHT = 'Night';
-                        this.ARRIVAL = 'ArrivalDate';
-                        this.DEPARTURE = 'DepartureDate';
+                        function Option(direction, state, baseOption){
+                            this.direction = direction;
+                            this.state = state;
+                            this.caption = baseOption.caption;
+                            this.start = baseOption.start;
+                            this.end = baseOption.end;
 
-                        var self = this;
+                            this.isAvailable = false;
+                            this.isChecked = false;
+                        }
 
-                        var starts = {};
-                        starts[this.MORNING] = 6;
-                        starts[this.DAY] = 12;
-                        starts[this.EVENING] = 18;
-                        starts[this.NIGHT] = 0;
+                        function Options() {
+                            this.options = [];
+                        }
 
-                        var ends = {};
-                        ends[this.MORNING] = 12;
-                        ends[this.DAY] = 18;
-                        ends[this.EVENING] = 24;
-                        ends[this.NIGHT] = 6;
+                        Options.prototype.push = function(option) {
+                            this.options.push(option);
+                        };
 
-                        var prefixes = {To: '', Back: 'Back'};
+                        Options.prototype.reset = function(dir) {
+                            for(var i = 0, option = null; option = this.options[i++];) {
+                                if(option.direction == dir) option.isChecked = false;
+                            }
+                        }
 
-                        $scope.flat = {};
+                        function State(property, caption, direction) {
+                            this.caption = caption;
+                            this.property = property;
 
-                        $scope.$watch('tickets', function(newVal){
-                            _.each(prefixes, function(prefix, dir){
-                                _.each([self.MORNING, self.DAY, self.EVENING, self.NIGHT], function(period){
-                                    var start = starts[period], end = ends[period];
+                            this.isCurrent = false;
+                        }
 
-                                    _.each([self.ARRIVAL, self.DEPARTURE], function(property){
-                                        if(_.find(newVal, function(ticket){
-                                            return dateHelper.isHoursBetween(ticket[prefix + property], start, end);
-                                        })) {
-                                            var eData = {
-                                                property: property
-                                            };
-                                            eData[dir] = period;
+                        function States(list) {
+                            this.states = list;
 
-                                            $scope.$broadcast(self.HAS_EVENT, eData);
-                                        }
-                                    });
+                            this.setCurrent(this.states[0]);
+                        }
+
+                        States.prototype.setCurrent = function(state){
+                            for(var i = 0, st = null; st = this.states[i++];) {
+                                if(st == state) st.isCurrent = true;
+                                else st.isCurrent = false;
+                            }
+                        };
+
+                        States.prototype.getCurrent = function(){
+                            for(var i = 0, st = null; st = this.states[i++];) {
+                                if(st.isCurrent) return st;
+                            }
+
+                            return null;
+                        };
+
+                        function Direction(name, prefix, caption) {
+                            this.name = name;
+                            this.caption = caption;
+                            this.prefix = prefix;
+
+                            this.states = new States([
+                                new State('ArrivalDate', 'Вылет'),
+                                new State('DepartureDate','Прилет')
+                            ]);
+                        }
+
+                        function Directions(list) {
+                            this.directions = list;
+                        }
+
+                        /*Properties*/
+                        $scope.directions = new Directions([
+                            new Direction('To', '', 'Перелет туда'),
+                            new Direction('Back', 'Back', 'Перелет обратно')
+                        ]);
+
+                        $scope.options = (function(){
+                            var options = new Options();
+                            var baseOptions = [
+                                new BaseOption('Утро', 6, 12),
+                                new BaseOption('День', 12, 18),
+                                new BaseOption('Вечер', 18, 0),
+                                new BaseOption('Ночь', 24, 6)
+                            ];
+
+                            for(var i = 0, dir = null; dir = $scope.directions.directions[i++];) {
+                                for(var j = 0, state = null; state = dir.states.states[j++];) {
+                                    for(var k = 0, baseOption = null; baseOption = baseOptions[k++];) {
+                                        options.push(new Option(dir, state, baseOption));
+                                    }
+                                }
+                            }
+
+                            return options;
+                        })();
+
+                        /*Methods*/
+                        $scope.changeState = function(dir, state){
+                            dir.states.setCurrent(state);
+
+                            $scope.onChangeOption();
+                        }
+
+                        $scope.onChangeOption = function(){
+                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Time', value: $scope.options});
+                        };
+
+                        $scope.reset = function(dir) {
+                            $scope.options.reset(dir);
+                        }
+
+                        /*Watchers*/
+                        var unwatchCollectionTickets = $scope.$watchCollection('tickets', function(tickets){
+                            if(!tickets || !tickets.list.length) return;
+
+                            for(var i = 0, option = null; option = $scope.options.options[i++];) {
+                                var atLeastOne = tickets.advancedSearch(function(ticket){
+                                    var propertyName = [option.direction.prefix, option.state.property].join('');
+                                    var date = ticket.data[propertyName];
+
+                                    return dateHelper.isHoursBetween(date, option.start, option.end);
                                 });
-                            });
-                        });
 
-                        $scope.$on(this.CHANGE_EVENT, function(event, data){
-                            _.each(data.value, function(period, periodName){
-                                _.each(period, function(model, property){
-                                    var name = [prefixes[data.dir] + property, periodName].join('.');
-                                    $scope.flat[name] = model.checked && [starts[periodName], ends[periodName]];
-                                });
-                            });
+                                if(atLeastOne) {
+                                    option.isAvailable = true;
+                                }
+                            }
 
-                            var compact = {}
-                            _.each($scope.flat, function(value, key){
-                                if(value) compact[key] = value;
-                            });
-
-                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Time', value: compact});
+                            unwatchCollectionTickets();
                         });
                     }
                 ]
             };
-        }
-    ])
-    .directive('innaDynamicSerpFilterAviaTimeSection', [
-        function(){
-            return {
-                require: '^innaDynamicSerpFilterAviaTime',
-                templateUrl: '/spa/templates/components/dynamic-serp-filter/avia.time.html/section',
-                scope: {
-                    caption: '@innaDynamicSerpFilterAviaTimeSectionCaption',
-                    dir: '@innaDynamicSerpFilterAviaTimeSectionDir'
-                },
-                link: function(scope, element, attrs, parentCtrl){
-                    scope.ARRIVAL = parentCtrl.ARRIVAL;
-                    scope.DEPARTURE = parentCtrl.DEPARTURE;
-
-                    scope.property = scope.ARRIVAL;
-
-                    scope.names = {}
-                    scope.names[parentCtrl.MORNING] = "Утро";
-                    scope.names[parentCtrl.DAY] = "День";
-                    scope.names[parentCtrl.EVENING] = "Вечер";
-                    scope.names[parentCtrl.NIGHT] = "Ночь";
-
-
-                    scope.models = {}
-                    _.each([parentCtrl.MORNING, parentCtrl.DAY, parentCtrl.EVENING, parentCtrl.NIGHT], function(period){
-                        scope.models[period] = {}
-
-                        _.each([scope.ARRIVAL, scope.DEPARTURE], function(prop){
-                            scope.models[period][prop] = {
-                                show: false,
-                                checked: false
-                            }
-                        });
-                    });
-
-                    scope.onChange = function(){
-                        scope.$emit(parentCtrl.CHANGE_EVENT, {dir: scope.dir, value: angular.copy(scope.models)});
-                    };
-
-                    scope.$on(parentCtrl.HAS_EVENT, function(event, data){
-                        if(scope.dir in data) {
-                            var period = data[scope.dir];
-                            scope.models[period][data.property].show = true;
-                        }
-                    });
-
-                    scope.$watch('property', function(newVal, oldVal){
-                        _.each(scope.models, function(period){
-                            period[oldVal].checked = false;
-                        });
-
-                        scope.onChange();
-                    });
-                }
-            }
         }
     ]);

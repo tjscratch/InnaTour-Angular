@@ -127,15 +127,21 @@ _.provide('inna.Models.Avia');
 inna.Models.Avia.TicketCollection = inna.Models._CollectionFactory();
 
 inna.Models.Avia.TicketCollection.prototype.search = function(id1, id2){
+    return this.advancedSearch(function(ticket){
+        return ((ticket.data.VariantId1 == id1) && (ticket.data.VariantId2 == id2));
+    });
+};
+
+inna.Models.Avia.TicketCollection.prototype.advancedSearch = function(criteria){
     var DEFAULT = null;
     var ticket = DEFAULT;
 
     for(var i = 0; ticket = this.list[i++];) {
-        if(ticket.data.VariantId1 == id1 && ticket.data.VariantId2 == id2) break;
+        if(criteria(ticket)) break;
     }
 
     return ticket || DEFAULT;
-};
+}
 
 inna.Models.Avia.TicketCollection.prototype.getMinPrice = function(){
     var min = Number.MAX_VALUE;
@@ -161,7 +167,13 @@ inna.Models.Avia.TicketCollection.prototype.filter = function(filters) {
     this.each(function(ticket){ ticket.hidden = false; });
 
     for(var filterName in filters) if(filters.hasOwnProperty(filterName)) {
-        this['_filterBy' + filterName](filters[filterName]);
+        var methodName = '_filterBy' + filterName;
+
+        if(this[methodName]) {
+            this[methodName](filters[filterName]);
+        } else {
+            console.warn('Can not apply filter %s', methodName);
+        }
     }
 
     return this.list;
@@ -191,6 +203,48 @@ inna.Models.Avia.TicketCollection.prototype._filterByPrice = function(filter){
             ticket.hidden = true;
         }
     });
+};
+
+inna.Models.Avia.TicketCollection.prototype._filterByTime = function(options){
+    function checkOptionsInsideCategory(ticket, options) {
+        if(!options.length) return true;
+
+        var fits = false;
+
+        for(var i = 0, option = null; option = options[i++];) {
+            var propertyName = [option.direction.prefix, option.state.property].join('');
+            var date = ticket.data[propertyName];
+            fits = fits || dateHelper.isHoursBetween(date, option.start, option.end);
+
+            if(fits) break;
+        }
+
+        return fits;
+    }
+
+    var optionsOfInterest = {};
+
+    for(var i = 0, option = null; option = options.options[i++];) {
+        if(!option.isChecked) continue;
+
+        if(option.direction.states.getCurrent() != option.state) continue;
+
+        (optionsOfInterest[option.direction.name] || (optionsOfInterest[option.direction.name] = [])).push(option);
+    }
+
+    this.each(function(ticket){
+        var fits = true;
+
+        for(var p in optionsOfInterest) if(optionsOfInterest.hasOwnProperty(p)) {
+            fits = fits && checkOptionsInsideCategory(ticket, optionsOfInterest[p]);
+        }
+
+        if(!fits) {
+            ticket.hidden = true;
+        }
+    });
+
+    console.log('-----------------');
 }
 
 inna.Models.Avia.Ticket = function (){
