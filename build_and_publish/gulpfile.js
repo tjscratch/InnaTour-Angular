@@ -84,13 +84,17 @@ gulp.task('release-html-replace', function () {
 });
 
 //===============Склеиваем app-main.js========================
+function getSrcFiles(folder){
+	return [folder + '/spa/js/angular/helpers/*.js', folder + '/spa/js/angular/models/app.model.js', folder + '/spa/js/angular/**/*.js'];
+}
+
 gulp.task('test-build-app-main-js', function () {
-    gulp.src([BUILD_TEST_FOLDER + '/spa/js/angular/helpers/*.js', BUILD_TEST_FOLDER + '/spa/js/angular/**/*.js'])
+	gulp.src(getSrcFiles(BUILD_TEST_FOLDER))
 		.pipe(concat('app-main.js'))
-        .pipe(gulp.dest(BUILD_TEST_FOLDER + '/spa/js'));
+		.pipe(gulp.dest(BUILD_TEST_FOLDER + '/spa/js'));
 });
 gulp.task('release-build-app-main-js', function () {
-    gulp.src([BUILD_RELEASE_FOLDER + '/spa/js/angular/helpers/*.js', BUILD_RELEASE_FOLDER + '/spa/js/angular/**/*.js'])
+	gulp.src(getSrcFiles(BUILD_RELEASE_FOLDER))
 		.pipe(concat('app-main.js'))
         .pipe(gulp.dest(BUILD_RELEASE_FOLDER + '/spa/js'));
 });
