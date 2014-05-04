@@ -1,0 +1,50 @@
+.big-map
+  height 700px
+  position relative
+
+  .pin
+    position absolute
+
+    .pin-point
+      background url(../img/map/pin-grey.png)
+      cursor pointer
+      height 49px
+      left -17px
+      position absolute
+      top -44px
+      width 56px
+
+    &:hover
+      .pin-point
+        background url(../img/map/pin-black.png)
+
+    &.green
+      .pin-point
+        cursor pointer
+        background url(../img/map/pin-green.png)
+
+
+    .pin-circle
+      border 2px solid #fff
+      border-radius(50%)
+      background #4d4d4d
+      color #fff
+      cursor pointer
+      font-size 14px
+      height 58px
+      left -31px
+      line-height 80px
+      position absolute
+      text-align center
+      top -31px
+      width 58px
+
+      &:before
+        background url(../img/map/pin-hanger.png)
+        content ''
+        display block
+        height 17px
+        left 25px
+        position absolute
+        top 11px
+        width 10px
