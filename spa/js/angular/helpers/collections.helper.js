@@ -47,4 +47,6 @@ _.provide = function(jPath){
     while(bit = bits.shift()) {
         o = o[bit] || (o[bit] = {});
     }
+
+    return o;
 }

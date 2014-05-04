@@ -3,16 +3,14 @@
 
 innaAppControllers.
     controller('AviaBuyTicketsCtrl', ['$log', '$timeout', '$interval', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper',
+        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'innaApp.Urls',
         function AviaBuyTicketsCtrl($log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper) {
+            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls) {
 
             var self = this;
             function log(msg) {
                 $log.log(msg);
             }
-
-            $scope.baloon = aviaHelper.baloon;
 
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
@@ -405,10 +403,12 @@ Cvc = "486";
                             //успешно
                             if (data.PreauthStatus == 1) {
                                 //3dSecure
+                                processPay3d(data.Data);
                             }
                             else if (data.PreauthStatus == 2) {
+                                $scope.is3dscheck = false;
                                 //без 3dSecure
-                                checkPayment($scope.criteria.OrderNum);
+                                checkPayment();
                             }
                             else {
                                 //ошибка
@@ -428,6 +428,25 @@ Cvc = "486";
                     });
                 }
             };
+
+            function processPay3d(data) {
+                var jData = angular.fromJson(data);
+                console.log(angular.toJson(jData));
+                var params = '';
+                var keys = _.keys(jData);
+                _.each(keys, function (key) {
+                    if (keys.indexOf(key) > 0) {
+                        params += '&';
+                    }
+                    params += key + '=' + encodeURIComponent(jData[key]);
+                });
+
+                $scope.baloon.hide();
+                $scope.iframeUrl = ('http://spa.inna.travel/spa/templates/pages/avia/pay_form.html?' + params);
+
+                $scope.is3dscheck = true;
+                checkPayment();
+            }
 
             function checkPayment() {
                 $scope.isCkeckProcessing = false;
@@ -449,12 +468,21 @@ Cvc = "486";
                                     //прекращаем дергать
                                     $interval.cancel(intCheck);
 
+                                    //скрываем попап с фреймом 3ds
+                                    if ($scope.is3dscheck) {
+                                        $scope.iframeUrl = null;
+                                    }
+
                                     $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту',
                                         aviaHelper.baloonType.success, function () {
-                                            //print
-                                            log('print tickets');
-                                            alert('Не реализовано');
-                                        }, { buttonCaption: 'Распечатать билеты' });
+                                            $location.path(Urls.URL_AVIA);
+                                        }, {
+                                            buttonCaption: 'Распечатать билеты', successFn: function () {
+                                                //print
+                                                log('print tickets');
+                                                alert('Не реализовано');
+                                            }
+                                        });
                                 }
                             }
                         }, function (data, status) {

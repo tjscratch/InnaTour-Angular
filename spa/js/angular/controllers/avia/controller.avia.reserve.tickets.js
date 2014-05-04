@@ -13,8 +13,6 @@ innaAppControllers.
                 $log.log(msg);
             }
 
-            $scope.baloon = aviaHelper.baloon;
-
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
@@ -172,6 +170,7 @@ innaAppControllers.
             }
 
             $scope.afterPayModelInit = function () {
+                //log('$scope.afterPayModelInit');
                 $scope.baloon.hide();
                 fillDefaultModelDelay();
             };
