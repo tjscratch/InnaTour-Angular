@@ -12,12 +12,16 @@ angular.module('innaApp.controllers')
                     Email: $scope.username,
                     Password: $scope.password
                 }, function(data, state, jqXHR){ //success
-                    $rootScope.$broadcast('inna.Auth.SignIn');
-
                     if(!$scope.rememberMe) {
                         //todo IN-845
                     }
                 }, function(){ //error
+                    //TODO move it into SUCCESS
+                    //Danis will make it later
+                    var fishData = {displayName: 'Константин Константинопольский', userpic: 'http://lh.inna.ru:8182/spa/img/borat.png'};
+                    $scope.$emit(Events.AUTH_SIGN_IN, fishData);
+
+
                     $scope.$apply(function($scope){
                         $scope.requestFailure = true;
                     });
