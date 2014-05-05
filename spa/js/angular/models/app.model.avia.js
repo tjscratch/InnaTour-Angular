@@ -189,32 +189,6 @@ inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function(){
     return o;
 };
 
-inna.Models.Avia.TicketCollection.prototype._filterByAirlines = function(options) {
-    this.each(function(ticket){
-        var show = false;
-
-        var selected = [];
-        for(var i = 0, option = null; option = options[i++];) {
-            if(option.selected) selected.push(option);
-        }
-
-        if(!selected.length) return;
-
-        for(var i = 0, option = null; option = selected[i++];) {
-
-            var airlines = ticket.collectAirlines();
-
-            for(var code in airlines) if(airlines.hasOwnProperty(code)) {
-                show = show || (airlines[code] == option.name);
-            }
-        }
-
-        if(!show) {
-            ticket.hidden = true;
-        }
-    });
-};
-
 inna.Models.Avia.TicketCollection.prototype._filterByAirports = function(options){
     this.each(function(ticket){
         var show = false;

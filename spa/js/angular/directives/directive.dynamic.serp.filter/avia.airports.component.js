@@ -3,7 +3,8 @@ angular.module('innaApp.directives')
         return {
             templateUrl: '/spa/templates/components/dynamic-serp-filter/avia.airports.html',
             scope: {
-                tickets: '=innaDynamicSerpFilterAviaAirportsTickets'
+                tickets: '=innaDynamicSerpFilterAviaAirportsTickets',
+                filters: '=innaDynamicSerpFilterAviaAirportsFilters'
             },
             controller: [
                 '$scope', '$element', '$controller', 'innaApp.API.events',
@@ -12,23 +13,23 @@ angular.module('innaApp.directives')
                     $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
                     /*Models*/
-                    function Option(name, code) {
-                        this.name = name;
+                    var Option = inna.Models.Avia.Filters._OptionFactory(function(title, code){
                         this.code = code;
-                        this.selected = false;
+                    });
+
+                    Option.prototype.describe = function(){
+                        return '# (%)'.split('#').join(this.title).split('%').join(this.code)
                     }
 
-                    function Options() {
-                        this.options = [];
-                    }
+                    var Options = inna.Models.Avia.Filters._OptionsFactory();
 
                     Options.prototype.pushUnique = function(option){
                         var existing = this._searchByCode(option.code);
 
                         if(!existing) {
-                            this.options.push(option);
+                            this.push(option);
                         }
-                    }
+                    };
 
                     Options.prototype._searchByCode = function(code){
                         for(var i = 0, option = null; option = this.options[i++];) {
@@ -36,22 +37,26 @@ angular.module('innaApp.directives')
                         }
 
                         return null;
-                    }
-
-                    /*Properties*/
-                    $scope.options = new Options();
-
-                    /*Methods*/
-                    $scope.onChange = function() {
-                        $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Airports', value: $scope.options});
                     };
 
-                    $scope.reset = function(){
-                        for(var i = 0, option = null; option = $scope.options.options[i++];) {
-                            option.selected = false;
-                        }
+                    /*Properties*/
+                    $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Airport'));
+                    $scope.options = $scope.filter.options = new Options();
+                    $scope.filter.filterFn = function(ticket){
+                        var show = false;
+                        var selected = this.options.getSelected();
 
-                        $scope.onChange();
+                        if(!selected.options.length) return;
+
+                        selected.each(function(option){
+                            ticket.everyEtap(function(etap){
+                                show = show || etap.data.InCode == option.code || etap.data.OutCode == option.code;
+                            });
+                        });
+
+                        if(!show) {
+                            ticket.hidden = true;
+                        }
                     }
 
                     /*Watchers*/
@@ -66,8 +71,6 @@ angular.module('innaApp.directives')
                                 }
                             }
                         });
-
-                        console.log($scope.options);
 
                         unwatchCollectionTickets();
                     })

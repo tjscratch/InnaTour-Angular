@@ -2,15 +2,15 @@
 <div class="filters__baloon" ng-if="popup.isOpen">
     <header class="ra-header">
         <h4 class="ra-title">Аэропорты</h4>
-        <a class="ra-header-link" href="javascript:void(0);" ng-click="reset()">Сбросить</a>
+        <a class="ra-header-link" href="javascript:void(0);" ng-click="options.reset()">Сбросить</a>
     </header>
     <div class="ra-content">
         <ul class="ra-fly-type-list">
             <li ng-repeat="option in options.options">
                 <label>
-                    <input type="checkbox" ng-model="option.selected"  ng-change="onChange()" name="fly">
+                    <input type="checkbox" ng-model="option.selected">
                     <span class="ra-checkbox"></span>
-                    <span class="ra-fly-type">{{option.name}}</span>
+                    <span class="ra-fly-type">{{option.title}}</span>
                     <span class="ra-fly-price">{{option.code}}</span>
                 </label>
             </li>
