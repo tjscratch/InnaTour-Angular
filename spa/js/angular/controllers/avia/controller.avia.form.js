@@ -224,22 +224,6 @@ innaAppControllers.
             };
 
 
-            //поведение
-            var skipCloseType = { from: 'from', to: 'to', dateFrom: 'dateFrom', dateTo: 'dateTo', people: 'people', cabinClass: 'cabinClass' };
-
-            $scope.form = {};
-            $scope.form.isPeopleOpened = false;
-            $scope.form.isCabinClassOpened = false;
-
-            //добавляем в список обработчиков наш контроллер (мы хотим ловить клик по body)
-            $rootScope.addBodyClickListner('avia.form', bodyClick);
-
-            //обработчик клика на body
-            function bodyClick() {
-                //log('avia.form bodyClick');
-                closeAllPopups();
-            }
-
             $scope.preventBubbling = function ($event) {
                 preventBubbling($event);
             }
@@ -250,32 +234,6 @@ innaAppControllers.
                 if ($event.preventDefault) $event.preventDefault();
                 $event.cancelBubble = true;
                 $event.returnValue = false;
-            }
-
-            //закрывает все открытые попапы
-            function closeAllPopups(skipClose) {
-                if (skipClose != skipCloseType.people)
-                    $scope.form.isPeopleOpened = false;
-                if (skipClose != skipCloseType.cabinClass)
-                    $scope.form.isCabinClassOpened = false;
-            }
-
-            $scope.getSelectedCabinClassName = function () {
-                var res = _.find($scope.cabinClassList, function (item) { return item.value == $scope.criteria.CabinClass; });
-                if (res != null)
-                    return res.name;
-                return '';
-            }
-
-            $scope.cabinClassListClick = function ($event) {
-                preventBubbling($event);
-                $scope.form.isCabinClassOpened = !$scope.form.isCabinClassOpened;
-            }
-
-            $scope.cabinClassClick = function (item, $event) {
-                preventBubbling($event);
-                $scope.criteria.CabinClass = item.value;
-                closeAllPopups();
             }
 
             $scope.pathTypeClick = function (val) {
