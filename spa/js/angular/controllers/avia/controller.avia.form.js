@@ -263,30 +263,6 @@ innaAppControllers.
                     $scope.form.isCabinClassOpened = false;
             }
 
-            $scope.form.peoplePopupClick = function ($event) {
-                preventBubbling($event);
-                $scope.form.isPeopleOpened = !$scope.form.isPeopleOpened;
-            }
-
-            $scope.countPlus = function (value) {
-                value = parseInt(value, 10);
-                var value = value + 1;
-                if (value > 6)
-                    value = 6;
-                return value;
-            }
-            $scope.countMinus = function (value) {
-                value = parseInt(value, 10);
-                var value = value - 1;
-                if (value < 0)
-                    value = 0;
-                return value;
-            }
-
-            $scope.getAppPeopleCount = function () {
-                return parseInt($scope.criteria.AdultCount, 10) + parseInt($scope.criteria.ChildCount, 10) + parseInt($scope.criteria.InfantsCount, 10);
-            }
-
             $scope.getSelectedCabinClassName = function () {
                 var res = _.find($scope.cabinClassList, function (item) { return item.value == $scope.criteria.CabinClass; });
                 if (res != null)

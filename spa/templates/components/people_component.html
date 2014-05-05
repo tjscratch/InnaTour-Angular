@@ -1,0 +1,42 @@
+<div class="search-people-block search__120">
+    <div class="search-people">{{getPeopleCount()}} человек</div>
+    <div class="search-people-baloon" ng-show="isOpen">
+        <h3 class="search-people-baloon-title">Пассажиры</h3>
+        <ul>
+            <li class="search-people-baloon-item">
+                <span class="search-people-type">
+                    <b>Взрослые</b>
+                    12 лет и старше
+                </span> 
+                <span class="search-people-baloon-field">
+                    <span class="search-people-baloon-minus js-people-minus" ng-click="minusClick($event, 'adultCount')">&minus;</span>
+                    <input type="text" maxlength="1" value="1" ng-model="adultCount" class="js-people-field" />
+                    <span class="search-people-baloon-plus js-people-plus" ng-click="plusClick($event, 'adultCount')">+</span>
+                </span>
+            </li>
+            <li class="search-people-baloon-item">
+                <span class="search-people-type">
+                    <b>Дети</b>
+                    2 - 11 лет
+                </span>
+                <span class="search-people-baloon-field">
+                    <span class="search-people-baloon-minus js-people-minus" ng-click="minusClick($event, 'childCount')">&minus;</span>
+                    <input type="text" maxlength="1" value="0" ng-model="childCount" class="js-people-field" />
+                    <span class="search-people-baloon-plus js-people-plus" ng-click="plusClick($event, 'childCount')">+</span>
+                </span>
+                                
+            </li>
+            <li class="search-people-baloon-item">
+                <span class="search-people-type">
+                    <b>Младенцы</b>
+                    0 - 2 лет
+                </span>
+                <span class="search-people-baloon-field">
+                    <span class="search-people-baloon-minus js-people-minus" ng-click="minusClick($event, 'infantsCount')">&minus;</span>
+                    <input type="text" maxlength="1" value="0" ng-model="infantsCount" class="js-people-field" />
+                    <span class="search-people-baloon-plus js-people-plus" ng-click="plusClick($event, 'infantsCount')">+</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

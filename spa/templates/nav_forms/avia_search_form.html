@@ -42,7 +42,7 @@
         interval="false"
         date1="criteria.BeginDate"
         date2="criteria.EndDate"></span>
-    <div class="search-people-block" ng-click="form.peoplePopupClick($event)">
+    <!--<div class="search-people-block" ng-click="form.peoplePopupClick($event)">
         <div class="search-people">{{getAppPeopleCount()}} человек</div>
         <div class="search-people-baloon" ng-show="form.isPeopleOpened" ng-click="preventBubbling($event)">
             <h3 class="search-people-baloon-title">Количество пассажиров</h3>
@@ -73,7 +73,8 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div>-->
+    <div people-component adult-count="criteria.AdultCount" child-count="criteria.ChildCount" infants-count="criteria.InfantsCount"></div>
     <div class="search-button-block">
         Найти
         <input type="submit" value="Найти" ng-click="searchStart()" />
