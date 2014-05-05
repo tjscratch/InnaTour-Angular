@@ -20,6 +20,10 @@ innaAppServices.
             return !((ms + 1000 * 60) > (new Date()).getTime());
         }
 
+        function isOlderTenMinutes(ms) {
+            return !((ms + 1000 * 60 * 10) > (new Date()).getTime());//ToDo: bedug 10min
+        }
+
         return {
             setAviaBuyItem: function (model) {
                 sessionStorage.AviaBuyItem = angular.toJson(model);
@@ -55,7 +59,7 @@ innaAppServices.
             getAviaSearchResults: function (criteria) {
                 var res = angular.fromJson(sessionStorage.AviaSearchResults);
                 //проверяем, что достаем данные для нужных критериев поиска
-                if (res != null && angular.toJson(criteria) == angular.toJson(res.criteria) && !isOlderMinute(res.date))
+                if (res != null && angular.toJson(criteria) == angular.toJson(res.criteria) && !isOlderTenMinutes(res.date))
                 {
                     return res.data;
                 }
