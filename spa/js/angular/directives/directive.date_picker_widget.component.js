@@ -1,5 +1,6 @@
 innaAppDirectives.directive('datePickerWidget', [function(){
     return {
+        replace: true,
         templateUrl: '/spa/templates/components/date_picker_widget.html',
         scope: {
             date1: '=',

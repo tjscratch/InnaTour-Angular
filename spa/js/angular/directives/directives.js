@@ -198,7 +198,6 @@ innaAppDirectives.directive('appSlider', ['$timeout', function ($timeout) {
                                         'width': '100%',
                                         'zIndex': 0
                                     });
-                                    $fromImg.css('width', '100%')
 
                                     currentI = toI;
                                     animate = false

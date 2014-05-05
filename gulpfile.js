@@ -27,23 +27,23 @@ gulp.task('build-ticket', function () {
 
 gulp.task('build-styl', function () {
     gulp.src([
-            'spa/styl/search.styl',
-            'spa/styl/datepicker.styl',
-            'spa/styl/results.styl',
-            'spa/styl/buy.styl',
-            'spa/styl/balloon.styl',
-            'spa/styl/reg/registration.styl'
+            'spa/styl/main.styl'
         ])
 		.pipe(concat('styles.min.styl'))
-		.pipe(stylus({
-            use: nib()
-        }))
-		.pipe(minifyCSS(opts))
-        .pipe(gulp.dest('spa/css'));
+            .on('error', function() {})
+		.pipe(stylus())
+            .on('error', function() {})
+//		.pipe(minifyCSS({
+//            keepBreaks: true
+//        }))
+//            .on('error', function() {})
+        .pipe(gulp.dest('spa/css'))
+            .on('error', function() {})
 });
 
 gulp.task('watch', function() {
     gulp.watch(paths.styles, ['build-styl']);
 });
+
 
 gulp.task('default', ['build-less']);

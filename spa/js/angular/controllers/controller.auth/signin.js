@@ -13,6 +13,10 @@ angular.module('innaApp.controllers')
                     Password: $scope.password
                 }, function(data, state, jqXHR){ //success
                     $rootScope.$broadcast('inna.Auth.SignIn');
+
+                    if(!$scope.rememberMe) {
+                        //todo IN-845
+                    }
                 }, function(){ //error
                     $scope.$apply(function($scope){
                         $scope.requestFailure = true;

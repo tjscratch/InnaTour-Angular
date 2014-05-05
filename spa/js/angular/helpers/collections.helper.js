@@ -39,3 +39,14 @@ _.dropByJPath = function(object, jPath){
 
     return object;
 }
+
+_.provide = function(jPath){
+    var bits = jPath.split('.');
+    var bit, o = window;
+
+    while(bit = bits.shift()) {
+        o = o[bit] || (o[bit] = {});
+    }
+
+    return o;
+}

@@ -1,10 +1,10 @@
 <div class="overlay js-overlay" ng-style="{display: display}">
-    <div class="balloon" ng-show="type == baloonType.msg">
+    <div class="balloon" ng-show="(type == baloonType.msg)">
         <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
         <div class="baloon-title" ng-bind-html="caption | breakFilter"></div>
         <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
     </div>
-    <div class="balloon" ng-show="type == baloonType.msgClose">
+    <div class="balloon" ng-show="(type == baloonType.msgClose)">
         <div class="baloon-close" title="Закрыть" ng-click="close($event)"></div>
         <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
         <div class="baloon-title" ng-bind-html="caption | breakFilter"></div>
@@ -27,13 +27,14 @@
         <p class="balloon-info">истек срок ожидания оплаты</p>
         <a href="#" class="button baloon-button">Повторить поиск</a>
     </div>-->
-    <div class="balloon" ng-show="type == baloonType.success">
+    <div class="balloon" ng-show="(type == baloonType.success)">
+        <div class="baloon-close" title="Закрыть" ng-click="close($event)"></div>
         <div class="baloon-mail"></div>
         <div class="baloon-title" ng-bind-html="caption | breakFilter"></div>
         <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
         <a href="#" class="button baloon-button" ng-click="clickFn($event)">{{buttonCaption}}</a>
     </div>
-    <div class="balloon" ng-show="type == baloonType.err">
+    <div class="balloon" ng-show="(type == baloonType.err)">
         <div class="baloon-close" title="Закрыть" ng-click="close($event)"></div>
         <div class="baloon-problem"></div>
         <div class="baloon-title" ng-bind-html="caption | breakFilter"></div>

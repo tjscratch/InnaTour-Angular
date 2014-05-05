@@ -3,16 +3,14 @@
 
 innaAppControllers.
     controller('AviaBuyTicketsCtrl', ['$log', '$timeout', '$interval', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper',
+        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'innaApp.Urls',
         function AviaBuyTicketsCtrl($log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper) {
+            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls) {
 
             var self = this;
             function log(msg) {
                 $log.log(msg);
             }
-
-            $scope.baloon = aviaHelper.baloon;
 
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
@@ -21,12 +19,19 @@ innaAppControllers.
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.searchId = $scope.criteria.QueryId;
             $scope.reservationModel = null;
-            $scope.payModel = {//4268 0371 1270 0449
-                num1: '4268',
-                num2: '0371',
-                num3: '1270',
-                num4: '0449',
-                cvc2: '253',
+
+            /*
+CardNumber = "4012 0010 3714 1112";
+Month = "12";
+Year = "17";
+Cvc = "486";
+            */
+            $scope.payModel = {
+                num1: '4012',
+                num2: '0010',
+                num3: '3714',
+                num4: '1112',
+                cvc2: '486',
                 cardHolder: 'TEST',
                 cardMonth: '12',
                 cardYear: '17',
@@ -398,10 +403,12 @@ innaAppControllers.
                             //успешно
                             if (data.PreauthStatus == 1) {
                                 //3dSecure
+                                processPay3d(data.Data);
                             }
                             else if (data.PreauthStatus == 2) {
+                                $scope.is3dscheck = false;
                                 //без 3dSecure
-                                checkPayment($scope.criteria.OrderNum);
+                                checkPayment();
                             }
                             else {
                                 //ошибка
@@ -422,6 +429,25 @@ innaAppControllers.
                 }
             };
 
+            function processPay3d(data) {
+                var jData = angular.fromJson(data);
+                console.log(angular.toJson(jData));
+                var params = '';
+                var keys = _.keys(jData);
+                _.each(keys, function (key) {
+                    if (keys.indexOf(key) > 0) {
+                        params += '&';
+                    }
+                    params += key + '=' + encodeURIComponent(jData[key]);
+                });
+
+                $scope.baloon.hide();
+                $scope.iframeUrl = ('http://spa.inna.travel/spa/templates/pages/avia/pay_form.html?' + params);
+
+                $scope.is3dscheck = true;
+                checkPayment();
+            }
+
             function checkPayment() {
                 $scope.isCkeckProcessing = false;
                 check();
@@ -438,16 +464,25 @@ innaAppControllers.
                             log('paymentService.payCheck, data: ' + angular.toJson(data));
                             //data = true;
                             if (data != null) {
-                                if (data == true) {
+                                if (data == "true") {
                                     //прекращаем дергать
                                     $interval.cancel(intCheck);
 
+                                    //скрываем попап с фреймом 3ds
+                                    if ($scope.is3dscheck) {
+                                        $scope.iframeUrl = null;
+                                    }
+
                                     $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту',
                                         aviaHelper.baloonType.success, function () {
-                                            //print
-                                            log('print tickets');
-                                            alert('Не реализовано');
-                                        }, { buttonCaption: 'Распечатать билеты' });
+                                            $location.path(Urls.URL_AVIA);
+                                        }, {
+                                            buttonCaption: 'Распечатать билеты', successFn: function () {
+                                                //print
+                                                log('print tickets');
+                                                alert('Не реализовано');
+                                            }
+                                        });
                                 }
                             }
                         }, function (data, status) {

@@ -1,3 +1,135 @@
+<div class="filters__body">
+    <div class="js-filter-scroll">
+        <ul class="filters__container">
+            <li inna-dynamic-serp-filter-avia-legs
+                inna-dynamic-serp-filter-avia-legs-tickets="tickets"></li>
+            <li inna-dynamic-serp-filter-avia-price
+                inna-dynamic-serp-filter-avia-price-tickets="tickets"></li>
+            <li inna-dynamic-serp-filter-avia-time
+                inna-dynamic-serp-filter-avia-time-tickets="tickets"></li>
+            <li inna-dynamic-serp-filter-avia-airlines
+                inna-dynamic-serp-filter-avia-airlines-tickets="tickets"></li>
+            <li inna-dynamic-serp-filter-avia-airports
+                inna-dynamic-serp-filter-avia-airports-tickets="tickets"></li>
+
+<!--
+            <li class="filters__sort">
+                <span href="#" class="filters__link">Сортировать по времени прилета</span>
+            </li>
+-->
+        </ul>
+    </div>
+</div>
+
+<div class="results-container results-container_top">
+    <div class="results-list results-list_720">
+        <div ng-repeat="ticket in tickets.list"
+             ng-if="!ticket.hidden"
+             inna-ticket
+             inna-ticket-ticket="ticket"
+             inna-ticket-get-ticket-details="getTicketDetails(ticket)">
+        </div>
+    </div>
+</div>
+
+<div ng-controller="DynamicPackageSERPTicketPopupCtrl">
+    <div style="display:block;" class="overlay js-overlay" ng-if="ticket.data">
+        <div class="balloon baloon_ticket baloon_2ticket">
+            <div title="Закрыть" class="baloon-close" ng-click="closePopup()"></div>
+            <h3 class="b-tickets__title">Подробная и информация по перелту</h3>
+            <div class="rlf-oneway">
+                <div class="b-ticket_2ways">
+                    <div class="rlf-fly">
+                        <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
+                        <span class="rlf-fly-arrow"></span>
+                        <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
+                        <div class="rlf-full-travel-time">{{ticket.data.EtapsTo.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('To')}} в пути</div>
+                    </div>
+                    <div class="rlf-fly">
+                        <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
+                        <span class="rlf-fly-arrow"></span>
+                        <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
+                        <div class="rlf-full-travel-time">{{ticket.data.EtapsBack.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('Back')}} в пути</div>
+                    </div>
+                </div>
+                <div class="b-ticket_2ways b-ticket_2ways-sep">
+                    <div class="b-ticket_2ways-block" ng-repeat="dir in ['To', 'Back']">
+                        <div ng-repeat="etap in ticket.getEtaps(dir)">
+                            <div class="rlf-part">
+                                <div class="rfl-column3">
+                                    <div class="rlf-aviacompany">
+                                        <img ng-src="{{airLogo(etap.data.TransporterCode)}}" alt="">
+                                        {{etap.data.TransporterName}} <br>
+                                        рейс {{etap.data.Number}} <br>
+                                        {{etap.data.VehicleName}}
+                                    </div>
+                                </div>
+                                <div class="b-tickets__container">
+                                    <div class="b-tickets__block">
+                                        <div class="rlf-column1">
+                                            <div class="rlf-airport">{{etap.data.OutCityCode}}</div>
+                                        </div>
+                                        <div class="rlf-colum2">
+                                            <div class="rlf-flight-info">
+                                                <b>вылет {{dateHelper.getTime(etap.getDateTime('Out'))}}</b>, {{dateHelper.getDateShort(etap.getDateTime('Out'))}}, {{dateHelper.getDay(etap.getDateTime('Out'))}} <br>
+                                                {{etap.data.OutCity}}, {{etap.data.OutPort}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rlf-travel-time">{{ticket.getDuration(dir)}}</div>
+                                    <div class="b-tickets__block">
+                                        <div class="rlf-column1">
+                                            <div class="rlf-airport"><br>{{etap.data.InCityCode}}</div>
+                                        </div>
+                                        <div class="rlf-colum2">
+                                            <div class="rlf-flight-info">
+                                                <b>прилет {{dateHelper.getTime(etap.getDateTime('In'))}}</b>, {{dateHelper.getDateShort(etap.getDateTime('In'))}}, {{dateHelper.getDay(etap.getDateTime('In'))}} <br>
+                                                {{etap.data.InCity}}, {{etap.date.InPort}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rlf-part rlf-part_transfer" ng-if="!$last">
+                                <div class="rlf-column1">
+                                    <div class="rlf-airport">Пересадка</div>
+                                    <div class="rlf-travel-time">{{etap.getLegDuration()}}</div>
+                                </div>
+                                <div class="rlf-colum4">
+                                    {{etap.data.InCity}}, {{etap.date.InPort}} ({{etap.data.InCityCode}}), ПЕЛЬМЕНЕСТАН
+                                    <div class="rlf-transfer" ng-repeat="next in [ticket.getNextEtap(dir, etap)]">
+                                        <span ng-if="next.data.OutPort != etap.data.InPort">Внимание: смена аэропорта!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="b-tickets__footer">
+                <ul class="b-tickets__icons">
+                    <li><a href="#" class="b-tickets__icons-link"></a></li>
+                    <li><a href="#" class="b-tickets__icons-print"></a></li>
+                    <li><a href="#" class="b-tickets__icons-share"></a></li>
+                </ul>
+                <div class="b-tickets__footer-inner">
+                    <a class="rl-buy-button" href="javascrip:void(0);" ng-click="setCurrent()">Выбрать</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--
 <style>
     /*todo move into css*/
 
@@ -10,111 +142,8 @@
         ng-controller="DynamicPackageSERPFilterIndicatorCtrl"></ng:include>
 
 <div class="b-filters">
-    <div inna-dynamic-serp-filter-avia-legs
-         inna-dynamic-serp-filter-avia-legs-tickets="tickets"
-         class="b-filters__filter b-filters__filter_type_legs"></div>
-    <div inna-dynamic-serp-filter-avia-price
-         inna-dynamic-serp-filter-avia-price-tickets="tickets"
-         class="b-filters__filter b-filters__filter_type_price"></div>
     <div inna-dynamic-serp-filter-avia-time
          inna-dynamic-serp-filter-avia-time-tickets="tickets"
          class="b-filters__filter b-filters__filter_type_price"></div>
 </div>
-
-<div class="b-dynamic-serp b-dynamic-serp_tab_avia">
-    <ul class="b-avia-list">
-        <li class="b-avia-list__item" ng-repeat="ticket in filteredTickets(ticketFilters)" inna-ticket inna-ticket-ticket="ticket">
-            <div class="b-ticket__praice_type_main">6 950</div>
-            <div class="b-ticket__action">Buy!</div>
-            <button ng-click="getTicketDetails(ticket)">Details</button>
-        </li>
-    </ul>
-</div>
-
-<div ng-controller="DynamicPackageSERPTicketPopupCtrl">
-<div style="display:block;" class="overlay js-overlay" ng-if="ticket.data">
-    <div class="balloon baloon_ticket baloon_2ticket">
-        <div title="Закрыть" class="baloon-close" ng-click="closePopup()"></div>
-        <h3 class="b-tickets__title">Подробная и информация по перелту</h3>
-        <div class="rlf-oneway">
-            <div class="b-ticket_2ways">
-                <div class="rlf-fly">
-                    <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
-                    <span class="rlf-fly-arrow"></span>
-                    <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
-                    <div class="rlf-full-travel-time">{{ticket.data.EtapsTo.length | asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('To')}} в пути</div>
-                </div>
-                <div class="rlf-fly">
-                    <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
-                    <span class="rlf-fly-arrow"></span>
-                    <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
-                    <div class="rlf-full-travel-time">{{ticket.data.EtapsBack.length | asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('Back')}} в пути</div>
-                </div>
-            </div>
-            <div class="b-ticket_2ways b-ticket_2ways-sep">
-                <div class="b-ticket_2ways-block" ng-repeat="dir in ['To', 'Back']">
-                    <div ng-repeat="etap in ticket.getEtaps(dir)">
-                        <div class="rlf-part">
-                            <div class="rfl-column3">
-                                <div class="rlf-aviacompany">
-                                    <img ng-src="{{airLogo(etap.data.TransporterCode)}}" alt="">
-                                    {{etap.data.TransporterName}} <br>
-                                    рейс {{etap.data.Number}} <br>
-                                    {{etap.data.VehicleName}}
-                                </div>
-                            </div>
-                            <div class="b-tickets__container">
-                                <div class="b-tickets__block">
-                                    <div class="rlf-column1">
-                                        <div class="rlf-airport">{{etap.data.OutCityCode}}</div>
-                                    </div>
-                                    <div class="rlf-colum2">
-                                        <div class="rlf-flight-info">
-                                            <b>вылет {{getTime(etap.getDateTime('Out'))}}</b>, {{getDate(etap.getDateTime('Out'))}}, {{getDay(etap.getDateTime('Out'))}} <br>
-                                            {{etap.data.OutCity}}, {{etap.data.OutPort}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="rlf-travel-time">{{ticket.getDuration(dir)}}</div>
-                                <div class="b-tickets__block">
-                                    <div class="rlf-column1">
-                                        <div class="rlf-airport"><br>{{etap.data.InCityCode}}</div>
-                                    </div>
-                                    <div class="rlf-colum2">
-                                        <div class="rlf-flight-info">
-                                            <b>прилет {{getTime(etap.getDateTime('In'))}}</b>, {{getDate(etap.getDateTime('In'))}}, {{getDay(etap.getDateTime('In'))}} <br>
-                                            {{etap.data.InCity}}, {{etap.date.InPort}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rlf-part rlf-part_transfer" ng-if="!$last">
-                            <div class="rlf-column1">
-                                <div class="rlf-airport">Пересадка</div>
-                                <div class="rlf-travel-time">{{etap.getLegDuration()}}</div>
-                            </div>
-                            <div class="rlf-colum4">
-                                {{etap.data.InCity}}, {{etap.date.InPort}} ({{etap.data.InCityCode}}), ПЕЛЬМЕНЕСТАН
-                                <div class="rlf-transfer" ng-repeat="next in [ticket.getNextEtap(dir, etap)]">
-                                    <span ng-if="next.data.OutPort != etap.data.InPort">Внимание: смена аэропорта!</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="b-tickets__footer">
-            <ul class="b-tickets__icons">
-                <li><a href="#" class="b-tickets__icons-link"></a></li>
-                <li><a href="#" class="b-tickets__icons-print"></a></li>
-                <li><a href="#" class="b-tickets__icons-share"></a></li>
-            </ul>
-            <div class="b-tickets__footer-inner">
-                <a class="rl-buy-button" href="javascrip:void(0);" ng-click="setCurrent()">Выбрать</a>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
+-->

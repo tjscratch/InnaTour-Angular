@@ -1,21 +1,21 @@
-var gulp = require('gulp'),
+п»їvar gulp = require('gulp'),
     htmlreplace = require('gulp-html-replace'),
     concat = require('gulp-concat'),
     clean = require('gulp-clean'),
     runSequence = require('run-sequence');
 
-//===============Константы========================
+//===============РљРѕРЅСЃС‚Р°РЅС‚С‹========================
 var BUILD_TEST_FOLDER = 'publish_test';
 var TEST_API_HOST = 'http://api.test.inna.ru';
 
 var BUILD_RELEASE_FOLDER = 'publish_release';
 var RELEASE_API_HOST = 'http://api.inna.ru';
-//===============Константы========================
+//===============РљРѕРЅСЃС‚Р°РЅС‚С‹========================
 
-//===============Очистка========================
+//===============РћС‡РёСЃС‚РєР°========================
 function cleanFiles(destFolder) {
     var res = null;
-    //удаляем все в папке [publish_test] или [publish_release], кроме
+    //СѓРґР°Р»СЏРµРј РІСЃРµ РІ РїР°РїРєРµ [publish_test] РёР»Рё [publish_release], РєСЂРѕРјРµ
     res = gulp.src([destFolder + '/**', '!' + destFolder, '!' + destFolder + '/App_Data', '!' + destFolder + '/App_Data/**', '!' + destFolder + '/website.publishproj'], { read: false })
         .pipe(clean({ force: true }));
     return res;
@@ -29,21 +29,21 @@ gulp.task('release-clean', function () {
     return cleanFiles(BUILD_RELEASE_FOLDER);
 });
 
-//===============Копирование файлов========================
+//===============РљРѕРїРёСЂРѕРІР°РЅРёРµ С„Р°Р№Р»РѕРІ========================
 function copyFiles(destFolder){
     var res = null;
-    //главная
-    res = gulp.src(['../index.html', '../web.config', '../closer.html'])//closer.html (для авторизации)
+    //РіР»Р°РІРЅР°СЏ
+    res = gulp.src(['../index.html', '../web.config', '../closer.html'])//closer.html (РґР»СЏ Р°РІС‚РѕСЂРёР·Р°С†РёРё)
         .pipe(gulp.dest(destFolder));
-    //страница результатов поиска туров
+    //СЃС‚СЂР°РЅРёС†Р° СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РїРѕРёСЃРєР° С‚СѓСЂРѕРІ
     res = gulp.src(['../tours/index.html', '../tours/web.config'])
         .pipe(gulp.dest(destFolder + '/tours'));
 
-    //папка spa, кроме node_modules
+    //РїР°РїРєР° spa, РєСЂРѕРјРµ node_modules
     res = gulp.src([
-        '../spa/**', //все в папке spa
-        //исключаем
-        '!/**/node_modules/**', '!/**/node_modules',//любые папки node_modules и вложенные
+        '../spa/**', //РІСЃРµ РІ РїР°РїРєРµ spa
+        //РёСЃРєР»СЋС‡Р°РµРј
+        '!/**/node_modules/**', '!/**/node_modules',//Р»СЋР±С‹Рµ РїР°РїРєРё node_modules Рё РІР»РѕР¶РµРЅРЅС‹Рµ
         '!/**/gulpfile.js', '!/**/package.json',
         '!/**/*.sublime-project', '!/**/*.sublime-workspace'
     ])
@@ -58,10 +58,10 @@ gulp.task('release-copy-files-for-publish', function () {
     return copyFiles(BUILD_RELEASE_FOLDER);
 });
 
-//===============Замена в html========================
+//===============Р—Р°РјРµРЅР° РІ html========================
 function replaceHtml(destFolder, apiHost) {
     function replace(sourceFile, destPath, apiHost) {
-        //заменяем все ангулар скрипты на один
+        //Р·Р°РјРµРЅСЏРµРј РІСЃРµ Р°РЅРіСѓР»Р°СЂ СЃРєСЂРёРїС‚С‹ РЅР° РѕРґРёРЅ
         return gulp.src(sourceFile)
           .pipe(htmlreplace({
               'app-main-js': '/spa/js/app-main.js',
@@ -70,9 +70,9 @@ function replaceHtml(destFolder, apiHost) {
           .pipe(gulp.dest(destPath));
     };
 
-    //для главной
+    //РґР»СЏ РіР»Р°РІРЅРѕР№
     replace(destFolder + '/index.html', destFolder, apiHost);
-    //для туров
+    //РґР»СЏ С‚СѓСЂРѕРІ
     return replace(destFolder + '/tours/index.html', destFolder + '/tours', apiHost);
 }
 
@@ -83,21 +83,29 @@ gulp.task('release-html-replace', function () {
     return replaceHtml(BUILD_RELEASE_FOLDER, RELEASE_API_HOST);
 });
 
-//===============Склеиваем app-main.js========================
+//===============РЎРєР»РµРёРІР°РµРј app-main.js========================
+function getSrcFiles(folder){
+    gulp.src(['../index.html']).pipe(function(){
+        console.log(arguments);
+    });
+
+    return [folder + '/spa/js/angular/helpers/*.js', folder + '/spa/js/angular/models/app.model.js', folder + '/spa/js/angular/**/*.js'];
+}
+
 gulp.task('test-build-app-main-js', function () {
-    gulp.src([BUILD_TEST_FOLDER + '/spa/js/angular/helpers/*.js', BUILD_TEST_FOLDER + '/spa/js/angular/**/*.js'])
+	gulp.src(getSrcFiles(BUILD_TEST_FOLDER))
 		.pipe(concat('app-main.js'))
-        .pipe(gulp.dest(BUILD_TEST_FOLDER + '/spa/js'));
+		.pipe(gulp.dest(BUILD_TEST_FOLDER + '/spa/js'));
 });
 gulp.task('release-build-app-main-js', function () {
-    gulp.src([BUILD_RELEASE_FOLDER + '/spa/js/angular/helpers/*.js', BUILD_RELEASE_FOLDER + '/spa/js/angular/**/*.js'])
+	gulp.src(getSrcFiles(BUILD_RELEASE_FOLDER))
 		.pipe(concat('app-main.js'))
         .pipe(gulp.dest(BUILD_RELEASE_FOLDER + '/spa/js'));
 });
 
-//===============Таски========================
+//===============РўР°СЃРєРё========================
 
-//собираем все для теста
+//СЃРѕР±РёСЂР°РµРј РІСЃРµ РґР»СЏ С‚РµСЃС‚Р°
 gulp.task('build-test', function (callback) {
     runSequence('test-clean',
               'test-copy-files-for-publish',
@@ -106,7 +114,7 @@ gulp.task('build-test', function (callback) {
               callback);
 });
 
-//собираем все для релиза
+//СЃРѕР±РёСЂР°РµРј РІСЃРµ РґР»СЏ СЂРµР»РёР·Р°
 gulp.task('build-release', function (callback) {
     runSequence('release-clean',
               'release-copy-files-for-publish',
