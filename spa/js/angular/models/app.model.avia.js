@@ -189,48 +189,6 @@ inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function(){
     return o;
 };
 
-inna.Models.Avia.TicketCollection.prototype._filterByTime = function(options){
-    function checkOptionsInsideCategory(ticket, options) {
-        if(!options.length) return true;
-
-        var fits = false;
-
-        for(var i = 0, option = null; option = options[i++];) {
-            var propertyName = [option.direction.prefix, option.state.property].join('');
-            var date = ticket.data[propertyName];
-            fits = fits || dateHelper.isHoursBetween(date, option.start, option.end);
-
-            if(fits) break;
-        }
-
-        return fits;
-    }
-
-    var optionsOfInterest = {};
-
-    for(var i = 0, option = null; option = options.options[i++];) {
-        if(!option.isChecked) continue;
-
-        if(option.direction.states.getCurrent() != option.state) continue;
-
-        (optionsOfInterest[option.direction.name] || (optionsOfInterest[option.direction.name] = [])).push(option);
-    }
-
-    this.each(function(ticket){
-        var fits = true;
-
-        for(var p in optionsOfInterest) if(optionsOfInterest.hasOwnProperty(p)) {
-            fits = fits && checkOptionsInsideCategory(ticket, optionsOfInterest[p]);
-        }
-
-        if(!fits) {
-            ticket.hidden = true;
-        }
-    });
-
-    console.log('-----------------');
-};
-
 inna.Models.Avia.TicketCollection.prototype._filterByAirlines = function(options) {
     this.each(function(ticket){
         var show = false;

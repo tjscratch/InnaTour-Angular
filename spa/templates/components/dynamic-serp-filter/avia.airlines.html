@@ -6,11 +6,11 @@
     </header>
     <div class="ra-content">
         <ul class="ra-fly-type-list">
-            <li ng-repeat="option in options">
+            <li ng-repeat="option in options.options">
                 <label>
-                    <input type="checkbox" ng-model="option.selected"  ng-change="onChange()" name="fly">
+                    <input type="checkbox" ng-model="option.selected">
                     <span class="ra-checkbox"></span>
-                    <span class="ra-fly-type">{{option.name}}</span>
+                    <span class="ra-fly-type">{{option.title}}</span>
                     <span class="ra-fly-price">{{option.minPrice}}&nbsp;<span class="rub">Р</span></span>
                 </label>
             </li>

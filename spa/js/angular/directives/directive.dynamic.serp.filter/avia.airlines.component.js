@@ -3,7 +3,8 @@ angular.module('innaApp.directives')
         return {
             templateUrl: '/spa/templates/components/dynamic-serp-filter/avia.airlines.html',
             scope: {
-                tickets: '=innaDynamicSerpFilterAviaAirlinesTickets'
+                tickets: '=innaDynamicSerpFilterAviaAirlinesTickets',
+                filters: '=innaDynamicSerpFilterAviaAirlinesFilters'
             },
             controller: [
                 '$scope', '$element', '$controller', 'innaApp.API.events',
@@ -12,27 +13,37 @@ angular.module('innaApp.directives')
                     $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
                     /*Models*/
-                    function Option(name, minPrice) {
-                        this.name = name;
-                        this.minPrice = minPrice;
-                        this.selected = false;
-                    }
+                    var Option = inna.Models.Avia.Filters._OptionFactory(function(name, minPrice){
+                        this.minPrice = minPrice
+                    });
 
-                    /*Properties*/
-                    $scope.options = [];
-
-                    /*Methods*/
-                    $scope.onChange = function() {
-                        $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Airlines', value: $scope.options});
+                    Option.prototype.describe = function(){
+                        return this.title;
                     };
 
-                    $scope.reset = function(){
-                        for(var i = 0, option = null; option = $scope.options[i++];) {
-                            option.selected = false;
-                        }
+                    var Options = inna.Models.Avia.Filters._OptionsFactory();
 
-                        $scope.onChange()
-                    }
+                    /*Properties*/
+                    $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Airlines'));
+                    $scope.filter.options = $scope.options = new Options();
+                    $scope.filter.filterFn = function(ticket){
+                        var selected = this.options.getSelected();
+
+                        if(!selected.options.length) return;
+
+                        var show = false;
+                        var airlines = ticket.collectAirlines();
+
+                        selected.each(function(option){
+                            for(var code in airlines) if(airlines.hasOwnProperty(code)) {
+                                show = show || (airlines[code] == option.title);
+                            }
+                        });
+
+                        if(!show) {
+                            ticket.hidden = true;
+                        }
+                    };
 
                     /*Watchers*/
                     var unwatchCollectionTickets = $scope.$watchCollection('tickets', function(tickets){
@@ -41,17 +52,15 @@ angular.module('innaApp.directives')
                         var collections = {};
 
                         tickets.each(function(ticket){
-                            for(var i = 0, dir = '', etaps = null; (dir = ['To', 'Back'][i++]) && (etaps = ticket.getEtaps(dir));){
-                                for(var j = 0, etap = null; etap = etaps[j++];) {
-                                    var tName = etap.data.TransporterName;
+                            ticket.everyEtap(function(etap){
+                                var tName = etap.data.TransporterName;
 
-                                    if(!collections[tName]) {
-                                        collections[tName] = new inna.Models.Avia.TicketCollection();
-                                    }
-
-                                    collections[tName].push(ticket);
+                                if(!collections[tName]) {
+                                    collections[tName] = new inna.Models.Avia.TicketCollection();
                                 }
-                            }
+
+                                collections[tName].push(ticket);
+                            });
                         });
 
                         for(var tName in collections) if(collections.hasOwnProperty(tName)) {
