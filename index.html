@@ -27,7 +27,8 @@
     <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="/spa/css/main.css" />
     <link rel="stylesheet" href="/spa/css/styles.min.css" />
-    <link rel="stylesheet" href="/spa/css/tickets.min.css" />
+    <!--<link rel="stylesheet" href="/spa/css/tickets.min.css" />-->
+
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="/spa/css/ie.min.css" />
     <![endif]-->
@@ -50,6 +51,16 @@ for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElemen
 mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <!-- end Mixpanel -->
 
+<style type="text/css">
+    .no-select {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
 
 </head>
 <body class="light-theme" ng-click="bodyClick()" popup-form>
@@ -306,6 +317,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.dynamic/serp.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/reserve.js"></script>
 <script src="/spa/js/angular/controllers/controllers.js"></script>
+<script src="/spa/js/angular/directives/directive.people.component.js"></script>
 <script src="/spa/js/angular/directives/directive.baloon.js"></script>
 <script src="/spa/js/angular/directives/directive.combobox.js"></script>
 <script src="/spa/js/angular/directives/directive.datepicker.2months.js"></script>

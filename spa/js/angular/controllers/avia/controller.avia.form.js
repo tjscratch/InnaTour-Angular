@@ -154,9 +154,6 @@ innaAppControllers.
             //добавляем в кэш откуда, куда
             //addDefaultFromToDirectionsToCache(defaultCriteria);
             //списки по-умолчанию
-            $scope.adultCountList = [1, 2, 3, 4, 5, 6];
-            $scope.childCountList = [0, 1, 2, 3, 4, 5, 6];
-            $scope.cabinClassList = aviaHelper.cabinClassList;
 
             $scope.pathTypeList = [{ name: 'Туда обратно', value: 0 }, { name: 'Туда', value: 1 }];
 
@@ -227,22 +224,6 @@ innaAppControllers.
             };
 
 
-            //поведение
-            var skipCloseType = { from: 'from', to: 'to', dateFrom: 'dateFrom', dateTo: 'dateTo', people: 'people', cabinClass: 'cabinClass' };
-
-            $scope.form = {};
-            $scope.form.isPeopleOpened = false;
-            $scope.form.isCabinClassOpened = false;
-
-            //добавляем в список обработчиков наш контроллер (мы хотим ловить клик по body)
-            $rootScope.addBodyClickListner('avia.form', bodyClick);
-
-            //обработчик клика на body
-            function bodyClick() {
-                //log('avia.form bodyClick');
-                closeAllPopups();
-            }
-
             $scope.preventBubbling = function ($event) {
                 preventBubbling($event);
             }
@@ -255,62 +236,9 @@ innaAppControllers.
                 $event.returnValue = false;
             }
 
-            //закрывает все открытые попапы
-            function closeAllPopups(skipClose) {
-                if (skipClose != skipCloseType.people)
-                    $scope.form.isPeopleOpened = false;
-                if (skipClose != skipCloseType.cabinClass)
-                    $scope.form.isCabinClassOpened = false;
-            }
-
-            $scope.form.peoplePopupClick = function ($event) {
-                preventBubbling($event);
-                $scope.form.isPeopleOpened = !$scope.form.isPeopleOpened;
-            }
-
-            $scope.countPlus = function (value) {
-                value = parseInt(value, 10);
-                var value = value + 1;
-                if (value > 6)
-                    value = 6;
-                return value;
-            }
-            $scope.countMinus = function (value) {
-                value = parseInt(value, 10);
-                var value = value - 1;
-                if (value < 0)
-                    value = 0;
-                return value;
-            }
-
-            $scope.getAppPeopleCount = function () {
-                return parseInt($scope.criteria.AdultCount, 10) + parseInt($scope.criteria.ChildCount, 10) + parseInt($scope.criteria.InfantsCount, 10);
-            }
-
-            $scope.getSelectedCabinClassName = function () {
-                var res = _.find($scope.cabinClassList, function (item) { return item.value == $scope.criteria.CabinClass; });
-                if (res != null)
-                    return res.name;
-                return '';
-            }
-
-            $scope.cabinClassListClick = function ($event) {
-                preventBubbling($event);
-                $scope.form.isCabinClassOpened = !$scope.form.isCabinClassOpened;
-            }
-
-            $scope.cabinClassClick = function (item, $event) {
-                preventBubbling($event);
-                $scope.criteria.CabinClass = item.value;
-                closeAllPopups();
-            }
-
             $scope.pathTypeClick = function (val) {
                 $scope.criteria.PathType = val;
             }
-
-
-
 
             function fillFromAndTo() {
                 $scope.loadObjectById($scope.criteria.FromId, function (data) {
@@ -330,15 +258,6 @@ innaAppControllers.
                 Validators.defined($scope.criteria.FromId, Error('FromId'));
                 Validators.defined($scope.criteria.ToId, Error('ToId'));
                 Validators.notEqual($scope.criteria.FromId, $scope.criteria.ToId, Error('ToId'));
-
-                //var children = _.partition($scope.childrensAge, function (ageSelector) { return ageSelector.value < 2; });
-                //var infants = children[0].length;
-                //children = children[1].length;
-                //var separatedInfants = infants - $scope.adultCount;
-                //if (separatedInfants < 0) separatedInfants = 0;
-                //console.log('adults = %s, children = %s, separatedInfants = %s, sum = %s', $scope.adultCount, children, separatedInfants, $scope.adultCount + children + separatedInfants);
-
-                //if (+$scope.adultCount + children + separatedInfants > 6) throw Error('adultCount');
             }
 
             /* From field */
@@ -366,4 +285,12 @@ innaAppControllers.
                     });
                 })
             }
+
+            /*Klass*/
+            $scope.klass = _.find(TripKlass.options, function (klass) {
+                return (klass.value == $scope.criteria.CabinClass);
+            });
+            $scope.$watch('klass', function (newVal, oldVal) {
+                $scope.criteria.CabinClass = newVal.value;
+            });
         }]);
