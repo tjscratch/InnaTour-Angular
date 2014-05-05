@@ -1,6 +1,12 @@
 (function($) {
     $(function() {
 
+        function header() {
+            var h = $('.header').height();
+            $('body').css({paddingTop: h+'px'});
+        }
+        header();
+
         // Datepicker
         $.datepicker._updateDatepicker_original = $.datepicker._updateDatepicker;
         $.datepicker._updateDatepicker = function (inst) {
