@@ -23,6 +23,7 @@ angular.module('innaApp.API', [])
             AUTH_RESTORE_A: url('/Account/ForgotPassword/Post'),
             AUTH_RESTORE_B: url('/Account/ResetPassword/Post'),
             AUTH_SOCIAL_BROKER: app_main.host + '/Account/ExternalLogin',
+            AUTH_LOGOUT: url('/Account/Logoff'),
 
             PURCHASE_TRANSPORTER_GET_ALLIANCE: url('/Transporter/GetAllianceByName'),
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),
@@ -52,7 +53,10 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_TICKET_DETAILED_REQUESTED: 'inna.Dynamic.SERP.Tickets.Detailed',
             DYNAMIC_SERP_TICKET_SET_CURRENT_BY_IDS: 'inna.Dynamic.SERP.Tickets.SetCurrentById',
 
-            AUTH_FORGOTTEN_LINK_CLICKED: 'inna.Auth.Forgotten-link-clicked'
+            AUTH_FORGOTTEN_LINK_CLICKED: 'inna.Auth.Forgotten-link-clicked',
+            AUTH_SIGN_IN: 'inna.Auth.SignIn',
+
+            eol: null
         }
     })
     .constant('innaApp.API.pageContent.DYNAMIC', 4)

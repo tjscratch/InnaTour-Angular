@@ -39,44 +39,33 @@
             </div>
         </div>
         <div class="header-menu">
-            <ul class="header-menu-container-items"><!--
-                --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
-                --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
-                --><li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
-                --><li class="header-menu-item"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
-            </ul>
-
-            <!-- Search Form -->
-            <form class="search-ticket-form">
-                <div class="search-field-block search__city">
-                    <input type="text" class="search-field" placeholder="Откуда" />
-
+            <div class="header__container">
+                <ul class="header__nav">
+                    <li><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
+                    <li><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
+                    <li><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li>
+                    <li><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
+                </ul>
+                <div class="header__user">
+                    <ul class="header__user-nav">
+                        <li><a href="#" class="header__user-nav-name">Денис Колесов</a></li>
+                        <li><a href="#"><span class="header__user-nav-counter">8</span> сообщений</a></li>
+                        <li><a href="#">Выйти</a></li>
+                    </ul>
+                    <div class="header__user-company">ООО "Курочки гриль"</div>
                 </div>
-                <div class="search-field-block search__city">
-                    <input type="text" class="search-field" placeholder="Куда" />
-                </div>
-                <div class="search-date-block js-start-date-block search__120">
-                    <input type="text" class="search-date search-date-arr js-start-date" placeholder="Туда" />
+            </div>
 
-                </div>
-                <div class="search-date-block js-finish-date-block search__120">
-                    <input type="text" class="search-date search-date-dep js-finish-date" placeholder="Обратно" />
-                </div>
-                <div class="search-people-block search__120">
-                    <div class="search-people">5 человек</div>
-
-                </div>
-                <div class="search-people-block search__120">
-                    <div class="search-people">эконом</div>
-
-                </div>
-                <div class="search-button-block_small">
-                    <input type="submit" value="Найти" />
-                </div>
-
-
-            </form>
-            <!-- /Search Form -->
+            <div class="header__container">
+                <ul class="header__nav-sec">
+                    <li><a href="#" class="current">Заявки</a></li>
+                    <li><a href="#">Сообщения</a></li>
+                    <li><a href="#">Отчеты</a></li>
+                    <li><a href="#">Финансы</a></li>
+                    <li><a href="#">Настройки</a></li>
+                </ul>
+                <div class="header__price">Доступно: <span class="header__sum">167 780</span> <span class="rub">Р</span></div>
+            </div>
 
         </div>
     </div>

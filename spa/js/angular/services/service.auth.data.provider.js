@@ -26,6 +26,9 @@ angular.module('innaApp.services')
                 },
                 confirmRegistration: function(token, callbackSuccess, callbackError) {
                     AjaxHelper.postDebaunced(urls.AUTH_SIGN_UP_STEP_2, {token: token}, callbackSuccess, callbackError);
+                },
+                logout: function(){
+                    AjaxHelper.postDebaunced(urls.AUTH_LOGOUT);
                 }
             }
         }
