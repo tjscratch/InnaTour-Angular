@@ -41,8 +41,8 @@
                 var adultCount = parseInt(data.adultCount, 10);
                 var childCount = parseInt(data.childCount, 10);
                 var infantsCount = parseInt(data.infantsCount, 10);
-                //Один взрослый или ребенок может провести не более одного младенца без места
-                var infFree = adultCount + childCount;
+                //Один взрослый может провести не более одного младенца без места
+                var infFree = adultCount;
                 var infPaid = infantsCount - infFree;
                 if (infPaid < 0) {
                     infPaid = 0;
