@@ -187,14 +187,6 @@ inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function(){
     });
 
     return o;
-}
-
-inna.Models.Avia.TicketCollection.prototype._filterByPrice = function(filter){
-    this.each(function(ticket){
-        if(ticket.data.Price > filter) {
-            ticket.hidden = true;
-        }
-    });
 };
 
 inna.Models.Avia.TicketCollection.prototype._filterByTime = function(options){
@@ -421,8 +413,8 @@ inna.Models.Avia.Filters._OptionFactory = function(init){
 };
 
 inna.Models.Avia.Filters._OptionsFactory = function(){
-    var Options = function(){
-        this.options = [];
+    var Options = function(options){
+        this.options = options || [];
     };
 
     Options.prototype.push = function(option){

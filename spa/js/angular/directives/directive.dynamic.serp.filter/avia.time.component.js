@@ -4,7 +4,8 @@ angular.module('innaApp.directives')
             return {
                 templateUrl: '/spa/templates/components/dynamic-serp-filter/avia.time.html',
                 scope: {
-                    tickets: '=innaDynamicSerpFilterAviaTimeTickets'
+                    tickets: '=innaDynamicSerpFilterAviaTimeTickets',
+                    filters: '=innaDynamicSerpFilterAviaTimeFilters'
                 },
                 controller: [
                     '$scope', 'innaApp.API.events', '$element', '$controller',
@@ -19,32 +20,31 @@ angular.module('innaApp.directives')
                             this.caption = caption;
                         }
 
-                        function Option(direction, state, baseOption){
+                        var Option = inna.Models.Avia.Filters._OptionFactory(function(title, direction, state, baseOption){
                             this.direction = direction;
                             this.state = state;
                             this.caption = baseOption.caption;
                             this.start = baseOption.start;
                             this.end = baseOption.end;
+                        });
 
-                            this.isAvailable = false;
-                            this.isChecked = false;
+                        Option.prototype.describe = function(){
+                            return [
+                                this.state.caption,
+                                this.direction.desc + ':',
+                                this.caption
+                            ].join(' ');
                         }
 
-                        function Options() {
-                            this.options = [];
-                        }
-
-                        Options.prototype.push = function(option) {
-                            this.options.push(option);
-                        };
+                        var Options = inna.Models.Avia.Filters._OptionsFactory();
 
                         Options.prototype.reset = function(dir) {
                             for(var i = 0, option = null; option = this.options[i++];) {
                                 if(option.direction == dir) option.isChecked = false;
                             }
-                        }
+                        };
 
-                        function State(property, caption, direction) {
+                        function State(property, caption) {
                             this.caption = caption;
                             this.property = property;
 
@@ -72,10 +72,11 @@ angular.module('innaApp.directives')
                             return null;
                         };
 
-                        function Direction(name, prefix, caption) {
+                        function Direction(name, prefix, caption, desc) {
                             this.name = name;
                             this.caption = caption;
                             this.prefix = prefix;
+                            this.desc = desc;
 
                             this.states = new States([
                                 new State('ArrivalDate', 'Вылет'),
@@ -89,8 +90,8 @@ angular.module('innaApp.directives')
 
                         /*Properties*/
                         $scope.directions = new Directions([
-                            new Direction('To', '', 'Перелет туда'),
-                            new Direction('Back', 'Back', 'Перелет обратно')
+                            new Direction('To', '', 'Перелет туда', 'туда'),
+                            new Direction('Back', 'Back', 'Перелет обратно', 'обратно')
                         ]);
 
                         $scope.options = (function(){
@@ -105,7 +106,7 @@ angular.module('innaApp.directives')
                             for(var i = 0, dir = null; dir = $scope.directions.directions[i++];) {
                                 for(var j = 0, state = null; state = dir.states.states[j++];) {
                                     for(var k = 0, baseOption = null; baseOption = baseOptions[k++];) {
-                                        options.push(new Option(dir, state, baseOption));
+                                        options.push(new Option(baseOption.caption, dir, state, baseOption));
                                     }
                                 }
                             }
@@ -113,16 +114,55 @@ angular.module('innaApp.directives')
                             return options;
                         })();
 
+                        $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Time'));
+                        $scope.filter.options = $scope.options;
+                        $scope.filter.filterFn = function(ticket){
+                            function checkOptionsInsideCategory(ticket, options) {
+                                if(!options.options.length) return true;
+
+                                var fits = false;
+
+                                options.each(function(option){
+                                    var propertyName = [option.direction.prefix, option.state.property].join('');
+                                    var date = ticket.data[propertyName];
+                                    fits = fits || dateHelper.isHoursBetween(date, option.start, option.end);
+                                });
+
+                                return fits;
+                            }
+
+                            var optionsOfInterest = {};
+
+                            this.options.getSelected().each(function(option){
+                                if(option.direction.states.getCurrent() != option.state) return;
+
+                                (
+                                    optionsOfInterest[option.direction.name] ||
+                                    (optionsOfInterest[option.direction.name] = new Options())
+                                ).push(option);
+                            });
+
+                            var fits = true;
+
+                            for(var p in optionsOfInterest) if(optionsOfInterest.hasOwnProperty(p)) {
+                                fits = fits && checkOptionsInsideCategory(ticket, optionsOfInterest[p]);
+                            }
+
+                            if(!fits) {
+                                ticket.hidden = true;
+                            }
+                        };
+
                         /*Methods*/
                         $scope.changeState = function(dir, state){
                             dir.states.setCurrent(state);
 
-                            $scope.onChangeOption();
-                        }
+                            $scope.options.getSelected().each(function(option){
+                                if(option.direction != dir) return;
 
-                        $scope.onChangeOption = function(){
-                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Time', value: $scope.options});
-                        };
+                                if(option.state != state) option.selected = false;
+                            });
+                        }
 
                         $scope.reset = function(dir) {
                             $scope.options.reset(dir);
@@ -141,7 +181,7 @@ angular.module('innaApp.directives')
                                 });
 
                                 if(atLeastOne) {
-                                    option.isAvailable = true;
+                                    option.shown = true;
                                 }
                             }
 

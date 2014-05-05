@@ -16,9 +16,9 @@
             </ul>
             <div class="filters__baloon-days">
                 <ul class="ra-fly-type-list">
-                    <li ng-repeat="option in options.options" ng-if="option.isAvailable && option.direction == direction && option.state == direction.states.getCurrent()">
+                    <li ng-repeat="option in options.options" ng-if="option.shown && option.direction == direction && option.state == direction.states.getCurrent()">
                         <label>
-                            <input type="checkbox" ng-model="option.isChecked" ng-change="onChangeOption()">
+                            <input type="checkbox" ng-model="option.selected">
                             <span class="ra-checkbox"></span>
                             <span class="ra-fly-type">{{option.caption}}</span>
                         </label>
