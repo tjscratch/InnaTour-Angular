@@ -7,11 +7,193 @@
 
 <div class="results-body">
 <!-- Search Results -->
-<div class="results-container">
+<div class="results-container" style="padding-top:85px;">
+
+    <!-- Рекомендованный вариант -->
+    <div class="results-list results-list_720">
+        <ng:any ng-repeat="item in [recomendedItem] track by $index">
+            <div class="rl-item">
+                <div class="rl-item-separator"></div>
+                <div class="rl-left">
+                    <header class="rl-item-header">
+                        <span class="rl-airline"><img ng-src="{{item.EtapsToTransporterCodeUrl}}" alt=""><span class="rl-airline-text">{{item.EtapsToTransporterName}}</span></span>
+                        <span class="rl-airline"><img ng-src="{{item.EtapsBackTransporterCodeUrl}}" alt=""><span class="rl-airline-text">{{item.EtapsBackTransporterName}}</span></span>
+                    </header>
+                    <div class="rl-content">
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>{{item.DepartureTimeFormatted}}</b>, {{item.DepartureDateFormatted}}<br>
+                                {{item.AirportFrom}} {{item.OutCode}}
+                            </div>
+                        </div>
+                        <div class="rl-travel-time">в пути: {{item.TimeToFormatted}}<br><span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span></div>
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>{{item.ArrivalTimeFormatted}}</b>, {{item.ArrivalDateFormatted}}<br>
+                                {{item.AirportTo}} {{item.InCode}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rl-content">
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>{{item.BackDepartureTimeFormatted}}</b>, {{item.BackDepartureDateFormatted}}<br>
+                                {{item.AirportTo}} {{item.InCode}}
+                            </div>
+                        </div>
+                        <div class="rl-travel-time">в пути: {{item.TimeBackFormatted}}<br><span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span></div>
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>{{item.BackArrivalTimeFormatted}}</b>, {{item.BackArrivalDateFormatted}}<br>
+                                {{item.AirportFrom}} {{item.OutCode}}
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="rl-footer">
+                        <span class="rl-tickets-number">Последние 3 места</span>
+                        <a href="#" class="rl-more-info">Подробнее</a>
+                    </footer>
+                </div>
+                <div class="rl-aside">
+                    <span class="rl-rec">мы рекомендуем</span>
+                    <span class="rl-price">
+                        <span class="rl-price-item">{{item.Price| price}}</span> <span class="rub">Р</span>
+                    </span>
+                    <a href="#" class="rl-buy-button" ng-click="goToPaymentClick($event, item)">Купить</a>
+                </div>
+            </div>
+        </ng:any>
+
+    </div>
+
+    <!-- Results Aside -->
+    <!--<aside class="results-aside results-aside_mod">
+        <div class="ra-best-block">
+            <div class="ra-best-title">Перелет + Отель ★★★</div>
+            <div class="ra-best-price">30 200 <span class="rub">P</span></div>
+            <p class="ra-best-descr">по отдельности: <span class="ra-best-descr-info">110 600 <span class="rub">P</span></span>экономия: 20 000 <span class="rub">P</span></p>
+            <a href="#" class="ra-best-select">ВЫБРАТЬ</a>
+        </div>
+    </aside>-->
+    <!-- /Results Aside -->
+</div>
+
+<!-- Filters -->
+<div class="filters__body">
+    <div class="js-filter-scroll">
+        <ul class="filters__container">
+            <li>
+                <a href="#" class="filters__link">Пересадки</a>
+                <div class="filters__baloon" ng-show="false">
+                    <header class="ra-header">
+                        <h4 class="ra-title">Колличество пересадок</h4>
+                        <a class="ra-header-link" href="#">Сбросить</a>
+                    </header>
+                    <div class="ra-content">
+                        <ul class="ra-fly-type-list">
+                            <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">2+ пересадки</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                        </ul>
+                    </div>
+                    <div class="ra-separator"></div>
+                    <header class="ra-header">
+                        <h4 class="ra-title">Пункты пересадок</h4>
+                    </header>
+                    <div class="ra-content">
+                        <div class="ra-fly-type-list-container">
+                            <ul class="ra-fly-type-list">
+                                <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="filters__link">Цена</a>
+                <div class="filters__baloon filters__baloon_240" ng-show="false">
+                    <div class="filter__range-container">
+                        <span class="filter__range">до <input type="text" value="126 162" class="js-range-val"> <span class="rub">Р</span></span>
+                        <a href="#" class="ra-header-link">Сбросить</a>
+                    </div>
+                    <div class="js-range filter__range-trackbar"></div>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="filters__link">Время</a>
+                <div class="filters__baloon filters__baloon_240" ng-show="false">
+                    <header class="ra-header">
+                        <h4 class="ra-title">Перелет туда</h4>
+                        <a class="ra-header-link" href="#">Сбросить</a>
+                    </header>
+                    <ul class="filters__baloon-radio">
+                        <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Вылет</span></label></li>
+                        <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Прилет</span></label></li>
+                    </ul>
+                    <div class="filters__baloon-days">
+                        <ul class="ra-fly-type-list">
+                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
+                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
+                        </ul>
+                        <ul class="ra-fly-type-list">
+                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
+                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
+                        </ul>
+                    </div>
+                    <div class="ra-separator"></div>
+                    <header class="ra-header">
+                        <h4 class="ra-title">Перелет обратно</h4>
+                        <a class="ra-header-link" href="#">Сбросить</a>
+                    </header>
+                    <ul class="filters__baloon-radio">
+                        <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Вылет</span></label></li>
+                        <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Прилет</span></label></li>
+                    </ul>
+                    <div class="filters__baloon-days">
+                        <ul class="ra-fly-type-list">
+                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
+                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
+                        </ul>
+                        <ul class="ra-fly-type-list">
+                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
+                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="filters__link">Авиакомпания</a>
+            </li>
+            <li>
+                <a href="#" class="filters__link">Аэропорт</a>
+            </li>
+            <li class="filters__sort">
+                <a href="#" class="filters__link">Сортировать по времени прилета</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- /Filters -->
+
+<div class="results-container results-container_top">
 
     <!-- Results List -->
-    <div class="results-list">
-        <header class="rl-header">
+    <div class="results-list results-list_720">
+        <!--<header class="rl-header">
             <h3 class="rl-flights-number" ng-if="ticketsList.length > 0">{{filteredTicketsList.length}} из {{ticketsList.length}} рейсов</h3>
             <h3 class="rl-flights-number" ng-if="ticketsList.length == 0">рейсов не найдено</h3>
             <h3 class="rl-flights-number" ng-if="ticketsList == null">поиск рейсов...</h3>
@@ -23,358 +205,81 @@
                     </ng:any>
                 </ul>
             </div>
-        </header>
+        </header>-->
 
         <ng:any ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">
-        <!--<ng:any ng-repeat="item in filteredTicketsList">-->
-            <div class="rl-title-best rl-title-cheapest" ng-show="item.isCheapest">самый дешевый</div>
-            <div class="rl-title-best rl-title-recommended" ng-show="item.IsRecomendation && !item.isCheapest">мы рекомендуем</div>
             <div class="rl-item">
-                <header class="rl-item-header">
+                <div class="rl-item-separator"></div>
+                <div class="rl-left">
+                    <header class="rl-item-header">
+                        <span class="rl-airline"><img ng-src="{{item.EtapsToTransporterCodeUrl}}" alt=""><span class="rl-airline-text">{{item.EtapsToTransporterName}}</span></span>
+                        <span class="rl-airline"><img ng-src="{{item.EtapsBackTransporterCodeUrl}}" alt=""><span class="rl-airline-text">{{item.EtapsBackTransporterName}}</span></span>
+                    </header>
+                    <div class="rl-content">
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>{{item.DepartureTimeFormatted}}</b>, {{item.DepartureDateFormatted}}<br>
+                                {{item.AirportFrom}} {{item.OutCode}}
+                            </div>
+                        </div>
+                        <div class="rl-travel-time">в пути: {{item.TimeToFormatted}}<br><span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span></div>
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>{{item.ArrivalTimeFormatted}}</b>, {{item.ArrivalDateFormatted}}<br>
+                                {{item.AirportTo}} {{item.InCode}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rl-content">
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>{{item.BackDepartureTimeFormatted}}</b>, {{item.BackDepartureDateFormatted}}<br>
+                                {{item.AirportTo}} {{item.InCode}}
+                            </div>
+                        </div>
+                        <div class="rl-travel-time">в пути: {{item.TimeBackFormatted}}<br><span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span></div>
+                        <div class="rl-fly">
+                            <div class="rlf-flight-info">
+                                <b>{{item.BackArrivalTimeFormatted}}</b>, {{item.BackArrivalDateFormatted}}<br>
+                                {{item.AirportFrom}} {{item.OutCode}}
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="rl-footer">
+                        <span class="rl-tickets-number">Последние 3 места</span>
+                        <a href="#" class="rl-more-info">Подробнее</a>
+                    </footer>
+                </div>
+                <div class="rl-aside">
                     <span class="rl-price">
-                        <span class="rl-price-item">{{item.Price| price}}</span> руб.
+                        <span class="rl-price-item">{{item.Price| price}}</span> <span class="rub">Р</span>
                     </span>
                     <a href="#" class="rl-buy-button" ng-click="goToPaymentClick($event, item)">Купить</a>
-                    <span class="rl-airline">{{item.TransporterListText}}</span>
-                </header>
-                <div class="rl-content">
-                    <img ng-src="{{item.EtapsToTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsToTransporterName}}">
-                    <div class="rl-fly">
-                        <b class="rl-fly-time">{{item.DepartureTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
-                        <div class="rl-fly-date">{{item.DepartureDateFormatted}}</div>
-                    </div>
-                    <div class="rl-travel-time">{{item.TimeToFormatted}}</div>
-                    <div class="rl-fly">
-                        <b class="rl-fly-time">{{item.ArrivalTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
-                        <div class="rl-fly-date">{{item.ArrivalDateFormatted}}</div>
-                    </div>
-                    <div class="rl-fly-type" ng-if="item.ToTransferCount > 0">
-                        <div class="rl-fly-transplant">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</div>
-                        <div class="rl-fly-transplant-time">
-                            <span ng-repeat="etap in item.EtapsToItems">
-                                <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">, </span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="rl-fly-type" ng-if="item.ToTransferCount == 0">
-                        <div class="rl-fly-transplant">Прямой</div>
-                    </div>
                 </div>
-                <div class="rl-content" ng-if="item.EtapsBack.length > 0">
-                    <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" class="rl-airline-logo" alt="{{item.EtapsBackTransporterName}}">
-                    <div class="rl-fly">
-                        <b class="rl-fly-time">{{item.BackDepartureTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportTo}} ({{item.InCode}})">{{item.InCode}}</span>
-                        <div class="rl-fly-date">{{item.BackDepartureDateFormatted}}</div>
-                    </div>
-                    <div class="rl-travel-time">{{item.TimeBackFormatted}}</div>
-                    <div class="rl-fly">
-                        <b class="rl-fly-time">{{item.BackArrivalTimeFormatted}}</b>  <span class="rl-airport" tooltip-title title="{{item.AirportFrom}} ({{item.OutCode}})">{{item.OutCode}}</span>
-                        <div class="rl-fly-date">{{item.BackArrivalDateFormatted}}</div>
-                    </div>
-                    <div class="rl-fly-type" ng-if="item.BackTransferCount > 0">
-                        <div class="rl-fly-transplant">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</div>
-                        <div class="rl-fly-transplant-time">
-                            <span ng-repeat="etap in item.EtapsBackItems">
-                                <span tooltip-title title="{{etap.name}} ({{etap.code}})">{{etap.code}}</span> {{etap.waitTime}}<span ng-if="$last == false">, </span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="rl-fly-type" ng-if="item.BackTransferCount == 0">
-                        <div class="rl-fly-transplant">Прямой</div>
-                    </div>
-                </div>
-                <footer class="rl-footer">
-                    <a href="#" class="rl-more-info"><span>Подробнее</span></a>
-                    <span class="rl-tickets-number">Последние 3 места</span>
-                    <span class="rl-class">{{helper.getCabinClassName(item.CabineClass)}}</span>
-                </footer>
             </div>
         </ng:any>
-
-        <!--<div class="rl-item">
-            <header class="rl-item-header">
-                <span class="rl-price">
-                    <span class="rl-price-item">69 450</span> руб.
-                </span>
-                <a href="#" class="rl-buy-button">Купить</a>
-                <span class="rl-airline">British Airways / Aeroflot</span>
-            </header>
-            <div class="rl-content">
-                <img src="spa/uploads/un.png" class="rl-airline-logo" alt="Aeroflot">
-                <div class="rl-fly">
-                    <b class="rl-fly-time">20:00</b>  <span class="rl-airport js-title" title="Санта-Круз-де-Тенерифе Южный (TFS)">LED</span>
-                    <div class="rl-fly-date">25 сентября 2014, пт</div>
-                </div>
-                <div class="rl-travel-time">2 ч 50 мин</div>
-                <div class="rl-fly">
-                    <b class="rl-fly-time">20:00</b>  <span class="rl-airport js-title" title="Санта-Круз-де-Тенерифе Южный (TFS)">LED</span>
-                    <div class="rl-fly-date">25 сентября 2014, пт</div>
-                </div>
-                <div class="rl-fly-type">
-                    <div class="rl-fly-transplant">2 пересадки</div>
-                    <div class="rl-fly-transplant-time">AMS 14 ч 35 мин, PAR 26 ч 45 мин</div>
-                </div>
-            </div>
-            <div class="rl-content">
-                <img src="spa/uploads/un.png" class="rl-airline-logo" alt="Aeroflot">
-                <div class="rl-fly">
-                    <b class="rl-fly-time">20:00</b>  <span class="rl-airport js-title" title="Санта-Круз-де-Тенерифе Южный (TFS)">LED</span>
-                    <div class="rl-fly-date">25 сентября 2014, пт</div>
-                </div>
-                <div class="rl-travel-time">2 ч 50 мин</div>
-                <div class="rl-fly">
-                    <b class="rl-fly-time">20:00</b>  <span class="rl-airport js-title" title="Санта-Круз-де-Тенерифе Южный (TFS)">LED</span>
-                    <div class="rl-fly-date">25 сентября 2014, пт</div>
-                </div>
-                <div class="rl-fly-type">
-                    <div class="rl-fly-transplant">Прямой</div>
-                </div>
-            </div>
-            <footer class="rl-footer">
-                <a href="#" class="rl-more-info"><span>Подробнее</span></a>
-                <span class="rl-tickets-number">Последние 3 места</span>
-                <span class="rl-class">Эконом</span>
-            </footer>
-        </div>
-        <div class="rl-item">
-            <header class="rl-item-header">
-                <span class="rl-price">
-                    <span class="rl-price-item">69 450</span> руб.
-                </span>
-                <a href="#" class="rl-buy-button">Купить</a>
-                <span class="rl-airline">British Airways / Aeroflot</span>
-            </header>
-            <div class="rl-content">
-                <img src="spa/uploads/un.png" class="rl-airline-logo" alt="Aeroflot">
-                <div class="rl-fly">
-                    <b class="rl-fly-time">20:00</b>  <span class="rl-airport js-title">LED</span>
-                    <div class="rl-fly-date">25 сентября 2014, пт</div>
-                </div>
-                <div class="rl-travel-time">2 ч 50 мин</div>
-                <div class="rl-fly">
-                    <b class="rl-fly-time">20:00</b>  <span class="rl-airport js-title">LED</span>
-                    <div class="rl-fly-date">25 сентября 2014, пт</div>
-                </div>
-                <div class="rl-fly-type">
-                    <div class="rl-fly-transplant">2 пересадки</div>
-                    <div class="rl-fly-transplant-time">AMS 14 ч 35 мин, PAR 26 ч 45 мин</div>
-                </div>
-            </div>
-            <footer class="rl-footer">
-                <a href="#" class="rl-more-info"><span>Подробнее</span></a>
-                <span class="rl-tickets-number">Последние 3 места</span>
-                <span class="rl-class">Эконом</span>
-            </footer>
-        </div>
-        <div class="rl-item rl-item-opened">
-            <header class="rl-item-header">
-                <span class="rl-price">
-                    <span class="rl-price-item">69 450</span> руб.
-                </span>
-                <a href="#" class="rl-buy-button">Купить</a>
-                <span class="rl-airline">British Airways / Aeroflot</span>
-            </header>
-            <div class="rl-content">
-                <img src="spa/uploads/un.png" class="rl-airline-logo" alt="Aeroflot">
-                <div class="rl-fly">
-                    <b class="rl-fly-time">20:00</b>  <span class="rl-airport js-title">LED</span>
-                    <div class="rl-fly-date">25 сентября 2014, пт</div>
-                </div>
-                <div class="rl-travel-time">2 ч 50 мин</div>
-                <div class="rl-fly">
-                    <b class="rl-fly-time">20:00</b>  <span class="rl-airport js-title">LED</span>
-                    <div class="rl-fly-date">25 сентября 2014, пт</div>
-                </div>
-                <div class="rl-fly-type">
-                    <div class="rl-fly-transplant">2 пересадки</div>
-                    <div class="rl-fly-transplant-time">AMS 14 ч 35 мин, PAR 26 ч 45 мин</div>
-                </div>
-            </div>
-            <div class="rl-content">
-                <img src="spa/uploads/un.png" class="rl-airline-logo" alt="Aeroflot">
-                <div class="rl-fly">
-                    <b class="rl-fly-time">20:00</b>  <span class="rl-airport js-title">LED</span>
-                    <div class="rl-fly-date">25 сентября 2014, пт</div>
-                </div>
-                <div class="rl-travel-time">2 ч 50 мин</div>
-                <div class="rl-fly">
-                    <b class="rl-fly-time">20:00</b>  <span class="rl-airport js-title">LED</span>
-                    <div class="rl-fly-date">25 сентября 2014, пт</div>
-                </div>
-                <div class="rl-fly-type">
-                    <div class="rl-fly-transplant">Прямой</div>
-                </div>
-            </div>
-            <footer class="rl-footer">
-                <a href="#" class="rl-more-info"><span>Свернуть</span></a>
-                <span class="rl-tickets-number">Последние 3 места</span>
-                <span class="rl-class">Эконом</span>
-            </footer>
-            <div class="rl-fullinfo">
-                <div class="rlf-oneway">
-                    <div class="rlf-fly">
-                        <span class="rlf-city">Санкт-Петербург (LED)</span>
-                        <span class="rlf-fly-arrow"></span>
-                        <span class="rlf-city">Санта-Круз-де-Тенерифе (TFS)</span>
-                        <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
-                    </div>
-                    <div class="rlf-part">
-                        <div class="rlf-column1">
-                            <div class="rlf-airport">LED-AMS</div>
-                            <div class="rlf-travel-time">3 часа 30 минtут</div>
-                        </div>
-                        <div class="rlf-colum2">
-                            <img src="spa/uploads/un.png" class="rlf-airline-logo" alt="Aeroflot">
-                            <div class="rlf-flight-info">
-                                <div class="rlf-flight-time">20:00  25 сентября 2014</div>
-                                <div class="rlf-flight-city">Санкт-Петербург, Пулково</div>
-                            </div>
-                            <div class="rlf-flight-info">
-                                <div class="rlf-flight-time">20:00  25 сентября 2014</div>
-                                <div class="rlf-flight-city">Санкт-Петербург, Пулково</div>
-                            </div>
-                        </div>
-                        <div class="rfl-column3">
-                            <div class="rlf-aviacompany">
-                                British Airways <br>
-                                рейс 1023
-                            </div>
-                            <div class="rlf-aviacompany">
-                                British Airways <br>
-                                рейс 1023
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rlf-part">
-                        <div class="rlf-column1">
-                            <div class="rlf-airport">Пересадка</div>
-                            <div class="rlf-travel-time">3 часа 30 минtут</div>
-                        </div>
-                        <div class="rlf-colum4">
-                            Амстердам, Схипхол (AMS), Нидерланды
-                            <div class="rlf-transfer">Смена аэропорта. <br>Москва, Домодедово (DME), Россия</div>
-                        </div>
-                    </div>
-                    <div class="rlf-part">
-                        <div class="rlf-column1">
-                            <div class="rlf-airport">LED-AMS</div>
-                            <div class="rlf-travel-time">3 часа 30 минtут</div>
-                        </div>
-                        <div class="rlf-colum2">
-                            <img src="spa/uploads/un.png" class="rlf-airline-logo" alt="Aeroflot">
-                            <div class="rlf-flight-info">
-                                <div class="rlf-flight-time">20:00  25 сентября 2014</div>
-                                <div class="rlf-flight-city">Санкт-Петербург, Пулково</div>
-                            </div>
-                            <div class="rlf-flight-info">
-                                <div class="rlf-flight-time">20:00  25 сентября 2014</div>
-                                <div class="rlf-flight-city">Санкт-Петербург, Пулково</div>
-                            </div>
-                        </div>
-                        <div class="rfl-column3">
-                            <div class="rlf-aviacompany">
-                                British Airways <br>
-                                рейс 1023
-                            </div>
-                            <div class="rlf-aviacompany">
-                                British Airways <br>
-                                рейс 1023
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rlf-part">
-                        <div class="rlf-column1">
-                            <div class="rlf-airport">Пересадка</div>
-                            <div class="rlf-travel-time">3 часа 30 минtут</div>
-                        </div>
-                        <div class="rlf-colum4">
-                            Амстердам, Схипхол (AMS), Нидерланды
-                            <div class="rlf-transfer">Ночная стыковка</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rlf-oneway rlf-back">
-                    <div class="rlf-fly">
-                        <span class="rlf-city">Санкт-Петербург (LED)</span>
-                        <span class="rlf-fly-arrow"></span>
-                        <span class="rlf-city">Санта-Круз-де-Тенерифе (TFS)</span>
-                        <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
-                    </div>
-                    <div class="rlf-part">
-                        <div class="rlf-column1">
-                            <div class="rlf-airport">LED-AMS</div>
-                            <div class="rlf-travel-time">3 часа 30 минtут</div>
-                        </div>
-                        <div class="rlf-colum2">
-                            <img src="spa/uploads/un.png" class="rlf-airline-logo" alt="Aeroflot">
-                            <div class="rlf-flight-info">
-                                <div class="rlf-flight-time">20:00  25 сентября 2014</div>
-                                <div class="rlf-flight-city">Санкт-Петербург, Пулково</div>
-                            </div>
-                            <div class="rlf-flight-info">
-                                <div class="rlf-flight-time">20:00  25 сентября 2014</div>
-                                <div class="rlf-flight-city">Санкт-Петербург, Пулково</div>
-                            </div>
-                        </div>
-                        <div class="rfl-column3">
-                            <div class="rlf-aviacompany">
-                                British Airways <br>
-                                рейс 1023
-                            </div>
-                            <div class="rlf-aviacompany">
-                                British Airways <br>
-                                рейс 1023
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rlf-part">
-                        <div class="rlf-column1">
-                            <div class="rlf-airport">Пересадка</div>
-                            <div class="rlf-travel-time">3 часа 30 минtут</div>
-                        </div>
-                        <div class="rlf-colum4">
-                            Амстердам, Схипхол (AMS), Нидерланды
-                            <div class="rlf-transfer">Смена аэропорта. <br>Москва, Домодедово (DME), Россия</div>
-                        </div>
-                    </div>
-                    <div class="rlf-part">
-                        <div class="rlf-column1">
-                            <div class="rlf-airport">LED-AMS</div>
-                            <div class="rlf-travel-time">3 часа 30 минtут</div>
-                        </div>
-                        <div class="rlf-colum2">
-                            <img src="spa/uploads/un.png" class="rlf-airline-logo" alt="Aeroflot">
-                            <div class="rlf-flight-info">
-                                <div class="rlf-flight-time">20:00  25 сентября 2014</div>
-                                <div class="rlf-flight-city">Санкт-Петербург, Пулково</div>
-                            </div>
-                            <div class="rlf-flight-info">
-                                <div class="rlf-flight-time">20:00  25 сентября 2014</div>
-                                <div class="rlf-flight-city">Санкт-Петербург, Пулково</div>
-                            </div>
-                        </div>
-                        <div class="rfl-column3">
-                            <div class="rlf-aviacompany">
-                                British Airways <br>
-                                рейс 1023
-                            </div>
-                            <div class="rlf-aviacompany">
-                                British Airways <br>
-                                рейс 1023
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <footer class="rl-footer">
-                    <a href="#" class="rl-more-info"><span>Свернуть</span></a>
-                </footer>
-            </div>
-        </div>-->
     </div>
     <!-- /Results List -->
 
+    <!-- Results Aside -->
+    <aside class="results-aside results-aside_mod">
+
+        <div class="ra-tags-container">
+            <h4 class="ra-tags-title" ng-show="ticketsList.length > 0"><b>{{getFilteredLength()}}</b> из <b>{{getLength()}}</b> перелетов</h4>
+            <ul class="ra-tags-list">
+                <li>Aeroflot <a href="#"></a></li>
+                <li>Transaero <a href="#"></a></li>
+                <li>Lufthansa <a href="#"></a></li>
+                <li>до 1 пересадки <a href="#"></a></li>
+                <li>до 78 000 <a href="#"></a></li>
+            </ul>
+            <a ng-href="#" class="ra-tags-reset" ng-click="resetAll($event)">Сбросить все</a>
+        </div>
+    </aside>
+    <!-- /Results Aside -->
+
     <!-- Results Aside Фильтры -->
-    <aside class="results-aside">
+    <!--<aside class="results-aside">
         <div class="ra-block">
             <header class="ra-header">
                 <h4 class="ra-title">Фильтр</h4>
@@ -471,7 +376,7 @@
                 </ul>
             </div>
         </div>
-    </aside>
+    </aside>-->
     <!-- /Results Aside -->
 
 </div>

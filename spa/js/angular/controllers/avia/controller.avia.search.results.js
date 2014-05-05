@@ -24,6 +24,19 @@ innaAppControllers.
 
             $scope.helper = aviaHelper;
 
+            $scope.getLength = function () {
+                var len = $scope.ticketsList.length;
+                if ($scope.recomendedItem != null)
+                    len++;
+                return len;
+            }
+            $scope.getFilteredLength = function () {
+                var len = $scope.filteredTicketsList.length;
+                if ($scope.recomendedItem != null)
+                    len++;
+                return len;
+            }
+
             var urlDataLoaded = { fromLoaded: false, toLoaded: false };
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {
@@ -308,6 +321,7 @@ innaAppControllers.
 
                 if (data != null && data.Items != null && data.Items.length > 0) {
                     var list = [];
+                    var recomendedItem = null;
                     //id поиска
                     $scope.searchId = data.QueryId;
                     //нужно добавить служебные поля для сортировки по датам
@@ -318,10 +332,16 @@ innaAppControllers.
                         //дополняем полями 
                         aviaHelper.addCustomFields(item);
 
-                        list.push(item);
+                        if (recomendedItem == null && item.IsRecomendation) {
+                            recomendedItem = item;
+                        }
+                        else {
+                            list.push(item);
+                        }
                     }
                     //добавляем список
                     $scope.ticketsList = list;
+                    $scope.recomendedItem = recomendedItem;
 
                     updateFilter(data.Items);
                 }

@@ -10,6 +10,7 @@
 
         var timeFormat = "HH:mm";
         var dateFormat = "dd MMM yyyy, EEE";
+        var shortDateFormat = "dd MMM, EEE";
 
         function dateToMillisecs(date) {
             var res = dateHelper.apiDateToJsDate(date);
@@ -23,10 +24,11 @@
             return $filter("date")(dateText, timeFormat);
         }
 
-        function getDateFormat(dateText, customDateFormat) {
-            if (customDateFormat == null)
-                customDateFormat = dateFormat;
-            return changeEnToRu($filter("date")(dateText, customDateFormat));
+        function getDateFormat(dateText, customDateFormat, useShort) {
+            if (customDateFormat == null) {
+                customDateFormat = useShort ? shortDateFormat : dateFormat;
+            }
+            return changeEnToRu($filter("date")(dateText, customDateFormat), useShort);
         }
 
         //формат дат
@@ -44,6 +46,20 @@
             { En: "Nov", Ru: "ноября" },
             { En: "Dec", Ru: "декабря" }];
 
+        var monthEnToRusShort = [
+            { En: "Jan", Ru: "янв" },
+            { En: "Feb", Ru: "фев" },
+            { En: "Mar", Ru: "мар" },
+            { En: "Apr", Ru: "апр" },
+            { En: "May", Ru: "мая" },
+            { En: "Jun", Ru: "июн" },
+            { En: "Jul", Ru: "июл" },
+            { En: "Aug", Ru: "авг" },
+            { En: "Sep", Ru: "сен" },
+            { En: "Oct", Ru: "окт" },
+            { En: "Nov", Ru: "ноя" },
+            { En: "Dec", Ru: "дек" }];
+
         var weekDaysEnToRus = [
             { En: "Mon", Ru: "пн" },
             { En: "Tue", Ru: "вт" },
@@ -53,11 +69,11 @@
             { En: "Sat", Ru: "сб" },
             { En: "Sun", Ru: "вс" }];
 
-        function changeEnToRu(text) {
+        function changeEnToRu(text, useShort) {
             if (text == null || text.length == 0)
                 return text;
 
-            var dic = monthEnToRus;
+            var dic = useShort ? monthEnToRusShort : monthEnToRus;
             for (var i = 0; i < dic.length; i++) {
                 var dicItem = dic[i];
                 if (text.indexOf(dicItem.En) > -1) {
@@ -149,14 +165,14 @@
             addFormattedDatesFields: function (item) {
                 //дополняем полями с форматированной датой и временем
                 item.DepartureTimeFormatted = getTimeFormat(item.DepartureDate);
-                item.DepartureDateFormatted = getDateFormat(item.DepartureDate);
+                item.DepartureDateFormatted = getDateFormat(item.DepartureDate, null, true);
                 item.ArrivalTimeFormatted = getTimeFormat(item.ArrivalDate);
-                item.ArrivalDateFormatted = getDateFormat(item.ArrivalDate);
+                item.ArrivalDateFormatted = getDateFormat(item.ArrivalDate, null, true);
 
                 item.BackDepartureTimeFormatted = getTimeFormat(item.BackDepartureDate);
-                item.BackDepartureDateFormatted = getDateFormat(item.BackDepartureDate);
+                item.BackDepartureDateFormatted = getDateFormat(item.BackDepartureDate, null, true);
                 item.BackArrivalTimeFormatted = getTimeFormat(item.BackArrivalDate);
-                item.BackArrivalDateFormatted = getDateFormat(item.BackArrivalDate);
+                item.BackArrivalDateFormatted = getDateFormat(item.BackArrivalDate, null, true);
             },
 
             //код компании
