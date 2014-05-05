@@ -85,10 +85,6 @@ gulp.task('release-html-replace', function () {
 
 //===============Склеиваем app-main.js========================
 function getSrcFiles(folder){
-    gulp.src(['../index.html']).pipe(function(){
-        console.log(arguments);
-    });
-
     return [folder + '/spa/js/angular/helpers/*.js', folder + '/spa/js/angular/models/app.model.js', folder + '/spa/js/angular/**/*.js'];
 }
 
