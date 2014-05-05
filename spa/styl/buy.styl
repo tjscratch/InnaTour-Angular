@@ -1,26 +1,28 @@
 .title
-    font-size 25px
-    letter-spacing -.025em
+    font-size 20px
     font-weight bold
     padding 0 0 11px;
 
 .warning
-    background #ffffc1
-    padding 22px 50px 25px 68px
-    box-shadow: 0 1px 2px rgba(0,0,0,.2)
-    margin 0 0 32px
+    background #fdf1c9
+    padding 22px 15px 12px 44px
+    box-shadow: 0 3px 4px rgba(0,0,0,.25)
+    margin -21px 0 32px
     letter-spacing -.025em
+    font-size 14px
+    line-height 20px
     position relative
+    border-radius 0 0 4px 4px
 
-.warning:before
-    content ''
-    width 22px
-    height 22px
-    display block
-    position absolute
-    left 26px
-    top 25px
-    background url(../img/i.png) no-repeat 0 -1412px
+    &:before
+        content ''
+        width 21px
+        height 20px
+        display block
+        position absolute
+        left 13px
+        top 22px
+        background url(../img/i-at.png) no-repeat
 
 .warning-title
     font-size 18px
@@ -34,7 +36,7 @@
 
 .form-container
     border 0
-    border-top 1px solid #d1d8d9
+    border-top 1px solid #c0c0c2
     clearfix()
     padding 18px 0 2px
 
@@ -48,9 +50,9 @@
 
 .b-field-label
     display inline-block
-    font-size 14px
-    letter-spacing -.025em
-    color #666
+    font-size 12px
+    margin 0 11px
+    color #878787
     white-space nowrap
 
 .b-field-label-docs
@@ -61,30 +63,29 @@
 
 .b-field-text
     display block
-    border 1px solid #d1d8d9
-    padding 9px 10px 8px
-    font-size 15px
-    font-weight bold
-    letter-spacing -.025em
-    margin 5px 0 17px
+    border 1px solid #c0c0c2
+    padding 6px 10px
+    font-size 14px
+    margin 2px 0 10px
     position relative
     box-sizing border-box
     width 100%
     outline none
     font-family  ProximaNova, Arial, sans-serif
+    border-radius 2px
 
 .b-field-select
     padding-right 25px
-    background url(../img/i.png) no-repeat right 8px top -178px #fff
+    background url(../img/i.png) no-repeat right 8px top -181px #fff
 
 .b-field-text:focus
     border-color #999
     z-index 2
 
 .b-field-text:disabled
-    border-color #e4e4e4
-    background #e4e4e4
-    color #242424
+    border-color #c0c0c2
+    background #e6e7e9
+    color #4d4d4d
 
 .b-field-block-surname input:disabled
     border-left-color #f6f6f6
@@ -121,7 +122,7 @@
 .b-agreement
     display inline-block
     clear both
-    padding 0 0 0 25px
+    padding 0 0 0 30px
     position relative
     font-size 14px
     letter-spacing -.025em
@@ -131,20 +132,22 @@
     display none
 
 .b-checkbox
-    border 1px solid #d1d8d9
+    width 15px
+    height 15px
     background #fff
-    width 14px
-    height 14px
+    border 2px solid #89c13a
+    border-radius 3px
     display block
     position absolute
     left 0
-    top 0
+    top -1px
 
 .b-agreement input:checked + .b-checkbox
-    background url(../img/i.png) no-repeat 3px -1597px #fff
+    background url(../img/i.png) no-repeat 2px -590px #89c13a
 
 .b-agreement input:disabled + .b-checkbox
-    background-color #e4e4e4
+    background-color #c0c0c2
+    border-color #c0c0c2
 
 .b-field-group
     clearfix()
@@ -158,8 +161,14 @@
 .b-field-group .b-field-block:first-child
     margin 0
 
+.b-field-block-90
+    width 90px
+
 .b-field-block-94
     width 94px
+
+.b-field-block-96
+    width 96px
 
 .b-field-block-105
     width 105px
@@ -188,8 +197,14 @@
 .b-field-block-195
     width 195px
 
+.b-field-block-240
+    width 240px
+
 .b-field-block-290
     width 290px
+
+.b-field-block-496
+    width 496px
 
 .b-field-block-auth .b-field-text
     border-color #89c13a
@@ -304,40 +319,40 @@
     width 457px
     height 302px
     border-radius 12px
-    box-shadow: 0 0 15px rgba(0,0,0,.2)
+    box-shadow: 0 3px 10px rgba(0,0,0,.5)
     background #fff
     position relative
     box-sizing border-box
-    padding 94px 0 0 162px
+    padding 90px 0 0 110px
 
 .b-cc-end
     float right
     width 457px
     height 302px
     border-radius 12px
-    box-shadow: 0 0 15px rgba(0,0,0,.2)
+    box-shadow: 0 3px 10px rgba(0,0,0,.5)
     background #fff
     position relative
 
-.b-cc-end:before
-    top 35px
-    height 59px
-    left 0
-    right 0
-    content ''
-    background #cdcdcd
-    position absolute
-    display block
+    &:before
+        top 46px
+        height 59px
+        left 0
+        right 0
+        content ''
+        background #595a5c
+        position absolute
+        display block
 
 .b-cvc
     position absolute
     left 22px
     right 25px
-    top 118px
-    height 75px
+    top 136px
+    height 80px
     background url(../img/cc-bg.png)
     box-sizing border-box
-    padding 24px 24px 14px
+    padding 24px 14px 14px
 
 .b-cvc .b-field-text
     float right
@@ -349,23 +364,23 @@
     float right
     font-size 14px
     color #666
-    padding 10px 0 0
+    padding 7px 0 0
     letter-spacing -.025em
 
 .b-cc-type
     position absolute
-    left 36px
-    top 28px
+    left 14px
+    top 9px
     display block
 
 .b-field-text-small
     float left
-    width 60px
-    margin 0 4px 0 0
+    width 70px
+    margin 0 10px 0 0
     text-align center
 
 .b-field-text-name
-    width 249px
+    width 310px
 
 .b-cc-block
     padding 0 0 17px
@@ -377,7 +392,7 @@
 .b-cc-date
     float left
     font-size 14px
-    color #666
+    color #878787
 
 .b-cc-date input
     float none
@@ -387,20 +402,27 @@
     position absolute
     width 130px
     left -143px
-    font-size 14px
-    color #666
+    font-size 12px
+    color #878787
     text-align right
     padding 12px 0 0
     letter-spacing -.025em
 
 .b-cc-block-label-number
-    padding 2px 0 0
+    margin-top -1px
+    padding 0
 
 .b-cc-block-label-date
     padding 29px 0 0
 
 .b-agreement-cc
-    margin 0 100px 22px
+    margin 0 0 22px
+    float left
+    width 720px
+    clear none
+
+    a
+        color #1e88c1
 
 .b-pay-button-block
     clearfix()
@@ -415,6 +437,7 @@
     display inline-block
     position relative
     overflow hidden
+    float right
 
 .b-pay-button input
     position absolute
@@ -431,25 +454,27 @@
     padding 0 0 30px
 
 .radio-list
-    font-size 15px
-    font-weight bold
+    font-size 14px
     clearfix()
-    border 1px solid #e4e4e4
     margin-top 5px
 
 .radio-list li
     float left
+    border-left 1px solid #878787
+
+    &:first-child
+        border 0
 
 .radio-list label
     display block
 
 .radio
     display block
-    width 36px
+    width 30px
     text-align center
-    height 35px
-    line-height 35px
-    background #fff
+    height 30px
+    line-height 30px
+    background #e6e7e9
     text-decoration none
 
 .radio-list input:disabled + .radio
@@ -467,6 +492,8 @@
 
 .rl-item-payment
     margin 0 0 19px
+    position relative
+    z-index 2
 
 .rl-item-payment .rl-fly
     width 226px
@@ -499,18 +526,26 @@
 .rl-item-payment .rl-travel-time
     margin-top 13px
 
+.b-cc-block-date
+    margin-left 80px
 
+.b-agreement-container
+    clearfix()
 
+.b-logos
+    margin 0 30px
 
+.form-listing
+    margin 0 0 40px
 
+.b-field-block_checkbox
+    margin-top 17px !important
 
-
-
-
-
-
-
-
+.button_apply
+    float right
+    font-size 18px
+    font-weight bold
+    padding 12px 35px
 
 
 
