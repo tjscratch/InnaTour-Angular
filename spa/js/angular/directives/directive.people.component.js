@@ -15,6 +15,8 @@
                 return parseInt($scope.adultCount, 10) + parseInt($scope.childCount, 10) + parseInt($scope.infantsCount, 10);
             }
 
+            $scope.preventBubbling = eventsHelper.preventBubbling;
+
             function countPlus (value) {
                 value = parseInt(value, 10);
                 var value = value + 1;
