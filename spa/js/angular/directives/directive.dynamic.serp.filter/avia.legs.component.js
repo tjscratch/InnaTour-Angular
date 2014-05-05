@@ -4,130 +4,74 @@ angular.module('innaApp.directives')
             return {
                 templateUrl: '/spa/templates/components/dynamic-serp-filter/avia.legs.html',
                 scope: {
-                    tickets: '=innaDynamicSerpFilterAviaLegsTickets'
+                    tickets: '=innaDynamicSerpFilterAviaLegsTickets',
+                    filters: '=innaDynamicSerpFilterAviaLegsFilters'
                 },
                 controller: [
-                    '$scope', 'innaApp.API.events', '$element',
-                    function($scope, Events, $element){
+                    '$scope', 'innaApp.API.events', '$element', '$controller',
+                    function($scope, Events, $element, $controller){
+                        /*Mixins*/
+                        $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
+
                         /*Models*/
-                        function Option(id, title, comparator){
-                            this.id = id;
-                            this.title = title;
+                        var Option = inna.Models.Avia.Filters._OptionFactory(function(title, comparator){
                             this.comparator = comparator;
-
-                            this.shown = false;
-                            this.selected = false;
                             this.minPrice = NaN;
+                        });
+
+                        Option.prototype.describe = function(){
+                            return this.title;
                         }
 
-                        function Options(options){
-                            this.options = options;
-                        }
-
-                        Options.prototype.each = function(fn){
-                            for(var i = 0, option = null; option = this.options[i++];) {
-                                fn.call(this, option);
-                            }
-                        };
-
-                        Options.prototype.hasSelected = function(){
-                            var hasSelected = false;
-
-                            this.each(function(option){
-                                hasSelected = hasSelected || option.selected;
-                            });
-
-                            return hasSelected;
-                        };
-
-                        Options.prototype.getIndicators = function(){
-                            var indicators = {};
-
-                            this.each(function(option){
-                                if(option.selected) {
-                                    indicators[option.id] = option.title;
-                                }
-                            });
-
-                            return indicators;
-                        };
+                        var Options = inna.Models.Avia.Filters._OptionsFactory();
 
                         /*Properties*/
-                        $scope.options = new Options([
-                            new Option('Stright', 'Прямой', function(l){ return l == 1; }),
-                            new Option('OneJump', '1 пересадка', function(l){ return l == 2; }),
-                            new Option('MultipleJumps', '2+ пересадки', function(l) { return l > 2; })
-                        ]);
+                        $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Legs'));
 
-                        $scope.isOpen = false;
+                        $scope.filter.options = new Options();
+                        $scope.filter.options.push(new Option('Прямой', function(l){ return l == 1; }));
+                        $scope.filter.options.push(new Option('1 пересадка', function(l){ return l == 2; }));
+                        $scope.filter.options.push(new Option('2+ пересадки', function(l) { return l > 2; }));
 
-                        /*Methods*/
-                        $scope.onChange = function(){
-                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Legs', value: angular.copy($scope.options)});
-                        };
+                        $scope.filter.filterFn = function(ticket){
+                            var options = $scope.filter.options.getSelected();
 
-                        $scope.reset = function(){
-                            $scope.options.each(function(option){
-                                option.selected = false;
+                            if(!options.options.length) return;
+
+                            var show = false;
+                            var legsTo = ticket.getEtaps('To').length;
+                            var legsBack = ticket.getEtaps('Back').length;
+
+                            options.each(function(option){
+                                show = show || (option.comparator(legsTo) && option.comparator(legsBack));
                             });
 
-                            $scope.onChange();
+                            if(!show) ticket.hidden = true;
                         };
-
-                        $scope.toggle = function(){
-                            $scope.isOpen = !$scope.isOpen;
-                        }
 
                         /*Watchers*/
                         var unwatchCollectionTickets = $scope.$watchCollection('tickets', function(newVal){
-                            if(newVal && newVal.list.length){
-                                $scope.options.each(function(option){
-                                    var tickets = new inna.Models.Avia.TicketCollection();
+                            if(!newVal || !newVal.list.length) return;
 
-                                    newVal.each(function(ticket){
-                                        var fits = option.comparator(ticket.getEtaps('To').length) ||
-                                            option.comparator(ticket.getEtaps('Back').length);
+                            $scope.filter.options.each(function(option){
+                                var tickets = new inna.Models.Avia.TicketCollection();
 
-                                        if(fits) {
-                                            tickets.push(ticket);
-                                        }
-                                    });
+                                newVal.each(function(ticket){
+                                    var fits = option.comparator(ticket.getEtaps('To').length) ||
+                                        option.comparator(ticket.getEtaps('Back').length);
 
-                                    if(tickets.size()) {
-                                        option.shown = true;
-                                        option.minPrice = tickets.getMinPrice();
+                                    if(fits) {
+                                        tickets.push(ticket);
                                     }
                                 });
 
-                                unwatchCollectionTickets();
-                            }
-                        });
-
-                        (function(){
-                            var doc = $(document);
-
-                            function onClick(event){
-                                var isInsideComponent = $.contains($($element)[0], event.target);
-
-                                if(!isInsideComponent) {
-                                    $scope.$apply(function($scope){
-                                        $scope.isOpen = false;
-                                    });
+                                if(tickets.size()) {
+                                    option.shown = true;
+                                    option.minPrice = tickets.getMinPrice();
                                 }
-                            }
-
-                            doc.on('click', onClick);
-
-                            $scope.$on('$destroy', function(){
-                                doc.off('click', onClick);
                             });
-                        })();
 
-                        $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, 'Legs.*'), function(event, data){
-                            var optionToTurnOff = _.findWhere($scope.options, {id: data.split('.')[1]});
-
-                            optionToTurnOff.selected = false;
-                            $scope.onChange();
+                            unwatchCollectionTickets();
                         });
                     }
                 ]

@@ -2,15 +2,16 @@
     <div class="js-filter-scroll">
         <ul class="filters__container">
             <li inna-dynamic-serp-filter-avia-legs
-                inna-dynamic-serp-filter-avia-legs-tickets="tickets"></li>
-            <li inna-dynamic-serp-filter-avia-price
-                inna-dynamic-serp-filter-avia-price-tickets="tickets"></li>
-            <li inna-dynamic-serp-filter-avia-time
-                inna-dynamic-serp-filter-avia-time-tickets="tickets"></li>
-            <li inna-dynamic-serp-filter-avia-airlines
-                inna-dynamic-serp-filter-avia-airlines-tickets="tickets"></li>
-            <li inna-dynamic-serp-filter-avia-airports
-                inna-dynamic-serp-filter-avia-airports-tickets="tickets"></li>
+                inna-dynamic-serp-filter-avia-legs-tickets="tickets"
+                inna-dynamic-serp-filter-avia-legs-filters="ticketFilters"></li>
+            <!--<li inna-dynamic-serp-filter-avia-price-->
+                <!--inna-dynamic-serp-filter-avia-price-tickets="tickets"></li>-->
+            <!--<li inna-dynamic-serp-filter-avia-time-->
+                <!--inna-dynamic-serp-filter-avia-time-tickets="tickets"></li>-->
+            <!--<li inna-dynamic-serp-filter-avia-airlines-->
+                <!--inna-dynamic-serp-filter-avia-airlines-tickets="tickets"></li>-->
+            <!--<li inna-dynamic-serp-filter-avia-airports-->
+                <!--inna-dynamic-serp-filter-avia-airports-tickets="tickets"></li>-->
 
 <!--
             <li class="filters__sort">
@@ -23,14 +24,16 @@
 
 <div class="results-container results-container_top">
     <div class="results-list results-list_720">
-        <div ng-repeat="ticket in tickets.list"
+        <div ng-repeat="ticket in tickets.filter(ticketFilters)"
              ng-if="!ticket.hidden"
              inna-ticket
              inna-ticket-ticket="ticket"
              inna-ticket-get-ticket-details="getTicketDetails(ticket)">
         </div>
     </div>
-    <aside class="results-aside results-aside_mod" ng-include="'/spa/templates/pages/dynamic/inc/serp.filters-indicators.html'" ng-controller="DynamicPackageSERPFilterIndicatorCtrl"></aside>
+    <div inna-dynamic-serp-filter-indicators
+         inna-dynamic-serp-filter-indicators-filters="ticketFilters"
+         inna-dynamic-serp-filter-indicators-items="tickets"></div>
 </div>
 
 <div ng-controller="DynamicPackageSERPTicketPopupCtrl">

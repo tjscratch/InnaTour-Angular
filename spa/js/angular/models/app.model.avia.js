@@ -164,38 +164,30 @@ inna.Models.Avia.TicketCollection.prototype.getMaxPrice = function(){
 };
 
 inna.Models.Avia.TicketCollection.prototype.filter = function(filters) {
-    this.each(function(ticket){ ticket.hidden = false; });
+    var self = this;
 
-    for(var filterName in filters) if(filters.hasOwnProperty(filterName)) {
-        var methodName = '_filterBy' + filterName;
+    self.each(function(ticket){ ticket.hidden = false; });
 
-        if(this[methodName]) {
-            this[methodName](filters[filterName]);
-        } else {
-            console.warn('Can not apply filter %s', methodName);
-        }
-    }
+    filters.each(function(filter){
+        self.each(function(ticket){
+            filter.filterFn(ticket);
+        });
+    });
 
     return this.list;
-}
+};
 
-inna.Models.Avia.TicketCollection.prototype._filterByLegs = function(filter) {
-    if(!filter.hasSelected()) return;
+inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function(){
+    var o = {}
+    o.total = this.list.length
+    o.visible = o.total;
 
     this.each(function(ticket){
-        var hide = true;
-        var legsTo = ticket.getEtaps('To').length;
-        var legsBack = ticket.getEtaps('Back').length;
-
-        filter.each(function(option){
-            if(!option.selected) return;
-
-            hide = hide && !(option.comparator(legsTo) && option.comparator(legsBack));
-        });
-
-        ticket.hidden = hide;
+        if(ticket.hidden) o.visible--;
     });
-};
+
+    return o;
+}
 
 inna.Models.Avia.TicketCollection.prototype._filterByPrice = function(filter){
     this.each(function(ticket){
@@ -384,3 +376,84 @@ inna.Models.Avia.Ticket.Etap.prototype.getLegDuration = function(){
 
     return inna.Models.Avia.Ticket.__getDuration(diffMin, 'ч.', 'мин.');
 };
+
+_.provide('inna.Models.Avia.Filters');
+
+inna.Models.Avia.Filters.FilterSet = function(){
+    this.filters = [];
+};
+
+inna.Models.Avia.Filters.FilterSet.prototype.add = function(filter){
+    this.filters.push(filter);
+
+    return filter;
+};
+
+inna.Models.Avia.Filters.FilterSet.prototype.each = function(fn) {
+    for(var i = 0, filter = null; filter = this.filters[i++];) {
+        fn(filter);
+    }
+}
+
+inna.Models.Avia.Filters.Filter = function(name){
+    this.name = name;
+    this.defaultValue = null;
+    this.options = null;
+    this.filterFn = angular.noop;
+};
+
+inna.Models.Avia.Filters.Filter.prototype.reset = function(){
+    this.options.each(function(option){
+        option.selected = false;
+    });
+};
+
+inna.Models.Avia.Filters._OptionFactory = function(init){
+    var Option = function(title){
+        this.title = title;
+        this.shown = false;
+        this.selected = false;
+
+        if(init) init.apply(this, arguments);
+    };
+
+    return Option;
+};
+
+inna.Models.Avia.Filters._OptionsFactory = function(){
+    var Options = function(){
+        this.options = [];
+    };
+
+    Options.prototype.push = function(option){
+        this.options.push(option);
+    }
+
+    Options.prototype.each = function(fn){
+        for(var i = 0, option = null; option = this.options[i++];) {
+            fn(option);
+        }
+    };
+
+    Options.prototype.getSelected = function(){
+        var newSet = new Options();
+
+        this.each(function(option){
+            if(option.selected) newSet.push(option);
+        });
+
+        return newSet;
+    }
+
+    Options.prototype.hasSelected = function(){
+        var hasSelected = false;
+
+        this.each(function(option){
+            hasSelected = hasSelected || option.selected;
+        });
+
+        return hasSelected;
+    }
+
+    return Options;
+}

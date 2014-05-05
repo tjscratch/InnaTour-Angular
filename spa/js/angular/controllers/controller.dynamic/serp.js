@@ -102,12 +102,12 @@ innaAppControllers
             $scope.hotels = [];
             $scope.hotelFilters = {};
             $scope.tickets = new inna.Models.Avia.TicketCollection();
-            $scope.ticketFilters = {};
+            $scope.ticketFilters = new inna.Models.Avia.Filters.FilterSet();
             $scope.combination = null;
 
             $scope.show = (function(search){
                 if(search.displayTicket) return $scope.TICKETS_TAB;
-                if(search.deisplayHotel) return $scope.HOTELS_TAB;
+                if(search.displayHotel) return $scope.HOTELS_TAB;
 
                 return $scope.HOTELS_TAB;
             })($location.search());
@@ -115,7 +115,7 @@ innaAppControllers
             $scope.asMap = !!+DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
 
             $scope.showLanding = true;
-            //$scope.baloon = aviaHelper.baloon;
+
             $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
 
             /*Methods*/

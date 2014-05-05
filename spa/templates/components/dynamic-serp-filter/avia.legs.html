@@ -1,14 +1,14 @@
-<span class="filters__link" ng-click="toggle()">Пересадки</span>
-<div class="filters__baloon" ng-if="isOpen">
+<span class="filters__link" ng-click="popup.toggle()">Пересадки</span>
+<div class="filters__baloon" ng-if="popup.isOpen">
     <header class="ra-header">
         <h4 class="ra-title">Колличество пересадок</h4>
-        <a class="ra-header-link" href="javascript:void(0);" ng-click="reset()">Сбросить</a>
+        <a class="ra-header-link" href="javascript:void(0);" ng-click="filter.reset()">Сбросить</a>
     </header>
     <div class="ra-content">
         <ul class="ra-fly-type-list">
-            <li ng-repeat="option in options.options" ng-if="option.shown">
+            <li ng-repeat="option in filter.options.options" ng-if="option.shown">
                 <label>
-                    <input type="checkbox" ng-model="option.selected"  ng-change="onChange(option)" name="fly">
+                    <input type="checkbox" ng-model="option.selected">
                     <span class="ra-checkbox"></span>
                     <span class="ra-fly-type">{{option.title}}</span>
                     <span class="ra-fly-price">{{option.minPrice}}&nbsp;<span class="rub">Р</span></span>
