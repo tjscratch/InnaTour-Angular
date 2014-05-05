@@ -455,5 +455,15 @@ inna.Models.Avia.Filters._OptionsFactory = function(){
         return hasSelected;
     }
 
+    Options.prototype.reset = function(){
+        this.each(function(option, undefined){
+            if(option.reset) {
+                option.reset();
+            } else {
+                option.selected = false;
+            }
+        });
+    }
+
     return Options;
 }

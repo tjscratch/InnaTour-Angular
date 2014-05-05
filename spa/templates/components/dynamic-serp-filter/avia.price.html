@@ -1,8 +1,8 @@
 <span class="filters__link" ng-click="popup.toggle()">Цена</span>
 <div class="filters__baloon filters__baloon_240" ng-show="popup.isOpen">
     <div class="filter__range-container">
-        <span class="filter__range">до <input type="text" class="js-range-val" ng-model="price" ng-change="onChange()"> <span class="rub">Р</span></span>
-        <a href="javascript:void(0);" class="ra-header-link" ng-click="reset()">Сбросить</a>
+        <span class="filter__range">до <input type="text" class="js-range-val" ng-model="option.value" ng-change="displayOnSlider()"> <span class="rub">Р</span></span>
+        <a href="javascript:void(0);" class="ra-header-link" ng-click="option.reset()">Сбросить</a>
     </div>
     <div class="js-range filter__range-trackbar"></div>
 </div>

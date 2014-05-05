@@ -4,14 +4,12 @@ angular.module('innaApp.directives')
             return {
                 templateUrl: '/spa/templates/components/dynamic-serp-filter/avia.price.html',
                 scope: {
-                    tickets: '=innaDynamicSerpFilterAviaPriceTickets'
+                    tickets: '=innaDynamicSerpFilterAviaPriceTickets',
+                    filters: '=innaDynamicSerpFilterAviaPriceFilters'
                 },
                 controller: [
                     '$scope', 'innaApp.API.events', '$element', '$controller',
                     function($scope, Events, $element, $controller){
-                        /*Private*/
-                        var NAME = 'Price';
-
                         /*Mixins*/
                         $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
@@ -19,58 +17,65 @@ angular.module('innaApp.directives')
                         var slider = $('.js-range', $element);
                         var input = $('.js-range-val', $element);
 
-                        /*Private*/
-                        var min = Number.MAX_VALUE;
-                        var max = 0;
-                        var normalizedPrice = function(){
-                            if($scope.price < min) return min;
-                            if($scope.price > max) return max;
+                        /*Models*/
+                        var Options = inna.Models.Avia.Filters._OptionsFactory();
 
-                            return $scope.price;
-                        }
+                        var Option = inna.Models.Avia.Filters._OptionFactory(function(){
+                            this.value = 0;
+                            this.max = 0;
+                            this.min = Number.MAX_VALUE;
+                            this.defaultValue = 0;
+                        });
+
+                        Option.prototype.reset = function(){
+                            this.value = this.defaultValue;
+                        };
+
+                        Option.prototype.describe = function(){
+                            return 'Не дороже ~ рублей'.split('~').join(this.value);
+                        };
 
                         /*Properties*/
-                        $scope.price = 0;
-                        $scope.isOpen = false;
+                        $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Price'));
+                        $scope.option = new Option('Цена');
+                        $scope.filter.options = new Options();
+                        $scope.filter.options.push($scope.option);
+                        $scope.filter.filterFn = function(ticket){
+                            if(ticket.data.Price > $scope.option.value) ticket.hidden = true;
+                        }
 
                         /*Methods*/
-                        $scope.onChange = function(){
+                        $scope.displayOnSlider = function(){
                             slider.slider('value', $scope.price);
-                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: NAME, value: normalizedPrice()});
-                        };
-
-                        $scope.reset = function(){
-                            $scope.price = max;
-                            $scope.onChange();
-                        };
+                        }
 
                         /*Watchers*/
                         var unwatchCollectionTickets = $scope.$watchCollection('tickets', function(newVal) {
                             if(!newVal || !newVal.list.length) return;
 
-                            min = newVal.getMinPrice();
-                            max = newVal.getMaxPrice();
+                            $scope.option.min = newVal.getMinPrice();
+                            $scope.option.max = newVal.getMaxPrice();
+                            $scope.option.defaultValue = $scope.option.max;
 
                             slider.slider({
                                 range: "min",
-                                min: min,
-                                max: max,
-                                value: max,
+                                min: $scope.option.min,
+                                max: $scope.option.max,
+                                value: $scope.option.max,
                                 slide: function(event, ui) {
                                     $scope.$apply(function($scope){
-                                        $scope.price = ui.value;
-                                        $scope.onChange();
+                                        $scope.option.value = ui.value;
                                     });
                                 }
                             });
 
-                            $scope.reset();
+                            $scope.filter.options.reset();
 
                             unwatchCollectionTickets();
                         });
 
-                        $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, NAME), function(){
-                            $scope.reset();
+                        $scope.$watch('option.value', function(){
+                            $scope.option.selected = ($scope.option.value !== $scope.option.defaultValue);
                         });
                     }
                 ]
