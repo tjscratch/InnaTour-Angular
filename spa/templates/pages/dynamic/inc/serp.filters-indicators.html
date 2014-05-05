@@ -1,2 +1,10 @@
-CurrentFilters
-<button ng-repeat="(filterName, filterValue) in filters" ng-click="dropFilter(filterName)">{{filterName}} = {{filterValue}}</button>
+<div class="ra-tags-container">
+    <h4 class="ra-tags-title"><b>437</b> из <b>678</b> перелетов</h4>
+    <ul class="ra-tags-list">
+        <li ng-repeat="(filterName, filterValue) in filters">
+            {{translate(filterName, filterValue)}}
+            <a href="javascript:void(0);" ng-click="dropFilter(filterName)"></a>
+        </li>
+    </ul>
+    <a href="#" class="ra-tags-reset">Сбросить все</a>
+</div>

@@ -40,6 +40,18 @@ angular.module('innaApp.directives')
                             return hasSelected;
                         };
 
+                        Options.prototype.getIndicators = function(){
+                            var indicators = {};
+
+                            this.each(function(option){
+                                if(option.selected) {
+                                    indicators[option.id] = option.title;
+                                }
+                            });
+
+                            return indicators;
+                        };
+
                         /*Properties*/
                         $scope.options = new Options([
                             new Option('Stright', 'Прямой', function(l){ return l == 1; }),

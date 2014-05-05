@@ -191,7 +191,7 @@ innaAppControllers
 
                 $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
                     type: 'ticket',
-                    filters: angular.copy($scope.ticketFilters)
+                    filters: $scope.ticketFilters
                 });
             });
 

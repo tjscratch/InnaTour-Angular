@@ -9,6 +9,9 @@ angular.module('innaApp.directives')
                 controller: [
                     '$scope', 'innaApp.API.events', '$element', '$controller',
                     function($scope, Events, $element, $controller){
+                        /*Private*/
+                        var NAME = 'Price';
+
                         /*Mixins*/
                         $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
@@ -33,7 +36,7 @@ angular.module('innaApp.directives')
                         /*Methods*/
                         $scope.onChange = function(){
                             slider.slider('value', $scope.price);
-                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: 'Price', value: normalizedPrice()});
+                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_TICKET, {filter: NAME, value: normalizedPrice()});
                         };
 
                         $scope.reset = function(){
@@ -41,6 +44,7 @@ angular.module('innaApp.directives')
                             $scope.onChange();
                         };
 
+                        /*Watchers*/
                         var unwatchCollectionTickets = $scope.$watchCollection('tickets', function(newVal) {
                             if(!newVal || !newVal.list.length) return;
 
@@ -63,6 +67,10 @@ angular.module('innaApp.directives')
                             $scope.reset();
 
                             unwatchCollectionTickets();
+                        });
+
+                        $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, NAME), function(){
+                            $scope.reset();
                         });
                     }
                 ]

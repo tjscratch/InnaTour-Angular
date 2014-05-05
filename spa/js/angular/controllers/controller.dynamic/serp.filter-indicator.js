@@ -6,30 +6,32 @@ innaAppControllers
             $scope.type = '';
 
             $scope.$on(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, function(event, data){
-                var preparators = {
-                    Stars: function(value, object){
-                        if(value == 'all') delete object.Stars;
-                    },
-                    Legs: function(value, object){
-                        for(var p in value) if(value.hasOwnProperty(p)) value[p] = true;
-                    }
-                }
-
                 $scope.type = data.type;
-
-                var filters = data.filters;
-                for(var filter in filters) if(filters.hasOwnProperty(filter)) {
-                    if(filter in preparators) {
-                        preparators[filter](filters[filter], filters);
+                for(var filter in data.filters) if(data.filters.hasOwnProperty(filter)) {
+                    if(data.filters[filter].getIndicators) {
+                        console.log('has getIndicators');
+                        var indicators = data.filters[filter].getIndicators();
+                        console.log(indicators);
+                    } else {
+                        console.log("doesn't have getIndicators", filter, data.filters[filter]);
+                        $scope.filters[filter] = data.filters[filter];
                     }
                 }
-                filters = _.dropEmptyKeys(_.flattenObject(data.filters));
-
-                $scope.filters = filters;
             });
 
             $scope.dropFilter = function(filterName){
                 $scope.$emit(Events.DYNAMIC_SERP_FILTER_ANY_DROP, {type: $scope.type, filter: filterName});
+            }
+
+            $scope.translate = function(filterName, filterValue){
+                var filterNameTranslated = filterName;
+
+                switch(filterName) {
+                    case 'Price': filterNameTranslated = 'Не дороже %s рублей'; break;
+                }
+
+
+                return filterNameTranslated.split('%s').join(filterValue);
             }
         }
     ]);
