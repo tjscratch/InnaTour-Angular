@@ -252,7 +252,7 @@ innaAppControllers
                         if($location.search().displayTicket) {
                             try{
                                 var ticketIds = $location.search().displayTicket.split('_');
-                                var ticket = searchTicket(ticketIds[0], ticketIds[1]);
+                                var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
 
                                 if(ticket) {
                                     $scope.getTicketDetails(ticket);

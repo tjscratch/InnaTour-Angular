@@ -27,9 +27,21 @@ angular.module('innaApp.controllers')
                 $scope.display = $scope.DISPLAY_FORGOTTEN;
             });
 
+            $scope.$on(Events.AUTH_SIGN_IN, function(event, data) {
+                $scope.$root.user = new inna.Models.Auth.User(data);
+
+                $scope.close();
+            });
+
             $scope.close = function(){
                 $scope.$root.isLoginPopupOpened = false;
                 $scope.display = $scope.DISPLAY_SIGNIN;
+            };
+
+            $scope.logout = function(){
+                $scope.$root.user = null;
+
+                AuthDataProvider.logout();
             }
 
             $scope.signInWith = function(method){
@@ -42,5 +54,7 @@ angular.module('innaApp.controllers')
                     console.log(data);
                 });
             }
+
+
         }
     ])
