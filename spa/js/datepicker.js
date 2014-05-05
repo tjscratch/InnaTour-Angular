@@ -102,7 +102,10 @@
 				var options = $(el).data('datepicker');
 				var cal = $(el);
 				var currentCal = Math.floor(options.calendars/2), date, data, dow, month, cnt = 0, week, days, indic, indic2, html, tblCal;
+
                 var today = new Date();
+                today.setHours(0, 0, 0, 0);
+
 				cal.find('td>table tbody').remove();
 				for (var i = 0; i < options.calendars; i++) {
 					date = new Date(options.current);
@@ -470,7 +473,7 @@
 									break;
 								case 'datepickerViewYears':
 									tblEl.get(0).className = 'datepickerViewDays';
-									el.find('span').text(formatDate(tmp, 'B, Y'));
+									el.find('span').text(formatDate(tmp, 'B Y'));
 									break;
 							}
 						} else if (parentEl.parent().parent().is('thead')) {
