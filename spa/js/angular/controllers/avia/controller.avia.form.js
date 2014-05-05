@@ -154,9 +154,6 @@ innaAppControllers.
             //добавляем в кэш откуда, куда
             //addDefaultFromToDirectionsToCache(defaultCriteria);
             //списки по-умолчанию
-            $scope.adultCountList = [1, 2, 3, 4, 5, 6];
-            $scope.childCountList = [0, 1, 2, 3, 4, 5, 6];
-            $scope.cabinClassList = aviaHelper.cabinClassList;
 
             $scope.pathTypeList = [{ name: 'Туда обратно', value: 0 }, { name: 'Туда', value: 1 }];
 
@@ -285,9 +282,6 @@ innaAppControllers.
                 $scope.criteria.PathType = val;
             }
 
-
-
-
             function fillFromAndTo() {
                 $scope.loadObjectById($scope.criteria.FromId, function (data) {
                     if (data != null) {
@@ -306,15 +300,6 @@ innaAppControllers.
                 Validators.defined($scope.criteria.FromId, Error('FromId'));
                 Validators.defined($scope.criteria.ToId, Error('ToId'));
                 Validators.notEqual($scope.criteria.FromId, $scope.criteria.ToId, Error('ToId'));
-
-                //var children = _.partition($scope.childrensAge, function (ageSelector) { return ageSelector.value < 2; });
-                //var infants = children[0].length;
-                //children = children[1].length;
-                //var separatedInfants = infants - $scope.adultCount;
-                //if (separatedInfants < 0) separatedInfants = 0;
-                //console.log('adults = %s, children = %s, separatedInfants = %s, sum = %s', $scope.adultCount, children, separatedInfants, $scope.adultCount + children + separatedInfants);
-
-                //if (+$scope.adultCount + children + separatedInfants > 6) throw Error('adultCount');
             }
 
             /* From field */
@@ -342,4 +327,12 @@ innaAppControllers.
                     });
                 })
             }
+
+            /*Klass*/
+            $scope.klass = _.find(TripKlass.options, function (klass) {
+                return (klass.value == $scope.criteria.CabinClass);
+            });
+            $scope.$watch('klass', function (newVal, oldVal) {
+                $scope.criteria.CabinClass = newVal.value;
+            });
         }]);
