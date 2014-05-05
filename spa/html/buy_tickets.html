@@ -108,36 +108,27 @@
                     </div>
 
                 <div class="warning">
-                    <b class="warning-title">Обратите внимание!</b>
-                    <p class="warning-info">При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование авиакомпании.</p>
+                    При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование авиакомпании.
                 </div>
                 <h2 class="title">Информация о покупателе</h2>
                 <div class="form-body">
                     <fieldset class="form-container form-container-main">
                         <div class="b-field-group">
-                            <div class="b-field-block b-field-block-130">
-                                <label class="b-field-label">Имя</label>
-                                <input type="text" value="Александр" class="b-field-text">
-                            </div>
-                            <div class="b-field-block b-field-block-190">
-                                <label class="b-field-label">Фамилия</label>
-                                <input type="text" value="Константинопольский" class="b-field-text error">
-                            </div>
                             <div class="b-field-block b-field-block-290 b-field-block-auth">
                                 <label class="b-field-label">E-mail</label>
                                 <input type="text" value="ratunkov@gmail.com" class="b-field-text">
-                                <div class="b-auth">
+                                <!-- <div class="b-auth">
                                     <a href="#" class="b-auth-close"></a>
                                     <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
                                     <a href="#" class="button b-auth-button">Войти</a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="b-field-block b-field-block-290">
                                 <label class="b-field-label">Мобильный телефон</label>
                                 <input type="text" value="+7 (910) 123-45-67" class="b-field-text">
                             </div>
                         </div>
-                        <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div>
+                        <!-- <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div> -->
                         <label class="b-agreement"><input type="checkbox"><ins class="b-checkbox"></ins>Я хочу получать рассылку спецпредложений</label>
                     </fieldset>
                 </div>
@@ -399,7 +390,7 @@
                                 <input type="text" class="b-field-text b-field-text-small" maxlength="4">
                             </div>
                         </div>
-                        <div class="b-cc-block">
+                        <div class="b-cc-block b-cc-block-date">
                             <label class="b-cc-block-label b-cc-block-label-date">Действительна до</label>
                             <div class="b-cc">
                                 <div class="b-cc-date">
@@ -413,7 +404,7 @@
                             </div>
                         </div>
                         <div class="b-cc-block">
-                            <label class="b-cc-block-label">Держатель карты</label>
+                            <label class="b-cc-block-label b-cc-block-label-number">Держатель <br> карты</label>
                             <input type="text" class="b-field-text b-field-text-name">
                         </div>
                     </div>
@@ -424,9 +415,11 @@
                         </div>
                     </div>
                 </div>
-                <label class="b-agreement b-agreement-cc"><input type="checkbox"><ins class="b-checkbox"></ins>Я согласен с условиями договора-оферты, ознакомлен с правилами изменения и отмены бронирования и не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
-                <div class="b-pay-button-block">
+                <div class="b-agreement-container">
                     <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить"></span>
+                    <label class="b-agreement b-agreement-cc"><input type="checkbox"><ins class="b-checkbox"></ins>Я согласен с условиями <a href="#">договора-оферты</a>, ознакомлен с <a href="#">правилами изменения</a> и <a href="#">отмены бронирования</a> и 
+не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр).</label>
+                    <img src="../img/logos.png" class="b-logos" alt="">
                 </div>
             </form>
         </div>
@@ -483,7 +476,7 @@
     </div>
 
     <!-- Baloon -->
-    <div class="overlay js-overlay" style="display: block">
+    <div class="overlay js-overlay">
         <div class="balloon">
             <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
             <div class="baloon-title">Бронирование авиабилетов</div>
@@ -500,10 +493,10 @@
             <p class="balloon-info">это может занять до нескольких минут</p>
         </div>
         <div class="balloon">
+            <div class="baloon-close" title="Закрыть"></div>
             <div class="baloon-mail"></div>
             <div class="baloon-title">Билеты успешно выписаны</div>
-            <p class="balloon-info">и отправлены на электронную почту ratunkov@gmail.com</p>
-            <a href="#" class="button baloon-button">Распечатать билеты</a>
+            <p class="balloon-info">и отправлены на электронную почту <br><a href="#">ratunkov@gmail.com</a></p>
         </div>
         <div class="balloon">
             <div class="baloon-close" title="Закрыть"></div>
@@ -516,7 +509,11 @@
             <div class="baloon-close" title="Закрыть"></div>
             <div class="baloon-problem"></div>
             <div class="baloon-title baloon-error">Что-то пошло не так</div>
-            <p class="balloon-info">cвяжитесь с оператором по телефону +7 495 742-1212</p>
+            <p class="balloon-info">cвяжитесь с оператором по телефону или скайпу </p>
+            <address class="balloon-contacts">
+                <span class="balloon-contacts-phone">+7 495 742-1212</span>
+                <a href="#" class="balloon-contacts-skype">Inna tour</a>
+            </address>
         </div>
     </div>
     <!-- /Baloon -->
