@@ -46,7 +46,12 @@ angular.module('innaApp.directives')
 
                         /*Methods*/
                         $scope.displayOnSlider = function(){
-                            slider.slider('value', $scope.price);
+                            slider.slider('value', $scope.option.value);
+                        };
+
+                        $scope.reset = function(option) {
+                            option.reset();
+                            $scope.displayOnSlider();
                         }
 
                         /*Watchers*/

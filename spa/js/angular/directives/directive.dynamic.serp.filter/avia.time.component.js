@@ -34,14 +34,14 @@ angular.module('innaApp.directives')
                                 this.direction.desc + ':',
                                 this.caption
                             ].join(' ');
-                        }
+                        };
 
                         var Options = inna.Models.Avia.Filters._OptionsFactory();
 
-                        Options.prototype.reset = function(dir) {
-                            for(var i = 0, option = null; option = this.options[i++];) {
-                                if(option.direction == dir) option.isChecked = false;
-                            }
+                        Options.prototype.resetDir = function(dir) {
+                            this.each(function(option){
+                                if(option.direction == dir) option.selected = false;
+                            });
                         };
 
                         function State(property, caption) {
@@ -165,7 +165,7 @@ angular.module('innaApp.directives')
                         }
 
                         $scope.reset = function(dir) {
-                            $scope.options.reset(dir);
+                            $scope.options.resetDir(dir);
                         }
 
                         /*Watchers*/
