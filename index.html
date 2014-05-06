@@ -95,7 +95,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                     <ng:include src="'/spa/templates/auth/form.html'"></ng:include>
                     <a href="javascript:void(0)" class="header-login-link" ng-click="open()" ng-if="!user"><i class="icon icon-user"></i>Регистрация и вход</a>
                     <span ng-if="user">
-                        <a href="javascript:void(0);" class="header-login-user-link">
+                        <a href="javascript:void(0);" ng-click="showProfile()" class="header-login-user-link">
                             <img ng-if="user.raw.userpic" ng-src="{{user.raw.userpic}}" alt="" class="user-pic">
                             {{user.displayName()}}
                         </a>

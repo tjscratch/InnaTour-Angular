@@ -9,6 +9,7 @@ angular.module('innaApp.controllers')
             $scope.DISPLAY_SIGNIN = 1;
             $scope.DISPLAY_FORGOTTEN = 2;
             $scope.DISPLAY_SIGNUP = 3;
+            $scope.DISPLAY_PROFILE = 4;
 
             $scope.isLoginPopupOpened = false;
 
@@ -16,10 +17,10 @@ angular.module('innaApp.controllers')
 
             if($scope.restoreToken) {
                 $scope.display = $scope.DISPLAY_FORGOTTEN;
-                $scope.isLoginPopupOpened = true;
+                $scope.open();
             } else if($scope.signUpToken) {
                 $scope.display = $scope.DISPLAY_SIGNUP;
-                $scope.isLoginPopupOpened = true;
+                $scope.open();
             }
 
             /*Methods*/
@@ -48,6 +49,11 @@ angular.module('innaApp.controllers')
                     console.log(data);
                 });
             };
+
+            $scope.showProfile = function(){
+                $scope.open();
+                $scope.display = $scope.DISPLAY_PROFILE;
+            }
 
             /*EventListeners*/
             $scope.$on(Events.AUTH_FORGOTTEN_LINK_CLICKED, function(){
