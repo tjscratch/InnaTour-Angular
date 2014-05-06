@@ -164,18 +164,28 @@ inna.Models.Avia.TicketCollection.prototype.getMaxPrice = function(){
 };
 
 inna.Models.Avia.TicketCollection.prototype.filter = function(filters) {
-    var self = this;
+    this._doFilter(filters);
 
-    self.each(function(ticket){ ticket.hidden = false; });
+    return this.list;
+};
 
-    filters.each(function(filter){
-        self.each(function(ticket){
+inna.Models.Avia.TicketCollection.prototype._doFilter = _.throttle(function(filters){
+    window.DEV && console.time('TICKETS_FILTERING');
+
+    this.each(function(ticket){ ticket.hidden = false; });
+
+    this.each(function(ticket){
+        if(ticket.hidden) return; //already hidden;
+
+        filters.each(function(filter){
+            if(!filter.options.hasSelected()) return;
+
             filter.filterFn(ticket);
         });
     });
 
-    return this.list;
-};
+    window.DEV && console.timeEnd('TICKETS_FILTERING');
+}, 100);
 
 inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function(){
     var o = {}
