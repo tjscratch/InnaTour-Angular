@@ -1,16 +1,13 @@
 ﻿
 
 innaAppDirectives.
-    directive('filterPrice', ['eventsHelper', function (eventsHelper) {
+    directive('filterTransfer', ['eventsHelper', function (eventsHelper) {
         return {
             require: 'ngModel',
             replace: true,
-            templateUrl: '/spa/templates/components/avia_results_filter/filter_price.html',
+            templateUrl: '/spa/templates/components/avia_results_filter/filter_transfer.html',
             scope: {
-                initMinValue: '=',
-                initMaxValue: '=',
-                minValue: '=',
-                maxValue: '='
+                list: '='
             },
             controller: ['$scope', function ($scope) {
 
@@ -18,8 +15,8 @@ innaAppDirectives.
 
                 $scope.resetFilter = function ($event) {
                     eventsHelper.preventBubbling($event);
-                    $scope.minValue = $scope.initMinValue;
-                    $scope.maxValue = $scope.initMaxValue;
+
+                    _.each($scope.list, function (item) { item.checked = true });
                 }
 
                 $scope.headClicked = false;
@@ -32,8 +29,6 @@ innaAppDirectives.
             link: function ($scope, element, attrs, ngModel) {
                 $(document).click(function bodyClick(event) {
                     var isInsideComponent = !!$(event.target).closest(element).length;
-
-                    $scope.filter = ngModel.$modelValue;
 
                     $scope.$apply(function ($scope) {
                         if (isInsideComponent && $scope.headClicked) {

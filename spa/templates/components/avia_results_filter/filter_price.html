@@ -1,9 +1,9 @@
 <li>
-    <a ng-href="#" class="filters__link" ng-click="preventDefault($event)">Цена</a>
-    <div class="filters__baloon filters__baloon_240" ng-show="isOpen" ng-click="preventBubbling($event)">
+    <a ng-href="#" class="filters__link" ng-click="toggle($event)">Цена</a>
+    <div class="filters__baloon filters__baloon_240" ng-show="isOpen">
         <div class="filter__range-container">
             <span class="filter__range">до <input type="text" ng-model="maxValue" value="126 162" class="js-range-val"> <span class="rub">Р</span></span>
-            <a href="#" class="ra-header-link" ng-click="resetFilter($event)">Сбросить</a>
+            <a ng-href="#" class="ra-header-link" ng-click="resetFilter($event)">Сбросить</a>
         </div>
         <div class="js-range filter__range-trackbar" jq-ui-slider ng-model="filter"
             init-min-value="initMinValue" init-max-value="initMaxValue" value="maxValue"></div>
