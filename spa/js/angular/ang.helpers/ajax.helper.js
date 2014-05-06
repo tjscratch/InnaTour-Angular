@@ -17,7 +17,7 @@ angular.module('innaApp.services')
                     data: data,
                     xhrFields: { withCredentials: true },
                     crossDomain: true,
-                    async: async != null ? async : true,//по-умолчанию true
+                    async: typeof async !== 'undefined' ? async : true,
 
                     eol: null
                 }
@@ -26,7 +26,7 @@ angular.module('innaApp.services')
             ajax.get = function (url, data, success, error, async) {
                 var request = doAjax(buildOptions(url, data, 'GET', async));
 
-                request.done(success).fail(error);
+                request.done(success || angular.noop).fail(error || angular.noop);
 
                 return request;
             };
@@ -34,7 +34,7 @@ angular.module('innaApp.services')
             ajax.post = function (url, data, success, error, async) {
                 var request = doAjax(buildOptions(url, data, 'POST', async));
 
-                request.done(success).fail(error);
+                request.done(success || angular.noop).fail(error || angular.noop);
 
                 return request;
             };
