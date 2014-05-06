@@ -3,7 +3,6 @@
 innaAppDirectives.
     directive('filterTransfer', ['eventsHelper', function (eventsHelper) {
         return {
-            require: 'ngModel',
             replace: true,
             templateUrl: '/spa/templates/components/avia_results_filter/filter_transfer.html',
             scope: {
@@ -26,7 +25,7 @@ innaAppDirectives.
                     $scope.isOpen = !$scope.isOpen;
                 }
             }],
-            link: function ($scope, element, attrs, ngModel) {
+            link: function ($scope, element, attrs) {
                 $(document).click(function bodyClick(event) {
                     var isInsideComponent = !!$(event.target).closest(element).length;
 
