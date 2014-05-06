@@ -3,7 +3,7 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
     function(api, $timeout, AjaxHelper){
         return {
             getFromListByTerm: function(term, callback) {
-                AjaxHelper.getDebounced(api.DYNAMIC_FROM_SUGGEST, {term: term}, callback, angular.noop);
+                AjaxHelper.getDebounced(api.DYNAMIC_FROM_SUGGEST, {term: term}, callback);
             },
             getToListByTerm: function(term, callback) {
                 AjaxHelper.getDebounced(api.DYNAMIC_TO_SUGGEST, {term: term}, callback);

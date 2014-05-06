@@ -91,6 +91,7 @@ innaAppControllers
             }
 
             function balloonCloser() {
+                $location.search({});
                 $location.path(Urls.URL_DYNAMIC_PACKAGES);
             }
 
@@ -208,7 +209,7 @@ innaAppControllers
                 if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
 
                 DynamicPackagesDataProvider.search(searchParams, function(data){
-                    if(!data.RecommendedPair) {
+                    if(!data || !data.RecommendedPair) {
                         $scope.$apply(function($scope){
                             $scope.baloon.showErr(
                                 "Не удалось найти ни одной подходящей комбинации",

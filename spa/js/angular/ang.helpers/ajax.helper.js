@@ -44,7 +44,13 @@ angular.module('innaApp.services')
                     cache[url].abort();
                 }
 
-                return ajax.get(url, data, success, error, async);
+                var req = ajax.get(url, data, success, error, async).always(function(){
+                    delete cache[url];
+                });
+
+                cache[url] = req;
+
+                return req;
             };
 
             ajax.postDebaunced = function (url, data, success, error, async) {
@@ -52,7 +58,13 @@ angular.module('innaApp.services')
                     cache[url].abort();
                 }
 
-                return ajax.post(url, data, success, error, async);
+                var req = ajax.post(url, data, success, error, async).always(function(){
+                    delete cache[url];
+                });
+
+                cache[url] = req;
+
+                return req;
             };
 
             return ajax;
