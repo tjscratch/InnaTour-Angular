@@ -25,13 +25,13 @@ innaAppControllers.
             $scope.helper = aviaHelper;
 
             $scope.getLength = function () {
-                var len = $scope.ticketsList.length;
+                var len = $scope.ticketsList != null ? $scope.ticketsList.length : 0;
                 if ($scope.recomendedItem != null)
                     len++;
                 return len;
             }
             $scope.getFilteredLength = function () {
-                var len = $scope.filteredTicketsList.length;
+                var len = $scope.filteredTicketsList != null ? $scope.filteredTicketsList.length : 0;
                 if ($scope.recomendedItem != null)
                     len++;
                 return len;
@@ -74,6 +74,19 @@ innaAppControllers.
             function initValues() {
                 //флаг индикатор загрузки
                 $scope.isDataLoading = true;
+
+                //$scope.filterBehaviour = {
+                //    isTransfersOpen: false,
+                //    isPriceOpen: false,
+                //    isTimeOpen: false,
+                //    isAirCompanyOpen: false,
+                //    isAirPortOpen: false,
+                //    isSortOpen: false,
+                //    toggle: function ($event, key) {
+                //        eventsHelper.preventBubbling($event);
+                //        $scope.filterBehaviour[key] = !$scope.filterBehaviour[key];
+                //    }
+                //}
 
                 //фильтр
                 $scope.filter = new aviaFilter();
