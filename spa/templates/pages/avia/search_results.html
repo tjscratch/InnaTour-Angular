@@ -7,7 +7,7 @@
 
 <div class="results-body">
 <!-- Search Results -->
-<div class="results-container" style="padding-top:85px;">
+<div class="results-container">
 
     <!-- Рекомендованный вариант -->
     <div class="results-list results-list_720">
@@ -123,15 +123,7 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <a href="#" class="filters__link">Цена</a>
-                <div class="filters__baloon filters__baloon_240" ng-show="false">
-                    <div class="filter__range-container">
-                        <span class="filter__range">до <input type="text" value="126 162" class="js-range-val"> <span class="rub">Р</span></span>
-                        <a href="#" class="ra-header-link">Сбросить</a>
-                    </div>
-                    <div class="js-range filter__range-trackbar"></div>
-                </div>
+            <li filter-price ng-model="filter" init-min-value="filter.minPriceInitial" init-max-value="filter.maxPriceInitial" min-value="filter.minPrice" max-value="filter.maxPrice">
             </li>
             <li>
                 <a href="#" class="filters__link">Время</a>
@@ -279,7 +271,7 @@
     <!-- /Results Aside -->
 
     <!-- Results Aside Фильтры -->
-    <!--<aside class="results-aside">
+    <aside class="results-aside">
         <div class="ra-block">
             <header class="ra-header">
                 <h4 class="ra-title">Фильтр</h4>
@@ -292,7 +284,7 @@
                 <a href="#" class="ra-header-link" ng-click="resetPrice($event)">Сбросить</a>
             </header>
             <div class="ra-content">
-                <div class="ra-trackbar" jq-ui-slider ng-model="filter" init-min-value="filter.minPriceInitial" init-max-value="filter.maxPriceInitial"
+                <div class="ra-trackbar" jq-ui-slider-range ng-model="filter" init-min-value="filter.minPriceInitial" init-max-value="filter.maxPriceInitial"
                      min-value="filter.minPrice" max-value="filter.maxPrice"></div>
                 <div class="ra-amount-price" ng-show="filter.minPrice != null && filter.maxPrice != null">От {{filter.minPrice | price}} р. до {{filter.maxPrice| price}} р.</div>
             </div>
@@ -325,14 +317,14 @@
                     Вылет: {{getCityFrom()}}<br />
                     {{getSliderTimeFormat(filter.minDepartureDate)}} - {{filter.maxDepartureDate | date:timeFormat}}
                 </div>
-                <div jq-ui-slider ng-model="filter"
+                <div jq-ui-slider-range ng-model="filter"
                      init-min-value="filter.minDepartureDateInitial" init-max-value="filter.maxDepartureDateInitial"
                      min-value="filter.minDepartureDate" max-value="filter.maxDepartureDate"></div>
                 <div class="ra-amount-time" ng-show="filter.minBackDepartureDate > 0 && filter.maxBackDepartureDate > 0">
                     Вылет: {{getCityTo()}}<br />
                     {{getSliderTimeFormat(filter.minBackDepartureDate)}} - {{filter.maxBackDepartureDate | date:timeFormat}}
                 </div>
-                <div jq-ui-slider ng-model="filter"
+                <div jq-ui-slider-range ng-model="filter"
                      init-min-value="filter.minBackDepartureDateInitial" init-max-value="filter.maxBackDepartureDateInitial"
                      min-value="filter.minBackDepartureDate" max-value="filter.maxBackDepartureDate"></div>
             </div>
@@ -347,14 +339,14 @@
                     Вылет: {{getCityFrom()}}<br />
                     {{getSliderTimeFormat(filter.minArrivalDate)}} - {{filter.maxArrivalDate | date:timeFormat}}
                 </div>
-                <div jq-ui-slider ng-model="filter"
+                <div jq-ui-slider-range ng-model="filter"
                      init-min-value="filter.minArrivalDateInitial" init-max-value="filter.maxArrivalDateInitial"
                      min-value="filter.minArrivalDate" max-value="filter.maxArrivalDate"></div>
                 <div class="ra-amount-time" ng-show="filter.minBackArrivalDate > 0 && filter.maxBackArrivalDate > 0">
                     Вылет: {{getCityTo()}}<br />
                     {{getSliderTimeFormat(filter.minBackArrivalDate)}} - {{filter.maxBackArrivalDate | date:timeFormat}}
                 </div>
-                <div jq-ui-slider ng-model="filter"
+                <div jq-ui-slider-range ng-model="filter"
                      init-min-value="filter.minBackArrivalDateInitial" init-max-value="filter.maxBackArrivalDateInitial"
                      min-value="filter.minBackArrivalDate" max-value="filter.maxBackArrivalDate"></div>
             </div>
@@ -376,7 +368,7 @@
                 </ul>
             </div>
         </div>
-    </aside>-->
+    </aside>
     <!-- /Results Aside -->
 
 </div>

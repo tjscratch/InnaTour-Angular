@@ -10,6 +10,9 @@ innaAppServices.
                 if ($event.preventDefault) $event.preventDefault();
                 $event.cancelBubble = true;
                 $event.returnValue = false;
+            },
+            preventDefault: function ($event) {
+                if ($event.preventDefault) $event.preventDefault();
             }
         }
     }]);
