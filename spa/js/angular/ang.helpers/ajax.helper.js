@@ -69,4 +69,4 @@ angular.module('innaApp.services')
 
             return ajax;
         }
-    ])
+    ]);

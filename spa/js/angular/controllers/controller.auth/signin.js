@@ -11,17 +11,14 @@ angular.module('innaApp.controllers')
                 AuthDataProvider.signIn({
                     Email: $scope.username,
                     Password: $scope.password
-                }, function(data, state, jqXHR){ //success
+                }, function(data){ //success
                     if(!$scope.rememberMe) {
                         //todo IN-845
                     }
+                    $scope.$apply(function($scope){
+                        $scope.$emit(Events.AUTH_SIGN_IN, data);
+                    });
                 }, function(){ //error
-                    //TODO move it into SUCCESS
-                    //Danis will make it later
-                    var fishData = {displayName: 'Константин Константинопольский', userpic: 'http://lh.inna.ru:8182/spa/img/borat.png'};
-                    $scope.$emit(Events.AUTH_SIGN_IN, fishData);
-
-
                     $scope.$apply(function($scope){
                         $scope.requestFailure = true;
                     });

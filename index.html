@@ -93,11 +93,11 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                 <li class="header-menu-item header-login" ng-controller="AuthCtrl">
                     <!-- user comes from rootScope -->
                     <ng:include src="'/spa/templates/auth/form.html'"></ng:include>
-                    <a href="#" class="header-login-link" ng-click="headLoginBtnclick($event)" ng-if="!user"><i class="icon icon-user"></i>Регистрация и вход</a>
+                    <a href="javascript:void(0)" class="header-login-link" ng-click="open()" ng-if="!user"><i class="icon icon-user"></i>Регистрация и вход</a>
                     <span ng-if="user">
                         <a href="javascript:void(0);" class="header-login-user-link">
-                            <img ng-src="{{user.raw.userpic}}" alt="" class="user-pic">
-                            {{user.raw.displayName}}
+                            <img ng-if="user.raw.userpic" ng-src="{{user.raw.userpic}}" alt="" class="user-pic">
+                            {{user.displayName()}}
                         </a>
                         <a href="javascript:void(0);" class="header-logout-link" ng-click="logout()">Выйти</a>
                     </span>
