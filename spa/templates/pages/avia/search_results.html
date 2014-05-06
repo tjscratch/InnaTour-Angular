@@ -86,47 +86,7 @@
             </li>
             <li filter-price ng-model="filter" init-min-value="filter.minPriceInitial" init-max-value="filter.maxPriceInitial" min-value="filter.minPrice" max-value="filter.maxPrice">
             </li>
-            <li>
-                <a href="#" class="filters__link">Время</a>
-                <div class="filters__baloon filters__baloon_240" ng-show="false">
-                    <header class="ra-header">
-                        <h4 class="ra-title">Перелет туда</h4>
-                        <a class="ra-header-link" href="#">Сбросить</a>
-                    </header>
-                    <ul class="filters__baloon-radio">
-                        <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Вылет</span></label></li>
-                        <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Прилет</span></label></li>
-                    </ul>
-                    <div class="filters__baloon-days">
-                        <ul class="ra-fly-type-list">
-                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
-                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
-                        </ul>
-                        <ul class="ra-fly-type-list">
-                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
-                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
-                        </ul>
-                    </div>
-                    <div class="ra-separator"></div>
-                    <header class="ra-header">
-                        <h4 class="ra-title">Перелет обратно</h4>
-                        <a class="ra-header-link" href="#">Сбросить</a>
-                    </header>
-                    <ul class="filters__baloon-radio">
-                        <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Вылет</span></label></li>
-                        <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Прилет</span></label></li>
-                    </ul>
-                    <div class="filters__baloon-days">
-                        <ul class="ra-fly-type-list">
-                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
-                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
-                        </ul>
-                        <ul class="ra-fly-type-list">
-                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
-                            <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
-                        </ul>
-                    </div>
-                </div>
+            <li filter-time>
             </li>
             <li>
                 <a href="#" class="filters__link">Авиакомпания</a>
@@ -220,11 +180,11 @@
         <div class="ra-tags-container">
             <h4 class="ra-tags-title" ng-show="ticketsList.length > 0"><b>{{getFilteredLength()}}</b> из <b>{{getLength()}}</b> перелетов</h4>
             <ul class="ra-tags-list">
-                <li>Aeroflot <a href="#"></a></li>
+                <li ng-show="filter.maxPrice < filter.maxPriceInitial">до {{filter.maxPrice | price}} <a ng-href="#" ng-click="resetPrice($event)"></a></li>
+                <!--<li>Aeroflot <a href="#"></a></li>
                 <li>Transaero <a href="#"></a></li>
-                <li>Lufthansa <a href="#"></a></li>
+                <li>Lufthansa <a href="#"></a></li>-->
                 <li>до 1 пересадки <a href="#"></a></li>
-                <li>до 78 000 <a href="#"></a></li>
             </ul>
             <a ng-href="#" class="ra-tags-reset" ng-click="resetAll($event)">Сбросить все</a>
         </div>
