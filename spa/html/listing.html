@@ -57,6 +57,20 @@
             </div>
 
             <div class="header__container">
+                <ul class="header__nav">
+                    <li><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
+                    <li><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
+                    <li><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li>
+                    <li><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
+                </ul>
+                <div class="header__user">
+                    <ul class="header__user-nav">
+                        <li><a href="#" class="header__user-nav-reg">Регистрация и вход</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="header__container">
                 <ul class="header__nav-sec">
                     <li><a href="#" class="current">Заявки</a></li>
                     <li><a href="#">Сообщения</a></li>
