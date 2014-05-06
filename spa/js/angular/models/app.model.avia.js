@@ -189,27 +189,9 @@ inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function(){
     return o;
 };
 
-inna.Models.Avia.TicketCollection.prototype._filterByAirports = function(options){
-    this.each(function(ticket){
-        var show = false;
-
-        var selected = [];
-        for(var i = 0, option = null; option = options.options[i++];) {
-            if(option.selected) selected.push(option);
-        }
-
-        if(!selected.length) return;
-
-        for(var i = 0, option = null; option = selected[i++];) {
-            ticket.everyEtap(function(etap){
-                show = show || etap.data.InCode == option.code || etap.data.OutCode == option.code;
-            });
-        }
-
-        if(!show) {
-            ticket.hidden = true;
-        }
-    });
+inna.Models.Avia.TicketCollection.prototype.sort = function(sortingFn){
+    console.log(this);
+    this.list.sort(sortingFn);
 }
 
 inna.Models.Avia.Ticket = function (){
