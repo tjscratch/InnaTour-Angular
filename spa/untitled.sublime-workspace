@@ -35,6 +35,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "gulpfile.js",
+			"settings":
+			{
+				"buffer_size": 1646,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -81,6 +89,9 @@
 	},
 	"file_history":
 	[
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/package.json",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/untitled.sublime-project",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/untitled.sublime-workspace",
 		"/Users/tagir/Dropbox/Webserver/InnaTour/inna.ru/spa/js/aside.js",
 		"/Users/tagir/Dropbox/Webserver/InnaTour/inna.ru/spa/styl/results.styl",
 		"/Users/tagir/Dropbox/Webserver/InnaTour/inna.ru/spa/html/tickets.html",
@@ -205,10 +216,7 @@
 		"/Users/0range/WebServer/Kribrum/lib/jquery-ui-1.10.3.custom/development-bundle/ui/i18n/jquery.ui.datepicker-sr-SR.js",
 		"/Users/0range/Projects/SMB/platform-smb/composer.json",
 		"/Users/0range/WebServer/wordpress/wp-activate.php",
-		"/Users/0range/Desktop/Project_empty/test.html",
-		"/Users/0range/WebServer/Kribrum/otchet.php",
-		"/Users/0range/WebServer/Kribrum/otchet_istochniki.php",
-		"/Users/0range/WebServer/Kribrum/otchet_obzor.php"
+		"/Users/0range/Desktop/Project_empty/test.html"
 	],
 	"find":
 	{
@@ -375,18 +383,42 @@
 		"whole_word": false,
 		"wrap": true
 	},
-	"folders":
-	[
-		{
-			"follow_symlinks": true,
-			"path": "/Users/0range/Dropbox/Webserver/InnaTour/inna.ru/spa"
-		}
-	],
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "gulpfile.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1646,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -425,7 +457,7 @@
 	{
 		"height": 0.0
 	},
-	"project": "",
+	"project": "untitled.sublime-project",
 	"replace":
 	{
 		"height": 46.0
