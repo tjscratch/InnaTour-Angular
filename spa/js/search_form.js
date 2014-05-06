@@ -3,6 +3,7 @@
 
         function header() {
             var h = $('.header').height();
+            h = h+25;
             $('body').css({paddingTop: h+'px'});
         }
         header();

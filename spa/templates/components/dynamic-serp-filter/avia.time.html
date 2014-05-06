@@ -1,4 +1,4 @@
-<span class="filters__link" ng-click="popup.toggle()">Время</span>
+<span class="filters__link" ng-class="{filters__link_selected: options.hasSelected()}" ng-click="popup.toggle()">Время</span>
 <div class="filters__baloon filters__baloon_240" ng-show="popup.isOpen">
     <div ng-repeat="direction in directions.directions">
         <header class="ra-header">

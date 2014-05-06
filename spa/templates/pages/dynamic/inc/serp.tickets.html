@@ -17,11 +17,10 @@
                 inna-dynamic-serp-filter-avia-airports-tickets="tickets"
                 inna-dynamic-serp-filter-avia-airports-filters="ticketFilters"></li>
 
-<!--
-            <li class="filters__sort">
-                <span href="#" class="filters__link">Сортировать по времени прилета</span>
-            </li>
--->
+            <li class="filters__sort"
+                inna-dynamic-serp-sorter
+                inna-dynamic-serp-sorter-items="tickets"
+                inna-dynamic-serp-sorter-sorters-filler-ctrl-name="innaDynamicSerpSorter_TicketsMixin"></li>
         </ul>
     </div>
 </div>
@@ -33,6 +32,11 @@
              inna-ticket
              inna-ticket-ticket="ticket"
              inna-ticket-get-ticket-details="getTicketDetails(ticket)">
+
+            <span class="rl-price">
+                <span class="rl-price-item">69 451</span> <span class="rub">Р</span>
+            </span>
+            <a href="javascript:void(0)" class="rl-buy-button" ng-click="setTicket(ticket)">Выбрать</a>
         </div>
     </div>
     <div inna-dynamic-serp-filter-indicators
@@ -84,7 +88,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="rlf-travel-time">{{ticket.getDuration(dir)}}</div>
+                                    <div class="rlf-travel-time">{{etap.getDuration()}}</div>
                                     <div class="b-tickets__block">
                                         <div class="rlf-column1">
                                             <div class="rlf-airport"><br>{{etap.data.InCityCode}}</div>
@@ -92,7 +96,7 @@
                                         <div class="rlf-colum2">
                                             <div class="rlf-flight-info">
                                                 <b>прилет {{dateHelper.getTime(etap.getDateTime('In'))}}</b>, {{dateHelper.getDateShort(etap.getDateTime('In'))}}, {{dateHelper.getDay(etap.getDateTime('In'))}} <br>
-                                                {{etap.data.InCity}}, {{etap.date.InPort}}
+                                                {{etap.data.InCity}}, {{etap.data.InPort}}
                                             </div>
                                         </div>
                                     </div>
@@ -104,7 +108,7 @@
                                     <div class="rlf-travel-time">{{etap.getLegDuration()}}</div>
                                 </div>
                                 <div class="rlf-colum4">
-                                    {{etap.data.InCity}}, {{etap.date.InPort}} ({{etap.data.InCityCode}}), ПЕЛЬМЕНЕСТАН
+                                    {{etap.data.InCity}}, {{etap.data.InPort}} ({{etap.data.InCityCode}}), {{etap.data.InCountryName}}
                                     <div class="rlf-transfer" ng-repeat="next in [ticket.getNextEtap(dir, etap)]">
                                         <span ng-if="next.data.OutPort != etap.data.InPort">Внимание: смена аэропорта!</span>
                                     </div>

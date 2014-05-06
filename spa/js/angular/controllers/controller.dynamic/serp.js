@@ -91,6 +91,7 @@ innaAppControllers
             }
 
             function balloonCloser() {
+                $location.search({});
                 $location.path(Urls.URL_DYNAMIC_PACKAGES);
             }
 
@@ -184,22 +185,6 @@ innaAppControllers
                 });
             });
 
-            $scope.$on(Events.DYNAMIC_SERP_FILTER_TICKET, function(event, data){
-                $scope.ticketFilters[data.filter] = data.value;
-
-                $scope.tickets.filter($scope.ticketFilters)
-
-                $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
-                    type: 'ticket',
-                    filters: $scope.ticketFilters
-                });
-            });
-
-            $scope.$on(Events.DYNAMIC_SERP_FILTER_ANY_DROP, function(event, data){
-                var eventNameComponent = _.map(data.filter.split('.'), function(component, i){ return i == 0 ? component : '*'; }).join('.');
-                $scope.$broadcast(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, eventNameComponent), data.filter);
-            });
-
             $scope.$on(Events.DYNAMIC_SERP_TICKET_SET_CURRENT_BY_IDS, function(event, data) {
                 var ticket = $scope.tickets.search(data.id2, data.id2);
 
@@ -224,7 +209,7 @@ innaAppControllers
                 if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
 
                 DynamicPackagesDataProvider.search(searchParams, function(data){
-                    if(!data.RecommendedPair) {
+                    if(!data || !data.RecommendedPair) {
                         $scope.$apply(function($scope){
                             $scope.baloon.showErr(
                                 "Не удалось найти ни одной подходящей комбинации",
@@ -265,6 +250,14 @@ innaAppControllers
                                 );
                             }
                         }
+                    });
+                }, function(){
+                    $scope.$apply(function($scope){
+                        $scope.baloon.showErr(
+                            "Что-то пошло не так",
+                            "Попробуйте начать поиск заново",
+                            balloonCloser
+                        );
                     });
                 });
             })();

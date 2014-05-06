@@ -66,4 +66,4 @@ innaAppFilters.filter('asQuantity', function(){
     return function(n, f1, f2, f5, joiner){
         return [n, chooseForm(n, f1, f2, f5)].join(joiner || ' ');
     }
-})
+});

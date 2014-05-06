@@ -19,11 +19,16 @@
 body
     font-family ProximaNova, Arial, sans-serif
 
+// Common styles
 .pull-right
     float right
 
 .pull-left
     float left
+
+.main__center
+    margin 0 auto
+    width 960px
 
 // Form
 .button
@@ -119,15 +124,20 @@ body
         padding-left 23px
         position relative
 
-        &:before
-            content ''
-            display block
-            position absolute
-            left 0
-            top 0
-            width 15px
-            height 14px
-            background url('../img/header-user.png') no-repeat
+    .header__user-nav-name:before
+    .header__user-nav-reg:before
+        content ''
+        display block
+        position absolute
+        left 0
+        top 0
+        width 15px
+        height 14px
+        background url('../img/header-user.png') no-repeat
+
+    .header__user-nav-reg
+        padding-left 23px
+        position relative
 
 .header__user-nav-counter
     color #fff

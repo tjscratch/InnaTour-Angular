@@ -164,18 +164,28 @@ inna.Models.Avia.TicketCollection.prototype.getMaxPrice = function(){
 };
 
 inna.Models.Avia.TicketCollection.prototype.filter = function(filters) {
-    var self = this;
+    this._doFilter(filters);
 
-    self.each(function(ticket){ ticket.hidden = false; });
+    return this.list;
+};
 
-    filters.each(function(filter){
-        self.each(function(ticket){
+inna.Models.Avia.TicketCollection.prototype._doFilter = _.throttle(function(filters){
+    window.DEV && console.time('TICKETS_FILTERING');
+
+    this.each(function(ticket){ ticket.hidden = false; });
+
+    this.each(function(ticket){
+        if(ticket.hidden) return; //already hidden;
+
+        filters.each(function(filter){
+            if(!filter.options.hasSelected()) return;
+
             filter.filterFn(ticket);
         });
     });
 
-    return this.list;
-};
+    window.DEV && console.timeEnd('TICKETS_FILTERING');
+}, 100);
 
 inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function(){
     var o = {}
@@ -189,27 +199,9 @@ inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function(){
     return o;
 };
 
-inna.Models.Avia.TicketCollection.prototype._filterByAirports = function(options){
-    this.each(function(ticket){
-        var show = false;
-
-        var selected = [];
-        for(var i = 0, option = null; option = options.options[i++];) {
-            if(option.selected) selected.push(option);
-        }
-
-        if(!selected.length) return;
-
-        for(var i = 0, option = null; option = selected[i++];) {
-            ticket.everyEtap(function(etap){
-                show = show || etap.data.InCode == option.code || etap.data.OutCode == option.code;
-            });
-        }
-
-        if(!show) {
-            ticket.hidden = true;
-        }
-    });
+inna.Models.Avia.TicketCollection.prototype.sort = function(sortingFn){
+    console.log(this);
+    this.list.sort(sortingFn);
 }
 
 inna.Models.Avia.Ticket = function (){
