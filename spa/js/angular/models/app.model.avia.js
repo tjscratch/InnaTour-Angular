@@ -96,7 +96,7 @@ function transporter(name, code, logo) {
     self.TransporterName = name;
     self.TransporterCode = code;
     self.TransporterLogo = logo;
-    self.checked = true;//выбрано по-умлочанию
+    self.checked = false;//выбрано по-умлочанию
 };
 
 //namespace

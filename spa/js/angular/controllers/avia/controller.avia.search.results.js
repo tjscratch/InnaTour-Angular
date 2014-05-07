@@ -75,19 +75,6 @@ innaAppControllers.
                 //флаг индикатор загрузки
                 $scope.isDataLoading = true;
 
-                //$scope.filterBehaviour = {
-                //    isTransfersOpen: false,
-                //    isPriceOpen: false,
-                //    isTimeOpen: false,
-                //    isAirCompanyOpen: false,
-                //    isAirPortOpen: false,
-                //    isSortOpen: false,
-                //    toggle: function ($event, key) {
-                //        eventsHelper.preventBubbling($event);
-                //        $scope.filterBehaviour[key] = !$scope.filterBehaviour[key];
-                //    }
-                //}
-
                 //фильтр
                 $scope.filter = new aviaFilter();
 
@@ -218,7 +205,7 @@ innaAppControllers.
 
                 $scope.resetTransfers = function ($event) {
                     eventsHelper.preventBubbling($event);
-                    _.each($scope.filter.TransferCountListAgg, function (item) { item.checked = true });
+                    _.each($scope.filter.TransferCountListAgg, function (item) { item.checked = false });
                 };
 
                 $scope.resetDepartureTime = function ($event) {
@@ -237,7 +224,7 @@ innaAppControllers.
                 };
                 $scope.resetCompanies = function ($event) {
                     eventsHelper.preventBubbling($event);
-                    _.each($scope.filter.TransporterList, function (item) { item.checked = true });
+                    _.each($scope.filter.TransporterList, function (item) { item.checked = false });
                 };
 
                 $scope.goToPaymentClick = function ($event, item) {
@@ -392,7 +379,7 @@ innaAppControllers.
                         item.InTransferCount0 = true;
                         if (!InTransferCount0Added) {
                             InTransferCount0Added = true;
-                            transferCountListAgg.push({ name: "Без пересадок", value: 0, checked: true, price: 0 });
+                            transferCountListAgg.push({ name: "Без пересадок", value: 0, checked: false, price: 0 });
                         }
                     }
                     else if (item.ToTransferCount >= 2 || item.BackTransferCount >= 2) {
@@ -400,7 +387,7 @@ innaAppControllers.
                         item.InTransferCount2 = true;
                         if (!InTransferCount2Added) {
                             InTransferCount2Added = true;
-                            transferCountListAgg.push({ name: "2 и более", value: 2, checked: true, price: 0 });
+                            transferCountListAgg.push({ name: "2 и более", value: 2, checked: false, price: 0 });
                         }
                     }
                     else if (item.ToTransferCount <= 1 && item.BackTransferCount <= 1 && item.InTransferCount0 == false)
@@ -409,7 +396,7 @@ innaAppControllers.
                         item.InTransferCount1 = true;
                         if (!InTransferCount1Added) {
                             InTransferCount1Added = true;
-                            transferCountListAgg.push({ name: "1 пересадка", value: 1, checked: true, price: 0 });
+                            transferCountListAgg.push({ name: "1 пересадка", value: 1, checked: false, price: 0 });
                         }
                     }
                     else
@@ -418,6 +405,7 @@ innaAppControllers.
                     }
                     
                 });
+
                 //фильтр сразу сортируем
                 filter.TransferCountListAgg = _.sortBy(transferCountListAgg, function (item) { return item.value; });
 
@@ -480,6 +468,46 @@ innaAppControllers.
                 filter.minBackArrivalDate = _.min(items, function (item) { return item.sort.BackArrivalDate; }).sort.BackArrivalDate;
                 filter.maxBackArrivalDate = _.max(items, function (item) { return item.sort.BackArrivalDate; }).sort.BackArrivalDate;
 
+                timeFilter = function (direction, dayTime) {
+                    var hoursMin = 0;
+                    var hoursMax = 0;
+                    switch (dayTime) {
+                        case aviaHelper.dayTime.morning: hoursMin = 6; hoursMax = 12; break;
+                        case aviaHelper.dayTime.day: hoursMin = 12; hoursMax = 18; break;
+                        case aviaHelper.dayTime.evening: hoursMin = 18; hoursMax = 0; break;
+                        case aviaHelper.dayTime.night: hoursMin = 24; hoursMax = 6; break;
+                    }
+                    return { direction: direction, dayTime: dayTime, hoursMin: hoursMin, hoursMax: hoursMax, checked: false };
+                }
+
+                time = function () {
+                    var self = this;
+                    self.list = [];
+
+                    self.list.push(new timeFilter(aviaHelper.directionType.departure, aviaHelper.dayTime.morning));
+                    self.list.push(new timeFilter(aviaHelper.directionType.departure, aviaHelper.dayTime.day));
+                    self.list.push(new timeFilter(aviaHelper.directionType.departure, aviaHelper.dayTime.evening));
+                    self.list.push(new timeFilter(aviaHelper.directionType.departure, aviaHelper.dayTime.night));
+
+                    self.list.push(new timeFilter(aviaHelper.directionType.arrival, aviaHelper.dayTime.morning));
+                    self.list.push(new timeFilter(aviaHelper.directionType.arrival, aviaHelper.dayTime.day));
+                    self.list.push(new timeFilter(aviaHelper.directionType.arrival, aviaHelper.dayTime.evening));
+                    self.list.push(new timeFilter(aviaHelper.directionType.arrival, aviaHelper.dayTime.night));
+
+                    self.list.push(new timeFilter(aviaHelper.directionType.backDeparture, aviaHelper.dayTime.morning));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backDeparture, aviaHelper.dayTime.day));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backDeparture, aviaHelper.dayTime.evening));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backDeparture, aviaHelper.dayTime.night));
+
+                    self.list.push(new timeFilter(aviaHelper.directionType.backArrival, aviaHelper.dayTime.morning));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backArrival, aviaHelper.dayTime.day));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backArrival, aviaHelper.dayTime.evening));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backArrival, aviaHelper.dayTime.night));
+                }
+
+                filter.time = new time();
+                //console.log(filter);
+
                 //задаем фильтр
                 $scope.filter = new aviaFilter(filter);
                 //log('updateFilter ' + angular.toJson($scope.filter));
@@ -496,12 +524,45 @@ innaAppControllers.
                 var transferCountCheckedList = _.filter($scope.filter.TransferCountListAgg, function (item) { return item.checked == true });
                 //туда, флаг, что хоть что-то выбрано
                 var anyTransferCountChecked = (transferCountCheckedList != null && transferCountCheckedList.length > 0);
+                var noTransfersCountChecked = _.all($scope.filter.TransferCountListAgg, function (item) { return item.checked == false });
 
                 //выбрана хотя бы одна компания
                 var anyTransporterChecked = _.any($scope.filter.TransporterList, function (item) { return item.checked == true });
+                var noTransporterChecked = _.all($scope.filter.TransporterList, function (item) { return item.checked == false });
                 //список всех выбранных а/к
                 var transporterListCheckedList = _.filter($scope.filter.TransporterList, function (item) { return item.checked == true });
                 transporterListCheckedList = _.map(transporterListCheckedList, function (item) { return item.TransporterCode });
+
+                var departureFilters = _.filter($scope.filter.time, function(item){ return item.direction == aviaHelper.directionType.departure; });
+                var arrivalFilters = _.filter($scope.filter.time, function (item) { return item.direction == aviaHelper.directionType.arrival; });
+                var backDepartureFilters = _.filter($scope.filter.time, function (item) { return item.direction == aviaHelper.directionType.backDeparture; });
+                var backArrivalFilters = _.filter($scope.filter.time, function (item) { return item.direction == aviaHelper.directionType.backArrival; });
+
+                function anyMatch(filtersList, hours) {
+                    for (var i = 0; i < filtersList.length; i++) {
+                        var filterItem = filtersList[i];
+                        if (hours >= filterItem.hoursMin && hours <= filterItem.hoursMax) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                function itemPassesFilterByTime(item) {
+                    if (anyMatch(departureFilters, item.sort.DepartureHours)) {
+                        return true;
+                    }
+                    if (anyMatch(arrivalFilters, item.sort.ArrivalHours)) {
+                        return true;
+                    }
+                    if (anyMatch(backDepartureFilters, item.sort.BackDepartureHours)) {
+                        return true;
+                    }
+                    if (anyMatch(backArrivalFilters, item.sort.BackArrivalHours)) {
+                        return true;
+                    }
+                    return false;
+                }
 
                 //заодно в цикле вычисляем признак самого дешевого билета
                 var minPriceItem = { item: null, price: 1000000000000000000 };
@@ -511,8 +572,8 @@ innaAppControllers.
                         //признак самого дешевого
                         item.isCheapest = false;
 
-                        //итем в массиве выбранных значений туда
-                        var itemInTransferCount = _.any(transferCountCheckedList, function (toCheck) {
+                        //итем в массиве выбранных значений туда  //не вычисляем, если ничего не выбрано
+                        var itemInTransferCount = noTransfersCountChecked ? null : _.any(transferCountCheckedList, function (toCheck) {
                             switch (toCheck.value) {
                                 case 0: return item.InTransferCount0 == true;
                                 case 1: return item.InTransferCount1 == true;
@@ -521,25 +582,33 @@ innaAppControllers.
                         });
 
                         //а/к - авиакомпании item'а входят в разрешенный список
-                        var itemInTransportTo = _.all(item.EtapsTo, function (etap) {
-                            return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
-                        });
-                        var itemInTransportBack = _.all(item.EtapsBack, function (etap) {
-                            return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
-                        });
+                        var itemInTransportTo = null;
+                        var itemInTransportBack = null;
+                        if (noTransporterChecked == false) {//н евыбисляем, если ничего не выбрано
+                            itemInTransportTo = _.all(item.EtapsTo, function (etap) {
+                                return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
+                            });
+                            itemInTransportBack = _.all(item.EtapsBack, function (etap) {
+                                return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
+                            });
+                        }
+                        
                         var itemInTransport = (itemInTransportTo && itemInTransportBack);
 
                         //проверяем цену
                         if (item.Price >= $scope.filter.minPrice && item.Price <= $scope.filter.maxPrice
                             //пересадки
-                            && (anyTransferCountChecked && itemInTransferCount)
+                            && (noTransfersCountChecked || (anyTransferCountChecked && itemInTransferCount))
                             //а/к
-                            && (anyTransporterChecked && itemInTransport)
-                            //дата отправления / прибытия  туда / обратно
-                            && (item.sort.DepartureDate >= $scope.filter.minDepartureDate && item.sort.DepartureDate <= $scope.filter.maxDepartureDate)
-                            && (item.sort.ArrivalDate >= $scope.filter.minArrivalDate && item.sort.ArrivalDate <= $scope.filter.maxArrivalDate)
-                            && (item.sort.BackDepartureDate >= $scope.filter.minBackDepartureDate && item.sort.BackDepartureDate <= $scope.filter.maxBackDepartureDate)
-                            && (item.sort.BackArrivalDate >= $scope.filter.minBackArrivalDate && item.sort.BackArrivalDate <= $scope.filter.maxBackArrivalDate)
+                            && (noTransporterChecked || (anyTransporterChecked && itemInTransport))
+                            ////дата отправления / прибытия  туда / обратно
+                            //&& (item.sort.DepartureDate >= $scope.filter.minDepartureDate && item.sort.DepartureDate <= $scope.filter.maxDepartureDate)
+                            //&& (item.sort.ArrivalDate >= $scope.filter.minArrivalDate && item.sort.ArrivalDate <= $scope.filter.maxArrivalDate)
+                            //&& (item.sort.BackDepartureDate >= $scope.filter.minBackDepartureDate && item.sort.BackDepartureDate <= $scope.filter.maxBackDepartureDate)
+                            //&& (item.sort.BackArrivalDate >= $scope.filter.minBackArrivalDate && item.sort.BackArrivalDate <= $scope.filter.maxBackArrivalDate)
+
+                            //&& (itemPassesFilterByTime(item))
+
                             )
                         {
                             //вычисляем самый дешевый
