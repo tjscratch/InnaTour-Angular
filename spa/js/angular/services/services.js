@@ -21,7 +21,7 @@ innaAppServices.
         }
 
         function isOlderTenMinutes(ms) {
-            return !((ms + 1000 * 60 * 10) > (new Date()).getTime());//ToDo: bedug 10min
+            return !((ms + 1000 * 60 * 1000) > (new Date()).getTime());//ToDo: bedug 10min
         }
 
         return {

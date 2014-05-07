@@ -20,6 +20,12 @@ angular.module('innaApp.directives')
                         /*Models*/
                         var Options = inna.Models.Avia.Filters._OptionsFactory();
 
+                        Options.prototype.hasSelected = function(){
+                            var onlyOption = this.options[0];
+
+                            return onlyOption.value !== onlyOption.defaultValue;
+                        }
+
                         var Option = inna.Models.Avia.Filters._OptionFactory(function(){
                             this.value = 0;
                             this.max = 0;
@@ -38,7 +44,7 @@ angular.module('innaApp.directives')
                         /*Properties*/
                         $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Price'));
                         $scope.option = new Option('Цена');
-                        $scope.filter.options = new Options();
+                        $scope.options = $scope.filter.options = new Options();
                         $scope.filter.options.push($scope.option);
                         $scope.filter.filterFn = function(ticket){
                             if(ticket.data.Price > $scope.option.value) ticket.hidden = true;
