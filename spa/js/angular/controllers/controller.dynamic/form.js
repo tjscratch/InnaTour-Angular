@@ -109,7 +109,9 @@ innaAppControllers
                 return (klass.value == cached);
             });
 
-            $scope.$watch('klass', function(newVal){
+            console.log('klass = ', $scope.klass);
+
+            $scope.$watchCollection('klass', function(newVal){
                 newVal = newVal || TripKlass.options[0];
                 DynamicPackagesCacheWizard.put('klass', newVal.value);
             });
