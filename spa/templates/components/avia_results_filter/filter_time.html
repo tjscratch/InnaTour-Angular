@@ -1,41 +1,61 @@
 <li>
-    <a href="#" class="filters__link">Время</a>
-    <div class="filters__baloon filters__baloon_240" ng-show="false">
+    <a href="javascript:void(0)" class="filters__link" ng-class="{'filters__link_selected':anyChecked()}" ng-click="toggle($event)">Время</a>
+    <div class="filters__baloon filters__baloon_240" ng-show="isOpen">
         <header class="ra-header">
             <h4 class="ra-title">Перелет туда</h4>
-            <a class="ra-header-link" href="#">Сбросить</a>
+            <a class="ra-header-link" href="#" ng-click="resetTo($event)">Сбросить</a>
         </header>
         <ul class="filters__baloon-radio">
-            <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Вылет</span></label></li>
-            <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Прилет</span></label></li>
+            <li><label><input type="radio" ng-change="resetItems(true)" ng-value="true" ng-model="isToDepartureChecked" name="fly-side2"><span class="ra-radio">Вылет</span></label></li>
+            <li><label><input type="radio" ng-change="resetItems(true)" ng-value="false" ng-model="isToDepartureChecked" name="fly-side2"><span class="ra-radio">Прилет</span></label></li>
         </ul>
-        <div class="filters__baloon-days">
+        <div class="filters__baloon-days" ng-if="isToDepartureChecked">
             <ul class="ra-fly-type-list">
-                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
-                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[0].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[1].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
             </ul>
             <ul class="ra-fly-type-list">
-                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
-                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[2].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[3].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
+            </ul>
+        </div>
+        <div class="filters__baloon-days" ng-if="!isToDepartureChecked">
+            <ul class="ra-fly-type-list">
+                <li><label><input type="checkbox" ng-model="list[4].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[5].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
+            </ul>
+            <ul class="ra-fly-type-list">
+                <li><label><input type="checkbox" ng-model="list[6].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[7].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
             </ul>
         </div>
         <div class="ra-separator"></div>
         <header class="ra-header">
             <h4 class="ra-title">Перелет обратно</h4>
-            <a class="ra-header-link" href="#">Сбросить</a>
+            <a class="ra-header-link" href="#" ng-click="resetBack($event)">Сбросить</a>
         </header>
         <ul class="filters__baloon-radio">
-            <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Вылет</span></label></li>
-            <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Прилет</span></label></li>
+            <li><label><input type="radio" ng-change="resetItems(false)" ng-value="true" ng-model="isBackDepartureChecked" name="fly-side1"><span class="ra-radio">Вылет</span></label></li>
+            <li><label><input type="radio" ng-change="resetItems(false)" ng-value="false" ng-model="isBackDepartureChecked" name="fly-side1"><span class="ra-radio">Прилет</span></label></li>
         </ul>
-        <div class="filters__baloon-days">
+        <div class="filters__baloon-days" ng-if="isBackDepartureChecked">
             <ul class="ra-fly-type-list">
-                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
-                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[8].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[9].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
             </ul>
             <ul class="ra-fly-type-list">
-                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
-                <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[10].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[11].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
+            </ul>
+        </div>
+        <div class="filters__baloon-days" ng-if="!isBackDepartureChecked">
+            <ul class="ra-fly-type-list">
+                <li><label><input type="checkbox" ng-model="list[12].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[13].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
+            </ul>
+            <ul class="ra-fly-type-list">
+                <li><label><input type="checkbox" ng-model="list[14].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
+                <li><label><input type="checkbox" ng-model="list[15].checked" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
             </ul>
         </div>
     </div>

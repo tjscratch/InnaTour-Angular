@@ -75,19 +75,6 @@ innaAppControllers.
                 //флаг индикатор загрузки
                 $scope.isDataLoading = true;
 
-                //$scope.filterBehaviour = {
-                //    isTransfersOpen: false,
-                //    isPriceOpen: false,
-                //    isTimeOpen: false,
-                //    isAirCompanyOpen: false,
-                //    isAirPortOpen: false,
-                //    isSortOpen: false,
-                //    toggle: function ($event, key) {
-                //        eventsHelper.preventBubbling($event);
-                //        $scope.filterBehaviour[key] = !$scope.filterBehaviour[key];
-                //    }
-                //}
-
                 //фильтр
                 $scope.filter = new aviaFilter();
 
@@ -481,6 +468,46 @@ innaAppControllers.
                 filter.minBackArrivalDate = _.min(items, function (item) { return item.sort.BackArrivalDate; }).sort.BackArrivalDate;
                 filter.maxBackArrivalDate = _.max(items, function (item) { return item.sort.BackArrivalDate; }).sort.BackArrivalDate;
 
+                timeFilter = function (direction, dayTime) {
+                    var hoursMin = 0;
+                    var hoursMax = 0;
+                    switch (dayTime) {
+                        case aviaHelper.dayTime.morning: hoursMin = 6; hoursMax = 12; break;
+                        case aviaHelper.dayTime.day: hoursMin = 12; hoursMax = 18; break;
+                        case aviaHelper.dayTime.evening: hoursMin = 18; hoursMax = 0; break;
+                        case aviaHelper.dayTime.night: hoursMin = 24; hoursMax = 6; break;
+                    }
+                    return { direction: direction, dayTime: dayTime, hoursMin: hoursMin, hoursMax: hoursMax, checked: false };
+                }
+
+                time = function () {
+                    var self = this;
+                    self.list = [];
+
+                    self.list.push(new timeFilter(aviaHelper.directionType.departure, aviaHelper.dayTime.morning));
+                    self.list.push(new timeFilter(aviaHelper.directionType.departure, aviaHelper.dayTime.day));
+                    self.list.push(new timeFilter(aviaHelper.directionType.departure, aviaHelper.dayTime.evening));
+                    self.list.push(new timeFilter(aviaHelper.directionType.departure, aviaHelper.dayTime.night));
+
+                    self.list.push(new timeFilter(aviaHelper.directionType.arrival, aviaHelper.dayTime.morning));
+                    self.list.push(new timeFilter(aviaHelper.directionType.arrival, aviaHelper.dayTime.day));
+                    self.list.push(new timeFilter(aviaHelper.directionType.arrival, aviaHelper.dayTime.evening));
+                    self.list.push(new timeFilter(aviaHelper.directionType.arrival, aviaHelper.dayTime.night));
+
+                    self.list.push(new timeFilter(aviaHelper.directionType.backDeparture, aviaHelper.dayTime.morning));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backDeparture, aviaHelper.dayTime.day));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backDeparture, aviaHelper.dayTime.evening));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backDeparture, aviaHelper.dayTime.night));
+
+                    self.list.push(new timeFilter(aviaHelper.directionType.backArrival, aviaHelper.dayTime.morning));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backArrival, aviaHelper.dayTime.day));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backArrival, aviaHelper.dayTime.evening));
+                    self.list.push(new timeFilter(aviaHelper.directionType.backArrival, aviaHelper.dayTime.night));
+                }
+
+                filter.time = new time();
+                //console.log(filter);
+
                 //задаем фильтр
                 $scope.filter = new aviaFilter(filter);
                 //log('updateFilter ' + angular.toJson($scope.filter));
@@ -505,6 +532,37 @@ innaAppControllers.
                 //список всех выбранных а/к
                 var transporterListCheckedList = _.filter($scope.filter.TransporterList, function (item) { return item.checked == true });
                 transporterListCheckedList = _.map(transporterListCheckedList, function (item) { return item.TransporterCode });
+
+                var departureFilters = _.filter($scope.filter.time, function(item){ return item.direction == aviaHelper.directionType.departure; });
+                var arrivalFilters = _.filter($scope.filter.time, function (item) { return item.direction == aviaHelper.directionType.arrival; });
+                var backDepartureFilters = _.filter($scope.filter.time, function (item) { return item.direction == aviaHelper.directionType.backDeparture; });
+                var backArrivalFilters = _.filter($scope.filter.time, function (item) { return item.direction == aviaHelper.directionType.backArrival; });
+
+                function anyMatch(filtersList, hours) {
+                    for (var i = 0; i < filtersList.length; i++) {
+                        var filterItem = filtersList[i];
+                        if (hours >= filterItem.hoursMin && hours <= filterItem.hoursMax) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                function itemPassesFilterByTime(item) {
+                    if (anyMatch(departureFilters, item.sort.DepartureHours)) {
+                        return true;
+                    }
+                    if (anyMatch(arrivalFilters, item.sort.ArrivalHours)) {
+                        return true;
+                    }
+                    if (anyMatch(backDepartureFilters, item.sort.BackDepartureHours)) {
+                        return true;
+                    }
+                    if (anyMatch(backArrivalFilters, item.sort.BackArrivalHours)) {
+                        return true;
+                    }
+                    return false;
+                }
 
                 //заодно в цикле вычисляем признак самого дешевого билета
                 var minPriceItem = { item: null, price: 1000000000000000000 };
@@ -543,11 +601,14 @@ innaAppControllers.
                             && (noTransfersCountChecked || (anyTransferCountChecked && itemInTransferCount))
                             //а/к
                             && (noTransporterChecked || (anyTransporterChecked && itemInTransport))
-                            //дата отправления / прибытия  туда / обратно
-                            && (item.sort.DepartureDate >= $scope.filter.minDepartureDate && item.sort.DepartureDate <= $scope.filter.maxDepartureDate)
-                            && (item.sort.ArrivalDate >= $scope.filter.minArrivalDate && item.sort.ArrivalDate <= $scope.filter.maxArrivalDate)
-                            && (item.sort.BackDepartureDate >= $scope.filter.minBackDepartureDate && item.sort.BackDepartureDate <= $scope.filter.maxBackDepartureDate)
-                            && (item.sort.BackArrivalDate >= $scope.filter.minBackArrivalDate && item.sort.BackArrivalDate <= $scope.filter.maxBackArrivalDate)
+                            ////дата отправления / прибытия  туда / обратно
+                            //&& (item.sort.DepartureDate >= $scope.filter.minDepartureDate && item.sort.DepartureDate <= $scope.filter.maxDepartureDate)
+                            //&& (item.sort.ArrivalDate >= $scope.filter.minArrivalDate && item.sort.ArrivalDate <= $scope.filter.maxArrivalDate)
+                            //&& (item.sort.BackDepartureDate >= $scope.filter.minBackDepartureDate && item.sort.BackDepartureDate <= $scope.filter.maxBackDepartureDate)
+                            //&& (item.sort.BackArrivalDate >= $scope.filter.minBackArrivalDate && item.sort.BackArrivalDate <= $scope.filter.maxBackArrivalDate)
+
+                            //&& (itemPassesFilterByTime(item))
+
                             )
                         {
                             //вычисляем самый дешевый

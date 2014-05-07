@@ -131,6 +131,9 @@
         var helper = {
             sexType: { man: 1, woman: 2 },
 
+            directionType: { departure: 'departure', arrival: 'arrival', backDeparture: 'backDeparture', backArrival: 'backArrival' },
+            dayTime: { morning: 'morning', day: 'day', evening: 'evening', night: 'night' },
+
             cabinClassList: [{ name: 'Эконом', value: 0 }, { name: 'Бизнес', value: 1 }],
             getCabinClassName: function (value){
                 var res = _.find(helper.cabinClassList, function (item) { return item.value == value });
@@ -218,12 +221,27 @@
             },
 
             addCustomFields: function (item) {
+                var departureDate = dateHelper.apiDateToJsDate(item.DepartureDate);
+                var arrivalDate = dateHelper.apiDateToJsDate(item.ArrivalDate);
+                var backDepartureDate = dateHelper.apiDateToJsDate(item.BackDepartureDate);
+                var backArrivalDate = dateHelper.apiDateToJsDate(item.BackArrivalDate);
+                
                 item.sort = {
-                    DepartureDate: dateToMillisecs(item.DepartureDate),
-                    ArrivalDate: dateToMillisecs(item.ArrivalDate),
-                    BackDepartureDate: dateToMillisecs(item.BackDepartureDate),
-                    BackArrivalDate: dateToMillisecs(item.BackArrivalDate)
+                    DepartureDate: departureDate.getTime(),
+                    ArrivalDate: arrivalDate.getTime(),
+                    BackDepartureDate: backDepartureDate.getTime(),
+                    BackArrivalDate: backArrivalDate.getTime(),
+                    
+                    DepartureHours: departureDate.getHours(),
+                    ArrivalHours: arrivalDate.getHours(),
+                    BackDepartureHours: backDepartureDate.getHours(),
+                    BackArrivalHours: backArrivalDate.getHours(),
                 };
+
+                //console.log(item.DepartureDate + ' hours: ' + item.sort.DepartureHours);
+                //console.log(item.ArrivalDate + ' hours: ' + item.sort.ArrivalHours);
+                //console.log(item.BackDepartureDate + ' hours: ' + item.sort.BackDepartureHours);
+                //console.log(item.BackArrivalDate + ' hours: ' + item.sort.BackArrivalHours);
 
                 //дополняем полями с форматированной датой и временем
                 helper.addFormattedDatesFields(item);
