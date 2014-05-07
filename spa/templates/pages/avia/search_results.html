@@ -10,7 +10,7 @@
 <div class="results-container">
 
     <!-- Рекомендованный вариант -->
-    <div class="results-list results-list_720">
+    <div class="results-list results-list_720" ng-if="recomendedItem != null">
         <ng:any ng-repeat="item in [recomendedItem] track by $index">
             <div class="rl-item">
                 <div class="rl-item-separator"></div>
@@ -88,8 +88,8 @@
             </li>
             <li filter-time list="filter.time.list">
             </li>
-            <li>
-                <a href="#" class="filters__link">Авиакомпания</a>
+            <li filter-aircompany list="filter.TransporterList">
+                <!--<a href="#" class="filters__link">Авиакомпания</a>-->
             </li>
             <li>
                 <a href="#" class="filters__link">Аэропорт</a>
@@ -188,15 +188,16 @@
                 <li ng-if="item.checked" ng-repeat="item in filter.TransferCountListAgg">{{item.name}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
 
                 <li ng-if="item.checked" ng-repeat="item in filter.time.list">{{item.name}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                <li ng-if="item.checked" ng-repeat="item in filter.TransporterList">{{item.TransporterName}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
             </ul>
-            <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list)"
+            <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list) || anyChecked(filter.TransporterList)"
                class="ra-tags-reset" ng-click="resetAll($event)">Сбросить все</a>
         </div>
     </aside>
     <!-- /Results Aside -->
 
     <!-- Results Aside Фильтры -->
-    <aside class="results-aside" style="display:none;">
+    <!--<aside class="results-aside" style="display:none;">
         <div class="ra-block">
             <header class="ra-header">
                 <h4 class="ra-title">Фильтр</h4>
@@ -293,7 +294,7 @@
                 </ul>
             </div>
         </div>
-    </aside>
+    </aside>-->
     <!-- /Results Aside -->
 
 </div>

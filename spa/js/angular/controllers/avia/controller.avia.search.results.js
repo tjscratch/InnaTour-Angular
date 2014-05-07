@@ -452,20 +452,40 @@ innaAppControllers.
 
                 //список авиа компаний
                 filter.TransporterList = [];
-                _.each(items, function (item) {
-                    _.each(item.EtapsTo, function (etap) {
-                        filter.TransporterList.push(
-                            new transporter(etap.TransporterName, etap.TransporterCode, etap.TransporterLogo))
-                    });
-                    _.each(item.EtapsBack, function (etap) {
-                        filter.TransporterList.push(
-                            new transporter(etap.TransporterName, etap.TransporterCode, etap.TransporterLogo))
-                    });
-                });
+                function addTransporterCodes(items) {
+                    for (var i = 0; i < items.length; i++) {
+                        var item = items[i];
+
+                        item.transportersCodes = [];
+
+                        for (var e = 0; e < item.EtapsTo.length; e++) {
+                            var etap = item.EtapsTo[e];
+                            filter.TransporterList.push(new transporter(etap.TransporterName, etap.TransporterCode, etap.TransporterLogo));
+                            item.transportersCodes.push(etap.TransporterCode);
+                        }
+
+                        for (var e = 0; e < item.EtapsBack.length; e++) {
+                            var etap = item.EtapsBack[e];
+                            filter.TransporterList.push(new transporter(etap.TransporterName, etap.TransporterCode, etap.TransporterLogo));
+                            item.transportersCodes.push(etap.TransporterCode);
+                        }
+
+                        item.transportersCodes = _.uniq(item.transportersCodes);
+                    }
+                }
+                addTransporterCodes(items);
+
                 //находим уникальные
                 filter.TransporterList = _.uniq(filter.TransporterList, false, function (item) {
                     return item.TransporterCode;
                 });
+
+                //цены для компаний
+                for (var i = 0; i < filter.TransporterList.length; i++) {
+                    var tr = filter.TransporterList[i];
+                    var fList = _.filter(items, function (item) { return (_.indexOf(item.transportersCodes, tr.TransporterCode) > -1) });
+                    tr.price = _.min(fList, function (item) { return item.Price; }).Price;
+                }
 
                 //мин / макс время отправления туда обратно
                 filter.minDepartureDate = _.min(items, function (item) { return item.sort.DepartureDate; }).sort.DepartureDate;
@@ -616,7 +636,7 @@ innaAppControllers.
                             });
                         }
                         
-                        var itemInTransport = (itemInTransportTo && itemInTransportBack);
+                        var itemInTransport = (itemInTransportTo || itemInTransportBack);
 
                         //проверяем цену
                         if (item.Price >= $scope.filter.minPrice && item.Price <= $scope.filter.maxPrice
