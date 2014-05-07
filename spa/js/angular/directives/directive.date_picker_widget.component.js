@@ -7,9 +7,23 @@ innaAppDirectives.directive('datePickerWidget', [function(){
             date2: '=',
             minDate: '='
         },
-        controller: ['$scope', '$timeout', function($scope, $timeout){
+        controller: ['$scope', function($scope){
             /*Properties*/
             $scope.isOpen = false;
+
+            /*Watchers*/
+            $scope.$watch('date1', function(newValue, oldValue){
+                if(newValue instanceof Error) {
+                    $scope.date1 = oldValue;
+
+                    $scope.input.tooltip({
+                        position: {
+                            my: 'center top+22',
+                            at: 'center bottom'
+                        }
+                    }).tooltip('open');
+                }
+            });
 
             /*Methods*/
             $scope.short = function(date) {
@@ -20,6 +34,8 @@ innaAppDirectives.directive('datePickerWidget', [function(){
             };
         }],
         link: function(scope, element, attrs){
+            scope.input = $('.search-date-block', element).eq(0);
+
             $('.js-datepicker', element).DatePicker({
                 flat: true,
                 date: new Date(),
@@ -34,6 +50,10 @@ innaAppDirectives.directive('datePickerWidget', [function(){
                         $scope.date1 = formated[0];
                         $scope.date2 = formated[1];
                     });
+
+                    try {
+                        scope.input.tooltip('destroy');
+                    } catch(e) {}
                 }
             });
 

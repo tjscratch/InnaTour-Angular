@@ -33,6 +33,9 @@ innaAppControllers
                 console.log('adults = %s, children = %s, separatedInfants = %s, sum = %s', $scope.adultCount, children, separatedInfants, $scope.adultCount + children + separatedInfants);
 
                 if(+$scope.adultCount + children + separatedInfants > 6) throw Error('adultCount');
+
+                Validators.defined($scope.dateBegin, Error('dateBegin'));
+                Validators.defined($scope.dateEnd, Error('dateEnd'));
             }
 
             $scope.loadObjectById = function(id, callback){
