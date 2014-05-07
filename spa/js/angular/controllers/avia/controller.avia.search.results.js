@@ -192,8 +192,9 @@ innaAppControllers.
                 $scope.resetAll = function ($event) {
                     $scope.resetPrice($event);
                     $scope.resetTransfers($event);
-                    $scope.resetArrivalTime($event);
-                    $scope.resetDepartureTime($event);
+                    //$scope.resetArrivalTime($event);
+                    //$scope.resetDepartureTime($event);
+                    $scope.resetTime($event);
                     $scope.resetCompanies($event);
                 };
 
@@ -208,24 +209,32 @@ innaAppControllers.
                     _.each($scope.filter.TransferCountListAgg, function (item) { item.checked = false });
                 };
 
-                $scope.resetDepartureTime = function ($event) {
+                $scope.resetTime = function ($event) {
                     eventsHelper.preventBubbling($event);
-                    $scope.filter.minDepartureDate = $scope.filter.minDepartureDateInitial;
-                    $scope.filter.maxDepartureDate = $scope.filter.maxDepartureDateInitial;
-                    $scope.filter.minBackDepartureDate = $scope.filter.minBackDepartureDateInitial;
-                    $scope.filter.maxBackDepartureDate = $scope.filter.maxBackDepartureDateInitial;
-                };
-                $scope.resetArrivalTime = function ($event) {
-                    eventsHelper.preventBubbling($event);
-                    $scope.filter.minArrivalDate = $scope.filter.minArrivalDateInitial;
-                    $scope.filter.maxArrivalDate = $scope.filter.maxArrivalDateInitial;
-                    $scope.filter.minBackArrivalDate = $scope.filter.minBackArrivalDateInitial;
-                    $scope.filter.maxBackArrivalDate = $scope.filter.maxBackArrivalDateInitial;
-                };
+                    _.each($scope.filter.time.list, function (item) { item.checked = false });
+                }
+                //$scope.resetDepartureTime = function ($event) {
+                //    eventsHelper.preventBubbling($event);
+                //    $scope.filter.minDepartureDate = $scope.filter.minDepartureDateInitial;
+                //    $scope.filter.maxDepartureDate = $scope.filter.maxDepartureDateInitial;
+                //    $scope.filter.minBackDepartureDate = $scope.filter.minBackDepartureDateInitial;
+                //    $scope.filter.maxBackDepartureDate = $scope.filter.maxBackDepartureDateInitial;
+                //};
+                //$scope.resetArrivalTime = function ($event) {
+                //    eventsHelper.preventBubbling($event);
+                //    $scope.filter.minArrivalDate = $scope.filter.minArrivalDateInitial;
+                //    $scope.filter.maxArrivalDate = $scope.filter.maxArrivalDateInitial;
+                //    $scope.filter.minBackArrivalDate = $scope.filter.minBackArrivalDateInitial;
+                //    $scope.filter.maxBackArrivalDate = $scope.filter.maxBackArrivalDateInitial;
+                //};
                 $scope.resetCompanies = function ($event) {
                     eventsHelper.preventBubbling($event);
                     _.each($scope.filter.TransporterList, function (item) { item.checked = false });
                 };
+
+                $scope.anyChecked = function (list) {
+                    return _.any(list, function (item) { return item.checked; });
+                }
 
                 $scope.goToPaymentClick = function ($event, item) {
                     eventsHelper.preventBubbling($event);
@@ -471,13 +480,20 @@ innaAppControllers.
                 timeFilter = function (direction, dayTime) {
                     var hoursMin = 0;
                     var hoursMax = 0;
-                    switch (dayTime) {
-                        case aviaHelper.dayTime.morning: hoursMin = 6; hoursMax = 12; break;
-                        case aviaHelper.dayTime.day: hoursMin = 12; hoursMax = 18; break;
-                        case aviaHelper.dayTime.evening: hoursMin = 18; hoursMax = 0; break;
-                        case aviaHelper.dayTime.night: hoursMin = 24; hoursMax = 6; break;
+                    var text = '';
+                    switch (direction) {
+                        case aviaHelper.directionType.departure: text = 'вылет туда '; break;
+                        case aviaHelper.directionType.arrival: text = 'прилет туда '; break;
+                        case aviaHelper.directionType.backDeparture: text = 'вылет обратно '; break;
+                        case aviaHelper.directionType.backArrival: text = 'прилет обратно '; break;
                     }
-                    return { direction: direction, dayTime: dayTime, hoursMin: hoursMin, hoursMax: hoursMax, checked: false };
+                    switch (dayTime) {
+                        case aviaHelper.dayTime.morning: hoursMin = 6; hoursMax = 12; text += 'утром'; break;
+                        case aviaHelper.dayTime.day: hoursMin = 12; hoursMax = 18; text += 'днем'; break;
+                        case aviaHelper.dayTime.evening: hoursMin = 18; hoursMax = 24; text += 'вечером'; break;
+                        case aviaHelper.dayTime.night: hoursMin = 0; hoursMax = 6; text += 'ночью'; break;
+                    }
+                    return { direction: direction, dayTime: dayTime, hoursMin: hoursMin, hoursMax: hoursMax, name: text, checked: false };
                 }
 
                 time = function () {
@@ -533,28 +549,32 @@ innaAppControllers.
                 var transporterListCheckedList = _.filter($scope.filter.TransporterList, function (item) { return item.checked == true });
                 transporterListCheckedList = _.map(transporterListCheckedList, function (item) { return item.TransporterCode });
 
-                var departureFilters = _.filter($scope.filter.time, function(item){ return item.direction == aviaHelper.directionType.departure; });
-                var arrivalFilters = _.filter($scope.filter.time, function (item) { return item.direction == aviaHelper.directionType.arrival; });
-                var backDepartureFilters = _.filter($scope.filter.time, function (item) { return item.direction == aviaHelper.directionType.backDeparture; });
-                var backArrivalFilters = _.filter($scope.filter.time, function (item) { return item.direction == aviaHelper.directionType.backArrival; });
+                var departureFilters = _.filter($scope.filter.time.list, function(item){ return item.checked && item.direction == aviaHelper.directionType.departure; });
+                var arrivalFilters = _.filter($scope.filter.time.list, function (item) { return item.checked && item.direction == aviaHelper.directionType.arrival; });
+                var backDepartureFilters = _.filter($scope.filter.time.list, function (item) { return item.checked && item.direction == aviaHelper.directionType.backDeparture; });
+                var backArrivalFilters = _.filter($scope.filter.time.list, function (item) { return item.checked && item.direction == aviaHelper.directionType.backArrival; });
 
                 function anyMatch(filtersList, hours) {
                     for (var i = 0; i < filtersList.length; i++) {
                         var filterItem = filtersList[i];
-                        if (hours >= filterItem.hoursMin && hours <= filterItem.hoursMax) {
+                        if (hours >= filterItem.hoursMin && hours < filterItem.hoursMax) {
                             return true;
                         }
                     }
                     return false;
                 }
 
-                function itemPassesFilterByTime(item) {
+                function itemPassesFilterByTimeTo(item) {
                     if (anyMatch(departureFilters, item.sort.DepartureHours)) {
                         return true;
                     }
                     if (anyMatch(arrivalFilters, item.sort.ArrivalHours)) {
                         return true;
                     }
+                    return false;
+                }
+
+                function itemPassesFilterByTimeBack(item) {
                     if (anyMatch(backDepartureFilters, item.sort.BackDepartureHours)) {
                         return true;
                     }
@@ -563,6 +583,9 @@ innaAppControllers.
                     }
                     return false;
                 }
+
+                var noTimeFilterToSelected = !(_.any(departureFilters, function (item) { return item.checked; }) || _.any(arrivalFilters, function (item) { return item.checked; }));
+                var noTimeFilterBackSelected = !(_.any(backDepartureFilters, function (item) { return item.checked; }) || _.any(backArrivalFilters, function (item) { return item.checked; }));
 
                 //заодно в цикле вычисляем признак самого дешевого билета
                 var minPriceItem = { item: null, price: 1000000000000000000 };
@@ -607,7 +630,8 @@ innaAppControllers.
                             //&& (item.sort.BackDepartureDate >= $scope.filter.minBackDepartureDate && item.sort.BackDepartureDate <= $scope.filter.maxBackDepartureDate)
                             //&& (item.sort.BackArrivalDate >= $scope.filter.minBackArrivalDate && item.sort.BackArrivalDate <= $scope.filter.maxBackArrivalDate)
 
-                            //&& (itemPassesFilterByTime(item))
+                            && (noTimeFilterToSelected || itemPassesFilterByTimeTo(item))
+                            && (noTimeFilterBackSelected || itemPassesFilterByTimeBack(item))
 
                             )
                         {

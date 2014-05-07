@@ -12,12 +12,6 @@ innaAppDirectives.
 
                 $scope.isOpen = false;
 
-                $scope.resetFilter = function ($event) {
-                    eventsHelper.preventBubbling($event);
-
-                    //_.each($scope.list, function (item) { item.checked = true });
-                }
-
                 $scope.headClicked = false;
                 $scope.toggle = function ($event) {
                     eventsHelper.preventDefault($event);
@@ -71,23 +65,7 @@ innaAppDirectives.
                             _.each(list, function (item) { item.checked = false; });
                         }
                     }
-
-                    //var debList = _.map($scope.list, function (item) { return item.checked; });
-                    //console.log(debList);
                 }
-
-                //$scope.$watch('isToDepartureChecked', function (newVal) {
-                //    console.log('isToDepartureChecked: ' + newVal);
-                //    $scope.resetItems2(newVal, $scope.isBackDepartureChecked, true);
-                //});
-                //$scope.$watch('isBackDepartureChecked', function (newVal) {
-                //    console.log('isBackDepartureChecked: ' + newVal);
-                //    $scope.resetItems2($scope.isToDepartureChecked, newVal, false);
-                //});
-
-                //$scope.$watch('list', function (newVal) {
-                //    console.log($scope.list);
-                //}, true);
             }],
             link: function ($scope, element, attrs) {
                 $(document).click(function bodyClick(event) {

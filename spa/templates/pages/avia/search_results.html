@@ -186,14 +186,17 @@
                 <li>Lufthansa <a href="#"></a></li>-->
                 <!--<li>до 1 пересадки <a href="#"></a></li>-->
                 <li ng-if="item.checked" ng-repeat="item in filter.TransferCountListAgg">{{item.name}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+
+                <li ng-if="item.checked" ng-repeat="item in filter.time.list">{{item.name}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
             </ul>
-            <a ng-href="#" class="ra-tags-reset" ng-click="resetAll($event)">Сбросить все</a>
+            <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list)"
+               class="ra-tags-reset" ng-click="resetAll($event)">Сбросить все</a>
         </div>
     </aside>
     <!-- /Results Aside -->
 
     <!-- Results Aside Фильтры -->
-    <aside class="results-aside" style="display:block;">
+    <aside class="results-aside" style="display:none;">
         <div class="ra-block">
             <header class="ra-header">
                 <h4 class="ra-title">Фильтр</h4>
