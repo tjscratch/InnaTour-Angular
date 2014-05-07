@@ -53,17 +53,17 @@ angular.module('innaApp.controllers')
             $scope.showProfile = function(){
                 $scope.open();
                 $scope.display = $scope.DISPLAY_PROFILE;
-            }
+            };
+
+            $scope.forgotten = function(){
+                $scope.display = $scope.DISPLAY_FORGOTTEN;
+            };
 
             /*EventListeners*/
-            $scope.$on(Events.AUTH_FORGOTTEN_LINK_CLICKED, function(){
-                $scope.display = $scope.DISPLAY_FORGOTTEN;
-            });
-
             $scope.$on(Events.AUTH_SIGN_IN, function(event, data) {
                 $scope.$root.user = new inna.Models.Auth.User(data);
 
                 $scope.close();
             });
         }
-    ])
+    ]);

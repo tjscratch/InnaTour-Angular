@@ -24,6 +24,7 @@ angular.module('innaApp.API', [])
             AUTH_RESTORE_B: url('/Account/ResetPassword/Post'),
             AUTH_SOCIAL_BROKER: app_main.host + '/Account/ExternalLogin',
             AUTH_LOGOUT: url('/Account/Logoff'),
+            AUTH_CHANGE_INFO: url('/Account/ChangeInfo/Post'),
 
             PURCHASE_TRANSPORTER_GET_ALLIANCE: url('/Transporter/GetAllianceByName'),
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),
