@@ -33,8 +33,11 @@
     <div class="popup-form-row">
         <label for="" class="popup-form-label">Телефон</label>
         <input type="text" class="popup-form-field" ng-model="user.raw.Phone">
-        <div class="description">
+        <div class="description" ng-show="!errors.phone">
             Мы обязательно позвоним, если ваш рейс отменят или перенесут
+        </div>
+        <div class="description" style="color:red" ng-show="errors.phone">
+            Введите, пожалуйста, телефон в формате +79123456789
         </div>
     </div>
     <div class="popup-form-row popup-form-row-submit">

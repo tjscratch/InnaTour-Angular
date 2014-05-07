@@ -4,7 +4,19 @@ angular.module('innaApp.controllers')
         function($scope, AuthDataProvider, Validators){
             /*Private*/
             function validate(){
-                Validators.phone($scope.user.raw.Phone, 'phone');
+                var isFilled = function(field) {
+                    try {
+                        Validators.defined(field, false);
+
+                        return true;
+                    } catch(e) {
+                        return false;
+                    }
+                }
+
+                if(isFilled($scope.user.raw.Phone)) {
+                    Validators.phone($scope.user.raw.Phone, 'phone');
+                }
             }
 
             /*Properties*/
