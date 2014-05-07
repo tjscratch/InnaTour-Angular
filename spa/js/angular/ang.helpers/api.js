@@ -2,7 +2,7 @@ angular.module('innaApp.API', [])
     .factory('innaApp.API.const', function () {
         function url(s) {
             var host = app_main.host || 'http://api.test.inna.ru';
-            if (window.DEV) host = 'http://api.lh.inna.ru:8077';
+            if (window.DEV) host = 'http://api.lh.inna.ru'; //:8077';
             if (window.DEV2) host = 'http://api.lh.inna.ru';
 
             return host + '/api/v1' + s;
@@ -25,6 +25,7 @@ angular.module('innaApp.API', [])
             AUTH_SOCIAL_BROKER: app_main.host + '/Account/ExternalLogin',
             AUTH_LOGOUT: url('/Account/Logoff'),
             AUTH_CHANGE_INFO: url('/Account/ChangeInfo/Post'),
+            AUTH_RECOGNIZE: url('/Account/Info/Post'),
 
             PURCHASE_TRANSPORTER_GET_ALLIANCE: url('/Transporter/GetAllianceByName'),
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),

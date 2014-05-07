@@ -1,11 +1,18 @@
 angular.module('innaApp.controllers')
     .controller('AuthProfileCtrl', [
-        '$scope', 'AuthDataProvider',
-        function($scope, AuthDataProvider){
+        '$scope', 'AuthDataProvider', 'Validators',
+        function($scope, AuthDataProvider, Validators){
+            /*Private*/
+            function validate(){
+                Validators.phone($scope.user.raw.Phone, 'phone');
+            }
+
             /*Properties*/
             $scope.state = {
                 allowChangePassword: false
             };
+
+            $scope.errors = {};
 
             $scope.currentPassword = '';
             $scope.newPassword = '';
@@ -13,7 +20,14 @@ angular.module('innaApp.controllers')
 
             /*Methods*/
             $scope.save = function(){
-                AuthDataProvider.changeInfo($scope.user.raw);
+                try {
+                    validate();
+
+                    //if ok
+                    AuthDataProvider.changeInfo($scope.user.raw);
+                } catch(e) {
+                    $scope.errors[e] = true;
+                }
             };
 
             $scope.allowChangePassword = function(){
