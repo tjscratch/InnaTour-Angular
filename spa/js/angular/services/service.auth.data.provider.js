@@ -29,6 +29,12 @@ angular.module('innaApp.services')
                 },
                 logout: function(){
                     AjaxHelper.postDebaunced(urls.AUTH_LOGOUT);
+                },
+                changeInfo: function(data){
+                    AjaxHelper.postDebaunced(urls.AUTH_CHANGE_INFO, data);
+                },
+                recognize: function(success){
+                    AjaxHelper.postDebaunced(urls.AUTH_RECOGNIZE, {}, success);
                 }
             }
         }
