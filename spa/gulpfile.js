@@ -14,7 +14,7 @@ gulp.task('styles', function () {
             use: ['nib'],
             import: ['nib']
         }))
-        .pipe(concat('tickets.min.css'))
+        .pipe(concat('common.min.css'))
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest('css'));
     gulp.src(['styl/ie.styl'])
