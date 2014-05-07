@@ -15,9 +15,9 @@
 				days: 'datepickerViewDays'
 			},
 			tpl = {
-				wrapper: '<div class="datepicker"><div class="datepickerBorderT" /><div class="datepickerBorderB" /><div class="datepickerBorderL" /><div class="datepickerBorderR" /><div class="datepickerBorderTL" /><div class="datepickerBorderTR" /><div class="datepickerBorderBL" /><div class="datepickerBorderBR" /><div class="datepickerContainer"><table cellspacing="0" cellpadding="0"><tbody><tr></tr></tbody></table></div></div>',
+				wrapper: '<div class="datepicker"><div class="datepickerContainer"><table cellspacing="0" cellpadding="0"><tbody><tr></tr></tbody></table></div></div>',
 				head: [
-					'<td class="calndar-<%=calendarNo%>">',
+					'<td class="calendar calendar-<%=calendarNo%>">',
 					'<table cellspacing="0" cellpadding="0">',
 						'<thead>',
 							'<tr>',
@@ -412,11 +412,6 @@
 			layout = function (el) {
 				var options = $(el).data('datepicker');
 				var cal = $('#' + options.id);
-				if (!options.extraHeight) {
-					var divs = $(el).find('div');
-					options.extraHeight = divs.get(0).offsetHeight + divs.get(1).offsetHeight;
-					options.extraWidth = divs.get(2).offsetWidth + divs.get(3).offsetWidth;
-				}
 				var tbl = cal.find('table:first').get(0);
 				var width = tbl.offsetWidth;
 				var height = tbl.offsetHeight;
