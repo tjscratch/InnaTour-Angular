@@ -1,0 +1,44 @@
+.hotel-gallery-container
+  overflow hidden
+  img
+    vertical-align top
+    position: absolute
+
+.hotel-gallery-arrow-left, .hotel-gallery-arrow-right
+  background rgba(255, 255, 255, .6)
+  cursor pointer
+  height 30px
+  margin-top -15px
+  position absolute
+  top 50%
+  width 20px
+  z-index: 2
+
+  &:before
+    content ''
+    border-style solid
+    display block
+    height 0
+    position: absolute
+    margin-top -5px
+    top 50%
+    width 0
+
+
+.hotel-gallery-arrow-left
+  border-radius(0 2px 2px 0)
+  left 0
+
+  &:before
+    border-width 5px 6px 5px 0
+    border-color transparent #000 transparent transparent
+    left 6px
+
+.hotel-gallery-arrow-right
+  border-radius(2px 0 0 2px)
+  right 0
+
+  &:before
+    border-width: 5px 0 5px 6px;
+    border-color: transparent transparent transparent #000;
+    right 6px

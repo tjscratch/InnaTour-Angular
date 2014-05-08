@@ -5,25 +5,6 @@
   .pin
     position absolute
 
-    .pin-point
-      background url(../img/map/pin-grey.png)
-      cursor pointer
-      height 49px
-      left -17px
-      position absolute
-      top -44px
-      width 56px
-
-    &:hover
-      .pin-point
-        background url(../img/map/pin-black.png)
-
-    &.green
-      .pin-point
-        cursor pointer
-        background url(../img/map/pin-green.png)
-
-
     .pin-circle
       border 2px solid #fff
       border-radius(50%)
@@ -48,3 +29,70 @@
         position absolute
         top 11px
         width 10px
+
+    .pin-point
+      background url(../img/map/pin-grey.png)
+      cursor pointer
+      height 49px
+      left -17px
+      position absolute
+      top -44px
+      width 56px
+
+    &:hover
+      .pin-point
+        background url(../img/map/pin-black.png)
+
+      .pin-circle
+        background #272727
+
+    &.green
+      .pin-point
+        cursor pointer
+        background url(../img/map/pin-green.png)
+
+      .pin-circle
+        cursor pointer
+        background #67912c
+
+    .pin-balloon
+      background #fff
+      border-radius(5px)
+      bottom 50px
+      box-shadow 0 3px 3px rgba(0,0,0,.6)
+      position absolute
+      right -180px
+      width 360px
+
+      &:before
+        border-style solid
+        border-width 12px 11px 0 11px
+        border-color #fff transparent transparent transparent
+        bottom -12px
+        content ''
+        display block
+        height 0
+        position absolute
+        left 50%
+        margin-left -11px
+        width 0
+        z-index: 2
+
+      &:after
+        background url(../img/map/balloon-corner-shadow.png)
+        bottom -15px
+        content ''
+        display block
+        height 13px
+        left 50%
+        margin-left -12px
+        position absolute
+        width 24px
+        z-index: 1
+
+      .hotel-gallery-container
+        height 240px
+
+      .hotel-name
+        font-size 18px
+
