@@ -41,7 +41,7 @@ gulp.task('styles', function () {
 
 gulp.task('watch', function () {
     var server = livereload();
-    gulp.watch('styl/*.styl', ['styles']);
+    gulp.watch('styl/**/*', ['styles']);
     gulp.watch('*.php', function(evt) {
         server.changed(evt.path);
     });
