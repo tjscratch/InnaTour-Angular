@@ -327,24 +327,68 @@ innaAppControllers.
 
                 if (data != null && data.Items != null && data.Items.length > 0) {
                     var list = [];
+                    var recommendedList = [];
                     var recomendedItem = null;
+                    
                     //id поиска
                     $scope.searchId = data.QueryId;
-                    //нужно добавить служебные поля для сортировки по датам
+                    
                     //в этих полях дата будет в миллисекундах
                     for (var i = 0; i < data.Items.length; i++) {
                         var item = data.Items[i];
                         
-                        //дополняем полями 
+                        //нужно добавить служебные поля для сортировки по датам и т.д.
                         aviaHelper.addCustomFields(item);
 
-                        if (recomendedItem == null && item.IsRecomendation) {
-                            recomendedItem = item;
+                        if (item.IsRecomendation) {
+                            //recomendedItem = item;
+                            recommendedList.push(item);
                         }
                         else {
                             list.push(item);
                         }
                     }
+
+                    function getRecommended() {
+                        //находим рекомендованный - первый из сортировки по рейтингу INNA.RU - по рекомендованности (по умолчанию), затем по дате/времени отправления ТУДА, затем по дате/времени отправления ОБРАТНО
+                        var minDepDateTime = Number.MAX_VALUE;
+                        var minBackDepDateTime = Number.MAX_VALUE;
+                        var minItem = null;
+
+                        //_.each(recommendedList, function (item) {
+                        //    console.log(item);
+                        //});
+
+                        _.each(recommendedList, function (item) {
+                            if (item.sort.DepartureDate < minDepDateTime && item.sort.BackDepartureDate < minBackDepDateTime) {
+                                minDepDateTime = item.sort.DepartureDate;
+                                minItem = item;
+                            }
+                        });
+
+                        var minList = _.filter(recommendedList, function (item) { return item.sort.DepartureDate == minItem.sort.DepartureDate });
+                        _.each(minList, function (item) {
+                            if (item.sort.BackDepartureDate < minBackDepDateTime) {
+                                minBackDepDateTime = item.sort.BackDepartureDate;
+                                minItem = item;
+                            }
+                        });
+
+                        //нашли минимальный
+                        return minItem;
+                    }
+                    
+                    recomendedItem = getRecommended();
+                    //console.log('');
+                    //console.log(recomendedItem);
+
+                    //добавляем к списку остальные рекомендованные
+                    _.each(recommendedList, function (item) {
+                        if (item != recomendedItem) {
+                            list.push(item);
+                        }
+                    });
+
                     //добавляем список
                     $scope.ticketsList = list;
                     $scope.recomendedItem = recomendedItem;
@@ -542,7 +586,7 @@ innaAppControllers.
                 filter.time = new time();
 
                 //console.log($scope.criteria);
-                console.log(items[0]);
+                //console.log(items[0]);
 
                 //аэропорты
                 function airportFilter(items) {
