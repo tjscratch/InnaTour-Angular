@@ -1,0 +1,16 @@
+<li class="filters__sort" style="width: 290px; text-align: right;">
+    <a href="javascript:void(0)" class="filters__link" ng-click="toggle($event)">{{getCurrentSortName()}}</a>
+    <ul class="search__list" ng-show="isOpen" style="width: 290px; margin-top: 0px; z-index: 101; ">
+        <li style="text-align:left;" ng-class="{current:item.sort == sort.sortType}" ng-repeat="item in sort.list" ng-click="applySort($event, item.sort)">{{item.name}}</li>
+    </ul>
+<!--
+<div class="rl-filter">
+    <div class="rl-filter-current" ng-click="isSortListOpened = !isSortListOpened">{{getCurrentSortName()}}</div>
+    <ul class="rl-filter-menu" ng-show="isSortListOpened">
+        <ng:any ng-repeat="item in sortList">
+            <li ng-click="applySort($event, item.sort)" ng-show="isSortVisible(item.sort)">{{item.name}}</li>
+        </ng:any>
+    </ul>
+</div>-->
+</li>
+

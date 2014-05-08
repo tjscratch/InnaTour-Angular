@@ -86,10 +86,10 @@ innaAppControllers.
                 //сортировка - по-молчанию - по рекомендациям
                 //$scope.sort = avia.sortType.ByRecommend;
 
-                $scope.sort = avia.sortType.byRecommend;
-                $scope.reverse = false;
-                $scope.sortType = avia.sortType;
-                $scope.sortList = [
+                function sortFilter() {
+                    var self = this;
+                    
+                    self.list = [
                     { name: "По рекомендованности", sort: avia.sortType.byRecommend },
                     { name: "По цене", sort: avia.sortType.byPrice },
                     { name: "По времени в пути", sort: avia.sortType.byTripTime },
@@ -97,8 +97,13 @@ innaAppControllers.
                     { name: "По времени отправления ОБРАТНО", sort: avia.sortType.byBackDepartureTime },
                     { name: "По времени прибытия ТУДА", sort: avia.sortType.byArrivalTime },
                     { name: "По времени прибытия ОБРАТНО", sort: avia.sortType.byBackArrivalTime }
-                ];
-                $scope.isSortListOpened = false;
+                    ];
+
+                    self.sortType = avia.sortType.byRecommend;
+                    self.reverse = false;
+                }
+                $scope.SortFilter = new sortFilter();
+
                 $scope.dateFormat = avia.dateFormat;
                 $scope.timeFormat = avia.timeFormat;
 
@@ -150,21 +155,6 @@ innaAppControllers.
                         log('startSearchTours error; status:' + status);
                         $scope.baloon.showGlobalAviaErr();
                     });
-                };
-
-                $scope.applySort = function ($event, type) {
-                    eventsHelper.preventBubbling($event);
-                    $scope.isSortListOpened = false;
-                    //log('applySort: ' + type + ', $scope.sort:' + $scope.sort + ', $scope.reverse:' + $scope.reverse);
-
-                    var reverse = false;
-                    if ($scope.sort == type)
-                        reverse = !$scope.reverse;
-                    else
-                        reverse = false;
-
-                    $scope.sort = type;
-                    $scope.reverse = reverse;
                 };
 
                 $scope.getCurrentSortName = function () {
