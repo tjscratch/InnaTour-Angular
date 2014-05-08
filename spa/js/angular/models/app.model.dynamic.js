@@ -12,6 +12,18 @@ inna.Models.Hotels.HotelsCollection.prototype.getMinPrice = function(){
     });
 
     return min;
+};
+
+inna.Models.Hotels.HotelsCollection.prototype.getMaxPrice = function(){
+    var max = 0;
+
+    this.each(function(hotel){
+        var price = hotel.data.MinimalPackagePrice;
+
+        if(price > max) max= price;
+    });
+
+    return max;
 }
 
 inna.Models.Hotels.Hotel = function(raw) {

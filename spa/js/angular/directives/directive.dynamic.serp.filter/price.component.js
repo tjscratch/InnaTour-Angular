@@ -4,35 +4,90 @@ angular.module('innaApp.directives')
             return {
                 templateUrl: '/spa/templates/components/dynamic-serp-filter/price.html',
                 scope: {
-                    hotels: '='
+                    hotels: '=dynamicSerpFilterPriceHotels',
+                    filters: '=dynamicSerpFilterPriceFilters'
                 },
                 controller: [
-                    '$scope', 'innaApp.API.events',
-                    function($scope, Events){
-                        var DEFAULT = 0;
+                    '$scope', '$controller', '$element',
+                    function($scope, $controller, $element){
+                        /*Mixins*/
+                        $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
-                        $scope.min = Number.MAX_VALUE;
-                        $scope.max = 0;
+                        /*DOM*/
+                        var slider = $('.js-range', $element);
+                        var input = $('.js-range-val', $element);
 
-                        $scope.price = DEFAULT;
+                        /*Models*/
+                        var Options = inna.Models.Avia.Filters._OptionsFactory();
 
-                        $scope.$watch('price', function(newVal){
-                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_HOTEL, {filter: 'Price', value: newVal});
+                        Options.prototype.hasSelected = function(){
+                            var onlyOption = this.options[0];
+
+                            return onlyOption.value !== onlyOption.defaultValue;
+                        }
+
+                        var Option = inna.Models.Avia.Filters._OptionFactory(function(){
+                            this.value = 0;
+                            this.max = 0;
+                            this.min = Number.MAX_VALUE;
+                            this.defaultValue = 0;
                         });
 
-                        $scope.$watchCollection('hotels', function(newVal) {
-                            _.each(newVal, function(hotel) {
-                                var price = hotel.MinimalPackagePrice;
+                        Option.prototype.reset = function(){
+                            this.value = this.defaultValue;
+                        };
 
-                                if(price < $scope.min) $scope.min = price;
+                        Option.prototype.describe = function(){
+                            return 'Не дороже ~ рублей'.split('~').join(this.value);
+                        };
 
-                                if(price > $scope.max) $scope.max = price;
+                        /*Properties*/
+                        $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Price'));
+                        $scope.option = new Option('Цена');
+                        $scope.options = $scope.filter.options = new Options();
+                        $scope.filter.options.push($scope.option);
+                        $scope.filter.filterFn = function(ticket){
+                            if(ticket.data.MinimalPackagePrice > $scope.option.value) ticket.hidden = true;
+                        }
+
+                        /*Methods*/
+                        $scope.displayOnSlider = function(){
+                            slider.slider('value', $scope.option.value);
+                        };
+
+                        $scope.reset = function(option) {
+                            option.reset();
+                            $scope.displayOnSlider();
+                        }
+
+                        /*Watchers*/
+                        var unwatchCollectionHotels = $scope.$watchCollection('hotels', function(newVal) {
+                            if(!newVal || !newVal.list.length) return;
+
+                            $scope.option.min = newVal.getMinPrice();
+                            $scope.option.max = newVal.getMaxPrice();
+                            $scope.option.defaultValue = $scope.option.max;
+
+                            slider.slider({
+                                range: "min",
+                                min: $scope.option.min,
+                                max: $scope.option.max,
+                                value: $scope.option.max,
+                                slide: function(event, ui) {
+                                    $scope.$apply(function($scope){
+                                        $scope.option.value = ui.value;
+                                    });
+                                }
                             });
+
+                            $scope.filter.options.reset();
+
+                            unwatchCollectionHotels();
                         });
 
-                        $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, 'Price'), function(){
-                            $scope.price = DEFAULT;
-                        })
+                        $scope.$watch('option.value', function(){
+                            $scope.option.selected = ($scope.option.value !== $scope.option.defaultValue);
+                        });
                     }
                 ]
             }
