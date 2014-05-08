@@ -89,10 +89,8 @@
             <li filter-time list="filter.time.list">
             </li>
             <li filter-aircompany list="filter.TransporterList">
-                <!--<a href="#" class="filters__link">Авиакомпания</a>-->
             </li>
-            <li>
-                <a href="#" class="filters__link">Аэропорт</a>
+            <li filter-airport filter="filter.AirportFilter">
             </li>
             <li class="filters__sort">
                 <a href="#" class="filters__link">Сортировать по времени прилета</a>
@@ -189,8 +187,11 @@
 
                 <li ng-if="item.checked" ng-repeat="item in filter.time.list">{{item.name}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
                 <li ng-if="item.checked" ng-repeat="item in filter.TransporterList">{{item.TransporterName}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                <li ng-if="item.checked" ng-repeat="item in filter.AirportFilter.fromPorts">{{item.name}} {{item.code}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                <li ng-if="item.checked" ng-repeat="item in filter.AirportFilter.toPorts">{{item.name}} {{item.code}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
             </ul>
-            <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list) || anyChecked(filter.TransporterList)"
+            <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list) || anyChecked(filter.TransporterList)
+               || anyChecked(filter.AirportFilter.fromPorts) || anyChecked(filter.AirportFilter.toPorts)"
                class="ra-tags-reset" ng-click="resetAll($event)">Сбросить все</a>
         </div>
     </aside>
