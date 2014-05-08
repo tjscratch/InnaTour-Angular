@@ -16,7 +16,13 @@ innaAppControllers
                     method = 'getHotelsByCombination';
                     param = $scope.combination.AviaInfo.VariantId1;
                     apply = function($scope, data){
-                        $scope.hotels = data.Hotels;
+                        $scope.hotels.flush();
+
+                        for(var i = 0, raw = null; raw = data.Hotels[i++];) {
+                            var hotel = new inna.Models.Hotels.Hotel(raw);
+
+                            $scope.hotels.push(hotel);
+                        }
                     };
                 } else if($scope.show == $scope.TICKETS_TAB) {
                     method = 'getTicketsByCombination';
@@ -45,38 +51,50 @@ innaAppControllers
                 });
             }
 
-            function doesHotelFit(hotel, filter, value) {
-                return doesHotelFit.comparators[filter](hotel, value);
+            function combination404(){
+                $scope.baloon.showErr(
+                    "Не удалось найти ни одной подходящей комбинации",
+                    "Попробуйте изменить параметры поиска",
+                    balloonCloser
+                );
             }
 
-            doesHotelFit.comparators = {
-                Stars: function(hotel, value){
-                    if(value == 'all') return true;
+            function ticket404(){
+                $scope.baloon.showErr(
+                    "Запрашиваемая билетная пара не найдена",
+                    "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
+                    angular.noop
+                );
+            }
 
-                    return (hotel.Stars == value);
-                },
-                Price: function(hotel, value){
-                    if(!value) return true;
-
-                    return (hotel.MinimalPackagePrice <= value);
-                },
-                Name: function(hotel, value){
-                    if(!value) return true;
-
-                    return (hotel.HotelName && hotel.HotelName.indexOf(value) !== -1);
-                },
-                Extra: function(hotel, value){
-                    var show = true;
-
-                    for(var option in value) if(value.hasOwnProperty(option)) {
-                        if(!value[option]) continue;
-
-                        show = show && hotel[option];
-                    }
-
-                    return show;
-                }
-            };
+//            doesHotelFit.comparators = {
+//                Stars: function(hotel, value){
+//                    if(value == 'all') return true;
+//
+//                    return (hotel.Stars == value);
+//                },
+//                Price: function(hotel, value){
+//                    if(!value) return true;
+//
+//                    return (hotel.MinimalPackagePrice <= value);
+//                },
+//                Name: function(hotel, value){
+//                    if(!value) return true;
+//
+//                    return (hotel.HotelName && hotel.HotelName.indexOf(value) !== -1);
+//                },
+//                Extra: function(hotel, value){
+//                    var show = true;
+//
+//                    for(var option in value) if(value.hasOwnProperty(option)) {
+//                        if(!value[option]) continue;
+//
+//                        show = show && hotel[option];
+//                    }
+//
+//                    return show;
+//                }
+//            };
 
             function updateCombination(o) {
                 if(!$scope.combination) $scope.combination = {};
@@ -100,8 +118,8 @@ innaAppControllers
             $scope.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
 
             /*Properties*/
-            $scope.hotels = [];
-            $scope.hotelFilters = {};
+            $scope.hotels = new inna.Models.Hotels.HotelsCollection();
+            $scope.hotelFilters = new inna.Models.Avia.Filters.FilterSet();
             $scope.tickets = new inna.Models.Avia.TicketCollection();
             $scope.ticketFilters = new inna.Models.Avia.Filters.FilterSet();
             $scope.combination = null;
@@ -120,22 +138,6 @@ innaAppControllers
             $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
 
             /*Methods*/
-            $scope.filteredHotels = function(filters){
-                var hotelsToShow =  _.filter($scope.hotels, function(hotel){
-                    var show = true;
-
-                    $.each(filters, function(filter, value){
-                        show = show && doesHotelFit(hotel, filter, value);
-
-                        return show;
-                    });
-
-                    return show;
-                });
-
-                return hotelsToShow;
-            }
-
             $scope.getHotelDetails = function(hotel){
                 DynamicPackagesDataProvider.hotelDetails(
                     hotel.HotelId, hotel.ProviderId,
@@ -185,6 +187,7 @@ innaAppControllers
                 });
             });
 
+            //todo can i do it without listeners?
             $scope.$on(Events.DYNAMIC_SERP_TICKET_SET_CURRENT_BY_IDS, function(event, data) {
                 var ticket = $scope.tickets.search(data.id2, data.id2);
 
@@ -209,17 +212,7 @@ innaAppControllers
                 if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
 
                 DynamicPackagesDataProvider.search(searchParams, function(data){
-                    if(!data || !data.RecommendedPair) {
-                        $scope.$apply(function($scope){
-                            $scope.baloon.showErr(
-                                "Не удалось найти ни одной подходящей комбинации",
-                                "Попробуйте изменить параметры поиска",
-                                balloonCloser
-                            );
-                        });
-
-                        return;
-                    }
+                    if(!data || !data.RecommendedPair) return $scope.$apply(combination404);
 
                     cacheKey = data.SearchId;
 
@@ -243,11 +236,7 @@ innaAppControllers
                                     $scope.getTicketDetails(ticket);
                                 } else throw 1;
                             } catch(e) {
-                                $scope.baloon.showErr(
-                                    "Запрашиваемая билетная пара не найдена",
-                                    "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
-                                    angular.noop
-                                );
+                                ticket404();
                             }
                         }
                     });
