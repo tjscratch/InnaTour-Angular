@@ -196,6 +196,7 @@ innaAppControllers.
                     //$scope.resetDepartureTime($event);
                     $scope.resetTime($event);
                     $scope.resetCompanies($event);
+                    $scope.resetPorts($event);
                 };
 
                 $scope.resetPrice = function ($event) {
@@ -231,6 +232,12 @@ innaAppControllers.
                     eventsHelper.preventBubbling($event);
                     _.each($scope.filter.TransporterList, function (item) { item.checked = false });
                 };
+
+                $scope.resetPorts = function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    _.each($scope.filter.AirportFilter.fromPorts, function (item) { item.checked = false });
+                    _.each($scope.filter.AirportFilter.toPorts, function (item) { item.checked = false });
+                }
 
                 $scope.anyChecked = function (list) {
                     return _.any(list, function (item) { return item.checked; });
@@ -497,7 +504,7 @@ innaAppControllers.
                 filter.minBackArrivalDate = _.min(items, function (item) { return item.sort.BackArrivalDate; }).sort.BackArrivalDate;
                 filter.maxBackArrivalDate = _.max(items, function (item) { return item.sort.BackArrivalDate; }).sort.BackArrivalDate;
 
-                timeFilter = function (direction, dayTime) {
+                function timeFilter(direction, dayTime) {
                     var hoursMin = 0;
                     var hoursMax = 0;
                     var text = '';
@@ -516,7 +523,8 @@ innaAppControllers.
                     return { direction: direction, dayTime: dayTime, hoursMin: hoursMin, hoursMax: hoursMax, name: text, checked: false };
                 }
 
-                time = function () {
+                //время
+                function time() {
                     var self = this;
                     self.list = [];
 
@@ -542,7 +550,47 @@ innaAppControllers.
                 }
 
                 filter.time = new time();
-                //console.log(filter);
+
+                //console.log($scope.criteria);
+                //console.log(items[0]);
+
+                //аэропорты
+                function airportFilter(items) {
+                    var self = this;
+
+                    var fromPorts = [];
+                    var toPorts = [];
+                    _.each(items, function (item) {
+                        fromPorts.push({ name: item.AirportFrom, code: item.OutCode, checked: false });
+                        toPorts.push({ name: item.AirportTo, code: item.InCode, checked: false });
+                    });
+                    fromPorts = _.uniq(fromPorts, false, function (item) {
+                        return item.code;
+                    });
+                    toPorts = _.uniq(toPorts, false, function (item) {
+                        return item.code;
+                    });
+                    //цены
+                    _.each(fromPorts, function (port) {
+                        var fList = _.filter(items, function (item) { return item.OutCode == port.code; });
+                        var price = _.min(fList, function (item) { return item.Price; }).Price;
+                        port.price = price;
+                    });
+                    _.each(toPorts, function (port) {
+                        var fList = _.filter(items, function (item) { return item.InCode == port.code; });
+                        var price = _.min(fList, function (item) { return item.Price; }).Price;
+                        port.price = price;
+                    });
+
+                    //заполняем фильтр
+                    self.fromName = $scope.criteria.From;
+                    self.toName = $scope.criteria.To;
+                    self.fromPorts = fromPorts;
+                    self.toPorts = toPorts;
+                }
+
+                filter.AirportFilter = new airportFilter(items);
+                //console.log(filter.AirportFilter);
 
                 //задаем фильтр
                 $scope.filter = new aviaFilter(filter);
@@ -607,6 +655,11 @@ innaAppControllers.
                 var noTimeFilterToSelected = !(_.any(departureFilters, function (item) { return item.checked; }) || _.any(arrivalFilters, function (item) { return item.checked; }));
                 var noTimeFilterBackSelected = !(_.any(backDepartureFilters, function (item) { return item.checked; }) || _.any(backArrivalFilters, function (item) { return item.checked; }));
 
+                var fromPortsFilters = _.filter($scope.filter.AirportFilter.fromPorts, function (item) { return item.checked; });
+                var toPortsFilters = _.filter($scope.filter.AirportFilter.toPorts, function (item) { return item.checked; });
+                var noFromPortsSelected = !(fromPortsFilters != null && fromPortsFilters.length > 0);
+                var noToPortsSelected = !(toPortsFilters != null && toPortsFilters.length > 0);
+
                 //заодно в цикле вычисляем признак самого дешевого билета
                 var minPriceItem = { item: null, price: 1000000000000000000 };
                 if ($scope.ticketsList != null) {
@@ -638,6 +691,9 @@ innaAppControllers.
                         
                         var itemInTransport = (itemInTransportTo || itemInTransportBack);
 
+                        var itemInFromPort = noFromPortsSelected ? null : _.any(fromPortsFilters, function (port) { return port.code == item.OutCode; });
+                        var itemInToPort = noToPortsSelected ? null : _.any(toPortsFilters, function (port) { return port.code == item.InCode; });
+
                         //проверяем цену
                         if (item.Price >= $scope.filter.minPrice && item.Price <= $scope.filter.maxPrice
                             //пересадки
@@ -652,6 +708,9 @@ innaAppControllers.
 
                             && (noTimeFilterToSelected || itemPassesFilterByTimeTo(item))
                             && (noTimeFilterBackSelected || itemPassesFilterByTimeBack(item))
+
+                            && (noFromPortsSelected || itemInFromPort)
+                            && (noToPortsSelected || itemInToPort)
 
                             )
                         {
