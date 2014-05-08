@@ -36,7 +36,11 @@ angular.module('innaApp.controllers')
                     validate();
 
                     //if ok
-                    AuthDataProvider.changeInfo($scope.user.raw);
+                    AuthDataProvider.changeInfo($scope.user.raw, function(resp){
+                        $scope.$apply(function($scope){
+                            $scope.close();
+                        });
+                    });
                 } catch(e) {
                     $scope.errors[e] = true;
                 }
@@ -45,5 +49,7 @@ angular.module('innaApp.controllers')
             $scope.allowChangePassword = function(){
                 $scope.state.allowChangePassword = true;
             };
+
+            console.log('AuthProfileCtrl', $scope.user);
         }
     ]);
