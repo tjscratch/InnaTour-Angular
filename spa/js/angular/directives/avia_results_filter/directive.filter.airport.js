@@ -12,6 +12,8 @@ innaAppDirectives.
 
                 $scope.isOpen = false;
 
+                $scope.minLen = 1;
+
                 $scope.resetFilter = function ($event) {
                     eventsHelper.preventBubbling($event);
 

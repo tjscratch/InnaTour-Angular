@@ -542,7 +542,7 @@ innaAppControllers.
                 filter.time = new time();
 
                 //console.log($scope.criteria);
-                //console.log(items[0]);
+                console.log(items[0]);
 
                 //аэропорты
                 function airportFilter(items) {
