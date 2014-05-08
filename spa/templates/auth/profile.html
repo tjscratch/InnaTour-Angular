@@ -20,14 +20,26 @@
         <a href="javascript:void(0);" class="forgot-password" ng-click="allowChangePassword()" ng-if="!state.allowChangePassword">Сменить пароль</a>
         <label for="" class="popup-form-label">Текущий пароль</label>
         <input type="password" class="popup-form-field" ng-disabled="!state.allowChangePassword" ng-model="currentPassword">
+        <div class="description" style="color:red" ng-show="errors.currentPassword">
+            Введите, пожалуйста, текущий пароль
+        </div>
     </div>
     <div class="popup-form-row" ng-if="state.allowChangePassword">
         <label for="" class="popup-form-label">Новый пароль</label>
-        <input type="password" class="popup-form-field" ng-models="newPassword">
+        <input type="password" class="popup-form-field" ng-model="newPassword">
+        <div class="description" style="color:red" ng-show="errors.emptyPassword">
+            Пароль не может быть пустым
+        </div>
+        <div class="description" style="color:red" ng-show="errors.passwordMinLength">
+            Пароль не может быть короче 6 символов
+        </div>
     </div>
     <div class="popup-form-row" ng-if="state.allowChangePassword">
         <label for="" class="popup-form-label">Еще раз</label>
-        <input type="password" class="popup-form-field" ng-models="newPassword">
+        <input type="password" class="popup-form-field" ng-model="newPassword2">
+        <div class="description" style="color:red" ng-show="errors.passwordNotMatch">
+            Пароли не совпадают!
+        </div>
     </div>
 
     <div class="popup-form-row">
