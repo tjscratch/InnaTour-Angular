@@ -1,23 +1,45 @@
+<div class="filters__body">
+    <div class="js-filter-scroll">
+        <ul class="filters__container">
+            <li dynamic-serp-filter-category
+                 dynamic-serp-filter-category-hotels="hotels"
+                 dynamic-serp-filter-category-filters="hotelFilters"></li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <h1>Hotels</h1>
 
 <div><button ng-click="changeHotelsView()">Карта/список</button></div>
 
-<div>
-    <h1>Filters</h1>
-
-    <div dynamic-serp-filter-category
-            hotels="hotels"></div>
-    <div dynamic-serp-filter-price
-         hotels="hotels"></div>
-    <div dynamic-serp-filter-name
-         hotels="hotels"></div>
-    <div dynamic-serp-filter-extra
-         hotels="hotels"></div>
-</div>
+<!--<div>-->
+    <!--<h1>Filters</h1>-->
+    <!--<div dynamic-serp-filter-price-->
+         <!--hotels="hotels"></div>-->
+    <!--<div dynamic-serp-filter-name-->
+         <!--hotels="hotels"></div>-->
+    <!--<div dynamic-serp-filter-extra-->
+         <!--hotels="hotels"></div>-->
+<!--</div>-->
 
 
 <ul ng-show="!asMap">
-    <li ng-repeat="hotel in filteredHotels(hotelFilters)" style="border:1px solid red;">
+    <li ng-repeat="hotel in hotels.filter(hotelFilters)" ng-if="!hotel.hidden" style="border:1px solid red;color:#fff;font-size:10px;">
         {{hotel | json}}
         <button ng-click="getHotelDetails(hotel)">details</button>
         <button ng-click="setHotel(hotel)" ng-hide="combination.Hotel.HotelId == hotel.HotelId">set current</button>
