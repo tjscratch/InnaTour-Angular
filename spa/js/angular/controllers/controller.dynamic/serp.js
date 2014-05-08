@@ -68,16 +68,6 @@ innaAppControllers
             }
 
 //            doesHotelFit.comparators = {
-//                Stars: function(hotel, value){
-//                    if(value == 'all') return true;
-//
-//                    return (hotel.Stars == value);
-//                },
-//                Price: function(hotel, value){
-//                    if(!value) return true;
-//
-//                    return (hotel.MinimalPackagePrice <= value);
-//                },
 //                Name: function(hotel, value){
 //                    if(!value) return true;
 //
@@ -292,5 +282,12 @@ innaAppControllers
 
                 $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
             });
+        }
+    ])
+    .controller('DynamicPackageSERPRecommendedBundleController', [
+        '$scope', '$element',
+        function($scope, $element){
+            /*DOM hack*/
+            $element.appendTo($('.header.Header').eq(0));
         }
     ]);
