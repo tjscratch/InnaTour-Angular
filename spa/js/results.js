@@ -33,5 +33,11 @@
             filterPosition();
         });
 
+        $(document).on('keydown', function (event) {
+            if (event.which == 27) {
+                $('.search-autocomplete, .js-datepicker, .search__list, .search-people-baloon, .filters__baloon').fadeOut(200);
+            }
+        });
+
     });
 })(jQuery);
