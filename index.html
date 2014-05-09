@@ -22,7 +22,7 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="/spa/css/main.css" />
-    <link rel="stylesheet" href="/spa/css/tickets.min.css" />
+    <link rel="stylesheet" href="/spa/css/common.min.css" />
 
     <!--[if lt IE 9]>
         <link rel="stylesheet" href="/spa/css/ie.min.css" />
@@ -55,10 +55,17 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         -ms-user-select: none;
         user-select: none;
     }
+    .b-wrapp_type_inline .search-date, .b-wrapp_type_inline .search-field { height: 48px; }
+	.datepickerMonths, .datepickerYears{display:none;}
+	.datepickerNotInMonth{height:1px;}
+	.datepickerNotInMonth *{display:none !important;}
+	.calendar{vertical-align:top;}
+	.calendar-0 .datepickerGoNext *, .calendar-1 .datepickerGoPrev *{display:none;}
+	.datepicker-body {left: -50%;top: 48px;}
 </style>
 
 </head>
-<body class="light-theme" ng-click="bodyClick()" popup-form>
+<body class="light-theme" ng-class="{'body-bg':isActive('/avia/')}" ng-click="bodyClick()" popup-form>
     
 	<div class="header Header">
         <div class="header-info">
@@ -67,7 +74,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                 --><span class="header-text"></span><!--
                 --><div class="header-info-container-right">
                     <ul class="header-info-menu" style="margin-right:0px;">
-                        <li class="header-info-menu-item"><a href="http://www.inna.ru/booking/tour/search/">Агентам</a></li><!--
+                        <li class="header-info-menu-item"><a href="http://www.inna.ru/catalog/guide/" style="color: white;">Старая версия сайта</a></li><!--
                         --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
                         --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
                     </ul><!--
@@ -285,6 +292,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.auth/signup.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/signin.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/restore.js"></script>
+<script src="/spa/js/angular/controllers/controller.auth/profile.js"></script>
 <script src="/spa/js/angular/controllers/controller.about.js"></script>
 <script src="/spa/js/angular/controllers/helpers/controller.reserve.tickets.js"></script>
 <script src="/spa/js/angular/controllers/avia/controller.avia.reserve.tickets.js"></script>
@@ -312,6 +320,9 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.dynamic/serp.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/reserve.js"></script>
 <script src="/spa/js/angular/controllers/controllers.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.sort.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.airport.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.aircompany.js"></script>
 <script src="/spa/js/angular/directives/avia_results_filter/directive.filter.time.js"></script>
 <script src="/spa/js/angular/directives/avia_results_filter/directive.filter.transfer.js"></script>
 <script src="/spa/js/angular/directives/avia_results_filter/directive.filter.price.js"></script>

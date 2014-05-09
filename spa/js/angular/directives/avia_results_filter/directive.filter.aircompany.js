@@ -1,10 +1,10 @@
 ﻿
 
 innaAppDirectives.
-    directive('filterTransfer', ['eventsHelper', function (eventsHelper) {
+    directive('filterAircompany', ['eventsHelper', function (eventsHelper) {
         return {
             replace: true,
-            templateUrl: '/spa/templates/components/avia_results_filter/filter_transfer.html',
+            templateUrl: '/spa/templates/components/avia_results_filter/filter_aircompany.html',
             scope: {
                 list: '='
             },

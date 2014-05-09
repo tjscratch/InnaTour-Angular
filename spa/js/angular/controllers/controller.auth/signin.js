@@ -56,10 +56,6 @@ angular.module('innaApp.controllers')
                 }
             };
 
-            $scope.forgotten = function(){
-                $scope.$emit(Events.AUTH_FORGOTTEN_LINK_CLICKED);
-            }
-
             $scope.switchRememberMe = function(){
                 $scope.rememberMe = !$scope.rememberMe;
             }

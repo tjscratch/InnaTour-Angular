@@ -1,7 +1,12 @@
 _.provide('inna.Models.Auth');
 
 inna.Models.Auth.User = function(data){
-    this.raw = data;
+    this.raw = {
+        Email: data.Email,
+        LastName: data.LastName,
+        FirstName: data.FirstName,
+        Phone: data.Phone
+    };
 };
 
 inna.Models.Auth.User.prototype.displayName = function(){

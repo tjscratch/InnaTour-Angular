@@ -22,7 +22,7 @@ innaAppServices.factory('DynamicPackagesCacheWizard', [
 
                 value = o.validate(key, value);
 
-                return o.notNull(value);
+                return o.notNull(value, ifNullCallback);
             },
             put: function(key, value){
                 if(value !== null) {

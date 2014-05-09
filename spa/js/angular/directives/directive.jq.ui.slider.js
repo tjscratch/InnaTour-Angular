@@ -7,7 +7,7 @@ innaAppDirectives.
     directive('jqUiSliderRange', ['$parse', function ($parse) {
         return {
             require: 'ngModel',
-            $scope: {
+            scope: {
                 initMinValue: '=',
                 initMaxValue: '=',
                 minValue: '=',
