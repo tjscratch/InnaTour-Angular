@@ -53,9 +53,19 @@
     clearfix()
     padding 12px 12px 11px 20px
     font-size 14px
+    display block
+
+    &:hover
+        text-decoration none
 
     &:last-child
         border 0
+
+.li__mes
+    padding 0
+
+    &:nth-child(2n)
+        background #f2f3f4
 
 .li__block_void
     color #878787
@@ -218,6 +228,100 @@
 
             &:hover
                 border-color transparent
+
+// Messages
+.li__message
+    padding 0
+    font-size 14px
+    color #4d4d4d
+
+.li__head-message-item
+    border-left 1px solid #c0c0c2
+    float left
+    box-sizing border-box
+
+    &:first-child
+        border 0
+
+    a
+        text-decoration none
+        display block
+        padding 12px 9px
+
+.li__head-create
+    width 174px
+
+.li__head-request
+    width 79px
+
+.li__head-author
+    width 139px
+
+.li__head-message
+    width 425px
+
+.li__block_unread
+    font-weight bold
+
+    .li__block-mes-icon img
+        opacity 1
+
+.li__block-mes
+    float left
+    padding 10px
+    box-sizing border-box
+    white-space nowrap
+    text-overflow ellipsis
+    overflow hidden
+    color #000
+    min-height 10px
+
+.li__block-mes-date
+    width 138px
+    padding-right 4px
+
+.li__block-mes-code
+    width 80px
+    color #1e88c1
+
+.li__block-mes-author
+    width 140px
+
+.li__block-mes-receiver
+    width 140px
+
+.li__block-mes-text
+    width 426px
+    padding 0
+    text-overflow normal
+
+.li__block-mes-icon
+    width 36px
+    padding 0
+    overflow visible
+
+    img
+        position relative
+        left 8px
+        top 8px
+        opacity .3
+
+.li__block-mes-text-inner
+    background #e8f3f9
+    margin 3px 4px 0 1px
+    padding 7px 9px
+    border-radius 3px
+    white-space nowrap
+    text-overflow ellipsis
+    overflow hidden
+    display inline-block
+    max-width 420px
+    box-sizing border-box
+
+
+.li__block_send .li__block-mes-text-inner
+    background #e1e2e3
+
 
 
 

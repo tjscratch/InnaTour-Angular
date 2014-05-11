@@ -20,7 +20,6 @@
             var filterFixed = 'filters__container_fixed';
             var winPos = $(window).scrollTop();
             var filterPos = filter.parent().offset();
-            console.log(winPos, filterPos.top);
             winPos = parseInt(winPos + 100);
             if( winPos > filterPos.top ) {
                 filter.addClass(filterFixed);
@@ -28,10 +27,27 @@
                 filter.removeClass(filterFixed);
             }
         }
+        function tagsPosition() {
+            var el = $('.js-tags-container');
+            var fixedClass = 'ra-tags-container_fixed';
+            var h = el.parent().offset();
+            var w = $(window).scrollTop();
+            w = parseInt(w + 150);
+            console.log(h.top, w);
+            if(h.top < w) {
+                el.addClass(fixedClass);
+            } else {
+                el.removeClass(fixedClass);
+            }
+        }
+        tagsPosition();
         filterPosition();
         $(window).on('scroll', function() {
             filterPosition();
+            tagsPosition();
         });
+
+        
 
         $(document).on('keydown', function (event) {
             if (event.which == 27) {
