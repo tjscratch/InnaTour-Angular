@@ -26,6 +26,7 @@ angular.module('innaApp.API', [])
             AUTH_LOGOUT: url('/Account/Logoff'),
             AUTH_CHANGE_INFO: url('/Account/ChangeInfo/Post'),
             AUTH_RECOGNIZE: url('/Account/Info/Post'),
+            AUTH_CHANGE_PASSWORD: url('/Account/ChangePassword/Post'),
 
             PURCHASE_TRANSPORTER_GET_ALLIANCE: url('/Transporter/GetAllianceByName'),
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),
