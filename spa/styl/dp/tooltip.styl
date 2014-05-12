@@ -1,0 +1,31 @@
+.tooltip
+  border-radius(4px)
+  box-shadow 0 0 3px rgba(0,0,0,.6)
+  background #fff
+  padding 10px
+  position absolute
+  z-index: 2
+
+  &:before
+    content ''
+    display block
+    position: absolute
+    width 0
+    height 0
+    border-style solid
+    border-width 0 11px 11px
+    border-color transparent transparent #fff transparent
+    top -10px
+    right 12px
+    z-index: 2
+
+  &:after
+    content ''
+    background url(../img/tooltip/corner-shadow.png)
+    display block
+    position: absolute
+    width 42px
+    height: 12px
+    top -12px
+    right 4px
+    z-index: 1

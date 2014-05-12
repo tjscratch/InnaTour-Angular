@@ -7,6 +7,30 @@
   overflow hidden
   position: relative
 
+
+  .warning
+    color #dd3e14
+
+  .tooltip-price
+    color #4d4d4d
+    font-size 14px
+    width 140px
+
+    .list-price-item
+      &:before
+        content '•'
+        color #4d4d4d
+
+    .list-price
+      font-weight bold
+
+      &.green
+        color #89c13a
+
+    .list-price-total
+      border-top 1px solid #c0c0c2
+      text-align right
+
   .result-cell
     background #fff
     box-sizing border-box
@@ -92,7 +116,7 @@
       float none
       margin-right 0
 
-    .icon-clip
+    .icon-clip, .icon-crown
       position: absolute
       right 11px
       top 9px
@@ -102,6 +126,15 @@
       font-size 30px
       font-weight bold
       margin 38px 0 0
+      position relative
+      width 100%
+
+      .icon-price-info
+        cursor pointer
+        position: absolute
+        right 0
+        top 7px
+        
 
       .price-description
         font-weight normal
@@ -133,9 +166,6 @@
 
       &.active
         color #c0c0c2
-
-      &.warning
-        color #dd3e14
 
   .flight-info
     margin 20px 0 22px
@@ -194,7 +224,7 @@
   .hotel-info-content
     display inline-block
     vertical-align top
-    width 75%
+    /*width 75%*/
 
   .hotel-info-name
     font-size 18px
@@ -204,15 +234,36 @@
     color #575757
     font-size 14px
 
-  .hotel-info-tripadvisor
-    color #878787
-    line-height 15px
-    margin-top: 6px
-    vertical-align top
+  .hotel-info-place
+    color #575757
+    text-decoration none
+
+    &:hover
+      text-decoration underline
+
+    &:before
+      content ''
+      display inline-block
+      background url(../img/hotel-pin-small.png)
+      height 18px
+      margin-right 2px
+      position relative
+      top 4px
+      width 13px
+
+
+.hotel-info-tripadvisor
+  color #878787
+  line-height 15px
+  margin-top: 6px
+  vertical-align top
 
 
 .result-cell-390
   width 390px
+
+  .hotel-info-content
+    width 75%
 
 .result-cell-530
   width 530px
