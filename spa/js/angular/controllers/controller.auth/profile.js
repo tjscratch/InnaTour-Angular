@@ -56,7 +56,20 @@ angular.module('innaApp.controllers')
                     validate();
 
                     //if ok
-                    AuthDataProvider.changeInfo($scope.user.raw, function(resp){
+                    var requests = [];
+
+                    requests.push(AuthDataProvider.changeInfo($scope.user.raw));
+
+                    if($scope.state.allowChangePassword) {
+                        requests.push(AuthDataProvider.changePassword({
+                            OldPassword: $scope.currentPassword,
+                            NewPassword: $scope.newPassword,
+                            ConfirmPassword: $scope.newPassword2
+                        }));
+                    }
+
+
+                    $.when.apply($, requests).then(function(){
                         $scope.$apply(function($scope){
                             $scope.close();
                         });
