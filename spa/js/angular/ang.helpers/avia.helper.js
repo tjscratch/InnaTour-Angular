@@ -229,13 +229,13 @@
                 item.sort = {
                     DepartureDate: departureDate.getTime(),
                     ArrivalDate: arrivalDate.getTime(),
-                    BackDepartureDate: backDepartureDate.getTime(),
-                    BackArrivalDate: backArrivalDate.getTime(),
+                    BackDepartureDate: backDepartureDate ? backDepartureDate.getTime() : null,
+                    BackArrivalDate: backArrivalDate ? backArrivalDate.getTime() : null,
                     
                     DepartureHours: departureDate.getHours(),
                     ArrivalHours: arrivalDate.getHours(),
-                    BackDepartureHours: backDepartureDate.getHours(),
-                    BackArrivalHours: backArrivalDate.getHours(),
+                    BackDepartureHours: backDepartureDate ? backDepartureDate.getHours() : null,
+                    BackArrivalHours: backArrivalDate ? backArrivalDate.getHours() : null,
                 };
 
                 //console.log(item.DepartureDate + ' hours: ' + item.sort.DepartureHours);

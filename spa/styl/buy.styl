@@ -104,7 +104,7 @@
     position relative
     font-size 14px
     letter-spacing -.025em
-    margin 0 0 17px
+    margin 0 0 15px
 
 .b-agreement input
     display none
@@ -120,8 +120,30 @@
     left 0
     top -1px
 
+.b-radio
+    width 15px
+    height 15px
+    background #fff
+    border 2px solid #89c13a
+    border-radius 15px
+    display block
+    position absolute
+    left 0
+    top -1px
+
 .b-agreement input:checked + .b-checkbox
     background url(../img/i.png) no-repeat 2px -590px #89c13a
+
+.b-agreement input:checked + .b-radio:before
+    content ''
+    display block
+    position absolute
+    width 11px
+    height 11px
+    background #89c13a
+    border-radius 11px
+    left 2px
+    top 2px
 
 .b-agreement input:disabled + .b-checkbox
     background-color #c0c0c2

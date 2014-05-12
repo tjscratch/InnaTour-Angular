@@ -20,10 +20,6 @@
     <![endif]-->
 
     <link rel="shortcut icon" href="/favicon.ico" />
-
-    <!--<link rel="stylesheet" href="/spa/css/jquery-ui-1.10.4.custom.css" />
-    <link rel="stylesheet" type="text/css" href="/spa/css/main.css" />-->
-
     <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="/spa/css/main.css" />
     <link rel="stylesheet" href="/spa/css/common.min.css" />
@@ -59,6 +55,13 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         -ms-user-select: none;
         user-select: none;
     }
+    .b-wrapp_type_inline .search-date, .b-wrapp_type_inline .search-field { height: 48px; }
+	.datepickerMonths, .datepickerYears{display:none;}
+	.datepickerNotInMonth{height:1px;}
+	.datepickerNotInMonth *{display:none !important;}
+	.calendar{vertical-align:top;}
+	.calendar-0 .datepickerGoNext *, .calendar-1 .datepickerGoPrev *{display:none;}
+	.datepicker-body {left: -50%;top: 48px;}
 </style>
 
 </head>
@@ -71,7 +74,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                 --><span class="header-text"></span><!--
                 --><div class="header-info-container-right">
                     <ul class="header-info-menu" style="margin-right:0px;">
-                        <li class="header-info-menu-item"><a href="http://www.inna.ru/booking/tour/search/" style="font-weight: bold; color: white;">Старая версия сайта</a></li><!--
+                        <li class="header-info-menu-item"><a href="http://www.inna.ru/catalog/guide/" style="color: white;">Старая версия сайта</a></li><!--
                         --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
                         --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
                     </ul><!--
@@ -317,6 +320,8 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.dynamic/serp.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/reserve.js"></script>
 <script src="/spa/js/angular/controllers/controllers.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.sort.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.airport.js"></script>
 <script src="/spa/js/angular/directives/avia_results_filter/directive.filter.aircompany.js"></script>
 <script src="/spa/js/angular/directives/avia_results_filter/directive.filter.time.js"></script>
 <script src="/spa/js/angular/directives/avia_results_filter/directive.filter.transfer.js"></script>

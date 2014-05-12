@@ -2532,6 +2532,9 @@ input::-ms-clear {
   position: absolute;
   top: 100%;
   z-index: -1;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: normal;
 }
 .search-form-list {
   overflow-y: auto;
@@ -2569,6 +2572,9 @@ input::-ms-clear {
 }
 .search-form-dialog-row .label {
   display: inline-block;
+  position: relative;
+  vertical-align: top;
+  top: 5px;
 }
 .search-form-dialog-row .button-group {
   display: inline-block;

@@ -17,6 +17,13 @@ angular.module('innaApp.controllers')
                 if(isFilled($scope.user.raw.Phone)) {
                     Validators.phone($scope.user.raw.Phone, 'phone');
                 }
+
+                if($scope.state.allowChangePassword) {
+                    Validators.defined($scope.currentPassword, 'currentPassword');
+                    Validators.defined($scope.newPassword, 'emptyPassword');
+                    Validators.minLength($scope.newPassword, 6, 'passwordMinLength');
+                    Validators.equals($scope.newPassword, $scope.newPassword2, 'passwordNotMatch')
+                }
             }
 
             /*Properties*/
@@ -30,13 +37,30 @@ angular.module('innaApp.controllers')
             $scope.newPassword = '';
             $scope.newPassword2 = '';
 
+            $scope.$watch('currentPassword', function(){
+                $scope.errors.currentPassword = false;
+            });
+
+            $scope.$watch('newPassword', function(){
+                $scope.errors.emptyPassword = false;
+                $scope.errors.passwordMinLength = false;
+            });
+
+            $scope.$watch('newPassword2', function(){
+                $scope.errors.passwordNotMatch = false;
+            });
+
             /*Methods*/
             $scope.save = function(){
                 try {
                     validate();
 
                     //if ok
-                    AuthDataProvider.changeInfo($scope.user.raw);
+                    AuthDataProvider.changeInfo($scope.user.raw, function(resp){
+                        $scope.$apply(function($scope){
+                            $scope.close();
+                        });
+                    });
                 } catch(e) {
                     $scope.errors[e] = true;
                 }

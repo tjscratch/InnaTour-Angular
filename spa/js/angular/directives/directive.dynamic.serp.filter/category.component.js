@@ -4,41 +4,61 @@ angular.module('innaApp.directives')
             return {
                 templateUrl: '/spa/templates/components/dynamic-serp-filter/category.html',
                 scope: {
-                    hotels: '='
+                    hotels: '=dynamicSerpFilterCategoryHotels',
+                    filters: '=dynamicSerpFilterCategoryFilters'
                 },
                 controller: [
-                    '$scope', 'innaApp.API.events',
-                    function($scope, Events){
-                        var ALL = 'all';
-                        var DEFAULT = ALL;
+                    '$scope', '$controller', '$element',
+                    function($scope, $controller, $element){
+                        /*Mixins*/
+                        $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
-                        $scope.options = {};
+                        /*Models*/
+                        var Options = inna.Models.Avia.Filters._OptionsFactory();
+                        var Option = inna.Models.Avia.Filters._OptionFactory(function(title, value){
+                            this.value = value;
+                            this.minPrice = NaN;
+                        });
 
-                        $scope.$watchCollection('hotels', function(newVal){
-                            _.each(newVal, function(hotel){
-                                if (hotel.Stars in $scope.options) {
-                                    $scope.options[hotel.Stars]++;
-                                } else {
-                                    $scope.options[hotel.Stars] = 1;
+                        /*Properties*/
+                        $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter());
+                        $scope.filter.filterFn = function(hotel){
+                            var fits = false;
+
+                            this.options.each(function(option){
+                                fits = fits || (hotel.data.Stars == option.value);
+                            });
+
+                            if(!fits) hotel.hidden = true;
+                        };
+                        $scope.options = $scope.filter.options = new Options();
+                        $scope.options.push(new Option('1 звезда', 1));
+                        $scope.options.push(new Option('2 звезда', 2));
+                        $scope.options.push(new Option('3 звезда', 3));
+                        $scope.options.push(new Option('4 звезда', 4));
+                        $scope.options.push(new Option('5 звезда', 5));
+
+                        /*Watchers*/
+                        var unwatchHotelsCollection = $scope.$watchCollection('hotels', function(hotels){
+                            if(!hotels || !hotels.list.length) return;
+
+                            $scope.options.each(function(option){
+                                var fitting = new inna.Models.Hotels.HotelsCollection();
+
+                                hotels.each(function(hotel){
+                                    if(hotel.data.Stars == option.value) fitting.push(hotel);
+                                });
+
+                                if(fitting.size()) {
+                                    option.shown = true;
+                                    option.minPrice = fitting.getMinPrice();
                                 }
                             });
 
-                            $scope.options[ALL] = newVal.length;
+                            console.log($scope);
+
+                            unwatchHotelsCollection();
                         });
-
-                        $scope.currentOption = DEFAULT;
-
-                        $scope.$watch('currentOption', function(newVal){
-                            $scope.$emit(Events.DYNAMIC_SERP_FILTER_HOTEL, {filter: 'Stars', value: newVal});
-                        });
-
-                        $scope.$on(Events.build(Events.DYNAMIC_SERP_FILTER_ANY_DROP, 'Stars'), function(event, data){
-                            $scope.currentOption = DEFAULT;
-                        });
-
-                        $scope.setCurrent = function(option){
-                            $scope.currentOption = option;
-                        }
                     }
                 ]
             }

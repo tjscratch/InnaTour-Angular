@@ -247,7 +247,27 @@ inna.Models._CollectionFactory = function(){
         for(var i = 0, item = null; item = this.list[i++];) {
             fn.call(this, item);
         }
-    }
+    };
+
+    Collection.prototype.filter = function(filters) {
+        this._doFilter(filters);
+
+        return this.list;
+    };
+
+    Collection.prototype._doFilter = _.throttle(function(filters){
+        this.each(function(item){ item.hidden = false; });
+
+        this.each(function(item){
+            if(item.hidden) return; //already hidden;
+
+            filters.each(function(filter){
+                if(!filter.options.hasSelected()) return;
+
+                filter.filterFn(item);
+            });
+        });
+    }, 100);
 
     return Collection;
 }

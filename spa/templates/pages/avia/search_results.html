@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="rl-content">
+                    <div class="rl-content" ng-if="item.EtapsBack.length > 0">
                         <div class="rl-fly">
                             <div class="rlf-flight-info">
                                 <b>{{item.BackDepartureTimeFormatted}}</b>, {{item.BackDepartureDateFormatted}}<br>
@@ -56,8 +56,8 @@
                 </div>
                 <div class="rl-aside">
                     <span class="rl-rec">мы рекомендуем</span>
-                    <span class="rl-price">
-                        <span class="rl-price-item">{{item.Price| price}}</span> <span class="rub">Р</span>
+                    <span class="rl-price" ng-class="{'rl-price_1way':item.EtapsBack.length == 0}">
+                        <span class="rl-price-item">{{item.Price | price}}</span> <span class="rub">Р</span>
                     </span>
                     <a href="#" class="rl-buy-button" ng-click="goToPaymentClick($event, item)">Купить</a>
                 </div>
@@ -89,13 +89,10 @@
             <li filter-time list="filter.time.list">
             </li>
             <li filter-aircompany list="filter.TransporterList">
-                <!--<a href="#" class="filters__link">Авиакомпания</a>-->
             </li>
-            <li>
-                <a href="#" class="filters__link">Аэропорт</a>
+            <li filter-airport filter="filter.AirportFilter">
             </li>
-            <li class="filters__sort">
-                <a href="#" class="filters__link">Сортировать по времени прилета</a>
+            <li filter-sort sort="SortFilter">
             </li>
         </ul>
     </div>
@@ -106,21 +103,7 @@
 
     <!-- Results List -->
     <div class="results-list results-list_720">
-        <!--<header class="rl-header">
-            <h3 class="rl-flights-number" ng-if="ticketsList.length > 0">{{filteredTicketsList.length}} из {{ticketsList.length}} рейсов</h3>
-            <h3 class="rl-flights-number" ng-if="ticketsList.length == 0">рейсов не найдено</h3>
-            <h3 class="rl-flights-number" ng-if="ticketsList == null">поиск рейсов...</h3>
-            <div class="rl-filter">
-                <div class="rl-filter-current" ng-click="isSortListOpened = !isSortListOpened">{{getCurrentSortName()}}</div>
-                <ul class="rl-filter-menu" ng-show="isSortListOpened">
-                    <ng:any ng-repeat="item in sortList">
-                        <li ng-click="applySort($event, item.sort)" ng-show="isSortVisible(item.sort)">{{item.name}}</li>
-                    </ng:any>
-                </ul>
-            </div>
-        </header>-->
-
-        <ng:any ng-repeat="item in filteredTicketsList | orderBy:sort:reverse">
+        <ng:any ng-repeat="item in filteredTicketsList | orderBy:SortFilter.sortType:SortFilter.reverse track by $index">
             <div class="rl-item">
                 <div class="rl-item-separator"></div>
                 <div class="rl-left">
@@ -143,7 +126,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="rl-content">
+                    <div class="rl-content" ng-if="item.EtapsBack.length > 0">
                         <div class="rl-fly">
                             <div class="rlf-flight-info">
                                 <b>{{item.BackDepartureTimeFormatted}}</b>, {{item.BackDepartureDateFormatted}}<br>
@@ -164,7 +147,7 @@
                     </footer>
                 </div>
                 <div class="rl-aside">
-                    <span class="rl-price">
+                    <span class="rl-price" ng-class="{'rl-price_1way':item.EtapsBack.length == 0}">
                         <span class="rl-price-item">{{item.Price| price}}</span> <span class="rub">Р</span>
                     </span>
                     <a href="#" class="rl-buy-button" ng-click="goToPaymentClick($event, item)">Купить</a>
@@ -189,114 +172,15 @@
 
                 <li ng-if="item.checked" ng-repeat="item in filter.time.list">{{item.name}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
                 <li ng-if="item.checked" ng-repeat="item in filter.TransporterList">{{item.TransporterName}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                <li ng-if="item.checked" ng-repeat="item in filter.AirportFilter.fromPorts">{{item.name}} {{item.code}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                <li ng-if="item.checked" ng-repeat="item in filter.AirportFilter.toPorts">{{item.name}} {{item.code}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
             </ul>
-            <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list) || anyChecked(filter.TransporterList)"
+            <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list) || anyChecked(filter.TransporterList)
+               || anyChecked(filter.AirportFilter.fromPorts) || anyChecked(filter.AirportFilter.toPorts)"
                class="ra-tags-reset" ng-click="resetAll($event)">Сбросить все</a>
         </div>
     </aside>
     <!-- /Results Aside -->
-
-    <!-- Results Aside Фильтры -->
-    <!--<aside class="results-aside" style="display:none;">
-        <div class="ra-block">
-            <header class="ra-header">
-                <h4 class="ra-title">Фильтр</h4>
-                <a href="#" class="ra-header-link" ng-click="resetAll($event)">Сбросить все</a>
-            </header>
-        </div>
-        <div class="ra-block">
-            <header class="ra-header">
-                <h4 class="ra-title">Стоимость</h4>
-                <a href="#" class="ra-header-link" ng-click="resetPrice($event)">Сбросить</a>
-            </header>
-            <div class="ra-content">
-                <div class="ra-trackbar" jq-ui-slider-range ng-model="filter" init-min-value="filter.minPriceInitial" init-max-value="filter.maxPriceInitial"
-                     min-value="filter.minPrice" max-value="filter.maxPrice"></div>
-                <div class="ra-amount-price" ng-show="filter.minPrice != null && filter.maxPrice != null">От {{filter.minPrice | price}} р. до {{filter.maxPrice| price}} р.</div>
-            </div>
-        </div>
-        <div class="ra-block" ng-show="filter.TransferCountListAgg.length > 1 || true">
-            <header class="ra-header">
-                <h4 class="ra-title">Пересадки</h4>
-                <a href="#" class="ra-header-link" ng-click="resetTransfers($event)">Сбросить</a>
-            </header>
-            <div class="ra-content">
-                <ul class="ra-fly-type-list">
-                    <li ng-repeat="trAggItem in filter.TransferCountListAgg">
-                        <label>
-                            <input type="checkbox" name="fly" ng-model="trAggItem.checked" />
-                            <span class="ra-checkbox"></span>
-                            <span class="ra-fly-type">{{trAggItem.name}}</span>
-                            <span class="ra-fly-price">{{trAggItem.price | price}} р.</span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="ra-block">
-            <header class="ra-header">
-                <h4 class="ra-title">Время вылета</h4>
-                <a href="#" class="ra-header-link" ng-click="resetDepartureTime($event)">Сбросить</a>
-            </header>
-            <div class="ra-content">
-                <div class="ra-amount-time" ng-show="filter.minDepartureDate > 0 && filter.maxDepartureDate > 0">
-                    Вылет: {{getCityFrom()}}<br />
-                    {{getSliderTimeFormat(filter.minDepartureDate)}} - {{filter.maxDepartureDate | date:timeFormat}}
-                </div>
-                <div jq-ui-slider-range ng-model="filter"
-                     init-min-value="filter.minDepartureDateInitial" init-max-value="filter.maxDepartureDateInitial"
-                     min-value="filter.minDepartureDate" max-value="filter.maxDepartureDate"></div>
-                <div class="ra-amount-time" ng-show="filter.minBackDepartureDate > 0 && filter.maxBackDepartureDate > 0">
-                    Вылет: {{getCityTo()}}<br />
-                    {{getSliderTimeFormat(filter.minBackDepartureDate)}} - {{filter.maxBackDepartureDate | date:timeFormat}}
-                </div>
-                <div jq-ui-slider-range ng-model="filter"
-                     init-min-value="filter.minBackDepartureDateInitial" init-max-value="filter.maxBackDepartureDateInitial"
-                     min-value="filter.minBackDepartureDate" max-value="filter.maxBackDepartureDate"></div>
-            </div>
-        </div>
-        <div class="ra-block">
-            <header class="ra-header">
-                <h4 class="ra-title">Время посадки</h4>
-                <a href="#" class="ra-header-link" ng-click="resetArrivalTime($event)">Сбросить</a>
-            </header>
-            <div class="ra-content">
-                <div class="ra-amount-time" ng-show="filter.minArrivalDate > 0 && filter.maxArrivalDate > 0">
-                    Вылет: {{getCityFrom()}}<br />
-                    {{getSliderTimeFormat(filter.minArrivalDate)}} - {{filter.maxArrivalDate | date:timeFormat}}
-                </div>
-                <div jq-ui-slider-range ng-model="filter"
-                     init-min-value="filter.minArrivalDateInitial" init-max-value="filter.maxArrivalDateInitial"
-                     min-value="filter.minArrivalDate" max-value="filter.maxArrivalDate"></div>
-                <div class="ra-amount-time" ng-show="filter.minBackArrivalDate > 0 && filter.maxBackArrivalDate > 0">
-                    Вылет: {{getCityTo()}}<br />
-                    {{getSliderTimeFormat(filter.minBackArrivalDate)}} - {{filter.maxBackArrivalDate | date:timeFormat}}
-                </div>
-                <div jq-ui-slider-range ng-model="filter"
-                     init-min-value="filter.minBackArrivalDateInitial" init-max-value="filter.maxBackArrivalDateInitial"
-                     min-value="filter.minBackArrivalDate" max-value="filter.maxBackArrivalDate"></div>
-            </div>
-        </div>
-        <div class="ra-block" ng-show="filter.TransporterList.length > 1">
-            <header class="ra-header">
-                <h4 class="ra-title">Авиакомпании</h4>
-                <a href="#" class="ra-header-link" ng-click="resetCompanies($event)">Сбросить</a>
-            </header>
-            <div class="ra-content">
-                <ul class="ra-fly-type-list">
-                    <li ng-repeat="item in filter.TransporterList">
-                        <label>
-                            <input type="checkbox" name="fly" ng-model="item.checked" />
-                            <span class="ra-checkbox"></span>
-                            <span class="ra-fly-type">{{item.TransporterName}}</span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>-->
-    <!-- /Results Aside -->
-
 </div>
 <!-- Search Results -->
 </div>

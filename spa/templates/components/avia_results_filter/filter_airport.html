@@ -1,0 +1,39 @@
+<li ng-show="filter.fromPorts.length > minLen || filter.toPorts.length > minLen">
+    <a href="javascript:void(0)" class="filters__link" ng-class="{'filters__link_selected':anyChecked()}" ng-click="toggle($event)">Аэропорт</a>
+    <div class="filters__baloon" ng-show="isOpen" style="z-index:101;">
+        <header class="ra-header" ng-show="filter.fromPorts.length > minLen">
+            <h4 class="ra-title">{{filter.fromName}}</h4>
+            <a class="ra-header-link" ng-href="#" ng-click="resetFilter($event)">Сбросить</a>
+        </header>
+        <div class="ra-content" ng-show="filter.fromPorts.length > minLen">
+            <ul class="ra-fly-type-list" style="overflow:hidden;">
+                <li ng-repeat="item in filter.fromPorts">
+                    <label>
+                        <input type="checkbox" name="fly" ng-model="item.checked" />
+                        <span class="ra-checkbox"></span>
+                        <span class="ra-fly-type">{{item.name}} {{item.code}}</span>
+                        <span class="ra-fly-price">{{item.price | price}} <span class="rub">Р</span></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div class="ra-separator" ng-show="filter.fromPorts.length > minLen && filter.toPorts.length > minLen"></div>
+        <header class="ra-header" ng-show="filter.toPorts.length > minLen">
+            <h4 class="ra-title">{{filter.toName}}</h4>
+        </header>
+        <div class="ra-content" ng-show="filter.toPorts.length > minLen">
+            <div class="ra-fly-type-list-container">
+                <ul class="ra-fly-type-list" style="overflow:hidden;">
+                    <li ng-repeat="item in filter.toPorts">
+                        <label>
+                            <input type="checkbox" name="fly" ng-model="item.checked" />
+                            <span class="ra-checkbox"></span>
+                            <span class="ra-fly-type">{{item.name}} {{item.code}}</span>
+                            <span class="ra-fly-price">{{item.price | price}} <span class="rub">Р</span></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</li>
