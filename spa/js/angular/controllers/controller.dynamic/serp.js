@@ -12,9 +12,9 @@ innaAppControllers
             function loadTab(cb) {
                 var method, param, apply;
 
-                if($scope.show == $scope.HOTELS_TAB) {
+                if($scope.state.isActive($scope.state.HOTELS_TAB)) {
                     method = 'getHotelsByCombination';
-                    param = $scope.combination.AviaInfo.VariantId1;
+                    param = $scope.combination.AviaInfo.data.VariantId1;
                     apply = function($scope, data){
                         $scope.hotels.flush();
 
@@ -24,9 +24,9 @@ innaAppControllers
                             $scope.hotels.push(hotel);
                         }
                     };
-                } else if($scope.show == $scope.TICKETS_TAB) {
+                } else if($scope.state.isActive($scope.state.TICKETS_TAB)) {
                     method = 'getTicketsByCombination';
-                    param = $scope.combination.Hotel.HotelId;
+                    param = $scope.combination.Hotel.data.HotelId;
                     apply = function($scope, data){
                         $scope.tickets.flush();
 
@@ -96,16 +96,14 @@ innaAppControllers
                 $location
                     .search('hotel',$scope.combination.Hotel.HotelId)
                     .search('ticket', $scope.combination.AviaInfo.VariantId1);
+
+                console.log('updateCombination:', $scope.combination);
             }
 
             function balloonCloser() {
                 $location.search({});
                 $location.path(Urls.URL_DYNAMIC_PACKAGES);
             }
-
-            /*Constants*/
-            $scope.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
-            $scope.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
 
             /*Properties*/
             $scope.hotels = new inna.Models.Hotels.HotelsCollection();
@@ -114,12 +112,29 @@ innaAppControllers
             $scope.ticketFilters = new inna.Models.Avia.Filters.FilterSet();
             $scope.combination = null;
 
-            $scope.show = (function(search){
-                if(search.displayTicket) return $scope.TICKETS_TAB;
-                if(search.displayHotel) return $scope.HOTELS_TAB;
+            $scope.state = (function(){
+                var O = function(){
+                    this.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
+                    this.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
 
-                return $scope.HOTELS_TAB;
-            })($location.search());
+                    this.display = this.HOTELS_TAB;
+
+                    if($location.search().displayTicket) this.display = this.TICKETS_TAB;
+                    if($location.search().displayHotel) this.display = this.HOTELS_TAB;
+
+                    this.switchTo = function(tabName){
+                        this.display = tabName;
+                    };
+
+                    this.isActive = function(tabName){
+                        return this.display == tabName;
+                    };
+                };
+
+                return new O();
+            })();
+
+
             // JFYI !!+val does the following magic: convert val into integer (+val) and then convert to boolean (!!)
             $scope.asMap = !!+DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
 
@@ -151,7 +166,7 @@ innaAppControllers
 
             $scope.setTicket = function(ticket){
                 updateCombination({Ticket: ticket});
-            }
+            };
 
             $scope.goReservation = function(){
                 $location.path(Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
@@ -164,6 +179,9 @@ innaAppControllers
                     $routeParams.Children
                 ].join('-'));
             };
+
+            $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+            $scope.dateHelper = dateHelper;
 
             /*EventListener*/
             DynamicFormSubmitListener.listen();
@@ -184,7 +202,7 @@ innaAppControllers
                 $scope.setTicket(ticket);
             });
 
-            $scope.$watch('show', function(newVal, oldVal){
+            $scope.$watch('state.display', function(newVal, oldVal){
                 if($scope.combination) loadTab();
             });
 
@@ -206,10 +224,15 @@ innaAppControllers
 
                     cacheKey = data.SearchId;
 
+                    var recommendedTicket = new inna.Models.Avia.Ticket();
+                    recommendedTicket.setData(data.RecommendedPair.AviaInfo);
+
+                    var recommendedHotel = new inna.Models.Hotels.Hotel(data.RecommendedPair.Hotel);
+
                     $scope.$apply(function($scope){
                         updateCombination({
-                            Hotel: data.RecommendedPair.Hotel,
-                            AviaInfo: data.RecommendedPair.AviaInfo
+                            Hotel: recommendedHotel,
+                            AviaInfo: recommendedTicket
                         });
 
                         $scope.showLanding = false;
@@ -282,12 +305,5 @@ innaAppControllers
 
                 $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
             });
-        }
-    ])
-    .controller('DynamicPackageSERPRecommendedBundleController', [
-        '$scope', '$element',
-        function($scope, $element){
-            /*DOM hack*/
-            $element.appendTo($('.header.Header').eq(0));
         }
     ]);
