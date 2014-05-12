@@ -63,4 +63,23 @@ angular.module('innaApp.API', [])
         }
     })
     .constant('innaApp.API.pageContent.DYNAMIC', 4)
-    .constant('innaApp.API.pageContent.AVIA', 3);
+    .constant('innaApp.API.pageContent.AVIA', 3)
+    .directive('innaWith', function(){
+        return {
+            scope: false,
+            link: function($scope, $elem, $attrs){
+                var expr = $attrs.innaWith;
+                var bits = expr.split(',');
+
+                bits.forEach(function(bit){
+                    var keyVal = bit.split('as');
+                    var val = keyVal[0].trim();
+                    var key = keyVal[1].trim();
+
+                    $scope[key] = $scope.$eval(val);
+                });
+
+                console.log('inaWith:', $scope);
+            }
+        }
+    });
