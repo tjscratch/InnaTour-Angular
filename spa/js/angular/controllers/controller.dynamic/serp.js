@@ -94,8 +94,8 @@ innaAppControllers
                 }
 
                 $location
-                    .search('hotel',$scope.combination.Hotel.HotelId)
-                    .search('ticket', $scope.combination.AviaInfo.VariantId1);
+                    .search('hotel',$scope.combination.Hotel.data.HotelId)
+                    .search('ticket', $scope.combination.AviaInfo.data.VariantId1);
 
                 console.log('updateCombination:', $scope.combination);
             }
@@ -305,5 +305,26 @@ innaAppControllers
 
                 $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
             });
+        }
+    ])
+    .controller('DynamicPackageSERPRecommendedBundleCtrl', [
+        '$scope',
+        function($scope){
+            $scope.display = {};
+            $scope.display.FULL = 1;
+            $scope.display.SHORT = 2;
+            $scope.display.current = $scope.display.FULL;
+            $scope.display.toggle = function(){
+                if($scope.display.current == $scope.display.SHORT) {
+                    $scope.display.current = $scope.display.FULL;
+                } else {
+                    $scope.display.current = $scope.display.SHORT;
+                }
+            };
+
+            $scope.display.help = false;
+            $scope.display.toggleHelp = function(){
+                $scope.display.help = !$scope.display.help;
+            }
         }
     ]);
