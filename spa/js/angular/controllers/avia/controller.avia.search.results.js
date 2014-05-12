@@ -59,13 +59,14 @@ innaAppControllers.
                 $scope.$apply(function () { applyFilter($scope); });
             };
 
-            //инициализация
-            initValues();
-            initFuctions();
-
             //обрабатываем параметры из url'а
             var routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
+
+            //инициализация
+            initValues();
+            initFuctions();
+            
             //log('routeCriteria: ' + angular.toJson($scope.criteria));
 
             //запрашиваем парамерты по их Url'ам
@@ -85,6 +86,8 @@ innaAppControllers.
                 $scope.filteredTicketsList = null;
                 $scope.visibleFilteredTicketsList = null;
                 $scope.searchId = 0;
+
+                $scope.popupItemInfo = new popupItemInfo();
 
                 //сортировка - по-молчанию - по рекомендациям
                 //$scope.sort = avia.sortType.ByRecommend;
@@ -775,6 +778,27 @@ innaAppControllers.
                 $scope.isDataLoading = false;
                 $scope.baloon.hide();
             };
+
+            function popupItemInfo() {
+                var self = this;
+                self.isShow = false;
+                self.item = null;
+
+                var infWithPlaces = parseInt($scope.criteria.InfantsCount) - parseInt($scope.criteria.AdultCount);
+                if (infWithPlaces < 0){
+                    infWithPlaces = 0;
+                }
+                self.ticketsCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + infWithPlaces;
+
+                var cabinClass = parseInt($scope.criteria.CabinClass);
+                self.ticketsClass = aviaHelper.getCabinClassName(cabinClass).toLowerCase();
+
+                self.show = function ($event, item) {
+                    self.isShow = true;
+                    self.item = item;
+                    //console.log(item);
+                }
+            }
 
             function scrollControl() {
                 var self = this;
