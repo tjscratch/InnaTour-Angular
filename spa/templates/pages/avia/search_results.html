@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <footer class="rl-footer">
-                        <span class="rl-tickets-number">Последние 3 места</span>
+                        <span class="rl-tickets-number">{{getNumSeatsText(item.NumSeats)}}</span>
                         <a ng-href="#" class="rl-more-info" ng-click="popupItemInfo.show($event, item)">Подробнее</a>
                     </footer>
                 </div>
@@ -143,7 +143,7 @@
                         </div>
                     </div>
                     <footer class="rl-footer">
-                        <span class="rl-tickets-number">Последние 3 места</span>
+                        <span class="rl-tickets-number">{{getNumSeatsText(item.NumSeats)}}</span>
                         <a href="javascritp:void(0)" class="rl-more-info" ng-click="popupItemInfo.show($event, item)">Подробнее</a>
                     </footer>
                 </div>

@@ -37,6 +37,64 @@ innaAppControllers.
                 return len;
             }
 
+            $scope.getNumSeatsText = function (countLeft) {
+                countLeft = parseInt(countLeft);
+                var ticketsCount = $scope.ticketsCount;
+
+                switch (ticketsCount){
+                    case 1:
+                        {
+                            if (countLeft == 1){
+                                return 'Остался последний билет';
+                            }
+                            else if (countLeft <= 3){
+                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                            }
+                            break;
+                        }
+                    case 2:
+                        {
+                            if (countLeft <= 3) {
+                                return 'Остались последние билеты';
+                            }
+                            else if (countLeft <= 6) {
+                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                            }
+                            break;
+                        }
+                    case 3:
+                        {
+                            if (countLeft <= 5) {
+                                return 'Остались последние билеты';
+                            }
+                            else if (countLeft <= 9) {
+                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                            }
+                            break;
+                        }
+                    case 4:
+                        {
+                            if (countLeft <= 7) {
+                                return 'Остались последние билеты';
+                            }
+                            else if (countLeft <= 9) {
+                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                            }
+                            break;
+                        }
+                    case 5:
+                    case 6:
+                        {
+                            if (countLeft <= 9) {
+                                return 'Остались последние билеты';
+                            }
+                            break;
+                        }
+                }
+
+                return '';
+            }
+
             var urlDataLoaded = { fromLoaded: false, toLoaded: false };
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {
@@ -62,6 +120,15 @@ innaAppControllers.
             //обрабатываем параметры из url'а
             var routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
+
+            function getTicketsCount() {
+                var infWithPlaces = parseInt($scope.criteria.InfantsCount) - parseInt($scope.criteria.AdultCount);
+                if (infWithPlaces < 0) {
+                    infWithPlaces = 0;
+                }
+                return parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + infWithPlaces;
+            }
+            $scope.ticketsCount = getTicketsCount();
 
             //инициализация
             initValues();
@@ -801,11 +868,7 @@ innaAppControllers.
                 self.isShow = false;
                 self.item = null;
 
-                var infWithPlaces = parseInt($scope.criteria.InfantsCount) - parseInt($scope.criteria.AdultCount);
-                if (infWithPlaces < 0){
-                    infWithPlaces = 0;
-                }
-                self.ticketsCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + infWithPlaces;
+                self.ticketsCount = $scope.ticketsCount
 
                 var cabinClass = parseInt($scope.criteria.CabinClass);
                 self.ticketsClass = aviaHelper.getCabinClassName(cabinClass).toLowerCase();
