@@ -310,6 +310,32 @@ innaAppControllers
     .controller('DynamicPackageSERPRecommendedBundleCtrl', [
         '$scope',
         function($scope){
+            /*DOM*/
+            var doc = $(document);
+
+            var onScroll = function(){
+                var body = document.body || document.documentElement;
+
+                if(body.scrollTop > 1) {
+                    if($scope.display.isCurrent($scope.display.FULL)) {
+                        $scope.$apply(function($scope){
+                            $scope.display.current = $scope.display.SHORT;
+                        });
+                    }
+                } else {
+                    $scope.$apply(function($scope){
+                        $scope.display.current = $scope.display.FULL;
+                    });
+                }
+            };
+
+            var unwatchScroll = function(){
+                doc.off('scroll', onScroll);
+            };
+
+            doc.on('scroll', onScroll);
+
+            /*Properties*/
             $scope.display = new function(){
                 this.FULL = 1;
                 this.SHORT = 2;
@@ -321,6 +347,8 @@ innaAppControllers
                 }
 
                 this.toggle = function(){
+                    unwatchScroll();
+
                     if(this.isCurrent(this.FULL)) this.current = this.SHORT;
                     else this.current = this.FULL;
                 }
@@ -331,7 +359,7 @@ innaAppControllers
                 }
             };
 
-            /*DOM*/
-//            ()();
+            /*Events*/
+            $scope.$on('$destroy', unwatchScroll);
         }
     ]);
