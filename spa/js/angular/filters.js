@@ -47,7 +47,7 @@ innaAppFilters.filter('price', function () {
 });
 
 innaAppFilters.filter('asQuantity', function(){
-    function chooseForm(n, f1, f2, f5) {
+    function chooseForm(n, f1, f2, f5, f0) {
         //only 2 last digits
         n = n % 100;
 
@@ -63,7 +63,9 @@ innaAppFilters.filter('asQuantity', function(){
         return f5;
     }
 
-    return function(n, f1, f2, f5, joiner){
-        return [n, chooseForm(n, f1, f2, f5)].join(joiner || ' ');
+    return function(n, f1, f2, f5, f0){
+        if(n == 0) return f0;
+
+        return [n, chooseForm(n, f1, f2, f5)].join(' ');
     }
 });

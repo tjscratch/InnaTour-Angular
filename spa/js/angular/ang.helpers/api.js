@@ -26,6 +26,7 @@ angular.module('innaApp.API', [])
             AUTH_LOGOUT: url('/Account/Logoff'),
             AUTH_CHANGE_INFO: url('/Account/ChangeInfo/Post'),
             AUTH_RECOGNIZE: url('/Account/Info/Post'),
+            AUTH_CHANGE_PASSWORD: url('/Account/ChangePassword/Post'),
 
             PURCHASE_TRANSPORTER_GET_ALLIANCE: url('/Transporter/GetAllianceByName'),
             DICTIONARY_ALL_COUNTRIES: url('/Dictionary/Country'),
@@ -62,4 +63,23 @@ angular.module('innaApp.API', [])
         }
     })
     .constant('innaApp.API.pageContent.DYNAMIC', 4)
-    .constant('innaApp.API.pageContent.AVIA', 3);
+    .constant('innaApp.API.pageContent.AVIA', 3)
+    .directive('innaWith', function(){
+        return {
+            scope: false,
+            link: function($scope, $elem, $attrs){
+                var expr = $attrs.innaWith;
+                var bits = expr.split(',');
+
+                bits.forEach(function(bit){
+                    var keyVal = bit.split('as');
+                    var val = keyVal[0].trim();
+                    var key = keyVal[1].trim();
+
+                    $scope[key] = $scope.$eval(val);
+                });
+
+                console.log('inaWith:', $scope);
+            }
+        }
+    });

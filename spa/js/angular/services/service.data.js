@@ -94,8 +94,8 @@
                     }
                     else {
                         //сначала проверяем в html5 storage
-                        //var res = null;
                         var res = storageService.getAviaSearchResults(apiCriteria);
+                        //var res = null;
                         //проверяем что данные не старше минуты
                         if (res != null) {
                             successCallback(res);

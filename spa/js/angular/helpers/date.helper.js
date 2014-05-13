@@ -181,7 +181,11 @@
     },
 
     getTime: function(date) {
-        return [date.getHours(), date.getMinutes()].join(':');
+        return [date.getHours(), date.getMinutes()].map(function(val){
+            if(val % 10 == val) return '' + '0' + val;
+
+            return val;
+        }).join(':');
     },
 
     getDateShort: function(date) {

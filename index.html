@@ -101,6 +101,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                             <img ng-if="user.raw.userpic" ng-src="{{user.raw.userpic}}" alt="" class="user-pic">
                             {{user.displayName()}}
                         </a>
+                        <a href="javascript:void(0);" class="header-logout-link">(AgencyName = {{user.AgencyName}}; MessagesCount = {{+user.MessagesCount}})</a>
                         <a href="javascript:void(0);" class="header-logout-link" ng-click="logout()">Выйти</a>
                     </span>
                 </li>
