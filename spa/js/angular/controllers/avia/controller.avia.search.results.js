@@ -794,9 +794,23 @@ innaAppControllers.
                 self.ticketsClass = aviaHelper.getCabinClassName(cabinClass).toLowerCase();
 
                 self.show = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
                     self.isShow = true;
                     self.item = item;
-                    //console.log(item);
+                    console.log(item);
+                }
+
+                self.print = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    alert('Не реализовано');
+                }
+                self.getLink = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    alert('Не реализовано');
+                }
+                self.share = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    alert('Не реализовано');
                 }
             }
 
