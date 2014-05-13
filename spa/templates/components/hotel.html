@@ -1,0 +1,46 @@
+<div class="result">
+    <div class="result-cell result-hotel-gallery">
+        <div class="hotel-gallery-arrow-left"></div>
+        <div class="hotel-gallery-arrow-right"></div>
+        <div class="hotel-gallery-container">
+            <img src="/spa/img/hotel.jpg" alt="">
+        </div>
+    </div>
+    <div class="result-cell result-cell-330">
+        <p class="corner-price">
+            {{hotel.data.MinimalPackagePrice}} Р
+            <span class="price-description">за отель</span>
+        </p>
+        <!--TODO<img src="/spa/img/expedia.png" alt="" class="logo">-->
+
+        <div class="hotel-info">
+            <div class="hotel-info-content">
+                <div>
+                    <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 0"></span>
+                    <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 1"></span>
+                    <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 2"></span>
+                    <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 3"></span>
+                    <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 4"></span>
+                </div>
+                <h3 class="hotel-info-name">{{hotel.data.HotelName}}</h3>
+                <a href="" class="hotel-info-place">{{hotel.data.HotelCityName}}, {{hotel.data.HotelCountryName}}</a>
+                <!--TODO<div class="warning">Последний номер</div>-->
+            </div>
+        </div>
+
+        <div class="bottom-actions" ng-if="hotel.data.TaFactor">
+            <div class="hotel-info-tripadvisor" ng-if="combintaion.Hotel.data.TaFactor > 0">
+                <span class="icon icon-tripadvisor"></span>
+                <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 0"></span>
+                <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 1"></span>
+                <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 2"></span>
+                <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 3"></span>
+                <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 4"></span>
+                <!--TODO 1412 отзывов-->
+            </div>
+            <a href="javascript:void(0);" class="pull-right" ng-click="getHotelDetails(hotel)">Подробнее</a>
+        </div>
+    </div>
+    <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
+    <div class="result-cell result-buy" ng-transclude></div>
+</div>
