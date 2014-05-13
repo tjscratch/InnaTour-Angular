@@ -11,7 +11,7 @@ angular.module('innaApp.controllers')
                 AuthDataProvider.signIn({
                     Email: $scope.username,
                     Password: $scope.password,
-                    RememberMe: +$scope.rememberMe
+                    RememberMe: $scope.rememberMe.toString()
                 }, function(data){ //success
                     $scope.$apply(function($scope){
                         $scope.$emit(Events.AUTH_SIGN_IN, data);

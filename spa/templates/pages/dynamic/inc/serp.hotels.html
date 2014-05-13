@@ -14,7 +14,25 @@
 
 
 
+<div ng-if="!asMap">
+    <div
+        ng-repeat="hotel in hotels.filter(hotelFilters)"
+        ng-if="!hotel.hidden"
+        inna-hotel
+        inna-hotel-hotel="hotel">
 
+        <span class="icon icon-clip"></span>
+        <p class="corner-price cross">
+            {{hotel.data.MinimalPrice}} Р
+            <span class="price-description">по отдельности</span>
+        </p>
+        <p class="price">
+            {{hotel.data.MinimalPackagePrice}} Р
+            <span class="price-description">по отдельности</span>
+        </p>
+        <button class="button" ng-click="setHotel(hotel)" ng-hide="combination.Hotel.data.HotelId == hotel.data.HotelId">Выбрать</button>
+    </div>
+</div>
 
 
 
