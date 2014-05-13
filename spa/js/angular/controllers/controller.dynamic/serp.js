@@ -310,21 +310,28 @@ innaAppControllers
     .controller('DynamicPackageSERPRecommendedBundleCtrl', [
         '$scope',
         function($scope){
-            $scope.display = {};
-            $scope.display.FULL = 1;
-            $scope.display.SHORT = 2;
-            $scope.display.current = $scope.display.FULL;
-            $scope.display.toggle = function(){
-                if($scope.display.current == $scope.display.SHORT) {
-                    $scope.display.current = $scope.display.FULL;
-                } else {
-                    $scope.display.current = $scope.display.SHORT;
+            $scope.display = new function(){
+                this.FULL = 1;
+                this.SHORT = 2;
+
+                this.current = this.FULL;
+
+                this.isCurrent = function(display){
+                    return this.current == display;
+                }
+
+                this.toggle = function(){
+                    if(this.isCurrent(this.FULL)) this.current = this.SHORT;
+                    else this.current = this.FULL;
+                }
+
+                this.help = false;
+                this.toggleHelp = function(){
+                    this.help = !this.help;
                 }
             };
 
-            $scope.display.help = false;
-            $scope.display.toggleHelp = function(){
-                $scope.display.help = !$scope.display.help;
-            }
+            /*DOM*/
+//            ()();
         }
     ]);
