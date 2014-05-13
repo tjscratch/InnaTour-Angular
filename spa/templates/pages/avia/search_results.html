@@ -103,7 +103,8 @@
 
     <!-- Results List -->
     <div class="results-list results-list_720">
-        <ng:any ng-repeat="item in visibleFilteredTicketsList | orderBy:SortFilter.sortType:SortFilter.reverse track by $index">
+        <!--<ng:any ng-repeat="item in visibleFilteredTicketsList | orderBy:SortFilter.sortType:SortFilter.reverse track by $index">-->
+        <ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
             <div class="rl-item">
                 <div class="rl-item-separator"></div>
                 <div class="rl-left">

@@ -647,11 +647,11 @@ innaAppControllers.
                 //список выбранных значений
                 var transferCountCheckedList = _.filter($scope.filter.TransferCountListAgg, function (item) { return item.checked == true });
                 //туда, флаг, что хоть что-то выбрано
-                var anyTransferCountChecked = (transferCountCheckedList != null && transferCountCheckedList.length > 0);
+                //var anyTransferCountChecked = (transferCountCheckedList != null && transferCountCheckedList.length > 0);
                 var noTransfersCountChecked = _.all($scope.filter.TransferCountListAgg, function (item) { return item.checked == false });
 
                 //выбрана хотя бы одна компания
-                var anyTransporterChecked = _.any($scope.filter.TransporterList, function (item) { return item.checked == true });
+                //var anyTransporterChecked = _.any($scope.filter.TransporterList, function (item) { return item.checked == true });
                 var noTransporterChecked = _.all($scope.filter.TransporterList, function (item) { return item.checked == false });
                 //список всех выбранных а/к
                 var transporterListCheckedList = _.filter($scope.filter.TransporterList, function (item) { return item.checked == true });
@@ -701,7 +701,7 @@ innaAppControllers.
                 var noToPortsSelected = !(toPortsFilters != null && toPortsFilters.length > 0);
 
                 //заодно в цикле вычисляем признак самого дешевого билета
-                var minPriceItem = { item: null, price: 1000000000000000000 };
+                var minPriceItem = { item: null, price: Number.MAX_VALUE };
                 if ($scope.ticketsList != null) {
                     for (var i = 0; i < $scope.ticketsList.length; i++) {
                         var item = $scope.ticketsList[i];
@@ -724,9 +724,15 @@ innaAppControllers.
                             itemInTransportTo = _.all(item.EtapsTo, function (etap) {
                                 return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
                             });
-                            itemInTransportBack = _.all(item.EtapsBack, function (etap) {
-                                return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
-                            });
+                            if (item.EtapsBack.length == 0) {
+                                itemInTransportBack = false;
+                            }
+                            else {
+                                itemInTransportBack = _.all(item.EtapsBack, function (etap) {
+                                    return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
+                                });
+                            }
+                            
                         }
                         
                         var itemInTransport = (itemInTransportTo || itemInTransportBack);
@@ -737,9 +743,11 @@ innaAppControllers.
                         //проверяем цену
                         if (item.Price >= $scope.filter.minPrice && item.Price <= $scope.filter.maxPrice
                             //пересадки
-                            && (noTransfersCountChecked || (anyTransferCountChecked && itemInTransferCount))
+                            //&& (noTransfersCountChecked || (anyTransferCountChecked && itemInTransferCount))
+                            && (noTransfersCountChecked || itemInTransferCount)
                             //а/к
-                            && (noTransporterChecked || (anyTransporterChecked && itemInTransport))
+                            //&& (noTransporterChecked || (anyTransporterChecked && itemInTransport))
+                            && (noTransporterChecked || itemInTransport)
                             ////дата отправления / прибытия  туда / обратно
                             //&& (item.sort.DepartureDate >= $scope.filter.minDepartureDate && item.sort.DepartureDate <= $scope.filter.maxDepartureDate)
                             //&& (item.sort.ArrivalDate >= $scope.filter.minArrivalDate && item.sort.ArrivalDate <= $scope.filter.maxArrivalDate)
@@ -772,12 +780,21 @@ innaAppControllers.
                     }
                     $scope.filteredTicketsList = filteredList;
 
-                    $scope.scrollControl.init();
+                    applySort();
                 }
 
                 $scope.isDataLoading = false;
                 $scope.baloon.hide();
             };
+
+            function applySort() {
+                $scope.filteredTicketsList = $filter('orderBy')($scope.filteredTicketsList, $scope.SortFilter.sortType, $scope.SortFilter.reverse);
+                $scope.scrollControl.init();
+            }
+
+            $scope.$watch('SortFilter', function () {
+                applySort();
+            }, true);
 
             function popupItemInfo() {
                 var self = this;
@@ -857,9 +874,5 @@ innaAppControllers.
                         $scope.scrollControl.loadMore();
                     }
                 });
-
-                $scope.$watch('SortFilter', function () {
-                    $scope.scrollControl.init();
-                }, true);
             }
         }]);

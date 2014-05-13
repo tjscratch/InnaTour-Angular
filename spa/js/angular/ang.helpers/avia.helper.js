@@ -101,6 +101,8 @@
                 //return h + " ч " + addMins + " мин" + " (" + time + ")";//debug
                 if (addMins == 0)
                     return h + " ч";
+                else if (h == 0)
+                    return addMins + " мин";
                 else
                     return h + " ч " + addMins + " мин";
             }
