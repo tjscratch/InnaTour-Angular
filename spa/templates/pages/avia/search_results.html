@@ -51,7 +51,7 @@
                     </div>
                     <footer class="rl-footer">
                         <span class="rl-tickets-number">Последние 3 места</span>
-                        <a href="#" class="rl-more-info">Подробнее</a>
+                        <a href="javascript:void(0)" class="rl-more-info" ng-click="popupItemInfo.show($event, item)">Подробнее</a>
                     </footer>
                 </div>
                 <div class="rl-aside">
@@ -103,7 +103,7 @@
 
     <!-- Results List -->
     <div class="results-list results-list_720">
-        <ng:any ng-repeat="item in filteredTicketsList | orderBy:SortFilter.sortType:SortFilter.reverse track by $index">
+        <ng:any ng-repeat="item in visibleFilteredTicketsList | orderBy:SortFilter.sortType:SortFilter.reverse track by $index">
             <div class="rl-item">
                 <div class="rl-item-separator"></div>
                 <div class="rl-left">
@@ -143,7 +143,7 @@
                     </div>
                     <footer class="rl-footer">
                         <span class="rl-tickets-number">Последние 3 места</span>
-                        <a href="#" class="rl-more-info">Подробнее</a>
+                        <a href="javascritp:void(0)" class="rl-more-info" ng-click="popupItemInfo.show($event, item)">Подробнее</a>
                     </footer>
                 </div>
                 <div class="rl-aside">
@@ -184,3 +184,146 @@
 </div>
 <!-- Search Results -->
 </div>
+
+<!-- Baloon -->
+<div style="display: block" class="overlay js-overlay" ng-show="popupItemInfo.isShow">
+    <div class="balloon baloon_ticket baloon_2ticket">
+        <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
+            <div title="Закрыть" class="baloon-close" ng-click="popupItemInfo.isShow = false"></div>
+
+            <h3 class="b-tickets__title">Подробная и информация по перелету</h3>
+                <div class="rlf-oneway">
+                    <div class="b-ticket_2ways">
+                        <div class="rlf-fly" style="padding-bottom: 14px;">
+                            <span class="rlf-city">{{item.AirportFrom}}</span> {{item.OutCode}}
+                            <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                            <span class="rlf-city">{{item.AirportTo}}</span> {{item.InCode}}
+                            <div class="rlf-full-travel-time"><span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span>, {{item.TimeToFormatted}} в пути</div>
+                        </div>
+                        <div class="rlf-fly" style="padding-bottom: 14px;">
+                            <span class="rlf-city">{{item.AirportTo}}</span> {{item.InCode}}
+                            <span class="rlf-fly-arrow"></span>
+                            <span class="rlf-city">{{item.AirportFrom}}</span> {{item.OutCode}}
+                            <div class="rlf-full-travel-time"><span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span>, {{item.TimeBackFormatted}} в пути</div>
+                        </div>
+                    </div>
+                    <div class="b-ticket_2ways b-ticket_2ways-sep">
+                        <div class="b-ticket_2ways-block">
+                            <ng:any ng-repeat="etap in item.EtapsTo track by $index">
+                                <div class="rlf-part">
+                                    <div class="rfl-column3">
+                                        <div class="rlf-aviacompany">
+                                            <img ng-src="{{item.EtapsToTransporterCodeUrl}}" alt="" style="max-height: 25px; margin-bottom:5px !important;">
+                                            {{etap.TransporterName}} <br>
+                                            рейс {{etap.Number}} <br>
+                                            {{etap.VehicleName}}
+                                        </div>
+                                    </div>
+                                    <div class="b-tickets__container">
+                                        <div class="b-tickets__block">
+                                            <div class="rlf-column1">
+                                                <div class="rlf-airport">{{etap.OutCode}}</div>
+                                            </div>
+                                            <div class="rlf-colum2">
+                                                <div class="rlf-flight-info">
+                                                    <b>вылет {{etap.OutTimeFormatted}}</b>, {{etap.OutDateFormatted}} <br>
+                                                    {{etap.OutCity}}, {{etap.OutPort}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="rlf-travel-time">{{etap.WayTimeFormatted}}</div>
+                                        <div class="b-tickets__block">
+                                            <div class="rlf-column1">
+                                                <div class="rlf-airport"><br>{{etap.InCode}}</div>
+                                            </div>
+                                            <div class="rlf-colum2">
+                                                <div class="rlf-flight-info">
+                                                    <b>прилет {{etap.InTimeFormatted}}</b>, {{etap.InDateFormatted}} <br>
+                                                    {{etap.InCity}}, {{etap.InPort}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rlf-part rlf-part_transfer" ng-if="!$last">
+                                    <div class="rlf-column1">
+                                        <div class="rlf-airport">Пересадка</div>
+                                        <div class="rlf-travel-time">{{etap.WaitTimeFormatted}}</div>
+                                    </div>
+                                    <div class="rlf-colum4">
+                                        {{etap.NextOutCity}}, {{etap.NextOutPort}} ({{etap.NextOutCode}}), {{etap.NextOutCountryName}}
+                                        <div class="rlf-transfer" ng-if="etap.InPortId != etap.NextOutPortId">Внимание: смена аэропорта!</div>
+                                    </div>
+                                </div>
+                            </ng:any>
+                        </div>
+                        <div class="b-ticket_2ways-block">
+                            <ng:any ng-repeat="etap in item.EtapsBack track by $index">
+                                <div class="rlf-part">
+                                    <div class="rfl-column3">
+                                        <div class="rlf-aviacompany">
+                                            <img ng-src="{{item.EtapsBackTransporterCodeUrl}}" alt="" style="max-height: 25px; margin-bottom: 5px !important;">
+                                            {{etap.TransporterName}} <br>
+                                            рейс {{etap.Number}} <br>
+                                            {{etap.VehicleName}}
+                                        </div>
+                                    </div>
+                                    <div class="b-tickets__container">
+                                        <div class="b-tickets__block">
+                                            <div class="rlf-column1">
+                                                <div class="rlf-airport">{{etap.OutCode}}</div>
+                                            </div>
+                                            <div class="rlf-colum2">
+                                                <div class="rlf-flight-info">
+                                                    <b>вылет {{etap.OutTimeFormatted}}</b>, {{etap.OutDateFormatted}} <br>
+                                                    {{etap.OutCity}}, {{etap.OutPort}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="rlf-travel-time">{{etap.WayTimeFormatted}}</div>
+                                        <div class="b-tickets__block">
+                                            <div class="rlf-column1">
+                                                <div class="rlf-airport"><br>{{etap.InCode}}</div>
+                                            </div>
+                                            <div class="rlf-colum2">
+                                                <div class="rlf-flight-info">
+                                                    <b>прилет {{etap.InTimeFormatted}}</b>, {{etap.InDateFormatted}} <br>
+                                                    {{etap.InCity}}, {{etap.InPort}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rlf-part rlf-part_transfer" ng-if="!$last">
+                                    <div class="rlf-column1">
+                                        <div class="rlf-airport">Пересадка</div>
+                                        <div class="rlf-travel-time">{{etap.WaitTimeFormatted}}</div>
+                                    </div>
+                                    <div class="rlf-colum4">
+                                        {{etap.NextOutCity}}, {{etap.NextOutPort}} ({{etap.NextOutCode}}), {{etap.NextOutCountryName}}
+                                        <div class="rlf-transfer" ng-if="etap.InPortId != etap.NextOutPortId">Внимание: смена аэропорта!</div>
+                                    </div>
+                                </div>
+                            </ng:any>
+                        </div>
+                    </div>
+                </div>
+            <div class="b-tickets__footer">
+                <ul class="b-tickets__icons">
+                    <li><a href="#" class="b-tickets__icons-link"></a></li>
+                    <li><a href="#" class="b-tickets__icons-print"></a></li>
+                    <li><a href="#" class="b-tickets__icons-share"></a></li>
+                </ul>
+                <div class="b-tickets__footer-inner">
+                    <div class="b-tickets__footer-price-block">
+                        <div class="b-tickets__footer-price">{{item.Price| price}}</span> <span class="rub">Р</span></div>
+                        <div class="b-tickets__footer-price-info">за {{popupItemInfo.ticketsCount}} {{helper.pluralForm(popupItemInfo.ticketsCount, 'билет', 'билета', 'билетов')}} {{popupItemInfo.ticketsClass}} класса</div>
+                    </div>
+                    <a class="rl-buy-button" href="javascript:void(0)" ng-click="goToPaymentClick($event, item)">Купить</a>
+                </div>
+            </div>
+
+        </ng:any>
+    </div>
+</div>
+<!-- /Baloon -->

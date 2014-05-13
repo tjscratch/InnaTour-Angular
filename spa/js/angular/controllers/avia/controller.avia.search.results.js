@@ -15,7 +15,7 @@ innaAppControllers.
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
-            $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может затять несколько минут', function () {
+            $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может занять несколько минут', function () {
                 $location.path(Urls.URL_AVIA);
             });
 
@@ -59,13 +59,14 @@ innaAppControllers.
                 $scope.$apply(function () { applyFilter($scope); });
             };
 
-            //инициализация
-            initValues();
-            initFuctions();
-
             //обрабатываем параметры из url'а
             var routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
+
+            //инициализация
+            initValues();
+            initFuctions();
+            
             //log('routeCriteria: ' + angular.toJson($scope.criteria));
 
             //запрашиваем парамерты по их Url'ам
@@ -78,10 +79,15 @@ innaAppControllers.
                 //фильтр
                 $scope.filter = new aviaFilter();
 
+                $scope.scrollControl = new scrollControl();
+
                 //списки
                 $scope.ticketsList = null;
                 $scope.filteredTicketsList = null;
+                $scope.visibleFilteredTicketsList = null;
                 $scope.searchId = 0;
+
+                $scope.popupItemInfo = new popupItemInfo();
 
                 //сортировка - по-молчанию - по рекомендациям
                 //$scope.sort = avia.sortType.ByRecommend;
@@ -126,7 +132,7 @@ innaAppControllers.
             function initFuctions() {
                 $scope.startSearch = function () {
                     //log('$scope.startSearch');
-                    $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может затять несколько минут', function () {
+                    $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может занять несколько минут', function () {
                         $location.path(Urls.URL_AVIA);
                     });
 
@@ -236,7 +242,7 @@ innaAppControllers.
                 $scope.goToPaymentClick = function ($event, item) {
                     eventsHelper.preventBubbling($event);
 
-                    $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может затять несколько минут');
+                    $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может занять несколько минут');
                     //проверяем, что остались билеты для покупки
                     paymentService.checkAvailability({ variantTo: item.VariantId1, varianBack: item.VariantId2 },
                         function (data) {
@@ -765,9 +771,81 @@ innaAppControllers.
                         minPriceItem.item.isCheapest = true;
                     }
                     $scope.filteredTicketsList = filteredList;
+
+                    $scope.scrollControl.init();
                 }
 
                 $scope.isDataLoading = false;
                 $scope.baloon.hide();
             };
+
+            function popupItemInfo() {
+                var self = this;
+                self.isShow = false;
+                self.item = null;
+
+                var infWithPlaces = parseInt($scope.criteria.InfantsCount) - parseInt($scope.criteria.AdultCount);
+                if (infWithPlaces < 0){
+                    infWithPlaces = 0;
+                }
+                self.ticketsCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + infWithPlaces;
+
+                var cabinClass = parseInt($scope.criteria.CabinClass);
+                self.ticketsClass = aviaHelper.getCabinClassName(cabinClass).toLowerCase();
+
+                self.show = function ($event, item) {
+                    self.isShow = true;
+                    self.item = item;
+                    //console.log(item);
+                }
+            }
+
+            function scrollControl() {
+                var self = this;
+                self.MAX_VISIBLE_ITEMS = 5;
+                self.lastScrollOffset = 0;
+
+                self.init = function () {
+                    self.lastScrollOffset = 0;
+                    if ($scope.filteredTicketsList != null && $scope.filteredTicketsList.length >= self.MAX_VISIBLE_ITEMS) {
+                        $scope.visibleFilteredTicketsList = $scope.filteredTicketsList.slice(0, self.MAX_VISIBLE_ITEMS);
+                    }
+                    else {
+                        $scope.visibleFilteredTicketsList = $scope.filteredTicketsList;
+                    }
+
+                    //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));
+                }
+
+                self.loadMore = function () {
+                    $scope.$apply(function ($scope) {
+                        var fromIndex = $scope.visibleFilteredTicketsList.length;
+                        var toIndex = fromIndex + self.MAX_VISIBLE_ITEMS;
+                        if (toIndex > $scope.filteredTicketsList.length) {
+                            toIndex = $scope.filteredTicketsList.length;
+                        }
+                        if (fromIndex < toIndex) {
+                            for (var i = fromIndex; i < toIndex; i++) {
+                                $scope.visibleFilteredTicketsList.push($scope.filteredTicketsList[i]);
+                            }
+                        }
+
+                    });
+
+                    //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));
+                }
+
+                $(window).scroll(function () {
+                    var scrollTop = $(window).scrollTop();
+                    if (scrollTop + $(window).height() > $(document).height() - 300 &&
+                        scrollTop > $scope.scrollControl.lastScrollOffset) {
+                        $scope.scrollControl.lastScrollOffset = scrollTop;
+                        $scope.scrollControl.loadMore();
+                    }
+                });
+
+                $scope.$watch('SortFilter', function () {
+                    $scope.scrollControl.init();
+                }, true);
+            }
         }]);

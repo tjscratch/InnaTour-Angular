@@ -280,6 +280,41 @@
                         item.EtapsBackItems.push({ code: etap.InCode, name: etap.InPort, waitTime: waitTime });
                     }
                 }
+
+                function addFieldsToEtap(etap, etapNext) {
+                    etap.TransporterCodeUrl = helper.setEtapsTransporterCodeUrl(etap.TransporterCode);
+                    etap.OutTimeFormatted = getTimeFormat(etap.OutTime);
+                    etap.OutDateFormatted = getDateFormat(etap.OutTime);
+                    etap.InTimeFormatted = getTimeFormat(etap.InTime);
+                    etap.InDateFormatted = getDateFormat(etap.InTime);
+                    etap.WaitTimeFormatted = getFlightTimeFormatted(etap.TransferWaitTime);
+                    etap.WayTimeFormatted = getFlightTimeFormatted(etap.WayTime);
+
+                    if (etapNext != null) {
+                        etap.NextOutPort = etapNext.OutPort;
+                        etap.NextOutPortId = etapNext.OutPortId;
+                        etap.NextOutCity = etapNext.OutCity;
+                        etap.NextOutCode = etapNext.OutCode;
+                        etap.NextOutCountryName = etapNext.OutCountryName;
+                    }
+                }
+
+                for (var e = 0; e < item.EtapsTo.length; e++) {
+                    var etap = item.EtapsTo[e];
+                    var etapNext = null;
+                    if ((e + 1) < item.EtapsTo.length) {
+                        etapNext = item.EtapsTo[e + 1];
+                    }
+                    addFieldsToEtap(etap, etapNext);
+                }
+                for (var e = 0; e < item.EtapsBack.length; e++) {
+                    var etap = item.EtapsBack[e];
+                    var etapNext = null;
+                    if ((e + 1) < item.EtapsBack.length) {
+                        etapNext = item.EtapsBack[e + 1];
+                    }
+                    addFieldsToEtap(etap, etapNext);
+                }
             },
 
             baloonType: baloonType,

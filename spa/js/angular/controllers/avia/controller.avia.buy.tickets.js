@@ -27,14 +27,14 @@ Year = "17";
 Cvc = "486";
             */
             $scope.payModel = {
-                num1: '4012',
-                num2: '0010',
-                num3: '3714',
-                num4: '1112',
-                cvc2: '486',
-                cardHolder: 'TEST',
-                cardMonth: '12',
-                cardYear: '17',
+                num1: '5469',
+                num2: '4000',
+                num3: '1273',
+                num4: '3023',
+                cvc2: '',
+                cardHolder: 'ILYA GERASIMENKO',
+                cardMonth: '07',
+                cardYear: '15',
                 agree: false
             };
 
@@ -257,7 +257,7 @@ Cvc = "486";
                         loader.complete(self);
                     }
                     else {
-                        $scope.baloon.show('Проверка билетов', 'Подождите пожалуйста, это может затять несколько минут');
+                        $scope.baloon.show('Проверка билетов', 'Подождите пожалуйста, это может занять несколько минут');
                         //запрос в api
                         paymentService.getPaymentData({
                             orderNum: $scope.criteria.OrderNum
@@ -395,7 +395,7 @@ Cvc = "486";
 
                     log('\napiPayModel: ' + angular.toJson(apiPayModel));
 
-                    $scope.baloon.show('Подождите, идет оплата', 'Это может затять несколько минут');
+                    $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
                     paymentService.pay(apiPayModel,
                     function (data) {
                         log('\npaymentService.pay, data: ' + angular.toJson(data));
@@ -442,7 +442,7 @@ Cvc = "486";
                 });
 
                 $scope.baloon.hide();
-                $scope.iframeUrl = ('http://spa.inna.travel/spa/templates/pages/avia/pay_form.html?' + params);
+                $scope.iframeUrl = ('/spa/templates/pages/avia/pay_form.html?' + params);
 
                 $scope.is3dscheck = true;
                 checkPayment();
