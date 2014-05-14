@@ -20,6 +20,10 @@ angular.module('innaApp.directives')
                             this.minPrice = NaN;
                         });
 
+                        Option.prototype.describe = function(){
+                            return _.generateRange(0, this.value - 1).map(function(){ return '*' }).join('');
+                        }
+
                         /*Properties*/
                         $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter());
                         $scope.filter.filterFn = function(hotel){

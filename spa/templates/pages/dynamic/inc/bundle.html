@@ -1,92 +1,86 @@
-<div class="recommend-bundle" style="background-image: url(/spa/img/dp-background.jpg);" ng-controller="DynamicPackageSERPRecommendedBundleCtrl">
-    <div class="recommend-bundle-wrap" ng-class="{'recommend-bundle-wrap_small': display.isCurrent(display.SHORT)}" inna-with="combination.AviaInfo as ticket">
-        <h3 class="recommend-bundle-title" ng-if="display.isCurrent(display.FULL)">Выбранный пакет</h3>
+<div class="recommend-bundle-container">
+    <div class="recommend-bundle" ng-controller="DynamicPackageSERPRecommendedBundleCtrl">
+        <div class="recommend-bundle-background" style="background-image: url(/spa/img/dp-background.jpg);"></div>
+        <div class="recommend-bundle-wrap" ng-class="{'recommend-bundle-wrap_small': display.isCurrent(display.SHORT)}" inna-with="combination.AviaInfo as ticket">
+            <h3 class="recommend-bundle-title" ng-if="display.isCurrent(display.FULL)">Выбранный пакет</h3>
 
-        <a href="javascript:void(0);" ng-if="display.isCurrent(display.FULL)" ng-click="display.toggle()" class="expand-collapse-link"><span class="icon-collapse"></span> Свернуть</a>
-        <a href="javascript:void(0);" ng-if="display.isCurrent(display.SHORT)" ng-click="display.toggle()" class="expand-collapse-link"><span class="icon-expand"></span> Развернуть</a>
+            <a href="javascript:void(0);" ng-if="display.isCurrent(display.FULL)" ng-click="display.toggle()" class="expand-collapse-link"><span class="icon-collapse"></span> Свернуть</a>
+            <a href="javascript:void(0);" ng-if="display.isCurrent(display.SHORT)" ng-click="display.toggle()" class="expand-collapse-link"><span class="icon-expand"></span> Развернуть</a>
 
-        <div class="results-list_960" ng-if="display.isCurrent(display.FULL)">
-            <div class="result">
-                <div class="result-cell result-cell-390">
-                    <p class="corner-price">
-                        {{ticket.data.Price}} <span class="b-rub">Р</span>
-                        <span class="price-description">по отдельности</span>
-                    </p>
+            <div class="results-list_960" ng-if="display.isCurrent(display.FULL)">
+                <div class="result">
+                    <div class="result-cell result-cell-390">
+
                     <span class="rl-airline" ng-repeat="(code, name) in ticket.collectAirlines()">
                         <img ng-src="{{airLogo(code)}}" alt=""><span class="rl-airline-text">{{name}}</span>
                     </span>
 
-                    <div class="flight-info">
+                        <div class="flight-info">
                         <span class="date">
                             <b>{{dateHelper.getTime(ticket.data.DepartureDate)}} {{ticket.data.OutCode}}</b>
                             {{dateHelper.getDateShort(ticket.data.DepartureDate)}}, {{dateHelper.getDay(ticket.data.DepartureDate)}}
                         </span>
-                        <p class="arrow">
-                            в пути: {{ticket.getDuration('To')}}<br>
-                            {{ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
-                        </p>
+                            <p class="arrow">
+                                в пути: {{ticket.getDuration('To')}}<br>
+                                {{ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+                            </p>
                         <span class="date">
                             <b>{{dateHelper.getTime(ticket.data.ArrivalDate)}} {{ticket.data.InCode}}</b>
                             {{dateHelper.getDateShort(ticket.data.ArrivalDate)}}, {{dateHelper.getDay(ticket.data.ArrivalDate)}}
                         </span>
-                    </div>
+                        </div>
 
-                    <div class="flight-info">
+                        <div class="flight-info">
                         <span class="date">
                             <b>{{dateHelper.getTime(ticket.data.BackDepartureDate)}} {{ticket.data.InCode}}</b>
                             {{dateHelper.getDateShort(ticket.data.BackDepartureDate)}}, {{dateHelper.getDay(ticket.data.BackDepartureDate)}}
                         </span>
-                        <p class="arrow">
-                            в пути: {{ticket.getDuration('Back')}}<br>
-                            {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
-                        </p>
+                            <p class="arrow">
+                                в пути: {{ticket.getDuration('Back')}}<br>
+                                {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+                            </p>
                         <span class="date">
                             <b>{{dateHelper.getTime(ticket.data.BackArrivalDate)}} {{ticket.data.OutCode}}</b>
                             {{dateHelper.getDateShort(ticket.data.BackArrivalDate)}}, {{dateHelper.getDay(ticket.data.BackArrivalDate)}}
                         </span>
+                        </div>
+
+                        <div class="bottom-actions">
+                            <a href="javascript:void(0);" class="pull-left" ng-class="{active: state.isActive(state.TICKETS_TAB)}" ng-click="state.switchTo(state.TICKETS_TAB)">Заменить</a>
+                            <a href="javascript:void(0);" class="pull-right" ng-click="getTicketDetails(ticket)">Подробнее</a>
+                        </div>
+                    </div><!--
+                --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
+                --><div class="result-cell result-cell-390">
+                    <div class="hotel-info">
+                        <img ng-src="{{combination.Hotel.data.HotelPhoto70}}" alt="">
+                        <div class="hotel-info-content">
+                            <div>
+                                <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 0"></span>
+                                <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 1"></span>
+                                <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 2"></span>
+                                <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 3"></span>
+                                <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 4"></span>
+                            </div>
+                            <h3 class="hotel-info-name">{{combination.Hotel.data.HotelName}}</h3>
+                            <div class="hotel-info-date">с {{dateHelper.getDateShort(combination.Hotel.data.CheckIn)}} по {{dateHelper.getDateShort(combination.Hotel.data.CheckOut)}}, {{combination.Hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
+                        </div>
+                        <div class="hotel-info-tripadvisor" ng-if="combintaion.Hotel.data.TaFactor > 0">
+                            <span class="icon icon-tripadvisor"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 0"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 1"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 2"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 3"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 4"></span>
+                            <!--TODO 1412 отзывов-->
+                        </div>
                     </div>
 
                     <div class="bottom-actions">
-                        <a href="javascript:void(0);" class="pull-left" ng-class="{active: state.isActive(state.TICKETS_TAB)}" ng-click="state.switchTo(state.TICKETS_TAB)">Заменить</a>
+                        <a href="javascript:void(0);"  ng-class="{active: state.isActive(state.HOTELS_TAB)}" ng-click="state.switchTo(state.HOTELS_TAB)" class="pull-left">Заменить</a>
                         <a href="javascript:void(0);" class="pull-right">Подробнее</a>
                     </div>
                 </div><!--
-                --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
-                --><div class="result-cell result-cell-390">
-                <p class="corner-price">
-                    {{combination.Hotel.data.MinimalPrice}} <span class="b-rub">Р</span>
-                    <span class="price-description">по отдельности</span>
-                </p>
-
-                <div class="hotel-info">
-                    <img ng-src="{{combination.Hotel.data.HotelPhoto70}}" alt="">
-                    <div class="hotel-info-content">
-                        <div>
-                            <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 0"></span>
-                            <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 1"></span>
-                            <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 2"></span>
-                            <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 3"></span>
-                            <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 4"></span>
-                        </div>
-                        <h3 class="hotel-info-name">{{combination.Hotel.data.HotelName}}</h3>
-                        <div class="hotel-info-date">с {{dateHelper.getDateShort(combination.Hotel.data.CheckIn)}} по {{dateHelper.getDateShort(combination.Hotel.data.CheckOut)}}, {{combination.Hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
-                    </div>
-                    <div class="hotel-info-tripadvisor" ng-if="combintaion.Hotel.data.TaFactor > 0">
-                        <span class="icon icon-tripadvisor"></span>
-                        <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 0"></span>
-                        <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 1"></span>
-                        <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 2"></span>
-                        <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 3"></span>
-                        <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 4"></span>
-                        <!--TODO 1412 отзывов-->
-                    </div>
-                </div>
-
-                <div class="bottom-actions">
-                    <a href="javascript:void(0);"  ng-class="{active: state.isActive(state.HOTELS_TAB)}" ng-click="state.switchTo(state.HOTELS_TAB)" class="pull-left">Заменить</a>
-                    <a href="javascript:void(0);" class="pull-right">Подробнее</a>
-                </div>
-            </div><!--
             --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
             --><div class="result-cell result-buy"
                     inna-with="
@@ -94,64 +88,73 @@
                         ticket.data.Price as aPrice,
                         hMinPrice + aPrice as sum,
                         combination.Hotel.data.MinimalPackagePrice + ticket.data.PackagePrice as pSum">
-                <span class="icon icon-clip"></span>
-                <p class="corner-price cross">
-                    {{sum}} <span class="b-rub">Р</span>
+                    <span class="icon icon-clip"></span>
+                    <p class="corner-price cross">
+                        {{sum}} <span class="b-rub">Р</span>
+                        <span class="price-description">по отдельности</span>
+                    </p>
+                    <p class="price">
+                        {{pSum}} <span class="b-rub">Р</span>
+                        <span class="icon icon-price-info" ng-click="display.toggleHelp($event)"></span>
+                    </p>
+                    <div class="tooltip tooltip-price" ng-if="display.help">
+                        По отдельности
+                        <ul>
+                            <li class="list-price-item">Перелет <span class="list-price pull-right">{{hMinPrice}}<span class="b-rub">Р</span></span></li>
+                            <li class="list-price-item">Отель <span class="list-price pull-right">{{aPrice}}<span class="b-rub">Р</span></span></li>
+                        </ul>
+                        <div class="list-price list-price-total">{{sum}}<span class="b-rub">Р</span></div>
+                        <ul>
+                            <li>В пакете: <span class="list-price green pull-right">{{pSum}}<span class="b-rub">Р</span></span></li>
+                            <li>Экономия <span class="list-price green pull-right">{{sum - pSum}}<span class="b-rub">Р</span></span></li>
+                        </ul>
+                    </div>
                     <span class="price-description">по отдельности</span>
-                </p>
-                <p class="price">
-                    {{pSum}} <span class="b-rub">Р</span>
-                    <span class="icon icon-price-info" ng-click="display.toggleHelp($event)"></span>
-                </p>
-                <div class="tooltip tooltip-price" ng-if="display.help">
-                    По отдельности
-                    <ul>
-                        <li class="list-price-item">Перелет <span class="list-price pull-right">{{hMinPrice}}<span class="b-rub">Р</span></span></li>
-                        <li class="list-price-item">Отель <span class="list-price pull-right">{{aPrice}}<span class="b-rub">Р</span></span></li>
-                    </ul>
-                    <div class="list-price list-price-total">{{sum}}<span class="b-rub">Р</span></div>
-                    <ul>
-                        <li>В пакете: <span class="list-price green pull-right">{{pSum}}<span class="b-rub">Р</span></span></li>
-                        <li>Экономия <span class="list-price green pull-right">{{sum - pSum}}<span class="b-rub">Р</span></span></li>
-                    </ul>
+                    <p></p>
+                    <button class="button" ng-click="goReservation()">Купить</button>
                 </div>
-                <span class="price-description">по отдельности</span>
-                <p></p>
-                <button class="button" ng-click="goReservation()">Купить</button>
+                </div>
             </div>
+
+            <div class="result-small" ng-if="display.isCurrent(display.SHORT)">
+                <div class="result-cell result-cell-390">
+                    <!--TODO which pictures to use?-->
+                    <p class="flight">
+                        <img src="/spa/img/airline-small.png" alt="">
+                        <span class="white">{{ticket.data.OutCode}} – {{ticket.data.InCode}}, {{dateHelper.getDateShort(ticket.data.DepartureDate)}},</span>
+                        в пути: {{ticket.getDuration('To')}}, {{ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
+                    </p>
+                    <p class="flight">
+                        <img src="/spa/img/airline-small.png" alt="">
+                        <span class="white">{{ticket.data.InCode}} – {{ticket.data.OutCode}}, {{dateHelper.getDateShort(ticket.data.BackDepartureDate)}},</span>
+                        в пути: {{ticket.getDuration('Back')}}, {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
+                    </p>
+                </div>
+                <div class="result-cell result-cell-330">
+                    <h3 class="hotel-info-name">
+                        <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 0"></span>
+                        <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 1"></span>
+                        <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 2"></span>
+                        <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 3"></span>
+                        <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 4"></span>
+                        {{combination.Hotel.data.HotelName}}
+                    </h3>
+                    <div class="hotel-info-date">с {{dateHelper.getDateShort(combination.Hotel.data.CheckIn)}} по {{dateHelper.getDateShort(combination.Hotel.data.CheckOut)}}, {{combination.Hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
+                </div>
+                <div class="result-cell">
+                    <p class="corner-price">
+                        {{combination.Hotel.data.MinimalPackagePrice}} Р
+                    </p>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="result-small" ng-if="display.isCurrent(display.SHORT)">
-            <div class="result-cell result-cell-390">
-                <!--TODO which pictures to use?-->
-                <p class="flight">
-                    <img src="/spa/img/airline-small.png" alt="">
-                    <span class="white">{{ticket.data.OutCode}} – {{ticket.data.InCode}}, {{dateHelper.getDateShort(ticket.data.DepartureDate)}},</span>
-                    в пути: {{ticket.getDuration('To')}}, {{ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
-                </p>
-                <p class="flight">
-                    <img src="/spa/img/airline-small.png" alt="">
-                    <span class="white">{{ticket.data.InCode}} – {{ticket.data.OutCode}}, {{dateHelper.getDateShort(ticket.data.BackDepartureDate)}},</span>
-                    в пути: {{ticket.getDuration('Back')}}, {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
-                </p>
-            </div>
-            <div class="result-cell result-cell-330">
-                <h3 class="hotel-info-name">
-                    <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 0"></span>
-                    <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 1"></span>
-                    <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 2"></span>
-                    <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 3"></span>
-                    <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 4"></span>
-                    {{combination.Hotel.data.HotelName}}
-                </h3>
-                <div class="hotel-info-date">с {{dateHelper.getDateShort(combination.Hotel.data.CheckIn)}} по {{dateHelper.getDateShort(combination.Hotel.data.CheckOut)}}, {{combination.Hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
-            </div>
-            <div class="result-cell">
-                <p class="corner-price">
-                    {{combination.Hotel.data.MinimalPackagePrice}} Р
-                </p>
-            </div>
+    <div class="filters__body">
+        <div class="js-filter-scroll">
+            <ul class="filters__container">
+                <ng:include src="state.display + '__filters.html'"/>
+            </ul>
         </div>
     </div>
 </div>

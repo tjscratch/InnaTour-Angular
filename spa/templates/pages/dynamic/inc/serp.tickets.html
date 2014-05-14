@@ -1,30 +1,3 @@
-<div class="filters__body">
-    <div class="js-filter-scroll">
-        <ul class="filters__container">
-            <li inna-dynamic-serp-filter-avia-legs
-                inna-dynamic-serp-filter-avia-legs-tickets="tickets"
-                inna-dynamic-serp-filter-avia-legs-filters="ticketFilters"></li>
-            <li inna-dynamic-serp-filter-avia-price
-                inna-dynamic-serp-filter-avia-price-tickets="tickets"
-                inna-dynamic-serp-filter-avia-price-filters="ticketFilters"></li>
-            <li inna-dynamic-serp-filter-avia-time
-                inna-dynamic-serp-filter-avia-time-tickets="tickets"
-                inna-dynamic-serp-filter-avia-time-filters="ticketFilters"></li>
-            <li inna-dynamic-serp-filter-avia-airlines
-                inna-dynamic-serp-filter-avia-airlines-tickets="tickets"
-                inna-dynamic-serp-filter-avia-airlines-filters="ticketFilters"></li>
-            <li inna-dynamic-serp-filter-avia-airports
-                inna-dynamic-serp-filter-avia-airports-tickets="tickets"
-                inna-dynamic-serp-filter-avia-airports-filters="ticketFilters"></li>
-
-            <li class="filters__sort"
-                inna-dynamic-serp-sorter
-                inna-dynamic-serp-sorter-items="tickets"
-                inna-dynamic-serp-sorter-sorters-filler-ctrl-name="innaDynamicSerpSorter_TicketsMixin"></li>
-        </ul>
-    </div>
-</div>
-
 <div class="results-container results-container_top">
     <div class="results-list results-list_720">
         <div ng-repeat="ticket in tickets.filter(ticketFilters)"
@@ -39,6 +12,7 @@
             <a href="javascript:void(0)" class="rl-buy-button" ng-click="setTicket(ticket)">Выбрать</a>
         </div>
     </div>
+
     <div inna-dynamic-serp-filter-indicators
          inna-dynamic-serp-filter-indicators-filters="ticketFilters"
          inna-dynamic-serp-filter-indicators-items="tickets"></div>

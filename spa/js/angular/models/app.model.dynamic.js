@@ -24,7 +24,19 @@ inna.Models.Hotels.HotelsCollection.prototype.getMaxPrice = function(){
     });
 
     return max;
-}
+};
+
+inna.Models.Hotels.HotelsCollection.prototype.getVisibilityInfo = function(){
+    var o = {}
+    o.total = this.list.length
+    o.visible = o.total;
+
+    this.each(function(hotel){
+        if(hotel.hidden) o.visible--;
+    });
+
+    return o;
+};
 
 inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;

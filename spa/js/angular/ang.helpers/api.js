@@ -78,8 +78,6 @@ angular.module('innaApp.API', [])
 
                     $scope[key] = $scope.$eval(val);
                 });
-
-                console.log('inaWith:', $scope);
             }
         }
     });

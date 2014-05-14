@@ -1,11 +1,13 @@
-innaAppDirectives.directive('datePickerWidget', [function(){
+innaAppDirectives.directive('datePickerWidget', ['eventsHelper', function (eventsHelper) {
     return {
         replace: true,
         templateUrl: '/spa/templates/components/date_picker_widget.html',
         scope: {
             date1: '=',
             date2: '=',
-            minDate: '='
+            minDate: '=',
+            addButtons: '=',
+            data: '='
         },
         controller: ['$scope', function($scope){
             /*Properties*/
@@ -32,6 +34,13 @@ innaAppDirectives.directive('datePickerWidget', [function(){
                 var bits = date.split('.');
                 return [bits[0], bits[1]].join('.');
             };
+
+            $scope.headClicked = false;
+            $scope.toggle = function ($event) {
+                eventsHelper.preventDefault($event);
+                $scope.headClicked = true;
+                $scope.isOpen = !$scope.isOpen;
+            }
         }],
         link: function(scope, element){
             var defaultDates = [];
@@ -51,25 +60,33 @@ innaAppDirectives.directive('datePickerWidget', [function(){
                 mode: 'range',
                 format: 'd.m.Y',
                 starts: 1,
-                onChange: function(formated, dates){
-                    console.log(formated);
-
-                    scope.$apply(function($scope){
+                onChange: function (formated, dates) {
+                    scope.$apply(function ($scope) {
                         $scope.date1 = formated[0];
                         $scope.date2 = formated[1];
                     });
 
                     try {
                         scope.input.tooltip('destroy');
-                    } catch(e) {}
+                    } catch (e) { }
                 }
             });
 
             $(document).click(function(event){
-                var isInsideComponent = !!$(event.target).closest(element).length;
+                var isInsideComponent = $.contains(element.get(0), event.target);
 
-                scope.$apply(function($scope){
-                    $scope.isOpen = isInsideComponent;
+                //console.log('click', isInsideComponent);
+
+                //scope.$apply(function($scope){
+                //    $scope.isOpen = isInsideComponent;
+                //});
+
+                scope.$apply(function ($scope) {
+                    if (isInsideComponent && $scope.headClicked) {
+                        //ничего не делаем, уже кликнули по шапке
+                    } else {
+                        $scope.isOpen = isInsideComponent;
+                    }
                 });
             });
         }
