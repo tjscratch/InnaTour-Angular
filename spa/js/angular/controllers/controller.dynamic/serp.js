@@ -310,21 +310,56 @@ innaAppControllers
     .controller('DynamicPackageSERPRecommendedBundleCtrl', [
         '$scope',
         function($scope){
-            $scope.display = {};
-            $scope.display.FULL = 1;
-            $scope.display.SHORT = 2;
-            $scope.display.current = $scope.display.FULL;
-            $scope.display.toggle = function(){
-                if($scope.display.current == $scope.display.SHORT) {
-                    $scope.display.current = $scope.display.FULL;
+            /*DOM*/
+            var doc = $(document);
+
+            var onScroll = function(){
+                var body = document.body || document.documentElement;
+
+                if(body.scrollTop > 1) {
+                    if($scope.display.isCurrent($scope.display.FULL)) {
+                        $scope.$apply(function($scope){
+                            $scope.display.current = $scope.display.SHORT;
+                        });
+                    }
                 } else {
-                    $scope.display.current = $scope.display.SHORT;
+                    $scope.$apply(function($scope){
+                        $scope.display.current = $scope.display.FULL;
+                    });
                 }
             };
 
-            $scope.display.help = false;
-            $scope.display.toggleHelp = function(){
-                $scope.display.help = !$scope.display.help;
-            }
+            var unwatchScroll = function(){
+                doc.off('scroll', onScroll);
+            };
+
+            doc.on('scroll', onScroll);
+
+            /*Properties*/
+            $scope.display = new function(){
+                this.FULL = 1;
+                this.SHORT = 2;
+
+                this.current = this.FULL;
+
+                this.isCurrent = function(display){
+                    return this.current == display;
+                }
+
+                this.toggle = function(){
+                    unwatchScroll();
+
+                    if(this.isCurrent(this.FULL)) this.current = this.SHORT;
+                    else this.current = this.FULL;
+                }
+
+                this.help = false;
+                this.toggleHelp = function(){
+                    this.help = !this.help;
+                }
+            };
+
+            /*Events*/
+            $scope.$on('$destroy', unwatchScroll);
         }
     ]);

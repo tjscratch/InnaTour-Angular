@@ -37,6 +37,64 @@ innaAppControllers.
                 return len;
             }
 
+            $scope.getNumSeatsText = function (countLeft) {
+                countLeft = parseInt(countLeft);
+                var ticketsCount = $scope.ticketsCount;
+
+                switch (ticketsCount){
+                    case 1:
+                        {
+                            if (countLeft == 1){
+                                return 'Остался последний билет';
+                            }
+                            else if (countLeft <= 3){
+                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                            }
+                            break;
+                        }
+                    case 2:
+                        {
+                            if (countLeft <= 3) {
+                                return 'Остались последние билеты';
+                            }
+                            else if (countLeft <= 6) {
+                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                            }
+                            break;
+                        }
+                    case 3:
+                        {
+                            if (countLeft <= 5) {
+                                return 'Остались последние билеты';
+                            }
+                            else if (countLeft <= 9) {
+                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                            }
+                            break;
+                        }
+                    case 4:
+                        {
+                            if (countLeft <= 7) {
+                                return 'Остались последние билеты';
+                            }
+                            else if (countLeft <= 9) {
+                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                            }
+                            break;
+                        }
+                    case 5:
+                    case 6:
+                        {
+                            if (countLeft <= 9) {
+                                return 'Остались последние билеты';
+                            }
+                            break;
+                        }
+                }
+
+                return '';
+            }
+
             var urlDataLoaded = { fromLoaded: false, toLoaded: false };
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {
@@ -62,6 +120,15 @@ innaAppControllers.
             //обрабатываем параметры из url'а
             var routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
+
+            function getTicketsCount() {
+                var infWithPlaces = parseInt($scope.criteria.InfantsCount) - parseInt($scope.criteria.AdultCount);
+                if (infWithPlaces < 0) {
+                    infWithPlaces = 0;
+                }
+                return parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + infWithPlaces;
+            }
+            $scope.ticketsCount = getTicketsCount();
 
             //инициализация
             initValues();
@@ -647,11 +714,11 @@ innaAppControllers.
                 //список выбранных значений
                 var transferCountCheckedList = _.filter($scope.filter.TransferCountListAgg, function (item) { return item.checked == true });
                 //туда, флаг, что хоть что-то выбрано
-                var anyTransferCountChecked = (transferCountCheckedList != null && transferCountCheckedList.length > 0);
+                //var anyTransferCountChecked = (transferCountCheckedList != null && transferCountCheckedList.length > 0);
                 var noTransfersCountChecked = _.all($scope.filter.TransferCountListAgg, function (item) { return item.checked == false });
 
                 //выбрана хотя бы одна компания
-                var anyTransporterChecked = _.any($scope.filter.TransporterList, function (item) { return item.checked == true });
+                //var anyTransporterChecked = _.any($scope.filter.TransporterList, function (item) { return item.checked == true });
                 var noTransporterChecked = _.all($scope.filter.TransporterList, function (item) { return item.checked == false });
                 //список всех выбранных а/к
                 var transporterListCheckedList = _.filter($scope.filter.TransporterList, function (item) { return item.checked == true });
@@ -701,7 +768,7 @@ innaAppControllers.
                 var noToPortsSelected = !(toPortsFilters != null && toPortsFilters.length > 0);
 
                 //заодно в цикле вычисляем признак самого дешевого билета
-                var minPriceItem = { item: null, price: 1000000000000000000 };
+                var minPriceItem = { item: null, price: Number.MAX_VALUE };
                 if ($scope.ticketsList != null) {
                     for (var i = 0; i < $scope.ticketsList.length; i++) {
                         var item = $scope.ticketsList[i];
@@ -724,9 +791,15 @@ innaAppControllers.
                             itemInTransportTo = _.all(item.EtapsTo, function (etap) {
                                 return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
                             });
-                            itemInTransportBack = _.all(item.EtapsBack, function (etap) {
-                                return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
-                            });
+                            if (item.EtapsBack.length == 0) {
+                                itemInTransportBack = false;
+                            }
+                            else {
+                                itemInTransportBack = _.all(item.EtapsBack, function (etap) {
+                                    return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
+                                });
+                            }
+                            
                         }
                         
                         var itemInTransport = (itemInTransportTo || itemInTransportBack);
@@ -737,9 +810,11 @@ innaAppControllers.
                         //проверяем цену
                         if (item.Price >= $scope.filter.minPrice && item.Price <= $scope.filter.maxPrice
                             //пересадки
-                            && (noTransfersCountChecked || (anyTransferCountChecked && itemInTransferCount))
+                            //&& (noTransfersCountChecked || (anyTransferCountChecked && itemInTransferCount))
+                            && (noTransfersCountChecked || itemInTransferCount)
                             //а/к
-                            && (noTransporterChecked || (anyTransporterChecked && itemInTransport))
+                            //&& (noTransporterChecked || (anyTransporterChecked && itemInTransport))
+                            && (noTransporterChecked || itemInTransport)
                             ////дата отправления / прибытия  туда / обратно
                             //&& (item.sort.DepartureDate >= $scope.filter.minDepartureDate && item.sort.DepartureDate <= $scope.filter.maxDepartureDate)
                             //&& (item.sort.ArrivalDate >= $scope.filter.minArrivalDate && item.sort.ArrivalDate <= $scope.filter.maxArrivalDate)
@@ -772,31 +847,50 @@ innaAppControllers.
                     }
                     $scope.filteredTicketsList = filteredList;
 
-                    $scope.scrollControl.init();
+                    applySort();
                 }
 
                 $scope.isDataLoading = false;
                 $scope.baloon.hide();
             };
 
+            function applySort() {
+                $scope.filteredTicketsList = $filter('orderBy')($scope.filteredTicketsList, $scope.SortFilter.sortType, $scope.SortFilter.reverse);
+                $scope.scrollControl.init();
+            }
+
+            $scope.$watch('SortFilter', function () {
+                applySort();
+            }, true);
+
             function popupItemInfo() {
                 var self = this;
                 self.isShow = false;
                 self.item = null;
 
-                var infWithPlaces = parseInt($scope.criteria.InfantsCount) - parseInt($scope.criteria.AdultCount);
-                if (infWithPlaces < 0){
-                    infWithPlaces = 0;
-                }
-                self.ticketsCount = parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + infWithPlaces;
+                self.ticketsCount = $scope.ticketsCount
 
                 var cabinClass = parseInt($scope.criteria.CabinClass);
                 self.ticketsClass = aviaHelper.getCabinClassName(cabinClass).toLowerCase();
 
                 self.show = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
                     self.isShow = true;
                     self.item = item;
-                    //console.log(item);
+                    console.log(item);
+                }
+
+                self.print = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    alert('Не реализовано');
+                }
+                self.getLink = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    alert('Не реализовано');
+                }
+                self.share = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    alert('Не реализовано');
                 }
             }
 
@@ -843,9 +937,5 @@ innaAppControllers.
                         $scope.scrollControl.loadMore();
                     }
                 });
-
-                $scope.$watch('SortFilter', function () {
-                    $scope.scrollControl.init();
-                }, true);
             }
         }]);
