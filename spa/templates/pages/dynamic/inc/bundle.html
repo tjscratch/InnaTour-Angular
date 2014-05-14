@@ -8,10 +8,7 @@
         <div class="results-list_960" ng-if="display.isCurrent(display.FULL)">
             <div class="result">
                 <div class="result-cell result-cell-390">
-                    <p class="corner-price">
-                        {{ticket.data.Price}} <span class="b-rub">Р</span>
-                        <span class="price-description">по отдельности</span>
-                    </p>
+
                     <span class="rl-airline" ng-repeat="(code, name) in ticket.collectAirlines()">
                         <img ng-src="{{airLogo(code)}}" alt=""><span class="rl-airline-text">{{name}}</span>
                     </span>
@@ -48,18 +45,13 @@
 
                     <div class="bottom-actions">
                         <a href="javascript:void(0);" class="pull-left" ng-class="{active: state.isActive(state.TICKETS_TAB)}" ng-click="state.switchTo(state.TICKETS_TAB)">Заменить</a>
-                        <a href="javascript:void(0);" class="pull-right">Подробнее</a>
+                        <a href="javascript:void(0);" class="pull-right" ng-click="getTicketDetails(ticket)">Подробнее</a>
                     </div>
                 </div><!--
                 --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
                 --><div class="result-cell result-cell-390">
-                <p class="corner-price">
-                    {{combination.Hotel.data.MinimalPrice}} <span class="b-rub">Р</span>
-                    <span class="price-description">по отдельности</span>
-                </p>
-
                 <div class="hotel-info">
-                    <img ng-src="{{combination.Hotel.data.HotelPhoto}}" alt="">
+                    <img ng-src="{{combination.Hotel.data.HotelPhoto70}}" alt="">
                     <div class="hotel-info-content">
                         <div>
                             <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 0"></span>
@@ -69,7 +61,7 @@
                             <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 4"></span>
                         </div>
                         <h3 class="hotel-info-name">{{combination.Hotel.data.HotelName}}</h3>
-                        <!--TODO IN-931 <div class="hotel-info-date">с 7 фев по 16 фев, 8 ночей</div>-->
+                        <div class="hotel-info-date">с {{dateHelper.getDateShort(combination.Hotel.data.CheckIn)}} по {{dateHelper.getDateShort(combination.Hotel.data.CheckOut)}}, {{combination.Hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
                     </div>
                     <div class="hotel-info-tripadvisor" ng-if="combintaion.Hotel.data.TaFactor > 0">
                         <span class="icon icon-tripadvisor"></span>
@@ -145,7 +137,7 @@
                     <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 4"></span>
                     {{combination.Hotel.data.HotelName}}
                 </h3>
-                <!--TODO IN-931 <div class="hotel-info-date">с 19 сен по 28 сен, 8 ночей</div>-->
+                <div class="hotel-info-date">с {{dateHelper.getDateShort(combination.Hotel.data.CheckIn)}} по {{dateHelper.getDateShort(combination.Hotel.data.CheckOut)}}, {{combination.Hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
             </div>
             <div class="result-cell">
                 <p class="corner-price">

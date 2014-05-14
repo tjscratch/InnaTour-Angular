@@ -28,5 +28,8 @@ inna.Models.Hotels.HotelsCollection.prototype.getMaxPrice = function(){
 
 inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;
+
+    this.data.CheckIn = dateHelper.apiDateToJsDate(this.data.CheckIn);
+    this.data.CheckOut = dateHelper.apiDateToJsDate(this.data.CheckOut);
 }
 

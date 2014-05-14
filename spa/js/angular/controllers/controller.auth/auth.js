@@ -50,8 +50,7 @@ angular.module('innaApp.controllers')
                 brokerWindow.focus();
 
                 $('#social-broker-listener').on('inna.Auth.SocialBroker.Result', function(event, data){
-                    console.log('inna.Auth.SocialBroker.Result!');
-                    console.log(data);
+                    AuthDataProvider.recognize(setUserInfo);
                 });
             };
 

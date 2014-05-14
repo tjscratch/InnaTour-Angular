@@ -1,12 +1,14 @@
 (function($) {
     $(function() {
 
-        function header() {
+        (function() {
             var h = $('.header').height();
+            var $body = $('body');
             h = h+25;
-            $('body').css({paddingTop: h+'px'});
-        }
-        header();
+            if (!$body.hasClass('nopadding')) {
+                $body.css({paddingTop: h + 'px'});
+            }
+        })()
 
         // Datepicker
         $.datepicker._updateDatepicker_original = $.datepicker._updateDatepicker;
