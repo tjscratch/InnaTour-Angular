@@ -1,9 +1,11 @@
 <ng:any>
-<div class="search-date-block search__120" title="Введена некорректная дата">
-    <input type="text" value="{{short(date1)}}" class="search-date search-date-arr" placeholder="Туда" disabled="disabled"/>
+<div class="search-date-block search__120" title="Введена некорректная дата" style="position:relative;">
+    <input type="text" value="{{short(date1)}}" class="search-date search-date-arr" placeholder="Туда"/>
+    <div style="position:absolute;top:0;left:0;bottom:0;right:0;"></div>
 </div><!--
---><div class="search-date-block search__120" title="Введена некорректная дата">
-    <input type="text" value="{{short(date2)}}" class="search-date search-date-arr" placeholder="Обратно" disabled="disabled" />
+--><div class="search-date-block search__120" title="Введена некорректная дата" style="position:relative;">
+    <input type="text" value="{{short(date2)}}" class="search-date search-date-arr" placeholder="Обратно"/>
+    <div style="position:absolute;top:0;left:0;bottom:0;right:0;"></div>
 </div><!--
 --><div class="js-datepicker datepicker-body" ng-show="isOpen"></div>
 </ng:any>

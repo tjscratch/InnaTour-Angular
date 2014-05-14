@@ -52,8 +52,6 @@ innaAppDirectives.directive('datePickerWidget', [function(){
                 format: 'd.m.Y',
                 starts: 1,
                 onChange: function(formated, dates){
-                    console.log(formated);
-
                     scope.$apply(function($scope){
                         $scope.date1 = formated[0];
                         $scope.date2 = formated[1];
@@ -66,7 +64,9 @@ innaAppDirectives.directive('datePickerWidget', [function(){
             });
 
             $(document).click(function(event){
-                var isInsideComponent = !!$(event.target).closest(element).length;
+                var isInsideComponent = $.contains(element.get(0), event.target);
+
+                console.log('click', isInsideComponent);
 
                 scope.$apply(function($scope){
                     $scope.isOpen = isInsideComponent;
