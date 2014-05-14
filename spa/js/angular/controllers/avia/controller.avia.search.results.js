@@ -40,6 +40,9 @@ innaAppControllers.
             $scope.getNumSeatsText = function (countLeft) {
                 countLeft = parseInt(countLeft);
                 var ticketsCount = $scope.ticketsCount;
+                function getPluralTickets(count) {
+                    return aviaHelper.pluralForm(count, 'билет', 'билета', 'билетов');
+                }
 
                 switch (ticketsCount){
                     case 1:
@@ -48,7 +51,7 @@ innaAppControllers.
                                 return 'Остался последний билет';
                             }
                             else if (countLeft <= 3){
-                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
                             }
                             break;
                         }
@@ -58,7 +61,7 @@ innaAppControllers.
                                 return 'Остались последние билеты';
                             }
                             else if (countLeft <= 6) {
-                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
                             }
                             break;
                         }
@@ -68,7 +71,7 @@ innaAppControllers.
                                 return 'Остались последние билеты';
                             }
                             else if (countLeft <= 9) {
-                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
                             }
                             break;
                         }
@@ -78,7 +81,7 @@ innaAppControllers.
                                 return 'Остались последние билеты';
                             }
                             else if (countLeft <= 9) {
-                                return 'Последние ' + countLeft + ' ' + aviaHelper.pluralForm(countLeft, 'билет', 'билета', 'билетов');
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
                             }
                             break;
                         }

@@ -34,7 +34,8 @@
 
     var actionUrl = QueryString.getByName('redirect');
     var PaReq = QueryString.getByName('PaReq');
-    var TermUrl = QueryString.getByName('TermUrl');
+    //var TermUrl = QueryString.getByName('TermUrl');
+    var TermUrl = 'http://api.test.inna.ru/api/v1/Psb/PaymentRederect';
     var MD = QueryString.getByName('MD');
     console.log('actionUrl: %s, PaReq: %s, TermUrl: %s, MD: %s', actionUrl, PaReq, TermUrl, MD);
     $("form").attr('action', actionUrl);
