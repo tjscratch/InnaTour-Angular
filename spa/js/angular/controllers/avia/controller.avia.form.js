@@ -43,6 +43,8 @@ innaAppControllers.
                 $scope.criteria = routeCriteria;
                 //по url вытягиваем Id и name для города, региона и т.д.
                 setFromAndToFieldsFromUrl(routeCriteria);
+
+                $scope.datepickerButtons.updateValues();
             });
 
             function validateDates(crit) {
@@ -66,6 +68,27 @@ innaAppControllers.
 
             //значения по-умобчанию
             $scope.criteria = getDefaultCriteria();
+
+            function datepickerButtons() {
+                var self = this;
+                self.isOneWaySelected = $scope.criteria.PathType == 1;
+                self.isRoamingSelected = $scope.criteria.IsToFlexible == 1;
+                self.updateScopeValues = function () {
+                    $scope.criteria.PathType = self.isOneWaySelected ? 1 : 0;
+                    $scope.criteria.IsToFlexible = self.isRoamingSelected ? 1 : 0;
+                    $scope.criteria.IsBackFlexible = $scope.criteria.IsToFlexible;
+                };
+                self.updateValues = function () {
+                    self.isOneWaySelected = $scope.criteria.PathType == 1 ? true : false;
+                    self.isRoamingSelected = $scope.criteria.IsToFlexible == 1 ? true : false;
+                }
+            }
+
+            $scope.datepickerButtons = new datepickerButtons();
+            $scope.$watch('datepickerButtons', function (newVal) {
+                $scope.datepickerButtons.updateScopeValues();
+            }, true);
+
             //заполняем From To
             setFromAndToFieldsFromUrl($scope.criteria);
 
