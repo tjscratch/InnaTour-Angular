@@ -1,11 +1,26 @@
 <ng:any>
-<div class="search-date-block search__120" title="Введена некорректная дата" style="position:relative;">
+<div class="search-date-block search__120" ng-click="toggle($event)" title="Введена некорректная дата" style="position:relative;">
     <input type="text" value="{{short(date1)}}" class="search-date search-date-arr" placeholder="Туда"/>
     <div style="position:absolute;top:0;left:0;bottom:0;right:0;"></div>
 </div><!--
---><div class="search-date-block search__120" title="Введена некорректная дата" style="position:relative;">
+--><div class="search-date-block search__120" ng-click="toggle($event)" title="Введена некорректная дата" style="position:relative;">
     <input type="text" value="{{short(date2)}}" class="search-date search-date-arr" placeholder="Обратно"/>
     <div style="position:absolute;top:0;left:0;bottom:0;right:0;"></div>
 </div><!--
---><div class="js-datepicker datepicker-body" ng-show="isOpen"></div>
+--><div class="js-datepicker datepicker-body" ng-show="isOpen">
+    <div class="dp-head-cont" ng-if="addButtons">
+        <div class="dtpk-head js-dp-head" style="margin: 0; padding: 0px 10px 10px 10px;">
+            <span class="dtpk-caption">Дата вылета</span>
+            <label class="dtpk-checkbox-label">
+                <input type="checkbox" ng-model="data.isRoamingSelected" />
+                <span class="dtpk-checkbox"></span>+/- 5 дней
+            </label>
+            <label class="dtpk-checkbox-label">
+                <input type="checkbox" ng-model="data.isOneWaySelected"  />
+                <span class="dtpk-checkbox"></span>В одну сторону
+            </label>
+        </div>
+    </div>
+   </div>
+
 </ng:any>
