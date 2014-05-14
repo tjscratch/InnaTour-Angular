@@ -22,7 +22,7 @@ angular.module('innaApp.services')
                 socialBrockerURL: function(method){
                     return urls.AUTH_SOCIAL_BROKER +
                         '?provider=' + method +
-                        '&returnUrl=' + encodeURIComponent(document.location.protocol + '//' + document.location.host + '/closer.html');
+                        '&returnUrl=' + encodeURIComponent(document.location.protocol + '//' + document.location.host + '/spa/closer.html');
                 },
                 confirmRegistration: function(token, callbackSuccess, callbackError) {
                     AjaxHelper.postDebaunced(urls.AUTH_SIGN_UP_STEP_2, {token: token}, callbackSuccess, callbackError);
