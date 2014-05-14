@@ -8,10 +8,7 @@
         <div class="results-list_960" ng-if="display.isCurrent(display.FULL)">
             <div class="result">
                 <div class="result-cell result-cell-390">
-                    <p class="corner-price">
-                        {{ticket.data.Price}} <span class="b-rub">Р</span>
-                        <span class="price-description">по отдельности</span>
-                    </p>
+
                     <span class="rl-airline" ng-repeat="(code, name) in ticket.collectAirlines()">
                         <img ng-src="{{airLogo(code)}}" alt=""><span class="rl-airline-text">{{name}}</span>
                     </span>
@@ -48,16 +45,11 @@
 
                     <div class="bottom-actions">
                         <a href="javascript:void(0);" class="pull-left" ng-class="{active: state.isActive(state.TICKETS_TAB)}" ng-click="state.switchTo(state.TICKETS_TAB)">Заменить</a>
-                        <a href="javascript:void(0);" class="pull-right">Подробнее</a>
+                        <a href="javascript:void(0);" class="pull-right" ng-click="getTicketDetails(ticket)">Подробнее</a>
                     </div>
                 </div><!--
                 --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
                 --><div class="result-cell result-cell-390">
-                <p class="corner-price">
-                    {{combination.Hotel.data.MinimalPrice}} <span class="b-rub">Р</span>
-                    <span class="price-description">по отдельности</span>
-                </p>
-
                 <div class="hotel-info">
                     <img ng-src="{{combination.Hotel.data.HotelPhoto70}}" alt="">
                     <div class="hotel-info-content">
