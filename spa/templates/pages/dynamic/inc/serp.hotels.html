@@ -1,4 +1,4 @@
-<div ng-if="!asMap">
+<div class="results-container results-container_top" ng-if="!asMap">
     <div class="results-list results-list_720">
         <div
                 ng-repeat="hotel in hotels.filter(hotelFilters)"
@@ -19,19 +19,19 @@
         </div>
     </div>
 
+    <aside class="results-aside results-aside_mod"><button ng-click="changeHotelsView()">Карта/список</button></aside>
+
     <div inna-dynamic-serp-filter-indicators
          inna-dynamic-serp-filter-indicators-filters="hotelFilters"
          inna-dynamic-serp-filter-indicators-items="hotels"></div>
 </div>
 
-<!--<div><button ng-click="changeHotelsView()">Карта/список</button></div>-->
 
-<!--<div>-->
-    <!--<div dynamic-serp-filter-extra-->
-         <!--hotels="hotels"></div>-->
+<!--<div dynamic-serp-filter-extra-->
+<!--hotels="hotels"></div>-->
 <!--getHotelDetails(hotel)-->
-<!--</div>-->
 
-<div dynamic-serp-map
-     hotels="{{filteredHotels(hotelFilters)}}"
+<div ng-if="hotels.list.length"
+     dynamic-serp-map
+     dynamic-serp-map-hotels="hotels"
      ng-style="asMap ? {} : {position: 'absolute', left: '-9999px'}"></div>
