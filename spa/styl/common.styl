@@ -16,10 +16,36 @@
          url('../fonts/proximanova-bold-webfont.ttf')  format('truetype'),
          url('../fonts/proximanova-bold-webfont.svg#svgFontName') format('svg')
 
+@font-face
+    font-family 'ALSRubl-Arial'
+    font-weight normal
+    font-style normal
+    src: url('../fonts/alsrubl-arial-regular.eot')
+    src: url('../fonts/alsrubl-arial-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/alsrubl-arial-regular.woff') format('woff'),
+         url('../fonts/alsrubl-arial-regular.ttf') format('truetype'),
+         url('../fonts/alsrubl-arial-regular.svg#ALSRublArialRegular') format('svg')
+
+@font-face
+    font-family 'ALSRubl-Arial'
+    font-weight bold
+    font-style normal
+    src: url('../fonts/alsrubl-arial-bold.eot')
+    src: url('../fonts/alsrubl-arial-bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/alsrubl-arial-bold.woff') format('woff'),
+         url('../fonts/alsrubl-arial-bold.ttf') format('truetype'),
+         url('../fonts/alsrubl-arial-bold.svg#ALSRublArialRegular') format('svg')
+
 body
     font-family ProximaNova, Arial, sans-serif
 
 // Common styles
+
+.b-rub
+  font-family 'ALSRubl-Arial', Arial, sans-serif
+  line-height normal
+
+
 .pull-right
     float right
 
@@ -162,6 +188,7 @@ body
     color #fff
 
 // Imports
+@import "header"
 @import "search"
 @import '../lib/datepicker/datepicker.css'
 @import "datepicker"
@@ -170,9 +197,11 @@ body
 @import "balloon"
 @import "reg/registration"
 @import "dp/icons"
+@import "dp/tooltip"
 @import "dp/result"
 @import "dp/hotel-gallery"
 @import "dp/search-result"
 @import "dp/map"
+@import "hotel/hotel"
 @import "listing"
 @import "request"

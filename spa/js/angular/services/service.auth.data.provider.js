@@ -22,7 +22,7 @@ angular.module('innaApp.services')
                 socialBrockerURL: function(method){
                     return urls.AUTH_SOCIAL_BROKER +
                         '?provider=' + method +
-                        '&returnUrl=' + encodeURIComponent(document.location.protocol + '//' + document.location.host + '/closer.html');
+                        '&returnUrl=' + encodeURIComponent(document.location.protocol + '//' + document.location.host + '/spa/closer.html');
                 },
                 confirmRegistration: function(token, callbackSuccess, callbackError) {
                     AjaxHelper.postDebaunced(urls.AUTH_SIGN_UP_STEP_2, {token: token}, callbackSuccess, callbackError);
@@ -30,11 +30,14 @@ angular.module('innaApp.services')
                 logout: function(){
                     AjaxHelper.postDebaunced(urls.AUTH_LOGOUT);
                 },
-                changeInfo: function(data, callback){
-                    AjaxHelper.postDebaunced(urls.AUTH_CHANGE_INFO, data, callback);
+                changeInfo: function(data){
+                    return AjaxHelper.postDebaunced(urls.AUTH_CHANGE_INFO, data);
                 },
                 recognize: function(success){
                     AjaxHelper.postDebaunced(urls.AUTH_RECOGNIZE, {}, success);
+                },
+                changePassword: function(data){
+                    return AjaxHelper.postDebaunced(urls.AUTH_CHANGE_PASSWORD, data);
                 }
             }
         }

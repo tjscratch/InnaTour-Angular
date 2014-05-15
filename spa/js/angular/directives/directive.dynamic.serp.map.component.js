@@ -3,8 +3,14 @@ angular.module('innaApp.directives')
         return {
             templateUrl: '/spa/templates/pages/dynamic/inc/serp.hotels.map.html',
             scope: {
-                hotels: '@'
+                hotels: '=dynamicSerpMapHotels'
             },
+            controller: [
+                '$scope',
+                function($scope) {
+                    $scope.currentHotel = null;
+                }
+            ],
             link: function(scope, elem, attrs){
                 var mapContainer = $('.b-hotels-on-map', elem)[0];
 
@@ -14,43 +20,73 @@ angular.module('innaApp.directives')
                 });
 
                 var markers = [];
-                var infoWindows = [];
 
-                scope.$watch('hotels', function(newVal){
-                    var hotels = scope.$eval(newVal);
+                scope.$watchCollection('hotels', function(hotels){
                     var bounds = new google.maps.LatLngBounds();
 
-                    _.each(markers, function(marker){
-                        marker.setMap(null);
-                    });
-
+                    markers.forEach(function(marker){ marker.setMap(null); });
                     markers = [];
-                    infoWindows = [];
 
-                    _.each(hotels, function(hotel){
-                        if(hotel.Latitude && hotel.Longitude)  {
-                            var pos = new google.maps.LatLng(hotel.Latitude, hotel.Longitude);
-                            var marker = new google.maps.Marker({
-                                position: pos,
-                                title: hotel.HotelName
-                            });
-                            var infoWindow = new google.maps.InfoWindow({
-                                content: '<h1 style="color:red;font-style:italic;">' + hotel.HotelName + '</h1>'
+                    hotels.each(function(hotel){
+                        if(hotel.hidden) return;
+
+                        if(!hotel.data.Latitude || !hotel.data.Longitude) return;
+
+                        var pos = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Longitude);
+                        var marker = new google.maps.Marker({
+                            position: pos,
+                            title: hotel.data.HotelName
+                        });
+
+                        marker.$inna__hotel = hotel;
+
+                        google.maps.event.addListener(marker, 'click', function() {
+                            var marker = this;
+
+                            scope.$apply(function($scope){
+                                $scope.currentHotel = marker.$inna__hotel;
                             });
 
-                            google.maps.event.addListener(marker, 'click', function() {
-                                _.each(infoWindows, function(iW){ iW.close(); });
-                                infoWindow.open(map, marker);
-                            });
+                            var pos = this.getPosition();
+                            var proj = this.getMap().getProjection();
+                            var point = proj.fromLatLngToPoint(pos);
 
-                            bounds.extend(pos);
-                            markers.push(marker);
-                            infoWindows.push(infoWindow);
-                        }
+                            $('.pin', elem).css({
+                                top: parseInt(point.x),
+                                left: parseInt(point.y)
+                            });
+                        });
+
+                        bounds.extend(pos);
+
+                        markers.push(marker);
                     });
 
-                    new MarkerClusterer(map, markers, {gridSize: 20});
-
+                    new MarkerClusterer(map, markers, {
+                        gridSize: 20 /*,
+                        styles: [{
+                            url: '../images/people35.png',
+                            height: 35,
+                            width: 35,
+                            anchor: [16, 0],
+                            textColor: '#ff00ff',
+                            textSize: 10
+                        }, {
+                            url: '../images/people45.png',
+                            height: 45,
+                            width: 45,
+                            anchor: [24, 0],
+                            textColor: '#ff0000',
+                            textSize: 11
+                        }, {
+                            url: '../images/people55.png',
+                            height: 55,
+                            width: 55,
+                            anchor: [32, 0],
+                            textColor: '#ffffff',
+                            textSize: 12
+                        }]*/
+                    });
                     map.fitBounds(bounds);
                 });
             }

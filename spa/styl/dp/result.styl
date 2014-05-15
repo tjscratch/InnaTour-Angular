@@ -7,6 +7,35 @@
   overflow hidden
   position: relative
 
+
+  .warning
+    color #dd3e14
+
+  .icon-plane-grey, .icon-clip, .icon-hanger-grey
+    position absolute
+    top 7px
+    right 5px
+
+  .tooltip-price
+    color #4d4d4d
+    font-size 14px
+    width 140px
+
+    .list-price-item
+      &:before
+        content '•'
+        color #4d4d4d
+
+    .list-price
+      font-weight bold
+
+      &.green
+        color #89c13a
+
+    .list-price-total
+      border-top 1px solid #c0c0c2
+      text-align right
+
   .result-cell
     background #fff
     box-sizing border-box
@@ -19,6 +48,7 @@
 
     &:first-child
       margin-left 0
+
 
   .result-cell-gap
     display table-cell
@@ -42,7 +72,7 @@
       bottom 0
 
   .result-cell-gap-wrap
-    background #000
+    background #cfcfcf
     border 1px solid #fff
     border-width 0 5px 0 4px
     bottom 6px
@@ -68,16 +98,7 @@
       width: 100%;
 
   .corner-price
-    float right
-    margin-right 10px
-
-  .price-description
-    color #acafb1
-    display block
-    font-size 12px
-    position absolute
-    white-space nowrap
-
+    margin 4px 0 0
 
   .result-hotel-gallery
     overflow hidden
@@ -85,43 +106,83 @@
     position relative
     width 200px
 
+
+  .price-description
+    color #4d4d4d
+    display block
+    font-size 12px
+    line-height 8px
+    position absolute
+    white-space nowrap
+
+  .price
+    position relative
+    width 100%
+
+  .result-buy, .result-choice
+    width 176px
+
   .result-buy
-    width 180px
 
-    .corner-price
-      float none
-      margin-right 0
-
-    .icon-clip
+    .icon-clip, .icon-crown
       position: absolute
       right 11px
       top 9px
 
     .price
       color #000
-      font-size 30px
+      font-size 24px
       font-weight bold
-      margin 38px 0 0
+      margin 40px 0 0
 
+    .corner-price
       .price-description
-        font-weight normal
+        color #acafb1
 
-    .button
-      background #89c13a
-      border-radius(2px)
-      color #fff
-      font-family ProximaNova
+    .price-description
+      color #4d4d4d
+
+  .button
+    background #89c13a
+    border-radius(2px)
+    color #fff
+    font-family ProximaNova
+    font-size 18px
+    font-weight bold
+    height 30px
+    position: absolute;
+    bottom 10px
+    width 160px
+    left 4px
+
+  .result-choice
+
+    .price
+      color #878787
       font-size 18px
+      margin 20px 0 0
+
+
+    .price-description
+      font-size 12px
+
+    .corner-price
+      font-size 24px
       font-weight bold
-      height 30px
-      position: absolute;
-      bottom 10px
-      width 164px
-      left 5px
-      
-      
+      color #000
+
+
+
+  .icon-price-info
+    cursor pointer
+    position: absolute
+    right 0
+    top 7px
+
+
   .bottom-actions
     bottom 10px
+    font-size 14px
     left 10px
     line-height 26px
     position: absolute
@@ -129,22 +190,20 @@
 
     a
       color #1e88c1
-      font-size 14px
+
 
       &.active
         color #c0c0c2
 
-      &.warning
-        color #dd3e14
-
   .flight-info
-    margin 20px 0 22px
+    margin 16px 0 16px
 
     .date
       color #4d4d4d
       display inline-block
       font-size 12px
       font-weight normal
+      line-height 16px
 
     b
       color #000
@@ -158,7 +217,7 @@
       font-size 12px
       position: relative
       line-height 18px
-      margin 0 35px 0 40px
+      margin 0 10% 0
       text-align center
       width 125px
 
@@ -185,7 +244,7 @@
 
 
   .hotel-info
-    margin 24px 0 35px
+    margin 21px 0 35px
 
     img
       margin-right 10px
@@ -194,31 +253,60 @@
   .hotel-info-content
     display inline-block
     vertical-align top
-    width 75%
+
+    .star-container
+      line-height 0
+      margin 2px 0 0
 
   .hotel-info-name
-    font-size 18px
-    font-weight normal
+    font-size 17px
+    margin 6px 0 0
+    line-height 17px
 
   .hotel-info-date
     color #575757
     font-size 14px
+    line-height 16px
+
+  .hotel-info-place
+    color #575757
+    text-decoration none
+
+    &:hover
+      text-decoration underline
+
+    &:before
+      content ''
+      display inline-block
+      background url(../img/hotel-pin-small.png)
+      height 18px
+      margin-right 2px
+      position relative
+      top 4px
+      width 13px
 
   .hotel-info-tripadvisor
-    color #878787
-    line-height 15px
-    margin-top: 6px
-    vertical-align top
+    font-size 12px
+
+
+.hotel-info-tripadvisor
+  color #878787
+  line-height 15px
+  margin-top: 3px
+  vertical-align top
 
 
 .result-cell-390
   width 390px
 
+  .hotel-info-content
+    width 75%
+
 .result-cell-530
-  width 530px
+  width 534px
 
 .result-cell-330
-  width 330px
+  width 334px
 
 .result-small
   .result-cell
@@ -257,3 +345,13 @@
     position: absolute;
     right 0
     top 6px
+
+.result-cell-530
+  .flight-info
+    b
+      display inline
+    .date
+      font-size 14px
+
+  .bottom-actions
+    bottom 0

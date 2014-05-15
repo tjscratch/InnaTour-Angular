@@ -1,49 +1,37 @@
-<div class="filters__body">
-    <div class="js-filter-scroll">
-        <ul class="filters__container">
-            <li dynamic-serp-filter-category
-                dynamic-serp-filter-category-hotels="hotels"
-                dynamic-serp-filter-category-filters="hotelFilters"></li>
-            <li dynamic-serp-filter-price
-                dynamic-serp-filter-price-hotels="hotels"
-                dynamic-serp-filter-price-filters="hotelFilters"></li>
-        </ul>
+<div class="results-container results-container_top" ng-if="!asMap">
+    <div class="results-list results-list_720">
+        <div
+                ng-repeat="hotel in hotels.filter(hotelFilters)"
+                ng-if="!hotel.hidden"
+                inna-hotel
+                inna-hotel-hotel="hotel">
+
+            <span class="icon icon-clip"></span>
+            <p class="corner-price cross">
+                {{hotel.data.MinimalPrice}} Р
+                <span class="price-description">по отдельности</span>
+            </p>
+            <p class="price">
+                {{hotel.data.MinimalPackagePrice}} Р
+                <span class="price-description">по отдельности</span>
+            </p>
+            <button class="button" ng-click="setHotel(hotel)" ng-hide="combination.Hotel.data.HotelId == hotel.data.HotelId">Выбрать</button>
+        </div>
     </div>
+
+    <aside class="results-aside results-aside_mod"><button ng-click="changeHotelsView()">Карта/список</button></aside>
+
+    <div inna-dynamic-serp-filter-indicators
+         inna-dynamic-serp-filter-indicators-filters="hotelFilters"
+         inna-dynamic-serp-filter-indicators-items="hotels"></div>
 </div>
 
 
+<!--<div dynamic-serp-filter-extra-->
+<!--hotels="hotels"></div>-->
+<!--getHotelDetails(hotel)-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1>Hotels</h1>
-
-<div><button ng-click="changeHotelsView()">Карта/список</button></div>
-
-<!--<div>-->
-    <!--<div dynamic-serp-filter-extra-->
-         <!--hotels="hotels"></div>-->
-<!--</div>-->
-
-
-<ul ng-show="!asMap">
-    <li ng-repeat="hotel in hotels.filter(hotelFilters)" ng-if="!hotel.hidden" style="border:1px solid red;color:#fff;font-size:10px;">
-        {{hotel | json}}
-        <button ng-click="getHotelDetails(hotel)">details</button>
-        <button ng-click="setHotel(hotel)" ng-hide="combination.Hotel.HotelId == hotel.HotelId">set current</button>
-    </li>
-</ul>
-
-<div dynamic-serp-map
-     hotels="{{filteredHotels(hotelFilters)}}"
+<div ng-if="hotels.list.length"
+     dynamic-serp-map
+     dynamic-serp-map-hotels="hotels"
      ng-style="asMap ? {} : {position: 'absolute', left: '-9999px'}"></div>

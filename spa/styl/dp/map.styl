@@ -2,44 +2,42 @@
   height 700px
   position relative
 
+  .pin-circle
+    background url(../img/map/pin-circle.png)
+    color #fff
+    cursor pointer
+    font-size 14px
+    height 62px
+    line-height 80px
+    position absolute
+    text-align center
+    width 62px
+    margin -31px 0 0 -31px
+
   .pin
     position absolute
 
-    .pin-circle
-      border 2px solid #fff
-      border-radius(50%)
-      background #4d4d4d
-      color #fff
+    .pin-point
+      background url(../img/map/pin-grey.png)
       cursor pointer
-      font-size 14px
-      height 58px
-      left -31px
-      line-height 80px
+      height 50px
+      left -16px
       position absolute
-      text-align center
-      top -31px
-      width 58px
+      top -43px
+      width 56px
 
       &:before
         background url(../img/map/pin-hanger.png)
         content ''
         display block
         height 17px
-        left 25px
+        left 12px
         position absolute
-        top 11px
+        top 8px
         width 10px
 
-    .pin-point
-      background url(../img/map/pin-grey.png)
-      cursor pointer
-      height 49px
-      left -17px
-      position absolute
-      top -44px
-      width 56px
-
     &:hover
+      z-index: 2
       .pin-point
         background url(../img/map/pin-black.png)
 
@@ -90,9 +88,58 @@
         width 24px
         z-index: 1
 
+      .hotel-gallery
+        border-radius(5px 5px 0 0)
+        overflow hidden
+        position relative
+
+        img
+          position: static
+
       .hotel-gallery-container
         height 240px
+
+      .hotel-gallery-photo-button
+        background url(../img/map/photo.png) 13px 5px no-repeat #89c13a
+        border-radius(2px)
+        bottom 5px
+        color #fff
+        display inline-block
+        font-size 18px
+        line-height 30px
+        padding 0 13px 0 38px
+        position absolute
+        left 4px
+        text-decoration none
 
       .hotel-name
         font-size 18px
 
+      .hotel-info-tripadvisor
+        font-size 12px
+        line-height 18px
+        margin 40px 0 2px
+
+      .details-link
+        color #1e88c1
+        display inline-block
+        font-size 14px
+        margin-top 8px
+
+
+      .hotel-info-price-container
+        color #878787
+        font-size 12px
+        margin 20px 0 12px
+
+      .hotel-info-price
+        color #000
+        font-size 24px
+
+      .button
+        font-size 18px
+        height 31px
+        width 120px
+
+    .pin-balloon-info
+      padding 13px

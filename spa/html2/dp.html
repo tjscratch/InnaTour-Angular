@@ -18,12 +18,13 @@
     <!--[if lt IE 10]>
         <script src="../js/ie.placeholder.js"></script>
     <![endif]-->
-    <script src="../js/search_form.js"></script>
-    <script src="../js/results.js"></script>
+    <!--<script src="../js/search_form.js"></script>-->
+    <!--<script src="../js/results.js"></script>-->
     <script src="../js/aside.js"></script>
+    <script src="../js/recomend-bundle.js"></script>
 </head>
 
-<body>
+<body class="nopadding">
     <div class="header Header">
         <div class="header-info">
             <div class="header-info-container">
@@ -246,543 +247,234 @@
             <!-- /Search Form -->
 
         </div>
-
-        <div class="recommend-bundle" style="background-image: url(/spa/img/dp-background.jpg)">
+    </div>
+    <div class="recommend-bundle-container">
+        <div class="recommend-bundle">
+            <div class="recommend-bundle-background" style="background-image: url(/spa/img/dp-background.jpg);"></div>
             <div class="recommend-bundle-wrap">
-                <h3 class="recommend-bundle-title">Выбранный пакет</h3>
-                <a href="" class="expand-collapse-link"><span class="icon-collapse"></span> Свернуть</a>
+                <h3 class="recommend-bundle-title">Выбранный пакет <span class="icon icon-crown"></span></h3>
+                <a href="" class="expand-collapse-link"><span class="icon-expand"></span> Свернуть</a>
                 <div class="results-list_960">
                     <div class="result">
                         <div class="result-cell result-cell-390">
-                            <p class="corner-price">
-                                76&nbsp;058 Р
-                                <span class="price-description">по отдельности</span>
-                            </p>
                             <img src="/spa/img/expedia.png" alt="" class="logo" />
 
                             <div class="flight-info">
-                                <span class="date">
-                                    <b>20:00 LED</b>
-                                    6 фев, пт
-                                </span>
+                                    <span class="date">
+                                        <b>20:00 LED</b>
+                                        6 фев, пт
+                                    </span>
                                 <p class="arrow">
                                     в пути: 23ч 10 мин<br/>
                                     2 пересадки
                                 </p>
-                                <span class="date">
-                                    <b>23:20 PAR</b>
-                                    7 фев, сб
-                                </span>
+                                    <span class="date">
+                                        <b>23:20 PAR</b>
+                                        7 фев, сб
+                                    </span>
                             </div>
 
                             <div class="flight-info">
-                                <span class="date">
-                                    <b>20:00 LED</b>
-                                    6 фев, пт
-                                </span>
+                                    <span class="date">
+                                        <b>20:00 LED</b>
+                                        6 фев, пт
+                                    </span>
                                 <p class="arrow">
                                     в пути: 23ч 10 мин<br/>
                                     2 пересадки
                                 </p>
-                                <span class="date">
-                                    <b>23:20 PAR</b>
-                                    7 фев, сб
-                                </span>
+                                    <span class="date">
+                                        <b>23:20 PAR</b>
+                                        7 фев, сб
+                                    </span>
                             </div>
+
+                            <span class="icon icon-plane-grey"></span>
 
                             <div class="bottom-actions">
                                 <a href="" class="pull-left">Заменить</a>
                                 <a href="" class="pull-right">Подробнее</a>
                             </div>
                         </div><!--
-                        --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
-                        --><div class="result-cell result-cell-390">
-                            <p class="corner-price">
-                                76&nbsp;058 Р
-                                <span class="price-description">по отдельности</span>
-                            </p>
-                            <img src="/spa/img/expedia.png" alt="" class="logo" />
+                            --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
+                            --><div class="result-cell result-cell-390">
+                        <img src="/spa/img/expedia.png" alt="" class="logo" />
 
-                            <div class="hotel-info">
-                                <img src="/spa/img/hotel.png" alt=""/><!--
-                                --><div class="hotel-info-content">
-                                    <div>
-                                        <span class="icon icon-star"></span>
-                                        <span class="icon icon-star"></span>
-                                        <span class="icon icon-star"></span>
-                                        <span class="icon icon-star"></span>
-                                    </div>
-                                    <h3 class="hotel-info-name">Mercure Luna Sharm El Sheikh vherhgek</h3>
-                                    <div class="hotel-info-date">с 7 фев по 16 фев, 8 ночей</div>
-                                </div>
-                                <div class="hotel-info-tripadvisor">
-                                    <span class="icon icon-tripadvisor"></span>
-                                    <span class="icon icon-tripadvisor-like"></span>
-                                    <span class="icon icon-tripadvisor-like"></span>
-                                    <span class="icon icon-tripadvisor-like"></span>
-                                    <span class="icon icon-tripadvisor-like"></span>
-                                    <span class="icon icon-tripadvisor-like"></span>
-                                    1412 отзывов
-                                </div>
+                        <div class="hotel-info">
+                            <img src="/spa/img/hotel.png" alt=""/><!--
+                                    --><div class="hotel-info-content">
+                            <div class="star-container">
+                                <span class="icon icon-star"></span>
+                                <span class="icon icon-star"></span>
+                                <span class="icon icon-star"></span>
+                                <span class="icon icon-star"></span>
                             </div>
-
-                            <div class="bottom-actions">
-                                <a href="" class="active pull-left">Заменить</a>
-                                <a href="" class="pull-right">Подробнее</a>
-                            </div>
-                        </div><!--
-                        --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
-                        --><div class="result-cell result-buy">
-                            <span class="icon icon-clip"></span>
-                            <p class="corner-price cross">
-                                76&nbsp;058 Р
-                                <span class="price-description">по отдельности</span>
-                            </p>
-                            <p class="price">
-                                62&nbsp;800 Р
-                                <span class="price-description">по отдельности</span>
-                            </p>
-                            <button class="button">Купить</button>
+                            <h3 class="hotel-info-name">Mercure Luna Sharm El Sheikh vherhgek</h3>
+                            <div class="hotel-info-date">с 7 фев по 16 фев, 8 ночей</div>
                         </div>
+                            <div class="hotel-info-tripadvisor">
+                                <span class="icon icon-tripadvisor"></span>
+                                <span class="icon icon-tripadvisor-like"></span>
+                                <span class="icon icon-tripadvisor-like"></span>
+                                <span class="icon icon-tripadvisor-like"></span>
+                                <span class="icon icon-tripadvisor-like"></span>
+                                <span class="icon icon-tripadvisor-like"></span>
+                                1412 отзывов
+                            </div>
+                        </div>
+
+                        <span class="icon icon-hanger-grey"></span>
+
+                        <div class="bottom-actions">
+                            <a href="" class="active pull-left">Заменить</a>
+                            <a href="" class="pull-right">Подробнее</a>
+                        </div>
+                    </div><!--
+                    --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
+                    --><div class="result-cell result-buy">
+                        <span class="icon icon-clip"></span>
+                        <p class="corner-price cross">
+                            76&nbsp;058 <span class="b-rub">Р</span>
+                            <span class="price-description">по отдельности</span>
+                        </p>
+                        <p class="price">
+                            62&nbsp;800 <span class="b-rub">Р</span>
+                            <span class="icon icon-price-info"></span>
+                        <div class="tooltip tooltip-price" style="display: none">
+                            По отдельности
+                            <ul>
+                                <li class="list-price-item">Перелет <span class="list-price pull-right">36&nbsp;050<span class="b-rub">Р</span></span></li>
+                                <li class="list-price-item">Отель <span class="list-price pull-right">40&nbsp;008<span class="b-rub">Р</span></span></li>
+                            </ul>
+                            <div class="list-price list-price-total">76&nbsp;058<span class="b-rub">Р</span></div>
+                            <ul>
+                                <li>В пакете: <span class="list-price green pull-right">36&nbsp;050<span class="b-rub">Р</span></span></li>
+                                <li>Экономия <span class="list-price green pull-right">36&nbsp;050<span class="b-rub">Р</span></span></li>
+                            </ul>
+
+                        </div>
+                        <span class="price-description">по отдельности</span>
+                        </p>
+                        <button class="button">Купить</button>
                     </div>
-
-
-                    <!--<div class="rl-item">-->
-                        <!--<div class="rl-item-separator"></div>-->
-                        <!--<div class="rl-left">-->
-                            <!--<header class="rl-item-header">-->
-                                <!--<span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>-->
-                                <!--<span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>-->
-                            <!--</header>-->
-                            <!--<div class="rl-content">-->
-                                <!--<div class="rl-fly">-->
-                                    <!--<div class="rlf-flight-info">-->
-                                        <!--<b>20:00</b>, 26 сен, сб<br>-->
-                                        <!--Москва MOW-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="rl-travel-time">в пути: 24 ч 10 мин <br>2 пересадки</div>-->
-                                <!--<div class="rl-fly">-->
-                                    <!--<div class="rlf-flight-info">-->
-                                        <!--<b>20:00</b>, 26 сен, сб<br>-->
-                                        <!--Москва MOW-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="rl-content">-->
-                                <!--<div class="rl-fly">-->
-                                    <!--<div class="rlf-flight-info">-->
-                                        <!--<b>20:00</b>, 26 сен, сб<br>-->
-                                        <!--Москва MOW-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="rl-travel-time">в пути: 24 ч 10 мин <br>2 пересадки</div>-->
-                                <!--<div class="rl-fly">-->
-                                    <!--<div class="rlf-flight-info">-->
-                                        <!--<b>20:00</b>, 26 сен, сб<br>-->
-                                        <!--Москва MOW-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<footer class="rl-footer">-->
-                                <!--<span class="rl-tickets-number">Последние 3 места</span>-->
-                                <!--<a href="#" class="rl-more-info">Подробнее</a>-->
-                            <!--</footer>-->
-                        <!--</div>-->
-                        <!--<div class="rl-aside">-->
-                            <!--<span class="rl-rec">мы рекомендуем</span>-->
-                        <!--<span class="rl-price">-->
-                            <!--<span class="rl-price-item">69 450</span> <span class="rub">Р</span>-->
-                        <!--</span>-->
-                            <!--<a href="#" class="rl-buy-button">Купить</a>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                    </div>
                 </div>
             </div>
-
+        </div>
+        <div class="filters__body">
+            <div class="js-filter-scroll">
+                <ul class="filters__container">
+                    <li>
+                        <a href="#" class="filters__link">Пересадки</a>
+                        <div class="filters__baloon">
+                            <header class="ra-header">
+                                <h4 class="ra-title">Колличество пересадок</h4>
+                                <a class="ra-header-link" href="#">Сбросить</a>
+                            </header>
+                            <div class="ra-content">
+                                <ul class="ra-fly-type-list">
+                                    <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">2+ пересадки</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                </ul>
+                            </div>
+                            <div class="ra-separator"></div>
+                            <header class="ra-header">
+                                <h4 class="ra-title">Пункты пересадок</h4>
+                            </header>
+                            <div class="ra-content">
+                                <div class="ra-fly-type-list-container">
+                                    <ul class="ra-fly-type-list">
+                                        <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                        <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="filters__link">Цена</a>
+                        <div class="filters__baloon filters__baloon_240">
+                            <div class="filter__range-container">
+                                <span class="filter__range">до <input type="text" value="126 162" class="js-range-val"> <span class="rub">Р</span></span>
+                                <a href="#" class="ra-header-link">Сбросить</a>
+                            </div>
+                            <div class="js-range filter__range-trackbar"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="filters__link filters__link_selected">Время</a>
+                        <div class="filters__baloon filters__baloon_240">
+                            <header class="ra-header">
+                                <h4 class="ra-title">Перелет туда</h4>
+                                <a class="ra-header-link" href="#">Сбросить</a>
+                            </header>
+                            <ul class="filters__baloon-radio">
+                                <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Вылет</span></label></li>
+                                <li><label><input type="radio" name="fly-side2"><span class="ra-radio">Прилет</span></label></li>
+                            </ul>
+                            <div class="filters__baloon-days">
+                                <ul class="ra-fly-type-list">
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
+                                </ul>
+                                <ul class="ra-fly-type-list">
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
+                                </ul>
+                            </div>
+                            <div class="ra-separator"></div>
+                            <header class="ra-header">
+                                <h4 class="ra-title">Перелет обратно</h4>
+                                <a class="ra-header-link" href="#">Сбросить</a>
+                            </header>
+                            <ul class="filters__baloon-radio">
+                                <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Вылет</span></label></li>
+                                <li><label><input type="radio" name="fly-side1"><span class="ra-radio">Прилет</span></label></li>
+                            </ul>
+                            <div class="filters__baloon-days">
+                                <ul class="ra-fly-type-list">
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>
+                                </ul>
+                                <ul class="ra-fly-type-list">
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>
+                                    <li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="filters__link filters__link_selected">Авиакомпания</a>
+                    </li>
+                    <li>
+                        <a href="#" class="filters__link">Аэропорт</a>
+                    </li>
+                    <li class="filters__sort">
+                        <a href="#" class="filters__link">Сортировать по времени прилета</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+
 
     <!-- Search Results -->
     <div class="results-body">
         <div class="results-container">
-            <!-- Results List -->
-
-            <div class="result">
-                <div class="result-cell result-cell-530">
-                    <p class="corner-price">
-                        76&nbsp;058 Р
-                        <span class="price-description">по отдельности</span>
-                    </p>
-                    <img src="/spa/img/expedia.png" alt="" class="logo" />
-
-                    <div class="flight-info">
-                                <span class="date">
-                                    <b>20:00 LED</b>
-                                    6 фев, пт
-                                </span>
-                        <p class="arrow">
-                            в пути: 23ч 10 мин<br/>
-                            2 пересадки
-                        </p>
-                                <span class="date">
-                                    <b>23:20 PAR</b>
-                                    7 фев, сб
-                                </span>
-                    </div>
-
-                    <div class="flight-info">
-                                <span class="date">
-                                    <b>20:00 LED</b>
-                                    6 фев, пт
-                                </span>
-                        <p class="arrow">
-                            в пути: 23ч 10 мин<br/>
-                            2 пересадки
-                        </p>
-                                <span class="date">
-                                    <b>23:20 PAR</b>
-                                    7 фев, сб
-                                </span>
-                    </div>
-
-                    <div class="bottom-actions">
-                        <a href="" class="pull-left">Заменить</a>
-                        <a href="" class="pull-right">Подробнее</a>
-                    </div>
-                </div><!--
-                        --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
-                        --><div class="result-cell result-buy">
-                <span class="icon icon-clip"></span>
-                <p class="corner-price cross">
-                    76&nbsp;058 Р
-                    <span class="price-description">по отдельности</span>
-                </p>
-                <p class="price">
-                    62&nbsp;800 Р
-                    <span class="price-description">по отдельности</span>
-                </p>
-                <button class="button">Купить</button>
-            </div>
-            </div>
-
-            <div class="results-list results-list_720">
-                <div class="rl-item">
-                    <div class="rl-item-separator"></div>
-                    <div class="rl-left">
-                        <header class="rl-item-header">
-                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
-                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
-                        </header>
-                        <div class="rl-content">
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                            <div class="rl-travel-time">в пути: 24 ч 10 мин <br>2 пересадки</div>
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rl-content">
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                            <div class="rl-travel-time">в пути: 24 ч 10 мин <br>2 пересадки</div>
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                        </div>
-                        <footer class="rl-footer">
-                            <span class="rl-tickets-number">Последние 3 места</span>
-                            <a href="#" class="rl-more-info">Подробнее</a>
-                        </footer>
-                    </div>
-                    <div class="rl-aside">
-                        <span class="rl-rec">мы рекомендуем</span>
-                        <span class="rl-price">
-                            <span class="rl-price-item">69 450</span> <span class="rub">Р</span>
-                        </span>
-                        <a href="#" class="rl-buy-button">Купить</a>
-                    </div>
-                </div>
-            </div>
-            <!-- /Results List -->
-
-            <!-- Results Aside -->
-            <aside class="results-aside results-aside_mod">
-                <div class="ra-best-block">
-                    <div class="ra-best-title">Перелет + Отель ★★★</div>
-                    <div class="ra-best-price">30 200 <span class="rub">P</span></div>
-                    <p class="ra-best-descr">по отдельности: <span class="ra-best-descr-info">110 600 <span class="rub">P</span></span>экономия: 20 000 <span class="rub">P</span></p>
-                    <a href="#" class="ra-best-select">ВЫБРАТЬ</a>
-                </div>
-            </aside>
-            <!-- /Results Aside -->
-        </div>
-
-        <!-- Filters -->
-        <!--<div class="filters__body">-->
-            <!--<div class="js-filter-scroll">-->
-                <!--<ul class="filters__container">-->
-                    <!--<li>-->
-                        <!--<a href="#" class="filters__link">Пересадки</a>-->
-                        <!--<div class="filters__baloon">-->
-                            <!--<header class="ra-header">-->
-                                <!--<h4 class="ra-title">Колличество пересадок</h4>-->
-                                <!--<a class="ra-header-link" href="#">Сбросить</a>-->
-                            <!--</header>-->
-                            <!--<div class="ra-content">-->
-                                <!--<ul class="ra-fly-type-list">-->
-                                    <!--<li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Без пересадок</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                    <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">1 пересадка</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                    <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">2+ пересадки</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                <!--</ul>-->
-                            <!--</div>-->
-                            <!--<div class="ra-separator"></div>-->
-                            <!--<header class="ra-header">-->
-                                <!--<h4 class="ra-title">Пункты пересадок</h4>-->
-                            <!--</header>-->
-                            <!--<div class="ra-content">-->
-                                <!--<div class="ra-fly-type-list-container">-->
-                                    <!--<ul class="ra-fly-type-list">-->
-                                        <!--<li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" checked="" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">250&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Казань</span><span class="ra-fly-price">25&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                        <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Москва</span><span class="ra-fly-price">150&nbsp;216&nbsp;<span class="rub">Р</span></span></label></li>-->
-                                    <!--</ul>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#" class="filters__link">Цена</a>-->
-                        <!--<div class="filters__baloon filters__baloon_240">-->
-                            <!--<div class="filter__range-container">-->
-                                <!--<span class="filter__range">до <input type="text" value="126 162" class="js-range-val"> <span class="rub">Р</span></span>-->
-                                <!--<a href="#" class="ra-header-link">Сбросить</a>-->
-                            <!--</div>-->
-                            <!--<div class="js-range filter__range-trackbar"></div>-->
-                        <!--</div>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#" class="filters__link">Время</a>-->
-                        <!--<div class="filters__baloon filters__baloon_240">-->
-                            <!--<header class="ra-header">-->
-                                <!--<h4 class="ra-title">Перелет туда</h4>-->
-                                <!--<a class="ra-header-link" href="#">Сбросить</a>-->
-                            <!--</header>-->
-                            <!--<ul class="filters__baloon-radio">-->
-                                <!--<li><label><input type="radio" name="fly-side2"><span class="ra-radio">Вылет</span></label></li>-->
-                                <!--<li><label><input type="radio" name="fly-side2"><span class="ra-radio">Прилет</span></label></li>-->
-                            <!--</ul>-->
-                            <!--<div class="filters__baloon-days">-->
-                                <!--<ul class="ra-fly-type-list">-->
-                                    <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>-->
-                                    <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>-->
-                                <!--</ul>-->
-                                <!--<ul class="ra-fly-type-list">-->
-                                    <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>-->
-                                    <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>-->
-                                <!--</ul>-->
-                            <!--</div>-->
-                            <!--<div class="ra-separator"></div>-->
-                            <!--<header class="ra-header">-->
-                                <!--<h4 class="ra-title">Перелет обратно</h4>-->
-                                <!--<a class="ra-header-link" href="#">Сбросить</a>-->
-                            <!--</header>-->
-                            <!--<ul class="filters__baloon-radio">-->
-                                <!--<li><label><input type="radio" name="fly-side1"><span class="ra-radio">Вылет</span></label></li>-->
-                                <!--<li><label><input type="radio" name="fly-side1"><span class="ra-radio">Прилет</span></label></li>-->
-                            <!--</ul>-->
-                            <!--<div class="filters__baloon-days">-->
-                                <!--<ul class="ra-fly-type-list">-->
-                                    <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Утро</span></label></li>-->
-                                    <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">День</span></label></li>-->
-                                <!--</ul>-->
-                                <!--<ul class="ra-fly-type-list">-->
-                                    <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Вечер</span></label></li>-->
-                                    <!--<li><label><input type="checkbox" name="fly"><span class="ra-checkbox"></span><span class="ra-fly-type">Ночь</span></label></li>-->
-                                <!--</ul>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#" class="filters__link">Авиакомпания</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#" class="filters__link">Аэропорт</a>-->
-                    <!--</li>-->
-                    <!--<li class="filters__sort">-->
-                        <!--<a href="#" class="filters__link">Сортировать по времени прилета</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!-- /Filters -->
-
-        <div class="results-container results-container_top">
-            <!-- Results List -->
-            <div class="results-list results-list_720">
-
-                <div class="rl-item">
-                    <div class="rl-item-separator"></div>
-                    <div class="rl-left">
-                        <header class="rl-item-header">
-                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
-                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
-                        </header>
-                        <div class="rl-content">
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                            <div class="rl-travel-time">в пути: 24 ч 10 мин <br>2 пересадки</div>
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rl-content">
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                            <div class="rl-travel-time">в пути: 24 ч 10 мин <br>2 пересадки</div>
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                        </div>
-                        <footer class="rl-footer">
-                            <span class="rl-tickets-number">Последние 3 места</span>
-                            <a href="#" class="rl-more-info">Подробнее</a>
-                        </footer>
-                    </div>
-                    <div class="rl-aside">
-                        <span class="rl-price">
-                            <span class="rl-price-item">69 450</span> <span class="rub">Р</span>
-                        </span>
-                        <a href="#" class="rl-buy-button">Купить</a>
-                    </div>
-                </div>
-                <div class="rl-item">
-                    <div class="rl-item-separator"></div>
-                    <div class="rl-left">
-                        <header class="rl-item-header">
-                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
-                        </header>
-                        <div class="rl-content">
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                            <div class="rl-travel-time">в пути: 24 ч 10 мин <br>2 пересадки</div>
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rl-content">
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                            <div class="rl-travel-time">в пути: 24 ч 10 мин <br>2 пересадки</div>
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                        </div>
-                        <footer class="rl-footer">
-                            <span class="rl-tickets-number">Последние 3 места</span>
-                            <a href="#" class="rl-more-info">Подробнее</a>
-                        </footer>
-                    </div>
-                    <div class="rl-aside">
-                        <span class="rl-price">
-                            <span class="rl-price-item">69 450</span> <span class="rub">Р</span>
-                        </span>
-                        <a href="#" class="rl-buy-button">Купить</a>
-                    </div>
-                </div>
-                <div class="rl-item">
-                    <div class="rl-item-separator"></div>
-                    <div class="rl-left">
-                        <header class="rl-item-header">
-                            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
-                        </header>
-                        <div class="rl-content">
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                            <div class="rl-travel-time">в пути: 24 ч 10 мин <br>2 пересадки</div>
-                            <div class="rl-fly">
-                                <div class="rlf-flight-info">
-                                    <b>20:00</b>, 26 сен, сб<br>
-                                    Москва MOW
-                                </div>
-                            </div>
-                        </div>
-
-                        <footer class="rl-footer">
-                            <span class="rl-tickets-number">Последние 3 места</span>
-                            <a href="#" class="rl-more-info">Подробнее</a>
-                        </footer>
-                    </div>
-                    <div class="rl-aside">
-                        <span class="rl-price rl-price_1way">
-                            <span class="rl-price-item">69 450</span> <span class="rub">Р</span>
-                        </span>
-                        <a href="#" class="rl-buy-button">Купить</a>
-                    </div>
-                </div>
-
-            </div>
-            <!-- /Results List -->
-
-            <!-- Results Aside -->
             <aside class="results-aside results-aside_mod">
 
                 <div class="ra-tags-container">
@@ -797,9 +489,169 @@
                     <a href="#" class="ra-tags-reset">Сбросить все</a>
                 </div>
             </aside>
-            <!-- /Results Aside -->
 
+
+
+            <!-- Results List -->
+
+            <div class="result">
+                <div class="result-cell result-cell-530">
+                    <img src="/spa/img/expedia.png" alt="" class="logo" />
+
+                    <div class="flight-info">
+                        <span class="date">
+                            <b>20:00</b> 26 сен, сб<br/>
+                            Москва MOW
+                        </span>
+                        <p class="arrow">
+                            в пути: 23ч 10 мин<br/>
+                            2 пересадки
+                        </p>
+                        <span class="date">
+                            <b>20:00</b> 26 сен, сб<br/>
+                            Москва MOW
+                        </span>
+                    </div>
+
+                    <div class="flight-info">
+                        <span class="date">
+                            <b>20:00</b> 26 сен, сб<br/>
+                            Москва MOW
+                        </span>
+                        <p class="arrow">
+                            в пути: 23ч 10 мин<br/>
+                            2 пересадки
+                        </p>
+                        <span class="date">
+                            <b>20:00</b> 26 сен, сб<br/>
+                            Москва MOW
+                        </span>
+                    </div>
+
+                    <div class="bottom-actions">
+                        <span class="pull-left warning">Последние 3 места, чартер</span>
+                        <!--<a href="" class="pull-left">Заменить</a>-->
+                        <a href="" class="pull-right">Подробнее</a>
+                    </div>
+                </div><!--
+                --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
+                --><div class="result-cell result-choice">
+                    <p class="corner-price">
+                        + 76&nbsp;058<span class="b-rub">Р</span>
+                    </p>
+                    <p class="price">
+                        62&nbsp;800<span class="b-rub">Р</span><span class="icon icon-price-info"></span>
+                        <span class="price-description">экономия: 7&nbsp;554<span class="b-rub">Р</span></span>
+                    </p>
+                    <button class="button">Выбрать</button>
+                </div>
+            </div>
+
+            <div class="result">
+                <div class="result-cell result-hotel-gallery">
+                    <div class="hotel-gallery-arrow-left"></div>
+                    <div class="hotel-gallery-arrow-right"></div>
+                    <div class="hotel-gallery-container">
+                        <img src="/spa/img/hotel.jpg" alt=""/>
+                    </div>
+                </div>
+                <div class="result-cell result-cell-330">
+                    <img src="/spa/img/expedia.png" alt="" class="logo" />
+
+                    <div class="hotel-info">
+                        <div class="hotel-info-content">
+                            <div>
+                                <span class="icon icon-star"></span>
+                                <span class="icon icon-star"></span>
+                                <span class="icon icon-star"></span>
+                                <span class="icon icon-star"></span>
+                            </div>
+                            <h3 class="hotel-info-name">Belconti Resort</h3>
+                            <a href="" class="hotel-info-place">Белек, Белек-центр</a>
+                            <div class="warning">Последний номер</div>
+                        </div>
+                    </div>
+
+                    <div class="bottom-actions">
+                        <div class="hotel-info-tripadvisor pull-left">
+                            <span class="icon icon-tripadvisor"></span>
+                            <span class="icon icon-tripadvisor-like"></span>
+                            <span class="icon icon-tripadvisor-like"></span>
+                            <span class="icon icon-tripadvisor-like"></span>
+                            <span class="icon icon-tripadvisor-like"></span>
+                            <span class="icon icon-tripadvisor-like"></span>
+                            1412 отзывов
+                        </div>
+                        <a href="" class="pull-right">Подробнее</a>
+                    </div>
+                </div><!--
+                --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
+                --><div class="result-cell result-choice">
+                    <p class="corner-price">
+                        + 76&nbsp;058<span class="b-rub">Р</span>
+                    </p>
+                    <p class="price">
+                        62&nbsp;800<span class="b-rub">Р</span><span class="icon icon-price-info"></span>
+                        <span class="price-description">экономия: 7&nbsp;554<span class="b-rub">Р</span></span>
+                    </p>
+                    <button class="button">Выбрать</button>
+                </div>
+            </div>
+
+            <div class="result">
+                <div class="result-cell result-cell-530">
+                    <img src="/spa/img/expedia.png" alt="" class="logo" />
+
+                    <div class="flight-info">
+                        <span class="date">
+                            <b>20:00</b> 26 сен, сб<br/>
+                            Москва MOW
+                        </span>
+                        <p class="arrow">
+                            в пути: 23ч 10 мин<br/>
+                            2 пересадки
+                        </p>
+                        <span class="date">
+                            <b>20:00</b> 26 сен, сб<br/>
+                            Москва MOW
+                        </span>
+                    </div>
+
+                    <div class="flight-info">
+                        <span class="date">
+                            <b>20:00</b> 26 сен, сб<br/>
+                            Москва MOW
+                        </span>
+                        <p class="arrow">
+                            в пути: 23ч 10 мин<br/>
+                            2 пересадки
+                        </p>
+                        <span class="date">
+                            <b>20:00</b> 26 сен, сб<br/>
+                            Москва MOW
+                        </span>
+                    </div>
+
+                    <div class="bottom-actions">
+                        <span class="pull-left warning">Последние 3 места, чартер</span>
+                        <!--<a href="" class="pull-left">Заменить</a>-->
+                        <a href="" class="pull-right">Подробнее</a>
+                    </div>
+                </div><!--
+                --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
+                --><div class="result-cell result-choice">
+                <p class="corner-price">
+                    + 76&nbsp;058<span class="b-rub">Р</span>
+                </p>
+                <p class="price">
+                    62&nbsp;800<span class="b-rub">Р</span><span class="icon icon-price-info"></span>
+                    <span class="price-description">экономия: 7&nbsp;554<span class="b-rub">Р</span></span>
+                </p>
+                <button class="button">Выбрать</button>
+            </div>
+            </div>
         </div>
+
     </div>
     <!-- Search Results -->
 
