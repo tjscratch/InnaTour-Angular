@@ -23,6 +23,7 @@ app.constant('innaApp.Urls', {
     URL_PROGRAMMS: '/individualtours/',
     URL_ABOUT: '/about/',
     URL_CONTACTS: '/contacts/',
+
     URL_AUTH_RESTORE: '/account/restore-password/',
     URL_AUTH_SIGNUP: '/account/signup/',
 

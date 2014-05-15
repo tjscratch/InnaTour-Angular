@@ -106,30 +106,19 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
             </div>
         </div>
         <div class="header-menu">
-            <ul class="header-menu-container-items"><!--
-                --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
-                --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
-                --><li class="header-menu-item"><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
-                --><li class="header-menu-item"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li><!--
-                --><li class="header-menu-item"><a href="/#/packages/" ng-class="{active:isActive('/packages/')}">Билет + отель</a></li><!--
-                --><!--<li class="header-menu-item"><a href="/#/autorent/" ng-class="{active:isActive('/autorent/')}">Аренда авто</a></li>--><!--
-                --><!--<li class="header-menu-item"><a href="/#/insurance/" ng-class="{active:isActive('/insurance/')}">Страхование</a></li>--><!--
-                --><!--<li class="header-menu-item"><a href="/#/cruise/" ng-class="{active:isActive('/cruise/')}">Круизы</a></li>-->
-                <li class="header-menu-item header-login" ng-controller="AuthCtrl">
-                    <!-- user comes from rootScope -->
-                    <ng:include src="'/spa/templates/auth/form.html'"></ng:include>
-                    <a href="javascript:void(0)" class="header-login-link" ng-click="open()" ng-if="!user"><i class="icon icon-user"></i>Регистрация и вход</a>
-                    <span ng-if="user">
-                        <a href="javascript:void(0);" ng-click="showProfile()" class="header-login-user-link">
-                            <img ng-if="user.raw.userpic" ng-src="{{user.raw.userpic}}" alt="" class="user-pic">
-                            {{user.displayName()}}
-                        </a>
-                        <a href="javascript:void(0);" class="header-logout-link">(AgencyName = {{user.AgencyName}}; MessagesCount = {{+user.MessagesCount}})</a>
-                        <a href="javascript:void(0);" class="header-logout-link" ng-click="logout()">Выйти</a>
-                    </span>
-                </li>
-            </ul>
-        <ng:include src="getHeadForm()"></ng:include>
+            <div class="header__container">
+                <ul class="header__nav">
+                    <li><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
+                    <li><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
+                    <li><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li>
+                    <li><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
+                    <li><a href="/#/packages/" ng-class="{active:isActive('/packages/')}">Билет + отель</a></li>
+                </ul>
+
+                <ng:include src="'/spa/templates/auth/header.html'"></ng:include>
+            </div>
+
+            <ng:include src="getHeadForm()"></ng:include>
         </div>
 	</div>
     <div class="button fixed-request-button" ng-click="popupForm_Show()" ng-show="!isActive('/individualtours/category/')" title="Отправить заявку"></div>

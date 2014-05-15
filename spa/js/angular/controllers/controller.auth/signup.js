@@ -4,9 +4,6 @@ angular.module('innaApp.controllers')
         function($scope, AuthDataProvider, Validators){
             function validate(){
                 Validators.email($scope.email, 'email');
-                //Validators.defined($scope.firstName, 'firstName');
-                //Validators.defined($scope.lastName, 'lastName');
-                //Validators.phone($scope.phone, 'phone');
                 Validators.defined($scope.password, 'password');
                 Validators.minLength($scope.password, 6, 'passwordMinLength')
                 Validators.equals($scope.password, $scope.password2, 'password2');
@@ -15,15 +12,16 @@ angular.module('innaApp.controllers')
             function register(){
                 AuthDataProvider.signUp({
                     Email: $scope.email,
-                    //FirstName: $scope.firstName,
-                    //LastName: $scope.lastName,
-                    //Phone: $scope.phone,
                     Password: $scope.password,
                     ConfirmPassword: $scope.password2
                 }, function (data){ //successfully signed up
-                    $scope.showLanding = true;
+                    $scope.$apply(function($scope){
+                        $scope.showLanding = true;
+                    });
                 }, function (error){ //error has occurred
-                    $scope.requestFailure = true;
+                    $scope.$apply(function($scope){
+                        $scope.requestFailure = true;
+                    });
                 });
             }
 
@@ -34,24 +32,6 @@ angular.module('innaApp.controllers')
                 $scope.errors.email = false;
                 $scope.requestFailure = false;
             });
-
-//            $scope.firstName = '';
-//
-//            $scope.$watch('firstName', function(){
-//                $scope.errors.firstName = false;
-//            })
-//
-//            $scope.lastName = '';
-//
-//            $scope.$watch('lastName', function(){
-//                $scope.errors.lastName = false;
-//            });
-//
-//            $scope.phone = '';
-//
-//            $scope.$watch('phone', function(){
-//                $scope.errors.phone = false;
-//            })
 
             $scope.password = '';
 
@@ -72,8 +52,6 @@ angular.module('innaApp.controllers')
 
             $scope.requestFailure = false;
 
-
-
             /*Methods*/
             $scope.register = function(){
                 try {
@@ -82,10 +60,9 @@ angular.module('innaApp.controllers')
                     //if ok
                     register();
                 } catch(fieldName) {
-                    console.log(fieldName);
                     $scope.errors[fieldName] = true;
                 }
-            }
+            };
 
             $scope.hasError = function(fieldName){
                 var error = 'error';

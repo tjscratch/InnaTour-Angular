@@ -2,16 +2,16 @@
     <h3 class="popup-form-title">Войти</h3>
     <div class="popup-form-row">
         <label for="" class="popup-form-label">Логин</label>
-        <input type="text" class="popup-form-field" ng-model="username" tabindex="1"/>
-        <div class="b-validation-error" ng-show="errors.username">Поле должно быть заполнено</div>
+        <input type="text" class="popup-form-field" ng-class="{'error': errors.username}" ng-model="username" tabindex="1"/>
+        <span class="message" ng-show="errors.username">Поле должно быть заполнено</span>
     </div>
     <div class="popup-form-row">
         <label for="" class="popup-form-label">
             Пароль
             <a href="javascript:void(0);" class="forgot-password" ng-click="forgotten()">Забыли пароль?</a>
         </label>
-        <input type="password" class="popup-form-field" ng-model="password" tabindex="2"/>
-        <div class="b-validation-error" ng-show="errors.password">Поле должно быть заполнено</div>
+        <input type="password" class="popup-form-field"  ng-class="{'error': errors.password}" ng-model="password" tabindex="2"/>
+        <span class="message" ng-show="errors.password">Поле должно быть заполнено</span>
     </div>
     <div class="popup-form-row popup-form-row-submit">
         <div class="remember-me">
@@ -21,7 +21,7 @@
         <button type="submit" class="button" ng-click="signIn()" tabindex="3">Войти</button>
     </div>
     <div ng-show="requestFailure">
-        Неверное имя пользователя или пароль
+        <span class="message">Неверное имя пользователя или пароль</span>
     </div>
     <ng:include src="'/spa/templates/auth/social.inc.html'"></ng:include>
 </form>
