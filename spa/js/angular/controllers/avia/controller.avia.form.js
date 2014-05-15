@@ -72,15 +72,17 @@ innaAppControllers.
             function datepickerButtons() {
                 var self = this;
                 self.isOneWaySelected = $scope.criteria.PathType == 1;
-                self.isRoamingSelected = $scope.criteria.IsToFlexible == 1;
+                self.isToRoamingSelected = $scope.criteria.IsToFlexible == 1;
+                self.isBackRoamingSelected = $scope.criteria.IsBackFlexible == 1;
                 self.updateScopeValues = function () {
                     $scope.criteria.PathType = self.isOneWaySelected ? 1 : 0;
-                    $scope.criteria.IsToFlexible = self.isRoamingSelected ? 1 : 0;
-                    $scope.criteria.IsBackFlexible = $scope.criteria.IsToFlexible;
+                    $scope.criteria.IsToFlexible = self.isToRoamingSelected ? 1 : 0;
+                    $scope.criteria.IsBackFlexible = self.isBackRoamingSelected ? 1 : 0;
                 };
                 self.updateValues = function () {
                     self.isOneWaySelected = $scope.criteria.PathType == 1 ? true : false;
-                    self.isRoamingSelected = $scope.criteria.IsToFlexible == 1 ? true : false;
+                    self.isToRoamingSelected = $scope.criteria.IsToFlexible == 1 ? true : false;
+                    self.isBackRoamingSelected = $scope.criteria.IsBackFlexible == 1 ? true : false;
                 }
             }
 
@@ -94,11 +96,14 @@ innaAppControllers.
 
             function getDefaultCriteria() {
                 //даты по-умолчанию: сегодня и +5 дней
-                var now = dateHelper.getTodayDate();
-                var nowAdd5days = dateHelper.getTodayDate();
-                nowAdd5days = nowAdd5days.setDate(now.getDate() + 5);
-                var f_now = $filter('date')(new Date(), 'dd.MM.yyyy');
-                var f_nowAdd5days = $filter('date')(nowAdd5days, 'dd.MM.yyyy');
+                //var now = dateHelper.getTodayDate();
+                //var nowAdd5days = dateHelper.getTodayDate();
+                //nowAdd5days = nowAdd5days.setDate(now.getDate() + 5);
+                //var f_now = $filter('date')(new Date(), 'dd.MM.yyyy');
+                //var f_nowAdd5days = $filter('date')(nowAdd5days, 'dd.MM.yyyy');
+
+                var f_now = null;
+                var f_nowAdd5days = null;
 
                 var defaultCriteria = getParamsFromCookie();
 
@@ -115,15 +120,15 @@ innaAppControllers.
                 validateDates(defaultCriteria);
 
                 //установка дефолтных дат
-                if (defaultCriteria.BeginDate == null || defaultCriteria.BeginDate.length == 0)
-                {
-                    log('BeginDate, set default date');
-                    defaultCriteria.BeginDate = f_now;
-                }
-                if (defaultCriteria.EndDate == null || defaultCriteria.EndDate.length == 0) {
-                    log('EndDate, set default date');
-                    defaultCriteria.EndDate = f_nowAdd5days;
-                }
+                //if (defaultCriteria.BeginDate == null || defaultCriteria.BeginDate.length == 0)
+                //{
+                //    log('BeginDate, set default date');
+                //    defaultCriteria.BeginDate = f_now;
+                //}
+                //if (defaultCriteria.EndDate == null || defaultCriteria.EndDate.length == 0) {
+                //    log('EndDate, set default date');
+                //    defaultCriteria.EndDate = f_nowAdd5days;
+                //}
 
                 return defaultCriteria;
             };
@@ -281,6 +286,11 @@ innaAppControllers.
                 Validators.defined($scope.criteria.FromId, Error('FromId'));
                 Validators.defined($scope.criteria.ToId, Error('ToId'));
                 Validators.notEqual($scope.criteria.FromId, $scope.criteria.ToId, Error('ToId'));
+
+                Validators.defined($scope.criteria.BeginDate, Error('BeginDate'));
+                if ($scope.criteria.PathType == 0) {//туда обратно
+                    Validators.defined($scope.criteria.EndDate, Error('EndDate'));
+                }
             }
 
             /* From field */

@@ -519,16 +519,36 @@
 										}
 										break;
 									case 'range':
-										if (!options.lastSel) {
-											options.date[0] = (tmp.setHours(0,0,0,0)).valueOf();
-										}
-										val = (tmp.setHours(23,59,59,0)).valueOf();
-										if (val < options.date[0]) {
-											options.date[1] = options.date[0] + 86399000;
-											options.date[0] = val - 86399000;
-										} else {
-											options.date[1] = val;
-										}
+										//if (!options.lastSel) {
+										//	options.date[0] = (tmp.setHours(0,0,0,0)).valueOf();
+										//}
+										//val = (tmp.setHours(23,59,59,0)).valueOf();
+										//if (val < options.date[0]) {
+										//	options.date[1] = options.date[0] + 86399000;
+										//	options.date[0] = val - 86399000;
+										//} else {
+										//	options.date[1] = val;
+									    //}
+
+									    if (!options.lastSel) {
+                                            //ставим дату от
+									        options.date[0] = (tmp.setHours(0, 0, 0, 0)).valueOf();
+									        //если дата до < даты от - сбрасываем ее
+									        if (options.date[1] < options.date[0]) {
+									            options.date[1] = null;
+									        }
+									    }
+									    else {
+									        options.date[1] = (tmp.setHours(0, 0, 0, 0)).valueOf();
+									        //если дата до < даты от
+									        if (options.date[1] < options.date[0]) {
+									            //меняем даты местами
+									            var tValue = options.date[0];
+									            options.date[0] = options.date[1];
+									            options.date[1] = tValue;
+									        }
+									    }
+
 										options.lastSel = !options.lastSel;
 										break;
 									default:
@@ -544,7 +564,7 @@
 						fill(this);
 					}
 					if (changed) {
-						options.onChange.apply(this, prepareDate(options));
+					    options.onChange.apply(this, prepareDate(options));
 					}
 				}
 				return false;
@@ -555,7 +575,9 @@
 					tmp = new Date(options.date);
 					return [formatDate(tmp, options.format), tmp, options.el];
 				} else {
-					tmp = [[],[], options.el];
+				    //!options.lastSel - потому что после клика он инвертируется
+				    //options.lastSel == true - выбрана дата до, false - дата от
+				    tmp = [[], [], options.el, !options.lastSel];
 					$.each(options.date, function(nr, val){
 						var date = new Date(val);
 						tmp[0].push(formatDate(date, options.format));
@@ -809,6 +831,16 @@
 						}
 					}
 				});
+			},
+			setLastSel: function (lastSelValue) {
+			    return this.each(function () {
+			        if ($(this).data('datepickerId')) {
+			            var cal = $('#' + $(this).data('datepickerId'));
+			            var options = cal.data('datepicker');
+			            options.lastSel = lastSelValue;
+			            
+			        }
+			    });
 			}
 		};
 	}();
@@ -819,7 +851,8 @@
 		DatePickerSetDate: DatePicker.setDate,
 		DatePickerGetDate: DatePicker.getDate,
 		DatePickerClear: DatePicker.clear,
-		DatePickerLayout: DatePicker.fixLayout
+		DatePickerLayout: DatePicker.fixLayout,
+		SetLastSel: DatePicker.setLastSel
 	});
 })(jQuery);
 
