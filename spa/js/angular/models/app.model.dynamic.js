@@ -38,6 +38,10 @@ inna.Models.Hotels.HotelsCollection.prototype.getVisibilityInfo = function(){
     return o;
 };
 
+inna.Models.Hotels.HotelsCollection.prototype.sort = function(sortingFn){
+    this.list.sort(sortingFn);
+}
+
 inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;
 
