@@ -35,24 +35,6 @@ angular.module('innaApp.controllers')
                 $scope.requestFailure = false;
             });
 
-//            $scope.firstName = '';
-//
-//            $scope.$watch('firstName', function(){
-//                $scope.errors.firstName = false;
-//            })
-//
-//            $scope.lastName = '';
-//
-//            $scope.$watch('lastName', function(){
-//                $scope.errors.lastName = false;
-//            });
-//
-//            $scope.phone = '';
-//
-//            $scope.$watch('phone', function(){
-//                $scope.errors.phone = false;
-//            })
-
             $scope.password = '';
 
             $scope.$watch('password', function(){
@@ -85,7 +67,7 @@ angular.module('innaApp.controllers')
                     console.log(fieldName);
                     $scope.errors[fieldName] = true;
                 }
-            }
+            };
 
             $scope.hasError = function(fieldName){
                 var error = 'error';
