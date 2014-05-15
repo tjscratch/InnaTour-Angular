@@ -37,11 +37,11 @@
 
                     $scope.input1.tooltip(getPopupOptions($scope.input1)).tooltip('open');
                 }
-                //else {
-                //    if ($scope.datePicker) {
-                //        updateThrottled();
-                //    }
-                //}
+                else {
+                    if ($scope.datePicker) {
+                        updateThrottled();
+                    }
+                }
             });
 
             $scope.$watch('date2', function (newValue, oldValue) {
@@ -50,11 +50,11 @@
 
                     $scope.input2.tooltip(getPopupOptions($scope.input2)).tooltip('open');
                 }
-                //else {
-                //    if ($scope.datePicker) {
-                //        updateThrottled();
-                //    }
-                //}
+                else {
+                    if ($scope.datePicker) {
+                        updateThrottled();
+                    }
+                }
             });
 
             /*Methods*/
@@ -127,7 +127,7 @@
         }],
         link: function ($scope, element) {
             var defaultDates = $scope.getPickerDates();
-            var noDates = (!$scope.date1 && !$scope.date2);
+
 
             $scope.input1 = $('.search-date-block', element).eq(0);
             $scope.input2 = $('.search-date-block', element).eq(1);
@@ -135,7 +135,8 @@
             $scope.datePicker = $('.js-datepicker', element).DatePicker({
                 flat: true,
                 date: defaultDates,
-                noDates: noDates,
+                initDateToIsSet: ($scope.date1 != null),
+                initDateFromIsSet: ($scope.date2 != null),
                 calendars: 2,
                 mode: 'range',
                 format: 'd.m.Y',
