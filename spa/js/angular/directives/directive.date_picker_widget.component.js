@@ -15,46 +15,51 @@
             //флаг - выбираем дату туда, или дату обратно
             $scope.isFromSelecting = true;//дата туда
 
+            function getPopupOptions($element) {
+                var popupOptions = {
+                    position: {
+                        my: 'center top+22',
+                        at: 'center bottom'
+                    },
+                    items: "[data-title]",
+                    content: function () {
+                        return $element.data("title");
+                    }
+                };
+                return popupOptions;
+            }
+            
+
             /*Watchers*/
             $scope.$watch('date1', function(newValue, oldValue){
                 if(newValue instanceof Error) {
                     $scope.date1 = oldValue;
 
-                    $scope.input1.tooltip({
-                        position: {
-                            my: 'center top+22',
-                            at: 'center bottom'
-                        }
-                    }).tooltip('open');
+                    $scope.input1.tooltip(getPopupOptions($scope.input1)).tooltip('open');
                 }
-                else {
-                    if ($scope.datePicker) {
-                        updateThrottled();
-                    }
-                }
+                //else {
+                //    if ($scope.datePicker) {
+                //        updateThrottled();
+                //    }
+                //}
             });
 
             $scope.$watch('date2', function (newValue, oldValue) {
                 if (newValue instanceof Error) {
                     $scope.date2 = oldValue;
 
-                    $scope.input2.tooltip({
-                        position: {
-                            my: 'center top+22',
-                            at: 'center bottom'
-                        }
-                    }).tooltip('open');
+                    $scope.input2.tooltip(getPopupOptions($scope.input2)).tooltip('open');
                 }
-                else {
-                    if ($scope.datePicker) {
-                        updateThrottled();
-                    }
-                }
+                //else {
+                //    if ($scope.datePicker) {
+                //        updateThrottled();
+                //    }
+                //}
             });
 
             /*Methods*/
             $scope.short = function(date) {
-                if(!date) return '';
+                if (!date || date == '01.01.1970') return '';
 
                 var bits = date.split('.');
                 return [bits[0], bits[1]].join('.');
@@ -62,6 +67,12 @@
 
             $scope.headClicked = false;
 
+            $scope.setLastSel = function (lastSel) {
+                if ($scope.datePicker) {
+                    //при клике будет выбрана дата от
+                    $scope.datePicker.SetLastSel(lastSel);
+                }
+            }
             $scope.toggleFrom = function ($event) {
                 eventsHelper.preventDefault($event);
                 $scope.headClicked = true;
@@ -72,10 +83,8 @@
                     $scope.isOpen = true;
                 }
                 $scope.isFromSelecting = true;
-                if ($scope.datePicker) {
-                    //при клике будет выбрана дата от
-                    $scope.datePicker.SetLastSel(false);
-                }
+                //при клике будет выбрана дата от
+                $scope.setLastSel(false);
             }
             $scope.toggleTo = function ($event) {
                 eventsHelper.preventDefault($event);
@@ -86,10 +95,8 @@
                     $scope.isOpen = true;
                 }
                 $scope.isFromSelecting = false;
-                if ($scope.datePicker) {
-                    //при клике будет выбрана дата до
-                    $scope.datePicker.SetLastSel(true);
-                }
+                //при клике будет выбрана дата до
+                $scope.setLastSel(true);
             }
 
             $scope.oneWayChanged = function () {
@@ -120,6 +127,7 @@
         }],
         link: function ($scope, element) {
             var defaultDates = $scope.getPickerDates();
+            var noDates = (!$scope.date1 && !$scope.date2);
 
             $scope.input1 = $('.search-date-block', element).eq(0);
             $scope.input2 = $('.search-date-block', element).eq(1);
@@ -127,14 +135,17 @@
             $scope.datePicker = $('.js-datepicker', element).DatePicker({
                 flat: true,
                 date: defaultDates,
+                noDates: noDates,
                 calendars: 2,
                 mode: 'range',
                 format: 'd.m.Y',
                 starts: 1,
-                onChange: function (formated, dates, el, lastSel) {
+                onChange: function (formated, dates, el, lastSel, initDateFromIsSet) {
                     $scope.$apply(function ($scope) {
                         $scope.date1 = formated[0];
-                        $scope.date2 = formated[1];
+                        if (initDateFromIsSet) {//проставляем, только если руками выбрали дату до
+                            $scope.date2 = formated[1];
+                        }
 
                         $scope.isFromSelecting = lastSel;
                         if (lastSel) {
@@ -143,6 +154,14 @@
                             //если выбираем дату обратно, и установлена галка в одну сторону - снимаем ее
                             if ($scope.data.isOneWaySelected) {
                                 $scope.data.isOneWaySelected = false;
+                            }
+                        }
+                        else {
+                            //если выбираем дату туда, и стоит галка в одну сторону
+                            if ($scope.data.isOneWaySelected) {
+                                $scope.setLastSel(true);
+                                $scope.isFromSelecting = true;
+                                $scope.isOpen = false;
                             }
                         }
                     });

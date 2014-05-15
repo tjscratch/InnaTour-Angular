@@ -168,7 +168,7 @@
 						if (fromUser.selected || options.date == val || $.inArray(val, options.date) > -1 || (options.mode == 'range' && val >= options.date[0] && val <= options.date[1])) {
 							data.weeks[indic].days[indic2].classname.push('datepickerSelected');
 						}
-                        if(options.mode == 'range' && options.date[0] == val){
+						if (options.initDateToIsSet && options.mode == 'range' && options.date[0] == val) {
                             data.weeks[indic].days[indic2].classname.push('datepickerSelected-start');
                         }
                         if(options.mode == 'range'){
@@ -176,7 +176,7 @@
                             endDate.setHours(0);
                             endDate.setMinutes(0);
                             endDate.setSeconds(0);
-                            if(+endDate == val) {
+                            if (options.initDateFromIsSet && +endDate == val) {
                                 data.weeks[indic].days[indic2].classname.push('datepickerSelected-end');
                             }
                         }
@@ -519,20 +519,10 @@
 										}
 										break;
 									case 'range':
-										//if (!options.lastSel) {
-										//	options.date[0] = (tmp.setHours(0,0,0,0)).valueOf();
-										//}
-										//val = (tmp.setHours(23,59,59,0)).valueOf();
-										//if (val < options.date[0]) {
-										//	options.date[1] = options.date[0] + 86399000;
-										//	options.date[0] = val - 86399000;
-										//} else {
-										//	options.date[1] = val;
-									    //}
-
 									    if (!options.lastSel) {
                                             //ставим дату от
 									        options.date[0] = (tmp.setHours(0, 0, 0, 0)).valueOf();
+									        options.initDateToIsSet = true;
 									        //если дата до < даты от - сбрасываем ее
 									        if (options.date[1] < options.date[0]) {
 									            options.date[1] = null;
@@ -540,6 +530,8 @@
 									    }
 									    else {
 									        options.date[1] = (tmp.setHours(0, 0, 0, 0)).valueOf();
+									        options.initDateToIsSet = true;
+									        options.initDateFromIsSet = true;
 									        //если дата до < даты от
 									        if (options.date[1] < options.date[0]) {
 									            //меняем даты местами
@@ -577,7 +569,7 @@
 				} else {
 				    //!options.lastSel - потому что после клика он инвертируется
 				    //options.lastSel == true - выбрана дата до, false - дата от
-				    tmp = [[], [], options.el, !options.lastSel];
+				    tmp = [[], [], options.el, !options.lastSel, options.initDateFromIsSet];
 					$.each(options.date, function(nr, val){
 						var date = new Date(val);
 						tmp[0].push(formatDate(date, options.format));
@@ -680,7 +672,7 @@
 
 		return {
 			init: function(options){
-				options = $.extend({}, defaults, options||{});
+			    options = $.extend({}, defaults, options || {});
 				extendDate(options.locale);
 				options.calendars = Math.max(1, parseInt(options.calendars,10)||1);
 				options.mode = /single|multiple|range/.test(options.mode) ? options.mode : 'single';
@@ -838,7 +830,6 @@
 			            var cal = $('#' + $(this).data('datepickerId'));
 			            var options = cal.data('datepicker');
 			            options.lastSel = lastSelValue;
-			            
 			        }
 			    });
 			}
