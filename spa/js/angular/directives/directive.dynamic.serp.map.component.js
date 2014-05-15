@@ -13,7 +13,6 @@ angular.module('innaApp.directives')
             ],
             link: function(scope, elem, attrs){
                 var mapContainer = $('.b-hotels-on-map', elem)[0];
-                var baloon = $('.pin', elem);
 
                 var map = new google.maps.Map(mapContainer, {
                     center: new google.maps.LatLng(0, 0),
@@ -52,10 +51,10 @@ angular.module('innaApp.directives')
                             var proj = this.getMap().getProjection();
                             var point = proj.fromLatLngToPoint(pos);
 
-                            baloon.css({
+                            $('.pin', elem).css({
                                 top: parseInt(point.x),
                                 left: parseInt(point.y)
-                            })
+                            });
                         });
 
                         bounds.extend(pos);
