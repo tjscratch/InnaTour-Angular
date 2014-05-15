@@ -55,7 +55,9 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         -ms-user-select: none;
         user-select: none;
     }
-    .b-wrapp_type_inline .search-date, .b-wrapp_type_inline .search-field { height: 48px; }
+    .ui-tooltip { background-color: #de0000; z-index: 10; }
+    .ui-tooltip:before { border-color: transparent transparent #de0000 transparent; }
+    .b-wrapp_type_inline .search-date, .b-wrapp_type_inline .search-field; { height: 48px; }
 	.datepickerMonths, .datepickerYears{display:none;}
 	.datepickerNotInMonth{height:1px;}
 	.datepickerNotInMonth *{display:none !important;}
@@ -69,6 +71,19 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         padding: 10px 0px 0 0;
         -webkit-box-shadow: 0 5px 10px rgba(50,50,50,.25);
         box-shadow: 0 5px 10px rgba(50,50,50,.25);
+    }
+    .cit-cont {
+        padding: 0;
+        max-height: 300px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .cit-item {
+        padding: 3px;
+    }
+    .cit-item:hover {
+        cursor: default;
+        background-color: #edeff0;
     }
 </style>
 
