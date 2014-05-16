@@ -78,14 +78,16 @@ angular.module('innaApp.controllers')
     .controller('AuthRegistrationCtrl_Step2', [
         '$scope', 'aviaHelper', 'AuthDataProvider',
         function($scope, aviaHelper, AuthDataProvider) {
-            //$scope.baloon = aviaHelper.baloon;
+            console.log('AuthRegistrationCtrl_Step2', $scope);
 
             $scope.baloon.show('Завершаю регистрацию', 'Это займет несколько секунд');
 
             AuthDataProvider.confirmRegistration($scope.signUpToken, function(resp){
-                $scope.baloon.hide();
+                $scope.$apply(function($scope){
+                    $scope.baloon.hide();
 
-                console.log('AuthRegistrationCtrl_Step2: AuthDataProvider.confirmRegistration: ', resp);
+                    console.log('AuthRegistrationCtrl_Step2: AuthDataProvider.confirmRegistration: ', resp);
+                });
             });
         }
     ]);

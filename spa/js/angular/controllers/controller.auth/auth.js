@@ -7,27 +7,6 @@ angular.module('innaApp.controllers')
                 $scope.$root.user = new inna.Models.Auth.User(data);
             }
 
-            /*Properties*/
-            $scope.restoreToken = ($location.path() == app.URL_AUTH_RESTORE) && $location.search().token;
-            $scope.signUpToken = ($location.path() == app.URL_AUTH_SIGNUP) && $location.search().token;
-
-            $scope.DISPLAY_SIGNIN = 1;
-            $scope.DISPLAY_FORGOTTEN = 2;
-            $scope.DISPLAY_SIGNUP = 3;
-            $scope.DISPLAY_PROFILE = 4;
-
-            $scope.isLoginPopupOpened = false;
-
-            $scope.display = $scope.DISPLAY_SIGNIN;
-
-            if($scope.restoreToken) {
-                $scope.display = $scope.DISPLAY_FORGOTTEN;
-                $scope.open();
-            } else if($scope.signUpToken) {
-                $scope.display = $scope.DISPLAY_SIGNUP;
-                $scope.open();
-            }
-
             /*Methods*/
             $scope.close = function(){
                 $scope.isLoginPopupOpened = false;
@@ -67,6 +46,29 @@ angular.module('innaApp.controllers')
             $scope.forgotten = function(){
                 $scope.display = $scope.DISPLAY_FORGOTTEN;
             };
+
+            /*Properties*/
+            $scope.restoreToken = ($location.path() == app.URL_AUTH_RESTORE) && $location.search().token;
+            $scope.signUpToken = ($location.path() == app.URL_AUTH_SIGNUP) && $location.search().token;
+
+            console.log('AuthCtrl', $scope.signUpToken);
+
+            $scope.DISPLAY_SIGNIN = 1;
+            $scope.DISPLAY_FORGOTTEN = 2;
+            $scope.DISPLAY_SIGNUP = 3;
+            $scope.DISPLAY_PROFILE = 4;
+
+            $scope.isLoginPopupOpened = false;
+
+            $scope.display = $scope.DISPLAY_SIGNIN;
+
+            if($scope.restoreToken) {
+                $scope.display = $scope.DISPLAY_FORGOTTEN;
+                $scope.open();
+            } else if($scope.signUpToken) {
+                $scope.display = $scope.DISPLAY_SIGNUP;
+                $scope.open();
+            }
 
             /*EventListeners*/
             $scope.$on(Events.AUTH_SIGN_IN, function(event, data) {
