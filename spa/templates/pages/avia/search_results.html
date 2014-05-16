@@ -54,7 +54,6 @@
 
     <!-- Results List -->
     <div class="results-list results-list_720">
-        <!--<ng:any ng-repeat="item in visibleFilteredTicketsList | orderBy:SortFilter.sortType:SortFilter.reverse track by $index">-->
         <ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
             <ng:include src="'/avia/results/item.html'"></ng:include>
         </ng:any>
@@ -123,8 +122,8 @@
     <div class="rl-item-separator"></div>
     <div class="rl-left">
         <header class="rl-item-header">
-            <span class="rl-airline"><img ng-src="{{item.EtapsToTransporterCodeUrl}}" alt=""><span class="rl-airline-text">{{item.EtapsToTransporterName}}</span></span>
-            <span class="rl-airline"><img ng-src="{{item.EtapsBackTransporterCodeUrl}}" alt=""><span class="rl-airline-text">{{item.EtapsBackTransporterName}}</span></span>
+            <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span class="rl-airline-text">{{tr.name}}</span></span>
+            <span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png" alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>
         </header>
         <div class="rl-content">
             <div class="rl-fly">

@@ -5,8 +5,8 @@
             $log.log(msg);
         }
 
-        var manyCode = "any";
-        var manyName = "any";
+        var manyCode = "many";
+        var manyName = "Несколько авиакомпаний";
 
         var timeFormat = "HH:mm";
         var dateFormat = "dd MMM yyyy, EEE";
@@ -130,6 +130,7 @@
             success: 'success'
         };
 
+        var host = app_main.host.replace('api.', 's.'); //http://api.test.inna.ru
         var helper = {
             sexType: { man: 1, woman: 2 },
 
@@ -181,22 +182,22 @@
             },
 
             //код компании
-            getTransporterCode: function (etapsTo) {
+            getTransporterLogo: function (etapsTo) {
                 if (etapsTo != null) {
                     if (etapsTo.length == 1) {
-                        return { name: etapsTo[0].TransporterName, code: etapsTo[0].TransporterCode };
+                        return { name: etapsTo[0].TransporterName, logo: etapsTo[0].TransporterLogo };
                     }
                     else if (etapsTo.length > 1) {
-                        var firstCode = etapsTo[0].TransporterCode;
+                        var firstCode = etapsTo[0].TransporterLogo;
                         var firstName = etapsTo[0].TransporterName;
                         for (var i = 1; i < etapsTo.length; i++) {
-                            if (etapsTo[i].TransporterCode != firstCode) {
+                            if (etapsTo[i].TransporterLogo != firstCode) {
                                 //коды отличаются - возвращаем 
-                                return { name: manyName, code: manyCode };
+                                return { name: manyName, logo: manyCode };
                             }
                         }
                         //коды не отличаются - возвращаем код
-                        return { name: firstName, code: firstCode };
+                        return { name: firstName, logo: firstCode };
                     }
                 }
             },
@@ -218,8 +219,16 @@
                 }
             },
 
-            setEtapsTransporterCodeUrl: function (code) {
-                return "http://adioso.com/media/i/airlines/" + code + ".png";
+
+            setEtapsTransporterCodeUrl: function (logo) {
+                //return "http://adioso.com/media/i/airlines/" + logo + ".png";
+                
+                if (logo == manyCode) {
+                    return "/spa/img/group.png";
+                }
+                else {
+                    return host + "/Files/logo/" + logo + ".png";
+                }
             },
 
             addCustomFields: function (item) {
@@ -249,14 +258,30 @@
                 helper.addFormattedDatesFields(item);
 
                 //TransporterCode
-                var codeEtapsTo = helper.getTransporterCode(item.EtapsTo);
-                var codeEtapsBack = helper.getTransporterCode(item.EtapsBack);
-                item.EtapsToTransporterCodeUrl = helper.setEtapsTransporterCodeUrl(codeEtapsTo.code);
+                var codeEtapsTo = helper.getTransporterLogo(item.EtapsTo);
+                var codeEtapsBack = helper.getTransporterLogo(item.EtapsBack);
+                item.EtapsToTransporterCodeUrl = helper.setEtapsTransporterCodeUrl(codeEtapsTo.logo);
                 item.EtapsToTransporterName = codeEtapsTo.name;
                 if (codeEtapsBack != null) {
-                    item.EtapsBackTransporterCodeUrl = helper.setEtapsTransporterCodeUrl(codeEtapsBack.code);
+                    item.EtapsBackTransporterCodeUrl = helper.setEtapsTransporterCodeUrl(codeEtapsBack.logo);
                     item.EtapsBackTransporterName = codeEtapsBack.name;
                 }
+
+                //список транспортных компаний
+                var transportersList = [];
+                _.each(item.EtapsTo, function (etap) {
+                    transportersList.push({ code: etap.TransporterCode, name: etap.TransporterName, logo: etap.TransporterLogo });
+                });
+                if (item.EtapsBack != null && item.EtapsBack.length > 0) {
+                    _.each(item.EtapsBack, function (etap) {
+                        transportersList.push({ code: etap.TransporterCode, name: etap.TransporterName, logo: etap.TransporterLogo });
+                    });
+                }
+                transportersList = _.uniq(transportersList, false, function (tr) { return tr.code });
+                _.each(transportersList, function (tr) {
+                    tr.logoUrl = helper.setEtapsTransporterCodeUrl(tr.logo);
+                });
+                item.transportersList = transportersList;
 
                 //время в пути
                 item.TimeToFormatted = getFlightTimeFormatted(item.TimeTo);
@@ -284,7 +309,7 @@
                 }
 
                 function addFieldsToEtap(etap, etapNext) {
-                    etap.TransporterCodeUrl = helper.setEtapsTransporterCodeUrl(etap.TransporterCode);
+                    etap.TransporterCodeUrl = helper.setEtapsTransporterCodeUrl(etap.TransporterLogo);
                     etap.OutTimeFormatted = getTimeFormat(etap.OutTime);
                     etap.OutDateFormatted = getDateFormat(etap.OutTime);
                     etap.InTimeFormatted = getTimeFormat(etap.InTime);
