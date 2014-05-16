@@ -1,0 +1,27 @@
+<span class="filters__link" ng-class="{filters__link_selected: options.hasSelected()}" ng-click="popup.toggle()">Рейтинг</span>
+<div class="filters__baloon" ng-if="popup.isOpen">
+    <header class="ra-header">
+        <h4 class="ra-title">Рейтинг</h4>
+        <a class="ra-header-link" href="javascript:void(0);" ng-click="filter.reset()">Сбросить</a>
+    </header>
+    <div class="ra-content">
+        <ul class="ra-fly-type-list">
+            <li ng-repeat="option in options.options">
+                <label>
+                    <input type="checkbox" ng-model="option.selected">
+                    <span class="ra-checkbox"></span>
+                    <span class="ra-fly-type">
+                        <div>
+                            <span class="icon icon-star ng-scope" ng-if="option.value > 0"></span>
+                            <span class="icon icon-star ng-scope" ng-if="option.value > 1"></span>
+                            <span class="icon icon-star ng-scope" ng-if="option.value > 2"></span>
+                            <span class="icon icon-star ng-scope" ng-if="option.value > 3"></span>
+                            <span class="icon icon-star ng-scope" ng-if="option.value > 4"></span>
+                        </div>
+                    </span>
+                    <span class="ra-fly-price">{{option.minPrice}}&nbsp;<span class="rub">Р</span></span>
+                </label>
+            </li>
+        </ul>
+    </div>
+</div>
