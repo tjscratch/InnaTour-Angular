@@ -28,8 +28,6 @@ angular.module('innaApp.directives')
                     /*Properties*/
                     $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter());
                     $scope.filter.filterFn = function(hotel){
-                        console.log('filtering');
-
                         var fits = true;
 
                         this.options.getSelected().each(function(option){
