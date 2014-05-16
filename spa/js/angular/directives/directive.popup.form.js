@@ -11,6 +11,13 @@ innaAppDirectives.directive('popupForm', function () {
 
             $scope.isOpened = false;
 
+            $scope.isOfferHaveUrl = function (offer) {
+                if (offer != null && offer.Url != null && offer.Url.length > 0) {
+                    return true;
+                }
+                return false;
+            }
+
             $scope.popupForm_Show = function (offer) {
                 if (offer == null) {
                     //аналитика

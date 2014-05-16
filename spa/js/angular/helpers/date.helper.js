@@ -202,7 +202,8 @@
 Date.fromDDMMYY = function(ddmmyy, asTS){
     var bits = ddmmyy.split('.');
     var mmddyy = [+bits[1], +bits[0], +bits[2]].join('.');
-    var date = new Date(mmddyy);
+    //var date = new Date(mmddyy);//в IE invalid date
+    var date = new Date(+bits[2], (+bits[1]-1), +bits[0]);
 
     if(asTS) return +date;
 

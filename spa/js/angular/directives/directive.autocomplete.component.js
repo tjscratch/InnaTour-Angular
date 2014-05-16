@@ -52,6 +52,10 @@
                         position: {
                             my: 'center top+22',
                             at: 'center bottom'
+                        },
+                        items: "[data-title]",
+                        content: function () {
+                            return $scope.input.data("title");
                         }
                     }).tooltip('open');
                 } else if(!$scope.input.val()) {

@@ -92,7 +92,7 @@ app.config([
                 templateUrl: '/spa/templates/pages/contacts_page.html',
                 controller: 'ContactsCtrl'
             }).
-            when(url.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
+            when(url.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
                 templateUrl: '/spa/templates/pages/avia/search_form.html',
                 controller: 'AviaSearchMainCtrl'
             }).
@@ -100,16 +100,16 @@ app.config([
                 templateUrl: '/spa/templates/pages/tours_grid_page.html',
                 controller: 'AviaSearchMainCtrl'
             }).
-            when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
+            when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
                 templateUrl: '/spa/templates/pages/avia/search_results.html',
                 controller: 'AviaSearchResultsCtrl'
             }).
-            when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
+            when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
                 ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
                     templateUrl: '/spa/templates/pages/avia/tickets_reserve.html',
                     controller: 'AviaReserveTicketsCtrl'
                 }).
-            when(url.URL_AVIA_BUY + ':FromUrl-:ToUrl-:BeginDate-:EndDate-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
+            when(url.URL_AVIA_BUY + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
                 ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2-:OrderNum', {
                     templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
                     controller: 'AviaBuyTicketsCtrl'

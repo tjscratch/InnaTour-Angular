@@ -47,6 +47,10 @@ innaAppDirectives.directive('counterPeople', [function(){
                         position: {
                             my: 'center top+22',
                             at: 'center bottom'
+                        },
+                        items: "[data-title]",
+                        content: function () {
+                            return $scope.rootElement.data("title");
                         }
                     });
                     $scope.rootElement.tooltip('open');

@@ -4,9 +4,6 @@ angular.module('innaApp.controllers')
         function($scope, AuthDataProvider, Validators){
             function validate(){
                 Validators.email($scope.email, 'email');
-                //Validators.defined($scope.firstName, 'firstName');
-                //Validators.defined($scope.lastName, 'lastName');
-                //Validators.phone($scope.phone, 'phone');
                 Validators.defined($scope.password, 'password');
                 Validators.minLength($scope.password, 6, 'passwordMinLength')
                 Validators.equals($scope.password, $scope.password2, 'password2');
@@ -15,15 +12,16 @@ angular.module('innaApp.controllers')
             function register(){
                 AuthDataProvider.signUp({
                     Email: $scope.email,
-                    //FirstName: $scope.firstName,
-                    //LastName: $scope.lastName,
-                    //Phone: $scope.phone,
                     Password: $scope.password,
                     ConfirmPassword: $scope.password2
                 }, function (data){ //successfully signed up
-                    $scope.showLanding = true;
+                    $scope.$apply(function($scope){
+                        $scope.showLanding = true;
+                    });
                 }, function (error){ //error has occurred
-                    $scope.requestFailure = true;
+                    $scope.$apply(function($scope){
+                        $scope.requestFailure = true;
+                    });
                 });
             }
 
@@ -54,8 +52,6 @@ angular.module('innaApp.controllers')
 
             $scope.requestFailure = false;
 
-
-
             /*Methods*/
             $scope.register = function(){
                 try {
@@ -64,7 +60,6 @@ angular.module('innaApp.controllers')
                     //if ok
                     register();
                 } catch(fieldName) {
-                    console.log(fieldName);
                     $scope.errors[fieldName] = true;
                 }
             };
@@ -83,14 +78,16 @@ angular.module('innaApp.controllers')
     .controller('AuthRegistrationCtrl_Step2', [
         '$scope', 'aviaHelper', 'AuthDataProvider',
         function($scope, aviaHelper, AuthDataProvider) {
-            //$scope.baloon = aviaHelper.baloon;
+            console.log('AuthRegistrationCtrl_Step2', $scope);
 
             $scope.baloon.show('Завершаю регистрацию', 'Это займет несколько секунд');
 
             AuthDataProvider.confirmRegistration($scope.signUpToken, function(resp){
-                $scope.baloon.hide();
+                $scope.$apply(function($scope){
+                    $scope.baloon.hide();
 
-                console.log('AuthRegistrationCtrl_Step2: AuthDataProvider.confirmRegistration: ', resp);
+                    console.log('AuthRegistrationCtrl_Step2: AuthDataProvider.confirmRegistration: ', resp);
+                });
             });
         }
     ]);

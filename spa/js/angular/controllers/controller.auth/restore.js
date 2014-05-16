@@ -10,9 +10,13 @@ angular.module('innaApp.controllers')
                 AuthDataProvider.sendToken({
                     Email: $scope.email
                 }, function(){ //success
-                    $scope.showLanding = true;
+                    $scope.$apply(function($scope){
+                        $scope.showLanding = true;
+                    });
                 }, function(){ //error
-                    $scope.requestFailure = true;
+                    $scope.$apply(function($scope){
+                        $scope.requestFailure = true;
+                    });
                 });
             }
 

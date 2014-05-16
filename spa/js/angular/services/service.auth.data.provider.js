@@ -25,7 +25,7 @@ angular.module('innaApp.services')
                         '&returnUrl=' + encodeURIComponent(document.location.protocol + '//' + document.location.host + '/spa/closer.html');
                 },
                 confirmRegistration: function(token, callbackSuccess, callbackError) {
-                    AjaxHelper.postDebaunced(urls.AUTH_SIGN_UP_STEP_2, {token: token}, callbackSuccess, callbackError);
+                    AjaxHelper.postDebaunced(urls.AUTH_SIGN_UP_STEP_2, {value: token}, callbackSuccess, callbackError);
                 },
                 logout: function(){
                     AjaxHelper.postDebaunced(urls.AUTH_LOGOUT);
