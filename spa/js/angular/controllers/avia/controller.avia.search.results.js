@@ -37,67 +37,6 @@ innaAppControllers.
                 return len;
             }
 
-            $scope.getNumSeatsText = function (countLeft) {
-                countLeft = parseInt(countLeft);
-                var ticketsCount = $scope.ticketsCount;
-                function getPluralTickets(count) {
-                    return aviaHelper.pluralForm(count, 'билет', 'билета', 'билетов');
-                }
-
-                switch (ticketsCount){
-                    case 1:
-                        {
-                            if (countLeft == 1){
-                                return 'Остался последний билет';
-                            }
-                            else if (countLeft <= 3){
-                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                            }
-                            break;
-                        }
-                    case 2:
-                        {
-                            if (countLeft <= 3) {
-                                return 'Остались последние билеты';
-                            }
-                            else if (countLeft <= 6) {
-                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                            }
-                            break;
-                        }
-                    case 3:
-                        {
-                            if (countLeft <= 5) {
-                                return 'Остались последние билеты';
-                            }
-                            else if (countLeft <= 9) {
-                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                            }
-                            break;
-                        }
-                    case 4:
-                        {
-                            if (countLeft <= 7) {
-                                return 'Остались последние билеты';
-                            }
-                            else if (countLeft <= 9) {
-                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                            }
-                            break;
-                        }
-                    case 5:
-                    case 6:
-                        {
-                            if (countLeft <= 9) {
-                                return 'Остались последние билеты';
-                            }
-                            break;
-                        }
-                }
-
-                return '';
-            }
-
             var urlDataLoaded = { fromLoaded: false, toLoaded: false };
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {
@@ -124,14 +63,7 @@ innaAppControllers.
             var routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.criteria = routeCriteria;
 
-            function getTicketsCount() {
-                var infWithPlaces = parseInt($scope.criteria.InfantsCount) - parseInt($scope.criteria.AdultCount);
-                if (infWithPlaces < 0) {
-                    infWithPlaces = 0;
-                }
-                return parseInt($scope.criteria.AdultCount) + parseInt($scope.criteria.ChildCount) + infWithPlaces;
-            }
-            $scope.ticketsCount = getTicketsCount();
+            $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
 
             //инициализация
             initValues();
@@ -157,7 +89,7 @@ innaAppControllers.
                 $scope.visibleFilteredTicketsList = null;
                 $scope.searchId = 0;
 
-                $scope.popupItemInfo = new popupItemInfo();
+                $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $scope.criteria.CabinClass);
 
                 //сортировка - по-молчанию - по рекомендациям
                 //$scope.sort = avia.sortType.ByRecommend;
@@ -865,37 +797,6 @@ innaAppControllers.
             $scope.$watch('SortFilter', function () {
                 applySort();
             }, true);
-
-            function popupItemInfo() {
-                var self = this;
-                self.isShow = false;
-                self.item = null;
-
-                self.ticketsCount = $scope.ticketsCount
-
-                var cabinClass = parseInt($scope.criteria.CabinClass);
-                self.ticketsClass = aviaHelper.getCabinClassName(cabinClass).toLowerCase();
-
-                self.show = function ($event, item) {
-                    eventsHelper.preventBubbling($event);
-                    self.isShow = true;
-                    self.item = item;
-                    console.log(item);
-                }
-
-                self.print = function ($event, item) {
-                    eventsHelper.preventBubbling($event);
-                    alert('Не реализовано');
-                }
-                self.getLink = function ($event, item) {
-                    eventsHelper.preventBubbling($event);
-                    alert('Не реализовано');
-                }
-                self.share = function ($event, item) {
-                    eventsHelper.preventBubbling($event);
-                    alert('Не реализовано');
-                }
-            }
 
             function scrollControl() {
                 var self = this;

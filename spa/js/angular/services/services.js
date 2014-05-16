@@ -79,7 +79,7 @@ innaAppServices.
                 params = utils.normalize(params);
                 var res = angular.fromJson(sessionStorage.AviaVariantCheck);
                 //проверяем, что достаем данные для нужных критериев поиска
-                if (res != null && angular.toJson(params) == angular.toJson(res.params) && !isOlderMinute(res.date)) {
+                if (res != null && angular.toJson(params) == angular.toJson(res.params) && !isOlderTenMinutes(res.date)) {
                     return res.data;
                 }
                 return null;

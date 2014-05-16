@@ -35,7 +35,9 @@ innaAppControllers.
                 } else if(loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES)) {
                 	return urlHelper.addPathAndVersion('/spa/templates/nav_forms/dynamic_search_form.html');
                 }
-                else if (loc.indexOf('/avia/') > -1) {
+                else if (loc.startsWith(appUrls.URL_AVIA) &&
+                    !loc.startsWith(appUrls.URL_AVIA_RESERVATION) && !loc.startsWith(appUrls.URL_AVIA_BUY)) {
+                    //на бронировании и покупке формы нет
                     return urlHelper.addPathAndVersion('/spa/templates/nav_forms/avia_search_form.html');
                 }
                 else {
