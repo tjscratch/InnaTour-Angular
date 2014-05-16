@@ -65,14 +65,14 @@
                             <h3 class="hotel-info-name">{{combination.Hotel.data.HotelName}}</h3>
                             <div class="hotel-info-date">с {{dateHelper.getDateShort(combination.Hotel.data.CheckIn)}} по {{dateHelper.getDateShort(combination.Hotel.data.CheckOut)}}, {{combination.Hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
                         </div>
-                        <div class="hotel-info-tripadvisor" ng-if="combintaion.Hotel.data.TaFactor > 0">
+                        <div class="hotel-info-tripadvisor" ng-if="combination.Hotel.data.TaFactor > 0">
                             <span class="icon icon-tripadvisor"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 0"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 1"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 2"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 3"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 4"></span>
-                            <!--TODO 1412 отзывов-->
+                            <span class="icon icon-tripadvisor-like" ng-if="combination.Hotel.data.TaFactor > 0"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="combination.Hotel.data.TaFactor > 1"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="combination.Hotel.data.TaFactor > 2"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="combination.Hotel.data.TaFactor > 3"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="combination.Hotel.data.TaFactor > 4"></span>
+                            {{combination.Hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
                         </div>
                     </div>
 

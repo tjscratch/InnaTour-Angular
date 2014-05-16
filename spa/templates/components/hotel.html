@@ -29,15 +29,15 @@
             </div>
         </div>
 
-        <div class="bottom-actions" ng-if="hotel.data.TaFactor">
-            <div class="hotel-info-tripadvisor" ng-if="combintaion.Hotel.data.TaFactor > 0">
+        <div class="bottom-actions">
+            <div class="hotel-info-tripadvisor" ng-if="hotel.data.TaFactor > 0">
                 <span class="icon icon-tripadvisor"></span>
-                <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 0"></span>
-                <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 1"></span>
-                <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 2"></span>
-                <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 3"></span>
-                <span class="icon icon-tripadvisor-like" ng-if="combintaion.Hotel.data.TaFactor > 4"></span>
-                <!--TODO 1412 отзывов-->
+                <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 0"></span>
+                <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 1"></span>
+                <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 2"></span>
+                <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 3"></span>
+                <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 4"></span>
+                {{hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
             </div>
             <a href="javascript:void(0);" class="pull-right" ng-click="getHotelDetails(hotel)">Подробнее</a>
         </div>
