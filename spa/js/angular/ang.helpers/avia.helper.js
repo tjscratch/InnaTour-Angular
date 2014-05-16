@@ -1,6 +1,6 @@
 ﻿innaAppServices.
-    factory('aviaHelper', ['$rootScope', '$http', '$log', '$filter', '$timeout', '$location', 'innaApp.Urls',
-        function ($rootScope, $http, $log, $filter, $timeout, $location, Urls) {
+    factory('aviaHelper', ['$rootScope', '$http', '$log', '$filter', '$timeout', '$location', 'innaApp.Urls', 'eventsHelper',
+        function ($rootScope, $http, $log, $filter, $timeout, $location, Urls, eventsHelper) {
         function log(msg) {
             $log.log(msg);
         }
@@ -394,6 +394,106 @@
 
             pluralForm: function (i, str1, str2, str3) {
                 return pluralForm(i, str1, str2, str3);
+            },
+
+            getNumSeatsText: function (countLeft, ticketsCount) {
+                countLeft = parseInt(countLeft);
+                function getPluralTickets(count) {
+                    return helper.pluralForm(count, 'билет', 'билета', 'билетов');
+                }
+
+                switch (ticketsCount) {
+                    case 1:
+                        {
+                            if (countLeft == 1) {
+                                return 'Остался последний билет';
+                            }
+                            else if (countLeft <= 3) {
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                            }
+                            break;
+                        }
+                    case 2:
+                        {
+                            if (countLeft <= 3) {
+                                return 'Остались последние билеты';
+                            }
+                            else if (countLeft <= 6) {
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                            }
+                            break;
+                        }
+                    case 3:
+                        {
+                            if (countLeft <= 5) {
+                                return 'Остались последние билеты';
+                            }
+                            else if (countLeft <= 9) {
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                            }
+                            break;
+                        }
+                    case 4:
+                        {
+                            if (countLeft <= 7) {
+                                return 'Остались последние билеты';
+                            }
+                            else if (countLeft <= 9) {
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                            }
+                            break;
+                        }
+                    case 5:
+                    case 6:
+                        {
+                            if (countLeft <= 9) {
+                                return 'Остались последние билеты';
+                            }
+                            break;
+                        }
+                }
+
+                return '';
+            },
+
+            getTicketsCount: function (adultCount, childCount, infantsCount) {
+                var iAdultCount = parseInt(adultCount);
+                var infWithPlaces = parseInt(infantsCount) - iAdultCount;
+                if (infWithPlaces < 0) {
+                    infWithPlaces = 0;
+                }
+                return iAdultCount + parseInt(childCount) + infWithPlaces;
+            },
+
+            popupItemInfo: function (ticketsCount, cabinClass) {
+                var self = this;
+                self.isShow = false;
+                self.item = null;
+
+                self.ticketsCount = ticketsCount
+
+                var cabinClass = parseInt(cabinClass);
+                self.ticketsClass = helper.getCabinClassName(cabinClass).toLowerCase();
+
+                self.show = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    self.isShow = true;
+                    self.item = item;
+                    //console.log(item);
+                }
+
+                self.print = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    alert('Не реализовано');
+                }
+                self.getLink = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    alert('Не реализовано');
+                }
+                self.share = function ($event, item) {
+                    eventsHelper.preventBubbling($event);
+                    alert('Не реализовано');
+                }
             },
 
             eof: null

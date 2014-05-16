@@ -18,6 +18,7 @@ innaAppControllers.
 
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+            $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
 
             //====================================================
             //нужны в родителе
@@ -28,6 +29,17 @@ innaAppControllers.
             $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
             //нужны в родителе
             //====================================================
+
+            $scope.goBackUrl = function () {
+                return '#' +  urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+            };
+            $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $scope.criteria.CabinClass);
+
+            $scope.goToPaymentClick = function ($event) {
+                eventsHelper.preventBubbling($event);
+                //просто закрываем
+                $scope.popupItemInfo.isShow = false;
+            }
 
             $scope.searchId = $scope.criteria.QueryId;
 
@@ -167,6 +179,7 @@ innaAppControllers.
 
             function init() {
                 $scope.initPayModel();
+                //console.log($scope.item);
             }
 
             $scope.afterPayModelInit = function () {
