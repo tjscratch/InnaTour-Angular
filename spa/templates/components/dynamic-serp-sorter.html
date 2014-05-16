@@ -1,8 +1,6 @@
 <a href="javascript:void(0);" class="filters__link" ng-click="popup.toggle()">Сортировать <span>{{sorters.current.caption | lowercase}}</span></a>
 <div class="filters__baloon" ng-if="popup.isOpen">
-    <div class="ra-content">
-        <ul class="ra-fly-type-list">
-            <li ng-repeat="sorter in sorters.all" ng-click="select(sorter)">{{sorter.caption}}</li>
-        </ul>
-    </div>
+    <ul class="search__list">
+        <li ng-class="{'current': sorters.current == sorter}" ng-repeat="sorter in sorters.all" ng-click="select(sorter)">{{sorter.caption}}</li>
+    </ul>
 </div>
