@@ -12,11 +12,12 @@
                     <span class="ra-checkbox"></span>
                     <span class="ra-fly-type">
                         <div>
-                            <span class="icon icon-star ng-scope" ng-if="option.value > 0"></span>
-                            <span class="icon icon-star ng-scope" ng-if="option.value > 1"></span>
-                            <span class="icon icon-star ng-scope" ng-if="option.value > 2"></span>
-                            <span class="icon icon-star ng-scope" ng-if="option.value > 3"></span>
-                            <span class="icon icon-star ng-scope" ng-if="option.value > 4"></span>
+                            <span ng-if="option.value == 0">Без рейтинга</span>
+                            <span class="icon icon-tripadvisor-like" ng-if="option.value > 0"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="option.value > 1"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="option.value > 2"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="option.value > 3"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="option.value > 4"></span>
                         </div>
                     </span>
                     <span class="ra-fly-price">{{option.minPrice}}&nbsp;<span class="rub">Р</span></span>

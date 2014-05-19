@@ -18,10 +18,25 @@ angular.module('innaApp.directives')
                         this.minPrice = minPrice;
                     });
 
+                    Option.prototype.describe = function(){
+                        return _.generateRange(0, this.value - 1).map(function(){
+                            return '<span class="icon icon-tripadvisor-like"></span>';
+                        }).join('');
+                    }
+
                     var Options = inna.Models.Avia.Filters._OptionsFactory();
 
                     /*Properties*/
                     $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('TaFactor'));
+                    $scope.filter.filterFn = function(hotel){
+                        var fits = false;
+
+                        this.options.getSelected().each(function(option){
+                            fits = fits || (option.value == hotel.data.TaFactor);
+                        });
+
+                        if(!fits) hotel.hidden = true;
+                    }
                     $scope.options = $scope.filter.options = new Options();
 
                     /*Watchers*/
