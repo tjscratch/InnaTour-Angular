@@ -179,6 +179,20 @@ Cvc = "486";
             }
             $scope.tarifs = new tarifs();
 
+            $scope.oferta = {
+                show: function ($event) {
+                    alert('Не реализовано');
+                    eventsHelper.preventBubbling($event);
+                }
+            }
+
+            $scope.cancelReservation = {
+                show: function ($event) {
+                    alert('Не реализовано');
+                    eventsHelper.preventBubbling($event);
+                }
+            }
+
             $scope.validateError = function () {
                 this.field = '';
                 this.isValid = false;
