@@ -1,20 +1,152 @@
-.hotel-page-wrap
-  background url(../img/hotel/back.jpg)
-  background-size cover
+.hotel-details
+    background #fff
+    position absolute
+    top 149px
+    left 0
+    right 0
+    z-index 100
 
-.hotel-page
-  margin 0 auto
-  width 960px
+    &__bg-source
+        display none
+
+    &__bg
+        position absolute
+        top 0
+        left 0
+        right 0
+        bottom 0
+        width 100%
+        height 100%
+        z-index 0
+
+    &__wrap
+        z-index 1
+        position relative
+        margin 0 auto
+        width 960px
+
+    &__section
+        margin 10px 0 20px
+
+        &_layout_context
+            overflow hidden
+
+        &-box
+            background #fff
+            border-radius 8px
+            padding 20px
+            color #000
+
+            .hotel-details__section-title
+                color #000
+
+        &-title
+            color #fff
+            font-size 18px
+            margin-bottom 18px
+
+        &-text
+            margin-bottom 30px
+
+            p
+                margin 20px 0
+
+            &-more
+                color #1e88c1
+                cursor pointer
+
+    &__ta
+        float right
+
+.hotel-details-control
+    font-size 0
+    color #fff
+
+    &_pin_left
+        float left
+
+    &__button
+        background rgba(255, 255, 255, .3)
+        padding 10px 20px
+        font-size 14px
+        margin-right 10px
+        border-radius 4px
+        display inline-block
+        cursor pointer
+
+        &_theme_icon-only
+            padding-left 10px
+            padding-right 10px
+
+.hotel-details-ta-info
+    background #ded9d8
+    border-radius 4px
+    padding 10px 20px 8px
+    font-size 0
+
+    &__comments
+        font-size 12px
+        color #4d4d4d
+        padding-left 10px
+        position relative
+        top -2px
+
+    .icon-tripadvisor
+        margin-right 10px
+
+.hotel-details-name
+    font-size 24px
+    line-height 46px
+    color #fff
+    font-weight bold
+    text-align center
 
 
-.hotel-page-info
-  background #fff
-  border-radius(3px)
-  padding 15px 20px 7px
+    .hotel-details-stars
+        white-space nowrap
+        position relative
+        top -3px
+        left -2px
 
-  h4
-    font-size 18px
+.gallery
+    &__viewport
+        margin 0 auto
+        border-radius 8px
+        box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
 
-  p
-    font-size 14px
-    margin 16px 0 0
+        &-wrap
+            height 500px
+            width 960px
+            display table-cell
+            text-align center
+            vertical-align middle
+
+    &__list
+        font-size 0
+
+        &-item
+            width 70px
+            height 70px
+            background-size cover
+            margin-right 5px
+            display inline-block
+            cursor pointer
+
+            &_state_current
+                outline: 2px solid #89c13a
+
+.hotel-details-extra
+    font-size 0
+
+    &__item
+        display inline-block
+        margin-right 7px
+        background-color #e6e7e9
+        color #4d4d4d
+        font-size 12px
+        border-radius 4px
+        padding 8px 10px 7px 30px
+        background-position 5px center
+        background-repeat no-repeat
+
+
