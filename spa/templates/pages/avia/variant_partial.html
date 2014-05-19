@@ -3,12 +3,12 @@
     <a ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой билет</a>
     <div class="buy__header-price">Стоимость заказа: <b>{{item.Price| price}} <span class="rub">Р</span></b></div>
 </header>
-<div class="buy__fly">
-    <header class="rl-item-header">
+<div class="buy__fly" style="min-height:136px;">
+    <header class="rl-item-header" ng-show="item != null">
         <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span class="rl-airline-text">{{tr.name}}</span></span>
         <span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png" alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>
     </header>
-    <div class="b-ticket_2ways">
+    <div class="b-ticket_2ways" ng-show="item != null">
         <div class="rlf-fly">
             <span class="rlf-city">{{item.AirportFrom}}</span> {{item.OutCode}}
             <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>

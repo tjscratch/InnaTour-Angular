@@ -1,72 +1,74 @@
 ﻿<!-- Search Results -->
-<div class="results-body">
-    <div class="results-container results-container__tickets" style="padding-top: 190px;">
-        <form action="" class="b-tickets-form">
-
-            <h2 class="title">Пасажиры</h2>
-            <div class="form-body">
-                <fieldset class="form-container" ng-repeat="passenger in reservationModel.passengers">
-                    <div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block">
-                            <label class="b-field-label">Пол</label>
-                            <ul class="radio-list " ng-class="{error:passenger.sex == null}">
-                                <li><label><input disabled type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.man" ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}"><ins class="radio">М</ins></label></li>
-                                <li><label><input disabled type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.woman" ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}"><ins class="radio">Ж</ins></label></li>
-                            </ul>
-                        </div>
-                        <div class="b-field-block b-field-block-120">
-                            <label class="b-field-label">Имя (латиницей)</label>
-                            <input disabled type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-195 b-field-block-surname">
-                            <label class="b-field-label">Фамилия (латиницей)</label>
-                            <input disabled type="text" ng-model="passenger.secondName" placeholder="IVANOV" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-94">
-                            <label class="b-field-label">Дата рождения</label>
-                            <input disabled type="text" ng-model="passenger.birthday" placeholder="дд.мм.гггг" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-170">
-                            <label class="b-field-label">Гражданство</label>
-                            <input disabled ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.name}}" placeholder="Выберите" class="b-field-text b-field-select">
+<div class="results-body" style="padding-top: 130px;">
+    <form action="" class="results-body">
+        <div class="main__center">
+            <header class="buy__header">
+                <h2 class="buy__title">Пасажиры</h2>
+            </header>
+            <fieldset class="buy__blocks" ng-repeat="passenger in reservationModel.passengers">
+                <div class="b-field-group b-field-group-passport">
+                    <div class="b-field-block">
+                        <label class="b-field-label">Пол</label>
+                        <ul class="radio-list" ng-class="{error:passenger.sex == null}">
+                            <li><label><input disabled type="radio" name="male3" ng-model="passenger.sex" ng-value="{{sexType.man}}"><ins class="radio" ng-style="{background:(passenger.sex == sexType.man ? '#c0c0c2' : '')}">М</ins></label></li>
+                            <li><label><input disabled type="radio" name="male3" ng-model="passenger.sex" ng-value="{{sexType.woman}}"><ins class="radio" ng-style="{background:(passenger.sex == sexType.woman ? '#c0c0c2' : '')}">Ж</ins></label></li>
+                        </ul>
+                    </div>
+                    <div class="b-field-block" style="width: 160px;">
+                        <label class="b-field-label">Имя (латиницей)</label>
+                        <input disabled type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
+                    </div>
+                    <div class="b-field-block b-field-block-surname" style="width: 150px;">
+                        <label class="b-field-label">Фамилия (латиницей)</label>
+                        <input disabled type="text" ng-model="passenger.secondName" placeholder="IVANOV" class="b-field-text">
+                    </div>
+                    <div class="b-field-block" style="width: 110px;">
+                        <label class="b-field-label">Дата рождения</label>
+                        <input disabled type="text" ng-model="passenger.birthday" placeholder="дд.мм.гггг" class="b-field-text">
+                    </div>
+                    <div class="b-field-block" style="width: 180px;">
+                        <label class="b-field-label">Гражданство</label>
+                        <input disabled ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.name}}" placeholder="Выберите" class="b-field-text b-field-select">
                             
-                        </div>
-                        <div class="b-field-block b-field-block-123">
-                            <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
-                            <input disabled type="text" ng-model="passenger.doc_series_and_number" placeholder="1104 046100" class="b-field-text">
-                        </div>
-                        <div class="b-field-block b-field-block-105">
-                            <label class="b-field-label">Действителен до</label>
-                            <input disabled type="text" ng-model="passenger.doc_expirationDate" placeholder="дд.мм.гггг" class="b-field-text">
-                        </div>
                     </div>
-                    <div class="b-field-group b-field-group-passport">
-                        <div class="b-field-group b-field-group-passport">
-                            <div class="b-field-block b-field-block-192">
-                                <label class="b-agreement"><input disabled type="checkbox" ng-model="passenger.bonuscard.haveBonusCard"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
-                            </div>
-                            <div class="b-field-block b-field-block-195" ng-show="passenger.bonuscard.haveBonusCard == true">
-                                <label class="b-field-label">Авиакомпания</label>
-                                <input disabled ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
-                            </div>
-                            <div class="b-field-block b-field-block-143" ng-show="passenger.bonuscard.haveBonusCard == true">
-                                <label class="b-field-label">Номер карты</label>
-                                <input disabled type="text" ng-model="passenger.bonuscard.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
-                            </div>
-                        </div>
+                    <div class="b-field-block" style="width: 110px;">
+                        <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
+                        <input disabled type="text" ng-model="passenger.doc_series_and_number" placeholder="1104 046100" class="b-field-text">
                     </div>
-                </fieldset>
-            </div>
-
-            <div class="b-tickets-info-container">
-                <div class="b-tickets-ok">Ваши билеты забронированы</div>
-                <div class="b-tickets-sum">Сумма к оплате: <b>{{reservationModel.price| price}}</b> <span class="b-sum-rub">руб.</span></div>
-                <div class="b-tickets-info">
-                    Авиабилеты нужно оплатить <b>до {{reservationModel.expirationDate | date:'HH:mm'}} часов, {{reservationModel.expirationDateFormatted}} года</b><div class="br"></div>
-                    Для оплаты осталось: <b>{{reservationModel.experationMinuteFormatted}}</b>
+                    <div class="b-field-block" style="width: 110px;">
+                        <label class="b-field-label b-field-label-docs">Действителен до</label>
+                        <input disabled type="text" ng-model="passenger.doc_expirationDate" placeholder="дд.мм.гггг" class="b-field-text">
+                    </div>
                 </div>
-            </div>
+                <div class="b-field-group b-field-group-passport">
+                    <div class="b-field-group b-field-group-passport">
+                        <div class="b-field-block" style="width: 220px;">
+                            <label class="b-agreement"><input disabled type="checkbox" ng-model="passenger.bonuscard.haveBonusCard"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
+                        </div>
+                        <div class="b-field-block" style="width: 150px;" ng-show="passenger.bonuscard.haveBonusCard == true">
+                            <label class="b-field-label">Авиакомпания</label>
+                            <input disabled ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
+                        </div>
+                        <div class="b-field-block" style="width: 150px;" ng-show="passenger.bonuscard.haveBonusCard == true">
+                            <label class="b-field-label">Номер карты</label>
+                            <input disabled type="text" ng-model="passenger.bonuscard.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
 
+        <div class="b-tickets-info-container">
+            <div class="b-tickets-ok">Ваши билеты забронированы, сумма к оплате:</div>
+            <div class="b-tickets-sum"><b>{{reservationModel.price| price}}</b> <span class="b-sum-rub">руб.</span></div>
+            <div class="b-tickets-info">
+                Авиабилеты нужно оплатить <b>до {{reservationModel.expirationDate | date:'HH:mm'}} часов, {{reservationModel.expirationDateFormatted}} года</b><div class="br"></div>
+                Для оплаты осталось: <b>{{reservationModel.experationMinuteFormatted}}</b>
+            </div>
+        </div>
+
+        <div class="main__center">
+            <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде, используя платежный шлюз Промсвязьбанка</div>
             <div class="b-cc-container">
                 <div class="b-cc-front">
                     <img src="spa/img/cc.png" class="b-cc-type" alt="">
@@ -79,22 +81,22 @@
                             <input ng-class="{error:!isValid.num4}" digits-input type="text" ng-model="payModel.num4" class="b-field-text b-field-text-small" maxlength="4">
                         </div>
                     </div>
-                    <div class="b-cc-block">
+                    <div class="b-cc-block b-cc-block-date">
                         <label class="b-cc-block-label b-cc-block-label-date">Действительна до</label>
                         <div class="b-cc">
                             <div class="b-cc-date">
                                 Месяц
-                                <input ng-class="{error:!isValid.cardMonth}" id="cardMonth" title="Неправильно введен месяц" digits-input ng-model="payModel.cardMonth" type="text" class="b-field-text b-field-text-small" maxlength="2">
+                                <input type="text" class="b-field-text b-field-text-small" ng-class="{error:!isValid.cardMonth}" id="cardMonth" title="Неправильно введен месяц" digits-input ng-model="payModel.cardMonth" maxlength="2">
                             </div>
                             <div class="b-cc-date">
                                 Год
-                                <input ng-class="{error:!isValid.cardYear}" id="cardYear" title="Неправильно введен год" digits-input ng-model="payModel.cardYear" type="text" class="b-field-text b-field-text-small" maxlength="2">
+                                <input type="text" class="b-field-text b-field-text-small" ng-class="{error:!isValid.cardYear}" id="cardYear" title="Неправильно введен год" digits-input ng-model="payModel.cardYear" maxlength="2">
                             </div>
                         </div>
                     </div>
                     <div class="b-cc-block">
-                        <label class="b-cc-block-label">Держатель карты</label>
-                        <input ng-class="{error:!isValid.cardHolder}" id="cardHolder" title="Нужно ввести держателя карты" ng-model="payModel.cardHolder" type="text" class="b-field-text b-field-text-name">
+                        <label class="b-cc-block-label b-cc-block-label-number">Держатель<br> карты</label>
+                        <input type="text" class="b-field-text b-field-text-name" ng-class="{error:!isValid.cardHolder}" id="cardHolder" title="Нужно ввести держателя карты" ng-model="payModel.cardHolder">
                     </div>
                 </div>
                 <div class="b-cc-end">
@@ -104,12 +106,14 @@
                     </div>
                 </div>
             </div>
-            <label class="b-agreement b-agreement-cc"><input ng-model="payModel.agree" type="checkbox"><ins id="agree" title="Нужно согласиться с условиями" class="b-checkbox"></ins>Я согласен с условиями договора-оферты, ознакомлен с <a ng-href="#" ng-click="tarifs.show($event)">правилами изменения и отмены бронирования</a> и не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
-            <div class="b-pay-button-block">
+            <div class="b-agreement-container">
                 <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить" ng-click="processToBuy($event)"></span>
+                <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree"><ins class="b-checkbox" id="agree" title="Нужно согласиться с условиями"></ins>Я согласен с условиями <a href="#" ng-click="oferta.show($event)">договора-оферты</a>, ознакомлен с <a ng-href="#" ng-click="tarifs.show($event)">правилами изменения</a> и <a href="#" ng-click="cancelReservation.show($event)">отмены бронирования</a> и 
+не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
+                <img src="/spa/img/logos.png" class="b-logos" alt="">
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 <!-- Search Results -->
 
