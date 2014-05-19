@@ -36,42 +36,26 @@
 	"buffers":
 	[
 		{
-			"file": "html/buy_tickets.html",
+			"file": "html/request.html",
 			"settings":
 			{
-				"buffer_size": 27328,
+				"buffer_size": 19319,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "html/listing.html",
+			"file": "styl/request.styl",
 			"settings":
 			{
-				"buffer_size": 30577,
+				"buffer_size": 5614,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "styl/common.styl",
+			"file": "styl/listing.styl",
 			"settings":
 			{
-				"buffer_size": 3030,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "styl/datepicker.styl",
-			"settings":
-			{
-				"buffer_size": 6431,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "styl/buy.styl",
-			"settings":
-			{
-				"buffer_size": 10650,
+				"buffer_size": 5184,
 				"line_ending": "Unix"
 			}
 		}
@@ -121,10 +105,15 @@
 	},
 	"file_history":
 	[
-		"/Users/tagir/Dropbox/Webserver/c24/c24/c24.sublime-workspace",
-		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/listing.styl",
-		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/results.styl",
+		"/Users/tagir/Dropbox/Webserver/Adme/coloribus.com/coloribus.sublime-workspace",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/common.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/listing.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/listing.html",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/results.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/buy.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/datepicker.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/buy_tickets.html",
+		"/Users/tagir/Dropbox/Webserver/c24/c24/c24.sublime-workspace",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/js/search_form.js",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/gulpfile.js",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/package.json",
@@ -243,12 +232,7 @@
 		"/Users/0range/WebServer/Kribrum/i/separator.png",
 		"/Users/0range/WebServer/Kribrum/js/jquery.ui.datepicker-ru.js",
 		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/User/JSON.sublime-settings",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/User/Distraction Free.sublime-settings",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/Default/Default (OSX).sublime-keymap",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/User/CSScomb.sublime-settings"
+		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
 	],
 	"find":
 	{
@@ -267,6 +251,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"/spa/img",
+			"rlf-fly-arrow",
+			"li__mes",
+			"li__block-mes-text-inner",
+			"r__message-container",
 			"datepickerSelected-start",
 			".results-body",
 			"form-body",
@@ -388,6 +377,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"../img",
 			"",
 			" 0",
 			"../",
@@ -424,24 +414,24 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "html/buy_tickets.html",
+					"file": "html/request.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 27328,
+						"buffer_size": 19319,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14964,
-								14964
+								8490,
+								8490
 							]
 						],
 						"settings":
@@ -451,85 +441,55 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2488.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "html/listing.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 30577,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3861,
-								3841
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 367.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "styl/common.styl",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3030,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2700,
-								2700
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Stylus/Stylus.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 1155.0,
+						"translation.y": 2111.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "styl/datepicker.styl",
+					"buffer": 1,
+					"file": "styl/request.styl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6431,
+						"buffer_size": 5614,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5982,
-								5982
+								5601,
+								5601
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Stylus/Stylus.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 4166.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "styl/listing.styl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5184,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								624,
+								624
 							]
 						],
 						"settings":
@@ -540,36 +500,6 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "styl/buy.styl",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10650,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10647,
-								10647
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Stylus/Stylus.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 8310.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -616,7 +546,7 @@
 	"project": "untitled.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
