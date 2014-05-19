@@ -1,6 +1,6 @@
 ﻿innaAppServices.
-    factory('paymentService', ['$rootScope', '$timeout', '$http', '$q', '$log', 'cache', 'storageService', 'innaApp.API.const',
-        function ($rootScope, $timeout, $http, $q, $log, cache, storageService, apiUrls) {
+    factory('paymentService', ['$rootScope', '$timeout', '$http', '$q', '$log', 'cache', 'storageService', 'innaApp.API.const', 'AjaxHelper',
+        function ($rootScope, $timeout, $http, $q, $log, cache, storageService, apiUrls, AjaxHelper) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -39,13 +39,22 @@
                 },
 
                 reserve: function (queryData, successCallback, errCallback) {
-                    $http.post(apiUrls.AVIA_RESERVATION, queryData).success(function (data, status) {
+                    var qData = angular.toParam(queryData);
+                    AjaxHelper.post(apiUrls.AVIA_RESERVATION, qData, function (data) {
                         successCallback(data);
-                    }).
-                    error(function (data, status) {
+                    }, function (data, status) {
                         errCallback(data, status);
                     });
                 },
+
+                //reserve: function (queryData, successCallback, errCallback) {
+                //    $http.post(apiUrls.AVIA_RESERVATION, queryData).success(function (data, status) {
+                //        successCallback(data);
+                //    }).
+                //    error(function (data, status) {
+                //        errCallback(data, status);
+                //    });
+                //},
 
                 getSelectedVariant: function (queryData, successCallback, errCallback) {
                     $http.get(apiUrls.AVIA_RESERVATION_GET_VARIANT, { cache: true, params: queryData }).success(function (data, status) {

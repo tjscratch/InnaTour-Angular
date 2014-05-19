@@ -325,29 +325,39 @@ innaAppControllers.
                             $location.path(Urls.URL_AVIA);
                         });
                 }
+
+                function runInScope(fn) {
+                    //$scope.$apply(function ($scope) { fn(); });
+                    console.log(arguments);
+                    fn();
+                }
+
                 paymentService.reserve(apiModel,
                     function (data) {
-                        log('order: ' + angular.toJson(data));
-                        if (data != null && data.OrderNum != null && data.OrderNum.length > 0)
-                        {
-                            //сохраняем orderId
-                            //storageService.setAviaOrderNum(data.OrderNum);
-                            $scope.criteria.OrderNum = data.OrderNum;
+                        $scope.$apply(function ($scope) {
+                            log('order: ' + angular.toJson(data));
+                            if (data != null && data.OrderNum != null && data.OrderNum.length > 0) {
+                                //сохраняем orderId
+                                //storageService.setAviaOrderNum(data.OrderNum);
+                                $scope.criteria.OrderNum = data.OrderNum;
 
-                            //сохраняем модель
-                            storageService.setReservationModel(model);
+                                //сохраняем модель
+                                storageService.setReservationModel(model);
 
-                            //успешно
-                            call();
-                        }
-                        else {
-                            showReserveError();
-                        }
+                                //успешно
+                                call();
+                            }
+                            else {
+                                showReserveError();
+                            }
+                        });
                     },
                     function (data, status) {
-                        //ошибка
-                        log('paymentService.reserve error');
-                        showReserveError();
+                        $scope.$apply(function ($scope) {
+                            //ошибка
+                            log('paymentService.reserve error');
+                            showReserveError();
+                        });
                     });
             };
 
