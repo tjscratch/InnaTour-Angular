@@ -5,7 +5,7 @@
         </h4>
         <ul class="ra-tags-list" ng-repeat="filter in filters.filters">
             <li ng-repeat="option in filter.options.options" ng-if="option.selected">
-                {{option.describe()}} <a href="javascrip:void(0);" ng-click="delete(option)"></a>
+                <span ng-bind-html="option.describe()"></span> <a href="javascrip:void(0);" ng-click="delete(option)"></a>
             </li>
         </ul>
         <a ng-if="atLeastOne()" ng-click="reset()" href="javascript:void(0);" class="ra-tags-reset">Сбросить все</a>

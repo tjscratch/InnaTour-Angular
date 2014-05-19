@@ -18,6 +18,7 @@ innaAppControllers.
 
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+            $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
 
             //====================================================
             //нужны в родителе
@@ -28,6 +29,17 @@ innaAppControllers.
             $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
             //нужны в родителе
             //====================================================
+
+            $scope.goBackUrl = function () {
+                return '#' +  urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+            };
+            $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $scope.criteria.CabinClass);
+
+            $scope.goToPaymentClick = function ($event) {
+                eventsHelper.preventBubbling($event);
+                //просто закрываем
+                $scope.popupItemInfo.isShow = false;
+            }
 
             $scope.searchId = $scope.criteria.QueryId;
 
@@ -167,6 +179,7 @@ innaAppControllers.
 
             function init() {
                 $scope.initPayModel();
+                //console.log($scope.item);
             }
 
             $scope.afterPayModelInit = function () {
@@ -312,29 +325,39 @@ innaAppControllers.
                             $location.path(Urls.URL_AVIA);
                         });
                 }
+
+                function runInScope(fn) {
+                    //$scope.$apply(function ($scope) { fn(); });
+                    console.log(arguments);
+                    fn();
+                }
+
                 paymentService.reserve(apiModel,
                     function (data) {
-                        log('order: ' + angular.toJson(data));
-                        if (data != null && data.OrderNum != null && data.OrderNum.length > 0)
-                        {
-                            //сохраняем orderId
-                            //storageService.setAviaOrderNum(data.OrderNum);
-                            $scope.criteria.OrderNum = data.OrderNum;
+                        $scope.$apply(function ($scope) {
+                            log('order: ' + angular.toJson(data));
+                            if (data != null && data.OrderNum != null && data.OrderNum.length > 0) {
+                                //сохраняем orderId
+                                //storageService.setAviaOrderNum(data.OrderNum);
+                                $scope.criteria.OrderNum = data.OrderNum;
 
-                            //сохраняем модель
-                            storageService.setReservationModel(model);
+                                //сохраняем модель
+                                storageService.setReservationModel(model);
 
-                            //успешно
-                            call();
-                        }
-                        else {
-                            showReserveError();
-                        }
+                                //успешно
+                                call();
+                            }
+                            else {
+                                showReserveError();
+                            }
+                        });
                     },
                     function (data, status) {
-                        //ошибка
-                        log('paymentService.reserve error');
-                        showReserveError();
+                        $scope.$apply(function ($scope) {
+                            //ошибка
+                            log('paymentService.reserve error');
+                            showReserveError();
+                        });
                     });
             };
 

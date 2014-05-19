@@ -70,6 +70,8 @@ angular.module('innaApp.controllers')
                 $scope.open();
             }
 
+            $scope.B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
+
             /*EventListeners*/
             $scope.$on(Events.AUTH_SIGN_IN, function(event, data) {
                 setUserInfo(data);

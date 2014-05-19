@@ -57,17 +57,23 @@ angular.module('innaApp.controllers')
             }
 
             function setNewPassword(){
+                console.log('setNewPassword');
+
                 AuthDataProvider.setNewPassword($scope.restoreToken, {
                     newPassword: $scope.password,
                     confirmPassword: $scope.password2
                 }, function(){
-                    $scope.success = true;
+                    $scope.$apply(function($scope){
+                        $scope.success = true;
 
-                    $timeout(function(){
-                        document.location = '/';
-                    }, 1500);
+                        $timeout(function(){
+                            document.location = '/';
+                        }, 1500);
+                    });
                 }, function(){
-                    $scope.requestFailed = true;
+                    $scope.$apply(function($scope){
+                        $scope.requestFailed = true;
+                    });
                 });
             }
 
@@ -95,13 +101,15 @@ angular.module('innaApp.controllers')
             $scope.setNewPassword = function(){
                 try {
                     validate();
-
-                    //if ok
-                    setNewPassword();
                 } catch(fieldName) {
                     $scope.errors[fieldName] = true;
+
+                    return;
                 }
-            }
+
+                //if ok
+                setNewPassword();
+            };
 
             $scope.hasError = function(fieldName) {
                 if($scope.errors[fieldName]) return 'error';

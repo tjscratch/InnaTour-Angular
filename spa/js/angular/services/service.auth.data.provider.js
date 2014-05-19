@@ -13,11 +13,7 @@ angular.module('innaApp.services')
                     AjaxHelper.postDebaunced(urls.AUTH_RESTORE_A, data, callbackSuccess, callbackError);
                 },
                 setNewPassword: function(token, data, success, error){
-                    $http({
-                        method: 'POST',
-                        data: data,
-                        url: urls.AUTH_RESTORE_B + '?token=' + token
-                    }).success(success).error(error);
+                    AjaxHelper.postDebaunced(urls.AUTH_RESTORE_B + '?token=' + token, data, success, error);
                 },
                 socialBrockerURL: function(method){
                     return urls.AUTH_SOCIAL_BROKER +

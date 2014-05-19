@@ -85,8 +85,7 @@ angular.module('innaApp.controllers')
             AuthDataProvider.confirmRegistration($scope.signUpToken, function(resp){
                 $scope.$apply(function($scope){
                     $scope.baloon.hide();
-
-                    console.log('AuthRegistrationCtrl_Step2: AuthDataProvider.confirmRegistration: ', resp);
+                    $scope.close();
                 });
             });
         }

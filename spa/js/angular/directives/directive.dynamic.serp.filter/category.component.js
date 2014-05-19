@@ -21,7 +21,9 @@ angular.module('innaApp.directives')
                         });
 
                         Option.prototype.describe = function(){
-                            return _.generateRange(0, this.value - 1).map(function(){ return '*' }).join('');
+                            return _.generateRange(0, this.value - 1).map(function(){
+                                return '<span class="icon icon-star ng-scope"></span>';
+                            }).join('');
                         }
 
                         /*Properties*/
