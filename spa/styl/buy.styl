@@ -482,6 +482,9 @@
 .radio-list input:disabled + .radio
     background-color #e4e4e4
 
+.radio-list input:disabled:checked + .radio
+    background-color #c0c0c2
+
 .radio-list input:checked + .radio
     background #82b739
     color #fff
@@ -643,6 +646,93 @@
 
     &:last-child
         border 0
+
+.buy__price-descr
+    font-size 14px
+    line-height 20px
+    letter-spacing -.025em
+    margin -5px 0 8px
+
+.buy__comments-container
+    clearfix()
+    padding 0 0 50px
+
+.buy__comments-field
+    float left
+    border 1px solid #c0c0c2
+    border-radius 3px
+    background #fff
+    width 710px
+    height 90px
+    min-height 90px
+    resize vertical
+    box-sizing border-box
+    padding 5px 8px
+
+.buy__comments-help
+    float right
+    font-size 12px
+    color #878787
+    width 240px
+    padding 5px 0 0
+
+.buy__more-help
+    color #878787
+    font-size 12px
+    margin -13px 0 19px
+
+.buy__more-options .b-agreement
+    margin 0 0 10px
+
+.buy__more-container
+    padding 0 0 20px
+
+.buy__autocomplete
+    position absolute
+    left 0
+    right 0
+    background #fff
+    z-index 10
+    top 53px
+    font-size 14px
+    box-sizing border-box
+    border-radius 3px
+    border 1px solid #c0c0c2
+    box-shadow 0 2px 2px rgba(0,0,0,.2)
+
+    a
+        display block
+        clearfix()
+        padding 5px 10px 4px
+        color #000
+
+        &:hover
+            text-decoration none
+            background #e6e7e9
+
+.buy__autocomplete_double
+    width 309px
+
+.buy__autocomplete-item1
+    float left
+    width 148px
+
+.buy__autocomplete-item2
+    float right
+    width 138px
+
+.result
+    z-index 5
+    margin-bottom 5px
+
+.buy__tickets 
+    padding 12px 0 0
+    margin 0 0 0 -13px
+
+    .rlf-fly_back
+        border 0
+        padding-left 30px
+        background-position 0 0
 
 
 
