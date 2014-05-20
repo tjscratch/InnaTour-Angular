@@ -153,13 +153,13 @@
                             $scope.isOpen = false;
 
                             //если выбираем дату обратно, и установлена галка в одну сторону - снимаем ее
-                            if ($scope.data.isOneWaySelected) {
+                            if ($scope.data != null && $scope.data.isOneWaySelected) {
                                 $scope.data.isOneWaySelected = false;
                             }
                         }
                         else {
                             //если выбираем дату туда, и стоит галка в одну сторону
-                            if ($scope.data.isOneWaySelected) {
+                            if ($scope.data != null && $scope.data.isOneWaySelected) {
                                 $scope.setLastSel(true);
                                 $scope.isFromSelecting = true;
                                 $scope.isOpen = false;
