@@ -13,7 +13,7 @@ angular.module('innaApp.services')
                     url: url,
                     type: method,
                     dataType: 'json',
-                    traditional: true,
+                    traditional: !hasObjects(data),
                     data: data,
                     xhrFields: { withCredentials: true },
                     crossDomain: true,
@@ -21,6 +21,14 @@ angular.module('innaApp.services')
 
                     eol: null
                 }
+            }
+
+            function hasObjects(data) {
+                for(var key in data) if(data.hasOwnProperty(key)){
+                    if(_.isObject(data[key])) return true;
+                }
+
+                return false;
             }
 
             ajax.get = function (url, data, success, error, async) {

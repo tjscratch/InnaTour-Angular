@@ -67,25 +67,6 @@ innaAppControllers
                 );
             }
 
-//            doesHotelFit.comparators = {
-//                Name: function(hotel, value){
-//                    if(!value) return true;
-//
-//                    return (hotel.HotelName && hotel.HotelName.indexOf(value) !== -1);
-//                },
-//                Extra: function(hotel, value){
-//                    var show = true;
-//
-//                    for(var option in value) if(value.hasOwnProperty(option)) {
-//                        if(!value[option]) continue;
-//
-//                        show = show && hotel[option];
-//                    }
-//
-//                    return show;
-//                }
-//            };
-
             function updateCombination(o) {
                 if(!$scope.combination) $scope.combination = {};
 
@@ -96,8 +77,6 @@ innaAppControllers
                 $location
                     .search('hotel',$scope.combination.Hotel.data.HotelId)
                     .search('ticket', $scope.combination.AviaInfo.data.VariantId1);
-
-                console.log('updateCombination:', $scope.combination);
             }
 
             function balloonCloser() {
@@ -108,6 +87,7 @@ innaAppControllers
             /*Properties*/
             $scope.hotels = new inna.Models.Hotels.HotelsCollection();
             $scope.hotelFilters = new inna.Models.Avia.Filters.FilterSet();
+            $scope.hotelToShowDetails = null;
             $scope.tickets = new inna.Models.Avia.TicketCollection();
             $scope.ticketFilters = new inna.Models.Avia.Filters.FilterSet();
             $scope.combination = null;
@@ -134,22 +114,29 @@ innaAppControllers
                 return new O();
             })();
 
-
             // JFYI !!+val does the following magic: convert val into integer (+val) and then convert to boolean (!!)
             $scope.asMap = !!+DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
 
             $scope.showLanding = true;
 
-            $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
-
             /*Methods*/
             $scope.getHotelDetails = function(hotel){
+                console.log('getHotelsDetails');
+
                 DynamicPackagesDataProvider.hotelDetails(
-                    hotel.HotelId, hotel.ProviderId,
-                    $scope.combination.AviaInfo.VariantId1, $scope.combination.AviaInfo.VariantId2,
-                    cacheKey, function(resp){
-                        console.log('HOTEL DETAILS', resp);
-                    });
+                    hotel.data.HotelId,
+                    hotel.data.ProviderId,
+                    $scope.combination.AviaInfo.data.VariantId1,
+                    $scope.combination.AviaInfo.data.VariantId2,
+                    searchParams,
+                    function(resp){
+                        hotel.detailed = resp;
+
+                        $scope.$apply(function($scope){
+                            $scope.hotelToShowDetails = hotel;
+                        });
+                    }
+                );
             };
 
             $scope.getTicketDetails = function(ticket){
@@ -212,6 +199,8 @@ innaAppControllers
 
             /*Initial Data fetching*/
             (function() {
+                $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
+
                 searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
                 searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);
                 searchParams.Children && (searchParams.ChildrenAges = searchParams.Children.split('_'));

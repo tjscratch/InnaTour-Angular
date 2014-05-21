@@ -1,0 +1,302 @@
+<div class="hotel-details">
+    <img class="hotel-details__bg-source" id="hotel-details-bg-source" src="/spa/img/test.png">
+    <canvas class="hotel-details__bg" id="hotel-details-bg-target" width="256" height="256"></canvas>
+    <script src="/spa/js/blurer.js"></script>
+    <script>
+        $(function(){
+            $('#hotel-details-bg-source').load(function(){
+                stackBlurImage("hotel-details-bg-source", "hotel-details-bg-target", 10, true);
+                $("#hotel-details-bg-target").css({
+                    width: '',
+                    height: ''
+                })
+            });
+
+            new google.maps.Map(document.getElementById('hotel-details-map'), {
+                center: new google.maps.LatLng(0, 0),
+                zoom: 7
+            });
+        });
+    </script>
+
+    <div class="hotel-details__wrap">
+        <div class="hotel-details__section hotel-details__section_layout_context">
+            <ul class="hotel-details-control hotel-details-control_pin_left">
+                <li class="hotel-details-control__button">&larr; Список отелей</li>
+                <li class="hotel-details-control__button hotel-details-control__button_theme_arrow">&rarr;</li>
+            </ul>
+            <div class="hotel-details__ta hotel-details-ta-info">
+                <div class="hotel-info-tripadvisor">
+                    <span class="icon icon-tripadvisor"></span>
+                    <span class="icon icon-tripadvisor-like"></span>
+                    <span class="icon icon-tripadvisor-like"></span>
+                    <span class="icon icon-tripadvisor-like"></span>
+                    <span class="icon icon-tripadvisor-like"></span>
+                    <span class="icon icon-tripadvisor-like"></span>
+                    <span class="hotel-details-ta-info__comments">123 отызва</span>
+                </div>
+            </div>
+            <div class="hotel-details-name">
+                        <span class="hotel-details-stars">
+                            <span class="icon icon-star"></span>
+                            <span class="icon icon-star"></span>
+                            <span class="icon icon-star"></span>
+                            <span class="icon icon-star"></span>
+                            <span class="icon icon-star"></span>
+                        </span>
+                Sea Sun Send Resort & Spa
+            </div>
+        </div>
+        <div class="hotel-details__section">
+            <div class="gallery">
+                <div class="gallery__viewport-wrap">
+                    <div class="gallery__viewport" style="background-image:url(/spa/img/test.jpg);width:300px;height:222px;">
+                        <span class="gallery__button gallery__button_type_next"></span>
+                        <span class="gallery__button gallery__button_type_prev"></span>
+                    </div>
+                </div>
+                <ul class="gallery__list">
+                    <li class="gallery__list-item" style="background-image:url(/spa/img/test.jpg);"></li>
+                    <li class="gallery__list-item" style="background-image:url(/spa/img/test.jpg);"></li>
+                    <li class="gallery__list-item" style="background-image:url(/spa/img/test.jpg);"></li>
+                    <li class="gallery__list-item gallery__list-item_state_current" style="background-image:url(/spa/img/test.jpg);"></li>
+                    <li class="gallery__list-item" style="background-image:url(/spa/img/test.jpg);"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="hotel-details__section">
+            <div class="hotel-details__section-box">
+                <h2 class="hotel-details__section-title">Об отеле</h2>
+                <div class="hotel-details__section-text">
+                    <p>Предлагая качественное обслуживание и услуги в районе для ресторанов, бизнеса, шоппинга, города Шанхай, The Puli Hotel and Spa очень популярен, как среди бизнесменов так и туристов. Отсюда, гости могут всецело ощутить преимущество удачного расположения и близости ко всему, что может предложить оживленный город своим туристам. Благодаря тому, что отель находится в непосредственной близости от таких достопримечательностей, как Храм Джиньан, Торговый центр Sogo Shanghai, Генеральное консульство Республики Перу, гости отеля будут в восторге от его удобного расположения.</p>
+                    <p>В The Puli Hotel and Spa, отличный сервис и превосходные удобства, помогут сделать ваш отдых незабываемым. Для комфорта и удобства гостей, в отеле предлагается ресторан, услуга парковки, лифт, комната для переговоров и мероприятий, кафе.</p>
+                    <p>Сделайте всего один шаг в один из 229 уютных номеров отеля, и вы погрузитесь в уютную атмосферу, сможете расслабиться от дневного стресса и воспользоваться широким спектром удобств, таких как письменный стол, просмотр фильмов в номере, кофе/чай, ванна, беспроводный интернет. В отеле можно найти полный спектр услуг для отдыха и развлечений, в том числе бассейн (в помещении), спа, сауна, ванны горячих источников, массаж. Независимо от цели вашего визита в Шанхай, The Puli Hotel and Spa является идеальным местом для отличного отдыха и веселого времяпрепровождения.</p>
+                    <div class="hotel-details__section-text-more">Свернуть</div>
+                </div>
+                <ul class="hotel-details-extra">
+                    <li class="hotel-details-extra__item hotel-details-extra__item_type_parking">Парковка</li>
+                    <li class="hotel-details-extra__item hotel-details-extra__item_type_wifi">Wifi</li>
+                    <li class="hotel-details-extra__item hotel-details-extra__item_type_trans">Трансфер</li>
+                    <li class="hotel-details-extra__item hotel-details-extra__item_type_food">Очень вкусный тост по утрам</li>
+                    <li class="hotel-details-extra__item hotel-details-extra__item_type_skipass">бесплатный skipass</li>
+                </ul>
+            </div>
+        </div>
+        <div class="hotel-details__section">
+            <h2 class="hotel-details__section-title">
+                <div class="hotel-details__section-title-section">
+                    о.Пхукет, Патонг Бич, 254 Prabaramee
+                </div>
+                <div class="hotel-details__section-title-section">
+                    <ul class="hotel-details-control">
+                        <li class="hotel-details-control__button hotel-details-control__button_theme_icon-only"><img src="/spa/img/hotel-details-map-go-fullscreen.png"></li>
+                        <li class="hotel-details-control__button">Панорама</li>
+                    </ul>
+                </div>
+            </h2>
+            <div class="hotel-details-map" id="hotel-details-map"></div>
+        </div>
+        <div class="hotel-details__section">
+            <h2 class="hotel-details__section-title">Пакет с этим отелем</h2>
+            <ng:include src="'/spa/templates/pages/dynamic/inc/bundle-body.html'"></ng:include>
+        </div>
+        <div class="hotel-details__section">
+            <h2 class="hotel-details__section-title">Выбор номера</h2>
+            <ul class="hotel-details-rooms">
+                <li class="hotel-details-rooms__room hotel-details-rooms__room_state_open">
+                    <div class="hotel-details-rooms__room-short">
+                        <h3 class="hotel-details-rooms__room-title">Стандартный двухместный номер</h3>
+
+                        <div class="hotel-details-rooms__room-short-info">
+                            <div class="hotel-details-rooms__room-desc">Одна большая двуспальная кровать</div>
+                            <div class="hotel-details-rooms__room-cancel-rules">Бесплатная отмена бронирования
+                            </div>
+                            <div class="hotel-details-rooms__room-price">
+                                <div class="hotel-details-rooms__room-price-diff">Включен в цену</div>
+                                <div class="hotel-details-rooms__room-price-full">К оплате: 123 123 Р</div>
+                            </div>
+                            <div class="hotel-details-rooms__room-actions">
+                                <button class="button button_size_l">Купить</button>
+                            </div>
+                        </div>
+
+                        <ul class="hotel-details-extra">
+                            <li class="hotel-details-extra__item hotel-details-extra__item_type_parking">Парковка</li>
+                            <li class="hotel-details-extra__item hotel-details-extra__item_type_wifi">Wifi</li>
+                        </ul>
+                    </div>
+                    <div class="hotel-details-rooms__room-long">
+                        <ul class="mini-gallery">
+                            <li class="mini-gallery__mini" style="background-image:url(/spa/img/test.jpg);">
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="/spa/img/test.jpg" alt=""/></div>
+                            </li>
+                            <li class="mini-gallery__mini" style="background-image:url(/spa/img/test.jpg);">
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="/spa/img/test.jpg" alt=""/></div>
+                            </li>
+                            <li class="mini-gallery__mini" style="background-image:url(/spa/img/test.jpg);">
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="/spa/img/test.jpg" alt=""/></div>
+                            </li>
+                            <li class="mini-gallery__mini" style="background-image:url(/spa/img/test.jpg);">
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="/spa/img/test.jpg" alt=""/></div>
+                            </li>
+                            <li class="mini-gallery__mini" style="background-image:url(/spa/img/test.jpg);">
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="/spa/img/test.jpg" alt=""/></div>
+                            </li>
+                        </ul>
+                        <div class="hotel-details-rooms__room-long-text">
+                            <p>Номер с бесплатным Wi-Fi и высокоскоростным доступом в Интернет, располагает сейфом, DVD-плеером и телевизором с плоским экраном. Гостям бесплатно предоставляется ежедневная газета Sun Business.</p>
+                            <p>В номерах данной категории установка дополнительных кроватей не предусмотрена. Услуги и удобства: Мини-бар, Душ, Ванна, Сейф, Телевизор, Телефон, Кондиционер, Фен, Пресс для брюк, Халат, Рабочий стол, Гостиный уголок, Туалетные принадлежности, DVD-плеер, Туалет, Ванная комната, Отопление, Тапочки, Спутниковые каналы, Кабельные каналы, Ковровое покрытие, Телевизор с плоским экраном, Услуга «звонок-будильник», Будильник, Электрический чайник</p>
+                            <p>Площадь номера: 28 м2 Размер кровати: Широкая двуспальная</p>
+                            <h3>Правила отмены</h3>
+                            <ul>
+                                <li>В случае отмены или изменения бронирования в срок до 1 суток до даты заезда штраф не взимается.</li>
+                                <li>В случае отмены или изменения бронирования позднее этого срока или в случае незаезда взимается 100 процентов от стоимости первой ночи проживания.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="hotel-details-rooms__room">
+                    <div class="hotel-details-rooms__room-short">
+                        <h3 class="hotel-details-rooms__room-title">Стандартный двухместный номер</h3>
+
+                        <div class="hotel-details-rooms__room-desc">Одна большая двуспальная кровать</div>
+                        <div class="hotel-details-rooms__room-cancel-rules">Бесплатная отмена бронирования
+                        </div>
+                        <div class="hotel-details-rooms__room-price">
+                            <div class="hotel-details-rooms__room-price-diff">Включен в цену</div>
+                            <div class="hotel-details-rooms__room-price-full">К оплате: 123 123 Р</div>
+                        </div>
+                        <div class="hotel-details-rooms__room-actions">
+                            <button class="button">Купить</button>
+                        </div>
+
+                        <ul class="hotel-details-extra">
+                            <li class="hotel-details-extra__item hotel-details-extra__item_type_parking">Парковка</li>
+                            <li class="hotel-details-extra__item hotel-details-extra__item_type_wifi">Wifi</li>
+                        </ul>
+                    </div>
+                    <div class="hotel-details-rooms__room-long">
+                        <ul class="mini-gallery">
+                            <li class="mini-gallery__mini">
+                                <img class="mini-gallery__mini-img" src="" alt=""/>
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="" alt=""/></div>
+                            </li>
+                            <li class="mini-gallery__mini">
+                                <img class="mini-gallery__mini-img" src="" alt=""/>
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="" alt=""/></div>
+                            </li>
+                            <li class="mini-gallery__mini">
+                                <img class="mini-gallery__mini-img" src="" alt=""/>
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="" alt=""/></div>
+                            </li>
+                        </ul>
+                        <div class="hotel-details-rooms__room-long-text">
+                            <p>Номер с бесплатным Wi-Fi и высокоскоростным доступом в Интернет, располагает сейфом, DVD-плеером и телевизором с плоским экраном. Гостям бесплатно предоставляется ежедневная газета Sun Business.</p>
+                            <p>В номерах данной категории установка дополнительных кроватей не предусмотрена. Услуги и удобства: Мини-бар, Душ, Ванна, Сейф, Телевизор, Телефон, Кондиционер, Фен, Пресс для брюк, Халат, Рабочий стол, Гостиный уголок, Туалетные принадлежности, DVD-плеер, Туалет, Ванная комната, Отопление, Тапочки, Спутниковые каналы, Кабельные каналы, Ковровое покрытие, Телевизор с плоским экраном, Услуга «звонок-будильник», Будильник, Электрический чайник</p>
+                            <p>Площадь номера: 28 м2 Размер кровати: Широкая двуспальная</p>
+                            <h3>Правила отмены</h3>
+                            <ul>
+                                <li>В случае отмены или изменения бронирования в срок до 1 суток до даты заезда штраф не взимается.</li>
+                                <li>В случае отмены или изменения бронирования позднее этого срока или в случае незаезда взимается 100 процентов от стоимости первой ночи проживания.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="hotel-details-rooms__room">
+                    <div class="hotel-details-rooms__room-short">
+                        <h3 class="hotel-details-rooms__room-title">Стандартный двухместный номер</h3>
+
+                        <div class="hotel-details-rooms__room-desc">Одна большая двуспальная кровать</div>
+                        <div class="hotel-details-rooms__room-cancel-rules">Бесплатная отмена бронирования
+                        </div>
+                        <div class="hotel-details-rooms__room-price">
+                            <div class="hotel-details-rooms__room-price-diff">Включен в цену</div>
+                            <div class="hotel-details-rooms__room-price-full">К оплате: 123 123 Р</div>
+                        </div>
+                        <div class="hotel-details-rooms__room-actions">
+                            <button class="button">Купить</button>
+                        </div>
+
+                        <ul class="hotel-details-extra">
+                            <li class="hotel-details-extra__item hotel-details-extra__item_type_parking">Парковка</li>
+                            <li class="hotel-details-extra__item hotel-details-extra__item_type_wifi">Wifi</li>
+                        </ul>
+                    </div>
+                    <div class="hotel-details-rooms__room-long">
+                        <ul class="mini-gallery">
+                            <li class="mini-gallery__mini">
+                                <img class="mini-gallery__mini-img" src="" alt=""/>
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="" alt=""/></div>
+                            </li>
+                            <li class="mini-gallery__mini">
+                                <img class="mini-gallery__mini-img" src="" alt=""/>
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="" alt=""/></div>
+                            </li>
+                            <li class="mini-gallery__mini">
+                                <img class="mini-gallery__mini-img" src="" alt=""/>
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="" alt=""/></div>
+                            </li>
+                        </ul>
+                        <div class="hotel-details-rooms__room-long-text">
+                            <p>Номер с бесплатным Wi-Fi и высокоскоростным доступом в Интернет, располагает сейфом, DVD-плеером и телевизором с плоским экраном. Гостям бесплатно предоставляется ежедневная газета Sun Business.</p>
+                            <p>В номерах данной категории установка дополнительных кроватей не предусмотрена. Услуги и удобства: Мини-бар, Душ, Ванна, Сейф, Телевизор, Телефон, Кондиционер, Фен, Пресс для брюк, Халат, Рабочий стол, Гостиный уголок, Туалетные принадлежности, DVD-плеер, Туалет, Ванная комната, Отопление, Тапочки, Спутниковые каналы, Кабельные каналы, Ковровое покрытие, Телевизор с плоским экраном, Услуга «звонок-будильник», Будильник, Электрический чайник</p>
+                            <p>Площадь номера: 28 м2 Размер кровати: Широкая двуспальная</p>
+                            <h3>Правила отмены</h3>
+                            <ul>
+                                <li>В случае отмены или изменения бронирования в срок до 1 суток до даты заезда штраф не взимается.</li>
+                                <li>В случае отмены или изменения бронирования позднее этого срока или в случае незаезда взимается 100 процентов от стоимости первой ночи проживания.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="hotel-details__section">
+            <div class="hotel-details-resume">
+                <div class="hotel-details-resume__section">
+                    <h4 class="hotel-details-resume__section-title">Условия заселения</h4>
+                    <ul class="hotel-details-resume__list">
+                        <li class="hotel-details-resume__item">Круглосуточная стойка регистрации</li>
+                        <li class="hotel-details-resume__item">Няня для ребенка, услуги для детей</li>
+                        <li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                        <li class="hotel-details-resume__item">Факс, ксерокс</li>
+                    </ul>
+                </div>
+                <div class="hotel-details-resume__section">
+                    <h4 class="hotel-details-resume__section-title">Услуги в отеле</h4>
+                    <ul class="hotel-details-resume__list">
+                        <li class="hotel-details-resume__item">Сейф</li>
+                        <li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                        <li class="hotel-details-resume__item">Факс, ксерокс</li>
+                    </ul>
+                </div>
+                <div class="hotel-details-resume__section">
+                    <h4 class="hotel-details-resume__section-title">Очень длинное название секции, которое наверняка не влезет в 200px</h4>
+                    <ul class="hotel-details-resume__list">
+                        <li class="hotel-details-resume__item">Круглосуточная стойка регистрации</li>
+                        <li class="hotel-details-resume__item">Няня для ребенка, услуги для детей</li>
+                        <li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                    </ul>
+                </div>
+                <div class="hotel-details-resume__section">
+                    <h4 class="hotel-details-resume__section-title">Услуги в отеле</h4>
+                    <ul class="hotel-details-resume__list">
+                        <li class="hotel-details-resume__item">Сейф</li>
+                        <li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                        <li class="hotel-details-resume__item">Факс, ксерокс</li>
+                        <li class="hotel-details-resume__item">Сейф</li>
+                        <li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                        <li class="hotel-details-resume__item">Сейф</li>
+                        <li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

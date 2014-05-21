@@ -61,8 +61,6 @@ angular.module('innaApp.directives')
                                 }
                             });
 
-                            console.log($scope);
-
                             unwatchHotelsCollection();
                         });
                     }
