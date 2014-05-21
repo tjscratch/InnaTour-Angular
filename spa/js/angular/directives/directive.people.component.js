@@ -80,6 +80,15 @@
                     }
                 });
             });
+
+            $('.js-people-minus,.js-people-plus').on('mouseout', function () {
+                var el = $(this);
+                el.removeClass('hover');
+            });
+            $('.js-people-minus,.js-people-plus').on('click', function () {
+                var el = $(this);
+                el.addClass('hover');
+            });
         }
     };
 }]);
