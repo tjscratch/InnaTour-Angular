@@ -3,7 +3,8 @@ angular.module('innaApp.directives')
         return {
             templateUrl: '/spa/templates/components/hotel.html',
             scope: {
-                hotel: '=innaHotelHotel'
+                hotel: '=innaHotelHotel',
+                getDetails: '=innaHotelGetDetails'
             },
             transclude: true
         }

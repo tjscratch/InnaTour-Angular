@@ -7,14 +7,13 @@
 
             return {
                 checkAvailability: function (queryData, successCallback, errCallback) {
-                    
                     //проверяем что данные не старше минуты
                     var res = storageService.getAviaVariantCheck(queryData);
                     if (res != null) {
                         successCallback(res);
                     }
                     else {
-                        $http.get(paymentCheckAvailabilityUrl, { params: queryData }).success(function (data) {
+                        $http.get(apiUrls.AVIA_CHECK_AVAILABILITY, { params: queryData }).success(function (data) {
                             storageService.setAviaVariantCheck({ date: new Date().getTime(), params: queryData, data: data });
                             successCallback(data);
                             //ToDo: debug
@@ -27,6 +26,15 @@
                             errCallback(data, status);
                         });
                     }
+                },
+
+                packageCheckAvailability: function (queryData, successCallback, errCallback){
+                    $http.get(apiUrls.PACKAGE_CHECK_AVAILABILITY, { params: queryData }).success(function (data) {
+                        successCallback(data);
+                    }).
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
 
                 getTransportersInAlliances: function (queryData, successCallback, errCallback) {
@@ -55,6 +63,15 @@
                 //        errCallback(data, status);
                 //    });
                 //},
+
+                packageReserve: function (queryData, successCallback, errCallback) {
+                    var qData = angular.toParam(queryData);
+                    AjaxHelper.post(apiUrls.PACKAGE_RESERVATION, qData, function (data) {
+                        successCallback(data);
+                    }, function (data, status) {
+                        errCallback(data, status);
+                    });
+                },
 
                 getSelectedVariant: function (queryData, successCallback, errCallback) {
                     $http.get(apiUrls.AVIA_RESERVATION_GET_VARIANT, { cache: true, params: queryData }).success(function (data, status) {

@@ -42,6 +42,24 @@ inna.Models.Hotels.HotelsCollection.prototype.sort = function(sortingFn){
     this.list.sort(sortingFn);
 }
 
+inna.Models.Hotels.HotelsCollection.prototype.hasNext = function(hotel){
+    return !!this.getNext(hotel);
+}
+
+inna.Models.Hotels.HotelsCollection.prototype.getNext = function(hotel){
+    var index = this.list.indexOf(hotel);
+
+    while(++index) {
+        var next = this.list[index];
+
+        if(!next) return null;
+
+        if(!next.hidden) return next;
+    }
+
+    return null;
+}
+
 inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;
 

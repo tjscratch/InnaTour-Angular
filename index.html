@@ -88,7 +88,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 </style>
 
 </head>
-<body class="light-theme" ng-class="{'body-bg':isActive('/avia/')}" ng-click="bodyClick()" popup-form>
+<body class="light-theme" ng-class="{'body-bg':isActive('/avia/') || isActive('/packages/reservation/')}" ng-click="bodyClick()" popup-form>
     
 	<div class="header Header">
         <div class="header-info">
@@ -223,14 +223,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     var payUrl = app_main.host + '/Payment/Pay';
 
     var deleteSearchHistoryUrl = app_main.host + '/api/v1/Search/DeleteHistory/Get';
-
-    var getSectionToursUrl = app_main.host + '/api/v1/Section/Get/1';
-    var getSectionIndividualToursUrl = app_main.host + '/api/v1/Section/Get/2';
-    var getIndividualToursCategoryUrl = app_main.host + '/api/v1/IndividualTourCategory/Get';
-
-    var sendITCategoryRequestUrl = app_main.host + '/api/v1/RequestsTour/Post';
-
-    var paymentCheckAvailabilityUrl = app_main.host + '/api/v1/avia/IsActual';
 </script>
 
     
@@ -372,6 +364,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/directives/directive.partial.select.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-ticket.component.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-hotel.component.js"></script>
+<script src="/spa/js/angular/directives/directive.inna-hotel-details.component.js"></script>
 <script src="/spa/js/angular/models/app.model.js"></script>
 <script src="/spa/js/angular/models/app.model.avia.js"></script>
 <script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
@@ -503,7 +496,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
             <div title="Закрыть" class="baloon-close" ng-click="popupItemInfo.isShow = false"></div>
 
-            <h3 class="b-tickets__title">Подробная и информация по перелету</h3>
+            <h3 class="b-tickets__title">Подробная информация по перелету</h3>
                 <ng:include ng-if="item.EtapsBack.length > 0" src="'/avia/results/popup_item_info_two_ways.html'"></ng:include>
                 <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null" src="'/avia/results/popup_item_info_one_way.html'"></ng:include>
             <div class="b-tickets__footer">

@@ -1,7 +1,11 @@
-angular.module('innaApp.controllers')
+﻿angular.module('innaApp.controllers')
     .controller('DynamicReserveTicketsCtrl', [
-        '$scope', '$controller', '$routeParams', '$location', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider',
-        function($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider){
+        '$scope', '$controller', '$routeParams', '$location', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'aviaHelper',
+        'paymentService', 'innaApp.Urls',
+        function ($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper,
+            paymentService, Urls) {
+
+            $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может занять несколько минут');
             //initial
             (function(){
                 var children = $routeParams.Children ?
@@ -30,12 +34,112 @@ angular.module('innaApp.controllers')
                         $scope.ChildCount = children[0].length;
                         $scope.InfantsCount = children[1].length;
                         $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
-                        $scope.item = data.RecommendedPair.AviaInfo;
 
-                        $scope.initPayModel();
+                        $scope.ticketsCount = aviaHelper.getTicketsCount($scope.AdultCount, $scope.ChildCount, $scope.InfantsCount);
+                        $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $routeParams.TicketClass);
+
+                        //дополняем полями 
+                        aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
+                        $scope.item = data.RecommendedPair.AviaInfo;
+                                     
+                        function addAggInfo(item) {
+                            //для звезд (особенности верстки)
+                            item.starsList = _.generateRange(1, item.Stars);
+                            item.taStarsList = _.generateRange(1, item.TaFactor);
+
+                            item.CheckInDate = dateHelper.apiDateToJsDate(item.CheckIn);
+                            item.CheckOutDate = dateHelper.apiDateToJsDate(item.CheckOut);
+                        }
+
+                        addAggInfo(data.RecommendedPair.Hotel);
+                        $scope.hotel = data.RecommendedPair.Hotel;
+
+                        function getCheckParams() {
+                            var qData = {
+                                HotelId: $scope.hotel.HotelId,
+                                HoteProviderId: $scope.hotel.ProviderId,
+                                //Rooms: $scope.hotel.SelectedRoomId,//???
+                                TicketToId: $scope.item.VariantId1,
+                                TicketBackId: $scope.item.VariantId2,
+                                TicketClass: $routeParams.TicketClass,
+                                'Filter[DepartureId]': $routeParams.DepartureId,
+                                'Filter[ArrivalId]': $routeParams.ArrivalId,
+                                'Filter[StartVoyageDate]': searchParams.StartVoyageDate,
+                                'Filter[EndVoyageDate]': searchParams.EndVoyageDate,
+                                'Filter[TicketClass]': $routeParams.TicketClass,
+                                'Filter[Adult]': $routeParams.Adult
+                            };
+                            if ($routeParams.Children) {
+                                var childs = $routeParams.Children.split('_');
+                                qData['Filter[ChildrenAges]'] = [];
+                                _.each(childs, function (age) {
+                                    qData['Filter[ChildrenAges]'].push(age);
+                                });
+                            }
+                            return qData;
+                        }
+                        //проверяем, что остались билеты для покупки
+                        paymentService.packageCheckAvailability(getCheckParams(),
+                            function (data) {
+                                //data = false;
+                                if (data.IsTicketAvailable == true && data.Rooms != null &&
+                                    data.Rooms.length > 0 && data.Rooms[0].IsAvail == true && data.Rooms[0].RoomId.length > 0) {
+                                    //если проверка из кэша - то отменяем попап
+                                    //$timeout.cancel(availableChecktimeout);
+
+                                    //загружаем все
+                                    loadDataAndInit();
+
+                                    //ToDo: debug
+                                    //$timeout(function () {
+                                    //    loadDataAndInit();
+                                    //}, 1000);
+                                }
+                                else {
+                                    //log('checkAvailability, false');
+                                    //$timeout.cancel(availableChecktimeout);
+
+                                    function goToSearch() {
+                                        //var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+                                        ////log('redirect to url: ' + url);
+                                        //$location.path(url);
+                                    }
+
+                                    $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска туров",
+                                        function () {
+                                            goToSearch();
+                                        });
+
+                                    //$timeout(function () {
+                                    //    //очищаем хранилище для нового поиска
+                                    //    storageService.clearAviaSearchResults();
+                                    //    //билеты не доступны - отправляем на поиск
+                                    //    goToSearch();
+                                    //}, 3000);
+                                }
+                            },
+                            function (data, status) {
+                                //error
+                                //$timeout.cancel(availableChecktimeout);
+                                $scope.showReserveError();
+                            });
+                        
+                        function loadDataAndInit() {
+                            $scope.initPayModel();
+                        }
+
+                        $scope.afterPayModelInit = function () {
+                            //log('$scope.afterPayModelInit');
+                            $scope.baloon.hide();
+                            $scope.fillDefaultModelDelay();
+                        };
 
                         $scope.combination.Hotel = data.RecommendedPair.Hotel;
                         $scope.combination.Ticket = data.RecommendedPair.AviaInfo;
+
+                        //$scope.initPayModel();
+
+                        console.log($scope.combination);
                     });
                 });
             })();
@@ -44,6 +148,53 @@ angular.module('innaApp.controllers')
 
             $scope.objectToReserveTemplate = '/spa/templates/pages/dynamic/inc/reserve.html';
 
-            console.log('hi from DynamicReserveTicketsCtrl', $routeParams, $scope);
+            //console.log('hi from DynamicReserveTicketsCtrl', $routeParams, $scope);
+
+            $scope.afterCompleteCallback = function () {
+                //переходим на страницу оплаты
+                var url = urlHelper.UrlToAviaTicketsBuy($scope.OrderNum);
+                //log('processToPayment, url: ' + url);
+                $location.path(url);
+            }
+
+            //бронируем
+            $scope.reserve = function () {
+                var apiModel = $scope.getApiModelForReserve();
+
+                paymentService.reserve(apiModel,
+                    function (data) {
+                        $scope.$apply(function ($scope) {
+                            console.log('order: ' + angular.toJson(data));
+                            if (data != null && data.OrderNum != null && data.OrderNum.length > 0) {
+                                //сохраняем orderId
+                                //storageService.setAviaOrderNum(data.OrderNum);
+                                $scope.OrderNum = data.OrderNum;
+
+                                //сохраняем модель
+                                storageService.setReservationModel(model);
+
+                                //успешно
+                                $scope.afterCompleteCallback();
+                            }
+                            else {
+                                $scope.showReserveError();
+                            }
+                        });
+                    },
+                    function (data, status) {
+                        $scope.$apply(function ($scope) {
+                            //ошибка
+                            console.log('paymentService.reserve error');
+                            $scope.showReserveError();
+                        });
+                    });
+            };
+
+            $scope.showReserveError = function () {
+                $scope.baloon.showErr("Что-то пошло не так", "Ожидайте, служба поддержки свяжется с вами, \nили свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
+                    function () {
+                        $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                    });
+            }
         }
     ]);

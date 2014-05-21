@@ -39,7 +39,7 @@
                 <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 4"></span>
                 {{hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
             </div>
-            <a href="javascript:void(0);" class="pull-right" ng-click="getHotelDetails(hotel)">Подробнее</a>
+            <a href="javascript:void(0);" class="pull-right" ng-click="getDetails(hotel)">Подробнее</a>
         </div>
     </div>
     <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
