@@ -160,12 +160,17 @@
                 res += dl + criteria.QueryId + dl + criteria.VariantId1 + dl + criteria.VariantId2;
                 return res;
             },
-            UrlToAviaTicketsBuy: function (criteria) {
-                var dl = this.Delimiter;
-                var res = appUrls.URL_AVIA_BUY + helper.UrlToAvia(criteria);
-                res += dl + criteria.QueryId + dl + criteria.VariantId1 + dl + criteria.VariantId2;
-                res += dl + criteria.OrderNum;
-                return res;
+            //UrlToAviaTicketsBuy: function (criteria) {
+            //    var dl = this.Delimiter;
+            //    var res = appUrls.URL_AVIA_BUY + helper.UrlToAvia(criteria);
+            //    res += dl + criteria.QueryId + dl + criteria.VariantId1 + dl + criteria.VariantId2;
+            //    res += dl + criteria.OrderNum;
+
+            //    return res;
+            //},
+
+            UrlToAviaTicketsBuy: function (orderNum) {
+                return appUrls.URL_AVIA_BUY + orderNum;
             },
 
             UrlToSletatTours: function (city, country, resort, hotel, date, nightsMin, nightsMax, adults, kids, kids_ages) {

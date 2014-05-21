@@ -495,7 +495,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
             <div title="Закрыть" class="baloon-close" ng-click="popupItemInfo.isShow = false"></div>
 
-            <h3 class="b-tickets__title">Подробная и информация по перелету</h3>
+            <h3 class="b-tickets__title">Подробная информация по перелету</h3>
                 <ng:include ng-if="item.EtapsBack.length > 0" src="'/avia/results/popup_item_info_two_ways.html'"></ng:include>
                 <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null" src="'/avia/results/popup_item_info_one_way.html'"></ng:include>
             <div class="b-tickets__footer">

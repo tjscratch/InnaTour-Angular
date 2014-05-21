@@ -64,6 +64,15 @@
                 //    });
                 //},
 
+                packageReserve: function (queryData, successCallback, errCallback) {
+                    var qData = angular.toParam(queryData);
+                    AjaxHelper.post(apiUrls.PACKAGE_RESERVATION, qData, function (data) {
+                        successCallback(data);
+                    }, function (data, status) {
+                        errCallback(data, status);
+                    });
+                },
+
                 getSelectedVariant: function (queryData, successCallback, errCallback) {
                     $http.get(apiUrls.AVIA_RESERVATION_GET_VARIANT, { cache: true, params: queryData }).success(function (data, status) {
                         successCallback(data);
