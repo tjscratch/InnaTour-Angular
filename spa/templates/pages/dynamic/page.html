@@ -1,5 +1,5 @@
 <div class="hotel-details">
-    <img class="hotel-details__bg-source" id="hotel-details-bg-source" src="/spa/img/test.jpg">
+    <img class="hotel-details__bg-source" id="hotel-details-bg-source" src="/spa/img/test.png">
     <canvas class="hotel-details__bg" id="hotel-details-bg-target" width="256" height="256"></canvas>
     <script src="/spa/js/blurer.js"></script>
     <script>
@@ -11,14 +11,19 @@
                     height: ''
                 })
             });
-        })
+            
+            new google.maps.Map(document.getElementById('hotel-details-map'), {
+                center: new google.maps.LatLng(0, 0),
+                zoom: 7
+            });
+        });
     </script>
 
     <div class="hotel-details__wrap">
         <div class="hotel-details__section hotel-details__section_layout_context">
             <ul class="hotel-details-control hotel-details-control_pin_left">
                 <li class="hotel-details-control__button">&larr; Список отелей</li>
-                <li class="hotel-details-control__button hotel-details-control__button_theme_icon-only">&rarr;</li>
+                <li class="hotel-details-control__button hotel-details-control__button_theme_arrow">&rarr;</li>
             </ul>
             <div class="hotel-details__ta hotel-details-ta-info">
                 <div class="hotel-info-tripadvisor">
@@ -79,13 +84,17 @@
         </div>
         <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">
-                <ul class="hotel-details-control">
-                    <li class="hotel-details-control__button hotel-details-control__button_theme_icon-only"><img src="/spa/img/hotel-details-map-go-fullscreen.png"></li>
-                    <li class="hotel-details-control__button">Панорама</li>
-                </ul>
-                о.Пхукет, Патонг Бич, 254 Prabaramee
+                <div class="hotel-details__section-title-section">
+                    о.Пхукет, Патонг Бич, 254 Prabaramee
+                </div>
+                <div class="hotel-details__section-title-section">
+                    <ul class="hotel-details-control">
+                        <li class="hotel-details-control__button hotel-details-control__button_theme_icon-only"><img src="/spa/img/hotel-details-map-go-fullscreen.png"></li>
+                        <li class="hotel-details-control__button">Панорама</li>
+                    </ul>
+                </div>
             </h2>
-            <div class="hotel-details-map"></div>
+            <div class="hotel-details-map" id="hotel-details-map"></div>
         </div>
         <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">Пакет с этим отелем</h2>
@@ -97,16 +106,18 @@
                 <li class="hotel-details-rooms__room hotel-details-rooms__room_state_open">
                     <div class="hotel-details-rooms__room-short">
                         <h3 class="hotel-details-rooms__room-title">Стандартный двухместный номер</h3>
-
-                        <div class="hotel-details-rooms__room-desc">Одна большая двуспальная кровать</div>
-                        <div class="hotel-details-rooms__room-cancel-rules">Бесплатная отмена бронирования
-                        </div>
-                        <div class="hotel-details-rooms__room-price">
-                            <div class="hotel-details-rooms__room-price-diff">Включен в цену</div>
-                            <div class="hotel-details-rooms__room-price-full">К оплате: 123 123 Р</div>
-                        </div>
-                        <div class="hotel-details-rooms__room-actions">
-                            <button class="button">Купить</button>
+                        
+                        <div class="hotel-details-rooms__room-short-info">
+	                        <div class="hotel-details-rooms__room-desc">Одна большая двуспальная кровать</div>
+	                        <div class="hotel-details-rooms__room-cancel-rules">Бесплатная отмена бронирования
+	                        </div>
+	                        <div class="hotel-details-rooms__room-price">
+	                            <div class="hotel-details-rooms__room-price-diff">Включен в цену</div>
+	                            <div class="hotel-details-rooms__room-price-full">К оплате: 123 123 Р</div>
+	                        </div>
+	                        <div class="hotel-details-rooms__room-actions">
+	                            <button class="button button_size_l">Купить</button>
+	                        </div>
                         </div>
 
                         <ul class="hotel-details-extra">
@@ -116,17 +127,20 @@
                     </div>
                     <div class="hotel-details-rooms__room-long">
                         <ul class="mini-gallery">
-                            <li class="mini-gallery__mini">
-                                <img class="mini-gallery__mini-img" src="" alt=""/>
-                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="" alt=""/></div>
+                            <li class="mini-gallery__mini" style="background-image:url(/spa/img/test.jpg);">
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="/spa/img/test.jpg" alt=""/></div>
                             </li>
-                            <li class="mini-gallery__mini">
-                                <img class="mini-gallery__mini-img" src="" alt=""/>
-                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="" alt=""/></div>
+                            <li class="mini-gallery__mini" style="background-image:url(/spa/img/test.jpg);">
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="/spa/img/test.jpg" alt=""/></div>
                             </li>
-                            <li class="mini-gallery__mini">
-                                <img class="mini-gallery__mini-img" src="" alt=""/>
-                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="" alt=""/></div>
+                            <li class="mini-gallery__mini" style="background-image:url(/spa/img/test.jpg);">
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="/spa/img/test.jpg" alt=""/></div>
+                            </li>
+                            <li class="mini-gallery__mini" style="background-image:url(/spa/img/test.jpg);">
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="/spa/img/test.jpg" alt=""/></div>
+                            </li>
+                            <li class="mini-gallery__mini" style="background-image:url(/spa/img/test.jpg);">
+                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" src="/spa/img/test.jpg" alt=""/></div>
                             </li>
                         </ul>
                         <div class="hotel-details-rooms__room-long-text">
@@ -238,48 +252,51 @@
             </ul>
         </div>
         <div class="hotel-details__section">
-            <dl class="hotel-details-resume">
-                <dt class="hotel-details-resume__section">Условия заселения</dt>
-                <dd class="hotel-details-resume__term">Заезд круглосуточно</dd>
-                <dd class="hotel-details-resume__term">Выезд до 12 часов</dd>
-
-                <dt class="hotel-details-resume__section">Услуги в отеле</dt>
-                <dd class="hotel-details-resume__term">Круглосуточная стойка регистрации</dd>
-                <dd class="hotel-details-resume__term">Прачечная</dd>
-                <dd class="hotel-details-resume__term">Няня для ребенка, услуги для детей</dd>
-                <dd class="hotel-details-resume__term">Свадебный люкс</dd>
-                <dd class="hotel-details-resume__term">Обмен валют</dd>
-                <dd class="hotel-details-resume__term">Круглосуточная стойка регистрации</dd>
-                <dd class="hotel-details-resume__term">Прачечная</dd>
-                <dd class="hotel-details-resume__term">Няня для ребенка, услуги для детей</dd>
-                <dd class="hotel-details-resume__term">Свадебный люкс</dd>
-                <dd class="hotel-details-resume__term">Обмен валют</dd>
-                <dd class="hotel-details-resume__term">Круглосуточная стойка регистрации</dd>
-                <dd class="hotel-details-resume__term">Прачечная</dd>
-                <dd class="hotel-details-resume__term">Няня для ребенка, услуги для детей</dd>
-                <dd class="hotel-details-resume__term">Свадебный люкс</dd>
-                <dd class="hotel-details-resume__term">Обмен валют</dd>
-                <dd class="hotel-details-resume__term">Круглосуточная стойка регистрации</dd>
-                <dd class="hotel-details-resume__term">Прачечная</dd>
-                <dd class="hotel-details-resume__term">Няня для ребенка, услуги для детей</dd>
-                <dd class="hotel-details-resume__term">Свадебный люкс</dd>
-                <dd class="hotel-details-resume__term">Обмен валют</dd>
-
-                <dt class="hotel-details-resume__section">Интрнет</dt>
-                <dd class="hotel-details-resume__term">Круглосуточная стойка регистрации</dd>
-                <dd class="hotel-details-resume__term">Прачечная</dd>
-                <dd class="hotel-details-resume__term">Няня для ребенка, услуги для детей</dd>
-                <dd class="hotel-details-resume__term">Свадебный люкс</dd>
-                <dd class="hotel-details-resume__term">Обмен валют</dd>
-                <dd class="hotel-details-resume__term">Круглосуточная стойка регистрации</dd>
-                <dd class="hotel-details-resume__term">Прачечная</dd>
-                <dd class="hotel-details-resume__term">Няня для ребенка, услуги для детей</dd>
-                <dd class="hotel-details-resume__term">Свадебный люкс</dd>
-                <dd class="hotel-details-resume__term">Обмен валют</dd>
-
-                <dt class="hotel-details-resume__section">Парковка</dt>
-                <dd class="hotel-details-resume__term">Круглосуточная стойка регистрации</dd>
-            </dl>
+            <div class="hotel-details-resume">
+                <div class="hotel-details-resume__section">
+                	<h4 class="hotel-details-resume__section-title">Условия заселения</h4>
+                	<ul class="hotel-details-resume__list">
+                		<li class="hotel-details-resume__item">Круглосуточная стойка регистрации</li>
+                		<li class="hotel-details-resume__item">Няня для ребенка, услуги для детей</li>
+                		<li class="hotel-details-resume__item">Свадебный люкс</li>
+                		<li class="hotel-details-resume__item">Обмен валюты</li>
+                		<li class="hotel-details-resume__item">Факс, ксерокс</li>
+                	</ul>
+                </div>
+                <div class="hotel-details-resume__section">
+                	<h4 class="hotel-details-resume__section-title">Услуги в отеле</h4>
+                	<ul class="hotel-details-resume__list">
+                		<li class="hotel-details-resume__item">Сейф</li>
+                		<li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                        <li class="hotel-details-resume__item">Факс, ксерокс</li>
+                	</ul>
+                </div>
+                <div class="hotel-details-resume__section">
+                	<h4 class="hotel-details-resume__section-title">Очень длинное название секции, которое наверняка не влезет в 200px</h4>
+                	<ul class="hotel-details-resume__list">
+                		<li class="hotel-details-resume__item">Круглосуточная стойка регистрации</li>
+                        <li class="hotel-details-resume__item">Няня для ребенка, услуги для детей</li>
+                        <li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                	</ul>
+                </div>
+                <div class="hotel-details-resume__section">
+                    <h4 class="hotel-details-resume__section-title">Услуги в отеле</h4>
+                    <ul class="hotel-details-resume__list">
+                        <li class="hotel-details-resume__item">Сейф</li>
+                        <li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                        <li class="hotel-details-resume__item">Факс, ксерокс</li>
+                        <li class="hotel-details-resume__item">Сейф</li>
+                        <li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                        <li class="hotel-details-resume__item">Сейф</li>
+                        <li class="hotel-details-resume__item">Свадебный люкс</li>
+                        <li class="hotel-details-resume__item">Обмен валюты</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>
