@@ -164,7 +164,7 @@
                 paymentService.reserve(apiModel,
                     function (data) {
                         $scope.$apply(function ($scope) {
-                            log('order: ' + angular.toJson(data));
+                            console.log('order: ' + angular.toJson(data));
                             if (data != null && data.OrderNum != null && data.OrderNum.length > 0) {
                                 //сохраняем orderId
                                 //storageService.setAviaOrderNum(data.OrderNum);
@@ -184,7 +184,7 @@
                     function (data, status) {
                         $scope.$apply(function ($scope) {
                             //ошибка
-                            log('paymentService.reserve error');
+                            console.log('paymentService.reserve error');
                             $scope.showReserveError();
                         });
                     });
