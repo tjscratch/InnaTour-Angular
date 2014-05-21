@@ -11,7 +11,9 @@
         <div class="balloon baloon_ticket baloon_2ticket">
             <div title="Закрыть" class="baloon-close" ng-click="closePopup()"></div>
             <h3 class="b-tickets__title">Подробная и информация по перелту</h3>
+
             <div class="rlf-oneway">
+
                 <div class="b-ticket_2ways">
                     <div class="rlf-fly">
                         <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
@@ -26,7 +28,9 @@
                         <div class="rlf-full-travel-time">{{ticket.data.EtapsBack.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('Back')}} в пути</div>
                     </div>
                 </div>
+
                 <div class="b-ticket_2ways b-ticket_2ways-sep">
+
                     <div class="b-ticket_2ways-block" ng-repeat="dir in ['To', 'Back']">
                         <div ng-repeat="etap in ticket.getEtaps(dir)">
                             <div class="rlf-part">
@@ -80,6 +84,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="b-tickets__footer">
                 <ul class="b-tickets__icons">
                     <li><a href="#" class="b-tickets__icons-link"></a></li>
@@ -90,6 +95,7 @@
                     <a class="rl-buy-button" href="javascrip:void(0);" ng-click="setCurrent()">Выбрать</a>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

@@ -1,0 +1,31 @@
+server {
+  listen   80;
+  listen   localhost:80;
+  server_name www.lh.inna.ru lh.inna.ru;
+
+
+  charset utf-8;
+  client_max_body_size 1m;
+
+  location / {
+
+    root /Users/BATMAN/pro/inna-frontend;
+    client_max_body_size 15m;
+    index  index.html index.htm;
+
+    proxy_pass http://127.0.0.1:8077$request_uri;
+    proxy_set_header Host $host:8077;
+    proxy_set_header Connection close;
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+
+  location ~* \.(jpg|jpeg|gif|png|svg|js|css|mp3|ogg|mpe?g|avi|zip|gz|bz2?|rar|ico|map|json)$ {
+    gzip_static on;
+    root /Users/BATMAN/pro/inna-frontend/;
+  }
+
+
+  error_page 500 502 503 504 /500.html;
+}
