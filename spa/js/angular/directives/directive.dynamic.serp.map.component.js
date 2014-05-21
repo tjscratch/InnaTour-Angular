@@ -2,6 +2,7 @@ angular.module('innaApp.directives')
     .directive('dynamicSerpMap', function(){
         return {
             templateUrl: '/spa/templates/pages/dynamic/inc/serp.hotels.map.html',
+            replace : true,
             scope: {
                 hotels: '=dynamicSerpMapHotels'
             },
@@ -9,6 +10,9 @@ angular.module('innaApp.directives')
                 '$scope',
                 function($scope) {
                     $scope.currentHotel = null;
+
+                    // прячем footer
+                    $scope.$emit('region-footer:hide');
                 }
             ],
             link: function(scope, elem, attrs){
@@ -28,6 +32,7 @@ angular.module('innaApp.directives')
                     markers = [];
 
                     hotels.each(function(hotel){
+
                         if(hotel.hidden) return;
 
                         if(!hotel.data.Latitude || !hotel.data.Longitude) return;

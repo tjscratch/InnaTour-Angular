@@ -10,7 +10,7 @@
         document.createElement('ng-include');
         document.createElement('ng-pluralize');
         document.createElement('ng-view');
- 
+
         // Optionally these for CSS
         document.createElement('ng:include');
         document.createElement('ng:pluralize');
@@ -89,19 +89,29 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 
 </head>
 <body class="light-theme" ng-class="{'body-bg':isActive('/avia/') || isActive('/packages/reservation/')}" ng-click="bodyClick()" popup-form>
-    
-	<div class="header Header">
+
+    <!-- HEADER -->
+    <div class="header Header">
         <div class="header-info">
             <div class="header-info-container">
-                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
-                --><span class="header-text"></span><!--
-                --><div class="header-info-container-right">
+                <a href="/" class="header-info-logo">
+                    <i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
+                    <i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i>
+                </a>
+                <!----><span class="header-text"></span><!---->
+                <div class="header-info-container-right">
                     <ul class="header-info-menu" style="margin-right:0px;">
-                        <li class="header-info-menu-item"><a href="http://www.inna.ru/catalog/guide/" style="color: white;">Старая версия сайта</a></li><!--
-                        --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
-                        --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
-                    </ul><!--
-                    -->
+                        <li class="header-info-menu-item">
+                            <a href="http://www.inna.ru/catalog/guide/" style="color: white;">Старая версия сайта</a>
+                        </li>
+                        <!---->
+                        <li class="header-info-menu-item">
+                            <a href="/#/about/">О компании</a>
+                        </li>
+                        <!---->
+                        <li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                    </ul>
+                    <!---->
                 </div>
             </div>
         </div>
@@ -110,7 +120,8 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                 <ul class="header__nav">
                     <li><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
                     <li><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
-                    <li><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li>
+                    <li><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru"
+                           target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li>
                     <li><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
                     <li><a href="/#/packages/" ng-class="{active:isActive('/packages/')}">Билет + отель</a></li>
                 </ul>
@@ -120,59 +131,17 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 
             <ng:include src="getHeadForm()"></ng:include>
         </div>
-	</div>
+    </div>
+
+    <!--<header region-header></header>-->
+
     <div class="button fixed-request-button" ng-click="popupForm_Show()" ng-show="!isActive('/individualtours/category/')" title="Отправить заявку"></div>
 
+    <!-- PAGE CONTENT -->
     <ng:view></ng:view>
 
-    <div class="footer">
-    <div class="footer-content">
-        <div class="footer-menu">
-            <ul class="footer-menu-links-list">
-                <li class="footer-menu-links-list-item"><a href="/#/about/">О компании</a></li>
-                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/corporate/">Корпоративным клиентам</a></li>
-                <li class="footer-menu-links-list-item"><a href="/#/contacts/">Контакты</a></li>
-                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
-                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/catalog/guide/">Каталог стран</a></li>
-                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/client/abc/">Полезная информация</a></li>
-            </ul>
-            <div class="footer-menu-info">
-                <ul class="social-list">
-                    <li class="social-list-item">
-                        <a href="https://vk.com/inna_tur_ru" target="_blank"><i class="icon icon-vkontakte"></i></a>
-                    </li>
-                    <li class="social-list-item">
-                        <a href="http://odnoklassniki.ru/innatour" target="_blank"><i class="icon icon-odnoklassniki"></i></a>
-                    </li>
-                    <li class="social-list-item">
-                        <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i class="icon icon-facebook"></i></a>
-                    </li>
-                    <li class="social-list-item">
-                        <a href="https://twitter.com/inna_tour" target="_blank"><i class="icon icon-twitter"></i></a>
-                    </li>
-                    <li class="social-list-item">
-                        <a href="http://www.pinterest.com/innatour/" target="_blank"><i class="icon icon-pinterest"></i></a>
-                    </li>
-                    <li class="social-list-item">
-                        <a href="http://www.youtube.com/user/InnaTourMos/featured" target="_blank"><i class="icon icon-youtube"></i></a>
-                    </li>
-                </ul>
-                <p class="phone-info">многоканальный телефон</p>
-                <p class="phone">+7&nbsp;495 742-1212</p>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <p class="info info-left">ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс туристических услуг.
-                Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию, Камбоджу,
-                Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
-            </p>
-            <p class="info">
-                &copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.<br>
-                <span class="licence">Реестр туроператоров <a href="http://reestr.russiatourism.ru/?ac=view&id_reestr=8893" target="_blank">МТ3 008557</a></span>
-            </p>
-        </div>
-    </div>
-</div>
+    <!-- FOOTER -->
+    <footer region-footer></footer>
 
 <ng:include src="'/popup/mainform.html'"></ng:include>
 
@@ -225,7 +194,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     var deleteSearchHistoryUrl = app_main.host + '/api/v1/Search/DeleteHistory/Get';
 </script>
 
-    
+
 <!--<script src="//code.jquery.com/jquery-1.8.3.min.js"></script>-->
 <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
@@ -364,6 +333,12 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/directives/directive.partial.select.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-ticket.component.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-hotel.component.js"></script>
+
+<!-- REGIONS -->
+<script src="/spa/js/angular/directives/regions/directive.header.js"></script>
+<script src="/spa/js/angular/directives/regions/directive.footer.js"></script>
+<!-- \ REGIONS -->
+
 <script src="/spa/js/angular/models/app.model.js"></script>
 <script src="/spa/js/angular/models/app.model.avia.js"></script>
 <script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
