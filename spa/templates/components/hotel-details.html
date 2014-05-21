@@ -20,28 +20,28 @@
         <div class="hotel-details__section hotel-details__section_layout_context">
             <ul class="hotel-details-control hotel-details-control_pin_left" ng-if="collection">
                 <li class="hotel-details-control__button" ng-click="back()">&larr; Список отелей</li>
-                <li class="hotel-details-control__button hotel-details-control__button_theme_arrow" ng-if="collection.hasNext(hotel)">&rarr;</li>
+                <li class="hotel-details-control__button hotel-details-control__button_theme_arrow" ng-if="collection.hasNext(hotel)" ng-click="next(collection.getNext())">&rarr;</li>
             </ul>
-            <div class="hotel-details__ta hotel-details-ta-info">
+            <div class="hotel-details__ta hotel-details-ta-info" ng-if="hotel.data.TaFactor">
                 <div class="hotel-info-tripadvisor">
                     <span class="icon icon-tripadvisor"></span>
-                    <span class="icon icon-tripadvisor-like"></span>
-                    <span class="icon icon-tripadvisor-like"></span>
-                    <span class="icon icon-tripadvisor-like"></span>
-                    <span class="icon icon-tripadvisor-like"></span>
-                    <span class="icon icon-tripadvisor-like"></span>
-                    <span class="hotel-details-ta-info__comments">123 отызва</span>
+                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 0"></span>
+                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 1"></span>
+                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 2"></span>
+                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 3"></span>
+                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 4"></span>
+                    <span class="hotel-details-ta-info__comments">{{hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}</span>
                 </div>
             </div>
             <div class="hotel-details-name">
-                        <span class="hotel-details-stars">
-                            <span class="icon icon-star"></span>
-                            <span class="icon icon-star"></span>
-                            <span class="icon icon-star"></span>
-                            <span class="icon icon-star"></span>
-                            <span class="icon icon-star"></span>
-                        </span>
-                Sea Sun Send Resort & Spa
+                <span class="hotel-details-stars">
+                    <span class="icon icon-star" ng-if="hotel.data.Stars > 0"></span>
+                    <span class="icon icon-star" ng-if="hotel.data.Stars > 1"></span>
+                    <span class="icon icon-star" ng-if="hotel.data.Stars > 2"></span>
+                    <span class="icon icon-star" ng-if="hotel.data.Stars > 3"></span>
+                    <span class="icon icon-star" ng-if="hotel.data.Stars > 4"></span>
+                </span>
+                {{hotel.data.HotelName}}
             </div>
         </div>
         <div class="hotel-details__section">

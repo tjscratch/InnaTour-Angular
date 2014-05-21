@@ -5,7 +5,8 @@ angular.module('innaApp.directives')
             scope: {
                 hotel: '=innaHotelDetailsHotel',
                 collection: '=innaHotelDetailsCollection',
-                back: '=innaHotelDetailsBack'
+                back: '=innaHotelDetailsBack',
+                next: '=innaHotelDetailsNext'
             },
             controller: [
                 '$scope',

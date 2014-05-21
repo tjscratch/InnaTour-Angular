@@ -145,7 +145,11 @@ innaAppControllers
 
             $scope.closeHotelDetails = function(){
                 $scope.hotelToShowDetails = null;
-            }
+            };
+
+            $scope.replaceHotelToShowDetails = function(hotel){
+                $scope.hotelToShowDetails = hotel;
+            };
 
             $scope.getTicketDetails = function(ticket){
                 $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
