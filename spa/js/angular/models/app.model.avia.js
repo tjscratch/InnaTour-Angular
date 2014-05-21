@@ -105,7 +105,7 @@ var avia = {
     dateFormat: 'dd MMMM yyyy, EEE',
     timeFormat: 'HH:mm',
     sortType: {
-        byRecommend: ['-IsRecomendation', 'sort.DepartureDate', 'sort.ArrivalDate'],
+        byRecommend: ['-IsRecomendation', 'RecommendedFactor', 'sort.DepartureDate', 'sort.ArrivalDate'],
         byPrice: ['Price', 'sort.DepartureDate', 'sort.ArrivalDate'],
         byTripTime: ['TimeTo', 'Price', 'sort.DepartureDate', 'sort.ArrivalDate'],
         byDepartureTime: 'sort.DepartureDate',
@@ -116,7 +116,6 @@ var avia = {
 
     endOfClass: null
 };
-
 
 
 /*

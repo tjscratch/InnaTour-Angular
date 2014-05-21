@@ -326,12 +326,6 @@ innaAppControllers.
                         });
                 }
 
-                function runInScope(fn) {
-                    //$scope.$apply(function ($scope) { fn(); });
-                    console.log(arguments);
-                    fn();
-                }
-
                 paymentService.reserve(apiModel,
                     function (data) {
                         $scope.$apply(function ($scope) {

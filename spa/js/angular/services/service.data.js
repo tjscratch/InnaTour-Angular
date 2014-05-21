@@ -188,7 +188,7 @@
                     });
                 },
                 getSectionTours: function (params, successCallback, errCallback) {
-                    $http({ method: 'GET', url: getSectionToursUrl, params: params, cache: true }).success(function (data, status) {
+                    $http({ method: 'GET', url: apiUrls.GET_SECTION_TOURS, params: params, cache: true }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -198,7 +198,7 @@
                     });
                 },
                 getSectionIndividualTours: function (params, successCallback, errCallback) {
-                    $http({ method: 'GET', url: getSectionIndividualToursUrl, params: params, cache: true }).success(function (data, status) {
+                    $http({ method: 'GET', url: apiUrls.GET_SECTION_INDIVIDUAL_TOURS, params: params, cache: true }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -208,7 +208,7 @@
                     });
                 },
                 getIndividualToursCategory: function (id, successCallback, errCallback) {
-                    $http({ method: 'GET', url: getIndividualToursCategoryUrl + '/' + id, cache: true }).success(function (data, status) {
+                    $http({ method: 'GET', url: apiUrls.GET_INDIVIDUAL_TOURS_CATEGORY + '/' + id, cache: true }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -219,7 +219,7 @@
                 },
                 sendITCategoryRequest: function (queryData, successCallback, errCallback) {
                     var apiData = new sendRequestData(queryData);
-                    $http.post(sendITCategoryRequestUrl, apiData).success(function (data) {
+                    $http.post(apiUrls.SEND_IT_CATEGORY_REQUEST, apiData).success(function (data) {
                         successCallback(data);
                     }).
                     error(function (data, status) {

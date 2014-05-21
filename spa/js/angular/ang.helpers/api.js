@@ -9,6 +9,12 @@ angular.module('innaApp.API', [])
         }
 
         return {
+            GET_SECTION_TOURS: url('/Section/Get/1'),
+            GET_SECTION_INDIVIDUAL_TOURS: url('/Section/Get/2'),
+            GET_INDIVIDUAL_TOURS_CATEGORY: url('/IndividualTourCategory/Get'),
+
+            SEND_IT_CATEGORY_REQUEST: url('/RequestsTour/Post'),
+
             DYNAMIC_FROM_SUGGEST: url('/Packages/From'),
             DYNAMIC_TO_SUGGEST: url('/Packages/To'),
             DYNAMIC_GET_OBJECT_BY_ID: url('/Packages/DirectoryById'),
@@ -37,6 +43,9 @@ angular.module('innaApp.API', [])
             AVIA_PAY: url('/Psb/Pay'),
             AVIA_PAY_CHECK: url('/AviaOrder/CheckOrder'),
             AVIA_TARIFS: url('/Avia/GetRule'),
+
+            AVIA_CHECK_AVAILABILITY: url('/avia/IsActual'),
+            PACKAGE_CHECK_AVAILABILITY: url('/Packages/IsPackageAvailable'),
 
             "*_PAGE_CONTENT": url('/Section/Get/'),
 
