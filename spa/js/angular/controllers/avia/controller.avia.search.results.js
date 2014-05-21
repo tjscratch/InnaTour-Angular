@@ -359,31 +359,17 @@ innaAppControllers.
 
                     function getRecommended() {
                         //находим рекомендованный - первый из сортировки по рейтингу INNA.RU - по рекомендованности (по умолчанию), затем по дате/времени отправления ТУДА, затем по дате/времени отправления ОБРАТНО
-                        var minDepDateTime = Number.MAX_VALUE;
-                        var minBackDepDateTime = Number.MAX_VALUE;
-                        var minItem = null;
-
-                        //_.each(recommendedList, function (item) {
-                        //    console.log(item);
-                        //});
+                        var min = { item: null, factor: Number.MAX_VALUE };
 
                         _.each(recommendedList, function (item) {
-                            if (item.sort.DepartureDate < minDepDateTime && item.sort.BackDepartureDate < minBackDepDateTime) {
-                                minDepDateTime = item.sort.DepartureDate;
-                                minItem = item;
-                            }
-                        });
-
-                        var minList = _.filter(recommendedList, function (item) { return item.sort.DepartureDate == minItem.sort.DepartureDate });
-                        _.each(minList, function (item) {
-                            if (item.sort.BackDepartureDate < minBackDepDateTime) {
-                                minBackDepDateTime = item.sort.BackDepartureDate;
-                                minItem = item;
+                            if (item.RecommendedFactor < min.factor) {
+                                min.item = item;
+                                min.factor = item.RecommendedFactor;
                             }
                         });
 
                         //нашли минимальный
-                        return minItem;
+                        return min.item;
                     }
                     
                     recomendedItem = getRecommended();
@@ -734,7 +720,6 @@ innaAppControllers.
                                     return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
                                 });
                             }
-                            
                         }
                         
                         var itemInTransport = (itemInTransportTo || itemInTransportBack);
@@ -791,6 +776,10 @@ innaAppControllers.
 
             function applySort() {
                 $scope.filteredTicketsList = $filter('orderBy')($scope.filteredTicketsList, $scope.SortFilter.sortType, $scope.SortFilter.reverse);
+
+                //var debugList = _.map($scope.filteredTicketsList, function (item) { return { IsRecomendation: item.IsRecomendation, RecommendedFactor: item.RecommendedFactor } });
+                //console.log(debugList);
+
                 $scope.scrollControl.init();
             }
 
