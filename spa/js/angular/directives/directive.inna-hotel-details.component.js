@@ -4,12 +4,15 @@ angular.module('innaApp.directives')
             templateUrl: '/spa/templates/components/hotel-details.html',
             scope: {
                 hotel: '=innaHotelDetailsHotel',
-                collection: '=innaHotelDetailsCollection'
+                collection: '=innaHotelDetailsCollection',
+                back: '=innaHotelDetailsBack'
             },
             controller: [
                 '$scope',
                 function($scope){
                     console.log('innaHotelDetails', $scope);
+
+                    console.log('innaHotelDetails:next', $scope.collection.getNext($scope.hotel));
                 }
             ]
         }

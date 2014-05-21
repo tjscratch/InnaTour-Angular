@@ -121,23 +121,31 @@ innaAppControllers
 
             /*Methods*/
             $scope.getHotelDetails = function(hotel){
-                console.log('getHotelsDetails');
+                function show(){
+                    $scope.hotelToShowDetails = hotel;
+                }
 
-                DynamicPackagesDataProvider.hotelDetails(
-                    hotel.data.HotelId,
-                    hotel.data.ProviderId,
-                    $scope.combination.AviaInfo.data.VariantId1,
-                    $scope.combination.AviaInfo.data.VariantId2,
-                    searchParams,
-                    function(resp){
-                        hotel.detailed = resp;
+                if(!hotel.detailed) {
+                    DynamicPackagesDataProvider.hotelDetails(
+                        hotel.data.HotelId,
+                        hotel.data.ProviderId,
+                        $scope.combination.AviaInfo.data.VariantId1,
+                        $scope.combination.AviaInfo.data.VariantId2,
+                        searchParams,
+                        function(resp){
+                            hotel.detailed = resp;
 
-                        $scope.$apply(function($scope){
-                            $scope.hotelToShowDetails = hotel;
-                        });
-                    }
-                );
+                            $scope.$apply(show);
+                        }
+                    );
+                } else {
+                    show();
+                }
             };
+
+            $scope.closeHotelDetails = function(){
+                $scope.hotelToShowDetails = null;
+            }
 
             $scope.getTicketDetails = function(ticket){
                 $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);

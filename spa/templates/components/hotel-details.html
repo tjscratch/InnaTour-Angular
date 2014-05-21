@@ -1,29 +1,26 @@
-<div class="hotel-details">
-    <img class="hotel-details__bg-source" id="hotel-details-bg-source" src="/spa/img/test.png">
-    <canvas class="hotel-details__bg" id="hotel-details-bg-target" width="256" height="256"></canvas>
-    <script src="/spa/js/blurer.js"></script>
-    <script>
-        $(function(){
-            $('#hotel-details-bg-source').load(function(){
-                stackBlurImage("hotel-details-bg-source", "hotel-details-bg-target", 10, true);
-                $("#hotel-details-bg-target").css({
-                    width: '',
-                    height: ''
-                })
+<div class="hotel-details" style="background:black;">
+    <div ng-if="hotel.detailed.Hotel.Photos.length">
+        <img class="hotel-details__bg-source" id="hotel-details-bg-source" ng-src="hotel.detailed.Hotel.Photos[0]">
+        <canvas class="hotel-details__bg" id="hotel-details-bg-target" width="256" height="256"></canvas>
+        <script src="/spa/js/blurer.js"></script>
+        <script>
+            $(function(){
+                $('#hotel-details-bg-source').load(function(){
+                    stackBlurImage("hotel-details-bg-source", "hotel-details-bg-target", 10, true);
+                    $("#hotel-details-bg-target").css({
+                        width: '',
+                        height: ''
+                    });
+                });
             });
-
-            new google.maps.Map(document.getElementById('hotel-details-map'), {
-                center: new google.maps.LatLng(0, 0),
-                zoom: 7
-            });
-        });
-    </script>
+        </script>
+    </div>
 
     <div class="hotel-details__wrap">
         <div class="hotel-details__section hotel-details__section_layout_context">
-            <ul class="hotel-details-control hotel-details-control_pin_left">
-                <li class="hotel-details-control__button">&larr; Список отелей</li>
-                <li class="hotel-details-control__button hotel-details-control__button_theme_arrow">&rarr;</li>
+            <ul class="hotel-details-control hotel-details-control_pin_left" ng-if="collection">
+                <li class="hotel-details-control__button" ng-click="back()">&larr; Список отелей</li>
+                <li class="hotel-details-control__button hotel-details-control__button_theme_arrow" ng-if="collection.hasNext(hotel)">&rarr;</li>
             </ul>
             <div class="hotel-details__ta hotel-details-ta-info">
                 <div class="hotel-info-tripadvisor">
@@ -83,6 +80,14 @@
             </div>
         </div>
         <div class="hotel-details__section">
+            <script>
+                $(function(){
+                    new google.maps.Map(document.getElementById('hotel-details-map'), {
+                        center: new google.maps.LatLng(0, 0),
+                        zoom: 7
+                    });
+                });
+            </script>
             <h2 class="hotel-details__section-title">
                 <div class="hotel-details__section-title-section">
                     о.Пхукет, Патонг Бич, 254 Prabaramee
