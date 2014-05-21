@@ -168,6 +168,14 @@
                 return '';
             },
 
+            getRuDateFormat: function(text, enFormat, useShort){
+                if (text != null && enFormat != null) {
+                    text = $filter("date")(text, enFormat);
+                    return changeEnToRu(text, useShort);
+                }
+                return '';
+            },
+
             addFormattedDatesFields: function (item) {
                 //дополняем полями с форматированной датой и временем
                 item.DepartureTimeFormatted = getTimeFormat(item.DepartureDate);

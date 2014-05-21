@@ -1,7 +1,9 @@
-angular.module('innaApp.controllers')
+﻿angular.module('innaApp.controllers')
     .controller('DynamicReserveTicketsCtrl', [
-        '$scope', '$controller', '$routeParams', '$location', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider',
-        function($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider){
+        '$scope', '$controller', '$routeParams', '$location', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'aviaHelper',
+        function ($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper) {
+
+            //$scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может занять несколько минут');
             //initial
             (function(){
                 var children = $routeParams.Children ?
@@ -30,12 +32,35 @@ angular.module('innaApp.controllers')
                         $scope.ChildCount = children[0].length;
                         $scope.InfantsCount = children[1].length;
                         $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
-                        $scope.item = data.RecommendedPair.AviaInfo;
 
+                        //дополняем полями 
+                        aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
+                        $scope.item = data.RecommendedPair.AviaInfo;
+                                     
+                        function addAggInfo(item) {
+                            item.starsList = [];
+                            for (var i = 0; i < item.Stars; i++) {
+                                item.starsList.push(i);
+                            }
+
+                            item.CheckInDate = dateHelper.apiDateToJsDate(item.CheckIn);
+                            item.CheckOutDate = dateHelper.apiDateToJsDate(item.CheckOut);
+
+                            item.taStarsList = [];
+                            for (var i = 0; i < item.TaFactor; i++) {
+                                item.taStarsList.push(i);
+                            }
+                        }
+
+                        addAggInfo(data.RecommendedPair.Hotel);
+                        $scope.hotel = data.RecommendedPair.Hotel;
+                        
                         $scope.initPayModel();
 
                         $scope.combination.Hotel = data.RecommendedPair.Hotel;
                         $scope.combination.Ticket = data.RecommendedPair.AviaInfo;
+
+                        console.log($scope.combination);
                     });
                 });
             })();
@@ -44,6 +69,6 @@ angular.module('innaApp.controllers')
 
             $scope.objectToReserveTemplate = '/spa/templates/pages/dynamic/inc/reserve.html';
 
-            console.log('hi from DynamicReserveTicketsCtrl', $routeParams, $scope);
+            //console.log('hi from DynamicReserveTicketsCtrl', $routeParams, $scope);
         }
     ]);
