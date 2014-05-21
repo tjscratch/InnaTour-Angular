@@ -81,13 +81,29 @@
                 });
             });
 
+            $scope.hover = { timeoutId: null, element: null };
             $('.js-people-minus,.js-people-plus').on('mouseout', function () {
                 var el = $(this);
                 el.removeClass('hover');
+
+                if ($scope.hover.timeoutId) {
+                    clearInterval($scope.hover.timeoutId);
+                }
             });
             $('.js-people-minus,.js-people-plus').on('click', function () {
                 var el = $(this);
                 el.addClass('hover');
+
+                if ($scope.hover.timeoutId) {
+                    clearInterval($scope.hover.timeoutId);
+                }
+
+                $scope.hover.element = el;
+                $scope.hover.timeoutId = setTimeout(function () {
+                    if ($scope.hover.element) {
+                        $scope.hover.element.removeClass('hover');
+                    }
+                }, 1000);
             });
         }
     };
