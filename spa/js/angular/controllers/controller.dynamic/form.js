@@ -30,7 +30,6 @@ innaAppControllers
                 children = children[1].length;
                 var separatedInfants = infants - $scope.adultCount;
                 if(separatedInfants < 0) separatedInfants = 0;
-                console.log('adults = %s, children = %s, separatedInfants = %s, sum = %s', $scope.adultCount, children, separatedInfants, $scope.adultCount + children + separatedInfants);
 
                 if(+$scope.adultCount + children + separatedInfants > 6) throw Error('adultCount');
 
@@ -111,8 +110,6 @@ innaAppControllers
 
                 return (klass.value == cached);
             });
-
-            console.log('klass = ', $scope.klass);
 
             $scope.$watchCollection('klass', function(newVal){
                 newVal = newVal || TripKlass.options[0];

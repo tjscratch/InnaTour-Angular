@@ -185,146 +185,44 @@ innaAppControllers.
             $scope.afterPayModelInit = function () {
                 //log('$scope.afterPayModelInit');
                 $scope.baloon.hide();
-                fillDefaultModelDelay();
+                //$scope.fillDefaultModelDelay();
             };
 
-            //data loading ===========================================================================
+            $scope.afterCompleteCallback = function () {
+                //переходим на страницу оплаты
+                //var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria);
+                var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria.OrderNum);
+                //log('processToPayment, url: ' + url);
+                $location.path(url);
+            }
+
+            $scope.getApiModel = function (data) {
+                var m = {};
+                m.I = data.name;
+                m.F = data.secondName;
+                m.Email = data.email;
+                m.Phone = data.phone;
+                m.IsSubscribe = data.wannaNewsletter;
+
+                var pasList = [];
+                _.each(data.passengers, function (item) {
+                    pasList.push($scope.getPassenger(item));
+                });
+                m.Passengers = pasList;
+
+                m.SearchParams = {
+                    SearchId: $scope.searchId,
+                    VariantId1: $scope.item.VariantId1,
+                    VariantId2: $scope.item.VariantId2
+                };
+                return m;
+            }
 
             //бронируем
-            function reserve(afterCompleteCallback) {
-                function call() { if (afterCompleteCallback) afterCompleteCallback(); };
-
-                function isCaseValid(fn) {
-                    try {
-                        fn();
-                        return true;
-                    }
-                    catch (err) {
-                        return false;
-                    }
-                }
-
-                function getDocType(doc_num) {
-                    //var doc_num = number.replace(/\s+/g, '');
-
-                    if (isCaseValid(function () {
-                        Validators.ruPassport(doc_num, 'err');
-                    })) {
-                        return 0;//паспорт
-                    }
-                    
-                    if (isCaseValid(function () {
-                        Validators.enPassport(doc_num, 'err');
-                    })) {
-                        return 1;//загран
-                    }
-
-                    if (isCaseValid(function () {
-                        Validators.birthPassport(doc_num, 'err');
-                    })) {
-                        return 2;//свидетельство о рождении
-                    }
-
-                    if (isCaseValid(function () {
-                       Validators.defined(doc_num, 'err');
-                    })) {
-                        return 3;//Иностранный документ
-                    }
-
-                    return null;
-                }
-
-                function getPassenger(data) {
-                    var doc_num = data.doc_series_and_number.replace(/\s+/g, '');
-
-                    var m = {};
-                    m.Sex = data.sex;
-                    m.I = data.name;
-                    m.F = data.secondName;
-                    m.Birthday = data.birthday;
-                    m.DocumentId = getDocType(doc_num);
-                    m.Number = doc_num;
-                    m.ExpirationDate = data.doc_expirationDate;
-                    m.Citizen = data.citizenship.id;
-                    m.Index = data.index;
-                    if (data.bonuscard.haveBonusCard) {
-                        m.BonusCard = data.bonuscard.number;
-                        m.TransporterId = data.bonuscard.airCompany.id;
-                        m.TransporterName = data.bonuscard.airCompany.name;
-                    }
-                    return m;
-                }
-                function getApiModel(data) {
-                    var m = {};
-                    m.I = data.name;
-                    m.F = data.secondName;
-                    m.Email = data.email;
-                    m.Phone = data.phone;
-                    m.IsSubscribe = data.wannaNewsletter;
-
-                    var pasList = [];
-                    _.each(data.passengers, function (item) {
-                        pasList.push(getPassenger(item));
-                    });
-                    m.Passengers = pasList;
-
-                    m.SearchParams = {
-                        SearchId: $scope.searchId,
-                        VariantId1: $scope.item.VariantId1,
-                        VariantId2: $scope.item.VariantId2
-                    };
-                    return m;
-                };
-                function getModelFromValidationModel(validationModel) {
-                    var keys = _.keys(validationModel);
-                    var model = {};
-                    _.each(keys, function (key) {
-                        if (_.isArray(validationModel[key])) {
-                            model[key] = [];
-                            _.each(validationModel[key], function (item) {
-                                var iKeys = _.keys(item);
-                                var iItem = {};
-                                _.each(iKeys, function (iKey) {
-                                    if (_.isArray(item[iKey])) {
-                                        //пропускаем
-                                    }
-                                    else if (_.isFunction(item[iKey])) {
-                                        //пропускаем
-                                    }
-                                    else {
-                                        iItem[iKey] = angular.copy(item[iKey].value);
-                                    }
-                                });
-                                model[key].push(iItem);
-                            });
-                        }
-                        else if (_.isFunction(validationModel[key])) {
-                            //пропускаем
-                        }
-                        else {
-                            model[key] = angular.copy(validationModel[key].value);
-                        }
-                    });
-                    return model;
-                }
-
-                var model = getModelFromValidationModel($scope.validationModel);
-                model.price = $scope.item.Price;
-
-                var apiModel = getApiModel(model);
-                log('');
-                log('reservationModel: ' + angular.toJson(model));
-                log('');
-                log('apiModel: ' + angular.toJson(apiModel));
-
-
-                //
-                function showReserveError() {
-                    $scope.baloon.showErr("Что-то пошло не так", "Ожидайте, служба поддержки свяжется с вами, \nили свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
-                        function () {
-                            $location.path(Urls.URL_AVIA);
-                        });
-                }
+            $scope.reserve = function () {
+                var m = $scope.getApiModelForReserve();
+                var model = m.model;
+                var apiModel = m.apiModel;
 
                 paymentService.reserve(apiModel,
                     function (data) {
@@ -335,14 +233,19 @@ innaAppControllers.
                                 //storageService.setAviaOrderNum(data.OrderNum);
                                 $scope.criteria.OrderNum = data.OrderNum;
 
-                                //сохраняем модель
-                                storageService.setReservationModel(model);
+                                if ($scope.isAgency()) {
+                                    $scope.goToB2bCabinet();
+                                }
+                                else {
+                                    //сохраняем модель
+                                    storageService.setReservationModel(model);
 
-                                //успешно
-                                call();
+                                    //успешно
+                                    $scope.afterCompleteCallback();
+                                }
                             }
                             else {
-                                showReserveError();
+                                $scope.showReserveError();
                             }
                         });
                     },
@@ -350,100 +253,15 @@ innaAppControllers.
                         $scope.$apply(function ($scope) {
                             //ошибка
                             log('paymentService.reserve error');
-                            showReserveError();
+                            $scope.showReserveError();
                         });
                     });
             };
 
-            $scope.processToPayment = function ($event) {
-                eventsHelper.preventBubbling($event);
-
-                $scope.validationModel.validateAll();
-
-                //ищем первый невалидный элемент, берем только непустые
-                var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
-                    return (item.value != null && item.value.length > 0);
-                });
-                if (invalidItem != null)
-                {
-                    //показываем тултип
-                    var $to = $("#" + invalidItem.id);
-                    //не навешивали тултип
-                    if (!invalidItem.haveTooltip) {
-                        $scope.tooltipControl.init($to);
-                        invalidItem.haveTooltip = true;
-                    }
-                    $scope.tooltipControl.open($to);
-                    //прерываемся
-                    return;
-                }
-
-                //если модель валидна - бронируем
-                if ($scope.validationModel.isModelValid()) {
-
-                    $scope.baloon.show("Бронирование авиабилетов", "Подождите пожалуйста, это может занять несколько минут");
-                    //бронируем
-                    reserve(function () {
-                        //переходим на страницу оплаты
-                        var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria);
-                        //log('processToPayment, url: ' + url);
-                        $location.path(url);
+            $scope.showReserveError = function () {
+                $scope.baloon.showErr("Что-то пошло не так", "Ожидайте, служба поддержки свяжется с вами, \nили свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
+                    function () {
+                        $location.path(Urls.URL_AVIA);
                     });
-                }
-            };
-
-            var debugPassengersList = [
-                { name: 'IVAN', secondName: 'IVANOV', sex: $scope.sexType.man, birthday: '18.07.1976', series_and_number: '4507 048200' },
-                { name: 'TATIANA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '25.09.1978', series_and_number: '4507 048232' },
-                { name: 'SERGEY', secondName: 'IVANOV', sex: $scope.sexType.man, birthday: '12.07.2006', series_and_number: '4507 028530' },
-                { name: 'ELENA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '12.11.2013', series_and_number: '4507 018530' },
-            ];
-
-            //ToDo: debug
-            function fillDefaultModelDelay() {
-                $timeout(function () {
-                    $scope.model.name = 'Иван';
-                    $scope.model.secondName = 'Иванов';
-                    $scope.model.email = 'ivan.ivanov@gmail.com';
-                    $scope.model.phone = '+79101234567';
-                    var index = 0;
-                    _.each($scope.model.passengers, function (pas) {
-
-                        if (index < debugPassengersList.length) {
-                            var debugItem = debugPassengersList[index];
-                            index++;
-
-                            pas.name = debugItem.name;
-                            pas.secondName = debugItem.secondName;
-                            pas.sex = debugItem.sex;
-                            pas.birthday = debugItem.birthday;
-                            pas.citizenship.id = 189;
-                            pas.citizenship.name = 'Россия';
-                            pas.doc_series_and_number = debugItem.series_and_number;
-                            pas.doc_expirationDate = '18.07.2015';
-                            pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
-                            pas.bonuscard.airCompany.id = 2;
-                            pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '1213473454';
-                        }
-                        else {
-                            pas.name = 'IVAN';
-                            pas.secondName = 'IVANOV';
-                            pas.sex = $scope.sexType.man;
-                            pas.birthday = '18.07.1976';
-                            pas.citizenship.id = 189;
-                            pas.citizenship.name = 'Россия';
-                            pas.doc_series_and_number = '4507 048200';
-                            pas.doc_expirationDate = '18.07.2015';
-                            pas.bonuscard.haveBonusCard = true;
-                            pas.bonuscard.airCompany.id = 2;
-                            pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '1213463454';
-                        }
-                    });
-                    
-                    //$scope.login.isOpened = true;
-                    //$scope.login.isLogged = true;
-                }, 500);
-            };
+            }
         }]);

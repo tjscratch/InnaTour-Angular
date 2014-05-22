@@ -5,6 +5,7 @@ angular.module('innaApp.controllers')
             /*Private*/
             function setUserInfo(data){
                 $scope.$root.user = new inna.Models.Auth.User(data);
+                //console.log($scope.$root.user);
             }
 
             /*Methods*/
@@ -51,8 +52,6 @@ angular.module('innaApp.controllers')
             $scope.restoreToken = ($location.path() == app.URL_AUTH_RESTORE) && $location.search().token;
             $scope.signUpToken = ($location.path() == app.URL_AUTH_SIGNUP) && $location.search().token;
 
-            console.log('AuthCtrl', $scope.signUpToken);
-
             $scope.DISPLAY_SIGNIN = 1;
             $scope.DISPLAY_FORGOTTEN = 2;
             $scope.DISPLAY_SIGNUP = 3;
@@ -80,7 +79,6 @@ angular.module('innaApp.controllers')
 
             /*Initial*/
             (function(){
-                console.log('initiate auth model');
                 AuthDataProvider.recognize(setUserInfo);
             })();
         }

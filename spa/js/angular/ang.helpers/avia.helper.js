@@ -487,7 +487,7 @@
                     eventsHelper.preventBubbling($event);
                     self.isShow = true;
                     self.item = item;
-                    //console.log(item);
+                    console.log(item);
                 }
 
                 self.print = function ($event, item) {

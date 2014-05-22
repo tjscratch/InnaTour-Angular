@@ -2,7 +2,7 @@ angular.module('innaApp.API', [])
     .factory('innaApp.API.const', function () {
         function url(s) {
             var host = app_main.host || 'http://api.test.inna.ru';
-            if (window.DEV) host = 'http://api.lh.inna.ru'; //:8077';
+            if (window.DEV) host = 'http://api.lh.inna.ru:8077';
             if (window.DEV2) host = 'http://api.lh.inna.ru';
 
             return host + '/api/v1' + s;
@@ -46,6 +46,7 @@ angular.module('innaApp.API', [])
 
             AVIA_CHECK_AVAILABILITY: url('/avia/IsActual'),
             PACKAGE_CHECK_AVAILABILITY: url('/Packages/IsPackageAvailable'),
+            PACKAGE_RESERVATION: url('/PackagesOrder/Reservation'),
 
             "*_PAGE_CONTENT": url('/Section/Get/'),
 
