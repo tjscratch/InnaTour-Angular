@@ -835,50 +835,94 @@ innaAppControllers.
             ];
 
             //ToDo: debug
-            $scope.fillDefaultModelDelay = function () {
-                $timeout(function () {
-                    $scope.model.name = 'Иван';
-                    $scope.model.secondName = 'Иванов';
-                    $scope.model.email = 'ivan.ivanov@gmail.com';
-                    $scope.model.phone = '+79101234567';
-                    var index = 0;
-                    _.each($scope.model.passengers, function (pas) {
+            //$scope.fillDefaultModelDelay = function () {
+            //    $timeout(function () {
+            //        $scope.model.name = 'Иван';
+            //        $scope.model.secondName = 'Иванов';
+            //        $scope.model.email = 'ivan.ivanov@gmail.com';
+            //        $scope.model.phone = '+79101234567';
+            //        var index = 0;
+            //        _.each($scope.model.passengers, function (pas) {
 
-                        if (index < debugPassengersList.length) {
-                            var debugItem = debugPassengersList[index];
-                            index++;
+            //            if (index < debugPassengersList.length) {
+            //                var debugItem = debugPassengersList[index];
+            //                index++;
 
-                            pas.name = debugItem.name;
-                            pas.secondName = debugItem.secondName;
-                            pas.sex = debugItem.sex;
-                            pas.birthday = debugItem.birthday;
-                            pas.citizenship.id = 189;
-                            pas.citizenship.name = 'Россия';
-                            pas.doc_series_and_number = debugItem.series_and_number;
-                            pas.doc_expirationDate = '18.07.2015';
-                            pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
-                            pas.bonuscard.airCompany.id = 2;
-                            pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '1213473454';
-                        }
-                        else {
-                            pas.name = 'IVAN';
-                            pas.secondName = 'IVANOV';
-                            pas.sex = $scope.sexType.man;
-                            pas.birthday = '18.07.1976';
-                            pas.citizenship.id = 189;
-                            pas.citizenship.name = 'Россия';
-                            pas.doc_series_and_number = '4507 048200';
-                            pas.doc_expirationDate = '18.07.2015';
-                            pas.bonuscard.haveBonusCard = true;
-                            pas.bonuscard.airCompany.id = 2;
-                            pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '1213463454';
-                        }
-                    });
+            //                pas.name = debugItem.name;
+            //                pas.secondName = debugItem.secondName;
+            //                pas.sex = debugItem.sex;
+            //                pas.birthday = debugItem.birthday;
+            //                pas.citizenship.id = 189;
+            //                pas.citizenship.name = 'Россия';
+            //                pas.doc_series_and_number = debugItem.series_and_number;
+            //                pas.doc_expirationDate = '18.07.2015';
+            //                pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
+            //                pas.bonuscard.airCompany.id = 2;
+            //                pas.bonuscard.airCompany.name = 'Aeroflot';
+            //                pas.bonuscard.number = '1213473454';
+            //            }
+            //            else {
+            //                pas.name = 'IVAN';
+            //                pas.secondName = 'IVANOV';
+            //                pas.sex = $scope.sexType.man;
+            //                pas.birthday = '18.07.1976';
+            //                pas.citizenship.id = 189;
+            //                pas.citizenship.name = 'Россия';
+            //                pas.doc_series_and_number = '4507 048200';
+            //                pas.doc_expirationDate = '18.07.2015';
+            //                pas.bonuscard.haveBonusCard = true;
+            //                pas.bonuscard.airCompany.id = 2;
+            //                pas.bonuscard.airCompany.name = 'Aeroflot';
+            //                pas.bonuscard.number = '1213463454';
+            //            }
+            //        });
 
-                    //$scope.login.isOpened = true;
-                    //$scope.login.isLogged = true;
-                }, 500);
+            //        //$scope.login.isOpened = true;
+            //        //$scope.login.isLogged = true;
+            //    }, 500);
+            //};
+
+            $scope.fillDefaultModel = function ($event) {
+                eventsHelper.preventBubbling($event);
+
+                $scope.model.name = 'Иван';
+                $scope.model.secondName = 'Иванов';
+                $scope.model.email = 'ivan.ivanov@gmail.com';
+                $scope.model.phone = '+79101234567';
+                var index = 0;
+                _.each($scope.model.passengers, function (pas) {
+
+                    if (index < debugPassengersList.length) {
+                        var debugItem = debugPassengersList[index];
+                        index++;
+
+                        pas.name = debugItem.name;
+                        pas.secondName = debugItem.secondName;
+                        pas.sex = debugItem.sex;
+                        pas.birthday = debugItem.birthday;
+                        pas.citizenship.id = 189;
+                        pas.citizenship.name = 'Россия';
+                        pas.doc_series_and_number = debugItem.series_and_number;
+                        pas.doc_expirationDate = '18.07.2015';
+                        pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
+                        pas.bonuscard.airCompany.id = 2;
+                        pas.bonuscard.airCompany.name = 'Aeroflot';
+                        pas.bonuscard.number = '1213473454';
+                    }
+                    else {
+                        pas.name = 'IVAN';
+                        pas.secondName = 'IVANOV';
+                        pas.sex = $scope.sexType.man;
+                        pas.birthday = '18.07.1976';
+                        pas.citizenship.id = 189;
+                        pas.citizenship.name = 'Россия';
+                        pas.doc_series_and_number = '4507 048200';
+                        pas.doc_expirationDate = '18.07.2015';
+                        pas.bonuscard.haveBonusCard = true;
+                        pas.bonuscard.airCompany.id = 2;
+                        pas.bonuscard.airCompany.name = 'Aeroflot';
+                        pas.bonuscard.number = '1213463454';
+                    }
+                });
             };
         }]);

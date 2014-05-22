@@ -144,7 +144,7 @@
                         $scope.afterPayModelInit = function () {
                             //log('$scope.afterPayModelInit');
                             $scope.baloon.hide();
-                            $scope.fillDefaultModelDelay();
+                            //$scope.fillDefaultModelDelay();
                         };
 
                         $scope.combination.Hotel = data.RecommendedPair.Hotel;

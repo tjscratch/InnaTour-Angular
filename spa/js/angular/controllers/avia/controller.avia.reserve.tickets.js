@@ -185,7 +185,7 @@ innaAppControllers.
             $scope.afterPayModelInit = function () {
                 //log('$scope.afterPayModelInit');
                 $scope.baloon.hide();
-                $scope.fillDefaultModelDelay();
+                //$scope.fillDefaultModelDelay();
             };
 
             $scope.afterCompleteCallback = function () {
