@@ -26,13 +26,16 @@ angular.module('innaApp.directives')
                     }
 
                     $scope.$watch('hotel', function(hotel){
+                        var point = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Langitude);
+
                         var map = new google.maps.Map($('#hotel-details-map', $element)[0], {
-                            center: new google.maps.LatLng(hotel.data.Latitude, hotel.data.Langitude),
+                            center: point,
                             zoom: 7
                         });
 
                         new google.maps.Marker({
-                            
+                            map: map,
+                            point: point
                         });
                     });
                 }
