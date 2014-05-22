@@ -66,7 +66,7 @@
         <div class="ra-tags-container">
             <h4 class="ra-tags-title" ng-show="ticketsList.length > 0"><b>{{getFilteredLength()}}</b> из <b>{{getLength()}}</b> перелетов</h4>
             <ul class="ra-tags-list">
-                <li ng-if="filter.maxPrice < filter.maxPriceInitial">до {{filter.maxPrice | price}} <a ng-href="#" ng-click="resetPrice($event)"></a></li>
+                <li ng-if="filter.maxPrice < filter.maxPriceInitial">до {{filter.maxPrice | price}} рублей<a ng-href="#" ng-click="resetPrice($event)"></a></li>
                 <!--<li>Aeroflot <a href="#"></a></li>
                 <li>Transaero <a href="#"></a></li>
                 <li>Lufthansa <a href="#"></a></li>-->
