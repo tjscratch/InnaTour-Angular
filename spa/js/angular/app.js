@@ -116,7 +116,7 @@ app.config([
                 }).
             when('/hotelticket/', {
                 templateUrl: '/spa/templates/pages/hotelticket_page.html',
-                controller: 'HotelPlusTicketCtrl',
+                controller: 'HotelPlusTicketCtrl'
             }).
             when('/hotels/', {
                 templateUrl: '/spa/templates/pages/hotels_page.html',

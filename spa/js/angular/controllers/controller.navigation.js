@@ -9,6 +9,18 @@ innaAppControllers.
                 $log.log(msg);
             }
 
+            $scope.isHeaderVisible = true;
+
+            $scope.$on('header:hidden', function(){
+                $scope.isHeaderVisible = false;
+            });
+
+            $scope.$on('header:visible', function(){
+                $scope.isHeaderVisible = true;
+            });
+
+
+
             $scope.baloon = aviaHelper.baloon;
 
             $scope.isActive = function (route) {

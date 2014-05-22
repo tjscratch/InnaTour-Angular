@@ -1,11 +1,19 @@
-<div class="recommend-bundle-container">
-    <div class="recommend-bundle" ng-controller="DynamicPackageSERPRecommendedBundleCtrl">
+<div class="recommend-bundle-container"
+     ng-controller="DynamicPackageSERPRecommendedBundleCtrl"
+     ng-class="{'recommend-bundle-container_short':display.isCurrent(display.SHORT)}">
+    <div class="recommend-bundle">
+
         <div class="recommend-bundle-background" style="background-image: url(/spa/img/dp-background.jpg);"></div>
+
         <div class="recommend-bundle-wrap" ng-class="{'recommend-bundle-wrap_small': display.isCurrent(display.SHORT)}" inna-with="combination.AviaInfo as ticket">
             <h3 class="recommend-bundle-title" ng-if="display.isCurrent(display.FULL)">Выбранный пакет</h3>
 
-            <a href="javascript:void(0);" ng-if="display.isCurrent(display.FULL)" ng-click="display.toggle()" class="expand-collapse-link"><span class="icon-collapse"></span> Свернуть</a>
-            <a href="javascript:void(0);" ng-if="display.isCurrent(display.SHORT)" ng-click="display.toggle()" class="expand-collapse-link"><span class="icon-expand"></span> Развернуть</a>
+            <a href="javascript:void(0);" ng-if="display.isCurrent(display.FULL)" ng-click="display.toggle()" class="expand-collapse-link">
+                <span class="icon-collapse"></span> Свернуть
+            </a>
+            <a href="javascript:void(0);" ng-if="display.isCurrent(display.SHORT)" ng-click="display.toggle()" class="expand-collapse-link">
+                <span class="icon-expand"></span> Развернуть
+            </a>
 
             <ng:include src="'/spa/templates/pages/dynamic/inc/bundle-body.html'" ng-if="display.isCurrent(display.FULL)"></ng:include>
 
