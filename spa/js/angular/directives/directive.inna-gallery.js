@@ -54,7 +54,7 @@ angular.module('innaApp.directives')
                                 }
                             };
 
-                            pic.src = url;
+                            pic.src = url.Large;
                         });
                     })();
                 }
