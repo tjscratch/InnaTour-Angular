@@ -146,7 +146,8 @@
     </div>
     <div class="b-sum-container">
         Сумма к оплате: <b>{{item.Price| price}}</b> <span class="b-sum-rub">руб.</span>
-        <a ng-href="#" class="button b-sum-button" ng-click="processToPayment($event)">Перейти к оплате</a>
+        <a ng-if="!user.isAgency()" ng-href="#" class="button b-sum-button" ng-click="processToPayment($event)">Перейти к оплате</a>
+        <a ng-if="user.isAgency()" ng-href="#" class="button b-sum-button" ng-click="processToPayment($event)">Забронировать</a>
     </div>
 </form>
 <!-- Buy ticket -->

@@ -711,6 +711,14 @@ innaAppControllers.
                 }
             };
 
+            $scope.goToB2bCabinet = function () {
+                location.href = app_main.b2bHost;
+            }
+
+            $scope.isAgency = function () {
+                return ($scope.$root.user != null && $scope.$root.user.isAgency());
+            }
+
             $scope.isCaseValid = function (fn) {
                 try {
                     fn();

@@ -233,11 +233,16 @@ innaAppControllers.
                                 //storageService.setAviaOrderNum(data.OrderNum);
                                 $scope.criteria.OrderNum = data.OrderNum;
 
-                                //сохраняем модель
-                                storageService.setReservationModel(model);
+                                if ($scope.isAgency()) {
+                                    $scope.goToB2bCabinet();
+                                }
+                                else {
+                                    //сохраняем модель
+                                    storageService.setReservationModel(model);
 
-                                //успешно
-                                $scope.afterCompleteCallback();
+                                    //успешно
+                                    $scope.afterCompleteCallback();
+                                }
                             }
                             else {
                                 $scope.showReserveError();
