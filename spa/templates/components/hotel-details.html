@@ -46,23 +46,21 @@
         </div>
         <div class="hotel-details__section" ng-if="hotel.detailed.Hotel.Photos.length">
             <div inna-gallery
-                 inna-gallery-pic-lis="hotel.detailed.Hotel.Photos"></div>
+                 inna-gallery-pic-list="hotel.detailed.Hotel.Photos"></div>
         </div>
-        <div class="hotel-details__section">
+        <div class="hotel-details__section" ng-if="hotel.detailed.Hotel.Description">
             <div class="hotel-details__section-box">
                 <h2 class="hotel-details__section-title">Об отеле</h2>
                 <div class="hotel-details__section-text">
-                    <p>Предлагая качественное обслуживание и услуги в районе для ресторанов, бизнеса, шоппинга, города Шанхай, The Puli Hotel and Spa очень популярен, как среди бизнесменов так и туристов. Отсюда, гости могут всецело ощутить преимущество удачного расположения и близости ко всему, что может предложить оживленный город своим туристам. Благодаря тому, что отель находится в непосредственной близости от таких достопримечательностей, как Храм Джиньан, Торговый центр Sogo Shanghai, Генеральное консульство Республики Перу, гости отеля будут в восторге от его удобного расположения.</p>
-                    <p>В The Puli Hotel and Spa, отличный сервис и превосходные удобства, помогут сделать ваш отдых незабываемым. Для комфорта и удобства гостей, в отеле предлагается ресторан, услуга парковки, лифт, комната для переговоров и мероприятий, кафе.</p>
-                    <p>Сделайте всего один шаг в один из 229 уютных номеров отеля, и вы погрузитесь в уютную атмосферу, сможете расслабиться от дневного стресса и воспользоваться широким спектром удобств, таких как письменный стол, просмотр фильмов в номере, кофе/чай, ванна, беспроводный интернет. В отеле можно найти полный спектр услуг для отдыха и развлечений, в том числе бассейн (в помещении), спа, сауна, ванны горячих источников, массаж. Независимо от цели вашего визита в Шанхай, The Puli Hotel and Spa является идеальным местом для отличного отдыха и веселого времяпрепровождения.</p>
-                    <div class="hotel-details__section-text-more">Свернуть</div>
+                    <div class="hotel-details__section-text-viewport"
+                         ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}"
+                         ng-bind-html="hotel.detailed.Hotel.Description"></div>
+                    <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
+                    <div class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</div>
                 </div>
-                <ul class="hotel-details-extra">
-                    <li class="hotel-details-extra__item hotel-details-extra__item_type_parking">Парковка</li>
-                    <li class="hotel-details-extra__item hotel-details-extra__item_type_wifi">Wifi</li>
-                    <li class="hotel-details-extra__item hotel-details-extra__item_type_trans">Трансфер</li>
-                    <li class="hotel-details-extra__item hotel-details-extra__item_type_food">Очень вкусный тост по утрам</li>
-                    <li class="hotel-details-extra__item hotel-details-extra__item_type_skipass">бесплатный skipass</li>
+                <ul class="hotel-details-extra" ng-if="hotel.detailed.Extra">
+                    <li ng-repeat="(key, val) in hotel.detailed.Extra"
+                        class="hotel-details-extra__item hotel-details-extra__item_type_{{key | lowercase}}">{{val}}</li>
                 </ul>
             </div>
         </div>

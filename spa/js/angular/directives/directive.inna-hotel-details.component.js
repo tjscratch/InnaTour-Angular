@@ -11,9 +11,11 @@ angular.module('innaApp.directives')
             controller: [
                 '$scope',
                 function($scope){
-                    console.log('innaHotelDetails', $scope);
+                    $scope.showFullDescription = false;
 
-                    console.log('innaHotelDetails:next', $scope.collection.getNext($scope.hotel));
+                    $scope.toggleDescription = function(){
+                        $scope.showFullDescription = !$scope.showFullDescription;
+                    }
                 }
             ]
         }
