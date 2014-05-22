@@ -10,6 +10,27 @@ innaAppDirectives.
         };
     }]);
 
+innaAppDirectives.directive('priceFormat', ['$filter', function ($filter) {
+    return {
+        require: '?ngModel',
+        link: function (scope, elem, attrs, ctrl) {
+            if (!ctrl) return;
+
+
+            ctrl.$formatters.unshift(function (a) {
+                return $filter('price')(ctrl.$modelValue)
+            });
+
+
+            ctrl.$parsers.unshift(function (viewValue) {
+                var plainNumber = viewValue.replace(/[^\d|\-+|\.+]/g, '');
+                elem.val($filter('price')(plainNumber));
+                return plainNumber;
+            });
+        }
+    };
+}]);
+
 innaAppDirectives.
     directive('datePicker', ['$parse', function ($parse) {
         return {

@@ -434,7 +434,7 @@ innaAppControllers.
                         item.InTransferCount2 = true;
                         if (!InTransferCount2Added) {
                             InTransferCount2Added = true;
-                            transferCountListAgg.push({ name: "2 и более", value: 2, checked: false, price: 0 });
+                            transferCountListAgg.push({ name: "2 и более пересадки", value: 2, checked: false, price: 0 });
                         }
                     }
                     else if (item.ToTransferCount <= 1 && item.BackTransferCount <= 1 && item.InTransferCount0 == false)
