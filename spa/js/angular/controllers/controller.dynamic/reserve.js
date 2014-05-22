@@ -1,9 +1,9 @@
 ﻿angular.module('innaApp.controllers')
     .controller('DynamicReserveTicketsCtrl', [
         '$scope', '$controller', '$routeParams', '$location', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'aviaHelper',
-        'paymentService', 'innaApp.Urls',
+        'paymentService', 'innaApp.Urls', 'storageService', 'urlHelper',
         function ($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper,
-            paymentService, Urls) {
+            paymentService, Urls, storageService, urlHelper) {
 
             $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может занять несколько минут');
             //initial
@@ -20,7 +20,9 @@
                 searchParams.Children && (searchParams.ChildrenAges = searchParams.Children.split('_'));
 
                 if($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
-                if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
+                if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
+
+                $scope.searchParams = searchParams;
 
                 $scope.combination = {};
 
@@ -86,6 +88,7 @@
                                     data.Rooms.length > 0 && data.Rooms[0].IsAvail == true && data.Rooms[0].RoomId.length > 0) {
                                     //если проверка из кэша - то отменяем попап
                                     //$timeout.cancel(availableChecktimeout);
+                                    $scope.roomId = data.Rooms[0].RoomId;
 
                                     //загружаем все
                                     loadDataAndInit();
@@ -121,7 +124,10 @@
                             function (data, status) {
                                 //error
                                 //$timeout.cancel(availableChecktimeout);
-                                $scope.showReserveError();
+
+                                //$scope.showReserveError();
+                                //загружаем все
+                                loadDataAndInit();
                             });
                         
                         function loadDataAndInit() {
@@ -157,11 +163,45 @@
                 $location.path(url);
             }
 
+            $scope.getApiModel = function (data) {
+                var m = {};
+                m.I = data.name;
+                m.F = data.secondName;
+                m.Email = data.email;
+                m.Phone = data.phone;
+                m.IsSubscribe = data.wannaNewsletter;
+
+                var pasList = [];
+                _.each(data.passengers, function (item) {
+                    pasList.push($scope.getPassenger(item));
+                });
+                m.Passengers = pasList;
+
+                m.SearchParams = {
+                    HotelId: $scope.hotel.HotelId,
+                    HotelProviderId: $scope.hotel.ProviderId,
+                    TicketBackId: $scope.item.VariantId1,
+                    TicketToId: $scope.item.VariantId2,
+                    RoomId: $scope.roomId,
+                    Filter: {
+                        DepartureId: $routeParams.DepartureId,
+                        ArrivalId: $routeParams.ArrivalId,
+                        StartVoyageDate: $scope.searchParams.StartVoyageDate,
+                        EndVoyageDate: $scope.searchParams.EndVoyageDate,
+                        TicketClass: $routeParams.TicketClass,
+                        Adult: $routeParams.Adult
+                    }
+                };
+                return m;
+            }
+
             //бронируем
             $scope.reserve = function () {
-                var apiModel = $scope.getApiModelForReserve();
+                var m = $scope.getApiModelForReserve();
+                var model = m.model;
+                var apiModel = m.apiModel;
 
-                paymentService.reserve(apiModel,
+                paymentService.packageReserve(apiModel,
                     function (data) {
                         $scope.$apply(function ($scope) {
                             console.log('order: ' + angular.toJson(data));
