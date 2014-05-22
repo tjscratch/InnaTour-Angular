@@ -1,6 +1,25 @@
 .big-map
-  height 700px
-  position relative
+  height 1000px
+  position fixed
+  top 50px
+  left 0
+  right 0
+  bottom 0
+
+	.b-hotels-on-map
+		height 100%
+		width 100%
+
+	.cluster
+		background : url('../img/map/pin-circle.png') no-repeat 0 0;
+		background-size : 35px 35px;
+		font-size : 10px;
+		color: #ff00ff;
+
+		img
+			display : none;
+
+
 
   .pin-circle
     background url(../img/map/pin-circle.png)
@@ -14,132 +33,135 @@
     width 62px
     margin -31px 0 0 -31px
 
-  .pin
-    position absolute
-
-    .pin-point
-      background url(../img/map/pin-grey.png)
-      cursor pointer
-      height 50px
-      left -16px
-      position absolute
-      top -43px
-      width 56px
-
-      &:before
-        background url(../img/map/pin-hanger.png)
-        content ''
-        display block
-        height 17px
-        left 12px
-        position absolute
-        top 8px
-        width 10px
-
-    &:hover
-      z-index: 2
-      .pin-point
-        background url(../img/map/pin-black.png)
-
-      .pin-circle
-        background #272727
-
-    &.green
-      .pin-point
-        cursor pointer
-        background url(../img/map/pin-green.png)
-
-      .pin-circle
-        cursor pointer
-        background #67912c
-
-    .pin-balloon
-      background #fff
-      border-radius(5px)
-      bottom 50px
-      box-shadow 0 3px 3px rgba(0,0,0,.6)
-      position absolute
-      right -180px
-      width 360px
-
-      &:before
-        border-style solid
-        border-width 12px 11px 0 11px
-        border-color #fff transparent transparent transparent
-        bottom -12px
-        content ''
-        display block
-        height 0
-        position absolute
-        left 50%
-        margin-left -11px
-        width 0
-        z-index: 2
-
-      &:after
-        background url(../img/map/balloon-corner-shadow.png)
-        bottom -15px
-        content ''
-        display block
-        height 13px
-        left 50%
-        margin-left -12px
-        position absolute
-        width 24px
-        z-index: 1
-
-      .hotel-gallery
-        border-radius(5px 5px 0 0)
-        overflow hidden
-        position relative
-
-        img
-          position: static
-
-      .hotel-gallery-container
-        height 240px
-
-      .hotel-gallery-photo-button
-        background url(../img/map/photo.png) 13px 5px no-repeat #89c13a
-        border-radius(2px)
-        bottom 5px
-        color #fff
-        display inline-block
-        font-size 18px
-        line-height 30px
-        padding 0 13px 0 38px
-        position absolute
-        left 4px
-        text-decoration none
-
-      .hotel-name
-        font-size 18px
-
-      .hotel-info-tripadvisor
-        font-size 12px
-        line-height 18px
-        margin 40px 0 2px
-
-      .details-link
-        color #1e88c1
-        display inline-block
-        font-size 14px
-        margin-top 8px
 
 
-      .hotel-info-price-container
-        color #878787
-        font-size 12px
-        margin 20px 0 12px
+.pin
+	position absolute
+	z-index 200
 
-      .hotel-info-price
-        color #000
-        font-size 24px
+	.pin-point
+		background url(../img/map/pin-grey.png)
+		cursor pointer
+		height 50px
+		left -16px
+		position absolute
+		top -43px
+		width 56px
 
-      .button
-        font-size 18px
-        height 31px
-        width 120px
+		&:before
+			background url(../img/map/pin-hanger.png)
+			content ''
+			display block
+			height 17px
+			left 12px
+			position absolute
+			top 8px
+			width 10px
 
-    .pin-balloon-info
-      padding 13px
+	&:hover
+		z-index: 2
+		.pin-point
+			background url(../img/map/pin-black.png)
+
+		.pin-circle
+			background #272727
+
+	&.green
+		.pin-point
+			cursor pointer
+			background url(../img/map/pin-green.png)
+
+		.pin-circle
+			cursor pointer
+			background #67912c
+
+	.pin-balloon
+		background #fff
+		border-radius(5px)
+		bottom 50px
+		box-shadow 0 3px 3px rgba(0,0,0,.6)
+		position absolute
+		right -180px
+		width 360px
+
+		&:before
+			border-style solid
+			border-width 12px 11px 0 11px
+			border-color #fff transparent transparent transparent
+			bottom -12px
+			content ''
+			display block
+			height 0
+			position absolute
+			left 50%
+			margin-left -11px
+			width 0
+			z-index: 2
+
+		&:after
+			background url(../img/map/balloon-corner-shadow.png)
+			bottom -15px
+			content ''
+			display block
+			height 13px
+			left 50%
+			margin-left -12px
+			position absolute
+			width 24px
+			z-index: 1
+
+		.hotel-gallery
+			border-radius(5px 5px 0 0)
+			overflow hidden
+			position relative
+
+			img
+				position: static
+
+		.hotel-gallery-container
+			height 240px
+
+		.hotel-gallery-photo-button
+			background url(../img/map/photo.png) 13px 5px no-repeat #89c13a
+			border-radius(2px)
+			bottom 5px
+			color #fff
+			display inline-block
+			font-size 18px
+			line-height 30px
+			padding 0 13px 0 38px
+			position absolute
+			left 4px
+			text-decoration none
+
+		.hotel-name
+			font-size 18px
+
+		.hotel-info-tripadvisor
+			font-size 12px
+			line-height 18px
+			margin 40px 0 2px
+
+		.details-link
+			color #1e88c1
+			display inline-block
+			font-size 14px
+			margin-top 8px
+
+
+		.hotel-info-price-container
+			color #878787
+			font-size 12px
+			margin 20px 0 12px
+
+		.hotel-info-price
+			color #000
+			font-size 24px
+
+		.button
+			font-size 18px
+			height 31px
+			width 120px
+
+	.pin-balloon-info
+		padding 13px

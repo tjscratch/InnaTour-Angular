@@ -268,6 +268,7 @@ innaAppControllers
     .controller('DynamicPackageSERPTicketPopupCtrl', [
         '$scope', '$element', '$location', 'innaApp.API.events', 'aviaHelper',
         function($scope, $element, $location, Events, aviaHelper){
+
             /*DOM dirty hacks*/
             $(function(){
                 $(document.body).append($element);
@@ -349,8 +350,13 @@ innaAppControllers
                 this.toggle = function(){
                     unwatchScroll();
 
-                    if(this.isCurrent(this.FULL)) this.current = this.SHORT;
-                    else this.current = this.FULL;
+                    if(this.isCurrent(this.FULL)){
+                        this.current = this.SHORT;
+                        $scope.$emit('header:hidden');
+                    } else {
+                        this.current = this.FULL;
+                        $scope.$emit('header:visible');
+                    }
                 }
 
                 this.help = false;
