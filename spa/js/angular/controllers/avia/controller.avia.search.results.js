@@ -393,6 +393,9 @@ innaAppControllers.
                 {
                     $scope.ticketsList = [];
                     log('updateModel - nothing to update, data is empty');
+                    $scope.baloon.showErr('К сожалению, ничего не нашлось', 'Попробуйте выбрать другие даты', function () {
+                        $location.path(Urls.URL_AVIA);
+                    });
                     $scope.isDataLoading = false;
                 }
             };
