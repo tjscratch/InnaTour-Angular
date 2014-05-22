@@ -14,11 +14,11 @@
             <span class="dtpk-caption" ng-if="!isFromSelecting">Дата обратно</span>
             <label class="dtpk-checkbox-label" ng-if="addButtons && isFromSelecting">
                 <input type="checkbox" ng-model="data.isToRoamingSelected" />
-                <span class="dtpk-checkbox"></span>Гибкий поиск
+                <span class="dtpk-checkbox"></span>+/-3 дня
             </label>
             <label class="dtpk-checkbox-label" ng-if="addButtons && !isFromSelecting">
                 <input type="checkbox" ng-model="data.isBackRoamingSelected" />
-                <span class="dtpk-checkbox"></span>Гибкий поиск
+                <span class="dtpk-checkbox"></span>+/-3 дня
             </label>
             <label class="dtpk-checkbox-label" ng-if="addButtons && isFromSelecting">
                 <input type="checkbox" ng-model="data.isOneWaySelected" ng-change="oneWayChanged()"  />
