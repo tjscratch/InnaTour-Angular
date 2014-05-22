@@ -196,6 +196,28 @@ innaAppControllers.
                 $location.path(url);
             }
 
+            $scope.getApiModel = function (data) {
+                var m = {};
+                m.I = data.name;
+                m.F = data.secondName;
+                m.Email = data.email;
+                m.Phone = data.phone;
+                m.IsSubscribe = data.wannaNewsletter;
+
+                var pasList = [];
+                _.each(data.passengers, function (item) {
+                    pasList.push($scope.getPassenger(item));
+                });
+                m.Passengers = pasList;
+
+                m.SearchParams = {
+                    SearchId: $scope.searchId,
+                    VariantId1: $scope.item.VariantId1,
+                    VariantId2: $scope.item.VariantId2
+                };
+                return m;
+            }
+
             //бронируем
             $scope.reserve = function () {
                 var m = $scope.getApiModelForReserve();

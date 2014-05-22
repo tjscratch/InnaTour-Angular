@@ -711,127 +711,107 @@ innaAppControllers.
                 }
             };
 
+            $scope.isCaseValid = function (fn) {
+                try {
+                    fn();
+                    return true;
+                }
+                catch (err) {
+                    return false;
+                }
+            }
+
+            $scope.getDocType = function (doc_num) {
+                //var doc_num = number.replace(/\s+/g, '');
+
+                if ($scope.isCaseValid(function () {
+                    Validators.ruPassport(doc_num, 'err');
+                })) {
+                    return 0;//паспорт
+                }
+
+                if ($scope.isCaseValid(function () {
+                    Validators.enPassport(doc_num, 'err');
+                })) {
+                    return 1;//загран
+                }
+
+                if ($scope.isCaseValid(function () {
+                    Validators.birthPassport(doc_num, 'err');
+                })) {
+                    return 2;//свидетельство о рождении
+                }
+
+                if ($scope.isCaseValid(function () {
+                   Validators.defined(doc_num, 'err');
+                })) {
+                    return 3;//Иностранный документ
+                }
+
+                return null;
+            }
+
+            $scope.getPassenger = function (data) {
+                var doc_num = data.doc_series_and_number.replace(/\s+/g, '');
+
+                var m = {};
+                m.Sex = data.sex;
+                m.I = data.name;
+                m.F = data.secondName;
+                m.Birthday = data.birthday;
+                m.DocumentId = $scope.getDocType(doc_num);
+                m.Number = doc_num;
+                m.ExpirationDate = data.doc_expirationDate;
+                m.Citizen = data.citizenship.id;
+                m.Index = data.index;
+                if (data.bonuscard.haveBonusCard) {
+                    m.BonusCard = data.bonuscard.number;
+                    m.TransporterId = data.bonuscard.airCompany.id;
+                    m.TransporterName = data.bonuscard.airCompany.name;
+                }
+                return m;
+            }
+
+            $scope.getModelFromValidationModel = function (validationModel) {
+                var keys = _.keys(validationModel);
+                var model = {};
+                _.each(keys, function (key) {
+                    if (_.isArray(validationModel[key])) {
+                        model[key] = [];
+                        _.each(validationModel[key], function (item) {
+                            var iKeys = _.keys(item);
+                            var iItem = {};
+                            _.each(iKeys, function (iKey) {
+                                if (_.isArray(item[iKey])) {
+                                    //пропускаем
+                                }
+                                else if (_.isFunction(item[iKey])) {
+                                    //пропускаем
+                                }
+                                else {
+                                    iItem[iKey] = angular.copy(item[iKey].value);
+                                }
+                            });
+                            model[key].push(iItem);
+                        });
+                    }
+                    else if (_.isFunction(validationModel[key])) {
+                        //пропускаем
+                    }
+                    else {
+                        model[key] = angular.copy(validationModel[key].value);
+                    }
+                });
+                return model;
+            }
+
             $scope.getApiModelForReserve = function () {
                 //function call() { if (afterCompleteCallback) afterCompleteCallback(); };
 
-                function isCaseValid(fn) {
-                    try {
-                        fn();
-                        return true;
-                    }
-                    catch (err) {
-                        return false;
-                    }
-                }
-
-                function getDocType(doc_num) {
-                    //var doc_num = number.replace(/\s+/g, '');
-
-                    if (isCaseValid(function () {
-                        Validators.ruPassport(doc_num, 'err');
-                    })) {
-                        return 0;//паспорт
-                    }
-
-                    if (isCaseValid(function () {
-                        Validators.enPassport(doc_num, 'err');
-                    })) {
-                        return 1;//загран
-                    }
-
-                    if (isCaseValid(function () {
-                        Validators.birthPassport(doc_num, 'err');
-                    })) {
-                        return 2;//свидетельство о рождении
-                    }
-
-                    if (isCaseValid(function () {
-                       Validators.defined(doc_num, 'err');
-                    })) {
-                        return 3;//Иностранный документ
-                    }
-
-                    return null;
-                }
-
-                function getPassenger(data) {
-                    var doc_num = data.doc_series_and_number.replace(/\s+/g, '');
-
-                    var m = {};
-                    m.Sex = data.sex;
-                    m.I = data.name;
-                    m.F = data.secondName;
-                    m.Birthday = data.birthday;
-                    m.DocumentId = getDocType(doc_num);
-                    m.Number = doc_num;
-                    m.ExpirationDate = data.doc_expirationDate;
-                    m.Citizen = data.citizenship.id;
-                    m.Index = data.index;
-                    if (data.bonuscard.haveBonusCard) {
-                        m.BonusCard = data.bonuscard.number;
-                        m.TransporterId = data.bonuscard.airCompany.id;
-                        m.TransporterName = data.bonuscard.airCompany.name;
-                    }
-                    return m;
-                }
-                function getApiModel(data) {
-                    var m = {};
-                    m.I = data.name;
-                    m.F = data.secondName;
-                    m.Email = data.email;
-                    m.Phone = data.phone;
-                    m.IsSubscribe = data.wannaNewsletter;
-
-                    var pasList = [];
-                    _.each(data.passengers, function (item) {
-                        pasList.push(getPassenger(item));
-                    });
-                    m.Passengers = pasList;
-
-                    m.SearchParams = {
-                        SearchId: $scope.searchId,
-                        VariantId1: $scope.item.VariantId1,
-                        VariantId2: $scope.item.VariantId2
-                    };
-                    return m;
-                };
-                function getModelFromValidationModel(validationModel) {
-                    var keys = _.keys(validationModel);
-                    var model = {};
-                    _.each(keys, function (key) {
-                        if (_.isArray(validationModel[key])) {
-                            model[key] = [];
-                            _.each(validationModel[key], function (item) {
-                                var iKeys = _.keys(item);
-                                var iItem = {};
-                                _.each(iKeys, function (iKey) {
-                                    if (_.isArray(item[iKey])) {
-                                        //пропускаем
-                                    }
-                                    else if (_.isFunction(item[iKey])) {
-                                        //пропускаем
-                                    }
-                                    else {
-                                        iItem[iKey] = angular.copy(item[iKey].value);
-                                    }
-                                });
-                                model[key].push(iItem);
-                            });
-                        }
-                        else if (_.isFunction(validationModel[key])) {
-                            //пропускаем
-                        }
-                        else {
-                            model[key] = angular.copy(validationModel[key].value);
-                        }
-                    });
-                    return model;
-                }
-
-                var model = getModelFromValidationModel($scope.validationModel);
+                var model = $scope.getModelFromValidationModel($scope.validationModel);
                 model.price = $scope.item.Price;
 
-                var apiModel = getApiModel(model);
+                var apiModel = $scope.getApiModel(model);
                 log('');
                 log('reservationModel: ' + angular.toJson(model));
                 log('');

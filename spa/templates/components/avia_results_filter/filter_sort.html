@@ -1,6 +1,6 @@
 <li class="filters__sort" style="width: 290px; text-align: right;">
     <a href="javascript:void(0)" class="filters__link" ng-click="toggle($event)">{{getCurrentSortName()}}</a>
-    <ul class="search__list" ng-show="isOpen" style="width: 290px; margin-top: 0px; z-index: 101; ">
+    <ul class="search__list" ng-show="isOpen" style="width: 290px; margin-top: 0px; z-index: 101; position:absolute;">
         <li style="text-align:left;" ng-class="{current:item.sort == sort.sortType}" ng-repeat="item in sort.list" ng-click="applySort($event, item.sort)">{{item.name}}</li>
     </ul>
 <!--
