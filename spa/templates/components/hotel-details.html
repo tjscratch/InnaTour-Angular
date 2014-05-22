@@ -44,22 +44,9 @@
                 {{hotel.data.HotelName}}
             </div>
         </div>
-        <div class="hotel-details__section">
-            <div class="gallery">
-                <div class="gallery__viewport-wrap">
-                    <div class="gallery__viewport" style="background-image:url(/spa/img/test.jpg);width:300px;height:222px;">
-                        <span class="gallery__button gallery__button_type_next"></span>
-                        <span class="gallery__button gallery__button_type_prev"></span>
-                    </div>
-                </div>
-                <ul class="gallery__list">
-                    <li class="gallery__list-item" style="background-image:url(/spa/img/test.jpg);"></li>
-                    <li class="gallery__list-item" style="background-image:url(/spa/img/test.jpg);"></li>
-                    <li class="gallery__list-item" style="background-image:url(/spa/img/test.jpg);"></li>
-                    <li class="gallery__list-item gallery__list-item_state_current" style="background-image:url(/spa/img/test.jpg);"></li>
-                    <li class="gallery__list-item" style="background-image:url(/spa/img/test.jpg);"></li>
-                </ul>
-            </div>
+        <div class="hotel-details__section" ng-if="hotel.detailed.Hotel.Photos.length">
+            <div inna-gallery
+                 inna-gallery-pic-lis="hotel.detailed.Hotel.Photos"></div>
         </div>
         <div class="hotel-details__section">
             <div class="hotel-details__section-box">
