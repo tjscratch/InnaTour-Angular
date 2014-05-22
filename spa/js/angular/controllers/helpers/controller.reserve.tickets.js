@@ -114,7 +114,7 @@ innaAppControllers.
                 }
             };
 
-            function validatePeopleCount() {
+            $scope.validatePeopleCount = function () {
                 if ($scope.validationModel != null && $scope.validationModel.passengers != null && $scope.validationModel.passengers.length > 0) {
                     var availableAdultCount = $scope.AdultCount;
                     var availableChildCount = $scope.ChildCount;
@@ -150,6 +150,11 @@ innaAppControllers.
                                 case peopleType.adult: availableAdultCount--; break;
                                 case peopleType.child: availableChildCount--; break;
                                 case peopleType.infant: availableInfantsCount--; break;
+                            }
+
+                            if (availableAdultCount < 0 || availableChildCount < 0 || availableInfantsCount < 0) {
+                                pas.birthday.isValid = false;
+                                pas.birthday.isInvalid = !pas.birthday.isValid;
                             }
                         }
                     }
@@ -248,8 +253,8 @@ innaAppControllers.
                                 {
                                     tryValidate(item, function () {
                                         Validators.birthdate(item.value, 'err');
-                                        if (!validatePeopleCount())
-                                            throw 'err';
+                                        //if (!$scope.validatePeopleCount())
+                                        //    throw 'err';
                                     });
                                     break;
                                 }
@@ -684,6 +689,7 @@ innaAppControllers.
                 eventsHelper.preventBubbling($event);
 
                 $scope.validationModel.validateAll();
+                $scope.validatePeopleCount();
 
                 //ищем первый невалидный элемент, берем только непустые
                 var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
@@ -710,6 +716,14 @@ innaAppControllers.
                     $scope.reserve();
                 }
             };
+
+            $scope.goToB2bCabinet = function () {
+                location.href = app_main.b2bHost;
+            }
+
+            $scope.isAgency = function () {
+                return ($scope.$root.user != null && $scope.$root.user.isAgency());
+            }
 
             $scope.isCaseValid = function (fn) {
                 try {
@@ -826,51 +840,47 @@ innaAppControllers.
     { name: 'ELENA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '12.11.2013', series_and_number: '4507 018530' },
             ];
 
-            //ToDo: debug
-            $scope.fillDefaultModelDelay = function () {
-                $timeout(function () {
-                    $scope.model.name = 'Иван';
-                    $scope.model.secondName = 'Иванов';
-                    $scope.model.email = 'ivan.ivanov@gmail.com';
-                    $scope.model.phone = '+79101234567';
-                    var index = 0;
-                    _.each($scope.model.passengers, function (pas) {
+            $scope.fillDefaultModel = function ($event) {
+                eventsHelper.preventBubbling($event);
 
-                        if (index < debugPassengersList.length) {
-                            var debugItem = debugPassengersList[index];
-                            index++;
+                $scope.model.name = 'Иван';
+                $scope.model.secondName = 'Иванов';
+                $scope.model.email = 'ivan.ivanov@gmail.com';
+                $scope.model.phone = '+79101234567';
+                var index = 0;
+                _.each($scope.model.passengers, function (pas) {
 
-                            pas.name = debugItem.name;
-                            pas.secondName = debugItem.secondName;
-                            pas.sex = debugItem.sex;
-                            pas.birthday = debugItem.birthday;
-                            pas.citizenship.id = 189;
-                            pas.citizenship.name = 'Россия';
-                            pas.doc_series_and_number = debugItem.series_and_number;
-                            pas.doc_expirationDate = '18.07.2015';
-                            pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
-                            pas.bonuscard.airCompany.id = 2;
-                            pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '1213473454';
-                        }
-                        else {
-                            pas.name = 'IVAN';
-                            pas.secondName = 'IVANOV';
-                            pas.sex = $scope.sexType.man;
-                            pas.birthday = '18.07.1976';
-                            pas.citizenship.id = 189;
-                            pas.citizenship.name = 'Россия';
-                            pas.doc_series_and_number = '4507 048200';
-                            pas.doc_expirationDate = '18.07.2015';
-                            pas.bonuscard.haveBonusCard = true;
-                            pas.bonuscard.airCompany.id = 2;
-                            pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '1213463454';
-                        }
-                    });
+                    if (index < debugPassengersList.length) {
+                        var debugItem = debugPassengersList[index];
+                        index++;
 
-                    //$scope.login.isOpened = true;
-                    //$scope.login.isLogged = true;
-                }, 500);
+                        pas.name = debugItem.name;
+                        pas.secondName = debugItem.secondName;
+                        pas.sex = debugItem.sex;
+                        pas.birthday = debugItem.birthday;
+                        pas.citizenship.id = 189;
+                        pas.citizenship.name = 'Россия';
+                        pas.doc_series_and_number = debugItem.series_and_number;
+                        pas.doc_expirationDate = '18.07.2015';
+                        pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
+                        pas.bonuscard.airCompany.id = 2;
+                        pas.bonuscard.airCompany.name = 'Aeroflot';
+                        pas.bonuscard.number = '1213473454';
+                    }
+                    else {
+                        pas.name = 'IVAN';
+                        pas.secondName = 'IVANOV';
+                        pas.sex = $scope.sexType.man;
+                        pas.birthday = '18.07.1976';
+                        pas.citizenship.id = 189;
+                        pas.citizenship.name = 'Россия';
+                        pas.doc_series_and_number = '4507 048200';
+                        pas.doc_expirationDate = '18.07.2015';
+                        pas.bonuscard.haveBonusCard = true;
+                        pas.bonuscard.airCompany.id = 2;
+                        pas.bonuscard.airCompany.name = 'Aeroflot';
+                        pas.bonuscard.number = '1213463454';
+                    }
+                });
             };
         }]);

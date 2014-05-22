@@ -40,6 +40,15 @@
                         $scope.ticketsCount = aviaHelper.getTicketsCount($scope.AdultCount, $scope.ChildCount, $scope.InfantsCount);
                         $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $routeParams.TicketClass);
 
+                        function addition() {
+                            var self = this;
+                            this.customerWishlist = '';
+                            this.isNeededVisa = false;
+                            this.isNeededTransfer = false;
+                            this.isNeededMedicalInsurance = false;
+                        }
+                        $scope.addition = new addition();
+
                         //дополняем полями 
                         aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
                         $scope.item = data.RecommendedPair.AviaInfo;
@@ -125,9 +134,7 @@
                                 //error
                                 //$timeout.cancel(availableChecktimeout);
 
-                                //$scope.showReserveError();
-                                //загружаем все
-                                loadDataAndInit();
+                                $scope.showReserveError();
                             });
                         
                         function loadDataAndInit() {
@@ -137,7 +144,7 @@
                         $scope.afterPayModelInit = function () {
                             //log('$scope.afterPayModelInit');
                             $scope.baloon.hide();
-                            $scope.fillDefaultModelDelay();
+                            //$scope.fillDefaultModelDelay();
                         };
 
                         $scope.combination.Hotel = data.RecommendedPair.Hotel;
@@ -160,7 +167,7 @@
                 //переходим на страницу оплаты
                 var url = urlHelper.UrlToAviaTicketsBuy($scope.OrderNum);
                 //log('processToPayment, url: ' + url);
-                $location.path(url);
+                $location.url(url);
             }
 
             $scope.getApiModel = function (data) {
@@ -190,7 +197,11 @@
                         EndVoyageDate: $scope.searchParams.EndVoyageDate,
                         TicketClass: $routeParams.TicketClass,
                         Adult: $routeParams.Adult
-                    }
+                    },
+                    IsNeededVisa: $scope.addition.isNeededVisa,
+                    IsNeededTransfer: $scope.addition.isNeededTransfer,
+                    IsNeededMedicalInsurance: $scope.addition.isNeededMedicalInsurance,
+                    CustomerWishlist: $scope.addition.customerWishlist
                 };
                 return m;
             }
@@ -210,11 +221,16 @@
                                 //storageService.setAviaOrderNum(data.OrderNum);
                                 $scope.OrderNum = data.OrderNum;
 
-                                //сохраняем модель
-                                storageService.setReservationModel(model);
+                                if ($scope.isAgency()) {
+                                    $scope.goToB2bCabinet();
+                                }
+                                else {
+                                    //сохраняем модель
+                                    storageService.setReservationModel(model);
 
-                                //успешно
-                                $scope.afterCompleteCallback();
+                                    //успешно
+                                    $scope.afterCompleteCallback();
+                                }
                             }
                             else {
                                 $scope.showReserveError();

@@ -185,7 +185,7 @@ innaAppControllers.
             $scope.afterPayModelInit = function () {
                 //log('$scope.afterPayModelInit');
                 $scope.baloon.hide();
-                $scope.fillDefaultModelDelay();
+                //$scope.fillDefaultModelDelay();
             };
 
             $scope.afterCompleteCallback = function () {
@@ -233,11 +233,16 @@ innaAppControllers.
                                 //storageService.setAviaOrderNum(data.OrderNum);
                                 $scope.criteria.OrderNum = data.OrderNum;
 
-                                //сохраняем модель
-                                storageService.setReservationModel(model);
+                                if ($scope.isAgency()) {
+                                    $scope.goToB2bCabinet();
+                                }
+                                else {
+                                    //сохраняем модель
+                                    storageService.setReservationModel(model);
 
-                                //успешно
-                                $scope.afterCompleteCallback();
+                                    //успешно
+                                    $scope.afterCompleteCallback();
+                                }
                             }
                             else {
                                 $scope.showReserveError();

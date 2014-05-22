@@ -110,7 +110,7 @@ innaAppControllers.
                 if (defaultCriteria == null) {
                     defaultCriteria = new aviaCriteria({
                         "BeginDate": f_now, "EndDate": f_nowAdd5days,
-                        "AdultCount": 2, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
+                        "AdultCount": 1, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
                         "PathType": 0
                     });
                 }
