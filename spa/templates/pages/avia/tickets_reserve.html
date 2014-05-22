@@ -123,6 +123,26 @@
                 </div>
             </div>
         </fieldset>
+        <ng:any ng-if="addition != null">
+            <header class="buy__header">
+                <h2 class="buy__title">Пожелание к номеру</h2>
+            </header>
+            <div class="buy__comments-container">
+                <textarea cols="30" rows="10" class="buy__comments-field" ng-model="addition.customerWishlist">{{addition.customerWishlist | breakFilter}}</textarea>
+                <p class="buy__comments-help">Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение. Пожалуйста, пишите ваши пожелания на английском языке.</p>
+            </div>
+            <header class="buy__header">
+                <h2 class="buy__title">Дополнительные услуги</h2>
+            </header>
+            <div class="buy__more-container">
+                <div class="buy__more-help">Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется c Вами и предложит разные варианты.</div>
+                <ul class="buy__more-options">
+                    <li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededVisa"><ins class="b-checkbox"></ins>Виза</label></li>
+                    <li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededMedicalInsurance"><ins class="b-checkbox"></ins>Страховки</label></li>
+                    <li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededTransfer"><ins class="b-checkbox"></ins>Трансфер</label></li>
+                </ul>
+            </div>
+        </ng:any>
     </div>
     <div class="b-sum-container">
         Сумма к оплате: <b>{{item.Price| price}}</b> <span class="b-sum-rub">руб.</span>

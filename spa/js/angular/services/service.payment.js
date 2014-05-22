@@ -55,15 +55,6 @@
                     });
                 },
 
-                //reserve: function (queryData, successCallback, errCallback) {
-                //    $http.post(apiUrls.AVIA_RESERVATION, queryData).success(function (data, status) {
-                //        successCallback(data);
-                //    }).
-                //    error(function (data, status) {
-                //        errCallback(data, status);
-                //    });
-                //},
-
                 packageReserve: function (queryData, successCallback, errCallback) {
                     var qData = angular.toParam(queryData);
                     AjaxHelper.post(apiUrls.PACKAGE_RESERVATION, qData, function (data) {
