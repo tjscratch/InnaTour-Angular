@@ -196,11 +196,12 @@ innaAppControllers.
                     //if ok
 
                     if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0) {
-                        fillFromAndTo();
-                        saveParamsToCookie();
-                        //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
-                        var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
-                        $location.path(url);
+                        fillFromAndTo(function () {
+                            saveParamsToCookie();
+                            //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
+                            var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+                            $location.path(url);
+                        });
                     }
                     else {
                         alert('Не заполнены поля Откуда, Куда');
@@ -268,18 +269,38 @@ innaAppControllers.
                 $scope.criteria.PathType = val;
             }
 
-            function fillFromAndTo() {
-                $scope.loadObjectById($scope.criteria.FromId, function (data) {
-                    if (data != null) {
-                        $scope.criteria.FromUrl = data.CodeIata;
-                    }
-                }, false);
-                
-                $scope.loadObjectById($scope.criteria.ToId, function (data) {
-                    if (data != null) {
-                        $scope.criteria.ToUrl = data.CodeIata;
-                    }
-                }, false);
+            function fillFromAndTo(afterLoadFn) {
+
+                var l = new utils.loader();
+
+                function fnload1() {
+                    var self = this;
+                    $scope.loadObjectById($scope.criteria.FromId, function (data) {
+                        if (data != null) {
+                            $scope.$apply(function ($scope) {
+                                $scope.criteria.FromUrl = data.CodeIata;
+                                //оповещаем лоадер, что метод отработал
+                                l.complete(self);
+                            });
+                        }
+                    });
+                };
+
+                function fnload2() {
+                    var self = this;
+
+                    $scope.loadObjectById($scope.criteria.ToId, function (data) {
+                        if (data != null) {
+                            $scope.$apply(function ($scope) {
+                                $scope.criteria.ToUrl = data.CodeIata;
+                                //оповещаем лоадер, что метод отработал
+                                l.complete(self);
+                            });
+                        }
+                    });
+                };
+
+                l.init([fnload1, fnload2], afterLoadFn).run();
             }
 
             function validate() {
