@@ -6,16 +6,16 @@ angular.module('innaApp.directives')
                 hotel: '=innaHotelDetailsHotel',
                 collection: '=innaHotelDetailsCollection',
                 back: '=innaHotelDetailsBack',
-                next: '=innaHotelDetailsNext'
+                next: '=innaHotelDetailsNext',
+                combination: '=innaHotelDetailsBundle'
             },
             controller: [
-                '$scope', '$element', '$timeout',
-                function($scope, $element, $timeout){
-                    console.log('innaHotelDetails:$scope=', $scope);
-
+                '$scope', '$element', '$timeout', 'aviaHelper',
+                function($scope, $element, $timeout, aviaHelper){
                     /*Dom*/
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
+                    /*Private*/
                     var backgrounds = [
                         '/spa/img/hotels/back-0.jpg',
                         '/spa/img/hotels/back-1.jpg',
@@ -24,6 +24,7 @@ angular.module('innaApp.directives')
 
                     var map = null;
 
+                    /*Properties*/
                     $scope.background = 'url($)'.split('$').join(
                         backgrounds[parseInt(Math.random() * 100) % backgrounds.length]
                     );
@@ -32,14 +33,18 @@ angular.module('innaApp.directives')
 
                     $scope.showMapFullScreen = false;
 
+                    /*Proxy*/
+                    $scope.dateHelper = dateHelper;
+                    $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+
+                    /*Methods*/
                     $scope.toggleDescription = function(){
                         $scope.showFullDescription = !$scope.showFullDescription;
-                    }
+                    };
 
                     $scope.toggleMapDisplay = function(){
                         function closeByEsc(event){
                             if(event.which == 27) { //esc
-                                console.log('esc');
                                 $scope.$apply(function(){
                                     $scope.showMapFullScreen = false;
                                 });
@@ -58,6 +63,7 @@ angular.module('innaApp.directives')
                         $(document)[$scope.showMapFullScreen ? 'on' : 'off']('keyup', closeByEsc);
                     }
 
+                    /*Watchers*/
                     $scope.$watch('hotel', function(hotel){
                         if(!hotel) return;
 
@@ -65,7 +71,7 @@ angular.module('innaApp.directives')
 
                         var point = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Longitude)
 
-                        /*map is from outer js-scope*/
+                        /*map is from Private section*/
                         map = new google.maps.Map($element.find('#hotel-details-map')[0], {
                             zoom: 8,
                             center: point
