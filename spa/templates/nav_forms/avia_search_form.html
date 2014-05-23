@@ -5,6 +5,7 @@
         provide-suggest-callback="provideSuggestToFromList"
         suggest="fromList"
         result="criteria.FromId"
+        set-result-callback="setResultCallbackFrom(item)"
         ask-for-data="loadObjectById"
         placeholder="Откуда"></div>
     <div dropdown-input
@@ -12,6 +13,7 @@
         provide-suggest-callback="provideSuggestToToField"
         suggest="toList"
         result="criteria.ToId"
+        set-result-callback="setResultCallbackTo(item)"
         ask-for-data="loadObjectById"
         placeholder="Куда"></div>
     <span date-picker-widget 
