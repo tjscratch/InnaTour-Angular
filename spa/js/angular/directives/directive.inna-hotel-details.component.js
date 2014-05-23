@@ -17,7 +17,9 @@ angular.module('innaApp.directives')
                         '/spa/img/hotels/back-2.jpg'
                     ];
 
-                    $scope.background = backgrounds[parseInt(Math.random() * 100) % backgrounds.length];
+                    $scope.background = 'url($)'.split('$').join(
+                        backgrounds[parseInt(Math.random() * 100) % backgrounds.length]
+                    );
 
                     $scope.showFullDescription = false;
 
@@ -25,20 +27,27 @@ angular.module('innaApp.directives')
                         $scope.showFullDescription = !$scope.showFullDescription;
                     }
 
+                    var marker = null;
+
                     $scope.$watch('hotel', function(hotel){
-                        var point = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Langitude);
+                        if(!hotel) return;
+
+                        if(!hotel.data.Latitude || !hotel.data.Longitude) return;
+
+                        var point = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Longitude)
 
                         var map = new google.maps.Map($element.find('#hotel-details-map')[0], {
-                            center: point,
-                            zoom: 8
+                            zoom: 8,
+                            center: point
                         });
 
-                        var marker = new google.maps.Marker({
+                        marker = new google.maps.Marker({
                             position: point,
-                            animation: google.maps.Animation.DROP,
-                            icon: 'spa/img/map/pin-grey.png?' + Math.random().toString(16),
+                            icon: '/spa/img/map/pin-grey.png?' + Math.random().toString(16),
                             title: hotel.data.HotelName
                         });
+
+                        marker.setMap(map);
                     });
                 }
             ]

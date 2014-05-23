@@ -122,7 +122,6 @@ innaAppControllers
 
             /*Methods*/
             $scope.getHotelDetails = function(hotel){
-                console.log('getHotelDetails', hotel, $scope);
 
                 function show(){
                     serpScope.hotelToShowDetails = hotel;
@@ -300,7 +299,6 @@ innaAppControllers
 
             /*Listeners*/
             $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function(event, ticket){
-                console.log(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
 
                 $scope.ticket = ticket;
 
