@@ -34,10 +34,10 @@
                     {{dateHelper.getDateShort(ticket.data.BackArrivalDate)}}, {{dateHelper.getDay(ticket.data.BackArrivalDate)}}
                 </span>
             </div>
-            <div class="bottom-actions">
-                <a href="javascript:void(0);" class="pull-left" ng-class="{active: state.isActive(state.TICKETS_TAB)}"
+            <div class="bottom-actions" ng-if="getTicketDetails || state">
+                <a ng-if="state" href="javascript:void(0);" class="pull-left" ng-class="{active: state.isActive(state.TICKETS_TAB)}"
                    ng-click="state.switchTo(state.TICKETS_TAB)">Заменить</a>
-                <a href="javascript:void(0);" class="pull-right" ng-click="getTicketDetails(ticket)">Подробнее</a>
+                <a ng-if="getTicketDetails" href="javascript:void(0);" class="pull-right" ng-click="getTicketDetails(ticket)">Подробнее</a>
             </div>
         </div>
 
@@ -45,45 +45,45 @@
 
         <div class="result-cell result-cell-390">
             <div class="hotel-info">
-                <img ng-src="{{combination.Hotel.data.HotelPhoto70}}" alt="">
+                <img ng-src="{{hotel.data.HotelPhoto70}}" alt="">
                 <div class="hotel-info-content">
                     <div>
-                        <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 0"></span>
-                        <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 1"></span>
-                        <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 2"></span>
-                        <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 3"></span>
-                        <span class="icon icon-star" ng-if="combination.Hotel.data.Stars > 4"></span>
+                        <span class="icon icon-star" ng-if="hotel.data.Stars > 0"></span>
+                        <span class="icon icon-star" ng-if="hotel.data.Stars > 1"></span>
+                        <span class="icon icon-star" ng-if="hotel.data.Stars > 2"></span>
+                        <span class="icon icon-star" ng-if="hotel.data.Stars > 3"></span>
+                        <span class="icon icon-star" ng-if="hotel.data.Stars > 4"></span>
                     </div>
-                    <h3 class="hotel-info-name">{{combination.Hotel.data.HotelName}}</h3>
-                    <div class="hotel-info-date">с {{dateHelper.getDateShort(combination.Hotel.data.CheckIn)}} по
-                        {{dateHelper.getDateShort(combination.Hotel.data.CheckOut)}},
-                        {{combination.Hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+                    <h3 class="hotel-info-name">{{hotel.data.HotelName}}</h3>
+                    <div class="hotel-info-date">с {{dateHelper.getDateShort(hotel.data.CheckIn)}} по
+                        {{dateHelper.getDateShort(hotel.data.CheckOut)}},
+                        {{hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
                     </div>
                 </div>
-                <div class="hotel-info-tripadvisor" ng-if="combination.Hotel.data.TaFactor > 0">
+                <div class="hotel-info-tripadvisor" ng-if="hotel.data.TaFactor > 0">
                     <span class="icon icon-tripadvisor"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="combination.Hotel.data.TaFactor > 0"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="combination.Hotel.data.TaFactor > 1"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="combination.Hotel.data.TaFactor > 2"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="combination.Hotel.data.TaFactor > 3"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="combination.Hotel.data.TaFactor > 4"></span>
-                    {{combination.Hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
+                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 0"></span>
+                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 1"></span>
+                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 2"></span>
+                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 3"></span>
+                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 4"></span>
+                    {{hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
                 </div>
             </div>
-            <div class="bottom-actions">
-                <a href="javascript:void(0);" ng-class="{active: state.isActive(state.HOTELS_TAB)}"
+            <div class="bottom-actions" ng-if="getHotelDetails || state">
+                <a ng-if="state" href="javascript:void(0);" ng-class="{active: state.isActive(state.HOTELS_TAB)}"
                    ng-click="state.switchTo(state.HOTELS_TAB)" class="pull-left">Заменить</a>
-                <a href="javascript:void(0);" class="pull-right">Подробнее</a>
+                <a ng-if="getHotelDetails" href="javascript:void(0);" class="pull-right" ng-click="getHotelDetails(hotel)">Подробнее</a>
             </div>
         </div>
 
         <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
 
         <div class="result-cell result-buy"
-             inna-with="combination.Hotel.data.MinimalPrice as hMinPrice,
+             inna-with="hotel.data.MinimalPrice as hMinPrice,
                         ticket.data.Price as aPrice,
                         hMinPrice + aPrice as sum,
-                        combination.Hotel.data.MinimalPackagePrice + ticket.data.PackagePrice as pSum">
+                        hotel.data.MinimalPackagePrice + ticket.data.PackagePrice as pSum">
             <span class="icon icon-clip"></span>
             <p class="corner-price cross">
                 {{sum}} <span class="b-rub">Р</span>

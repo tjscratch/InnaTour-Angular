@@ -63,9 +63,12 @@
                 <div id="hotel-details-map"></div>
             </div>
         </div>
-        <div class="hotel-details__section" inna-with="combination.AviaInfo as ticket">
+        <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">Пакет с этим отелем</h2>
-            <ng:include src="'/spa/templates/pages/dynamic/inc/bundle-body.html'"></ng:include>
+            <div ng-if="combination"
+                 inna-dynamic-bundle
+                 inna-dynamic-bundle-ticket="combination.AviaInfo"
+                 inna-dynamic-bundle-hotel="hotel"></div>
         </div>
         <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">Выбор номера</h2>
