@@ -133,9 +133,13 @@
                 //console.log('UrlToAvia changeNullsToAny: ' + angular.toJson(criteria));
 
                 var dl = this.Delimiter;
-                var res = '' + criteria.FromUrl + dl + criteria.ToUrl + dl + criteria.BeginDate + dl + criteria.EndDate
-                    + dl + criteria.AdultCount + dl + criteria.ChildCount + dl + criteria.InfantsCount + dl + criteria.CabinClass
-                    + dl + criteria.IsToFlexible + dl + criteria.IsBackFlexible + dl + criteria.PathType;
+                var res = '' + criteria.FromUrl + dl + criteria.ToUrl + dl + criteria.BeginDate + dl;
+                if (criteria.EndDate) {
+                    res += criteria.EndDate;
+                }
+                    
+                res += dl + criteria.AdultCount + dl + criteria.ChildCount + dl + criteria.InfantsCount + dl + criteria.CabinClass
+                + dl + criteria.IsToFlexible + dl + criteria.IsBackFlexible + dl + criteria.PathType;
 
                 return res;
             },

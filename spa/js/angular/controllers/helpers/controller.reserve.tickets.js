@@ -333,16 +333,26 @@ innaAppControllers.
 
                                                 var etapCountries = [];
                                                 if (item.EtapsTo != null) {
-                                                    _.each(item.EtapsTo, function (etap) {
+                                                    for (var i = 0; i < item.EtapsTo.length; i++) {
+                                                        var etap = item.EtapsTo[i];
                                                         etapCountries.push(etap.InCountryId);
                                                         etapCountries.push(etap.OutCountryId);
-                                                    });
+                                                    }
+                                                    //_.each(item.EtapsTo, function (etap) {
+                                                    //    etapCountries.push(etap.InCountryId);
+                                                    //    etapCountries.push(etap.OutCountryId);
+                                                    //});
                                                 }
                                                 if (item.EtapsBack != null) {
-                                                    _.each(item.EtapsTo, function (etap) {
+                                                    for (var i = 0; i < item.EtapsBack.length; i++) {
+                                                        var etap = item.EtapsBack[i];
                                                         etapCountries.push(etap.InCountryId);
                                                         etapCountries.push(etap.OutCountryId);
-                                                    });
+                                                    }
+                                                    //_.each(item.EtapsBack, function (etap) {
+                                                    //    etapCountries.push(etap.InCountryId);
+                                                    //    etapCountries.push(etap.OutCountryId);
+                                                    //});
                                                 }
                                                 etapCountries = _.uniq(etapCountries);
                                                 //проверяем все страны в этапах
@@ -534,9 +544,13 @@ innaAppControllers.
                         },
                         validateAll: function () {
                             var list = this.getFields(this);
-                            _.each(list, function (item) {
+                            for (var vi = 0; vi < list.length; vi++) {
+                                var item = list[vi];
                                 $scope.validate(item);
-                            });
+                            }
+                            //_.each(list, function (item) {
+                            //    $scope.validate(item);
+                            //});
 
                             //вложенные свойства
                             var arFields = this.getArrayFileds();
@@ -544,9 +558,13 @@ innaAppControllers.
                                 var field = arFields[i];
                                 for (var j = 0; j < field.length; j++) {
                                     var f = field[j];
-                                    _.each(f, function (item) {
+                                    for (var zi = 0; zi < f.length; zi++) {
+                                        var item = f[zi];
                                         $scope.validate(item);
-                                    });
+                                    }
+                                    //_.each(f, function (item) {
+                                    //    $scope.validate(item);
+                                    //});
                                 }
                             }
 
@@ -576,9 +594,6 @@ innaAppControllers.
                         else {
                             return item.isInvalid;
                         }
-
-                        //return item.isInvalid && !$scope.validationModel.formPure &&
-                        //    item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
                     }
                     return false;
                 }
@@ -736,7 +751,12 @@ innaAppControllers.
                 },
                 close: function ($to) {
                     //$to.tooltip("disable");
-                    $to.tooltipX("close");
+                    $to.tooltipX("destroy");
+                    //try
+                    //{
+                    //    $to.tooltipX("destroy");
+                    //}
+                    //catch(e){};
                 }
             };
 
@@ -755,7 +775,7 @@ innaAppControllers.
                     //показываем тултип
                     var $to = $("#" + invalidItem.id);
                     //не навешивали тултип
-                    if (!invalidItem.haveTooltip) {
+                    if (!(invalidItem.haveTooltip == true)) {
                         $scope.tooltipControl.init($to);
                         invalidItem.haveTooltip = true;
                     }
