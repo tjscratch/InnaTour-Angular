@@ -61,6 +61,11 @@ angular.module('innaApp.directives')
                         }
 
                         $(document)[$scope.showMapFullScreen ? 'on' : 'off']('keyup', closeByEsc);
+                    };
+
+                    $scope.toggleRoom = function(room){
+                        //converts undefined into boolean on the fly
+                        room.isOpen = !!!room.isOpen;
                     }
 
                     /*Watchers*/
