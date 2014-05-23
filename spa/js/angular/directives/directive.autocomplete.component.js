@@ -6,6 +6,8 @@
             provideSuggestCallback: '=', //callback for ngChange
             suggest: '=', //list of suggested objects
             result: '=',
+            setResultCallback: '&',
+            setResultItem: '=',
             theme: '@',
             askForData: '=',
             placeholder: '@'
@@ -21,6 +23,27 @@
                     return $scope.placeholder;
             }
 
+            $scope.doResultCallback = function (item) {
+                if ($scope.setResultCallback) {
+                    $scope.setResultCallback({ item : item });
+                }
+            }
+
+            //эта хуйня нужна чтобы можно было присвоить и id и name сразу, без доп запросов
+            var unwatch = $scope.$watch('setResultItem', function (item) {
+                if (item != null) {
+                    init(item);
+                    unwatch();
+                }
+            });
+
+            function init(item) {
+                if ($scope.input) {
+                    $scope.input.val(item.Name);
+                }
+                $scope.result = item.Id;
+            }
+
             /*Events*/
             $scope.setCurrent = function ($event, option, airport) {
                 //запрещаем баблинг
@@ -30,10 +53,12 @@
                     if (airport != null) {
                         $scope.input.val(airport.Name);
                         $scope.result = airport.Id;
+                        $scope.doResultCallback(airport);
                     }
                     else {
                         $scope.input.val(option.Name);
                         $scope.result = option.Id;
+                        $scope.doResultCallback(option);
                     }
                 }
                 $scope.fulfilled = true;
@@ -44,7 +69,8 @@
             }
 
             /*Watchers*/
-            $scope.$watch('result', function(newValue, oldValue){
+            $scope.$watch('result', function (newValue, oldValue) {
+                //console.log('$scope.$watch(result: %s', newValue);
                 if(newValue instanceof Error) {
                     $scope.result = oldValue;
 

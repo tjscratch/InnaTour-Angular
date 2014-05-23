@@ -21,7 +21,7 @@ innaAppControllers.
 
             //$routeParams
             $scope.$on('avia.page.loaded', function (event, $routeParams, validateDate) {
-                log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams) + ' validateDate: ' + validateDate);
+                //console.log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams) + ' validateDate: ' + validateDate);
 
                 var routeCriteria = null;
                 //если пусто
@@ -40,12 +40,57 @@ innaAppControllers.
                     validateDates(routeCriteria);
                 }
 
+                
                 $scope.criteria = routeCriteria;
-                //по url вытягиваем Id и name для города, региона и т.д.
+                //console.log('avia.page.loaded criteria');
+                //console.log($scope.criteria);
+
+                //если FromUrl пришли (из урла), а FromId - нет
                 setFromAndToFieldsFromUrl(routeCriteria);
 
                 $scope.datepickerButtons.updateValues();
             });
+
+            function setFromAndToFieldsFromUrl(routeCriteria, afterCompleteCallback) {
+                if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
+                    $scope.criteria.From = 'загружается...';
+                    dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
+                        //обновляем данные
+                        if (data != null) {
+                            $scope.fromInit = { Id: data.id, Name: data.name, Url: data.url };
+
+                            $scope.criteria.From = data.name;
+                            $scope.criteria.FromId = data.id;
+                            $scope.criteria.FromUrl = data.url;
+                            //logCriteriaData();
+                            log('$scope.criteria.From: ' + angular.toJson($scope.criteria));
+                        }
+                    }, function (data, status) {
+                        //ошибка получения данных
+                        log('getDirectoryByUrl error: ' + $scope.criteria.FromUrl + ' status:' + status);
+                    });
+                }
+
+                if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
+                    $scope.criteria.To = 'загружается...';
+                    dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
+                        //обновляем данные
+                        if (data != null) {
+                            $scope.toInit = { Id: data.id, Name: data.name, Url: data.url };
+
+                            $scope.criteria.To = data.name;
+                            $scope.criteria.ToId = data.id;
+                            $scope.criteria.ToUrl = data.url;
+                            //logCriteriaData();
+                            log('$scope.criteria.To: ' + angular.toJson($scope.criteria));
+                        }
+                    }, function (data, status) {
+                        //ошибка получения данных
+                        log('getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
+                    });
+                }
+            };
+
 
             function validateDates(crit) {
                 //даты по-умолчанию: сегодня и +5 дней
@@ -92,7 +137,7 @@ innaAppControllers.
             }, true);
 
             //заполняем From To
-            setFromAndToFieldsFromUrl($scope.criteria);
+            //setFromAndToFieldsFromUrl($scope.criteria);
 
             function getDefaultCriteria() {
                 //даты по-умолчанию: сегодня и +5 дней
@@ -141,7 +186,9 @@ innaAppControllers.
                     var formVal = angular.fromJson(cookVal);
 
                     resCriteria = {};
+                    resCriteria.FromId = formVal.FromId;
                     resCriteria.FromUrl = formVal.FromUrl;
+                    resCriteria.ToId = formVal.ToId;
                     resCriteria.ToUrl = formVal.ToUrl;
                     resCriteria.BeginDate = formVal.BeginDate;
                     resCriteria.EndDate = formVal.EndDate;
@@ -158,7 +205,9 @@ innaAppControllers.
 
             function saveParamsToCookie() {
                 var saveObj = {};
+                saveObj.FromId = $scope.criteria.FromId;
                 saveObj.FromUrl = $scope.criteria.FromUrl;
+                saveObj.ToId = $scope.criteria.ToId;
                 saveObj.ToUrl = $scope.criteria.ToUrl;
                 saveObj.BeginDate = $scope.criteria.BeginDate;
                 saveObj.EndDate = $scope.criteria.EndDate;
@@ -195,15 +244,16 @@ innaAppControllers.
                     validate();
                     //if ok
 
-                    if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0) {
-                        fillFromAndTo();
+                    if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0 &&
+                        $scope.criteria.FromUrl.length > 0 && $scope.criteria.ToUrl.length > 0) {
+
                         saveParamsToCookie();
                         //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
                         var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
                         $location.path(url);
                     }
                     else {
-                        alert('Не заполнены поля Откуда, Куда');
+                        console.warn('Не заполнены поля Откуда, Куда');
                     }
 
                     //$rootScope.$emit('inna.DynamicPackages.Search', o);
@@ -214,43 +264,6 @@ innaAppControllers.
                     }
                 }   
             };
-
-            function setFromAndToFieldsFromUrl(routeCriteria) {
-                if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
-                    $scope.criteria.From = 'загружается...';
-                    dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
-                        //обновляем данные
-                        if (data != null) {
-                            $scope.criteria.From = data.name;
-                            $scope.criteria.FromId = data.id;
-                            $scope.criteria.FromUrl = data.url;
-                            //logCriteriaData();
-                            log('$scope.criteria.From: ' + angular.toJson($scope.criteria));
-                        }
-                    }, function (data, status) {
-                        //ошибка получения данных
-                        log('getDirectoryByUrl error: ' + $scope.criteria.FromUrl + ' status:' + status);
-                    });
-                }
-
-                if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
-                    $scope.criteria.To = 'загружается...';
-                    dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
-                        //обновляем данные
-                        if (data != null) {
-                            $scope.criteria.To = data.name;
-                            $scope.criteria.ToId = data.id;
-                            $scope.criteria.ToUrl = data.url;
-                            //logCriteriaData();
-                            log('$scope.criteria.To: ' + angular.toJson($scope.criteria));
-                        }
-                    }, function (data, status) {
-                        //ошибка получения данных
-                        log('getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
-                    });
-                }
-            };
-
 
             $scope.preventBubbling = function ($event) {
                 preventBubbling($event);
@@ -266,20 +279,6 @@ innaAppControllers.
 
             $scope.pathTypeClick = function (val) {
                 $scope.criteria.PathType = val;
-            }
-
-            function fillFromAndTo() {
-                $scope.loadObjectById($scope.criteria.FromId, function (data) {
-                    if (data != null) {
-                        $scope.criteria.FromUrl = data.CodeIata;
-                    }
-                }, false);
-                
-                $scope.loadObjectById($scope.criteria.ToId, function (data) {
-                    if (data != null) {
-                        $scope.criteria.ToUrl = data.CodeIata;
-                    }
-                }, false);
             }
 
             function validate() {
@@ -305,6 +304,7 @@ innaAppControllers.
             }
 
             $scope.loadObjectById = function (id, callback, async) {
+                //console.log('loadObjectById: %d', id);
                 aviaService.getObjectById(id, callback, null, async);
             }
 
@@ -317,6 +317,20 @@ innaAppControllers.
                         $scope.toList = data;
                     });
                 })
+            }
+
+            $scope.setResultCallbackFrom = function (item) {
+                if (item != null) {
+                    $scope.criteria.FromUrl = item.CodeIata;
+                    $scope.criteria.From = item.Name;
+                }
+            }
+
+            $scope.setResultCallbackTo = function (item) {
+                if (item != null) {
+                    $scope.criteria.ToUrl = item.CodeIata;
+                    $scope.criteria.To = item.Name;
+                }
             }
 
             /*Klass*/

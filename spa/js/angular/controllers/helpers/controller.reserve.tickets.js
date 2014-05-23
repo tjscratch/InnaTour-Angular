@@ -120,6 +120,10 @@ innaAppControllers.
                     var availableChildCount = $scope.ChildCount;
                     var availableInfantsCount = $scope.InfantsCount;
 
+                    var adultsFound = false;
+                    var childsFound = false;
+                    var infantsFound = false;
+
                     var peopleType = {
                         adult: 'adult',
                         child: 'child',
@@ -140,6 +144,11 @@ innaAppControllers.
                             return peopleType.adult;
                     };
 
+                    function setNotValid(item) {
+                        item.isValid = false;
+                        item.isInvalid = !item.isValid;
+                    }
+
                     for (var i = 0; i < $scope.validationModel.passengers.length; i++) {
                         var pas = $scope.validationModel.passengers[i];
 
@@ -147,14 +156,45 @@ innaAppControllers.
                             //определяем тип человек (взрослый, ребенок, младенец)
                             var type = getPeopleType(pas.birthday.value);
                             switch (type) {
-                                case peopleType.adult: availableAdultCount--; break;
-                                case peopleType.child: availableChildCount--; break;
-                                case peopleType.infant: availableInfantsCount--; break;
-                            }
-
-                            if (availableAdultCount < 0 || availableChildCount < 0 || availableInfantsCount < 0) {
-                                pas.birthday.isValid = false;
-                                pas.birthday.isInvalid = !pas.birthday.isValid;
+                                case peopleType.adult:
+                                    {
+                                        if (adultsFound) {
+                                            setNotValid(pas.birthday);
+                                        }
+                                        else {
+                                            availableAdultCount--;
+                                            if (availableAdultCount == 0) {
+                                                adultsFound = true;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                case peopleType.child:
+                                    {
+                                        if (childsFound) {
+                                            setNotValid(pas.birthday);
+                                        }
+                                        else {
+                                            availableChildCount--;
+                                            if (availableChildCount == 0) {
+                                                childsFound = true;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                case peopleType.infant:
+                                    {
+                                        if (infantsFound) {
+                                            setNotValid(pas.birthday);
+                                        }
+                                        else {
+                                            availableInfantsCount--;
+                                            if (availableInfantsCount == 0) {
+                                                infantsFound = true;
+                                            }
+                                        }
+                                        break;
+                                    }
                             }
                         }
                     }
