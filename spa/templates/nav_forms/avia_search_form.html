@@ -5,6 +5,7 @@
         provide-suggest-callback="provideSuggestToFromList"
         suggest="fromList"
         result="criteria.FromId"
+        set-result-item="fromInit"
         set-result-callback="setResultCallbackFrom(item)"
         ask-for-data="loadObjectById"
         placeholder="Откуда"></div>
@@ -13,6 +14,7 @@
         provide-suggest-callback="provideSuggestToToField"
         suggest="toList"
         result="criteria.ToId"
+        set-result-item="toInit"
         set-result-callback="setResultCallbackTo(item)"
         ask-for-data="loadObjectById"
         placeholder="Куда"></div>

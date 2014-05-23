@@ -21,7 +21,7 @@ innaAppControllers.
 
             //$routeParams
             $scope.$on('avia.page.loaded', function (event, $routeParams, validateDate) {
-                log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams) + ' validateDate: ' + validateDate);
+                //console.log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams) + ' validateDate: ' + validateDate);
 
                 var routeCriteria = null;
                 //если пусто
@@ -40,10 +40,57 @@ innaAppControllers.
                     validateDates(routeCriteria);
                 }
 
+                
                 $scope.criteria = routeCriteria;
+                //console.log('avia.page.loaded criteria');
+                //console.log($scope.criteria);
+
+                //если FromUrl пришли (из урла), а FromId - нет
+                setFromAndToFieldsFromUrl(routeCriteria);
 
                 $scope.datepickerButtons.updateValues();
             });
+
+            function setFromAndToFieldsFromUrl(routeCriteria, afterCompleteCallback) {
+                if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
+                    $scope.criteria.From = 'загружается...';
+                    dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
+                        //обновляем данные
+                        if (data != null) {
+                            $scope.fromInit = { Id: data.id, Name: data.name, Url: data.url };
+
+                            $scope.criteria.From = data.name;
+                            $scope.criteria.FromId = data.id;
+                            $scope.criteria.FromUrl = data.url;
+                            //logCriteriaData();
+                            log('$scope.criteria.From: ' + angular.toJson($scope.criteria));
+                        }
+                    }, function (data, status) {
+                        //ошибка получения данных
+                        log('getDirectoryByUrl error: ' + $scope.criteria.FromUrl + ' status:' + status);
+                    });
+                }
+
+                if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
+                    $scope.criteria.To = 'загружается...';
+                    dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
+                        //обновляем данные
+                        if (data != null) {
+                            $scope.toInit = { Id: data.id, Name: data.name, Url: data.url };
+
+                            $scope.criteria.To = data.name;
+                            $scope.criteria.ToId = data.id;
+                            $scope.criteria.ToUrl = data.url;
+                            //logCriteriaData();
+                            log('$scope.criteria.To: ' + angular.toJson($scope.criteria));
+                        }
+                    }, function (data, status) {
+                        //ошибка получения данных
+                        log('getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
+                    });
+                }
+            };
+
 
             function validateDates(crit) {
                 //даты по-умолчанию: сегодня и +5 дней
