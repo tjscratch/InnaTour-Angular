@@ -11,19 +11,15 @@ inna.Models.Auth.User = function(data){
     };
 };
 
-inna.Models.Auth.User.prototype.displayName = function () {
+inna.Models.Auth.User.prototype.displayName = function(){
     var bits = [], name = '';
 
-    if (this.raw.FirstName) bits.push(this.raw.FirstName);
-    if (this.raw.LastName) bits.push(this.raw.LastName);
+    if(this.raw.FirstName) bits.push(this.raw.FirstName);
+    if(this.raw.LastName) bits.push(this.raw.LastName);
 
     name = bits.join(' ');
 
-    if (name) return name;
+    if(name) return name;
 
     return this.raw.Email;
-};
-
-inna.Models.Auth.User.prototype.isAgency = function () {
-    return this.raw.AgencyName.length > 0;
-};
+}

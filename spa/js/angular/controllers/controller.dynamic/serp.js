@@ -8,6 +8,7 @@ innaAppControllers
             var searchParams = angular.copy($routeParams);
             var cacheKey = '';
             var AS_MAP_CACHE_KEY = 'serp-as-map';
+            var serpScope = $scope;
 
             function loadTab(cb) {
                 var method, param, apply;
@@ -121,8 +122,9 @@ innaAppControllers
 
             /*Methods*/
             $scope.getHotelDetails = function(hotel){
+
                 function show(){
-                    $scope.hotelToShowDetails = hotel;
+                    serpScope.hotelToShowDetails = hotel;
                 }
 
                 if(!hotel.detailed) {
@@ -135,7 +137,7 @@ innaAppControllers
                         function(resp){
                             hotel.detailed = resp;
 
-                            $scope.$apply(show);
+                            serpScope.$apply(show);
                         }
                     );
                 } else {
@@ -145,10 +147,6 @@ innaAppControllers
 
             $scope.closeHotelDetails = function(){
                 $scope.hotelToShowDetails = null;
-            };
-
-            $scope.replaceHotelToShowDetails = function(hotel){
-                $scope.hotelToShowDetails = hotel;
             };
 
             $scope.getTicketDetails = function(ticket){
@@ -301,7 +299,6 @@ innaAppControllers
 
             /*Listeners*/
             $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function(event, ticket){
-                console.log(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
 
                 $scope.ticket = ticket;
 
