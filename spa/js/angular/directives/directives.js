@@ -289,7 +289,10 @@ innaAppDirectives.directive('appSlider', ['$timeout', function ($timeout) {
                         updateBannerSize();
                     }, 500, false)
 
-
+                    $scope.$on('$destroy', function () {
+                        $dotsContainer.off();
+                        $(window).off('resize');
+                    });
                 }, 0, false);
             });
         }
@@ -304,7 +307,11 @@ innaAppDirectives.directive('tooltip', [function () {
             var $to = $(element);
             $to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
             //$to.tooltip("open");
-            $to.tooltip("disable");            
+            $to.tooltip("disable");
+
+            $scope.$on('$destroy', function () {
+                $to.off();
+            });
         }
     };
 }]);
@@ -317,6 +324,10 @@ innaAppDirectives.directive('tooltipTitle', [function () {
                 position: {
                     my: "center top+10", at: 'center bottom'
                 }
+            });
+
+            $scope.$on('$destroy', function () {
+                $to.off();
             });
         }
     };
@@ -370,6 +381,10 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
                     }
                 }
             });
+
+            $scope.$on('$destroy', function () {
+                $elem.off();
+            });
         }
     };
 }]);
@@ -387,6 +402,10 @@ innaAppDirectives.directive('digitsInput', ['$parse', function ($parse) {
                     event.preventDefault();
                     return false;
                 }
+            });
+
+            $scope.$on('$destroy', function () {
+                $elem.off();
             });
         }
     };
@@ -476,6 +495,12 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
                         validate(true);
                     });
                 }
+            }).on('click', function (event) {
+                var val = $scope.ngValidationModel.value;
+                if (val != null && val.length > 0)
+                {
+                    $(this).select();
+                }
             });
 
 
@@ -506,7 +531,11 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
                 updateAttrId(newVal);
                 //console.log('validateEventsDir watch: val: ' + newVal);
 
-                validateThrottled();
+                //validateThrottled();
+            });
+
+            $scope.$on('$destroy', function () {
+                $elem.off();
             });
         }
     };

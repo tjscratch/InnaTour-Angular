@@ -97,6 +97,12 @@ innaAppDirectives.
                         $(element).datepicker("option", "minDate", args);
                     });
                 }
+
+                scope.$on('$destroy', function () {
+                    element.datepicker("widget").off();
+                    var dp = $('.ui-datepicker');
+                    $(":checkbox", dp).off();
+                });
             }
         };
     }]);

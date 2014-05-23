@@ -417,10 +417,10 @@ innaAppControllers.
                         }
                     }
 
-                    if ($scope.validationModel != null && type != null)
-                    {
-                        $scope.validationModel.formPure = false;
-                    }
+                    //if ($scope.validationModel != null && type != null)
+                    //{
+                    //    $scope.validationModel.formPure = false;
+                    //}
                 };
 
                 //сохраняем некоторые поля из старой модели
@@ -566,6 +566,22 @@ innaAppControllers.
                 visaNeededCheck();
 
                 //console.log($scope.validationModel);
+
+                $scope.isFieldInvalid = function (item) {
+                    if (item != null) {
+
+                        if ($scope.validationModel.formPure) {
+                            return item.isInvalid && item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
+                        }
+                        else {
+                            return item.isInvalid;
+                        }
+
+                        //return item.isInvalid && !$scope.validationModel.formPure &&
+                        //    item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
+                    }
+                    return false;
+                }
             }
 
             $scope.$watch('model', function (newVal, oldVal) {
