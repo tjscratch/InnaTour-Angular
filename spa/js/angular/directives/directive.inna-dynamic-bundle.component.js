@@ -3,8 +3,7 @@ angular.module('innaApp.directives')
         return {
             templateUrl: '/spa/templates/components/bundle.html',
             scope: {
-                ticket: '=innaDynamicBundleTicket',
-                hotel: '=innaDynamicBundleHotel',
+                bundle: '=innaDynamicBundleBundle',
                 state: '=innaDynamicBundleState',
                 getTicketDetails: '=innaDynamicBundleTicketDetails',
                 getHotelDetails: '=innaDynamicBundleHotelDetails'

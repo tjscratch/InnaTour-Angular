@@ -15,7 +15,7 @@ innaAppControllers
 
                 if($scope.state.isActive($scope.state.HOTELS_TAB)) {
                     method = 'getHotelsByCombination';
-                    param = $scope.combination.AviaInfo.data.VariantId1;
+                    param = $scope.combination.ticket.data.VariantId1;
                     apply = function($scope, data){
                         $scope.hotels.flush();
 
@@ -27,7 +27,7 @@ innaAppControllers
                     };
                 } else if($scope.state.isActive($scope.state.TICKETS_TAB)) {
                     method = 'getTicketsByCombination';
-                    param = $scope.combination.Hotel.data.HotelId;
+                    param = $scope.combination.hotel.data.HotelId;
                     apply = function($scope, data){
                         $scope.tickets.flush();
 
@@ -60,24 +60,22 @@ innaAppControllers
                 );
             }
 
+            function combination500() {
+                $scope.$apply(function($scope){
+                    $scope.baloon.showErr(
+                        "Что-то пошло не так",
+                        "Попробуйте начать поиск заново",
+                        balloonCloser
+                    );
+                });
+            }
+
             function ticket404(){
                 $scope.baloon.showErr(
                     "Запрашиваемая билетная пара не найдена",
                     "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
                     angular.noop
                 );
-            }
-
-            function updateCombination(o) {
-                if(!$scope.combination) $scope.combination = {};
-
-                for(var p in o) if(o.hasOwnProperty(p)) {
-                    $scope.combination[p] = o[p];
-                }
-
-                $location
-                    .search('hotel',$scope.combination.Hotel.data.HotelId)
-                    .search('ticket', $scope.combination.AviaInfo.data.VariantId1);
             }
 
             function balloonCloser() {
@@ -91,29 +89,27 @@ innaAppControllers
             $scope.hotelToShowDetails = null;
             $scope.tickets = new inna.Models.Avia.TicketCollection();
             $scope.ticketFilters = new inna.Models.Avia.Filters.FilterSet();
-            $scope.combination = null;
+            $scope.combination = new inna.Models.Dynamic.Combination();
 
-            $scope.state = (function(){
-                var O = function(){
-                    this.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
-                    this.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
+            $scope.state = new function(){
+                this.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
+                this.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
 
-                    this.display = this.HOTELS_TAB;
+                this.display = this.HOTELS_TAB;
 
-                    if($location.search().displayTicket) this.display = this.TICKETS_TAB;
-                    if($location.search().displayHotel) this.display = this.HOTELS_TAB;
+                if($location.search().displayTicket) this.display = this.TICKETS_TAB;
+                if($location.search().displayHotel) this.display = this.HOTELS_TAB;
 
-                    this.switchTo = function(tabName){
-                        this.display = tabName;
-                    };
+                this.switchTo = function(tabName){
+                    this.display = tabName;
 
-                    this.isActive = function(tabName){
-                        return this.display == tabName;
-                    };
+                    if($scope.combination) loadTab();
                 };
 
-                return new O();
-            })();
+                this.isActive = function(tabName){
+                    return this.display == tabName;
+                };
+            };
 
             // JFYI !!+val does the following magic: convert val into integer (+val) and then convert to boolean (!!)
             $scope.asMap = !!+DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
@@ -122,7 +118,6 @@ innaAppControllers
 
             /*Methods*/
             $scope.getHotelDetails = function(hotel){
-
                 function show(){
                     serpScope.hotelToShowDetails = hotel;
                 }
@@ -131,8 +126,8 @@ innaAppControllers
                     DynamicPackagesDataProvider.hotelDetails(
                         hotel.data.HotelId,
                         hotel.data.ProviderId,
-                        $scope.combination.AviaInfo.data.VariantId1,
-                        $scope.combination.AviaInfo.data.VariantId2,
+                        $scope.combination.ticket.data.VariantId1,
+                        $scope.combination.ticket.data.VariantId2,
                         searchParams,
                         function(resp){
                             hotel.detailed = resp;
@@ -158,11 +153,13 @@ innaAppControllers
             };
 
             $scope.setHotel = function(hotel){
-                updateCombination({Hotel: hotel});
+                $scope.combination.hotel = hotel;
+                $location.search('hotel', hotel.data.HotelId);
             };
 
             $scope.setTicket = function(ticket){
-                updateCombination({Ticket: ticket});
+                $scope.combination.ticket = ticket;
+                $location.search('ticket', ticket.data.VariantId1);
             };
 
             $scope.goReservation = function(){
@@ -182,26 +179,6 @@ innaAppControllers
 
             /*EventListener*/
             DynamicFormSubmitListener.listen();
-
-            $scope.$on(Events.DYNAMIC_SERP_FILTER_HOTEL, function(event, data){
-                $scope.hotelFilters[data.filter] = data.value;
-
-                $scope.$broadcast(Events.DYNAMIC_SERP_FILTER_ANY_CHANGE, {
-                    type: 'hotel',
-                    filters: angular.copy($scope.hotelFilters)
-                });
-            });
-
-            //todo can i do it without listeners?
-            $scope.$on(Events.DYNAMIC_SERP_TICKET_SET_CURRENT_BY_IDS, function(event, data) {
-                var ticket = $scope.tickets.search(data.id2, data.id2);
-
-                $scope.setTicket(ticket);
-            });
-
-            $scope.$watch('state.display', function(newVal, oldVal){
-                if($scope.combination) loadTab();
-            });
 
             $scope.$watch('asMap', function(newVal) {
                 DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
@@ -223,16 +200,11 @@ innaAppControllers
 
                     cacheKey = data.SearchId;
 
-                    var recommendedTicket = new inna.Models.Avia.Ticket();
-                    recommendedTicket.setData(data.RecommendedPair.AviaInfo);
-
-                    var recommendedHotel = new inna.Models.Hotels.Hotel(data.RecommendedPair.Hotel);
-
                     $scope.$apply(function($scope){
-                        updateCombination({
-                            Hotel: recommendedHotel,
-                            AviaInfo: recommendedTicket
-                        });
+                        $scope.combination.ticket = new inna.Models.Avia.Ticket();
+                        $scope.combination.ticket.setData(data.RecommendedPair.AviaInfo);
+
+                        $scope.combination.hotel = new inna.Models.Hotels.Hotel(data.RecommendedPair.Hotel);
 
                         $scope.showLanding = false;
                         $scope.baloon.hide();
@@ -252,15 +224,7 @@ innaAppControllers
                             }
                         }
                     });
-                }, function(){
-                    $scope.$apply(function($scope){
-                        $scope.baloon.showErr(
-                            "Что-то пошло не так",
-                            "Попробуйте начать поиск заново",
-                            balloonCloser
-                        );
-                    });
-                });
+                }, combination500);
             })();
         }
     ])
@@ -286,10 +250,8 @@ innaAppControllers
             };
 
             $scope.setCurrent = function(){
-                $scope.$emit(Events.DYNAMIC_SERP_TICKET_SET_CURRENT_BY_IDS, {
-                    id1: $scope.ticket.data.VariantId1,
-                    id2: $scope.ticket.data.VariantId2
-                });
+                //from parentScope
+                $scope.setTicket($scope.ticket);
 
                 $scope.closePopup();
             };

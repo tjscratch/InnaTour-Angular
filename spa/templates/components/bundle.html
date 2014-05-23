@@ -1,6 +1,6 @@
 <div class="results-list_960">
     <div class="result">
-        <div class="result-cell result-cell-390">
+        <div class="result-cell result-cell-390" inna-with="bundle.ticket as ticket">
             <span class="rl-airline" ng-repeat="(code, name) in ticket.collectAirlines()">
                 <img ng-src="{{airLogo(code)}}" alt=""><span class="rl-airline-text">{{name}}</span>
             </span>
@@ -43,7 +43,7 @@
 
         <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
 
-        <div class="result-cell result-cell-390">
+        <div class="result-cell result-cell-390" inna-with="bundle.hotel as hotel">
             <div class="hotel-info">
                 <img ng-src="{{hotel.data.HotelPhoto70}}" alt="">
                 <div class="hotel-info-content">
@@ -86,30 +86,27 @@
                         hotel.data.MinimalPackagePrice + ticket.data.PackagePrice as pSum">
             <span class="icon icon-clip"></span>
             <p class="corner-price cross">
-                {{sum}} <span class="b-rub">Р</span>
+                {{bundle.getFullPrice()}}<span class="b-rub">Р</span>
                 <span class="price-description">по отдельности</span>
             </p>
             <p class="price">
-                {{pSum}} <span class="b-rub">Р</span>
+                {{bundle.getFullPackagePrice()}} <span class="b-rub">Р</span>
                 <span class="icon icon-price-info" ng-click="display.toggleHelp($event)"></span>
             </p>
             <div class="tooltip tooltip-price" ng-if="display.help">
                 По отдельности
                 <ul>
-                    <li class="list-price-item">Перелет <span class="list-price pull-right">{{hMinPrice}}<span
-                            class="b-rub">Р</span></span></li>
-                    <li class="list-price-item">Отель <span class="list-price pull-right">{{aPrice}}<span class="b-rub">Р</span></span>
+                    <li class="list-price-item">Перелет <span class="list-price pull-right">{{bundle.ticket.data.Price}}<span class="b-rub">Р</span></span></li>
+                    <li class="list-price-item">Отель <span class="list-price pull-right">{{bundle.hotel.data.Price}}<span class="b-rub">Р</span></span>
                     </li>
                 </ul>
-                <div class="list-price list-price-total">{{sum}}<span class="b-rub">Р</span></div>
+                <div class="list-price list-price-total">{{bundle.getFullPrice()}}<span class="b-rub">Р</span></div>
                 <ul>
-                    <li>В пакете: <span class="list-price green pull-right">{{pSum}}<span class="b-rub">Р</span></span>
-                    </li>
-                    <li>Экономия <span class="list-price green pull-right">{{sum - pSum}}<span
-                            class="b-rub">Р</span></span></li>
+                    <li>В пакете: <span class="list-price green pull-right">{{bundle.getFullPackagePrice()}}<span class="b-rub">Р</span></span></li>
+                    <li>Экономия <span class="list-price green pull-right">{{bundle.getFullPrice() - bundle.getFullPackagePrice()}}<span class="b-rub">Р</span></span></li>
                 </ul>
             </div>
-            <span class="price-description">по отдельности</span>
+            <span class="price-description">вместе</span>
             <p></p>
             <button class="button" ng-click="goReservation()">Купить</button>
         </div>

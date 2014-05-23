@@ -33,6 +33,10 @@ angular.module('innaApp.directives')
 
                     $scope.showMapFullScreen = false;
 
+                    $scope.bundle = new inna.Models.Dynamic.Combination();
+                    $scope.bundle.setTicket($scope.combination.ticket);
+                    $scope.bundle.setHotel($scope.hotel);
+
                     /*Proxy*/
                     $scope.dateHelper = dateHelper;
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
