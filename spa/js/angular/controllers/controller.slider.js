@@ -76,4 +76,7 @@ innaAppControllers.
                 $body.animate({ scrollTop: position.top - headerHeight }, 500)
             });
 
+            $scope.$on('$destroy', function () {
+                $('.Mouse-scroll').off();
+            });
         }]);
