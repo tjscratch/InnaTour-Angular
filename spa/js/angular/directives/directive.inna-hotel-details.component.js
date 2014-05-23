@@ -9,13 +9,20 @@ angular.module('innaApp.directives')
                 next: '=innaHotelDetailsNext'
             },
             controller: [
-                '$scope', '$element',
-                function($scope, $element){
+                '$scope', '$element', '$timeout',
+                function($scope, $element, $timeout){
+                    console.log('innaHotelDetails:$scope=', $scope);
+
+                    /*Dom*/
+                    document.body.scrollTop = document.documentElement.scrollTop = 0;
+
                     var backgrounds = [
                         '/spa/img/hotels/back-0.jpg',
                         '/spa/img/hotels/back-1.jpg',
                         '/spa/img/hotels/back-2.jpg'
                     ];
+
+                    var map = null;
 
                     $scope.background = 'url($)'.split('$').join(
                         backgrounds[parseInt(Math.random() * 100) % backgrounds.length]
@@ -23,11 +30,33 @@ angular.module('innaApp.directives')
 
                     $scope.showFullDescription = false;
 
+                    $scope.showMapFullScreen = false;
+
                     $scope.toggleDescription = function(){
                         $scope.showFullDescription = !$scope.showFullDescription;
                     }
 
-                    var marker = null;
+                    $scope.toggleMapDisplay = function(){
+                        function closeByEsc(event){
+                            if(event.which == 27) { //esc
+                                console.log('esc');
+                                $scope.$apply(function(){
+                                    $scope.showMapFullScreen = false;
+                                });
+                            }
+                        }
+
+                        $scope.showMapFullScreen = !$scope.showMapFullScreen;
+
+                        if(map) {
+                            $timeout(function(){
+                                $(window).trigger('resize');
+                                google.maps.event.trigger(map, 'resize');
+                            }, 1);
+                        }
+
+                        $(document)[$scope.showMapFullScreen ? 'on' : 'off']('keyup', closeByEsc);
+                    }
 
                     $scope.$watch('hotel', function(hotel){
                         if(!hotel) return;
@@ -36,12 +65,13 @@ angular.module('innaApp.directives')
 
                         var point = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Longitude)
 
-                        var map = new google.maps.Map($element.find('#hotel-details-map')[0], {
+                        /*map is from outer js-scope*/
+                        map = new google.maps.Map($element.find('#hotel-details-map')[0], {
                             zoom: 8,
                             center: point
                         });
 
-                        marker = new google.maps.Marker({
+                        var marker = new google.maps.Marker({
                             position: point,
                             icon: '/spa/img/map/pin-grey.png?' + Math.random().toString(16),
                             title: hotel.data.HotelName

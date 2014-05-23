@@ -50,16 +50,18 @@
         <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">
                 <div class="hotel-details__section-title-section">
-                    о.Пхукет, Патонг Бич, 254 Prabaramee
+                    {{hotel.data.Address}}
                 </div>
                 <div class="hotel-details__section-title-section">
                     <ul class="hotel-details-control">
-                        <li class="hotel-details-control__button hotel-details-control__button_theme_icon-only"><img src="/spa/img/hotel-details-map-go-fullscreen.png"></li>
-                        <li class="hotel-details-control__button">Панорама</li>
+                        <li class="hotel-details-control__button hotel-details-control__button_theme_icon-only" ng-click="toggleMapDisplay()"><img src="/spa/img/hotel-details-map-go-fullscreen.png"></li>
+                        <!--<li class="hotel-details-control__button">Панорама</li>-->
                     </ul>
                 </div>
             </h2>
-            <div class="hotel-details-map" id="hotel-details-map"></div>
+            <div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
+                <div id="hotel-details-map"></div>
+            </div>
         </div>
         <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">Пакет с этим отелем</h2>
