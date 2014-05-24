@@ -320,6 +320,73 @@
     background #F2F3F4
 
 
+.settings
+    display table
+
+    &__section
+        display table-cell
+        padding-right 80px
+
+    &__title
+        font-size 18px
+        font-weight normal
+        padding-left 10px
+        margin-bottom 14px
+
+    &__fieldset
+        margin-bottom 18px
+        vertical-align top
+
+    &__field
+        display inline-block
+        margin-right 10px
+        vertical-align top
+
+.radio-group
+    border-radius 4px
+    background #e6e7e9
+    font-size 0
+    overflow hidden
+    position relative
+    top 3px
+
+    &__label
+        font-size 18px
+        line-height 30px
+        border-right 1px solid #878787
+        display inline-block
+
+        &:last-child
+            border none
+
+    &__radio
+        display none
+
+        &:checked + .radio-group__caption
+            background #89c13a
+            color #fff
+
+    &__caption
+        padding 0 8px
+        display inline-block
+
+
+.text-group
+    overflow hidden
+    margin-left 1px
+    position relative
+
+    .b-field-block
+        margin-left -1px
+
+    &__caption
+        font-size 18px
+        position absolute
+        bottom 14px
+        margin-left 10px
+
+
+
 
 
 
