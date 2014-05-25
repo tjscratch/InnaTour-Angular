@@ -37,6 +37,7 @@ bin/*
 *.log
 *.idea
 *.DS_Store
+*.nginx_conf
 .project
 .settings/.jsdtscope
 .settings/org.eclipse.wst.jsdt.ui.superType.container

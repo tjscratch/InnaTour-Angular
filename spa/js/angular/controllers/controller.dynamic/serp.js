@@ -336,6 +336,7 @@ innaAppControllers
 
             doc.on('scroll', onScroll);
 
+
             /*Properties*/
             $scope.display = new function(){
                 this.FULL = 1;
@@ -364,6 +365,10 @@ innaAppControllers
                     this.help = !this.help;
                 }
             };
+
+            // подписываемся на событие toggle:visible:bundle
+            // скрываем бандл вместе с шапкой
+            $scope.$root.$on('toggle:visible:bundle', $scope.display.toggle());
 
             /*Events*/
             $scope.$on('$destroy', unwatchScroll);

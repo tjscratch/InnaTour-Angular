@@ -1,66 +1,85 @@
+/**
+ * На маркерах карты создаем  infoBox двух разных типов
+ * Это preview infoBox и полноценный infoBox с информацией и фотографиями
+ *
+ */
+
 angular.module('innaApp.directives')
-    .service('dynamicSerpMap_InfoBox', function () {
-        //creating the class to exntend the google map OverlayView class
-        function InfoBox(elem, position, title, icon_class) {
-            this.lat = position.lat();
-            this.lng = position.lng();
-            this.title = title; //eg. A,B,C.D
-            this.icon_class = icon_class || 'pin big-map__pin';
-            this.pos = new google.maps.LatLng(this.lat, this.lng);
-            this.elem = elem;
-        }
+    .directive('infoBoxCarousel', [function () {
 
-        //make a copy of the OverlayView to extend it
-        InfoBox.prototype = new google.maps.OverlayView();
+        return {
+            scope: {},
+            controller: ['$scope', function ($scope) {
 
-        InfoBox.prototype.onRemove = function () {
-            this.elem.parentNode.removeChild(this.elem);
-            this.elem = null;
-        }
-
-        //prepare the overlay with DOM
-        InfoBox.prototype.onAdd = function () {
-            var div = this.elem;
-            $(div).addClass(this.icon_class);
-            this.getPanes()['floatPane'].appendChild(div);
-            //panes.overlayLayer.appendChild(div);
-        }
-
-        //set position
-        InfoBox.prototype.draw = function () {
-            var overlayProjection = this.getProjection();
-            var position = overlayProjection.fromLatLngToDivPixel(this.pos);
-            var panes = this.getPanes()['floatPane'];
-            panes.style.left = (position.x - 10) + 'px';
-            panes.style.top = (position.y - 20) + 'px';
-        }
+            }],
+            link: function ($scope, elem, attrs) {
 
 
-        InfoBox.prototype.hide = function() {
-            if (this.elem) {
-                this.elem.style.visibility = "hidden";
-            }
-        }
+                var that = this;
+                $scope._options = {};
 
-        InfoBox.prototype.show = function() {
-            if (this.elem) {
-                this.elem.style.visibility = "visible";
-            }
-        }
 
-        InfoBox.prototype.toggle = function() {
-            if (this.elem) {
-                if (this.elem.style.visibility == "hidden") {
-                    this.show();
-                } else {
-                    this.hide();
+                /**
+                 * Настройки для карусели
+                 * @type {*|Query|Cursor}
+                 * @private
+                 */
+                var $thisEl = elem[0];
+                var carouselHolder = $thisEl.querySelector('.b-carousel__holder');
+                var _slider = $thisEl.querySelector('.b-carousel__slider');
+                var _sliderItem = _slider.querySelectorAll('.b-carousel__slider_item');
+                var _sliderItemTotal = _sliderItem.length;
+                var _sliderItemWidth = 360;
+                var _sliderIndex = 0;
+                var _sliderSpeed = 500;
+
+                // ширина блока с контентом карусели
+                _slider.style.width = ((_sliderItemTotal * _sliderItemWidth) + 10) + 'px';
+                carouselHolder.style.width = _sliderItemWidth;
+
+                elem.on('click', '.b-carousel__next', slideNext);
+                elem.on('click', '.b-carousel__prev', slidePrev);
+
+                /**
+                 * анимация карусели
+                 * @param index
+                 */
+                var carouselSlide = function (index) {
+                    /*angular.element(_slider).stop().animate({
+                     left: '-' + (_sliderIndex * _sliderItemWidth) + 'px'
+                     }, _sliderSpeed);*/
+                    angular.element(_slider).css({
+                        "-webkit-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
+                        "-moz-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
+                        "-ms-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
+                        "transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)"
+                    });
+                }
+
+
+                function slideNext(evt) {
+                    evt.preventDefault();
+                    var $this = $(evt.currentTarget);
+
+                    _sliderIndex += 1;
+                    _sliderIndex = ( _sliderIndex > _sliderItemTotal - 1) ? 0 : _sliderIndex
+                    carouselSlide(_sliderIndex);
+                }
+
+
+                function slidePrev(evt) {
+                    evt.preventDefault();
+                    var $this = $(evt.currentTarget);
+
+                    _sliderIndex -= 1;
+                    _sliderIndex = ( _sliderIndex < 0) ? _sliderItemTotal - 1 : _sliderIndex
+                    carouselSlide(_sliderIndex);
                 }
             }
         }
 
-        return InfoBox;
-    })
-    .directive('dynamicSerpMap',['dynamicSerpMap_InfoBox', function (InfoBox) {
+    }])
+    .directive('dynamicSerpMap', [function () {
         return {
             templateUrl: '/spa/templates/pages/dynamic/inc/serp.hotels.map.html',
             replace: true,
@@ -71,9 +90,13 @@ angular.module('innaApp.directives')
                 '$scope',
                 function ($scope) {
                     $scope.currentHotel = null;
+                    $scope.currentHotelPreview = null;
 
                     // прячем footer
                     $scope.$emit('region-footer:hide');
+                    $scope.$emit('toggle:visible:bundle');
+
+                    console.log($scope);
                 }
             ],
             link: function (scope, elem, attrs) {
@@ -81,17 +104,34 @@ angular.module('innaApp.directives')
                 var mapContainer = elem[0].querySelector('#big-map-canvas');
                 var markers = [];
                 var _markerCluster = null;
+                var iconAirDefault = 'spa/img/map/marker-black-air.png?' + Math.random().toString(16);
+                var iconAirClick = 'spa/img/map/marker-green-air.png?' + Math.random().toString(16);
                 var iconDefault = 'spa/img/map/pin-grey.png?' + Math.random().toString(16);
                 var iconHover = 'spa/img/map/pin-black.png?' + Math.random().toString(16);
                 var iconClick = 'spa/img/map/pin-green.png?' + Math.random().toString(16);
-                var isInfoWindowOpen = false;
-                var boxInfo = null;
+                var activeMarker = null;
+                var activeMarkerHover = null;
                 var GM = google.maps;
+                var dataInfoBox = {
+                    disableAutoPan: false,
+                    //maxWidth: 0,
+                    //boxStyle: {},
+                    //closeBoxMargin: "10px 2px 2px 2px",
+                    closeBoxURL: "",
+                    pixelOffset: new google.maps.Size(-10, 0),
+                    zIndex: 2000,
+                    infoBoxClearance: new google.maps.Size(1, 1),
+                    isHidden: false,
+                    pane: "floatPane",
+                    enableEventPropagation: false
+                };
+                var boxInfo = null;
+                var boxInfoHover = null;
                 var styleArray = [
                     {
                         featureType: "all",
                         stylers: [
-                            { saturation: -60 }
+                            { saturation: -30 }
                         ]
                     },
                     {
@@ -118,13 +158,34 @@ angular.module('innaApp.directives')
                     zoom: 8
                 });
 
+                GM.event.addListener(map, 'click', function (evt) {
+                    addMarkerAir(evt.latLng);
+                    activeMarkerReset();
+                });
 
-                var getIsWindowOpen = function () {
-                    return isInfoWindowOpen;
+                function setActiveMarker(data_marker) {
+                    var data = data_marker.marker;
+
+                    // создаем свойство в объекте маркера
+                    // различаем маркеры на которых был click или hover
+                    if (data.hover) {
+                        activeMarkerHover = data.activeMarker;
+                        if (data.infoBoxPreview) data.activeMarker.infoBoxPreview = true;
+                    }
+                    else {
+                        activeMarker = data.activeMarker;
+                        if (data.infoBoxVisible) data.activeMarker.infoBoxVisible = true;
+                    }
+
+
                 }
 
-                var setIsWindowOpen = function (data) {
-                    isInfoWindowOpen = data;
+                function activeMarkerReset() {
+                    if (activeMarker && activeMarker.infoBoxVisible) {
+                        activeMarker.setIcon(iconDefault);
+                        boxInfo.setVisible(false);
+                        activeMarker.infoBoxVisible = false;
+                    }
                 }
 
 
@@ -140,13 +201,40 @@ angular.module('innaApp.directives')
                     }
                 }
 
-
-                var addInfoBox = function (data) {
-                    var boxInfo = new InfoBox(data.elem, data.pos);
-                    boxInfo.setMap(map);
-
-                    return boxInfo;
+                var reDraw = function (box) {
+                    var oldDraw = box.draw;
+                    box.draw = function () {
+                        oldDraw.apply(this);
+                        jQuery(box.div_).hide();
+                        jQuery(box.div_).fadeIn(200);
+                    }
                 }
+
+
+                /**
+                 *
+                 * @param data
+                 */
+                var addInfoBox = function (data) {
+                    var dataMarker = data.marker;
+                    angular.extend(dataInfoBox, {
+                        content: data.elem,
+                        position: data.pos
+                    });
+
+                    if (dataMarker.hover) {
+                        boxInfoHover = new InfoBox(dataInfoBox);
+                        boxInfoHover.open(map);
+                    } else {
+                        boxInfoHover.setVisible(false);
+                        boxInfo = new InfoBox(dataInfoBox);
+                        boxInfo.open(map);
+                        reDraw(boxInfo);
+                    }
+                    setActiveMarker(data);
+
+                }
+
 
                 /**
                  * Добавить маркер
@@ -156,15 +244,92 @@ angular.module('innaApp.directives')
                 var addMarker = function (hotel) {
                     var position = new GM.LatLng(hotel.data.Latitude, hotel.data.Longitude);
 
+                    var image = new GM.MarkerImage(
+                        iconDefault,
+                        new google.maps.Size(55, 46),
+                        new google.maps.Point(0, 0)
+                        //new google.maps.Point(0, 46)
+                    );
+
+                    var shape = {
+                        coord: [1, 1, 1, 43, 32, 43, 32 , 1],
+                        type: 'poly'
+                    };
+
                     var marker = new GM.Marker({
                         position: position,
                         animation: GM.Animation.DROP,
-                        icon: iconDefault,
+                        icon: image,
+                        shape: shape,
                         title: hotel.data.HotelName
                     });
                     return  {
                         marker: marker,
                         pos: position
+                    }
+                }
+
+                //addMarkerAir(0.179901123046875, 51.67638742526899);
+                //addMarkerAir(-0.0034332275390625, 51.69745915216719);
+
+
+                var addMarkerAir = function (latLng) {
+                    var newDataInfo = {};
+
+                    var image = new GM.MarkerImage(
+                        iconAirDefault,
+                        new google.maps.Size(55, 46),
+                        new google.maps.Point(0, 0)
+                        //new google.maps.Point(0, 46)
+                    );
+
+                    var shape = {
+                        coord: [1, 1, 1, 43, 32, 43, 32 , 1],
+                        type: 'poly'
+                    };
+
+                    var marker = new GM.Marker({
+                        map: map,
+                        position: latLng,
+                        animation: GM.Animation.DROP,
+                        icon: image,
+                        shape: shape
+                    });
+                    
+                    marker.infoBox = new InfoBox({
+                        content: elem[0].querySelector('.big-map__balloon_air'),
+                        position: latLng,
+                        pixelOffset: new google.maps.Size(-108, 0),
+                        disableAutoPan: false,
+                        //maxWidth: 0,
+                        //boxStyle: {},
+                        //closeBoxMargin: "10px 2px 2px 2px",
+                        closeBoxURL: "",
+                        zIndex: 2000,
+                        infoBoxClearance: new google.maps.Size(1, 1),
+                        isHidden: false,
+                        pane: "floatPane",
+                        enableEventPropagation: false
+                    });
+                    marker.infoBox.open(map);
+                    marker.infoBox.setVisible(false);
+
+                    GM.event.addListener(marker, 'mouseover', function (evt) {
+                        marker.setIcon(iconAirClick);
+                        marker.infoBox.setVisible(true);
+                    });
+
+                    GM.event.addListener(marker, 'mouseout', function (evt) {
+                        marker.setIcon(iconAirDefault);
+                        marker.infoBox.setVisible(false);
+                    });
+
+                    // add InfoBox
+
+
+                    return  {
+                        marker: marker,
+                        pos: latLng
                     }
                 }
 
@@ -191,59 +356,93 @@ angular.module('innaApp.directives')
                         styles: [
                             {
                                 url: 'spa/img/map/empty.png',
-                                height: 35,
-                                width: 35,
+                                height: 50,
+                                width: 50,
                                 anchor: [16, 0],
-                                textColor: '#ff00ff',
-                                textSize: 10
+                                textColor: '#ffffff',
+                                textSize: 12,
+                                fontWeight: 'normal'
                             }
                         ]
                     });
                 }
 
                 /**
-                 * События карты
-                 * @param marker
+                 * События маркера на карте
+                 * @param data
                  */
-                var mapEvents = function (data) {
+                var markerEvents = function (data) {
                     var marker = data.marker;
                     var pos = data.pos;
 
-
                     GM.event.addListener(marker, 'click', function () {
                         var marker = this;
-                        console.log(marker);
+
                         scope.$apply(function ($scope) {
                             $scope.currentHotel = marker.$inna__hotel;
                         });
 
+
                         var pos = this.getPosition();
-                        var proj = this.getMap().getProjection();
+                        //var proj = this.getMap().getProjection();
 
                         // ценрируем карту
-                        map.setCenter(pos);
-                        boxInfo = addInfoBox({
-                            elem : elem[0].querySelector('.pin'),
-                            pos : pos
-                        })
+                        map.panTo(pos);
 
+                        // если уже есть активный маркер, то сбрасываем его
+                        activeMarkerReset();
+                        // меняем цвет маркера
                         marker.setIcon(iconClick);
-                    });
 
+                        // Показываем большой infoBox
+                        addInfoBox({
+                            elem: elem[0].querySelector('.big-map__balloon'),
+                            pos: pos,
+                            marker: {
+                                activeMarker: marker,
+                                infoBoxVisible: true,
+                                hover: false
+                            }
+                        });
+                    });
 
                     GM.event.addListener(marker, 'mouseover', function () {
                         var marker = this;
-                        if (!getIsWindowOpen()) marker.setIcon(iconHover);
+
+                        scope.$apply(function ($scope) {
+                            $scope.currentHotelPreview = marker.$inna__hotel;
+                        });
+
+                        if (!marker.infoBoxVisible) {
+                            marker.setIcon(iconHover);
+                            addInfoBox({
+                                elem: elem[0].querySelector('.big-map__balloon_preview'),
+                                pos: pos,
+                                marker: {
+                                    activeMarker: marker,
+                                    infoBoxPreview: true,
+                                    hover: true
+                                }
+                            });
+                        } else {
+
+                        }
                     });
 
                     GM.event.addListener(marker, 'mouseout', function () {
                         var marker = this;
-                        if (!getIsWindowOpen()) marker.setIcon(iconDefault);
+                        if (!marker.infoBoxVisible) {
+                            boxInfoHover.setVisible(false);
+                            marker.setIcon(iconDefault);
+                        }
                     });
                 }
 
+
                 scope.$watchCollection('hotels', function (hotels) {
                     var bounds = new GM.LatLngBounds();
+
+                    //console.log(hotels);
 
                     removeMarkers();
 
@@ -257,7 +456,7 @@ angular.module('innaApp.directives')
                         var marker = markerData.marker;
                         marker.$inna__hotel = hotel;
 
-                        mapEvents(markerData);
+                        markerEvents(markerData);
                         bounds.extend(markerData.pos);
                         markers.push(marker);
                     });
