@@ -9,6 +9,15 @@ innaAppControllers.
                 $log.log(msg);
             }
 
+
+            /* TODO: вынести в регион header */
+            $scope.$on('$routeChangeStart', function(next, current) {
+                $scope.$emit('header:visible');
+            });
+
+
+
+
             $scope.isHeaderVisible = true;
 
             $scope.$on('header:hidden', function(){

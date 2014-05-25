@@ -12,6 +12,10 @@ angular.module('innaApp.directives')
             },
             link: function ($scope, $element, attrs) {
 
+                $scope.$on('$routeChangeStart', function(next, current) {
+                    $element.show();
+                });
+
 
                 $scope.$root.$on('region-footer:hide', function () {
                     $element.hide();
