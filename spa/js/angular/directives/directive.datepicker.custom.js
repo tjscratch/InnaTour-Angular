@@ -78,6 +78,12 @@ innaAppDirectives.
                 scope.$watch(attrs.ngModelCheck, function (value) {
                     updateCheck();
                 });
+
+                scope.$on('$destroy', function () {
+                    element.datepicker("widget").off();
+                    var cont = element.datepicker("widget");
+                    $(".check-container", cont).off();
+                });
             }
         };
     }]);

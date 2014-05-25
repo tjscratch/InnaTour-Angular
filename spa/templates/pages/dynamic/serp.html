@@ -1,9 +1,7 @@
-<ng:include src="'/spa/templates/pages/dynamic/inc/bundle.html'" ng-if="combination.Hotel && combination.AviaInfo"></ng:include>
+<ng:include src="'/spa/templates/pages/dynamic/inc/bundle.html'" ng-if="combination.hotel && combination.ticket"></ng:include>
 
 <div class="results-body" ng-show="!showLanding">
-
-        <ng:include src="state.display"></ng:include>
-    </div>
+    <ng:include src="state.display"></ng:include>
 </div>
 
 <div ng-controller="DynamicPackageSERPTicketPopupCtrl">
@@ -11,7 +9,9 @@
         <div class="balloon baloon_ticket baloon_2ticket">
             <div title="Закрыть" class="baloon-close" ng-click="closePopup()"></div>
             <h3 class="b-tickets__title">Подробная и информация по перелту</h3>
+
             <div class="rlf-oneway">
+
                 <div class="b-ticket_2ways">
                     <div class="rlf-fly">
                         <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
@@ -26,7 +26,9 @@
                         <div class="rlf-full-travel-time">{{ticket.data.EtapsBack.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('Back')}} в пути</div>
                     </div>
                 </div>
+
                 <div class="b-ticket_2ways b-ticket_2ways-sep">
+
                     <div class="b-ticket_2ways-block" ng-repeat="dir in ['To', 'Back']">
                         <div ng-repeat="etap in ticket.getEtaps(dir)">
                             <div class="rlf-part">
@@ -80,6 +82,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="b-tickets__footer">
                 <ul class="b-tickets__icons">
                     <li><a href="#" class="b-tickets__icons-link"></a></li>
@@ -90,6 +93,7 @@
                     <a class="rl-buy-button" href="javascrip:void(0);" ng-click="setCurrent()">Выбрать</a>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -99,4 +103,5 @@
      inna-hotel-details-hotel="hotelToShowDetails"
      inna-hotel-details-collection="hotels"
      inna-hotel-details-back="closeHotelDetails"
-     inna-hotel-details-next="replaceHotelToShowDetails"></div>
+     inna-hotel-details-next="getHotelDetails"
+     inna-hotel-details-bundle="combination"></div>

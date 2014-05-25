@@ -114,11 +114,15 @@ innaAppControllers.
                 }
             };
 
-            function validatePeopleCount() {
+            $scope.validatePeopleCount = function () {
                 if ($scope.validationModel != null && $scope.validationModel.passengers != null && $scope.validationModel.passengers.length > 0) {
                     var availableAdultCount = $scope.AdultCount;
                     var availableChildCount = $scope.ChildCount;
                     var availableInfantsCount = $scope.InfantsCount;
+
+                    var adultsFound = false;
+                    var childsFound = false;
+                    var infantsFound = false;
 
                     var peopleType = {
                         adult: 'adult',
@@ -140,6 +144,11 @@ innaAppControllers.
                             return peopleType.adult;
                     };
 
+                    function setNotValid(item) {
+                        item.isValid = false;
+                        item.isInvalid = !item.isValid;
+                    }
+
                     for (var i = 0; i < $scope.validationModel.passengers.length; i++) {
                         var pas = $scope.validationModel.passengers[i];
 
@@ -147,9 +156,45 @@ innaAppControllers.
                             //определяем тип человек (взрослый, ребенок, младенец)
                             var type = getPeopleType(pas.birthday.value);
                             switch (type) {
-                                case peopleType.adult: availableAdultCount--; break;
-                                case peopleType.child: availableChildCount--; break;
-                                case peopleType.infant: availableInfantsCount--; break;
+                                case peopleType.adult:
+                                    {
+                                        if (adultsFound) {
+                                            setNotValid(pas.birthday);
+                                        }
+                                        else {
+                                            availableAdultCount--;
+                                            if (availableAdultCount == 0) {
+                                                adultsFound = true;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                case peopleType.child:
+                                    {
+                                        if (childsFound) {
+                                            setNotValid(pas.birthday);
+                                        }
+                                        else {
+                                            availableChildCount--;
+                                            if (availableChildCount == 0) {
+                                                childsFound = true;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                case peopleType.infant:
+                                    {
+                                        if (infantsFound) {
+                                            setNotValid(pas.birthday);
+                                        }
+                                        else {
+                                            availableInfantsCount--;
+                                            if (availableInfantsCount == 0) {
+                                                infantsFound = true;
+                                            }
+                                        }
+                                        break;
+                                    }
                             }
                         }
                     }
@@ -248,8 +293,8 @@ innaAppControllers.
                                 {
                                     tryValidate(item, function () {
                                         Validators.birthdate(item.value, 'err');
-                                        if (!validatePeopleCount())
-                                            throw 'err';
+                                        //if (!$scope.validatePeopleCount())
+                                        //    throw 'err';
                                     });
                                     break;
                                 }
@@ -288,16 +333,26 @@ innaAppControllers.
 
                                                 var etapCountries = [];
                                                 if (item.EtapsTo != null) {
-                                                    _.each(item.EtapsTo, function (etap) {
+                                                    for (var i = 0; i < item.EtapsTo.length; i++) {
+                                                        var etap = item.EtapsTo[i];
                                                         etapCountries.push(etap.InCountryId);
                                                         etapCountries.push(etap.OutCountryId);
-                                                    });
+                                                    }
+                                                    //_.each(item.EtapsTo, function (etap) {
+                                                    //    etapCountries.push(etap.InCountryId);
+                                                    //    etapCountries.push(etap.OutCountryId);
+                                                    //});
                                                 }
                                                 if (item.EtapsBack != null) {
-                                                    _.each(item.EtapsTo, function (etap) {
+                                                    for (var i = 0; i < item.EtapsBack.length; i++) {
+                                                        var etap = item.EtapsBack[i];
                                                         etapCountries.push(etap.InCountryId);
                                                         etapCountries.push(etap.OutCountryId);
-                                                    });
+                                                    }
+                                                    //_.each(item.EtapsBack, function (etap) {
+                                                    //    etapCountries.push(etap.InCountryId);
+                                                    //    etapCountries.push(etap.OutCountryId);
+                                                    //});
                                                 }
                                                 etapCountries = _.uniq(etapCountries);
                                                 //проверяем все страны в этапах
@@ -372,10 +427,10 @@ innaAppControllers.
                         }
                     }
 
-                    if ($scope.validationModel != null && type != null)
-                    {
-                        $scope.validationModel.formPure = false;
-                    }
+                    //if ($scope.validationModel != null && type != null)
+                    //{
+                    //    $scope.validationModel.formPure = false;
+                    //}
                 };
 
                 //сохраняем некоторые поля из старой модели
@@ -489,9 +544,13 @@ innaAppControllers.
                         },
                         validateAll: function () {
                             var list = this.getFields(this);
-                            _.each(list, function (item) {
+                            for (var vi = 0; vi < list.length; vi++) {
+                                var item = list[vi];
                                 $scope.validate(item);
-                            });
+                            }
+                            //_.each(list, function (item) {
+                            //    $scope.validate(item);
+                            //});
 
                             //вложенные свойства
                             var arFields = this.getArrayFileds();
@@ -499,9 +558,13 @@ innaAppControllers.
                                 var field = arFields[i];
                                 for (var j = 0; j < field.length; j++) {
                                     var f = field[j];
-                                    _.each(f, function (item) {
+                                    for (var zi = 0; zi < f.length; zi++) {
+                                        var item = f[zi];
                                         $scope.validate(item);
-                                    });
+                                    }
+                                    //_.each(f, function (item) {
+                                    //    $scope.validate(item);
+                                    //});
                                 }
                             }
 
@@ -521,6 +584,19 @@ innaAppControllers.
                 visaNeededCheck();
 
                 //console.log($scope.validationModel);
+
+                $scope.isFieldInvalid = function (item) {
+                    if (item != null) {
+
+                        if ($scope.validationModel.formPure) {
+                            return item.isInvalid && item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
+                        }
+                        else {
+                            return item.isInvalid;
+                        }
+                    }
+                    return false;
+                }
             }
 
             $scope.$watch('model', function (newVal, oldVal) {
@@ -675,7 +751,12 @@ innaAppControllers.
                 },
                 close: function ($to) {
                     //$to.tooltip("disable");
-                    $to.tooltipX("close");
+                    $to.tooltipX("destroy");
+                    //try
+                    //{
+                    //    $to.tooltipX("destroy");
+                    //}
+                    //catch(e){};
                 }
             };
 
@@ -684,6 +765,7 @@ innaAppControllers.
                 eventsHelper.preventBubbling($event);
 
                 $scope.validationModel.validateAll();
+                $scope.validatePeopleCount();
 
                 //ищем первый невалидный элемент, берем только непустые
                 var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
@@ -693,7 +775,7 @@ innaAppControllers.
                     //показываем тултип
                     var $to = $("#" + invalidItem.id);
                     //не навешивали тултип
-                    if (!invalidItem.haveTooltip) {
+                    if (!(invalidItem.haveTooltip == true)) {
                         $scope.tooltipControl.init($to);
                         invalidItem.haveTooltip = true;
                     }
@@ -711,127 +793,115 @@ innaAppControllers.
                 }
             };
 
+            $scope.goToB2bCabinet = function () {
+                location.href = app_main.b2bHost;
+            }
+
+            $scope.isAgency = function () {
+                return ($scope.$root.user != null && $scope.$root.user.isAgency());
+            }
+
+            $scope.isCaseValid = function (fn) {
+                try {
+                    fn();
+                    return true;
+                }
+                catch (err) {
+                    return false;
+                }
+            }
+
+            $scope.getDocType = function (doc_num) {
+                //var doc_num = number.replace(/\s+/g, '');
+
+                if ($scope.isCaseValid(function () {
+                    Validators.ruPassport(doc_num, 'err');
+                })) {
+                    return 0;//паспорт
+                }
+
+                if ($scope.isCaseValid(function () {
+                    Validators.enPassport(doc_num, 'err');
+                })) {
+                    return 1;//загран
+                }
+
+                if ($scope.isCaseValid(function () {
+                    Validators.birthPassport(doc_num, 'err');
+                })) {
+                    return 2;//свидетельство о рождении
+                }
+
+                if ($scope.isCaseValid(function () {
+                   Validators.defined(doc_num, 'err');
+                })) {
+                    return 3;//Иностранный документ
+                }
+
+                return null;
+            }
+
+            $scope.getPassenger = function (data) {
+                var doc_num = data.doc_series_and_number.replace(/\s+/g, '');
+
+                var m = {};
+                m.Sex = data.sex;
+                m.I = data.name;
+                m.F = data.secondName;
+                m.Birthday = data.birthday;
+                m.DocumentId = $scope.getDocType(doc_num);
+                m.Number = doc_num;
+                m.ExpirationDate = data.doc_expirationDate;
+                m.Citizen = data.citizenship.id;
+                m.Index = data.index;
+                if (data.bonuscard.haveBonusCard) {
+                    m.BonusCard = data.bonuscard.number;
+                    m.TransporterId = data.bonuscard.airCompany.id;
+                    m.TransporterName = data.bonuscard.airCompany.name;
+                }
+                return m;
+            }
+
+            $scope.getModelFromValidationModel = function (validationModel) {
+                var keys = _.keys(validationModel);
+                var model = {};
+                _.each(keys, function (key) {
+                    if (_.isArray(validationModel[key])) {
+                        model[key] = [];
+                        _.each(validationModel[key], function (item) {
+                            var iKeys = _.keys(item);
+                            var iItem = {};
+                            _.each(iKeys, function (iKey) {
+                                if (_.isArray(item[iKey])) {
+                                    //пропускаем
+                                }
+                                else if (_.isFunction(item[iKey])) {
+                                    //пропускаем
+                                }
+                                else {
+                                    iItem[iKey] = angular.copy(item[iKey].value);
+                                }
+                            });
+                            model[key].push(iItem);
+                        });
+                    }
+                    else if (_.isFunction(validationModel[key])) {
+                        //пропускаем
+                    }
+                    else {
+                        model[key] = angular.copy(validationModel[key].value);
+                    }
+                });
+                return model;
+            }
+
             $scope.getApiModelForReserve = function () {
                 //function call() { if (afterCompleteCallback) afterCompleteCallback(); };
 
-                function isCaseValid(fn) {
-                    try {
-                        fn();
-                        return true;
-                    }
-                    catch (err) {
-                        return false;
-                    }
-                }
-
-                function getDocType(doc_num) {
-                    //var doc_num = number.replace(/\s+/g, '');
-
-                    if (isCaseValid(function () {
-                        Validators.ruPassport(doc_num, 'err');
-                    })) {
-                        return 0;//паспорт
-                    }
-
-                    if (isCaseValid(function () {
-                        Validators.enPassport(doc_num, 'err');
-                    })) {
-                        return 1;//загран
-                    }
-
-                    if (isCaseValid(function () {
-                        Validators.birthPassport(doc_num, 'err');
-                    })) {
-                        return 2;//свидетельство о рождении
-                    }
-
-                    if (isCaseValid(function () {
-                       Validators.defined(doc_num, 'err');
-                    })) {
-                        return 3;//Иностранный документ
-                    }
-
-                    return null;
-                }
-
-                function getPassenger(data) {
-                    var doc_num = data.doc_series_and_number.replace(/\s+/g, '');
-
-                    var m = {};
-                    m.Sex = data.sex;
-                    m.I = data.name;
-                    m.F = data.secondName;
-                    m.Birthday = data.birthday;
-                    m.DocumentId = getDocType(doc_num);
-                    m.Number = doc_num;
-                    m.ExpirationDate = data.doc_expirationDate;
-                    m.Citizen = data.citizenship.id;
-                    m.Index = data.index;
-                    if (data.bonuscard.haveBonusCard) {
-                        m.BonusCard = data.bonuscard.number;
-                        m.TransporterId = data.bonuscard.airCompany.id;
-                        m.TransporterName = data.bonuscard.airCompany.name;
-                    }
-                    return m;
-                }
-                function getApiModel(data) {
-                    var m = {};
-                    m.I = data.name;
-                    m.F = data.secondName;
-                    m.Email = data.email;
-                    m.Phone = data.phone;
-                    m.IsSubscribe = data.wannaNewsletter;
-
-                    var pasList = [];
-                    _.each(data.passengers, function (item) {
-                        pasList.push(getPassenger(item));
-                    });
-                    m.Passengers = pasList;
-
-                    m.SearchParams = {
-                        SearchId: $scope.searchId,
-                        VariantId1: $scope.item.VariantId1,
-                        VariantId2: $scope.item.VariantId2
-                    };
-                    return m;
-                };
-                function getModelFromValidationModel(validationModel) {
-                    var keys = _.keys(validationModel);
-                    var model = {};
-                    _.each(keys, function (key) {
-                        if (_.isArray(validationModel[key])) {
-                            model[key] = [];
-                            _.each(validationModel[key], function (item) {
-                                var iKeys = _.keys(item);
-                                var iItem = {};
-                                _.each(iKeys, function (iKey) {
-                                    if (_.isArray(item[iKey])) {
-                                        //пропускаем
-                                    }
-                                    else if (_.isFunction(item[iKey])) {
-                                        //пропускаем
-                                    }
-                                    else {
-                                        iItem[iKey] = angular.copy(item[iKey].value);
-                                    }
-                                });
-                                model[key].push(iItem);
-                            });
-                        }
-                        else if (_.isFunction(validationModel[key])) {
-                            //пропускаем
-                        }
-                        else {
-                            model[key] = angular.copy(validationModel[key].value);
-                        }
-                    });
-                    return model;
-                }
-
-                var model = getModelFromValidationModel($scope.validationModel);
+                var model = $scope.getModelFromValidationModel($scope.validationModel);
                 model.price = $scope.item.Price;
 
-                var apiModel = getApiModel(model);
+                var apiModel = $scope.getApiModel(model);
                 log('');
                 log('reservationModel: ' + angular.toJson(model));
                 log('');
@@ -846,51 +916,47 @@ innaAppControllers.
     { name: 'ELENA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '12.11.2013', series_and_number: '4507 018530' },
             ];
 
-            //ToDo: debug
-            $scope.fillDefaultModelDelay = function () {
-                $timeout(function () {
-                    $scope.model.name = 'Иван';
-                    $scope.model.secondName = 'Иванов';
-                    $scope.model.email = 'ivan.ivanov@gmail.com';
-                    $scope.model.phone = '+79101234567';
-                    var index = 0;
-                    _.each($scope.model.passengers, function (pas) {
+            $scope.fillDefaultModel = function ($event) {
+                eventsHelper.preventBubbling($event);
 
-                        if (index < debugPassengersList.length) {
-                            var debugItem = debugPassengersList[index];
-                            index++;
+                $scope.model.name = 'Иван';
+                $scope.model.secondName = 'Иванов';
+                $scope.model.email = 'ivan.ivanov@gmail.com';
+                $scope.model.phone = '+79101234567';
+                var index = 0;
+                _.each($scope.model.passengers, function (pas) {
 
-                            pas.name = debugItem.name;
-                            pas.secondName = debugItem.secondName;
-                            pas.sex = debugItem.sex;
-                            pas.birthday = debugItem.birthday;
-                            pas.citizenship.id = 189;
-                            pas.citizenship.name = 'Россия';
-                            pas.doc_series_and_number = debugItem.series_and_number;
-                            pas.doc_expirationDate = '18.07.2015';
-                            pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
-                            pas.bonuscard.airCompany.id = 2;
-                            pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '1213473454';
-                        }
-                        else {
-                            pas.name = 'IVAN';
-                            pas.secondName = 'IVANOV';
-                            pas.sex = $scope.sexType.man;
-                            pas.birthday = '18.07.1976';
-                            pas.citizenship.id = 189;
-                            pas.citizenship.name = 'Россия';
-                            pas.doc_series_and_number = '4507 048200';
-                            pas.doc_expirationDate = '18.07.2015';
-                            pas.bonuscard.haveBonusCard = true;
-                            pas.bonuscard.airCompany.id = 2;
-                            pas.bonuscard.airCompany.name = 'Aeroflot';
-                            pas.bonuscard.number = '1213463454';
-                        }
-                    });
+                    if (index < debugPassengersList.length) {
+                        var debugItem = debugPassengersList[index];
+                        index++;
 
-                    //$scope.login.isOpened = true;
-                    //$scope.login.isLogged = true;
-                }, 500);
+                        pas.name = debugItem.name;
+                        pas.secondName = debugItem.secondName;
+                        pas.sex = debugItem.sex;
+                        pas.birthday = debugItem.birthday;
+                        pas.citizenship.id = 189;
+                        pas.citizenship.name = 'Россия';
+                        pas.doc_series_and_number = debugItem.series_and_number;
+                        pas.doc_expirationDate = '18.07.2015';
+                        pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
+                        pas.bonuscard.airCompany.id = 2;
+                        pas.bonuscard.airCompany.name = 'Aeroflot';
+                        pas.bonuscard.number = '1213473454';
+                    }
+                    else {
+                        pas.name = 'IVAN';
+                        pas.secondName = 'IVANOV';
+                        pas.sex = $scope.sexType.man;
+                        pas.birthday = '18.07.1976';
+                        pas.citizenship.id = 189;
+                        pas.citizenship.name = 'Россия';
+                        pas.doc_series_and_number = '4507 048200';
+                        pas.doc_expirationDate = '18.07.2015';
+                        pas.bonuscard.haveBonusCard = true;
+                        pas.bonuscard.airCompany.id = 2;
+                        pas.bonuscard.airCompany.name = 'Aeroflot';
+                        pas.bonuscard.number = '1213463454';
+                    }
+                });
             };
         }]);

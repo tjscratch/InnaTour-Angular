@@ -53,6 +53,9 @@
                     $cityMenu.find('a').eq(0).trigger('click');
                 }, 0);
                 
+                scope.$on('$destroy', function () {
+                    $cityMenu.off();
+                });
             });
         }
     };

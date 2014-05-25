@@ -4,10 +4,10 @@
 
     <ul class="header__user-nav" ng-if="user">
         <li><a href="javascript:void(0);" ng-click="showProfile()" class="header__user-nav-name">{{user.displayName()}}</a></li>
-        <li ng-if="user.MessagesCount"><a href="{{B2B_HOST}}/Message"><span class="header__user-nav-counter">{{+user.MessagesCount | asQuantity:"сообщение":"сообщения":"сообщений"}}</span></a></li>
+        <li ng-if="user.raw.MessagesCount > 0"><a href="{{B2B_HOST}}/Message"><span class="header__user-nav-counter">{{+user.raw.MessagesCount | asQuantity:"сообщение":"сообщения":"сообщений"}}</span></a></li>
         <li><a href="javascript:void(0);" ng-click="logout()">Выйти</a></li>
     </ul>
-    <div ng-if="user.AgencyName" class="header__user-company"><a href="{{B2B_HOST}}/">{{user.AgencyName}}</a></div>
+    <div ng-if="user.raw.AgencyName" class="header__user-company"><a href="{{B2B_HOST}}/">{{user.raw.AgencyName}}</a></div>
 
     <ul class="header__user-nav" ng-if="!user">
         <li><a href="javascript:void(0)" ng-click="open()" class="header__user-nav-reg">Регистрация и вход</a></li>

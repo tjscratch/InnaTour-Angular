@@ -20,7 +20,9 @@
         </div>
     </div>
 
-    <aside class="results-aside results-aside_mod"><button ng-click="changeHotelsView()">Карта/список</button></aside>
+    <aside class="results-aside results-aside_mod">
+        <button class="button-map-list" ng-click="changeHotelsView()"></button>
+    </aside>
 
     <div inna-dynamic-serp-filter-indicators
          inna-dynamic-serp-filter-indicators-filters="hotelFilters"
@@ -32,7 +34,12 @@
 <!--hotels="hotels"></div>-->
 <!--getHotelDetails(hotel)-->
 
-<div ng-if="hotels.list.length"
+
+<!--<div ng-if="hotels.list.length"
      dynamic-serp-map
      dynamic-serp-map-hotels="hotels"
-     ng-style="asMap ? {} : {position: 'absolute', left: '-9999px'}"></div>
+     ng-style="asMap ? {} : {position: 'absolute', left: '-9999px'}"></div>-->
+
+<div ng-if="(hotels.list.length && asMap) ? true : false"
+     dynamic-serp-map
+     dynamic-serp-map-hotels="hotels"></div>

@@ -30,16 +30,32 @@ Year = "17";
 Cvc = "486";
             */
             $scope.payModel = {
-                num1: '5469',
-                num2: '4000',
-                num3: '1273',
-                num4: '3023',
+                num1: '',
+                num2: '',
+                num3: '',
+                num4: '',
                 cvc2: '',
-                cardHolder: 'ILYA GERASIMENKO',
-                cardMonth: '07',
-                cardYear: '15',
+                cardHolder: '',
+                cardMonth: '',
+                cardYear: '',
                 agree: false
             };
+
+            $scope.fillTestData = function ($event) {
+                eventsHelper.preventBubbling($event);
+
+                $scope.payModel = {
+                    num1: '5469',
+                    num2: '4000',
+                    num3: '1273',
+                    num4: '3023',
+                    cvc2: '',
+                    cardHolder: 'ILYA GERASIMENKO',
+                    cardMonth: '07',
+                    cardYear: '15',
+                    agree: true
+                };
+            }
 
             function initValidateModel() {
                 $scope.isValid = {

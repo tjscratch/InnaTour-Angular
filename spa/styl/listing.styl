@@ -320,6 +320,157 @@
     background #F2F3F4
 
 
+.settings
+    display table
+
+    &__section
+        display table-cell
+        padding-right 80px
+
+    &__title
+        font-size 18px
+        font-weight normal
+        padding-left 10px
+        margin-bottom 14px
+
+    &__fieldset
+        margin-bottom 18px
+        vertical-align top
+
+    &__field
+        display inline-block
+        margin-right 10px
+        vertical-align top
+
+.radio-group
+    border-radius 4px
+    background #e6e7e9
+    font-size 0
+    overflow hidden
+    position relative
+    top 3px
+
+    &__label
+        font-size 18px
+        line-height 30px
+        border-right 1px solid #878787
+        display inline-block
+
+        &:last-child
+            border none
+
+    &__radio
+        display none
+
+        &:checked + .radio-group__caption
+            background #89c13a
+            color #fff
+
+    &__caption
+        padding 0 8px
+        display inline-block
+
+
+.text-group
+    overflow hidden
+    padding-left 1px
+    position relative
+    display inline-block
+
+    .b-field-block
+        margin-left -1px
+
+    &__caption
+        font-size 18px
+        position absolute
+        bottom 14px
+        margin-left 10px
+
+.title-group
+    overflow hidden
+    margin-bottom 15px
+
+    &__title
+        font-size 18px
+
+    &__actions
+        float right
+
+
+.table
+    width 100%
+    border-collapse collapse
+    background #fff
+
+    &__body
+        .table__row:first-child
+            .table__cell
+                background -moz-linear-gradient(top,  rgba(192,192,194,.6) 0%, rgba(255,255,255,0) 10%)
+                background -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(192,192,194,.6)), color-stop(10%,rgba(255,255,255,0)))
+                background -webkit-linear-gradient(top,  rgba(192,192,194,.6) 0%,rgba(255,255,255,0) 10%)
+                background -o-linear-gradient(top,  rgba(192,192,194,.6) 0%,rgba(255,255,255,0) 10%)
+                background -ms-linear-gradient(top,  rgba(192,192,194,.6) 0%,rgba(255,255,255,0) 10%)
+                background linear-gradient(to bottom,  rgba(192,192,194,.6) 0%,rgba(255,255,255,0) 10%)
+                filter: unquote("progid:DXImageTransform.Microsoft.gradient( startColorstr='#c0c0c2', endColorstr='#00ffffff',GradientType=0 )")
+
+    &__row
+        border-bottom 1px solid #c0c0c2
+
+        &:hover
+            background #f2f3f4 !important
+
+            .table__actions
+                visibility visible
+
+    &__cell
+        padding 15px 12px 13px
+
+        &_status_head
+            border-right: 1px solid #c0c0c2
+            font-weight normal
+            text-align left
+            background #fff
+
+            &:last-child
+                border-left none
+
+        &_state_active
+            color #89c13a
+
+    &__actions
+        visibility hidden
+        min-width 140px
+        text-align right
+
+        &-action
+            color #878787
+            text-decoration none
+            padding-right 12px
+
+            &:hover
+                text-decoration underline
+
+    &__text
+        width 100%
+
+    &__text
+    &__actions
+        display table-cell
+
+.balloon
+    &__header
+        font-size 24px
+        text-align center
+        margin-bottom 7px
+
+    &__content
+        padding 0 20px 20px
+
+    &__actions
+        margin-top 10px
+        text-align center
+
+
 
 
 

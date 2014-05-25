@@ -37,6 +37,7 @@ bin/*
 *.log
 *.idea
 *.DS_Store
+*.nginx_conf
 .project
 .settings/.jsdtscope
 .settings/org.eclipse.wst.jsdt.ui.superType.container
@@ -50,3 +51,4 @@ build_and_publish/publish_release/*
 build_and_publish/publish_test/*
 spa/js/debug.js
 spa/styles.sh
+spa/css/common.min.css

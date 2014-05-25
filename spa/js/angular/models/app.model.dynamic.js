@@ -65,5 +65,27 @@ inna.Models.Hotels.Hotel = function(raw) {
 
     this.data.CheckIn = dateHelper.apiDateToJsDate(this.data.CheckIn);
     this.data.CheckOut = dateHelper.apiDateToJsDate(this.data.CheckOut);
+};
+
+_.provide('inna.Models.Dynamic');
+
+inna.Models.Dynamic.Combination = function(){
+    this.ticket = null;
+    this.hotel = null;
 }
 
+inna.Models.Dynamic.Combination.prototype.setTicket = function(ticket){
+    this.ticket = ticket;
+}
+
+inna.Models.Dynamic.Combination.prototype.setHotel = function(hotel) {
+    this.hotel = hotel;
+}
+
+inna.Models.Dynamic.Combination.prototype.getFullPackagePrice = function(){
+    return this.ticket.data.PackagePrice + this.hotel.data.PackagePrice;
+}
+
+inna.Models.Dynamic.Combination.prototype.getFullPrice = function(){
+    return this.ticket.data.Price + this.hotel.data.Price;
+}

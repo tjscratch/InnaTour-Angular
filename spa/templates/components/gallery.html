@@ -1,0 +1,17 @@
+<div class="gallery">
+    <div class="gallery__viewport-wrap">
+        <div class="gallery__viewport"
+             style="background-image:url({{pics.current.src}});width:{{pics.current.width}}px;height:{{pics.current.height}}px;">
+
+            <span class="gallery__button gallery__button_type_next"  ng-if="pics.list.length > 1" ng-click="pics.next()"></span>
+            <span class="gallery__button gallery__button_type_prev"  ng-if="pics.list.length > 1" ng-click="pics.prev()"></span>
+        </div>
+    </div>
+    <ul class="gallery__list" ng-if="pics.list.length > 1">
+        <li ng-repeat="pic in pics.list"
+            class="gallery__list-item"
+            ng-class="{'gallery__list-item_state_current': pics.isCurrent(pic)}"
+            style="background-image:url({{pic.src}});"
+            ng-click="pics.setCurrent(pic)"></li>
+    </ul>
+</div>

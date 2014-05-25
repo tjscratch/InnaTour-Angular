@@ -15,10 +15,10 @@
                 <div class="b-field-block" style="width: 388px;">
                     <label class="b-field-label">E-mail</label>
                     <input validate-events-dir ng-model="validationModel.email.value"
-                            ng-validation-model="validationModel.email" validate="validate(item, type)" validate-type="validateType.email"
-                            ng-class="{error:validationModel.email.isInvalid && !validationModel.formPure}"
-                            title="Неправильно введен email" type="text"
-                            placeholder="ivan.ivanov@gmail.com" class="b-field-text">
+                           ng-validation-model="validationModel.email" validate="validate(item, type)" validate-type="validateType.email"
+                           ng-class="{error:isFieldInvalid(validationModel.email)}"
+                           title="Неправильно введен email" type="text"
+                           placeholder="ivan.ivanov@gmail.com" class="b-field-text">
                      <!--<div class="b-auth">
                         <a href="#" class="b-auth-close"></a>
                         <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
@@ -28,10 +28,10 @@
                 <div class="b-field-block" style="width: 180px;">
                     <label class="b-field-label">Мобильный телефон</label>
                     <input validate-events-dir ng-model="validationModel.phone.value"
-                            ng-validation-model="validationModel.phone" validate="validate(item, type)" validate-type="validateType.phone"
-                            ng-class="{error:validationModel.phone.isInvalid && !validationModel.formPure}"
-                            title="Неправильно введен мобильный телефон" name="phone" type="text"
-                            phone-input placeholder="+79261234567" class="b-field-text">
+                           ng-validation-model="validationModel.phone" validate="validate(item, type)" validate-type="validateType.phone"
+                           ng-class="{error:isFieldInvalid(validationModel.phone)}"
+                           title="Неправильно введен мобильный телефон" name="phone" type="text"
+                           phone-input placeholder="+79261234567" class="b-field-text">
                 </div>
             </div>
             <!-- <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div> -->
@@ -57,32 +57,32 @@
                 <div class="b-field-block" style="width: 160px;">
                     <label class="b-field-label">Имя (латиницей)</label>
                     <input upper-latin validate-events-dir ng-model="passenger.name.value" 
-                            ng-validation-model="passenger.name" validate="validate(item, type)" validate-type="validateType.required"
-                            ng-class="{error:passenger.name.isInvalid && !validationModel.formPure}"
-                            type="text" placeholder="IVAN" class="b-field-text">
+                           ng-validation-model="passenger.name" validate="validate(item, type)" validate-type="validateType.required"
+                           ng-class="{error:isFieldInvalid(passenger.name)}"
+                           type="text" placeholder="IVAN" class="b-field-text">
                 </div>
                 <div class="b-field-block b-field-block-surname" style="width: 150px;">
                     <label class="b-field-label">Фамилия (латиницей)</label>
                     <input upper-latin validate-events-dir ng-model="passenger.secondName.value" 
-                            ng-validation-model="passenger.secondName" validate="validate(item, type)" validate-type="validateType.required"
-                            ng-class="{error:passenger.secondName.isInvalid && !validationModel.formPure}"
-                            type="text" placeholder="IVANOV" class="b-field-text">
+                           ng-validation-model="passenger.secondName" validate="validate(item, type)" validate-type="validateType.required"
+                           ng-class="{error:isFieldInvalid(passenger.secondName)}"
+                           type="text" placeholder="IVANOV" class="b-field-text">
                 </div>
                 <div class="b-field-block" style="width: 110px;">
                     <label class="b-field-label">Дата рождения</label>
                     <input validate-events-dir ng-model="passenger.birthday.value" 
-                            ng-validation-model="passenger.birthday" validate="validate(item, type)" validate-type="validateType.birthdate"
-                            ng-class="{error:passenger.birthday.isInvalid && !validationModel.formPure}"
-                            title="Неправильно введена дата рождения"
-                            masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг"
-                            class="b-field-text">
+                           ng-validation-model="passenger.birthday" validate="validate(item, type)" validate-type="validateType.birthdate"
+                           ng-class="{error:isFieldInvalid(passenger.birthday)}"
+                           title="Неправильно введена дата рождения"
+                           masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг"
+                           class="b-field-text">
                 </div>
                 <div class="b-field-block" style="width: 180px;">
                     <label class="b-field-label">Гражданство</label>
                     <input validate-events-dir
-                            ng-validation-model="passenger.citizenship" validate="validate(item, type)" validate-type="validateType.cit_required"
-                            ng-class="{error:passenger.citizenship.isInvalid && !validationModel.formPure}"
-                            ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.value.name}}" placeholder="Выберите" class="b-field-text b-field-select">
+                           ng-validation-model="passenger.citizenship" validate="validate(item, type)" validate-type="validateType.cit_required"
+                           ng-class="{error:isFieldInvalid(passenger.citizenship)}"
+                           ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.value.name}}" placeholder="Выберите" class="b-field-text b-field-select">
                     <div style="margin-top: -10px; width: 178px; margin-left: 1px;"
                          partial-select list="citizenshipList" result="passenger.citizenship.value" is-open="passenger.dir.cit.isOpen">
                     </div>
@@ -90,18 +90,18 @@
                 <div class="b-field-block" style="width: 110px;">
                     <label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>
                     <input validate-events-dir ng-model="passenger.doc_series_and_number.value" depends-on="passenger.citizenship"
-                            ng-validation-model="passenger.doc_series_and_number" validate="validate(item, type)" validate-type="validateType.document"
-                            ng-class="{error:passenger.doc_series_and_number.isInvalid && !validationModel.formPure}"
-                            title="Неправильный номер документа"
-                            type="text" placeholder="1104 046100" class="b-field-text">
+                           ng-validation-model="passenger.doc_series_and_number" validate="validate(item, type)" validate-type="validateType.document"
+                           ng-class="{error:isFieldInvalid(passenger.doc_series_and_number)}"
+                           title="Неправильный номер документа"
+                           type="text" placeholder="1104 046100" class="b-field-text">
                 </div>
                 <div class="b-field-block" style="width: 110px;">
                     <label class="b-field-label b-field-label-docs">Действителен до</label>
                     <input validate-events-dir ng-model="passenger.doc_expirationDate.value" 
-                            ng-validation-model="passenger.doc_expirationDate" validate="validate(item, type)" validate-type="validateType.expire"
-                            ng-class="{error:passenger.doc_expirationDate.isInvalid && !validationModel.formPure}"
-                            title="Неправильно введена дата"
-                            masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг" class="b-field-text">
+                           ng-validation-model="passenger.doc_expirationDate" validate="validate(item, type)" validate-type="validateType.expire"
+                           ng-class="{error:isFieldInvalid(passenger.doc_expirationDate)}"
+                           title="Неправильно введена дата"
+                           masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг" class="b-field-text">
                 </div>
             </div>
             <div class="b-field-group b-field-group-passport">
@@ -123,10 +123,32 @@
                 </div>
             </div>
         </fieldset>
+        <ng:any ng-if="addition != null">
+            <header class="buy__header">
+                <h2 class="buy__title">Пожелание к номеру</h2>
+            </header>
+            <div class="buy__comments-container">
+                <textarea cols="30" rows="10" class="buy__comments-field" ng-model="addition.customerWishlist">{{addition.customerWishlist | breakFilter}}</textarea>
+                <p class="buy__comments-help">Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение. Пожалуйста, пишите ваши пожелания на английском языке.</p>
+            </div>
+            <header class="buy__header">
+                <h2 class="buy__title">Дополнительные услуги</h2>
+            </header>
+            <div class="buy__more-container">
+                <div class="buy__more-help">Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется c Вами и предложит разные варианты.</div>
+                <ul class="buy__more-options">
+                    <li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededVisa"><ins class="b-checkbox"></ins>Виза</label></li>
+                    <li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededMedicalInsurance"><ins class="b-checkbox"></ins>Страховки</label></li>
+                    <li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededTransfer"><ins class="b-checkbox"></ins>Трансфер</label></li>
+                </ul>
+            </div>
+        </ng:any>
     </div>
     <div class="b-sum-container">
+        <a ng-href="#" ng-click="fillDefaultModel($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>
         Сумма к оплате: <b>{{item.Price| price}}</b> <span class="b-sum-rub">руб.</span>
-        <a ng-href="#" class="button b-sum-button" ng-click="processToPayment($event)">Перейти к оплате</a>
+        <a ng-if="!user.isAgency()" ng-href="#" class="button b-sum-button" ng-click="processToPayment($event)">Перейти к оплате</a>
+        <a ng-if="user.isAgency()" ng-href="#" class="button b-sum-button" ng-click="processToPayment($event)">Забронировать</a>
     </div>
 </form>
 <!-- Buy ticket -->

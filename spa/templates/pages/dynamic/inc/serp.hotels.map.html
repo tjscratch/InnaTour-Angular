@@ -1,16 +1,29 @@
 <div class="big-map">
-    <div class="b-hotels-on-map" style="height:700px;width:100%;"></div>
+    <div id="big-map-canvas" class="b-hotels-on-map"></div>
 
-    <div class="pin" ng-if="currentHotel">
+    <div class="pin big-map__balloon "> <!--ng-if="currentHotel"-->
         <div class="pin-balloon">
-            <!--<div class="hotel-gallery">-->
-            <!--<div class="hotel-gallery-arrow-left"></div>-->
-            <!--<div class="hotel-gallery-arrow-right"></div>-->
-            <!--<a href="" class="hotel-gallery-photo-button">24</a>-->
-            <!--<div class="hotel-gallery-container">-->
-            <!--<img src="/spa/img/hotel-map-photo.jpg" alt="">-->
-            <!--</div>-->
-            <!--</div>-->
+
+            <div class="hotel-gallery b-carousel" info-box-carousel>
+                <div class="hotel-gallery-arrow-left b-carousel__prev"></div>
+                <div class="hotel-gallery-arrow-right b-carousel__next"></div>
+                <a href="" class="hotel-gallery-photo-button">24</a>
+
+                <div class="hotel-gallery-container b-carousel__holder">
+                    <div class="b-carousel__slider">
+                        <div class="b-carousel__slider_item">
+                            <img src="/spa/img/hotel-map-photo.jpg" alt="">
+                        </div>
+                        <div class="b-carousel__slider_item">
+                            <img src="/spa/img/hotel-map-photo2.jpg?q=121212" alt="">
+                        </div>
+                        <div class="b-carousel__slider_item">
+                            <img src="/spa/img/hotel-map-photo.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="pin-balloon-info">
                 <div>
                     <span class="icon icon-star" ng-if="currentHotel.data.Stars > 0"></span>
@@ -20,26 +33,98 @@
                     <span class="icon icon-star" ng-if="currentHotel.data.Stars > 4"></span>
                 </div>
                 <h3 class="hotel-name">{{currentHotel.data.HotelName}}</h3>
-                <div>
-                    <div class="hotel-info-tripadvisor pull-left" ng-if="currentHotel.data.TaFactor > 0">
-                        <span class="icon icon-tripadvisor"></span>
-                        <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 0"></span>
-                        <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 1"></span>
-                        <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 2"></span>
-                        <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 3"></span>
-                        <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 4"></span>
-                        <!--TODO 1412 отзывов-->
+
+                <!-- ROW -->
+                <div class="row">
+                    <div class="col-xs-7 col-no-padding hotel-info-tripadvisor" ng-if="currentHotel.data.TaFactor > 0">
+                        <div>
+                            <span class="icon icon-tripadvisor"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 0"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 1"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 2"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 3"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 4"></span>
+                            <!--TODO 1412 отзывов-->
+                        </div>
+
+
+                        <div>
+                            <a href="javascript:void(0);" ng-click="hotelDetails(currentHotel)" class="details-link">Подробнее</a>
+                        </div>
                     </div>
-                    <div>
-                        <a href="javascript:void(0);" ng-click="hotelDetails(currentHotel)" class="details-link">Подробнее</a>
-                    </div>
-                    <div class="hotel-info-price-container pull-right">
+
+                    <div class="pull-right col-no-padding hotel-info-price-container">
                         <span>цена пакета</span>
-                        <h3 class="hotel-info-price">{{currentHotel.data.MinimalPackagePrice}} <span class="b-rub">Р</span></h3>
-                        <button class="button" ng-click="setHotel(currentHotel)">Выбрать</button>
+
+                        <h3 class="hotel-info-price">
+                            {{currentHotel.data.MinimalPackagePrice}}
+                            <span class="b-rub">Р</span>
+                        </h3>
+
+                        <button class="button"
+                                ng-click="setHotel(currentHotel)">
+                            Выбрать
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+    <!-- Показываем при наведении на маркер -->
+    <div class="pin big-map__balloon_preview">
+        <div class="pin-balloon">
+            <div class="pin-balloon-info">
+                <div>
+                    <span class="icon icon-star" ng-if="currentHotelPreview.data.Stars > 0"></span>
+                    <span class="icon icon-star" ng-if="currentHotelPreview.data.Stars > 1"></span>
+                    <span class="icon icon-star" ng-if="currentHotelPreview.data.Stars > 2"></span>
+                    <span class="icon icon-star" ng-if="currentHotelPreview.data.Stars > 3"></span>
+                    <span class="icon icon-star" ng-if="currentHotelPreview.data.Stars > 4"></span>
+                </div>
+                <h3 class="hotel-name">{{currentHotelPreview.data.HotelName}}</h3>
+
+                <!-- ROW -->
+                <div class="row">
+                    <div class="col-xs-7 col-no-padding hotel-info-tripadvisor"
+                         ng-if="currentHotelPreview.data.TaFactor > 0">
+                        <div>
+                            <span class="icon icon-tripadvisor"></span>
+                            <span class="icon icon-tripadvisor-like"
+                                  ng-if="currentHotelPreview.data.TaFactor > 0"></span>
+                            <span class="icon icon-tripadvisor-like"
+                                  ng-if="currentHotelPreview.data.TaFactor > 1"></span>
+                            <span class="icon icon-tripadvisor-like"
+                                  ng-if="currentHotelPreview.data.TaFactor > 2"></span>
+                            <span class="icon icon-tripadvisor-like"
+                                  ng-if="currentHotelPreview.data.TaFactor > 3"></span>
+                            <span class="icon icon-tripadvisor-like"
+                                  ng-if="currentHotelPreview.data.TaFactor > 4"></span>
+                            <!--TODO 1412 отзывов-->
+                        </div>
+                    </div>
+
+                    <div class="pull-right col-no-padding hotel-info-price-container">
+                        <span>цена пакета</span>
+
+                        <h3 class="hotel-info-price">
+                            {{currentHotelPreview.data.MinimalPackagePrice}}
+                            <span class="b-rub">Р</span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="pin pin_mini big-map__balloon_air">
+        <div class="pin-balloon">
+            <span>
+                Шереметьево
+                <span class="color-gray">SVO</span>
+            </span>
         </div>
     </div>
 </div>

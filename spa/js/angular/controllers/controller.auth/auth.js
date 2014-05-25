@@ -5,6 +5,7 @@ angular.module('innaApp.controllers')
             /*Private*/
             function setUserInfo(data){
                 $scope.$root.user = new inna.Models.Auth.User(data);
+                //console.log($scope.$root.user);
             }
 
             /*Methods*/

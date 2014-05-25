@@ -9,6 +9,27 @@ innaAppControllers.
                 $log.log(msg);
             }
 
+
+            /* TODO: вынести в регион header */
+            $scope.$on('$routeChangeStart', function(next, current) {
+                $scope.$emit('header:visible');
+            });
+
+
+
+
+            $scope.isHeaderVisible = true;
+
+            $scope.$on('header:hidden', function(){
+                $scope.isHeaderVisible = false;
+            });
+
+            $scope.$on('header:visible', function(){
+                $scope.isHeaderVisible = true;
+            });
+
+
+
             $scope.baloon = aviaHelper.baloon;
 
             $scope.isActive = function (route) {
