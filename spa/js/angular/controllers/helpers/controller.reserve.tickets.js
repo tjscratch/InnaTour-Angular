@@ -120,6 +120,10 @@ innaAppControllers.
                     var availableChildCount = $scope.ChildCount;
                     var availableInfantsCount = $scope.InfantsCount;
 
+                    var adultsFound = false;
+                    var childsFound = false;
+                    var infantsFound = false;
+
                     var peopleType = {
                         adult: 'adult',
                         child: 'child',
@@ -140,6 +144,11 @@ innaAppControllers.
                             return peopleType.adult;
                     };
 
+                    function setNotValid(item) {
+                        item.isValid = false;
+                        item.isInvalid = !item.isValid;
+                    }
+
                     for (var i = 0; i < $scope.validationModel.passengers.length; i++) {
                         var pas = $scope.validationModel.passengers[i];
 
@@ -147,14 +156,45 @@ innaAppControllers.
                             //определяем тип человек (взрослый, ребенок, младенец)
                             var type = getPeopleType(pas.birthday.value);
                             switch (type) {
-                                case peopleType.adult: availableAdultCount--; break;
-                                case peopleType.child: availableChildCount--; break;
-                                case peopleType.infant: availableInfantsCount--; break;
-                            }
-
-                            if (availableAdultCount < 0 || availableChildCount < 0 || availableInfantsCount < 0) {
-                                pas.birthday.isValid = false;
-                                pas.birthday.isInvalid = !pas.birthday.isValid;
+                                case peopleType.adult:
+                                    {
+                                        if (adultsFound) {
+                                            setNotValid(pas.birthday);
+                                        }
+                                        else {
+                                            availableAdultCount--;
+                                            if (availableAdultCount == 0) {
+                                                adultsFound = true;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                case peopleType.child:
+                                    {
+                                        if (childsFound) {
+                                            setNotValid(pas.birthday);
+                                        }
+                                        else {
+                                            availableChildCount--;
+                                            if (availableChildCount == 0) {
+                                                childsFound = true;
+                                            }
+                                        }
+                                        break;
+                                    }
+                                case peopleType.infant:
+                                    {
+                                        if (infantsFound) {
+                                            setNotValid(pas.birthday);
+                                        }
+                                        else {
+                                            availableInfantsCount--;
+                                            if (availableInfantsCount == 0) {
+                                                infantsFound = true;
+                                            }
+                                        }
+                                        break;
+                                    }
                             }
                         }
                     }
@@ -293,16 +333,26 @@ innaAppControllers.
 
                                                 var etapCountries = [];
                                                 if (item.EtapsTo != null) {
-                                                    _.each(item.EtapsTo, function (etap) {
+                                                    for (var i = 0; i < item.EtapsTo.length; i++) {
+                                                        var etap = item.EtapsTo[i];
                                                         etapCountries.push(etap.InCountryId);
                                                         etapCountries.push(etap.OutCountryId);
-                                                    });
+                                                    }
+                                                    //_.each(item.EtapsTo, function (etap) {
+                                                    //    etapCountries.push(etap.InCountryId);
+                                                    //    etapCountries.push(etap.OutCountryId);
+                                                    //});
                                                 }
                                                 if (item.EtapsBack != null) {
-                                                    _.each(item.EtapsTo, function (etap) {
+                                                    for (var i = 0; i < item.EtapsBack.length; i++) {
+                                                        var etap = item.EtapsBack[i];
                                                         etapCountries.push(etap.InCountryId);
                                                         etapCountries.push(etap.OutCountryId);
-                                                    });
+                                                    }
+                                                    //_.each(item.EtapsBack, function (etap) {
+                                                    //    etapCountries.push(etap.InCountryId);
+                                                    //    etapCountries.push(etap.OutCountryId);
+                                                    //});
                                                 }
                                                 etapCountries = _.uniq(etapCountries);
                                                 //проверяем все страны в этапах
@@ -377,10 +427,10 @@ innaAppControllers.
                         }
                     }
 
-                    if ($scope.validationModel != null && type != null)
-                    {
-                        $scope.validationModel.formPure = false;
-                    }
+                    //if ($scope.validationModel != null && type != null)
+                    //{
+                    //    $scope.validationModel.formPure = false;
+                    //}
                 };
 
                 //сохраняем некоторые поля из старой модели
@@ -494,9 +544,13 @@ innaAppControllers.
                         },
                         validateAll: function () {
                             var list = this.getFields(this);
-                            _.each(list, function (item) {
+                            for (var vi = 0; vi < list.length; vi++) {
+                                var item = list[vi];
                                 $scope.validate(item);
-                            });
+                            }
+                            //_.each(list, function (item) {
+                            //    $scope.validate(item);
+                            //});
 
                             //вложенные свойства
                             var arFields = this.getArrayFileds();
@@ -504,9 +558,13 @@ innaAppControllers.
                                 var field = arFields[i];
                                 for (var j = 0; j < field.length; j++) {
                                     var f = field[j];
-                                    _.each(f, function (item) {
+                                    for (var zi = 0; zi < f.length; zi++) {
+                                        var item = f[zi];
                                         $scope.validate(item);
-                                    });
+                                    }
+                                    //_.each(f, function (item) {
+                                    //    $scope.validate(item);
+                                    //});
                                 }
                             }
 
@@ -526,6 +584,19 @@ innaAppControllers.
                 visaNeededCheck();
 
                 //console.log($scope.validationModel);
+
+                $scope.isFieldInvalid = function (item) {
+                    if (item != null) {
+
+                        if ($scope.validationModel.formPure) {
+                            return item.isInvalid && item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
+                        }
+                        else {
+                            return item.isInvalid;
+                        }
+                    }
+                    return false;
+                }
             }
 
             $scope.$watch('model', function (newVal, oldVal) {
@@ -680,7 +751,12 @@ innaAppControllers.
                 },
                 close: function ($to) {
                     //$to.tooltip("disable");
-                    $to.tooltipX("close");
+                    $to.tooltipX("destroy");
+                    //try
+                    //{
+                    //    $to.tooltipX("destroy");
+                    //}
+                    //catch(e){};
                 }
             };
 
@@ -699,7 +775,7 @@ innaAppControllers.
                     //показываем тултип
                     var $to = $("#" + invalidItem.id);
                     //не навешивали тултип
-                    if (!invalidItem.haveTooltip) {
+                    if (!(invalidItem.haveTooltip == true)) {
                         $scope.tooltipControl.init($to);
                         invalidItem.haveTooltip = true;
                     }

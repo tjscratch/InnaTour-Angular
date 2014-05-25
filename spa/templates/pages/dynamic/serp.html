@@ -1,4 +1,4 @@
-<ng:include src="'/spa/templates/pages/dynamic/inc/bundle.html'" ng-if="combination.Hotel && combination.AviaInfo"></ng:include>
+<ng:include src="'/spa/templates/pages/dynamic/inc/bundle.html'" ng-if="combination.hotel && combination.ticket"></ng:include>
 
 <div class="results-body" ng-show="!showLanding">
     <ng:include src="state.display"></ng:include>
@@ -103,4 +103,5 @@
      inna-hotel-details-hotel="hotelToShowDetails"
      inna-hotel-details-collection="hotels"
      inna-hotel-details-back="closeHotelDetails"
-     inna-hotel-details-next="getHotelDetails"></div>
+     inna-hotel-details-next="getHotelDetails"
+     inna-hotel-details-bundle="combination"></div>

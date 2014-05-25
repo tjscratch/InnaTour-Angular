@@ -9,7 +9,7 @@ angular.module('innaApp.services')
             }
 
             function buildOptions(url, data, method, async) {
-                return {
+                var o = {
                     url: url,
                     type: method,
                     dataType: 'json',
@@ -21,6 +21,11 @@ angular.module('innaApp.services')
 
                     eol: null
                 }
+                if (async == false) {
+                    //при синхронных вызовах последний FF ругается и блочит запрос, нужно удалить withCredentials
+                    delete o.xhrFields;
+                }
+                return o;
             }
 
             function hasObjects(data) {

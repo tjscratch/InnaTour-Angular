@@ -105,6 +105,10 @@
                     }
                 }, 1000);
             });
+
+            $scope.$on('$destroy', function () {
+                $('.js-people-minus,.js-people-plus').off();
+            });
         }
     };
 }]);
