@@ -385,6 +385,78 @@
         bottom 14px
         margin-left 10px
 
+.title-group
+    overflow hidden
+
+    &__title
+        font-size 18px
+
+    &__actions
+        float right
+
+
+.table
+    width 100%
+    border-collapse collapse
+    background #fff
+
+    &__body
+        .table__row:first-child
+            .table__cell
+                background -moz-linear-gradient(top,  rgba(192,192,194,.6) 0%, rgba(255,255,255,0) 10%)
+                background -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(192,192,194,.6)), color-stop(10%,rgba(255,255,255,0)))
+                background -webkit-linear-gradient(top,  rgba(192,192,194,.6) 0%,rgba(255,255,255,0) 10%)
+                background -o-linear-gradient(top,  rgba(192,192,194,.6) 0%,rgba(255,255,255,0) 10%)
+                background -ms-linear-gradient(top,  rgba(192,192,194,.6) 0%,rgba(255,255,255,0) 10%)
+                background linear-gradient(to bottom,  rgba(192,192,194,.6) 0%,rgba(255,255,255,0) 10%)
+                filter: unquote("progid:DXImageTransform.Microsoft.gradient( startColorstr='#c0c0c2', endColorstr='#00ffffff',GradientType=0 )")
+
+    &__row
+        border-bottom 1px solid #c0c0c2
+
+        &:hover
+            background #f2f3f4 !important
+
+            .table__actions
+                visibility visible
+
+    &__cell
+        padding 15px 12px 13px
+
+        &_status_head
+            border-right: 1px solid #c0c0c2
+            font-weight normal
+            text-align left
+            background #fff
+
+            &:last-child
+                border-left none
+
+        &_state_active
+            color #89c13a
+
+    &__actions
+        visibility hidden
+        min-width 140px
+        text-align right
+
+        &-action
+            color #878787
+            text-decoration none
+            padding-right 12px
+
+            &:hover
+                text-decoration underline
+
+    &__text
+        width 100%
+
+    &__text
+    &__actions
+        display table-cell
+
+
+
 
 
 
