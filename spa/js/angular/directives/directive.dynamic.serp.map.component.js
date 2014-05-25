@@ -295,7 +295,7 @@ angular.module('innaApp.directives')
                         icon: image,
                         shape: shape
                     });
-                    
+
                     marker.infoBox = new InfoBox({
                         content: elem[0].querySelector('.big-map__balloon_air'),
                         position: latLng,
