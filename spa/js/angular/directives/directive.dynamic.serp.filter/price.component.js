@@ -47,7 +47,7 @@ angular.module('innaApp.directives')
                         $scope.options = $scope.filter.options = new Options();
                         $scope.filter.options.push($scope.option);
                         $scope.filter.filterFn = function(ticket){
-                            if(ticket.data.MinimalPackagePrice > $scope.option.value) ticket.hidden = true;
+                            if(ticket.data.PackagePrice > $scope.option.value) ticket.hidden = true;
                         }
 
                         /*Methods*/
