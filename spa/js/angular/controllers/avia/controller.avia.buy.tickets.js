@@ -34,10 +34,10 @@ Cvc = "486";
                 num2: '',
                 num3: '',
                 num4: '',
-                cvc2: '',
-                cardHolder: '',
                 cardMonth: '',
                 cardYear: '',
+                cardHolder: '',
+                cvc2: '',
                 agree: false
             };
 
@@ -64,20 +64,81 @@ Cvc = "486";
                 };
             }
             
-            $scope.isFieldInvalid = function (item) {
-                //if (item != null && item.key == 'citizenship') {
-                //    console.log(item);
-                //}
-                if (item != null && item.value != null && (!_.isString(item.value) || item.value.length > 0)) {
-                    if ($scope.validationModel.formPure) {
-                        return item.isInvalid && item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
+            $scope.formPure = true;
+
+            //модель, показывает невалидную подсветку
+            $scope.indicator = {
+                num1: false,
+                num2: false,
+                num3: false,
+                num4: false,
+                cardMonth: false,
+                cardYear: false,
+                cardHolder: false,
+                cvc2: false,
+                agree: false
+            };
+
+            //признаки, что поле валидно
+            $scope.isValid = {
+                num1: true,
+                num2: true,
+                num3: true,
+                num4: true,
+                cardMonth: true,
+                cardYear: true,
+                cardHolder: true,
+                cvc2: true,
+                agree: true
+            };
+
+            $scope.indicatorValidate = function () {
+                var keys = _.keys($scope.payModel);
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i];
+                    $scope.indicator[key] = isFieldInvalid(key);
+                }
+            }
+
+            $scope.indicatorValidateKey = function (key) {
+                $scope.indicator[key] = isFieldInvalid(key);
+            }
+
+            function isFieldInvalid (key) {
+                var itemValue = $scope.payModel[key];
+                var isValid = $scope.isValid[key];
+
+                if (itemValue != null && (!_.isString(itemValue) || itemValue.length > 0)) {
+                    if ($scope.formPure) {
+                        //console.log('isFieldInvalid1, key: %s, isInvalid: %s', key, (!isValid && itemValue != null && itemValue.length > 0));
+                        return !isValid && itemValue != null && itemValue.length > 0;//подсвечиваем только если что-то введено в полях
                     }
                     else {
-                        return item.isInvalid;
+                        //console.log('isFieldInvalid2, key: %s, isInvalid: %s', key, (!isValid));
+                        return !isValid;
                     }
                 }
                 else {
-                    return !$scope.validationModel.formPure;
+                    //console.log('isFieldInvalid3, key: %s, isInvalid: %s', key, (!$scope.formPure));
+                    return !$scope.formPure;
+                }
+            }
+
+            $scope.validateField = function (key, value) {
+                //console.log('validateField, key: %s, value: %s', key, value);
+                if (key == 'num1' || key == 'num2' || key == 'num3' || key == 'num4') {
+                    $scope.validate['num1']();
+                    $scope.validate['num2']();
+                    $scope.validate['num3']();
+                    $scope.validate['num4']();
+                    $scope.indicatorValidateKey('num1');
+                    $scope.indicatorValidateKey('num2');
+                    $scope.indicatorValidateKey('num3');
+                    $scope.indicatorValidateKey('num4');
+                }
+                else {
+                    $scope.validate[key]();
+                    $scope.indicatorValidateKey(key);
                 }
             }
 
@@ -98,18 +159,6 @@ Cvc = "486";
             }
 
             function initValidateModel() {
-                $scope.isValid = {
-                    num1: true,
-                    num2: true,
-                    num3: true,
-                    num4: true,
-                    cvc2: true,
-                    cardHolder: true,
-                    cardMonth: true,
-                    cardYear: true,
-                    agree: true
-                };
-
                 function validateNumPart(value) {
                     return (value != null && value.length == 4);
                 }
@@ -135,22 +184,6 @@ Cvc = "486";
                         $scope.isValid.num4 = v;
                         return v;
                     },
-                    cvc2: function validateCvv() {
-                        if ($scope.payModel.cvc2.length == 3) {
-                            $scope.isValid.cvc2 = true;
-                            return true;
-                        }
-                        $scope.isValid.cvc2 = false;
-                        return false;
-                    },
-                    cardHolder: function validateCardholder() {
-                        if ($scope.payModel.cardHolder.length > 0) {
-                            $scope.isValid.cardHolder = true;
-                            return true;
-                        }
-                        $scope.isValid.cardHolder = false;
-                        return false;
-                    },
                     cardMonth: function validateCardMonth() {
                         if ($scope.payModel.cardMonth.length > 0) {
                             var iMonth = parseInt($scope.payModel.cardMonth);
@@ -171,6 +204,22 @@ Cvc = "486";
                             }
                         }
                         $scope.isValid.cardYear = false;
+                        return false;
+                    },
+                    cardHolder: function validateCardholder() {
+                        if ($scope.payModel.cardHolder.length > 0) {
+                            $scope.isValid.cardHolder = true;
+                            return true;
+                        }
+                        $scope.isValid.cardHolder = false;
+                        return false;
+                    },
+                    cvc2: function validateCvv() {
+                        if ($scope.payModel.cvc2.length == 3) {
+                            $scope.isValid.cvc2 = true;
+                            return true;
+                        }
+                        $scope.isValid.cvc2 = false;
                         return false;
                     },
                     agree: function () {
@@ -271,7 +320,8 @@ Cvc = "486";
                         //console.log('closeErrPopups, id: ' + key);
                         //$to.tooltipX("close");
                         try {
-                            $to.tooltipX("destroy");
+                            $to.tooltipX("close");
+                            //$to.tooltipX("destroy");
                         }
                         catch (e) { };
                     }
@@ -295,20 +345,22 @@ Cvc = "486";
                 }
             }
 
-            function validate() {
+            function validateAll() {
                 //console.log('validate');
                 validateKeys();
                 validateNum();
+                $scope.indicatorValidate();
 
-                var isValid = _.all(_.keys($scope.isValid), function (key) {
-                    return $scope.isValid[key] == true;
-                });
-                return isValid;
+                //var isValid = _.all(_.keys($scope.isValid), function (key) {
+                //    return $scope.isValid[key] == true;
+                //});
+                //return isValid;
             }
 
             function validateAndShowPopup() {
+                $scope.formPure = false;
                 //console.log('validateAndShowPopup');
-                validate();
+                validateAll();
 
                 var keys = _.keys($scope.isValid);
                 for (var i = 0; i < keys.length; i++) {
