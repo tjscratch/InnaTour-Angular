@@ -96,7 +96,8 @@
                     </div>
                     <div class="b-cc-block">
                         <label class="b-cc-block-label b-cc-block-label-number">Держатель<br> карты</label>
-                        <input type="text" class="b-field-text b-field-text-name" ng-class="{error:!isValid.cardHolder}" id="cardHolder" title="Нужно ввести держателя карты" ng-model="payModel.cardHolder">
+                        <input type="text" class="b-field-text b-field-text-name" ng-class="{error:!isValid.cardHolder}" id="cardHolder"
+                               title="Нужно ввести держателя карты" ng-model="payModel.cardHolder" to-upper>
                     </div>
                 </div>
                 <div class="b-cc-end">
