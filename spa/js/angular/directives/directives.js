@@ -450,6 +450,73 @@ innaAppDirectives.directive('upperLatin', ['$filter', function ($filter) {
     };
 }]);
 
+innaAppDirectives.directive('toUpper', ['$filter', function ($filter) {
+    return {
+        require: 'ngModel',
+        link: function ($scope, element, attrs, ngModel) {
+
+            var capitalize = function (inputValue) {
+                if (inputValue == null) return;
+
+                var capitalized = inputValue.toUpperCase();
+
+                if (capitalized !== inputValue) {
+                    ngModel.$setViewValue(capitalized);
+                    ngModel.$render();
+                }
+                return capitalized;
+            }
+
+            ngModel.$parsers.push(capitalize);
+            capitalize($scope[attrs.ngModel]);// capitalize initial value
+        }
+    };
+}]);
+
+innaAppDirectives.directive('validateSimple', [function () {
+    return {
+        require: 'ngModel',
+        scope: {
+            validate: '&',
+            key: '@'
+        },
+        link: function ($scope, element, attrs, ngModel) {
+            function validate(isUserAction) {
+                var type = null;
+                if (isUserAction)
+                    type = 'userAction';
+
+                $scope.validate({ key: $scope.key, value: ngModel.$modelValue });
+            };
+
+            element.on('blur', function () {
+                $scope.$apply(function () {
+                    validate(true);
+                });
+            }).on('keypress', function (event) {
+                var theEvent = event || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+                if (key == 13) {//enter
+                    $scope.$apply(function () {
+                        validate(true);
+                    });
+                }
+            }).on('click', function (event) {
+                var val = ngModel.$modelValue;
+
+                if (val != null && val.length > 0)
+                {
+                    $(this).select();
+                }
+            });
+
+            $scope.$on('$destroy', function () {
+                element.off();
+            });
+        }
+    };
+}]);
+
 innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', function ($rootScope, $parse) {
     return {
         scope: {
