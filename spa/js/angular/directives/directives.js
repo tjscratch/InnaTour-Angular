@@ -354,6 +354,7 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
     return {
         link: function ($scope, element, attrs) {
             var $elem = $(element);
+
             $elem.on('keypress', function (event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
@@ -455,25 +456,15 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
             ngValidationModel: '=',
             validateType: '=',
             dependsOn: '=',
-            validate: '&'
+            validate: '&',
+            supressSelectOnValue: '='
         },
         link: function ($scope, element, attrs) {
-            var idAttrIsSet = false;
+            var isInitDone = false;
             var eid = 'dir_inp_' + _.uniqueId();
             var $elem = $(element);
 
             function validate(isUserAction) {
-                //заполняем поля в модели
-                if ($scope.ngValidationModel != null &&
-                    $scope.ngValidationModel.validationType == null &&
-                    $scope.ngValidationModel.id == null) {
-
-                    $scope.ngValidationModel.validationType = $scope.validateType;
-                    $scope.ngValidationModel.id = eid;
-                    //валидация зависит от поля
-                    $scope.ngValidationModel.dependsOnField = $scope.dependsOn;
-                }
-
                 var type = null;
                 if (isUserAction)
                     type = 'userAction';
@@ -497,7 +488,8 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
                 }
             }).on('click', function (event) {
                 var val = $scope.ngValidationModel.value;
-                if (val != null && val.length > 0)
+
+                if (val != null && val.length > 0 && ($scope.supressSelectOnValue == null || val != $scope.supressSelectOnValue))//+7 для телефона
                 {
                     $(this).select();
                 }
@@ -518,11 +510,23 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
 
             //когда придет модель - проставим аттрибут id элементу
             function updateAttrId(model) {
-                if (!idAttrIsSet && model != null)
+                if (!isInitDone && model != null)
                 {
                     //проставляем уникальный id элементу
                     $elem.attr("id", eid);
-                    idAttrIsSet = true;
+                    isInitDone = true;
+
+                    //заполняем поля в модели
+                    if ($scope.ngValidationModel != null &&
+                        $scope.ngValidationModel.validationType == null &&
+                        $scope.ngValidationModel.id == null) {
+
+                        //console.log('key: %s, validationType: %s, value: %s',  $scope.ngValidationModel.key, $scope.ngValidationModel.validationType, $scope.ngValidationModel.value)
+                        $scope.ngValidationModel.validationType = $scope.validateType;
+                        $scope.ngValidationModel.id = eid;
+                        //валидация зависит от поля
+                        $scope.ngValidationModel.dependsOnField = $scope.dependsOn;
+                    }
                 }
             }
 
