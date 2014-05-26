@@ -6,7 +6,7 @@ inna.Models.Hotels.HotelsCollection.prototype.getMinPrice = function(){
     var min = Number.MAX_VALUE;
 
     this.each(function(hotel){
-        var price = hotel.data.MinimalPackagePrice;
+        var price = hotel.data.PackagePrice;
 
         if(price < min) min = price;
     });
@@ -18,7 +18,7 @@ inna.Models.Hotels.HotelsCollection.prototype.getMaxPrice = function(){
     var max = 0;
 
     this.each(function(hotel){
-        var price = hotel.data.MinimalPackagePrice;
+        var price = hotel.data.PackagePrice;
 
         if(price > max) max= price;
     });
