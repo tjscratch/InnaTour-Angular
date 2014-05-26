@@ -251,7 +251,7 @@ innaAppControllers.
                 $scope.validate = function (item, type) {
                     if (item != null) {
                         //console.log('validate, key: %s, element: %s', model.key, model.$element.get(0));
-                        //console.log('validate, key:\'%s\'; value:\'%s\'', model.key, model.value);
+                        //console.log('validate, item: %s; validationType: %s, type:%s', item.value, item.validationType, type);
                         switch (item.validationType) {
                             case validateType.required:
                                 {
@@ -586,8 +586,7 @@ innaAppControllers.
                 //console.log($scope.validationModel);
 
                 $scope.isFieldInvalid = function (item) {
-                    if (item != null) {
-
+                    if (item != null && item.value != null && item.value.length > 0) {
                         if ($scope.validationModel.formPure) {
                             return item.isInvalid && item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
                         }
@@ -595,7 +594,9 @@ innaAppControllers.
                             return item.isInvalid;
                         }
                     }
-                    return false;
+                    else {
+                        return !$scope.validationModel.formPure;
+                    }
                 }
             }
 
@@ -721,7 +722,7 @@ innaAppControllers.
                     name: '',
                     secondName: '',
                     email: '',
-                    phone: '',
+                    phone: '+7',
                     wannaNewsletter: false,//Я хочу получать рассылку спецпредложений
                     passengers: passengers
 
@@ -766,6 +767,8 @@ innaAppControllers.
 
                 $scope.validationModel.validateAll();
                 $scope.validatePeopleCount();
+
+                //console.log($scope.validationModel);
 
                 //ищем первый невалидный элемент, берем только непустые
                 var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
