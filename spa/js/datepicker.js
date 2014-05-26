@@ -113,7 +113,7 @@
 					tblCal = cal.find('table').eq(i+1);
 					switch (tblCal[0].className) {
 						case 'datepickerViewDays':
-							dow = formatDate(date, 'B, Y');
+							dow = formatDate(date, 'B Y');
 							break;
 						case 'datepickerViewMonths':
 							dow = date.getFullYear();

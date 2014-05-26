@@ -83,9 +83,9 @@ inna.Models.Dynamic.Combination.prototype.setHotel = function(hotel) {
 }
 
 inna.Models.Dynamic.Combination.prototype.getFullPackagePrice = function(){
-    return this.ticket.data.PackagePrice + this.hotel.data.PackagePrice;
+    return +this.ticket.data.PackagePrice + +this.hotel.data.PackagePrice;
 }
 
 inna.Models.Dynamic.Combination.prototype.getFullPrice = function(){
-    return this.ticket.data.Price + this.hotel.data.Price;
+    return +this.ticket.data.Price + +this.hotel.data.Price;
 }
