@@ -71,11 +71,15 @@
             <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде, используя платежный шлюз Промсвязьбанка</div>
             <div class="b-cc-container">
                 <div class="b-cc-front">
-                    <img src="spa/img/cc.png" class="b-cc-type" alt="">
+                    <img ng-if="visaOrMastercard == null" src="spa/img/cc.png" class="b-cc-type" alt="">
+                    <img ng-if="visaOrMastercard == true" src="spa/img/cc-visa.png" class="b-cc-type" alt="">
+                    <img ng-if="visaOrMastercard == false" src="spa/img/cc-mc.png" class="b-cc-type" alt="">
                     <div class="b-cc-block">
                         <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
                         <div id="num1" class="b-cc" title="Неправильно введен номер карты">
-                            <input ng-class="{error:!isValid.num1}" digits-input type="text" ng-model="payModel.num1" class="b-field-text b-field-text-small" maxlength="4">
+                            <input ng-class="{error:!isValid.num1}" digits-input type="text" ng-model="payModel.num1"
+                                   validate-simple validate="validateField(key, value)"
+                                   class="b-field-text b-field-text-small" maxlength="4">
                             <input ng-class="{error:!isValid.num2}" digits-input type="text" ng-model="payModel.num2" class="b-field-text b-field-text-small" maxlength="4">
                             <input ng-class="{error:!isValid.num3}" digits-input type="text" ng-model="payModel.num3" class="b-field-text b-field-text-small" maxlength="4">
                             <input ng-class="{error:!isValid.num4}" digits-input type="text" ng-model="payModel.num4" class="b-field-text b-field-text-small" maxlength="4">

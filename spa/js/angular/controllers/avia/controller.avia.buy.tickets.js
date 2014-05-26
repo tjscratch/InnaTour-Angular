@@ -41,6 +41,13 @@ Cvc = "486";
                 agree: false
             };
 
+            $scope.visaOrMastercard = null;
+            function trackVisaOrMC() {
+                if ($scope.payModel.num1 != null && $scope.payModel.num1.length > 0) {
+                    $scope.visaOrMastercard = $scope.payModel.num1.startsWith('4');
+                }
+            }
+
             $scope.fillTestData = function ($event) {
                 eventsHelper.preventBubbling($event);
 
@@ -56,6 +63,39 @@ Cvc = "486";
                     agree: true
                 };
             }
+            
+            $scope.isFieldInvalid = function (item) {
+                //if (item != null && item.key == 'citizenship') {
+                //    console.log(item);
+                //}
+                if (item != null && item.value != null && (!_.isString(item.value) || item.value.length > 0)) {
+                    if ($scope.validationModel.formPure) {
+                        return item.isInvalid && item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
+                    }
+                    else {
+                        return item.isInvalid;
+                    }
+                }
+                else {
+                    return !$scope.validationModel.formPure;
+                }
+            }
+
+            function validateNum() {
+                function setNums(isValid) {
+                    $scope.isValid.num1 = isValid;
+                    $scope.isValid.num2 = isValid;
+                    $scope.isValid.num3 = isValid;
+                    $scope.isValid.num4 = isValid;
+                }
+                var cardNum = $scope.payModel.num1 + $scope.payModel.num2 + $scope.payModel.num3 + $scope.payModel.num4;
+                if (cardNum.length == 16) {
+                    setNums(true);
+                    return true;
+                }
+                setNums(false);
+                return false;
+            }
 
             function initValidateModel() {
                 $scope.isValid = {
@@ -70,34 +110,30 @@ Cvc = "486";
                     agree: true
                 };
 
-                function validateNum() {
-                    function setNums(isValid) {
-                        $scope.isValid.num1 = isValid;
-                        $scope.isValid.num2 = isValid;
-                        $scope.isValid.num3 = isValid;
-                        $scope.isValid.num4 = isValid;
-                    }
-                    var cardNum = $scope.payModel.num1 + $scope.payModel.num2 + $scope.payModel.num3 + $scope.payModel.num4;
-                    if (cardNum.length == 16) {
-                        setNums(true);
-                        return true;
-                    }
-                    setNums(false);
-                    return false;
+                function validateNumPart(value) {
+                    return (value != null && value.length == 4);
                 }
 
                 $scope.validate = {
                     num1: function () {
-                        return validateNum();
+                        var v = validateNumPart($scope.payModel.num1);
+                        $scope.isValid.num1 = v;
+                        return v;
                     },
                     num2: function () {
-                        return validateNum();
+                        var v = validateNumPart($scope.payModel.num2);
+                        $scope.isValid.num2 = v;
+                        return v;
                     },
                     num3: function () {
-                        return validateNum();
+                        var v = validateNumPart($scope.payModel.num3);
+                        $scope.isValid.num3 = v;
+                        return v;
                     },
                     num4: function () {
-                        return validateNum();
+                        var v = validateNumPart($scope.payModel.num4);
+                        $scope.isValid.num4 = v;
+                        return v;
                     },
                     cvc2: function validateCvv() {
                         if ($scope.payModel.cvc2.length == 3) {
@@ -233,26 +269,36 @@ Cvc = "486";
                     var $to = $('#' + key);
                     if ($to.attr('tt') == 'true') {
                         //console.log('closeErrPopups, id: ' + key);
-                        $to.tooltipX("close");
+                        //$to.tooltipX("close");
+                        try {
+                            $to.tooltipX("destroy");
+                        }
+                        catch (e) { };
                     }
                 });
             }
 
             $scope.$watch('payModel', function () {
+                trackVisaOrMC();
                 closeErrPopups();
-                validateKeys();
+                //validateKeys();
             }, true);
 
             function validateKeys() {
-                _.each(_.keys($scope.validate), function (key) {
+                //console.log('validateKeys');
+                var keys = _.keys($scope.validate);
+                for (var i = 0; i < keys.length; i++) {
+                    var key = keys[i];
                     var fn = $scope.validate[key];
                     if (fn != null)
                         fn();
-                });
+                }
             }
 
             function validate() {
+                //console.log('validate');
                 validateKeys();
+                validateNum();
 
                 var isValid = _.all(_.keys($scope.isValid), function (key) {
                     return $scope.isValid[key] == true;
@@ -261,6 +307,7 @@ Cvc = "486";
             }
 
             function validateAndShowPopup() {
+                //console.log('validateAndShowPopup');
                 validate();
 
                 var keys = _.keys($scope.isValid);

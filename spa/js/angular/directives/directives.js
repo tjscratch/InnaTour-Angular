@@ -473,6 +473,41 @@ innaAppDirectives.directive('toUpper', ['$filter', function ($filter) {
     };
 }]);
 
+innaAppDirectives.directive('validateSimple', [function () {
+    return {
+        require: 'ngModel',
+        scope: {
+            validate: '&'
+        },
+        link: function ($scope, element, attrs, ngModel) {
+            $elem.on('blur', function () {
+                $scope.$apply(function () {
+                    validate(true);
+                });
+            }).on('keypress', function (event) {
+                var theEvent = event || window.event;
+                var key = theEvent.keyCode || theEvent.which;
+                if (key == 13) {//enter
+                    $scope.$apply(function () {
+                        validate(true);
+                    });
+                }
+            }).on('click', function (event) {
+                var val = $scope.ngValidationModel.value;
+
+                if (val != null && val.length > 0)
+                {
+                    $(this).select();
+                }
+            });
+
+            $scope.$on('$destroy', function () {
+                $elem.off();
+            });
+        }
+    };
+}]);
+
 innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', function ($rootScope, $parse) {
     return {
         scope: {

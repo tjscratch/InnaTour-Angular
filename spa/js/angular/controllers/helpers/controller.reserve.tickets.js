@@ -756,12 +756,12 @@ innaAppControllers.
                 },
                 close: function ($to) {
                     //$to.tooltip("disable");
-                    $to.tooltipX("destroy");
-                    //try
-                    //{
-                    //    $to.tooltipX("destroy");
-                    //}
-                    //catch(e){};
+                    //$to.tooltipX("destroy");
+                    try
+                    {
+                        $to.tooltipX("destroy");
+                    }
+                    catch(e){};
                 }
             };
 
