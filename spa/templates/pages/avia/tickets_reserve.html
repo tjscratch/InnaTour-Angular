@@ -55,14 +55,14 @@
                     </ul>
                 </div>
                 <div class="b-field-block" style="width: 160px;">
-                    <label class="b-field-label">Имя (латиницей)</label>
+                    <label class="b-field-label">Имя</label>
                     <input upper-latin validate-events-dir ng-model="passenger.name.value" 
                            ng-validation-model="passenger.name" validate="validate(item, type)" validate-type="validateType.required"
                            ng-class="{error:isFieldInvalid(passenger.name)}"
                            type="text" placeholder="IVAN" class="b-field-text">
                 </div>
                 <div class="b-field-block b-field-block-surname" style="width: 150px;">
-                    <label class="b-field-label">Фамилия (латиницей)</label>
+                    <label class="b-field-label">Фамилия</label>
                     <input upper-latin validate-events-dir ng-model="passenger.secondName.value" 
                            ng-validation-model="passenger.secondName" validate="validate(item, type)" validate-type="validateType.required"
                            ng-class="{error:isFieldInvalid(passenger.secondName)}"
