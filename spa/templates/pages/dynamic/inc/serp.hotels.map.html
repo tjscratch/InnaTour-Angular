@@ -1,24 +1,20 @@
 <div class="big-map">
     <div id="big-map-canvas" class="b-hotels-on-map"></div>
 
-    <div class="pin big-map__balloon "> <!--ng-if="currentHotel"-->
+    <div class="pin big-map__balloon" ng-if="currentHotel">
         <div class="pin-balloon">
 
-            <div class="hotel-gallery b-carousel" info-box-carousel>
+            <div class="hotel-gallery b-carousel b-carousel_map" info-box-carousel>
                 <div class="hotel-gallery-arrow-left b-carousel__prev"></div>
                 <div class="hotel-gallery-arrow-right b-carousel__next"></div>
                 <a href="" class="hotel-gallery-photo-button">24</a>
 
                 <div class="hotel-gallery-container b-carousel__holder">
                     <div class="b-carousel__slider">
-                        <div class="b-carousel__slider_item">
-                            <img src="/spa/img/hotel-map-photo.jpg" alt="">
-                        </div>
-                        <div class="b-carousel__slider_item">
-                            <img src="/spa/img/hotel-map-photo2.jpg?q=121212" alt="">
-                        </div>
-                        <div class="b-carousel__slider_item">
-                            <img src="/spa/img/hotel-map-photo.jpg" alt="">
+                        <div class="b-carousel_item b-carousel_map_item"
+                             ng-repeat="photos in currentHotel.data.Photos">
+                            <div class="b-carousel_map_item_image"
+                                 style="background-image: url({{photos.Large}});"></div>
                         </div>
                     </div>
                 </div>
@@ -57,7 +53,7 @@
                         <span>цена пакета</span>
 
                         <h3 class="hotel-info-price">
-                            {{currentHotel.data.MinimalPackagePrice}}
+                            {{currentHotel.data.PackagePrice}}
                             <span class="b-rub">Р</span>
                         </h3>
 
@@ -73,7 +69,7 @@
 
 
     <!-- Показываем при наведении на маркер -->
-    <div class="pin big-map__balloon_preview">
+    <div class="pin big-map__balloon_preview ng-hide" ng-show="currentHotelPreview">
         <div class="pin-balloon">
             <div class="pin-balloon-info">
                 <div>
@@ -109,7 +105,7 @@
                         <span>цена пакета</span>
 
                         <h3 class="hotel-info-price">
-                            {{currentHotelPreview.data.MinimalPackagePrice}}
+                            {{currentHotelPreview.data.PackagePrice}}
                             <span class="b-rub">Р</span>
                         </h3>
                     </div>
@@ -119,12 +115,12 @@
     </div>
 
 
-    <div class="pin pin_mini big-map__balloon_air">
+    <div class="pin pin_mini big-map__balloon_air ng-hide" ng-show="airport">
         <div class="pin-balloon">
-            <span>
-                Шереметьево
-                <span class="color-gray">SVO</span>
-            </span>
+            <div class="row">
+                <div class="col-xs-9 col-no-padding">{{airport.data.Name}}</div>
+                <div class="col-xs-3 col-no-padding col-xs-push-1 color-gray">{{airport.data.CodeIata}}</div>
+            </div>
         </div>
     </div>
 </div>

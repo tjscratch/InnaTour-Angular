@@ -17,15 +17,19 @@
 
 	&__slider {
 		position: relative;
+		overflow : hidden;
 		transition: transform .2s linear
 
-		&_item {
-			float: left;
-
-			.img {
-				text-align: center;
-				vertical-align: top;
-			}
+		&:after {
+			content: '';
+			display : block;
+			clear : both;
 		}
+	}
+
+	&_item {
+		float: left;
+		text-align : center;
+		position : relative;
 	}
 }

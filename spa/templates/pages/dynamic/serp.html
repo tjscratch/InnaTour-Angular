@@ -1,9 +1,11 @@
 <ng:include src="'/spa/templates/pages/dynamic/inc/bundle.html'" ng-if="combination.hotel && combination.ticket"></ng:include>
 
+<!--  -->
 <div class="results-body" ng-show="!showLanding">
     <ng:include src="state.display"></ng:include>
 </div>
 
+<!-- -->
 <div ng-controller="DynamicPackageSERPTicketPopupCtrl">
     <div style="display:block;" class="overlay js-overlay" ng-if="ticket.data">
         <div class="balloon baloon_ticket baloon_2ticket">
