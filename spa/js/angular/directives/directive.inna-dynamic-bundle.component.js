@@ -9,10 +9,16 @@ angular.module('innaApp.directives')
                 getHotelDetails: '=innaDynamicBundleHotelDetails'
             },
             controller: [
-                '$scope', 'aviaHelper', '$element', '$controller',
-                function($scope, aviaHelper, $element, $controller){
-                    /*Mixins*/
-                    $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
+                '$scope', 'aviaHelper', '$element',
+                function($scope, aviaHelper, $element){
+                    $scope.infoPopup = new inna.Models.Aux.AttachedPopup();
+                    $scope.linkPopup = new inna.Models.Aux.AttachedPopup();
+
+                    $scope.$watch('linkPopup.isOpen', function(){
+                        $scope.location = document.location;
+                    });
+
+                    $scope.location = document.location;
 
                     /*Proxy*/
                     $scope.dateHelper = dateHelper;
