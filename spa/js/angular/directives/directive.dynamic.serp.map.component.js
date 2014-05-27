@@ -490,12 +490,12 @@ angular.module('innaApp.directives')
                     map.fitBounds(bounds);
                 }
 
-                /*scope.$watchCollection('[hotels, airports]', function (data) {
+                scope.$watchCollection('[hotels, airports]', function (data) {
                     updateMap({
                         hotels : data[0],
                         airports : data[1]
                     })
-                });*/
+                });
             }
         }
     }]);
