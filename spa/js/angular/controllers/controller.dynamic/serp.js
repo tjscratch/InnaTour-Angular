@@ -242,6 +242,30 @@ innaAppControllers
                     });
                 }, combination500);
             })();
+
+            /*Because fuck angular, that's why!*/
+            $(function(){
+                var doc = $(document);
+                var onIconPriceClick = function(event){
+                    event.stopPropagation();
+
+                    var parent = $(this).parents('.result')[0];
+                    var tooltip = $('.JS-tooltip-price', parent);
+
+                    tooltip.toggle();
+
+                    doc.on('click', function bodyClick(){
+                        tooltip.hide();
+                        doc.off('click', bodyClick);
+                    });
+                }
+
+                doc.on('click', '.JS-icon-price-info', {}, onIconPriceClick);
+
+                $scope.$on('$destroy', function(){
+                    doc.off('click', onIconPriceClick);
+                });
+            });
         }
     ])
     .controller('DynamicPackageSERPTicketPopupCtrl', [
