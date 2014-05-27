@@ -294,8 +294,9 @@ Cvc = "486";
 
             $scope.cancelReservation = {
                 show: function ($event) {
-                    alert('Не реализовано');
-                    eventsHelper.preventBubbling($event);
+                    //alert('Не реализовано');
+                    //eventsHelper.preventBubbling($event);
+                    $scope.tarifs.show($event);
                 }
             }
 
@@ -475,7 +476,7 @@ Cvc = "486";
                                 return m;
                             }
 
-                            function getExpTimeFormatted(time) {
+                            $scope.getExpTimeFormatted = function (time) {
                                 if (time != null) {
                                     //вычисляем сколько полных часов
                                     var h = Math.floor(time / 60);
@@ -504,7 +505,7 @@ Cvc = "486";
                                 m.expirationDate = dateHelper.apiDateToJsDate(data.ExperationDate);
                                 m.expirationDateFormatted = aviaHelper.getDateFormat(m.expirationDate, 'dd MMM yyyy');
                                 m.experationMinute = data.ExperationMinute;
-                                m.experationMinuteFormatted = getExpTimeFormatted(Math.abs(data.ExperationMinute));
+                                m.experationMinuteFormatted = $scope.getExpTimeFormatted(Math.abs(data.ExperationMinute));
                                 return m;
                             }
 
@@ -549,6 +550,7 @@ Cvc = "486";
                 loadTarifs();
                 $scope.tarifs.fillInfo();
                 $scope.focusControl.init();
+                $scope.paymentDeadline.setUpdate();
             };
             
             //data loading ===========================================================================
@@ -669,4 +671,31 @@ Cvc = "486";
                 }
                 
             }
+
+            //срок оплаты билета
+            function paymentDeadline() {
+                var self = this;
+                self.id = null;
+                self.setUpdate = function () {
+                    self.id = $interval(function () {
+                        self.updateExiration();
+                    }, 60000);
+                }
+                self.updateExiration = function () {
+                    if ($scope.reservationModel != null) {
+                        $scope.reservationModel.experationMinute = +$scope.reservationModel.experationMinute - 1;
+                        $scope.reservationModel.experationMinuteFormatted = $scope.getExpTimeFormatted($scope.reservationModel.experationMinute);
+                    }
+                }
+                self.destroy = function () {
+                    if (self.id != null) {
+                        $interval.cancel(self.id);
+                    }
+                }
+            }
+            $scope.paymentDeadline = new paymentDeadline();
+
+            $scope.$on('$destroy', function () {
+                $scope.paymentDeadline.destroy();
+            });
         }]);
