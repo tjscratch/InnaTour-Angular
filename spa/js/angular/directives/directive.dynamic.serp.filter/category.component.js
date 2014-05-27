@@ -31,7 +31,7 @@ angular.module('innaApp.directives')
                         $scope.filter.filterFn = function(hotel){
                             var fits = false;
 
-                            this.options.each(function(option){
+                            this.options.getSelected().each(function(option){
                                 fits = fits || (hotel.data.Stars == option.value);
                             });
 

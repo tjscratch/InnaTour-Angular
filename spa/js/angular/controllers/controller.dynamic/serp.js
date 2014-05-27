@@ -294,15 +294,10 @@ innaAppControllers
                 var body = document.body || document.documentElement;
 
                 if(body.scrollTop > 230) {
-                    if($scope.display.isCurrent($scope.display.FULL)) {
-                        $scope.$apply(function($scope){
-                            $scope.display.current = $scope.display.SHORT;
-                        });
-                    }
+                    console.log('sdjfhsd');
+                    $scope.$emit('header:hidden');
                 } else {
-                    $scope.$apply(function($scope){
-                        $scope.display.current = $scope.display.FULL;
-                    });
+                    $scope.$emit('header:visible');
                 }
             };
 
@@ -335,16 +330,11 @@ innaAppControllers
                         $scope.$emit('header:visible');
                     }
                 }
-
-                this.help = false;
-                this.toggleHelp = function(){
-                    this.help = !this.help;
-                }
             };
 
             // подписываемся на событие toggle:visible:bundle
             // скрываем бандл вместе с шапкой
-            $scope.$root.$on('toggle:visible:bundle', $scope.display.toggle());
+            $scope.$root.$on('toggle:visible:bundle', $scope.display.toggle);
 
             /*Events*/
             $scope.$on('$destroy', unwatchScroll);
