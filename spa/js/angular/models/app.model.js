@@ -243,6 +243,10 @@ inna.Models._CollectionFactory = function(){
         this.list = list;
     };
 
+    Collection.prototype.getList = function(){
+        return this.list;
+    };
+
     Collection.prototype.each = function(fn){
         for(var i = 0, item = null; item = this.list[i++];) {
             fn.call(this, item);
