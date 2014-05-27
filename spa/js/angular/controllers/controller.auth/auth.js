@@ -69,6 +69,10 @@ angular.module('innaApp.controllers')
                 $scope.open();
             }
 
+            $scope.recognize = function(){
+                AuthDataProvider.recognize(setUserInfo);
+            }
+
             $scope.B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
 
             /*EventListeners*/
@@ -78,8 +82,6 @@ angular.module('innaApp.controllers')
             });
 
             /*Initial*/
-            (function(){
-                AuthDataProvider.recognize(setUserInfo);
-            })();
+            $scope.recognize();
         }
     ]);

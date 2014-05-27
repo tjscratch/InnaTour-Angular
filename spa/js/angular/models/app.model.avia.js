@@ -216,6 +216,13 @@ inna.Models.Avia.Ticket.prototype.getDuration = function(dir){
     return inna.Models.Avia.Ticket.__getDuration(this.data['Time' + dir], 'ч.', 'мин.');
 };
 
+inna.Models.Avia.Ticket.prototype.getDate = function(dir, type){
+    dir = {'To': '', 'Back': 'Back'}[dir]
+    type = [dir, type, 'Date'].join('');
+
+    return this.data[type];
+}
+
 inna.Models.Avia.Ticket.prototype.getEtaps = function(dir) {
     return this.data['Etaps' + dir];
 };

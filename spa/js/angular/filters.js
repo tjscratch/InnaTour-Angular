@@ -69,3 +69,12 @@ innaAppFilters.filter('asQuantity', function(){
         return [n, chooseForm(n, f1, f2, f5)].join(' ');
     }
 });
+
+innaAppFilters.filter('signed', function(){
+    return function(n){
+        if(n > 0) return '+ ' + n;
+        if(n < 0) return '– ' + (-n);
+
+        return 0;
+    }
+})

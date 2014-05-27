@@ -239,9 +239,22 @@
     background #fff
     margin 0 0 10px
     border-radius 4px
-    box-shadow 0 2px 3px rgba(0,0,0,.8)
+    box-shadow 0 2px 3px rgba(0,0,0,.2)
     clearfix()
     position relative
+
+    &:hover
+        box-shadow 0 2px 3px rgba(0,0,0,.7)
+
+        .rl-item-separator:before
+            background url(../img/corner-top-hover.png) no-repeat
+            height 9px
+            top -1px
+
+        .rl-item-separator:after
+            background url(../img/corner-bot-hover.png) no-repeat #b9bbc0
+            height 11px
+            bottom -5px
 
 .rl-item-header
     clearfix()
@@ -250,7 +263,6 @@
 
 .rl-price
     font-weight bold
-    text-align center
     padding 68px 0 0
     display block
 
@@ -306,11 +318,10 @@
     clearfix()
     font-size 14px
     position relative
-    padding 7px 0 0
 
 .rl-more-info
     float right
-    padding 15px 0 9px
+    padding 9px 0 
     color #1E88C1
     text-decoration underline
 
@@ -319,8 +330,9 @@
 
 .rl-tickets-number
     float left
-    padding 15px 14px 9px
+    padding 9px 14px
     color #dd3e14
+    margin-left 30px
 
 .rl-class
     position absolute
@@ -436,7 +448,9 @@
     position relative
 
 .rlf-full-travel-time
-    font-size 13px
+    font-size 14px
+    color #666
+    padding 15px 0 0
 
 .rlf-part
     clearfix()
@@ -482,7 +496,7 @@
 
 .rfl-column3
     float right
-    width 205px
+    // width 205px
     font-size 13px
 
 .rlf-aviacompany
@@ -851,10 +865,57 @@
 .rlf-fly_back
     background url(../img/suda.png) no-repeat
 
+.rlf__flight-block
+    display inline-block
+    max-width 210px
+    min-width 120px
+    vertical-align top
+    color #666
+    font-size 14px
 
+    b
+        color #000
 
+.buy__fly_footer .buy__tickets
+    padding-bottom 30px
 
+.rlf__oneway
+    font-size 20px
+    color #c0c0c2
+    font-weight bold 
+    background none !important
+    text-align center
+    padding 25px 0
 
+.rl__info
+    width 18px
+    height 18px
+    float right
+    background url(../img/info.png) no-repeat
+    display block
+    position relative
+    margin 2px 10px 0
+    cursor pointer
+    color #4B4B4B
 
+.rl__info-popup
+    position absolute
+    cursor default
+    right -20px
+    top 20px
+    background #fff
+    border-radius 5px
+    z-index 10
+    padding 8px 0
+    box-shadow 0 2px 3px rgba(0,0,0,.7)
 
+    th
+    td
+        white-space nowrap
+        text-align left
+        font-weight normal
+        font-size 14px
+        padding 0 10px
 
+        .rub
+            font-size 14px
