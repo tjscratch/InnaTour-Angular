@@ -76,7 +76,7 @@
                     <img ng-if="visaOrMastercard == false" src="spa/img/cc-mc.png" class="b-cc-type" alt="">
                     <div class="b-cc-block">
                         <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
-                        <div id="num1" class="b-cc" title="Неправильно введен номер карты">
+                        <div id="num1" class="b-cc js-cardnum-block" title="Неправильно введен номер карты">
                             <input ng-class="{error:indicator.num1}" digits-input type="text" ng-model="payModel.num1"
                                    validate-simple validate="validateField(key, value)" key="num1"
                                    class="b-field-text b-field-text-small" maxlength="4">
