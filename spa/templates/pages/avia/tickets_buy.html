@@ -131,7 +131,7 @@
             <div class="b-agreement-container">
                 <a ng-href="#" ng-click="fillTestData($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>
                 <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить" ng-click="processToBuy($event)"></span>
-                <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree"><ins class="b-checkbox" id="agree" title="Нужно согласиться с условиями"></ins>Я согласен с условиями <a href="#" ng-click="oferta.show($event)">договора-оферты</a>, ознакомлен с <a ng-href="#" ng-click="tarifs.show($event)">правилами изменения</a> и <a href="#" ng-click="cancelReservation.show($event)">отмены бронирования</a> и 
+                <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree"><ins class="b-checkbox" id="agree" title="Нужно согласиться с условиями"></ins>Я согласен с условиями <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a>, ознакомлен с <a ng-href="#" ng-click="tarifs.show($event)">правилами изменения</a> и <a href="#" ng-click="cancelReservation.show($event)">отмены бронирования</a> и 
 не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
                 <img src="/spa/img/logos.png" class="b-logos" alt="">
             </div>

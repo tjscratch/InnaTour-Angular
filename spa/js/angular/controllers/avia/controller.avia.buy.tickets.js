@@ -286,9 +286,9 @@ Cvc = "486";
             $scope.tarifs = new tarifs();
 
             $scope.oferta = {
-                show: function ($event) {
-                    alert('Не реализовано');
-                    eventsHelper.preventBubbling($event);
+                url: function () {
+                    var host = app_main.host.replace('api.', 's.');
+                    return host + '/files/doc/offer.pdf';
                 }
             }
 
@@ -536,7 +536,7 @@ Cvc = "486";
                 function getTarifs() {
                     paymentService.getTarifs({ variantTo: $scope.aviaInfo.VariantId1, varianBack: $scope.aviaInfo.VariantId2 },
                         function (data) {
-                            //log('paymentService.getTarifs, data: ' + angular.toJson(data));
+                            log('\npaymentService.getTarifs, data: ' + angular.toJson(data));
                             $scope.tarifs.tarifsData = data;
                         },
                         function (data, status) {
