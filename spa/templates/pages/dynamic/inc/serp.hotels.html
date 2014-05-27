@@ -1,4 +1,6 @@
-<div class="results-container results-container_top" ng-if="!asMap">
+<div class="results-container results-container_top"
+     ng-if="!asMap"
+     ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
         <div
                 ng-repeat="hotel in hotels.filter(hotelFilters)"
