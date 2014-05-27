@@ -5,7 +5,7 @@ angular.module('innaApp.directives')
         return {
             replace: true,
             restrict: 'A',
-            templateUrl: '/spa/templates/regions/footer.html',
+            templateUrl: '/spa/js/angular/regions/footer/templ/footer.html',
             scope: {},
             controller: function ($scope) {
 

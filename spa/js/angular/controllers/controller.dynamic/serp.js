@@ -294,15 +294,10 @@ innaAppControllers
                 var body = document.body || document.documentElement;
 
                 if(body.scrollTop > 230) {
-                    if($scope.display.isCurrent($scope.display.FULL)) {
-                        $scope.$apply(function($scope){
-                            $scope.display.current = $scope.display.SHORT;
-                        });
-                    }
+                    console.log('sdjfhsd');
+                    $scope.$emit('header:hidden');
                 } else {
-                    $scope.$apply(function($scope){
-                        $scope.display.current = $scope.display.FULL;
-                    });
+                    $scope.$emit('header:visible');
                 }
             };
 
