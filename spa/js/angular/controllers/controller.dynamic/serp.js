@@ -335,16 +335,11 @@ innaAppControllers
                         $scope.$emit('header:visible');
                     }
                 }
-
-                this.help = false;
-                this.toggleHelp = function(){
-                    this.help = !this.help;
-                }
             };
 
             // подписываемся на событие toggle:visible:bundle
             // скрываем бандл вместе с шапкой
-            $scope.$root.$on('toggle:visible:bundle', $scope.display.toggle());
+            $scope.$root.$on('toggle:visible:bundle', $scope.display.toggle);
 
             /*Events*/
             $scope.$on('$destroy', unwatchScroll);

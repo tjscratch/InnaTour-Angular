@@ -79,11 +79,7 @@
 
         <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
 
-        <div class="result-cell result-buy"
-             inna-with="hotel.data.MinimalPrice as hMinPrice,
-                        ticket.data.Price as aPrice,
-                        hMinPrice + aPrice as sum,
-                        hotel.data.MinimalPackagePrice + ticket.data.PackagePrice as pSum">
+        <div class="result-cell result-buy">
             <span class="icon icon-clip"></span>
             <p class="corner-price cross">
                 {{bundle.getFullPrice()}}<span class="b-rub">Р</span>
@@ -91,9 +87,9 @@
             </p>
             <p class="price">
                 {{bundle.getFullPackagePrice()}} <span class="b-rub">Р</span>
-                <span class="icon icon-price-info" ng-click="display.toggleHelp($event)"></span>
+                <span class="icon icon-price-info" ng-click="popup.toggle()"></span>
             </p>
-            <div class="tooltip tooltip-price" ng-if="display.help">
+            <div class="tooltip tooltip-price" ng-if="popup.isOpen">
                 По отдельности
                 <ul>
                     <li class="list-price-item">Перелет <span class="list-price pull-right">{{bundle.ticket.data.Price}}<span class="b-rub">Р</span></span></li>
