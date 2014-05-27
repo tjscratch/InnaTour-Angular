@@ -2456,9 +2456,6 @@ a img,
 address {
   font-style: normal;
 }
-html {
-  background-color: #000000;
-}
 input::-ms-clear {
   display: none;
 }

@@ -9,10 +9,12 @@ angular.module('innaApp.directives')
                 getHotelDetails: '=innaDynamicBundleHotelDetails'
             },
             controller: [
-                '$scope', 'aviaHelper',
-                function($scope, aviaHelper){
-                    console.log('innaDynamicBundle', $scope);
+                '$scope', 'aviaHelper', '$element', '$controller',
+                function($scope, aviaHelper, $element, $controller){
+                    /*Mixins*/
+                    $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
+                    /*Proxy*/
                     $scope.dateHelper = dateHelper;
 
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
