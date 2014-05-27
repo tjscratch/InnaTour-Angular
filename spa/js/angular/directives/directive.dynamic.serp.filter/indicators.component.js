@@ -5,7 +5,8 @@ angular.module('innaApp.directives')
             replace: true,
             scope: {
                 filters: '=innaDynamicSerpFilterIndicatorsFilters',
-                items: '=innaDynamicSerpFilterIndicatorsItems'
+                items: '=innaDynamicSerpFilterIndicatorsItems',
+                action: '=innaDynamicSerpFilterIndicatorsAction'
             },
             controller: [
                 '$scope',

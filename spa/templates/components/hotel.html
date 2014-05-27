@@ -25,7 +25,7 @@
                 </div>
                 <h3 class="hotel-info-name">{{hotel.data.HotelName}}</h3>
                 <a href="" class="hotel-info-place">{{hotel.data.HotelCityName}}, {{hotel.data.HotelCountryName}}</a>
-                <!--TODO<div class="warning">Последний номер</div>-->
+                <div class="warning" ng-if="combination.hotel.data.RoomCount == 1">Последний номер</div>
             </div>
         </div>
 
@@ -43,5 +43,5 @@
         </div>
     </div>
     <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
-    <div class="result-cell result-buy" ng-transclude></div>
+    <div class="result-cell result-choice" ng-transclude></div>
 </div>

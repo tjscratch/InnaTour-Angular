@@ -11,12 +11,13 @@
   .warning
     color #dd3e14
 
-  .icon-plane-grey, .icon-clip, .icon-hanger-grey
+  .icon-plane-grey, .icon-hanger-grey
     position absolute
     top 7px
     right 5px
 
   .tooltip-price
+    right: -4px
     color #4d4d4d
     font-size 14px
     width 140px
@@ -45,6 +46,9 @@
     padding 10px
     position relative
     vertical-align top
+
+    &__airlines *
+      vertical-align middle
 
     &:first-child
       margin-left 0
@@ -141,10 +145,63 @@
 
   .result-buy
 
-    .icon-clip, .icon-crown
+    .icon-crown
       position: absolute
       right 11px
       top 9px
+
+    .share-button
+      background transparent
+      border 0
+      border-radius(2px)
+      cursor pointer
+      height 30px
+      position absolute
+      margin 0
+      right 3px
+      top 2px
+      width 32px
+
+      &:before
+        background url(../img/ticket/clip.png)
+        content ''
+        display block
+        height 17px
+        margin 2px 0 0 2px
+        width: 17px
+
+      &:hover
+        background #e6e7e9
+
+        &:before
+          background-position 0 17px
+
+      &.active
+        background #89c13a
+
+        &:before
+          background-position 0 17px
+
+    .tooltip-share-link
+      position absolute
+      padding 8px 29px 7px 6px
+      right -4px
+      top 30px
+
+      .icon-cross
+        cursor pointer
+        position absolute
+        right 9px
+        top 13px
+
+
+    .share-link-input
+      border 0
+      background #4d4d4d
+      color #fff
+      height 20px
+      padding 0 5px
+      width 200px
 
     .price
       color #000
@@ -222,6 +279,9 @@
       font-weight normal
       line-height 16px
       width 76px
+
+    .date_w_120
+      width 120px
 
     b
       color #000

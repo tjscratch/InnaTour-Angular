@@ -1,31 +1,32 @@
-<div class="rl-item">
-    <div class="rl-item-separator"></div>
-    <div class="rl-left">
-        <header class="rl-item-header">
-            <span class="rl-airline" ng-repeat="(code, name) in ticket.collectAirlines()">
-                <img ng-src="{{airLogo(code)}}" alt=""><span class="rl-airline-text">{{name}}</span>
+<div class="result">
+    <div class="result-cell result-cell-530">
+        <span ng-repeat="(code, name) in ticket.collectAirlines()" class="result-cell__airlines">
+            <img ng-src="{{airLogo(code)}}" alt="" class="logo"><span class="rl-airline-text">{{name}}</span>
+        </span>
+
+        <div class="flight-info" ng-repeat="dir in ['To', 'Back']">
+            <span class="date date_w_120">
+                <b>{{dateHelper.getTime(ticket.getDate(dir, 'Departure'))}}</b> {{dateHelper.getDateShort(ticket.getDate(dir, 'Departure'))}}, {{dateHelper.getDay(ticket.getDate(dir, 'Departure'))}}<br>
+                <span ng-if="dir == 'To'">{{ticket.data.CityFrom}} {{ticket.data.OutCode}}</span>
+                <span ng-if="dir == 'Back'">{{ticket.data.CityTo}} {{ticket.data.InCode}}</span>
             </span>
-        </header>
-        <div class="rl-content" ng-repeat="dir in ['To', 'Back']">
-            <div class="rl-fly">
-                <div class="rlf-flight-info">
-                    <b>{{dateHelper.getTime(ticket.data.DepartureDate)}}</b>, {{dateHelper.getDateShort(ticket.data.DepartureDate)}}, {{dateHelper.getDay(ticket.data.DepartureDate)}}<br>
-                    <div ng-if="dir == 'To'">{{ticket.data.CityFrom}} {{ticket.data.OutCode}}</div>
-                    <div ng-if="dir == 'Back'">{{ticket.data.CityTo}} {{ticket.data.InCode}}</div>
-                </div>
-            </div>
-            <div class="rl-travel-time">в пути: {{ticket.getDuration(dir)}} <br>{{ticket.getEtaps(dir).length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}}</div>
-            <div class="rl-fly">
-                <div class="rlf-flight-info">
-                    <b>{{dateHelper.getTime(ticket.data.ArrivalDate)}}</b>, {{dateHelper.getDateShort(ticket.data.ArrivalDate)}}, {{dateHelper.getDay(ticket.data.ArrivalDate)}}<br>
-                    <div ng-if="dir == 'To'">{{ticket.data.CityTo}} {{ticket.data.InCode}}</div>
-                    <div ng-if="dir == 'Back'">{{ticket.data.CityFrom}} {{ticket.data.OutCode}}</div>
-                </div>
-            </div>
+            <p class="arrow">
+                в пути: {{ticket.getDuration(dir)}}<br>
+                {{ticket.getEtaps(dir).length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой рейс"}}
+            </p>
+            <span class="date date_w_120">
+                <b>{{dateHelper.getTime(ticket.getDate(dir, 'Arrival'))}}</b> {{dateHelper.getDateShort(ticket.getDate(dir, 'Arrival'))}}, {{dateHelper.getDay(ticket.getDate(dir, 'Arrival'))}}<br>
+                <span ng-if="dir == 'To'">{{ticket.data.CityTo}} {{ticket.data.InCode}}</span>
+                <span ng-if="dir == 'Back'">{{ticket.data.CityFrom}} {{ticket.data.OutCode}}</span>
+            </span>
         </div>
-        <footer class="rl-footer">
-            <a href="javascript:void(0);" class="rl-more-info" ng-click="getTicketDetails(ticket)">Подробнее</a>
-        </footer>
-    </div>
-    <div class="rl-aside" ng-transclude></div>
+
+        <div class="bottom-actions">
+            <!--<span class="pull-left warning">Последние 3 места, чартер</span>-->
+            <!--<a href="" class="pull-left">Заменить</a>-->
+            <a href="javascript:void(0);" class="pull-right" ng-click="getTicketDetails(ticket)">Подробнее</a>
+        </div>
+    </div><!--
+    --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div><!--
+    --><div class="result-cell result-choice" ng-transclude></div>
 </div>

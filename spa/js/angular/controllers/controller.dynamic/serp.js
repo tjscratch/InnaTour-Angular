@@ -151,7 +151,7 @@ innaAppControllers
             };
 
             $scope.changeHotelsView = function(){
-                $scope.asMap = !$scope.asMap;
+                serpScope.asMap = !serpScope.asMap;
             };
 
             $scope.setHotel = function(hotel){

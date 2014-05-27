@@ -3,7 +3,7 @@
     <form action="" class="results-body">
         <div class="main__center">
             <header class="buy__header">
-                <h2 class="buy__title">Пасажиры</h2>
+                <h2 class="buy__title">Пассажиры</h2>
             </header>
             <fieldset class="buy__blocks" ng-repeat="passenger in reservationModel.passengers">
                 <div class="b-field-group b-field-group-passport">
@@ -15,11 +15,11 @@
                         </ul>
                     </div>
                     <div class="b-field-block" style="width: 160px;">
-                        <label class="b-field-label">Имя (латиницей)</label>
+                        <label class="b-field-label">Имя</label>
                         <input disabled type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
                     </div>
                     <div class="b-field-block b-field-block-surname" style="width: 150px;">
-                        <label class="b-field-label">Фамилия (латиницей)</label>
+                        <label class="b-field-label">Фамилия</label>
                         <input disabled type="text" ng-model="passenger.secondName" placeholder="IVANOV" class="b-field-text">
                     </div>
                     <div class="b-field-block" style="width: 110px;">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="b-field-block" style="width: 110px;">
                         <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
-                        <input disabled type="text" ng-model="passenger.doc_series_and_number" placeholder="1104 046100" class="b-field-text">
+                        <input disabled type="text" ng-model="passenger.doc_series_and_number" class="b-field-text">
                     </div>
                     <div class="b-field-block" style="width: 110px;">
                         <label class="b-field-label b-field-label-docs">Действителен до</label>
@@ -43,7 +43,7 @@
                 <div class="b-field-group b-field-group-passport">
                     <div class="b-field-group b-field-group-passport">
                         <div class="b-field-block" style="width: 220px;">
-                            <label class="b-agreement"><input disabled type="checkbox" ng-model="passenger.bonuscard.haveBonusCard"><ins class="b-checkbox"></ins>Есть бонусная карта</label>
+                            <label class="b-agreement"><input disabled type="checkbox" ng-model="passenger.bonuscard.haveBonusCard"><ins class="b-checkbox"></ins>Есть бонусная карта авиакомпании</label>
                         </div>
                         <div class="b-field-block" style="width: 150px;" ng-show="passenger.bonuscard.haveBonusCard == true">
                             <label class="b-field-label">Авиакомпания</label>
@@ -71,14 +71,24 @@
             <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде, используя платежный шлюз Промсвязьбанка</div>
             <div class="b-cc-container">
                 <div class="b-cc-front">
-                    <img src="spa/img/cc.png" class="b-cc-type" alt="">
+                    <img ng-if="visaOrMastercard == null" src="spa/img/cc.png" class="b-cc-type" alt="">
+                    <img ng-if="visaOrMastercard == true" src="spa/img/cc-visa.png" class="b-cc-type" alt="">
+                    <img ng-if="visaOrMastercard == false" src="spa/img/cc-mc.png" class="b-cc-type" alt="">
                     <div class="b-cc-block">
                         <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
                         <div id="num1" class="b-cc" title="Неправильно введен номер карты">
-                            <input ng-class="{error:!isValid.num1}" digits-input type="text" ng-model="payModel.num1" class="b-field-text b-field-text-small" maxlength="4">
-                            <input ng-class="{error:!isValid.num2}" digits-input type="text" ng-model="payModel.num2" class="b-field-text b-field-text-small" maxlength="4">
-                            <input ng-class="{error:!isValid.num3}" digits-input type="text" ng-model="payModel.num3" class="b-field-text b-field-text-small" maxlength="4">
-                            <input ng-class="{error:!isValid.num4}" digits-input type="text" ng-model="payModel.num4" class="b-field-text b-field-text-small" maxlength="4">
+                            <input ng-class="{error:indicator.num1}" digits-input type="text" ng-model="payModel.num1"
+                                   validate-simple validate="validateField(key, value)" key="num1"
+                                   class="b-field-text b-field-text-small" maxlength="4">
+                            <input ng-class="{error:indicator.num2}" digits-input type="text" ng-model="payModel.num2"
+                                   validate-simple validate="validateField(key, value)" key="num2"
+                                   class="b-field-text b-field-text-small" maxlength="4">
+                            <input ng-class="{error:indicator.num3}" digits-input type="text" ng-model="payModel.num3"
+                                   validate-simple validate="validateField(key, value)" key="num3"
+                                   class="b-field-text b-field-text-small" maxlength="4">
+                            <input ng-class="{error:indicator.num4}" digits-input type="text" ng-model="payModel.num4"
+                                   validate-simple validate="validateField(key, value)" key="num4"
+                                   class="b-field-text b-field-text-small" maxlength="4">
                         </div>
                     </div>
                     <div class="b-cc-block b-cc-block-date">
@@ -86,22 +96,34 @@
                         <div class="b-cc">
                             <div class="b-cc-date">
                                 Месяц
-                                <input type="text" class="b-field-text b-field-text-small" ng-class="{error:!isValid.cardMonth}" id="cardMonth" title="Неправильно введен месяц" digits-input ng-model="payModel.cardMonth" maxlength="2">
+                                <input type="text" class="b-field-text b-field-text-small" 
+                                       ng-class="{error:indicator.cardMonth}"
+                                       validate-simple validate="validateField(key, value)" key="cardMonth"
+                                       id="cardMonth" title="Неправильно введен месяц" digits-input ng-model="payModel.cardMonth" maxlength="2">
                             </div>
                             <div class="b-cc-date">
                                 Год
-                                <input type="text" class="b-field-text b-field-text-small" ng-class="{error:!isValid.cardYear}" id="cardYear" title="Неправильно введен год" digits-input ng-model="payModel.cardYear" maxlength="2">
+                                <input type="text" class="b-field-text b-field-text-small" 
+                                       ng-class="{error:indicator.cardYear}"
+                                       validate-simple validate="validateField(key, value)" key="cardYear"
+                                       id="cardYear" title="Неправильно введен год" digits-input ng-model="payModel.cardYear" maxlength="2">
                             </div>
                         </div>
                     </div>
                     <div class="b-cc-block">
                         <label class="b-cc-block-label b-cc-block-label-number">Держатель<br> карты</label>
-                        <input type="text" class="b-field-text b-field-text-name" ng-class="{error:!isValid.cardHolder}" id="cardHolder" title="Нужно ввести держателя карты" ng-model="payModel.cardHolder">
+                        <input type="text" class="b-field-text b-field-text-name"
+                               ng-class="{error:indicator.cardHolder}"
+                               validate-simple validate="validateField(key, value)" key="cardHolder"
+                               id="cardHolder" title="Нужно ввести держателя карты" ng-model="payModel.cardHolder" to-upper>
                     </div>
                 </div>
                 <div class="b-cc-end">
                     <div class="b-cvc">
-                        <input ng-class="{error:!isValid.cvc2}" id="cvc2" title="Нужно ввести код" digits-input ng-model="payModel.cvc2" type="text" autocomplete="off" class="b-field-text" maxlength="3" id="CVC">
+                        <input type="text" autocomplete="off" class="b-field-text" maxlength="3" id="cvc2"
+                               ng-class="{error:indicator.cvc2}"
+                               validate-simple validate="validateField(key, value)" key="cvc2"
+                               id="cvc2" title="Нужно ввести код" digits-input ng-model="payModel.cvc2">
                         <label for="CVC">CVV/CVC</label>
                     </div>
                 </div>
