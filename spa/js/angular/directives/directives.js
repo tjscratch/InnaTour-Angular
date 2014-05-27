@@ -478,7 +478,9 @@ innaAppDirectives.directive('validateSimple', [function () {
         require: 'ngModel',
         scope: {
             validate: '&',
-            key: '@'
+            key: '@',
+            len: '@',
+            goNext: '&'
         },
         link: function ($scope, element, attrs, ngModel) {
             function validate(isUserAction) {
@@ -490,9 +492,14 @@ innaAppDirectives.directive('validateSimple', [function () {
             };
 
             element.on('blur', function () {
-                $scope.$apply(function () {
+                if (!$scope.$$phase) {
                     validate(true);
-                });
+                }
+                else {
+                    $scope.$apply(function () {
+                        validate(true);
+                    });
+                }
             }).on('keypress', function (event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
@@ -503,12 +510,18 @@ innaAppDirectives.directive('validateSimple', [function () {
                 }
             }).on('click', function (event) {
                 var val = ngModel.$modelValue;
-
-                if (val != null && val.length > 0)
-                {
+                if (val != null && val.length > 0){
                     $(this).select();
                 }
             });
+
+            if ($scope.len != null) {
+                $scope.$watch(function () { return ngModel.$modelValue; }, function (newVal, oldVal) {
+                    if (newVal != null && newVal.length == $scope.len) {
+                        $scope.goNext({ key: $scope.key });
+                    }
+                })
+            }
 
             $scope.$on('$destroy', function () {
                 element.off();

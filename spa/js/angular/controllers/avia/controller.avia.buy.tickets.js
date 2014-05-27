@@ -381,32 +381,50 @@ Cvc = "486";
                 var self = this;
                 
                 self.navList = [];
+                self.navCurrent = null;
 
                 self.cardNumCont = $('.js-cardnum-block');
-                self.num1 = $('input:eq(0)', self.cardNumCont);
-                self.num2 = $('input:eq(1)', self.cardNumCont);
-                self.num3 = $('input:eq(2)', self.cardNumCont);
-                self.num4 = $('input:eq(3)', self.cardNumCont);
+                self.num1 = { item: $('input:eq(0)', self.cardNumCont), key: 'num1' };
+                self.num2 = { item: $('input:eq(1)', self.cardNumCont), key: 'num2' };
+                self.num3 = { item: $('input:eq(2)', self.cardNumCont), key: 'num3' };
+                self.num4 = { item: $('input:eq(3)', self.cardNumCont), key: 'num4' };
+
+                self.validCont = $('.js-card-valid');
+                self.month = { item: $('input:eq(0)', self.validCont), key: 'cardMonth' };
+                self.year = { item: $('input:eq(1)', self.validCont), key: 'cardYear' };
+                
+                self.holder = { item: $('input.js-card-holder:eq(0)'), key: 'cardHolder' };
 
                 self.navList.push(self.num1);
                 self.navList.push(self.num2);
                 self.navList.push(self.num3);
                 self.navList.push(self.num4);
+                self.navList.push(self.month);
+                self.navList.push(self.year);
+                self.navList.push(self.holder);
 
                 self.init = function () {
                     self.navCurrent = self.navList[0];
-                    self.navCurrent.focus();
+                    self.navCurrent.item.focus();
                 }
-                self.next = function () {
-                    var index = self.navCurrent.indexOf(self.navCurrent);
-                    index++;
-                    self.navCurrent = self.navList[index];
-                    self.navCurrent.focus();
+                self.next = function (key) {
+                    //console.log('goNext, key: %s', key);
+                    self.navCurrent = _.find(self.navList, function (item) {
+                        return item.key == key;
+                    });
+                    if (self.navCurrent != null) {
+                        var index = self.navList.indexOf(self.navCurrent);
+                        index++;
+                        self.navCurrent = self.navList[index];
+                        if (self.navCurrent != null) {
+                            self.navCurrent.item.select();
+                            self.navCurrent.item.focus();
+                        }
+                    }
                 }
             }
             $scope.focusControl = new focusControl();
-            $scope.focusControl.init();
-
+            
             //data loading ===========================================================================
             function initPayModel() {
                 var self = this;
@@ -530,6 +548,7 @@ Cvc = "486";
             function init() {
                 loadTarifs();
                 $scope.tarifs.fillInfo();
+                $scope.focusControl.init();
             };
             
             //data loading ===========================================================================
