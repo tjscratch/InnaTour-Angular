@@ -1,0 +1,184 @@
+html {
+	background-color : #bdbec3;
+}
+
+.clearfix:before,
+.clearfix:after {
+	content: '';
+	display : block;
+	clear : both;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+
+
+
+input
+textarea
+	outline none
+
+// Common styles
+.clearfix
+	clearfix()
+
+.b-rub
+	font-family 'ALSRubl-Arial-Normal', Arial, sans-serif
+	line-height normal
+	font-weight normal
+
+
+
+.pull-right
+	float right
+
+.pull-left
+	float left
+
+.main__center
+	margin 0 auto
+	width 960px
+
+.rub
+	font-family ALSRubl-Arial !important
+
+// Form
+.button
+	position relative
+	border-radius 3px
+	overflow hidden
+
+	&:hover
+		text-decoration none
+
+	input
+		position absolute
+		display block
+		left 0
+		top 0
+		width 300px
+		height 300px
+		cursor pointer
+		border 0
+		opacity 0
+
+.button_inline
+	display inline-block
+	padding 8px 38px
+	line-height 1
+	font-size 18px
+	font-weight bold
+
+.button_small
+	padding 7px 30px
+	font-size 14px
+	font-weight bold
+	border-top 1px solid #bddd90
+	display inline-block
+	margin 0 2px 0 0
+	line-height 1
+
+// Header
+.header
+	left 0
+	top 0
+
+.header__container
+	clearfix()
+	width 960px
+	margin 0 auto
+	padding 15px 0
+	color #fff
+
+.header__nav-sec
+	float left
+	font 14px Arial, sans-serif
+
+	li
+		display inline-block
+		margin 0 20px 0 0
+
+	a
+		color #c0c0c2
+
+	.current
+		color #89c13a
+
+.header__price
+	float right
+	font 14px Arial, sans-serif
+	color #c0c0c2
+	margin-top -2px
+
+	.rub
+		color #fff
+
+.header__sum
+	font bold 16px ProximaNova, Arial, sans-serif
+	color #fff
+	margin 0 5px
+
+.header__nav
+	float left
+	font-size 17px
+
+	li
+		display inline-block
+		margin 0 18px 0 0
+
+.header__user
+	float right
+
+.header__user-company
+	color #4d4d4d
+	font 14px Arial, sans-serif
+	text-align right
+
+.header__user-nav
+	padding 0 0 3px
+	font-size 14px
+
+	li
+		display inline-block
+		padding 2px 0 0 9px
+		margin 0 0 0 7px
+		border-left 1px solid #4d4d4d
+
+		&:first-child
+			border 0
+
+	a
+		color #878787
+
+	.header__user-nav-name
+		color #89c13a
+		padding-left 23px
+		position relative
+
+	.header__user-nav-name:before
+	.header__user-nav-reg:before
+		content ''
+		display block
+		position absolute
+		left 0
+		top 0
+		width 15px
+		height 14px
+		background url('../img/header-user.png') no-repeat
+
+	.header__user-nav-reg
+		padding-left 23px
+		position relative
+
+.header__user-nav-counter
+	color #fff
+
+
+.color-white {
+	color:#fff;
+}
+.color-black {
+	color:#000;
+}
