@@ -376,6 +376,37 @@ Cvc = "486";
 
             $scope.sexType = aviaHelper.sexType;
 
+            //focus
+            function focusControl() {
+                var self = this;
+                
+                self.navList = [];
+
+                self.cardNumCont = $('.js-cardnum-block');
+                self.num1 = $('input:eq(0)', self.cardNumCont);
+                self.num2 = $('input:eq(1)', self.cardNumCont);
+                self.num3 = $('input:eq(2)', self.cardNumCont);
+                self.num4 = $('input:eq(3)', self.cardNumCont);
+
+                self.navList.push(self.num1);
+                self.navList.push(self.num2);
+                self.navList.push(self.num3);
+                self.navList.push(self.num4);
+
+                self.init = function () {
+                    self.navCurrent = self.navList[0];
+                    self.navCurrent.focus();
+                }
+                self.next = function () {
+                    var index = self.navCurrent.indexOf(self.navCurrent);
+                    index++;
+                    self.navCurrent = self.navList[index];
+                    self.navCurrent.focus();
+                }
+            }
+            $scope.focusControl = new focusControl();
+            $scope.focusControl.init();
+
             //data loading ===========================================================================
             function initPayModel() {
                 var self = this;
