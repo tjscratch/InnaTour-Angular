@@ -6,6 +6,6 @@ if(!_.isFunction(String.prototype.trim)) {
 
 if(!_.isFunction(String.prototype.startsWith)) {
     String.prototype.startsWith = function(s){
-        return (this.indexOf(s) != -1);
+        return (this.indexOf(s) == 0);
     }
 }

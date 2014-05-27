@@ -50,5 +50,5 @@ spa/uploads/maket_photos/Thumbs.db
 build_and_publish/publish_release/*
 build_and_publish/publish_test/*
 spa/js/debug.js
-spa/styles.sh
+spa/*.sh
 spa/css/common.min.css

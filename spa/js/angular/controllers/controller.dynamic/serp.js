@@ -2,7 +2,7 @@ innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
         '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard',
         '$routeParams', 'innaApp.API.events', '$location', 'innaApp.Urls', 'aviaHelper',
-        function ($scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, DynamicPackagesCacheWizard,
+        function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, DynamicPackagesCacheWizard,
                   $routeParams, Events, $location, Urls, aviaHelper) {
             /*Private*/
             var searchParams = angular.copy($routeParams);
@@ -42,8 +42,9 @@ innaAppControllers
                 }
 
                 if(!method || !param) return;
-
-                DynamicPackagesDataProvider[method](param, searchParams, function(data){
+                
+                
+                ServiceDynamicPackagesDataProvider[method](param, searchParams, function(data){
                     $scope.$apply(function($scope){
                         apply($scope, data);
 
@@ -85,6 +86,7 @@ innaAppControllers
 
             /*Properties*/
             $scope.hotels = new inna.Models.Hotels.HotelsCollection();
+            $scope.airports = null;
             $scope.hotelFilters = new inna.Models.Avia.Filters.FilterSet();
             $scope.hotelToShowDetails = null;
             $scope.tickets = new inna.Models.Avia.TicketCollection();
@@ -123,7 +125,7 @@ innaAppControllers
                 }
 
                 if(!hotel.detailed) {
-                    DynamicPackagesDataProvider.hotelDetails(
+                    ServiceDynamicPackagesDataProvider.hotelDetails(
                         hotel.data.HotelId,
                         hotel.data.ProviderId,
                         $scope.combination.ticket.data.VariantId1,
@@ -149,7 +151,7 @@ innaAppControllers
             };
 
             $scope.changeHotelsView = function(){
-                $scope.asMap = !$scope.asMap;
+                serpScope.asMap = !serpScope.asMap;
             };
 
             $scope.setHotel = function(hotel){
@@ -181,8 +183,20 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             $scope.$watch('asMap', function(newVal) {
-                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
+                //DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
             });
+
+            $scope.$watch('hotels', function(data) {
+                $scope.$broadcast('change:hotels:filters', data);
+                console.log('change:hotels');
+            }, true);
+
+            $scope.$watch('hotelFilters', function(data) {
+                $scope.hotels.filter($scope.hotelFilters);
+                $scope.$broadcast('change:filters', data);
+                console.log('change:filters');
+            }, true);
+
 
             /*Initial Data fetching*/
             (function() {
@@ -195,9 +209,11 @@ innaAppControllers
                 if($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
                 if($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
 
-                DynamicPackagesDataProvider.search(searchParams, function(data){
+                ServiceDynamicPackagesDataProvider.search(searchParams, function(data){
+
                     if(!data || !data.RecommendedPair) return $scope.$apply(combination404);
 
+                    $scope.airports = data.Airports || [];
                     cacheKey = data.SearchId;
 
                     $scope.$apply(function($scope){
@@ -226,6 +242,30 @@ innaAppControllers
                     });
                 }, combination500);
             })();
+
+            /*Because fuck angular, that's why!*/
+            $(function(){
+                var doc = $(document);
+                var onIconPriceClick = function(event){
+                    event.stopPropagation();
+
+                    var parent = $(this).parents('.result')[0];
+                    var tooltip = $('.JS-tooltip-price', parent);
+
+                    tooltip.toggle();
+
+                    doc.on('click', function bodyClick(){
+                        tooltip.hide();
+                        doc.off('click', bodyClick);
+                    });
+                }
+
+                doc.on('click', '.JS-icon-price-info', {}, onIconPriceClick);
+
+                $scope.$on('$destroy', function(){
+                    doc.off('click', onIconPriceClick);
+                });
+            });
         }
     ])
     .controller('DynamicPackageSERPTicketPopupCtrl', [
@@ -278,15 +318,10 @@ innaAppControllers
                 var body = document.body || document.documentElement;
 
                 if(body.scrollTop > 230) {
-                    if($scope.display.isCurrent($scope.display.FULL)) {
-                        $scope.$apply(function($scope){
-                            $scope.display.current = $scope.display.SHORT;
-                        });
-                    }
+                    console.log('sdjfhsd');
+                    $scope.$emit('header:hidden');
                 } else {
-                    $scope.$apply(function($scope){
-                        $scope.display.current = $scope.display.FULL;
-                    });
+                    $scope.$emit('header:visible');
                 }
             };
 
@@ -319,16 +354,11 @@ innaAppControllers
                         $scope.$emit('header:visible');
                     }
                 }
-
-                this.help = false;
-                this.toggleHelp = function(){
-                    this.help = !this.help;
-                }
             };
 
             // подписываемся на событие toggle:visible:bundle
             // скрываем бандл вместе с шапкой
-            $scope.$root.$on('toggle:visible:bundle', $scope.display.toggle());
+            $scope.$root.$on('toggle:visible:bundle', $scope.display.toggle);
 
             /*Events*/
             $scope.$on('$destroy', unwatchScroll);

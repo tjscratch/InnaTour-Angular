@@ -6,14 +6,15 @@
              inna-ticket-ticket="ticket"
              inna-ticket-get-ticket-details="getTicketDetails(ticket)">
 
-            <span class="rl-price">
-                <span class="rl-price-item">69 451</span> <span class="rub">Р</span>
-            </span>
-            <a href="javascript:void(0)" class="rl-buy-button" ng-click="setTicket(ticket)">Выбрать</a>
+            <span class="icon icon-clip"></span>
+            <p class="corner-price">
+                {{combination.ticket.data.PackagePrice - ticket.data.PackagePrice | signed}}<span class="b-rub">Р</span>
+            </p>
+            <p class="price">
+                {{ticket.data.Price}}<span class="b-rub">Р</span><span class="icon icon-price-info"></span>
+                <span class="price-description">экономия: {{combination.getFullPrice() - combination.hotel.data.PackagePrice - ticket.data.PackagePrice}}<span class="b-rub">Р</span></span>
+            </p>
+            <button class="button" ng-click="setTicket(ticket)" ng-hide="combination.Ticket.data.VariantId1 == ticket.data.VariantId1">Выбрать</button>
         </div>
     </div>
-
-    <div inna-dynamic-serp-filter-indicators
-         inna-dynamic-serp-filter-indicators-filters="ticketFilters"
-         inna-dynamic-serp-filter-indicators-items="tickets"></div>
 </div>

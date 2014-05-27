@@ -1,25 +1,35 @@
-<li class="filter"
-    dynamic-serp-filter-category
-    dynamic-serp-filter-category-hotels="hotels"
-    dynamic-serp-filter-category-filters="hotelFilters"></li>
-<li class="filter"
-    dynamic-serp-filter-price
-    dynamic-serp-filter-price-hotels="hotels"
-    dynamic-serp-filter-price-filters="hotelFilters"></li>
-<li class="filter"
-    dynamic-serp-filter-name
-    dynamic-serp-filter-name-hotels="hotels"
-    dynamic-serp-filter-name-filters="hotelFilters"></li>
-<li class="filter"
-    dynamic-serp-filter-tafactor
-    dynamic-serp-filter-tafactor-hotels="hotels"
-    dynamic-serp-filter-tafactor-filters="hotelFilters"></li>
-<li class="filter filter_position_last"
-    dynamic-serp-filter-extra
-    dynamic-serp-filter-extra-hotels="hotels"
-    dynamic-serp-filter-extra-filters="hotelFilters"></li>
+<div class="js-filter-scroll">
+    <ul class="filters__container">
+        <li class="filter"
+            dynamic-serp-filter-category
+            dynamic-serp-filter-category-hotels="hotels"
+            dynamic-serp-filter-category-filters="hotelFilters"></li>
+        <li class="filter"
+            dynamic-serp-filter-price
+            dynamic-serp-filter-price-hotels="hotels"
+            dynamic-serp-filter-price-filters="hotelFilters"></li>
+        <li class="filter"
+            dynamic-serp-filter-name
+            dynamic-serp-filter-name-hotels="hotels"
+            dynamic-serp-filter-name-filters="hotelFilters"></li>
+        <li class="filter"
+            dynamic-serp-filter-tafactor
+            dynamic-serp-filter-tafactor-hotels="hotels"
+            dynamic-serp-filter-tafactor-filters="hotelFilters"></li>
+        <li class="filter filter_position_last"
+            dynamic-serp-filter-extra
+            dynamic-serp-filter-extra-hotels="hotels"
+            dynamic-serp-filter-extra-filters="hotelFilters"></li>
 
-<li class="filters__sort"
-    inna-dynamic-serp-sorter
-    inna-dynamic-serp-sorter-items="hotels"
-    inna-dynamic-serp-sorter-sorters-filler-ctrl-name="innaDynamicSerpSorter_HotelsMixin"></li>
+        <li class="filters__sort"
+            inna-dynamic-serp-sorter
+            inna-dynamic-serp-sorter-items="hotels"
+            inna-dynamic-serp-sorter-sorters-filler-ctrl-name="innaDynamicSerpSorter_HotelsMixin"></li>
+    </ul>
+</div>
+
+<div inna-dynamic-serp-filter-indicators
+     template-name="indicators_horizontal.html"
+     inna-dynamic-serp-filter-indicators-filters="hotelFilters"
+     inna-dynamic-serp-filter-indicators-items="hotels"
+     inna-dynamic-serp-filter-indicators-action="changeHotelsView"></div>

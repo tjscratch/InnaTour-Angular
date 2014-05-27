@@ -243,6 +243,10 @@ inna.Models._CollectionFactory = function(){
         this.list = list;
     };
 
+    Collection.prototype.getList = function(){
+        return this.list;
+    };
+
     Collection.prototype.each = function(fn){
         for(var i = 0, item = null; item = this.list[i++];) {
             fn.call(this, item);
@@ -270,4 +274,14 @@ inna.Models._CollectionFactory = function(){
     }, 100);
 
     return Collection;
+}
+
+_.provide('inna.Models.Aux');
+
+inna.Models.Aux.AttachedPopup = function(){
+    this.isOpen = false;
+}
+
+inna.Models.Aux.AttachedPopup.prototype.toggle = function(){
+    this.isOpen = !this.isOpen;
 }

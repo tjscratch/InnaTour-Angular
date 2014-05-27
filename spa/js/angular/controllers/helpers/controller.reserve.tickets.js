@@ -251,7 +251,7 @@ innaAppControllers.
                 $scope.validate = function (item, type) {
                     if (item != null) {
                         //console.log('validate, key: %s, element: %s', model.key, model.$element.get(0));
-                        //console.log('validate, key:\'%s\'; value:\'%s\'', model.key, model.value);
+                        //console.log('validate, item: %s; validationType: %s, type:%s', item.value, item.validationType, type);
                         switch (item.validationType) {
                             case validateType.required:
                                 {
@@ -531,10 +531,10 @@ innaAppControllers.
                             if (firstItem == null) {
                                 var arFields = this.getArrayFileds();
                                 for (var i = 0; i < arFields.length; i++) {
-                                    var field = arFields[i];
-                                    for (var j = 0; j < field.length; j++) {
-                                        var f = field[j];
-                                        firstItem = findInModel(f);
+                                    var passList = arFields[i];
+                                    for (var j = 0; j < passList.length; j++) {
+                                        var pass = passList[j];
+                                        firstItem = findInModel(pass);
                                         if (firstItem != null)
                                             return firstItem;
                                     }
@@ -555,14 +555,15 @@ innaAppControllers.
                             //вложенные свойства
                             var arFields = this.getArrayFileds();
                             for (var i = 0; i < arFields.length; i++) {
-                                var field = arFields[i];
-                                for (var j = 0; j < field.length; j++) {
-                                    var f = field[j];
-                                    for (var zi = 0; zi < f.length; zi++) {
-                                        var item = f[zi];
+                                var passList = arFields[i];
+                                for (var j = 0; j < passList.length; j++) {
+                                    var pass = passList[j];
+                                    var passKeysList = this.getFields(pass);
+                                    for (var zi = 0; zi < passKeysList.length; zi++) {
+                                        var item = passKeysList[zi];
                                         $scope.validate(item);
                                     }
-                                    //_.each(f, function (item) {
+                                    //_.each(pass, function (item) {
                                     //    $scope.validate(item);
                                     //});
                                 }
@@ -586,8 +587,10 @@ innaAppControllers.
                 //console.log($scope.validationModel);
 
                 $scope.isFieldInvalid = function (item) {
-                    if (item != null) {
-
+                    //if (item != null && item.key == 'citizenship') {
+                    //    console.log(item);
+                    //}
+                    if (item != null && item.value != null && (!_.isString(item.value) || item.value.length > 0)) {
                         if ($scope.validationModel.formPure) {
                             return item.isInvalid && item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
                         }
@@ -595,7 +598,9 @@ innaAppControllers.
                             return item.isInvalid;
                         }
                     }
-                    return false;
+                    else {
+                        return !$scope.validationModel.formPure;
+                    }
                 }
             }
 
@@ -721,7 +726,7 @@ innaAppControllers.
                     name: '',
                     secondName: '',
                     email: '',
-                    phone: '',
+                    phone: '+7',
                     wannaNewsletter: false,//Я хочу получать рассылку спецпредложений
                     passengers: passengers
 
@@ -751,12 +756,12 @@ innaAppControllers.
                 },
                 close: function ($to) {
                     //$to.tooltip("disable");
-                    $to.tooltipX("destroy");
-                    //try
-                    //{
-                    //    $to.tooltipX("destroy");
-                    //}
-                    //catch(e){};
+                    //$to.tooltipX("destroy");
+                    try
+                    {
+                        $to.tooltipX("destroy");
+                    }
+                    catch(e){};
                 }
             };
 
@@ -767,9 +772,11 @@ innaAppControllers.
                 $scope.validationModel.validateAll();
                 $scope.validatePeopleCount();
 
+                //console.log($scope.validationModel);
+
                 //ищем первый невалидный элемент, берем только непустые
                 var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
-                    return (item.value != null && item.value.length > 0);
+                    return (item.value != null && (!_.isString(item.value) || item.value.length > 0));
                 });
                 if (invalidItem != null) {
                     //показываем тултип

@@ -39,6 +39,16 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('css'));
 });
 
+gulp.task('print', function(){
+    gulp.src(['styl/print.styl'])
+        .pipe(stylus({
+            use: ['nib'],
+            import: ['nib']
+        }))
+        .pipe(concat('print.css'))
+        .pipe(gulp.dest('css'));
+});
+
 gulp.task('watch', function () {
     var server = livereload();
     gulp.watch('styl/**/*', ['styles']);
