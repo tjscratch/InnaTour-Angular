@@ -68,7 +68,7 @@
 
 .ra-tags-list
 	list-style none
-	margin 0 0 5px
+	margin 4px 0 0
 
 	li
 		background #fff
@@ -153,6 +153,8 @@
 
 
 
+
+
 .b-switch-filters {
 	margin-top : 17px;
 	overflow : hidden;
@@ -163,5 +165,30 @@
 		&_right {
 			padding-top : 5px;
 		}
+	}
+
+	&.b-switch-filters_mod-wrapper {
+		float : none;
+		width : auto;
+		margin : 0;
+
+		.b-switch-filters_buttons {
+			box-shadow 0 3px 5px rgba(0,0,0,.3)
+			background-color : #fff;
+			padding: 6px 0 5px 3px;
+			margin-bottom : 0;
+			margin-left : 4px;
+
+			&_right {
+				position : relative;
+				left : 10px;
+				padding-top : 8px;
+			}
+		}
+	}
+
+	&__result {
+		margin: 0 0 0 4px;
+		overflow : hidden;
 	}
 }
