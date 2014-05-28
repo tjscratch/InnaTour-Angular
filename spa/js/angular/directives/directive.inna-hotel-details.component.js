@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
-    .directive('innaHotelDetails', function(){
+    .directive('innaHotelDetails', ['$templateCache', function($templateCache){
         return {
-            templateUrl: '/spa/templates/components/hotel-details.html',
+            template: $templateCache.get('components/hotel-details.html'),
             scope: {
                 hotel: '=innaHotelDetailsHotel',
                 collection: '=innaHotelDetailsCollection',
@@ -99,4 +99,4 @@ angular.module('innaApp.directives')
                 }
             ]
         }
-    });
+    }]);

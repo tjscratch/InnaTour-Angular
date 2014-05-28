@@ -1,6 +1,6 @@
-innaAppDirectives.directive('counterPeople', [function(){
+innaAppDirectives.directive('counterPeople', ['$templateCache', function($templateCache){
     return {
-        templateUrl: '/spa/templates/components/counter_people.html',
+        template: $templateCache.get('components/counter_people.html'),
         scope: {
             adultCount: '=',
             childrenCount: '=',
@@ -77,9 +77,9 @@ innaAppDirectives.directive('counterPeople', [function(){
     }
 }]);
 
-innaAppDirectives.directive('counterPeopleChildAgeSelector', [function(){
+innaAppDirectives.directive('counterPeopleChildAgeSelector', ['$templateCache', function($templateCache){
     return {
-        templateUrl: 'counter-people-child-age-selector.subcomponent.js.html',
+        template: $templateCache.get('components/counter_people.subcomponent'),
         scope: {
             'selector': '='
         },

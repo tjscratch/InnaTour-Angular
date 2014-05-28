@@ -2,7 +2,7 @@
 
 /* Directives */
 
-innaAppDirectives.directive('combobox', ['$timeout', function ($timeout) {
+innaAppDirectives.directive('combobox', ['$templateCache', '$timeout', function ($templateCache, $timeout) {
     return {
         link: function ($scope, $element, attrs) {
             $scope.$on('comboboxDataLoaded', function () {
