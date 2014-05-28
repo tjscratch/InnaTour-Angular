@@ -286,16 +286,17 @@ Cvc = "486";
             $scope.tarifs = new tarifs();
 
             $scope.oferta = {
-                show: function ($event) {
-                    alert('Не реализовано');
-                    eventsHelper.preventBubbling($event);
+                url: function () {
+                    var host = app_main.host.replace('api.', 's.');
+                    return host + '/files/doc/offer.pdf';
                 }
             }
 
             $scope.cancelReservation = {
                 show: function ($event) {
-                    alert('Не реализовано');
-                    eventsHelper.preventBubbling($event);
+                    //alert('Не реализовано');
+                    //eventsHelper.preventBubbling($event);
+                    $scope.tarifs.show($event);
                 }
             }
 
@@ -381,32 +382,50 @@ Cvc = "486";
                 var self = this;
                 
                 self.navList = [];
+                self.navCurrent = null;
 
                 self.cardNumCont = $('.js-cardnum-block');
-                self.num1 = $('input:eq(0)', self.cardNumCont);
-                self.num2 = $('input:eq(1)', self.cardNumCont);
-                self.num3 = $('input:eq(2)', self.cardNumCont);
-                self.num4 = $('input:eq(3)', self.cardNumCont);
+                self.num1 = { item: $('input:eq(0)', self.cardNumCont), key: 'num1' };
+                self.num2 = { item: $('input:eq(1)', self.cardNumCont), key: 'num2' };
+                self.num3 = { item: $('input:eq(2)', self.cardNumCont), key: 'num3' };
+                self.num4 = { item: $('input:eq(3)', self.cardNumCont), key: 'num4' };
+
+                self.validCont = $('.js-card-valid');
+                self.month = { item: $('input:eq(0)', self.validCont), key: 'cardMonth' };
+                self.year = { item: $('input:eq(1)', self.validCont), key: 'cardYear' };
+                
+                self.holder = { item: $('input.js-card-holder:eq(0)'), key: 'cardHolder' };
 
                 self.navList.push(self.num1);
                 self.navList.push(self.num2);
                 self.navList.push(self.num3);
                 self.navList.push(self.num4);
+                self.navList.push(self.month);
+                self.navList.push(self.year);
+                self.navList.push(self.holder);
 
                 self.init = function () {
                     self.navCurrent = self.navList[0];
-                    self.navCurrent.focus();
+                    self.navCurrent.item.focus();
                 }
-                self.next = function () {
-                    var index = self.navCurrent.indexOf(self.navCurrent);
-                    index++;
-                    self.navCurrent = self.navList[index];
-                    self.navCurrent.focus();
+                self.next = function (key) {
+                    //console.log('goNext, key: %s', key);
+                    self.navCurrent = _.find(self.navList, function (item) {
+                        return item.key == key;
+                    });
+                    if (self.navCurrent != null) {
+                        var index = self.navList.indexOf(self.navCurrent);
+                        index++;
+                        self.navCurrent = self.navList[index];
+                        if (self.navCurrent != null) {
+                            self.navCurrent.item.select();
+                            self.navCurrent.item.focus();
+                        }
+                    }
                 }
             }
             $scope.focusControl = new focusControl();
-            $scope.focusControl.init();
-
+            
             //data loading ===========================================================================
             function initPayModel() {
                 var self = this;
@@ -457,7 +476,7 @@ Cvc = "486";
                                 return m;
                             }
 
-                            function getExpTimeFormatted(time) {
+                            $scope.getExpTimeFormatted = function (time) {
                                 if (time != null) {
                                     //вычисляем сколько полных часов
                                     var h = Math.floor(time / 60);
@@ -486,7 +505,7 @@ Cvc = "486";
                                 m.expirationDate = dateHelper.apiDateToJsDate(data.ExperationDate);
                                 m.expirationDateFormatted = aviaHelper.getDateFormat(m.expirationDate, 'dd MMM yyyy');
                                 m.experationMinute = data.ExperationMinute;
-                                m.experationMinuteFormatted = getExpTimeFormatted(Math.abs(data.ExperationMinute));
+                                m.experationMinuteFormatted = $scope.getExpTimeFormatted(Math.abs(data.ExperationMinute));
                                 return m;
                             }
 
@@ -518,7 +537,7 @@ Cvc = "486";
                 function getTarifs() {
                     paymentService.getTarifs({ variantTo: $scope.aviaInfo.VariantId1, varianBack: $scope.aviaInfo.VariantId2 },
                         function (data) {
-                            //log('paymentService.getTarifs, data: ' + angular.toJson(data));
+                            log('\npaymentService.getTarifs, data: ' + angular.toJson(data));
                             $scope.tarifs.tarifsData = data;
                         },
                         function (data, status) {
@@ -530,6 +549,8 @@ Cvc = "486";
             function init() {
                 loadTarifs();
                 $scope.tarifs.fillInfo();
+                $scope.focusControl.init();
+                $scope.paymentDeadline.setUpdate();
             };
             
             //data loading ===========================================================================
@@ -650,4 +671,31 @@ Cvc = "486";
                 }
                 
             }
+
+            //срок оплаты билета
+            function paymentDeadline() {
+                var self = this;
+                self.id = null;
+                self.setUpdate = function () {
+                    self.id = $interval(function () {
+                        self.updateExiration();
+                    }, 60000);
+                }
+                self.updateExiration = function () {
+                    if ($scope.reservationModel != null) {
+                        $scope.reservationModel.experationMinute = +$scope.reservationModel.experationMinute - 1;
+                        $scope.reservationModel.experationMinuteFormatted = $scope.getExpTimeFormatted($scope.reservationModel.experationMinute);
+                    }
+                }
+                self.destroy = function () {
+                    if (self.id != null) {
+                        $interval.cancel(self.id);
+                    }
+                }
+            }
+            $scope.paymentDeadline = new paymentDeadline();
+
+            $scope.$on('$destroy', function () {
+                $scope.paymentDeadline.destroy();
+            });
         }]);

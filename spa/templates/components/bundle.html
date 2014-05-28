@@ -44,6 +44,7 @@
         <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
 
         <div class="result-cell result-cell-390" inna-with="bundle.hotel as hotel">
+            <img ng-src="{{hotel.data.ProviderLogoUrl}}" alt="" class="logo">
             <div class="hotel-info">
                 <img ng-src="{{hotel.data.HotelPhoto70}}" alt="">
                 <div class="hotel-info-content">
@@ -80,16 +81,21 @@
         <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
 
         <div class="result-cell result-buy">
-            <span class="icon icon-clip"></span>
+            <button class="share-button" ng-class="{'active': linkPopup.isOpen}" ng-click="linkPopup.toggle()"></button>
+            <div class="tooltip tooltip-share-link" ng-if="linkPopup.isOpen">
+                <input type="text" class="share-link-input" ng-value="location">
+                <span class="icon icon-cross" ng-click="linkPopup.toggle()"></span>
+            </div>
+
             <p class="corner-price cross">
                 {{bundle.getFullPrice()}}<span class="b-rub">Р</span>
                 <span class="price-description">по отдельности</span>
             </p>
             <p class="price">
                 {{bundle.getFullPackagePrice()}} <span class="b-rub">Р</span>
-                <span class="icon icon-price-info" ng-click="popup.toggle()"></span>
+                <span class="icon icon-price-info" ng-click="infoPopup.toggle()"></span>
             </p>
-            <div class="tooltip tooltip-price" ng-if="popup.isOpen">
+            <div class="tooltip tooltip-price" ng-if="infoPopup.isOpen">
                 По отдельности
                 <ul>
                     <li class="list-price-item">Перелет <span class="list-price pull-right">{{bundle.ticket.data.Price}}<span class="b-rub">Р</span></span></li>

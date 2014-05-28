@@ -36,26 +36,18 @@
 	"buffers":
 	[
 		{
-			"file": "html/request.html",
+			"file": "html/tickets_v2.html",
 			"settings":
 			{
-				"buffer_size": 19319,
+				"buffer_size": 40654,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "styl/request.styl",
+			"file": "styl/results.styl",
 			"settings":
 			{
-				"buffer_size": 5614,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "styl/listing.styl",
-			"settings":
-			{
-				"buffer_size": 5184,
+				"buffer_size": 15739,
 				"line_ending": "Unix"
 			}
 		}
@@ -105,14 +97,19 @@
 	},
 	"file_history":
 	[
-		"/Users/tagir/Dropbox/Webserver/Adme/coloribus.com/coloribus.sublime-workspace",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/balloon.styl",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/common.styl",
-		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/listing.styl",
-		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/listing.html",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/popups.html",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/results.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/buy_tickets.html",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/buy_package.html",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/listing.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/request.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/request.html",
+		"/Users/tagir/Dropbox/Webserver/Adme/coloribus.com/coloribus.sublime-workspace",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/listing.html",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/buy.styl",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/datepicker.styl",
-		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/buy_tickets.html",
 		"/Users/tagir/Dropbox/Webserver/c24/c24/c24.sublime-workspace",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/js/search_form.js",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/gulpfile.js",
@@ -227,12 +224,7 @@
 		"/Users/0range/Desktop/yandex_7b1e5d7eeb407267.html",
 		"/Users/0range/Dropbox/Docs/Business/Documents/htaccess",
 		"/Users/0range/Projects/test/index.ctp",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/CSScomb/CSScomb.sublime-settings",
-		"/Users/0range/WebServer/Kribrum/footer.html",
-		"/Users/0range/WebServer/Kribrum/i/separator.png",
-		"/Users/0range/WebServer/Kribrum/js/jquery.ui.datepicker-ru.js",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/CSScomb/CSScomb.sublime-settings"
 	],
 	"find":
 	{
@@ -251,6 +243,28 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"rl__info",
+			"rlf-aviacompany",
+			"rlf-colum2",
+			".rfl-column2",
+			".rfl-column3",
+			".rlf-aviacompany",
+			".baloon_ticket .rlf-aviacompany img",
+			"rlf-aviacompany",
+			".rfl-column3",
+			"rfl-column3",
+			"rlf-colum3",
+			"rlf-aviacompany",
+			"rlf-colum2",
+			"rlf-colum2 ",
+			"rlf-colum2",
+			"Подробная информация по перелету",
+			"rlf-flight-info",
+			"rlf__oneway",
+			"rl-more-info",
+			"rl-item",
+			"body-bg",
+			"body",
 			"/spa/img",
 			"rlf-fly-arrow",
 			"li__mes",
@@ -356,20 +370,7 @@
 			"tags-list",
 			"gr-title",
 			".gr-objects ",
-			"checkbox",
-			"gr-objects",
-			".checkbox",
-			"checkbox",
-			"result-topbar",
-			"result-rating-selected",
-			"Abbreviation",
-			"Wrap",
-			">\n",
-			"checkbox",
-			"class",
-			"oldicons",
-			"var",
-			" \n"
+			"checkbox"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -414,24 +415,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "html/request.html",
+					"file": "html/tickets_v2.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19319,
+						"buffer_size": 40654,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8490,
-								8490
+								31063,
+								31049
 							]
 						],
 						"settings":
@@ -441,55 +442,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2111.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "styl/request.styl",
+					"file": "styl/results.styl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5614,
+						"buffer_size": 15739,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5601,
-								5601
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Stylus/Stylus.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 4166.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "styl/listing.styl",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5184,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								624,
-								624
+								0,
+								0
 							]
 						],
 						"settings":
@@ -499,10 +472,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 12084.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

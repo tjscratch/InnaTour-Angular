@@ -78,41 +78,41 @@
                         <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
                         <div id="num1" class="b-cc js-cardnum-block" title="Неправильно введен номер карты">
                             <input ng-class="{error:indicator.num1}" digits-input type="text" ng-model="payModel.num1"
-                                   validate-simple validate="validateField(key, value)" key="num1"
+                                   validate-simple validate="validateField(key, value)" key="num1" len="4" go-next="focusControl.next(key)"
                                    class="b-field-text b-field-text-small" maxlength="4">
                             <input ng-class="{error:indicator.num2}" digits-input type="text" ng-model="payModel.num2"
-                                   validate-simple validate="validateField(key, value)" key="num2"
+                                   validate-simple validate="validateField(key, value)" key="num2" len="4" go-next="focusControl.next(key)"
                                    class="b-field-text b-field-text-small" maxlength="4">
                             <input ng-class="{error:indicator.num3}" digits-input type="text" ng-model="payModel.num3"
-                                   validate-simple validate="validateField(key, value)" key="num3"
+                                   validate-simple validate="validateField(key, value)" key="num3" len="4" go-next="focusControl.next(key)"
                                    class="b-field-text b-field-text-small" maxlength="4">
                             <input ng-class="{error:indicator.num4}" digits-input type="text" ng-model="payModel.num4"
-                                   validate-simple validate="validateField(key, value)" key="num4"
+                                   validate-simple validate="validateField(key, value)" key="num4" len="4" go-next="focusControl.next(key)"
                                    class="b-field-text b-field-text-small" maxlength="4">
                         </div>
                     </div>
                     <div class="b-cc-block b-cc-block-date">
                         <label class="b-cc-block-label b-cc-block-label-date">Действительна до</label>
-                        <div class="b-cc">
+                        <div class="b-cc js-card-valid">
                             <div class="b-cc-date">
                                 Месяц
                                 <input type="text" class="b-field-text b-field-text-small" 
                                        ng-class="{error:indicator.cardMonth}"
-                                       validate-simple validate="validateField(key, value)" key="cardMonth"
+                                       validate-simple validate="validateField(key, value)" key="cardMonth" len="2" go-next="focusControl.next(key)"
                                        id="cardMonth" title="Неправильно введен месяц" digits-input ng-model="payModel.cardMonth" maxlength="2">
                             </div>
                             <div class="b-cc-date">
                                 Год
                                 <input type="text" class="b-field-text b-field-text-small" 
                                        ng-class="{error:indicator.cardYear}"
-                                       validate-simple validate="validateField(key, value)" key="cardYear"
+                                       validate-simple validate="validateField(key, value)" key="cardYear" len="2" go-next="focusControl.next(key)"
                                        id="cardYear" title="Неправильно введен год" digits-input ng-model="payModel.cardYear" maxlength="2">
                             </div>
                         </div>
                     </div>
                     <div class="b-cc-block">
                         <label class="b-cc-block-label b-cc-block-label-number">Держатель<br> карты</label>
-                        <input type="text" class="b-field-text b-field-text-name"
+                        <input type="text" class="b-field-text b-field-text-name js-card-holder"
                                ng-class="{error:indicator.cardHolder}"
                                validate-simple validate="validateField(key, value)" key="cardHolder"
                                id="cardHolder" title="Нужно ввести держателя карты" ng-model="payModel.cardHolder" to-upper>
@@ -131,7 +131,7 @@
             <div class="b-agreement-container">
                 <a ng-href="#" ng-click="fillTestData($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>
                 <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить" ng-click="processToBuy($event)"></span>
-                <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree"><ins class="b-checkbox" id="agree" title="Нужно согласиться с условиями"></ins>Я согласен с условиями <a href="#" ng-click="oferta.show($event)">договора-оферты</a>, ознакомлен с <a ng-href="#" ng-click="tarifs.show($event)">правилами изменения</a> и <a href="#" ng-click="cancelReservation.show($event)">отмены бронирования</a> и 
+                <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree"><ins class="b-checkbox" id="agree" title="Нужно согласиться с условиями"></ins>Я согласен с условиями <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a>, ознакомлен с <a ng-href="#" ng-click="tarifs.show($event)">правилами изменения</a> и <a href="#" ng-click="cancelReservation.show($event)">отмены бронирования</a> и 
 не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
                 <img src="/spa/img/logos.png" class="b-logos" alt="">
             </div>

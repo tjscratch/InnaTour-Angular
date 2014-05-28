@@ -275,3 +275,13 @@ inna.Models._CollectionFactory = function(){
 
     return Collection;
 }
+
+_.provide('inna.Models.Aux');
+
+inna.Models.Aux.AttachedPopup = function(){
+    this.isOpen = false;
+}
+
+inna.Models.Aux.AttachedPopup.prototype.toggle = function(){
+    this.isOpen = !this.isOpen;
+}
