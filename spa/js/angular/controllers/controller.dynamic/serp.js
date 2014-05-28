@@ -129,14 +129,22 @@ innaAppControllers
                     var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                     if (ticket) {
                         $scope.getTicketDetails(ticket);
-                    } else throw 1;
+                    } else throw true;
                 } catch(e) {
                     ticket404();
                 }
             }
 
             function loadHotelDetails(id){
-                console.log('load hotel details', id);
+                try {
+                    var hotel = $scope.hotels.search(id);
+
+                    if(hotel) {
+                        $scope.getHotelDetails(hotel);
+                    } else throw true;
+                } catch(e) {
+                    console.log('todo hotel404()');
+                }
             }
 
             /*Properties*/
@@ -249,7 +257,7 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             $scope.$watch('asMap', function (newVal) {
-                //DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, + newVal);
+                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, + newVal);
             });
 
             $scope.$watch('hotels', function (data) {
