@@ -10,10 +10,8 @@ angular.module('innaApp.directives')
                 combination: '=innaHotelDetailsBundle'
             },
             controller: [
-                '$scope', '$element', '$timeout', 'aviaHelper',
-                function($scope, $element, $timeout, aviaHelper){
-                    console.log('innaHotelDetails', $scope);
-
+                '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events',
+                function($scope, $element, $timeout, aviaHelper, Events){
                     /*Dom*/
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -96,6 +94,10 @@ angular.module('innaApp.directives')
 
                         marker.setMap(map);
                     });
+
+                    $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
+                        console.log(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+                    })
                 }
             ]
         }
