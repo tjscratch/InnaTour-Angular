@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
-    .directive('dynamicSerpFilterTafactor', function(){
+    .directive('dynamicSerpFilterTafactor', ['$templateCache', function($templateCache){
         return {
-            templateUrl: '/spa/templates/components/dynamic-serp-filter/tafactor.html',
+            template: $templateCache.get('components/dynamic-serp-filter/tafactor.html'),
             scope: {
                 hotels: '=dynamicSerpFilterTafactorHotels',
                 filters: '=dynamicSerpFilterTafactorFilters'
@@ -58,4 +58,4 @@ angular.module('innaApp.directives')
                 }
             ]
         }
-    });
+    }]);

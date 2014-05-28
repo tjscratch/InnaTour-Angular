@@ -1,10 +1,10 @@
 ﻿'use strict';
 
 angular.module('innaApp.directives')
-    .directive('regionHeader', [function () {
+    .directive('regionHeader', ['$templateCache', function ($templateCache) {
         return {
             replace: true,
-            templateUrl: '/spa/js/angular/regions/header/templ/header.html',
+            template: $templateCache.get('regions/header/templ/header.html'),
             controller: [
                 '$scope',
                 '$location',

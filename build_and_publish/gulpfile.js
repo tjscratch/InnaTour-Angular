@@ -71,7 +71,10 @@ function cleanFiles(destFolder) {
 }
 
 gulp.task('templates-ang', function () {
-    gulp.src(__BUILD_FOLDER__ + '/spa/templates/**/*.html')
+    gulp.src([
+            __BUILD_FOLDER__ + '/spa/templates/**/*.html',
+            __BUILD_FOLDER__ + '/spa/js/angular/**/*.html'
+    ])
         .pipe(minifyHTML({
             quotes: true
         }))

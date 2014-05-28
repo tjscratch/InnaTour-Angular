@@ -14,12 +14,14 @@ var gulp = require('gulp'),
 //var sprites = require('node_tasks/gulp_sprite.js');
 
 gulp.task('templates-ang', function () {
-    gulp.src('templates/**/*.html')
+    gulp.src([
+        'templates/**/*.html',
+        'js/angular/**/*.html'])
         .pipe(minifyHTML({
             quotes: true
         }))
         .pipe(templateCache({
-            module : 'innaApp.templates'
+            module: 'innaApp.templates'
         }))
         .pipe(gulp.dest('build'));
 });
@@ -55,7 +57,7 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('css'));
 });
 
-gulp.task('print', function(){
+gulp.task('print', function () {
     gulp.src(['styl/print.styl'])
         .pipe(stylus({
             use: ['nib'],
@@ -71,11 +73,11 @@ gulp.task('watch', function () {
     gulp.watch('styl/**/*', ['styles']);
     gulp.watch('templates/**/*.html', ['templates-ang']);
 
-    gulp.watch('*.php', function(evt) {
+    gulp.watch('*.php', function (evt) {
         server.changed(evt.path);
     });
-    gulp.watch('*.html', function(evt) {
+    gulp.watch('*.html', function (evt) {
         server.changed(evt.path);
     });
 });
-gulp.task('default', ['styles', 'templates-ang',  'watch']);
+gulp.task('default', ['styles', 'templates-ang', 'watch']);

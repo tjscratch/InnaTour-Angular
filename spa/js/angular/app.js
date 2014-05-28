@@ -58,8 +58,14 @@ app.run(['$rootScope', '$location', '$window', function ($rootScope, $location, 
 }]);
 
 app.config([
-    '$routeProvider', '$locationProvider', '$httpProvider', 'innaApp.Urls',
+    //'$templateCache',
+    '$routeProvider',
+    '$locationProvider',
+    '$httpProvider',
+    'innaApp.Urls',
     function ($routeProvider, $locationProvider, $httpProvider, url) {
+
+        //console.log($templateCache.get('pages/tours_grid_page.html'));
 
         function morda(){
             return {

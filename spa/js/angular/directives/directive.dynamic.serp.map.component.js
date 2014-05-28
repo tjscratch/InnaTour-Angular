@@ -5,9 +5,6 @@
  * прячем и показываем снова один созданный тип  InfoBox
  *
  */
-/*app.run(function($templateCache){
-    $templateCache.put("zippy.html", '<div><h3ng-click="toggleContent()">{{title}}</h3><div ng-show="isContentVisible" ng-transclude></div></div>')
-})*/
 
 angular.module('innaApp.directives')
     .directive('infoBoxCarousel', [function () {
@@ -93,8 +90,6 @@ angular.module('innaApp.directives')
     .directive('dynamicSerpMap', [
         '$templateCache',
         function ($templateCache) {
-
-            console.log($templateCache.get('pages/dynamic/inc/serp.hotels.map.html'));
 
             return {
                 template: $templateCache.get('pages/dynamic/inc/serp.hotels.map.html'),
