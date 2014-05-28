@@ -127,7 +127,8 @@
             msg: 'msg',
             err: 'err',
             msgClose: 'msgClose',
-            success: 'success'
+            success: 'success',
+            payExpires: 'payExpires'
         };
 
         var host = app_main.host.replace('api.', 's.'); //http://api.test.inna.ru
@@ -386,7 +387,9 @@
                     helper.baloon.text = text;
                     helper.baloon.closeFn = closeFn;
                     helper.baloon.isVisible = true;
+                    //data: { buttonCaption: '', successFn: fn }
                     helper.baloon.data = data;
+
                     //$rootScope.$broadcast('baloon.show');
                 },
                 hide: function () {
@@ -409,6 +412,9 @@
                 function getPluralTickets(count) {
                     return helper.pluralForm(count, 'билет', 'билета', 'билетов');
                 }
+
+                if (countLeft < 0 || ticketsCount < 0)
+                    return '';
 
                 switch (ticketsCount) {
                     case 1:
