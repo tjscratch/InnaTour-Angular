@@ -483,12 +483,16 @@ Cvc = "486";
                                     var addMins = time - h * 60;
 
                                     var hPlural = aviaHelper.pluralForm(h, 'час', 'часа', 'часов');
+                                    var mPlural = aviaHelper.pluralForm(addMins, 'минута', 'минуты', 'минут');
 
                                     if (addMins == 0) {
                                         return h + " " + hPlural;
                                     }
+                                    else if (h == 0) {
+                                        return addMins + " " + mPlural;
+                                    }
                                     else {
-                                        return h + " " + hPlural + ": " + addMins + " минут";
+                                        return h + " " + hPlural + ": " + addMins + " " + mPlural;
                                     }
                                 }
                                 return "";
@@ -505,7 +509,7 @@ Cvc = "486";
                                 m.expirationDate = dateHelper.apiDateToJsDate(data.ExperationDate);
                                 m.expirationDateFormatted = aviaHelper.getDateFormat(m.expirationDate, 'dd MMM yyyy');
                                 m.experationMinute = data.ExperationMinute;
-                                m.experationMinuteFormatted = $scope.getExpTimeFormatted(Math.abs(data.ExperationMinute));
+                                m.experationMinuteFormatted = $scope.getExpTimeFormatted(Math.abs(m.experationMinute));
                                 return m;
                             }
 
@@ -677,15 +681,62 @@ Cvc = "486";
                 var self = this;
                 self.id = null;
                 self.setUpdate = function () {
-                    self.id = $interval(function () {
-                        self.updateExiration();
-                    }, 60000);
+                    if (self.ifExpires()) {
+                        self.runExiresLogic();
+                    }
+                    else {//не заэкспайрилось
+                        self.id = $interval(function () {
+                            self.updateExiration();
+                            if (self.ifExpires()) {
+                                self.runExiresLogic();
+                            }
+                        }, 60000);
+                    }
                 }
                 self.updateExiration = function () {
                     if ($scope.reservationModel != null) {
                         $scope.reservationModel.experationMinute = +$scope.reservationModel.experationMinute - 1;
                         $scope.reservationModel.experationMinuteFormatted = $scope.getExpTimeFormatted($scope.reservationModel.experationMinute);
                     }
+                }
+                self.ifExpires = function () {
+                    if ($scope.reservationModel != null) {
+                        if ($scope.reservationModel.experationMinute != null && $scope.reservationModel.experationMinute > 0) {
+                            return false;
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                self.runExiresLogic = function () {
+                    //заэкспайрилось - показываем попап, отключаем апдейт
+                    self.destroy();
+                    $scope.baloon.show('', '', aviaHelper.baloonType.payExpires, function () {
+                        $location.path(Urls.URL_AVIA);
+                    }, {
+                        successFn: function () {
+                            $scope.baloon.hide();
+                            //var criteria = {
+                            //    FromUrl: '',
+                            //    ToUrl: '',
+                            //    BeginDate: '',
+                            //    EndDate: '',
+                            //    AdultCount: '',
+                            //    ChildCount: '',
+                            //    InfantsCount: '',
+                            //    CabinClass: '',
+                            //    IsToFlexible: '',
+                            //    IsBackFlexible: '',
+                            //    PathType: ''
+                            //}
+                            //var url = urlHelper.UrlToAviaSearch(criteria);
+                            //log('redirect to url: ' + url);
+                            //$location.path(url);
+                            $location.path(Urls.URL_AVIA);
+                        }
+                    });
                 }
                 self.destroy = function () {
                     if (self.id != null) {
@@ -694,6 +745,7 @@ Cvc = "486";
                 }
             }
             $scope.paymentDeadline = new paymentDeadline();
+            
 
             $scope.$on('$destroy', function () {
                 $scope.paymentDeadline.destroy();
