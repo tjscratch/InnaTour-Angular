@@ -12,7 +12,8 @@ angular.module('innaApp.directives')
                 filters: '=innaDynamicSerpFilterIndicatorsFilters',
                 items: '=innaDynamicSerpFilterIndicatorsItems',
                 mod_papper: '=modWpapper',
-                action: '=innaDynamicSerpFilterIndicatorsAction'
+                action: '=innaDynamicSerpFilterIndicatorsAction',
+                name: '@innaDynamicSerpFilterIndicatorsItemsName'
             },
             controller: [
                 '$scope',
