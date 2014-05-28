@@ -1,11 +1,11 @@
 ﻿
 
 innaAppDirectives.
-    directive('filterPrice', ['eventsHelper', function (eventsHelper) {
+    directive('filterPrice', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
         return {
             require: 'ngModel',
             replace: true,
-            templateUrl: '/spa/templates/components/avia_results_filter/filter_price.html',
+            template: $templateCache.get('components/avia_results_filter/filter_price.html'),
             scope: {
                 initMinValue: '=',
                 initMaxValue: '=',

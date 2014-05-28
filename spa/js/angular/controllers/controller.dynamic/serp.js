@@ -412,7 +412,7 @@ innaAppControllers
 
             // подписываемся на событие toggle:visible:bundle
             // скрываем бандл вместе с шапкой
-            $scope.$root.$on('toggle:visible:bundle', function(){
+            $scope.$root.$on('bundle:hidden', function(){
                 $scope.display.toggle();
             });
 

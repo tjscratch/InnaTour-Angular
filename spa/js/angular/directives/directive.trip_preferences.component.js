@@ -1,6 +1,6 @@
-innaAppDirectives.directive('tripPreferences', [function(){
+innaAppDirectives.directive('tripPreferences', ['$templateCache', function($templateCache){
     return {
-        templateUrl: '/spa/templates/components/trip_preferences.html',
+        template: $templateCache.get('components/trip_preferences.html'),
         replace: true,
         scope: {
             showBackTripOptions: '@',

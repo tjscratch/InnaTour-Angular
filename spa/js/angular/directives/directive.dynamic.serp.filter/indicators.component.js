@@ -1,11 +1,11 @@
 angular.module('innaApp.directives')
-    .directive('innaDynamicSerpFilterIndicators', function(){
+    .directive('innaDynamicSerpFilterIndicators', ['$templateCache', function($templateCache){
         return {
-            templateUrl: function(element, attr){
-                var templatePath = '/spa/templates/components/dynamic-serp-filter/';
+            template: function(element, attr){
+                var templatePath = 'components/dynamic-serp-filter/';
                 var templateName = attr.templateName || 'indicators.html';
 
-                return templatePath + templateName;
+                return $templateCache.get(templatePath + templateName);
             },
             replace: true,
             scope: {
@@ -60,4 +60,4 @@ angular.module('innaApp.directives')
                 }
             ]
         }
-    })
+    }])
