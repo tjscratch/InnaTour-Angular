@@ -9,16 +9,9 @@ innaAppControllers
             var AS_MAP_CACHE_KEY = 'serp-as-map';
             var serpScope = $scope;
 
-            /**
-             * Изменяем класс у results-container
-             * Смотри DynamicPackageSERPRecommendedBundleCtrl
-             * @type {{}}
-             */
-            $scope.padding = {};
-
-
-            function loadTab(cb) {
+            function loadTab() {
                 var method, param, apply;
+                var deferred = new $.Deferred();
 
                 if ($scope.state.isActive($scope.state.HOTELS_TAB)) {
                     method = 'getHotelsByCombination';
@@ -55,9 +48,11 @@ innaAppControllers
                     $scope.$apply(function ($scope) {
                         apply($scope, data);
 
-                        (cb || angular.noop)();
+                        deferred.resolve();
                     });
                 });
+
+                return deferred.promise();
             }
 
             function combination404() {
@@ -125,10 +120,22 @@ innaAppControllers
 
             $scope.showLanding = true;
 
+            /**
+             * Изменяем класс у results-container
+             * Смотри DynamicPackageSERPRecommendedBundleCtrl
+             * @type {{}}
+             */
+            $scope.padding = {};
+
+            /*Simple proxy*/
+            $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+            $scope.dateHelper = dateHelper;
+
             /*Methods*/
             $scope.getHotelDetails = function (hotel) {
                 function show() {
                     serpScope.hotelToShowDetails = hotel;
+                    $location.search('displayHotel', hotel.data.HotelId);
                 }
 
                 if (!hotel.detailed) {
@@ -151,6 +158,8 @@ innaAppControllers
 
             $scope.closeHotelDetails = function () {
                 $scope.hotelToShowDetails = null;
+                delete $location.$$search.displayHotel
+                $location.$$compose();
             };
 
             $scope.getTicketDetails = function (ticket) {
@@ -183,40 +192,46 @@ innaAppControllers
                 ].join('-'));
             };
 
-            $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
-            $scope.dateHelper = dateHelper;
-
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
             $scope.$watch('asMap', function (newVal) {
-                //DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, + newVal);
+                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, + newVal);
             });
 
             $scope.$watch('hotels', function (data) {
                 $scope.$broadcast('change:hotels:filters', data);
-                //console.log('change:hotels');
             }, true);
 
             $scope.$watch('hotelFilters', function (data) {
                 $scope.hotels.filter($scope.hotelFilters);
                 $scope.$broadcast('change:filters', data);
-                //console.log('change:filters');
             }, true);
 
 
             /*Initial Data fetching*/
             (function () {
-                $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
+                function onTabLoaded() {
+                    if ($location.search().displayTicket) try {
+                        var ticketIds = $location.search().displayTicket.split('_');
+                        var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
 
-                searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
-                searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);
-                searchParams.Children && (searchParams.ChildrenAges = searchParams.Children.split('_'));
+                        if (ticket) {
+                            $scope.getTicketDetails(ticket);
+                        } else throw 1;
+                    } catch (e) {
+                        ticket404();
+                    }
 
-                if ($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
-                if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
+                    if ($location.search().displayHotel) try {
+                        var hotelId = $location.search().displayHotel;
+                        console.log('tab content loaded. ?hotelId=', hotelId, $scope.hotels);
+                    } catch(e) {
+                        console.log('todo hotel404()');
+                    }
+                }
 
-                ServiceDynamicPackagesDataProvider.search(searchParams, function (data) {
+                function combination200(data) {
 
                     if (!data || !data.RecommendedPair) return $scope.$apply(combination404);
 
@@ -233,21 +248,19 @@ innaAppControllers
                         $scope.baloon.hide();
                     });
 
-                    loadTab(function () {
-                        if ($location.search().displayTicket) {
-                            try {
-                                var ticketIds = $location.search().displayTicket.split('_');
-                                var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
+                    $.when(loadTab()).then(onTabLoaded);
+                }
 
-                                if (ticket) {
-                                    $scope.getTicketDetails(ticket);
-                                } else throw 1;
-                            } catch (e) {
-                                ticket404();
-                            }
-                        }
-                    });
-                }, combination500);
+                $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
+
+                searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
+                searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);
+                searchParams.Children && (searchParams.ChildrenAges = searchParams.Children.split('_'));
+
+                if ($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
+                if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
+
+                ServiceDynamicPackagesDataProvider.search(searchParams, combination200, combination500);
             })();
 
             /*Because fuck angular, that's why!*/
@@ -265,7 +278,7 @@ innaAppControllers
                         tooltip.hide();
                         doc.off('click', bodyClick);
                     });
-                }
+                };
 
                 doc.on('click', '.JS-icon-price-info', {}, onIconPriceClick);
 
