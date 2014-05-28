@@ -7,85 +7,74 @@
  */
 
 angular.module('innaApp.directives')
-    .directive('infoBoxCarousel', [function () {
+    .controller('infoBoxCarouselCtrl', ['$templateCache', '$scope', '$element',  function ($templateCache, $scope, elem) {
 
-        return {
-            controller: ['$scope', function ($scope) {
+        var that = this;
+        $scope._options = {};
 
-            }],
-            link: function ($scope, elem, attrs) {
+        /**
+         * Настройки для карусели
+         * @type {*|Query|Cursor}
+         * @private
+         */
 
+        var $thisEl = elem[0];
+        var carouselHolder = $thisEl.querySelector('.b-carousel__holder');
+        var _slider = $thisEl.querySelector('.b-carousel__slider');
+        var _sliderItem = _slider.querySelectorAll('.b-carousel__slider_item');
+        var _sliderItemTotal = $scope.$parent.currentHotel.data.Photos.length;
+        var _sliderItemWidth = 360;
+        var _sliderIndex = 0;
+        var _sliderSpeed = 500;
 
-                var that = this;
-                $scope._options = {};
+        // ширина блока с контентом карусели
+        _slider.style.width = ((_sliderItemTotal * _sliderItemWidth) + 10) + 'px';
+        _slider.style.height = 240 + 'px';
 
-                /**
-                 * Настройки для карусели
-                 * @type {*|Query|Cursor}
-                 * @private
-                 */
+        _sliderItem.forEach(function (slider) {
+            slider.style.width = _sliderItemWidth + 'px';
+        });
 
-                var $thisEl = elem[0];
-                var carouselHolder = $thisEl.querySelector('.b-carousel__holder');
-                var _slider = $thisEl.querySelector('.b-carousel__slider');
-                var _sliderItem = _slider.querySelectorAll('.b-carousel__slider_item');
-                var _sliderItemTotal = $scope.$parent.currentHotel.data.Photos.length;
-                var _sliderItemWidth = 360;
-                var _sliderIndex = 0;
-                var _sliderSpeed = 500;
+        carouselHolder.style.width = _sliderItemWidth;
 
-                // ширина блока с контентом карусели
-                _slider.style.width = ((_sliderItemTotal * _sliderItemWidth) + 10) + 'px';
-                _slider.style.height = 240 + 'px';
+        elem.on('click', '.b-carousel__next', slideNext);
+        elem.on('click', '.b-carousel__prev', slidePrev);
 
-                _sliderItem.forEach(function (slider) {
-                    console.log(slider);
-                    slider.style.width = _sliderItemWidth + 'px';
-                });
-
-                carouselHolder.style.width = _sliderItemWidth;
-
-                elem.on('click', '.b-carousel__next', slideNext);
-                elem.on('click', '.b-carousel__prev', slidePrev);
-
-                /**
-                 * анимация карусели
-                 * @param index
-                 */
-                var carouselSlide = function (index) {
-                    /*angular.element(_slider).stop().animate({
-                     left: '-' + (_sliderIndex * _sliderItemWidth) + 'px'
-                     }, _sliderSpeed);*/
-                    angular.element(_slider).css({
-                        "-webkit-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
-                        "-moz-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
-                        "-ms-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
-                        "transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)"
-                    });
-                }
-
-
-                function slideNext(evt) {
-                    evt.preventDefault();
-                    var $this = $(evt.currentTarget);
-
-                    _sliderIndex += 1;
-                    _sliderIndex = ( _sliderIndex > _sliderItemTotal - 1) ? 0 : _sliderIndex
-                    carouselSlide(_sliderIndex);
-                }
-
-
-                function slidePrev(evt) {
-                    evt.preventDefault();
-                    var $this = $(evt.currentTarget);
-
-                    _sliderIndex -= 1;
-                    _sliderIndex = ( _sliderIndex < 0) ? _sliderItemTotal - 1 : _sliderIndex
-                    carouselSlide(_sliderIndex);
-                }
-            }
+        /**
+         * анимация карусели
+         * @param index
+         */
+        var carouselSlide = function (index) {
+            /*angular.element(_slider).stop().animate({
+             left: '-' + (_sliderIndex * _sliderItemWidth) + 'px'
+             }, _sliderSpeed);*/
+            angular.element(_slider).css({
+                "-webkit-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
+                "-moz-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
+                "-ms-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
+                "transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)"
+            });
         }
 
+
+        function slideNext(evt) {
+            evt.preventDefault();
+            var $this = $(evt.currentTarget);
+
+            _sliderIndex += 1;
+            _sliderIndex = ( _sliderIndex > _sliderItemTotal - 1) ? 0 : _sliderIndex
+            carouselSlide(_sliderIndex);
+        }
+
+
+        function slidePrev(evt) {
+            evt.preventDefault();
+            var $this = $(evt.currentTarget);
+
+            _sliderIndex -= 1;
+            _sliderIndex = ( _sliderIndex < 0) ? _sliderItemTotal - 1 : _sliderIndex
+            carouselSlide(_sliderIndex);
+        }
     }])
     .directive('dynamicSerpMap', [
         '$templateCache',
@@ -323,11 +312,13 @@ angular.module('innaApp.directives')
                      * removeMarkers
                      */
                     var removeMarkers = function () {
-                        console.log(markers);
                         markers.forEach(function (marker) {
                             marker.setMap(null);
                         });
                         markers = [];
+
+                        if(_markerCluster)
+                            _markerCluster.clearMarkers();
                     }
 
                     /**
@@ -459,11 +450,11 @@ angular.module('innaApp.directives')
 
 
                     scope.$on('change:hotels:filters', function (data) {
-                        console.log('broadcast');
                         updateMap({
                             hotels: data.targetScope.hotels,
                             airports: scope.airports
                         })
+
                     });
 
 
@@ -504,7 +495,7 @@ angular.module('innaApp.directives')
 
                         addCluster();
 
-                        map.fitBounds(bounds);
+                        //map.fitBounds(bounds);
                     }
 
                     scope.$watchCollection('[hotels, airports]', function (data) {

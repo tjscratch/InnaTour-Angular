@@ -1,4 +1,4 @@
-﻿
+
 
 innaAppDirectives.
     directive('filterTransfer', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {

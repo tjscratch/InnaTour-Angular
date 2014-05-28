@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿﻿'use strict';
 
 angular.module('innaApp.directives')
     .directive('regionFooter', ['$templateCache', function ($templateCache) {

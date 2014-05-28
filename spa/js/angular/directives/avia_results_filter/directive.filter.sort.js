@@ -1,4 +1,4 @@
-﻿
+
 
 innaAppDirectives.
     directive('filterSort', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
