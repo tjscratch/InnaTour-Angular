@@ -625,7 +625,7 @@ Cvc = "486";
                 });
 
                 $scope.baloon.hide();
-                $scope.iframeUrl = ('/spa/templates/pages/avia/pay_form.html?' + params);
+                $scope.iframeUrl = ('pages/avia/pay_form.html?' + params);
 
                 $scope.is3dscheck = true;
                 checkPayment();

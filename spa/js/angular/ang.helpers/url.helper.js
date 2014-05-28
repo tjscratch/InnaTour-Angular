@@ -13,7 +13,7 @@
                 return url;
             },
             getInnerTemplate: function () {
-                return helper.addPathAndVersion('/templates/grid/_item_inner.html');
+                return 'grid/_item_inner.html';
             },
             getTemplateUrlByBlockType: function (type) {
                 var bType = tours.grid.blockType;
@@ -33,17 +33,17 @@
 
                 //шаблоны тянутся с главной, чтобы не было проблем с кэшированием
                 switch (type) {
-                    case bType.bXL: return '/grid/item_XL.html';
-                    case bType.b2SL: return '/grid/item_2SL.html';
-                    case bType.bL2S: return '/grid/item_L2S.html';
-                    case bType.b2M: return '/grid/item_2M.html';
-                    case bType.bLSS: return '/grid/item_LSS.html';
-                    case bType.bSSL: return '/grid/item_SSL.html';
-                    case bType.bL3L3L3: return '/grid/item_L3L3L3.html';
-                    case bType.bP2P1P1: return '/grid/item_P2P1P1.html';
-                    case bType.bP1P2P1: return '/grid/item_P1P2P1.html';
-                    case bType.bP1P1P2: return '/grid/item_P1P1P2.html';
-                    default: return '/grid/item_XL.html';
+                    case bType.bXL: return 'grid/item_XL.html';
+                    case bType.b2SL: return 'grid/item_2SL.html';
+                    case bType.bL2S: return 'grid/item_L2S.html';
+                    case bType.b2M: return 'grid/item_2M.html';
+                    case bType.bLSS: return 'grid/item_LSS.html';
+                    case bType.bSSL: return 'grid/item_SSL.html';
+                    case bType.bL3L3L3: return 'grid/item_L3L3L3.html';
+                    case bType.bP2P1P1: return 'grid/item_P2P1P1.html';
+                    case bType.bP1P2P1: return 'grid/item_P1P2P1.html';
+                    case bType.bP1P1P2: return 'grid/item_P1P1P2.html';
+                    default: return 'grid/item_XL.html';
                 }
             },
 

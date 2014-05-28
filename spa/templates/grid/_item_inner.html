@@ -1,4 +1,6 @@
-﻿<div class="offer-info" ng-if="!showImgOnly(item)">
+﻿<img ng-src="{{item.Image}}" class="offer-img" alt=""/>
+<div class="darken-container"></div>
+<div class="offer-info" ng-if="!showImgOnly(item)">
     <div class="offer-info-container">
         <h3 class="offer-title" ng-if="!isNullOrEmpty(item.FrontTitleRow1)">{{item.FrontTitleRow1}}</h3>
         <h3 class="offer-title" ng-if="!isNullOrEmpty(item.FrontTitleRow2)">{{item.FrontTitleRow2}}</h3>
@@ -9,7 +11,7 @@
         </p>
     </div>
 </div>
-<div class="offer-info-hover" ng-if="!showImgOnly(item)">
+<div class="offer-info-hover" ng-if="!showImgOnly(item)" >
     <div class="offer-info-container">
         <h3 class="offer-title" ng-if="!isNullOrEmpty(item.BackTitleRow1)">{{item.BackTitleRow1}}</h3>
         <h3 class="offer-title" ng-if="!isNullOrEmpty(item.BackTitleRow2)">{{item.BackTitleRow2}}</h3>
