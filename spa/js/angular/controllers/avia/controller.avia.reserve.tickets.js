@@ -215,6 +215,7 @@ innaAppControllers.
                     VariantId1: $scope.item.VariantId1,
                     VariantId2: $scope.item.VariantId2
                 };
+                m.Filter = angular.toJson($scope.criteria);
                 return m;
             }
 
