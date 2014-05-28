@@ -1,5 +1,4 @@
-﻿
-'use strict';
+﻿'use strict';
 
 var app = angular.module('innaApp', [
   'ngRoute',

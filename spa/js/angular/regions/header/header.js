@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿﻿'use strict';
 
 angular.module('innaApp.directives')
     .directive('regionHeader', ['$templateCache', function ($templateCache) {

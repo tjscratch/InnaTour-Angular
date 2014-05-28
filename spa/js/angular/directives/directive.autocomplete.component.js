@@ -1,4 +1,4 @@
-﻿innaAppDirectives.directive('dropdownInput', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
+﻿﻿innaAppDirectives.directive('dropdownInput', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
     return {
         replace: true,
         template: $templateCache.get('components/dropdown_input.html'),

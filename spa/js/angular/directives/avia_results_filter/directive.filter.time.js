@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 
 innaAppDirectives.
     directive('filterTime', ['$templateCache', 'eventsHelper', 'aviaHelper', function ($templateCache, eventsHelper, aviaHelper) {

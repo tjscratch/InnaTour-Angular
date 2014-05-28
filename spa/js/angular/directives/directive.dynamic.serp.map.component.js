@@ -324,7 +324,6 @@ angular.module('innaApp.directives')
                      */
                     var removeMarkers = function () {
                         markers.forEach(function (marker) {
-                            console.log(marker);
                             marker.setMap(null);
                         });
                         markers = [];
@@ -464,7 +463,7 @@ angular.module('innaApp.directives')
                             hotels: data.targetScope.hotels,
                             airports: scope.airports
                         })*/
-                        removeMarkers();
+
                         _markerCluster.clearMarkers();
                     });
 
@@ -507,7 +506,6 @@ angular.module('innaApp.directives')
                         addCluster();
 
                         map.fitBounds(bounds);
-                        removeMarkers();
                     }
 
                     scope.$watchCollection('[hotels, airports]', function (data) {
