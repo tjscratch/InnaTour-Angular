@@ -510,6 +510,7 @@ Cvc = "486";
                                 m.expirationDateFormatted = aviaHelper.getDateFormat(m.expirationDate, 'dd MMM yyyy');
                                 m.experationMinute = data.ExperationMinute;
                                 m.experationMinuteFormatted = $scope.getExpTimeFormatted(Math.abs(m.experationMinute));
+                                m.filter = data.Filter;
                                 return m;
                             }
 
@@ -718,23 +719,10 @@ Cvc = "486";
                     }, {
                         successFn: function () {
                             $scope.baloon.hide();
-                            //var criteria = {
-                            //    FromUrl: '',
-                            //    ToUrl: '',
-                            //    BeginDate: '',
-                            //    EndDate: '',
-                            //    AdultCount: '',
-                            //    ChildCount: '',
-                            //    InfantsCount: '',
-                            //    CabinClass: '',
-                            //    IsToFlexible: '',
-                            //    IsBackFlexible: '',
-                            //    PathType: ''
-                            //}
-                            //var url = urlHelper.UrlToAviaSearch(criteria);
+                            var criteria = angular.fromJson($scope.reservationModel.filter);
+                            var url = urlHelper.UrlToAviaSearch(criteria);
                             //log('redirect to url: ' + url);
-                            //$location.path(url);
-                            $location.path(Urls.URL_AVIA);
+                            $location.path(url);
                         }
                     });
                 }

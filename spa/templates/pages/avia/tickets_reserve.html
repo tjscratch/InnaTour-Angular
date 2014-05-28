@@ -29,7 +29,7 @@
                     <label class="b-field-label">Мобильный телефон</label>
                     <input validate-events-dir ng-model="validationModel.phone.value"
                            ng-validation-model="validationModel.phone" validate="validate(item, type)" validate-type="validateType.phone"
-                           supress-select-on-value="+7"
+                           supress-select-on-value="'+7'"
                            ng-class="{error:isFieldInvalid(validationModel.phone)}"
                            title="Неправильно введен мобильный телефон" name="phone" type="text"
                            phone-input class="b-field-text">
