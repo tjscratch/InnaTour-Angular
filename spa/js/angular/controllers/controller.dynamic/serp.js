@@ -149,8 +149,8 @@ innaAppControllers
             $scope.combination = new inna.Models.Dynamic.Combination();
 
             $scope.state = new function () {
-                this.HOTELS_TAB = 'pages/dynamic/inc/serp.hotels.html';
-                this.TICKETS_TAB = 'pages/dynamic/inc/serp.tickets.html';
+                this.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
+                this.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
 
                 this.display = this.HOTELS_TAB;
 

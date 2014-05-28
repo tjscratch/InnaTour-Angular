@@ -1,5 +1,5 @@
 angular.module('innaApp.directives')
-    .directive('innaDynamicBundle', ['$templateCache', function($templateCache){
+    .directive('innaDynamicBundle', ['$templateCache', function($templateCache){        
         return {
             template: $templateCache.get('components/bundle.html'),
             scope: {
@@ -10,7 +10,9 @@ angular.module('innaApp.directives')
                 goReservation: '=innaDynamicBundleGoReservation'
             },
             controller: [
-                '$scope', 'aviaHelper', '$element',
+                '$scope',
+                'aviaHelper',
+                '$element',
                 function($scope, aviaHelper, $element){
                     $scope.infoPopup = new inna.Models.Aux.AttachedPopup();
                     $scope.linkPopup = new inna.Models.Aux.AttachedPopup();

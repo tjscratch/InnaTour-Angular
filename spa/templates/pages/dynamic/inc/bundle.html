@@ -60,6 +60,6 @@
     <div class="filters__body">
         <!-- Показываем только когда загрузился список -->
         <ng:include src="state.display + '__filters.html'" ng-if="!asMap && hotels.size()"/>
-        <ng:include src="'pages/dynamic/inc/serp.hotels.map__filters.html'" ng-if="asMap"/>
+        <ng:include src="'/spa/templates/pages/dynamic/inc/serp.hotels.map__filters.html'" ng-if="asMap"/>
     </div>
 </div>
