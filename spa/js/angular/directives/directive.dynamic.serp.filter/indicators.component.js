@@ -11,13 +11,30 @@ angular.module('innaApp.directives')
             scope: {
                 filters: '=innaDynamicSerpFilterIndicatorsFilters',
                 items: '=innaDynamicSerpFilterIndicatorsItems',
+                mod_papper: '=modWpapper',
                 action: '=innaDynamicSerpFilterIndicatorsAction'
             },
             controller: [
                 '$scope',
-                function($scope){
+                '$element',
+                function($scope, $element){
+                    var isMap = false;
 
-                    console.log($scope, 'templteName');
+                    $element.on('click', '.button-map-list', function(evt){
+                        if(!isMap){
+                            isMap = true;
+                            $scope.action();
+                        } else {
+                            isMap = false;
+                            $scope.action();
+                        }
+
+                        $(this).toggleClass('checked', isMap);
+                    });
+
+                    if($scope.mod_papper){
+                        $element.addClass('b-switch-filters_mod-wrapper');
+                    }
 
                     $scope.atLeastOne = function(){
                         var result = false;

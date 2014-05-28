@@ -8,6 +8,9 @@ var gulp = require('gulp'),
     csscomb = require('gulp-csscomb'),
     less = require('gulp-less');
 
+
+//var sprites = require('gulp_tasks/gulp_sprite.js');
+
 gulp.task('styles', function () {
     gulp.src(['styl/common.styl'])
         .pipe(stylus({

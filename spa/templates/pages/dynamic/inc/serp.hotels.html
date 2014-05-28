@@ -1,29 +1,37 @@
-<div class="results-container results-container_top" ng-if="!asMap">
+<div class="results-container results-container_top"
+     ng-if="!asMap && !hotelToShowDetails"
+     ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
         <div
-                ng-repeat="hotel in hotels.filter(hotelFilters)"
-                ng-if="!hotel.hidden"
-                inna-hotel
-                inna-hotel-hotel="hotel"
-                inna-hotel-get-details="getHotelDetails">
+            ng-repeat="hotel in hotels.filter(hotelFilters)"
+            ng-if="!hotel.hidden"
+            inna-hotel
+            inna-hotel-hotel="hotel"
+            inna-hotel-get-details="getHotelDetails">
 
-                <span class="icon icon-clip"></span>
-                <p class="corner-price">
-                    {{combination.hotel.data.PackagePrice - hotel.data.PackagePrice | signed}}<span class="b-rub">Р</span>
-                </p>
-                <p class="price">
-                    {{hotel.data.Price}}<span class="b-rub">Р</span><span class="icon icon-price-info"></span>
-                    <span class="price-description">экономия: {{combination.getFullPrice() - combination.ticket.data.PackagePrice - hotel.data.PackagePrice}}<span class="b-rub">Р</span></span>
-                </p>
-                <button class="button" ng-click="setHotel(hotel)" ng-hide="combination.Hotel.data.HotelId == hotel.data.HotelId">Выбрать</button>
+            <p class="corner-price">
+                {{combination.hotel.data.PackagePrice - hotel.data.PackagePrice | signed}}<span class="b-rub">Р</span>
+            </p>
+            <div class="price">
+                {{hotel.data.Price}}<span class="b-rub">Р</span>
+
+                <span class="icon icon-price-info JS-icon-price-info"></span>
+                <div class="tooltip tooltip-price JS-tooltip-price" style="display:none;">
+                    <ul>
+                        <li class="list-price-item">Отдельно <span class="list-price pull-right">{{hotel.data.Price}}<span class="b-rub">Р</span></span></li>
+                        <li class="list-price-item">В пакете <span class="list-price pull-right">{{hotel.data.PackagePrice}}<span class="b-rub">Р</span></span></li>
+                    </ul>
+                    <ul>
+                        <li>Экономия <span class="list-price green pull-right">{{hotel.data.Price - hotel.data.PackagePrice}}<span class="b-rub">Р</span></span></li>
+                    </ul>
+                </div>
+
+                <span class="price-description">экономия: {{combination.getFullPrice() - combination.ticket.data.PackagePrice - hotel.data.PackagePrice}}<span class="b-rub">Р</span></span>
+            </div>
+            <button class="button" ng-click="setHotel(hotel)" ng-hide="combination.Hotel.data.HotelId == hotel.data.HotelId">Выбрать</button>
         </div>
     </div>
 </div>
-
-
-<!--<div dynamic-serp-filter-extra-->
-<!--hotels="hotels"></div>-->
-<!--getHotelDetails(hotel)-->
 
 
 <div ng-if="(hotels.list.length && asMap) ? true : false"

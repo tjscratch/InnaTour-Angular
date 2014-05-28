@@ -66,29 +66,6 @@
 .ra-tags-title_white
 	color #fff
 
-.ra-tags-list
-	list-style none
-	margin 0 0 5px
-
-	li
-		background #fff
-		padding 6px 26px 6px 11px
-		position relative
-		display inline-block
-		font-size 14px
-		box-shadow 0 1px 4px rgba(0,0,0,.25)
-		margin 0 1px 5px 0
-
-		a
-			display block
-			position absolute
-			width 9px
-			height 9px
-			padding 5px
-			right 2px
-			top 5px
-			background url(../img/remove.png) no-repeat center center
-
 .ra-tags-reset
 	font-size 12px
 	color #1a1a1a
@@ -153,15 +130,73 @@
 
 
 
+
+
 .b-switch-filters {
 	margin-top : 17px;
 	overflow : hidden;
 
 	&_buttons {
-		margin-bottom : 17px;
+		margin-bottom : 4px;
 
 		&_right {
 			padding-top : 5px;
 		}
+	}
+
+	&__result {
+		overflow : hidden;
+	}
+
+	&.b-switch-filters_mod-wrapper {
+		float : none;
+		width : auto;
+		margin : 0;
+
+		.b-switch-filters_buttons {
+			box-shadow 0 3px 5px rgba(0,0,0,.3)
+			background-color : #fff;
+			padding: 6px 0 5px 3px;
+			margin-bottom : 0;
+			margin-left : 4px;
+
+			&_right {
+				position : relative;
+				left : 10px;
+				padding-top : 8px;
+			}
+		}
+
+		.b-switch-filters__result {
+			margin: 0 0 0 4px;
+		}
+	}
+
+
+
+	&__list {
+		list-style: none;
+		margin: 4px 0 0;
+	}
+
+	&__item {
+		background: #fff;
+		padding: 6px 26px 6px 11px;
+		position: relative;
+		display: inline-block;
+		font-size: 14px;
+		line-height : 1em;
+		box-shadow: 0 1px 4px rgba(0,0,0,.25);
+		margin: 0 1px 5px 0;
+	}
+
+	&__item_close {
+		display: block;
+		position: absolute;
+		width: 9px;
+		height: 9px;
+		right: 5px;
+		top: 7px;
+		background: url('/spa/img/remove.png') no-repeat center center;
 	}
 }

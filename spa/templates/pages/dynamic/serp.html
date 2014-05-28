@@ -1,4 +1,8 @@
-<ng:include src="'/spa/templates/pages/dynamic/inc/bundle.html'" ng-if="combination.hotel && combination.ticket"></ng:include>
+<ng:include src="'/spa/templates/pages/dynamic/inc/bundle.html'"
+            ng-if="combination.hotel && combination.ticket"></ng:include>
+
+
+
 
 <!--  -->
 <div class="results-body" ng-show="!showLanding">
@@ -19,13 +23,17 @@
                         <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
                         <span class="rlf-fly-arrow"></span>
                         <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
-                        <div class="rlf-full-travel-time">{{ticket.data.EtapsTo.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('To')}} в пути</div>
+                        <div class="rlf-full-travel-time">{{ticket.data.EtapsTo.length - 1 |
+                            asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('To')}} в пути
+                        </div>
                     </div>
                     <div class="rlf-fly">
                         <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
                         <span class="rlf-fly-arrow"></span>
                         <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
-                        <div class="rlf-full-travel-time">{{ticket.data.EtapsBack.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('Back')}} в пути</div>
+                        <div class="rlf-full-travel-time">{{ticket.data.EtapsBack.length - 1 |
+                            asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('Back')}} в пути
+                        </div>
                     </div>
                 </div>
 
@@ -49,7 +57,9 @@
                                         </div>
                                         <div class="rlf-colum2">
                                             <div class="rlf-flight-info">
-                                                <b>вылет {{dateHelper.getTime(etap.getDateTime('Out'))}}</b>, {{dateHelper.getDateShort(etap.getDateTime('Out'))}}, {{dateHelper.getDay(etap.getDateTime('Out'))}} <br>
+                                                <b>вылет {{dateHelper.getTime(etap.getDateTime('Out'))}}</b>,
+                                                {{dateHelper.getDateShort(etap.getDateTime('Out'))}},
+                                                {{dateHelper.getDay(etap.getDateTime('Out'))}} <br>
                                                 {{etap.data.OutCity}}, {{etap.data.OutPort}}
                                             </div>
                                         </div>
@@ -61,7 +71,9 @@
                                         </div>
                                         <div class="rlf-colum2">
                                             <div class="rlf-flight-info">
-                                                <b>прилет {{dateHelper.getTime(etap.getDateTime('In'))}}</b>, {{dateHelper.getDateShort(etap.getDateTime('In'))}}, {{dateHelper.getDay(etap.getDateTime('In'))}} <br>
+                                                <b>прилет {{dateHelper.getTime(etap.getDateTime('In'))}}</b>,
+                                                {{dateHelper.getDateShort(etap.getDateTime('In'))}},
+                                                {{dateHelper.getDay(etap.getDateTime('In'))}} <br>
                                                 {{etap.data.InCity}}, {{etap.data.InPort}}
                                             </div>
                                         </div>
@@ -74,7 +86,8 @@
                                     <div class="rlf-travel-time">{{etap.getLegDuration()}}</div>
                                 </div>
                                 <div class="rlf-colum4">
-                                    {{etap.data.InCity}}, {{etap.data.InPort}} ({{etap.data.InCityCode}}), {{etap.data.InCountryName}}
+                                    {{etap.data.InCity}}, {{etap.data.InPort}} ({{etap.data.InCityCode}}),
+                                    {{etap.data.InCountryName}}
                                     <div class="rlf-transfer" ng-repeat="next in [ticket.getNextEtap(dir, etap)]">
                                         <span ng-if="next.data.OutPort != etap.data.InPort">Внимание: смена аэропорта!</span>
                                     </div>
