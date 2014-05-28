@@ -329,6 +329,7 @@ innaAppControllers
                         $scope.display.setCurrent($scope.display.SHORT)
                         $scope.$emit('header:hidden');
                     });
+
                 } else {
                     $scope.$apply(function () {
                         $scope.display.setCurrent($scope.display.FULL)

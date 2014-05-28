@@ -6,7 +6,8 @@ angular.module('innaApp.directives')
                 bundle: '=innaDynamicBundleBundle',
                 state: '=innaDynamicBundleState',
                 getTicketDetails: '=innaDynamicBundleTicketDetails',
-                getHotelDetails: '=innaDynamicBundleHotelDetails'
+                getHotelDetails: '=innaDynamicBundleHotelDetails',
+                goReservation: '=innaDynamicBundleGoReservation'
             },
             controller: [
                 '$scope', 'aviaHelper', '$element',
