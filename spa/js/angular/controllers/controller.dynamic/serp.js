@@ -149,8 +149,8 @@ innaAppControllers
             $scope.combination = new inna.Models.Dynamic.Combination();
 
             $scope.state = new function () {
-                this.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
-                this.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
+                this.HOTELS_TAB = 'pages/dynamic/inc/serp.hotels.html';
+                this.TICKETS_TAB = 'pages/dynamic/inc/serp.tickets.html';
 
                 this.display = this.HOTELS_TAB;
 
@@ -249,7 +249,7 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             $scope.$watch('asMap', function (newVal) {
-                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, + newVal);
+                //DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, + newVal);
             });
 
             $scope.$watch('hotels', function (data) {

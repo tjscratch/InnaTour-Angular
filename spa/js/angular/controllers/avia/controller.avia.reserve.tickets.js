@@ -43,7 +43,7 @@ innaAppControllers.
 
             $scope.searchId = $scope.criteria.QueryId;
 
-            $scope.objectToReserveTemplate = '/spa/templates/pages/avia/variant_partial.html';
+            $scope.objectToReserveTemplate = 'pages/avia/variant_partial.html';
 
             //для начала нужно проверить доступность билетов
             //var availableChecktimeout = $timeout(function () {
