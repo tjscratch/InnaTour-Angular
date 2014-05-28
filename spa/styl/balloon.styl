@@ -88,7 +88,7 @@
     width 50px
     height 16px
     background #dee2e2
-    border-top 16px solid #ccc
+    border-top 16px solid #89C13A
     margin 0 auto 12px
     position relative
     perspective 50px
@@ -106,7 +106,7 @@
 .baloon-loading-block
     width 24px
     height 16px
-    border-top 16px solid #89c13a
+    border-top 16px solid #89C13A
     position absolute
     bottom 0
     display block
@@ -119,21 +119,28 @@
 
 .baloon-loading-block2
     right 0
-    animation preloader 4s linear 2s infinite
+    animation preloader 4s linear .4s infinite
 
 @keyframes preloader
     0%
         transform rotateX(0deg)
         opacity 1
+        border-top-color #89C13A
+    25%
+        border-top-color #67912C
+    26%
+        border-top-color #CCCCCF
     50%
         transform rotateX(-170deg)
         opacity 1
+        border-top-color #E6E7E9
     51%
         transform rotateX(-180deg)
         opacity 0
     100%
         transform rotateX(0deg)
         opacity 0
+        
 
 .baloon-error
     color #e20000
