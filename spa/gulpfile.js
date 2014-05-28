@@ -13,9 +13,16 @@ var gulp = require('gulp'),
 
 
 gulp.task('templates-ang', function () {
+    //todo exclude-list
+    var exclude = [
+        '!templates/components/hotel.html',
+        '!templates/components/ticket.html'
+    ]
+
     gulp.src([
         'templates/**/*.html',
-        'js/angular/**/*.html'])
+        'js/angular/**/*.html'
+    ].concat(exclude))
         .pipe(minifyHTML({
             quotes: true
         }))
@@ -79,4 +86,4 @@ gulp.task('watch', function () {
         server.changed(evt.path);
     });
 });
-gulp.task('default', ['styles', 'templates-ang', 'watch']);
+gulp.task('default', ['styles', 'print', 'templates-ang', 'watch']);
