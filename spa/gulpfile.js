@@ -11,7 +11,6 @@ var gulp = require('gulp'),
     minifyHTML = require('gulp-minify-html');
 
 
-//var sprites = require('node_tasks/gulp_sprite.js');
 
 gulp.task('templates-ang', function () {
     gulp.src([
