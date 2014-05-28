@@ -25,7 +25,7 @@ innaAppControllers.
             //значения по-умобчанию
             //$scope.criteria = getDefaultCriteria();
             //$scope
-            //loadParamsFromRouteOrDefault($routeParams);
+            loadParamsFromRouteOrDefault($routeParams);
 
             //$routeParams
             $scope.$on('avia.page.loaded', function (event, $routeParams, validateDate) {
