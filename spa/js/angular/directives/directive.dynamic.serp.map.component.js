@@ -97,14 +97,26 @@ angular.module('innaApp.directives')
             },
             controller: [
                 '$scope',
-                function ($scope) {
+                '$element',
+                function ($scope, $element) {
                     $scope.currentHotel = null;
                     $scope.currentHotelPreview = null;
                     $scope.airMarker = null;
 
                     // прячем footer
                     $scope.$emit('region-footer:hide');
-                    $scope.$emit('toggle:visible:bundle');
+                    $scope.$emit('bundle:hidden');
+                    $element.addClass('big-map_short');
+
+                    
+                    $scope.$root.$on('header:hidden', function(){
+                        console.log('header:hidden');
+                        $element.addClass('big-map_short')
+                    });
+                    $scope.$root.$on('header:visible', function(){
+                        console.log('header:visible');
+                        $element.removeClass('big-map_short')
+                    });
 
                     console.log($scope);
                 }
