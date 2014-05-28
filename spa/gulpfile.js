@@ -6,10 +6,23 @@ var gulp = require('gulp'),
     minifyCSS = require('gulp-minify-css'),
     gzip = require("gulp-gzip"),
     csscomb = require('gulp-csscomb'),
-    less = require('gulp-less');
+    less = require('gulp-less'),
+    templateCache = require('gulp-angular-templatecache'),
+    minifyHTML = require('gulp-minify-html');
 
 
 //var sprites = require('node_tasks/gulp_sprite.js');
+
+gulp.task('templates-ang', function () {
+    gulp.src('templates/**/*.html')
+        .pipe(minifyHTML({
+            quotes: true
+        }))
+        .pipe(templateCache({
+            module : 'innaApp.templates'
+        }))
+        .pipe(gulp.dest('build'));
+});
 
 gulp.task('styles', function () {
     gulp.src(['styl/common.styl'])
@@ -54,7 +67,10 @@ gulp.task('print', function(){
 
 gulp.task('watch', function () {
     var server = livereload();
+
     gulp.watch('styl/**/*', ['styles']);
+    gulp.watch('templates/**/*.html', ['templates-ang']);
+
     gulp.watch('*.php', function(evt) {
         server.changed(evt.path);
     });
@@ -62,4 +78,4 @@ gulp.task('watch', function () {
         server.changed(evt.path);
     });
 });
-gulp.task('default', ['styles', 'watch']);
+gulp.task('default', ['styles', 'templates-ang',  'watch']);

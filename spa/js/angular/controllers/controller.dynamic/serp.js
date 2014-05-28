@@ -190,7 +190,7 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             $scope.$watch('asMap', function (newVal) {
-                //DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, + newVal);
+                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, + newVal);
             });
 
             $scope.$watch('hotels', function (data) {

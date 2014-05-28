@@ -3,6 +3,7 @@
 
 var app = angular.module('innaApp', [
   'ngRoute',
+  'innaApp.templates',
   'innaApp.filters',
   'innaApp.services',
   'innaApp.directives',
@@ -168,6 +169,8 @@ app.config([
 ]);
 
 var innaAppControllers = angular.module('innaApp.controllers', []);
+
+var innaAppTemlates = angular.module('innaApp.templates', []);
 
 var innaAppDirectives = angular.module('innaApp.directives', []);
 
