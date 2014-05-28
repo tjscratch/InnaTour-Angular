@@ -56,6 +56,13 @@ innaAppFilters.filter('asQuantity', ['$filter', function($filter){
 
 innaAppFilters.filter('choosePlural', function(){
     return function (n, f1, f2, f5) {
+        if(!f2 && !f5) {
+            var bits = f1.split(',');
+            f1 = bits[0];
+            f2 = bits[1];
+            f5 = bits[2];
+        }
+
         //only 2 last digits
         n = n % 100;
 
