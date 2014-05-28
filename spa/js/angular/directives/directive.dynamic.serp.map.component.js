@@ -444,9 +444,9 @@ angular.module('innaApp.directives')
 
                 scope.$on('change:hotels:filters', function(data){
                     console.log('broadcast');
-                    updateMap({
+                    /*updateMap({
                         hotels : data.targetScope.hotels
-                    })
+                    })*/
                 });
 
 
@@ -490,12 +490,12 @@ angular.module('innaApp.directives')
                     map.fitBounds(bounds);
                 }
 
-               /* scope.$watchCollection('[hotels, airports]', function (data) {
+                scope.$watchCollection('[hotels, airports]', function (data) {
                     updateMap({
                         hotels : data[0],
                         airports : data[1]
                     })
-                });*/
+                });
             }
         }
     }]);

@@ -420,11 +420,13 @@ innaAppControllers.
                         }
 
                         //прячем тултип, если показывали
-                        if (item.haveTooltip == true)
-                        {
-                            var $to = $('#' + item.id);
-                            $scope.tooltipControl.close($to);
-                        }
+                        //if (item.haveTooltip == true)
+                        //{
+                        //    var $to = $('#' + item.id);
+                        //    $scope.tooltipControl.close($to);
+                        //}
+                        var $to = $('#' + item.id);
+                        $scope.tooltipControl.close($to);
                     }
 
                     //if ($scope.validationModel != null && type != null)
@@ -781,11 +783,12 @@ innaAppControllers.
                 if (invalidItem != null) {
                     //показываем тултип
                     var $to = $("#" + invalidItem.id);
-                    //не навешивали тултип
-                    if (!(invalidItem.haveTooltip == true)) {
-                        $scope.tooltipControl.init($to);
-                        invalidItem.haveTooltip = true;
-                    }
+                    ////не навешивали тултип
+                    //if (!(invalidItem.haveTooltip == true)) {
+                    //    $scope.tooltipControl.init($to);
+                    //    invalidItem.haveTooltip = true;
+                    //}
+                    $scope.tooltipControl.init($to);
                     $scope.tooltipControl.open($to);
                     //прерываемся
                     return;
