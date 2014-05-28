@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html xmlns:ng="http://angularjs.org">
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name='yandex-verification' content='40fd92efcc007a47' />
@@ -52,36 +52,11 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <!-- end Mixpanel -->
 
 </head>
-<body id="ng-app" ng-app="innaApp" ng-click="bodyClick()" ng-controller="NavigationCtrl" popup-form>
-    <div class="header">
-        <div class="header-info">
-            <div class="header-info-container">
-                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
-                --><span class="header-text"></span><!--
-                --><div class="header-info-container-right">
-                    <ul class="header-info-menu" style="margin-right:0px;">
-                        <li class="header-info-menu-item"><a href="http://www.inna.ru/catalog/guide/" style="color: white;">Старая версия сайта</a></li><!--
-                        --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
-                        --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
-                    </ul>
-                    <!--
-                    -->
-                </div>
-            </div>
-        </div>
-        <div class="header-menu">
-            <ul class="header-menu-container-items"><!--
-                --><!--
-                --><li class="header-menu-item"><a href="/#/" class="active">Туры</a></li><!--
-                --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
-                --><li class="header-menu-item"><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank">Отели</aonclick></li><!--
-                --><li class="header-menu-item"><a href="/#/individualtours/">Программы</a></li><!--
-                --><!--
-                -->
-            </ul>
-            <ng:include src="getHeadForm()"></ng:include>
-        </div>
-    </div>
+<body ng-click="bodyClick()" popup-form>
+
+    <!-- HEADER -->
+    <header region-header></header>
+
     <div class="button fixed-request-button" ng-click="popupForm_Show()" ng-show="!isActive('/individualtours/category/')" title="Отправить заявку"></div>
     <div class="layout">
         <div class="main-banner" style="height: 0px;">
@@ -101,72 +76,59 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         </div>
 
     </div>
-    <div class="footer">
-        <div class="footer-content">
-            <div class="footer-menu">
-                <ul class="footer-menu-links-list">
-                    <li class="footer-menu-links-list-item"><a href="/#/about/">О компании</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/corporate/">Корпоративным клиентам</a></li>
-                    <li class="footer-menu-links-list-item"><a href="/#/contacts/">Контакты</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/catalog/guide/">Каталог стран</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/client/abc/">Полезная информация</a></li>
-                </ul>
-                <div class="footer-menu-info">
-                    <ul class="social-list">
-                        <li class="social-list-item">
-                            <a href="https://vk.com/inna_tur_ru" target="_blank"><i class="icon icon-vkontakte"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://odnoklassniki.ru/innatour" target="_blank"><i class="icon icon-odnoklassniki"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i class="icon icon-facebook"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="https://twitter.com/inna_tour" target="_blank"><i class="icon icon-twitter"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://www.pinterest.com/innatour/" target="_blank"><i class="icon icon-pinterest"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://www.youtube.com/user/InnaTourMos/featured" target="_blank"><i class="icon icon-youtube"></i></a>
-                        </li>
-                    </ul>
-                    <p class="phone-info">многоканальный телефон</p>
-                    <p class="phone">+7&nbsp;495 742-1212</p>
-                </div>
-            </div>
-            <div class="footer-copyright">
-                <p class="info info-left">
-                    ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс туристических услуг.
-                    Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию, Камбоджу,
-                    Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
-                </p>
-                <p class="info">
-                    &copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.<br>
-                    <span class="licence">Реестр туроператоров <a href="http://reestr.russiatourism.ru/?ac=view&id_reestr=8893">МТ3 008557</a></span>
-                </p>
-            </div>
-        </div>
-    </div>
+
+    <!-- FOOTER -->
+    <footer region-footer></footer>
 
     <ng:include src="'/popup/mainform.html'"></ng:include>
 
-    <script type="text/javascript">
-        var app_main = {};
-        //<!-- build:app-host -->
-        app_main.host = 'http://api.test.inna.ru';
-        //<!-- endbuild -->
-        app_main.version = '12';
-        app_main.constants = {};
-        app_main.constants.offersCategoriesProgramm = '1';
+    <!-- Baloon -->
+    <div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type" close-fn="baloon.closeFn" data="baloon.data"></div>
+    <!-- /Baloon -->
 
-        var getSletatUrl = app_main.host + '/api/v1/Dictionary/Sletat/Get';
-        var getSletatCityUrl = app_main.host + '/api/v1/Dictionary/SletatCity/Get';
-        var getSletatByIdUrl = app_main.host + '/api/v1/Dictionary/SletatById/Get';
-        var sendITCategoryRequestUrl = app_main.host + '/api/v1/RequestsTour/Post';
-    </script>
+<script type="text/javascript">
+    var app_main = {};
+    //<!-- build:app-host -->
+    app_main.host = 'http://api.test.inna.ru';
+    //<!-- endbuild -->
+
+    app_main.b2bHost = 'http://b2b.test.inna.ru';
+
+    app_main.version = '12';
+    app_main.constants = {};
+    app_main.constants.offersCategoriesProgramm = '1';
+
+    var addTourUrlEf = app_main.host + '/api/v1/Dictionary';
+
+    var getHotelsUrl = app_main.host + '/api/v1/Dictionary';
+
+    var getCityUrl = app_main.host + '/api/v1/Dictionary/City/Get';
+    var getDirectoryUrl = app_main.host + '/api/v1/Dictionary/Directory/Get';
+    var getRegionUrl = app_main.host + '/api/v1/Dictionary/Region/Get';
+
+    var getSletatUrl = app_main.host + '/api/v1/Dictionary/Sletat/Get';
+    var getSletatCityUrl = app_main.host + '/api/v1/Dictionary/SletatCity/Get';
+    var getSletatByIdUrl = app_main.host + '/api/v1/Dictionary/SletatById/Get';
+
+    var getLocationByUrls = app_main.host + '/Dictionary/LocationByUrl';
+
+    var beginSearchUrl = app_main.host + '/api/v1/Search/BeginSearch/Get';
+    var checkSearchUrl = app_main.host + '/api/v1/Search/CheckSearch/Get';
+
+    var beginAviaSearchUrl = app_main.host + '/api/v1/Avia/Get';
+
+    var hotelDetailUrl = app_main.host + '/HotelDetail/GetPage';
+
+    var tourDetailUrl = app_main.host + '/TourDetail/GetPage';
+
+    var getOrderUrl = app_main.host + '/Order';
+
+    var paymentPageUrl = app_main.host + '/Payment';
+
+    var payUrl = app_main.host + '/Payment/Pay';
+
+    var deleteSearchHistoryUrl = app_main.host + '/api/v1/Search/DeleteHistory/Get';
+</script>
 
 
     <!--<script src="//code.jquery.com/jquery-1.8.3.min.js"></script>-->
@@ -198,7 +160,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     <!--contacts-->
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
 
-    <!-- build:app-main-js -->
+<!-- build:app-main-js -->  <!--файлы заменяются при билде на app-main.js-->
 <script src="/spa/js/debug.js"></script>
 
 <script src="/spa/js/angular/helpers/utils.js"></script>
@@ -212,6 +174,9 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/tracking.js"></script>
 <script src="/spa/js/datepicker.js"></script>
 <script src="/spa/js/angular/app.js"></script>
+
+<!-- templateCache -->
+<script src="/spa/build/templates.js"></script>
 
 <script src="/spa/js/angular/ang.helpers/url.helper.js"></script>
 <script src="/spa/js/angular/ang.helpers/api.js"></script>
@@ -234,6 +199,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.auth/signup.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/signin.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/restore.js"></script>
+<script src="/spa/js/angular/controllers/controller.auth/profile.js"></script>
 <script src="/spa/js/angular/controllers/controller.about.js"></script>
 <script src="/spa/js/angular/controllers/helpers/controller.reserve.tickets.js"></script>
 <script src="/spa/js/angular/controllers/avia/controller.avia.reserve.tickets.js"></script>
@@ -248,7 +214,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.individualtours.js"></script>
 <script src="/spa/js/angular/controllers/controller.individualtourscategory.js"></script>
 <script src="/spa/js/angular/controllers/controller.main.js"></script>
-<script src="/spa/js/angular/controllers/controller.navigation.js"></script>
+<script src="/spa/js/angular/controllers/controller.root.js"></script>
 <script src="/spa/js/angular/controllers/controller.offers.list.js"></script>
 <script src="/spa/js/angular/controllers/search/controller.search.main.js"></script>
 <script src="/spa/js/angular/controllers/search/controller.search.result.js"></script>
@@ -259,9 +225,15 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.dynamic/form.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/morda.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/serp.js"></script>
-<script src="/spa/js/angular/controllers/controller.dynamic/serp.filter-indicator.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/reserve.js"></script>
 <script src="/spa/js/angular/controllers/controllers.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.sort.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.airport.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.aircompany.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.time.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.transfer.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.price.js"></script>
+<script src="/spa/js/angular/directives/directive.people.component.js"></script>
 <script src="/spa/js/angular/directives/directive.baloon.js"></script>
 <script src="/spa/js/angular/directives/directive.combobox.js"></script>
 <script src="/spa/js/angular/directives/directive.datepicker.2months.js"></script>
@@ -279,21 +251,34 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/price.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/name.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/extra.component.js"></script>
+<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/tafactor.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.legs.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.price.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.time.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.airlines.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.airports.component.js"></script>
+<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/indicators.component.js"></script>
+<script src="/spa/js/angular/directives/directive.dynamic.serp.sorter.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.map.component.js"></script>
 <script src="/spa/js/angular/directives/directive.partial.select.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-ticket.component.js"></script>
+<script src="/spa/js/angular/directives/directive.inna-hotel.component.js"></script>
+<script src="/spa/js/angular/directives/directive.inna-hotel-details.component.js"></script>
+<script src="/spa/js/angular/directives/directive.inna-dynamic-bundle.component.js"></script>
+
+
+<!-- REGIONS -->
+<script src="/spa/js/angular/regions/header/header.js"></script>
+<script src="/spa/js/angular/regions/footer/footer.js"></script>
+<!-- \ REGIONS -->
+
 <script src="/spa/js/angular/models/app.model.js"></script>
 <script src="/spa/js/angular/models/app.model.avia.js"></script>
 <script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
 <script src="/spa/js/angular/models/app.model.tours.js"></script>
 <script src="/spa/js/angular/models/app.model.dynamic.js"></script>
 <script src="/spa/js/angular/models/auth.js"></script>
-    <!-- endbuild -->
+<!-- endbuild -->
 
     <script type="text/ng-template" id="/popup/mainform.html">
         <div class="popup-fade" ng-show="isOpened"></div>
