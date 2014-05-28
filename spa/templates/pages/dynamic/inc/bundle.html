@@ -24,14 +24,13 @@
 
             <div class="result-small" ng-if="display.isCurrent(display.SHORT)">
                 <div class="result-cell result-cell-390">
-                    <!--TODO which pictures to use?-->
                     <p class="flight">
-                        <img src="/spa/img/airline-small.png" alt="">
+                        <img ng-src="{{airLogo( ticket.getEtaps('To')[0].data.TransporterCode )}}" height=28 alt="">
                         <span class="white">{{ticket.data.OutCode}} – {{ticket.data.InCode}}, {{dateHelper.getDateShort(ticket.data.DepartureDate)}},</span>
                         в пути: {{ticket.getDuration('To')}}, {{ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
                     </p>
                     <p class="flight">
-                        <img src="/spa/img/airline-small.png" alt="">
+                        <img ng-src="{{airLogo( ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28 alt="">
                         <span class="white">{{ticket.data.InCode}} – {{ticket.data.OutCode}}, {{dateHelper.getDateShort(ticket.data.BackDepartureDate)}},</span>
                         в пути: {{ticket.getDuration('Back')}}, {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
                     </p>

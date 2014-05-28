@@ -12,6 +12,8 @@ angular.module('innaApp.directives')
             controller: [
                 '$scope', '$element', '$timeout', 'aviaHelper',
                 function($scope, $element, $timeout, aviaHelper){
+                    console.log('innaHotelDetails', $scope);
+
                     /*Dom*/
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
