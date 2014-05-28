@@ -1,4 +1,4 @@
-﻿﻿innaAppDirectives.directive('partialSelect', ['$templateCache', function ($templateCache) {
+innaAppDirectives.directive('partialSelect', ['$templateCache', function ($templateCache) {
     return {
         replace: true,
         template: $templateCache.get('components/partial_select.html'),

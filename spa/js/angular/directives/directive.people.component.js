@@ -1,4 +1,4 @@
-﻿﻿innaAppDirectives.directive('peopleComponent', [
+﻿innaAppDirectives.directive('peopleComponent', [
     '$templateCache',
     'eventsHelper',
     function ($templateCache, eventsHelper) {

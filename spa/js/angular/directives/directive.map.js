@@ -1,4 +1,4 @@
-﻿﻿innaAppDirectives.directive('ymap', ['$templateCache', function ($templateCache) {
+﻿innaAppDirectives.directive('ymap', ['$templateCache', function ($templateCache) {
     return {
         link: function (scope, element, attrs) {
             //console.log('ymap');

@@ -1,4 +1,4 @@
-﻿﻿innaAppDirectives.directive('datePickerWidget', [
+﻿innaAppDirectives.directive('datePickerWidget', [
     '$templateCache',
     'eventsHelper', function ($templateCache, eventsHelper) {
     return {

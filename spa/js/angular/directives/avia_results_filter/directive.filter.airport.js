@@ -1,4 +1,4 @@
-﻿﻿
+﻿
 
 innaAppDirectives.
     directive('filterAirport', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {

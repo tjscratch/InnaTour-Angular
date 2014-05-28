@@ -1,4 +1,4 @@
-﻿﻿
+﻿
 
 innaAppDirectives.
     directive('filterPrice', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
