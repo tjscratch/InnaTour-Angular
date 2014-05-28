@@ -137,11 +137,15 @@
 	overflow : hidden;
 
 	&_buttons {
-		margin-bottom : 17px;
+		margin-bottom : 4px;
 
 		&_right {
 			padding-top : 5px;
 		}
+	}
+
+	&__result {
+		overflow : hidden;
 	}
 
 	&.b-switch-filters_mod-wrapper {
@@ -162,12 +166,13 @@
 				padding-top : 8px;
 			}
 		}
+
+		.b-switch-filters__result {
+			margin: 0 0 0 4px;
+		}
 	}
 
-	&__result {
-		margin: 0 0 0 4px;
-		overflow : hidden;
-	}
+
 
 	&__list {
 		list-style: none;
@@ -180,6 +185,7 @@
 		position: relative;
 		display: inline-block;
 		font-size: 14px;
+		line-height : 1em;
 		box-shadow: 0 1px 4px rgba(0,0,0,.25);
 		margin: 0 1px 5px 0;
 	}
@@ -190,7 +196,7 @@
 		width: 9px;
 		height: 9px;
 		right: 5px;
-		top :11px;
+		top: 7px;
 		background: url('/spa/img/remove.png') no-repeat center center;
 	}
 }

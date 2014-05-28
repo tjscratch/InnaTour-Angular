@@ -74,7 +74,7 @@
                 },
 
                 getPaymentData: function(queryData, successCallback, errCallback){
-                    $http.get(apiUrls.AVIA_RESERVATION_GET_PAY_DATA, { cache: true, params: queryData }).success(function (data, status) {
+                    $http.get(apiUrls.AVIA_RESERVATION_GET_PAY_DATA, { cache: false, params: queryData }).success(function (data, status) {
                         successCallback(data);
                     }).
                     error(function (data, status) {
