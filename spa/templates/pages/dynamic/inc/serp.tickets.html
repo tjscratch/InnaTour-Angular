@@ -1,4 +1,5 @@
-<div class="results-container results-container_top">
+<div class="results-container results-container_top"
+     ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
         <div ng-repeat="ticket in tickets.filter(ticketFilters)"
              ng-if="!ticket.hidden"

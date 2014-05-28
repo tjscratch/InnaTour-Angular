@@ -190,18 +190,18 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             $scope.$watch('asMap', function (newVal) {
-                //DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
+                //DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, + newVal);
             });
 
             $scope.$watch('hotels', function (data) {
                 $scope.$broadcast('change:hotels:filters', data);
-                console.log('change:hotels');
+                //console.log('change:hotels');
             }, true);
 
             $scope.$watch('hotelFilters', function (data) {
                 $scope.hotels.filter($scope.hotelFilters);
                 $scope.$broadcast('change:filters', data);
-                console.log('change:filters');
+                //console.log('change:filters');
             }, true);
 
 
@@ -361,7 +361,9 @@ innaAppControllers
 
             // подписываемся на событие toggle:visible:bundle
             // скрываем бандл вместе с шапкой
-            $scope.$root.$on('toggle:visible:bundle', $scope.display.toggle);
+            $scope.$root.$on('toggle:visible:bundle', function(){
+                $scope.display.toggle();
+            });
 
             /*Events*/
             $scope.$on('$destroy', unwatchScroll);

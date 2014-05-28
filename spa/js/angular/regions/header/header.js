@@ -109,7 +109,6 @@ angular.module('innaApp.directives')
 
                 }],
             link: function ($scope, $element, attrs) {
-                console.log($element[0]);
 
             }
         };
