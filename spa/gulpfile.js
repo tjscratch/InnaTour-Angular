@@ -9,7 +9,7 @@ var gulp = require('gulp'),
     less = require('gulp-less');
 
 
-var sprites = require('gulp_tasks/gulp_sprite.js');
+//var sprites = require('gulp_tasks/gulp_sprite.js');
 
 gulp.task('styles', function () {
     gulp.src(['styl/common.styl'])

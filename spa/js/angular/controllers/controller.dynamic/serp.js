@@ -324,16 +324,11 @@ innaAppControllers
             var onScroll = function () {
                 var body = document.body || document.documentElement;
 
-<<<<<<< local
-                if(body.scrollTop > 230) {
-                    $scope.$emit('header:hidden');
-=======
                 if (body.scrollTop > 230) {
                     $scope.$apply(function () {
                         $scope.display.setCurrent($scope.display.SHORT)
                         $scope.$emit('header:hidden');
                     });
->>>>>>> other
                 } else {
                     $scope.$apply(function () {
                         $scope.display.setCurrent($scope.display.FULL)
