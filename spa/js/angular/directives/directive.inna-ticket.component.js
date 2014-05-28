@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
-    .directive('innaTicket', function(){
+    .directive('innaTicket', ['$templateCache', function($templateCache){
         return {
-            templateUrl: '/spa/templates/components/ticket.html',
+            template: $templateCache.get('components/ticket.html'),
             scope: {
                 'ticket': '=innaTicketTicket',
                 'getTicketDetails': '&innaTicketGetTicketDetails'
@@ -15,4 +15,4 @@ angular.module('innaApp.directives')
                 }
             ]
         }
-    });
+    }]);

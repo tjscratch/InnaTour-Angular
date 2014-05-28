@@ -1,11 +1,11 @@
 angular.module('innaApp.directives')
-    .directive('innaHotel', function(){
+    .directive('innaHotel', ['$templateCache', function($templateCache){
         return {
-            templateUrl: '/spa/templates/components/hotel.html',
+            template: $templateCache.get('components/hotel.html'),
             scope: {
                 hotel: '=innaHotelHotel',
                 getDetails: '=innaHotelGetDetails'
             },
             transclude: true
         }
-    });
+    }]);

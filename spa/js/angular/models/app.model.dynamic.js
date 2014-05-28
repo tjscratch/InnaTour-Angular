@@ -60,16 +60,6 @@ inna.Models.Hotels.HotelsCollection.prototype.getNext = function(hotel){
     return null;
 }
 
-inna.Models.Hotels.HotelsCollection.prototype.search = function(id){
-    var hotel = null;
-
-    for(var i = 0; hotel = this.list[i++];) {
-        if(hotel.data.HotelId == id) return hotel;
-    }
-
-    return null;
-}
-
 inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;
 

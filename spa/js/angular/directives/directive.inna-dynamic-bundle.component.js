@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
-    .directive('innaDynamicBundle', ['$templateCache', function($templateCache){
+    .directive('innaDynamicBundle', ['$templateCache', function($templateCache){        
         return {
-            templateUrl: '/spa/templates/components/bundle.html',
+            template: $templateCache.get('components/bundle.html'),
             scope: {
                 bundle: '=innaDynamicBundleBundle',
                 state: '=innaDynamicBundleState',

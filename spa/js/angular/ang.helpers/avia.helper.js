@@ -7,6 +7,7 @@
 
         var manyCode = "many";
         var manyName = "Несколько авиакомпаний";
+        var emptyCode = "empty";
 
         var timeFormat = "HH:mm";
         var dateFormat = "dd MMM yyyy, EEE";
@@ -231,6 +232,9 @@
 
             setEtapsTransporterCodeUrl: function (logo) {
                 //return "http://adioso.com/media/i/airlines/" + logo + ".png";
+                if (logo == null || logo.length == 0) {
+                    logo = emptyCode;
+                }
                 
                 if (logo == manyCode) {
                     return "/spa/img/group.png";

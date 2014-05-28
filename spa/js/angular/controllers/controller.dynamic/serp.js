@@ -129,22 +129,14 @@ innaAppControllers
                     var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                     if (ticket) {
                         $scope.getTicketDetails(ticket);
-                    } else throw true;
+                    } else throw 1;
                 } catch(e) {
                     ticket404();
                 }
             }
 
             function loadHotelDetails(id){
-                try {
-                    var hotel = $scope.hotels.search(id);
-
-                    if(hotel) {
-                        $scope.getHotelDetails(hotel);
-                    } else throw true;
-                } catch(e) {
-                    console.log('todo hotel404()');
-                }
+                console.log('load hotel details', id);
             }
 
             /*Properties*/
