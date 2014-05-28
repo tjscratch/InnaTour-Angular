@@ -318,7 +318,6 @@ innaAppControllers
                 var body = document.body || document.documentElement;
 
                 if(body.scrollTop > 230) {
-                    console.log('sdjfhsd');
                     $scope.$emit('header:hidden');
                 } else {
                     $scope.$emit('header:visible');

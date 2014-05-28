@@ -1,4 +1,4 @@
-<div class="results-container results-container_top" ng-if="!asMap">
+<div class="results-container results-container_top" ng-if="!asMap && !hotelToShowDetails">
     <div class="results-list results-list_720">
         <div
             ng-repeat="hotel in hotels.filter(hotelFilters)"
@@ -30,11 +30,6 @@
         </div>
     </div>
 </div>
-
-
-<!--<div dynamic-serp-filter-extra-->
-<!--hotels="hotels"></div>-->
-<!--getHotelDetails(hotel)-->
 
 
 <div ng-if="(hotels.list.length && asMap) ? true : false"
