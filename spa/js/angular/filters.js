@@ -46,8 +46,16 @@ innaAppFilters.filter('price', function () {
     };
 });
 
-innaAppFilters.filter('asQuantity', function(){
-    function chooseForm(n, f1, f2, f5, f0) {
+innaAppFilters.filter('asQuantity', ['$filter', function($filter){
+    return function(n, f1, f2, f5, f0){
+        if(n == 0) return f0;
+
+        return [n, $filter('choosePlural')(n, f1, f2, f5)].join(' ');
+    }
+}]);
+
+innaAppFilters.filter('choosePlural', function(){
+    return function (n, f1, f2, f5) {
         //only 2 last digits
         n = n % 100;
 
@@ -61,12 +69,6 @@ innaAppFilters.filter('asQuantity', function(){
         if(n == 2 || n == 3 || n == 4) return f2;
 
         return f5;
-    }
-
-    return function(n, f1, f2, f5, f0){
-        if(n == 0) return f0;
-
-        return [n, chooseForm(n, f1, f2, f5)].join(' ');
     }
 });
 
