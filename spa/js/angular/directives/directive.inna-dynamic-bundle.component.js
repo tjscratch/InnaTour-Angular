@@ -1,5 +1,5 @@
 angular.module('innaApp.directives')
-    .directive('innaDynamicBundle', ['$templateCache', function($templateCache){        
+    .directive('innaDynamicBundle', ['$templateCache', function($templateCache){
         return {
             template: $templateCache.get('components/bundle.html'),
             scope: {

@@ -323,8 +323,8 @@ angular.module('innaApp.directives')
                      * removeMarkers
                      */
                     var removeMarkers = function () {
-                        console.log(markers);
                         markers.forEach(function (marker) {
+                            console.log(marker);
                             marker.setMap(null);
                         });
                         markers = [];
@@ -460,10 +460,12 @@ angular.module('innaApp.directives')
 
                     scope.$on('change:hotels:filters', function (data) {
                         console.log('broadcast');
-                        updateMap({
+                        /*updateMap({
                             hotels: data.targetScope.hotels,
                             airports: scope.airports
-                        })
+                        })*/
+                        removeMarkers();
+                        _markerCluster.clearMarkers();
                     });
 
 
@@ -505,6 +507,7 @@ angular.module('innaApp.directives')
                         addCluster();
 
                         map.fitBounds(bounds);
+                        removeMarkers();
                     }
 
                     scope.$watchCollection('[hotels, airports]', function (data) {
