@@ -6,7 +6,31 @@ var gulp = require('gulp'),
     minifyCSS = require('gulp-minify-css'),
     gzip = require("gulp-gzip"),
     csscomb = require('gulp-csscomb'),
-    less = require('gulp-less');
+    less = require('gulp-less'),
+    templateCache = require('gulp-angular-templatecache'),
+    minifyHTML = require('gulp-minify-html');
+
+
+
+gulp.task('templates-ang', function () {
+    //todo exclude-list
+    var exclude = [
+        '!templates/components/hotel.html',
+        '!templates/components/ticket.html'
+    ]
+
+    gulp.src([
+        'templates/**/*.html',
+        'js/angular/**/*.html'
+    ].concat(exclude))
+        .pipe(minifyHTML({
+            quotes: true
+        }))
+        .pipe(templateCache({
+            module: 'innaApp.templates'
+        }))
+        .pipe(gulp.dest('build'));
+});
 
 gulp.task('styles', function () {
     gulp.src(['styl/common.styl'])
@@ -39,7 +63,7 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('css'));
 });
 
-gulp.task('print', function(){
+gulp.task('print', function () {
     gulp.src(['styl/print.styl'])
         .pipe(stylus({
             use: ['nib'],
@@ -51,12 +75,15 @@ gulp.task('print', function(){
 
 gulp.task('watch', function () {
     var server = livereload();
+
     gulp.watch('styl/**/*', ['styles']);
-    gulp.watch('*.php', function(evt) {
+    gulp.watch('templates/**/*.html', ['templates-ang']);
+
+    gulp.watch('*.php', function (evt) {
         server.changed(evt.path);
     });
-    gulp.watch('*.html', function(evt) {
+    gulp.watch('*.html', function (evt) {
         server.changed(evt.path);
     });
 });
-gulp.task('default', ['styles', 'watch']);
+gulp.task('default', ['styles', 'print', 'templates-ang', 'watch']);

@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
-    .directive('innaHotelDetails', function(){
+    .directive('innaHotelDetails', ['$templateCache', function($templateCache){
         return {
-            templateUrl: '/spa/templates/components/hotel-details.html',
+            template: $templateCache.get('components/hotel-details.html'),
             scope: {
                 hotel: '=innaHotelDetailsHotel',
                 collection: '=innaHotelDetailsCollection',
@@ -10,8 +10,8 @@ angular.module('innaApp.directives')
                 combination: '=innaHotelDetailsBundle'
             },
             controller: [
-                '$scope', '$element', '$timeout', 'aviaHelper',
-                function($scope, $element, $timeout, aviaHelper){
+                '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events',
+                function($scope, $element, $timeout, aviaHelper, Events){
                     /*Dom*/
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -94,7 +94,11 @@ angular.module('innaApp.directives')
 
                         marker.setMap(map);
                     });
+
+                    $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
+                        console.log(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+                    })
                 }
             ]
         }
-    });
+    }]);

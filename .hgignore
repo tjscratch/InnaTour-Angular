@@ -52,3 +52,4 @@ build_and_publish/publish_test/*
 spa/js/debug.js
 spa/*.sh
 spa/css/common.min.css
+spa/build/

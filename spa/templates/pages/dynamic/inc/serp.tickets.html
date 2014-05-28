@@ -1,4 +1,5 @@
-<div class="results-container results-container_top">
+<div class="results-container results-container_top"
+     ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
         <div ng-repeat="ticket in tickets.filter(ticketFilters)"
              ng-if="!ticket.hidden"
@@ -11,7 +12,7 @@
                 {{combination.ticket.data.PackagePrice - ticket.data.PackagePrice | signed}}<span class="b-rub">Р</span>
             </p>
             <p class="price">
-                {{ticket.data.Price}}<span class="b-rub">Р</span><span class="icon icon-price-info"></span>
+                {{ticket.data.Price}}<span class="b-rub">Р</span>
                 <span class="price-description">экономия: {{combination.getFullPrice() - combination.hotel.data.PackagePrice - ticket.data.PackagePrice}}<span class="b-rub">Р</span></span>
             </p>
             <button class="button" ng-click="setTicket(ticket)" ng-hide="combination.Ticket.data.VariantId1 == ticket.data.VariantId1">Выбрать</button>

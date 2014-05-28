@@ -1,8 +1,8 @@
-﻿
-'use strict';
+﻿'use strict';
 
 var app = angular.module('innaApp', [
   'ngRoute',
+  'innaApp.templates',
   'innaApp.filters',
   'innaApp.services',
   'innaApp.directives',
@@ -57,8 +57,14 @@ app.run(['$rootScope', '$location', '$window', function ($rootScope, $location, 
 }]);
 
 app.config([
-    '$routeProvider', '$locationProvider', '$httpProvider', 'innaApp.Urls',
+    //'$templateCache',
+    '$routeProvider',
+    '$locationProvider',
+    '$httpProvider',
+    'innaApp.Urls',
     function ($routeProvider, $locationProvider, $httpProvider, url) {
+
+        //console.log($templateCache.get('pages/tours_grid_page.html'));
 
         function morda(){
             return {
@@ -168,6 +174,8 @@ app.config([
 ]);
 
 var innaAppControllers = angular.module('innaApp.controllers', []);
+
+var innaAppTemlates = angular.module('innaApp.templates', []);
 
 var innaAppDirectives = angular.module('innaApp.directives', []);
 

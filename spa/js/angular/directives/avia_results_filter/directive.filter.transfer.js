@@ -1,10 +1,10 @@
-﻿
+
 
 innaAppDirectives.
-    directive('filterTransfer', ['eventsHelper', function (eventsHelper) {
+    directive('filterTransfer', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
         return {
             replace: true,
-            templateUrl: '/spa/templates/components/avia_results_filter/filter_transfer.html',
+            template: $templateCache.get('components/avia_results_filter/filter_transfer.html'),
             scope: {
                 list: '='
             },

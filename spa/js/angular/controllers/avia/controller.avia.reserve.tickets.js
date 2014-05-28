@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 /* Controllers */
 
 innaAppControllers.
@@ -43,7 +43,7 @@ innaAppControllers.
 
             $scope.searchId = $scope.criteria.QueryId;
 
-            $scope.objectToReserveTemplate = '/spa/templates/pages/avia/variant_partial.html';
+            $scope.objectToReserveTemplate = 'pages/avia/variant_partial.html';
 
             //для начала нужно проверить доступность билетов
             //var availableChecktimeout = $timeout(function () {
@@ -117,13 +117,15 @@ innaAppControllers.
                     if ($scope.criteria.ToUrl != null && $scope.criteria.ToUrl.length > 0) {
 
                         dataService.getDirectoryByUrl($scope.criteria.ToUrl, function (data) {
-                            if (data != null) {
-                                $scope.criteria.To = data.name;
-                                $scope.criteria.ToId = data.id;
-                                $scope.criteria.ToCountryName = data.CountryName;
-                                //оповещаем лоадер, что метод отработал
-                                loader.complete(self);
-                            }
+                            $scope.$apply(function ($scope) {
+                                if (data != null) {
+                                    $scope.criteria.To = data.name;
+                                    $scope.criteria.ToId = data.id;
+                                    $scope.criteria.ToCountryName = data.CountryName;
+                                    //оповещаем лоадер, что метод отработал
+                                    loader.complete(self);
+                                }
+                            });
                         }, function (data, status) {
                             log('loadToCountry error: ' + $scope.criteria.ToUrl + ' status:' + status);
                         });
@@ -215,6 +217,7 @@ innaAppControllers.
                     VariantId1: $scope.item.VariantId1,
                     VariantId2: $scope.item.VariantId2
                 };
+                m.Filter = angular.toJson($scope.criteria);
                 return m;
             }
 

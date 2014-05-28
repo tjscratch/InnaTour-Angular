@@ -159,7 +159,7 @@
 
             DynamicFormSubmitListener.listen();
 
-            $scope.objectToReserveTemplate = '/spa/templates/pages/dynamic/inc/reserve.html';
+            $scope.objectToReserveTemplate = 'pages/dynamic/inc/reserve.html';
 
             //console.log('hi from DynamicReserveTicketsCtrl', $routeParams, $scope);
 

@@ -1,12 +1,12 @@
-﻿
+﻿﻿
 'use strict';
 
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaFormCtrl', ['$log', '$scope', '$rootScope', '$filter', '$location', 'dataService', 'cache', 'urlHelper', 'aviaHelper',
+    controller('AviaFormCtrl', ['$log', '$scope', '$rootScope', '$filter', '$routeParams', '$location', 'dataService', 'cache', 'urlHelper', 'aviaHelper',
         'aviaService', 'Validators',
-        function AviaFormCtrl($log, $scope, $rootScope, $filter, $location, dataService, cache, urlHelper, aviaHelper,
+        function AviaFormCtrl($log, $scope, $rootScope, $filter, $routeParams, $location, dataService, cache, urlHelper, aviaHelper,
             aviaService, Validators) {
 
             var self = this;
@@ -16,31 +16,44 @@ innaAppControllers.
 
             var AVIA_COOK_NAME = "form_avia_cook";
 
+            //console.log('$routeParams');
+            //console.log($routeParams);
+
             //флаг индикатор загрузки
             $scope.isDataLoading = false;
+
+            //значения по-умобчанию
+            //$scope.criteria = getDefaultCriteria();
+            //$scope
+            loadParamsFromRouteOrDefault($routeParams);
 
             //$routeParams
             $scope.$on('avia.page.loaded', function (event, $routeParams, validateDate) {
                 //console.log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams) + ' validateDate: ' + validateDate);
+                loadParamsFromRouteOrDefault($routeParams, validateDate);
+            });
 
+            $scope.$watch('datepickerButtons', function (newVal) {
+                $scope.datepickerButtons.updateScopeValues();
+            }, true);
+
+            function loadParamsFromRouteOrDefault(routeParams, validateDate) {
                 var routeCriteria = null;
                 //если пусто
-                if ($routeParams.FromUrl == null || $routeParams.BeginDate == null) {
-                    log('$routeParams is empty');
+                if (routeParams.FromUrl == null || routeParams.BeginDate == null) {
+                    //console.log('avia.form: $routeParams is empty');
                     routeCriteria = getDefaultCriteria();
                 }
                 else {
                     //критерии из урла
-                    routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
+                    routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy(routeParams)));
+                    //console.log('avia.form: routeCriteria: ' + angular.toJson(routeCriteria));
                 }
-
-                log('AviaFormCtrl routeCriteria: ' + angular.toJson(routeCriteria));
 
                 if (validateDate) {
                     validateDates(routeCriteria);
                 }
 
-                
                 $scope.criteria = routeCriteria;
                 //console.log('avia.page.loaded criteria');
                 //console.log($scope.criteria);
@@ -48,49 +61,57 @@ innaAppControllers.
                 //если FromUrl пришли (из урла), а FromId - нет
                 setFromAndToFieldsFromUrl(routeCriteria);
 
+                $scope.datepickerButtons = new datepickerButtons();
                 $scope.datepickerButtons.updateValues();
-            });
+            }
+
+            $rootScope.$broadcast("avia.form.loaded");
 
             function setFromAndToFieldsFromUrl(routeCriteria, afterCompleteCallback) {
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
                     $scope.criteria.From = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
-                        //обновляем данные
-                        if (data != null) {
-                            $scope.fromInit = { Id: data.id, Name: data.name, Url: data.url };
+                        $scope.$apply(function ($scope) {
+                            //обновляем данные
+                            if (data != null) {
+                                $scope.fromInit = { Id: data.id, Name: data.name, Url: data.url };
 
-                            $scope.criteria.From = data.name;
-                            $scope.criteria.FromId = data.id;
-                            $scope.criteria.FromUrl = data.url;
-                            //logCriteriaData();
-                            log('$scope.criteria.From: ' + angular.toJson($scope.criteria));
-                        }
+                                $scope.criteria.From = data.name;
+                                $scope.criteria.FromId = data.id;
+                                $scope.criteria.FromUrl = data.url;
+                                //logCriteriaData();
+                                //console.log('avia.form: $scope.criteria.From: ' + angular.toJson($scope.criteria));
+                            }
+                        });
                     }, function (data, status) {
                         //ошибка получения данных
-                        log('getDirectoryByUrl error: ' + $scope.criteria.FromUrl + ' status:' + status);
+                        console.log('avia.form: getDirectoryByUrl error: ' + $scope.criteria.FromUrl + ' status:' + status);
                     });
                 }
 
                 if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
                     $scope.criteria.To = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
-                        //обновляем данные
-                        if (data != null) {
-                            $scope.toInit = { Id: data.id, Name: data.name, Url: data.url };
+                        $scope.$apply(function ($scope) {
+                            //обновляем данные
+                            if (data != null) {
+                                $scope.toInit = { Id: data.id, Name: data.name, Url: data.url };
 
-                            $scope.criteria.To = data.name;
-                            $scope.criteria.ToId = data.id;
-                            $scope.criteria.ToUrl = data.url;
-                            //logCriteriaData();
-                            log('$scope.criteria.To: ' + angular.toJson($scope.criteria));
-                        }
+                                $scope.criteria.To = data.name;
+                                $scope.criteria.ToId = data.id;
+                                $scope.criteria.ToUrl = data.url;
+
+                                //console.log('$scope.criteria.ToUrl: %s', $scope.criteria.ToUrl);
+                                //logCriteriaData();
+                                //console.log('avia.form: $scope.criteria.To: ' + angular.toJson($scope.criteria));
+                            }
+                        });
                     }, function (data, status) {
                         //ошибка получения данных
-                        log('getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
+                        console.log('avia.form: getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
                     });
                 }
             };
-
 
             function validateDates(crit) {
                 //даты по-умолчанию: сегодня и +5 дней
@@ -111,9 +132,6 @@ innaAppControllers.
                 }
             }
 
-            //значения по-умобчанию
-            $scope.criteria = getDefaultCriteria();
-
             function datepickerButtons() {
                 var self = this;
                 self.isOneWaySelected = $scope.criteria.PathType == 1;
@@ -130,14 +148,6 @@ innaAppControllers.
                     self.isBackRoamingSelected = $scope.criteria.IsBackFlexible == 1 ? true : false;
                 }
             }
-
-            $scope.datepickerButtons = new datepickerButtons();
-            $scope.$watch('datepickerButtons', function (newVal) {
-                $scope.datepickerButtons.updateScopeValues();
-            }, true);
-
-            //заполняем From To
-            //setFromAndToFieldsFromUrl($scope.criteria);
 
             function getDefaultCriteria() {
                 //даты по-умолчанию: сегодня и +5 дней
@@ -158,6 +168,10 @@ innaAppControllers.
                         "AdultCount": 1, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
                         "PathType": 0
                     });
+                    //console.log('avia.form: getting default');
+                }
+                else {
+                    //console.log('avia.form: getting from cookie');
                 }
 
                 //проверка актуальности дат
@@ -233,7 +247,6 @@ innaAppControllers.
             //списки по-умолчанию
 
             $scope.pathTypeList = [{ name: 'Туда обратно', value: 0 }, { name: 'Туда', value: 1 }];
-
             
             //logCriteriaData();
             log('AviaFormCtrl defaultCriteria: ' + angular.toJson($scope.criteria));
@@ -321,6 +334,7 @@ innaAppControllers.
 
             $scope.setResultCallbackFrom = function (item) {
                 if (item != null) {
+                    //console.log('$scope.setResultCallbackFrom: %s', item.CodeIata);
                     $scope.criteria.FromUrl = item.CodeIata;
                     $scope.criteria.From = item.Name;
                 }

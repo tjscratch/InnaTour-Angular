@@ -20,18 +20,18 @@
                  inna-dynamic-bundle-bundle="combination"
                  inna-dynamic-bundle-state="state"
                  inna-dynamic-bundle-ticket-details="getTicketDetails"
-                 inna-dynamic-bundle-hotel-details="getHotelDetails"></div>
+                 inna-dynamic-bundle-hotel-details="getHotelDetails"
+                 inna-dynamic-bundle-go-reservation="goReservation"></div>
 
             <div class="result-small" ng-if="display.isCurrent(display.SHORT)">
                 <div class="result-cell result-cell-390">
-                    <!--TODO which pictures to use?-->
                     <p class="flight">
-                        <img src="/spa/img/airline-small.png" alt="">
+                        <img ng-src="{{airLogo( ticket.getEtaps('To')[0].data.TransporterCode )}}" height=28 alt="">
                         <span class="white">{{ticket.data.OutCode}} – {{ticket.data.InCode}}, {{dateHelper.getDateShort(ticket.data.DepartureDate)}},</span>
                         в пути: {{ticket.getDuration('To')}}, {{ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
                     </p>
                     <p class="flight">
-                        <img src="/spa/img/airline-small.png" alt="">
+                        <img ng-src="{{airLogo( ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28 alt="">
                         <span class="white">{{ticket.data.InCode}} – {{ticket.data.OutCode}}, {{dateHelper.getDateShort(ticket.data.BackDepartureDate)}},</span>
                         в пути: {{ticket.getDuration('Back')}}, {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
                     </p>
@@ -56,7 +56,10 @@
         </div>
     </div>
 
+    <!-- Переключаем фильтры на карте и на списке отелей -->
     <div class="filters__body">
-        <ng:include src="state.display + '__filters.html'"/>
+        <!-- Показываем только когда загрузился список -->
+        <ng:include src="state.display + '__filters.html'" ng-if="!asMap && hotels.size()"/>
+        <ng:include src="'/spa/templates/pages/dynamic/inc/serp.hotels.map__filters.html'" ng-if="asMap"/>
     </div>
 </div>

@@ -1,10 +1,10 @@
-﻿'use strict';
+﻿﻿'use strict';
 
 angular.module('innaApp.directives')
-    .directive('regionHeader', [function () {
+    .directive('regionHeader', ['$templateCache', function ($templateCache) {
         return {
             replace: true,
-            templateUrl: '/spa/js/angular/regions/header/templ/header.html',
+            template: $templateCache.get('regions/header/templ/header.html'),
             controller: [
                 '$scope',
                 '$location',
@@ -12,7 +12,8 @@ angular.module('innaApp.directives')
                 'urlHelper',
                 'innaApp.Urls',
                 'aviaHelper',
-                function ($scope,$location, eventsHelper, urlHelper, appUrls, aviaHelper) {
+                function ($scope, $location, eventsHelper, urlHelper, appUrls, aviaHelper) {
+
 
                     $scope.$on('$routeChangeStart', function (next, current) {
                         $scope.$emit('header:visible');
@@ -20,8 +21,8 @@ angular.module('innaApp.directives')
 
                     $scope.isHeaderVisible = true;
 
+
                     $scope.$on('header:hidden', function () {
-                        console.log('hidden');
                         $scope.isHeaderVisible = false;
                     });
 
@@ -108,7 +109,7 @@ angular.module('innaApp.directives')
 
                 }],
             link: function ($scope, $element, attrs) {
-                console.log($element[0]);
+
             }
         };
     }]);

@@ -1,15 +1,18 @@
 angular.module('innaApp.directives')
-    .directive('innaDynamicBundle', function(){
+    .directive('innaDynamicBundle', ['$templateCache', function($templateCache){        
         return {
-            templateUrl: '/spa/templates/components/bundle.html',
+            template: $templateCache.get('components/bundle.html'),
             scope: {
                 bundle: '=innaDynamicBundleBundle',
                 state: '=innaDynamicBundleState',
                 getTicketDetails: '=innaDynamicBundleTicketDetails',
-                getHotelDetails: '=innaDynamicBundleHotelDetails'
+                getHotelDetails: '=innaDynamicBundleHotelDetails',
+                goReservation: '=innaDynamicBundleGoReservation'
             },
             controller: [
-                '$scope', 'aviaHelper', '$element',
+                '$scope',
+                'aviaHelper',
+                '$element',
                 function($scope, aviaHelper, $element){
                     $scope.infoPopup = new inna.Models.Aux.AttachedPopup();
                     $scope.linkPopup = new inna.Models.Aux.AttachedPopup();
@@ -27,4 +30,4 @@ angular.module('innaApp.directives')
                 }
             ]
         }
-    });
+    }]);

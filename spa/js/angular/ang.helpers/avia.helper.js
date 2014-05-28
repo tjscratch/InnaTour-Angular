@@ -1,4 +1,4 @@
-﻿innaAppServices.
+﻿﻿innaAppServices.
     factory('aviaHelper', ['$rootScope', '$http', '$log', '$filter', '$timeout', '$location', 'innaApp.Urls', 'eventsHelper',
         function ($rootScope, $http, $log, $filter, $timeout, $location, Urls, eventsHelper) {
         function log(msg) {
@@ -7,6 +7,7 @@
 
         var manyCode = "many";
         var manyName = "Несколько авиакомпаний";
+        var emptyCode = "empty";
 
         var timeFormat = "HH:mm";
         var dateFormat = "dd MMM yyyy, EEE";
@@ -127,7 +128,8 @@
             msg: 'msg',
             err: 'err',
             msgClose: 'msgClose',
-            success: 'success'
+            success: 'success',
+            payExpires: 'payExpires'
         };
 
         var host = app_main.host.replace('api.', 's.'); //http://api.test.inna.ru
@@ -230,6 +232,9 @@
 
             setEtapsTransporterCodeUrl: function (logo) {
                 //return "http://adioso.com/media/i/airlines/" + logo + ".png";
+                if (logo == null || logo.length == 0) {
+                    logo = emptyCode;
+                }
                 
                 if (logo == manyCode) {
                     return "/spa/img/group.png";
@@ -386,7 +391,9 @@
                     helper.baloon.text = text;
                     helper.baloon.closeFn = closeFn;
                     helper.baloon.isVisible = true;
+                    //data: { buttonCaption: '', successFn: fn }
                     helper.baloon.data = data;
+
                     //$rootScope.$broadcast('baloon.show');
                 },
                 hide: function () {
@@ -409,6 +416,9 @@
                 function getPluralTickets(count) {
                     return helper.pluralForm(count, 'билет', 'билета', 'билетов');
                 }
+
+                if (countLeft < 0 || ticketsCount < 0)
+                    return '';
 
                 switch (ticketsCount) {
                     case 1:
