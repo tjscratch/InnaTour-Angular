@@ -126,6 +126,7 @@ angular.module('innaApp.directives')
                     var activeMarker = null;
                     var activeMarkerHover = null;
                     var GM = google.maps;
+                    var _bounds = new GM.LatLngBounds();;
                     var dataInfoBox = {
                         disableAutoPan: false,
                         closeBoxURL: "",
@@ -462,7 +463,6 @@ angular.module('innaApp.directives')
                         var hotels = (data.hotels) ? data.hotels : [];
                         var airports = (data.airports) ? data.airports : [];
 
-                        var bounds = new GM.LatLngBounds();
                         removeMarkers();
 
                         hotels.each(function (hotel) {
@@ -476,7 +476,7 @@ angular.module('innaApp.directives')
                             marker.$inna__hotel = hotel;
 
                             markerEvents(markerData);
-                            bounds.extend(markerData.pos);
+                            _bounds.extend(markerData.pos);
                             markers.push(marker);
                         });
 
@@ -494,8 +494,6 @@ angular.module('innaApp.directives')
                         });
 
                         addCluster();
-
-                        //map.fitBounds(bounds);
                     }
 
                     scope.$watchCollection('[hotels, airports]', function (data) {
@@ -503,6 +501,8 @@ angular.module('innaApp.directives')
                             hotels: data[0],
                             airports: data[1]
                         })
+
+                        map.fitBounds(_bounds);
                     });
                 }
             }
