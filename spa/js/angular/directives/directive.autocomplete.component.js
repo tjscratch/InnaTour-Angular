@@ -33,9 +33,9 @@
             var unwatch = $scope.$watch('setResultItem', function (item) {
                 if (item != null) {
                     init(item);
-                    unwatch();
+                    //unwatch();
                 }
-            });
+            }, true);
 
             function init(item) {
                 if ($scope.input) {
