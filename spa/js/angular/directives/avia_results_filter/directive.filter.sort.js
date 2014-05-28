@@ -1,10 +1,10 @@
 ﻿
 
 innaAppDirectives.
-    directive('filterSort', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
+    directive('filterSort', ['eventsHelper', function (eventsHelper) {
         return {
             replace: true,
-            template: $templateCache.get('components/avia_results_filter/filter_sort.html'),
+            templateUrl: '/spa/templates/components/avia_results_filter/filter_sort.html',
             scope: {
                 sort: '='
             },

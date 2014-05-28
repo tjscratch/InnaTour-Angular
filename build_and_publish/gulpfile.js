@@ -1,65 +1,16 @@
 ﻿var gulp = require('gulp'),
     htmlreplace = require('gulp-html-replace'),
     concat = require('gulp-concat'),
-    stylus = require('gulp-stylus'),
     clean = require('gulp-clean'),
-    csscomb = require('gulp-csscomb'),
-    less = require('gulp-less'),
-    runSequence = require('run-sequence'),
-    templateCache = require('gulp-angular-templatecache'),
-    minifyCSS = require('gulp-minify-css'),
-    minifyHTML = require('gulp-minify-html');
+    runSequence = require('run-sequence');
 
 //===============Константы========================
-var __BUILD_FOLDER__ = '';
 var BUILD_TEST_FOLDER = 'publish_test';
 var TEST_API_HOST = 'http://api.test.inna.ru';
 
 var BUILD_RELEASE_FOLDER = 'publish_release';
 var RELEASE_API_HOST = 'http://api.inna.ru';
 //===============Константы========================
-
-
-function changeBuildFolder(folder) {
-    __BUILD_FOLDER__ = folder;
-}
-gulp.task('change-build-folder-TEST', function () {
-    return changeBuildFolder(BUILD_TEST_FOLDER);
-});
-gulp.task('change-build-folder-RELEASE', function () {
-    return changeBuildFolder(BUILD_RELEASE_FOLDER);
-});
-
-gulp.task('styles', function () {
-    gulp.src([__BUILD_FOLDER__ + '/spa/styl/common.styl'])
-        .pipe(stylus({
-            use: ['nib'],
-            import: ['nib']
-        }))
-        .pipe(concat('common.min.css'))
-        .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
-    gulp.src([__BUILD_FOLDER__ + '/spa/styl/ie.styl'])
-        .pipe(stylus({
-            use: ['nib'],
-            import: ['nib']
-        }))
-        .pipe(concat('ie.min.css'))
-        .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
-    gulp.src([__BUILD_FOLDER__ + '/spa/styl/ticket.styl'])
-        .pipe(stylus({
-            use: ['nib'],
-            import: ['nib']
-        }))
-        .pipe(concat('ticket.min.css'))
-        .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
-    gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
-        .pipe(concat('main.css'))
-        .pipe(less())
-        .pipe(gulp.dest('css'));
-});
 
 //===============Очистка========================
 function cleanFiles(destFolder) {
@@ -70,20 +21,6 @@ function cleanFiles(destFolder) {
     return res;
 }
 
-gulp.task('templates-ang', function () {
-    gulp.src([
-            __BUILD_FOLDER__ + '/spa/templates/**/*.html',
-            __BUILD_FOLDER__ + '/spa/js/angular/**/*.html'
-    ])
-        .pipe(minifyHTML({
-            quotes: true
-        }))
-        .pipe(templateCache({
-            module: 'innaApp.templates'
-        }))
-        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/js/angular'));
-});
-
 gulp.task('test-clean', function () {
     return cleanFiles(BUILD_TEST_FOLDER);
 });
@@ -93,7 +30,7 @@ gulp.task('release-clean', function () {
 });
 
 //===============Копирование файлов========================
-function copyFiles(destFolder) {
+function copyFiles(destFolder){
     var res = null;
     //главная
     res = gulp.src(['../index.html', '../web.config', '../closer.html'])//closer.html (для авторизации)
@@ -126,11 +63,11 @@ function replaceHtml(destFolder, apiHost) {
     function replace(sourceFile, destPath, apiHost) {
         //заменяем все ангулар скрипты на один
         return gulp.src(sourceFile)
-            .pipe(htmlreplace({
-                'app-main-js': '/spa/js/app-main.js',
-                'app-host': 'app_main.host = \'' + apiHost + '\';'
-            }))
-            .pipe(gulp.dest(destPath));
+          .pipe(htmlreplace({
+              'app-main-js': '/spa/js/app-main.js',
+              'app-host': 'app_main.host = \'' + apiHost + '\';'
+          }))
+          .pipe(gulp.dest(destPath));
     };
 
     //для главной
@@ -147,7 +84,7 @@ gulp.task('release-html-replace', function () {
 });
 
 //===============Склеиваем app-main.js========================
-function getSrcFiles(folder) {
+function getSrcFiles(folder){
     var list = [
         '/spa/js/angular/helpers/*.js',
         '/spa/js/datepicker.js',
@@ -155,44 +92,41 @@ function getSrcFiles(folder) {
         '/spa/js/angular/**/*.js'
     ];
 
-    for (var i = 0; i < list.length; i++) {
-        list[i] = folder + list[i];
-    }
+	for (var i = 0; i < list.length; i++) {
+	    list[i] = folder + list[i];
+	}
     return list;
 }
 
 gulp.task('test-build-app-main-js', function () {
-    gulp.src(getSrcFiles(BUILD_TEST_FOLDER))
-        .pipe(concat('app-main.js'))
-        .pipe(gulp.dest(BUILD_TEST_FOLDER + '/spa/js'));
+	gulp.src(getSrcFiles(BUILD_TEST_FOLDER))
+		.pipe(concat('app-main.js'))
+		.pipe(gulp.dest(BUILD_TEST_FOLDER + '/spa/js'));
 });
 gulp.task('release-build-app-main-js', function () {
-    gulp.src(getSrcFiles(BUILD_RELEASE_FOLDER))
-        .pipe(concat('app-main.js'))
+	gulp.src(getSrcFiles(BUILD_RELEASE_FOLDER))
+		.pipe(concat('app-main.js'))
         .pipe(gulp.dest(BUILD_RELEASE_FOLDER + '/spa/js'));
 });
 
+//===============Таски========================
 
 //собираем все для теста
 gulp.task('build-test', function (callback) {
     runSequence('test-clean',
-        'change-build-folder-TEST',
-        'test-copy-files-for-publish',
-        ['styles', 'templates-ang'],
-        'test-html-replace',
-        'test-build-app-main-js',
-        callback);
+              'test-copy-files-for-publish',
+              'test-html-replace',
+              'test-build-app-main-js',
+              callback);
 });
 
 //собираем все для релиза
 gulp.task('build-release', function (callback) {
     runSequence('release-clean',
-        'change-build-folder-RELEASE',
-        'release-copy-files-for-publish',
-        ['styles', 'templates-ang'],
-        'release-html-replace',
-        'release-build-app-main-js',
-        callback);
+              'release-copy-files-for-publish',
+              'release-html-replace',
+              'release-build-app-main-js',
+              callback);
 });
 
 gulp.task('default', ['build-test']);

@@ -1,8 +1,8 @@
-﻿'use strict';
+﻿﻿'use strict';
 
 /* Directives */
 
-innaAppDirectives.directive('popupForm', ['$templateCache', function ($templateCache) {
+innaAppDirectives.directive('popupForm', function () {
     return {
         controller: ['$scope', '$log', 'dataService', function ($scope, $log, dataService) {
             function log(msg) {
@@ -125,4 +125,4 @@ innaAppDirectives.directive('popupForm', ['$templateCache', function ($templateC
 
         }]
     };
-}]);
+});

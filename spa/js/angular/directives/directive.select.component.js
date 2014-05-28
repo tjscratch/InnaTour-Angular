@@ -1,6 +1,6 @@
-innaAppDirectives.directive('select', ['$templateCache', function($templateCache){
+innaAppDirectives.directive('select', [function(){
     return {
-        template: $templateCache.get('components/select.html'),
+        templateUrl: '/spa/templates/components/select.html',
         scope: {
         	options: '=',
         	caption: '@',

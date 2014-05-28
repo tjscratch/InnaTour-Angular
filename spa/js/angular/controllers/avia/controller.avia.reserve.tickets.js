@@ -117,15 +117,13 @@ innaAppControllers.
                     if ($scope.criteria.ToUrl != null && $scope.criteria.ToUrl.length > 0) {
 
                         dataService.getDirectoryByUrl($scope.criteria.ToUrl, function (data) {
-                            $scope.$apply(function ($scope) {
-                                if (data != null) {
-                                    $scope.criteria.To = data.name;
-                                    $scope.criteria.ToId = data.id;
-                                    $scope.criteria.ToCountryName = data.CountryName;
-                                    //оповещаем лоадер, что метод отработал
-                                    loader.complete(self);
-                                }
-                            });
+                            if (data != null) {
+                                $scope.criteria.To = data.name;
+                                $scope.criteria.ToId = data.id;
+                                $scope.criteria.ToCountryName = data.CountryName;
+                                //оповещаем лоадер, что метод отработал
+                                loader.complete(self);
+                            }
                         }, function (data, status) {
                             log('loadToCountry error: ' + $scope.criteria.ToUrl + ' status:' + status);
                         });

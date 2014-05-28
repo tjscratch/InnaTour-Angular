@@ -1,18 +1,18 @@
 ﻿'use strict';
 
 angular.module('innaApp.directives')
-    .directive('regionFooter', ['$templateCache', function ($templateCache) {
+    .directive('regionFooter', function () {
         return {
             replace: true,
             restrict: 'A',
-            template: $templateCache.get('regions/footer/templ/footer.html'),
+            templateUrl: '/spa/js/angular/regions/footer/templ/footer.html',
             scope: {},
             controller: function ($scope) {
 
             },
             link: function ($scope, $element, attrs) {
 
-                $scope.$on('$routeChangeStart', function (next, current) {
+                $scope.$on('$routeChangeStart', function(next, current) {
                     $element.show();
                 });
 
@@ -26,4 +26,4 @@ angular.module('innaApp.directives')
                 });
             }
         };
-    }]);
+    });

@@ -1,6 +1,6 @@
 ﻿innaAppServices.
-    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', 'storageService', 'innaApp.API.const', 'urlHelper', 'AjaxHelper',
-        function ($rootScope, $http, $q, $log, cache, storageService, apiUrls, urlHelper, AjaxHelper) {
+    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', 'storageService', 'innaApp.API.const', 'urlHelper',
+        function ($rootScope, $http, $q, $log, cache, storageService, apiUrls, urlHelper) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -15,7 +15,9 @@
                     });
                 },
                 getDirectoryByUrl: function (term, successCallback, errCallback) {
-                    AjaxHelper.get(apiUrls.AVIA_FROM_SUGGEST, { term: term }, function (data) {
+                    //log('getDirectoryByUrl, term: ' + term);
+                    //запрос по критериям поиска
+                    $http({ method: 'GET', url: getDirectoryUrl, params: { term: term }, cache: true }).success(function (data, status) {
                         if (data != null && data.length > 0) {
                             //ищем запись с кодом IATA
                             var resItem = _.find(data, function (item) {
@@ -37,7 +39,10 @@
                         else {
                             errCallback(data, status);
                         }
-                    }, errCallback);
+                    }).error(function (data, status) {
+                        //вызываем err callback
+                        errCallback(data, status);
+                    });
                 },
 
                 getSletatDirectoryByTerm: function (term, successCallback, errCallback) {

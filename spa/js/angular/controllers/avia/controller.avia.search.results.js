@@ -13,10 +13,6 @@ innaAppControllers.
             }
 
             //нужно передать в шапку (AviaFormCtrl) $routeParams
-            $scope.$on('avia.form.loaded', function (event) {
-                //console.log('avia.form.loaded');
-                $rootScope.$broadcast("avia.page.loaded", $routeParams);
-            });
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
             $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может занять несколько минут', function () {
@@ -296,17 +292,15 @@ innaAppControllers.
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
                     $scope.criteria.From = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
-                        $scope.$apply(function ($scope) { 
-                            //обновляем данные
-                            if (data != null) {
-                                $scope.criteria.From = data.name;
-                                $scope.criteria.FromId = data.id;
-                                $scope.criteria.FromUrl = data.url;
-                                //log('$scope.criteria.From: ' + angular.toJson($scope.criteria));
-                                urlDataLoaded.fromLoaded = true;
-                                ifDataLoadedStartSearch();
-                            }
-                        });
+                        //обновляем данные
+                        if (data != null) {
+                            $scope.criteria.From = data.name;
+                            $scope.criteria.FromId = data.id;
+                            $scope.criteria.FromUrl = data.url;
+                            //log('$scope.criteria.From: ' + angular.toJson($scope.criteria));
+                            urlDataLoaded.fromLoaded = true;
+                            ifDataLoadedStartSearch();
+                        }
                     }, function (data, status) {
                         //ошибка получения данных
                         log('getDirectoryByUrl error: ' + $scope.criteria.FromUrl + ' status:' + status);
@@ -318,17 +312,15 @@ innaAppControllers.
                 if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
                     $scope.criteria.To = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
-                        $scope.$apply(function ($scope) {
-                            //обновляем данные
-                            if (data != null) {
-                                $scope.criteria.To = data.name;
-                                $scope.criteria.ToId = data.id;
-                                $scope.criteria.ToUrl = data.url;
-                                //log('$scope.criteria.To: ' + angular.toJson($scope.criteria));
-                                urlDataLoaded.toLoaded = true;
-                                ifDataLoadedStartSearch();
-                            }
-                        });
+                        //обновляем данные
+                        if (data != null) {
+                            $scope.criteria.To = data.name;
+                            $scope.criteria.ToId = data.id;
+                            $scope.criteria.ToUrl = data.url;
+                            //log('$scope.criteria.To: ' + angular.toJson($scope.criteria));
+                            urlDataLoaded.toLoaded = true;
+                            ifDataLoadedStartSearch();
+                        }
                     }, function (data, status) {
                         //ошибка получения данных
                         log('getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);

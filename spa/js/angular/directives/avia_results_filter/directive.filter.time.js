@@ -1,10 +1,10 @@
 ﻿
 
 innaAppDirectives.
-    directive('filterTime', ['$templateCache', 'eventsHelper', 'aviaHelper', function ($templateCache, eventsHelper, aviaHelper) {
+    directive('filterTime', ['eventsHelper', 'aviaHelper', function (eventsHelper, aviaHelper) {
         return {
             replace: true,
-            template: $templateCache.get('components/avia_results_filter/filter_time.html'),
+            templateUrl: '/spa/templates/components/avia_results_filter/filter_time.html',
             scope: {
                 list: '='
             },

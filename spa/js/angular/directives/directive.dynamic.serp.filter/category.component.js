@@ -1,9 +1,8 @@
 angular.module('innaApp.directives')
     .directive('dynamicSerpFilterCategory', [
-        '$templateCache',
-        function($templateCache){
+        function(){
             return {
-                template: $templateCache.get('components/dynamic-serp-filter/category.html'),
+                templateUrl: '/spa/templates/components/dynamic-serp-filter/category.html',
                 scope: {
                     hotels: '=dynamicSerpFilterCategoryHotels',
                     filters: '=dynamicSerpFilterCategoryFilters'

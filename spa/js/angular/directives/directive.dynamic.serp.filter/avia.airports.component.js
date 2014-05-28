@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
-    .directive('innaDynamicSerpFilterAviaAirports', ['$templateCache', function($templateCache){
+    .directive('innaDynamicSerpFilterAviaAirports', function(){
         return {
-            template: $templateCache.get('components/dynamic-serp-filter/avia.airports.html'),
+            templateUrl: '/spa/templates/components/dynamic-serp-filter/avia.airports.html',
             scope: {
                 tickets: '=innaDynamicSerpFilterAviaAirportsTickets',
                 filters: '=innaDynamicSerpFilterAviaAirportsFilters'
@@ -77,4 +77,4 @@ angular.module('innaApp.directives')
                 }
             ]
         }
-    }]);
+    });

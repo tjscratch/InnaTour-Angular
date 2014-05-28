@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
-    .directive('innaGallery', ['$templateCache', function($templateCache){
+    .directive('innaGallery', function(){
         return {
-            template: $templateCache.get('components/gallery.html'),
+            templateUrl: '/spa/templates/components/gallery.html',
             scope: {
                 urls: '=innaGalleryPicList'
             },
@@ -60,4 +60,4 @@ angular.module('innaApp.directives')
                 }
             ]
         }
-    }]);
+    });

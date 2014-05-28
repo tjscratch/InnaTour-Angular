@@ -37,7 +37,7 @@ module.exports = function (grunt) {
 
 
 					var spriteStr = "// This file was generated automaticly, so don't modify it!\n";
-					spriteStr += ".new-" + pack.name + " {\n";
+					spriteStr += "." + pack.name + " {\n";
 					spriteStr += '\tbackground-image: url("' + config.webPath + pack.filename() + '");\n';
 					spriteStr += '\tbackground-repeat: no-repeat;\n';
 					spriteStr += '\tdisplay: inline-block;\n';
@@ -47,7 +47,7 @@ module.exports = function (grunt) {
 
 						spriteStr += ".icon-sprite-" + file.name + "{";
 						spriteStr += "\n";
-						spriteStr += "\t@extend .new-" + pack.name + ";\n";
+						spriteStr += "\t@extend ." + pack.name + ";\n";
 						spriteStr += "\twidth: " + file.width + "px;\n";
 						spriteStr += "\theight: " + file.height + "px;\n";
 						spriteStr += "\tbackground-position: " + (-file.positionX) + "px " + (-file.positionY) + "px;\n";

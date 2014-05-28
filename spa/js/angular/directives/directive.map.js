@@ -1,4 +1,4 @@
-﻿innaAppDirectives.directive('ymap', ['$templateCache', function ($templateCache) {
+﻿innaAppDirectives.directive('ymap', function () {
     return {
         link: function (scope, element, attrs) {
             //console.log('ymap');
@@ -52,11 +52,11 @@
                 setTimeout(function () {
                     $cityMenu.find('a').eq(0).trigger('click');
                 }, 0);
-
+                
                 scope.$on('$destroy', function () {
                     $cityMenu.off();
                 });
             });
         }
     };
-}]);
+});

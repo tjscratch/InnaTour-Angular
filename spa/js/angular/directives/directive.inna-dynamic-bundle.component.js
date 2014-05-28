@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
-    .directive('innaDynamicBundle', ['$templateCache', function($templateCache){
+    .directive('innaDynamicBundle', function(){
         return {
-            template: $templateCache.get('components/bundle.html'),
+            templateUrl: '/spa/templates/components/bundle.html',
             scope: {
                 bundle: '=innaDynamicBundleBundle',
                 state: '=innaDynamicBundleState',
@@ -28,4 +28,4 @@ angular.module('innaApp.directives')
                 }
             ]
         }
-    }]);
+    });

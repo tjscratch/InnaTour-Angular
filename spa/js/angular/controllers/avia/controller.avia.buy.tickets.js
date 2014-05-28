@@ -13,7 +13,7 @@ innaAppControllers.
             }
 
             //нужно передать в шапку (AviaFormCtrl) $routeParams
-            //$rootScope.$broadcast("avia.page.loaded", $routeParams);
+            $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
             //критерии из урла
             //$scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));

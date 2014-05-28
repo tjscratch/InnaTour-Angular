@@ -1,9 +1,7 @@
-﻿innaAppDirectives.directive('datePickerWidget', [
-    '$templateCache',
-    'eventsHelper', function ($templateCache, eventsHelper) {
+﻿innaAppDirectives.directive('datePickerWidget', ['eventsHelper', function (eventsHelper) {
     return {
         replace: true,
-        template: $templateCache.get('components/date_picker_widget.html'),
+        templateUrl: '/spa/templates/components/date_picker_widget.html',
         scope: {
             date1: '=',
             date2: '=',

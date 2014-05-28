@@ -1,9 +1,8 @@
 angular.module('innaApp.directives')
     .directive('innaDynamicSerpFilterAviaTime', [
-        '$templateCache',
-        function($templateCache){
+        function(){
             return {
-                template: $templateCache.get('components/dynamic-serp-filter/avia.time.html'),
+                templateUrl: '/spa/templates/components/dynamic-serp-filter/avia.time.html',
                 scope: {
                     tickets: '=innaDynamicSerpFilterAviaTimeTickets',
                     filters: '=innaDynamicSerpFilterAviaTimeFilters'

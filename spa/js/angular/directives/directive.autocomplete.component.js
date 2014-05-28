@@ -1,7 +1,7 @@
-﻿innaAppDirectives.directive('dropdownInput', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
+﻿innaAppDirectives.directive('dropdownInput', ['eventsHelper', function (eventsHelper) {
     return {
         replace: true,
-        template: $templateCache.get('components/dropdown_input.html'),
+        templateUrl: '/spa/templates/components/dropdown_input.html',
         scope: {
             provideSuggestCallback: '=', //callback for ngChange
             suggest: '=', //list of suggested objects
@@ -33,9 +33,9 @@
             var unwatch = $scope.$watch('setResultItem', function (item) {
                 if (item != null) {
                     init(item);
-                    //unwatch();
+                    unwatch();
                 }
-            }, true);
+            });
 
             function init(item) {
                 if ($scope.input) {
