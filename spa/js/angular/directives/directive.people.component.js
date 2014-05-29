@@ -1,7 +1,6 @@
 ﻿innaAppDirectives.directive('peopleComponent', [
-    '$templateCache',
-    'eventsHelper',
-    function ($templateCache, eventsHelper) {
+    '$templateCache', 'eventsHelper', 'aviaHelper',
+    function ($templateCache, eventsHelper, aviaHelper) {
         return {
             replace: true,
             template: $templateCache.get('components/people_component.html'),
@@ -13,6 +12,8 @@
             controller: ['$scope', function ($scope) {
 
                 $scope.isOpen = false;
+
+                $scope.aviaHelper = aviaHelper;
 
                 $scope.getPeopleCount = function () {
                     return parseInt($scope.adultCount, 10) + parseInt($scope.childCount, 10) + parseInt($scope.infantsCount, 10);
