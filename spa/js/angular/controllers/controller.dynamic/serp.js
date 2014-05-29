@@ -109,7 +109,6 @@ innaAppControllers
                     $scope.combination.hotel = new inna.Models.Hotels.Hotel(data.RecommendedPair.Hotel);
 
                     $scope.showLanding = false;
-                    $scope.baloon.hide();
                 });
 
                 if($location.search().displayTicket) {
@@ -126,6 +125,7 @@ innaAppControllers
                 $.when($scope.state.switchTo(defaultTab))
                     .then(function(){
                         onTabLoad(onTabLoadParam);
+                        $scope.baloon.hide();
                     });
             }
 
@@ -135,14 +135,22 @@ innaAppControllers
                     var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                     if (ticket) {
                         $scope.getTicketDetails(ticket);
-                    } else throw 1;
+                    } else throw false;
                 } catch(e) {
                     ticket404();
                 }
             }
 
             function loadHotelDetails(id){
-                console.log('load hotel details', id);
+                try {
+                    var hotel = $scope.hotels.search(id);
+
+                    if(hotel) {
+                        $scope.getHotelDetails(hotel);
+                    } else throw false;
+                } catch(e) {
+                    console.log('todo hotel500()');
+                }
             }
 
             /*Properties*/

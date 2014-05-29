@@ -267,4 +267,7 @@ innaAppControllers.
                         $location.path(Urls.URL_AVIA);
                     });
             }
+
+            $scope.$on('$destroy', function () {
+            });
         }]);
