@@ -151,7 +151,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         </div>
     </div>
 
-    <ng:include src="'/popup/mainform.html'"></ng:include>
+    <ng:include src="'popup/mainform.html'"></ng:include>
 
     <script type="text/javascript">
         var app_main = {};
@@ -317,38 +317,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/models/app.model.dynamic.js"></script>
 <script src="/spa/js/angular/models/auth.js"></script>
 <!-- endbuild -->
-
-    <script type="text/ng-template" id="/popup/mainform.html">
-        <div class="popup-fade" ng-show="isOpened"></div>
-        <div class="popup-container" ng-show="isOpened">
-            <div class="popup">
-                <div class="popup-close-button" ng-click="popupForm_Close()"></div>
-                <form class="offer-order-form">
-                    <legend class="form-header">Оставьте вашу заявку</legend>
-                    <div class="field-row">
-                        <input class="field" type="text" ng-model="request.name" placeholder="Имя" />
-                    </div>
-                    <div class="field-row">
-                        <input class="field" ng-class="{error:!request.isValid}" type="text" ng-model="request.phone" placeholder="Мобильный телефон" />
-                        <span class="field-error" ng-show="!request.isValid">Необходимо ввести мобильный телефон</span>
-                    </div>
-                    <div class="field-row">
-                        <input class="field" type="text" ng-model="request.email" placeholder="Email" />
-                    </div>
-                    <div class="field-row">
-                        <textarea name="" class="field-text" ng-model="request.comments">
-                            {{request.comments | breakFilter}}
-                        </textarea>
-                    </div>
-                    <div class="description offer-description" ng-click="request.subscribeClick()" ng-show="request.type == requestType.main">
-                        <span class="checkbox" ng-class="{checked:request.isSubscribe}"></span><label class="checkbox-label">Я люблю путешествовать и хочу получать рассылку с самыми выгодными и интересными предложениями</label>
-                    </div>
-
-                    <button type="submit" class="button offer-submit" ng-click="request.send()">Отправить</button>
-                </form>
-            </div>
-        </div>
-    </script>
 
     <script type="text/javascript">
         //фикс для закрытия выпадалок
