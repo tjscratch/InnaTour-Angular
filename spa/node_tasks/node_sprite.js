@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 	grunt.config.set('sprites', {
 		app: {
 			sourcePath: 'img/sprites/',
-			webPath: 'img/sprites/',
+			webPath: '/spa/img/sprites/',
 			stylPass: 'styl/sprite.styl'
 		}
 	});

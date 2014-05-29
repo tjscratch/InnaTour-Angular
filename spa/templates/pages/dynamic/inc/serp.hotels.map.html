@@ -1,10 +1,12 @@
 <div class="big-map">
     <div id="big-map-canvas" class="b-hotels-on-map"></div>
 
-    <div class="pin big-map__balloon" ng-if="currentHotel">
+    <div class="pin big-map__balloon ng-hide" ng-show="currentHotel">
         <div class="pin-balloon">
 
-            <div class="hotel-gallery b-carousel b-carousel_map" ng-controller="infoBoxCarouselCtrl">
+            <div class="hotel-gallery b-carousel b-carousel_map"
+                 ng-if="currentHotel"
+                 ng-controller="infoBoxCarouselCtrl">
                 <div class="hotel-gallery-arrow-left b-carousel__prev"></div>
                 <div class="hotel-gallery-arrow-right b-carousel__next"></div>
                 <a href="" class="hotel-gallery-photo-button">24</a>

@@ -9,6 +9,7 @@ angular.module('innaApp.directives')
             },
             replace: true,
             scope: {
+                isMap : '=',
                 filters: '=innaDynamicSerpFilterIndicatorsFilters',
                 items: '=innaDynamicSerpFilterIndicatorsItems',
                 mod_papper: '=modWpapper',
@@ -19,19 +20,11 @@ angular.module('innaApp.directives')
                 '$scope',
                 '$element',
                 function($scope, $element){
-                    var isMap = false;
 
-                    $element.on('click', '.button-map-list', function(evt){
-                        if(!isMap){
-                            isMap = true;
-                            $scope.action();
-                        } else {
-                            isMap = false;
-                            $scope.action();
-                        }
-
-                        $(this).toggleClass('checked', isMap);
-                    });
+                    if($scope.isMap) {
+                        $element.find('.button-map-list')
+                            .toggleClass('checked', $scope.isMap);
+                    }
 
                     if($scope.mod_papper){
                         $element.addClass('b-switch-filters_mod-wrapper');

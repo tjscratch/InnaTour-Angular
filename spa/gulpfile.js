@@ -11,21 +11,15 @@ var gulp = require('gulp'),
     minifyHTML = require('gulp-minify-html');
 
 
-
 gulp.task('templates-ang', function () {
-    //todo exclude-list
-    var exclude = [
-        '!templates/components/hotel.html',
-        '!templates/components/ticket.html'
-    ]
 
     gulp.src([
         'templates/**/*.html',
-        'js/angular/**/*.html'
-    ].concat(exclude))
-//        .pipe(minifyHTML({
-//            quotes: true
-//        }))
+
+        'js/angular/**/*.html',
+        '!templates/components/hotel.html',
+        '!templates/components/ticket.html'
+    ])
         .pipe(templateCache({
             module: 'innaApp.templates'
         }))
