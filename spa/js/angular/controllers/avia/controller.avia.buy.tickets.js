@@ -734,8 +734,18 @@ Cvc = "486";
             }
             $scope.paymentDeadline = new paymentDeadline();
             
+            function destroyPopups() {
+                _.each(_.keys($scope.validate), function (key) {
+                    var $to = $('#' + key);
+                    try {
+                        $to.tooltipX("destroy");
+                    }
+                    catch (e) { };
+                });
+            }
 
             $scope.$on('$destroy', function () {
                 $scope.paymentDeadline.destroy();
+                destroyPopups();
             });
         }]);
