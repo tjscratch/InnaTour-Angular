@@ -86,4 +86,11 @@ innaAppFilters.filter('signed', function(){
 
         return 0;
     }
-})
+});
+
+innaAppFilters.filter('price', function(){
+    return function(n){
+        console.log(n);
+        return n;
+    }
+});
