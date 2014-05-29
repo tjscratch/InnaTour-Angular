@@ -544,15 +544,12 @@ innaAppControllers.
                             }
                             return firstItem;
                         },
-                        validateAll: function () {
+                        enumAllKeys: function (fn) {
                             var list = this.getFields(this);
                             for (var vi = 0; vi < list.length; vi++) {
                                 var item = list[vi];
-                                $scope.validate(item);
+                                fn(item);
                             }
-                            //_.each(list, function (item) {
-                            //    $scope.validate(item);
-                            //});
 
                             //вложенные свойства
                             var arFields = this.getArrayFileds();
@@ -563,13 +560,13 @@ innaAppControllers.
                                     var passKeysList = this.getFields(pass);
                                     for (var zi = 0; zi < passKeysList.length; zi++) {
                                         var item = passKeysList[zi];
-                                        $scope.validate(item);
+                                        fn(item);
                                     }
-                                    //_.each(pass, function (item) {
-                                    //    $scope.validate(item);
-                                    //});
                                 }
                             }
+                        },
+                        validateAll: function () {
+                            validationModel.enumAllKeys($scope.validate);
 
                             this.formPure = false;
                         }
@@ -969,4 +966,13 @@ innaAppControllers.
                     }
                 });
             };
+
+            $scope.$on('$destroy', function () {
+                if ($scope.validationModel != null) {
+                    $scope.validationModel.enumAllKeys(function (item) {
+                        var $to = $("#" + item.id);
+                        $scope.tooltipControl.close($to);
+                    });
+                }
+            });
         }]);
