@@ -1,7 +1,7 @@
 {
   "name": "icon",
-  "checksum": "7d381b07480a235095d04999b12fbe87",
-  "shortsum": "7d381",
+  "checksum": "503e4655ffdc1d83b96c75a8e7372ff6",
+  "shortsum": "503e4",
   "images": [
     {
       "name": "remove",
@@ -47,15 +47,6 @@
       "height": 17,
       "positionX": 0,
       "positionY": 61
-    },
-    {
-      "name": "switch-map",
-      "filename": "switch-map.png",
-      "checksum": "58e1d0ab24412046b3b6c98d0ad59c25",
-      "width": 30,
-      "height": 17,
-      "positionX": 0,
-      "positionY": 80
     }
   ]
 }

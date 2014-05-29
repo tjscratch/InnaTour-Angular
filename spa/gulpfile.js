@@ -15,13 +15,11 @@ gulp.task('templates-ang', function () {
 
     gulp.src([
         'templates/**/*.html',
+
         'js/angular/**/*.html',
         '!templates/components/hotel.html',
         '!templates/components/ticket.html'
     ])
-        .pipe(minifyHTML({
-            quotes: true
-        }))
         .pipe(templateCache({
             module: 'innaApp.templates'
         }))

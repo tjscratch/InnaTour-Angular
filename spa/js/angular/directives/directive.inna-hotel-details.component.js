@@ -37,6 +37,8 @@ angular.module('innaApp.directives')
                     $scope.bundle.setTicket($scope.combination.ticket);
                     $scope.bundle.setHotel($scope.hotel);
 
+                    $scope.dataFullyLoaded = false;
+
                     /*Proxy*/
                     $scope.dateHelper = dateHelper;
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
@@ -70,7 +72,7 @@ angular.module('innaApp.directives')
                     $scope.toggleRoom = function(room){
                         //converts undefined into boolean on the fly
                         room.isOpen = !!!room.isOpen;
-                    }
+                    };
 
                     /*Watchers*/
                     $scope.$watch('hotel', function(hotel){
@@ -93,10 +95,13 @@ angular.module('innaApp.directives')
                         });
 
                         marker.setMap(map);
+
+                        $scope.dataFullyLoaded = false;
                     });
 
                     $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
-                        console.log(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+                        $scope.dataFullyLoaded = true;
+                        $scope.$digest();
                     })
                 }
             ]
