@@ -125,10 +125,7 @@ innaAppControllers
                 $.when($scope.state.switchTo(defaultTab))
                     .then(function(){
                         onTabLoad(onTabLoadParam);
-<<<<<<< local
                         $scope.baloon.hide();
-=======
->>>>>>> other
                     });
             }
 
