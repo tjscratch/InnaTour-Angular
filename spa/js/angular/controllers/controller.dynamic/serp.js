@@ -307,16 +307,19 @@ innaAppControllers
         }
     ])
     .controller('DynamicPackageSERPTicketPopupCtrl', [
-        '$scope', '$element', '$location', 'innaApp.API.events', 'aviaHelper',
+        '$scope',
+        '$element',
+        '$location',
+        'innaApp.API.events',
+        'aviaHelper',
         function ($scope, $element, $location, Events, aviaHelper) {
-
-            /*DOM dirty hacks*/
-            $(function () {
-                $(document.body).append($element);
-            });
-
+            
             /*Scope Properties*/
             $scope.ticket = null;
+
+            $scope.$on('change:hotel', function(data){
+                console.log(data, 'change:hotel');
+            })
 
             /*Scope Methods*/
             $scope.closePopup = function () {
