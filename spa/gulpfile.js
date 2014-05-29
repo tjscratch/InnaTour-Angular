@@ -23,9 +23,9 @@ gulp.task('templates-ang', function () {
         'templates/**/*.html',
         'js/angular/**/*.html'
     ].concat(exclude))
-        .pipe(minifyHTML({
-            quotes: true
-        }))
+//        .pipe(minifyHTML({
+//            quotes: true
+//        }))
         .pipe(templateCache({
             module: 'innaApp.templates'
         }))

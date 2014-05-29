@@ -27,14 +27,14 @@
                 {{hotel.data.HotelName}}
             </div>
         </div>
-        <div class="hotel-details__section" ng-if="hotel.detailed.Hotel.Photos.length">
-            <div inna-gallery
-                 inna-gallery-pic-list="hotel.detailed.Hotel.Photos"></div>
+        <div class="hotel-details__section" ng-if="hotel.data.Photos.length">
+            <div inna-gallery inna-gallery-pic-list="hotel.data.Photos"></div>
         </div>
         <div class="hotel-details__section" ng-if="hotel.detailed.Hotel.Description">
             <div class="hotel-details__section-box">
                 <h2 class="hotel-details__section-title">Об отеле</h2>
                 <div class="hotel-details__section-text">
+                    <div class="baloon-loading" ng-if="!dataFullyLoaded"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
                     <div class="hotel-details__section-text-viewport"
                          ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}"
                          ng-bind-html="hotel.detailed.Hotel.Description"></div>
@@ -71,6 +71,8 @@
         </div>
         <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">Выбор номера</h2>
+
+            <div class="baloon-loading" ng-if="!dataFullyLoaded"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
             <ul class="hotel-details-rooms">
                 <li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen}" ng-repeat="room in hotel.detailed.Rooms">
                     <div class="hotel-details-rooms__room-short">
