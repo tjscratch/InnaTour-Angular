@@ -22,18 +22,6 @@ angular.module('innaApp.directives')
                         $scope.location = document.location;
                     });
 
-                    $scope.$on('change:hotel', function(evt, data){
-                        //console.log($scope, '$scope bandle');
-                        //console.log(data);
-
-                        //$scope.bundle = data;
-                    })
-
-                    $scope.$watchCollection('bundle', function (selectedType) {
-                        console.log('watcH - innaDynamicBundle');
-                        //$scope.$render();
-                    })
-
                     $scope.location = document.location;
 
                     /*Proxy*/

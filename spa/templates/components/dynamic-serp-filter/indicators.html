@@ -2,7 +2,7 @@
     <div class="ra-tags-container">
         <div class="b-switch-filters_buttons">
             <div class="b-switch-filters_buttons_left b-display-inline">
-                <button ng-click="action" class="button-map-list"></button>
+                <button ng-if="action" ng-click="action()" class="button-map-list"></button>
             </div>
             <div class="b-switch-filters_buttons_right font-medium b-display-inline">
                 <b>{{items.getVisibilityInfo().visible}}</b> из <b>{{items.getVisibilityInfo().total}}</b> {{items.getVisibilityInfo().total | choosePlural:name}}
