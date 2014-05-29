@@ -195,7 +195,6 @@ inna.Models.Avia.Ticket.prototype.setData = function(data) {
                 etaps[j] = new inna.Models.Avia.Ticket.Etap(etaps[j]);
             }
         }
-
         this.data.ArrivalDate = dateHelper.apiDateToJsDate(this.data.ArrivalDate);
         this.data.BackArrivalDate = dateHelper.apiDateToJsDate(this.data.BackArrivalDate);
         this.data.DepartureDate = dateHelper.apiDateToJsDate(this.data.DepartureDate);

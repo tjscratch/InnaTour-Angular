@@ -461,12 +461,11 @@ angular.module('innaApp.directives')
                     }
 
 
-                    scope.$on('change:hotels:filters', function (data) {
+                    scope.$on('change:hotels:filters', function (evt, data) {
                         updateMap({
-                            hotels: data.targetScope.hotels,
+                            hotels: data,
                             airports: scope.airports
                         })
-
                     });
 
 
