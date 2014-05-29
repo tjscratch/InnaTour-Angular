@@ -19,9 +19,9 @@ gulp.task('templates-ang', function () {
         '!templates/components/hotel.html',
         '!templates/components/ticket.html'
     ])
-        .pipe(minifyHTML({
+        /*.pipe(minifyHTML({
             quotes: true
-        }))
+        }))*/
         .pipe(templateCache({
             module: 'innaApp.templates'
         }))

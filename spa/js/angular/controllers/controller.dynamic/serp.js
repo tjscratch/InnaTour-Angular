@@ -230,7 +230,7 @@ innaAppControllers
                 $location.search('hotel', hotel.data.HotelId);
 
                 // прокидываем событие для для компонента - Выбранный пакет
-                $scope.$broadcast('change:hotel', hotel);
+                $scope.$broadcast('change:hotel', $scope.combination);
             };
 
             $scope.setTicket = function (ticket) {
@@ -313,13 +313,13 @@ innaAppControllers
         'innaApp.API.events',
         'aviaHelper',
         function ($scope, $element, $location, Events, aviaHelper) {
-            
+
+            $(function () {
+                $(document.body).append($element);
+            });
+
             /*Scope Properties*/
             $scope.ticket = null;
-
-            $scope.$on('change:hotel', function(data){
-                console.log(data, 'change:hotel');
-            })
 
             /*Scope Methods*/
             $scope.closePopup = function () {

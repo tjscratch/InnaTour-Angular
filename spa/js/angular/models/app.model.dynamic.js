@@ -82,6 +82,10 @@ inna.Models.Dynamic.Combination.prototype.setHotel = function(hotel) {
     this.hotel = hotel;
 }
 
+inna.Models.Dynamic.Combination.prototype.parse = function(data){
+    
+}
+
 inna.Models.Dynamic.Combination.prototype.getFullPackagePrice = function(){
     return +this.ticket.data.PackagePrice + +this.hotel.data.PackagePrice;
 }
