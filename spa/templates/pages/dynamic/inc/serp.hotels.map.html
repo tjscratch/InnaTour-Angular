@@ -4,9 +4,12 @@
     <div class="pin big-map__balloon ng-hide" ng-show="currentHotel">
         <div class="pin-balloon">
 
+            <!-- компонент карусели -->
             <div class="hotel-gallery b-carousel b-carousel_map"
+                 component-carousel
                  ng-if="currentHotel"
-                 ng-controller="infoBoxCarouselCtrl">
+                 photo-style="{width:360, height:240}"
+                 photo-list="currentHotel.data.Photos">
                 <div class="hotel-gallery-arrow-left b-carousel__prev"></div>
                 <div class="hotel-gallery-arrow-right b-carousel__next"></div>
                 <a href="" class="hotel-gallery-photo-button">24</a>
