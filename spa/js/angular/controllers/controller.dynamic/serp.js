@@ -228,6 +228,9 @@ innaAppControllers
             $scope.setHotel = function (hotel) {
                 $scope.combination.hotel = hotel;
                 $location.search('hotel', hotel.data.HotelId);
+
+                // прокидываем событие для для компонента - Выбранный пакет
+                $scope.$broadcast('change:hotel', hotel);
             };
 
             $scope.setTicket = function (ticket) {
