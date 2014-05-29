@@ -32,6 +32,9 @@ innaAppFilters.filter('breakFilter', function () {
 //приводит цену (123567) к виду (123 567)
 innaAppFilters.filter('price', function () {
     return function (val) {
+        console.log('price:', val);
+
+
         if (val !== undefined) {
             val = "" + val;
             if (val.length > 3) {
@@ -85,12 +88,5 @@ innaAppFilters.filter('signed', function(){
         if(n < 0) return '– ' + (-n);
 
         return 0;
-    }
-});
-
-innaAppFilters.filter('price', function(){
-    return function(n){
-        console.log(n);
-        return n;
     }
 });
