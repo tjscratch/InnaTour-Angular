@@ -284,7 +284,7 @@
     border-bottom 1px solid #cdcdcd
     background #e4e4e4
     margin 0 0 22px
-    padding 16px 0 8px
+    padding 21px 0 8px
     text-align center
     position relative
 
@@ -298,21 +298,35 @@
 
 .b-tickets-info
     font-size 14px
-    line-height 24px
+    line-height 18px
     letter-spacing -.025em
-    padding 2px 0 0
+    padding 0 0 0 18px
+    text-align left
+    color #878787
+    display inline-block
+    border-left 1px solid #c2c2c4
+    margin-left 27px
+
+    b
+        color #000
+        font-weight normal
 
 .b-tickets-info-container .b-tickets-sum
     display block
-    font-size 18px
+    font-size 16px
+    display inline-block
+    color #878787
 
 .b-tickets-sum b
-    font-size 24px
+    font-size 36px
+    letter-spacing -.025em
+    color #000
     
 .b-tickets-ok
-    font-size 14px
-    padding 0 0 5px 23px
-    background url(../img/i.png) no-repeat 0 -1482px
+    font-size 20px
+    font-weight bold
+    padding 0 0 5px 29px
+    background url(../img/arrow3.png) no-repeat 0 3px
     display inline-block
 
 .b-cc-container
@@ -753,3 +767,30 @@
         &:hover
             text-decoration underline
 
+.cit-cont
+    margin-top 0 !important
+    top 53px !important
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-width 100px
+
+.b-tickets-info-block
+    clearfix()
+    padding 12px 0 8px
+
+.ui-tooltip
+    background #fff !important
+    color #4D4D4D !important
+    box-shadow 0 2px 4px rgba(0,0,0,.3)
+    font-family $ProximaNova
+
+    &:before
+        border-color rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #fff !important
+
+.ui-tooltip-content:before
+    content url('../img/error.png')
+    margin 0 5px 0 0
+    vertical-align middle
+    position relative
+    top 2px

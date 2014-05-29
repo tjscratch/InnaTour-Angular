@@ -200,8 +200,8 @@ innaAppControllers.
 
             $scope.getApiModel = function (data) {
                 var m = {};
-                m.I = data.name;
-                m.F = data.secondName;
+                m.I = '';//data.name;
+                m.F = '';//data.secondName;
                 m.Email = data.email;
                 m.Phone = data.phone;
                 m.IsSubscribe = data.wannaNewsletter;

@@ -84,7 +84,7 @@
                            ng-validation-model="passenger.citizenship" validate="validate(item, type)" validate-type="validateType.cit_required"
                            ng-class="{error:isFieldInvalid(passenger.citizenship)}"
                            ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.value.name}}" placeholder="Выберите" class="b-field-text b-field-select">
-                    <div style="margin-top: -10px; width: 178px; margin-left: 1px;"
+                    <div style="width: 194px;"
                          partial-select list="citizenshipList" result="passenger.citizenship.value" is-open="passenger.dir.cit.isOpen">
                     </div>
                 </div>

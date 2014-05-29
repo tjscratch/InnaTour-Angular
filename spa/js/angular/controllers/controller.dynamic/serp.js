@@ -192,11 +192,6 @@ innaAppControllers
 
             /*Methods*/
             $scope.getHotelDetails = function (hotel) {
-                function show() {
-                    serpScope.hotelToShowDetails = hotel;
-                    $location.search('displayHotel', hotel.data.HotelId);
-                }
-
                 if (!hotel.detailed) {
                     ServiceDynamicPackagesDataProvider.hotelDetails(
                         hotel.data.HotelId,
@@ -207,12 +202,13 @@ innaAppControllers
                         function (resp) {
                             hotel.detailed = resp;
 
-                            serpScope.$apply(show);
+                            serpScope.$broadcast(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
                         }
                     );
-                } else {
-                    show();
                 }
+
+                serpScope.hotelToShowDetails = hotel;
+                $location.search('displayHotel', hotel.data.HotelId);
             };
 
             $scope.closeHotelDetails = function () {
