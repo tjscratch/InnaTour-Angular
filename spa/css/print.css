@@ -1,3 +1,15 @@
+.font-small {
+  font-size: $small;
+}
+.font-medium {
+  font-size: $medium;
+}
+.font-large {
+  font-size: $large;
+}
+.font-big {
+  font-size: $big;
+}
 @font-face {
   font-family: ProximaNova;
   font-weight: normal;
@@ -23,9 +35,6 @@
   font-style: normal;
   src: url("../fonts/alsrubl-arial-bold.eot");
   src: url("../fonts/alsrubl-arial-bold.eot?#iefix") format('embedded-opentype'), url("../fonts/alsrubl-arial-bold.woff") format('woff'), url("../fonts/alsrubl-arial-bold.ttf") format('truetype'), url("../fonts/alsrubl-arial-bold.svg#ALSRublArialRegular") format('svg');
-}
-body {
-  font-family: ProximaNova, Arial, sans-serif;
 }
 .p-wrapper {
   width: 940px;
