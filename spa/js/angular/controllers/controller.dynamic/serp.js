@@ -1,7 +1,14 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
-        '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard',
-        '$routeParams', 'innaApp.API.events', '$location', 'innaApp.Urls', 'aviaHelper',
+        '$scope',
+        'DynamicFormSubmitListener',
+        'DynamicPackagesDataProvider',
+        'DynamicPackagesCacheWizard',
+        '$routeParams',
+        'innaApp.API.events',
+        '$location',
+        'innaApp.Urls',
+        'aviaHelper',
         function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams, Events, $location, Urls, aviaHelper) {
             /*Private*/
             var searchParams = angular.copy($routeParams);
@@ -33,9 +40,7 @@ innaAppControllers
 
                         for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
                             var ticket = new inna.Models.Avia.Ticket();
-
                             ticket.setData(raw);
-
                             $scope.tickets.push(ticket);
                         }
                     };
@@ -43,11 +48,9 @@ innaAppControllers
 
                 if (!method || !param) return;
 
-
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
                     $scope.$apply(function ($scope) {
                         apply($scope, data);
-
                         deferred.resolve();
                     });
                 });
@@ -119,8 +122,11 @@ innaAppControllers
                     defaultTab = $scope.state.HOTELS_TAB;
                 }
 
+
                 $.when($scope.state.switchTo(defaultTab))
-                    .then(function(){ onTabLoad(onTabLoadParam); });
+                    .then(function(){
+                        onTabLoad(onTabLoadParam);
+                    });
             }
 
             function loadTicketDetails(ids){
