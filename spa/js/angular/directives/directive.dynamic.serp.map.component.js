@@ -7,75 +7,6 @@
  */
 
 angular.module('innaApp.directives')
-    .controller('infoBoxCarouselCtrl', ['$templateCache', '$scope', '$element', function ($templateCache, $scope, elem) {
-
-        var that = this;
-        $scope._options = {};
-
-        /**
-         * Настройки для карусели
-         * @type {*|Query|Cursor}
-         * @private
-         */
-
-        var $thisEl = elem[0];
-        var carouselHolder = $thisEl.querySelector('.b-carousel__holder');
-        var _slider = $thisEl.querySelector('.b-carousel__slider');
-        var _sliderItem = _slider.querySelectorAll('.b-carousel__slider_item');
-        var _sliderItemTotal = $scope.$parent.currentHotel.data.Photos.length;
-        var _sliderItemWidth = 360;
-        var _sliderIndex = 0;
-        var _sliderSpeed = 500;
-
-        // ширина блока с контентом карусели
-        _slider.style.width = ((_sliderItemTotal * _sliderItemWidth) + 10) + 'px';
-        _slider.style.height = 240 + 'px';
-
-        _sliderItem.forEach(function (slider) {
-            slider.style.width = _sliderItemWidth + 'px';
-        });
-
-        carouselHolder.style.width = _sliderItemWidth;
-
-        elem.on('click', '.b-carousel__next', slideNext);
-        elem.on('click', '.b-carousel__prev', slidePrev);
-
-        /**
-         * анимация карусели
-         * @param index
-         */
-        var carouselSlide = function (index) {
-            /*angular.element(_slider).stop().animate({
-             left: '-' + (_sliderIndex * _sliderItemWidth) + 'px'
-             }, _sliderSpeed);*/
-            angular.element(_slider).css({
-                "-webkit-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
-                "-moz-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
-                "-ms-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
-                "transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)"
-            });
-        }
-
-
-        function slideNext(evt) {
-            evt.preventDefault();
-            var $this = $(evt.currentTarget);
-
-            _sliderIndex += 1;
-            _sliderIndex = ( _sliderIndex > _sliderItemTotal - 1) ? 0 : _sliderIndex
-            carouselSlide(_sliderIndex);
-        }
-
-
-        function slidePrev(evt) {
-            evt.preventDefault();
-            var $this = $(evt.currentTarget);
-
-            _sliderIndex -= 1;
-            _sliderIndex = ( _sliderIndex < 0) ? _sliderItemTotal - 1 : _sliderIndex
-            carouselSlide(_sliderIndex);
-        }
-    }])
     .directive('dynamicSerpMap', [
         '$templateCache',
         function ($templateCache) {
@@ -176,6 +107,16 @@ angular.module('innaApp.directives')
                     GM.event.addListener(map, 'click', function (evt) {
                         activeMarkerReset();
                     });
+
+                    function initCarousel(){
+                        elem.find('.b-carousel').innaCarousel({
+                            photoList : scope.currentHotel.data.Photos,
+                            style : {
+                                width:360,
+                                height:240
+                            }
+                        });
+                    }
 
                     function setActiveMarker(data_marker) {
                         var data = data_marker.marker;
@@ -390,6 +331,8 @@ angular.module('innaApp.directives')
                                     hover: false
                                 }
                             });
+
+                            initCarousel();
 
                         });
 

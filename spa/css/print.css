@@ -1,14 +1,14 @@
 .font-small {
-  font-size: $small;
+  font-size: 0.75em;
 }
 .font-medium {
-  font-size: $medium;
+  font-size: 0.9em;
 }
 .font-large {
-  font-size: $large;
+  font-size: 1.1em;
 }
 .font-big {
-  font-size: $big;
+  font-size: 1.5em;
 }
 @font-face {
   font-family: ProximaNova;
@@ -36,7 +36,74 @@
   src: url("../fonts/alsrubl-arial-bold.eot");
   src: url("../fonts/alsrubl-arial-bold.eot?#iefix") format('embedded-opentype'), url("../fonts/alsrubl-arial-bold.woff") format('woff'), url("../fonts/alsrubl-arial-bold.ttf") format('truetype'), url("../fonts/alsrubl-arial-bold.svg#ALSRublArialRegular") format('svg');
 }
+body {
+  font-family: ProximaNova;
+}
 .p-wrapper {
   width: 940px;
   margin: 0 auto;
+}
+.section {
+  padding: 16px 0 24px;
+  border-bottom: 1px solid #c0bdbd;
+}
+.section_with_logo {
+  background: url("/spa/img/logo.png") no-repeat 553px 114px, url("/spa/img/innatour.png") no-repeat 663px 123px;
+}
+.section_feature_footer {
+  border-bottom: none;
+}
+.title {
+  margin: 0 0 24px;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.title_size_l {
+  font-size: 1.5em;
+}
+.title_size_l .title__desc {
+  font-size: 14px;
+}
+.title_size_s {
+  font-size: 0.9em;
+  margin-bottom: 16px;
+}
+.title_feature_starred {
+  margin-top: -12px;
+}
+.title__desc {
+  display: block;
+  font-size: 11px;
+  color: #878786;
+  font-weight: normal;
+}
+.table {
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+.table__cell {
+  vertical-align: top;
+  border: 2px solid #878786;
+  padding: 15px 50px 0;
+  text-align: center;
+}
+.columns {
+  overflow: hidden;
+}
+.columns__col {
+  float: left;
+  width: 45%;
+  margin-right: 4%;
+}
+.stars {
+  display: block;
+  margin-bottom: -8px;
+}
+.content {
+  margin: 0 0 15px;
+}
+.content_theme_green {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #88ba5c;
 }

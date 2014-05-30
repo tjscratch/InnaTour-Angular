@@ -4,23 +4,8 @@
     <div class="pin big-map__balloon ng-hide" ng-show="currentHotel">
         <div class="pin-balloon">
 
-            <div class="hotel-gallery b-carousel b-carousel_map"
-                 ng-if="currentHotel"
-                 ng-controller="infoBoxCarouselCtrl">
-                <div class="hotel-gallery-arrow-left b-carousel__prev"></div>
-                <div class="hotel-gallery-arrow-right b-carousel__next"></div>
-                <a href="" class="hotel-gallery-photo-button">24</a>
-
-                <div class="hotel-gallery-container b-carousel__holder">
-                    <div class="b-carousel__slider">
-                        <div class="b-carousel_item b-carousel_map_item"
-                             ng-repeat="photos in currentHotel.data.Photos">
-                            <div class="b-carousel_map_item_image"
-                                 style="background-image: url({{photos.Large}});"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- компонент карусели -->
+            <ng:include  ng-if="currentHotel" src="'components/carousel/map.html'"></ng:include>
 
             <div class="pin-balloon-info">
                 <div>
