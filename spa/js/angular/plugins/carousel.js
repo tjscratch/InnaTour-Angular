@@ -32,7 +32,6 @@
         }, options);
 
 
-        console.log(settings);
         var imageSize = settings.size || 'Large';
         var _holder = this.find('.b-carousel__holder');
         var _slider = this.find('.b-carousel__slider');

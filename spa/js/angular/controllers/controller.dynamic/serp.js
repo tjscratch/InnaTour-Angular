@@ -231,10 +231,6 @@ innaAppControllers
                 $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
             };
 
-            $scope.changeHotelsView = function () {
-                serpScope.asMap = !serpScope.asMap;
-            };
-
             $scope.setHotel = function (hotel) {
                 $scope.combination.hotel = hotel;
                 $location.search('hotel', hotel.data.HotelId);
@@ -277,6 +273,39 @@ innaAppControllers
             }, true);
 
 
+            // слушаем событие от компонента отеля
+            //  открываем карту с точкой этого отеля
+            $scope.$on('hotel:go-to-map', function (evt, data) {
+                $scope.asMap = !$scope.asMap;
+            });
+
+
+            // прямая ссылка на карту
+            if($location.$$search.map){
+                $scope.asMap = !$scope.asMap;
+            }
+
+            // переход с карты на список по кнопке НАЗАД в браузере
+            // работает тольео в одну сторону - назад
+            $scope.$on('$locationChangeSuccess', function(data, url, datatest){
+                if(!$location.$$search.map){
+                    $scope.asMap = false;
+                }
+            })
+
+            // случаем событие переключения контрола с карты на список и обратно
+            $scope.$on('toggle:view:hotels:map', function () {
+
+                $scope.asMap = !$scope.asMap;
+
+                if(!$scope.asMap) {
+                    delete $location.$$search.map;
+                    $location.$$compose();
+                } else {
+                    $location.search('map', 'show');
+                }
+            });
+
             /*Initial Data fetching*/
             (function () {
                 $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
@@ -289,7 +318,7 @@ innaAppControllers
                 if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
 
                 ServiceDynamicPackagesDataProvider.search(searchParams, combination200, combination500);
-            })();
+            }());
 
             /*Because fuck angular, that's why!*/
             $(function(){
