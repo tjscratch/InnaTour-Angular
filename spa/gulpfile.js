@@ -24,7 +24,12 @@ gulp.task('templates-ang', function () {
         .pipe(templateCache({
             module: 'innaApp.templates'
         }))
-        .pipe(uglify())
+        .pipe(uglify({
+            mangle : false,
+            output: {
+                beautify: true
+            }
+        }))
         .pipe(gulp.dest('build'));
 });
 
