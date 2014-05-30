@@ -463,12 +463,13 @@ innaAppControllers
                 }
 
                 this.toggle = function () {
-                    unwatchScroll();
 
                     if (this.isCurrent(this.FULL)) {
+                        unwatchScroll();
                         this.current = this.SHORT;
                         $scope.$emit('header:hidden');
                     } else {
+                        doc.on('scroll', onScroll);
                         this.current = this.FULL;
                         $scope.$emit('header:visible');
                     }
