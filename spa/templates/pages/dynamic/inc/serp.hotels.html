@@ -3,8 +3,7 @@
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
         <div
-            ng-repeat="hotel in hotels.filter(hotelFilters)"
-            ng-if="!hotel.hidden"
+            ng-repeat="hotel in hotels.filter(hotelFilters) | visibleOnly:padding.scrollTop"
             inna-hotel
             inna-hotel-hotel="hotel"
             inna-hotel-get-details="getHotelDetails">

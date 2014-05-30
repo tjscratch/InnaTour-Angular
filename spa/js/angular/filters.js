@@ -92,3 +92,20 @@ innaAppFilters.filter('signed', ['$filter', function($filter){
         return 0;
     }
 }]);
+
+innaAppFilters.filter('visibleOnly', [function(){
+    var TICKET_HEIGHT = 300;
+
+    return function(list, scrollTop){
+        var scrolledTickets = scrollTop / TICKET_HEIGHT;
+        var limit = scrolledTickets * 2 + 5;
+
+        var result = [];
+
+        for(var i = 0, item = null; (item = list[i++]) && result.length <= limit;) {
+            if(!item.hidden) result.push(item);
+        }
+
+        return result;
+    }
+}]);

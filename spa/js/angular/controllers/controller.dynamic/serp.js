@@ -192,7 +192,9 @@ innaAppControllers
              * Смотри DynamicPackageSERPRecommendedBundleCtrl
              * @type {{}}
              */
-            $scope.padding = {};
+            $scope.padding = {
+                scrollTop: 0
+            };
 
             /*Simple proxy*/
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
@@ -311,6 +313,22 @@ innaAppControllers
                 $scope.$on('$destroy', function(){
                     doc.off('click', onIconPriceClick);
                 });
+            });
+
+            $(function(){
+                var doc = $(document);
+
+                function onScroll(event) {
+                    $scope.$apply(function($scope){
+                        $scope.padding.scrollTop = (document.body || document.documentElement).scrollTop;
+                    });
+                }
+
+                doc.on('scroll', onScroll);
+
+                $scope.$on('$destroy', function(){
+                    doc.off('scroll', onScroll);
+                })
             });
         }
     ])
