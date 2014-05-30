@@ -14,15 +14,8 @@
         </div>
     </div>
     <div class="b-ticket_2ways b-ticket_2ways-sep">
-        <div class="b-ticket_2ways-block">
-            <ng:any ng-repeat="etap in item.EtapsTo track by $index">
-                <ng:include src="'avia/popup_item_info_body.html'"></ng:include>
-            </ng:any>
-        </div>
-        <div class="b-ticket_2ways-block">
-            <ng:any ng-repeat="etap in item.EtapsBack track by $index">
-                <ng:include src="'avia/popup_item_info_body.html'"></ng:include>
-            </ng:any>
-        </div>
+        <ng:any ng-repeat="etapAgg in item.etapsAgg track by $index">
+            <ng:include src="'avia/popup_item_info_body.html'"></ng:include>
+        </ng:any>
     </div>
 </div>

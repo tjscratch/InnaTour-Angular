@@ -410,6 +410,14 @@ angular.module('innaApp.directives')
                             airports: scope.airports
                         })
                     });
+                    scope.$root.$on('hotel:go-to-map', function (evt, data) {
+
+                        console.log(data);
+
+                        updateMap({
+                            hotels : [data]
+                        });
+                    });
 
 
                     function updateMap(data) {

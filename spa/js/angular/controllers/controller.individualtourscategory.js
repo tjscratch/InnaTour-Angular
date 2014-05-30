@@ -5,7 +5,13 @@
 
 innaAppControllers.
     controller('IndividualToursCategoryCtrl', [
-        '$log', '$scope', '$rootScope', '$routeParams', '$location', 'dataService', 'sharedProperties',
+        '$log',
+        '$scope',
+        '$rootScope',
+        '$routeParams',
+        '$location',
+        'dataService',
+        'sharedProperties',
         function ($log, $scope, $rootScope, $routeParams, $location, dataService, sharedProperties) {
             function log(msg) {
                 $log.log(msg);

@@ -1,26 +1,25 @@
 (function ($) {
 
     var methods = {
-        init : function( options ) {
+        init: function (options) {
 
         },
-        destroy : function( ) {
+        destroy: function () {
 
         },
-        reposition : function( ) {
+        reposition: function () {
 
         },
-        show : function( ) {
+        show: function () {
 
         },
-        hide : function( ) {
+        hide: function () {
 
         },
-        update : function( content ) {
+        update: function (content) {
 
         }
     };
-
 
 
     $.fn.innaCarousel = function (options) {
@@ -48,27 +47,29 @@
         };
         var fragment = document.createDocumentFragment();
 
-        settings.photoList.forEach(function(photo){
-            if(photo) {
+        settings.photoList.forEach(function (photo) {
+            if (photo) {
                 var templ = _itemTemplate(photo[imageSize]);
-                fragment.appendChild($(templ)[0]);
+                var elem = $(templ)[0];
+                elem.style.width = settings.style.width + 'px';
+                elem.style.height = settings.style.height + 'px';
+                fragment.appendChild(elem);
             }
         });
 
         _slider[0].appendChild(fragment);
 
         _holder.css({
-            width : settings.style.width + 'px',
-            height : settings.style.height +'px'
+            width: settings.style.width + 'px',
+            height: settings.style.height + 'px'
         });
         _slider.css({
-            width : (settings.photoList.length * settings.style.width + 10) + 'px',
-            height : settings.style.height +'px'
+            width: (settings.photoList.length * settings.style.width + 10) + 'px',
+            height: settings.style.height + 'px'
         });
 
         // количество фотографий
         this.find('.hotel-gallery-photo-button').html(settings.photoList.length);
-
 
 
         this.on('click', '.b-carousel__next', slideNext);
@@ -93,7 +94,7 @@
          * Slide next
          * @param evt
          */
-        function slideNext  (evt) {
+        function slideNext(evt) {
             evt.preventDefault();
 
             _sliderIndex += 1;

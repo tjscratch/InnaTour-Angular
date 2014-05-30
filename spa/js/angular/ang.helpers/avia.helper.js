@@ -496,8 +496,28 @@
                 self.show = function ($event, item) {
                     eventsHelper.preventBubbling($event);
                     self.isShow = true;
+                    item = self.addAggFields(item);
                     self.item = item;
                     console.log(item);
+                }
+
+                self.addAggFields = function (item) {
+                    if (item != null) {
+                        item.etapsAgg = [];
+
+                        var maxEtapsLen = item.EtapsTo.length;
+                        if (item.EtapsBack != null && item.EtapsBack.length > maxEtapsLen) {
+                            maxEtapsLen = item.EtapsBack.length;
+                        }
+
+                        for (var i = 0; i < maxEtapsLen; i++) {
+                            var etapTo = i < item.EtapsTo.length ? item.EtapsTo[i] : null;
+                            var etapBack = i < item.EtapsBack.length ? item.EtapsBack[i] : null;
+                            item.etapsAgg.push({ etapTo: etapTo, etapBack: etapBack });
+                        }
+                    }
+
+                    return item;
                 }
 
                 self.print = function ($event, item) {
