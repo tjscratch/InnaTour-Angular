@@ -5,11 +5,7 @@
         <div class="pin-balloon">
 
             <!-- компонент карусели -->
-            <div component-carousel
-                 template-name="map.html"
-                 ng-if="currentHotel"
-                 photo-style="{width:360, height:240}"
-                 photo-list="currentHotel.data.Photos"></div>
+            <ng:include  ng-if="currentHotel" src="'components/carousel/map.html'"></ng:include>
 
             <div class="pin-balloon-info">
                 <div>

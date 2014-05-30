@@ -108,6 +108,16 @@ angular.module('innaApp.directives')
                         activeMarkerReset();
                     });
 
+                    function initCarousel(){
+                        elem.find('.b-carousel').innaCarousel({
+                            photoList : scope.currentHotel.data.Photos,
+                            style : {
+                                width:360,
+                                height:240
+                            }
+                        });
+                    }
+
                     function setActiveMarker(data_marker) {
                         var data = data_marker.marker;
 
@@ -321,6 +331,8 @@ angular.module('innaApp.directives')
                                     hover: false
                                 }
                             });
+
+                            initCarousel();
 
                         });
 

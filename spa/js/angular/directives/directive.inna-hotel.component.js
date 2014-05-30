@@ -13,7 +13,17 @@ angular.module('innaApp.directives')
                 '$scope',
                 '$element',
                 function ($scope, $element) {
-                    //console.log($scope.hotel);
-                }]
+
+
+                }],
+            link : function($scope, $element){
+                $element.find('.b-carousel').innaCarousel({
+                    photoList : $scope.hotel.data.Photos,
+                    style : {
+                        width:200,
+                        height:190
+                    }
+                })
+            }
         }
     }]);

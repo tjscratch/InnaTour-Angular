@@ -2,8 +2,19 @@
     <div class="result-cell result-hotel-gallery">
 
         <!-- компонент карусели -->
-        <!--<div component-carousel photo-style="{width:200, height:190}"
-             photo-list="hotel.data.Photos"></div>-->
+        <!--<ng:include src="'components/carousel/index.html'"></ng:include>-->
+        <div class="hotel-gallery b-carousel">
+            <div class="hotel-gallery-arrow-left b-carousel__prev"></div>
+            <div class="hotel-gallery-arrow-right b-carousel__next"></div>
+
+            <div class="hotel-gallery-container b-carousel__holder">
+
+                <!-- Slider -->
+                <div class="b-carousel__slider">
+                    <!-- append Image Item -->
+                </div>
+            </div>
+        </div>
 
     </div>
     <div class="result-cell result-cell-330">
