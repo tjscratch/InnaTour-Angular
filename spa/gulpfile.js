@@ -16,7 +16,7 @@ gulp.task('templates-ang', function () {
     gulp.src([
         'templates/**/*.html',
         'js/angular/**/*.html',
-        '!templates/components/hotel.html',
+        //'!templates/components/hotel.html',
         '!templates/components/ticket.html'
     ])
         /*.pipe(minifyHTML({
@@ -73,7 +73,7 @@ gulp.task('watch', function () {
     var server = livereload();
 
     gulp.watch('styl/**/*', ['styles']);
-    gulp.watch('templates/**/*.html', ['templates-ang']);
+    gulp.watch(['templates/**/*.html', 'js/angular/**/*.html'], ['templates-ang']);
 
     gulp.watch('*.php', function (evt) {
         server.changed(evt.path);

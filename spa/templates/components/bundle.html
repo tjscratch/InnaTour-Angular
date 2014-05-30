@@ -88,24 +88,24 @@
             </div>
 
             <p class="corner-price cross">
-                {{bundle.getFullPrice()}}<span class="b-rub">Р</span>
+                {{bundle.getFullPrice() | price}}<span class="b-rub">Р</span>
                 <span class="price-description">по отдельности</span>
             </p>
             <p class="price">
-                {{bundle.getFullPackagePrice()}} <span class="b-rub">Р</span>
+                {{bundle.getFullPackagePrice() | price}} <span class="b-rub">Р</span>
                 <span class="icon icon-price-info" ng-click="infoPopup.toggle()"></span>
             </p>
             <div class="tooltip tooltip-price" ng-if="infoPopup.isOpen">
                 По отдельности
                 <ul>
-                    <li class="list-price-item">Перелет <span class="list-price pull-right">{{bundle.ticket.data.Price}}<span class="b-rub">Р</span></span></li>
-                    <li class="list-price-item">Отель <span class="list-price pull-right">{{bundle.hotel.data.Price}}<span class="b-rub">Р</span></span>
+                    <li class="list-price-item">Перелет <span class="list-price pull-right">{{bundle.ticket.data.Price | price}}<span class="b-rub">Р</span></span></li>
+                    <li class="list-price-item">Отель <span class="list-price pull-right">{{bundle.hotel.data.Price | price}}<span class="b-rub">Р</span></span>
                     </li>
                 </ul>
-                <div class="list-price list-price-total">{{bundle.getFullPrice()}}<span class="b-rub">Р</span></div>
+                <div class="list-price list-price-total">{{bundle.getFullPrice() | price}}<span class="b-rub">Р</span></div>
                 <ul>
-                    <li>В пакете: <span class="list-price green pull-right">{{bundle.getFullPackagePrice()}}<span class="b-rub">Р</span></span></li>
-                    <li>Экономия <span class="list-price green pull-right">{{bundle.getFullPrice() - bundle.getFullPackagePrice()}}<span class="b-rub">Р</span></span></li>
+                    <li>В пакете: <span class="list-price green pull-right">{{bundle.getFullPackagePrice() | price}}<span class="b-rub">Р</span></span></li>
+                    <li>Экономия <span class="list-price green pull-right">{{(bundle.getFullPrice() - bundle.getFullPackagePrice()) | price}}<span class="b-rub">Р</span></span></li>
                 </ul>
             </div>
             <span class="price-description">вместе</span>

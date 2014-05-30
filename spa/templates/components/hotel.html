@@ -1,10 +1,10 @@
 <div class="result">
     <div class="result-cell result-hotel-gallery">
-        <!--<div class="hotel-gallery-arrow-left"></div>-->
-        <!--<div class="hotel-gallery-arrow-right"></div>-->
-        <div class="hotel-gallery-container">
-            <div style="width:200px;height:200px;background-image:url({{hotel.data.HotelPhoto500}});background-size:cover;"></div>
-        </div>
+
+        <!-- компонент карусели -->
+        <!--<div component-carousel photo-style="{width:200, height:190}"
+             photo-list="hotel.data.Photos"></div>-->
+
     </div>
     <div class="result-cell result-cell-330">
         <img ng-src="{{hotel.data.ProviderLogoUrl}}" alt="" class="logo">
@@ -20,6 +20,7 @@
                 </div>
                 <h3 class="hotel-info-name">{{hotel.data.HotelName}}</h3>
                 <a href="" class="hotel-info-place">{{hotel.data.HotelCityName}}, {{hotel.data.HotelCountryName}}</a>
+
                 <div class="warning" ng-if="combination.hotel.data.RoomCount == 1">Последний номер</div>
             </div>
         </div>
@@ -37,6 +38,8 @@
             <a href="javascript:void(0);" class="pull-right" ng-click="getDetails(hotel)">Подробнее</a>
         </div>
     </div>
-    <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
+    <div class="result-cell-gap">
+        <div class="result-cell-gap-wrap"></div>
+    </div>
     <div class="result-cell result-choice" ng-transclude></div>
 </div>
