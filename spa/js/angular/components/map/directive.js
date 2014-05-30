@@ -12,7 +12,7 @@ angular.module('innaApp.directives')
         function ($templateCache) {
 
             return {
-                template: $templateCache.get('pages/dynamic/inc/serp.hotels.map.html'),
+                template: $templateCache.get('components/map/templ/index.html'),
                 replace: true,
                 scope: {
                     hotels: '=dynamicSerpMapHotels',
