@@ -346,6 +346,7 @@ innaAppControllers
 
             /*Scope Properties*/
             $scope.ticket = null;
+            $scope.link = '';
 
             /*Scope Methods*/
             $scope.closePopup = function () {
@@ -365,6 +366,10 @@ innaAppControllers
 
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
+
+            $scope.sharePopup = new inna.Models.Aux.AttachedPopup(function(){
+                $scope.link = document.location;
+            });
 
             /*Listeners*/
             $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (event, ticket) {
