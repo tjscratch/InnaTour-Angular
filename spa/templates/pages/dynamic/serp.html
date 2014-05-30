@@ -21,16 +21,18 @@
                         <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
                         <span class="rlf-fly-arrow"></span>
                         <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
-                        <div class="rlf-full-travel-time">{{ticket.data.EtapsTo.length - 1 |
-                            asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('To')}} в пути
+                        <div class="rlf-full-travel-time">
+                            {{ticket.data.EtapsTo.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}},
+                            {{ticket.getDuration('To')}} в пути
                         </div>
                     </div>
                     <div class="rlf-fly">
                         <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
                         <span class="rlf-fly-arrow"></span>
                         <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
-                        <div class="rlf-full-travel-time">{{ticket.data.EtapsBack.length - 1 |
-                            asQuantity:"пересадка":"пересадки":"пересадок"}}, {{ticket.getDuration('Back')}} в пути
+                        <div class="rlf-full-travel-time">
+                            {{ticket.data.EtapsBack.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}},
+                            {{ticket.getDuration('Back')}} в пути
                         </div>
                     </div>
                 </div>
@@ -98,9 +100,13 @@
 
             <div class="b-tickets__footer">
                 <ul class="b-tickets__icons">
-                    <li><a href="#" class="b-tickets__icons-link"></a></li>
-                    <li><a href="#" class="b-tickets__icons-print"></a></li>
-                    <li><a href="#" class="b-tickets__icons-share"></a></li>
+                    <li>
+                        <a href="javascript:void(0);" class="b-tickets__icons-link" ng-click="sharePopup.toggle()"></a>
+                        <div class="tooltip tooltip-share-link tooltip-share-link_type_ticket-popup" ng-if="sharePopup.isOpen">
+                            <input type="text" class="share-link-input" ng-value="link">
+                            <span class="icon icon-cross" ng-click="sharePopup.toggle()"></span>
+                        </div>
+                    </li>
                 </ul>
                 <div class="b-tickets__footer-inner">
                     <a class="rl-buy-button" href="javascrip:void(0);" ng-click="setCurrent()">Выбрать</a>
