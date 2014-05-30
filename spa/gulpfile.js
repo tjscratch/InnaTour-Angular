@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     csscomb = require('gulp-csscomb'),
     less = require('gulp-less'),
     templateCache = require('gulp-angular-templatecache'),
-    minifyHTML = require('gulp-minify-html');
+    cleanhtml = require('gulp-cleanhtml');
+
 
 
 gulp.task('templates-ang', function () {
@@ -19,11 +20,15 @@ gulp.task('templates-ang', function () {
         //'!templates/components/hotel.html',
         '!templates/components/ticket.html'
     ])
-        /*.pipe(minifyHTML({
-            quotes: true
-        }))*/
+        .pipe(cleanhtml())
         .pipe(templateCache({
             module: 'innaApp.templates'
+        }))
+        .pipe(uglify({
+            mangle : false,
+            output: {
+                beautify: true
+            }
         }))
         .pipe(gulp.dest('build'));
 });
