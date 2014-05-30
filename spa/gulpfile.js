@@ -73,7 +73,7 @@ gulp.task('watch', function () {
     var server = livereload();
 
     gulp.watch('styl/**/*', ['styles']);
-    gulp.watch('templates/**/*.html', ['templates-ang']);
+    gulp.watch(['templates/**/*.html', 'js/angular/**/*.html'], ['templates-ang']);
 
     gulp.watch('*.php', function (evt) {
         server.changed(evt.path);

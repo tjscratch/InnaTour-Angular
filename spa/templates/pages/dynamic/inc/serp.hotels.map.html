@@ -5,25 +5,11 @@
         <div class="pin-balloon">
 
             <!-- компонент карусели -->
-            <div class="hotel-gallery b-carousel b-carousel_map"
-                 component-carousel
+            <div component-carousel
+                 template-name="map.html"
                  ng-if="currentHotel"
                  photo-style="{width:360, height:240}"
-                 photo-list="currentHotel.data.Photos">
-                <div class="hotel-gallery-arrow-left b-carousel__prev"></div>
-                <div class="hotel-gallery-arrow-right b-carousel__next"></div>
-                <a href="" class="hotel-gallery-photo-button">24</a>
-
-                <div class="hotel-gallery-container b-carousel__holder">
-                    <div class="b-carousel__slider">
-                        <div class="b-carousel_item b-carousel_map_item"
-                             ng-repeat="photos in currentHotel.data.Photos">
-                            <div class="b-carousel_map_item_image"
-                                 style="background-image: url({{photos.Large}});"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                 photo-list="currentHotel.data.Photos"></div>
 
             <div class="pin-balloon-info">
                 <div>

@@ -1,0 +1,22 @@
+<div class="hotel-gallery b-carousel">
+    <div class="hotel-gallery-arrow-left b-carousel__prev"></div>
+    <div class="hotel-gallery-arrow-right b-carousel__next"></div>
+    <span class="hotel-gallery-photo-button">{{photos.length}}</span>
+    
+    <div class="hotel-gallery-container b-carousel__holder"
+         ng-style="{width:photoStyle.width, height:photoStyle.height}">
+
+        <!-- Slider -->
+        <div class="b-carousel__slider"
+             ng-style="{width: photos.length * photoStyle.width, height:photoStyle.height}">
+
+            <!-- Image Item -->
+            <div class="b-carousel_item b-carousel_map_item"
+                 ng-repeat="photo in photos"
+                 ng-style="{width:photoStyle.width, height:photoStyle.height}">
+                <div class="b-carousel_map_item_image"
+                     style="background-image: url({{photo.Large}});"></div>
+            </div>
+        </div>
+    </div>
+</div>

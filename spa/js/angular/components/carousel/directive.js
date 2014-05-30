@@ -1,6 +1,6 @@
 /**
  * Carousel
- * photo = массив фотографий
+ * photos = массив фотографий
  * photoStyle = размер фотографии
  */
 innaAppDirectives
@@ -9,9 +9,14 @@ innaAppDirectives
         function ($templateCache) {
 
             return {
-
+                template: function(element, attr){
+                    var templatePath = 'components/carousel/templ/';
+                    var templateName = attr.templateName || 'index.html';
+                    return $templateCache.get(templatePath + templateName);
+                },
+                replace : true,
                 scope: {
-                    photo: '=photoList',
+                    photos: '=photoList',
                     photoStyle: '=photoStyle'
                 },
                 controller: [
@@ -20,8 +25,6 @@ innaAppDirectives
                     '$timeout',
                     function ($scope, $element, $timeout) {
 
-                        $scope._options = {};
-
                         /**
                          * Настройки для карусели
                          * @type {*|Query|Cursor}
@@ -29,37 +32,14 @@ innaAppDirectives
                          */
 
                         var $thisEl = $element[0];
-                        var carouselHolder = $thisEl.querySelector('.b-carousel__holder');
-
                         var _slider = $thisEl.querySelector('.b-carousel__slider');
-                        var _sliderItems = $thisEl.querySelectorAll('.b-carousel_item');
-                        var _sliderItemTotal = $scope.photo.length;
+                        var _sliderItemTotal = $scope.photos.length;
                         var _sliderItemWidth = $scope.photoStyle.width;
                         var _sliderIndex = 0;
-                        var _sliderSpeed = 500;
-
-                        carouselHolder.style.width = _sliderItemWidth + 'px';
-                        carouselHolder.style.height = $scope.photoStyle.height + 'px';
-                        // ширина блока с контентом карусели
-                        _slider.style.width = ((_sliderItemTotal * _sliderItemWidth) + 10) + 'px';
-                        _slider.style.height = $scope.photoStyle.height + 'px';
-
-
-
-
-                        $timeout(function(){
-                            var _sliderItems = $thisEl.querySelectorAll('.b-carousel_item');
-                            _sliderItems.forEach(function (slider) {
-                                slider.style.width = $scope.photoStyle.width + 'px';
-                                slider.style.height = $scope.photoStyle.height + 'px';
-                            });
-                        }, 1000);
-
-
-                        carouselHolder.style.width = _sliderItemWidth;
 
                         $element.on('click', '.b-carousel__next', slideNext);
                         $element.on('click', '.b-carousel__prev', slidePrev);
+
                         /**
                          * анимация карусели
                          * @param index
@@ -78,7 +58,6 @@ innaAppDirectives
 
                         function slideNext(evt) {
                             evt.preventDefault();
-                            var $this = $(evt.currentTarget);
 
                             _sliderIndex += 1;
                             _sliderIndex = ( _sliderIndex > _sliderItemTotal - 1) ? 0 : _sliderIndex
@@ -88,13 +67,18 @@ innaAppDirectives
 
                         function slidePrev(evt) {
                             evt.preventDefault();
-                            var $this = $(evt.currentTarget);
 
                             _sliderIndex -= 1;
                             _sliderIndex = ( _sliderIndex < 0) ? _sliderItemTotal - 1 : _sliderIndex
                             carouselSlide(_sliderIndex);
                         }
                     }
-                ]
+                ],
+                link: function( $scope, $element ) {
+                    setTimeout(function() {
+                        $scope.$destroy();
+                        $element.removeClass('ng-binding ng-scope');
+                    }, 0);
+                }
             };
         }])
