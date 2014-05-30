@@ -53,7 +53,7 @@
 <div class="results-container results-container_top" style="padding-top: 10px;">
 
     <!-- Results List -->
-    <div class="results-list results-list_720">
+    <div class="results-list results-list_720" style="float: left;">
         <ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
             <ng:include src="'avia/results_item.html'"></ng:include>
         </ng:any>
@@ -65,19 +65,21 @@
 
         <div class="ra-tags-container">
             <h4 class="ra-tags-title" ng-show="ticketsList.length > 0"><b>{{getFilteredLength()}}</b> из <b>{{getLength()}}</b> перелетов</h4>
-            <ul class="ra-tags-list">
-                <li ng-if="filter.maxPrice < filter.maxPriceInitial">до {{filter.maxPrice | price}} рублей<a ng-href="#" ng-click="resetPrice($event)"></a></li>
-                <!--<li>Aeroflot <a href="#"></a></li>
-                <li>Transaero <a href="#"></a></li>
-                <li>Lufthansa <a href="#"></a></li>-->
-                <!--<li>до 1 пересадки <a href="#"></a></li>-->
-                <li ng-if="item.checked" ng-repeat="item in filter.TransferCountListAgg">{{item.name}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+            <div class="b-switch-filters__result">
+                <ul class="b-switch-filters__list ra-tags-list">
+                    <li class="b-switch-filters__item" ng-if="filter.maxPrice < filter.maxPriceInitial">до {{filter.maxPrice | price}} рублей<a class="b-switch-filters__item_close" ng-href="#" ng-click="resetPrice($event)"></a></li>
+                    <!--<li>Aeroflot <a href="#"></a></li>
+                    <li>Transaero <a href="#"></a></li>
+                    <li>Lufthansa <a href="#"></a></li>-->
+                    <!--<li>до 1 пересадки <a href="#"></a></li>-->
+                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.TransferCountListAgg">{{item.name}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
 
-                <li ng-if="item.checked" ng-repeat="item in filter.time.list">{{item.name}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-                <li ng-if="item.checked" ng-repeat="item in filter.TransporterList">{{item.TransporterName}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-                <li ng-if="item.checked" ng-repeat="item in filter.AirportFilter.fromPorts">{{item.name}} {{item.code}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-                <li ng-if="item.checked" ng-repeat="item in filter.AirportFilter.toPorts">{{item.name}} {{item.code}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-            </ul>
+                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.time.list">{{item.name}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.TransporterList">{{item.TransporterName}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.AirportFilter.fromPorts">{{item.name}} {{item.code}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.AirportFilter.toPorts">{{item.name}} {{item.code}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                </ul>
+            </div>
             <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list) || anyChecked(filter.TransporterList)
                || anyChecked(filter.AirportFilter.fromPorts) || anyChecked(filter.AirportFilter.toPorts)"
                class="ra-tags-reset" ng-click="resetAll($event)">Сбросить все</a>
