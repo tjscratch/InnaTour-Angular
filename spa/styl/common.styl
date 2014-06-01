@@ -25,3 +25,49 @@
 
 /* ----- ~COMPONENTS ---- */
 @import "components/**/*.styl"
+
+
+.aux-page
+    position absolute
+    top 101px
+    bottom 0
+    left 0
+    right 0
+    background-size cover
+    
+    &_type_404
+        background-image url(/spa/img/404.jpg)
+        
+    &_type_403
+        background-image url(/spa/img/403.jpg)
+        
+    &_type_500
+        background-image url(/spa/img/500-bg.jpg)
+        
+.site-error-message
+    position absolute
+    bottom 145px
+    left 145 px
+    color #fff
+    display table
+    
+    &__code
+    &__description
+        display table-cell
+        vertical-align bottom
+        
+    &__code
+        font-size 130px
+        line-height 88px
+        padding-right 20px
+        
+    &__description
+        width 315px
+        
+    &__description-title
+        font-size 26px
+        font-weight bold
+        margin-bottom 15px
+        
+    &__description-text
+        font-size 20px
