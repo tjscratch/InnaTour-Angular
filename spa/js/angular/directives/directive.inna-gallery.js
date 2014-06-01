@@ -8,6 +8,8 @@ angular.module('innaApp.directives')
             controller: [
                 '$scope',
                 function ($scope) {
+                    console.log('innaGallery', $scope);
+
                     /*Models*/
                     function PicList(){
                         this.list = [];
@@ -28,7 +30,7 @@ angular.module('innaApp.directives')
                         if(index >= this.list.length) index = 0;
 
                         this.setCurrent(this.list[index]);
-                    }
+                    };
 
                     PicList.prototype.prev = function(){
                         var index = this.list.indexOf(this.current) - 1;
@@ -36,7 +38,7 @@ angular.module('innaApp.directives')
                         if(index < 0) index = this.list.length - 1;
 
                         this.setCurrent(this.list[index]);
-                    }
+                    };
 
                     /*Properties*/
                     $scope.pics = new PicList();

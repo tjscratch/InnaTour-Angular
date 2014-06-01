@@ -72,19 +72,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         -webkit-box-shadow: 0 5px 10px rgba(50,50,50,.25);
         box-shadow: 0 5px 10px rgba(50,50,50,.25);
     }
-    .cit-cont {
-        padding: 0;
-        max-height: 300px;
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
-    .cit-item {
-        padding: 3px;
-    }
-    .cit-item:hover {
-        cursor: default;
-        background-color: #edeff0;
-    }
 </style>
 
 </head>
@@ -101,7 +88,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     <!-- FOOTER -->
     <footer region-footer></footer>
 
-<ng:include src="'/popup/mainform.html'"></ng:include>
+<ng:include src="'popup/mainform.html'"></ng:include>
 
 <!-- Baloon -->
 <div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type" close-fn="baloon.closeFn" data="baloon.data"></div>
@@ -169,6 +156,10 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <!-- polyfill -->
 <script src="/spa/lib/polyfill.js"></script>
 <!-- polyfill -->
+
+<!-- jq plugins -->
+<script src="/spa/js/angular/plugins/carousel.js"></script>
+<!-- / jq plugins -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js"></script>
@@ -296,13 +287,13 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.time.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.airlines.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.airports.component.js"></script>
-<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/indicators.component.js"></script>
+
 <script src="/spa/js/angular/directives/directive.dynamic.serp.sorter.js"></script>
-<script src="/spa/js/angular/directives/directive.dynamic.serp.map.component.js"></script>
 <script src="/spa/js/angular/directives/directive.partial.select.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-ticket.component.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-hotel.component.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-hotel-details.component.js"></script>
+<script src="/spa/js/angular/directives/directive.inna-gallery.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-dynamic-bundle.component.js"></script>
 
 
@@ -311,6 +302,11 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/regions/footer/footer.js"></script>
 <!-- \ REGIONS -->
 
+<!-- COMPONENTS -->
+<script src="/spa/js/angular/components/indicator-map/directive.js"></script>
+<script src="/spa/js/angular/components/map/directive.js"></script>
+<!-- / COMPONENTS -->
+
 <script src="/spa/js/angular/models/app.model.js"></script>
 <script src="/spa/js/angular/models/app.model.avia.js"></script>
 <script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
@@ -318,167 +314,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/models/app.model.dynamic.js"></script>
 <script src="/spa/js/angular/models/auth.js"></script>
 <!-- endbuild -->
-
-
-<script type="text/ng-template" id="/popup/mainform.html">
-<div class="popup-fade" ng-show="isOpened"></div>
-<div class="popup-container" ng-show="isOpened">
-    <div class="popup">
-        <div class="popup-close-button" ng-click="popupForm_Close()"></div>
-        <form class="offer-order-form">
-            <legend class="form-header">Оставьте вашу заявку</legend>
-            <div class="field-row">
-                <input class="field" type="text" ng-model="request.name" placeholder="Имя"/>
-            </div>
-            <div class="field-row">
-                <input class="field" ng-class="{error:!request.isValid}" type="text" ng-model="request.phone" placeholder="Мобильный телефон"/>
-                <span class="field-error" ng-show="!request.isValid">Необходимо ввести мобильный телефон</span>
-            </div>
-            <div class="field-row">
-                <input class="field" type="text" ng-model="request.email" placeholder="Email"/>
-            </div>
-            <div class="field-row">
-                <textarea name="" class="field-text" ng-model="request.comments">
-                {{request.comments | breakFilter}}
-                </textarea>
-            </div>
-            <div class="description offer-description" ng-click="request.subscribeClick()" ng-show="request.type == requestType.main">
-				<span class="checkbox" ng-class="{checked:request.isSubscribe}"></span><label class="checkbox-label">Я люблю путешествовать и хочу получать рассылку с самыми выгодными и интересными предложениями</label>
-			</div>
-            <!--<div class="description offer-description" ng-show="request.type == requestType.cat_it">Отвечаем в течение 24 часов</div>-->
-            <button type="submit" class="button offer-submit" ng-click="request.send()">Отправить</button>
-        </form>
-    </div>
-</div>
-</script>
-
-<!--авиа-->
-<script type="text/ng-template" id="/avia/results/baloon_info.html">
-<!-- Baloon -->
-<div style="display: block" class="overlay js-overlay" ng-show="popupItemInfo.isShow">
-    <div class="balloon baloon_ticket" ng-class="{'baloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}">
-        <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
-            <div title="Закрыть" class="baloon-close" ng-click="popupItemInfo.isShow = false"></div>
-
-            <h3 class="b-tickets__title">Подробная и информация по перелету</h3>
-                <ng:include ng-if="item.EtapsBack.length > 0" src="'/avia/results/popup_item_info_two_ways.html'"></ng:include>
-                <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null" src="'/avia/results/popup_item_info_one_way.html'"></ng:include>
-            <div class="b-tickets__footer">
-                <ul class="b-tickets__icons">
-                    <li><a href="javascript:void(0)" class="b-tickets__icons-link" ng-click="popupItemInfo.getLink($event, item)"></a></li>
-                    <li><a href="javascript:void(0)" class="b-tickets__icons-print" ng-click="popupItemInfo.print($event, item)"></a></li>
-                    <li><a href="javascript:void(0)" class="b-tickets__icons-share" ng-click="popupItemInfo.share($event, item)"></a></li>
-                </ul>
-                <div class="b-tickets__footer-inner">
-                    <div class="b-tickets__footer-price-block">
-                        <div class="b-tickets__footer-price">{{item.Price| price}}</span> <span class="rub">Р</span></div>
-                        <div class="b-tickets__footer-price-info">за {{popupItemInfo.ticketsCount}} {{helper.pluralForm(popupItemInfo.ticketsCount, 'билет', 'билета', 'билетов')}} {{popupItemInfo.ticketsClass}} класса</div>
-                    </div>
-                    <a class="rl-buy-button" href="javascript:void(0)" ng-click="goToPaymentClick($event, item)">Купить</a>
-                </div>
-            </div>
-
-        </ng:any>
-    </div>
-</div>
-<!-- /Baloon -->
-</script>
-
-<script type="text/ng-template" id="/avia/results/popup_item_info_one_way.html">
-    <div class="rlf-oneway">
-        <div class="rlf-fly" style="padding-bottom: 13px;">
-            <span class="rlf-city">{{item.AirportFrom}}</span> {{item.OutCode}}
-            <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-            <span class="rlf-city">{{item.AirportTo}}</span> {{item.InCode}}
-            <div class="rlf-full-travel-time"><span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span>, {{item.TimeToFormatted}} в пути</div>
-        </div>
-        <div class="b-ticket_1way-cont">
-            <ng:any ng-repeat="etap in item.EtapsTo track by $index">
-                <ng:include src="'/avia/results/popup_item_info_body.html'"></ng:include>
-            </ng:any>
-        </div>
-    </div>
-</script>
-
-<script type="text/ng-template" id="/avia/results/popup_item_info_two_ways.html">
-    <div class="rlf-oneway">
-        <div class="b-ticket_2ways">
-            <div class="rlf-fly" style="padding-bottom: 13px;">
-                <span class="rlf-city">{{item.AirportFrom}}</span> {{item.OutCode}}
-                <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                <span class="rlf-city">{{item.AirportTo}}</span> {{item.InCode}}
-                <div class="rlf-full-travel-time"><span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span>, {{item.TimeToFormatted}} в пути</div>
-            </div>
-            <div class="rlf-fly" style="padding-bottom: 13px;">
-                <span class="rlf-city">{{item.AirportTo}}</span> {{item.InCode}}
-                <span class="rlf-fly-arrow"></span>
-                <span class="rlf-city">{{item.AirportFrom}}</span> {{item.OutCode}}
-                <div class="rlf-full-travel-time"><span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span>, {{item.TimeBackFormatted}} в пути</div>
-            </div>
-        </div>
-        <div class="b-ticket_2ways b-ticket_2ways-sep">
-            <div class="b-ticket_2ways-block">
-                <ng:any ng-repeat="etap in item.EtapsTo track by $index">
-                    <ng:include src="'/avia/results/popup_item_info_body.html'"></ng:include>
-                </ng:any>
-            </div>
-            <div class="b-ticket_2ways-block">
-                <ng:any ng-repeat="etap in item.EtapsBack track by $index">
-                    <ng:include src="'/avia/results/popup_item_info_body.html'"></ng:include>
-                </ng:any>
-            </div>
-        </div>
-    </div>
-</script>
-
-<script type="text/ng-template" id="/avia/results/popup_item_info_body.html">
-    <div class="rlf-part" style="min-height: 84px;">
-        <div class="rfl-column3">
-            <div class="rlf-aviacompany">
-                <img ng-src="{{etap.TransporterCodeUrl}}" alt="" style="max-height: 25px; margin-bottom:5px !important;">
-                {{etap.TransporterName}} <br>
-                рейс {{etap.Number}} <br>
-                {{etap.VehicleName}}
-            </div>
-        </div>
-        <div class="b-tickets__container">
-            <div class="b-tickets__block">
-                <div class="rlf-column1">
-                    <div class="rlf-airport">{{etap.OutCode}}</div>
-                </div>
-                <div class="rlf-colum2">
-                    <div class="rlf-flight-info">
-                        <b>вылет {{etap.OutTimeFormatted}}</b>, {{etap.OutDateFormatted}} <br>
-                        {{etap.OutCity}}, {{etap.OutPort}}
-                    </div>
-                </div>
-            </div>
-            <div class="rlf-travel-time">{{etap.WayTimeFormatted}}</div>
-            <div class="b-tickets__block">
-                <div class="rlf-column1">
-                    <div class="rlf-airport"><br>{{etap.InCode}}</div>
-                </div>
-                <div class="rlf-colum2" style="width:210px;">
-                    <div class="rlf-flight-info">
-                        <b>прилет {{etap.InTimeFormatted}}</b>, {{etap.InDateFormatted}} <br>
-                        {{etap.InCity}}, {{etap.InPort}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="rlf-part rlf-part_transfer" ng-if="!$last">
-        <div class="rlf-column1">
-            <div class="rlf-airport">Пересадка</div>
-            <div class="rlf-travel-time">{{etap.WaitTimeFormatted}}</div>
-        </div>
-        <div class="rlf-colum4">
-            {{etap.NextOutCity}}, {{etap.NextOutPort}} ({{etap.NextOutCode}}), {{etap.NextOutCountryName}}
-            <div class="rlf-transfer" ng-if="etap.InPortId != etap.NextOutPortId">Внимание: смена аэропорта!</div>
-        </div>
-    </div>
-</script>
-
 
 
 <!-- Yandex.Metrika counter -->

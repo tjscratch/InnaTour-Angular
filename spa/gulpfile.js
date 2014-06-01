@@ -8,26 +8,27 @@ var gulp = require('gulp'),
     csscomb = require('gulp-csscomb'),
     less = require('gulp-less'),
     templateCache = require('gulp-angular-templatecache'),
-    minifyHTML = require('gulp-minify-html');
+    cleanhtml = require('gulp-cleanhtml');
 
 
 
 gulp.task('templates-ang', function () {
-    //todo exclude-list
-    var exclude = [
-        '!templates/components/hotel.html',
-        '!templates/components/ticket.html'
-    ]
 
     gulp.src([
         'templates/**/*.html',
-        'js/angular/**/*.html'
-    ].concat(exclude))
-        .pipe(minifyHTML({
-            quotes: true
-        }))
+        'js/angular/**/*.html',
+        //'!templates/components/hotel.html',
+        '!templates/components/ticket.html'
+    ])
+        .pipe(cleanhtml())
         .pipe(templateCache({
             module: 'innaApp.templates'
+        }))
+        .pipe(uglify({
+            mangle : false,
+            output: {
+                beautify: true
+            }
         }))
         .pipe(gulp.dest('build'));
 });
@@ -77,7 +78,7 @@ gulp.task('watch', function () {
     var server = livereload();
 
     gulp.watch('styl/**/*', ['styles']);
-    gulp.watch('templates/**/*.html', ['templates-ang']);
+    gulp.watch(['templates/**/*.html', 'js/angular/**/*.html'], ['templates-ang']);
 
     gulp.watch('*.php', function (evt) {
         server.changed(evt.path);

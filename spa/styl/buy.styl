@@ -767,13 +767,30 @@
         &:hover
             text-decoration underline
 
+.cit
+    position: relative;
+
 .cit-cont
-    margin-top 0 !important
-    top 53px !important
+    top 31px !important
     max-height: 300px;
+    overflow: hidden;
+    left: 1px;
+    right: 1px;
+    padding: 0
+    text-align: left;
+
+.cit-cont__inner
+    margin: 3px 0;
     overflow-x: hidden;
     overflow-y: scroll;
-    max-width 100px
+    max-height: 294px;
+
+.cit-item
+    padding: 5px 3px 5px 10px;
+
+    &:hover
+        cursor: default;
+        background-color: #edeff0;
 
 .b-tickets-info-block
     clearfix()

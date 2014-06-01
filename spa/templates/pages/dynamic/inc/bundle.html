@@ -9,10 +9,10 @@
             <h3 class="recommend-bundle-title" ng-if="display.isCurrent(display.FULL)">Выбранный пакет</h3>
 
             <a href="javascript:void(0);" ng-if="display.isCurrent(display.FULL)" ng-click="display.toggle()" class="expand-collapse-link">
-                <span class="icon-collapse"></span> Свернуть
+                <span class="icon-expand"></span> Свернуть
             </a>
             <a href="javascript:void(0);" ng-if="display.isCurrent(display.SHORT)" ng-click="display.toggle()" class="expand-collapse-link">
-                <span class="icon-expand"></span> Развернуть
+                <span class="icon-collapse"></span> Развернуть
             </a>
 
             <div ng-if="display.isCurrent(display.FULL) && combination.hotel && combination.ticket"
@@ -60,6 +60,6 @@
     <div class="filters__body">
         <!-- Показываем только когда загрузился список -->
         <ng:include src="state.display + '__filters.html'" ng-if="!asMap && hotels.size()"/>
-        <ng:include src="'/spa/templates/pages/dynamic/inc/serp.hotels.map__filters.html'" ng-if="asMap"/>
+        <ng:include src="'pages/dynamic/inc/serp.hotels.map__filters.html'" ng-if="asMap"/>
     </div>
 </div>

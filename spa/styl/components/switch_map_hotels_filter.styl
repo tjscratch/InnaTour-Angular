@@ -6,11 +6,12 @@
 
 
 .button-map-list
+	border-radius  :2px;
 	background #fff
+
 	border 0
 	border-left 32px solid #89c13a
 	border-right 32px solid #e6e7e9
-	border-radius(2px)
 	cursor pointer
 	height 30px
 	padding 0 1px 0 0
@@ -19,28 +20,35 @@
 
 	&:before, &:after
 		content ''
-		background url(/spa/img/list-map-button-icon.png)
 		display block
 		position absolute
 		top 50%
 
 	&:before
+		@extend .icon-sprite-switch-map-left
 		height 13px
+		width 16px
 		left -24px
 		margin-top -6px
-		width 16px
 
 	&:after
-		background-position -16px 0
+		@extend .icon-sprite-switch-map-right
 		height 17px
+		width 14px
 		left 10px
 		margin-top -8px
-		width 14px
+
 
 	&.checked
 		border-left 32px solid #e6e7e9
 		border-right 32px solid #89c13a
 		padding 0 1px 0 0
+
+		&:before
+			@extend .icon-sprite-switch-map-left-gray
+
+		&:after
+			@extend .icon-sprite-switch-map-right-white
 
 
 
@@ -61,7 +69,7 @@
 	font-size 14px
 	color #333
 	font-weight normal
-	padding 12px 0 20px
+	padding 12px 0 8px
 
 .ra-tags-title_white
 	color #fff
@@ -140,7 +148,9 @@
 		margin-bottom : 4px;
 
 		&_right {
+			position: relative;
 			padding-top : 5px;
+			left : 10px;
 		}
 	}
 
@@ -161,8 +171,6 @@
 			margin-left : 4px;
 
 			&_right {
-				position : relative;
-				left : 10px;
 				padding-top : 8px;
 			}
 		}
@@ -181,7 +189,7 @@
 
 	&__item {
 		background: #fff;
-		padding: 6px 26px 6px 11px;
+		padding: 10px 26px 10px 11px;
 		position: relative;
 		display: inline-block;
 		font-size: 14px;
@@ -194,8 +202,8 @@
 		display: block;
 		position: absolute;
 		width: 9px;
-		height: 9px;
-		right: 5px;
+		height: 19px;
+		right: 8px;
 		top: 7px;
 		background: url('/spa/img/remove.png') no-repeat center center;
 	}

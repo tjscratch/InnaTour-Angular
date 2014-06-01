@@ -60,6 +60,14 @@ inna.Models.Hotels.HotelsCollection.prototype.getNext = function(hotel){
     return null;
 }
 
+inna.Models.Hotels.HotelsCollection.prototype.search = function(id){
+    for(var i = 0, hotel = null; hotel = this.list[i++];) {
+        if(hotel.data.HotelId == id) return hotel;
+    }
+
+    return null;
+}
+
 inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;
 
@@ -80,6 +88,10 @@ inna.Models.Dynamic.Combination.prototype.setTicket = function(ticket){
 
 inna.Models.Dynamic.Combination.prototype.setHotel = function(hotel) {
     this.hotel = hotel;
+}
+
+inna.Models.Dynamic.Combination.prototype.parse = function(data){
+    
 }
 
 inna.Models.Dynamic.Combination.prototype.getFullPackagePrice = function(){

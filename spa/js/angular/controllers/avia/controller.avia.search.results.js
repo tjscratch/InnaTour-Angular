@@ -102,7 +102,7 @@ innaAppControllers.
                     var self = this;
                     
                     self.list = [
-                    { name: "По рекомендованности", sort: avia.sortType.byRecommend },
+                    { name: "По рейтингу", sort: avia.sortType.byRecommend },
                     { name: "По цене", sort: avia.sortType.byPrice },
                     { name: "По времени в пути", sort: avia.sortType.byTripTime },
                     { name: "По времени отправления ТУДА", sort: avia.sortType.byDepartureTime },

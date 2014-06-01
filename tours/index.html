@@ -52,7 +52,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <!-- end Mixpanel -->
 
 </head>
-<body id="ng-app" ng-app="innaApp" ng-click="bodyClick()" ng-controller="NavigationCtrl" popup-form>
+<body id="ng-app" ng-app="innaApp" ng-click="bodyClick()" ng-controller="RootCtrl" popup-form>
     <div class="header">
         <div class="header-info">
             <div class="header-info-container">
@@ -151,7 +151,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         </div>
     </div>
 
-    <ng:include src="'/popup/mainform.html'"></ng:include>
+    <ng:include src="'popup/mainform.html'"></ng:include>
 
     <script type="text/javascript">
         var app_main = {};
@@ -198,7 +198,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     <!--contacts-->
     <script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
 
-    <!-- build:app-main-js -->
+<!-- build:app-main-js -->  <!--файлы заменяются при билде на app-main.js-->
 <script src="/spa/js/debug.js"></script>
 
 <script src="/spa/js/angular/helpers/utils.js"></script>
@@ -212,6 +212,9 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/tracking.js"></script>
 <script src="/spa/js/datepicker.js"></script>
 <script src="/spa/js/angular/app.js"></script>
+
+<!-- templateCache -->
+<script src="/spa/build/templates.js"></script>
 
 <script src="/spa/js/angular/ang.helpers/url.helper.js"></script>
 <script src="/spa/js/angular/ang.helpers/api.js"></script>
@@ -234,6 +237,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.auth/signup.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/signin.js"></script>
 <script src="/spa/js/angular/controllers/controller.auth/restore.js"></script>
+<script src="/spa/js/angular/controllers/controller.auth/profile.js"></script>
 <script src="/spa/js/angular/controllers/controller.about.js"></script>
 <script src="/spa/js/angular/controllers/helpers/controller.reserve.tickets.js"></script>
 <script src="/spa/js/angular/controllers/avia/controller.avia.reserve.tickets.js"></script>
@@ -248,7 +252,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.individualtours.js"></script>
 <script src="/spa/js/angular/controllers/controller.individualtourscategory.js"></script>
 <script src="/spa/js/angular/controllers/controller.main.js"></script>
-<script src="/spa/js/angular/controllers/controller.navigation.js"></script>
+<script src="/spa/js/angular/controllers/controller.root.js"></script>
 <script src="/spa/js/angular/controllers/controller.offers.list.js"></script>
 <script src="/spa/js/angular/controllers/search/controller.search.main.js"></script>
 <script src="/spa/js/angular/controllers/search/controller.search.result.js"></script>
@@ -259,9 +263,15 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.dynamic/form.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/morda.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/serp.js"></script>
-<script src="/spa/js/angular/controllers/controller.dynamic/serp.filter-indicator.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/reserve.js"></script>
 <script src="/spa/js/angular/controllers/controllers.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.sort.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.airport.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.aircompany.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.time.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.transfer.js"></script>
+<script src="/spa/js/angular/directives/avia_results_filter/directive.filter.price.js"></script>
+<script src="/spa/js/angular/directives/directive.people.component.js"></script>
 <script src="/spa/js/angular/directives/directive.baloon.js"></script>
 <script src="/spa/js/angular/directives/directive.combobox.js"></script>
 <script src="/spa/js/angular/directives/directive.datepicker.2months.js"></script>
@@ -279,53 +289,34 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/price.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/name.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/extra.component.js"></script>
+<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/tafactor.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.legs.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.price.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.time.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.airlines.component.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.airports.component.js"></script>
+<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/indicators.component.js"></script>
+<script src="/spa/js/angular/directives/directive.dynamic.serp.sorter.js"></script>
 <script src="/spa/js/angular/directives/directive.dynamic.serp.map.component.js"></script>
 <script src="/spa/js/angular/directives/directive.partial.select.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-ticket.component.js"></script>
+<script src="/spa/js/angular/directives/directive.inna-hotel.component.js"></script>
+<script src="/spa/js/angular/directives/directive.inna-hotel-details.component.js"></script>
+<script src="/spa/js/angular/directives/directive.inna-dynamic-bundle.component.js"></script>
+
+
+<!-- REGIONS -->
+<script src="/spa/js/angular/regions/header/header.js"></script>
+<script src="/spa/js/angular/regions/footer/footer.js"></script>
+<!-- \ REGIONS -->
+
 <script src="/spa/js/angular/models/app.model.js"></script>
 <script src="/spa/js/angular/models/app.model.avia.js"></script>
 <script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
 <script src="/spa/js/angular/models/app.model.tours.js"></script>
 <script src="/spa/js/angular/models/app.model.dynamic.js"></script>
 <script src="/spa/js/angular/models/auth.js"></script>
-    <!-- endbuild -->
-
-    <script type="text/ng-template" id="/popup/mainform.html">
-        <div class="popup-fade" ng-show="isOpened"></div>
-        <div class="popup-container" ng-show="isOpened">
-            <div class="popup">
-                <div class="popup-close-button" ng-click="popupForm_Close()"></div>
-                <form class="offer-order-form">
-                    <legend class="form-header">Оставьте вашу заявку</legend>
-                    <div class="field-row">
-                        <input class="field" type="text" ng-model="request.name" placeholder="Имя" />
-                    </div>
-                    <div class="field-row">
-                        <input class="field" ng-class="{error:!request.isValid}" type="text" ng-model="request.phone" placeholder="Мобильный телефон" />
-                        <span class="field-error" ng-show="!request.isValid">Необходимо ввести мобильный телефон</span>
-                    </div>
-                    <div class="field-row">
-                        <input class="field" type="text" ng-model="request.email" placeholder="Email" />
-                    </div>
-                    <div class="field-row">
-                        <textarea name="" class="field-text" ng-model="request.comments">
-                            {{request.comments | breakFilter}}
-                        </textarea>
-                    </div>
-                    <div class="description offer-description" ng-click="request.subscribeClick()" ng-show="request.type == requestType.main">
-                        <span class="checkbox" ng-class="{checked:request.isSubscribe}"></span><label class="checkbox-label">Я люблю путешествовать и хочу получать рассылку с самыми выгодными и интересными предложениями</label>
-                    </div>
-
-                    <button type="submit" class="button offer-submit" ng-click="request.send()">Отправить</button>
-                </form>
-            </div>
-        </div>
-    </script>
+<!-- endbuild -->
 
     <script type="text/javascript">
         //фикс для закрытия выпадалок

@@ -1,7 +1,7 @@
 {
   "name": "icon",
-  "checksum": "3eb081e7936f8a6106126328dc36f729",
-  "shortsum": "3eb08",
+  "checksum": "503e4655ffdc1d83b96c75a8e7372ff6",
+  "shortsum": "503e4",
   "images": [
     {
       "name": "remove",
@@ -13,13 +13,40 @@
       "positionY": 0
     },
     {
-      "name": "switch-map",
-      "filename": "switch-map.png",
-      "checksum": "58e1d0ab24412046b3b6c98d0ad59c25",
-      "width": 30,
-      "height": 17,
+      "name": "switch-map-left-gray",
+      "filename": "switch-map-left-gray.png",
+      "checksum": "750fd3f596a589a63897c93c8f81ab78",
+      "width": 16,
+      "height": 13,
       "positionX": 0,
       "positionY": 12
+    },
+    {
+      "name": "switch-map-left",
+      "filename": "switch-map-left.png",
+      "checksum": "b0ffb2a9dd09dff0b3b08d73dd423809",
+      "width": 16,
+      "height": 13,
+      "positionX": 0,
+      "positionY": 27
+    },
+    {
+      "name": "switch-map-right-white",
+      "filename": "switch-map-right-white.png",
+      "checksum": "99ef98d53763981f4ae7d8906bdd364c",
+      "width": 14,
+      "height": 17,
+      "positionX": 0,
+      "positionY": 42
+    },
+    {
+      "name": "switch-map-right",
+      "filename": "switch-map-right.png",
+      "checksum": "2cb53ef351430c3828a22040d3a65188",
+      "width": 14,
+      "height": 17,
+      "positionX": 0,
+      "positionY": 61
     }
   ]
 }

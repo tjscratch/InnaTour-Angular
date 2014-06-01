@@ -278,10 +278,15 @@ inna.Models._CollectionFactory = function(){
 
 _.provide('inna.Models.Aux');
 
-inna.Models.Aux.AttachedPopup = function(){
+inna.Models.Aux.AttachedPopup = function(onOpen){
     this.isOpen = false;
+    this.onOpen = onOpen || angular.noop;
 }
 
 inna.Models.Aux.AttachedPopup.prototype.toggle = function(){
     this.isOpen = !this.isOpen;
+
+    if(this.isOpen) {
+        this.onOpen();
+    }
 }

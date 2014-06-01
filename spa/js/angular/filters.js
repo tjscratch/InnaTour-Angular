@@ -32,17 +32,20 @@ innaAppFilters.filter('breakFilter', function () {
 //приводит цену (123567) к виду (123 567)
 innaAppFilters.filter('price', function () {
     return function (val) {
-        if (val !== undefined) {
-            val = "" + val;
-            if (val.length > 3) {
-                var start = val.substring(0, val.length - 3);
-                var ending = val.substring(val.length - 3, val.length);
-                return start + " " + ending;
+        if(!val) return val;
+
+        var digits = ("" + val).split('');
+        var result = [];
+
+        if(digits.length > 4) {
+            for(var i = 0, len = digits.length; i < len; i++) {
+                if((i !== 0) && (i % 3 === 0)) result.push(' ');
+
+                result.push(digits[i]);
             }
-            else
-                return val;
-        }
-        return val;
+
+            return result.join('');
+        } else return val;
     };
 });
 
@@ -79,11 +82,30 @@ innaAppFilters.filter('choosePlural', function(){
     }
 });
 
-innaAppFilters.filter('signed', function(){
+innaAppFilters.filter('signed', ['$filter', function($filter){
     return function(n){
-        if(n > 0) return '+ ' + n;
-        if(n < 0) return '– ' + (-n);
+        var price = $filter('price');
+
+        if(n > 0) return '+ ' + price(n);
+        if(n < 0) return '– ' + price(-n);
 
         return 0;
     }
-})
+}]);
+
+innaAppFilters.filter('visibleOnly', [function(){
+    var TICKET_HEIGHT = 300;
+
+    return function(list, scrollTop){
+        var scrolledTickets = scrollTop / TICKET_HEIGHT;
+        var limit = scrolledTickets * 2 + 5;
+
+        var result = [];
+
+        for(var i = 0, item = null; (item = list[i++]) && result.length <= limit;) {
+            if(!item.hidden) result.push(item);
+        }
+
+        return result;
+    }
+}]);

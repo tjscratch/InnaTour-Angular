@@ -12,7 +12,7 @@
     <!-- Рекомендованный вариант -->
     <div class="results-list results-list_720" ng-if="recomendedItem != null">
         <ng:any ng-repeat="item in [recomendedItem] track by $index">
-            <ng:include ng-init="isItemRecomended = true" src="'/avia/results/item.html'"></ng:include>
+            <ng:include ng-init="isItemRecomended = true" src="'avia/results_item.html'"></ng:include>
         </ng:any>
 
     </div>
@@ -53,9 +53,9 @@
 <div class="results-container results-container_top" style="padding-top: 10px;">
 
     <!-- Results List -->
-    <div class="results-list results-list_720">
+    <div class="results-list results-list_720" style="float: left;">
         <ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
-            <ng:include src="'/spa/templates/avia/results/item.html'"></ng:include>
+            <ng:include src="'avia/results_item.html'"></ng:include>
         </ng:any>
     </div>
     <!-- /Results List -->
@@ -65,19 +65,21 @@
 
         <div class="ra-tags-container">
             <h4 class="ra-tags-title" ng-show="ticketsList.length > 0"><b>{{getFilteredLength()}}</b> из <b>{{getLength()}}</b> перелетов</h4>
-            <ul class="ra-tags-list">
-                <li ng-if="filter.maxPrice < filter.maxPriceInitial">до {{filter.maxPrice | price}} рублей<a ng-href="#" ng-click="resetPrice($event)"></a></li>
-                <!--<li>Aeroflot <a href="#"></a></li>
-                <li>Transaero <a href="#"></a></li>
-                <li>Lufthansa <a href="#"></a></li>-->
-                <!--<li>до 1 пересадки <a href="#"></a></li>-->
-                <li ng-if="item.checked" ng-repeat="item in filter.TransferCountListAgg">{{item.name}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+            <div class="b-switch-filters__result">
+                <ul class="b-switch-filters__list ra-tags-list">
+                    <li class="b-switch-filters__item" ng-if="filter.maxPrice < filter.maxPriceInitial">до {{filter.maxPrice | price}} рублей<a class="b-switch-filters__item_close" ng-href="#" ng-click="resetPrice($event)"></a></li>
+                    <!--<li>Aeroflot <a href="#"></a></li>
+                    <li>Transaero <a href="#"></a></li>
+                    <li>Lufthansa <a href="#"></a></li>-->
+                    <!--<li>до 1 пересадки <a href="#"></a></li>-->
+                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.TransferCountListAgg">{{item.name}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
 
-                <li ng-if="item.checked" ng-repeat="item in filter.time.list">{{item.name}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-                <li ng-if="item.checked" ng-repeat="item in filter.TransporterList">{{item.TransporterName}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-                <li ng-if="item.checked" ng-repeat="item in filter.AirportFilter.fromPorts">{{item.name}} {{item.code}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-                <li ng-if="item.checked" ng-repeat="item in filter.AirportFilter.toPorts">{{item.name}} {{item.code}} <a href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-            </ul>
+                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.time.list">{{item.name}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.TransporterList">{{item.TransporterName}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.AirportFilter.fromPorts">{{item.name}} {{item.code}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.AirportFilter.toPorts">{{item.name}} {{item.code}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                </ul>
+            </div>
             <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list) || anyChecked(filter.TransporterList)
                || anyChecked(filter.AirportFilter.fromPorts) || anyChecked(filter.AirportFilter.toPorts)"
                class="ra-tags-reset" ng-click="resetAll($event)">Сбросить все</a>
@@ -88,57 +90,4 @@
 <!-- Search Results -->
 </div>
 
-<ng:include src="'/avia/results/baloon_info.html'"></ng:include>
-
-<script type="text/ng-template" id="/avia/results/item.html">
-<div class="rl-item">
-    <div class="rl-item-separator"></div>
-    <div class="rl-left">
-        <header class="rl-item-header">
-            <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span class="rl-airline-text">{{tr.name}}</span></span>
-            <span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png" alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>
-        </header>
-        <div class="rl-content">
-            <div class="rl-fly">
-                <div class="rlf-flight-info">
-                    <b>{{item.DepartureTimeFormatted}}</b>, {{item.DepartureDateFormatted}}<br>
-                    {{item.AirportFrom}} {{item.OutCode}}
-                </div>
-            </div>
-            <div class="rl-travel-time">в пути: {{item.TimeToFormatted}}<br><span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span></div>
-            <div class="rl-fly">
-                <div class="rlf-flight-info">
-                    <b>{{item.ArrivalTimeFormatted}}</b>, {{item.ArrivalDateFormatted}}<br>
-                    {{item.AirportTo}} {{item.InCode}}
-                </div>
-            </div>
-        </div>
-        <div class="rl-content" ng-if="item.EtapsBack.length > 0">
-            <div class="rl-fly">
-                <div class="rlf-flight-info">
-                    <b>{{item.BackDepartureTimeFormatted}}</b>, {{item.BackDepartureDateFormatted}}<br>
-                    {{item.AirportTo}} {{item.InCode}}
-                </div>
-            </div>
-            <div class="rl-travel-time">в пути: {{item.TimeBackFormatted}}<br><span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span></div>
-            <div class="rl-fly">
-                <div class="rlf-flight-info">
-                    <b>{{item.BackArrivalTimeFormatted}}</b>, {{item.BackArrivalDateFormatted}}<br>
-                    {{item.AirportFrom}} {{item.OutCode}}
-                </div>
-            </div>
-        </div>
-        <footer class="rl-footer">
-            <span class="rl-tickets-number">{{helper.getNumSeatsText(item.NumSeats, ticketsCount)}}</span>
-            <a ng-href="#" class="rl-more-info" ng-click="popupItemInfo.show($event, item)">Подробнее</a>
-        </footer>
-    </div>
-    <div class="rl-aside">
-        <span class="rl-rec" ng-if="isItemRecomended">мы рекомендуем</span>
-        <span class="rl-price" ng-class="{'rl-price_1way':item.EtapsBack.length == 0}">
-            <span class="rl-price-item">{{item.Price | price}}</span> <span class="rub">Р</span>
-        </span>
-        <a ng-href="#" class="rl-buy-button" ng-click="goToPaymentClick($event, item)">Купить</a>
-    </div>
-</div>
-</script>
+<ng:include src="'avia/baloon_info.html'"></ng:include>

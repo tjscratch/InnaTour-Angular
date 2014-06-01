@@ -80,12 +80,13 @@
                 </div>
                 <div class="b-field-block" style="width: 180px;">
                     <label class="b-field-label">Гражданство</label>
-                    <input validate-events-dir
-                           ng-validation-model="passenger.citizenship" validate="validate(item, type)" validate-type="validateType.cit_required"
-                           ng-class="{error:isFieldInvalid(passenger.citizenship)}"
-                           ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.value.name}}" placeholder="Выберите" class="b-field-text b-field-select">
-                    <div style="margin-top: -10px; width: 178px; margin-left: 1px;"
-                         partial-select list="citizenshipList" result="passenger.citizenship.value" is-open="passenger.dir.cit.isOpen">
+                    <div class="cit">
+                        <input validate-events-dir
+                               ng-validation-model="passenger.citizenship" validate="validate(item, type)" validate-type="validateType.cit_required"
+                               ng-class="{error:isFieldInvalid(passenger.citizenship)}"
+                               ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.value.name}}" placeholder="Выберите" class="b-field-text b-field-select">
+                        <div partial-select list="citizenshipList" result="passenger.citizenship.value" is-open="passenger.dir.cit.isOpen">
+                        </div>
                     </div>
                 </div>
                 <div class="b-field-block" style="width: 110px;">
@@ -112,9 +113,10 @@
                     </div>
                     <div class="b-field-block" style="width: 150px;" ng-show="passenger.bonuscard.value.haveBonusCard == true">
                         <label class="b-field-label">Авиакомпания</label>
-                        <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.value.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
-                        <div style="margin-top: -10px; width: 148px; margin-left: 1px;"
-                             partial-select list="bonusCardTransportersList" result="passenger.bonuscard.value.airCompany" is-open="passenger.dir.card.isOpen">
+                        <div class="cit">
+                            <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.value.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
+                            <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.value.airCompany" is-open="passenger.dir.card.isOpen">
+                            </div>
                         </div>
                     </div>
                     <div class="b-field-block" style="width: 150px;" ng-show="passenger.bonuscard.value.haveBonusCard == true">
@@ -154,5 +156,5 @@
 </form>
 <!-- Buy ticket -->
 
-<ng:include src="'/avia/results/baloon_info.html'"></ng:include>
+<ng:include src="'avia/baloon_info.html'"></ng:include>
 

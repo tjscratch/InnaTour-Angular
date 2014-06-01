@@ -1,7 +1,14 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
-        '$scope', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'DynamicPackagesCacheWizard',
-        '$routeParams', 'innaApp.API.events', '$location', 'innaApp.Urls', 'aviaHelper',
+        '$scope',
+        'DynamicFormSubmitListener',
+        'DynamicPackagesDataProvider',
+        'DynamicPackagesCacheWizard',
+        '$routeParams',
+        'innaApp.API.events',
+        '$location',
+        'innaApp.Urls',
+        'aviaHelper',
         function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams, Events, $location, Urls, aviaHelper) {
             /*Private*/
             var searchParams = angular.copy($routeParams);
@@ -33,9 +40,7 @@ innaAppControllers
 
                         for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
                             var ticket = new inna.Models.Avia.Ticket();
-
                             ticket.setData(raw);
-
                             $scope.tickets.push(ticket);
                         }
                     };
@@ -43,11 +48,9 @@ innaAppControllers
 
                 if (!method || !param) return;
 
-
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
                     $scope.$apply(function ($scope) {
                         apply($scope, data);
-
                         deferred.resolve();
                     });
                 });
@@ -106,7 +109,6 @@ innaAppControllers
                     $scope.combination.hotel = new inna.Models.Hotels.Hotel(data.RecommendedPair.Hotel);
 
                     $scope.showLanding = false;
-                    $scope.baloon.hide();
                 });
 
                 if($location.search().displayTicket) {
@@ -119,8 +121,12 @@ innaAppControllers
                     defaultTab = $scope.state.HOTELS_TAB;
                 }
 
+
                 $.when($scope.state.switchTo(defaultTab))
-                    .then(function(){ onTabLoad(onTabLoadParam); });
+                    .then(function(){
+                        onTabLoad(onTabLoadParam);
+                        $scope.baloon.hide();
+                    });
             }
 
             function loadTicketDetails(ids){
@@ -129,14 +135,22 @@ innaAppControllers
                     var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                     if (ticket) {
                         $scope.getTicketDetails(ticket);
-                    } else throw 1;
+                    } else throw false;
                 } catch(e) {
                     ticket404();
                 }
             }
 
             function loadHotelDetails(id){
-                console.log('load hotel details', id);
+                try {
+                    var hotel = $scope.hotels.search(id);
+
+                    if(hotel) {
+                        $scope.getHotelDetails(hotel);
+                    } else throw false;
+                } catch(e) {
+                    console.log('todo hotel500()');
+                }
             }
 
             /*Properties*/
@@ -178,7 +192,9 @@ innaAppControllers
              * Смотри DynamicPackageSERPRecommendedBundleCtrl
              * @type {{}}
              */
-            $scope.padding = {};
+            $scope.padding = {
+                scrollTop: 0
+            };
 
             /*Simple proxy*/
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
@@ -215,13 +231,12 @@ innaAppControllers
                 $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
             };
 
-            $scope.changeHotelsView = function () {
-                serpScope.asMap = !serpScope.asMap;
-            };
-
             $scope.setHotel = function (hotel) {
                 $scope.combination.hotel = hotel;
                 $location.search('hotel', hotel.data.HotelId);
+
+                // прокидываем событие для для компонента - Выбранный пакет
+                //$scope.$broadcast('change:hotel', $scope.combination);
             };
 
             $scope.setTicket = function (ticket) {
@@ -258,6 +273,39 @@ innaAppControllers
             }, true);
 
 
+            // слушаем событие от компонента отеля
+            //  открываем карту с точкой этого отеля
+            $scope.$on('hotel:go-to-map', function (evt, data) {
+                $scope.asMap = !$scope.asMap;
+            });
+
+
+            // прямая ссылка на карту
+            if($location.$$search.map){
+                $scope.asMap = !$scope.asMap;
+            }
+
+            // переход с карты на список по кнопке НАЗАД в браузере
+            // работает тольео в одну сторону - назад
+            $scope.$on('$locationChangeSuccess', function(data, url, datatest){
+                if(!$location.$$search.map){
+                    $scope.asMap = false;
+                }
+            })
+
+            // случаем событие переключения контрола с карты на список и обратно
+            $scope.$on('toggle:view:hotels:map', function () {
+
+                $scope.asMap = !$scope.asMap;
+
+                if(!$scope.asMap) {
+                    delete $location.$$search.map;
+                    $location.$$compose();
+                } else {
+                    $location.search('map', 'show');
+                }
+            });
+
             /*Initial Data fetching*/
             (function () {
                 $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
@@ -270,7 +318,7 @@ innaAppControllers
                 if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
 
                 ServiceDynamicPackagesDataProvider.search(searchParams, combination200, combination500);
-            })();
+            }());
 
             /*Because fuck angular, that's why!*/
             $(function(){
@@ -295,19 +343,39 @@ innaAppControllers
                     doc.off('click', onIconPriceClick);
                 });
             });
+
+            $(function(){
+                var doc = $(document);
+
+                function onScroll(event) {
+                    $scope.$apply(function($scope){
+                        $scope.padding.scrollTop = (document.body || document.documentElement).scrollTop;
+                    });
+                }
+
+                doc.on('scroll', onScroll);
+
+                $scope.$on('$destroy', function(){
+                    doc.off('scroll', onScroll);
+                })
+            });
         }
     ])
     .controller('DynamicPackageSERPTicketPopupCtrl', [
-        '$scope', '$element', '$location', 'innaApp.API.events', 'aviaHelper',
+        '$scope',
+        '$element',
+        '$location',
+        'innaApp.API.events',
+        'aviaHelper',
         function ($scope, $element, $location, Events, aviaHelper) {
 
-            /*DOM dirty hacks*/
             $(function () {
                 $(document.body).append($element);
             });
 
             /*Scope Properties*/
             $scope.ticket = null;
+            $scope.link = '';
 
             /*Scope Methods*/
             $scope.closePopup = function () {
@@ -327,6 +395,10 @@ innaAppControllers
 
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
+
+            $scope.sharePopup = new inna.Models.Aux.AttachedPopup(function(){
+                $scope.link = document.location;
+            });
 
             /*Listeners*/
             $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (event, ticket) {
@@ -391,12 +463,13 @@ innaAppControllers
                 }
 
                 this.toggle = function () {
-                    unwatchScroll();
 
                     if (this.isCurrent(this.FULL)) {
+                        unwatchScroll();
                         this.current = this.SHORT;
                         $scope.$emit('header:hidden');
                     } else {
+                        doc.on('scroll', onScroll);
                         this.current = this.FULL;
                         $scope.$emit('header:visible');
                     }
