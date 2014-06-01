@@ -36,18 +36,18 @@
 	"buffers":
 	[
 		{
-			"file": "html/tickets_v2.html",
+			"file": "html/buy_package.html",
 			"settings":
 			{
-				"buffer_size": 40654,
+				"buffer_size": 25970,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "styl/results.styl",
+			"file": "styl/balloon.styl",
 			"settings":
 			{
-				"buffer_size": 15739,
+				"buffer_size": 10780,
 				"line_ending": "Unix"
 			}
 		}
@@ -97,20 +97,22 @@
 	},
 	"file_history":
 	[
+		"/Users/tagir/Dropbox/Webserver/c24/c24/c24.sublime-workspace",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/buy.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/results.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/buy_tickets.html",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/search.styl",
+		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/tickets_v2.html",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/balloon.styl",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/common.styl",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/popups.html",
-		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/results.styl",
-		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/buy_tickets.html",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/buy_package.html",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/listing.styl",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/request.styl",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/request.html",
 		"/Users/tagir/Dropbox/Webserver/Adme/coloribus.com/coloribus.sublime-workspace",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/html/listing.html",
-		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/buy.styl",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/styl/datepicker.styl",
-		"/Users/tagir/Dropbox/Webserver/c24/c24/c24.sublime-workspace",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/js/search_form.js",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/gulpfile.js",
 		"/Users/tagir/Dropbox/Webserver/inna/inna.ru/spa/package.json",
@@ -222,9 +224,7 @@
 		"/Users/0range/Dropbox/Sandbox/Rating/index.html",
 		"/Users/0range/Library/Caches/Cleanup At Startup/Transmit/4F957DB9-01CA-4068-A469-4833B5E2136C/footer.php",
 		"/Users/0range/Desktop/yandex_7b1e5d7eeb407267.html",
-		"/Users/0range/Dropbox/Docs/Business/Documents/htaccess",
-		"/Users/0range/Projects/test/index.ctp",
-		"/Users/0range/Library/Application Support/Sublime Text 3/Packages/CSScomb/CSScomb.sublime-settings"
+		"/Users/0range/Dropbox/Docs/Business/Documents/htaccess"
 	],
 	"find":
 	{
@@ -243,6 +243,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			".baloon-loading",
+			".ui-tooltip",
+			"b-tickets-info",
+			"b-tickets-sum",
+			"b-tickets-ok",
+			"город",
+			"search__list",
 			"rl__info",
 			"rlf-aviacompany",
 			"rlf-colum2",
@@ -363,14 +370,7 @@
 			"result-topbar-sort",
 			"result-topbar-checkbox",
 			"<link rel=\"stylesheet\" href=\"css/main.css\" />",
-			"<script src=\"js/common.js\"></script>\n<script src=\"lib/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js\"></script>",
-			"<script src=\"js/common.js\"></script>",
-			"result-topbar",
-			"tags-list-mod",
-			"tags-list",
-			"gr-title",
-			".gr-objects ",
-			"checkbox"
+			"<script src=\"js/common.js\"></script>\n<script src=\"lib/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js\"></script>"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -415,24 +415,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "html/tickets_v2.html",
+					"file": "html/buy_package.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 40654,
+						"buffer_size": 25970,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								31063,
-								31049
+								17287,
+								17273
 							]
 						],
 						"settings":
@@ -442,27 +442,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3660.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "styl/results.styl",
+					"file": "styl/balloon.styl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15739,
+						"buffer_size": 10780,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2206,
+								2206
 							]
 						],
 						"settings":
@@ -472,10 +472,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 12084.0,
+						"translation.y": 1145.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
