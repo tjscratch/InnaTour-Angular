@@ -1739,8 +1739,8 @@
 }
 .icon-calendar {
   background: url(/spa/img/calendar.png);
-  height: 20px;
-  width: 19px;
+  height: 16px;
+  width: 17px;
 }
 .icon-flag {
   height: 20px;
@@ -2475,7 +2475,7 @@ input::-ms-clear {
   border-right: 1px solid #ccd2d4;
   cursor: pointer;
   display: inline-block;
-  height: 50px;
+  height: 48px;
   position: relative;
   vertical-align: top;
 }
@@ -2502,9 +2502,9 @@ input::-ms-clear {
   display: inline-block;
   font-family: proxima_nova_rgregular, Arial, sans-serif;
   font-size: 16px;
-  height: 50px;
+  height: 48px;
   overflow: hidden;
-  line-height: 50px;
+  line-height: 48px;
   margin: 0 0 0 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2628,13 +2628,13 @@ input::-ms-clear {
   width: 256px;
 }
 .search-form-from {
-  width: 161px;
+  width: 180px;
 }
 .search-form-from .search-form-item-current {
   width: 122px;
 }
 .search-form-to {
-  width: 302px;
+  width: 359px;
 }
 .search-form-to .search-form-list {
   width: 541px;
@@ -2658,12 +2658,12 @@ input::-ms-clear {
   width: 282px;
 }
 .search-form-date {
-  width: 103px;
+  width: 119px;
 }
 .search-form-date .icon-calendar {
   position: absolute;
   right: 12px;
-  top: 14px;
+  top: 16px;
 }
 .search-form-date .hidden-input {
   border: 0;
@@ -2676,18 +2676,24 @@ input::-ms-clear {
   width: 100%;
 }
 .search-form-nights {
-  width: 134px;
+  width: 119px;
 }
 .search-form-nights .search-form-item-current {
   width: 98px;
 }
 .search-form-humans {
-  width: 138px;
+  width: 119px;
   border-right: 0;
 }
 .search-form-submit {
+  -webkit-border-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 0;
+  -moz-background-clip: padding;
+  border-radius: 0;
+  background-clip: padding-box;
   font-size: 16px;
-  height: 50px;
+  height: 48px;
   margin: 0 0 0 1px;
   width: 117px;
 }
