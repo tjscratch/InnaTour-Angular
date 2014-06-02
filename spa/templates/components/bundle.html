@@ -34,7 +34,7 @@
                     {{dateHelper.getDateShort(bundle.ticket.data.BackArrivalDate)}}, {{dateHelper.getDay(bundle.ticket.data.BackArrivalDate)}}
                 </span>
             </div>
-            <span class="icon icon-plane-grey"></span>
+            <span class="icon-sprite-airplane"></span>
             <div class="bottom-actions" ng-if="getTicketDetails || state">
                 <a ng-if="state" href="javascript:void(0);" class="pull-left" ng-class="{active: state.isActive(state.TICKETS_TAB)}"
                    ng-click="state.switchTo(state.TICKETS_TAB)">Заменить</a>
@@ -72,7 +72,7 @@
                     {{bundle.hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
                 </div>
             </div>
-            <span class="icon icon-hanger-grey"></span>
+            <span class="icon-sprite-hanger"></span>
             <div class="bottom-actions" ng-if="getHotelDetails || state">
                 <a ng-if="state" href="javascript:void(0);" ng-class="{active: state.isActive(state.HOTELS_TAB)}"
                    ng-click="state.switchTo(state.HOTELS_TAB)" class="pull-left">Заменить</a>
