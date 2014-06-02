@@ -22,7 +22,7 @@
         </div>
 
         <div class="bottom-actions">
-            <span class="pull-left warning" ng-if="ticket.data.NumSeats > 1 && ticket.data.NumSeats < 4">
+            <span class="pull-left warning" ng-if="showWarning()">
                 Последние {{ticket.data.NumSeats | asQuantity:"место":"места":"мест"}}<span ng-if="ticket.data.IsCharter">, чартер</span>
             </span>
             <span class="pull-left warning" ng-if="ticket.data.NumSeats == 1">

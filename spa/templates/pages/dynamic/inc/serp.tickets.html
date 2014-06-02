@@ -4,7 +4,8 @@
         <div ng-repeat="ticket in tickets.filter(ticketFilters) | visibleOnly:padding.scrollTop"
              inna-ticket
              inna-ticket-ticket="ticket"
-             inna-ticket-get-ticket-details="getTicketDetails(ticket)">
+             inna-ticket-get-ticket-details="getTicketDetails(ticket)"
+             inna-ticket-passenger-count="passengerCount">
 
             <p class="corner-price">
                 {{combination.ticket.data.PackagePrice - ticket.data.PackagePrice | signed}}<span class="b-rub">Р</span>

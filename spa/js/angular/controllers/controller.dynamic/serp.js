@@ -196,6 +196,8 @@ innaAppControllers
                 scrollTop: 0
             };
 
+            $scope.passengerCount = 0;
+
             /*Simple proxy*/
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
@@ -324,6 +326,8 @@ innaAppControllers
                 searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
                 searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);
                 searchParams.Children && (searchParams.ChildrenAges = searchParams.Children.split('_'));
+
+                $scope.passengerCount = parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0);
 
                 if ($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
                 if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
