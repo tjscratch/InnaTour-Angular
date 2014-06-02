@@ -108,12 +108,16 @@ angular.module('innaApp.directives')
                         activeMarkerReset();
                     });
 
-                    function initCarousel(){
+                    /*GM.event.addListener(map, 'zoom_changed', function() {
+                        console.log(map.getZoom(), 'zoom');
+                    });*/
+
+                    function initCarousel() {
                         elem.find('.b-carousel').innaCarousel({
-                            photoList : scope.currentHotel.Photos,
-                            style : {
-                                width:360,
-                                height:240
+                            photoList: scope.currentHotel.Photos,
+                            style: {
+                                width: 360,
+                                height: 240
                             }
                         });
                     }
@@ -208,7 +212,9 @@ angular.module('innaApp.directives')
 
                             // инфобокс на клик маркера отеля
                         } else {
-                            boxInfoHover.setVisible(false);
+                            if (boxInfoHover) {
+                                boxInfoHover.setVisible(false);
+                            }
                             if (!boxInfo) {
                                 boxInfo = new InfoBox(dataInfoBox);
                                 boxInfo.open(map);
@@ -404,16 +410,62 @@ angular.module('innaApp.directives')
                     }
 
 
+                    var showOneHotel = function (data_hotel) {
+                        // проходм по всем маркерам
+                       var mark =  markers.filter(function (marker) {
+
+                            // сравниваем и находим нужный
+                            if ((marker.$inna__hotel && marker.$inna__hotel.Latitude) &&
+                                (marker.$inna__hotel.Latitude == data_hotel.Latitude)) {
+
+
+                                scope.$apply(function ($scope) {
+                                    $scope.currentHotel = marker.$inna__hotel;
+                                });
+
+                                // инициализируем infoBox
+                                addInfoBox({
+                                    elem: boxPhoto,
+                                    pos: marker.getPosition(),
+                                    marker: {
+                                        activeMarker: marker,
+                                        infoBoxVisible: true,
+                                        hover: false
+                                    }
+                                });
+
+                                // меняем иконку
+                                marker.setIcon(iconClick);
+
+                                // показываем
+                                boxInfo.setVisible(true);
+
+
+                                var bounds = new GM.LatLngBounds();
+                                var position = new GM.LatLng(data_hotel.Latitude, data_hotel.Longitude);
+
+                                bounds.extend(position);
+
+                                map.fitBounds(bounds);
+                                map.setZoom(15);
+
+                                map.panTo(marker.getPosition());
+                                // инициализация карусели
+                                initCarousel();
+                                return marker;
+                            }
+                        });
+                    }
+
+
                     scope.$on('change:hotels:filters', function (evt, data) {
                         updateMap({
                             hotels: data,
                             airports: scope.airports
                         })
                     });
-                    scope.$root.$on('hotel:go-to-map', function (evt, data) {
-                        updateMap({
-                            hotels : [data]
-                        });
+                    scope.$on('map:show-one-hotel', function (evt, data) {
+                        showOneHotel(data.toJSON());
                     });
 
 

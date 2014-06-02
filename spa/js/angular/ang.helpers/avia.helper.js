@@ -1,4 +1,4 @@
-﻿﻿innaAppServices.
+﻿innaAppServices.
     factory('aviaHelper', ['$rootScope', '$http', '$log', '$filter', '$timeout', '$location', 'innaApp.Urls', 'eventsHelper', 'urlHelper',
         function ($rootScope, $http, $log, $filter, $timeout, $location, Urls, eventsHelper, urlHelper) {
         function log(msg) {

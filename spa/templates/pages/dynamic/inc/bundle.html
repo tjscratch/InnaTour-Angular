@@ -6,7 +6,7 @@
         <div class="recommend-bundle-background" style="background-image: url(/spa/img/dp-background.jpg);"></div>
 
         <div class="recommend-bundle-wrap" ng-class="{'recommend-bundle-wrap_small': display.isCurrent(display.SHORT)}" inna-with="combination.ticket as ticket">
-            <h3 class="recommend-bundle-title" ng-if="display.isCurrent(display.FULL)">Выбранный пакет</h3>
+            <h3 class="recommend-bundle-title" ng-if="display.isCurrent(display.FULL)">Выбранный пакет <span class="icon icon-crown"></span></h3>
 
             <a href="javascript:void(0);" ng-if="display.isCurrent(display.FULL)" ng-click="display.toggle()" class="expand-collapse-link">
                 <span class="icon-expand"></span> Свернуть

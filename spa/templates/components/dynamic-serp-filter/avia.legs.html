@@ -1,4 +1,8 @@
-<a href="javascript:void(0);" class="filters__link" ng-class="{filters__link_selected: options.hasSelected()}" ng-click="popup.toggle()">Пересадки</a>
+<a href="javascript:void(0);"
+   class="filters__link"
+   ng-class="{filters__link_selected: options.hasSelected()}"
+   ng-click="popup.toggle()"
+   ng-if="filter.options.hasManyShownOptions()">Пересадки</a>
 <div class="filters__baloon" ng-if="popup.isOpen">
     <header class="ra-header">
         <h4 class="ra-title">Колличество пересадок</h4>

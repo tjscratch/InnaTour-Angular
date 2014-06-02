@@ -1,0 +1,39 @@
+<div class="rlf-part">
+    <div class="rfl-column3">
+        <div class="rlf-aviacompany">
+            <img ng-src="{{airLogo(etap.data.TransporterCode)}}" alt="">
+            {{etap.data.TransporterName}} <br>
+            рейс {{etap.data.Number}} <br>
+            {{etap.data.VehicleName}}
+        </div>
+    </div>
+    <div class="b-tickets__container">
+        <div class="b-tickets__block">
+            <div class="rlf-column1">
+                <div class="rlf-airport">{{etap.data.OutCityCode}}</div>
+            </div>
+            <div class="rlf-colum2">
+                <div class="rlf-flight-info">
+                    <b>вылет {{dateHelper.getTime(etap.getDateTime('Out'))}}</b>,
+                    {{dateHelper.getDateShort(etap.getDateTime('Out'))}},
+                    {{dateHelper.getDay(etap.getDateTime('Out'))}} <br>
+                    {{etap.data.OutCity}}, {{etap.data.OutPort}}
+                </div>
+            </div>
+        </div>
+        <div class="rlf-travel-time">{{etap.getDuration()}}</div>
+        <div class="b-tickets__block">
+            <div class="rlf-column1">
+                <div class="rlf-airport"><br>{{etap.data.InCityCode}}</div>
+            </div>
+            <div class="rlf-colum2">
+                <div class="rlf-flight-info">
+                    <b>прилет {{dateHelper.getTime(etap.getDateTime('In'))}}</b>,
+                    {{dateHelper.getDateShort(etap.getDateTime('In'))}},
+                    {{dateHelper.getDay(etap.getDateTime('In'))}} <br>
+                    {{etap.data.InCity}}, {{etap.data.InPort}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,7 +7,8 @@ angular.module('innaApp.directives')
                 collection: '=innaHotelDetailsCollection',
                 back: '=innaHotelDetailsBack',
                 next: '=innaHotelDetailsNext',
-                combination: '=innaHotelDetailsBundle'
+                combination: '=innaHotelDetailsBundle',
+                goReservation: '=innaHotelDetailesReservationFn'
             },
             controller: [
                 '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events',

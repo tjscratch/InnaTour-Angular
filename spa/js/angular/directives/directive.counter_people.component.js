@@ -79,7 +79,7 @@ innaAppDirectives.directive('counterPeople', ['$templateCache', function($templa
 
 innaAppDirectives.directive('counterPeopleChildAgeSelector', ['$templateCache', function($templateCache){
     return {
-        template: $templateCache.get('components/counter_people.subcomponent'),
+        template: $templateCache.get('components/counter_people.subcomponent.html'),
         scope: {
             'selector': '='
         },

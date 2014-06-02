@@ -1,8 +1,26 @@
 {
   "name": "icon",
-  "checksum": "503e4655ffdc1d83b96c75a8e7372ff6",
-  "shortsum": "503e4",
+  "checksum": "b1e10322c7e24119279fe1ce1fce7bf5",
+  "shortsum": "b1e10",
   "images": [
+    {
+      "name": "airplane",
+      "filename": "airplane.png",
+      "checksum": "eb2ea559c601ed69e3c0e7140b789e06",
+      "width": 21,
+      "height": 18,
+      "positionX": 0,
+      "positionY": 0
+    },
+    {
+      "name": "hanger",
+      "filename": "hanger.png",
+      "checksum": "110cbb8ce56967123185738898d75bb9",
+      "width": 9,
+      "height": 17,
+      "positionX": 0,
+      "positionY": 20
+    },
     {
       "name": "remove",
       "filename": "remove.png",
@@ -10,7 +28,7 @@
       "width": 9,
       "height": 10,
       "positionX": 0,
-      "positionY": 0
+      "positionY": 39
     },
     {
       "name": "switch-map-left-gray",
@@ -19,7 +37,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 12
+      "positionY": 51
     },
     {
       "name": "switch-map-left",
@@ -28,7 +46,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 27
+      "positionY": 66
     },
     {
       "name": "switch-map-right-white",
@@ -37,7 +55,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 42
+      "positionY": 81
     },
     {
       "name": "switch-map-right",
@@ -46,7 +64,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 61
+      "positionY": 100
     }
   ]
 }
