@@ -8,7 +8,9 @@
     runSequence = require('run-sequence'),
     templateCache = require('gulp-angular-templatecache'),
     minifyCSS = require('gulp-minify-css'),
-    minifyHTML = require('gulp-minify-html');
+    minifyHTML = require('gulp-minify-html'),
+	uglify = require('gulp-uglify'),
+    cleanhtml = require('gulp-cleanhtml');
 
 //===============Константы========================
 var __BUILD_FOLDER__ = '';
@@ -71,17 +73,24 @@ function cleanFiles(destFolder) {
 }
 
 gulp.task('templates-ang', function () {
+
     gulp.src([
-            __BUILD_FOLDER__ + '/spa/templates/**/*.html',
-            __BUILD_FOLDER__ + '/spa/js/angular/**/*.html'
+        __BUILD_FOLDER__ + '/spa/templates/**/*.html',
+        __BUILD_FOLDER__ + '/spa/js/angular/**/*.html',
+        //__BUILD_FOLDER__ + '!/spa/templates/components/hotel.html',
+        __BUILD_FOLDER__ + '!/spa/templates/components/ticket.html'
     ])
-	.pipe(minifyHTML({
-		quotes: true
-	}))
-	.pipe(templateCache({
-		module: 'innaApp.templates'
-	}))
-	.pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/js/angular'));
+        .pipe(cleanhtml())
+        .pipe(templateCache({
+            module: 'innaApp.templates'
+        }))
+        .pipe(uglify({
+            mangle : false,
+            output: {
+                beautify: true
+            }
+        }))
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/js/angular'));
 });
 
 gulp.task('test-clean', function () {
