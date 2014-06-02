@@ -80,7 +80,7 @@ innaAppControllers
                 $scope.baloon.showErr(
                     "Запрашиваемая билетная пара не найдена",
                     "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
-                    function(){
+                    function () {
                         delete $location.$$search.displayTicket
                         $location.$$compose();
                     }
@@ -111,11 +111,11 @@ innaAppControllers
                     $scope.showLanding = false;
                 });
 
-                if($location.search().displayTicket) {
+                if ($location.search().displayTicket) {
                     onTabLoad = loadTicketDetails;
                     onTabLoadParam = $location.search().displayTicket;
                     defaultTab = $scope.state.TICKETS_TAB;
-                } else if($location.search().displayHotel) {
+                } else if ($location.search().displayHotel) {
                     onTabLoad = loadHotelDetails;
                     onTabLoadParam = $location.search().displayHotel;
                     defaultTab = $scope.state.HOTELS_TAB;
@@ -123,32 +123,32 @@ innaAppControllers
 
 
                 $.when($scope.state.switchTo(defaultTab))
-                    .then(function(){
+                    .then(function () {
                         onTabLoad(onTabLoadParam);
                         $scope.baloon.hide();
                     });
             }
 
-            function loadTicketDetails(ids){
+            function loadTicketDetails(ids) {
                 try {
                     var ticketIds = ids.split('_');
                     var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                     if (ticket) {
                         $scope.getTicketDetails(ticket);
                     } else throw false;
-                } catch(e) {
+                } catch (e) {
                     ticket404();
                 }
             }
 
-            function loadHotelDetails(id){
+            function loadHotelDetails(id) {
                 try {
                     var hotel = $scope.hotels.search(id);
 
-                    if(hotel) {
+                    if (hotel) {
                         $scope.getHotelDetails(hotel);
                     } else throw false;
-                } catch(e) {
+                } catch (e) {
                     console.log('todo hotel500()');
                 }
             }
@@ -270,7 +270,7 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             $scope.$watch('asMap', function (newVal) {
-                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, + newVal);
+                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
             });
 
             $scope.$watch('hotels', function (data) {
@@ -291,14 +291,14 @@ innaAppControllers
 
 
             // прямая ссылка на карту
-            if($location.$$search.map){
+            if ($location.$$search.map) {
                 $scope.asMap = !$scope.asMap;
             }
 
             // переход с карты на список по кнопке НАЗАД в браузере
             // работает тольео в одну сторону - назад
-            $scope.$on('$locationChangeSuccess', function(data, url, datatest){
-                if(!$location.$$search.map){
+            $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
+                if (!$location.$$search.map) {
                     $scope.asMap = false;
                 }
             })
@@ -308,7 +308,7 @@ innaAppControllers
 
                 $scope.asMap = !$scope.asMap;
 
-                if(!$scope.asMap) {
+                if (!$scope.asMap) {
                     delete $location.$$search.map;
                     $location.$$compose();
                 } else {
@@ -331,9 +331,9 @@ innaAppControllers
             }());
 
             /*Because fuck angular, that's why!*/
-            $(function(){
+            $(function () {
                 var doc = $(document);
-                var onIconPriceClick = function(event){
+                var onIconPriceClick = function (event) {
                     event.stopPropagation();
 
                     var parent = $(this).parents('.result')[0];
@@ -341,7 +341,7 @@ innaAppControllers
 
                     tooltip.toggle();
 
-                    doc.on('click', function bodyClick(){
+                    doc.on('click', function bodyClick() {
                         tooltip.hide();
                         doc.off('click', bodyClick);
                     });
@@ -349,23 +349,23 @@ innaAppControllers
 
                 doc.on('click', '.JS-icon-price-info', {}, onIconPriceClick);
 
-                $scope.$on('$destroy', function(){
+                $scope.$on('$destroy', function () {
                     doc.off('click', onIconPriceClick);
                 });
             });
 
-            $(function(){
+            $(function () {
                 var doc = $(document);
 
                 function onScroll(event) {
-                    $scope.$apply(function($scope){
+                    $scope.$apply(function ($scope) {
                         $scope.padding.scrollTop = (document.body || document.documentElement).scrollTop;
                     });
                 }
 
                 doc.on('scroll', onScroll);
 
-                $scope.$on('$destroy', function(){
+                $scope.$on('$destroy', function () {
                     doc.off('scroll', onScroll);
                 })
             });
@@ -405,7 +405,7 @@ innaAppControllers
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
 
-            $scope.sharePopup = new inna.Models.Aux.AttachedPopup(function(){
+            $scope.sharePopup = new inna.Models.Aux.AttachedPopup(function () {
                 $scope.link = document.location;
             });
 
@@ -471,6 +471,7 @@ innaAppControllers
 
             /*Properties*/
             $scope.display = new function () {
+                var that = this;
                 this.FULL = 1;
                 this.SHORT = 2;
 
@@ -484,34 +485,37 @@ innaAppControllers
                     this.current = display;
                 }
 
-                function changeParentScopePadding(param){
+                function changeParentScopePadding(param) {
                     (param == 2) ?
                         $scope.padding.value = true :
                         $scope.padding.value = false
 
                 }
 
-                this.toggle = function () {
-
-                    if (this.isCurrent(this.FULL)) {
-                        unwatchScroll();
-                        this.current = this.SHORT;
-                        $scope.$emit('header:hidden');
-                    } else {
-                        doc.on('scroll', onScroll);
-                        this.current = this.FULL;
-                        $scope.$emit('header:visible');
-                    }
-
-                    // изменяем свойство в родительском scope
+                this.shortDisplay = function(){
+                    unwatchScroll();
+                    this.current = this.SHORT;
+                    $scope.$emit('header:hidden');
                     changeParentScopePadding(this.current);
+                }
+
+                this.fullDisplay = function(){
+                    doc.on('scroll', onScroll);
+                    this.current = this.FULL;
+                    $scope.$emit('header:visible');
+                    changeParentScopePadding(this.current);
+                }
+
+                this.toggle = function () {
+                    if (this.isCurrent(this.FULL)) this.shortDisplay();
+                    else this.fullDisplay();
                 }
             };
 
             // подписываемся на событие toggle:visible:bundle
             // скрываем бандл вместе с шапкой
-            $scope.$root.$on('bundle:hidden', function(){
-                $scope.display.toggle();
+            $scope.$root.$on('bundle:hidden', function () {
+                $scope.display.shortDisplay();
             });
 
             /*Events*/

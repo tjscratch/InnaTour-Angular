@@ -49,7 +49,7 @@ angular.module('innaApp.directives')
                         }
 
                         $scope.action = function(){
-                            $scope.$emit('toggle:view:hotels:map')
+                            $scope.$emit('toggle:view:hotels:map');
                         }
 
                         $scope.delete = function (option) {

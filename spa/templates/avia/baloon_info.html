@@ -1,6 +1,6 @@
 ﻿<!-- Baloon -->
 <div style="display: block" class="overlay js-overlay" ng-show="popupItemInfo.isShow">
-    <div class="balloon baloon_ticket" ng-class="{'baloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}">
+    <div class="balloon baloon_ticket" ng-class="{'baloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}" close-popup is-show="popupItemInfo.isShow">
         <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
             <div title="Закрыть" class="baloon-close" ng-click="popupItemInfo.isShow = false"></div>
 
@@ -9,13 +9,19 @@
                 <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null" src="'avia/popup_item_info_one_way.html'"></ng:include>
             <div class="b-tickets__footer">
                 <ul class="b-tickets__icons">
-                    <li><a href="javascript:void(0)" class="b-tickets__icons-link" ng-click="popupItemInfo.getLink($event, item)"></a></li>
+                    <li>
+                        <a href="javascript:void(0)" class="b-tickets__icons-link" ng-click="popupItemInfo.getLink($event, item)"></a>
+                        <div class="tooltip tooltip-share-link tooltip-share-link_type_ticket-popup" ng-if="popupItemInfo.isGetLinkOpen">
+                            <input type="text" class="share-link-input" ng-value="popupItemInfo.link">
+                            <span class="icon icon-cross" style="margin-left: 5px;" ng-click="popupItemInfo.getLinkClose($event)"></span>
+                        </div>
+                    </li>
                     <!--<li><a href="javascript:void(0)" class="b-tickets__icons-print" ng-click="popupItemInfo.print($event, item)"></a></li>
                     <li><a href="javascript:void(0)" class="b-tickets__icons-share" ng-click="popupItemInfo.share($event, item)"></a></li>-->
                 </ul>
                 <div class="b-tickets__footer-inner">
                     <div class="b-tickets__footer-price-block">
-                        <div class="b-tickets__footer-price">{{item.Price| price}}</span> <span class="rub">Р</span></div>
+                        <div class="b-tickets__footer-price">{{item.Price| price}} <span class="rub">Р</span></div>
                         <div class="b-tickets__footer-price-info">за {{popupItemInfo.ticketsCount}} {{helper.pluralForm(popupItemInfo.ticketsCount, 'билет', 'билета', 'билетов')}} {{popupItemInfo.ticketsClass}} класса</div>
                     </div>
                     <a class="rl-buy-button" href="javascript:void(0)" ng-click="goToPaymentClick($event, item)">Купить</a>
