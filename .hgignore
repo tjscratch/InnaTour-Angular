@@ -55,3 +55,4 @@ spa/css/common.min.css
 spa/build/
 build_and_publish/css/common.min.css
 build_and_publish/css/main.css
+nginx.nginx_conf
