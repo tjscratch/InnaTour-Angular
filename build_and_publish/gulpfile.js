@@ -8,7 +8,9 @@
     runSequence = require('run-sequence'),
     templateCache = require('gulp-angular-templatecache'),
     minifyCSS = require('gulp-minify-css'),
-    minifyHTML = require('gulp-minify-html');
+    minifyHTML = require('gulp-minify-html'),
+	uglify = require('gulp-uglify'),
+    cleanhtml = require('gulp-cleanhtml');
 
 //===============Константы========================
 var __BUILD_FOLDER__ = '';
@@ -38,7 +40,7 @@ gulp.task('styles', function () {
         }))
         .pipe(concat('common.min.css'))
         .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
     gulp.src([__BUILD_FOLDER__ + '/spa/styl/ie.styl'])
         .pipe(stylus({
             use: ['nib'],
@@ -46,7 +48,7 @@ gulp.task('styles', function () {
         }))
         .pipe(concat('ie.min.css'))
         .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
     gulp.src([__BUILD_FOLDER__ + '/spa/styl/ticket.styl'])
         .pipe(stylus({
             use: ['nib'],
@@ -54,11 +56,11 @@ gulp.task('styles', function () {
         }))
         .pipe(concat('ticket.min.css'))
         .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
     gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
         .pipe(concat('main.css'))
         .pipe(less())
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
 });
 
 //===============Очистка========================
@@ -71,15 +73,22 @@ function cleanFiles(destFolder) {
 }
 
 gulp.task('templates-ang', function () {
+
     gulp.src([
-            __BUILD_FOLDER__ + '/spa/templates/**/*.html',
-            __BUILD_FOLDER__ + '/spa/js/angular/**/*.html'
+        __BUILD_FOLDER__ + '/spa/templates/**/*.html',
+        __BUILD_FOLDER__ + '/spa/js/angular/**/*.html',
+        //__BUILD_FOLDER__ + '!/spa/templates/components/hotel.html',
+        __BUILD_FOLDER__ + '!/spa/templates/components/ticket.html'
     ])
-        .pipe(minifyHTML({
-            quotes: true
-        }))
+        .pipe(cleanhtml())
         .pipe(templateCache({
             module: 'innaApp.templates'
+        }))
+        .pipe(uglify({
+            mangle : false,
+            output: {
+                beautify: true
+            }
         }))
         .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/js/angular'));
 });
@@ -151,7 +160,8 @@ function getSrcFiles(folder) {
     var list = [
         '/spa/js/angular/helpers/*.js',
         '/spa/js/datepicker.js',
-        '/spa/js/angular/models/app.model.js',
+		'/spa/js/angular/models/app.model.js',
+        '/spa/js/angular/models/*.js',
         '/spa/js/angular/**/*.js'
     ];
 

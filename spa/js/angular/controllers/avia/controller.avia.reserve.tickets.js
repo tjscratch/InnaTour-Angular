@@ -162,6 +162,7 @@ innaAppControllers.
                                 aviaHelper.addCustomFields(data);
                                 //log('getSelectedVariant dataItem: ' + angular.toJson(data));
                                 $scope.item = data;
+                                //console.log($scope.item);
                                 //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
 
                                 //оповещаем лоадер, что метод отработал
