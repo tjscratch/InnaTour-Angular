@@ -22,7 +22,7 @@ angular.module('innaApp.services')
                     eol: null
                 }
                 if (async == false) {
-                    //��� ���������� ������� ��������� FF �������� � ������ ������, ����� ������� withCredentials
+                    //при синхронных вызовах последний FF ругается и блочит запрос, нужно удалить withCredentials
                     delete o.xhrFields;
                 }
                 return o;
