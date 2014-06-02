@@ -75,13 +75,13 @@ gulp.task('templates-ang', function () {
             __BUILD_FOLDER__ + '/spa/templates/**/*.html',
             __BUILD_FOLDER__ + '/spa/js/angular/**/*.html'
     ])
-        .pipe(minifyHTML({
-            quotes: true
-        }))
-        .pipe(templateCache({
-            module: 'innaApp.templates'
-        }))
-        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/js/angular'));
+	.pipe(minifyHTML({
+		quotes: true
+	}))
+	.pipe(templateCache({
+		module: 'innaApp.templates'
+	}))
+	.pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/js/angular'));
 });
 
 gulp.task('test-clean', function () {
@@ -151,7 +151,8 @@ function getSrcFiles(folder) {
     var list = [
         '/spa/js/angular/helpers/*.js',
         '/spa/js/datepicker.js',
-        '/spa/js/angular/models/app.model.js',
+		'/spa/js/angular/models/app.model.js',
+        '/spa/js/angular/models/*.js',
         '/spa/js/angular/**/*.js'
     ];
 
