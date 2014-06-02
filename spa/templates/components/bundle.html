@@ -95,7 +95,7 @@
             </p>
             <p class="price">
                 {{bundle.getFullPackagePrice() | price}} <span class="b-rub">Р</span>
-                <span class="icon icon-price-info" ng-click="infoPopup.toggle()"></span>
+                <span class="icon icon-price-info" ng-click="infoPopup.toggle($event)"></span>
             </p>
             <div class="tooltip tooltip-price" ng-if="infoPopup.isOpen">
                 По отдельности
