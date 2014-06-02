@@ -15,7 +15,6 @@ angular.module('innaApp.directives')
                 function ($scope, $element) {
 
                     $scope.goToMap = function(){
-                        console.log('go-to-map');
                         $scope.$emit('hotel:go-to-map', $scope.hotel);
                     }
 
