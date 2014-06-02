@@ -22,7 +22,7 @@
                         <span class="rlf-fly-arrow"></span>
                         <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
                         <div class="rlf-full-travel-time">
-                            {{ticket.data.EtapsTo.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}},
+                            {{ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
                             {{ticket.getDuration('To')}} в пути
                         </div>
                     </div>
@@ -31,66 +31,31 @@
                         <span class="rlf-fly-arrow"></span>
                         <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
                         <div class="rlf-full-travel-time">
-                            {{ticket.data.EtapsBack.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}},
+                            {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
                             {{ticket.getDuration('Back')}} в пути
                         </div>
                     </div>
                 </div>
 
                 <div class="b-ticket_2ways b-ticket_2ways-sep">
-
-                    <div class="b-ticket_2ways-block" ng-repeat="dir in ['To', 'Back']">
-                        <div ng-repeat="etap in ticket.getEtaps(dir)">
-                            <div class="rlf-part">
-                                <div class="rfl-column3">
-                                    <div class="rlf-aviacompany">
-                                        <img ng-src="{{airLogo(etap.data.TransporterCode)}}" alt="">
-                                        {{etap.data.TransporterName}} <br>
-                                        рейс {{etap.data.Number}} <br>
-                                        {{etap.data.VehicleName}}
-                                    </div>
-                                </div>
-                                <div class="b-tickets__container">
-                                    <div class="b-tickets__block">
-                                        <div class="rlf-column1">
-                                            <div class="rlf-airport">{{etap.data.OutCityCode}}</div>
-                                        </div>
-                                        <div class="rlf-colum2">
-                                            <div class="rlf-flight-info">
-                                                <b>вылет {{dateHelper.getTime(etap.getDateTime('Out'))}}</b>,
-                                                {{dateHelper.getDateShort(etap.getDateTime('Out'))}},
-                                                {{dateHelper.getDay(etap.getDateTime('Out'))}} <br>
-                                                {{etap.data.OutCity}}, {{etap.data.OutPort}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="rlf-travel-time">{{etap.getDuration()}}</div>
-                                    <div class="b-tickets__block">
-                                        <div class="rlf-column1">
-                                            <div class="rlf-airport"><br>{{etap.data.InCityCode}}</div>
-                                        </div>
-                                        <div class="rlf-colum2">
-                                            <div class="rlf-flight-info">
-                                                <b>прилет {{dateHelper.getTime(etap.getDateTime('In'))}}</b>,
-                                                {{dateHelper.getDateShort(etap.getDateTime('In'))}},
-                                                {{dateHelper.getDay(etap.getDateTime('In'))}} <br>
-                                                {{etap.data.InCity}}, {{etap.data.InPort}}
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div ng-repeat="zip in etapsZipped">
+                        <div class="clearfix">
+                            <div class="b-ticket_2ways-block" ng-init="etap=zip[0]">
+                                <ng:include src="'components/ticket-details-etap.inc.html'" ng-if="etap"></ng:include>
+                            </div>
+                            <div class="b-ticket_2ways-block" ng-init="etap=zip[1]">
+                                <ng:include src="'components/ticket-details-etap.inc.html'" ng-if="etap"></ng:include>
+                            </div>
+                        </div>
+                        <div class="clearfix" ng-if="!$last">
+                            <div class="b-ticket_2ways-block">
+                                <div class="rlf-part rlf-part_transfer" ng-init="etap=zip[0]; dir='To';">
+                                    <ng:include src="'components/ticket-details-leg.inc.html'" ng-if="etap"></ng:include>
                                 </div>
                             </div>
-                            <div class="rlf-part rlf-part_transfer" ng-if="!$last">
-                                <div class="rlf-column1">
-                                    <div class="rlf-airport">Пересадка</div>
-                                    <div class="rlf-travel-time">{{etap.getLegDuration()}}</div>
-                                </div>
-                                <div class="rlf-colum4">
-                                    {{etap.data.InCity}}, {{etap.data.InPort}} ({{etap.data.InCityCode}}),
-                                    {{etap.data.InCountryName}}
-                                    <div class="rlf-transfer" ng-repeat="next in [ticket.getNextEtap(dir, etap)]">
-                                        <span ng-if="next.data.OutPort != etap.data.InPort">Внимание: смена аэропорта!</span>
-                                    </div>
+                            <div class="b-ticket_2ways-block">
+                                <div class="rlf-part rlf-part_transfer" ng-init="etap=zip[1]; dir='Back';">
+                                    <ng:include src="'components/ticket-details-leg.inc.html'" ng-if="etap"></ng:include>
                                 </div>
                             </div>
                         </div>
@@ -123,4 +88,5 @@
      inna-hotel-details-collection="hotels"
      inna-hotel-details-back="closeHotelDetails"
      inna-hotel-details-next="getHotelDetails"
-     inna-hotel-details-bundle="combination"></div>
+     inna-hotel-details-bundle="combination"
+     inna-hotel-detailes-reservation-fn="goReservation"></div>
