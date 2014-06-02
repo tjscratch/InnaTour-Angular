@@ -110,7 +110,7 @@ angular.module('innaApp.directives')
 
                     function initCarousel(){
                         elem.find('.b-carousel').innaCarousel({
-                            photoList : scope.currentHotel.data.Photos,
+                            photoList : scope.currentHotel.Photos,
                             style : {
                                 width:360,
                                 height:240
@@ -232,7 +232,7 @@ angular.module('innaApp.directives')
                      */
                     var addMarker = function (data_for_marker) {
                         var data = data_for_marker;
-                        var position = new GM.LatLng(data.data.Latitude, data.data.Longitude);
+                        var position = new GM.LatLng(data.Latitude, data.Longitude);
 
                         var image = new GM.MarkerImage(
                             (data.type == 'hotel') ? iconDefault : iconAirDefault,
@@ -251,7 +251,7 @@ angular.module('innaApp.directives')
                             animation: GM.Animation.DROP,
                             icon: image,
                             shape: shape,
-                            title: (data.data.HotelName) ? data.data.HotelName : ''
+                            title: (data.HotelName) ? data.HotelName : ''
                         });
                         return  {
                             marker: marker,
@@ -411,9 +411,6 @@ angular.module('innaApp.directives')
                         })
                     });
                     scope.$root.$on('hotel:go-to-map', function (evt, data) {
-
-                        console.log(data);
-
                         updateMap({
                             hotels : [data]
                         });
@@ -421,16 +418,18 @@ angular.module('innaApp.directives')
 
 
                     function updateMap(data) {
+                        var rawHotels = null;
                         var hotels = (data.hotels) ? data.hotels : [];
                         var airports = (data.airports) ? data.airports : [];
 
+                        rawHotels = (hotels.toJSON) ? hotels.toJSON() : [];
                         removeMarkers();
 
-                        hotels.each(function (hotel) {
+                        rawHotels.forEach(function (hotel) {
 
                             if (hotel.hidden) return;
 
-                            if (!hotel.data.Latitude || !hotel.data.Longitude) return;
+                            if (!hotel.Latitude || !hotel.Longitude) return;
 
                             var markerData = addMarker(angular.extend(hotel, { type: 'hotel' }));
                             var marker = markerData.marker;

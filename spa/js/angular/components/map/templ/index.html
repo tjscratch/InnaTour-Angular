@@ -9,24 +9,24 @@
 
             <div class="pin-balloon-info">
                 <div>
-                    <span class="icon icon-star" ng-if="currentHotel.data.Stars > 0"></span>
-                    <span class="icon icon-star" ng-if="currentHotel.data.Stars > 1"></span>
-                    <span class="icon icon-star" ng-if="currentHotel.data.Stars > 2"></span>
-                    <span class="icon icon-star" ng-if="currentHotel.data.Stars > 3"></span>
-                    <span class="icon icon-star" ng-if="currentHotel.data.Stars > 4"></span>
+                    <span class="icon icon-star" ng-if="currentHotel.Stars > 0"></span>
+                    <span class="icon icon-star" ng-if="currentHotel.Stars > 1"></span>
+                    <span class="icon icon-star" ng-if="currentHotel.Stars > 2"></span>
+                    <span class="icon icon-star" ng-if="currentHotel.Stars > 3"></span>
+                    <span class="icon icon-star" ng-if="currentHotel.Stars > 4"></span>
                 </div>
-                <h3 class="hotel-name">{{currentHotel.data.HotelName}}</h3>
+                <h3 class="hotel-name">{{currentHotel.HotelName}}</h3>
 
                 <!-- ROW -->
                 <div class="row">
-                    <div class="col-xs-7 col-no-padding hotel-info-tripadvisor" ng-if="currentHotel.data.TaFactor > 0">
+                    <div class="col-xs-7 col-no-padding hotel-info-tripadvisor" ng-if="currentHotel.TaFactor > 0">
                         <div>
                             <span class="icon icon-tripadvisor"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 0"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 1"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 2"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 3"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.data.TaFactor > 4"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.TaFactor > 0"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.TaFactor > 1"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.TaFactor > 2"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.TaFactor > 3"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.TaFactor > 4"></span>
                             <!--TODO 1412 отзывов-->
                         </div>
 
@@ -40,7 +40,7 @@
                         <span>цена пакета</span>
 
                         <h3 class="hotel-info-price">
-                            {{currentHotel.data.PackagePrice}}
+                            {{currentHotel.PackagePrice}}
                             <span class="b-rub">Р</span>
                         </h3>
 
@@ -60,30 +60,30 @@
         <div class="pin-balloon">
             <div class="pin-balloon-info">
                 <div>
-                    <span class="icon icon-star" ng-if="currentHotelPreview.data.Stars > 0"></span>
-                    <span class="icon icon-star" ng-if="currentHotelPreview.data.Stars > 1"></span>
-                    <span class="icon icon-star" ng-if="currentHotelPreview.data.Stars > 2"></span>
-                    <span class="icon icon-star" ng-if="currentHotelPreview.data.Stars > 3"></span>
-                    <span class="icon icon-star" ng-if="currentHotelPreview.data.Stars > 4"></span>
+                    <span class="icon icon-star" ng-if="currentHotelPreview.Stars > 0"></span>
+                    <span class="icon icon-star" ng-if="currentHotelPreview.Stars > 1"></span>
+                    <span class="icon icon-star" ng-if="currentHotelPreview.Stars > 2"></span>
+                    <span class="icon icon-star" ng-if="currentHotelPreview.Stars > 3"></span>
+                    <span class="icon icon-star" ng-if="currentHotelPreview.Stars > 4"></span>
                 </div>
-                <h3 class="hotel-name">{{currentHotelPreview.data.HotelName}}</h3>
+                <h3 class="hotel-name">{{currentHotelPreview.HotelName}}</h3>
 
                 <!-- ROW -->
                 <div class="row">
                     <div class="col-xs-7 col-no-padding hotel-info-tripadvisor"
-                         ng-if="currentHotelPreview.data.TaFactor > 0">
+                         ng-if="currentHotelPreview.TaFactor > 0">
                         <div>
                             <span class="icon icon-tripadvisor"></span>
                             <span class="icon icon-tripadvisor-like"
-                                  ng-if="currentHotelPreview.data.TaFactor > 0"></span>
+                                  ng-if="currentHotelPreview.TaFactor > 0"></span>
                             <span class="icon icon-tripadvisor-like"
-                                  ng-if="currentHotelPreview.data.TaFactor > 1"></span>
+                                  ng-if="currentHotelPreview.TaFactor > 1"></span>
                             <span class="icon icon-tripadvisor-like"
-                                  ng-if="currentHotelPreview.data.TaFactor > 2"></span>
+                                  ng-if="currentHotelPreview.TaFactor > 2"></span>
                             <span class="icon icon-tripadvisor-like"
-                                  ng-if="currentHotelPreview.data.TaFactor > 3"></span>
+                                  ng-if="currentHotelPreview.TaFactor > 3"></span>
                             <span class="icon icon-tripadvisor-like"
-                                  ng-if="currentHotelPreview.data.TaFactor > 4"></span>
+                                  ng-if="currentHotelPreview.TaFactor > 4"></span>
                             <!--TODO 1412 отзывов-->
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                         <span>цена пакета</span>
 
                         <h3 class="hotel-info-price">
-                            {{currentHotelPreview.data.PackagePrice}}
+                            {{currentHotelPreview.PackagePrice}}
                             <span class="b-rub">Р</span>
                         </h3>
                     </div>
@@ -105,8 +105,8 @@
     <div class="pin pin_mini big-map__balloon_air ng-hide" ng-show="airport">
         <div class="pin-balloon">
             <div class="row">
-                <div class="col-xs-9 col-no-padding">{{airport.data.Name}}</div>
-                <div class="col-xs-3 col-no-padding col-xs-push-1 color-gray">{{airport.data.CodeIata}}</div>
+                <div class="col-xs-9 col-no-padding">{{airport.Name}}</div>
+                <div class="col-xs-3 col-no-padding col-xs-push-1 color-gray">{{airport.CodeIata}}</div>
             </div>
         </div>
     </div>

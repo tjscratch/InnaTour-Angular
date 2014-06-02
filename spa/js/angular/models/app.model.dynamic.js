@@ -75,6 +75,10 @@ inna.Models.Hotels.Hotel = function(raw) {
     this.data.CheckOut = dateHelper.apiDateToJsDate(this.data.CheckOut);
 };
 
+inna.Models.Hotels.Hotel.prototype.toJSON = function(){
+    return this.data;
+}
+
 _.provide('inna.Models.Dynamic');
 
 inna.Models.Dynamic.Combination = function(){
