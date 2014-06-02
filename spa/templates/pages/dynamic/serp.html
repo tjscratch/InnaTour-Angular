@@ -22,7 +22,7 @@
                         <span class="rlf-fly-arrow"></span>
                         <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
                         <div class="rlf-full-travel-time">
-                            {{ticket.data.EtapsTo.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}},
+                            {{ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
                             {{ticket.getDuration('To')}} в пути
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                         <span class="rlf-fly-arrow"></span>
                         <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
                         <div class="rlf-full-travel-time">
-                            {{ticket.data.EtapsBack.length - 1 | asQuantity:"пересадка":"пересадки":"пересадок"}},
+                            {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
                             {{ticket.getDuration('Back')}} в пути
                         </div>
                     </div>
