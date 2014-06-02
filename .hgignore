@@ -54,4 +54,4 @@ spa/*.sh
 spa/css/common.min.css
 spa/build/
 build_and_publish/css/common.min.css
-#nginx.nginx_conf
+nginx.nginx_conf
