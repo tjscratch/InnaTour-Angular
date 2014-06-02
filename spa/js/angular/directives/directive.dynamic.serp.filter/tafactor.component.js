@@ -16,6 +16,8 @@ angular.module('innaApp.directives')
                     var Option = inna.Models.Avia.Filters._OptionFactory(function(title, value, minPrice){
                         this.value = value;
                         this.minPrice = minPrice;
+
+                        this.shown = true;
                     });
 
                     Option.prototype.describe = function(){
