@@ -33,7 +33,8 @@
 </div>
 
 
-<div ng-if="(hotels.list.length && asMap) ? true : false"
+<div class="ng-hide"
+     ng-show="hotels.list.length && asMap"
      dynamic-serp-map
      dynamic-serp-map-hotels="hotels"
      dynamic-serp-map-airports="airports"></div>

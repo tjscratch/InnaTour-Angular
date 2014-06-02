@@ -410,18 +410,44 @@ angular.module('innaApp.directives')
                             airports: scope.airports
                         })
                     });
+
                     scope.$root.$on('hotel:go-to-map', function (evt, data) {
-                        updateMap({
-                            hotels : [data]
-                        });
+                        console.log('hotel:go-to-map');
+
+                        var hotel = data.toJSON();
+                        markers.forEach(function(marker){
+                            if(marker.$inna__hotel && marker.$inna__hotel.Latitude) {
+                                if (marker.$inna__hotel.Latitude == hotel.Latitude) {
+                                    console.log(marker);
+
+                                    addInfoBox({
+                                        elem: boxPhoto,
+                                        pos: marker.getPosition(),
+                                        marker: {
+                                            activeMarker: marker,
+                                            infoBoxVisible: true,
+                                            hover: false
+                                        }
+                                    });
+
+                                    //marker.setPosition()
+                                    //GM.event.trigger(marker, 'click');
+                                    return;
+                                }
+                            }
+                        })
                     });
 
 
                     function updateMap(data) {
+                        console.log('updateMap');
                         var rawHotels = null;
                         var hotels = (data.hotels) ? data.hotels : [];
                         var airports = (data.airports) ? data.airports : [];
 
+
+                        // получаем сырве данные отелей
+                        // далее работаем с сырыми данными и в шаблоне тоже
                         rawHotels = (hotels.toJSON) ? hotels.toJSON() : [];
                         removeMarkers();
 

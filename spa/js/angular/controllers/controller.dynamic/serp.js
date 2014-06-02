@@ -286,6 +286,7 @@ innaAppControllers
             // слушаем событие от компонента отеля
             //  открываем карту с точкой этого отеля
             $scope.$on('hotel:go-to-map', function (evt, data) {
+                console.log('ROOT hotel:go-to-map');
                 $scope.asMap = !$scope.asMap;
             });
 
