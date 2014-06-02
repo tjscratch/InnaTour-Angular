@@ -40,7 +40,7 @@ gulp.task('styles', function () {
         }))
         .pipe(concat('common.min.css'))
         .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
     gulp.src([__BUILD_FOLDER__ + '/spa/styl/ie.styl'])
         .pipe(stylus({
             use: ['nib'],
@@ -48,7 +48,7 @@ gulp.task('styles', function () {
         }))
         .pipe(concat('ie.min.css'))
         .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
     gulp.src([__BUILD_FOLDER__ + '/spa/styl/ticket.styl'])
         .pipe(stylus({
             use: ['nib'],
@@ -56,11 +56,11 @@ gulp.task('styles', function () {
         }))
         .pipe(concat('ticket.min.css'))
         .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
     gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
         .pipe(concat('main.css'))
         .pipe(less())
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
 });
 
 //===============Очистка========================
