@@ -290,6 +290,13 @@ innaAppControllers
             $scope.$on('hotel:go-to-map', function (evt, data) {
                 console.log('ROOT hotel:go-to-map');
                 $scope.asMap = !$scope.asMap;
+
+                // TODO - переделать
+                // прокидываем данные глубже для дочерних компонентов
+                // так как карта инитится с задержкой видимо, и поэтому не может подписаться на событие
+                setTimeout(function(){
+                    $scope.$broadcast('map:show-one-hotel', data);
+                }, 1000);
             });
 
 

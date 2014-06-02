@@ -108,12 +108,12 @@ angular.module('innaApp.directives')
                         activeMarkerReset();
                     });
 
-                    function initCarousel(){
+                    function initCarousel() {
                         elem.find('.b-carousel').innaCarousel({
-                            photoList : scope.currentHotel.Photos,
-                            style : {
-                                width:360,
-                                height:240
+                            photoList: scope.currentHotel.Photos,
+                            style: {
+                                width: 360,
+                                height: 240
                             }
                         });
                     }
@@ -410,44 +410,18 @@ angular.module('innaApp.directives')
                             airports: scope.airports
                         })
                     });
-
                     scope.$root.$on('hotel:go-to-map', function (evt, data) {
-                        console.log('hotel:go-to-map');
-
-                        var hotel = data.toJSON();
-                        markers.forEach(function(marker){
-                            if(marker.$inna__hotel && marker.$inna__hotel.Latitude) {
-                                if (marker.$inna__hotel.Latitude == hotel.Latitude) {
-                                    console.log(marker);
-
-                                    addInfoBox({
-                                        elem: boxPhoto,
-                                        pos: marker.getPosition(),
-                                        marker: {
-                                            activeMarker: marker,
-                                            infoBoxVisible: true,
-                                            hover: false
-                                        }
-                                    });
-
-                                    //marker.setPosition()
-                                    //GM.event.trigger(marker, 'click');
-                                    return;
-                                }
-                            }
-                        })
+                        updateMap({
+                            hotels : [data]
+                        });
                     });
 
 
                     function updateMap(data) {
-                        console.log('updateMap');
                         var rawHotels = null;
                         var hotels = (data.hotels) ? data.hotels : [];
                         var airports = (data.airports) ? data.airports : [];
 
-
-                        // получаем сырве данные отелей
-                        // далее работаем с сырыми данными и в шаблоне тоже
                         rawHotels = (hotels.toJSON) ? hotels.toJSON() : [];
                         removeMarkers();
 
