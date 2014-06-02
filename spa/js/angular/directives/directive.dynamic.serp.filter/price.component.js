@@ -6,11 +6,14 @@ angular.module('innaApp.directives')
                 template: $templateCache.get('components/dynamic-serp-filter/price.html'),
                 scope: {
                     hotels: '=dynamicSerpFilterPriceHotels',
-                    filters: '=dynamicSerpFilterPriceFilters'
+                    filters: '=dynamicSerpFilterPriceFilters',
+                    bundle: '=dynamicSerpFilterPriceBundle'
                 },
                 controller: [
                     '$scope', '$controller', '$element',
                     function($scope, $controller, $element){
+                        var ticketPrice = parseInt($scope.bundle.ticket.data.PackagePrice);
+
                         /*Mixins*/
                         $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
@@ -47,14 +50,16 @@ angular.module('innaApp.directives')
                         $scope.option = new Option('Цена');
                         $scope.options = $scope.filter.options = new Options();
                         $scope.filter.options.push($scope.option);
-                        $scope.filter.filterFn = function(ticket){
-                            if(ticket.data.PackagePrice > $scope.option.value) ticket.hidden = true;
-                        }
+                        $scope.filter.filterFn = function(hotel){
+                            if(hotel.data.PackagePrice + ticketPrice > $scope.option.value) {
+                                hotel.hidden = true;
+                            }
+                        };
 
                         /*Methods*/
-//                        $scope.displayOnSlider = function(){
-//                            slider.slider('value', $scope.option.value);
-//                        };
+                        $scope.displayOnSlider = function(){
+                            slider.slider('value', $scope.option.value);
+                        };
 
                         $scope.reset = function(option) {
                             option.reset();
@@ -65,8 +70,8 @@ angular.module('innaApp.directives')
                         var unwatchCollectionHotels = $scope.$watchCollection('hotels', function(newVal) {
                             if(!newVal || !newVal.list.length) return;
 
-                            $scope.option.min = newVal.getMinPrice();
-                            $scope.option.max = newVal.getMaxPrice();
+                            $scope.option.min = newVal.getMinPrice() + ticketPrice;
+                            $scope.option.max = newVal.getMaxPrice() + ticketPrice;
                             $scope.option.defaultValue = $scope.option.max;
 
                             slider.slider({
