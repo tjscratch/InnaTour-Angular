@@ -9,6 +9,28 @@ innaAppDirectives.
         };
     }]);
 
+innaAppDirectives.directive('closePopup', [function () {
+    return {
+        scope: {
+            isShow: '='
+        },
+        link: function ($scope, element, attrs) {
+            $(document).click(function bodyClick(event) {
+                var isInsideComponent = !!$(event.target).closest(element).length;
+                $scope.$apply(function ($scope) {
+                    if (!isInsideComponent) {
+                        $scope.isShow = false;
+                    }
+                });
+            });
+
+            $scope.$on('$destroy', function () {
+                element.off();
+            });
+        }
+    };
+}]);
+
 innaAppDirectives.directive('priceFormat', ['$filter', function ($filter) {
     return {
         require: '?ngModel',
