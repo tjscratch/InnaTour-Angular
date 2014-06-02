@@ -91,7 +91,7 @@
                                 <div class="hotel-details-rooms__room-price-full">К оплате: {{ bundle.ticket.PackagePrice + room.PackagePrice | price }} Р</div>
                             </div>
                             <div class="hotel-details-rooms__room-actions">
-                                <button class="button button_size_l">Купить</button>
+                                <button class="button button_size_l" ng-click="goReservation(room)">Купить</button>
                             </div>
                         </div>
 
@@ -121,7 +121,7 @@
         </div>
         <div class="hotel-details__section">
             <div class="hotel-details-resume">
-                <div class="hotel-details-resume__section" ng-repeat="cat in hotel.detailed.Hotel.Aminities">
+                <div class="hotel-details-resume__section hotel-details-resume__section_{{key}}" ng-repeat="(key, cat) in hotel.detailed.Hotel.Amenities">
                     <h4 class="hotel-details-resume__section-title">{{cat.CategoryName}}</h4>
                     <ul class="hotel-details-resume__list">
                         <li class="hotel-details-resume__item" ng-repeat="item in cat.List">{{item}}</li>

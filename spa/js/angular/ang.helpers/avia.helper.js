@@ -1,6 +1,6 @@
 ﻿﻿innaAppServices.
-    factory('aviaHelper', ['$rootScope', '$http', '$log', '$filter', '$timeout', '$location', 'innaApp.Urls', 'eventsHelper',
-        function ($rootScope, $http, $log, $filter, $timeout, $location, Urls, eventsHelper) {
+    factory('aviaHelper', ['$rootScope', '$http', '$log', '$filter', '$timeout', '$location', 'innaApp.Urls', 'eventsHelper', 'urlHelper',
+        function ($rootScope, $http, $log, $filter, $timeout, $location, Urls, eventsHelper, urlHelper) {
         function log(msg) {
             $log.log(msg);
         }
@@ -493,12 +493,22 @@
                 var cabinClass = parseInt(cabinClass);
                 self.ticketsClass = helper.getCabinClassName(cabinClass).toLowerCase();
 
-                self.show = function ($event, item) {
+                self.show = function ($event, item, criteria, searchId) {
                     eventsHelper.preventBubbling($event);
                     self.isShow = true;
                     item = self.addAggFields(item);
                     self.item = item;
                     console.log(item);
+
+                    if (criteria != null && searchId != null) {
+                        var buyCriteria = angular.copy(criteria);
+                        buyCriteria.QueryId = searchId;
+                        buyCriteria.VariantId1 = item.VariantId1;
+                        buyCriteria.VariantId2 = item.VariantId2 != null ? item.VariantId2 : 0;
+
+                        var url = app_main.host.replace('api.', '') + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
+                        self.link = url;
+                    }
                 }
 
                 self.addAggFields = function (item) {
@@ -524,10 +534,18 @@
                     eventsHelper.preventBubbling($event);
                     alert('Не реализовано');
                 }
+
+                self.isGetLinkOpen = false;
+                self.link = '';
                 self.getLink = function ($event, item) {
                     eventsHelper.preventBubbling($event);
-                    alert('Не реализовано');
+                    self.isGetLinkOpen = !self.isGetLinkOpen;
                 }
+                self.getLinkClose = function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    self.isGetLinkOpen = false;
+                }
+
                 self.share = function ($event, item) {
                     eventsHelper.preventBubbling($event);
                     alert('Не реализовано');

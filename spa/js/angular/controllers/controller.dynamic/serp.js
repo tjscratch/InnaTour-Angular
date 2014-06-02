@@ -244,8 +244,10 @@ innaAppControllers
                 $location.search('ticket', ticket.data.VariantId1);
             };
 
-            $scope.goReservation = function () {
-                $location.path(Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
+            $scope.goReservation = function (room) {
+                console.log('ROOM=', room);
+
+                var url = Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
                     $routeParams.DepartureId,
                     $routeParams.ArrivalId,
                     $routeParams.StartVoyageDate,
@@ -253,7 +255,15 @@ innaAppControllers
                     $routeParams.TicketClass,
                     $routeParams.Adult,
                     $routeParams.Children
-                ].join('-'));
+                ].join('-');
+
+
+
+                $location.path(url);
+
+                if(room) {
+                    $location.search({room: room.RoomId});
+                }
             };
 
             /*EventListener*/
@@ -369,7 +379,6 @@ innaAppControllers
         'innaApp.API.events',
         'aviaHelper',
         function ($scope, $element, $location, Events, aviaHelper) {
-
             $(function () {
                 $(document.body).append($element);
             });
@@ -405,6 +414,26 @@ innaAppControllers
             $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (event, ticket) {
 
                 $scope.ticket = ticket;
+
+                $scope.etapsZipped = (function(){
+                    var zipped = [];
+
+                    var to = ticket.getEtaps('To');
+                    var back = ticket.getEtaps('Back');
+
+                    var maxLength = Math.max(to.length, back.length);
+
+                    for(var i = 0; i < maxLength; i++) {
+                        var eTo = to[i];
+                        var eBack = back[i];
+
+                        zipped.push([eTo, eBack]);
+                    }
+
+                    console.log('EtapsZipped = ', zipped);
+
+                    return zipped;
+                })();
 
                 $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
             });
