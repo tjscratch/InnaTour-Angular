@@ -1,7 +1,13 @@
 ﻿<!-- Search Results -->
 <div class="results-body" style="padding-top: 100px;">
     <form action="" class="results-body">
-        <div class="main__center">
+        <div class="main__center" ng-if="reservationModel.IsService">
+            <header class="buy__header">
+                <h2 class="buy__title">Оплата сервисного сбора</h2>
+                <div class="buy__header-price">Стоимость заказа: <b>{{reservationModel.price| price}} <ng-include src="'components/ruble.html'" /></b></div>
+            </header>
+        </div>
+        <div class="main__center" ng-if="!reservationModel.IsService">
             <ng:include src="objectToReserveTemplate" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
 
             <header class="buy__header">
@@ -83,7 +89,7 @@
         </div>
 
         <div class="b-tickets-info-container">
-            <div class="b-tickets-ok" ng-if="reservationModel.experationMinute > 0">Билеты забронированы</div>
+            <div class="b-tickets-ok" ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService">Билеты забронированы</div>
             <!--<div class="b-tickets-ok">Билеты забронированы, отель будет забронирован после оплаты</div>-->
             <div class="b-tickets-info-block" ng-if="reservationModel.experationMinute > 0">
                 <div class="b-tickets-sum">Сумма к оплате: <b>{{reservationModel.price| price}} <ng-include src="'components/ruble.html'" /></b></div>
