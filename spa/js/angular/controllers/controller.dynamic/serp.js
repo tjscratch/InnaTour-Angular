@@ -59,6 +59,7 @@ innaAppControllers
                 if (!method || !param) return;
 
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
+                    console.log(data, 'data');
                     $scope.$apply(function ($scope) {
                         apply($scope, data);
                         deferred.resolve();

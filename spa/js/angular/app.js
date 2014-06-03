@@ -13,6 +13,7 @@ var app = angular.module('innaApp', [
 ]);
 
 app.constant('innaApp.Urls', {
+    URL_BUY: '/buy/',
     URL_AVIA: '/avia/',
     URL_AVIA_SEARCH: '/avia/search/',
     URL_AVIA_RESERVATION: '/avia/reservation/',
@@ -120,10 +121,14 @@ app.config([
             //        templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
             //        controller: 'AviaBuyTicketsCtrl'
             //    }).
+            when(url.URL_BUY + ':OrderNum', {
+                templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl'
+            }).
             when(url.URL_AVIA_BUY + ':OrderNum', {
-                    templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
-                    controller: 'AviaBuyTicketsCtrl'
-                }).
+                templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl'
+            }).
             when('/hotelticket/', {
                 templateUrl: '/spa/templates/pages/hotelticket_page.html',
                 controller: 'HotelPlusTicketCtrl'
@@ -164,12 +169,11 @@ app.config([
             }).
             when(url.URL_AUTH_RESTORE, morda()).
             when(url.URL_AUTH_SIGNUP, morda());
-        //.
-        //otherwise({
-        //    redirectTo: '/'
-        //});
+            //otherwise({
+            //    redirectTo: '/'
+            //});
 
-        //$locationProvider.html5Mode(false);
+        //$locationProvider.html5Mode(true);
     }
 ]);
 

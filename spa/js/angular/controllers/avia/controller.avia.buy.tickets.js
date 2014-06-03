@@ -529,14 +529,20 @@ Cvc = "486";
                                 m.Email = data.Email;
                                 m.Phone = data.Phone;
                                 m.IsSubscribe = data.IsSubscribe;
+
+                                m.IsService = data.IsService;
                                 return m;
                             }
 
                             $scope.reservationModel = bindApiModelToModel(data);
+                            if ($scope.reservationModel.IsService) {//сервисный сбор
 
-                            aviaHelper.addCustomFields(data.AviaInfo);
-                            $scope.aviaInfo = data.AviaInfo;
-                            $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
+                            }
+                            else {
+                                aviaHelper.addCustomFields(data.AviaInfo);
+                                $scope.aviaInfo = data.AviaInfo;
+                                $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
+                            }
 
                             //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
                             console.log('reservationModel:');
@@ -579,8 +585,12 @@ Cvc = "486";
             }
 
             function init() {
-                loadTarifs();
-                $scope.tarifs.fillInfo();
+                if ($scope.reservationModel.IsService) {
+                }
+                else {
+                    loadTarifs();
+                    $scope.tarifs.fillInfo();
+                }
                 $scope.focusControl.init();
                 $scope.paymentDeadline.setUpdate();
             };
