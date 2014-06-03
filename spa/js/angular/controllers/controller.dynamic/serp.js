@@ -16,6 +16,16 @@ innaAppControllers
             var AS_MAP_CACHE_KEY = 'serp-as-map';
             var serpScope = $scope;
 
+            /*Models*/
+            inna.Models.Hotels.Hotel.prototype.setCurrent = function(){
+                $scope.combination.hotel = this;
+                $location.search('hotel', this.data.HotelId);
+
+                // прокидываем событие для для компонента - Выбранный пакет
+                //$scope.$broadcast('change:hotel', $scope.combination);
+            }
+
+
             function loadTab() {
                 var method, param, apply;
                 var deferred = new $.Deferred();
@@ -235,11 +245,7 @@ innaAppControllers
             };
 
             $scope.setHotel = function (hotel) {
-                $scope.combination.hotel = hotel;
-                $location.search('hotel', hotel.data.HotelId);
-
-                // прокидываем событие для для компонента - Выбранный пакет
-                //$scope.$broadcast('change:hotel', $scope.combination);
+                throw Error('NOT IMPLEMENTED! Use hote.setCurrent() instead');
             };
 
             $scope.setTicket = function (ticket) {
@@ -248,8 +254,6 @@ innaAppControllers
             };
 
             $scope.goReservation = function (room) {
-                console.log('ROOM=', room);
-
                 var url = Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
                     $routeParams.DepartureId,
                     $routeParams.ArrivalId,
