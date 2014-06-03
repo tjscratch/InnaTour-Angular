@@ -450,7 +450,7 @@ Cvc = "486";
                         if (data != null) {
                             
                             //log('\ngetPaymentData data: ' + angular.toJson(data));
-                            console.log('\ngetPaymentData:');
+                            console.log('getPaymentData:');
                             console.log(data);
 
                             function cutZero(val) {
@@ -483,24 +483,29 @@ Cvc = "486";
                                 return m;
                             }
 
-                            $scope.getExpTimeFormatted = function (time) {
+                            $scope.getExpTimeSecFormatted = function (time) {
                                 if (time != null) {
                                     //вычисляем сколько полных часов
-                                    var h = Math.floor(time / 60);
-                                    var addMins = time - h * 60;
+                                    var h = Math.floor(time / 3600);
+                                    time %= 3600;
+                                    var m = Math.floor(time / 60);
+                                    var s = time % 60;
 
                                     var hPlural = aviaHelper.pluralForm(h, 'час', 'часа', 'часов');
-                                    var mPlural = aviaHelper.pluralForm(addMins, 'минута', 'минуты', 'минут');
+                                    var mPlural = 'мин'; //aviaHelper.pluralForm(addMins, 'минута', 'минуты', 'минут');
+                                    var sPlural = 'сек';
 
-                                    if (addMins == 0) {
-                                        return h + " " + hPlural;
+                                    var res = [];
+                                    if (h > 0) {
+                                        res.push(h + " " + hPlural);
                                     }
-                                    else if (h == 0) {
-                                        return addMins + " " + mPlural;
+                                    if (m > 0) {
+                                        res.push(m + " " + mPlural);
                                     }
-                                    else {
-                                        return h + " " + hPlural + ": " + addMins + " " + mPlural;
+                                    if (s > 0) {
+                                        res.push(s + " " + sPlural);
                                     }
+                                    return res.join(': ');
                                 }
                                 return "";
                             }
@@ -516,7 +521,8 @@ Cvc = "486";
                                 m.expirationDate = dateHelper.apiDateToJsDate(data.ExperationDate);
                                 m.expirationDateFormatted = aviaHelper.getDateFormat(m.expirationDate, 'dd MMM yyyy');
                                 m.experationMinute = data.ExperationMinute;
-                                m.experationMinuteFormatted = $scope.getExpTimeFormatted(Math.abs(m.experationMinute));
+                                m.experationSeconds = data.ExperationMinute * 60 + 59; // делаем в секундах
+                                m.experationSecondsFormatted = $scope.getExpTimeSecFormatted(Math.abs(m.experationSeconds));
                                 m.filter = data.Filter;
                                 m.Name = data.Name;
                                 m.LastName = data.LastName;
@@ -533,7 +539,7 @@ Cvc = "486";
                             $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
 
                             //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
-                            console.log('\nreservationModel:');
+                            console.log('reservationModel:');
                             console.log($scope.reservationModel);
 
                             $scope.baloon.hide();
@@ -584,7 +590,7 @@ Cvc = "486";
             $scope.processToBuy = function ($event) {
                 eventsHelper.preventBubbling($event);
 
-                if (validateAndShowPopup()) {
+                if (!$scope.paymentDeadline.ifExpires() && validateAndShowPopup()) {
 
                     var cardNum = $scope.payModel.num1 + $scope.payModel.num2 + $scope.payModel.num3 + $scope.payModel.num4;
 
@@ -717,13 +723,13 @@ Cvc = "486";
                             if (self.ifExpires()) {
                                 self.runExiresLogic();
                             }
-                        }, 60000);
+                        }, 1000);
                     }
                 }
                 self.updateExiration = function () {
                     if ($scope.reservationModel != null) {
-                        $scope.reservationModel.experationMinute = +$scope.reservationModel.experationMinute - 1;
-                        $scope.reservationModel.experationMinuteFormatted = $scope.getExpTimeFormatted($scope.reservationModel.experationMinute);
+                        $scope.reservationModel.experationSeconds = +$scope.reservationModel.experationSeconds - 1;
+                        $scope.reservationModel.experationSecondsFormatted = $scope.getExpTimeSecFormatted($scope.reservationModel.experationSeconds);
                     }
                 }
                 self.ifExpires = function () {

@@ -37,7 +37,7 @@ innaAppFilters.filter('price', function () {
         var digits = ("" + val).split('');
         var result = [];
 
-        if (digits.length > 4) {
+        if (digits.length > 3) {
             digits = digits.reverse();
             for(var i = 0, len = digits.length; i < len; i++) {
                 if((i !== 0) && (i % 3 === 0)) result.push(' ');

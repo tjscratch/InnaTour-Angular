@@ -83,13 +83,13 @@
         </div>
 
         <div class="b-tickets-info-container">
-            <div class="b-tickets-ok">Билеты забронированы</div>
+            <div class="b-tickets-ok" ng-if="reservationModel.experationMinute > 0">Билеты забронированы</div>
             <!--<div class="b-tickets-ok">Билеты забронированы, отель будет забронирован после оплаты</div>-->
-            <div class="b-tickets-info-block">
+            <div class="b-tickets-info-block" ng-if="reservationModel.experationMinute > 0">
                 <div class="b-tickets-sum">Сумма к оплате: <b>{{reservationModel.price| price}} <span class="rub">Р</span></b></div>
                 <div class="b-tickets-info">
                     оплатить до: <b>{{reservationModel.expirationDate | date:'HH:mm'}}, {{reservationModel.expirationDateFormatted}}</b><div class="br"></div>
-                    осталось: <b>{{reservationModel.experationMinuteFormatted}}</b>
+                    осталось: <b>{{reservationModel.experationSecondsFormatted}}</b>
                 </div>
             </div>
         </div>
