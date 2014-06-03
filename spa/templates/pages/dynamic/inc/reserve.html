@@ -32,7 +32,7 @@
 <header class="buy__header">
     <h2 class="buy__title">Оплата пакета</h2>
     <a ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой номер</a>
-    <div class="buy__header-price">Стоимость пакета: <b>{{item.Price| price}} <span class="rub">Р</span></b></div>
+    <div class="buy__header-price">Стоимость пакета: <b>{{item.Price| price}} <span class="b-rub">&#8399;</span></b></div>
 </header>
 <p class="buy__price-descr" ng-show="item != null && hotel != null">В цену включен ПЕРЕЛЕТ {{item.CityFrom}} – {{item.CityTo}} – {{item.CityFrom}} и отель {{hotel.HotelName}} с {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMM', true)}} по {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMM', true)}}, {{hotel.NightCount}} {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}. Цена окончательная со 
 всеми налогами и сборами </p>

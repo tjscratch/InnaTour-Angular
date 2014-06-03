@@ -15,7 +15,8 @@
 
                 <p class="arrow">
                     в пути: {{bundle.ticket.getDuration('To')}}<br>
-                    {{bundle.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+                    {{bundle.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без
+                    пересадок"}}
                 </p>
                 <span class="date">
                     <b>{{dateHelper.getTime(bundle.ticket.data.ArrivalDate)}} {{bundle.ticket.data.InCode}}</b>
@@ -30,7 +31,8 @@
 
                 <p class="arrow">
                     в пути: {{bundle.ticket.getDuration('Back')}}<br>
-                    {{bundle.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+                    {{bundle.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без
+                    пересадок"}}
                 </p>
                 <span class="date">
                     <b>{{dateHelper.getTime(bundle.ticket.data.BackArrivalDate)}} {{bundle.ticket.data.OutCode}}</b>
@@ -112,26 +114,44 @@
             </div>
 
             <p class="corner-price cross">
-                {{bundle.getFullPrice() | price}}<span class="b-rub">Р</span>
+                {{bundle.getFullPrice() | price}}<span class="b-rub">&#8399;</span>
                 <span class="price-description">по отдельности</span>
             </p>
 
             <p class="price">
-                {{bundle.getFullPackagePrice() | price}} <span class="b-rub">Р</span>
+                {{bundle.getFullPackagePrice() | price}} <span class="b-rub">&#8399;</span>
                 <span class="icon icon-price-info" ng-click="infoPopup.toggle($event)"></span>
             </p>
 
             <div class="tooltip tooltip-price" ng-if="infoPopup.isOpen">
                 По отдельности
                 <ul>
-                    <li class="list-price-item">Перелет <span class="list-price pull-right">{{bundle.ticket.data.Price | price}}<span class="b-rub">Р</span></span></li>
-                    <li class="list-price-item">Отель <span class="list-price pull-right">{{bundle.hotel.data.Price | price}}<span class="b-rub">Р</span></span>
+                    <li class="list-price-item">Перелет
+                        <span class="list-price pull-right">{{bundle.ticket.data.Price | price}}
+                            <span class="b-rub">&#8399;</span>
+                        </span>
+                    </li>
+                    <li class="list-price-item">Отель
+                        <span class="list-price pull-right">{{bundle.hotel.data.Price | price}}
+                            <span class="b-rub">&#8399;</span>
+                        </span>
                     </li>
                 </ul>
-                <div class="list-price list-price-total">{{bundle.getFullPrice() | price}}<span class="b-rub">Р</span></div>
+                <div class="list-price list-price-total">{{bundle.getFullPrice() | price}}
+                    <span class="b-rub">&#8399;</span>
+                </div>
                 <ul>
-                    <li>В пакете: <span class="list-price green pull-right">{{bundle.getFullPackagePrice() | price}}<span class="b-rub">Р</span></span></li>
-                    <li>Экономия <span class="list-price green pull-right">{{(bundle.getFullPrice() - bundle.getFullPackagePrice()) | price}}<span class="b-rub">Р</span></span></li>
+                    <li>В пакете:
+                        <span class="list-price green pull-right">
+                            {{bundle.getFullPackagePrice() | price}}
+                            <span class="b-rub">&#8399;</span>
+                        </span>
+                    </li>
+                    <li>Экономия
+                        <span class="list-price green pull-right">{{(bundle.getFullPrice() - bundle.getFullPackagePrice()) | price}}
+                            <span class="b-rub">&#8399;</span>
+                        </span>
+                    </li>
                 </ul>
             </div>
             <span class="price-description">вместе</span>

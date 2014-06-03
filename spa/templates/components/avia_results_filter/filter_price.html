@@ -2,7 +2,9 @@
     <a href="javascript:void(0)" class="filters__link" ng-class="{'filters__link_selected':maxValue < initMaxValue}" ng-click="toggle($event)">Цена</a>
     <div class="filters__baloon filters__baloon_240" ng-show="isOpen">
         <div class="filter__range-container">
-            <span class="filter__range">до <input type="text" ng-model="maxValue" price-format> <span class="rub">Р</span></span>
+            <span class="filter__range">до <input type="text" ng-model="maxValue" price-format>
+                <span class="b-rub">&#8399;</span>
+            </span>
             <a ng-href="#" class="ra-header-link" ng-click="resetFilter($event)">Сбросить</a>
         </div>
         <div class="filter__range-trackbar" jq-ui-slider ng-model="filter"

@@ -8,11 +8,14 @@
              inna-ticket-passenger-count="passengerCount">
 
             <p class="corner-price">
-                {{combination.ticket.data.PackagePrice - ticket.data.PackagePrice | signed}}<span class="b-rub">Р</span>
+                {{combination.ticket.data.PackagePrice - ticket.data.PackagePrice | signed}}
+                <span class="b-rub">&#8399;</span>
             </p>
             <p class="price">
-                {{ticket.data.Price}}<span class="b-rub">Р</span>
-                <span class="price-description">экономия: {{combination.getFullPrice() - combination.hotel.data.PackagePrice - ticket.data.PackagePrice}}<span class="b-rub">Р</span></span>
+                {{ticket.data.Price}}<span class="b-rub">&#8399;</span>
+                <span class="price-description">экономия: {{combination.getFullPrice() - combination.hotel.data.PackagePrice - ticket.data.PackagePrice}}
+                    <span class="b-rub">&#8399;</span>
+                </span>
             </p>
             <button class="button" ng-click="setTicket(ticket)" ng-hide="combination.Ticket.data.VariantId1 == ticket.data.VariantId1">Выбрать</button>
         </div>
