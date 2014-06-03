@@ -1,35 +1,41 @@
 angular.module('innaApp.directives')
-    .directive('innaHotel', ['$templateCache', '$compile',  function ($templateCache, $compile) {
-        return {
-            template: $templateCache.get('components/hotel.html'),
-            //templateUrl: '/spa/templates/components/hotel.html',
-            scope: {
-                hotel: '=innaHotelHotel',
-                getDetails: '=innaHotelGetDetails'
-            },
-            transclude: true,
-            controller: [
-                '$scope',
-                '$element',
-                function ($scope, $element) {
+    .directive('innaHotel', [
+        '$templateCache',
+        '$timeout',
+        function ($templateCache, $timeout) {
+            return {
+                template: $templateCache.get('components/hotel.html'),
+                //templateUrl: '/spa/templates/components/hotel.html',
+                scope: {
+                    hotel: '=innaHotelHotel',
+                    getDetails: '=innaHotelGetDetails'
+                },
+                transclude: true,
 
-                    $scope.goToMap = function(){
-                        $scope.$emit('hotel:go-to-map', $scope.hotel);
-                    }
+                controller: [
+                    '$scope',
+                    '$element',
+                    function ($scope, $element) {
 
-                }],
-            link : function($scope, $element){
-                setTimeout(function(){
-                    if($element.find('.b-carousel').length) {
-                        $element.find('.b-carousel').innaCarousel({
-                            photoList: $scope.hotel.data.Photos,
-                            style: {
-                                width: 200,
-                                height: 190
-                            }
-                        })
-                    }
-                }, 1000);
+                        $scope.goToMap = function(){
+                            $scope.$emit('hotel:go-to-map', $scope.hotel);
+                        }
+
+                    }],
+                link : function($scope, $element){
+                    $scope.$watch('hotel.currentlyInvisible', function(isInvis){
+                        if(!isInvis && $element.find('.b-carousel').length) {
+                            $timeout(function(){
+                                $element.find('.b-carousel').innaCarousel({
+                                    photoList: $scope.hotel.data.Photos,
+                                    style: {
+                                        width: 200,
+                                        height: 190
+                                    }
+                                });
+                            }, 1);
+                        }
+                    });
+                }
             }
-        }
     }]);
