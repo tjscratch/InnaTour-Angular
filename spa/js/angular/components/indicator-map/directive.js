@@ -15,21 +15,17 @@ angular.module('innaApp.directives')
                     isMap: '=',
                     filters: '=innaDynamicSerpFilterIndicatorsFilters',
                     items: '=innaDynamicSerpFilterIndicatorsItems',
-                    mod_papper: '=modWpapper',
+                    mod_wrapper: '=modWpapper',
                     name: '@innaDynamicSerpFilterIndicatorsItemsName'
                 },
                 controller: [
                     '$scope',
                     '$element',
                     function ($scope, $element) {
-
-                        if ($scope.isMap) {
-                            $element.find('.button-map-list')
-                                .toggleClass('checked', $scope.isMap);
-                        }
-
-                        if ($scope.mod_papper) {
+                        if ($scope.mod_wrapper) {
                             $element.addClass('b-switch-filters_mod-wrapper');
+                            $element.find('.button-map-list')
+                                .toggleClass('checked', $scope.mod_wrapper);
                         }
 
                         $scope.atLeastOne = function () {

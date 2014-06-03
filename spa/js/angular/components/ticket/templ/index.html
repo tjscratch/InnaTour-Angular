@@ -1,11 +1,7 @@
 <div class="result">
     <div class="result-cell result-cell-530">
-        <span ng-repeat="(code, name) in ticket.collectAirlines()" ng-if="$index < 2" class="result-cell__airlines">
-            <span ng-switch="code">
-                <img src="/spa/img/no-logo-avia.png" class="logo" alt="" ng-switch-when="''">
-                <img ng-src="{{airLogo(code)}}" class="logo" alt="" ng-switch-default>
-            </span>
-            <span class="rl-airline-text">{{name}}</span>
+        <span ng-repeat="(code, name) in ticket.collectAirlines()" class="result-cell__airlines">
+            <img ng-src="{{airLogo(code)}}" alt="" class="logo"><span class="rl-airline-text">{{name}}</span>
         </span>
 
         <div class="flight-info" ng-repeat="dir in ['To', 'Back']">
