@@ -43,7 +43,7 @@
     <div class="rl-aside">
         <span class="rl-rec" ng-if="isItemRecomended">мы рекомендуем</span>
         <span class="rl-price" ng-class="{'rl-price_1way':item.EtapsBack.length == 0}">
-            <span class="rl-price-item">{{item.Price | price}}</span> <span class="b-rub">&#8399;</span>
+            <span class="rl-price-item">{{item.Price | price}}</span> <ng-include src="'components/ruble.html'" />
         </span>
         <a ng-href="#" class="rl-buy-button" ng-click="goToPaymentClick($event, item)">Купить</a>
     </div>

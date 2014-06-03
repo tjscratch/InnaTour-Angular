@@ -22,7 +22,7 @@
                 <div class="b-tickets__footer-inner">
                     <div class="b-tickets__footer-price-block">
                         <div class="b-tickets__footer-price">{{item.Price| price}}
-                            <span class="b-rub">&#8399;</span></div>
+                            <ng-include src="'components/ruble.html'" /></div>
                         <div class="b-tickets__footer-price-info">за {{popupItemInfo.ticketsCount}} {{helper.pluralForm(popupItemInfo.ticketsCount, 'билет', 'билета', 'билетов')}} {{popupItemInfo.ticketsClass}} класса</div>
                     </div>
                     <a ng-if="!(popupItemInfo.hideBuyButton == true)" class="rl-buy-button" href="javascript:void(0)" ng-click="goToPaymentClick($event, item)">Купить</a>

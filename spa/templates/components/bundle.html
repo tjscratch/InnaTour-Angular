@@ -114,12 +114,12 @@
             </div>
 
             <p class="corner-price cross">
-                {{bundle.getFullPrice() | price}}<span class="b-rub">&#8399;</span>
+                {{bundle.getFullPrice() | price}}<ng-include src="'components/ruble.html'" />
                 <span class="price-description">по отдельности</span>
             </p>
 
             <p class="price">
-                {{bundle.getFullPackagePrice() | price}} <span class="b-rub">&#8399;</span>
+                {{bundle.getFullPackagePrice() | price}} <ng-include src="'components/ruble.html'" />
                 <span class="icon icon-price-info" ng-click="infoPopup.toggle($event)"></span>
             </p>
 
@@ -128,28 +128,28 @@
                 <ul>
                     <li class="list-price-item">Перелет
                         <span class="list-price pull-right">{{bundle.ticket.data.Price | price}}
-                            <span class="b-rub">&#8399;</span>
+                            <ng-include src="'components/ruble.html'" />
                         </span>
                     </li>
                     <li class="list-price-item">Отель
                         <span class="list-price pull-right">{{bundle.hotel.data.Price | price}}
-                            <span class="b-rub">&#8399;</span>
+                            <ng-include src="'components/ruble.html'" />
                         </span>
                     </li>
                 </ul>
                 <div class="list-price list-price-total">{{bundle.getFullPrice() | price}}
-                    <span class="b-rub">&#8399;</span>
+                    <ng-include src="'components/ruble.html'" />
                 </div>
                 <ul>
                     <li>В пакете:
                         <span class="list-price green pull-right">
                             {{bundle.getFullPackagePrice() | price}}
-                            <span class="b-rub">&#8399;</span>
+                            <ng-include src="'components/ruble.html'" />
                         </span>
                     </li>
                     <li>Экономия
                         <span class="list-price green pull-right">{{(bundle.getFullPrice() - bundle.getFullPackagePrice()) | price}}
-                            <span class="b-rub">&#8399;</span>
+                            <ng-include src="'components/ruble.html'" />
                         </span>
                     </li>
                 </ul>
