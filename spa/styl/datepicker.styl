@@ -1,18 +1,31 @@
-.ui-icon-circle-triangle-w
-    background url(../img//i.png) no-repeat 0 -392px
-    height 30px
-    width 29px
+.ui-icon-circle-triangle-w, .ui-icon-circle-triangle-e
+    background #e6e7e9
+    border-radius(2px)
+    height 35px
+    position relative
+    width 35px
 
-.ui-state-disabled .ui-icon-circle-triangle-w
-    background url(../img//i.png) no-repeat 0 -321px
+    &:hover
+        background #89c13a
+
+        &:before
+            color #fff
+
+    &:before
+        position: absolute
+        color #000
+
+
+
+.ui-icon-circle-triangle-w
+    &:before
+        content '◀'
 
 .ui-icon-circle-triangle-e
-    background url(../img//i.png) no-repeat 0 -532px
-    height 30px
-    width 29px
+    &:before
+        content '▶'
 
-.ui-state-disabled .ui-icon-circle-triangle-e
-    background url(../img//i.png) no-repeat 0 -467px
+
 
 .ui-datepicker
     background #fff
