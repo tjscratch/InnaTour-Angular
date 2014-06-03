@@ -13,9 +13,7 @@ angular.module('innaApp.controllers')
                     Password: $scope.password,
                     RememberMe: $scope.rememberMe.toString()
                 }, function(data){ //success
-                    $scope.$apply(function($scope){
-                        $scope.$emit(Events.AUTH_SIGN_IN, data);
-                    });
+                    $scope.$emit(Events.AUTH_SIGN_IN, data);
                 }, function(){ //error
                     $scope.$apply(function($scope){
                         $scope.requestFailure = true;
