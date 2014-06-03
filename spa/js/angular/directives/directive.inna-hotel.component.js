@@ -1,5 +1,5 @@
 angular.module('innaApp.directives')
-    .directive('innaHotel', ['$templateCache', function ($templateCache) {
+    .directive('innaHotel', ['$templateCache', '$compile',  function ($templateCache, $compile) {
         return {
             template: $templateCache.get('components/hotel.html'),
             //templateUrl: '/spa/templates/components/hotel.html',
@@ -8,7 +8,6 @@ angular.module('innaApp.directives')
                 getDetails: '=innaHotelGetDetails'
             },
             transclude: true,
-
             controller: [
                 '$scope',
                 '$element',
