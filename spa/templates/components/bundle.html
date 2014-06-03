@@ -4,6 +4,7 @@
             <span class="rl-airline" ng-repeat="(code, name) in bundle.ticket.collectAirlines()">
                 <img ng-src="{{airLogo(code)}}" alt=""><span class="rl-airline-text">{{name}}</span>
             </span>
+
             <div class="flight-info">
                 <span class="date">
                     <b>
@@ -11,9 +12,11 @@
                     </b>
                     {{dateHelper.getDateShort(bundle.ticket.data.DepartureDate)}}, {{dateHelper.getDay(bundle.ticket.data.DepartureDate)}}
                 </span>
+
                 <p class="arrow">
                     в пути: {{bundle.ticket.getDuration('To')}}<br>
-                    {{bundle.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+                    {{bundle.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без
+                    пересадок"}}
                 </p>
                 <span class="date">
                     <b>{{dateHelper.getTime(bundle.ticket.data.ArrivalDate)}} {{bundle.ticket.data.InCode}}</b>
@@ -25,9 +28,11 @@
                     <b>{{dateHelper.getTime(bundle.ticket.data.BackDepartureDate)}} {{bundle.ticket.data.InCode}}</b>
                     {{dateHelper.getDateShort(bundle.ticket.data.BackDepartureDate)}}, {{dateHelper.getDay(bundle.ticket.data.BackDepartureDate)}}
                 </span>
+
                 <p class="arrow">
                     в пути: {{bundle.ticket.getDuration('Back')}}<br>
-                    {{bundle.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+                    {{bundle.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без
+                    пересадок"}}
                 </p>
                 <span class="date">
                     <b>{{dateHelper.getTime(bundle.ticket.data.BackArrivalDate)}} {{bundle.ticket.data.OutCode}}</b>
@@ -35,31 +40,41 @@
                 </span>
             </div>
             <span class="icon-sprite-airplane"></span>
+
             <div class="bottom-actions" ng-if="getTicketDetails || state">
-                <a ng-if="state" href="javascript:void(0);" class="pull-left" ng-class="{active: state.isActive(state.TICKETS_TAB)}"
+                <a ng-if="state" href="javascript:void(0);" class="pull-left"
+                   ng-class="{active: state.isActive(state.TICKETS_TAB)}"
                    ng-click="state.switchTo(state.TICKETS_TAB)">Заменить</a>
-                <a ng-if="getTicketDetails" href="javascript:void(0);" class="pull-right" ng-click="getTicketDetails(bundle.ticket)">Подробнее</a>
+                <a ng-if="getTicketDetails" href="javascript:void(0);" class="pull-right"
+                   ng-click="getTicketDetails(bundle.ticket)">Подробнее</a>
             </div>
         </div>
 
-        <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
+        <div class="result-cell-gap">
+            <div class="result-cell-gap-wrap"></div>
+        </div>
 
         <div class="result-cell result-cell-390">
             <img ng-src="{{bundle.hotel.data.ProviderLogoUrl}}" alt="" class="logo">
+
             <div class="hotel-info">
-                <img ng-src="{{bundle.hotel.data.HotelPhoto70}}" alt="">
-                <div class="hotel-info-content">
-                    <div>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 0"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 1"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 2"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 3"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 4"></span>
-                    </div>
-                    <h3 class="hotel-info-name">{{bundle.hotel.data.HotelName}}</h3>
-                    <div class="hotel-info-date">с {{dateHelper.getDateShort(bundle.hotel.data.CheckIn)}} по
-                        {{dateHelper.getDateShort(bundle.hotel.data.CheckOut)}},
-                        {{bundle.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+                <div class="hotel-info__wrapper">
+                    <img ng-src="{{bundle.hotel.data.HotelPhoto70}}" alt="">
+
+                    <div class="hotel-info-content">
+                        <div>
+                            <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 0"></span>
+                            <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 1"></span>
+                            <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 2"></span>
+                            <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 3"></span>
+                            <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 4"></span>
+                        </div>
+                        <h3 class="hotel-info-name">{{bundle.hotel.data.HotelName}}</h3>
+
+                        <div class="hotel-info-date">с {{dateHelper.getDateShort(bundle.hotel.data.CheckIn)}} по
+                            {{dateHelper.getDateShort(bundle.hotel.data.CheckOut)}},
+                            {{bundle.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+                        </div>
                     </div>
                 </div>
 
@@ -78,14 +93,18 @@
                 </div>-->
             </div>
             <span class="icon-sprite-hanger"></span>
+
             <div class="bottom-actions" ng-if="getHotelDetails || state">
                 <a ng-if="state" href="javascript:void(0);" ng-class="{active: state.isActive(state.HOTELS_TAB)}"
                    ng-click="state.switchTo(state.HOTELS_TAB)" class="pull-left">Заменить</a>
-                <a ng-if="getHotelDetails" href="javascript:void(0);" class="pull-right" ng-click="getHotelDetails(bundle.hotel)">Подробнее</a>
+                <a ng-if="getHotelDetails" href="javascript:void(0);" class="pull-right"
+                   ng-click="getHotelDetails(bundle.hotel)">Подробнее</a>
             </div>
         </div>
 
-        <div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
+        <div class="result-cell-gap">
+            <div class="result-cell-gap-wrap"></div>
+        </div>
 
         <div class="result-cell result-buy">
             <button class="share-button" ng-class="{'active': linkPopup.isOpen}" ng-click="linkPopup.toggle()"></button>
@@ -98,24 +117,33 @@
                 {{bundle.getFullPrice() | price}}<span class="b-rub">Р</span>
                 <span class="price-description">по отдельности</span>
             </p>
+
             <p class="price">
                 {{bundle.getFullPackagePrice() | price}} <span class="b-rub">Р</span>
                 <span class="icon icon-price-info" ng-click="infoPopup.toggle($event)"></span>
             </p>
+
             <div class="tooltip tooltip-price" ng-if="infoPopup.isOpen">
                 По отдельности
                 <ul>
-                    <li class="list-price-item">Перелет <span class="list-price pull-right">{{bundle.ticket.data.Price | price}}<span class="b-rub">Р</span></span></li>
-                    <li class="list-price-item">Отель <span class="list-price pull-right">{{bundle.hotel.data.Price | price}}<span class="b-rub">Р</span></span>
+                    <li class="list-price-item">Перелет <span class="list-price pull-right">{{bundle.ticket.data.Price | price}}<span
+                            class="b-rub">Р</span></span></li>
+                    <li class="list-price-item">Отель <span class="list-price pull-right">{{bundle.hotel.data.Price | price}}<span
+                            class="b-rub">Р</span></span>
                     </li>
                 </ul>
-                <div class="list-price list-price-total">{{bundle.getFullPrice() | price}}<span class="b-rub">Р</span></div>
+                <div class="list-price list-price-total">{{bundle.getFullPrice() | price}}<span class="b-rub">Р</span>
+                </div>
                 <ul>
-                    <li>В пакете: <span class="list-price green pull-right">{{bundle.getFullPackagePrice() | price}}<span class="b-rub">Р</span></span></li>
-                    <li>Экономия <span class="list-price green pull-right">{{(bundle.getFullPrice() - bundle.getFullPackagePrice()) | price}}<span class="b-rub">Р</span></span></li>
+                    <li>В пакете: <span
+                            class="list-price green pull-right">{{bundle.getFullPackagePrice() | price}}<span
+                            class="b-rub">Р</span></span></li>
+                    <li>Экономия <span class="list-price green pull-right">{{(bundle.getFullPrice() - bundle.getFullPackagePrice()) | price}}<span
+                            class="b-rub">Р</span></span></li>
                 </ul>
             </div>
             <span class="price-description">вместе</span>
+
             <p></p>
             <button ng-if="goReservation" class="button" ng-click="goReservation()">Купить</button>
         </div>
