@@ -576,7 +576,7 @@ Cvc = "486";
                 loadTarifs();
                 $scope.tarifs.fillInfo();
                 $scope.focusControl.init();
-                //$scope.paymentDeadline.setUpdate();
+                $scope.paymentDeadline.setUpdate();
             };
             
             //data loading ===========================================================================
