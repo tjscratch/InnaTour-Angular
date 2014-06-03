@@ -34,17 +34,17 @@
                     <div class="b-field-block">
                         <label class="b-field-label">Пол</label>
                         <ul class="radio-list" ng-class="{error:passenger.sex == null}">
-                            <li><label><input disabled type="radio" name="male3" ng-model="passenger.sex" ng-value="{{sexType.man}}"><ins class="radio" ng-style="{background:(passenger.sex == sexType.man ? '#c0c0c2' : '')}">М</ins></label></li>
-                            <li><label><input disabled type="radio" name="male3" ng-model="passenger.sex" ng-value="{{sexType.woman}}"><ins class="radio" ng-style="{background:(passenger.sex == sexType.woman ? '#c0c0c2' : '')}">Ж</ins></label></li>
+                            <li><label><input disabled type="radio" name="male3" ng-model="passenger.sex" ng-value="{{sexType.man}}"><ins class="radio">М</ins></label></li>
+                            <li><label><input disabled type="radio" name="male3" ng-model="passenger.sex" ng-value="{{sexType.woman}}"><ins class="radio">Ж</ins></label></li>
                         </ul>
                     </div>
                     <div class="b-field-block" style="width: 160px;">
-                        <label class="b-field-label">Имя</label>
-                        <input disabled type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
-                    </div>
-                    <div class="b-field-block b-field-block-surname" style="width: 150px;">
                         <label class="b-field-label">Фамилия</label>
                         <input disabled type="text" ng-model="passenger.secondName" placeholder="IVANOV" class="b-field-text">
+                    </div>
+                    <div class="b-field-block b-field-block-surname" style="width: 150px;">
+                        <label class="b-field-label">Имя</label>
+                        <input disabled type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
                     </div>
                     <div class="b-field-block" style="width: 110px;">
                         <label class="b-field-label">Дата рождения</label>
