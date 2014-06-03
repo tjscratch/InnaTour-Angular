@@ -488,14 +488,16 @@
                 self.isShow = false;
                 self.item = null;
 
-                self.ticketsCount = ticketsCount
+                self.ticketsCount = ticketsCount;
+                self.hideBuyButton = false;
 
                 var cabinClass = parseInt(cabinClass);
                 self.ticketsClass = helper.getCabinClassName(cabinClass).toLowerCase();
 
-                self.show = function ($event, item, criteria, searchId) {
+                self.show = function ($event, item, criteria, searchId, hideBuyButton) {
                     eventsHelper.preventBubbling($event);
                     self.isShow = true;
+                    self.hideBuyButton = hideBuyButton;
                     item = self.addAggFields(item);
                     self.item = item;
                     console.log(item);
