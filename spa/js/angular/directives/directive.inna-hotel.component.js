@@ -20,15 +20,17 @@ angular.module('innaApp.directives')
 
                 }],
             link : function($scope, $element){
-                if($element.find('.b-carousel').length) {
-                    $element.find('.b-carousel').innaCarousel({
-                        photoList: $scope.hotel.data.Photos,
-                        style: {
-                            width: 200,
-                            height: 190
-                        }
-                    })
-                }
+                setTimeout(function(){
+                    if($element.find('.b-carousel').length) {
+                        $element.find('.b-carousel').innaCarousel({
+                            photoList: $scope.hotel.data.Photos,
+                            style: {
+                                width: 200,
+                                height: 190
+                            }
+                        })
+                    }
+                }, 1000);
             }
         }
     }]);
