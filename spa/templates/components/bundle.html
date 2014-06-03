@@ -44,7 +44,7 @@
             <div class="bottom-actions" ng-if="getTicketDetails || state">
                 <a ng-if="state" href="javascript:void(0);" class="pull-left"
                    ng-class="{active: state.isActive(state.TICKETS_TAB)}"
-                   ng-click="state.switchTo(state.TICKETS_TAB)">Заменить</a>
+                   ng-click="state.switchTo('ticket')">Заменить</a>
                 <a ng-if="getTicketDetails" href="javascript:void(0);" class="pull-right"
                    ng-click="getTicketDetails(bundle.ticket)">Подробнее</a>
             </div>
@@ -96,7 +96,7 @@
 
             <div class="bottom-actions" ng-if="getHotelDetails || state">
                 <a ng-if="state" href="javascript:void(0);" ng-class="{active: state.isActive(state.HOTELS_TAB)}"
-                   ng-click="state.switchTo(state.HOTELS_TAB)" class="pull-left">Заменить</a>
+                   ng-click="state.switchTo('hotel')" class="pull-left">Заменить</a>
                 <a ng-if="getHotelDetails" href="javascript:void(0);" class="pull-right"
                    ng-click="getHotelDetails(bundle.hotel)">Подробнее</a>
             </div>

@@ -18,7 +18,7 @@ gulp.task('templates-ang', function () {
         'templates/**/*.html',
         'js/angular/**/*.html',
         //'!templates/components/hotel.html',
-        '!templates/components/ticket.html'
+        //'!templates/components/ticket.html'
     ])
         .pipe(cleanhtml())
         .pipe(templateCache({
