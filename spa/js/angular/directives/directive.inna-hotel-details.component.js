@@ -102,7 +102,6 @@ angular.module('innaApp.directives')
 
                     $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
                         $scope.dataFullyLoaded = true;
-                        $scope.$digest();
                     })
                 }
             ]
