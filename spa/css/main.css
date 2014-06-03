@@ -243,22 +243,6 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-.ui-icon-circle-triangle-w {
-  background: url(/spa/img/calendar-prev-month.png);
-  height: 30px;
-  width: 29px;
-}
-.ui-state-disabled .ui-icon-circle-triangle-w {
-  background: url(/spa/img/calendar-prev-month-notactive.png);
-}
-.ui-icon-circle-triangle-e {
-  background: url(/spa/img/calendar-next-month.png);
-  height: 30px;
-  width: 29px;
-}
-.ui-state-disabled .ui-icon-circle-triangle-e {
-  background: url(/spa/img/calendar-next-month-notactive.png);
-}
 .ui-datepicker {
   background: #fff;
   -webkit-box-shadow: 0 5px 10px rgba(50, 50, 50, 0.25);
