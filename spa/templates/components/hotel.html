@@ -34,7 +34,8 @@
                     {{hotel.data.HotelCityName}}, {{hotel.data.HotelCountryName}}
                 </a>
 
-                <div class="warning" ng-if="combination.hotel.data.RoomCount == 1">Последний номер</div>
+                <div class="warning" ng-if="hotel.data.RoomCount == 1">Последний номер</div>
+                <!-- test <div class="warning" ng-if="hotel.data.RoomCount > 10">Осталось 10 номеров</div>-->
             </div>
         </div>
 

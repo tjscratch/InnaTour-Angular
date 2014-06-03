@@ -51,13 +51,13 @@
 
     &:first-child
       margin-left 0
-      border-radius(4px 0 0 4px)
+      border-radius 4px 0 0 4px
 
     &:last-child
-      border-radius(0 4px 4px 0)
+      border-radius 0 4px 4px 0
 
     &:after
-      border-radius(4px)
+      border-radius 4px
       box-shadow 0 3px 3px rgba(0,0,0,.6)
       content ''
       height 100%
@@ -128,7 +128,7 @@
 
 
   .price-description
-    color #4d4d4d
+    //color #4d4d4d
     display block
     font-size 12px
     line-height 8px
@@ -323,47 +323,58 @@
         width 0px
 
 
-  .hotel-info
-    margin 21px 0 35px
 
-    img
-      margin-right 10px
+.hotel-info
+	margin 21px 0 35px
+
+	&__wrapper
+		padding-bottom  10px
+
+	img
+		margin-right 10px
 
 
-  .hotel-info-content
-    display inline-block
-    vertical-align top
+.hotel-info-content
+	display inline-block
+	vertical-align top
 
-    .star-container
-      line-height 0
-      margin 2px 0 0
+	.warning
+		font-size 14px
+		line-height 1.7em
 
-  .hotel-info-name
-    font-size 18px
-    //margin 6px 0 0
-    line-height 1em
 
-  .hotel-info-date
-    color #575757
-    font-size 14px
-    line-height 16px
 
-  .hotel-info-place
-    color #575757
-    text-decoration none
+	.star-container
+		line-height 0
+		margin 2px 0 0
 
-    &:hover
-      text-decoration underline
+.hotel-info-name
+	font-size 18px
+	//margin 6px 0 0
+	line-height 1em
 
-    &:before
-      content ''
-      display inline-block
-      background url(../img/hotel-pin-small.png)
-      height 18px
-      margin-right 2px
-      position relative
-      top 4px
-      width 13px
+.hotel-info-date
+	color #575757
+	font-size 14px
+	line-height 16px
+
+.hotel-info-place
+	color #575757
+	text-decoration none
+	font-size 14px
+
+	&:hover
+		text-decoration underline
+
+	&:before
+		content ''
+		display inline-block
+		background url(../img/hotel-pin-small.png)
+		height 18px
+		margin-right 2px
+		position relative
+		top 4px
+		width 13px
 
 
 
