@@ -225,6 +225,7 @@ innaAppControllers
                             hotel.detailed = resp;
 
                             serpScope.$broadcast(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+                            serpScope.$digest();
                         }
                     );
                 }
