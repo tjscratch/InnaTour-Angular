@@ -149,7 +149,7 @@
     </div>
     <div class="b-sum-container">
         <a ng-href="#" ng-click="fillDefaultModel($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>
-        Сумма к оплате: <b>{{item.Price| price}}</b> <ng-include src="'components/ruble.html'" />
+        <span class="b-sum" style="">Сумма к оплате:&nbsp;</span><span class="b-tickets-sum"><b>{{item.Price| price}}</b> <ng-include src="'components/ruble.html'" />
         <a ng-if="!user.isAgency()" ng-href="#" class="button b-sum-button" ng-click="processToPayment($event)">Перейти к оплате</a>
         <a ng-if="user.isAgency()" ng-href="#" class="button b-sum-button" ng-click="processToPayment($event)">Забронировать</a>
     </div>
