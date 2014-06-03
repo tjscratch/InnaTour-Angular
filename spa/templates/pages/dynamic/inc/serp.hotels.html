@@ -12,30 +12,50 @@
             <!-- TRANSCLUDE -->
 
             <p class="corner-price">
-                {{combination.hotel.data.PackagePrice - hotel.data.PackagePrice | signed}}<span
-                    class="b-rub">&#8399;</span>
+                {{combination.hotel.data.PackagePrice - hotel.data.PackagePrice | signed}}
+                <!--<ng-include src="'components/ruble.html'" />-->
+                <span class="b-rub">&#8399;</span>
             </p>
 
             <div class="price">
-                {{hotel.data.Price | price}}<span class="b-rub">&#8399;</span>
+                {{hotel.data.Price | price}}
+                <!--<ng-include src="'components/ruble.html'" />-->
+                <span class="b-rub">&#8399;</span>
 
                 <span class="icon icon-price-info JS-icon-price-info"></span>
 
                 <div class="tooltip tooltip-price tooltip-price_at_hotel-card JS-tooltip-price" style="display:none;">
                     <ul>
-                        <li class="list-price-item">Отдельно <span class="list-price pull-right">{{hotel.data.Price | price}}<span
-                                class="b-rub">&#8399;</span></span></li>
-                        <li class="list-price-item">В пакете <span class="list-price pull-right">{{hotel.data.PackagePrice | price}}<span
-                                class="b-rub">&#8399;</span></span></li>
+                        <li class="list-price-item">Отдельно
+                            <span class="list-price pull-right">{{hotel.data.Price | price}}
+                                <!--<ng-include src="'components/ruble.html'" />-->
+                                <span class="b-rub">&#8399;</span>
+                            </span>
+                        </li>
+                        <li class="list-price-item">В пакете
+                            <span class="list-price pull-right">{{hotel.data.PackagePrice | price}}
+                                <!--<ng-include src="'components/ruble.html'" />-->
+                                <span class="b-rub">&#8399;</span>
+                            </span>
+                        </li>
                     </ul>
                     <ul>
-                        <li>Экономия <span class="list-price green pull-right">{{(hotel.data.Price - hotel.data.PackagePrice) | price}}<span
-                                class="b-rub">&#8399;</span></span></li>
+                        <li>Экономия
+                            <span class="list-price green pull-right">
+                                {{(hotel.data.Price - hotel.data.PackagePrice) | price}}
+                                <!--<ng-include src="'components/ruble.html'" />-->
+                                <span class="b-rub">&#8399;</span>
+                            </span>
+                        </li>
                     </ul>
                 </div>
 
-                <span class="price-description">экономия: {{(combination.getFullPrice() - combination.ticket.data.PackagePrice - hotel.data.PackagePrice) | price}}<span
-                        class="b-rub">&#8399;</span></span>
+                <span class="price-description">
+                    экономия: {{(combination.getFullPrice() - combination.ticket.data.PackagePrice - hotel.data.PackagePrice) | price}}
+                    <!--<ng-include src="'components/ruble.html'" />-->
+                    <span class="b-rub">&#8399;</span>
+                </span>
+
             </div>
             <button class="button" ng-click="setHotel(hotel)"
                     ng-hide="combination.Hotel.data.HotelId == hotel.data.HotelId">Выбрать
