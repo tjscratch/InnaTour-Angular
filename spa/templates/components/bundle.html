@@ -62,7 +62,12 @@
                         {{bundle.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
                     </div>
                 </div>
-                <div class="hotel-info-tripadvisor" ng-if="bundle.hotel.data.TaFactor > 0">
+
+                <!-- tripadvisor -->
+                <ng:include src="'components/tripadvisor/index.html'"
+                            ng-repeat="data in [bundle.hotel.data]"></ng:include>
+
+                <!--<div class="hotel-info-tripadvisor" ng-if="bundle.hotel.data.TaFactor > 0">
                     <span class="icon icon-tripadvisor"></span>
                     <span class="icon icon-tripadvisor-like" ng-if="bundle.hotel.data.TaFactor > 0"></span>
                     <span class="icon icon-tripadvisor-like" ng-if="bundle.hotel.data.TaFactor > 1"></span>
@@ -70,7 +75,7 @@
                     <span class="icon icon-tripadvisor-like" ng-if="bundle.hotel.data.TaFactor > 3"></span>
                     <span class="icon icon-tripadvisor-like" ng-if="bundle.hotel.data.TaFactor > 4"></span>
                     {{bundle.hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
-                </div>
+                </div>-->
             </div>
             <span class="icon-sprite-hanger"></span>
             <div class="bottom-actions" ng-if="getHotelDetails || state">

@@ -221,7 +221,7 @@
 
   .button
     background #89c13a
-    border-radius(2px)
+    border-radius 2px
     color #fff
     font-family ProximaNova
     font-size 18px
@@ -257,22 +257,25 @@
     top 7px
 
 
-  .bottom-actions
-    bottom 10px
-    font-size 14px
-    left 10px
-    line-height 26px
-    position: absolute
-    right 10px
+	.bottom-actions
+		bottom 10px
+		font-size 14px
+		left 10px
+		line-height 26px
+		position absolute
+		right 10px
 
-    a
-      color #1e88c1
+		&_right
+			text-align: right
+
+		a
+			color : #1e88c1
+
+			&.active
+				color: #c0c0c2
 
 
-      &.active
-        color #c0c0c2
-
-  .flight-info
+.flight-info
     margin 16px 0 16px
 
     .date
@@ -340,9 +343,9 @@
       margin 2px 0 0
 
   .hotel-info-name
-    font-size 17px
-    margin 6px 0 0
-    line-height 17px
+    font-size 18px
+    //margin 6px 0 0
+    line-height 1em
 
   .hotel-info-date
     color #575757
