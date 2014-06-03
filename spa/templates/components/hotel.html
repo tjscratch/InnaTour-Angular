@@ -31,7 +31,7 @@
                 </div>
                 <h3 class="hotel-info-name">{{hotel.data.HotelName}} | {{hotel.currentlyInvisible}}</h3>
                 <a href="" class="hotel-info-place" ng-click="goToMap()">
-                    {{hotel.data.HotelCityName}}, {{hotel.data.HotelCountryName}}
+                    {{hotel.data.HotelCityName}}, {{hotel.data.HotelCountryName}}, {{hotel.data.Address}}
                 </a>
 
                 <div class="warning" ng-if="hotel.data.RoomCount == 1">Последний номер</div>
