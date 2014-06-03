@@ -3,17 +3,16 @@
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
 
-        <div
-                ng-repeat="hotel in hotels.filter(hotelFilters) | visibleOnly:padding.scrollTop"
-                inna-hotel
-                inna-hotel-hotel="hotel"
-                inna-hotel-get-details="getHotelDetails">
+        <div ng-repeat="hotel in hotels.filter(hotelFilters) | visibleOnly:padding.scrollTop"
+             inna-hotel
+             inna-hotel-hotel="hotel"
+             inna-hotel-get-details="getHotelDetails"
+             ng-if="combination.hotel.data.HotelId != hotel.data.HotelId">
 
             <!-- TRANSCLUDE -->
 
             <p class="corner-price">
-                {{combination.hotel.data.PackagePrice - hotel.data.PackagePrice | signed}}<span
-                    class="b-rub">&#8399;</span>
+                {{combination.hotel.data.PackagePrice - hotel.data.PackagePrice | signed}}<span class="b-rub">&#8399;</span>
             </p>
 
             <div class="price">
@@ -37,9 +36,7 @@
                 <span class="price-description">экономия: {{(combination.getFullPrice() - combination.ticket.data.PackagePrice - hotel.data.PackagePrice) | price}}<span
                         class="b-rub">&#8399;</span></span>
             </div>
-            <button class="button" ng-click="setHotel(hotel)"
-                    ng-hide="combination.Hotel.data.HotelId == hotel.data.HotelId">Выбрать
-            </button>
+            <button class="button" ng-click="hotel.setCurrent()">Выбрать</button>
         </div>
 
 
