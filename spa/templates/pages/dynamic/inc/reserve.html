@@ -59,7 +59,7 @@
             <span class="icon-sprite-airplane"></span>
 
             <div class="bottom-actions">
-                <a href="" class="pull-left">Заменить</a>
+                <a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>
                 <a ng-href="#" class="pull-right" ng-click="popupItemInfo.show($event, item)">Подробнее</a>
             </div>
         </div><!--
@@ -87,7 +87,7 @@
         </div>
 
         <div class="bottom-actions">
-            <a href="" class="active pull-left">Заменить</a>
+            <a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>
             <a ng-href="#" class="pull-right">Подробнее</a>
         </div>
     </div>
