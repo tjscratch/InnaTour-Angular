@@ -77,7 +77,10 @@ angular.module('innaApp.controllers')
 
             /*EventListeners*/
             $scope.$on(Events.AUTH_SIGN_IN, function(event, data) {
-                setUserInfo(data);
+                $scope.$apply(function(){
+                    setUserInfo(data);
+                });
+
                 $scope.close();
             });
 
