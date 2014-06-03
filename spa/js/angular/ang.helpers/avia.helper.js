@@ -355,6 +355,28 @@
                     }
                     addFieldsToEtap(etap, etapNext);
                 }
+
+
+                function addAirPortFromToFields(item) {
+                    if (item.EtapsTo.length > 0) {
+                        var startEtapTo = item.EtapsTo[0];
+                        var endEtapTo = item.EtapsTo[item.EtapsTo.length - 1];
+
+                        if (item.AirportFrom === undefined) {
+                            item.AirportFrom = startEtapTo.OutPort;
+                        }
+                        if (item.OutCode === undefined) {
+                            item.OutCode = startEtapTo.OutCode;
+                        }
+                        if (item.AirportTo === undefined) {
+                            item.AirportTo = endEtapTo.InPort;
+                        }
+                        if (item.InCode === undefined) {
+                            item.InCode = endEtapTo.InCode;
+                        }
+                    }
+                }
+                addAirPortFromToFields(item);
             },
 
             baloonType: baloonType,
@@ -488,14 +510,16 @@
                 self.isShow = false;
                 self.item = null;
 
-                self.ticketsCount = ticketsCount
+                self.ticketsCount = ticketsCount;
+                self.hideBuyButton = false;
 
                 var cabinClass = parseInt(cabinClass);
                 self.ticketsClass = helper.getCabinClassName(cabinClass).toLowerCase();
 
-                self.show = function ($event, item, criteria, searchId) {
+                self.show = function ($event, item, criteria, searchId, hideBuyButton) {
                     eventsHelper.preventBubbling($event);
                     self.isShow = true;
+                    self.hideBuyButton = hideBuyButton;
                     item = self.addAggFields(item);
                     self.item = item;
                     console.log(item);

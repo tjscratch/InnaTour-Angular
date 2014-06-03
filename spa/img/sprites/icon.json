@@ -1,7 +1,7 @@
 {
   "name": "icon",
-  "checksum": "b1e10322c7e24119279fe1ce1fce7bf5",
-  "shortsum": "b1e10",
+  "checksum": "12e4d5ddff4f2ffa8a8101fedb6a9cd1",
+  "shortsum": "12e4d",
   "images": [
     {
       "name": "airplane",
@@ -65,6 +65,33 @@
       "height": 17,
       "positionX": 0,
       "positionY": 100
+    },
+    {
+      "name": "tripadvisor-half",
+      "filename": "tripadvisor-half.png",
+      "checksum": "df1bbf824bec36779ce37758507be27f",
+      "width": 14,
+      "height": 14,
+      "positionX": 0,
+      "positionY": 119
+    },
+    {
+      "name": "tripadvisor-like",
+      "filename": "tripadvisor-like.png",
+      "checksum": "bf2e26494c5cdee498cd83db6c81617b",
+      "width": 14,
+      "height": 14,
+      "positionX": 0,
+      "positionY": 135
+    },
+    {
+      "name": "tripadvisor",
+      "filename": "tripadvisor.png",
+      "checksum": "5229de4ec6ee715dc97fc125d0defe88",
+      "width": 27,
+      "height": 16,
+      "positionX": 0,
+      "positionY": 151
     }
   ]
 }
