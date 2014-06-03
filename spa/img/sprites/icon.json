@@ -1,7 +1,7 @@
 {
   "name": "icon",
-  "checksum": "12e4d5ddff4f2ffa8a8101fedb6a9cd1",
-  "shortsum": "12e4d",
+  "checksum": "35a637b14d0e2a49243e534b85eca4df",
+  "shortsum": "35a63",
   "images": [
     {
       "name": "airplane",
@@ -13,13 +13,22 @@
       "positionY": 0
     },
     {
+      "name": "crown",
+      "filename": "crown.png",
+      "checksum": "046b00de53fd87959d66e516be4888e1",
+      "width": 21,
+      "height": 14,
+      "positionX": 0,
+      "positionY": 20
+    },
+    {
       "name": "hanger",
       "filename": "hanger.png",
       "checksum": "110cbb8ce56967123185738898d75bb9",
       "width": 9,
       "height": 17,
       "positionX": 0,
-      "positionY": 20
+      "positionY": 36
     },
     {
       "name": "remove",
@@ -28,7 +37,7 @@
       "width": 9,
       "height": 10,
       "positionX": 0,
-      "positionY": 39
+      "positionY": 55
     },
     {
       "name": "switch-map-left-gray",
@@ -37,7 +46,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 51
+      "positionY": 67
     },
     {
       "name": "switch-map-left",
@@ -46,7 +55,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 66
+      "positionY": 82
     },
     {
       "name": "switch-map-right-white",
@@ -55,7 +64,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 81
+      "positionY": 97
     },
     {
       "name": "switch-map-right",
@@ -64,7 +73,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 100
+      "positionY": 116
     },
     {
       "name": "tripadvisor-half",
@@ -73,7 +82,7 @@
       "width": 14,
       "height": 14,
       "positionX": 0,
-      "positionY": 119
+      "positionY": 135
     },
     {
       "name": "tripadvisor-like",
@@ -82,7 +91,7 @@
       "width": 14,
       "height": 14,
       "positionX": 0,
-      "positionY": 135
+      "positionY": 151
     },
     {
       "name": "tripadvisor",
@@ -91,7 +100,7 @@
       "width": 27,
       "height": 16,
       "positionX": 0,
-      "positionY": 151
+      "positionY": 167
     }
   ]
 }
