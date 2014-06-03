@@ -2,11 +2,14 @@
      ng-if="!asMap && !hotelToShowDetails"
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
+
         <div
             ng-repeat="hotel in hotels.filter(hotelFilters) | visibleOnly:padding.scrollTop"
             inna-hotel
             inna-hotel-hotel="hotel"
             inna-hotel-get-details="getHotelDetails">
+
+            <!-- TRANSCLUDE -->
 
             <p class="corner-price">
                 {{combination.hotel.data.PackagePrice - hotel.data.PackagePrice | signed}}<span class="b-rub">Р</span>
@@ -15,7 +18,7 @@
                 {{hotel.data.Price | price}}<span class="b-rub">Р</span>
 
                 <span class="icon icon-price-info JS-icon-price-info"></span>
-                <div class="tooltip tooltip-price JS-tooltip-price" style="display:none;">
+                <div class="tooltip tooltip-price tooltip-price_at_hotel-card JS-tooltip-price" style="display:none;">
                     <ul>
                         <li class="list-price-item">Отдельно <span class="list-price pull-right">{{hotel.data.Price | price}}<span class="b-rub">Р</span></span></li>
                         <li class="list-price-item">В пакете <span class="list-price pull-right">{{hotel.data.PackagePrice | price}}<span class="b-rub">Р</span></span></li>
@@ -29,6 +32,8 @@
             </div>
             <button class="button" ng-click="setHotel(hotel)" ng-hide="combination.Hotel.data.HotelId == hotel.data.HotelId">Выбрать</button>
         </div>
+
+
     </div>
 </div>
 
