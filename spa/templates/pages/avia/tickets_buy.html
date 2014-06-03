@@ -1,7 +1,31 @@
 ﻿<!-- Search Results -->
-<div class="results-body" style="padding-top: 130px;">
+<div class="results-body" style="padding-top: 100px;">
     <form action="" class="results-body">
         <div class="main__center">
+            <ng:include src="objectToReserveTemplate" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
+
+            <header class="buy__header">
+                <h2 class="buy__title">Информация о покупателе</h2>
+            </header>
+            <div>
+                <div class="b-field-group">
+                    <!--<div class="b-field-block b-field-block-auth" style="width: 388px;">-->
+                    <div class="b-field-block" style="width: 388px;">
+                        <label class="b-field-label">E-mail</label>
+                        <input disabled="disabled" ng-model="reservationModel.Email"
+                               title="Неправильно введен email" type="text"
+                               placeholder="ivan.ivanov@gmail.com" class="b-field-text">
+                    </div>
+                    <div class="b-field-block" style="width: 180px;">
+                        <label class="b-field-label">Мобильный телефон</label>
+                        <input disabled="disabled" ng-model="reservationModel.Phone"
+                               title="Неправильно введен мобильный телефон" name="phone" type="text"
+                               class="b-field-text">
+                    </div>
+                </div>
+                <label class="b-agreement"><input disabled="disabled" ng-model="reservationModel.IsSubscribe" type="checkbox"><ins class="b-checkbox"></ins>Я хочу получать рассылку спецпредложений</label>
+            </div>
+
             <header class="buy__header">
                 <h2 class="buy__title">Пассажиры</h2>
             </header>

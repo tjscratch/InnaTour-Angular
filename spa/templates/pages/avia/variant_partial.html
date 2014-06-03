@@ -1,6 +1,6 @@
 ﻿<header class="buy__header">
     <h2 class="buy__title">Оплата авиабилетов</h2>
-    <a ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой билет</a>
+    <a ng-if="goBackUrl().length > 0" ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой билет</a>
     <div class="buy__header-price">Стоимость заказа: <b>{{item.Price| price}} <span class="rub">Р</span></b></div>
 </header>
 <div class="buy__fly">
@@ -16,23 +16,22 @@
                 <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
             </div>
             <div class="rlf__flight-block">
-                <b>{{item.ArrivalTimeFormatted}}</b>, {{item.ArrivalDateFormatted}}<br>
+                <b>{{item.ArrivalTimeFormatted}}</b> {{item.ArrivalDateFormatted}}<br>
                 {{item.AirportTo}} {{item.InCode}}
             </div>
-            <!--<div class="rlf-full-travel-time">&nbsp;</div>-->
-            <div class="rlf-full-travel-time-info">в пути: {{item.TimeToFormatted}}, <span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span></div>
+            <div class="rlf-full-travel-time-info">в пути: {{item.TimeToFormatted}}, <span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{helper.getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span></div>
         </div>
         <div class="rlf-fly rlf-fly_back" ng-if="item.EtapsBack.length > 0">
             <div class="rlf__flight-block">
-                <b>{{item.BackDepartureTimeFormatted}}</b>, {{item.BackDepartureDateFormatted}}<br>
+                <b>{{item.BackDepartureTimeFormatted}}</b> {{item.BackDepartureDateFormatted}}<br>
                 {{item.AirportTo}} {{item.InCode}}
                 <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
             </div>
             <div class="rlf__flight-block">
-                <b>{{item.BackArrivalTimeFormatted}}</b>, {{item.BackArrivalDateFormatted}}<br>
+                <b>{{item.BackArrivalTimeFormatted}}</b> {{item.BackArrivalDateFormatted}}<br>
                 {{item.AirportFrom}} {{item.OutCode}}
             </div>
-            <div class="rlf-full-travel-time-info">в пути: {{item.TimeBackFormatted}}, <span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span></div>
+            <div class="rlf-full-travel-time-info">в пути: {{item.TimeBackFormatted}}, <span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{helper.getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span></div>
         </div>
         <div class="rlf-fly rlf-fly_back rlf__oneway" ng-if="!(item.EtapsBack.length > 0)">
             БИЛЕТ В ОДНУ СТОРОНУ
@@ -41,6 +40,6 @@
 
     <footer class="rl-footer">
         <span class="rl-tickets-number">{{helper.getNumSeatsText(item.NumSeats, ticketsCount)}}</span>
-        <a ng-href="#" class="rl-more-info" ng-click="popupItemInfo.show($event, item, criteria, searchId, true)">Подробнее</a>
+        <a ng-href="#" ng-if="goBackUrl().length > 0" class="rl-more-info" ng-click="popupItemInfo.show($event, item, criteria, searchId, true)">Подробнее</a>
     </footer>
 </div>
