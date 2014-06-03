@@ -39,16 +39,20 @@
         </div>
 
         <div class="bottom-actions">
-            <div class="hotel-info-tripadvisor" ng-if="hotel.data.TaFactor > 0">
-                <span class="icon icon-tripadvisor"></span>
-                <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 0"></span>
-                <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 1"></span>
-                <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 2"></span>
-                <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 3"></span>
-                <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 4"></span>
-                {{hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
+            <div class="row">
+                <div class="col-xs-9 col-no-padding bottom-actions_left">
+
+                    <!-- tripadvisor -->
+                    <ng:include src="'components/tripadvisor/index.html'"
+                                ng-repeat="data in [hotel.data]"></ng:include>
+
+                </div>
+                <div class="col-xs-3 col-no-padding bottom-actions_right">
+                    <a href="javascript:void(0);" ng-click="getDetails(hotel)">Подробнее</a>
+                </div>
             </div>
-            <a href="javascript:void(0);" class="pull-right" ng-click="getDetails(hotel)">Подробнее</a>
+
+
         </div>
     </div>
     <div class="result-cell-gap">

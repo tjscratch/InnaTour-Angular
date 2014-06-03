@@ -1,7 +1,16 @@
 ﻿angular.module('innaApp.controllers')
     .controller('DynamicReserveTicketsCtrl', [
-        '$scope', '$controller', '$routeParams', '$location', 'DynamicFormSubmitListener', 'DynamicPackagesDataProvider', 'aviaHelper',
-        'paymentService', 'innaApp.Urls', 'storageService', 'urlHelper',
+        '$scope',
+        '$controller',
+        '$routeParams',
+        '$location',
+        'DynamicFormSubmitListener',
+        'DynamicPackagesDataProvider',
+        'aviaHelper',
+        'paymentService',
+        'innaApp.Urls',
+        'storageService',
+        'urlHelper',
         function ($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper,
             paymentService, Urls, storageService, urlHelper) {
 

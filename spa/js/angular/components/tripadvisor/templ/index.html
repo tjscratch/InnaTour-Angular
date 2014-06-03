@@ -19,10 +19,17 @@
 
                 <!-- ROW -->
                 <div class="row">
-                    <div class="col-xs-7 col-no-padding">
-                        <!-- tripadvisor -->
-                        <ng:include src="'components/tripadvisor/index.html'"
-                                    ng-repeat="data in [currentHotel]"></ng:include>
+                    <div class="col-xs-7 col-no-padding hotel-info-tripadvisor" ng-if="currentHotel.TaFactor > 0">
+                        <div>
+                            <span class="icon icon-tripadvisor"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.TaFactor > 0"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.TaFactor > 1"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.TaFactor > 2"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.TaFactor > 3"></span>
+                            <span class="icon icon-tripadvisor-like" ng-if="currentHotel.TaFactor > 4"></span>
+                            <!--TODO 1412 отзывов-->
+                        </div>
+
 
                         <div>
                             <a href="javascript:void(0);" ng-click="hotelDetails(currentHotel)" class="details-link">Подробнее</a>
@@ -63,10 +70,22 @@
 
                 <!-- ROW -->
                 <div class="row">
-                    <div class="col-xs-7 col-no-padding">
-                        <!-- tripadvisor -->
-                        <ng:include src="'components/tripadvisor/index.html'"
-                                    ng-repeat="data in [currentHotelPreview]"></ng:include>
+                    <div class="col-xs-7 col-no-padding hotel-info-tripadvisor"
+                         ng-if="currentHotelPreview.TaFactor > 0">
+                        <div>
+                            <span class="icon icon-tripadvisor"></span>
+                            <span class="icon icon-tripadvisor-like"
+                                  ng-if="currentHotelPreview.TaFactor > 0"></span>
+                            <span class="icon icon-tripadvisor-like"
+                                  ng-if="currentHotelPreview.TaFactor > 1"></span>
+                            <span class="icon icon-tripadvisor-like"
+                                  ng-if="currentHotelPreview.TaFactor > 2"></span>
+                            <span class="icon icon-tripadvisor-like"
+                                  ng-if="currentHotelPreview.TaFactor > 3"></span>
+                            <span class="icon icon-tripadvisor-like"
+                                  ng-if="currentHotelPreview.TaFactor > 4"></span>
+                            <!--TODO 1412 отзывов-->
+                        </div>
                     </div>
 
                     <div class="pull-right col-no-padding hotel-info-price-container">
