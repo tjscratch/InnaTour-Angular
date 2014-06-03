@@ -97,7 +97,7 @@
                 {{bundle.getFullPackagePrice() | price}} <span class="b-rub">Р</span>
                 <span class="icon icon-price-info" ng-click="infoPopup.toggle($event)"></span>
             </p>
-            <div class="tooltip tooltip-price" ng-if="infoPopup.isOpen">
+            <div class="tooltip tooltip-price" ng-show="infoPopup.isOpen">
                 По отдельности
                 <ul>
                     <li class="list-price-item">Перелет <span class="list-price pull-right">{{bundle.ticket.data.Price | price}}<span class="b-rub">Р</span></span></li>
