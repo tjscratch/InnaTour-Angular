@@ -59,8 +59,9 @@
 
     <!-- Переключаем фильтры на карте и на списке отелей -->
     <div class="filters__body">
-        <!-- Показываем только когда загрузился список -->
-        <ng:include src="state.display + '__filters.html'" ng-if="!asMap && hotels.size()"/>
+        <!-- Показываем разные фильтры -->
+        <ng:include src="'pages/dynamic/inc/serp.hotels.html__filters.html'" ng-if="!asMap && state.HOTELS_TAB"/>
+        <ng:include src="'pages/dynamic/inc/serp.tickets.html__filters.html'" ng-if="!asMap && state.TICKETS_TAB"/>
         <ng:include src="'pages/dynamic/inc/serp.hotels.map__filters.html'" ng-if="asMap"/>
     </div>
 </div>

@@ -4,8 +4,7 @@ angular.module('innaApp.directives')
         '$timeout',
         function ($templateCache, $timeout) {
             return {
-                template: $templateCache.get('components/hotel.html'),
-                //templateUrl: '/spa/templates/components/hotel.html',
+                template: $templateCache.get('components/hotel/templ/index.html'),
                 scope: {
                     hotel: '=innaHotelHotel',
                     getDetails: '=innaHotelGetDetails'
@@ -16,7 +15,6 @@ angular.module('innaApp.directives')
                     '$scope',
                     '$element',
                     function ($scope, $element) {
-
                         $scope.goToMap = function(){
                             $scope.$emit('hotel:go-to-map', $scope.hotel);
                         }

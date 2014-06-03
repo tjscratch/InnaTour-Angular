@@ -59,7 +59,7 @@ innaAppControllers
                 if (!method || !param) return;
 
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
-                    console.log(data, 'data');
+                    //console.log(data, 'data');
                     $scope.$apply(function ($scope) {
                         apply($scope, data);
                         deferred.resolve();
@@ -106,7 +106,7 @@ innaAppControllers
             function combination200(data) {
                 var onTabLoad = angular.noop;
                 var onTabLoadParam;
-                var defaultTab = $scope.state.HOTELS_TAB;
+                var defaultTab = $scope.state.HOTEL;
 
                 if (!data || !data.RecommendedPair) return $scope.$apply(combination404);
 
@@ -125,11 +125,11 @@ innaAppControllers
                 if ($location.search().displayTicket) {
                     onTabLoad = loadTicketDetails;
                     onTabLoadParam = $location.search().displayTicket;
-                    defaultTab = $scope.state.TICKETS_TAB;
+                    defaultTab = $scope.state.TICKET;
                 } else if ($location.search().displayHotel) {
                     onTabLoad = loadHotelDetails;
                     onTabLoadParam = $location.search().displayHotel;
-                    defaultTab = $scope.state.HOTELS_TAB;
+                    defaultTab = $scope.state.HOTEL;
                 }
 
 
@@ -174,22 +174,36 @@ innaAppControllers
             $scope.combination = new inna.Models.Dynamic.Combination();
 
             $scope.state = new function () {
-                this.HOTELS_TAB = '/spa/templates/pages/dynamic/inc/serp.hotels.html';
-                this.TICKETS_TAB = '/spa/templates/pages/dynamic/inc/serp.tickets.html';
+                this.HOTELS_TAB = null;
+                this.TICKETS_TAB = null;
+                this.HOTEL = 'hotel';
+                this.TICKET = 'ticket';
 
-                this.display = this.HOTELS_TAB;
+                this.HOTELS_TAB = true;
 
-                if ($location.search().displayTicket) this.display = this.TICKETS_TAB;
-                if ($location.search().displayHotel) this.display = this.HOTELS_TAB;
+                if ($location.search().displayTicket) {
+                    this.TICKETS_TAB = true;
+                    this.HOTELS_TAB = false;
+                }
+                if ($location.search().displayHotel) {
+                    this.HOTELS_TAB = true;
+                    this.TICKETS_TAB = false;
+                }
 
                 this.switchTo = function (tabName) {
-                    this.display = tabName;
+                    if(tabName == 'ticket'){
+                        this.TICKETS_TAB = true;
+                        this.HOTELS_TAB = false;
+                    } else if(tabName == 'hotel') {
+                        this.HOTELS_TAB = true;
+                        this.TICKETS_TAB = false;
+                    }
 
                     return loadTab();
                 };
 
                 this.isActive = function (tabName) {
-                    return this.display == tabName;
+                    return tabName;
                 };
             };
 
@@ -226,6 +240,7 @@ innaAppControllers
                             hotel.detailed = resp;
 
                             serpScope.$broadcast(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+                            serpScope.$digest();
                         }
                     );
                 }

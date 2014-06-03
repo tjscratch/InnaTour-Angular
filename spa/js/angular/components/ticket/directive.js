@@ -1,8 +1,7 @@
 angular.module('innaApp.directives')
     .directive('innaTicket', ['$templateCache', function($templateCache){
         return {
-            //template: $templateCache.get('components/ticket.html'),
-            templateUrl: '/spa/templates/components/ticket.html',
+            template: $templateCache.get('components/ticket/templ/index.html'),
             scope: {
                 ticket: '=innaTicketTicket',
                 getTicketDetails: '&innaTicketGetTicketDetails',
