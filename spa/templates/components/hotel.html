@@ -1,4 +1,4 @@
-<div class="result">
+<div class="result" ng-if="!hotel.currentlyInvisible">
     <div class="result-cell result-hotel-gallery">
 
         <!-- компонент карусели -->
@@ -29,7 +29,7 @@
                     <span class="icon icon-star" ng-if="hotel.data.Stars > 3"></span>
                     <span class="icon icon-star" ng-if="hotel.data.Stars > 4"></span>
                 </div>
-                <h3 class="hotel-info-name">{{hotel.data.HotelName}}</h3>
+                <h3 class="hotel-info-name">{{hotel.data.HotelName}} | {{hotel.currentlyInvisible}}</h3>
                 <a href="" class="hotel-info-place" ng-click="goToMap()">
                     {{hotel.data.HotelCityName}}, {{hotel.data.HotelCountryName}}
                 </a>
@@ -61,3 +61,5 @@
     </div>
     <div class="result-cell result-choice" ng-transclude></div>
 </div>
+
+<div class="result" style="height:190px;" ng-if="hotel.currentlyInvisible"></div>

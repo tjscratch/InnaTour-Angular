@@ -20,8 +20,12 @@ innaAppControllers.
             //$scope.searchId = $scope.criteria.QueryId;
 
             $scope.orderNum = $routeParams.OrderNum;
+            $scope.helper = aviaHelper;
 
             $scope.reservationModel = null;
+
+            $scope.objectToReserveTemplate = 'pages/avia/variant_partial.html';
+            //'pages/dynamic/inc/reserve.html';
 
             /*
 CardNumber = "4012 0010 3714 1112";
@@ -444,7 +448,10 @@ Cvc = "486";
                     },
                     function (data) {
                         if (data != null) {
-                            log('\ngetPaymentData data: ' + angular.toJson(data));
+                            
+                            //log('\ngetPaymentData data: ' + angular.toJson(data));
+                            console.log('\ngetPaymentData:');
+                            console.log(data);
 
                             function cutZero(val) {
                                 return val.replace(' 0:00:00', '');
@@ -511,14 +518,28 @@ Cvc = "486";
                                 m.experationMinute = data.ExperationMinute;
                                 m.experationMinuteFormatted = $scope.getExpTimeFormatted(Math.abs(m.experationMinute));
                                 m.filter = data.Filter;
+                                m.Name = data.Name;
+                                m.LastName = data.LastName;
+                                m.Email = data.Email;
+                                m.Phone = data.Phone;
+                                m.IsSubscribe = data.IsSubscribe;
                                 return m;
                             }
 
                             $scope.reservationModel = bindApiModelToModel(data);
+
+                            aviaHelper.addCustomFields(data.AviaInfo);
                             $scope.aviaInfo = data.AviaInfo;
-                            log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
+                            $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
+
+                            //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
+                            console.log('\nreservationModel:');
+                            console.log($scope.reservationModel);
 
                             $scope.baloon.hide();
+
+                            //aviaHelper.addCustomFields(data);
+                            //$scope.item = data;
 
                             init();
                         }

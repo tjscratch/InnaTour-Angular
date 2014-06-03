@@ -23,3 +23,7 @@ inna.Models.Auth.User.prototype.displayName = function(){
 
     return this.raw.Email;
 }
+
+inna.Models.Auth.User.prototype.isAgency = function () {
+    return this.raw.AgencyName.length > 0;
+};

@@ -304,22 +304,42 @@ inna.Models._CollectionFactory = function () {
 
 _.provide('inna.Models.Aux');
 
-inna.Models.Aux.AttachedPopup = function (onOpen) {
+inna.Models.Aux.AttachedPopup = function (onOpen, elems, scope) {
     this.isOpen = false;
     this.onOpen = onOpen || angular.noop;
-    this.destroy = angular.noop;
+
+    if(elems && scope) this.__registerEvents(elems, scope);
+
 }
 
-inna.Models.Aux.AttachedPopup.prototype.toggle = function ($event) {
+inna.Models.Aux.AttachedPopup.prototype.toggle = function () {
     this.isOpen = !this.isOpen;
 
     if (this.isOpen) {
         this.onOpen();
-
-        if($event) {
-           var opener = $event.target;
-
-            console.log(opener);
-        }
     }
 };
+
+inna.Models.Aux.AttachedPopup.prototype.__registerEvents = function(elems, scope){
+    var popup = this;
+    var doc = $(document);
+    var onDocClick = function(event){
+        var isInsideComponent = false;
+
+        elems.each(function(){
+            isInsideComponent = isInsideComponent || $.contains(this, event.target) || this === event.target;
+
+            if(isInsideComponent) return false;
+        });
+
+        if(!isInsideComponent) {
+            popup.isOpen = false;
+        }
+    };
+
+    doc.on('click', onDocClick);
+
+    scope.$on('$destroy', function(){
+        doc.off('click', onDocClick);
+    });
+}
