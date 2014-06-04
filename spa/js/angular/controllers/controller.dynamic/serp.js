@@ -23,7 +23,7 @@ innaAppControllers
 
                 // прокидываем событие для для компонента - Выбранный пакет
                 //$scope.$broadcast('change:hotel', $scope.combination);
-            }
+            };
 
 
             function loadTab() {
@@ -98,6 +98,17 @@ innaAppControllers
                 );
             }
 
+            function hotel404() {
+                $scope.baloon.showErr(
+                    "Запрашиваемый отель не найден",
+                    "Вероятно, комнаты в нем уже распроданы.",
+                    function () {
+                        delete $location.$$search.displayHotel
+                        $location.$$compose();
+                    }
+                );
+            }
+
             function balloonCloser() {
                 $location.search({});
                 $location.path(Urls.URL_DYNAMIC_PACKAGES);
@@ -160,7 +171,7 @@ innaAppControllers
                         $scope.getHotelDetails(hotel);
                     } else throw false;
                 } catch (e) {
-                    console.log('todo hotel500()');
+                    hotel404();
                 }
             }
 
@@ -328,10 +339,10 @@ innaAppControllers
             // переход с карты на список по кнопке НАЗАД в браузере
             // работает тольео в одну сторону - назад
             $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
-                if (!$location.$$search.map) {
+                if (!$location.search().map) {
                     $scope.asMap = false;
                 }
-            })
+            });
 
             // случаем событие переключения контрола с карты на список и обратно
             $scope.$on('toggle:view:hotels:map', function () {

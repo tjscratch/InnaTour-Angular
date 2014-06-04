@@ -33,6 +33,7 @@ innaAppControllers.
             $scope.goBackUrl = function () {
                 return '#' +  urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
             };
+
             $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $scope.criteria.CabinClass);
 
             $scope.goToPaymentClick = function ($event) {

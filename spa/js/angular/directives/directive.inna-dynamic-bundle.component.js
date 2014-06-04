@@ -7,7 +7,7 @@ angular.module('innaApp.directives')
                 state: '=innaDynamicBundleState',
                 getTicketDetails: '=innaDynamicBundleTicketDetails',
                 getHotelDetails: '=innaDynamicBundleHotelDetails',
-                goReservation: '=innaDynamicBundleGoReservation'
+                withReservationButton: '@innaDynamicBundleWithReservationButton'
             },
             controller: [
                 '$scope',
