@@ -12,17 +12,6 @@ innaAppControllers.
                 $log.log(msg);
             }
 
-            $scope.safeApply = function (fn) {
-                var phase = this.$root.$$phase;
-                if (phase == '$apply' || phase == '$digest') {
-                    if (fn && (typeof (fn) === 'function')) {
-                        fn();
-                    }
-                } else {
-                    this.$apply(fn);
-                }
-            };
-
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $scope.$on('avia.form.loaded', function (event) {
                 //console.log('avia.form.loaded');
