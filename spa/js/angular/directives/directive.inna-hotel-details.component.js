@@ -77,6 +77,8 @@ angular.module('innaApp.directives')
 
                     /*Watchers*/
                     $scope.$watch('hotel', function(hotel){
+                        console.log('innaHotelDetails:hotel=', hotel);
+
                         if(!hotel) return;
 
                         if(!hotel.data.Latitude || !hotel.data.Longitude) return;
