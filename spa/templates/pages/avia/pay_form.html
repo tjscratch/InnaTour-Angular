@@ -32,21 +32,13 @@
         }
     };
 
-    //var intervalId = setInterval(function () {
-    //    //clearInterval(intervalId);
-    //    window.parent.$('#buy-listener').trigger('inna.buy.test', document);
-    //}, 1000);
-
-    //$(document).on('load', function () {
-    //    console.log('doc load');
-    //});
+    window.parent.$('#buy-listener').trigger('inna.buy.frame.init');
 
     var actionUrl = QueryString.getByName('redirect');
     var PaReq = QueryString.getByName('PaReq');
-    //var TermUrl = QueryString.getByName('TermUrl');
-    var TermUrl = 'http://api.test.inna.ru/api/v1/Psb/PaymentRederect';
+    var TermUrl = QueryString.getByName('TermUrl');
     var MD = QueryString.getByName('MD');
-    console.log('actionUrl: %s, PaReq: %s, TermUrl: %s, MD: %s', actionUrl, PaReq, TermUrl, MD);
+    console.log('buy frame form action url: %s, PaReq: %s, TermUrl: %s, MD: %s', actionUrl, PaReq, TermUrl, MD);
     $("form").attr('action', actionUrl);
     $($("input")[0]).val(PaReq);
     $($("input")[1]).val(TermUrl);

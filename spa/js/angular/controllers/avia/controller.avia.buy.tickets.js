@@ -617,32 +617,33 @@ Cvc = "486";
                     log('\napiPayModel: ' + angular.toJson(apiPayModel));
 
                     $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
+
                     paymentService.pay(apiPayModel,
-                    function (data) {
-                        log('\npaymentService.pay, data: ' + angular.toJson(data));
-                        if (data != null && data.Status == 0) {
-                            //успешно
-                            if (data.PreauthStatus == 1) {
-                                //3dSecure
-                                processPay3d(data.Data);
-                            }
-                            else if (data.PreauthStatus == 2) {
-                                $scope.is3dscheck = false;
-                                //без 3dSecure
-                                checkPayment();
+                        function (data) {
+                            log('\npaymentService.pay, data: ' + angular.toJson(data));
+                            if (data != null && data.Status == 0) {
+                                //успешно
+                                if (data.PreauthStatus == 1) {
+                                    //3dSecure
+                                    processPay3d(data.Data);
+                                }
+                                else if (data.PreauthStatus == 2) {
+                                    $scope.is3dscheck = false;
+                                    //без 3dSecure
+                                    checkPayment();
+                                }
+                                else {
+                                    //ошибка
+                                    log('paymentService.pay error, data.PreauthStatus: ' + data.PreauthStatus);
+                                    $scope.baloon.showGlobalAviaErr();
+                                }
                             }
                             else {
-                                //ошибка
-                                log('paymentService.pay error, data.PreauthStatus: ' + data.PreauthStatus);
+                                log('paymentService.pay error, data is null');
                                 $scope.baloon.showGlobalAviaErr();
                             }
-                        }
-                        else {
-                            log('paymentService.pay error, data is null');
-                            $scope.baloon.showGlobalAviaErr();
-                        }
-                    },
-                    function (data, status) {
+                        },
+                        function (data, status) {
                         //ошибка
                         log('paymentService.pay error, data: ' + angular.toJson(data));
                         $scope.baloon.showGlobalAviaErr();
@@ -665,19 +666,31 @@ Cvc = "486";
                     $('#buy-listener').on('inna.buy.close', function (event, data) {
                         console.log('triggered inna.buy.close');
                         $scope.safeApply(function () {
+                            $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
                             self.hide();
-                        })
-                    });
-
-
-                    $('#buy-listener').on('inna.buy.test', function (event, data) {
-                        $scope.safeApply(function () {
-                            console.log('triggered inna.buy.test');
-                            console.log(data);
                         })
                     });
                 }
                 self.listenCloseEvent();
+
+                self.listenForFrameLoad = function () {
+                    //слушаем событие с фрейма
+                    $('#buy-listener').on('inna.buy.frame.init', function (event, data) {
+                        $scope.safeApply(function () {
+                            //console.log('controller received inna.buy.frame.init');
+                            $('#buy_frame_main').on('load', function () {
+                                //отписываемся
+                                $('#buy_frame_main').off('load');
+                                //console.log('buy_frame_main load');
+                                //console.log($('#buy_frame_main'));
+
+                                //закрываем попап ожидаем...
+                                $scope.baloon.hide();
+                                $scope.buyFrame.open();
+                            });
+                        })
+                    });
+                }
 
                 return self;
             }
@@ -685,7 +698,9 @@ Cvc = "486";
 
             function processPay3d(data) {
                 var jData = angular.fromJson(data);
-                console.log(angular.toJson(jData));
+                //console.log('jData: ' + angular.toJson(jData));
+                jData.TermUrl = app_main.host + '/api/v1/Psb/PaymentRederect';
+                //console.log('jData: ' + angular.toJson(jData));
                 var params = '';
                 var keys = _.keys(jData);
                 _.each(keys, function (key) {
@@ -695,9 +710,9 @@ Cvc = "486";
                     params += key + '=' + encodeURIComponent(jData[key]);
                 });
 
-                $scope.baloon.hide();
+                //дождемся пока фрейм с формой запостит и сработает load
+                $scope.buyFrame.listenForFrameLoad();
                 $scope.buyFrame.iframeUrl = ('/spa/templates/pages/avia/pay_form.html?' + params);
-                $scope.buyFrame.open();
 
                 $scope.is3dscheck = true;
                 checkPayment();
