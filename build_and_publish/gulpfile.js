@@ -18,7 +18,7 @@ var BUILD_TEST_FOLDER = 'publish_test';
 var TEST_API_HOST = 'http://api.test.inna.ru';
 
 var BUILD_RELEASE_FOLDER = 'publish_release';
-var RELEASE_API_HOST = 'http://api.inna.ru';
+var RELEASE_API_HOST = 'http://api.beta.inna.ru';
 //===============Константы========================
 
 
