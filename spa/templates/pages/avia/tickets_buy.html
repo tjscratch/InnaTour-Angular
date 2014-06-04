@@ -206,7 +206,7 @@
 <div style="display: block" class="overlay js-overlay" ng-show="buyFrame.isOpened">
     <div class="balloon baloon_medium" style="padding: 0px; height: 430px; width: 960px; margin-left: -480px;">
         <!--<div title="Закрыть" class="baloon-close" ng-click="tarifs.close($event)"></div>-->
-        <iframe ng-src="{{buyFrame.iframeUrl}}" ng-if="buyFrame.iframeUrl != null" style="width:100%; height: 100%;"></iframe>
+        <iframe id="buy_frame_main" ng-src="{{buyFrame.iframeUrl}}" ng-if="buyFrame.iframeUrl != null" style="width:100%; height: 100%;"></iframe>
     </div>
 </div>
 <!-- /Baloon -->

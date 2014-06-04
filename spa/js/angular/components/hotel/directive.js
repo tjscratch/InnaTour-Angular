@@ -5,10 +5,8 @@ angular.module('innaApp.directives')
         function ($templateCache, $timeout) {
             return {
                 template: $templateCache.get('components/hotel/templ/index.html'),
-                scope: {
-                    hotel: '=innaHotelHotel',
-                    getDetails: '=innaHotelGetDetails'
-                },
+                //templateUrl: '/spa/js/angular/components/hotel/templ/index.html',
+                scope: false,
                 transclude: true,
 
                 controller: [
