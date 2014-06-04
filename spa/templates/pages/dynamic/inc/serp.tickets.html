@@ -9,12 +9,12 @@
 
             <p class="corner-price">
                 {{combination.ticket.data.PackagePrice - ticket.data.PackagePrice | signed}}
-                <span class="b-rub">&#8399;</span>
+                <span class="b-rub">q</span>
             </p>
             <p class="price">
                 {{ticket.data.Price}}<ng-include src="'components/ruble.html'" />
                 <span class="price-description">экономия: {{combination.getFullPrice() - combination.hotel.data.PackagePrice - ticket.data.PackagePrice}}
-                    <span class="b-rub">&#8399;</span>
+                    <span class="b-rub">q</span>
                 </span>
             </p>
             <button class="button" ng-click="setTicket(ticket)" ng-hide="combination.Ticket.data.VariantId1 == ticket.data.VariantId1">Выбрать</button>
