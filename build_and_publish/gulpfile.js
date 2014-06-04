@@ -132,12 +132,14 @@ gulp.task('release-copy-files-for-publish', function () {
 
 //===============Замена в html========================
 function replaceHtml(destFolder, apiHost) {
+	var b2bHost = apiHost.replace('api.', 'b2b.');
     function replace(sourceFile, destPath, apiHost) {
         //заменяем все ангулар скрипты на один
         return gulp.src(sourceFile)
             .pipe(htmlreplace({
                 'app-main-js': '/spa/js/app-main.js',
-                'app-host': 'app_main.host = \'' + apiHost + '\';'
+                'app-host': 'app_main.host = \'' + apiHost + '\';',
+				'b2b-host': 'app_main.b2bHost = \'' + b2bHost + '\';'
             }))
             .pipe(gulp.dest(destPath));
     };
