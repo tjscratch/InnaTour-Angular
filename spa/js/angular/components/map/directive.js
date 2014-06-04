@@ -39,6 +39,10 @@ angular.module('innaApp.directives')
                         $scope.$root.$on('header:visible', function () {
                             $element.removeClass('big-map_short')
                         });
+
+                        $scope.setHotel = function(currentHotel){
+                            $scope.$emit('choose:hotel:map', currentHotel);
+                        }
                     }
                 ],
                 link: function (scope, elem, attrs) {
