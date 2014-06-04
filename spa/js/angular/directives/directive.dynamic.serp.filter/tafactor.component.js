@@ -1,5 +1,7 @@
 angular.module('innaApp.directives')
-    .directive('dynamicSerpFilterTafactor', ['$templateCache', function($templateCache){
+    .directive('dynamicSerpFilterTafactor', [
+        '$templateCache',  function($templateCache){
+
         return {
             template: $templateCache.get('components/dynamic-serp-filter/tafactor.html'),
             scope: {
@@ -7,7 +9,9 @@ angular.module('innaApp.directives')
                 filters: '=dynamicSerpFilterTafactorFilters'
             },
             controller: [
-                '$scope', '$controller', '$element',
+                '$scope',
+                '$controller',
+                '$element',
                 function($scope, $controller, $element){
                     /*Mixins*/
                     $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
@@ -22,7 +26,7 @@ angular.module('innaApp.directives')
 
                     Option.prototype.describe = function(){
                         return _.generateRange(0, this.value - 1).map(function(){
-                            return '<span class="icon icon-tripadvisor-like"></span>';
+                            return '<span class="icon-sprite-tripadvisor-like"></span>';
                         }).join('');
                     }
 

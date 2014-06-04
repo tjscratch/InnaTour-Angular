@@ -39,6 +39,10 @@ angular.module('innaApp.directives')
                         $scope.$root.$on('header:visible', function () {
                             $element.removeClass('big-map_short')
                         });
+
+                        $scope.setHotel = function(currentHotel){
+                            $scope.$emit('choose:hotel', $scope.hotels.search(currentHotel.HotelId));
+                        }
                     }
                 ],
                 link: function (scope, elem, attrs) {
@@ -496,6 +500,7 @@ angular.module('innaApp.directives')
                             var markerData = addMarker(angular.extend(hotel, { type: 'hotel' }));
                             var marker = markerData.marker;
                             marker.$inna__hotel = hotel;
+                            marker._hotelId_ = hotel.HotelId;
 
                             markerEvents(markerData);
                             _bounds.extend(markerData.pos);
