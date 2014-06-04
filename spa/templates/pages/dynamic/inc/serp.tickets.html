@@ -5,7 +5,8 @@
              inna-ticket
              inna-ticket-ticket="ticket"
              inna-ticket-get-ticket-details="getTicketDetails(ticket)"
-             inna-ticket-passenger-count="passengerCount">
+             inna-ticket-passenger-count="passengerCount"
+             ng-if="combination.ticket.data.VariantId1 != ticket.data.VariantId1">
 
             <p class="corner-price">
                 {{combination.ticket.data.PackagePrice - ticket.data.PackagePrice | signed}}
@@ -17,7 +18,7 @@
                     <span class="b-rub">q</span>
                 </span>
             </p>
-            <button class="button" ng-click="setTicket(ticket)" ng-hide="combination.Ticket.data.VariantId1 == ticket.data.VariantId1">Выбрать</button>
+            <button class="button" ng-click="setTicket(ticket)">Выбрать</button>
         </div>
     </div>
 </div>
