@@ -115,6 +115,7 @@ angular.module('innaApp.directives')
                     function initCarousel() {
                         elem.find('.b-carousel').innaCarousel({
                             photoList: scope.currentHotel.Photos,
+                            map : true,
                             style: {
                                 width: 360,
                                 height: 240

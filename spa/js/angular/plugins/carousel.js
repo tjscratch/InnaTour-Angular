@@ -38,9 +38,9 @@
         var _sliderItemTotal = settings.photoList.length;
         var _sliderItemWidth = settings.style.width;
         var _sliderIndex = 0;
-        var _itemTemplate = function (image_path) {
-            var templ = '<div class="b-carousel_item b-carousel_map_item">' +
-                '<div class="b-carousel_map_item_image" style="background-image: url(' + image_path + ');"></div>' +
+        var _itemTemplate = function (image_path, opt_class) {
+            var templ = '<div class="b-carousel_item '+ opt_class +'">' +
+                '<div class="b-carousel_item_image '+ opt_class +'_image" style="background-image: url(' + image_path + ');"></div>' +
                 '</div>';
 
             return templ;
@@ -49,7 +49,11 @@
 
         settings.photoList.forEach(function (photo) {
             if (photo) {
-                var templ = _itemTemplate(photo[imageSize]);
+                var addClass = '';
+                if(settings.map){
+                    addClass = 'b-carousel_map_item';
+                }
+                var templ = _itemTemplate(photo[imageSize], addClass);
                 var elem = $(templ)[0];
                 elem.style.width = settings.style.width + 'px';
                 elem.style.height = settings.style.height + 'px';

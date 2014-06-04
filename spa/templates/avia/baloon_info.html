@@ -8,7 +8,7 @@
                 <ng:include ng-if="item.EtapsBack.length > 0" src="'avia/popup_item_info_two_ways.html'"></ng:include>
                 <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null" src="'avia/popup_item_info_one_way.html'"></ng:include>
             <div class="b-tickets__footer">
-                <ul class="b-tickets__icons">
+                <ul class="b-tickets__icons" ng-if="popupItemInfo.link != null && popupItemInfo.link.length > 0">
                     <li>
                         <a href="javascript:void(0)" class="b-tickets__icons-link" ng-click="popupItemInfo.getLink($event, item)"></a>
                         <div class="tooltip tooltip-share-link tooltip-share-link_type_ticket-popup" ng-if="popupItemInfo.isGetLinkOpen">

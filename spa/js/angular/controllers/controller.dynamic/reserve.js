@@ -63,6 +63,15 @@
                             return url;
                         };
 
+                        $scope.getHotelInfoLink = function (ticketId, hotelId) {
+                            var url = $scope.goBackUrl();
+                            url += "?ticket=" + ticketId + "&displayHotel=" + hotelId;
+                            if ($location.search().room != null) {
+                                url += "&room=" + $location.search().room;
+                            }
+                            return url;
+                        }
+
                         function addition() {
                             var self = this;
                             this.customerWishlist = '';
@@ -72,6 +81,8 @@
                         }
                         $scope.addition = new addition();
 
+                        console.log('data:');
+                        console.log(data);
                         //дополняем полями 
                         aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
                         $scope.item = data.RecommendedPair.AviaInfo;
@@ -175,7 +186,7 @@
 
                         //$scope.initPayModel();
 
-                        console.log($scope.combination);
+                        //console.log($scope.combination);
                     });
                 });
             })();
@@ -272,7 +283,7 @@
             $scope.showReserveError = function () {
                 $scope.baloon.showErr("Что-то пошло не так", "Ожидайте, служба поддержки свяжется с вами, \nили свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
                     function () {
-                        $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                        $location.url(Urls.URL_DYNAMIC_PACKAGES);
                     });
             }
         }
