@@ -36,6 +36,10 @@ angular.module('innaApp.directives')
                             }, 1);
                         }
                     });
+
+                    $scope.setCurrent = function(){
+                        $scope.$emit('choose:hotel', $scope.hotel);
+                    }
                 }
             }
     }]);

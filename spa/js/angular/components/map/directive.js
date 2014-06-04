@@ -41,7 +41,7 @@ angular.module('innaApp.directives')
                         });
 
                         $scope.setHotel = function(currentHotel){
-                            $scope.$emit('choose:hotel:map', currentHotel);
+                            $scope.$emit('choose:hotel', $scope.hotels.search(currentHotel.HotelId));
                         }
                     }
                 ],
@@ -500,6 +500,7 @@ angular.module('innaApp.directives')
                             var markerData = addMarker(angular.extend(hotel, { type: 'hotel' }));
                             var marker = markerData.marker;
                             marker.$inna__hotel = hotel;
+                            marker._hotelId_ = hotel.HotelId;
 
                             markerEvents(markerData);
                             _bounds.extend(markerData.pos);
