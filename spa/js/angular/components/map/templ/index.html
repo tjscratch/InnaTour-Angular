@@ -33,8 +33,8 @@
                         <span>цена пакета</span>
 
                         <h3 class="hotel-info-price">
-                            {{currentHotel.PackagePrice}}
-                            <span class="b-rub">Р</span>
+                            {{currentHotel.PackagePrice | price}}
+                            <ng-include src="'components/ruble.html'" />
                         </h3>
 
                         <button class="button"
@@ -73,8 +73,8 @@
                         <span>цена пакета</span>
 
                         <h3 class="hotel-info-price">
-                            {{currentHotelPreview.PackagePrice}}
-                            <span class="b-rub">Р</span>
+                            {{currentHotelPreview.PackagePrice | price}}
+                            <ng-include src="'components/ruble.html'" />
                         </h3>
                     </div>
                 </div>
