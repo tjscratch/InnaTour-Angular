@@ -61,6 +61,7 @@ Cvc = "486";
                     num3: '1273',
                     num4: '3023',
                     cvc2: '',
+                    //cvc2: '952',
                     cardHolder: 'ILYA GERASIMENKO',
                     cardMonth: '07',
                     cardYear: '15',
@@ -649,6 +650,39 @@ Cvc = "486";
                 }
             };
 
+            function buyFrame() {
+                var self = this;
+                self.iframeUrl = null;
+                self.isOpened = false;
+                self.open = function () {
+                    self.isOpened = true;
+                }
+                self.hide = function () {
+                    self.isOpened = false;
+                }
+
+                self.listenCloseEvent = function () {
+                    $('#buy-listener').on('inna.buy.close', function (event, data) {
+                        console.log('triggered inna.buy.close');
+                        $scope.safeApply(function () {
+                            self.hide();
+                        })
+                    });
+
+
+                    $('#buy-listener').on('inna.buy.test', function (event, data) {
+                        $scope.safeApply(function () {
+                            console.log('triggered inna.buy.test');
+                            console.log(data);
+                        })
+                    });
+                }
+                self.listenCloseEvent();
+
+                return self;
+            }
+            $scope.buyFrame = new buyFrame();
+
             function processPay3d(data) {
                 var jData = angular.fromJson(data);
                 console.log(angular.toJson(jData));
@@ -662,7 +696,8 @@ Cvc = "486";
                 });
 
                 $scope.baloon.hide();
-                $scope.iframeUrl = ('/spa/templates/pages/avia/pay_form.html?' + params);
+                $scope.buyFrame.iframeUrl = ('/spa/templates/pages/avia/pay_form.html?' + params);
+                $scope.buyFrame.open();
 
                 $scope.is3dscheck = true;
                 checkPayment();
@@ -789,5 +824,6 @@ Cvc = "486";
             $scope.$on('$destroy', function () {
                 $scope.paymentDeadline.destroy();
                 destroyPopups();
+                $('#buy-listener').off();
             });
         }]);

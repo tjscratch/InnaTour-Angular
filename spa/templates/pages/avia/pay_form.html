@@ -32,6 +32,15 @@
         }
     };
 
+    //var intervalId = setInterval(function () {
+    //    //clearInterval(intervalId);
+    //    window.parent.$('#buy-listener').trigger('inna.buy.test', document);
+    //}, 1000);
+
+    //$(document).on('load', function () {
+    //    console.log('doc load');
+    //});
+
     var actionUrl = QueryString.getByName('redirect');
     var PaReq = QueryString.getByName('PaReq');
     //var TermUrl = QueryString.getByName('TermUrl');
@@ -43,4 +52,5 @@
     $($("input")[1]).val(TermUrl);
     $($("input")[2]).val(MD);
     $("form").submit();
+    
 </script>
