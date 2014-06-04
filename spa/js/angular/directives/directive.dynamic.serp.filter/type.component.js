@@ -16,6 +16,7 @@ angular.module('innaApp.directives')
 
                         /*Models*/
                         var Options = inna.Models.Avia.Filters._OptionsFactory();
+
                         var Option = inna.Models.Avia.Filters._OptionFactory(function(title, value){
                             this.value = value;
                             this.minPrice = NaN;
@@ -38,9 +39,17 @@ angular.module('innaApp.directives')
                         var unwatchHotelsCollection = $scope.$watchCollection('hotels', function(hotels){
                             if(!hotels || !hotels.list.length) return;
 
+                            var collections = {};
+
                             hotels.each(function(hotel){
-                                //TODO pushUnique(type)
+                                var type = hotel.data.HotelType;
+
+                                (
+                                    collections[type] || (collections[type] = new inna.Models.Dynamic.HotelsCollection())
+                                ).push(hotel);
                             });
+
+                            console.log(collections);
 
                             unwatchHotelsCollection();
                         });
