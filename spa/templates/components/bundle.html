@@ -113,8 +113,8 @@
             </p>
 
             <p class="price">
-                {{bundle.getFullPackagePrice() | price}} <ng-include src="'components/ruble.html'" />
-                <span class="icon icon-price-info" ng-click="infoPopup.toggle($event)"></span>
+                {{bundle.getFullPackagePrice() | price}} <ng-include src="'components/ruble.html'"></ng-include>
+                <span class="icon icon-price-info" ng-click="infoPopup.toggle()"></span>
             </p>
 
             <div class="tooltip tooltip-price" ng-if="infoPopup.isOpen">
@@ -147,6 +147,29 @@
                         </span>
                     </li>
                 </ul>
+                <div style="margin-top: 10px;" ng-if="bundle.hotel.data.PriceObject.TotalAgentProfit">
+                    <div class="list-price-total"></div>
+                    <ul>
+                        <li class="list-price-item">Сбор ИННА Тур
+                            <span class="list-price green pull-right">
+                                {{bundle.hotel.data.PriceObject.TotalInnaProfit | price}}
+                                <ng-include src="'components/ruble.html'" />
+                            </span>
+                        </li>
+                        <li class="list-price-item">Сбор агента
+                            <span class="list-price green pull-right">
+                                {{bundle.hotel.data.PriceObject.TotalAgentProfit | price}}
+                                <ng-include src="'components/ruble.html'" />
+                            </span>
+                        </li>
+                        <li class="list-price-item">Агентское вознаграждение
+                            <span class="list-price green pull-right">
+                                {{bundle.hotel.data.PriceObject.TotalAgentReward | price}}
+                                <ng-include src="'components/ruble.html'" />
+                            </span>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <span class="price-description">вместе</span>
 
