@@ -17,13 +17,17 @@ innaAppControllers
             var serpScope = $scope;
 
             /*Models*/
+            // TODO : Hotel.prototype.setCurrent method is deprecated
+            // Use event choose:hotel
             inna.Models.Hotels.Hotel.prototype.setCurrent = function(){
                 $scope.combination.hotel = this;
                 $location.search('hotel', this.data.HotelId);
-
-                // прокидываем событие для для компонента - Выбранный пакет
-                //$scope.$broadcast('change:hotel', $scope.combination);
             };
+
+            $scope.$on('choose:hotel', function(evt, data){
+                $scope.combination.hotel = data;
+                $location.search('hotel', data.data.HotelId);
+            });
 
 
             function loadTab() {

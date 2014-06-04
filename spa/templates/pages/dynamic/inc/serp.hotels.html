@@ -12,7 +12,7 @@
             <!-- TRANSCLUDE -->
 
             <p class="corner-price">
-                {{combination.hotel.data.PackagePrice - hotel.data.PackagePrice | signed}}
+                {{hotel.data.PackagePrice - combination.hotel.data.PackagePrice | signed}}
                 <!--<ng-include src="'components/ruble.html'" />-->
                 <span class="b-rub">q</span>
             </p>
@@ -48,6 +48,29 @@
                             </span>
                         </li>
                     </ul>
+                    <div style="margin-top: 10px;" ng-if="hotel.data.PriceObject.TotalAgentProfit">
+                        <div class="list-price-total"></div>
+                        <ul>
+                            <li class="list-price-item">Сбор ИННА Тур
+                            <span class="list-price green pull-right">
+                                {{hotel.data.PriceObject.TotalInnaProfit | price}}
+                                <ng-include src="'components/ruble.html'" />
+                            </span>
+                            </li>
+                            <li class="list-price-item">Сбор агента
+                            <span class="list-price green pull-right">
+                                {{hotel.data.PriceObject.TotalAgentProfit | price}}
+                                <ng-include src="'components/ruble.html'" />
+                            </span>
+                            </li>
+                            <li class="list-price-item">Агентское вознаграждение
+                            <span class="list-price green pull-right">
+                                {{hotel.data.PriceObject.TotalAgentReward | price}}
+                                <ng-include src="'components/ruble.html'" />
+                            </span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <span class="price-description">
@@ -57,7 +80,7 @@
                 </span>
 
             </div>
-            <button class="button" ng-click="hotel.setCurrent()">Выбрать</button>
+            <button class="button" ng-click="setCurrent()">Выбрать</button>
         </div>
 
 
