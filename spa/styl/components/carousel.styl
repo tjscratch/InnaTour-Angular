@@ -47,14 +47,16 @@
 		}
 	}
 
+
 	&__holder {
 		overflow: hidden;
 	}
 
+
 	&__slider {
 		position: relative;
 		overflow : hidden;
-		transition: transform .2s linear
+		transition: transform .1s linear 0s
 
 		&:after {
 			content: '';
@@ -63,9 +65,24 @@
 		}
 	}
 
+
 	&_item {
 		float: left;
 		text-align : center;
 		position : relative;
+
+		&_image {
+			border-radius : 4px 0 0 4px;
+			background-size: cover;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+	}
+
+	&.b-carousel_map {
+
 	}
 }

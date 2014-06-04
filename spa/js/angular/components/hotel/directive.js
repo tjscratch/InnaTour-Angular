@@ -24,6 +24,7 @@ angular.module('innaApp.directives')
                     $scope.$watch('hotel.currentlyInvisible', function(isInvis){
                         if(!isInvis && $element.find('.b-carousel').length) {
                             $timeout(function(){
+
                                 $element.find('.b-carousel').innaCarousel({
                                     photoList: $scope.hotel.data.Photos,
                                     style: {
@@ -31,6 +32,7 @@ angular.module('innaApp.directives')
                                         height: 190
                                     }
                                 });
+
                             }, 1);
                         }
                     });
