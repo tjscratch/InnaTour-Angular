@@ -23,7 +23,7 @@
                             <span class="icon icon-star ng-scope" ng-if="option.value > 4"></span>
                         </div>
                     </span>
-                    <span class="ra-fly-price">{{option.minPrice}}&nbsp;<ng-include src="'components/ruble.html'" /></span>
+                    <span class="ra-fly-price">{{option.minPrice | price}}&nbsp;<ng-include src="'components/ruble.html'" /></span>
                 </label>
             </li>
         </ul>
