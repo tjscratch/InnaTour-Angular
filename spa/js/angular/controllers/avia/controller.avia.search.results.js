@@ -256,42 +256,46 @@ innaAppControllers.
                     //проверяем, что остались билеты для покупки
                     paymentService.checkAvailability({ variantTo: item.VariantId1, varianBack: item.VariantId2 },
                         function (data) {
-                            //log('paymentService.checkAvailability, data: ' + angular.toJson(data));
-                            if (data == "true")
-                            {
-                                //сохраняем в хранилище
-                                storageService.setAviaBuyItem({ searchId: $scope.searchId, item: item });
-                                var buyCriteria = angular.copy($scope.criteria);
-                                buyCriteria.QueryId = $scope.searchId;
-                                buyCriteria.VariantId1 = item.VariantId1;
-                                buyCriteria.VariantId2 = item.VariantId2 != null ? item.VariantId2 : 0;
+                            $scope.safeApply(function () {
+                                //log('paymentService.checkAvailability, data: ' + angular.toJson(data));
+                                if (data == true)
+                                {
+                                    //сохраняем в хранилище
+                                    storageService.setAviaBuyItem({ searchId: $scope.searchId, item: item });
+                                    var buyCriteria = angular.copy($scope.criteria);
+                                    buyCriteria.QueryId = $scope.searchId;
+                                    buyCriteria.VariantId1 = item.VariantId1;
+                                    buyCriteria.VariantId2 = item.VariantId2 != null ? item.VariantId2 : 0;
 
-                                //log('buyCriteria: ' + angular.toJson(buyCriteria));
-                                //все норм - отправляем на страницу покупки
-                                var url = urlHelper.UrlToAviaTicketsReservation(buyCriteria);
-                                //log('Url: ' + url);
-                                $location.path(url);
-                            }
-                            else {
-                                function noVariant() {
-                                    $scope.baloon.hide();
-                                    //выкидываем билет из выдачи
-                                    $scope.ticketsList = _.without($scope.ticketsList, item);
-                                    $scope.filteredTicketsList = _.without($scope.filteredTicketsList, item);
+                                    //log('buyCriteria: ' + angular.toJson(buyCriteria));
+                                    //все норм - отправляем на страницу покупки
+                                    var url = urlHelper.UrlToAviaTicketsReservation(buyCriteria);
+                                    //log('Url: ' + url);
+                                    $location.path(url);
                                 }
+                                else {
+                                    function noVariant() {
+                                        $scope.baloon.hide();
+                                        //выкидываем билет из выдачи
+                                        $scope.ticketsList = _.without($scope.ticketsList, item);
+                                        $scope.filteredTicketsList = _.without($scope.filteredTicketsList, item);
+                                    }
 
-                                $scope.baloon.showErr('К сожалению, билеты не доступны', 'Попробуйте выбрать другие', function () {
-                                    noVariant();
-                                    $timeout.cancel(popupTimeout);
-                                });
-                                var popupTimeout = $timeout(function () {
-                                    noVariant();
-                                }, 3000);
-                            }
+                                    $scope.baloon.showErr('К сожалению, билеты не доступны', 'Попробуйте выбрать другие', function () {
+                                        noVariant();
+                                        $timeout.cancel(popupTimeout);
+                                    });
+                                    var popupTimeout = $timeout(function () {
+                                        noVariant();
+                                    }, 3000);
+                                }
+                            });
                         },
                         function (data, status) {
-                            //error
-                            $scope.baloon.showGlobalAviaErr();
+                            $scope.safeApply(function () {
+                                //error
+                                $scope.baloon.showGlobalAviaErr();
+                            });
                         });
                 };
             };
