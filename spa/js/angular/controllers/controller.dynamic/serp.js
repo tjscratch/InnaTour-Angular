@@ -23,7 +23,7 @@ innaAppControllers
 
                 // прокидываем событие для для компонента - Выбранный пакет
                 //$scope.$broadcast('change:hotel', $scope.combination);
-            }
+            };
 
 
             function loadTab() {

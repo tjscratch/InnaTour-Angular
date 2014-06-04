@@ -38,7 +38,7 @@
 }
 @font-face {
   font-family: Rouble;
-  src: url("/spa/fonts/rouble.eot?") format('eot'), url("/spa/fonts/rouble.otf") format('opentype'), url("/spa/fonts/rouble.woff") format('woff'), url("/spa/fonts/rouble.ttf") format('truetype'), url("/spa/fonts/rouble.svg#ALSRubl") format('svg');
+  src: url("/spa/fonts/rouble.eot?") format('eot'), url("/spa/fonts/rouble.woff") format('woff'), url("/spa/fonts/rouble.ttf") format('truetype'), url("/spa/fonts/rouble.svg#ALSRubl") format('svg');
 }
 body {
   font-family: ProximaNova;
