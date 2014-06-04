@@ -44,6 +44,7 @@ angular.module('innaApp.API', [])
             AVIA_PAY_CHECK: url('/AviaOrder/CheckOrder'),
             AVIA_TARIFS: url('/Avia/GetRule'),
 
+            AVIA_BEGIN_SEARCH: url('/Avia/Get'),
             AVIA_CHECK_AVAILABILITY: url('/avia/IsActual'),
             PACKAGE_CHECK_AVAILABILITY: url('/Packages/IsPackageAvailable'),
             PACKAGE_RESERVATION: url('/PackagesOrder/Reservation'),
