@@ -17,19 +17,19 @@
             </div>
             <div class="rlf__flight-block">
                 <b>{{item.ArrivalTimeFormatted}}</b> {{item.ArrivalDateFormatted}}<br>
-                {{item.AirportTo}} {{item.InCode}}
+                <b>{{item.AirportTo}}</b> {{item.InCode}}
             </div>
             <div class="rlf-full-travel-time-info">в пути: {{item.TimeToFormatted}}, <span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{helper.getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span></div>
         </div>
         <div class="rlf-fly rlf-fly_back" ng-if="item.EtapsBack.length > 0">
             <div class="rlf__flight-block">
                 <b>{{item.BackDepartureTimeFormatted}}</b> {{item.BackDepartureDateFormatted}}<br>
-                {{item.AirportTo}} {{item.InCode}}
+                <b>{{item.AirportTo}}</b> {{item.InCode}}
                 <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
             </div>
             <div class="rlf__flight-block">
                 <b>{{item.BackArrivalTimeFormatted}}</b> {{item.BackArrivalDateFormatted}}<br>
-                {{item.AirportFrom}} {{item.OutCode}}
+                <b>{{item.AirportFrom}}</b> {{item.OutCode}}
             </div>
             <div class="rlf-full-travel-time-info">в пути: {{item.TimeBackFormatted}}, <span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{helper.getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span></div>
         </div>
