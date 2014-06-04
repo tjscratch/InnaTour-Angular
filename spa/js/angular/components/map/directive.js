@@ -40,8 +40,12 @@ angular.module('innaApp.directives')
                             $element.removeClass('big-map_short')
                         });
 
-                        $scope.setHotel = function(currentHotel){
+                        $scope.setHotel = function (currentHotel) {
                             $scope.$emit('choose:hotel', $scope.hotels.search(currentHotel.HotelId));
+                        }
+
+                        $scope.hotelDetails = function (currentHotel) {
+                            $scope.$emit('more:detail:hotel', $scope.hotels.search(currentHotel.HotelId));
                         }
                     }
                 ],
@@ -113,13 +117,13 @@ angular.module('innaApp.directives')
                     });
 
                     /*GM.event.addListener(map, 'zoom_changed', function() {
-                        console.log(map.getZoom(), 'zoom');
-                    });*/
+                     console.log(map.getZoom(), 'zoom');
+                     });*/
 
                     function initCarousel() {
                         elem.find('.b-carousel').innaCarousel({
                             photoList: scope.currentHotel.Photos,
-                            map : true,
+                            map: true,
                             style: {
                                 width: 360,
                                 height: 240
@@ -417,7 +421,7 @@ angular.module('innaApp.directives')
 
                     var showOneHotel = function (data_hotel) {
                         // проходм по всем маркерам
-                       var mark =  markers.filter(function (marker) {
+                        var mark = markers.filter(function (marker) {
 
                             // сравниваем и находим нужный
                             if ((marker.$inna__hotel && marker.$inna__hotel.Latitude) &&
@@ -479,7 +483,6 @@ angular.module('innaApp.directives')
                     scope.$on('map:show-one-hotel', function (evt, data) {
                         showOneHotel(data.toJSON());
                     });
-
 
 
                     function updateMap(data) {

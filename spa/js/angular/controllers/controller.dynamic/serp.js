@@ -19,16 +19,49 @@ innaAppControllers
             /*Models*/
             // TODO : Hotel.prototype.setCurrent method is deprecated
             // Use event choose:hotel
-            inna.Models.Hotels.Hotel.prototype.setCurrent = function(){
+            inna.Models.Hotels.Hotel.prototype.setCurrent = function () {
                 $scope.combination.hotel = this;
                 $location.search('hotel', this.data.HotelId);
             };
 
-            $scope.$on('choose:hotel', function(evt, data){
+            $scope.$on('choose:hotel', function (evt, data) {
                 $scope.combination.hotel = data;
                 $location.search('hotel', data.data.HotelId);
             });
 
+            /*Methods*/
+            var getHotelDetails = function (hotel) {
+
+                if (!hotel.detailed) {
+                    ServiceDynamicPackagesDataProvider.hotelDetails(
+                        hotel.data.HotelId,
+                        hotel.data.ProviderId,
+                        $scope.combination.ticket.data.VariantId1,
+                        $scope.combination.ticket.data.VariantId2,
+                        searchParams,
+                        function (resp) {
+                            hotel.detailed = resp;
+                            serpScope.$broadcast(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+                            serpScope.$digest();
+                        }
+                    );
+                }
+
+                serpScope.hotelToShowDetails = hotel;
+                $location.search('displayHotel', hotel.data.HotelId);
+
+                if ($location.search().map) {
+                    delete $location.$$search.map;
+                    $location.$$compose();
+                }
+            };
+
+            $scope.getHotelDetails = getHotelDetails;
+
+
+            $scope.$on('more:detail:hotel', function (evt, data) {
+                getHotelDetails(data);
+            });
 
             function loadTab() {
                 var method, param, apply;
@@ -206,10 +239,10 @@ innaAppControllers
                 }
 
                 this.switchTo = function (tabName) {
-                    if(tabName == 'ticket'){
+                    if (tabName == 'ticket') {
                         this.TICKETS_TAB = true;
                         this.HOTELS_TAB = false;
-                    } else if(tabName == 'hotel') {
+                    } else if (tabName == 'hotel') {
                         this.HOTELS_TAB = true;
                         this.TICKETS_TAB = false;
                     }
@@ -242,27 +275,6 @@ innaAppControllers
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
 
-            /*Methods*/
-            $scope.getHotelDetails = function (hotel) {
-                if (!hotel.detailed) {
-                    ServiceDynamicPackagesDataProvider.hotelDetails(
-                        hotel.data.HotelId,
-                        hotel.data.ProviderId,
-                        $scope.combination.ticket.data.VariantId1,
-                        $scope.combination.ticket.data.VariantId2,
-                        searchParams,
-                        function (resp) {
-                            hotel.detailed = resp;
-
-                            serpScope.$broadcast(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
-                            serpScope.$digest();
-                        }
-                    );
-                }
-
-                serpScope.hotelToShowDetails = hotel;
-                $location.search('displayHotel', hotel.data.HotelId);
-            };
 
             $scope.closeHotelDetails = function () {
                 $scope.hotelToShowDetails = null;
@@ -295,10 +307,9 @@ innaAppControllers
                 ].join('-');
 
 
-
                 $location.path(url);
 
-                if(room) {
+                if (room) {
                     $location.search({room: room.RoomId});
                 }
             };
@@ -323,13 +334,12 @@ innaAppControllers
             // слушаем событие от компонента отеля
             //  открываем карту с точкой этого отеля
             $scope.$on('hotel:go-to-map', function (evt, data) {
-                console.log('ROOT hotel:go-to-map');
                 $scope.asMap = !$scope.asMap;
 
                 // TODO - переделать
                 // прокидываем данные глубже для дочерних компонентов
                 // так как карта инитится с задержкой видимо, и поэтому не может подписаться на событие
-                setTimeout(function(){
+                setTimeout(function () {
                     $scope.$broadcast('map:show-one-hotel', data);
                 }, 1000);
             });
@@ -461,7 +471,7 @@ innaAppControllers
 
                 $scope.ticket = ticket;
 
-                $scope.etapsZipped = (function(){
+                $scope.etapsZipped = (function () {
                     var zipped = [];
 
                     var to = ticket.getEtaps('To');
@@ -469,7 +479,7 @@ innaAppControllers
 
                     var maxLength = Math.max(to.length, back.length);
 
-                    for(var i = 0; i < maxLength; i++) {
+                    for (var i = 0; i < maxLength; i++) {
                         var eTo = to[i];
                         var eBack = back[i];
 
@@ -539,14 +549,14 @@ innaAppControllers
 
                 }
 
-                this.shortDisplay = function(){
+                this.shortDisplay = function () {
                     unwatchScroll();
                     this.current = this.SHORT;
                     $scope.$emit('header:hidden');
                     changeParentScopePadding(this.current);
                 }
 
-                this.fullDisplay = function(){
+                this.fullDisplay = function () {
                     doc.on('scroll', onScroll);
                     this.current = this.FULL;
                     $scope.$emit('header:visible');
