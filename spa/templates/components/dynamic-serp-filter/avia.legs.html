@@ -15,7 +15,7 @@
                     <input type="checkbox" ng-model="option.selected">
                     <span class="ra-checkbox"></span>
                     <span class="ra-fly-type">{{option.title}}</span>
-                    <span class="ra-fly-price">{{option.minPrice}}&nbsp;<ng-include src="'components/ruble.html'" /></span>
+                    <span class="ra-fly-price">{{option.minPrice | price}}&nbsp;<ng-include src="'components/ruble.html'" /></span>
                 </label>
             </li>
         </ul>
