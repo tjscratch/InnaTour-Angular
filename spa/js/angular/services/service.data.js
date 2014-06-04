@@ -83,30 +83,24 @@
                     var apiCriteria = new aviaCriteriaToApiCriteria(criteria);
                     //log('startAviaSearch, apiCriteria: ' + angular.toJson(apiCriteria));
 
-                    //debug
-                    if (avia.useAviaServiceStub) {
-                        successCallback(angular.fromJson(apiSearchAviaDataJsonStub));
+                    //сначала проверяем в html5 storage
+                    //var res = storageService.getAviaSearchResults(apiCriteria);
+                    var res = null;
+                    //проверяем что данные не старше минуты
+                    if (res != null) {
+                        successCallback(res);
                     }
                     else {
-                        //сначала проверяем в html5 storage
-                        var res = storageService.getAviaSearchResults(apiCriteria);
-                        //var res = null;
-                        //проверяем что данные не старше минуты
-                        if (res != null) {
-                            successCallback(res);
-                        }
-                        else {
-                            $http({ method: 'GET', url: beginAviaSearchUrl, params: apiCriteria }).success(function (data, status) {
-                                //сохраняем в хранилище (сохраняем только последний результат)
-                                storageService.setAviaSearchResults({ date: new Date().getTime(), criteria: apiCriteria, data: data });
-                                //присваиваем значение через функцию коллбэк
-                                successCallback(data);
-                            }).
-                            error(function (data, status) {
-                                //вызываем err callback
-                                errCallback(data, status);
-                            });
-                        }
+                        AjaxHelper.get(apiUrls.AVIA_BEGIN_SEARCH, apiCriteria).success(function (data, status) {
+                            //сохраняем в хранилище (сохраняем только последний результат)
+                            storageService.setAviaSearchResults({ date: new Date().getTime(), criteria: apiCriteria, data: data });
+                            //присваиваем значение через функцию коллбэк
+                            successCallback(data);
+                        }).
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
                     }
                 },
                 startSearchTours: function (criteria, successCallback, errCallback) {

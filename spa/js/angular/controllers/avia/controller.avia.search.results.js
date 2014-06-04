@@ -12,6 +12,17 @@ innaAppControllers.
                 $log.log(msg);
             }
 
+            $scope.safeApply = function (fn) {
+                var phase = this.$root.$$phase;
+                if (phase == '$apply' || phase == '$digest') {
+                    if (fn && (typeof (fn) === 'function')) {
+                        fn();
+                    }
+                } else {
+                    this.$apply(fn);
+                }
+            };
+
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $scope.$on('avia.form.loaded', function (event) {
                 //console.log('avia.form.loaded');
@@ -152,20 +163,24 @@ innaAppControllers.
                         searchCriteria.EndDate = null;
                     }
                     dataService.startAviaSearch(searchCriteria, function (data) {
-                        //обновляем данные
-                        if (data != null) {
-                            //log('data: ' + angular.toJson(data));
-                            updateModel(data);
-                        }
-                        else {
-                            $scope.baloon.showErr('Ничего не найдено', 'Попробуйте поискать на другие даты, направления', function () {
-                                $location.path(Urls.URL_AVIA);
-                            });
-                        }
+                        $scope.safeApply(function ($scope) {
+                            //обновляем данные
+                            if (data != null) {
+                                //log('data: ' + angular.toJson(data));
+                                    updateModel(data);
+                            }
+                            else {
+                                $scope.baloon.showErr('Ничего не найдено', 'Попробуйте поискать на другие даты, направления', function () {
+                                    $location.path(Urls.URL_AVIA);
+                                });
+                            }
+                        });
                     }, function (data, status) {
-                        //ошибка получения данных
-                        log('startSearchTours error; status:' + status);
-                        $scope.baloon.showGlobalAviaErr();
+                        $scope.safeApply(function ($scope) {
+                            //ошибка получения данных
+                            log('startSearchTours error; status:' + status);
+                            $scope.baloon.showGlobalAviaErr();
+                        });
                     });
                 };
 
