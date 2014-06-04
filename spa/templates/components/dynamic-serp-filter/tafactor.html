@@ -10,19 +10,24 @@
     </header>
     <div class="ra-content">
         <ul class="ra-fly-type-list">
-            <li ng-repeat="option in options.options">
+            <li ng-repeat="option in options.options" ng-init="option.TaFactor = option.value">
                 <label>
                     <input type="checkbox" ng-model="option.selected">
                     <span class="ra-checkbox"></span>
                     <span class="ra-fly-type">
-                        <div>
+
+                        <!-- tripadvisor -->
+                        <ng:include src="'components/tripadvisor/index.html'"
+                                ng-repeat="data in [option]"></ng:include>
+
+                        <!--<div>
                             <span ng-if="option.value == 0">Без рейтинга</span>
                             <span class="icon icon-tripadvisor-like" ng-if="option.value > 0"></span>
                             <span class="icon icon-tripadvisor-like" ng-if="option.value > 1"></span>
                             <span class="icon icon-tripadvisor-like" ng-if="option.value > 2"></span>
                             <span class="icon icon-tripadvisor-like" ng-if="option.value > 3"></span>
                             <span class="icon icon-tripadvisor-like" ng-if="option.value > 4"></span>
-                        </div>
+                        </div>-->
                     </span>
                     <span class="ra-fly-price">{{option.minPrice | price}}&nbsp;<ng-include src="'components/ruble.html'" /></span>
                 </label>

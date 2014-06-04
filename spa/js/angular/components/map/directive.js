@@ -459,15 +459,23 @@ angular.module('innaApp.directives')
                     }
 
 
+                    /**
+                     * Событие обновления фильтров
+                     */
                     scope.$on('change:hotels:filters', function (evt, data) {
                         updateMap({
                             hotels: data,
                             airports: scope.airports
                         })
                     });
+
+                    /**
+                     * Переход с карточки отеля
+                     */
                     scope.$on('map:show-one-hotel', function (evt, data) {
                         showOneHotel(data.toJSON());
                     });
+
 
 
                     function updateMap(data) {
@@ -480,6 +488,7 @@ angular.module('innaApp.directives')
 
                         rawHotels.forEach(function (hotel) {
 
+                            //console.log(hotel.hidden, 'hotel.hidden');
                             if (hotel.hidden) return;
 
                             if (!hotel.Latitude || !hotel.Longitude) return;
