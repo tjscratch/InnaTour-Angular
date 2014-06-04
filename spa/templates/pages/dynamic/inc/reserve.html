@@ -6,27 +6,37 @@
 <p class="buy__price-descr" ng-show="item != null && hotel != null">В цену включен ПЕРЕЛЕТ {{item.CityFrom}} – {{item.CityTo}} – {{item.CityFrom}} и отель {{hotel.HotelName}} с {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMM', true)}} по {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMM', true)}}, {{hotel.NightCount}} {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}. Цена окончательная со 
 всеми налогами и сборами </p>
 <div class="results-list_960">
-    <div class="result buy__fly">
+    <div class="result buy__fly buy__fly_footer">
         <div class="result-cell result-cell-480">
-            <img ng-src="{{hotel.ProviderLogoUrl}}" alt="" class="logo">
+            <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span class="rl-airline-text">{{tr.name}}</span></span>
+            <span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png" alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>
             <div class="b-ticket_2ways buy__tickets" ng-show="item != null">
                 <div class="rlf-fly">
-                    <span class="rlf-city">{{item.AirportFrom}}</span> {{item.OutCode}}
-                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                    <span class="rlf-city">{{item.AirportTo}}</span> {{item.InCode}}
-                    <div class="rlf-full-travel-time"><span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span>, {{item.TimeToFormatted}} в пути</div>
+                    <div class="rlf__flight-block">
+                        <b>{{item.DepartureTimeFormatted}}</b> {{item.DepartureDateFormatted}}<br>
+                        <b>{{item.AirportFrom}}</b> {{item.OutCode}}
+                        <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                    </div>
+                    <div class="rlf__flight-block">
+                        <b>{{item.ArrivalTimeFormatted}}</b> {{item.ArrivalDateFormatted}}<br>
+                        <b>{{item.AirportTo}}</b> {{item.InCode}}
+                    </div>
+                    <div class="rlf-full-travel-time-info">в пути: {{item.TimeToFormatted}}, <span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{helper.getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span></div>
                 </div>
                 <div class="rlf-fly rlf-fly_back">
-                    <span class="rlf-city">{{item.AirportTo}}</span> {{item.InCode}}
-                    <span class="rlf-fly-arrow"></span>
-                    <span class="rlf-city">{{item.AirportFrom}}</span> {{item.OutCode}}
-                    <div class="rlf-full-travel-time"><span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span>, {{item.TimeBackFormatted}} в пути</div>
+                    <div class="rlf__flight-block">
+                        <b>{{item.BackDepartureTimeFormatted}}</b> {{item.BackDepartureDateFormatted}}<br>
+                        <b>{{item.AirportTo}}</b> {{item.InCode}}
+                        <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                    </div>
+                    <div class="rlf__flight-block">
+                        <b>{{item.BackArrivalTimeFormatted}}</b> {{item.BackArrivalDateFormatted}}<br>
+                        <b>{{item.AirportFrom}}</b> {{item.OutCode}}
+                    </div>
+                    <div class="rlf-full-travel-time-info">в пути: {{item.TimeBackFormatted}}, <span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{helper.getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span></div>
                 </div>
             </div>
-                            
-
-            <span class="icon-sprite-airplane"></span>
-
+            <!--<span class="icon-sprite-airplane"></span>-->
             <div class="bottom-actions">
                 <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
                 <a ng-href="#" class="pull-right" ng-click="popupItemInfo.show($event, item, null, null, true)">Подробнее</a>
