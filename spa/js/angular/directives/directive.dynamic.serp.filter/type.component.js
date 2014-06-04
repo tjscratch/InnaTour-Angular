@@ -17,9 +17,9 @@ angular.module('innaApp.directives')
                         /*Models*/
                         var Options = inna.Models.Avia.Filters._OptionsFactory();
 
-                        var Option = inna.Models.Avia.Filters._OptionFactory(function(title, value){
+                        var Option = inna.Models.Avia.Filters._OptionFactory(function(title, value, minPrice){
                             this.value = value;
-                            this.minPrice = NaN;
+                            this.minPrice = minPrice;
 
                             this.shown = true;
                         });
@@ -31,7 +31,13 @@ angular.module('innaApp.directives')
                         /*Properties*/
                         $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter());
                         $scope.filter.filterFn = function(hotel){
-                            //TODO
+                            var fits = false;
+
+                            this.options.getSelected().each(function(option){
+                                fits = fits || (option.value == hotel.data.HotelType);
+                            });
+
+                            if(!fits) hotel.hidden = true;
                         };
                         $scope.options = $scope.filter.options = new Options();
 
@@ -45,11 +51,15 @@ angular.module('innaApp.directives')
                                 var type = hotel.data.HotelType;
 
                                 (
-                                    collections[type] || (collections[type] = new inna.Models.Dynamic.HotelsCollection())
+                                    collections[type] || (collections[type] = new inna.Models.Hotels.HotelsCollection())
                                 ).push(hotel);
                             });
 
-                            console.log(collections);
+                            for(var type in collections) if(collections.hasOwnProperty(type)) {
+                                $scope.options.push(new Option(type, type, collections[type].getMinPrice()));
+                            }
+
+                            console.log($scope.options);
 
                             unwatchHotelsCollection();
                         });

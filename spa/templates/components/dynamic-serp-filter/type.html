@@ -14,15 +14,7 @@
                 <label>
                     <input type="checkbox" ng-model="option.selected">
                     <span class="ra-checkbox"></span>
-                    <span class="ra-fly-type">
-                        <div>
-                            <span class="icon icon-star ng-scope" ng-if="option.value > 0"></span>
-                            <span class="icon icon-star ng-scope" ng-if="option.value > 1"></span>
-                            <span class="icon icon-star ng-scope" ng-if="option.value > 2"></span>
-                            <span class="icon icon-star ng-scope" ng-if="option.value > 3"></span>
-                            <span class="icon icon-star ng-scope" ng-if="option.value > 4"></span>
-                        </div>
-                    </span>
+                    <span class="ra-fly-type">{{option.value}}</span>
                     <span class="ra-fly-price">{{option.minPrice}}&nbsp;<ng-include src="'components/ruble.html'" /></span>
                 </label>
             </li>
