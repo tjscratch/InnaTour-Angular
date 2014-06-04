@@ -10,8 +10,8 @@ angular.module('innaApp.directives')
                     bundle: '=dynamicSerpFilterPriceBundle'
                 },
                 controller: [
-                    '$scope', '$controller', '$element',
-                    function($scope, $controller, $element){
+                    '$scope', '$controller', '$element', '$filter',
+                    function($scope, $controller, $element, $filter){
                         var ticketPrice = parseInt($scope.bundle.ticket.data.PackagePrice);
 
                         /*Mixins*/
@@ -42,7 +42,7 @@ angular.module('innaApp.directives')
                         };
 
                         Option.prototype.describe = function(){
-                            return 'Не дороже ~ рублей'.split('~').join(this.value);
+                            return 'Не дороже ~ рублей'.split('~').join($filter('price')(this.value));
                         };
 
                         /*Properties*/
