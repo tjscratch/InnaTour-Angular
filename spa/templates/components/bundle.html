@@ -14,33 +14,31 @@
                     <b>
                         {{dateHelper.getTime(bundle.ticket.data.DepartureDate)}} {{bundle.ticket.data.OutCode}}
                     </b>
-                    {{dateHelper.getDateShort(bundle.ticket.data.DepartureDate)}}, {{dateHelper.getDay(bundle.ticket.data.DepartureDate)}}
+                    {{bundle.ticket.data.DepartureDate | date: 'd MMM'}}, {{bundle.ticket.data.DepartureDate | date: 'EEE'}}
                 </span>
 
                 <p class="arrow">
                     в пути: {{bundle.ticket.getDuration('To')}}<br>
-                    {{bundle.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без
-                    пересадок"}}
+                    {{bundle.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
                 </p>
                 <span class="date">
                     <b>{{dateHelper.getTime(bundle.ticket.data.ArrivalDate)}} {{bundle.ticket.data.InCode}}</b>
-                    {{dateHelper.getDateShort(bundle.ticket.data.ArrivalDate)}}, {{dateHelper.getDay(bundle.ticket.data.ArrivalDate)}}
+                    {{bundle.ticket.data.ArrivalDate | date: 'd MMM'}}, {{bundle.ticket.data.ArrivalDate | date: 'EEE'}}
                 </span>
             </div>
             <div class="flight-info">
                 <span class="date">
                     <b>{{dateHelper.getTime(bundle.ticket.data.BackDepartureDate)}} {{bundle.ticket.data.InCode}}</b>
-                    {{dateHelper.getDateShort(bundle.ticket.data.BackDepartureDate)}}, {{dateHelper.getDay(bundle.ticket.data.BackDepartureDate)}}
+                    {{bundle.ticket.data.BackDepartureDate | date: 'd MMM'}}, {{bundle.ticket.data.BackDepartureDate | date: 'EEE'}}
                 </span>
 
                 <p class="arrow">
                     в пути: {{bundle.ticket.getDuration('Back')}}<br>
-                    {{bundle.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без
-                    пересадок"}}
+                    {{bundle.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
                 </p>
                 <span class="date">
                     <b>{{dateHelper.getTime(bundle.ticket.data.BackArrivalDate)}} {{bundle.ticket.data.OutCode}}</b>
-                    {{dateHelper.getDateShort(bundle.ticket.data.BackArrivalDate)}}, {{dateHelper.getDay(bundle.ticket.data.BackArrivalDate)}}
+                    {{bundle.ticket.data.BackArrivalDate | date: 'd MMM'}}, {{bundle.ticket.data.BackArrivalDate | date: 'EEE'}}
                 </span>
             </div>
             <span class="icon-sprite-airplane"></span>
@@ -75,8 +73,10 @@
                         </div>
                         <h3 class="hotel-info-name">{{bundle.hotel.data.HotelName}}</h3>
 
-                        <div class="hotel-info-date">с {{dateHelper.getDateShort(bundle.hotel.data.CheckIn)}} по
-                            {{dateHelper.getDateShort(bundle.hotel.data.CheckOut)}},
+                        <div class="hotel-info-date">
+                            с {{bundle.hotel.data.CheckIn | date: 'd MMM'}}
+                            по {{bundle.hotel.data.CheckOut | date: 'd MMM'}},
+                            
                             {{bundle.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
                         </div>
                     </div>

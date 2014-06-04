@@ -1,4 +1,11 @@
 angular.module('innaApp.directives')
+    .filter('innaTicketFilter', function(){
+
+       return function(data1, data2){
+            console.log(data1, 'data1');
+            console.log(data2, 'data2');
+       }
+    })
     .directive('innaTicket', ['$templateCache', function($templateCache){
         return {
             template: $templateCache.get('components/ticket/templ/index.html'),
@@ -9,8 +16,11 @@ angular.module('innaApp.directives')
             },
             transclude: true,
             controller: [
-                '$scope', 'aviaHelper',
+                '$scope',
+                'aviaHelper',
                 function($scope, aviaHelper){
+
+                    //console.log($scope);
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
                     $scope.dateHelper = dateHelper;
 
