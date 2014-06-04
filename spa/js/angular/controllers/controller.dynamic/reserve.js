@@ -49,6 +49,20 @@
                         $scope.ticketsCount = aviaHelper.getTicketsCount($scope.AdultCount, $scope.ChildCount, $scope.InfantsCount);
                         $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $routeParams.TicketClass);
 
+                        $scope.goBackUrl = function () {
+                            var url = '/#' + Urls.URL_DYNAMIC_PACKAGES_SEARCH +
+                                [
+                                    $routeParams.DepartureId,
+                                    $routeParams.ArrivalId,
+                                    $routeParams.StartVoyageDate,
+                                    $routeParams.EndVoyageDate,
+                                    $routeParams.TicketClass,
+                                    $routeParams.Adult,
+                                    $routeParams.Children
+                                ].join('-');
+                            return url;
+                        };
+
                         function addition() {
                             var self = this;
                             this.customerWishlist = '';
