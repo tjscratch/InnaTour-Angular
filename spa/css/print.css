@@ -37,11 +37,8 @@
   src: url("/spa/fonts/alsrubl-arial-bold.eot?#iefix") format('embedded-opentype'), url("/spa/fonts/alsrubl-arial-bold.woff") format('woff'), url("/spa/fonts/alsrubl-arial-bold.ttf") format('truetype'), url("/spa/fonts/alsrubl-arial-bold.svg#ALSRublArialRegular") format('svg');
 }
 @font-face {
-  font-family: 'PTSans-regular';
-  font-weight: normal;
-  font-style: normal;
-  src: url("/spa/fonts/PTS76F-webfont.eot");
-  src: url("/spa/fonts/PTS76F-webfont.eot?#iefix") format('embedded-opentype'), url("/spa/fonts/PTS76F-webfont.woff") format('woff'), url("/spa/fonts/PTS76F-webfont.ttf") format('truetype'), url("/spa/fonts/PTS76F-webfont.svg#ALSRublArialRegular") format('svg');
+  font-family: Rouble;
+  src: url("/spa/fonts/rouble.eot?") format('eot'), url("/spa/fonts/rouble.otf") format('opentype'), url("/spa/fonts/rouble.woff") format('woff'), url("/spa/fonts/rouble.ttf") format('truetype'), url("/spa/fonts/rouble.svg#ALSRubl") format('svg');
 }
 body {
   font-family: ProximaNova;
