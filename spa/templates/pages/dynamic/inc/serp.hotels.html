@@ -12,13 +12,13 @@
             <!-- TRANSCLUDE -->
 
             <p class="corner-price">
-                {{hotel.data.PackagePrice - combination.hotel.data.PackagePrice | signed}}
+                {{virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed}}
                 <!--<ng-include src="'components/ruble.html'" />-->
                 <span class="b-rub">q</span>
             </p>
 
             <div class="price">
-                {{hotel.data.Price | price}}
+                {{virtualBundle.getFullPackagePrice() | price}}
                 <!--<ng-include src="'components/ruble.html'" />-->
                 <span class="b-rub">q</span>
 

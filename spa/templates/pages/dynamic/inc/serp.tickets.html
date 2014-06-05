@@ -9,7 +9,7 @@
              ng-if="combination.ticket.data.VariantId1 != ticket.data.VariantId1">
 
             <p class="corner-price">
-                {{combination.ticket.data.PackagePrice - ticket.data.PackagePrice | signed}}
+                {{ticket.data.PackagePrice - combination.ticket.data.PackagePrice | signed}}
                 <span class="b-rub">q</span>
             </p>
             <p class="price">
