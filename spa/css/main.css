@@ -1478,6 +1478,7 @@
 }
 .footer .social-list-item {
   display: inline-block;
+  margin-right: 3px;
 }
 .footer-copyright {
   border-top: 1px solid #262626;
