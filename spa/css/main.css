@@ -2517,6 +2517,10 @@ input::-ms-clear {
   line-height: 1.2;
   letter-spacing: normal;
 }
+.search-form-list h3,
+.search-form-human-dialog h3 {
+  margin: 0 12px 7px;
+}
 .search-form-list {
   overflow-y: auto;
   overflow-x: hidden;
@@ -2526,8 +2530,8 @@ input::-ms-clear {
 .search-form-list-item {
   color: #242424;
   cursor: pointer;
-  font-family: Arial, sans-serif;
-  font-size: 15px;
+  font-family: proxima_nova_rgregular, Arial, sans-serif;
+  font-size: 14px;
   height: 30px;
   line-height: 30px;
   padding-left: 12px;
@@ -2543,7 +2547,6 @@ input::-ms-clear {
   border-top: 1px solid #dfe6e8;
 }
 .search-form-dialog-row {
-  text-align: justify;
   margin: 0 12px 7px;
 }
 .search-form-dialog-row:after {
@@ -2552,10 +2555,9 @@ input::-ms-clear {
   width: 100%;
 }
 .search-form-dialog-row .label {
-  display: inline-block;
+  display: block;
   position: relative;
   vertical-align: top;
-  top: 5px;
 }
 .search-form-dialog-row .button-group {
   display: inline-block;
@@ -2569,7 +2571,7 @@ input::-ms-clear {
   font-size: 19px;
   height: 36px;
   line-height: 36px;
-  margin-left: 1px;
+  margin-left: 12px;
   text-align: center;
   width: 35px;
 }
@@ -2597,11 +2599,17 @@ input::-ms-clear {
 }
 .search-form-dialog-row .child-years-select-container {
   border: 1px solid #d1d8d9;
+  -webkit-border-radius: 2px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 2px;
+  -moz-background-clip: padding;
+  border-radius: 2px;
+  background-clip: padding-box;
   cursor: pointer;
   display: inline-block;
   height: 35px;
   position: relative;
-  width: 72px;
+  width: 50px;
 }
 .search-form-dialog-row .child-years-select-container .icon-triangle {
   position: absolute;
@@ -2609,7 +2617,7 @@ input::-ms-clear {
   top: 15px;
 }
 .search-form-human-dialog {
-  width: 256px;
+  width: 200px;
 }
 .search-form-from {
   width: 180px;
