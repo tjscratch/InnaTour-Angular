@@ -42,6 +42,24 @@ angular.module('innaApp.services')
                 return false;
             }
 
+            ajax.cancelRequest = function (url) {
+                if (cache[url]) {
+                    cache[url].abort();
+                }
+            };
+
+            ajax.getCancelable = function (url, data, success, error) {
+                var request = doAjax(buildOptions(url, data, 'GET', false));
+
+                request.done(success || angular.noop).fail(error || angular.noop).always(function () {
+                    delete cache[url];
+                });
+
+                cache[url] = request;
+
+                return request;
+            };
+
             ajax.getNoCache = function (url, data, success, error) {
                 var request = doAjax(buildOptions(url, data, 'GET', false));
 
