@@ -3,9 +3,9 @@
 
 innaAppControllers.
     controller('AviaSearchResultsCtrl', ['$log', '$scope', '$rootScope', '$timeout', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'eventsHelper', 'aviaHelper', 'urlHelper', 'innaApp.Urls',
+        'dataService', 'paymentService', 'storageService', 'eventsHelper', 'aviaHelper', 'urlHelper', 'innaApp.Urls', 'innaApp.API.events',
         function AviaSearchResultsCtrl($log, $scope, $rootScope, $timeout, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls) {
+            dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events) {
 
             var self = this;
             function log(msg) {
@@ -22,6 +22,28 @@ innaAppControllers.
             $scope.$on('avia.search.start', function (event) {
                 //console.log('trigger avia.search.start');
                 startLoadAndInit();
+            });
+
+            $rootScope.$on(Events.AUTH_SIGN_IN, function (event, data) {
+                //console.log('Events.AUTH_SIGN_IN, type: %d', data.Type);
+                if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
+                    $scope.safeApply(function () {
+                        //если залогинен и b2b (Type = 2)
+                        //запускаем поиск
+                        startLoadAndInit();
+                    });
+                }
+            });
+
+            $rootScope.$on(Events.AUTH_SIGN_OUT, function (event, data) {
+                //console.log('Events.AUTH_SIGN_OUT, type: %d', data.raw.Type);
+                if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
+                    $scope.safeApply(function () {
+                        //если залогинен и b2b (Type = 2)
+                        //запускаем поиск
+                        startLoadAndInit();
+                    });
+                }
             });
 
             $scope.getSliderTimeFormat = aviaHelper.getSliderTimeFormat;

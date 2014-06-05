@@ -70,6 +70,7 @@ angular.module('innaApp.API', [])
 
             AUTH_FORGOTTEN_LINK_CLICKED: 'inna.Auth.Forgotten-link-clicked',
             AUTH_SIGN_IN: 'inna.Auth.SignIn',
+            AUTH_SIGN_OUT: 'inna.Auth.SignOut',
 
             eol: null
         }
