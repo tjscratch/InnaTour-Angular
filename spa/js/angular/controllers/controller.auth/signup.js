@@ -15,11 +15,11 @@ angular.module('innaApp.controllers')
                     Password: $scope.password,
                     ConfirmPassword: $scope.password2
                 }, function (data){ //successfully signed up
-                    $scope.$apply(function($scope){
+                    $scope.safeApply(function(){
                         $scope.showLanding = true;
                     });
                 }, function (error){ //error has occurred
-                    $scope.$apply(function($scope){
+                    $scope.safeApply(function(){
                         $scope.requestFailure = true;
                     });
                 });
@@ -76,18 +76,18 @@ angular.module('innaApp.controllers')
         }
     ])
     .controller('AuthRegistrationCtrl_Step2', [
-        '$scope', 'aviaHelper', 'AuthDataProvider',
-        function($scope, aviaHelper, AuthDataProvider) {
+        '$scope', 'AuthDataProvider',
+        function($scope, AuthDataProvider) {
             console.log('AuthRegistrationCtrl_Step2', $scope);
 
             $scope.baloon.show('Завершаю регистрацию', 'Это займет несколько секунд');
 
             AuthDataProvider.confirmRegistration($scope.signUpToken, function(resp){
-                $scope.$apply(function($scope){
+                $scope.safeApply(function(){
                     $scope.baloon.hide();
                     $scope.close();
 
-                    $scope.$apply($scope.recognize);
+                    $scope.safeApply($scope.recognize);
                 });
             });
         }

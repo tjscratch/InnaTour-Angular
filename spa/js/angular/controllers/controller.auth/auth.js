@@ -4,8 +4,12 @@ angular.module('innaApp.controllers')
         function($scope, $location, Events, AuthDataProvider, app){
             /*Private*/
             function setUserInfo(data){
-                $scope.$root.user = new inna.Models.Auth.User(data);
-                //console.log($scope.$root.user);
+                $scope.safeApply(function(){
+                    $scope.$root.user = new inna.Models.Auth.User(data);
+
+                    console.log('$scope.user.raw.AgencyActive = ', $scope.user.raw.AgencyActive);
+                    console.log('$scope.$root.user.raw.AgencyActive = ', $scope.$root.user.raw.AgencyActive);
+                });
             }
 
             /*Methods*/
@@ -70,6 +74,8 @@ angular.module('innaApp.controllers')
             }
 
             $scope.recognize = function(){
+                console.log('RECOGNIZE');
+
                 AuthDataProvider.recognize(setUserInfo);
             }
 
