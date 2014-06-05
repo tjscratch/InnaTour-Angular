@@ -36,6 +36,28 @@ textarea
 .clearfix
 	clearfix()
 
+
+
+.layout {
+	padding: $padding_over_search 0 0;
+	position: relative;
+	z-index: 1;
+
+	&-light {
+		position: relative;
+		z-index: 1;
+		padding: $padding-layout-light 0 0;
+	}
+}
+
+.center-container {
+	margin: 0 auto;
+	width: $grid-width;
+}
+
+
+
+
 .b-rub
 	display inline-block
 	padding-left 0.2em
@@ -90,6 +112,39 @@ textarea
 	margin 0 2px 0 0
 	line-height 1
 
+
+.b-display-table
+	display : table;
+	border-collapse : collapse;
+
+.b-display-cell
+	display : table-cell;
+	vertical-align : top;
+
+
+.b-display-inline {
+	display : inline-block;
+	vertical-align : top;
+}
+.b-display-block {
+	display : block;
+}
+
+.color-white {
+	color:#fff;
+}
+.color-black {
+	color:#000;
+}
+
+.bg-white {
+	background-color : #fff;
+}
+
+.bg-black {
+	background-color : #000;
+}
+        
 // Header
 .header
 	left 0
@@ -176,7 +231,7 @@ textarea
 		top 0
 		width 15px
 		height 14px
-		background url('../img/header-user.png') no-repeat
+		background url('/spa/img/header-user.png') no-repeat
 
 	.header__user-nav-reg
 		padding-left 23px
@@ -184,36 +239,3 @@ textarea
 
 .header__user-nav-counter
 	color #fff
-
-.b-display-table
-	display : table;
-	border-collapse : collapse;
-
-.b-display-cell
-	display : table-cell;
-	vertical-align : top;
-
-
-.b-display-inline {
-	display : inline-block;
-	vertical-align : top;
-}
-.b-display-block {
-	display : block;
-}
-
-.color-white {
-	color:#fff;
-}
-.color-black {
-	color:#000;
-}
-
-.bg-white {
-	background-color : #fff;
-}
-
-.bg-black {
-	background-color : #000;
-}
-        
