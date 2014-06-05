@@ -74,7 +74,7 @@
                 </div>
 
                 <span class="price-description">
-                    экономия: {{(combination.getFullPrice() - combination.ticket.data.PackagePrice - hotel.data.PackagePrice) | price}}
+                    экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}
                     <!--<ng-include src="'components/ruble.html'" />-->
                     <span class="b-rub">q</span>
                 </span>
