@@ -82,7 +82,7 @@
                             <div class="hotel-details-rooms__room-price">
                                 <div class="hotel-details-rooms__room-price-diff">
                                     <span ng-if="$first">Включен в цену</span>
-                                    <span ng-if="!$first">{{bundle.hotel.PackagePrice - room.PackagePrice | signed}} Р</span>
+                                    <span ng-if="!$first">{{bundle.getFullPackagePrice() - bundle.hotel.data.PackagePrice + room.Price | signed}} Р</span>
                                 </div>
                                 <div class="hotel-details-rooms__room-price-full">К оплате: {{ bundle.ticket.PackagePrice + room.PackagePrice | price }} Р</div>
                             </div>
@@ -92,7 +92,7 @@
                         </div>
 
                         <ul class="hotel-details-extra">
-                            <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption}}</li>
+                            <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption.CategoryName}}</li>
                         </ul>
                     </div>
                     <div class="hotel-details-rooms__room-long">
