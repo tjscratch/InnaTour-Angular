@@ -262,8 +262,13 @@ innaAppControllers.
 
                         saveParamsToCookie();
                         //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
+                        var oldUrl = $location.path();
                         var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
                         $location.path(url);
+
+                        if (oldUrl == url) {
+                            $rootScope.$broadcast("avia.search.start");
+                        }
                     }
                     else {
                         console.warn('Не заполнены поля Откуда, Куда');

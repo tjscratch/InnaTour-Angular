@@ -3,9 +3,9 @@
 
 innaAppControllers.
     controller('AviaSearchResultsCtrl', ['$log', '$scope', '$rootScope', '$timeout', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'eventsHelper', 'aviaHelper', 'urlHelper', 'innaApp.Urls',
+        'dataService', 'paymentService', 'storageService', 'eventsHelper', 'aviaHelper', 'urlHelper', 'innaApp.Urls', 'innaApp.API.events',
         function AviaSearchResultsCtrl($log, $scope, $rootScope, $timeout, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls) {
+            dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events) {
 
             var self = this;
             function log(msg) {
@@ -19,8 +19,31 @@ innaAppControllers.
             });
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
-            $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может занять несколько минут', function () {
-                $location.path(Urls.URL_AVIA);
+            $scope.$on('avia.search.start', function (event) {
+                //console.log('trigger avia.search.start');
+                startLoadAndInit();
+            });
+
+            $rootScope.$on(Events.AUTH_SIGN_IN, function (event, data) {
+                //console.log('Events.AUTH_SIGN_IN, type: %d', data.Type);
+                if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
+                    $scope.safeApply(function () {
+                        //если залогинен и b2b (Type = 2)
+                        //запускаем поиск
+                        startLoadAndInit();
+                    });
+                }
+            });
+
+            $rootScope.$on(Events.AUTH_SIGN_OUT, function (event, data) {
+                //console.log('Events.AUTH_SIGN_OUT, type: %d', data.raw.Type);
+                if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
+                    $scope.safeApply(function () {
+                        //если залогинен и b2b (Type = 2)
+                        //запускаем поиск
+                        startLoadAndInit();
+                    });
+                }
             });
 
             $scope.getSliderTimeFormat = aviaHelper.getSliderTimeFormat;
@@ -41,16 +64,9 @@ innaAppControllers.
                 return len;
             }
 
-            var urlDataLoaded = { fromLoaded: false, toLoaded: false };
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {
-                if (urlDataLoaded.fromLoaded == true && urlDataLoaded.toLoaded == true) {
-                    //log('ifDataLoadedStartSearch start search');
-                    $scope.startSearch();
-                }
-                else {
-                    //log('ifDataLoadedStartSearch waiting');
-                }
+                $scope.startSearch();
             }
 
             //все обновления модели - будут раз в 100 мс, чтобы все бегало шустро
@@ -75,8 +91,17 @@ innaAppControllers.
             
             //log('routeCriteria: ' + angular.toJson($scope.criteria));
 
+            var loader = new utils.loader();
             //запрашиваем парамерты по их Url'ам
-            setFromAndToFieldsFromUrl();
+            function startLoadAndInit() {
+                //console.log('startLoadAndInit');
+                $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может занять несколько минут', function () {
+                    dataService.cancelAviaSearch();
+                    $location.path(Urls.URL_AVIA);
+                });
+                loader.init([setFromFieldsFromUrl, setToFieldsFromUrl], ifDataLoadedStartSearch).run();
+            }
+            startLoadAndInit();
 
             function initValues() {
                 //флаг индикатор загрузки
@@ -138,9 +163,6 @@ innaAppControllers.
             function initFuctions() {
                 $scope.startSearch = function () {
                     //log('$scope.startSearch');
-                    $scope.baloon.showWithClose('Поиск рейсов', 'Подождите пожалуйста, это может занять несколько минут', function () {
-                        $location.path(Urls.URL_AVIA);
-                    });
 
                     $scope.ticketsList = null;
                     $scope.filteredTicketsList = null;
@@ -152,7 +174,7 @@ innaAppControllers.
                         searchCriteria.EndDate = null;
                     }
                     dataService.startAviaSearch(searchCriteria, function (data) {
-                        $scope.safeApply(function ($scope) {
+                        $scope.safeApply(function () {
                             //обновляем данные
                             if (data != null) {
                                 //log('data: ' + angular.toJson(data));
@@ -165,7 +187,7 @@ innaAppControllers.
                             }
                         });
                     }, function (data, status) {
-                        $scope.safeApply(function ($scope) {
+                        $scope.safeApply(function () {
                             //ошибка получения данных
                             log('startSearchTours error; status:' + status);
                             $scope.baloon.showGlobalAviaErr();
@@ -300,7 +322,8 @@ innaAppControllers.
                 };
             };
 
-            function setFromAndToFieldsFromUrl() {
+            function setFromFieldsFromUrl() {
+                var self = this;
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
                     $scope.criteria.From = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
@@ -311,8 +334,7 @@ innaAppControllers.
                                 $scope.criteria.FromId = data.id;
                                 $scope.criteria.FromUrl = data.url;
                                 //log('$scope.criteria.From: ' + angular.toJson($scope.criteria));
-                                urlDataLoaded.fromLoaded = true;
-                                ifDataLoadedStartSearch();
+                                loader.complete(self);
                             }
                         });
                     }, function (data, status) {
@@ -320,9 +342,10 @@ innaAppControllers.
                         log('getDirectoryByUrl error: ' + $scope.criteria.FromUrl + ' status:' + status);
                     });
                 }
-                else
-                    urlDataLoaded.fromLoaded = true;
+            };
 
+            function setToFieldsFromUrl() {
+                var self = this;
                 if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
                     $scope.criteria.To = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
@@ -333,8 +356,7 @@ innaAppControllers.
                                 $scope.criteria.ToId = data.id;
                                 $scope.criteria.ToUrl = data.url;
                                 //log('$scope.criteria.To: ' + angular.toJson($scope.criteria));
-                                urlDataLoaded.toLoaded = true;
-                                ifDataLoadedStartSearch();
+                                loader.complete(self);
                             }
                         });
                     }, function (data, status) {
@@ -342,8 +364,6 @@ innaAppControllers.
                         log('getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
                     });
                 }
-                else
-                    urlDataLoaded.toLoaded = true;
             };
 
             function updateModel(data) {

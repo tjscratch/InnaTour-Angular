@@ -18,7 +18,7 @@
             display: inline-block;
             .font-proxima-regular-light();
             font-size: 24px;
-            margin: 0px 2px 0 -2px;
+            //margin: 0px 2px 0 -2px;
 
             &:hover {
                 text-decoration: none;
@@ -27,12 +27,13 @@
             .name {
                 color: #89c13a;
                 position: relative;
-                left: 15px;
+                margin-left: 15px;
                 top: -11px;
             }
         }
 
         &-container {
+	          line-height: 0; // хак
             color: #989898;
             .font-proxima-regular();
             margin: auto;
@@ -40,9 +41,11 @@
             width: @grid-width;
             
             &-right {
-                position: absolute;
+	            text-align: right;
+                /*position: absolute;
                 right: 0;
                 top: 10px;
+                */
             }
 
             a {
@@ -52,7 +55,9 @@
 
         &-menu {
             display: inline-block;
-            margin: 0 46px 0 0;
+            margin: 0 0 0 0;
+	          position: relative;
+	          top: 10px;
 
             &-item {
                 border-left: 1px solid #434343;
