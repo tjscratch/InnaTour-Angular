@@ -316,9 +316,9 @@ innaAppControllers.
                 })
             }
 
-            $scope.loadObjectById = function (id, callback, async) {
+            $scope.loadObjectById = function (id, callback) {
                 //console.log('loadObjectById: %d', id);
-                aviaService.getObjectById(id, callback, null, async);
+                aviaService.getObjectById(id, callback, null);
             }
 
             /* To field */

@@ -16,12 +16,16 @@ innaAppServices.
             $log.log(msg);
         }
 
+        function isOlderTenSeconds(ms) {
+            return !((ms + 1000 * 10) > (new Date()).getTime());
+        }
+
         function isOlderMinute(ms) {
             return !((ms + 1000 * 60) > (new Date()).getTime());
         }
 
         function isOlderTenMinutes(ms) {
-            return !((ms + 1000 * 60 * 1000) > (new Date()).getTime());//ToDo: bedug 10min
+            return !((ms + 1000 * 60 * 10) > (new Date()).getTime());//ToDo: bedug 10min
         }
 
         return {
@@ -59,7 +63,7 @@ innaAppServices.
             getAviaSearchResults: function (criteria) {
                 var res = angular.fromJson(sessionStorage.AviaSearchResults);
                 //проверяем, что достаем данные для нужных критериев поиска
-                if (res != null && angular.toJson(criteria) == angular.toJson(res.criteria) && !isOlderTenMinutes(res.date))
+                if (res != null && angular.toJson(criteria) == angular.toJson(res.criteria) && !isOlderMinute(res.date))
                 {
                     return res.data;
                 }
@@ -79,7 +83,7 @@ innaAppServices.
                 params = utils.normalize(params);
                 var res = angular.fromJson(sessionStorage.AviaVariantCheck);
                 //проверяем, что достаем данные для нужных критериев поиска
-                if (res != null && angular.toJson(params) == angular.toJson(res.params) && !isOlderTenMinutes(res.date)) {
+                if (res != null && angular.toJson(params) == angular.toJson(res.params) && !isOlderTenSeconds(res.date)) {
                     return res.data;
                 }
                 return null;

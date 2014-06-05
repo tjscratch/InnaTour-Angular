@@ -9,8 +9,8 @@
                 getDirectoryByUrl: function (term, callbackSuccess, callbackError) {
                     AjaxHelper.get(urls.AVIA_FROM_SUGGEST, { term: term }, callbackSuccess, callbackError);
                 },
-                getObjectById: function (id, callbackSuccess, callbackError, async) {
-                    AjaxHelper.get(urls.DYNAMIC_GET_OBJECT_BY_ID, { id: id }, callbackSuccess, callbackError, async);
+                getObjectById: function (id, callbackSuccess, callbackError) {
+                    AjaxHelper.get(urls.DYNAMIC_GET_OBJECT_BY_ID, { id: id }, callbackSuccess, callbackError);
                 },
                 eof: null
             };

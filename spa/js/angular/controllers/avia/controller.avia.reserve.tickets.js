@@ -56,42 +56,44 @@ innaAppControllers.
             //проверяем, что остались билеты для покупки
             paymentService.checkAvailability({ variantTo: $routeParams.VariantId1, varianBack: $routeParams.VariantId2 },
                 function (data) {
-                    //data = false;
-                    if (data == "true") {
-                        //если проверка из кэша - то отменяем попап
-                        //$timeout.cancel(availableChecktimeout);
+                    $scope.safeApply(function () {
+                        //data = false;
+                        if (data == true) {
+                            //если проверка из кэша - то отменяем попап
+                            //$timeout.cancel(availableChecktimeout);
 
-                        //загружаем все
-                        loadDataAndInit();
+                            //загружаем все
+                            loadDataAndInit();
 
-                        //ToDo: debug
-                        //$timeout(function () {
-                        //    loadDataAndInit();
-                        //}, 1000);
-                    }
-                    else {
-                        //log('checkAvailability, false');
-                        //$timeout.cancel(availableChecktimeout);
-
-                        function goToSearch() {
-                            var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
-                            //log('redirect to url: ' + url);
-                            $location.path(url);
+                            //ToDo: debug
+                            //$timeout(function () {
+                            //    loadDataAndInit();
+                            //}, 1000);
                         }
+                        else {
+                            //log('checkAvailability, false');
+                            //$timeout.cancel(availableChecktimeout);
 
-                        $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска билетов",
-                            function () {
+                            function goToSearch() {
+                                var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+                                //log('redirect to url: ' + url);
+                                $location.path(url);
+                            }
+
+                            $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска билетов",
+                                function () {
+                                    goToSearch();
+                                });
+
+                            $timeout(function () {
+                                //очищаем хранилище для нового поиска
+                                storageService.clearAviaSearchResults();
+                                //билеты не доступны - отправляем на поиск
                                 goToSearch();
-                            });
-
-                        $timeout(function () {
-                            //очищаем хранилище для нового поиска
-                            storageService.clearAviaSearchResults();
-                            //билеты не доступны - отправляем на поиск
-                            goToSearch();
-                        }, 3000);
+                            }, 3000);
                         
-                    }
+                        }
+                    });
                 },
                 function (data, status) {
                     //error
