@@ -10,17 +10,6 @@
                 <!-- tripadvisor -->
                 <ng:include src="'components/tripadvisor/index.html'"
                             ng-repeat="data in [hotel.data]"></ng:include>
-
-                <!--<div class="hotel-info-tripadvisor">
-                    <span class="icon icon-tripadvisor"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 0"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 1"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 2"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 3"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 4"></span>
-                    <span class="hotel-details-ta-info__comments">{{hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}</span>
-                </div>-->
-
             </div>
             <div class="hotel-details-name">
                 <span class="hotel-details-stars">
@@ -47,8 +36,9 @@
                     <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
                     <div class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</div>
                 </div>
-                <ul class="hotel-details-extra" ng-if="hotel.detailed.Extra">
-                    <li ng-repeat="(key, val) in hotel.detailed.Extra"
+
+                <ul class="hotel-details-extra">
+                    <li ng-repeat="(key, val) in hotel.detailed.Hotel.Extra"
                         class="hotel-details-extra__item hotel-details-extra__item_type_{{key | lowercase}}">{{val}}</li>
                 </ul>
             </div>

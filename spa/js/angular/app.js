@@ -196,6 +196,7 @@ app.config([
                     $delegate.$apply(fn);
                 }
             };
+
             return $delegate;
         }
       ]);
