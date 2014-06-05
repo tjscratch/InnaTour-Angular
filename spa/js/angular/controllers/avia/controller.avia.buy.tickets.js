@@ -819,8 +819,11 @@ Cvc = "486";
                     }, {
                         successFn: function () {
                             $scope.baloon.hide();
-                            var criteria = angular.fromJson($scope.reservationModel.filter);
-                            var url = urlHelper.UrlToAviaSearch(criteria);
+                            var url = Urls.URL_AVIA;
+                            if ($scope.reservationModel.filter != null && $scope.reservationModel.filter.length > 0) {
+                                var criteria = angular.fromJson($scope.reservationModel.filter);
+                                url = urlHelper.UrlToAviaSearch(criteria);
+                            }
                             //log('redirect to url: ' + url);
                             $location.path(url);
                         }
