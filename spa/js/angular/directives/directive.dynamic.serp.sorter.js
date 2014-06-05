@@ -44,7 +44,12 @@
                             }
 
                             /*Initial*/
-                            $scope.select($scope.sorters.all[0]);
+                            var unwatchCollectionLength = $scope.$watch('items.list.length', function(len){
+                                if(!len) return;
+
+                                $scope.select($scope.sorters.all[0]);
+                                //unwatchCollectionLength();
+                            });
                         }
                     ]
                 }
@@ -56,7 +61,7 @@
                     return ticket2.data.RecommendedFactor - ticket1.data.RecommendedFactor;
                 }));
                 $scope.sorters.add(new Sorter('По цене', function (ticket1, ticket2) {
-                    return ticket2.data.Price - ticket2.data.Price;
+                    return ticket1.data.Price - ticket2.data.Price;
                 }));
                 $scope.sorters.add(new Sorter('По времени в пути', function (ticket1, ticket2) {
                     return (ticket2.data.TimeTo + ticket2.data.TimeBack) - (ticket1.data.TimeTo + ticket1.data.TimeBack)
@@ -79,7 +84,7 @@
             '$scope',
             function ($scope) {
                 $scope.sorters.add(new Sorter('По стоимости за пакет', function (hotel1, hotel2) {
-                    return hotel2.data.MinimalPackagePrice - hotel1.data.MinimalPackagePrice;
+                    return hotel1.data.PackagePrice - hotel2.data.PackagePrice;
                 }));
                 $scope.sorters.add(new Sorter('По рекомендованности', function (hotel1, hotel2) {
                     return hotel2.data.RecommendFactor - hotel1.data.RecommendFactor;

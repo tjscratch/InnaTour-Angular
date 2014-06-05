@@ -10,17 +10,6 @@
                 <!-- tripadvisor -->
                 <ng:include src="'components/tripadvisor/index.html'"
                             ng-repeat="data in [hotel.data]"></ng:include>
-
-                <!--<div class="hotel-info-tripadvisor">
-                    <span class="icon icon-tripadvisor"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 0"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 1"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 2"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 3"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 4"></span>
-                    <span class="hotel-details-ta-info__comments">{{hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}</span>
-                </div>-->
-
             </div>
             <div class="hotel-details-name">
                 <span class="hotel-details-stars">
@@ -47,8 +36,9 @@
                     <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
                     <div class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</div>
                 </div>
-                <ul class="hotel-details-extra" ng-if="hotel.detailed.Extra">
-                    <li ng-repeat="(key, val) in hotel.detailed.Extra"
+
+                <ul class="hotel-details-extra">
+                    <li ng-repeat="(key, val) in hotel.detailed.Hotel.Extra"
                         class="hotel-details-extra__item hotel-details-extra__item_type_{{key | lowercase}}">{{val}}</li>
                 </ul>
             </div>
@@ -92,7 +82,7 @@
                             <div class="hotel-details-rooms__room-price">
                                 <div class="hotel-details-rooms__room-price-diff">
                                     <span ng-if="$first">Включен в цену</span>
-                                    <span ng-if="!$first">{{bundle.hotel.PackagePrice - room.PackagePrice | signed}} Р</span>
+                                    <span ng-if="!$first">{{bundle.getFullPackagePrice() - bundle.hotel.data.PackagePrice + room.Price | signed}} Р</span>
                                 </div>
                                 <div class="hotel-details-rooms__room-price-full">К оплате: {{ bundle.ticket.PackagePrice + room.PackagePrice | price }} Р</div>
                             </div>
@@ -102,7 +92,7 @@
                         </div>
 
                         <ul class="hotel-details-extra">
-                            <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption}}</li>
+                            <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption.CategoryName}}</li>
                         </ul>
                     </div>
                     <div class="hotel-details-rooms__room-long">
@@ -130,7 +120,7 @@
                 <div class="hotel-details-resume__section hotel-details-resume__section_{{key}}" ng-repeat="(key, cat) in hotel.detailed.Hotel.Amenities">
                     <h4 class="hotel-details-resume__section-title">{{cat.CategoryName}}</h4>
                     <ul class="hotel-details-resume__list">
-                        <li class="hotel-details-resume__item" ng-repeat="item in cat.List">{{item}}</li>
+                        <li class="hotel-details-resume__item" ng-repeat="item in cat.List track by $index">{{item}}</li>
                     </ul>
                 </div>
             </div>

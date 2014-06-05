@@ -5,10 +5,11 @@ angular.module('innaApp.services')
             var cache = {};
 
             function doAjax(options) {
+                //console.log('doAjax, url: %s, useCache: %s', options.url, options.cache);
                 return $.ajax(options);
             }
 
-            function buildOptions(url, data, method, async) {
+            function buildOptions(url, data, method, useCache) {
                 var o = {
                     url: url,
                     type: method,
@@ -17,14 +18,19 @@ angular.module('innaApp.services')
                     data: data,
                     xhrFields: { withCredentials: true },
                     crossDomain: true,
-                    async: typeof async !== 'undefined' ? async : true,
-
+                    //async: typeof async !== 'undefined' ? async : true,
+                    
                     eol: null
                 }
-                if (async == false) {
-                    //при синхронных вызовах последний FF ругается и блочит запрос, нужно удалить withCredentials
-                    delete o.xhrFields;
+
+                if (typeof useCache !== 'undefined'){
+                    o.cache = useCache;
                 }
+
+                //if (async == false) {
+                //    //при синхронных вызовах последний FF ругается и блочит запрос, нужно удалить withCredentials
+                //    delete o.xhrFields;
+                //}
                 return o;
             }
 
@@ -36,28 +42,54 @@ angular.module('innaApp.services')
                 return false;
             }
 
-            ajax.get = function (url, data, success, error, async) {
-                var request = doAjax(buildOptions(url, data, 'GET', async));
+            ajax.cancelRequest = function (url) {
+                if (cache[url]) {
+                    cache[url].abort();
+                }
+            };
+
+            ajax.getCancelable = function (url, data, success, error) {
+                var request = doAjax(buildOptions(url, data, 'GET', false));
+
+                request.done(success || angular.noop).fail(error || angular.noop).always(function () {
+                    delete cache[url];
+                });
+
+                cache[url] = request;
+
+                return request;
+            };
+
+            ajax.getNoCache = function (url, data, success, error) {
+                var request = doAjax(buildOptions(url, data, 'GET', false));
 
                 request.done(success || angular.noop).fail(error || angular.noop);
 
                 return request;
             };
 
-            ajax.post = function (url, data, success, error, async) {
-                var request = doAjax(buildOptions(url, data, 'POST', async));
+            ajax.get = function (url, data, success, error, useCache) {
+                var request = doAjax(buildOptions(url, data, 'GET', useCache));
 
                 request.done(success || angular.noop).fail(error || angular.noop);
 
                 return request;
             };
 
-            ajax.getDebounced = function (url, data, success, error, async) {
+            ajax.post = function (url, data, success, error, useCache) {
+                var request = doAjax(buildOptions(url, data, 'POST', useCache));
+
+                request.done(success || angular.noop).fail(error || angular.noop);
+
+                return request;
+            };
+
+            ajax.getDebounced = function (url, data, success, error, useCache) {
                 if(cache[url]) {
                     cache[url].abort();
                 }
 
-                var req = ajax.get(url, data, success, error, async).always(function(){
+                var req = ajax.get(url, data, success, error, useCache).always(function () {
                     delete cache[url];
                 });
 
@@ -66,12 +98,12 @@ angular.module('innaApp.services')
                 return req;
             };
 
-            ajax.postDebaunced = function (url, data, success, error, async) {
+            ajax.postDebaunced = function (url, data, success, error, useCache) {
                 if(cache[url]) {
                     cache[url].abort();
                 }
 
-                var req = ajax.post(url, data, success, error, async).always(function(){
+                var req = ajax.post(url, data, success, error, useCache).always(function () {
                     delete cache[url];
                 });
 

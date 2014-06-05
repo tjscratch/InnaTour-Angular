@@ -4,8 +4,12 @@ angular.module('innaApp.controllers')
         function($scope, $location, Events, AuthDataProvider, app){
             /*Private*/
             function setUserInfo(data){
-                $scope.$root.user = new inna.Models.Auth.User(data);
-                //console.log($scope.$root.user);
+                $scope.safeApply(function(){
+                    $scope.$root.user = new inna.Models.Auth.User(data);
+
+                    console.log('$scope.user.raw.AgencyActive = ', $scope.user.raw.AgencyActive);
+                    console.log('$scope.$root.user.raw.AgencyActive = ', $scope.$root.user.raw.AgencyActive);
+                });
             }
 
             /*Methods*/
@@ -14,10 +18,14 @@ angular.module('innaApp.controllers')
                 $scope.display = $scope.DISPLAY_SIGNIN;
             };
 
-            $scope.logout = function(){
+            $scope.logout = function () {
+                var wasLoggedUser = $scope.$root.user;
+
                 $scope.$root.user = null;
 
                 AuthDataProvider.logout();
+
+                $scope.$emit(Events.AUTH_SIGN_OUT, wasLoggedUser.raw);
             };
 
             $scope.open = function(){
@@ -70,18 +78,20 @@ angular.module('innaApp.controllers')
             }
 
             $scope.recognize = function(){
+                console.log('RECOGNIZE');
+
                 AuthDataProvider.recognize(setUserInfo);
             }
 
             $scope.B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
 
             /*EventListeners*/
-            $scope.$on(Events.AUTH_SIGN_IN, function(event, data) {
-                $scope.$apply(function(){
+            $scope.$on(Events.AUTH_SIGN_IN, function (event, data) {
+                //console.log(data);
+                $scope.safeApply(function(){
                     setUserInfo(data);
+                    $scope.close();
                 });
-
-                $scope.close();
             });
 
             /*Initial*/

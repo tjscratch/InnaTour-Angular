@@ -59,6 +59,10 @@ innaAppControllers
             $scope.getHotelDetails = getHotelDetails;
 
 
+            /**
+             * Событие more:detail:hotel вызывает метод getHotelDetails
+             * Переход в раздел - подробно об отеле
+             */
             $scope.$on('more:detail:hotel', function (evt, data) {
                 getHotelDetails(data);
             });

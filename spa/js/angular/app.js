@@ -18,6 +18,7 @@ app.constant('innaApp.Urls', {
     URL_AVIA_SEARCH: '/avia/search/',
     URL_AVIA_RESERVATION: '/avia/reservation/',
     URL_AVIA_BUY: '/avia/buy/',
+    URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
     URL_DYNAMIC_PACKAGES_RESERVATION: '/packages/reservation/',
@@ -129,6 +130,10 @@ app.config([
                 templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
                 controller: 'AviaBuyTicketsCtrl'
             }).
+            when(url.URL_DYNAMIC_PACKAGES_BUY + ':OrderNum', {
+                templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl'
+            }).
             when('/hotelticket/', {
                 templateUrl: '/spa/templates/pages/hotelticket_page.html',
                 controller: 'HotelPlusTicketCtrl'
@@ -191,6 +196,7 @@ app.config([
                     $delegate.$apply(fn);
                 }
             };
+
             return $delegate;
         }
       ]);

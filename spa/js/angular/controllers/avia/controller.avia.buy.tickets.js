@@ -25,7 +25,9 @@ innaAppControllers.
             $scope.reservationModel = null;
 
             $scope.objectToReserveTemplate = 'pages/avia/variant_partial.html';
-            //'pages/dynamic/inc/reserve.html';
+            function setPackageTemplate() {
+                $scope.objectToReserveTemplate = 'pages/dynamic/inc/reserve.html';
+            }
 
             /*
 CardNumber = "4012 0010 3714 1112";
@@ -443,6 +445,7 @@ Cvc = "486";
                 }
                 else {
                     $scope.baloon.show('Проверка билетов', 'Подождите пожалуйста, это может занять несколько минут');
+                    
                     //запрос в api
                     paymentService.getPaymentData({
                         orderNum: $scope.orderNum
@@ -540,9 +543,18 @@ Cvc = "486";
 
                             }
                             else {
+                                if (data.Hotel != null) {
+                                    setPackageTemplate();
+                                    aviaHelper.addAggInfoFields(data.Hotel);
+                                    $scope.hotel = data.Hotel;
+                                    $scope.isBuyPage = true;
+                                }
+
                                 aviaHelper.addCustomFields(data.AviaInfo);
                                 $scope.aviaInfo = data.AviaInfo;
                                 $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
+
+                                $scope.price = $scope.reservationModel.price;
                             }
 
                             //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
@@ -740,7 +752,7 @@ Cvc = "486";
 
                                     //скрываем попап с фреймом 3ds
                                     if ($scope.is3dscheck) {
-                                        $scope.iframeUrl = null;
+                                        $scope.buyFrame.hide();
                                     }
 
                                     if (data == 1) {
@@ -811,8 +823,11 @@ Cvc = "486";
                     }, {
                         successFn: function () {
                             $scope.baloon.hide();
-                            var criteria = angular.fromJson($scope.reservationModel.filter);
-                            var url = urlHelper.UrlToAviaSearch(criteria);
+                            var url = Urls.URL_AVIA;
+                            if ($scope.reservationModel.filter != null && $scope.reservationModel.filter.length > 0) {
+                                var criteria = angular.fromJson($scope.reservationModel.filter);
+                                url = urlHelper.UrlToAviaSearch(criteria);
+                            }
                             //log('redirect to url: ' + url);
                             $location.path(url);
                         }

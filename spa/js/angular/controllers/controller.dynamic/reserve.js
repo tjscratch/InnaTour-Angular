@@ -87,17 +87,9 @@
                         aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
                         $scope.item = data.RecommendedPair.AviaInfo;
                                      
-                        function addAggInfo(item) {
-                            //для звезд (особенности верстки)
-                            item.starsList = _.generateRange(1, item.Stars);
-                            item.taStarsList = _.generateRange(1, item.TaFactor);
-
-                            item.CheckInDate = dateHelper.apiDateToJsDate(item.CheckIn);
-                            item.CheckOutDate = dateHelper.apiDateToJsDate(item.CheckOut);
-                        }
-
-                        addAggInfo(data.RecommendedPair.Hotel);
+                        aviaHelper.addAggInfoFields(data.RecommendedPair.Hotel);
                         $scope.hotel = data.RecommendedPair.Hotel;
+                        $scope.price = data.RecommendedPair.Price;
 
                         function getCheckParams() {
                             var qData = {
@@ -146,15 +138,18 @@
                                     //$timeout.cancel(availableChecktimeout);
 
                                     function goToSearch() {
-                                        //var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
-                                        ////log('redirect to url: ' + url);
-                                        //$location.path(url);
+                                        var url = $scope.goBackUrl();
+                                        console.log('redirect to url: ' + url);
+                                        $location.url(url);
                                     }
 
-                                    $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска туров",
-                                        function () {
-                                            goToSearch();
-                                        });
+                                    $scope.safeApply(function () {
+                                        $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска",
+                                            function () {
+                                                goToSearch();
+                                            });
+                                    });
+                                    
 
                                     //$timeout(function () {
                                     //    //очищаем хранилище для нового поиска
@@ -167,8 +162,9 @@
                             function (data, status) {
                                 //error
                                 //$timeout.cancel(availableChecktimeout);
-
-                                $scope.showReserveError();
+                                $scope.safeApply(function () {
+                                    $scope.showReserveError();
+                                });
                             });
                         
                         function loadDataAndInit() {
@@ -199,8 +195,8 @@
 
             $scope.afterCompleteCallback = function () {
                 //переходим на страницу оплаты
-                var url = urlHelper.UrlToAviaTicketsBuy($scope.OrderNum);
-                //log('processToPayment, url: ' + url);
+                var url = Urls.URL_DYNAMIC_PACKAGES_BUY + $scope.OrderNum;
+                //console.log('processToPayment, url: ' + url);
                 $location.url(url);
             }
 
@@ -260,7 +256,7 @@
                                 }
                                 else {
                                     //сохраняем модель
-                                    storageService.setReservationModel(model);
+                                    //storageService.setReservationModel(model);
 
                                     //успешно
                                     $scope.afterCompleteCallback();

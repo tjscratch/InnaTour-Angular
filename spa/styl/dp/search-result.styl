@@ -3,7 +3,7 @@
   display inline-block
   width 10px
   height 14px
-  background url(../img/expand-collapse.png)
+  background url(/spa/img/expand-collapse.png)
 
 .icon-collapse
   background-position 0 -14px
@@ -16,12 +16,12 @@
 
 .recommend-bundle-container
   position fixed
-  top 144px
+  top $padding_over_search
   width 100%
   z-index 5
 
 	&.recommend-bundle-container_short
-		top 44px
+		top $padding_over_head
 
 .recommend-bundle
   background #000
@@ -73,10 +73,10 @@
     top 40px
 
 .results-container
-  padding 438px 0 0
+  padding $full_padding 0 0
 
   &.results-container__short
-    padding-top 159px
+    padding-top $short_padding
 
   .result
     width 720px

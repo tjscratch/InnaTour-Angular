@@ -91,17 +91,19 @@
                         successCallback(res);
                     }
                     else {
-                        AjaxHelper.get(apiUrls.AVIA_BEGIN_SEARCH, apiCriteria).success(function (data, status) {
+                        AjaxHelper.getCancelable(apiUrls.AVIA_BEGIN_SEARCH, apiCriteria, function (data, status) {
                             //сохраняем в хранилище (сохраняем только последний результат)
-                            storageService.setAviaSearchResults({ date: new Date().getTime(), criteria: apiCriteria, data: data });
+                            //storageService.setAviaSearchResults({ date: new Date().getTime(), criteria: apiCriteria, data: data });
                             //присваиваем значение через функцию коллбэк
                             successCallback(data);
-                        }).
-                        error(function (data, status) {
+                        }, function (data, status) {
                             //вызываем err callback
                             errCallback(data, status);
                         });
                     }
+                },
+                cancelAviaSearch: function() {
+                    AjaxHelper.cancelRequest(apiUrls.AVIA_BEGIN_SEARCH);
                 },
                 startSearchTours: function (criteria, successCallback, errCallback) {
                     //запрос по критериям поиска

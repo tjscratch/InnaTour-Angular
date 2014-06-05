@@ -1,5 +1,5 @@
 ﻿<!-- Search Results -->
-<div class="results-body" style="padding-top: 100px;" id="buy-listener">
+<div class="results-body" style="padding-top: 110px;" id="buy-listener">
     <form action="" class="results-body">
         <div class="main__center" ng-if="reservationModel.IsService">
             <header class="buy__header">
@@ -89,10 +89,10 @@
         </div>
 
         <div class="b-tickets-info-container">
-            <div class="b-tickets-ok" ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService">Билеты забронированы</div>
-            <!--<div class="b-tickets-ok">Билеты забронированы, отель будет забронирован после оплаты</div>-->
+            <div class="b-tickets-ok" ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">Билеты забронированы</div>
+            <div class="b-tickets-ok" ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">Билеты забронированы, отель будет забронирован после оплаты</div>
             <div class="b-tickets-info-block" ng-if="reservationModel.experationMinute > 0">
-                <div class="b-tickets-sum">Сумма к оплате: <b>{{reservationModel.price| price}} <ng-include src="'components/ruble.html'" /></b></div>
+                <div class="b-tickets-sum">Сумма к оплате: <b>{{price| price}} <ng-include src="'components/ruble.html'" /></b></div>
                 <div class="b-tickets-info">
                     оплатить до: <b>{{reservationModel.expirationDate | date:'HH:mm'}}, {{reservationModel.expirationDateFormatted}}</b><div class="br"></div>
                     осталось: <b>{{reservationModel.experationSecondsFormatted}}</b>
@@ -185,11 +185,6 @@
             </div>
             <div class="b__rules-grey">
                 <ul class="b__rules-flies">
-                    <!--<li><a href="#" class="current"><span><b>Москва → Амстердам,</b> KL-900, Эконом (L)</span></a></li>
-                    <li><a href="#"><span><b>Москва → Амстердам,</b> AZ-3627, Эконом (K)</span></a></li>
-                    <li><a href="#"><span><span><b>Москва → Амстердам,</b> AZ-3627, Эконом (K)</span></a></li>
-                    <li><a href="#"><span><b>Москва → Амстердам,</b> AZ-3627, Эконом (K)</span></a></li>
-                    <li><a href="#"><span><b>Москва → Амстердам,</b> AZ-3627, Эконом (K)</span></a></li>-->
                     <li ng-class="{current:item === tarifs.setected}" ng-repeat="item in tarifs.list"><a ng-href="#" ng-click="tarifs.tarifClick($event, item)"><span><b>{{item.from}} → {{item.to}},</b> {{item.num}}, {{tarifs.class}} (K)</span></a></li>
                 </ul>
                 <h3>{{tarifs.setected.from}} → {{tarifs.setected.to}}</h3>

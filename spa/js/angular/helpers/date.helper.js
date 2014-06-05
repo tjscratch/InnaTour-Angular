@@ -149,10 +149,10 @@
 
         var date = Date.fromDDMMYY(ddmmyy);
 
-        console.log(date);
-        console.log(date.getFullYear());
-        console.log(date.getMonth() + 1, trailingZero(date.getMonth() + 1));
-        console.log(date.getDate(), trailingZero(date.getDate()));
+        //console.log(date);
+        //console.log(date.getFullYear());
+        //console.log(date.getMonth() + 1, trailingZero(date.getMonth() + 1));
+        //console.log(date.getDate(), trailingZero(date.getDate()));
 
         return [date.getFullYear(), trailingZero(date.getMonth() + 1), trailingZero(date.getDate())].join('-');
     },

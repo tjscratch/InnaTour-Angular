@@ -7,7 +7,8 @@ inna.Models.Auth.User = function(data){
         FirstName: data.FirstName,
         Phone: data.Phone,
         MessagesCount: data.MessagesCount,
-        AgencyName: data.AgencyName
+        AgencyName: data.AgencyName,
+        Type: data.Type
     };
 };
 
