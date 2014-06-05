@@ -6,10 +6,8 @@ angular.module('innaApp.directives')
                 urls: '=innaGalleryPicList'
             },
             controller: [
-                '$scope',
-                function ($scope) {
-                    console.log('innaGallery', $scope);
-
+                '$scope', '$timeout',
+                function ($scope, $timeout) {
                     /*Models*/
                     function PicList(){
                         this.list = [];
@@ -49,11 +47,13 @@ angular.module('innaApp.directives')
                             var pic = new Image();
 
                             pic.onload = function(){
-                                $scope.pics.list.push(pic);
+                                $timeout(function(){
+                                    $scope.pics.list.push(pic);
 
-                                if(_index === 0) {
-                                    $scope.pics.setCurrent(pic);
-                                }
+                                    if(_index === 0) {
+                                        $scope.pics.setCurrent(pic);
+                                    }
+                                });
                             };
 
                             pic.src = url.Large;
