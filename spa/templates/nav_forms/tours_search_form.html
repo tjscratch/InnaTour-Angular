@@ -19,6 +19,7 @@
                     ng-class="{selected:form.toListSelectedIndex == $index}">
                     {{item.name}}<span class="description">{{getToItemDescription(item)}}</span>
                     <i class="icon icon-flag" ng-class="'icon-flag-' + item.codeIcao" ng-show="isNeedToShowFlag(item)"></i>
+                    <!--<span class="iata-code">{{item.codeIcao}}</span>-->
                 </li>
             </ng:any>
         </ul>
