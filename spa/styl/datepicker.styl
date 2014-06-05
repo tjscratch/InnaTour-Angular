@@ -3,6 +3,7 @@
     border-radius(2px)
     height 35px
     position relative
+    overflow visible
     width 35px
 
     &:hover
@@ -13,17 +14,38 @@
 
     &:before
         position: absolute
-        color #000
+        left 50%
+        top 50%
+        margin -4px 0 0 -2px
 
+
+
+
+.ui-icon-circle-triangle-w, .ui-icon-circle-triangle-e
+    &:before
+        content ''
+        width 0
+        height 0
+        border-style solid
 
 
 .ui-icon-circle-triangle-w
     &:before
-        content '◀'
+        border-width 4.5px 5px 4.5px 0
+        border-color transparent #000 transparent transparent
+
+    &:hover
+        &:before
+            border-color transparent #fff transparent transparent
 
 .ui-icon-circle-triangle-e
     &:before
-        content '▶'
+        border-width 4.5px 0 4.5px 5px
+        border-color transparent transparent transparent #000
+
+    &:hover
+        &:before
+            border-color transparent transparent transparent #fff
 
 
 
