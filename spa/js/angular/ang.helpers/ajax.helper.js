@@ -19,10 +19,14 @@ angular.module('innaApp.services')
                     xhrFields: { withCredentials: true },
                     crossDomain: true,
                     //async: typeof async !== 'undefined' ? async : true,
-                    cache: typeof useCache !== 'undefined' ? useCache : true,
-
+                    
                     eol: null
                 }
+
+                if (typeof useCache !== 'undefined'){
+                    o.cache = useCache;
+                }
+
                 //if (async == false) {
                 //    //при синхронных вызовах последний FF ругается и блочит запрос, нужно удалить withCredentials
                 //    delete o.xhrFields;
@@ -39,9 +43,9 @@ angular.module('innaApp.services')
             }
 
             ajax.get = function (url, data, success, error, useCache) {
-                if (useCache !== undefined){
-                    console.log('');
-                }
+                //if (useCache !== undefined){
+                //    console.log('');
+                //}
                 var request = doAjax(buildOptions(url, data, 'GET', useCache));
 
                 request.done(success || angular.noop).fail(error || angular.noop);
