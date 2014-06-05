@@ -42,10 +42,15 @@ angular.module('innaApp.services')
                 return false;
             }
 
+            ajax.getNoCache = function (url, data, success, error) {
+                var request = doAjax(buildOptions(url, data, 'GET', false));
+
+                request.done(success || angular.noop).fail(error || angular.noop);
+
+                return request;
+            };
+
             ajax.get = function (url, data, success, error, useCache) {
-                //if (useCache !== undefined){
-                //    console.log('');
-                //}
                 var request = doAjax(buildOptions(url, data, 'GET', useCache));
 
                 request.done(success || angular.noop).fail(error || angular.noop);
