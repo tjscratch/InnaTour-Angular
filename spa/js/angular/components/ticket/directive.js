@@ -2,11 +2,7 @@ angular.module('innaApp.directives')
     .directive('innaTicket', ['$templateCache', function($templateCache){
         return {
             template: $templateCache.get('components/ticket/templ/index.html'),
-            scope: {
-                ticket: '=innaTicketTicket',
-                getTicketDetails: '&innaTicketGetTicketDetails',
-                passengerCount: '=innaTicketPassengerCount'
-            },
+            scope: false,
             transclude: true,
             controller: [
                 '$scope',
@@ -29,7 +25,11 @@ angular.module('innaApp.directives')
                         }
 
                         return false;
-                    }
+                    };
+
+                    $scope.virtualBundle = new inna.Models.Dynamic.Combination();
+                    $scope.virtualBundle.hotel = $scope.combination.hotel;
+                    $scope.virtualBundle.ticket = $scope.ticket;
                 }
             ]
         }

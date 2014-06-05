@@ -17,6 +17,15 @@ angular.module('innaApp.directives')
                             $scope.$emit('hotel:go-to-map', $scope.hotel);
                         }
 
+                        $scope.setCurrent = function(){
+                            $scope.$emit('choose:hotel', $scope.hotel);
+                        }
+
+                        $scope.virtualBundle = new inna.Models.Dynamic.Combination();
+                        $scope.virtualBundle.hotel = $scope.hotel;
+                        $scope.virtualBundle.ticket = $scope.combination.ticket;
+
+                        console.log($scope.virtualBundle);
                     }],
                 link : function($scope, $element){
                     $scope.$watch('hotel.currentlyInvisible', function(isInvis){
@@ -34,10 +43,6 @@ angular.module('innaApp.directives')
                             }, 1);
                         }
                     });
-
-                    $scope.setCurrent = function(){
-                        $scope.$emit('choose:hotel', $scope.hotel);
-                    }
                 }
             }
     }]);
