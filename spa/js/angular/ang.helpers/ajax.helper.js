@@ -5,7 +5,7 @@ angular.module('innaApp.services')
             var cache = {};
 
             function doAjax(options) {
-                console.log('doAjax, url: %s, useCache: %s', options.url, options.cache);
+                //console.log('doAjax, url: %s, useCache: %s', options.url, options.cache);
                 return $.ajax(options);
             }
 
