@@ -1,0 +1,48 @@
+<span class="icon icon-price-info JS-icon-price-info"></span>
+<div class="tooltip tooltip-price tooltip-price_at_hotel-card JS-tooltip-price" style="display:none;">
+    <ul>
+        <li class="list-price-item">
+            Отдельно
+            <span class="list-price pull-right">
+                {{item.data.Price | price}} <span class="b-rub">q</span>
+            </span>
+        </li>
+        <li class="list-price-item">
+            В пакете
+            <span class="list-price pull-right">
+                {{item.data.PackagePrice | price}} <span class="b-rub">q</span>
+            </span>
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Экономия
+            <span class="list-price green pull-right">
+                {{(item.data.Price - item.data.PackagePrice) | price}} <span class="b-rub">q</span>
+            </span>
+        </li>
+    </ul>
+    <div style="margin-top: 10px;" ng-if="item.data.PriceObject.TotalAgentProfit | defined">
+        <div class="list-price-total"></div>
+        <ul>
+            <li class="list-price-item">
+                Сбор ИННА Тур
+                <span class="list-price green pull-right">
+                    {{item.data.PriceObject.TotalInnaProfit | price}} <span class="b-rub">q</span>
+                </span>
+            </li>
+            <li class="list-price-item">
+                Сбор агента
+                <span class="list-price green pull-right">
+                    {{item.data.PriceObject.TotalAgentProfit | price}} <span class="b-rub">q</span>
+                </span>
+            </li>
+            <li class="list-price-item">
+                Агентское вознаграждение
+                <span class="list-price green pull-right">
+                    {{item.data.PriceObject.TotalAgentReward | price}} <span class="b-rub">q</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

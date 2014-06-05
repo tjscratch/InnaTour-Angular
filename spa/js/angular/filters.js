@@ -113,3 +113,11 @@ innaAppFilters.filter('visibleOnly', [function(){
         return result;
     }
 }]);
+
+innaAppFilters.filter('defined', function(){
+    var undef = typeof(void(0));
+
+    return function(input){
+        return (typeof input !== undef);
+    }
+});

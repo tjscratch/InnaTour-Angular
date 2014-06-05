@@ -2,13 +2,16 @@
 <form action="" class="results-body" style="padding-top:120px;">
     <div class="main__center">
         <ng:include src="objectToReserveTemplate"></ng:include>
+
         <div class="buy__warning" ng-show="visaNeeded">
             <div>Требуется виза.</div>
             <div ng-show="visaNeeded_rules">Обратите внимание на визовые правила.</div>
         </div>
+
         <header class="buy__header">
             <h2 class="buy__title">Информация о покупателе</h2>
         </header>
+
         <div>
             <div class="b-field-group">
                 <!--<div class="b-field-block b-field-block-auth" style="width: 388px;">-->
@@ -23,7 +26,7 @@
                         <a href="#" class="b-auth-close"></a>
                         <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
                         <a href="#" class="button b-auth-button">Войти</a>
-                    </div>--> 
+                    </div>-->
                 </div>
                 <div class="b-field-block" style="width: 180px;">
                     <label class="b-field-label">Мобильный телефон</label>
@@ -38,40 +41,42 @@
             <!-- <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div> -->
             <label class="b-agreement"><input ng-model="validationModel.wannaNewsletter.value" type="checkbox"><ins class="b-checkbox"></ins>Я хочу получать рассылку спецпредложений</label>
         </div>
+
         <header class="buy__header">
             <h2 class="buy__title">Пассажиры</h2>
         </header>
+
         <fieldset class="buy__blocks" ng-repeat="passenger in validationModel.passengers">
             <div class="b-field-group b-field-group-passport">
                 <div class="b-field-block">
                     <label class="b-field-label">Пол</label>
                     <ul class="radio-list" ng-class="{error:passenger.sex.isInvalid && !validationModel.formPure }"
                         ng-init="setValid(passenger.sex, passenger.sex.value != null)">
-                        <li><label><input type="checkbox" name="male3" ng-model="passenger.sex.value" 
+                        <li><label><input type="checkbox" name="male3" ng-model="passenger.sex.value"
                             ng-change="setValid(passenger.sex, passenger.sex.value != null)"
                             ng-checked="passenger.sex.value == sexType.man" ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}"><ins class="radio">М</ins></label></li>
-                        <li><label><input type="checkbox" name="male3" ng-model="passenger.sex.value" 
+                        <li><label><input type="checkbox" name="male3" ng-model="passenger.sex.value"
                             ng-change="setValid(passenger.sex, passenger.sex.value != null)"
                             ng-checked="passenger.sex.value == sexType.woman" ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}"><ins class="radio">Ж</ins></label></li>
                     </ul>
                 </div>
                 <div class="b-field-block" style="width: 160px;">
                     <label class="b-field-label">Фамилия</label>
-                    <input upper-latin validate-events-dir ng-model="passenger.secondName.value" 
+                    <input upper-latin validate-events-dir ng-model="passenger.secondName.value"
                            ng-validation-model="passenger.secondName" validate="validate(item, type)" validate-type="validateType.required"
                            ng-class="{error:isFieldInvalid(passenger.secondName)}"
                            type="text" placeholder="IVANOV" class="b-field-text">
                 </div>
                 <div class="b-field-block b-field-block-surname" style="width: 150px;">
                     <label class="b-field-label">Имя</label>
-                    <input upper-latin validate-events-dir ng-model="passenger.name.value" 
+                    <input upper-latin validate-events-dir ng-model="passenger.name.value"
                            ng-validation-model="passenger.name" validate="validate(item, type)" validate-type="validateType.required"
                            ng-class="{error:isFieldInvalid(passenger.name)}"
                            type="text" placeholder="IVAN" class="b-field-text">
                 </div>
                 <div class="b-field-block" style="width: 110px;">
                     <label class="b-field-label">Дата рождения</label>
-                    <input validate-events-dir ng-model="passenger.birthday.value" 
+                    <input validate-events-dir ng-model="passenger.birthday.value"
                            ng-validation-model="passenger.birthday" validate="validate(item, type)" validate-type="validateType.birthdate"
                            ng-class="{error:isFieldInvalid(passenger.birthday)}"
                            title="Неправильно введена дата рождения"
@@ -99,7 +104,7 @@
                 </div>
                 <div class="b-field-block" style="width: 110px;">
                     <label class="b-field-label b-field-label-docs">Действителен до</label>
-                    <input validate-events-dir ng-model="passenger.doc_expirationDate.value" 
+                    <input validate-events-dir ng-model="passenger.doc_expirationDate.value"
                            ng-validation-model="passenger.doc_expirationDate" validate="validate(item, type)" validate-type="validateType.expire"
                            ng-class="{error:isFieldInvalid(passenger.doc_expirationDate)}"
                            title="Неправильно введена дата"
@@ -126,6 +131,7 @@
                 </div>
             </div>
         </fieldset>
+
         <ng:any ng-if="addition != null">
             <header class="buy__header">
                 <h2 class="buy__title">Пожелание к номеру</h2>
