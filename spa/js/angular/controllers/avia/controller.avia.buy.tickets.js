@@ -748,7 +748,7 @@ Cvc = "486";
 
                                     //скрываем попап с фреймом 3ds
                                     if ($scope.is3dscheck) {
-                                        $scope.iframeUrl = null;
+                                        $scope.buyFrame.hide();
                                     }
 
                                     if (data == 1) {
