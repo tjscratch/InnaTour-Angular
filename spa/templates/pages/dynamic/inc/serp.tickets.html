@@ -3,21 +3,27 @@
     <div class="results-list results-list_720">
         <div ng-repeat="ticket in tickets.filter(ticketFilters) | visibleOnly:padding.scrollTop"
              inna-ticket
-             inna-ticket-ticket="ticket"
-             inna-ticket-get-ticket-details="getTicketDetails(ticket)"
-             inna-ticket-passenger-count="passengerCount"
              ng-if="combination.ticket.data.VariantId1 != ticket.data.VariantId1">
 
+            <!-- TRANSCLUDE -->
+
             <p class="corner-price">
-                {{ticket.data.PackagePrice - combination.ticket.data.PackagePrice | signed}}
+                {{virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed}}
                 <span class="b-rub">q</span>
             </p>
-            <p class="price">
-                {{ticket.data.Price}}<ng-include src="'components/ruble.html'" />
-                <span class="price-description">экономия: {{combination.getFullPrice() - combination.hotel.data.PackagePrice - ticket.data.PackagePrice}}
+
+            <div class="price">
+                {{virtualBundle.getFullPackagePrice() | price}}
+                <span class="b-rub">q</span>
+
+                <ng:include src="'components/item-price-details.html'" ng-init="item = ticket"></ng:include>
+
+                <span class="price-description">
+                    экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}
                     <span class="b-rub">q</span>
                 </span>
-            </p>
+
+            </div>
             <button class="button" ng-click="setTicket(ticket)">Выбрать</button>
         </div>
     </div>
