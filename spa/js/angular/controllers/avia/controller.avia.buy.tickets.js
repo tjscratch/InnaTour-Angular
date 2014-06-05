@@ -25,7 +25,9 @@ innaAppControllers.
             $scope.reservationModel = null;
 
             $scope.objectToReserveTemplate = 'pages/avia/variant_partial.html';
-            //'pages/dynamic/inc/reserve.html';
+            function setPackageTemplate() {
+                $scope.objectToReserveTemplate = 'pages/dynamic/inc/reserve.html';
+            }
 
             /*
 CardNumber = "4012 0010 3714 1112";
@@ -540,6 +542,12 @@ Cvc = "486";
 
                             }
                             else {
+                                if (data.Hotel != null) {
+                                    setPackageTemplate();
+                                    $scope.hotel = data.Hotel;
+                                    $scope.isBuyPage = true;
+                                }
+
                                 aviaHelper.addCustomFields(data.AviaInfo);
                                 $scope.aviaInfo = data.AviaInfo;
                                 $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
@@ -740,7 +748,7 @@ Cvc = "486";
 
                                     //скрываем попап с фреймом 3ds
                                     if ($scope.is3dscheck) {
-                                        $scope.iframeUrl = null;
+                                        $scope.buyFrame.hide();
                                     }
 
                                     if (data == 1) {
