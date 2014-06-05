@@ -35,8 +35,8 @@
         <div class="search-form-item-current">
             {{form.nights.name}}
         </div>
-        <i class="icon icon-triangle" ng-class="{bottom:!form.nights.isOpen}"></i>
-        <ul id="fNights" class="search-form-list" style="display: block;" ng-show="form.nights.isOpen">
+        <i class="icon icon-triangle" ng-class="{bottom:!form.nightsIsOpen}"></i>
+        <ul id="fNights" class="search-form-list" style="display: block;" ng-show="form.nightsIsOpen">
             <li class="search-form-list-item" ng-repeat="item in form.nightsList" ng-click="nightItemClick(item, $event)"
                 ng-class="{selected:form.nightsIsItemSelected(item)}">{{item.name}}</li>
         </ul>
