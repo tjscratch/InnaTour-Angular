@@ -1531,7 +1531,6 @@
   display: inline-block;
   font-family: proxima_nova_ltlight, Arial, sans-serif;
   font-size: 24px;
-  margin: 0px 2px 0 -2px;
 }
 .header-info-logo:hover {
   text-decoration: none;
@@ -1539,10 +1538,11 @@
 .header-info-logo .name {
   color: #89c13a;
   position: relative;
-  left: 15px;
+  margin-left: 15px;
   top: -11px;
 }
 .header-info-container {
+  line-height: 0;
   color: #989898;
   font-family: proxima_nova_rgregular, Arial, sans-serif;
   margin: auto;
@@ -1550,16 +1550,20 @@
   width: 960px;
 }
 .header-info-container-right {
-  position: absolute;
-  right: 0;
-  top: 10px;
+  text-align: right;
+  /*position: absolute;
+                right: 0;
+                top: 10px;
+                */
 }
 .header-info-container a {
   color: inherit;
 }
 .header-info-menu {
   display: inline-block;
-  margin: 0 46px 0 0;
+  margin: 0 0 0 0;
+  position: relative;
+  top: 10px;
 }
 .header-info-menu-item {
   border-left: 1px solid #434343;
@@ -1808,20 +1812,6 @@
   background: url(/spa/img/email.png);
   height: 30px;
   width: 30px;
-}
-.layout {
-  padding: 155px 0 0;
-  position: relative;
-  z-index: 1;
-}
-.layout-light {
-  position: relative;
-  z-index: 1;
-  padding: 105px 0 0;
-}
-.center-container {
-  margin: 0 auto;
-  width: 960px;
 }
 .banner-dots {
   bottom: 30px;
