@@ -137,22 +137,23 @@ innaAppControllers.
 
                 function getStoreItem() {
                     var self = this;
-                    var storeItem = null;//storageService.getAviaBuyItem();
-                    //log('storeItem: ' + angular.toJson(storeItem));
-                    if (storeItem != null) {
-                        if (storeItem.item.VariantId2 == null)
-                            storeItem.item.VariantId2 = 0;
-                        //проверяем, что там наш итем
-                        if ($scope.criteria.QueryId == storeItem.searchId &&
-                            $scope.criteria.VariantId1 == storeItem.item.VariantId1 && $scope.criteria.VariantId2 == storeItem.item.VariantId2) {
-                            $scope.searchId = storeItem.searchId;
-                            $scope.item = storeItem.item;
+                    //var storeItem = null;//storageService.getAviaBuyItem();
+                    ////log('storeItem: ' + angular.toJson(storeItem));
+                    //if (storeItem != null) {
+                    //    if (storeItem.item.VariantId2 == null)
+                    //        storeItem.item.VariantId2 = 0;
+                    //    //проверяем, что там наш итем
+                    //    if ($scope.criteria.QueryId == storeItem.searchId &&
+                    //        $scope.criteria.VariantId1 == storeItem.item.VariantId1 && $scope.criteria.VariantId2 == storeItem.item.VariantId2) {
+                    //        $scope.searchId = storeItem.searchId;
+                    //        $scope.item = storeItem.item;
+                    //        //$scope.price = storeItem.item.price;
 
-                            //оповещаем лоадер, что метод отработал
-                            loader.complete(self);
-                        }
-                    }
-                    else {
+                    //        //оповещаем лоадер, что метод отработал
+                    //        loader.complete(self);
+                    //    }
+                    //}
+                    //else {
                         //запрос в api
                         paymentService.getSelectedVariant({
                             variantId1: $scope.criteria.VariantId1,
@@ -165,6 +166,7 @@ innaAppControllers.
                                 aviaHelper.addCustomFields(data);
                                 //log('getSelectedVariant dataItem: ' + angular.toJson(data));
                                 $scope.item = data;
+                                $scope.price = data.Price;
                                 //console.log($scope.item);
                                 //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
 
@@ -177,7 +179,7 @@ innaAppControllers.
                         function (data, status) {
                             $log.error('paymentService.getSelectedVariant error');
                         });
-                    }
+                    //}
                 };
 
                 loader.init([loadToCountry, getStoreItem], init).run();
@@ -196,7 +198,6 @@ innaAppControllers.
 
             $scope.afterCompleteCallback = function () {
                 //переходим на страницу оплаты
-                //var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria);
                 var url = urlHelper.UrlToAviaTicketsBuy($scope.criteria.OrderNum);
                 //log('processToPayment, url: ' + url);
                 $location.path(url);
@@ -245,7 +246,7 @@ innaAppControllers.
                                 }
                                 else {
                                     //сохраняем модель
-                                    storageService.setReservationModel(model);
+                                    //storageService.setReservationModel(model);
 
                                     //успешно
                                     $scope.afterCompleteCallback();

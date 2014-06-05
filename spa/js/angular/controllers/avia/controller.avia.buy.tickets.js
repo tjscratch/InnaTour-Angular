@@ -445,6 +445,7 @@ Cvc = "486";
                 }
                 else {
                     $scope.baloon.show('Проверка билетов', 'Подождите пожалуйста, это может занять несколько минут');
+                    
                     //запрос в api
                     paymentService.getPaymentData({
                         orderNum: $scope.orderNum
@@ -544,6 +545,7 @@ Cvc = "486";
                             else {
                                 if (data.Hotel != null) {
                                     setPackageTemplate();
+                                    aviaHelper.addAggInfoFields(data.Hotel);
                                     $scope.hotel = data.Hotel;
                                     $scope.isBuyPage = true;
                                 }
@@ -551,6 +553,8 @@ Cvc = "486";
                                 aviaHelper.addCustomFields(data.AviaInfo);
                                 $scope.aviaInfo = data.AviaInfo;
                                 $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
+
+                                $scope.price = $scope.reservationModel.price;
                             }
 
                             //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));

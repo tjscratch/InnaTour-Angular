@@ -414,6 +414,15 @@
                     addAirPortFromToFields(item);
                 },
 
+                addAggInfoFields: function (item) {
+                    //для звезд (особенности верстки)
+                    item.starsList = item.Stars > 0 ? _.generateRange(1, item.Stars): null;
+                    item.taStarsList = item.TaFactor > 0 ? _.generateRange(1, item.TaFactor) : null;
+
+                    item.CheckInDate = dateHelper.apiDateToJsDate(item.CheckIn);
+                    item.CheckOutDate = dateHelper.apiDateToJsDate(item.CheckOut);
+                },
+
                 baloonType: baloonType,
 
                 baloon: {
