@@ -1,6 +1,6 @@
 ﻿<header class="buy__header">
     <h2 class="buy__title">Оплата пакета</h2>
-    <a ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой номер</a>
+    <a ng-href="{{goBackUrl()}}" ng-if="!isBuyPage" class="buy__title-link">Выбрать другой номер</a>
     <div class="buy__header-price">Стоимость пакета: <b>{{item.Price| price}} <ng-include src="'components/ruble.html'" /></b></div>
 </header>
 <p class="buy__price-descr" ng-show="item != null && hotel != null">В цену включен ПЕРЕЛЕТ {{item.CityFrom}} – {{item.CityTo}} – {{item.CityFrom}} и отель {{hotel.HotelName}} с {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMM', true)}} по {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMM', true)}}, {{hotel.NightCount}} {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}. Цена окончательная со 
@@ -10,7 +10,7 @@
         <div class="result-cell result-cell-480">
             <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span class="rl-airline-text">{{tr.name}}</span></span>
             <span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png" alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>
-            <div class="b-ticket_2ways buy__tickets" ng-show="item != null">
+            <div class="b-ticket_2ways buy__tickets" ng-class="{buy__tickets__buy:isBuyPage}" ng-show="item != null">
                 <div class="rlf-fly">
                     <div class="rlf__flight-block">
                         <b>{{item.DepartureTimeFormatted}}</b> {{item.DepartureDateFormatted}}<br>
@@ -39,7 +39,7 @@
             <!--<span class="icon-sprite-airplane"></span>-->
             <div class="bottom-actions">
                 <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
-                <a ng-href="#" class="pull-right" ng-click="popupItemInfo.show($event, item, null, null, true)">Подробнее</a>
+                <a ng-if="!isBuyPage" ng-href="#" class="pull-right" ng-click="popupItemInfo.show($event, item, null, null, true)">Подробнее</a>
             </div>
         </div><!--
             --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
@@ -67,7 +67,7 @@
 
             <div class="bottom-actions">
                 <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
-                <a ng-href="{{getHotelInfoLink(item.VariantId1, hotel.HotelId)}}" class="pull-right">Подробнее</a>
+                <a ng-if="getHotelInfoLink() != null" ng-href="{{getHotelInfoLink(item.VariantId1, hotel.HotelId)}}" class="pull-right">Подробнее</a>
             </div>
         </div>
     </div>
