@@ -120,7 +120,7 @@
                         paymentService.packageCheckAvailability(getCheckParams(),
                             function (data) {
                                 //data = false;
-                                if (data.IsTicketAvailable == true && data.Rooms != null &&
+                                if (data != null && data.IsTicketAvailable == true && data.Rooms != null &&
                                     data.Rooms.length > 0 && data.Rooms[0].IsAvail == true && data.Rooms[0].RoomId.length > 0) {
                                     //если проверка из кэша - то отменяем попап
                                     //$timeout.cancel(availableChecktimeout);
