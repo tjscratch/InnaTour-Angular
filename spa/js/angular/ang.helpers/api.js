@@ -22,6 +22,7 @@ angular.module('innaApp.API', [])
             DYNAMIC_SEARCH_HOTELS: url('/Packages/SearchHotels'),
             DYNAMIC_SEARCH_TICKETS: window.DEV_DYNAMIC_SEARCH_TICKETS_STUB || url('/Packages/SearchTickets'),
             DYNAMIC_HOTEL_DETAILS: url('/Packages/SearchHotel'),
+            DYNAMIC_GET_DIRECTORY_BY_IP: url('/Packages/DirectoryByIP'),
 
             AUTH_SIGN_UP: url('/Account/Register/Post'),
             AUTH_SIGN_UP_STEP_2: url('/Account/Confirm/Post'),
