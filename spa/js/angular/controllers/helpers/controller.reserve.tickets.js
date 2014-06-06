@@ -62,6 +62,7 @@ innaAppControllers.
                         if (pas.citizenship.value.id == 189)//Россия
                         {
                             isCitRussia = true;
+                            break;
                         }
                     }
 

@@ -96,7 +96,7 @@
                             var qData = {
                                 HotelId: $scope.hotel.HotelId,
                                 HoteProviderId: $scope.hotel.ProviderId,
-                                //Rooms: $scope.hotel.SelectedRoomId,//???
+                                Rooms: $location.search().room,
                                 TicketToId: $scope.item.VariantId1,
                                 TicketBackId: $scope.item.VariantId2,
                                 TicketClass: $routeParams.TicketClass,
