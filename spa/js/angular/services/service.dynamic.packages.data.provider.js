@@ -12,7 +12,9 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                 AjaxHelper.get(api.DYNAMIC_GET_OBJECT_BY_ID, {id: id}, callback);
             },
             getUserLocation: function(callback){
-                AjaxHelper.getDebounced(api.DYNAMIC_GET_DIRECTORY_BY_IP,callback);
+                //TODO
+
+                $timeout(function(){ callback(25); }, 500); // 25 is the fish! it's not a "magic" number
 
                 return null;
             },

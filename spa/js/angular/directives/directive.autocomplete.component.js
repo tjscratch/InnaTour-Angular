@@ -1,4 +1,4 @@
-﻿innaAppDirectives.directive('dropdownInput', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
+﻿﻿innaAppDirectives.directive('dropdownInput', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
     return {
         replace: true,
         template: $templateCache.get('components/dropdown_input.html'),
@@ -103,12 +103,6 @@
 
                 if(preparedText.length) {
                     scope.provideSuggestCallback(preparedText, value);
-                }
-
-                if(event.which === 38) { //up
-                    //todo
-                } else if(event.which == 40) { //down
-                    //todo
                 }
             });
 

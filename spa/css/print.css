@@ -40,6 +40,12 @@
   font-family: Rouble;
   src: url("/spa/fonts/rouble.eot?") format('eot'), url("/spa/fonts/rouble.woff") format('woff'), url("/spa/fonts/rouble.ttf") format('truetype'), url("/spa/fonts/rouble.svg#ALSRubl") format('svg');
 }
+@font-face {
+  font-family: 'ProximaNovaLight';
+  font-weight: normal;
+  font-style: normal;
+  src: url("/spa/fonts/proximanova-light-webfont.eot?") format('eot'), url("/spa/fonts/proximanova-light-webfont.woff") format('woff'), url("/spa/fonts/proximanova-light-webfont.ttf") format('truetype'), url("/spa/fonts/proximanova-light-webfont.svg#svgFontName") format('svg');
+}
 body {
   font-family: ProximaNova;
 }

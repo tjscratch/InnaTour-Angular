@@ -1,35 +1,3 @@
-@font-face {
-    font-family: 'ProximaNova';
-    font-weight normal
-    font-style normal
-    src: url('../fonts/proximanova-reg-webfont.eot?') format('eot'), 
-         url('../fonts/proximanova-reg-webfont.woff') format('woff'), 
-         url('../fonts/proximanova-reg-webfont.ttf')  format('truetype'),
-         url('../fonts/proximanova-reg-webfont.svg#svgFontName') format('svg');
-}
-@font-face {
-    font-family: 'ProximaNova';
-    font-weight bold
-    font-style normal
-    src: url('../fonts/proximanova-bold-webfont.eot?') format('eot'), 
-         url('../fonts/proximanova-bold-webfont.woff') format('woff'), 
-         url('../fonts/proximanova-bold-webfont.ttf')  format('truetype'),
-         url('../fonts/proximanova-bold-webfont.svg#svgFontName') format('svg');
-}
-@font-face {
-    font-family: 'ProximaNovaLight';
-    font-weight normal
-    font-style normal
-    src: url('../fonts/proximanova-light-webfont.eot?') format('eot'), 
-         url('../fonts/proximanova-light-webfont.woff') format('woff'), 
-         url('../fonts/proximanova-light-webfont.ttf')  format('truetype'),
-         url('../fonts/proximanova-light-webfont.svg#svgFontName') format('svg');
-}
-
-// Var
-$ProximaNova = ProximaNova, Arial, sans-serif
-$ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
-
 .hidden
     display none
 
@@ -37,7 +5,6 @@ $ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
     font-size 0
     line-height 0
     letter-spacing -1px
-    margin 0
     padding 0
     color #242424
     position relative
@@ -59,11 +26,6 @@ $ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
     position relative
 
 .b-wrapp_type_inline
-    // line-height normal
-    // letter-spacing normal
-    // display inline-block
-    // vertical-align top
-    // font-size 17px
     position relative
     float left
 
@@ -76,7 +38,6 @@ $ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
     width 100%
     border 0
     font 14px $ProximaNova
-    color #242424
     box-sizing border-box
     height 48px
     color #000
@@ -220,10 +181,9 @@ $ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
     right 0
     top 27px
     margin 0
-    padding 0
+		padding 5px 12px
     list-style none
     background #89c13a
-    padding 5px 12px
     box-shadow 0 7px 8px 1px rgba(0,0,0,.3)
 
 .search-people-baloon
@@ -252,7 +212,6 @@ $ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
 
 .search-people-baloon-field input
     display block
-    border 0
     padding 3px
     margin 0 31px
     font 14px $ProximaNova
@@ -289,9 +248,6 @@ $ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
 		&:hover
 			background #89c13a
 
-//.search-people-baloon-plus:hover
-//    background #89c13a
-//    color #fff
 
 .search-people-baloon-null input
     color #ccc
@@ -376,17 +332,6 @@ $ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
     right 0
     bottom 0
 
-// .b-wrapp_type_inline .search-field-block
-//     float left
-
-// .b-wrapp_type_inline .search-date
-// .b-wrapp_type_inline .search-field
-//     height 50px
-
-// .b-wrapp_type_inline + .search-button-block
-//     line-height 50px
-//     height 50px
-
 .ng-isolate-scope .search-pref-block
     top 51px
 
@@ -427,7 +372,7 @@ $ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
             content ''
             width 12px
             height 10px
-            background url(../img/i.png) no-repeat 0 -2030px
+            background url(/spa/img/i.png) no-repeat 0 -2030px
             display block
             position absolute
             left 12px

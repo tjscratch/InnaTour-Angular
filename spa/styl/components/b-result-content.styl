@@ -1,11 +1,4 @@
-.result
-  /*border-radius(4px)*/
-  /*box-shadow 0 3px 3px rgba(0,0,0,.6)*/
-  display inline-block
-  line-height 0
-  margin-bottom 10px
-  /*overflow hidden*/
-  position: relative
+.b-result-content
 
   .warning
     color #dd3e14
@@ -41,68 +34,8 @@
     top 40px
 
   .result-cell
-    background #fff
-    box-sizing border-box
-    display table-cell
-    line-height normal
-    margin-left 10px
-    padding 10px
-    position relative
-    vertical-align top
-
     &__airlines *
       vertical-align middle
-
-    &:first-child
-      margin-left 0
-      border-radius 4px 0 0 4px
-
-    &:last-child
-      border-radius 0 4px 4px 0
-
-    &:after
-      border-radius 4px
-      box-shadow 0 3px 5px rgba(0,0,0, .4)
-      content ''
-      height 100%
-      position absolute
-      left 0
-      top 0
-      width 100%
-      z-index -1
-
-
-  .result-cell-gap
-    display table-cell
-    position: relative
-    width 10px
-
-    &:before, &:after
-      content ''
-      background url(../img/ticket-gaps.png) no-repeat
-      display block
-      position: absolute
-      overflow hidden
-      width 10px
-
-    &:before
-      height 6px
-      top 0
-
-
-    &:after
-      background-position 0 -6px
-      bottom -6px
-      height 12px
-
-  .result-cell-gap-wrap
-    background #cfcfcf
-    border 1px solid #fff
-    border-width 0 5px 0 4px
-    bottom 6px
-    position: absolute
-    top 6px
-    width 1px
 
   .corner-price, .price
     color #acafb1
@@ -143,10 +76,9 @@
     width 100%
 
   .result-buy, .result-choice
-    width 176px
+    //width 176px
 
   .result-buy
-
     .icon-crown
       position: absolute
       right 11px
@@ -226,10 +158,12 @@
     font-size 18px
     font-weight bold
     height 30px
-    position: absolute;
+		text-align center
+		line-height 30px
+    position: absolute
     bottom 10px
-    width 160px
-    left 4px
+    left 10px
+		right 10px
 
   .result-choice
 
@@ -255,7 +189,6 @@
     right 0
     top 7px
 
-
 	.bottom-actions
 		bottom 10px
 		font-size 14px
@@ -272,6 +205,8 @@
 
 			&.active
 				color: #c0c0c2
+
+
 
 
 .flight-info
@@ -331,8 +266,9 @@
 	margin 21px 0 35px
 
 	&__wrapper
+		position relative
 		box-sizing border-box
-		padding-bottom  10px
+		padding 0 0 10px 80px
 		height 75px
 		margin-bottom 10px
 
@@ -342,6 +278,9 @@
 
 	img
 		margin-right 10px
+		position absolute
+		left 0
+		top 0
 
 
 .hotel-info-content
@@ -356,7 +295,7 @@
 
 	.star-container
 		line-height 0
-		margin 2px 0 0
+		margin 2px 0 4px
 
 .hotel-info-name
 	font-size 18px
@@ -425,6 +364,10 @@
     .white
       color #fff
       margin-left 8px
+
+  .flight__image
+    position relative
+    top 4px
 
   .result-cell-330
     padding 0 15px

@@ -30,7 +30,6 @@
 
                 if($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
                 if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
-                if ($location.search().room) searchParams['RoomId'] = $location.search().room;
 
                 $scope.searchParams = searchParams;
 
@@ -82,21 +81,30 @@
                         }
                         $scope.addition = new addition();
 
-                        console.log('data:');
-                        console.log(data);
+                        //console.log('data:');
+                        //console.log(data);
                         //дополняем полями 
                         aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
                         $scope.item = data.RecommendedPair.AviaInfo;
                                      
-                        aviaHelper.addAggInfoFields(data.RecommendedPair.Hotel);
+                        function addAggInfo(item) {
+                            console.log(item, 'item');
+                            //для звезд (особенности верстки)
+                            item.starsList = _.generateRange(1, item.Stars);
+                            item.taStarsList = _.generateRange(1, item.TaFactor);
+
+                            item.CheckInDate = dateHelper.apiDateToJsDate(item.CheckIn);
+                            item.CheckOutDate = dateHelper.apiDateToJsDate(item.CheckOut);
+                        }
+
+                        addAggInfo(data.RecommendedPair.Hotel);
                         $scope.hotel = data.RecommendedPair.Hotel;
-                        $scope.price = data.RecommendedPair.Price;
 
                         function getCheckParams() {
                             var qData = {
                                 HotelId: $scope.hotel.HotelId,
                                 HoteProviderId: $scope.hotel.ProviderId,
-                                Rooms: $location.search().room,
+                                //Rooms: $scope.hotel.SelectedRoomId,//???
                                 TicketToId: $scope.item.VariantId1,
                                 TicketBackId: $scope.item.VariantId2,
                                 TicketClass: $routeParams.TicketClass,
@@ -139,18 +147,15 @@
                                     //$timeout.cancel(availableChecktimeout);
 
                                     function goToSearch() {
-                                        var url = $scope.goBackUrl();
-                                        console.log('redirect to url: ' + url);
-                                        $location.url(url);
+                                        //var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+                                        ////log('redirect to url: ' + url);
+                                        //$location.path(url);
                                     }
 
-                                    $scope.safeApply(function () {
-                                        $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска",
-                                            function () {
-                                                goToSearch();
-                                            });
-                                    });
-                                    
+                                    $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска туров",
+                                        function () {
+                                            goToSearch();
+                                        });
 
                                     //$timeout(function () {
                                     //    //очищаем хранилище для нового поиска
@@ -163,9 +168,8 @@
                             function (data, status) {
                                 //error
                                 //$timeout.cancel(availableChecktimeout);
-                                $scope.safeApply(function () {
-                                    $scope.showReserveError();
-                                });
+
+                                $scope.showReserveError();
                             });
                         
                         function loadDataAndInit() {
@@ -196,8 +200,8 @@
 
             $scope.afterCompleteCallback = function () {
                 //переходим на страницу оплаты
-                var url = Urls.URL_DYNAMIC_PACKAGES_BUY + $scope.OrderNum;
-                //console.log('processToPayment, url: ' + url);
+                var url = urlHelper.UrlToAviaTicketsBuy($scope.OrderNum);
+                //log('processToPayment, url: ' + url);
                 $location.url(url);
             }
 
@@ -257,7 +261,7 @@
                                 }
                                 else {
                                     //сохраняем модель
-                                    //storageService.setReservationModel(model);
+                                    storageService.setReservationModel(model);
 
                                     //успешно
                                     $scope.afterCompleteCallback();

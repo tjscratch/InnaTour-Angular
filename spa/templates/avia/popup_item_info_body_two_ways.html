@@ -1,4 +1,4 @@
-﻿<div class="clearfix">
+﻿﻿<div class="clearfix">
     <div class="b-ticket_2ways-block">
         <div class="rlf-part">
             <div class="rfl-column3">
@@ -54,8 +54,7 @@
                     <div class="rlf-colum2">
                         <div class="rlf-flight-info">
                             <b>вылет {{etapAgg.etapBack.OutTimeFormatted}}</b>, {{etapAgg.etapBack.OutDateFormatted}} <br>
-                            <span ng-if="etapAgg.etapBack.OutCity != etapAgg.etapBack.OutPort">{{etapAgg.etapBack.OutCity}}, {{etapAgg.etapBack.OutPort}}</span>
-                            <span ng-if="etapAgg.etapBack.OutCity == etapAgg.etapBack.OutPort">{{etapAgg.etapBack.OutCity}}</span>
+                            {{etapAgg.etapBack.OutCity}}, {{etapAgg.etapBack.OutPort}}
                         </div>
                     </div>
                 </div>
@@ -67,8 +66,7 @@
                     <div class="rlf-colum2-m">
                         <div class="rlf-flight-info">
                             <b>прилет {{etapAgg.etapBack.InTimeFormatted}}</b>, {{etapAgg.etapBack.InDateFormatted}} <br>
-                            <span ng-if="etapAgg.etapBack.InCity != etapAgg.etapBack.InPort">{{etapAgg.etapBack.InCity}}, {{etapAgg.etapBack.InPort}}</span>
-                            <span ng-if="etapAgg.etapBack.InCity == etapAgg.etapBack.InPort">{{etapAgg.etapBack.InCity}}</span>
+                            {{etapAgg.etapBack.InCity}}, {{etapAgg.etapBack.InPort}}
                         </div>
                     </div>
                 </div>
