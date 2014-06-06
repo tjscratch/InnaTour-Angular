@@ -34,6 +34,7 @@ angular.module('innaApp.directives')
 
                                 $element.find('.b-carousel').innaCarousel({
                                     photoList: $scope.hotel.data.Photos,
+                                    size: 'Small',
                                     style: {
                                         width: 200,
                                         height: 190
