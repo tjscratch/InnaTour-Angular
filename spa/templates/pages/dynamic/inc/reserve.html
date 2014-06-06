@@ -1,22 +1,30 @@
-﻿<header class="buy__header">
+﻿﻿<header class="buy__header">
     <h2 class="buy__title">Оплата пакета</h2>
-    <a ng-href="{{goBackUrl()}}" ng-if="!isBuyPage" class="buy__title-link">Выбрать другой номер</a>
-    <div class="buy__header-price">Стоимость пакета: <b>{{price| price}} <ng-include src="'components/ruble.html'" /></b></div>
+    <a ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой номер</a>
+
+    <div class="buy__header-price">Стоимость пакета: <b>{{item.Price| price}}
+        <ng-include src="'components/ruble.html'"/>
+    </b></div>
 </header>
-<p class="buy__price-descr" ng-show="item != null && hotel != null">В цену включен ПЕРЕЛЕТ {{item.CityFrom}} – {{item.CityTo}} – {{item.CityFrom}} и отель {{hotel.HotelName}} с {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMM', true)}} по {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMM', true)}}, {{hotel.NightCount}} {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}. Цена окончательная со 
-всеми налогами и сборами </p>
+<p class="buy__price-descr" ng-show="item != null && hotel != null">В цену включен ПЕРЕЛЕТ {{item.CityFrom}} –
+    {{item.CityTo}} – {{item.CityFrom}} и отель {{hotel.HotelName}}
+    с {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMM', true)}}
+    по {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMM', true)}}, {{hotel.NightCount}}
+    {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}. Цена окончательная со
+    всеми налогами и сборами </p>
 
 <div class="results-list_960">
-    <!--
-        Пересикаются стили из за класса buy__fly
-        Высталяю новый класс buy__package
-    -->
-    <div class="result buy__fly buy__package buy__fly_footer">
 
-        <div class="result-cell col-cell-460">
-            <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span class="rl-airline-text">{{tr.name}}</span></span>
-            <span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png" alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>
-            <div class="b-ticket_2ways buy__tickets" ng-class="{buy__tickets__buy:isBuyPage}" ng-show="item != null">
+    <div class="b-result b-result_col_two b-result_big result row buy__fly buy__fly_footer">
+
+        <div class="b-result__cell result-cell">
+            <span ng-if="!(item.transportersList.length > 3)" class="rl-airline"
+                  ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span
+                    class="rl-airline-text">{{tr.name}}</span></span>
+            <span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png"
+                                                                                   alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>
+
+            <div class="b-ticket_2ways buy__tickets" ng-show="item != null">
                 <div class="rlf-fly">
                     <div class="rlf__flight-block">
                         <b>{{item.DepartureTimeFormatted}}</b> {{item.DepartureDateFormatted}}<br>
@@ -27,7 +35,9 @@
                         <b>{{item.ArrivalTimeFormatted}}</b> {{item.ArrivalDateFormatted}}<br>
                         <b>{{item.AirportTo}}</b> {{item.InCode}}
                     </div>
-                    <div class="rlf-full-travel-time-info">в пути: {{item.TimeToFormatted}}, <span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{helper.getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span></div>
+                    <div class="rlf-full-travel-time-info">в пути: {{item.TimeToFormatted}}, <span
+                            ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{helper.getTransferCountText(item.ToTransferCount)}}</span><span
+                            ng-if="item.ToTransferCount == 0">прямой</span></div>
                 </div>
                 <div class="rlf-fly rlf-fly_back">
                     <div class="rlf__flight-block">
@@ -39,41 +49,58 @@
                         <b>{{item.BackArrivalTimeFormatted}}</b> {{item.BackArrivalDateFormatted}}<br>
                         <b>{{item.AirportFrom}}</b> {{item.OutCode}}
                     </div>
-                    <div class="rlf-full-travel-time-info">в пути: {{item.TimeBackFormatted}}, <span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{helper.getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span></div>
+                    <div class="rlf-full-travel-time-info">в пути: {{item.TimeBackFormatted}}, <span
+                            ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{helper.getTransferCountText(item.BackTransferCount)}}</span><span
+                            ng-if="item.BackTransferCount == 0">прямой</span></div>
                 </div>
             </div>
             <!--<span class="icon-sprite-airplane"></span>-->
             <div class="bottom-actions">
                 <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
-                <a ng-if="!isBuyPage" ng-href="#" class="pull-right" ng-click="popupItemInfo.show($event, item, null, null, true)">Подробнее</a>
+                <a ng-href="#" class="pull-right" ng-click="popupItemInfo.show($event, item, null, null, true)">Подробнее</a>
             </div>
-        </div><!--
-            --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
-
-
-
-        <div class="result-cell col-cell-460">
+            <!-- separator -->
+            <div class="b-result-cell__gap">
+                <div class="b-result-cell__gap_wrap"></div>
+            </div>
+        </div>
+        <div class="b-result__cell result-cell">
             <img ng-src="{{hotel.ProviderLogoUrl}}" alt="" class="logo">
 
             <div class="hotel-info">
-                <img ng-src="{{hotel.HotelPhoto70}}" alt=""><!--
-                        --><div class="hotel-info-content">
-                <div class="star-container">
-                    <span ng-repeat="star in hotel.starsList track by $index" class="icon icon-star"></span>
+                <div class="hotel-info__wrapper">
+                    <img ng-src="{{hotel.HotelPhoto70}}" alt=""><!--
+                        -->
+                    <div class="hotel-info-content">
+                        <div class="star-container">
+                            <span ng-repeat="star in hotel.starsList track by $index" class="icon icon-star"></span>
+                        </div>
+                        <h3 class="hotel-info-name" style="width: 360px;">{{hotel.HotelName}}</h3>
+
+                        <div class="hotel-info-date" ng-show="hotel != null">с
+                            {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMM', true)}} по
+                            {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMM', true)}}, {{hotel.NightCount}}
+                            {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}
+                        </div>
+                    </div>
                 </div>
-                <h3 class="hotel-info-name" style="width: 360px;">{{hotel.HotelName}}</h3>
-                <div class="hotel-info-date" ng-show="hotel != null">с {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMM', true)}} по {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMM', true)}}, {{hotel.NightCount}} {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}</div>
-            </div>
-                <div class="hotel-info-tripadvisor" ng-show="hotel != null">
+
+                <!-- tripadvisor -->
+                <div class="hotel-info__tripadvisor ng-hide" ng-show="hotel != null">
+                    <ng:include src="'components/tripadvisor/index.html'"
+                                ng-repeat="data in [hotel.taStarsList] track by $index"></ng:include>
+                </div>
+                <!--<div class="hotel-info-tripadvisor" >
                     <span class="icon icon-tripadvisor"></span>
-                    <span class="icon icon-tripadvisor-like" ng-repeat="star in hotel.taStarsList track by $index"></span>
+                    <span class="icon icon-tripadvisor-like"
+                          ng-repeat="star in hotel.taStarsList track by $index"></span>
                     {{hotel.TaCommentCount}} {{helper.pluralForm(hotel.TaCommentCount, 'отзыв', 'отзыва', 'отзывов')}}
-                </div>
+                </div>-->
             </div>
 
             <div class="bottom-actions">
                 <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
-                <a ng-if="getHotelInfoLink() != null" ng-href="{{getHotelInfoLink(item.VariantId1, hotel.HotelId)}}" class="pull-right">Подробнее</a>
+                <a ng-href="{{getHotelInfoLink(item.VariantId1, hotel.HotelId)}}" class="pull-right">Подробнее</a>
             </div>
         </div>
 

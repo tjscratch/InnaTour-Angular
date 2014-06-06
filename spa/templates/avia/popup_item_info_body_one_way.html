@@ -1,4 +1,4 @@
-﻿<div class="rlf-part" style="min-height: 84px;">
+﻿﻿<div class="rlf-part" style="min-height: 84px;">
     <div class="rfl-column3">
         <div class="rlf-aviacompany">
             <img ng-src="{{etap.TransporterCodeUrl}}" alt="" style="max-height: 25px; margin-bottom:5px !important;">
@@ -15,8 +15,7 @@
             <div class="rlf-colum2">
                 <div class="rlf-flight-info">
                     <b>вылет {{etap.OutTimeFormatted}}</b>, {{etap.OutDateFormatted}} <br>
-                    <span ng-if="etap.InCity != etap.InPort">{{etap.OutCity}}, {{etap.OutPort}}</span>
-                    <span ng-if="etap.InCity == etap.InPort">{{etap.OutCity}}</span>
+                    {{etap.OutCity}}, {{etap.OutPort}}
                 </div>
             </div>
         </div>
@@ -28,8 +27,7 @@
             <div class="rlf-colum2" style="width:210px;">
                 <div class="rlf-flight-info">
                     <b>прилет {{etap.InTimeFormatted}}</b>, {{etap.InDateFormatted}} <br>
-                    <span ng-if="etap.InCity != etap.InPort">{{etap.InCity}}, {{etap.InPort}}</span>
-                    <span ng-if="etap.InCity == etap.InPort">{{etap.InCity}}</span>
+                    {{etap.InCity}}, {{etap.InPort}}
                 </div>
             </div>
         </div>

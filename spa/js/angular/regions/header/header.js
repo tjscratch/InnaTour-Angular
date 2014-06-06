@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿﻿'use strict';
 
 angular.module('innaApp.directives')
     .directive('regionHeader', ['$templateCache', function ($templateCache) {
@@ -53,8 +53,7 @@ angular.module('innaApp.directives')
                         var abs = $location.absUrl();
                         if (loc == '/' || abs.indexOf('/tours/?') > -1) {
                             return urlHelper.addPathAndVersion('/spa/templates/nav_forms/tours_search_form.html');
-                        } else if (loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION)
-                            && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)) {
+                        } else if (loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION)) {
                             return urlHelper.addPathAndVersion('/spa/templates/nav_forms/dynamic_search_form.html');
                         }
                         else if (loc.startsWith(appUrls.URL_AVIA) && !loc.startsWith(appUrls.URL_AVIA_RESERVATION) && !loc.startsWith(appUrls.URL_AVIA_BUY)) {
