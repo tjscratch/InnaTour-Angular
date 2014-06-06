@@ -104,6 +104,12 @@
                 if(preparedText.length) {
                     scope.provideSuggestCallback(preparedText, value);
                 }
+
+                if(event.which === 38) { //up
+                    //todo
+                } else if(event.which == 40) { //down
+                    //todo
+                }
             });
 
             scope.input.focus(function () {
