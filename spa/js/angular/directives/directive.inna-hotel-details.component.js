@@ -1,5 +1,3 @@
-// TODO : вынести в компонент
-
 angular.module('innaApp.directives')
     .directive('innaHotelDetails', ['$templateCache', function($templateCache){
         return {
