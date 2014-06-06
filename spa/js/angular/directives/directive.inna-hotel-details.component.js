@@ -40,6 +40,9 @@ angular.module('innaApp.directives')
 
                     $scope.dataFullyLoaded = false;
 
+                    $scope.tripAdvWidgetURL = "http://www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=0809534566654028B2A963412AD73DD3&lang=ru&locationId={{hotel.data.HotelId}}".split('{{hotel.data.HotelId}}').join($scope.hotel.data.HotelId);
+
+
                     /*Proxy*/
                     $scope.dateHelper = dateHelper;
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
