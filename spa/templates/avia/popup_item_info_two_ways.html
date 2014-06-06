@@ -1,15 +1,15 @@
 ﻿﻿<div class="rlf-oneway">
     <div class="b-ticket_2ways">
         <div class="rlf-fly" style="padding-bottom: 13px;">
-            <span class="rlf-city">{{item.AirportFrom}}</span> {{item.OutCode}}
+            <span class="rlf-city">{{item.CityFrom}}</span> {{item.OutCode}}
             <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-            <span class="rlf-city">{{item.AirportTo}}</span> {{item.InCode}}
+            <span class="rlf-city">{{item.CityTo}}</span> {{item.InCode}}
             <div class="rlf-full-travel-time">в пути: {{item.TimeToFormatted}}, <span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span></div>
         </div>
-        <div class="rlf-fly" style="padding-bottom: 13px;">
-            <span class="rlf-city">{{item.AirportTo}}</span> {{item.InCode}}
+        <div class="rlf-fly rlf-fly_back" style="padding-bottom: 13px;">
+            <span class="rlf-city">{{item.CityTo}}</span> {{item.InCode}}
             <span class="rlf-fly-arrow"></span>
-            <span class="rlf-city">{{item.AirportFrom}}</span> {{item.OutCode}}
+            <span class="rlf-city">{{item.CityFrom}}</span> {{item.OutCode}}
             <div class="rlf-full-travel-time">в пути: {{item.TimeBackFormatted}}, <span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span></div>
         </div>
     </div>
