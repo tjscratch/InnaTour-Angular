@@ -1,5 +1,5 @@
 <div class="b-result b-result_col_three row b-result-content">
-    <div class="b-result__cell result-cell">
+    <div class="b-result__cell">
 
             <span class="rl-airline" ng-repeat="(code, name) in bundle.ticket.collectAirlines()" ng-if="$index < 2">
                 <span ng-switch="code">
@@ -58,7 +58,7 @@
     </div>
 
 
-    <div class="b-result__cell result-cell">
+    <div class="b-result__cell">
         <img ng-src="{{bundle.hotel.data.ProviderLogoUrl}}" alt="" class="logo">
 
         <div class="hotel-info">
@@ -106,7 +106,7 @@
         </div>
     </div>
 
-    <div class="b-result__cell result-buy result-cell">
+    <div class="b-result__cell result-buy">
         <button class="share-button" ng-class="{'active': linkPopup.isOpen}" ng-click="linkPopup.toggle()"></button>
         <div class="tooltip tooltip-share-link" ng-if="linkPopup.isOpen">
             <input type="text" class="share-link-input" ng-value="location">

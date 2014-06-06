@@ -26,7 +26,7 @@
 
 
             <div class="result-small" ng-if="display.isCurrent(display.SHORT)">
-                <div class="result-cell result-cell-390">
+                <div class="result-small__cell col-cell-390">
                     <p class="flight">
                         <img class="flight__image" ng-src="{{airLogo( ticket.getEtaps('To')[0].data.TransporterCode )}}"
                              height=28
@@ -41,7 +41,7 @@
                         в пути: {{ticket.getDuration('Back')}}, {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
                     </p>
                 </div>
-                <div class="result-cell result-cell-330">
+                <div class="result-small__cell col-cell-330">
                     <h3 class="hotel-info-name">
                         <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 0"></span>
                         <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 1"></span>
@@ -55,7 +55,7 @@
                         по {{combination.hotel.data.CheckOut | date: 'd MMM'}},
                         {{combination.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
                 </div>
-                <div class="result-cell">
+                <div class="result-small__cell">
                     <p class="corner-price">
                         {{combination.getFullPackagePrice()}} Р
                     </p>

@@ -1,0 +1,46 @@
+.result-small {
+
+  &__cell {
+    display: table-cell;
+    font-size: 14px;
+    border-right: 1px solid #4d4d4d;
+    vertical-align: middle;
+
+    &:nth-child(2) {
+      padding: 0 15px;
+    }
+  }
+
+  .flight, .hotel-info-date {
+    color: #c0c0c2;
+    line-height: 16px;
+  }
+
+  .flight {
+    .white {
+      color: #fff;
+      margin-left: 8px;
+    }
+  }
+
+  .flight__image {
+    position: relative;
+    top: 4px;
+  }
+
+  .hotel-info-name {
+    color: #fff;
+    font-weight: normal;
+  }
+
+  .corner-price {
+    color: #fff;
+    font-family: ProximaNova;
+    font-size: 24px;
+    font-weight: bold;
+
+    position: absolute;
+    right: 0;
+    top: 6px;
+  }
+}
