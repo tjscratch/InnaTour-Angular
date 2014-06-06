@@ -90,7 +90,7 @@
                                 <div class="hotel-details-rooms__room-price-full">К оплате: {{ bundle.ticket.data.PackagePrice + room.Price | price }} Р</div>
                             </div>
                             <div class="hotel-details-rooms__room-actions">
-                                <button class="button button_size_l" ng-click="goReservation(room)">Купить</button>
+                                <button class="button button_size_l" ng-click="goReservation(room, bundle.hotel)">Купить</button>
                             </div>
                         </div>
 
