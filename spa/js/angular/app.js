@@ -64,7 +64,8 @@ app.config([
     '$locationProvider',
     '$httpProvider',
     'innaApp.Urls',
-    function ($routeProvider, $locationProvider, $httpProvider, url) {
+    '$sceProvider',
+    function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider) {
 
         //console.log($templateCache.get('pages/tours_grid_page.html'));
 
@@ -80,6 +81,8 @@ app.config([
         $httpProvider.defaults.transformRequest = function (data) {
             return angular.isObject(data) && String(data) !== '[object File]' ? angular.toParam(data) : data;
         };
+
+        $sceProvider.enabled(false);
 
         $routeProvider.
             //Главная

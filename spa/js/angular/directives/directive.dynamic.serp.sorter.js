@@ -48,7 +48,6 @@
                                 if(!len) return;
 
                                 $scope.select($scope.sorters.all[0]);
-                                //unwatchCollectionLength();
                             });
                         }
                     ]
