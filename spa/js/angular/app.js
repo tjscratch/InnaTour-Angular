@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿﻿'use strict';
 
 var app = angular.module('innaApp', [
   'ngRoute',
@@ -18,7 +18,6 @@ app.constant('innaApp.Urls', {
     URL_AVIA_SEARCH: '/avia/search/',
     URL_AVIA_RESERVATION: '/avia/reservation/',
     URL_AVIA_BUY: '/avia/buy/',
-    URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
     URL_DYNAMIC_PACKAGES_RESERVATION: '/packages/reservation/',
@@ -64,8 +63,7 @@ app.config([
     '$locationProvider',
     '$httpProvider',
     'innaApp.Urls',
-    '$sceProvider',
-    function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider) {
+    function ($routeProvider, $locationProvider, $httpProvider, url) {
 
         //console.log($templateCache.get('pages/tours_grid_page.html'));
 
@@ -81,8 +79,6 @@ app.config([
         $httpProvider.defaults.transformRequest = function (data) {
             return angular.isObject(data) && String(data) !== '[object File]' ? angular.toParam(data) : data;
         };
-
-        $sceProvider.enabled(false);
 
         $routeProvider.
             //Главная
@@ -130,10 +126,6 @@ app.config([
                 controller: 'AviaBuyTicketsCtrl'
             }).
             when(url.URL_AVIA_BUY + ':OrderNum', {
-                templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
-                controller: 'AviaBuyTicketsCtrl'
-            }).
-            when(url.URL_DYNAMIC_PACKAGES_BUY + ':OrderNum', {
                 templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
                 controller: 'AviaBuyTicketsCtrl'
             }).
@@ -199,7 +191,6 @@ app.config([
                     $delegate.$apply(fn);
                 }
             };
-
             return $delegate;
         }
       ]);

@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 /* Controllers */
 
 innaAppControllers.
@@ -62,7 +62,6 @@ innaAppControllers.
                         if (pas.citizenship.value.id == 189)//Россия
                         {
                             isCitRussia = true;
-                            break;
                         }
                     }
 
@@ -907,7 +906,7 @@ innaAppControllers.
                 //function call() { if (afterCompleteCallback) afterCompleteCallback(); };
 
                 var model = $scope.getModelFromValidationModel($scope.validationModel);
-                //model.price = $scope.item.Price;
+                model.price = $scope.item.Price;
 
                 var apiModel = $scope.getApiModel(model);
                 log('');

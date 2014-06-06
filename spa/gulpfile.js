@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     concat = require('gulp-concat'),
     stylus = require('gulp-stylus'),
+    nib = require('nib'),
     livereload = require('gulp-livereload'),
     uglify = require('gulp-uglify'),
     minifyCSS = require('gulp-minify-css'),
@@ -9,8 +10,6 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     templateCache = require('gulp-angular-templatecache'),
     cleanhtml = require('gulp-cleanhtml');
-
-
 
 gulp.task('templates-ang', function () {
 
@@ -34,27 +33,24 @@ gulp.task('templates-ang', function () {
 });
 
 gulp.task('styles', function () {
+
+    var optStyl = {
+        use: ['nib'],
+        import: ['nib']
+    };
+
     gulp.src(['styl/common.styl'])
-        .pipe(stylus({
-            use: ['nib'],
-            import: ['nib']
-        }))
+        .pipe(stylus(optStyl))
         .pipe(concat('common.min.css'))
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest('css'));
     gulp.src(['styl/ie.styl'])
-        .pipe(stylus({
-            use: ['nib'],
-            import: ['nib']
-        }))
+        .pipe(stylus(optStyl))
         .pipe(concat('ie.min.css'))
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest('css'));
     gulp.src(['styl/ticket.styl'])
-        .pipe(stylus({
-            use: ['nib'],
-            import: ['nib']
-        }))
+        .pipe(stylus(optStyl))
         .pipe(concat('ticket.min.css'))
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest('css'));
