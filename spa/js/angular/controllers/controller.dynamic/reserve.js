@@ -1,4 +1,4 @@
-﻿﻿angular.module('innaApp.controllers')
+﻿angular.module('innaApp.controllers')
     .controller('DynamicReserveTicketsCtrl', [
         '$scope',
         '$controller',
@@ -81,13 +81,14 @@
                         }
                         $scope.addition = new addition();
 
-                        console.log('data:');
-                        console.log(data);
+                        //console.log('data:');
+                        //console.log(data);
                         //дополняем полями 
                         aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
                         $scope.item = data.RecommendedPair.AviaInfo;
                                      
                         function addAggInfo(item) {
+                            console.log(item, 'item');
                             //для звезд (особенности верстки)
                             item.starsList = _.generateRange(1, item.Stars);
                             item.taStarsList = _.generateRange(1, item.TaFactor);
