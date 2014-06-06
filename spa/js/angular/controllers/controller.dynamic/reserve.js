@@ -30,6 +30,7 @@
 
                 if($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
                 if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
+                if ($location.search().room) searchParams['RoomId'] = $location.search().room;
 
                 $scope.searchParams = searchParams;
 
