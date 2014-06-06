@@ -2508,6 +2508,7 @@ input::-ms-clear {
   font-size: 14px;
   line-height: 1.2;
   letter-spacing: normal;
+  left: -22px;
 }
 .search-form-list h3,
 .search-form-human-dialog h3 {
