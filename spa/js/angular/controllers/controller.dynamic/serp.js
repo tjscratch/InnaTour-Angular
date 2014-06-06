@@ -420,7 +420,7 @@ innaAppControllers
 
                 function onScroll(event) {
                     $scope.$apply(function ($scope) {
-                        $scope.padding.scrollTop = (document.body || document.documentElement).scrollTop;
+                        $scope.padding.scrollTop = utils.getScrollTop();
                     });
                 }
 
