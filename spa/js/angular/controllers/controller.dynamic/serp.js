@@ -299,7 +299,7 @@ innaAppControllers
                 $location.search('ticket', ticket.data.VariantId1);
             };
 
-            $scope.goReservation = function (room, hotel) {
+            $scope.goReservation = function (room) {
                 var url = Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
                     $routeParams.DepartureId,
                     $routeParams.ArrivalId,
@@ -313,11 +313,9 @@ innaAppControllers
 
                 $location.path(url);
 
-                $location.search({
-                    room: room.RoomId,
-                    hotel: hotel.data.HotelId,
-                    ticket: $scope.combination.ticket.data.VariantId1
-                });
+                if (room) {
+                    $location.search({room: room.RoomId});
+                }
             };
 
             /*EventListener*/

@@ -1,5 +1,6 @@
-<div class="result" ng-if="!hotel.currentlyInvisible">
-    <div class="result-cell result-hotel-gallery">
+<div class="b-result b-result_col_three_galary b-result_middle row b-result-content" ng-if="!hotel.currentlyInvisible">
+
+    <div class="b-result__cell col-no-padding">
 
         <!-- компонент карусели -->
         <!--<ng:include src="'components/carousel/index.html'"></ng:include>-->
@@ -15,9 +16,9 @@
                 </div>
             </div>
         </div>
-
     </div>
-    <div class="result-cell result-cell-330">
+
+    <div class="b-result__cell">
         <img ng-src="{{hotel.data.ProviderLogoUrl}}" alt="" class="logo">
 
         <div class="hotel-info">
@@ -53,11 +54,14 @@
                 </div>
             </div>
         </div>
+
+        <!-- separator -->
+        <div class="b-result-cell__gap">
+            <div class="b-result-cell__gap_wrap"></div>
+        </div>
     </div>
-    <div class="result-cell-gap">
-        <div class="result-cell-gap-wrap"></div>
-    </div>
-    <div class="result-cell result-choice" ng-transclude></div>
+
+    <div class="b-result__cell col-xs-3 result-cell result-choice" ng-transclude></div>
 </div>
 
 <div class="result" style="height:190px;" ng-if="hotel.currentlyInvisible"></div>

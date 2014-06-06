@@ -1,5 +1,7 @@
 font-names = ('font-small' 'font-medium' 'font-large' 'font-big')
 font-values = ($small $medium $large $big)
+$ProximaNova = ProximaNova, Arial, sans-serif
+$ProximaNovaLight = ProximaNovaLight, Arial, sans-serif
 
 for name, key in font-names {
 	.{name} {
@@ -61,4 +63,14 @@ font-url(file) {
 	url(font-url('rouble.woff')) format('woff'),
 	url(font-url('rouble.ttf'))  format('truetype'),
 	url(font-url('rouble.svg#ALSRubl')) format('svg');
+}
+
+@font-face {
+	font-family: 'ProximaNovaLight';
+	font-weight normal
+	font-style normal
+	src: url(font-url('proximanova-light-webfont.eot?')) format('eot'),
+	url(font-url('proximanova-light-webfont.woff')) format('woff'),
+	url(font-url('proximanova-light-webfont.ttf'))  format('truetype'),
+	url(font-url('proximanova-light-webfont.svg#svgFontName')) format('svg');
 }

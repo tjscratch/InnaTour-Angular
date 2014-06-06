@@ -24,16 +24,19 @@
                  inna-dynamic-bundle-hotel-details="getHotelDetails"
                  inna-dynamic-bundle-with-reservation-button="true"></div>
 
+
             <div class="result-small" ng-if="display.isCurrent(display.SHORT)">
                 <div class="result-cell result-cell-390">
                     <p class="flight">
-                        <img ng-src="{{airLogo( ticket.getEtaps('To')[0].data.TransporterCode )}}" height=28 alt="">
+                        <img class="flight__image" ng-src="{{airLogo( ticket.getEtaps('To')[0].data.TransporterCode )}}"
+                             height=28
+                             alt="">
                         <span class="white">{{ticket.data.OutCode}} – {{ticket.data.InCode}}, {{ticket.data.DepartureDate | date: 'd MMM'}},</span>
 
                         в пути: {{ticket.getDuration('To')}}, {{ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
                     </p>
                     <p class="flight">
-                        <img ng-src="{{airLogo( ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28 alt="">
+                        <img class="flight__image" ng-src="{{airLogo( ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28 alt="">
                         <span class="white">{{ticket.data.InCode}} – {{ticket.data.OutCode}}, {{ticket.data.BackDepartureDate | date: 'd MMM'}},</span>
                         в пути: {{ticket.getDuration('Back')}}, {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
                     </p>
