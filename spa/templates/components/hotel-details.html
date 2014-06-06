@@ -1,5 +1,7 @@
 <div class="hotel-details" ng-style="{'background-image': background}">
+
     <div class="hotel-details__wrap">
+
         <div class="hotel-details__section hotel-details__section_layout_context">
             <ul class="hotel-details-control hotel-details-control_pin_left" ng-if="collection">
                 <li class="hotel-details-control__button" ng-click="back()">&larr; Список отелей</li>
@@ -71,6 +73,7 @@
         </div>
         <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">Пакет с этим отелем</h2>
+
             <div ng-if="combination"
                  inna-dynamic-bundle
                  inna-dynamic-bundle-bundle="bundle"></div>
@@ -79,6 +82,7 @@
             <h2 class="hotel-details__section-title">Выбор номера</h2>
 
             <div class="baloon-loading" ng-if="!dataFullyLoaded"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
+
             <ul class="hotel-details-rooms">
                 <li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen}" ng-repeat="room in hotel.detailed.Rooms">
                     <div class="hotel-details-rooms__room-short">
@@ -125,6 +129,7 @@
                 </li>
             </ul>
         </div>
+
         <div class="hotel-details__section">
             <div class="hotel-details-resume">
                 <div class="hotel-details-resume__section hotel-details-resume__section_{{key}}" ng-repeat="(key, cat) in hotel.detailed.Hotel.Amenities">

@@ -1,0 +1,200 @@
+/*
+Верстка блока 3 колонки
+<div class="b-result row row_separator">
+
+        <div class="b-result__cell col-xs-5">
+
+						Контент тут
+
+        		<!-- separator -->
+            <div class="b-result-cell__gap">
+                <div class="b-result-cell__gap_wrap"></div>
+            </div>
+        </div>
+
+        <div class="b-result__cell col-xs-5">
+
+							Контент тут
+
+        		<!-- separator -->
+            <div class="b-result-cell__gap">
+                <div class="b-result-cell__gap_wrap"></div>
+            </div>
+        </div>
+
+        <div class="b-result__cell col-xs-3">
+
+					Контент тут
+
+        </div>
+</div>
+
+//b-result__cell_middle - высота колонок становиться 190px вместо 200px
+*/
+
+.b-result {
+	display: block;
+	margin-bottom: 10px;
+	position: relative;
+	text-align : left !important;
+	right : 0 !important;
+	//line-height: 0;
+	background : none;
+
+	&_flight-info {
+		.flight-info b {
+			display : inline-block;
+		}
+	}
+
+	&__cell {
+		box-sizing : border-box;
+		float : left;
+		height: 200px;
+		background: #fff;
+		line-height: normal;
+		margin-right: 10px;
+		padding: 10px !important;
+		position: relative;
+		vertical-align: top;
+
+		&_gallery {
+			margin-right: 0px;
+			width: 200px !important;
+		}
+
+		&:first-child {
+			border-radius 4px 0 0 4px;
+		}
+		&:last-child {
+			border-radius 0 4px 4px 0;
+			margin-right: 0;
+		}
+
+		&:after {
+			border-radius: 4px;
+			box-shadow: 0 3px 5px rgba(0, 0, 0, .4);
+			content: '';
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			z-index: -1;
+		}
+	}
+
+	&-cell__gap {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 10px;
+		right: -10px;
+
+		&:before, &:after {
+			content: '';
+			background: url(/spa/img/ticket-gaps.png) no-repeat;
+			display: block;
+			position: absolute;
+			overflow: hidden;
+			width: 10px;
+		}
+
+		&:before {
+			height: 6px;
+			top: 0;
+		}
+
+
+		&:after {
+			background-position: 0 -6px;
+			bottom: -6px;
+			height: 12px;
+		}
+
+		&_wrap {
+			background: #cfcfcf;
+			border: solid #fff;
+			border-width: 0 5px 0 4px;
+			bottom: 6px;
+			position: absolute;
+			top: 6px;
+			width: 1px;
+		}
+	}
+
+
+
+	&.b-result_small {
+		.b-result__cell {
+
+		}
+	}
+
+	&.b-result_middle {
+		.b-result__cell {
+			height : 190px;
+		}
+	}
+
+	&.b-result_big {
+		.b-result__cell {
+			height : 250px;
+		}
+	}
+
+
+	 /*две колонки - равной ширины*/
+	&.b-result_col_two {
+		.b-result__cell {
+      calc('width', s("50% - 5px"), "100%");
+		}
+	}
+
+	 /*три колонки - последняя колонка самая узкая*/
+	&.b-result_col_three {
+		.b-result__cell {
+
+      calc('width', s("40% - %s", $separatorBlock/2), "100%");
+
+      &:nth-child(even){
+        calc('width', s("40% - %s", $separatorBlock), "100%");
+      }
+
+			&:last-child {
+        calc('width', s("20% - %s", $separatorBlock/2), "100%");
+			}
+		}
+	}
+
+	 /*три колонки - с фотогалереей 200px*/
+	&.b-result_col_three_galary {
+		.b-result__cell {
+			&:first-child {
+				width : 200px;
+				margin-right :0;
+        padding : 0;
+			}
+      &:nth-child(even){
+        calc('width', s("47% - %s", $separatorBlock), "100%");
+      }
+		}
+	}
+
+	.button {
+		background: #89c13a;
+		border-radius: 2px;
+		color: #fff;
+		font-family: ProximaNova;
+		font-size: 18px;
+		font-weight: bold;
+		height: 30px;
+		text-align: center;
+		line-height: 30px;
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+		right: 10px;
+	}
+}
+
