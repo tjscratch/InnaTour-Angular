@@ -30,6 +30,7 @@
 
                 if($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
                 if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
+                if ($location.search().room) searchParams['RoomId'] = $location.search().room;
 
                 $scope.searchParams = searchParams;
 
@@ -95,7 +96,7 @@
                             var qData = {
                                 HotelId: $scope.hotel.HotelId,
                                 HoteProviderId: $scope.hotel.ProviderId,
-                                //Rooms: $scope.hotel.SelectedRoomId,//???
+                                Rooms: $location.search().room,
                                 TicketToId: $scope.item.VariantId1,
                                 TicketBackId: $scope.item.VariantId2,
                                 TicketClass: $routeParams.TicketClass,
