@@ -11,8 +11,8 @@ angular.module('innaApp.directives')
                 goReservation: '=innaHotelDetailesReservationFn'
             },
             controller: [
-                '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events',
-                function($scope, $element, $timeout, aviaHelper, Events){
+                '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events', '$location',
+                function($scope, $element, $timeout, aviaHelper, Events, $location){
                     /*Dom*/
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -41,6 +41,8 @@ angular.module('innaApp.directives')
                     $scope.dataFullyLoaded = false;
 
                     $scope.tripAdvWidgetURL = "http://www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=0809534566654028B2A963412AD73DD3&lang=ru&locationId={{hotel.data.HotelId}}".split('{{hotel.data.HotelId}}').join($scope.hotel.data.HotelId);
+
+                    $scope.displayRoom = $location.search().room;
 
 
                     /*Proxy*/

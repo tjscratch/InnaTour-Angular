@@ -70,7 +70,10 @@
 
             <div class="baloon-loading" ng-if="!dataFullyLoaded"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
             <ul class="hotel-details-rooms">
-                <li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen}" ng-repeat="room in hotel.detailed.Rooms">
+                <li class="hotel-details-rooms__room"
+                    ng-class="{'hotel-details-rooms__room_state_open': room.isOpen}"
+                    ng-repeat="room in hotel.detailed.Rooms"
+                    ng-if="!displayRoom || displayRoom == room.RoomId">
                     <div class="hotel-details-rooms__room-short">
                         <h3 class="hotel-details-rooms__room-title" ng-click="toggleRoom(room)">{{room.RoomName}}</h3>
 
@@ -84,7 +87,7 @@
                                     <span ng-if="$first">Включен в цену</span>
                                     <span ng-if="!$first">{{bundle.getFullPackagePrice() - bundle.hotel.data.PackagePrice + room.Price | signed}} Р</span>
                                 </div>
-                                <div class="hotel-details-rooms__room-price-full">К оплате: {{ bundle.ticket.PackagePrice + room.PackagePrice | price }} Р</div>
+                                <div class="hotel-details-rooms__room-price-full">К оплате: {{ bundle.ticket.data.PackagePrice + room.Price | price }} Р</div>
                             </div>
                             <div class="hotel-details-rooms__room-actions">
                                 <button class="button button_size_l" ng-click="goReservation(room)">Купить</button>
