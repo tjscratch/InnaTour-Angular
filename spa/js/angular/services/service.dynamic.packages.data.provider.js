@@ -27,14 +27,14 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
             getTicketsByCombination: function(hotelId, params, callback){
                 AjaxHelper.getDebounced(api.DYNAMIC_SEARCH_TICKETS, _.extend({Id: hotelId}, params), callback);
             },
-            hotelDetails: function(hotelId, providerId, ticketToId, ticketBackId, searchParams, callback){
+            hotelDetails: function(hotelId, providerId, ticketToId, ticketBackId, searchParams, callback, error){
                 AjaxHelper.get(api.DYNAMIC_HOTEL_DETAILS, {
                     HotelId: hotelId,
                     HotelProviderId: providerId,
                     TicketToId: ticketToId,
                     TicketBackId: ticketBackId,
                     Filter: searchParams
-                }, callback);
+                }, callback, error);
             }
         }
     }
