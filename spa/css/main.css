@@ -2508,6 +2508,7 @@ input::-ms-clear {
   font-size: 14px;
   line-height: 1.2;
   letter-spacing: normal;
+  left: -22px;
 }
 .search-form-list h3,
 .search-form-human-dialog h3 {
@@ -2633,6 +2634,11 @@ input::-ms-clear {
 }
 .search-form-to .search-form-list-item {
   position: relative;
+}
+.search-form-to .iata-code {
+  color: #878787;
+  position: absolute;
+  right: 7px;
 }
 .search-form-to .search-form-item-current {
   border: 0;
