@@ -36,6 +36,7 @@ bin/*
 *.dbmdl
 *.log
 *.idea
+.git
 *.DS_Store
 *.nginx_conf
 .project

@@ -1,6 +1,6 @@
 <div class="b-result b-result_flight-info row row_separator b-result-content">
 
-    <div class="b-result__cell b-result__cell_middle col-xs-9 result-cell">
+    <div class="b-result__cell b-result__cell_middle col-xs-9">
 
         <span ng-repeat="(code, name) in ticket.collectAirlines()" class="result-cell__airlines">
             <img ng-src="{{airLogo(code)}}" alt="" class="logo"><span class="rl-airline-text">{{name}}</span>
@@ -72,5 +72,5 @@
         </div>
     </div>
 
-    <div class="b-result__cell b-result__cell_middle col-xs-4 result-cell result-choice" ng-transclude></div>
+    <div class="b-result__cell b-result__cell_middle col-xs-4 result-choice" ng-transclude></div>
 </div>
