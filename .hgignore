@@ -57,3 +57,4 @@ build_and_publish/css/common.min.css
 build_and_publish/css/main.css
 nginx.nginx_conf
 spa/css/ticket.min.css
+spa/css/main.css
