@@ -362,5 +362,15 @@ inna.Models.Avia.Filters._OptionsFactory = function(){
         });
     }
 
+    Options.prototype.hasManyShownOptions = function(){
+        var has = 0;
+
+        this.each(function(option){
+            option.shown && has++;
+        });
+
+        return has > 1;
+    }
+
     return Options;
 }

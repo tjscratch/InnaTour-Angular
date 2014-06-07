@@ -1,3 +1,25 @@
+$separatorBlock = 10px;
+
+
+$full_padding = 484px;
+$short_padding = 183px;
+
+$padding_over_search = 148px;
+$padding_over_head = 48px;
+
+$grid-width = 960px;
+
+$padding-layout-light = 100px;
+
+/* custom grid width */
+$col-cell-460 = 460px;
+$col-cell-480 = 480px;
+$col-cell-390 = 390px;
+$col-cell-next-500 = 534px;
+$col-cell-next-300 = 334px;
+
+
+
 $black = #333;
 $blue = #1f609f;
 $gray = #a8abba;
@@ -13,6 +35,16 @@ $small = .75em; /* 12px */
 $medium = .9em; /* 14px */
 $large = 1.1em; /* 18px */
 $big = 1.5em;   /* 24px */
+
+
+calc(prop, val, fallback) {
+  if (fallback) {
+    {prop}: fallback;
+  }
+  {prop}: s("-webkit-calc(%s)",val);
+  {prop}: s("calc(%s)", val);
+}
+//calc('width', s("50% - 5px"), "100%");
 
 
 color-button(name, color1, color2) {

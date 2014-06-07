@@ -143,8 +143,18 @@
     },
 
     ddmmyyyy2yyyymmdd: function(ddmmyy){
+        function trailingZero(n) {
+            return n > 10 ? n : ('0' + n);
+        }
+
         var date = Date.fromDDMMYY(ddmmyy);
-        return date.toISOString().split('T')[0];
+
+        //console.log(date);
+        //console.log(date.getFullYear());
+        //console.log(date.getMonth() + 1, trailingZero(date.getMonth() + 1));
+        //console.log(date.getDate(), trailingZero(date.getDate()));
+
+        return [date.getFullYear(), trailingZero(date.getMonth() + 1), trailingZero(date.getDate())].join('-');
     },
 
     isHoursBetween: function(date) {
@@ -173,6 +183,15 @@
             'апреля', 'мая', 'июня',
             'июля', 'августа', 'сентября',
             'октября', 'ноября', 'декабря'
+        ][n]
+    },
+
+    translateMonthShort: function(n) {
+        return [
+            'янв', 'фев', 'мар',
+            'апр', 'мая', 'июн',
+            'июл', 'авг', 'сен',
+            'окт', 'ноя', 'дек'
         ][n]
     },
 

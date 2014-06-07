@@ -7,7 +7,8 @@ angular.module('innaApp.directives')
                 collection: '=innaHotelDetailsCollection',
                 back: '=innaHotelDetailsBack',
                 next: '=innaHotelDetailsNext',
-                combination: '=innaHotelDetailsBundle'
+                combination: '=innaHotelDetailsBundle',
+                goReservation: '=innaHotelDetailesReservationFn'
             },
             controller: [
                 '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events',
@@ -76,6 +77,8 @@ angular.module('innaApp.directives')
 
                     /*Watchers*/
                     $scope.$watch('hotel', function(hotel){
+                        console.log('innaHotelDetails:hotel=', hotel);
+
                         if(!hotel) return;
 
                         if(!hotel.data.Latitude || !hotel.data.Longitude) return;
@@ -101,7 +104,6 @@ angular.module('innaApp.directives')
 
                     $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
                         $scope.dataFullyLoaded = true;
-                        $scope.$digest();
                     })
                 }
             ]

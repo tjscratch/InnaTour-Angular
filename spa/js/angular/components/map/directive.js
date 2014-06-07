@@ -39,6 +39,14 @@ angular.module('innaApp.directives')
                         $scope.$root.$on('header:visible', function () {
                             $element.removeClass('big-map_short')
                         });
+
+                        $scope.setHotel = function (currentHotel) {
+                            $scope.$emit('choose:hotel', $scope.hotels.search(currentHotel.HotelId));
+                        }
+
+                        $scope.hotelDetails = function (currentHotel) {
+                            $scope.$emit('more:detail:hotel', $scope.hotels.search(currentHotel.HotelId));
+                        }
                     }
                 ],
                 link: function (scope, elem, attrs) {
@@ -108,12 +116,17 @@ angular.module('innaApp.directives')
                         activeMarkerReset();
                     });
 
-                    function initCarousel(){
+                    /*GM.event.addListener(map, 'zoom_changed', function() {
+                     console.log(map.getZoom(), 'zoom');
+                     });*/
+
+                    function initCarousel() {
                         elem.find('.b-carousel').innaCarousel({
-                            photoList : scope.currentHotel.data.Photos,
-                            style : {
-                                width:360,
-                                height:240
+                            photoList: scope.currentHotel.Photos,
+                            map: true,
+                            style: {
+                                width: 360,
+                                height: 240
                             }
                         });
                     }
@@ -208,7 +221,9 @@ angular.module('innaApp.directives')
 
                             // инфобокс на клик маркера отеля
                         } else {
-                            boxInfoHover.setVisible(false);
+                            if (boxInfoHover) {
+                                boxInfoHover.setVisible(false);
+                            }
                             if (!boxInfo) {
                                 boxInfo = new InfoBox(dataInfoBox);
                                 boxInfo.open(map);
@@ -232,7 +247,7 @@ angular.module('innaApp.directives')
                      */
                     var addMarker = function (data_for_marker) {
                         var data = data_for_marker;
-                        var position = new GM.LatLng(data.data.Latitude, data.data.Longitude);
+                        var position = new GM.LatLng(data.Latitude, data.Longitude);
 
                         var image = new GM.MarkerImage(
                             (data.type == 'hotel') ? iconDefault : iconAirDefault,
@@ -251,7 +266,7 @@ angular.module('innaApp.directives')
                             animation: GM.Animation.DROP,
                             icon: image,
                             shape: shape,
-                            title: (data.data.HotelName) ? data.data.HotelName : ''
+                            title: (data.HotelName) ? data.HotelName : ''
                         });
                         return  {
                             marker: marker,
@@ -404,37 +419,91 @@ angular.module('innaApp.directives')
                     }
 
 
+                    var showOneHotel = function (data_hotel) {
+                        // проходм по всем маркерам
+                        var mark = markers.filter(function (marker) {
+
+                            // сравниваем и находим нужный
+                            if ((marker.$inna__hotel && marker.$inna__hotel.Latitude) &&
+                                (marker.$inna__hotel.Latitude == data_hotel.Latitude)) {
+
+
+                                scope.$apply(function ($scope) {
+                                    $scope.currentHotel = marker.$inna__hotel;
+                                });
+
+                                // инициализируем infoBox
+                                addInfoBox({
+                                    elem: boxPhoto,
+                                    pos: marker.getPosition(),
+                                    marker: {
+                                        activeMarker: marker,
+                                        infoBoxVisible: true,
+                                        hover: false
+                                    }
+                                });
+
+                                // меняем иконку
+                                marker.setIcon(iconClick);
+
+                                // показываем
+                                boxInfo.setVisible(true);
+
+
+                                var bounds = new GM.LatLngBounds();
+                                var position = new GM.LatLng(data_hotel.Latitude, data_hotel.Longitude);
+
+                                bounds.extend(position);
+
+                                map.fitBounds(bounds);
+                                map.setZoom(15);
+
+                                map.panTo(marker.getPosition());
+                                // инициализация карусели
+                                initCarousel();
+                                return marker;
+                            }
+                        });
+                    }
+
+
+                    /**
+                     * Событие обновления фильтров
+                     */
                     scope.$on('change:hotels:filters', function (evt, data) {
                         updateMap({
                             hotels: data,
                             airports: scope.airports
                         })
                     });
-                    scope.$root.$on('hotel:go-to-map', function (evt, data) {
 
-                        console.log(data);
-
-                        updateMap({
-                            hotels : [data]
-                        });
+                    /**
+                     * Переход с карточки отеля
+                     */
+                    scope.$on('map:show-one-hotel', function (evt, data) {
+                        showOneHotel(data.toJSON());
                     });
 
 
                     function updateMap(data) {
+                        var rawHotels = null;
                         var hotels = (data.hotels) ? data.hotels : [];
                         var airports = (data.airports) ? data.airports : [];
 
+                        rawHotels = (hotels.toJSON) ? hotels.toJSON() : [];
                         removeMarkers();
 
-                        hotels.each(function (hotel) {
+                        rawHotels.forEach(function (hotel) {
 
+                            //console.log(hotel.hidden, 'hotel.hidden');
                             if (hotel.hidden) return;
 
-                            if (!hotel.data.Latitude || !hotel.data.Longitude) return;
+                            if (!hotel.Latitude || !hotel.Longitude) return;
 
                             var markerData = addMarker(angular.extend(hotel, { type: 'hotel' }));
                             var marker = markerData.marker;
                             marker.$inna__hotel = hotel;
+                            marker._hotelId_ = hotel.HotelId;
 
                             markerEvents(markerData);
                             _bounds.extend(markerData.pos);

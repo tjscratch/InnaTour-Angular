@@ -22,6 +22,7 @@ angular.module('innaApp.API', [])
             DYNAMIC_SEARCH_HOTELS: url('/Packages/SearchHotels'),
             DYNAMIC_SEARCH_TICKETS: window.DEV_DYNAMIC_SEARCH_TICKETS_STUB || url('/Packages/SearchTickets'),
             DYNAMIC_HOTEL_DETAILS: url('/Packages/SearchHotel'),
+            DYNAMIC_GET_DIRECTORY_BY_IP: url('/Packages/DirectoryByIP'),
 
             AUTH_SIGN_UP: url('/Account/Register/Post'),
             AUTH_SIGN_UP_STEP_2: url('/Account/Confirm/Post'),
@@ -44,6 +45,7 @@ angular.module('innaApp.API', [])
             AVIA_PAY_CHECK: url('/AviaOrder/CheckOrder'),
             AVIA_TARIFS: url('/Avia/GetRule'),
 
+            AVIA_BEGIN_SEARCH: url('/Avia/Get'),
             AVIA_CHECK_AVAILABILITY: url('/avia/IsActual'),
             PACKAGE_CHECK_AVAILABILITY: url('/Packages/IsPackageAvailable'),
             PACKAGE_RESERVATION: url('/PackagesOrder/Reservation'),
@@ -69,6 +71,7 @@ angular.module('innaApp.API', [])
 
             AUTH_FORGOTTEN_LINK_CLICKED: 'inna.Auth.Forgotten-link-clicked',
             AUTH_SIGN_IN: 'inna.Auth.SignIn',
+            AUTH_SIGN_OUT: 'inna.Auth.SignOut',
 
             eol: null
         }

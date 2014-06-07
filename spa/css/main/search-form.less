@@ -15,7 +15,7 @@
         border-right: 1px solid #ccd2d4;
         cursor: pointer;
         display: inline-block;
-        height: 50px;
+        height: 48px;
         position: relative;
         vertical-align: top;
 
@@ -40,9 +40,9 @@
             display: inline-block;
             .font-proxima-regular();
             font-size: 16px;
-            height: 50px;
+            height: 48px;
             overflow: hidden;
-            line-height: 50px;
+            line-height: 48px;
             margin: 0 0 0 10px;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -72,6 +72,11 @@
         font-size: 14px;
         line-height: 1.2;
         letter-spacing: normal;
+        left: -22px;
+
+        h3 {
+            margin: 0 12px 7px;
+        }
     }
 
     &-list {
@@ -84,8 +89,8 @@
         &-item {
             color: #242424;
             cursor: pointer;
-            font-family: Arial, sans-serif;
-            font-size: 15px;
+            .font-proxima-regular();
+            font-size: 14px;
             height: @list-item-height;
             line-height: 30px;
             padding-left: 12px;
@@ -106,8 +111,7 @@
     }
 
     &-dialog-row {
-        text-align: justify;
-        margin: 0 12px;
+        margin: 0 12px 7px;
 
         &:after {
             content: '';
@@ -116,10 +120,9 @@
         }
 
         .label {
-            display: inline-block;
+            display: block;
             position: relative;
             vertical-align: top;
-            top: 5px;
         }
 
         .button-group {
@@ -134,7 +137,7 @@
                 font-size: 19px;
                 height: 36px;
                 line-height: 36px;
-                margin-left: 1px;
+                margin-left: 12px;
                 text-align: center;
                 width: 35px;
 
@@ -167,11 +170,12 @@
 
             &-container {
                 border: 1px solid #d1d8d9;
+                .border-radius(2px);
                 cursor: pointer;
                 display: inline-block;
                 height: 35px;
                 position: relative;
-                width: 72px;
+                width: 50px;
 
                 .icon-triangle {
                     position: absolute;
@@ -183,13 +187,13 @@
     }
 
     &-human-dialog {
-        width: 256px;
+        width: 200px;
     }
 
 
     /* from */
     &-from {
-        width: 161px;
+        width: 180px;
     }
 
     &-from &-item-current {
@@ -198,7 +202,7 @@
 
     /* to */
     &-to {
-        width: 302px;
+        width: 359px;
     }
 
     &-to &-list {
@@ -221,6 +225,12 @@
         position: relative;
     }
 
+    &-to .iata-code {
+        color: #878787;
+        position: absolute;
+        right: 7px;
+    }
+
     &-to &-item-current {
         border: 0;
         height: 100%;
@@ -230,12 +240,12 @@
     }
 
     &-date {
-        width: 103px;
+        width: 119px;
         
         .icon-calendar {
             position: absolute;
             right: 12px;
-            top: 14px;
+            top: 16px;
         }
 
         .hidden-input {
@@ -252,7 +262,7 @@
 
     /* nights */
     &-nights {
-        width: 134px;
+        width: 119px;
     }
 
     &-nights &-item-current {
@@ -261,14 +271,15 @@
 
     /* humans */
     &-humans {
-        width: 138px;
+        width: 119px;
         border-right: 0;
     }
 
 
     &-submit {
+        .border-radius(0);
         font-size: 16px;
-        height: 50px;
+        height: 48px;
         margin: 0 0 0 1px;
         width: 117px;
     }

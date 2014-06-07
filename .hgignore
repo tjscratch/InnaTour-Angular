@@ -36,6 +36,7 @@ bin/*
 *.dbmdl
 *.log
 *.idea
+.git
 *.DS_Store
 *.nginx_conf
 .project
@@ -54,3 +55,7 @@ spa/*.sh
 spa/css/common.min.css
 spa/build/
 build_and_publish/css/common.min.css
+build_and_publish/css/main.css
+nginx.nginx_conf
+spa/css/ticket.min.css
+spa/css/main.css

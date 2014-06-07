@@ -37,13 +37,14 @@
         </div>
         <footer class="rl-footer">
             <span class="rl-tickets-number-avia">{{helper.getNumSeatsText(item.NumSeats, ticketsCount)}}</span>
-            <a ng-href="#" class="rl-more-info" ng-click="popupItemInfo.show($event, item)">Подробнее</a>
+            <a ng-href="#" class="rl-more-info" ng-click="popupItemInfo.show($event, item, criteria, searchId)">Подробнее</a>
         </footer>
     </div>
     <div class="rl-aside">
         <span class="rl-rec" ng-if="isItemRecomended">мы рекомендуем</span>
         <span class="rl-price" ng-class="{'rl-price_1way':item.EtapsBack.length == 0}">
-            <span class="rl-price-item">{{item.Price | price}}</span> <span class="rub">Р</span>
+            <span class="rl-price-item">{{item.Price | price}}</span>
+            <ng-include src="'components/ruble.html'" />
         </span>
         <a ng-href="#" class="rl-buy-button" ng-click="goToPaymentClick($event, item)">Купить</a>
     </div>

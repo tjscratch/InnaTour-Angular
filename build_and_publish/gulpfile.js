@@ -1,4 +1,4 @@
-﻿﻿var gulp = require('gulp'),
+﻿var gulp = require('gulp'),
     htmlreplace = require('gulp-html-replace'),
     concat = require('gulp-concat'),
     stylus = require('gulp-stylus'),
@@ -8,7 +8,9 @@
     runSequence = require('run-sequence'),
     templateCache = require('gulp-angular-templatecache'),
     minifyCSS = require('gulp-minify-css'),
-    minifyHTML = require('gulp-minify-html');
+    minifyHTML = require('gulp-minify-html'),
+	uglify = require('gulp-uglify'),
+    cleanhtml = require('gulp-cleanhtml');
 
 //===============Константы========================
 var __BUILD_FOLDER__ = '';
@@ -16,7 +18,7 @@ var BUILD_TEST_FOLDER = 'publish_test';
 var TEST_API_HOST = 'http://api.test.inna.ru';
 
 var BUILD_RELEASE_FOLDER = 'publish_release';
-var RELEASE_API_HOST = 'http://api.inna.ru';
+var RELEASE_API_HOST = 'https://api.beta.inna.ru';
 //===============Константы========================
 
 
@@ -38,7 +40,7 @@ gulp.task('styles', function () {
         }))
         .pipe(concat('common.min.css'))
         .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
     gulp.src([__BUILD_FOLDER__ + '/spa/styl/ie.styl'])
         .pipe(stylus({
             use: ['nib'],
@@ -46,7 +48,7 @@ gulp.task('styles', function () {
         }))
         .pipe(concat('ie.min.css'))
         .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
     gulp.src([__BUILD_FOLDER__ + '/spa/styl/ticket.styl'])
         .pipe(stylus({
             use: ['nib'],
@@ -54,11 +56,11 @@ gulp.task('styles', function () {
         }))
         .pipe(concat('ticket.min.css'))
         .pipe(minifyCSS(opts))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
     gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
         .pipe(concat('main.css'))
         .pipe(less())
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
 });
 
 //===============Очистка========================
@@ -71,15 +73,22 @@ function cleanFiles(destFolder) {
 }
 
 gulp.task('templates-ang', function () {
+
     gulp.src([
-            __BUILD_FOLDER__ + '/spa/templates/**/*.html',
-            __BUILD_FOLDER__ + '/spa/js/angular/**/*.html'
+        __BUILD_FOLDER__ + '/spa/templates/**/*.html',
+        __BUILD_FOLDER__ + '/spa/js/angular/**/*.html',
+        //__BUILD_FOLDER__ + '!/spa/templates/components/hotel.html',
+        __BUILD_FOLDER__ + '!/spa/templates/components/ticket.html'
     ])
-        .pipe(minifyHTML({
-            quotes: true
-        }))
+        .pipe(cleanhtml())
         .pipe(templateCache({
             module: 'innaApp.templates'
+        }))
+        .pipe(uglify({
+            mangle : false,
+            output: {
+                beautify: true
+            }
         }))
         .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/js/angular'));
 });
@@ -123,12 +132,14 @@ gulp.task('release-copy-files-for-publish', function () {
 
 //===============Замена в html========================
 function replaceHtml(destFolder, apiHost) {
+	var b2bHost = apiHost.replace('api.', 'b2b.');
     function replace(sourceFile, destPath, apiHost) {
         //заменяем все ангулар скрипты на один
         return gulp.src(sourceFile)
             .pipe(htmlreplace({
                 'app-main-js': '/spa/js/app-main.js',
-                'app-host': 'app_main.host = \'' + apiHost + '\';'
+                'app-host': 'app_main.host = \'' + apiHost + '\';',
+				'b2b-host': 'app_main.b2bHost = \'' + b2bHost + '\';'
             }))
             .pipe(gulp.dest(destPath));
     };
@@ -151,7 +162,8 @@ function getSrcFiles(folder) {
     var list = [
         '/spa/js/angular/helpers/*.js',
         '/spa/js/datepicker.js',
-        '/spa/js/angular/models/app.model.js',
+		'/spa/js/angular/models/app.model.js',
+        '/spa/js/angular/models/*.js',
         '/spa/js/angular/**/*.js'
     ];
 

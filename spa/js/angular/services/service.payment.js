@@ -13,28 +13,21 @@
                         successCallback(res);
                     }
                     else {
-                        $http.get(apiUrls.AVIA_CHECK_AVAILABILITY, { params: queryData }).success(function (data) {
+                        AjaxHelper.getNoCache(apiUrls.AVIA_CHECK_AVAILABILITY, queryData, function (data) {
                             storageService.setAviaVariantCheck({ date: new Date().getTime(), params: queryData, data: data });
                             successCallback(data);
-                            //ToDo: debug
-                            //$timeout(function () {
-                            //    storageService.setAviaVariantCheck({ date: new Date().getTime(), params: queryData, data: data });
-                            //    successCallback(data);
-                            //}, 1000);
-                        }).
-                        error(function (data, status) {
+                        }, function (data, status) {
                             errCallback(data, status);
                         });
                     }
                 },
 
                 packageCheckAvailability: function (queryData, successCallback, errCallback){
-                    $http.get(apiUrls.PACKAGE_CHECK_AVAILABILITY, { params: queryData }).success(function (data) {
+                    AjaxHelper.getNoCache(apiUrls.PACKAGE_CHECK_AVAILABILITY, queryData, function (data) {
                         successCallback(data);
-                    }).
-                        error(function (data, status) {
+                    }, function (data, status) {
                             errCallback(data, status);
-                        });
+                    });
                 },
 
                 getTransportersInAlliances: function (queryData, successCallback, errCallback) {
@@ -65,10 +58,9 @@
                 },
 
                 getSelectedVariant: function (queryData, successCallback, errCallback) {
-                    $http.get(apiUrls.AVIA_RESERVATION_GET_VARIANT, { cache: true, params: queryData }).success(function (data, status) {
+                    AjaxHelper.getNoCache(apiUrls.AVIA_RESERVATION_GET_VARIANT, queryData, function (data, status) {
                         successCallback(data);
-                    }).
-                    error(function (data, status) {
+                    }, function (data, status) {
                         errCallback(data, status);
                     });
                 },

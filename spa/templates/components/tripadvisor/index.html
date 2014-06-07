@@ -1,0 +1,36 @@
+<!--
+     Злой хак - так как ангулар свтавляет комментарии
+     и из за этого инлайновые элементы имеют между собой растояние
+-->
+<!--ng-class="{'b-tripadvisor_short' : !data.TaCommentCount}"-->
+<div class="b-tripadvisor hotel-info-tripadvisor"
+        ng-if="data.TaFactor > 0">
+
+    <div class="b-tripadvisor__owl">
+        <span class="icon-sprite-tripadvisor"></span>
+    </div>
+
+    <div class="b-display-table">
+        <div class="b-display-cell">
+            <span class="icon-sprite-tripadvisor-like" ng-if="data.TaFactor > 0"></span>
+        </div>
+        <div class="b-display-cell">
+            <span class="icon-sprite-tripadvisor-like" ng-if="data.TaFactor > 1"></span>
+        </div>
+        <div class="b-display-cell">
+            <span class="icon-sprite-tripadvisor-like" ng-if="data.TaFactor > 2"></span>
+        </div>
+        <div class="b-display-cell">
+            <span class="icon-sprite-tripadvisor-like" ng-if="data.TaFactor > 3"></span>
+        </div>
+        <div class="b-display-cell">
+            <span class="icon-sprite-tripadvisor-like" ng-if="data.TaFactor > 4"></span>
+        </div>
+
+        <div class="b-display-cell" ng-if="data.TaCommentCount">
+            <div class="b-tripadvisor__reviews">
+                {{data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
+            </div>
+        </div>
+    </div>
+</div>

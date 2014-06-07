@@ -126,7 +126,7 @@ innaAppControllers.
             $scope.form.nightsList = nightsList;
             //по-умолчанию - все равно
             $scope.form.nights = nightsList[3];//10-14 ночей (по умолчанию)
-            $scope.form.nights.isOpen = false;
+            $scope.form.nightsIsOpen = false;
             $scope.form.nightsIsItemSelected = function (item) {
                 if ($scope.form.nights != null && item.name == $scope.form.nights.name)
                     return true;
@@ -177,7 +177,7 @@ innaAppControllers.
                 }
 
                 if (skipClose != skipCloseType.nights)
-                    $scope.form.nights.isOpen = false;
+                    $scope.form.nightsIsOpen = false;
 
                 if (skipClose != skipCloseType.people
                     && skipClose != skipCloseType.childAge1
@@ -658,12 +658,12 @@ innaAppControllers.
             //ночи
             $scope.nightFormClick = function ($event) {
                 closeAllPopups(skipCloseType.nights);
-                $scope.form.nights.isOpen = !$scope.form.nights.isOpen;
+                $scope.form.nightsIsOpen = !$scope.form.nightsIsOpen;
                 preventBubbling($event);
             };
             $scope.nightItemClick = function (item, $event) {
                 $scope.form.nights = item;
-                $scope.form.nights.isOpen = false;
+                $scope.form.nightsIsOpen = false;
                 preventBubbling($event);
             };
 

@@ -1,5 +1,4 @@
-﻿
-<form class="search-form" ng-controller="ToursFormCtrl">
+﻿﻿<form class="search-form" ng-controller="ToursFormCtrl">
     <div class="search-form-item search-form-from <!--active-->" ng-click="fromFormClick($event)">
         <div class="search-form-item-current">
             {{form.from.name}}
@@ -36,8 +35,8 @@
         <div class="search-form-item-current">
             {{form.nights.name}}
         </div>
-        <i class="icon icon-triangle" ng-class="{bottom:!form.nights.isOpen}"></i>
-        <ul id="fNights" class="search-form-list" style="display: block;" ng-show="form.nights.isOpen">
+        <i class="icon icon-triangle" ng-class="{bottom:!form.nightsIsOpen}"></i>
+        <ul id="fNights" class="search-form-list" style="display: block;" ng-show="form.nightsIsOpen">
             <li class="search-form-list-item" ng-repeat="item in form.nightsList" ng-click="nightItemClick(item, $event)"
                 ng-class="{selected:form.nightsIsItemSelected(item)}">{{item.name}}</li>
         </ul>
@@ -48,6 +47,7 @@
         </div>
         <i class="icon icon-triangle" ng-class="{bottom:!form.people.isOpen}"></i>
         <div class="search-form-human-dialog" style="display:block;" ng-show="form.people.isOpen" ng-click="peopleContClick($event)">
+            <h3>Пассажиры</h3>
             <div class="search-form-dialog-row">
                 <span class="label">Взрослые</span>
                 <ul class="button-group">
@@ -92,5 +92,5 @@
             </div>
         </div>
     </div><!--
-    --><button type="submit" class="button search-form-submit" ng-click="goFindTours()">Найти</button>
+    --><button type="submit" class="search-button-block_small search-form-submit" ng-click="goFindTours()"></button>
 </form>

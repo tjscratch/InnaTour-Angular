@@ -45,34 +45,9 @@ var utils = {
         return data;
     },
 
+    getScrollTop: function(){
+        return document.body.scrollTop || document.documentElement.scrollTop;
+    },
+
     eof: null
 };
-
-/* используется когда нужно параллельно выполнить несколько асинхронных действий, и по окончании всех - дернуть определенный метод
-//use example
-var l = new utils.loader();
-
-function afterLoadCall() {
-    console.log('afterLoadCall');
-};
-
-function fnload1() {
-    var self = this;
-    setTimeout(function () {
-        console.log('load part 1');
-        //оповещаем лоадер, что метод отработал
-        l.complete(self);
-    }, 1000);
-};
-
-function fnload2() {
-    var self = this;
-    setTimeout(function () {
-        console.log('load part 2');
-        //оповещаем лоадер, что метод отработал
-        l.complete(self);
-    }, 2000);
-};
-
-l.init([fnload1, fnload2], afterLoadCall).run();
-*/

@@ -37,14 +37,14 @@ innaAppFilters.filter('price', function () {
         var digits = ("" + val).split('');
         var result = [];
 
-        if(digits.length > 4) {
+        if (digits.length > 3) {
+            digits = digits.reverse();
             for(var i = 0, len = digits.length; i < len; i++) {
                 if((i !== 0) && (i % 3 === 0)) result.push(' ');
-
                 result.push(digits[i]);
             }
 
-            return result.join('');
+            return result.reverse().join('');
         } else return val;
     };
 });
@@ -94,18 +94,30 @@ innaAppFilters.filter('signed', ['$filter', function($filter){
 }]);
 
 innaAppFilters.filter('visibleOnly', [function(){
-    var TICKET_HEIGHT = 300;
+    var TICKET_HEIGHT = 201;
 
     return function(list, scrollTop){
-        var scrolledTickets = scrollTop / TICKET_HEIGHT;
-        var limit = scrolledTickets * 2 + 5;
+        var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
+        var limit = scrolledTickets * 1.1 + 5;
 
         var result = [];
 
         for(var i = 0, item = null; (item = list[i++]) && result.length <= limit;) {
-            if(!item.hidden) result.push(item);
+            if(!item.hidden) {
+                item.currentlyInvisible = (i < (scrolledTickets - 1));
+
+                result.push(item);
+            }
         }
 
         return result;
     }
 }]);
+
+innaAppFilters.filter('defined', function(){
+    var undef = typeof(void(0));
+
+    return function(input){
+        return (typeof input !== undef);
+    }
+});

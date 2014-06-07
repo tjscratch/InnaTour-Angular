@@ -3,18 +3,28 @@
     <div class="results-list results-list_720">
         <div ng-repeat="ticket in tickets.filter(ticketFilters) | visibleOnly:padding.scrollTop"
              inna-ticket
-             inna-ticket-ticket="ticket"
-             inna-ticket-get-ticket-details="getTicketDetails(ticket)">
+             ng-if="combination.ticket.data.VariantId1 != ticket.data.VariantId1">
 
-            <span class="icon icon-clip"></span>
+            <!-- TRANSCLUDE -->
+
             <p class="corner-price">
-                {{combination.ticket.data.PackagePrice - ticket.data.PackagePrice | signed}}<span class="b-rub">Р</span>
+                {{virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed}}
+                <span class="b-rub">q</span>
             </p>
-            <p class="price">
-                {{ticket.data.Price}}<span class="b-rub">Р</span>
-                <span class="price-description">экономия: {{combination.getFullPrice() - combination.hotel.data.PackagePrice - ticket.data.PackagePrice}}<span class="b-rub">Р</span></span>
-            </p>
-            <button class="button" ng-click="setTicket(ticket)" ng-hide="combination.Ticket.data.VariantId1 == ticket.data.VariantId1">Выбрать</button>
+
+            <div class="price">
+                {{virtualBundle.getFullPackagePrice() | price}}
+                <span class="b-rub">q</span>
+
+                <ng:include src="'components/item-price-details.html'" ng-init="item = ticket"></ng:include>
+
+                <span class="price-description">
+                    экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}
+                    <span class="b-rub">q</span>
+                </span>
+
+            </div>
+            <span class="button" ng-click="setTicket(ticket)">Выбрать</span>
         </div>
     </div>
 </div>

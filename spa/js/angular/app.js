@@ -13,10 +13,12 @@ var app = angular.module('innaApp', [
 ]);
 
 app.constant('innaApp.Urls', {
+    URL_BUY: '/buy/',
     URL_AVIA: '/avia/',
     URL_AVIA_SEARCH: '/avia/search/',
     URL_AVIA_RESERVATION: '/avia/reservation/',
     URL_AVIA_BUY: '/avia/buy/',
+    URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
     URL_DYNAMIC_PACKAGES_RESERVATION: '/packages/reservation/',
@@ -62,7 +64,8 @@ app.config([
     '$locationProvider',
     '$httpProvider',
     'innaApp.Urls',
-    function ($routeProvider, $locationProvider, $httpProvider, url) {
+    '$sceProvider',
+    function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider) {
 
         //console.log($templateCache.get('pages/tours_grid_page.html'));
 
@@ -78,6 +81,8 @@ app.config([
         $httpProvider.defaults.transformRequest = function (data) {
             return angular.isObject(data) && String(data) !== '[object File]' ? angular.toParam(data) : data;
         };
+
+        $sceProvider.enabled(false);
 
         $routeProvider.
             //Главная
@@ -120,10 +125,18 @@ app.config([
             //        templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
             //        controller: 'AviaBuyTicketsCtrl'
             //    }).
+            when(url.URL_BUY + ':OrderNum', {
+                templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl'
+            }).
             when(url.URL_AVIA_BUY + ':OrderNum', {
-                    templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
-                    controller: 'AviaBuyTicketsCtrl'
-                }).
+                templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl'
+            }).
+            when(url.URL_DYNAMIC_PACKAGES_BUY + ':OrderNum', {
+                templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
+                controller: 'AviaBuyTicketsCtrl'
+            }).
             when('/hotelticket/', {
                 templateUrl: '/spa/templates/pages/hotelticket_page.html',
                 controller: 'HotelPlusTicketCtrl'
@@ -164,13 +177,32 @@ app.config([
             }).
             when(url.URL_AUTH_RESTORE, morda()).
             when(url.URL_AUTH_SIGNUP, morda());
-        //.
-        //otherwise({
-        //    redirectTo: '/'
-        //});
+            //otherwise({
+            //    redirectTo: '/'
+            //});
 
-        //$locationProvider.html5Mode(false);
+        //$locationProvider.html5Mode(true);
     }
+]);
+
+app.config([
+  '$provide', function ($provide) {
+      return $provide.decorator('$rootScope', [
+        '$delegate', function ($delegate) {
+            $delegate.safeApply = function (fn) {
+                var phase = $delegate.$$phase;
+                if (phase === "$apply" || phase === "$digest") {
+                    if (fn && typeof fn === 'function') {
+                        fn();
+                    }
+                } else {
+                    $delegate.$apply(fn);
+                }
+            };
+            return $delegate;
+        }
+      ]);
+  }
 ]);
 
 var innaAppControllers = angular.module('innaApp.controllers', []);

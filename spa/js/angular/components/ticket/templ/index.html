@@ -1,0 +1,76 @@
+<div class="b-result b-result_flight-info row row_separator b-result-content">
+
+    <div class="b-result__cell b-result__cell_middle col-xs-9">
+
+        <span ng-repeat="(code, name) in ticket.collectAirlines()" class="result-cell__airlines">
+            <img ng-src="{{airLogo(code)}}" alt="" class="logo"><span class="rl-airline-text">{{name}}</span>
+        </span>
+
+        <!-- Вытаскиваем сырые данные из ticket =  (ticketData = ticket.data) -->
+        <div class="flight-info" ng-repeat="dir in ['To', 'Back']" ng-init="ticketData = ticket.data">
+
+
+            <!-- BackDepartureDate DepartureDate -->
+            <span class="date date_w_120">
+
+                <span ng-if="dir == 'To'">
+                    <b>{{ ticketData.DepartureDate | date: 'shortTime' }}</b>
+                    <span>{{ ticketData.DepartureDate | date: 'd MMM' }}, </span>
+                    <span>{{ ticketData.DepartureDate | date: 'EEE' }}</span><br>
+                    <span>{{ticketData.CityFrom}} {{ticketData.OutCode}}</span>
+                </span>
+
+                <span ng-if="dir == 'Back'">
+                    <b>{{ ticketData.BackDepartureDate | date: 'shortTime' }}</b>
+                    <span>{{ ticketData.BackDepartureDate | date: 'd MMM' }}, </span>
+                    <span>{{ ticketData.BackDepartureDate | date: 'EEE' }}</span><br>
+                    <span>{{ticketData.CityTo}} {{ticketData.InCode}}</span>
+                </span>
+
+            </span>
+
+            <p class="arrow">
+                в пути: {{ticket.getDuration(dir)}}<br>
+                {{ticket.getEtaps(dir).length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой рейс"}}
+            </p>
+
+
+            <!-- ArrivalDate -  BackArrivalDate -->
+            <span class="date date_w_120">
+
+                <span ng-if="dir == 'To'">
+                    <b>{{ ticketData.ArrivalDate | date: 'shortTime' }}</b>
+                    <span>{{ ticketData.ArrivalDate | date: 'd MMM' }}, </span>
+                    <span>{{ ticketData.ArrivalDate | date: 'EEE' }}</span><br>
+                    <span>{{ticketData.CityTo}} {{ticketData.InCode}}</span>
+                </span>
+
+                <span ng-if="dir == 'Back'">
+                    <b>{{ ticketData.BackArrivalDate | date: 'shortTime' }}</b>
+                    <span>{{ ticketData.BackArrivalDate | date: 'd MMM' }}, </span>
+                    <span>{{ ticketData.BackArrivalDate | date: 'EEE' }}</span><br>
+                    <span>{{ticketData.CityFrom}} {{ticketData.OutCode}}</span>
+                </span>
+
+            </span>
+        </div>
+
+        <div class="bottom-actions">
+            <span class="pull-left warning" ng-if="showWarning()">
+                Последние {{ticket.data.NumSeats | asQuantity:"место":"места":"мест"}}<span
+                    ng-if="ticket.data.IsCharter">, чартер</span>
+            </span>
+            <span class="pull-left warning" ng-if="ticket.data.NumSeats == 1">
+                Последнее место<span ng-if="ticket.data.IsCharter">, чартер</span>
+            </span>
+            <a href="javascript:void(0);" class="pull-right" ng-click="getTicketDetails(ticket)">Подробнее</a>
+        </div>
+
+        <!-- separator -->
+        <div class="b-result-cell__gap">
+            <div class="b-result-cell__gap_wrap"></div>
+        </div>
+    </div>
+
+    <div class="b-result__cell b-result__cell_middle col-xs-4 result-choice" ng-transclude></div>
+</div>

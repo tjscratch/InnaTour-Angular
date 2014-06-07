@@ -12,10 +12,10 @@ angular.module('innaApp.directives')
                 },
                 replace: true,
                 scope: {
-                    isMap: '=',
+                    isMap: '=isMap',
                     filters: '=innaDynamicSerpFilterIndicatorsFilters',
                     items: '=innaDynamicSerpFilterIndicatorsItems',
-                    mod_papper: '=modWpapper',
+                    mod_wrapper: '=modWpapper',
                     name: '@innaDynamicSerpFilterIndicatorsItemsName'
                 },
                 controller: [
@@ -23,13 +23,10 @@ angular.module('innaApp.directives')
                     '$element',
                     function ($scope, $element) {
 
-                        if ($scope.isMap) {
-                            $element.find('.button-map-list')
-                                .toggleClass('checked', $scope.isMap);
-                        }
 
-                        if ($scope.mod_papper) {
+                        if ($scope.mod_wrapper) {
                             $element.addClass('b-switch-filters_mod-wrapper');
+                            $element.find('.button-map-list').addClass('checked');
                         }
 
                         $scope.atLeastOne = function () {
@@ -49,7 +46,7 @@ angular.module('innaApp.directives')
                         }
 
                         $scope.action = function(){
-                            $scope.$emit('toggle:view:hotels:map')
+                            $scope.$emit('toggle:view:hotels:map');
                         }
 
                         $scope.delete = function (option) {

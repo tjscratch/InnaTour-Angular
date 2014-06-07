@@ -6,11 +6,14 @@ angular.module('innaApp.directives')
                 template: $templateCache.get('components/dynamic-serp-filter/avia.price.html'),
                 scope: {
                     tickets: '=innaDynamicSerpFilterAviaPriceTickets',
-                    filters: '=innaDynamicSerpFilterAviaPriceFilters'
+                    filters: '=innaDynamicSerpFilterAviaPriceFilters',
+                    bundle: '=innaDynamicSerpFilterAviaPriceBundle'
                 },
                 controller: [
-                    '$scope', 'innaApp.API.events', '$element', '$controller',
-                    function($scope, Events, $element, $controller){
+                    '$scope', 'innaApp.API.events', '$element', '$controller', '$filter',
+                    function($scope, Events, $element, $controller, $filter){
+                        var hotelPrice = parseInt($scope.bundle.hotel.data.PackagePrice);
+
                         /*Mixins*/
                         $controller('PopupCtrlMixin', {$scope: $scope, $element: $element});
 
@@ -39,7 +42,7 @@ angular.module('innaApp.directives')
                         };
 
                         Option.prototype.describe = function(){
-                            return 'Не дороже ~ рублей'.split('~').join(this.value);
+                            return 'Не дороже ~ рублей'.split('~').join($filter('price')(this.value));
                         };
 
                         /*Properties*/
@@ -48,7 +51,7 @@ angular.module('innaApp.directives')
                         $scope.options = $scope.filter.options = new Options();
                         $scope.filter.options.push($scope.option);
                         $scope.filter.filterFn = function(ticket){
-                            if(ticket.data.Price > $scope.option.value) ticket.hidden = true;
+                            if(ticket.data.Price + hotelPrice > $scope.option.value) ticket.hidden = true;
                         }
 
                         /*Methods*/
@@ -65,8 +68,8 @@ angular.module('innaApp.directives')
                         var unwatchCollectionTickets = $scope.$watchCollection('tickets', function(newVal) {
                             if(!newVal || !newVal.list.length) return;
 
-                            $scope.option.min = newVal.getMinPrice();
-                            $scope.option.max = newVal.getMaxPrice();
+                            $scope.option.min = newVal.getMinPrice() + hotelPrice;
+                            $scope.option.max = newVal.getMaxPrice() + hotelPrice;
                             $scope.option.defaultValue = $scope.option.max;
 
                             slider.slider({

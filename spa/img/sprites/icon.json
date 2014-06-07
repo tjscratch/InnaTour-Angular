@@ -1,8 +1,35 @@
 {
   "name": "icon",
-  "checksum": "503e4655ffdc1d83b96c75a8e7372ff6",
-  "shortsum": "503e4",
+  "checksum": "35a637b14d0e2a49243e534b85eca4df",
+  "shortsum": "35a63",
   "images": [
+    {
+      "name": "airplane",
+      "filename": "airplane.png",
+      "checksum": "eb2ea559c601ed69e3c0e7140b789e06",
+      "width": 21,
+      "height": 18,
+      "positionX": 0,
+      "positionY": 0
+    },
+    {
+      "name": "crown",
+      "filename": "crown.png",
+      "checksum": "046b00de53fd87959d66e516be4888e1",
+      "width": 21,
+      "height": 14,
+      "positionX": 0,
+      "positionY": 20
+    },
+    {
+      "name": "hanger",
+      "filename": "hanger.png",
+      "checksum": "110cbb8ce56967123185738898d75bb9",
+      "width": 9,
+      "height": 17,
+      "positionX": 0,
+      "positionY": 36
+    },
     {
       "name": "remove",
       "filename": "remove.png",
@@ -10,7 +37,7 @@
       "width": 9,
       "height": 10,
       "positionX": 0,
-      "positionY": 0
+      "positionY": 55
     },
     {
       "name": "switch-map-left-gray",
@@ -19,7 +46,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 12
+      "positionY": 67
     },
     {
       "name": "switch-map-left",
@@ -28,7 +55,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 27
+      "positionY": 82
     },
     {
       "name": "switch-map-right-white",
@@ -37,7 +64,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 42
+      "positionY": 97
     },
     {
       "name": "switch-map-right",
@@ -46,7 +73,34 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 61
+      "positionY": 116
+    },
+    {
+      "name": "tripadvisor-half",
+      "filename": "tripadvisor-half.png",
+      "checksum": "df1bbf824bec36779ce37758507be27f",
+      "width": 14,
+      "height": 14,
+      "positionX": 0,
+      "positionY": 135
+    },
+    {
+      "name": "tripadvisor-like",
+      "filename": "tripadvisor-like.png",
+      "checksum": "bf2e26494c5cdee498cd83db6c81617b",
+      "width": 14,
+      "height": 14,
+      "positionX": 0,
+      "positionY": 151
+    },
+    {
+      "name": "tripadvisor",
+      "filename": "tripadvisor.png",
+      "checksum": "5229de4ec6ee715dc97fc125d0defe88",
+      "width": 27,
+      "height": 16,
+      "positionX": 0,
+      "positionY": 167
     }
   ]
 }
