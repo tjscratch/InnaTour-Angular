@@ -12,9 +12,6 @@
 
     <div class="b-display-table">
         <div class="b-display-cell">
-            <span class="icon-sprite-tripadvisor-like" ng-if="data.TaFactor > 0"></span>
-        </div>
-        <div class="b-display-cell">
             <span class="icon-sprite-tripadvisor-like" ng-if="data.TaFactor > 1"></span>
         </div>
         <div class="b-display-cell">
@@ -25,6 +22,9 @@
         </div>
         <div class="b-display-cell">
             <span class="icon-sprite-tripadvisor-like" ng-if="data.TaFactor > 4"></span>
+        </div>
+        <div class="b-display-cell">
+            <span class="icon-sprite-tripadvisor-like" ng-if="data.TaFactor == 5"></span>
         </div>
 
         <!-- Шаг 0.5 -->
