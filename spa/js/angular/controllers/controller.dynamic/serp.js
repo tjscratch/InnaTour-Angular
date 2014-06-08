@@ -16,7 +16,7 @@ innaAppControllers
             var AS_MAP_CACHE_KEY = 'serp-as-map';
             var serpScope = $scope;
 
-            /*Models*/
+
             // TODO : Hotel.prototype.setCurrent method is deprecated
             // Use event choose:hotel
             inna.Models.Hotels.Hotel.prototype.setCurrent = function () {
@@ -67,7 +67,9 @@ innaAppControllers
              * Переход в раздел - подробно об отеле
              */
             $scope.$on('more:detail:hotel', function (evt, data) {
-                getHotelDetails(data);
+              // показать header - фотрма поиска перед переходом на страницу подробнее
+              $scope.$emit('header:visible');
+              if(data) getHotelDetails(data);
             });
 
             function loadTab() {
