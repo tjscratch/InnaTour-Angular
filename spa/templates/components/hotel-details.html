@@ -106,7 +106,7 @@
                         </div>
 
                         <ul class="hotel-details-extra">
-                            <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption}}</li>
+                            <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption.CategoryName}}</li>
                         </ul>
                     </div>
                     <div class="hotel-details-rooms__room-long">
