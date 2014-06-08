@@ -25,10 +25,18 @@ angular.module('innaApp.directives')
                         $scope.virtualBundle.hotel = $scope.hotel;
                         $scope.virtualBundle.ticket = $scope.combination.ticket;
 
-                        console.log($scope.virtualBundle);
+                        //console.log($scope.virtualBundle);
+
+
+
+                       $element.on('click', '.js-hotel-item-details', function(evt){
+                         $scope.$emit('more:detail:hotel', $scope.hotel);
+                       });
+
                     }],
                 link : function($scope, $element){
-                    $scope.$watch('hotel.currentlyInvisible', function(isInvis){
+
+                  $scope.$watch('hotel.currentlyInvisible', function(isInvis){
                         if(!isInvis && $element.find('.b-carousel').length) {
                             $timeout(function(){
 
