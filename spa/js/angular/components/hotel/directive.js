@@ -13,6 +13,7 @@ angular.module('innaApp.directives')
                     '$scope',
                     '$element',
                     function ($scope, $element) {
+
                         $scope.goToMap = function(){
                             $scope.$emit('hotel:go-to-map', $scope.hotel);
                         }

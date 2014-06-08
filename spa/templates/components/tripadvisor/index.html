@@ -27,6 +27,11 @@
             <span class="icon-sprite-tripadvisor-like" ng-if="data.TaFactor > 4"></span>
         </div>
 
+        <!-- Шаг 0.5 -->
+        <div class="b-display-cell" ng-if="data.TaFactor | isFloat">
+            <span class="icon-sprite-tripadvisor-half"></span>
+        </div>
+
         <div class="b-display-cell" ng-if="data.TaCommentCount">
             <div class="b-tripadvisor__reviews">
                 {{data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}

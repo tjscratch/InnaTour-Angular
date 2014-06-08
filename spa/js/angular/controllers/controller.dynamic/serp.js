@@ -32,8 +32,6 @@ innaAppControllers
             /*Methods*/
             var getHotelDetails = function (hotel) {
 
-              console.log('getHotelDetails');
-
                 if (!hotel.detailed) {
                     ServiceDynamicPackagesDataProvider.hotelDetails(
                         hotel.data.HotelId,

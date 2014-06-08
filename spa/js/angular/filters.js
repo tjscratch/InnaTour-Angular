@@ -121,3 +121,9 @@ innaAppFilters.filter('defined', function(){
         return (typeof input !== undef);
     }
 });
+
+innaAppFilters.filter('isFloat', function(){
+    return function (n) {
+      return n === +n && n !== (n|0);
+    }
+});
