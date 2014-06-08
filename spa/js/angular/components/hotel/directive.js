@@ -13,7 +13,7 @@ angular.module('innaApp.directives')
                     '$scope',
                     '$element',
                     function ($scope, $element) {
-                      console.log($scope.hotel.data);
+
                         $scope.goToMap = function(){
                             $scope.$emit('hotel:go-to-map', $scope.hotel);
                         }
@@ -32,6 +32,10 @@ angular.module('innaApp.directives')
 
                        $element.on('click', '.js-hotel-item-details', function(evt){
                          $scope.$emit('more:detail:hotel', $scope.hotel);
+                       });
+
+                       $element.on('click', '.js-hotel-info-place', function(evt){
+                        $scope.$emit('hotel:go-to-map', $scope.hotel);
                        });
 
                     }],

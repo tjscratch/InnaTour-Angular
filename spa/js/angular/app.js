@@ -2,6 +2,7 @@
 
 var app = angular.module('innaApp', [
   'ngRoute',
+  'innaApp.Cookie',
   'innaApp.templates',
   'innaApp.filters',
   'innaApp.services',
@@ -204,6 +205,8 @@ app.config([
       ]);
   }
 ]);
+
+var innaAppCookie = angular.module('innaApp.Cookie', ['ngCookies']);
 
 var innaAppControllers = angular.module('innaApp.controllers', []);
 

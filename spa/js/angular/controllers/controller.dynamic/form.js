@@ -1,7 +1,16 @@
 innaAppControllers
     .controller('DynamicFormCtrl', [
-        '$scope', 'DynamicPackagesDataProvider', '$rootScope', 'DynamicPackagesCacheWizard', 'Validators', '$location', 'innaApp.Urls',
-        function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs){
+        '$scope',
+        'DynamicPackagesDataProvider',
+        '$rootScope',
+        'DynamicPackagesCacheWizard',
+        'Validators',
+        '$location',
+        'innaApp.Urls',
+        '$cookieStore',
+        function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs, $cookieStore){
+            var AS_MAP_CACHE_KEY = 'serp-as-map';
+
             var routeParams = (function(path){
                 if(path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) === -1) return {};
 
@@ -119,6 +128,17 @@ innaAppControllers
 
             /*Methods*/
             $scope.searchStart = function(){
+
+              // удаляем куки состояния открытой карты
+              DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, 0);
+
+              // если есть get параметр map=show, удалаяем его
+              if ($location.search().map) {
+                delete $location.$$search.map;
+                $location.$$compose();
+              }
+
+
                 try {
                     validate();
                     //if ok

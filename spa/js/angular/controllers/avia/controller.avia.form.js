@@ -1,10 +1,19 @@
-﻿﻿
-'use strict';
+﻿'use strict';
 
 /* Controllers */
 
 innaAppControllers.
-    controller('AviaFormCtrl', ['$log', '$scope', '$rootScope', '$filter', '$routeParams', '$location', 'dataService', 'cache', 'urlHelper', 'aviaHelper',
+    controller('AviaFormCtrl', [
+        '$log',
+        '$scope',
+        '$rootScope',
+        '$filter',
+        '$routeParams',
+        '$location',
+        'dataService',
+        'cache',
+        'urlHelper',
+        'aviaHelper',
         'aviaService', 'Validators',
         function AviaFormCtrl($log, $scope, $rootScope, $filter, $routeParams, $location, dataService, cache, urlHelper, aviaHelper,
             aviaService, Validators) {

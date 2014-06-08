@@ -1,4 +1,4 @@
-﻿﻿innaAppServices.
+﻿innaAppServices.
     factory('aviaHelper', [
         '$rootScope',
         '$http',

@@ -342,6 +342,15 @@ innaAppControllers
             }, true);
 
 
+            function locatioAsMap(){
+              if (!$scope.asMap) {
+                delete $location.$$search.map;
+                $location.$$compose();
+              } else {
+                $location.search('map', 'show');
+              }
+            }
+
             // слушаем событие от компонента отеля
             //  открываем карту с точкой этого отеля
             $scope.$on('hotel:go-to-map', function (evt, data) {
@@ -351,6 +360,7 @@ innaAppControllers
                 // прокидываем данные глубже для дочерних компонентов
                 // так как карта инитится с задержкой видимо, и поэтому не может подписаться на событие
                 setTimeout(function () {
+                    locatioAsMap();
                     $scope.$broadcast('map:show-one-hotel', data);
                 }, 1000);
             });
@@ -358,28 +368,21 @@ innaAppControllers
 
             // прямая ссылка на карту
             if ($location.$$search.map) {
-                $scope.asMap = !$scope.asMap;
+                $scope.asMap = 1;
             }
 
             // переход с карты на список по кнопке НАЗАД в браузере
             // работает тольео в одну сторону - назад
             $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
                 if (!$location.search().map) {
-                    $scope.asMap = false;
+                    $scope.asMap = 0;
                 }
             });
 
             // случаем событие переключения контрола с карты на список и обратно
             $scope.$on('toggle:view:hotels:map', function () {
-
                 $scope.asMap = !$scope.asMap;
-
-                if (!$scope.asMap) {
-                    delete $location.$$search.map;
-                    $location.$$compose();
-                } else {
-                    $location.search('map', 'show');
-                }
+                locatioAsMap();
             });
 
             /*Initial Data fetching*/

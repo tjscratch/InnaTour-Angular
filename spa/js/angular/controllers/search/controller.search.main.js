@@ -4,7 +4,14 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('SearchMainCtrl', ['$log', '$scope', '$routeParams', '$filter', '$location', 'dataService', 'urlHelper',
+    controller('SearchMainCtrl', [
+        '$log',
+        '$scope',
+        '$routeParams',
+        '$filter',
+        '$location',
+        'dataService',
+        'urlHelper',
         function SearchMainCtrl($log, $scope, $routeParams, $filter, $location, dataService, urlHelper) {
 
             var self = this;
