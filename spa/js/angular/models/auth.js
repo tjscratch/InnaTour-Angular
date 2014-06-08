@@ -8,7 +8,8 @@ inna.Models.Auth.User = function(data){
         Phone: data.Phone,
         MessagesCount: data.MessagesCount,
         AgencyName: data.AgencyName,
-        Type: data.Type
+        Type: data.Type,
+        AgencyActive: data.AgencyActive
     };
 };
 
@@ -26,5 +27,5 @@ inna.Models.Auth.User.prototype.displayName = function(){
 }
 
 inna.Models.Auth.User.prototype.isAgency = function () {
-    return this.raw.AgencyName.length > 0;
+    return this.raw.AgencyName.length > 0 && this.raw.AgencyActive;
 };

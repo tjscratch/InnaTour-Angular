@@ -48,6 +48,11 @@ angular.module('innaApp.controllers')
             };
 
             $scope.showProfile = function(){
+            	if($scope.user.isAgency()) {
+            		window.location = $scope.B2B_HOST;
+            		return;
+            	}
+            	
                 $scope.open();
                 $scope.display = $scope.DISPLAY_PROFILE;
             };
