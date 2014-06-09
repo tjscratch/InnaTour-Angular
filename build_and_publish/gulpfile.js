@@ -58,7 +58,7 @@ gulp.task('styles', function () {
         .pipe(concat('ticket.min.css'))
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
-    res =  gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
+    res = gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
         .pipe(concat('main.css'))
         .pipe(less())
         .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
