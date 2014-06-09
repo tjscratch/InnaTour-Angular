@@ -5,25 +5,19 @@
     <i class="icon icon-triangle" ng-class="{bottom:!isOpen}"></i>
     <div class="search-form-human-dialog" style="display:block;" ng-show="isOpen">
         <div class="search-form-dialog-row row">
-            <div class="col-xs-4 col-no-padding">
-                <span class="label">Взрослые</span>
-            </div>
-            <div class="col-xs-8 col-no-padding">
-                <ul class="button-group">
-                    <li class="button" ng-repeat="count in range(1, 4)" ng-class="{active:adultCount == count}" ng-click="onCounterClick('adultCount', count)">{{count}}</li>
-                </ul>
-            </div>
+            <span class="label">Взрослые</span>
+
+            <ul class="button-group">
+                <li class="button" ng-repeat="count in range(1, 4)" ng-class="{active:adultCount == count}" ng-click="onCounterClick('adultCount', count)">{{count}}</li>
+            </ul>
         </div>
         <div class="search-form-dialog-row row">
-            <div class="col-xs-4 col-no-padding">
-                <span class="label">Дети</span>
-            </div>
-            <div class="col-xs-8 col-no-padding">
-                <ul class="button-group">
-                    <li class="button" ng-repeat="count in range(0, 3)" ng-class="{active:childrenCount == count}" ng-click="onCounterClick('childrenCount', count)">{{count}}</li>
-                </ul>
-            </div>
+            <span class="label">Дети</span>
+            <ul class="button-group">
+                <li class="button" ng-repeat="count in range(0, 3)" ng-class="{active:childrenCount == count}" ng-click="onCounterClick('childrenCount', count)">{{count}}</li>
+            </ul>
         </div>
+
         <div class="search-form-dialog-row" ng-show="childrenCount > 0">
             <span class="label">Возраст детей</span>
         </div>
