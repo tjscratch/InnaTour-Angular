@@ -57,6 +57,7 @@ gulp.task('styles', function () {
         .pipe(concat('ticket.min.css'))
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
+
     gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
         .pipe(concat('main.css'))
         .pipe(less())
@@ -76,9 +77,7 @@ gulp.task('templates-ang', function () {
 
     gulp.src([
         __BUILD_FOLDER__ + '/spa/templates/**/*.html',
-        __BUILD_FOLDER__ + '/spa/js/angular/**/*.html',
-        //__BUILD_FOLDER__ + '!/spa/templates/components/hotel.html',
-        __BUILD_FOLDER__ + '!/spa/templates/components/ticket.html'
+        __BUILD_FOLDER__ + '/spa/js/angular/**/*.html'
     ])
         .pipe(cleanhtml())
         .pipe(templateCache({
