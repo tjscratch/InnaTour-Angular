@@ -55,59 +55,68 @@ innaAppControllers.
                 var visaEtapNeeded = false;
                 var visaEtapRulesNeeded = false;
 
+                //console.log($scope.validationModel.passengers);
+
                 if ($scope.validationModel != null && $scope.validationModel.passengers != null &&
                     $scope.item != null) {
-                    for (var i = 0; i < $scope.validationModel.passengers.length; i++) {
-                        var pas = $scope.validationModel.passengers[i];
-                        if (pas.citizenship.value.id == 189)//Россия
-                        {
-                            isCitRussia = true;
-                            return;
-                        }
+
+                    var isAllPassRussia = _.all($scope.validationModel.passengers, function (pas) { return pas.citizenship.value.id == 189; });//189 - Россия
+
+                    //страна куда
+                    var lastItem = _.last($scope.item.EtapsTo);
+                    //если не 0 - то визовая
+                    var visaEtapNeeded = lastItem.InVisaGroup != 0;
+
+                    var outVisaGroup = $scope.item.EtapsTo[0].OutVisaGroup;//страна откуда
+                    var inVisaGroup = lastItem.InVisaGroup;//страна куда
+
+                    var cautionCountries = [];
+
+                    if (outVisaGroup != inVisaGroup) {
+                        cautionCountries.push(lastItem.InCountryName);
                     }
 
-                    var outVisaGroup = null;
-                    //берем визовую группу
-                    if ($scope.item.EtapsTo != null && $scope.item.EtapsTo.length > 0)
-                    {
-                        outVisaGroup = $scope.item.EtapsTo[0].OutVisaGroup;
-
-                        if (outVisaGroup != null && outVisaGroup != 0) {
-                            visaEtapNeeded = true;
-                        }
-                    }
-                    
-
-                    if ($scope.item.EtapsTo != null)
-                    {
+                    if ($scope.item.EtapsTo != null) {
                         for (var i = 0; i < $scope.item.EtapsTo.length; i++) {
                             var etap = $scope.item.EtapsTo[i];
-                            if (etap.InVisaGroup != outVisaGroup || etap.OutVisaGroup != outVisaGroup) {
+                            if (etap.InVisaGroup != outVisaGroup) {
                                 visaEtapRulesNeeded = true;
-                                break;
+                                cautionCountries.push(etap.InCountryName);
+                            }
+                            if (etap.OutVisaGroup != outVisaGroup) {
+                                visaEtapRulesNeeded = true;
+                                cautionCountries.push(etap.OutCountryName);
                             }
                         }
                     }
-                    if (visaEtapNeeded == false && $scope.item.EtapsBack != null) {
+
+                    if ($scope.item.EtapsBack != null) {
                         for (var i = 0; i < $scope.item.EtapsBack.length; i++) {
                             var etap = $scope.item.EtapsBack[i];
-                            if (etap.InVisaGroup != outVisaGroup || etap.OutVisaGroup != outVisaGroup) {
+                            if (etap.InVisaGroup != outVisaGroup) {
                                 visaEtapRulesNeeded = true;
-                                break;
+                                cautionCountries.push(etap.InCountryName);
+                            }
+                            if (etap.OutVisaGroup != outVisaGroup) {
+                                visaEtapRulesNeeded = true;
+                                cautionCountries.push(etap.OutCountryName);
                             }
                         }
                     }
+                    cautionCountries = _.uniq(cautionCountries);
+                    $scope.cautionCountries = cautionCountries;
+                    //console.log('cautionCountries:');
+                    //console.log(cautionCountries);
                 }
 
-                if (isCitRussia && visaEtapNeeded) {
+                if (isAllPassRussia && visaEtapNeeded) {
                     $scope.visaNeeded = true;
                 }
-                else
-                {
+                else {
                     $scope.visaNeeded = false;
                 }
 
-                if (isCitRussia && visaEtapRulesNeeded) {
+                if (visaEtapRulesNeeded) {
                     $scope.visaNeeded_rules = true;
                 }
                 else {
@@ -464,6 +473,15 @@ innaAppControllers.
                                     else
                                     {
                                         newIntItem[inKey] = getValidationItem(inKey, angular.copy(item[inKey]));
+                                        if (inKey == 'citizenship') {
+                                            newIntItem[inKey].setValue = function (item) {
+                                                var self = this;
+                                                self.value = item;
+                                                //console.log('setValue');
+                                                //console.log(item);
+                                                visaNeededCheck();
+                                            }
+                                        }
                                     }
                                 });
                                 
@@ -480,6 +498,7 @@ innaAppControllers.
                             newItem.id = oldItem.id;
                             newItem.validationType = oldItem.validationType;
                         }
+
                         validationModel[key] = newItem;
                     });
                 };
@@ -584,6 +603,7 @@ innaAppControllers.
 
                 visaNeededCheck();
 
+                //console.log('$scope.validationModel');
                 //console.log($scope.validationModel);
 
                 $scope.isFieldInvalid = function (item) {
@@ -772,6 +792,7 @@ innaAppControllers.
                 $scope.validationModel.validateAll();
                 $scope.validatePeopleCount();
 
+                //console.log('$scope.validationModel');
                 //console.log($scope.validationModel);
 
                 //ищем первый невалидный элемент, берем только непустые

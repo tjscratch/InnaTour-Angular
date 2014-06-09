@@ -5,7 +5,8 @@
 
         <div class="buy__warning" ng-show="visaNeeded">
             <div>Требуется виза.</div>
-            <div ng-show="visaNeeded_rules">Обратите внимание на визовые правила.</div>
+            <div ng-show="visaNeeded_rules">Обратите внимание на визовые правила
+                <span ng-if="cautionCountries.length > 0"> в странах: <span ng-repeat="c in cautionCountries">{{c}}<span ng-if="!($last)">, </span></span></span>.</div>
         </div>
 
         <header class="buy__header">
@@ -90,7 +91,7 @@
                                ng-validation-model="passenger.citizenship" validate="validate(item, type)" validate-type="validateType.cit_required"
                                ng-class="{error:isFieldInvalid(passenger.citizenship)}"
                                ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.value.name}}" placeholder="Выберите" class="b-field-text b-field-select">
-                        <div partial-select list="citizenshipList" result="passenger.citizenship.value" is-open="passenger.dir.cit.isOpen">
+                        <div partial-select list="citizenshipList" result-set="passenger.citizenship.setValue(item)" is-open="passenger.dir.cit.isOpen">
                         </div>
                     </div>
                 </div>
