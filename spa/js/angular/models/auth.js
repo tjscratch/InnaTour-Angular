@@ -9,7 +9,8 @@ inna.Models.Auth.User = function(data){
         MessagesCount: data.MessagesCount,
         AgencyName: data.AgencyName,
         Type: data.Type,
-        AgencyActive: data.AgencyActive
+        AgencyActive: data.AgencyActive,
+        SupportPhone: data.SupportPhone
     };
 };
 
