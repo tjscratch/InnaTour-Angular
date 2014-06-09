@@ -1,4 +1,4 @@
-﻿﻿'use strict';
+﻿'use strict';
 
 angular.module('innaApp.directives')
     .directive('regionHeader', ['$templateCache', function ($templateCache) {
@@ -52,18 +52,22 @@ angular.module('innaApp.directives')
                         //log('$scope.getHeadForm, loc:' + loc);
                         var abs = $location.absUrl();
                         if (loc == '/' || abs.indexOf('/tours/?') > -1) {
-                            return urlHelper.addPathAndVersion('/spa/templates/nav_forms/tours_search_form.html');
+                            return 'nav_forms/tours_search_form.html';
                         }
-                        else if (loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION)
-                            && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)) {
-                            return urlHelper.addPathAndVersion('/spa/templates/nav_forms/dynamic_search_form.html');
+                        else if (loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) &&
+                            !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) &&
+                            !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)) {
+                            return 'nav_forms/dynamic_search_form.html';
                         }
-                        else if (loc.startsWith(appUrls.URL_AVIA) && !loc.startsWith(appUrls.URL_AVIA_RESERVATION) && !loc.startsWith(appUrls.URL_AVIA_BUY)) {
+                        else if (loc.startsWith(appUrls.URL_AVIA) &&
+                            !loc.startsWith(appUrls.URL_AVIA_RESERVATION) &&
+                            !loc.startsWith(appUrls.URL_AVIA_BUY)) {
+
                             //на бронировании и покупке формы нет
-                            return urlHelper.addPathAndVersion('/spa/templates/nav_forms/avia_search_form.html');
+                            return 'nav_forms/avia_search_form.html';
                         }
                         else {
-                            return urlHelper.addPathAndVersion('/spa/templates/nav_forms/empty.html');
+                            return '';
                         }
                     };
 
