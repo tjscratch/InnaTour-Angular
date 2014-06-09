@@ -16,7 +16,7 @@
 
 <div class="results-list_960">
 
-    <div class="b-result b-result_col_two b-result_pay result row buy__fly buy__fly_footer">
+    <div class="b-result b-result_col_two b-result_pay result row buy__fly buy__fly_footer" ng-show="item != null">
 
         <div class="b-result__cell result-cell">
             <span ng-if="!(item.transportersList.length > 3)" class="rl-airline"
@@ -25,7 +25,7 @@
             <span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png"
                                                                                    alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>
 
-            <div class="b-ticket_2ways buy__tickets" ng-show="item != null">
+            <div class="b-ticket_2ways buy__tickets">
                 <div class="rlf-fly">
                     <div class="rlf__flight-block">
                         <b>{{item.DepartureTimeFormatted}}</b> {{item.DepartureDateFormatted}}<br>
