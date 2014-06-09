@@ -1,7 +1,7 @@
 _.generateRange = function (start, end) {
     var list = [start];
     if (start < end) {
-        while (start <= end) {
+        while (start < end) {
             start++;
             list.push(start);
         }
