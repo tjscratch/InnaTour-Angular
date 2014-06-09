@@ -591,6 +591,17 @@
                             for (var i = 0; i < maxEtapsLen; i++) {
                                 var etapTo = i < item.EtapsTo.length ? item.EtapsTo[i] : null;
                                 var etapBack = i < item.EtapsBack.length ? item.EtapsBack[i] : null;
+
+                                var nextEtapTo = (i + 1) < item.EtapsTo.length ? item.EtapsTo[i+1] : null;
+                                var nextEtapBack = (i + 1) < item.EtapsBack.length ? item.EtapsBack[i + 1] : null;
+                                
+                                if (etapTo != null) {
+                                    etapTo.nextEtapTo = nextEtapTo;
+                                }
+                                if (etapBack != null) {
+                                    etapBack.nextEtapBack = nextEtapBack;
+                                }
+
                                 item.etapsAgg.push({ etapTo: etapTo, etapBack: etapBack });
                             }
                         }
