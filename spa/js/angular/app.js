@@ -13,6 +13,8 @@ var app = angular.module('innaApp', [
   'ngSanitize'
 ]);
 
+var testInnaTest = 123;
+
 app.constant('innaApp.Urls', {
     URL_BUY: '/buy/',
     URL_AVIA: '/avia/',
