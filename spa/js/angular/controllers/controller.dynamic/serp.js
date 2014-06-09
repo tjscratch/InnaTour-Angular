@@ -305,6 +305,8 @@ innaAppControllers
             };
 
             $scope.goReservation = function (room, hotel) {
+                console.log('go-reservation');
+
                 var url = Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
                     $routeParams.DepartureId,
                     $routeParams.ArrivalId,
@@ -316,13 +318,13 @@ innaAppControllers
                 ].join('-');
 
 
-                $location.path(url);
-
                 $location.search({
                     room: room.RoomId,
                     hotel: hotel.data.HotelId,
                     ticket: $scope.combination.ticket.data.VariantId1
                 });
+
+                $location.path(url);
             };
 
             /*EventListener*/
