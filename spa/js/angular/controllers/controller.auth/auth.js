@@ -7,8 +7,10 @@ angular.module('innaApp.controllers')
                 $scope.safeApply(function(){
                     $scope.$root.user = new inna.Models.Auth.User(data);
 
-                    console.log('$scope.user.raw.AgencyActive = ', $scope.user.raw.AgencyActive);
-                    console.log('$scope.$root.user.raw.AgencyActive = ', $scope.$root.user.raw.AgencyActive);
+                    if($scope.user.isAgency() && !$scope.user.raw.AgencyActive) {
+                        $scope.logout();
+                        $scope.baloon.error('Агентство отключено', 'Авторизация невозможна');
+                    }
                 });
             }
 
