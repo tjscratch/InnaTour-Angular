@@ -106,6 +106,9 @@ angular.module('innaApp.directives')
                         $scope.dataFullyLoaded = true;
                     })
                 }
-            ]
+            ],
+            link : function($scope, $element){
+
+            }
         }
     }]);
