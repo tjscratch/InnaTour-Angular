@@ -218,8 +218,8 @@
                 m.SearchParams = {
                     HotelId: $scope.hotel.HotelId,
                     HotelProviderId: $scope.hotel.ProviderId,
-                    TicketBackId: $scope.item.VariantId1,
-                    TicketToId: $scope.item.VariantId2,
+                    TicketToId: $scope.item.VariantId1,
+                    TicketBackId: $scope.item.VariantId2,
                     RoomId: $scope.roomId,
                     Filter: {
                         DepartureId: $routeParams.DepartureId,
@@ -239,6 +239,7 @@
 
             //бронируем
             $scope.reserve = function () {
+                //console.log('$scope.reserve');
                 var m = $scope.getApiModelForReserve();
                 var model = m.model;
                 var apiModel = m.apiModel;

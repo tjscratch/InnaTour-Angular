@@ -228,6 +228,7 @@ innaAppControllers.
 
             //бронируем
             $scope.reserve = function () {
+                //console.log('$scope.reserve');
                 var m = $scope.getApiModelForReserve();
                 var model = m.model;
                 var apiModel = m.apiModel;
