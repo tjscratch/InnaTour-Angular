@@ -1,20 +1,20 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Инна-Тур - Авиа</title>
-    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/common.min.css" />
+    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <link rel="stylesheet" href="../css/common.min.css"/>
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="../css/ie.min.css" />
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" href="../css/ie.min.css"/>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
     <script src="../lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="../js/jquery.ui.datepicker-ru.js"></script>
     <!--[if lt IE 10]>
-        <script src="../js/ie.placeholder.js"></script>
+    <script src="../js/ie.placeholder.js"></script>
     <![endif]-->
     <script src="../js/search_form.js"></script>
     <script src="../js/results.js"></script>
@@ -22,169 +22,1034 @@
 </head>
 
 <body class="body-bg">
-    <div class="header Header">
-        <div class="header-info">
-            <div class="header-info-container">
-                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
-                --><span class="header-text"></span><!--
-                --><div class="header-info-container-right">
-                    <ul class="header-info-menu" style="margin-right:0px;">
-                        <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li><!--
-                        --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
-                        --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
-                    </ul>
-                </div>
+<div class="main">
+<div class="header Header">
+    <div class="header-info">
+        <div class="header-info-container row">
+            <div class="col-xs-6 col-no-padding">
+                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР"
+                                                        title="ИННА ТУР"></i><i
+                        class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a>
+                <span class="header-text"></span>
             </div>
-        </div>
-        <div class="header-menu">
-            <ul class="header-menu-container-items"><!--
-                --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
-                --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
-                --><li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
-                --><li class="header-menu-item"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
-            </ul>
-
+            <div class="col-xs-6 header-info-container-right col-no-padding">
+                <ul class="header-info-menu" style="margin-right:0px;">
+                    <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
+                    <!--
+                                            -->
+                    <li class="header-info-menu-item"><a href="/#/about/">О компании</a></li>
+                    <!--
+                                            -->
+                    <li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                </ul>
+            </div>
         </div>
     </div>
+    <div class="header-menu">
+        <ul class="header-menu-container-items"><!--
+                -->
+            <li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
+            <!--
+                            -->
+            <li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a>
+            </li>
+            <!--
+                            -->
+            <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru"
+                                            target="_blank"
+                                            ng-class="{active:isActive('/hotels/')}">Отели</a></li>
+            <!--
+                            -->
+            <li class="header-menu-item"><a href="/#/individualtours/"
+                                            ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
+        </ul>
 
-    <!-- Buy ticket -->
-    <form action="" class="results-body">
-        <div class="main__center">
-            <header class="buy__header">
-                <h2 class="buy__title">Оплата авиабилетов</h2>
-                <a href="#" class="buy__title-link">Выбрать другой билет</a>
-                <div class="buy__header-price">Стоимость заказа: <b>170 920 <span class="rub">Р</span></b></div>
-            </header>
-            <div class="buy__fly">
-                <header class="rl-item-header">
-                    <span class="rl-airline"><img alt="" src="../uploads/logo2.png"><span class="rl-airline-text">Aeroflot</span></span>
-                </header>
-                <div class="b-ticket_2ways">
-                    <div class="rlf-fly">
-                        <div class="rlf__flight-block">
-                            <b>20:00</b> 26 сен, сб<br>
-                            <b>Санкт-Петербург</b> LED
-                            <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                        </div>
-                        <div class="rlf__flight-block">
-                            <b>19:50</b> 27 сен, сб<br>
-                            <b>Санта-Круз-де Тенерифе</b> TFS
-                        </div>
-                        <div class="rlf-full-travel-time">в пути: 23 часа 10 минут, 2 пересадки</div>
-                    </div>
-                    <div class="rlf-fly rlf-fly_back">
-                        <div class="rlf__flight-block">
-                            <b>20:00</b> 26 сен, сб<br>
-                            <b>Ош</b> MOW
-                            <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                        </div>
-                        <div class="rlf__flight-block">
-                            <b>19:50</b> 27 сен, сб<br>
-                            <b>Хургада</b> TFS
-                        </div>
-                        <div class="rlf-full-travel-time">в пути: 6 часов, прямой</div>
-                    </div>
-                </div>
-                <footer class="rl-footer">
-                    <span class="rl-tickets-number">Последние 3 места, чартер</span>
-                    <a class="rl-more-info" href="#">Подробнее</a>
-                </footer>
-            </div>
-            <div class="buy__warning">
-                При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование авиакомпании.
-            </div>
+    </div>
+</div>
 
-            <div class="buy__fly">
-                <header class="rl-item-header">
-                    <span class="rl-airline"><img alt="" src="../uploads/logo2.png"><span class="rl-airline-text">Aeroflot</span></span>
-                </header>
-                <div class="b-ticket_2ways">
-                    <div class="rlf-fly">
-                        <div class="rlf__flight-block">
-                            <b>20:00</b> 26 сен, сб<br>
-                            <b>Санкт-Петербург</b> LED
-                            <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                        </div>
-                        <div class="rlf__flight-block">
-                            <b>19:50</b> 27 сен, сб<br>
-                            <b>Санта-Круз-де Тенерифе</b> TFS
-                        </div>
-                        <div class="rlf-full-travel-time">в пути: 23 часа 10 минут, 2 пересадки</div>
-                    </div>
-                    <div class="rlf-fly rlf-fly_back rlf__oneway">
-                        БИЛЕТ В ОДНУ СТОРОНУ
-                    </div>
+<!-- Buy ticket -->
+<div class="wrpr">
+
+<!-- Buy ticket -->
+<form action="" class="results-body">
+<div class="main__center">
+    <header class="buy__header">
+        <h2 class="buy__title">Оплата авиабилетов</h2>
+        <a href="#" class="buy__title-link">Выбрать другой билет</a>
+
+        <div class="buy__header-price">Стоимость заказа: <b>170 920 <span class="rub">Р</span></b></div>
+    </header>
+    <div class="buy__fly">
+        <header class="rl-item-header">
+            <span class="rl-airline"><img alt="" src="../uploads/logo2.png"><span
+                    class="rl-airline-text">Aeroflot</span></span>
+        </header>
+        <div class="b-ticket_2ways">
+            <div class="rlf-fly">
+                <div class="rlf__flight-block">
+                    <b>20:00</b> 26 сен, сб<br>
+                    <b>Санкт-Петербург</b> LED
+                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
                 </div>
-                <footer class="rl-footer">
-                    <span class="rl-tickets-number">Последние 3 места, чартер</span>
-                    <a class="rl-more-info" href="#">Подробнее</a>
-                </footer>
-            </div>
-            <div class="buy__warning">
-                При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование авиакомпании.
-            </div>
-            <header class="buy__header">
-                <h2 class="buy__title">Информация о покупателе</h2>
-            </header>
-            <div>
-                <div class="b-field-group">
-                    <div class="b-field-block b-field-block-auth" style="width: 388px;">
-                        <label class="b-field-label">E-mail</label>
-                        <input type="text" value="ratunkov@gmail.com" class="b-field-text">
-                        <!-- <div class="b-auth">
-                            <a href="#" class="b-auth-close"></a>
-                            <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
-                            <a href="#" class="button b-auth-button">Войти</a>
-                        </div> -->
-                    </div>
-                    <div class="b-field-block" style="width: 180px;">
-                        <label class="b-field-label">Мобильный телефон</label>
-                        <input type="text" value="+7 (910) 123-45-67" class="b-field-text">
-                    </div>
+                <div class="rlf__flight-block">
+                    <b>19:50</b> 27 сен, сб<br>
+                    <b>Санта-Круз-де Тенерифе</b> TFS
                 </div>
-                <!-- <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div> -->
-                <label class="b-agreement"><input type="checkbox"><ins class="b-checkbox"></ins>Я хочу получать рассылку спецпредложений</label>
+                <div class="rlf-full-travel-time">в пути: 23 часа 10 минут, 2 пересадки</div>
             </div>
-            <header class="buy__header">
-                <h2 class="buy__title">Пассажиры</h2>
-            </header>
-            <fieldset class="buy__blocks">
-                <div class="b-field-group b-field-group-passport">
-                    <div class="b-field-block">
-                        <label class="b-field-label">Пол</label>
-                        <ul class="radio-list error">
-                            <li><label><input type="radio" name="male3"><ins class="radio">М</ins></label></li>
-                            <li><label><input type="radio" name="male3"><ins class="radio">Ж</ins></label></li>
-                        </ul>
-                    </div>
-                    <div class="b-field-block" style="width: 160px;">
-                        <label class="b-field-label">Имя (латиницей)</label>
-                        <input type="text" value="ALEXANDER" class="b-field-text">
-                    </div>
-                    <div class="b-field-block b-field-block-surname" style="width: 150px;">
-                        <label class="b-field-label">Фамилия (латиницей)</label>
-                        <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text">
-                    </div>
-                    <div class="b-field-block" style="width: 110px;">
-                        <label class="b-field-label">Дата рождения</label>
-                        <input type="text" value="18.07.1976" class="b-field-text">
-                    </div>
-                    <div class="b-field-block" style="width: 180px;">
-                        <label class="b-field-label">Гражданство</label>
-                        <input type="text" value="Великобритания" class="b-field-text b-field-select">
-                        <div ng-show="isOpen" class="b-auth cit-cont" is-open="passenger.dir.cit.isOpen" result="passenger.citizenship.value" 
-                             list="citizenshipList" partial-select="" style="width: 178px;">
-                        <ul><!-- ngRepeat: item in list -->
-                            <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Россия</li>
-                            <!-- end ngRepeat: item in list -->
-                            <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Serbia And Montenegro</li>
-                            <!-- end ngRepeat: item in list -->
-                            <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Yugoslavia</li>
-                            <!-- end ngRepeat: item in list -->
-                            <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Абхазия</li>
-                            <!-- end ngRepeat: item in list -->
-                            <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Австралия</li>
-                            <!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Австрия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Азербайджан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Албания</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Алжир</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Американское Самоа</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ангилья</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ангола</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Андорра</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Антарктида</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Антигуа и Барбуда</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Аргентина</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Армения</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Аруба</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Афганистан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Багамы</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Бангладеш</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Барбадос</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Бахрейн</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Белиз</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Белоруссия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Бельгия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Бенин</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Бермуды</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Болгария</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Боливия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Бонэйр, Синт-Эстатиус и Саба</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Босния и Герцеговина</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ботсвана</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Бразилия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Британская Территория В Индийском Океане</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Бруней</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Буркина-Фасо</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Бурунди</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Бутан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Вануату</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ватикан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Великобритания</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Венгрия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Венесуэла</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Виргинские Острова (Британия)</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Виргинские Острова (США)</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Вьетнам</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Габон</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гаити</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гайана</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гамбия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гана</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гваделупа</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гватемала</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гвинея</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гвинея-Бисау</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Германия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гернси</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гибралтар</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гондурас</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гонконг</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гренада</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гренландия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Греция</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Грузия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Гуам</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Дания</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Джерси</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Джибути</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Доминика</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Доминиканская Республика</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">ДР Конго</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Египет</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Замбия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Зимбабве</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Израиль</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Индия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Индонезия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Иордания</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ирак</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Иран</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ирландия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Исландия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Испания</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Италия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Йемен</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Кабо-Верде</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Казахстан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Камбоджа</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Камерун</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Канада</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Катар</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Кения</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Кипр</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Киргизия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Кирибати</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Китай</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Кокосовые Острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Колумбия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Коморы</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Косово</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Коста-Рика</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Кот-Д’Ивуар</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Куба</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Кувейт</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Кюрасао</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Лаос</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Латвия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Лесото</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Либерия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ливан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ливия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Литва</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Лихтенштейн</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Люксембург</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Маврикий</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Мавритания</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Мадагаскар</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Майотта</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Макао</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Малави</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Малайзия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Мали</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Мальдивы</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Мальта</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Марокко</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Мартиника</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Маршалловы Острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Мексика</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Микронезия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Мозамбик</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Молдова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Монако</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Монголия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Монтсеррат</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Мьянма</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Намибия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Науру</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Непал</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Нигер</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Нигерия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Нидерландские Антильские острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Нидерланды</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Никарагуа</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ниуэ</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Новая Зеландия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Новая Каледония</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Норвегия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">ОАЭ</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Оман</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Остров Буве</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Остров Мэн</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Остров Норфолк</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Остров Рождества</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Остров Херд и Острова Макдональд</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Острова Кайман</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Острова Кука</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Острова Теркс и Кайкос</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Пакистан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Палау</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Палестина</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Панама</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Папуа-Новая Гвинея</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Парагвай</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Перу</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Питкерн</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Польша</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Португалия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Пуэрто-Рико</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Республика Конго</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Республика Македония</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Реюньон</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Руанда</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Румыния</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сальвадор</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Самоа</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сан-Марино</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сан-Томе и Принсипи</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Саудовская Аравия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Свазиленд</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Святая Елена</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Северная Корея</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Северные Марианские Острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сейшелы</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сен-Бартелеми</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сенегал</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сен-Китс и Невис</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сен-Мартен</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сент-Винсент и Гренадины</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сент-Люсия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сент-Пьер и Микелон</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сербия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сингапур</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Синт-Мартен</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сирия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Словакия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Словения</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Соломоновы Острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сомали</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Судан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Суринам</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">США</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Сьерра-Леоне</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Таджикистан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Таиланд</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тайвань (Китай)</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Танзания</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тимор-Лесте</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тихоокеанские Острова (США)</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Того</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Токелау</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тонга</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тринидад и Тобаго</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тувалу</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тунис</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Туркменистан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Турция</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Уганда</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Узбекистан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Украина</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Уоллис и Футуна</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Уругвай</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Фарерские Острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Фиджи</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Филиппины</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Финляндия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Фолклендские Острова (Мальвинские)</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Франция</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Французская Гвиана</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Французская Полинезия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Французские Южные Территории</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Хорватия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Центрально-Африканская Республика</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Чад</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Черногория</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Чешская Республика</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Чили</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Швейцария</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Швеция</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Шпицберген и Ян Майен</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Шри-Ланка</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Эквадор</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Экваториальная Гвинея</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Эландские Острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Эритрея</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Эстония</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Эфиопия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">ЮАР</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Южная Джорджия и Сандвичевы Острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Южная Корея</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Южная Осетия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ямайка</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Япония</li><!-- end ngRepeat: item in list --></ul></div>
+            <div class="rlf-fly rlf-fly_back">
+                <div class="rlf__flight-block">
+                    <b>20:00</b> 26 сен, сб<br>
+                    <b>Ош</b> MOW
+                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                </div>
+                <div class="rlf__flight-block">
+                    <b>19:50</b> 27 сен, сб<br>
+                    <b>Хургада</b> TFS
+                </div>
+                <div class="rlf-full-travel-time">в пути: 6 часов, прямой</div>
+            </div>
+        </div>
+        <footer class="rl-footer">
+            <span class="rl-tickets-number">Последние 3 места, чартер</span>
+            <a class="rl-more-info" href="#">Подробнее</a>
+        </footer>
+    </div>
+    <div class="buy__warning">
+        При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице
+        оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование
+        авиакомпании.
+    </div>
+
+    <div class="buy__fly">
+        <header class="rl-item-header">
+            <span class="rl-airline"><img alt="" src="../uploads/logo2.png"><span
+                    class="rl-airline-text">Aeroflot</span></span>
+        </header>
+        <div class="b-ticket_2ways">
+            <div class="rlf-fly">
+                <div class="rlf__flight-block">
+                    <b>20:00</b> 26 сен, сб<br>
+                    <b>Санкт-Петербург</b> LED
+                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                </div>
+                <div class="rlf__flight-block">
+                    <b>19:50</b> 27 сен, сб<br>
+                    <b>Санта-Круз-де Тенерифе</b> TFS
+                </div>
+                <div class="rlf-full-travel-time">в пути: 23 часа 10 минут, 2 пересадки</div>
+            </div>
+            <div class="rlf-fly rlf-fly_back rlf__oneway">
+                БИЛЕТ В ОДНУ СТОРОНУ
+            </div>
+        </div>
+        <footer class="rl-footer">
+            <span class="rl-tickets-number">Последние 3 места, чартер</span>
+            <a class="rl-more-info" href="#">Подробнее</a>
+        </footer>
+    </div>
+    <div class="buy__warning">
+        При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице
+        оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование
+        авиакомпании.
+    </div>
+    <header class="buy__header">
+        <h2 class="buy__title">Информация о покупателе</h2>
+    </header>
+    <div>
+        <div class="b-field-group">
+            <div class="b-field-block b-field-block-auth" style="width: 388px;">
+                <label class="b-field-label">E-mail</label>
+                <input type="text" value="ratunkov@gmail.com" class="b-field-text">
+                <!-- <div class="b-auth">
+                    <a href="#" class="b-auth-close"></a>
+                    <p class="b-auth-text">Мы определили, что вы уже зарегистрированы</p>
+                    <a href="#" class="button b-auth-button">Войти</a>
+                </div> -->
+            </div>
+            <div class="b-field-block" style="width: 180px;">
+                <label class="b-field-label">Мобильный телефон</label>
+                <input type="text" value="+7 (910) 123-45-67" class="b-field-text">
+            </div>
+        </div>
+        <!-- <div class="error-text">Поля отмеченные красным, незаполнены или заполнены с ошибкой</div> -->
+        <label class="b-agreement"><input type="checkbox">
+            <ins class="b-checkbox"></ins>
+            Я хочу получать рассылку спецпредложений</label>
+    </div>
+    <header class="buy__header">
+        <h2 class="buy__title">Пассажиры</h2>
+    </header>
+    <fieldset class="buy__blocks">
+        <div class="b-field-group b-field-group-passport">
+            <div class="b-field-block">
+                <label class="b-field-label">Пол</label>
+                <ul class="radio-list error">
+                    <li><label><input type="radio" name="male3">
+                        <ins class="radio">М</ins>
+                    </label></li>
+                    <li><label><input type="radio" name="male3">
+                        <ins class="radio">Ж</ins>
+                    </label></li>
+                </ul>
+            </div>
+            <div class="b-field-block" style="width: 160px;">
+                <label class="b-field-label">Имя (латиницей)</label>
+                <input type="text" value="ALEXANDER" class="b-field-text">
+            </div>
+            <div class="b-field-block b-field-block-surname" style="width: 150px;">
+                <label class="b-field-label">Фамилия (латиницей)</label>
+                <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text">
+            </div>
+            <div class="b-field-block" style="width: 110px;">
+                <label class="b-field-label">Дата рождения</label>
+                <input type="text" value="18.07.1976" class="b-field-text">
+            </div>
+            <div class="b-field-block" style="width: 180px;">
+                <label class="b-field-label">Гражданство</label>
+                <input type="text" value="Великобритания" class="b-field-text b-field-select">
+
+                <div ng-show="isOpen" class="b-auth cit-cont" is-open="passenger.dir.cit.isOpen"
+                     result="passenger.citizenship.value"
+                     list="citizenshipList" partial-select="" style="width: 178px;">
+                    <ul><!-- ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Россия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Serbia And Montenegro
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Yugoslavia
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Абхазия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Австралия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Австрия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Азербайджан
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Албания
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Алжир
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Американское Самоа
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Ангилья
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Ангола
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Андорра
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Антарктида
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Антигуа и Барбуда
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Аргентина
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Армения
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Аруба
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Афганистан
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Багамы
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Бангладеш
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Барбадос
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Бахрейн
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Белиз
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Белоруссия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Бельгия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Бенин
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Бермуды
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Болгария
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Боливия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Бонэйр, Синт-Эстатиус и Саба
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Босния и Герцеговина
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Ботсвана
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Бразилия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Британская Территория В Индийском Океане
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Бруней
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Буркина-Фасо
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Бурунди
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Бутан
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Вануату
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Ватикан
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Великобритания
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Венгрия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Венесуэла
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Виргинские Острова (Британия)
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Виргинские Острова (США)
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Вьетнам
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Габон
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гаити
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гайана
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гамбия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гана
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гваделупа
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гватемала
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гвинея
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гвинея-Бисау
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Германия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гернси
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гибралтар
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гондурас
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гонконг
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гренада
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гренландия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Греция
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Грузия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Гуам
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Дания
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Джерси
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Джибути
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Доминика
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Доминиканская Республика
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">ДР
+                            Конго
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Египет
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Замбия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Зимбабве
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Израиль
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Индия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Индонезия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Иордания
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Ирак
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Иран
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Ирландия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Исландия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Испания
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Италия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Йемен
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Кабо-Верде
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Казахстан
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Камбоджа
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Камерун
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Канада
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Катар
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Кения
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Кипр
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Киргизия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Кирибати
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Китай
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Кокосовые Острова
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Колумбия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Коморы
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Косово
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Коста-Рика
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Кот-Д’Ивуар
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Куба
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Кувейт
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Кюрасао
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Лаос
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Латвия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Лесото
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Либерия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Ливан
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Ливия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Литва
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Лихтенштейн
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Люксембург
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Маврикий
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Мавритания
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Мадагаскар
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Майотта
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Макао
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Малави
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Малайзия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Мали
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Мальдивы
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Мальта
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Марокко
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Мартиника
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Маршалловы Острова
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Мексика
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Микронезия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Мозамбик
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Молдова
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Монако
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Монголия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Монтсеррат
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Мьянма
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Намибия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Науру
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Непал
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Нигер
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Нигерия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Нидерландские Антильские острова
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Нидерланды
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Никарагуа
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Ниуэ
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Новая Зеландия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Новая Каледония
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Норвегия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            ОАЭ
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Оман
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Остров Буве
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Остров Мэн
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Остров Норфолк
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Остров Рождества
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Остров Херд и Острова Макдональд
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Острова Кайман
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Острова Кука
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Острова Теркс и Кайкос
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Пакистан
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Палау
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Палестина
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Панама
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Папуа-Новая Гвинея
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Парагвай
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Перу
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Питкерн
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Польша
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Португалия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Пуэрто-Рико
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Республика Конго
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Республика Македония
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Реюньон
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Руанда
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Румыния
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сальвадор
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Самоа
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сан-Марино
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сан-Томе и Принсипи
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Саудовская Аравия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Свазиленд
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Святая Елена
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Северная Корея
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Северные Марианские Острова
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сейшелы
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сен-Бартелеми
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сенегал
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сен-Китс и Невис
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сен-Мартен
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сент-Винсент и Гренадины
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сент-Люсия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сент-Пьер и Микелон
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сербия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сингапур
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Синт-Мартен
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сирия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Словакия
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Словения
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Соломоновы Острова
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сомали
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Судан
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Суринам
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            США
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Сьерра-Леоне
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Таджикистан
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Таиланд
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Тайвань (Китай)
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Танзания
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Тимор-Лесте
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">
+                            Тихоокеанские Острова (США)
+                        </li>
+                        <!-- end ngRepeat: item in list -->
+                        <li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Того</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Токелау</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тонга</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тринидад и Тобаго</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тувалу</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Тунис</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Туркменистан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Турция</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Уганда</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Узбекистан</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Украина</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Уоллис и Футуна</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Уругвай</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Фарерские Острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Фиджи</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Филиппины</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Финляндия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Фолклендские Острова (Мальвинские)</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Франция</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Французская Гвиана</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Французская Полинезия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Французские Южные Территории</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Хорватия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Центрально-Африканская Республика</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Чад</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Черногория</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Чешская Республика</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Чили</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Швейцария</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Швеция</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Шпицберген и Ян Майен</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Шри-Ланка</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Эквадор</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Экваториальная Гвинея</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Эландские Острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Эритрея</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Эстония</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Эфиопия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">ЮАР</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Южная Джорджия и Сандвичевы Острова</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Южная Корея</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Южная Осетия</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Ямайка</li><!-- end ngRepeat: item in list --><li ng-click="itemClick(item)" ng-repeat="item in list" class="cit-item ng-scope ng-binding">Япония</li><!-- end ngRepeat: item in list --></ul></div>
                     </div>
                     <div class="b-field-block" style="width: 110px;">
                         <label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>
@@ -405,6 +1270,8 @@
         </div>
     </form>
     <!-- Buy ticket -->
+    </div>
+</div>
 
     <div class="footer">
         <div class="footer-content">
