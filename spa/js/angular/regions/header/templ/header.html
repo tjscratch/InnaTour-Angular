@@ -18,7 +18,9 @@
                     <li class="header-info-menu-item">
                         <a href="/#/about/">О компании</a>
                     </li>
-                    <li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                    <!-- user comes from $rootScope -->
+                    <li class="header-info-menu-item" ng-if="user.isAgency()">{{user.raw.SupportPhone}}</li>
+                    <li class="header-info-menu-item" ng-if="!user.isAgency()">+7&nbsp;495 742-1212</li>
                 </ul>
             </div>
         </div>
