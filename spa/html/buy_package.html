@@ -1,20 +1,20 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Инна-Тур - Авиа</title>
-    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/common.min.css" />
+    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <link rel="stylesheet" href="../css/common.min.css"/>
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="../css/ie.min.css" />
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" href="../css/ie.min.css"/>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
     <script src="../lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="../js/jquery.ui.datepicker-ru.js"></script>
     <!--[if lt IE 10]>
-        <script src="../js/ie.placeholder.js"></script>
+    <script src="../js/ie.placeholder.js"></script>
     <![endif]-->
     <script src="../js/search_form.js"></script>
     <script src="../js/results.js"></script>
@@ -22,432 +22,513 @@
 </head>
 
 <body class="body-bg">
-    <div class="header Header">
-        <div class="header-info">
-            <div class="header-info-container">
-                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
-                --><span class="header-text"></span><!--
-                --><div class="header-info-container-right">
-                    <ul class="header-info-menu" style="margin-right:0px;">
-                        <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li><!--
-                        --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
-                        --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
-                    </ul>
+<div class="header Header">
+    <div class="header-info">
+        <div class="header-info-container row">
+            <div class="col-xs-6 col-no-padding">
+                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i
+                        class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a>
+                <span class="header-text"></span>
+            </div>
+            <div class="col-xs-6 header-info-container-right col-no-padding">
+                <ul class="header-info-menu" style="margin-right:0px;">
+                    <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
+                    <!--
+                                            -->
+                    <li class="header-info-menu-item"><a href="/#/about/">О компании</a></li>
+                    <!--
+                                            -->
+                    <li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="header-menu">
+        <ul class="header-menu-container-items"><!--
+                -->
+            <li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
+            <!--
+                            -->
+            <li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
+            <!--
+                            -->
+            <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank"
+                                            ng-class="{active:isActive('/hotels/')}">Отели</a></li>
+            <!--
+                            -->
+            <li class="header-menu-item"><a href="/#/individualtours/"
+                                            ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
+        </ul>
+
+    </div>
+</div>
+
+<!-- Buy ticket -->
+<form action="" class="results-body">
+<div class="main__center">
+    <header class="buy__header">
+        <h2 class="buy__title">Оплата пакета</h2>
+        <a href="#" class="buy__title-link">Выбрать другой номер</a>
+
+        <div class="buy__header-price">Стоимость пакета: <b>170 920 <span class="rub">Р</span></b></div>
+    </header>
+    <p class="buy__price-descr">В цену включен ПЕРЕЛЕТ Москва – Хургада – Москва и отель Mercure Luna Sharm El Sheikh
+        vherhgek с 25 сен по 30 сен, 5 ночей. Цена окончательная со
+        всеми налогами и сборами </p>
+
+    <div class="results-list_960">
+
+
+        <div class="b-result b-result_col_two b-result_big result row buy__fly buy__fly_footer">
+            <div class="b-result__cell result-cell">
+                <img src="../img/expedia.png" alt="" class="logo">
+
+                <div class="b-ticket_2ways buy__tickets">
+                    <div class="rlf-fly">
+                        <div class="rlf__flight-block">
+                            <b>20:00</b> 26 сен, сб<br>
+                            <b>Санкт-Петербург</b> LED
+                            <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                        </div>
+                        <div class="rlf__flight-block">
+                            <b>19:50</b> 27 сен, сб<br>
+                            <b>Санта-Круз-де Тенерифе</b> TFS
+                        </div>
+                        <div class="rlf-full-travel-time">в пути: 23 часа 10 минут, 2 пересадки</div>
+                    </div>
+                    <div class="rlf-fly rlf-fly_back">
+                        <div class="rlf__flight-block">
+                            <b>20:00</b> 26 сен, сб<br>
+                            <b>Санкт-Петербург</b> LED
+                            <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                        </div>
+                        <div class="rlf__flight-block">
+                            <b>19:50</b> 27 сен, сб<br>
+                            <b>Санта-Круз-де Тенерифе</b> TFS
+                        </div>
+                        <div class="rlf-full-travel-time">в пути: 23 часа 10 минут, 2 пересадки</div>
+                    </div>
+                </div>
+                <div class="bottom-actions">
+                    <a href="" class="pull-left">Заменить</a>
+                    <a href="" class="pull-right">Подробнее</a>
+                </div>
+
+                <div class="b-result-cell__gap">
+                    <div class="b-result-cell__gap_wrap"></div>
+                </div>
+            </div>
+
+            <div class="b-result__cell result-cell">
+                <img src="../img/expedia.png" alt="" class="logo">
+
+                <div class="hotel-info">
+                    <div class="hotel-info__wrapper">
+                        <img src="../img/hotel.png" alt="">
+
+                        <div class="hotel-info-content">
+                            <div class="star-container">
+                                <span class="icon icon-star"></span>
+                                <span class="icon icon-star"></span>
+                                <span class="icon icon-star"></span>
+                                <span class="icon icon-star"></span>
+                            </div>
+                            <h3 class="hotel-info-name">Mercure Luna Sharm El Sheikh vherhgek</h3>
+
+                            <div class="hotel-info-date">с 7 фев по 16 фев, 8 ночей</div>
+                        </div>
+                    </div>
+                    <div class="b-tripadvisor hotel-info-tripadvisor">
+
+                        <div class="b-tripadvisor__owl">
+                            <span class="icon-sprite-tripadvisor"></span>
+                        </div>
+
+                        <div class="b-display-table">
+                            <div class="b-display-cell">
+                                <span class="icon-sprite-tripadvisor-like"></span>
+                            </div>
+                            <div class="b-display-cell">
+                                <span class="icon-sprite-tripadvisor-like"></span>
+                            </div>
+                            <div class="b-display-cell">
+                                <span class="icon-sprite-tripadvisor-like"></span>
+                            </div>
+                            <div class="b-display-cell">
+                                <span class="icon-sprite-tripadvisor-like"></span>
+                            </div>
+                            <div class="b-display-cell">
+                                <span class="icon-sprite-tripadvisor-like"></span>
+                            </div>
+
+                            <!-- Шаг 0.5 -->
+                            <div class="b-display-cell">
+                                <span class="icon-sprite-tripadvisor-half"></span>
+                            </div>
+
+                            <div class="b-display-cell">
+                                <div class="b-tripadvisor__reviews">
+                                    1412 отзывов
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-actions">
+                    <a href="" class="active pull-left">Заменить</a>
+                    <a href="" class="pull-right">Подробнее</a>
                 </div>
             </div>
         </div>
-        <div class="header-menu">
-            <ul class="header-menu-container-items"><!--
-                --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
-                --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
-                --><li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
-                --><li class="header-menu-item"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
+        <div class="buy__warning">
+            При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице
+            оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование
+            авиакомпании.
+        </div>
+    </div>
+    <header class="buy__header">
+        <h2 class="buy__title">Информация о покупателе</h2>
+    </header>
+    <div>
+        <div class="b-field-group">
+            <div class="b-field-block b-field-block-auth" style="width: 388px;">
+                <label class="b-field-label">E-mail</label>
+                <input type="text" value="ratunkov@gmail.com" class="b-field-text">
+            </div>
+            <div class="b-field-block" style="width: 180px;">
+                <label class="b-field-label">Мобильный телефон</label>
+                <input type="text" value="+7 (910) 123-45-67" class="b-field-text">
+            </div>
+        </div>
+        <label class="b-agreement"><input type="checkbox">
+            <ins class="b-checkbox"></ins>
+            Я хочу получать рассылку спецпредложений</label>
+    </div>
+</div>
+<div class="main__center">
+    <header class="buy__header">
+        <h2 class="buy__title">Пассажиры</h2>
+    </header>
+    <fieldset class="buy__blocks">
+        <div class="b-field-group b-field-group-passport">
+            <div class="b-field-block">
+                <label class="b-field-label">Пол</label>
+                <ul class="radio-list">
+                    <li><label><input type="radio" name="male3" disabled>
+                        <ins class="radio">М</ins>
+                    </label></li>
+                    <li><label><input type="radio" name="male3" disabled>
+                        <ins class="radio">Ж</ins>
+                    </label></li>
+                </ul>
+            </div>
+            <div class="b-field-block" style="width: 160px;">
+                <label class="b-field-label">Имя (латиницей)</label>
+                <input type="text" value="ALEXANDER" class="b-field-text" disabled>
+            </div>
+            <div class="b-field-block b-field-block-surname" style="width: 150px;">
+                <label class="b-field-label">Фамилия (латиницей)</label>
+                <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text" disabled>
+            </div>
+            <div class="b-field-block" style="width: 110px;">
+                <label class="b-field-label">Дата рождения</label>
+                <input type="text" value="18.07.1976" class="b-field-text" disabled>
+            </div>
+            <div class="b-field-block" style="width: 180px;">
+                <label class="b-field-label">Гражданство</label>
+                <input type="text" value="Великобритания" class="b-field-text b-field-select" disabled>
+            </div>
+            <div class="b-field-block" style="width: 110px;">
+                <label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>
+                <input type="text" value="77123456789" class="b-field-text" disabled>
+            </div>
+            <div class="b-field-block" style="width: 110px;">
+                <label class="b-field-label b-field-label-docs">Действителен до</label>
+                <input type="text" placeholder="дд.мм.гггг" class="b-field-text" value="18.07.1976" disabled>
+            </div>
+        </div>
+        <div class="b-field-group b-field-group-passport">
+            <div class="b-field-group b-field-group-passport">
+                <div class="b-field-block b-field-block-192">
+                    <label class="b-agreement"><input type="checkbox" checked disabled>
+                        <ins class="b-checkbox" disabled></ins>
+                        Есть бонусная карта</label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="buy__blocks">
+        <div class="b-field-group b-field-group-passport">
+            <div class="b-field-block">
+                <label class="b-field-label">Пол</label>
+                <ul class="radio-list">
+                    <li><label><input type="radio" name="male4" checked disabled>
+                        <ins class="radio">М</ins>
+                    </label></li>
+                    <li><label><input type="radio" name="male4" disabled>
+                        <ins class="radio">Ж</ins>
+                    </label></li>
+                </ul>
+            </div>
+            <div class="b-field-block" style="width: 160px;">
+                <label class="b-field-label">Имя (латиницей)</label>
+                <input type="text" value="ALEXANDER" class="b-field-text" disabled>
+                <ul class="buy__autocomplete buy__autocomplete_double">
+                    <li><a href="#"><span class="buy__autocomplete-item1">BERESNYAKOV</span><span
+                            class="buy__autocomplete-item2">KONSTANTYN</span></a></li>
+                    <li><a href="#"><span class="buy__autocomplete-item1">BERESNYAKOV</span><span
+                            class="buy__autocomplete-item2">KONSTANTYN</span></a></li>
+                    <li><a href="#"><span class="buy__autocomplete-item1">BERESNYAKOV</span><span
+                            class="buy__autocomplete-item2">KONSTANTYN</span></a></li>
+                </ul>
+            </div>
+            <div class="b-field-block b-field-block-surname" style="width: 150px;">
+                <label class="b-field-label">Фамилия (латиницей)</label>
+                <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text" disabled>
+            </div>
+            <div class="b-field-block" style="width: 110px;">
+                <label class="b-field-label">Дата рождения</label>
+                <input type="text" value="18.07.1976" class="b-field-text" disabled>
+            </div>
+            <div class="b-field-block" style="width: 180px;">
+                <label class="b-field-label">Гражданство</label>
+                <input type="text" value="Великобритания" class="b-field-text b-field-select" disabled>
+            </div>
+            <div class="b-field-block" style="width: 110px;">
+                <label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>
+                <input type="text" value="77123456789" class="b-field-text" disabled>
+            </div>
+            <div class="b-field-block" style="width: 110px;">
+                <label class="b-field-label b-field-label-docs">Действителен до</label>
+                <input type="text" placeholder="дд.мм.гггг" class="b-field-text" value="18.07.1976" disabled>
+            </div>
+        </div>
+        <div class="b-field-group b-field-group-passport">
+            <div class="b-field-group b-field-group-passport">
+                <div class="b-field-block" style="width: 220px;">
+                    <label class="b-agreement"><input type="checkbox" checked disabled>
+                        <ins class="b-checkbox"></ins>
+                        Есть бонусная карта</label>
+                </div>
+                <div class="b-field-block" style="width: 150px;">
+                    <label class="b-field-label">Авиакомпания</label>
+                    <input type="text" value="Аэрофлот" class="b-field-text b-field-select" placeholder="Выберите"
+                           disabled>
+                </div>
+                <div class="b-field-block" style="width: 150px;">
+                    <label class="b-field-label">Номер карты</label>
+                    <input type="text" value="12134а3454" class="b-field-text" placeholder="ХХХХХХХХХХХ" disabled>
+                </div>
+                <div class="buy__saved-card">
+                    <a href="#">Rusline 746828745</a>
+                    <a href="#">Transaero 3954763947</a>
+                </div>
+            </div>
+    </fieldset>
+    <header class="buy__header">
+        <h2 class="buy__title">Пожелание к номеру</h2>
+    </header>
+    <div class="buy__comments-container">
+        <textarea cols="30" rows="10" class="buy__comments-field"></textarea>
+
+        <p class="buy__comments-help">Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение.
+            Пожалуйста, пишите ваши пожелания на английском языке.</p>
+    </div>
+    <header class="buy__header">
+        <h2 class="buy__title">Дополнительные услуги</h2>
+    </header>
+    <div class="buy__more-container">
+        <div class="buy__more-help">Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер
+            свяжется c Вами и предложит разные варианты.
+        </div>
+        <ul class="buy__more-options">
+            <li><label class="b-agreement"><input type="checkbox">
+                <ins class="b-checkbox"></ins>
+                Виза</label></li>
+            <li><label class="b-agreement"><input type="checkbox">
+                <ins class="b-checkbox"></ins>
+                Страховки</label></li>
+            <li><label class="b-agreement"><input type="checkbox">
+                <ins class="b-checkbox"></ins>
+                Трансфер</label></li>
+        </ul>
+    </div>
+</div>
+<div class="b-tickets-info-container">
+    <div class="b-tickets-ok">Билеты забронированы, отель будет забронирован после оплаты</div>
+    <div class="b-tickets-info-block">
+        <div class="b-tickets-sum">Сумма к оплате: <b>170 920 <span class="rub">Р</span></b></div>
+        <div class="b-tickets-info">
+            оплатить до: <b>19:00 24 сентября 2014</b>
+
+            <div class="br"></div>
+            осталось: <b>1 час : 49 мин : 56 сек</b>
+        </div>
+    </div>
+</div>
+<div class="main__center">
+    <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде, используя
+        платежный шлюз Промсвязьбанка
+    </div>
+    <div class="b-cc-container">
+        <div class="b-cc-front">
+            <img src="../img/cc.png" class="b-cc-type" alt="">
+
+            <div class="b-cc-block">
+                <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
+
+                <div class="b-cc">
+                    <input type="text" class="b-field-text b-field-text-small" maxlength="4">
+                    <input type="text" class="b-field-text b-field-text-small" maxlength="4">
+                    <input type="text" class="b-field-text b-field-text-small" maxlength="4">
+                    <input type="text" class="b-field-text b-field-text-small" maxlength="4">
+                </div>
+            </div>
+            <div class="b-cc-block b-cc-block-date">
+                <label class="b-cc-block-label b-cc-block-label-date">Действительна до</label>
+
+                <div class="b-cc">
+                    <div class="b-cc-date">
+                        Месяц
+                        <input type="text" class="b-field-text b-field-text-small" maxlength="2">
+                    </div>
+                    <div class="b-cc-date">
+                        Год
+                        <input type="text" class="b-field-text b-field-text-small" maxlength="2">
+                    </div>
+                </div>
+            </div>
+            <div class="b-cc-block">
+                <label class="b-cc-block-label b-cc-block-label-number">Держатель <br> карты</label>
+                <input type="text" class="b-field-text b-field-text-name">
+            </div>
+        </div>
+        <div class="b-cc-end">
+            <div class="b-cvc">
+                <input type="text" class="b-field-text" maxlength="3" id="CVC">
+                <label for="CVC">CVV/CVC</label>
+            </div>
+        </div>
+    </div>
+    <div class="b-agreement-container">
+        <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить"></span>
+        <label class="b-agreement b-agreement-cc"><input type="checkbox">
+            <ins class="b-checkbox"></ins>
+            Я согласен с условиями <a href="#">договора-оферты</a>, ознакомлен с <a href="#">правилами изменения, отмены
+                бронирования билета</a> и
+            <a href="#">правилами отмены отеля</a> и не возражаю против обработки моих персональных данных и передачи их
+            третьим
+            лицам (авиаперевозчику и пр).</label>
+        <img src="../img/logos.png" class="b-logos" alt="">
+    </div>
+</div>
+</form>
+<!-- Buy ticket -->
+
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-menu">
+            <ul class="footer-menu-links-list">
+                <li class="footer-menu-links-list-item"><a href="/#/about/">О компании</a></li>
+                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/corporate/">Корпоративным
+                    клиентам</a></li>
+                <li class="footer-menu-links-list-item"><a href="/#/contacts/">Контакты</a></li>
+                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
+                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/catalog/guide/">Каталог стран</a>
+                </li>
+                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/client/abc/">Полезная информация</a>
+                </li>
             </ul>
-
-        </div>
-    </div>
-
-    <!-- Buy ticket -->
-    <form action="" class="results-body">
-        <div class="main__center">
-            <header class="buy__header">
-                <h2 class="buy__title">Оплата пакета</h2>
-                <a href="#" class="buy__title-link">Выбрать другой номер</a>
-                <div class="buy__header-price">Стоимость пакета: <b>170 920 <span class="rub">Р</span></b></div>
-            </header>
-            <p class="buy__price-descr">В цену включен ПЕРЕЛЕТ Москва – Хургада – Москва и отель Mercure Luna Sharm El Sheikh vherhgek с 25 сен по 30 сен, 5 ночей. Цена окончательная со 
-всеми налогами и сборами </p>
-            <div class="results-list_960">
-
-
-                <div class="b-result b-result_col_two b-result_big result row buy__fly buy__fly_footer">
-                    <div class="b-result__cell result-cell">
-                        <img src="../img/expedia.png" alt="" class="logo">
-                        <div class="b-ticket_2ways buy__tickets">
-                            <div class="rlf-fly">
-                                <div class="rlf__flight-block">
-                                    <b>20:00</b> 26 сен, сб<br>
-                                    <b>Санкт-Петербург</b> LED
-                                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                                </div>
-                                <div class="rlf__flight-block">
-                                    <b>19:50</b> 27 сен, сб<br>
-                                    <b>Санта-Круз-де Тенерифе</b> TFS
-                                </div>
-                                <div class="rlf-full-travel-time">в пути: 23 часа 10 минут, 2 пересадки</div>
-                            </div>
-                            <div class="rlf-fly rlf-fly_back">
-                                <div class="rlf__flight-block">
-                                    <b>20:00</b> 26 сен, сб<br>
-                                    <b>Санкт-Петербург</b> LED
-                                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                                </div>
-                                <div class="rlf__flight-block">
-                                    <b>19:50</b> 27 сен, сб<br>
-                                    <b>Санта-Круз-де Тенерифе</b> TFS
-                                </div>
-                                <div class="rlf-full-travel-time">в пути: 23 часа 10 минут, 2 пересадки</div>
-                            </div>
-                        </div>
-                        <div class="bottom-actions">
-                            <a href="" class="pull-left">Заменить</a>
-                            <a href="" class="pull-right">Подробнее</a>
-                        </div>
-
-                        <div class="b-result-cell__gap"><div class="b-result-cell__gap_wrap"></div></div>
-                    </div>
-
-                    <div class="b-result__cell result-cell">
-                        <img src="../img/expedia.png" alt="" class="logo">
-                        <div class="hotel-info">
-                            <div class="hotel-info__wrapper">
-                                <img src="../img/hotel.png" alt="">
-                                <div class="hotel-info-content">
-                                    <div class="star-container">
-                                        <span class="icon icon-star"></span>
-                                        <span class="icon icon-star"></span>
-                                        <span class="icon icon-star"></span>
-                                        <span class="icon icon-star"></span>
-                                    </div>
-                                    <h3 class="hotel-info-name">Mercure Luna Sharm El Sheikh vherhgek</h3>
-                                    <div class="hotel-info-date">с 7 фев по 16 фев, 8 ночей</div>
-                                </div>
-                            </div>
-                            <div class="b-tripadvisor hotel-info-tripadvisor">
-
-                                <div class="b-tripadvisor__owl">
-                                    <span class="icon-sprite-tripadvisor"></span>
-                                </div>
-
-                                <div class="b-display-table">
-                                    <div class="b-display-cell">
-                                        <span class="icon-sprite-tripadvisor-like"></span>
-                                    </div>
-                                    <div class="b-display-cell">
-                                        <span class="icon-sprite-tripadvisor-like"></span>
-                                    </div>
-                                    <div class="b-display-cell">
-                                        <span class="icon-sprite-tripadvisor-like"></span>
-                                    </div>
-                                    <div class="b-display-cell">
-                                        <span class="icon-sprite-tripadvisor-like"></span>
-                                    </div>
-                                    <div class="b-display-cell">
-                                        <span class="icon-sprite-tripadvisor-like"></span>
-                                    </div>
-
-                                    <!-- Шаг 0.5 -->
-                                    <div class="b-display-cell">
-                                        <span class="icon-sprite-tripadvisor-half"></span>
-                                    </div>
-
-                                    <div class="b-display-cell">
-                                        <div class="b-tripadvisor__reviews">
-                                            1412 отзывов
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bottom-actions">
-                            <a href="" class="active pull-left">Заменить</a>
-                            <a href="" class="pull-right">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="buy__warning">
-                    При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование авиакомпании.
-                </div>
-            </div>
-            <header class="buy__header">
-                <h2 class="buy__title">Информация о покупателе</h2>
-            </header>
-            <div>
-                <div class="b-field-group">
-                    <div class="b-field-block b-field-block-auth" style="width: 388px;">
-                        <label class="b-field-label">E-mail</label>
-                        <input type="text" value="ratunkov@gmail.com" class="b-field-text">
-                    </div>
-                    <div class="b-field-block" style="width: 180px;">
-                        <label class="b-field-label">Мобильный телефон</label>
-                        <input type="text" value="+7 (910) 123-45-67" class="b-field-text">
-                    </div>
-                </div>
-                <label class="b-agreement"><input type="checkbox"><ins class="b-checkbox"></ins>Я хочу получать рассылку спецпредложений</label>
-            </div>
-        </div>
-        <div class="main__center">
-            <header class="buy__header">
-                <h2 class="buy__title">Пассажиры</h2>
-            </header>
-            <fieldset class="buy__blocks">
-                <div class="b-field-group b-field-group-passport">
-                    <div class="b-field-block">
-                        <label class="b-field-label">Пол</label>
-                        <ul class="radio-list">
-                            <li><label><input type="radio" name="male3" disabled><ins class="radio">М</ins></label></li>
-                            <li><label><input type="radio" name="male3" disabled><ins class="radio">Ж</ins></label></li>
-                        </ul>
-                    </div>
-                    <div class="b-field-block" style="width: 160px;">
-                        <label class="b-field-label">Имя (латиницей)</label>
-                        <input type="text" value="ALEXANDER" class="b-field-text" disabled>
-                    </div>
-                    <div class="b-field-block b-field-block-surname" style="width: 150px;">
-                        <label class="b-field-label">Фамилия (латиницей)</label>
-                        <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text" disabled>
-                    </div>
-                    <div class="b-field-block" style="width: 110px;">
-                        <label class="b-field-label">Дата рождения</label>
-                        <input type="text" value="18.07.1976" class="b-field-text" disabled>
-                    </div>
-                    <div class="b-field-block" style="width: 180px;">
-                        <label class="b-field-label">Гражданство</label>
-                        <input type="text" value="Великобритания" class="b-field-text b-field-select" disabled>
-                    </div>
-                    <div class="b-field-block" style="width: 110px;">
-                        <label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>
-                        <input type="text" value="77123456789" class="b-field-text" disabled>
-                    </div>
-                    <div class="b-field-block" style="width: 110px;">
-                        <label class="b-field-label b-field-label-docs">Действителен до</label>
-                        <input type="text" placeholder="дд.мм.гггг" class="b-field-text" value="18.07.1976" disabled>
-                    </div>
-                </div>
-                <div class="b-field-group b-field-group-passport">
-                    <div class="b-field-group b-field-group-passport">
-                        <div class="b-field-block b-field-block-192">
-                            <label class="b-agreement"><input type="checkbox" checked disabled><ins class="b-checkbox" disabled></ins>Есть бонусная карта</label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset class="buy__blocks">
-                <div class="b-field-group b-field-group-passport">
-                    <div class="b-field-block">
-                        <label class="b-field-label">Пол</label>
-                        <ul class="radio-list">
-                            <li><label><input type="radio" name="male4" checked disabled><ins class="radio">М</ins></label></li>
-                            <li><label><input type="radio" name="male4" disabled><ins class="radio">Ж</ins></label></li>
-                        </ul>
-                    </div>
-                    <div class="b-field-block" style="width: 160px;">
-                        <label class="b-field-label">Имя (латиницей)</label>
-                        <input type="text" value="ALEXANDER" class="b-field-text" disabled>
-                        <ul class="buy__autocomplete buy__autocomplete_double">
-                            <li><a href="#"><span class="buy__autocomplete-item1">BERESNYAKOV</span><span class="buy__autocomplete-item2">KONSTANTYN</span></a></li>
-                            <li><a href="#"><span class="buy__autocomplete-item1">BERESNYAKOV</span><span class="buy__autocomplete-item2">KONSTANTYN</span></a></li>
-                            <li><a href="#"><span class="buy__autocomplete-item1">BERESNYAKOV</span><span class="buy__autocomplete-item2">KONSTANTYN</span></a></li>
-                        </ul>
-                    </div>
-                    <div class="b-field-block b-field-block-surname" style="width: 150px;">
-                        <label class="b-field-label">Фамилия (латиницей)</label>
-                        <input type="text" value="KONSTANTINOPLOLSKY" class="b-field-text" disabled>
-                    </div>
-                    <div class="b-field-block" style="width: 110px;">
-                        <label class="b-field-label">Дата рождения</label>
-                        <input type="text" value="18.07.1976" class="b-field-text" disabled>
-                    </div>
-                    <div class="b-field-block" style="width: 180px;">
-                        <label class="b-field-label">Гражданство</label>
-                        <input type="text" value="Великобритания" class="b-field-text b-field-select" disabled>
-                    </div>
-                    <div class="b-field-block" style="width: 110px;">
-                        <label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>
-                        <input type="text" value="77123456789" class="b-field-text" disabled>
-                    </div>
-                    <div class="b-field-block" style="width: 110px;">
-                        <label class="b-field-label b-field-label-docs">Действителен до</label>
-                        <input type="text" placeholder="дд.мм.гггг" class="b-field-text" value="18.07.1976" disabled>
-                    </div>
-                </div>
-                <div class="b-field-group b-field-group-passport"><div class="b-field-group b-field-group-passport">
-                    <div class="b-field-block" style="width: 220px;">
-                        <label class="b-agreement"><input type="checkbox" checked disabled><ins class="b-checkbox"></ins>Есть бонусная карта</label>
-                    </div>
-                    <div class="b-field-block" style="width: 150px;">
-                        <label class="b-field-label">Авиакомпания</label>
-                        <input type="text" value="Аэрофлот" class="b-field-text b-field-select" placeholder="Выберите" disabled>
-                    </div>
-                    <div class="b-field-block" style="width: 150px;">
-                        <label class="b-field-label">Номер карты</label>
-                        <input type="text" value="12134а3454" class="b-field-text" placeholder="ХХХХХХХХХХХ" disabled>
-                    </div>
-                    <div class="buy__saved-card">
-                        <a href="#">Rusline 746828745</a>
-                        <a href="#">Transaero 3954763947</a>
-                    </div>
-                </div>
-            </fieldset>
-            <header class="buy__header">
-                <h2 class="buy__title">Пожелание к номеру</h2>
-            </header>
-            <div class="buy__comments-container">
-                <textarea cols="30" rows="10" class="buy__comments-field"></textarea>
-                <p class="buy__comments-help">Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение. Пожалуйста, пишите ваши пожелания на английском языке.</p>
-            </div>
-            <header class="buy__header">
-                <h2 class="buy__title">Дополнительные услуги</h2>
-            </header>
-            <div class="buy__more-container">
-                <div class="buy__more-help">Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется c Вами и предложит разные варианты.</div>
-                <ul class="buy__more-options">
-                    <li><label class="b-agreement"><input type="checkbox"><ins class="b-checkbox"></ins>Виза</label></li>
-                    <li><label class="b-agreement"><input type="checkbox"><ins class="b-checkbox"></ins>Страховки</label></li>
-                    <li><label class="b-agreement"><input type="checkbox"><ins class="b-checkbox"></ins>Трансфер</label></li>
+            <div class="footer-menu-info">
+                <ul class="social-list">
+                    <li class="social-list-item">
+                        <a href="https://vk.com/inna_tur_ru" target="_blank"><i class="icon icon-vkontakte"></i></a>
+                    </li>
+                    <li class="social-list-item">
+                        <a href="http://odnoklassniki.ru/innatour" target="_blank"><i
+                                class="icon icon-odnoklassniki"></i></a>
+                    </li>
+                    <li class="social-list-item">
+                        <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i
+                                class="icon icon-facebook"></i></a>
+                    </li>
+                    <li class="social-list-item">
+                        <a href="https://twitter.com/inna_tour" target="_blank"><i class="icon icon-twitter"></i></a>
+                    </li>
+                    <li class="social-list-item">
+                        <a href="http://www.pinterest.com/innatour/" target="_blank"><i class="icon icon-pinterest"></i></a>
+                    </li>
+                    <li class="social-list-item">
+                        <a href="http://www.youtube.com/user/InnaTourMos/featured" target="_blank"><i
+                                class="icon icon-youtube"></i></a>
+                    </li>
                 </ul>
-            </div>
-        </div>
-        <div class="b-tickets-info-container">
-            <div class="b-tickets-ok">Билеты забронированы, отель будет забронирован после оплаты</div>
-            <div class="b-tickets-info-block">
-                <div class="b-tickets-sum">Сумма к оплате: <b>170 920 <span class="rub">Р</span></b></div>
-                <div class="b-tickets-info">
-                    оплатить до: <b>19:00 24 сентября 2014</b><div class="br"></div>
-                    осталось: <b>1 час : 49 мин : 56 сек</b>
-                </div>
-            </div>
-        </div>
-        <div class="main__center">
-            <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде, используя платежный шлюз Промсвязьбанка</div>
-            <div class="b-cc-container">
-                <div class="b-cc-front">
-                    <img src="../img/cc.png" class="b-cc-type" alt="">
-                    <div class="b-cc-block">
-                        <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
-                        <div class="b-cc">
-                            <input type="text" class="b-field-text b-field-text-small" maxlength="4">
-                            <input type="text" class="b-field-text b-field-text-small" maxlength="4">
-                            <input type="text" class="b-field-text b-field-text-small" maxlength="4">
-                            <input type="text" class="b-field-text b-field-text-small" maxlength="4">
-                        </div>
-                    </div>
-                    <div class="b-cc-block b-cc-block-date">
-                        <label class="b-cc-block-label b-cc-block-label-date">Действительна до</label>
-                        <div class="b-cc">
-                            <div class="b-cc-date">
-                                Месяц
-                                <input type="text" class="b-field-text b-field-text-small" maxlength="2">
-                            </div>
-                            <div class="b-cc-date">
-                                Год
-                                <input type="text" class="b-field-text b-field-text-small" maxlength="2">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="b-cc-block">
-                        <label class="b-cc-block-label b-cc-block-label-number">Держатель <br> карты</label>
-                        <input type="text" class="b-field-text b-field-text-name">
-                    </div>
-                </div>
-                <div class="b-cc-end">
-                    <div class="b-cvc">
-                        <input type="text" class="b-field-text" maxlength="3" id="CVC">
-                        <label for="CVC">CVV/CVC</label>
-                    </div>
-                </div>
-            </div>
-            <div class="b-agreement-container">
-                <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить"></span>
-                <label class="b-agreement b-agreement-cc"><input type="checkbox"><ins class="b-checkbox"></ins>Я согласен с условиями <a href="#">договора-оферты</a>, ознакомлен с <a href="#">правилами изменения, отмены бронирования билета</a> и 
-<a href="#">правилами отмены отеля</a> и не возражаю против обработки моих персональных данных и передачи их третьим 
-лицам (авиаперевозчику и пр).</label>
-                <img src="../img/logos.png" class="b-logos" alt="">
-            </div>
-        </div>
-    </form>
-    <!-- Buy ticket -->
+                <p class="phone-info">многоканальный телефон</p>
 
-    <div class="footer">
-        <div class="footer-content">
-            <div class="footer-menu">
-                <ul class="footer-menu-links-list">
-                    <li class="footer-menu-links-list-item"><a href="/#/about/">О компании</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/corporate/">Корпоративным клиентам</a></li>
-                    <li class="footer-menu-links-list-item"><a href="/#/contacts/">Контакты</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/catalog/guide/">Каталог стран</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/client/abc/">Полезная информация</a></li>
-                </ul>
-                <div class="footer-menu-info">
-                    <ul class="social-list">
-                        <li class="social-list-item">
-                            <a href="https://vk.com/inna_tur_ru" target="_blank"><i class="icon icon-vkontakte"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://odnoklassniki.ru/innatour" target="_blank"><i class="icon icon-odnoklassniki"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i class="icon icon-facebook"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="https://twitter.com/inna_tour" target="_blank"><i class="icon icon-twitter"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://www.pinterest.com/innatour/" target="_blank"><i class="icon icon-pinterest"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://www.youtube.com/user/InnaTourMos/featured" target="_blank"><i class="icon icon-youtube"></i></a>
-                        </li>
-                    </ul>
-                    <p class="phone-info">многоканальный телефон</p>
-                    <p class="phone">+7&nbsp;495 742-1212</p>
-                </div>
+                <p class="phone">+7&nbsp;495 742-1212</p>
             </div>
-            <div class="footer-copyright">
-                <p class="info info-left">ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс туристических услуг.
-                    Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию, Камбоджу,
-                    Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
-                </p>
-                <p class="info">
-                    &copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.<br>
-                    <span class="licence">Реестр туроператоров <a href="http://reestr.russiatourism.ru/?ac=view&id_reestr=8893" target="_blank">МТ3 008557</a></span>
-                </p>
-            </div>
+        </div>
+        <div class="footer-copyright">
+            <p class="info info-left">ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс
+                туристических услуг.
+                Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию, Камбоджу,
+                Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
+            </p>
+
+            <p class="info">
+                &copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.<br>
+                <span class="licence">Реестр туроператоров <a
+                        href="http://reestr.russiatourism.ru/?ac=view&id_reestr=8893" target="_blank">МТ3
+                    008557</a></span>
+            </p>
         </div>
     </div>
+</div>
 
-    <!-- Baloon -->
-    <div class="overlay js-overlay">
-        <div class="balloon">
-            <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
-            <div class="baloon-title">Бронирование авиабилетов</div>
-            <p class="balloon-info">подождите пожалуйста, это может занять несколько минут</p>
+<!-- Baloon -->
+<div class="overlay js-overlay">
+    <div class="balloon">
+        <div class="baloon-loading">
+            <div class="baloon-loading-block baloon-loading-block1"></div>
+            <div class="baloon-loading-block baloon-loading-block2"></div>
         </div>
-        <div class="balloon">
-            <div class="baloon-loading"></div>
-            <div class="baloon-title">Подождите, идет оплата</div>
-            <p class="balloon-info">это может занять до нескольких минут</p>
-        </div>
-        <div class="balloon">
-            <div class="baloon-loading"></div>
-            <div class="baloon-title">Выписываем авиабилеты</div>
-            <p class="balloon-info">это может занять до нескольких минут</p>
-        </div>
-        <div class="balloon">
-            <div class="baloon-close" title="Закрыть"></div>
-            <div class="baloon-mail"></div>
-            <div class="baloon-title">Билеты успешно выписаны</div>
-            <p class="balloon-info">и отправлены на электронную почту <br><a href="#">ratunkov@gmail.com</a></p>
-        </div>
-        <div class="balloon">
-            <div class="baloon-close" title="Закрыть"></div>
-            <div class="baloon-canceled"></div>
-            <div class="baloon-title baloon-error">Бронирование анулировано</div>
-            <p class="balloon-info">истек срок ожидания оплаты</p>
-            <a href="#" class="button baloon-button">Повторить поиск</a>
-        </div>
-        <div class="balloon">
-            <div class="baloon-close" title="Закрыть"></div>
-            <div class="baloon-problem"></div>
-            <div class="baloon-title baloon-error">Что-то пошло не так</div>
-            <p class="balloon-info">cвяжитесь с оператором по телефону или скайпу </p>
-            <address class="balloon-contacts">
-                <span class="balloon-contacts-phone">+7 495 742-1212</span>
-                <a href="#" class="balloon-contacts-skype">Inna tour</a>
-            </address>
-        </div>
+        <div class="baloon-title">Бронирование авиабилетов</div>
+        <p class="balloon-info">подождите пожалуйста, это может занять несколько минут</p>
     </div>
-    <!-- /Baloon -->
+    <div class="balloon">
+        <div class="baloon-loading"></div>
+        <div class="baloon-title">Подождите, идет оплата</div>
+        <p class="balloon-info">это может занять до нескольких минут</p>
+    </div>
+    <div class="balloon">
+        <div class="baloon-loading"></div>
+        <div class="baloon-title">Выписываем авиабилеты</div>
+        <p class="balloon-info">это может занять до нескольких минут</p>
+    </div>
+    <div class="balloon">
+        <div class="baloon-close" title="Закрыть"></div>
+        <div class="baloon-mail"></div>
+        <div class="baloon-title">Билеты успешно выписаны</div>
+        <p class="balloon-info">и отправлены на электронную почту <br><a href="#">ratunkov@gmail.com</a></p>
+    </div>
+    <div class="balloon">
+        <div class="baloon-close" title="Закрыть"></div>
+        <div class="baloon-canceled"></div>
+        <div class="baloon-title baloon-error">Бронирование анулировано</div>
+        <p class="balloon-info">истек срок ожидания оплаты</p>
+        <a href="#" class="button baloon-button">Повторить поиск</a>
+    </div>
+    <div class="balloon">
+        <div class="baloon-close" title="Закрыть"></div>
+        <div class="baloon-problem"></div>
+        <div class="baloon-title baloon-error">Что-то пошло не так</div>
+        <p class="balloon-info">cвяжитесь с оператором по телефону или скайпу </p>
+        <address class="balloon-contacts">
+            <span class="balloon-contacts-phone">+7 495 742-1212</span>
+            <a href="#" class="balloon-contacts-skype">Inna tour</a>
+        </address>
+    </div>
+</div>
+<!-- /Baloon -->
 </body>
 </html>
