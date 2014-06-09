@@ -5,7 +5,7 @@
     <ng:include src="'pages/dynamic/inc/serp.tickets.html'" ng-if="state.TICKETS_TAB" />
 </div>
 
-<!-- -->
+<!-- TicketDetails -->
 <div ng-controller="DynamicPackageSERPTicketPopupCtrl">
     <div style="display:block;" class="overlay js-overlay" ng-if="ticket.data">
         <div class="balloon baloon_ticket baloon_2ticket">
@@ -38,22 +38,14 @@
                 <div class="b-ticket_2ways b-ticket_2ways-sep">
                     <div ng-repeat="zip in etapsZipped">
                         <div class="clearfix">
-                            <div class="b-ticket_2ways-block" ng-init="etap=zip[0]">
-                                <ng:include src="'components/ticket-details-etap.inc.html'" ng-if="etap"></ng:include>
-                            </div>
-                            <div class="b-ticket_2ways-block" ng-init="etap=zip[1]">
-                                <ng:include src="'components/ticket-details-etap.inc.html'" ng-if="etap"></ng:include>
+                            <div class="b-ticket_2ways-block" ng-repeat="etap in zip">
+                                <ng:include src="'components/ticket-details-etap.inc.html'"></ng:include>
                             </div>
                         </div>
                         <div class="clearfix" ng-if="!$last">
-                            <div class="b-ticket_2ways-block">
-                                <div class="rlf-part rlf-part_transfer" ng-init="etap=zip[0]; dir='To';">
-                                    <ng:include src="'components/ticket-details-leg.inc.html'" ng-if="etap"></ng:include>
-                                </div>
-                            </div>
-                            <div class="b-ticket_2ways-block">
-                                <div class="rlf-part rlf-part_transfer" ng-init="etap=zip[1]; dir='Back';">
-                                    <ng:include src="'components/ticket-details-leg.inc.html'" ng-if="etap"></ng:include>
+                            <div class="b-ticket_2ways-block" ng-repeat="(dir, etap) in {'To': zip[0], 'Back': zip[1]}">
+                                <div class="rlf-part rlf-part_transfer" ng-if="etap">
+                                    <ng:include src="'components/ticket-details-leg.inc.html'"></ng:include>
                                 </div>
                             </div>
                         </div>
@@ -79,6 +71,7 @@
         </div>
     </div>
 </div>
+<!-- /TicketDetails -->
 
 <div ng-if="hotelToShowDetails"
      inna-hotel-details
