@@ -246,7 +246,7 @@
 
                 paymentService.packageReserve(apiModel,
                     function (data) {
-                        $scope.$apply(function ($scope) {
+                        $scope.safeApply(function () {
                             console.log('order: ' + angular.toJson(data));
                             if (data != null && data.OrderNum != null && data.OrderNum.length > 0) {
                                 //сохраняем orderId
@@ -265,14 +265,15 @@
                                 }
                             }
                             else {
+                                console.error('packageReserve: %s', angular.toJson(data));
                                 $scope.showReserveError();
                             }
                         });
                     },
                     function (data, status) {
-                        $scope.$apply(function ($scope) {
+                        $scope.safeApply(function () {
                             //ошибка
-                            console.log('paymentService.reserve error');
+                            console.error('paymentService.reserve error');
                             $scope.showReserveError();
                         });
                     });

@@ -1,5 +1,5 @@
 ﻿﻿<div class="clearfix">
-    <div class="b-ticket_2ways-block">
+    <div class="b-ticket_2ways-block" ng-if="etapAgg.etapTo != null">
         <div class="rlf-part">
             <div class="rfl-column3">
                 <div class="rlf-aviacompany">
@@ -36,7 +36,7 @@
             </div>
         </div>
     </div>
-    <div class="b-ticket_2ways-block">
+    <div class="b-ticket_2ways-block" ng-if="etapAgg.etapBack != null">
         <div class="rlf-part">
             <div class="rfl-column3">
                 <div class="rlf-aviacompany">
@@ -77,7 +77,7 @@
     </div>
 </div>
 <div class="clearfix">
-    <div class="b-ticket_2ways-block" ng-if="etapAgg.etapTo != null && !$last">
+    <div class="b-ticket_2ways-block" ng-if="etapAgg.etapTo != null && etapAgg.etapTo.nextEtapTo != null && !$last">
         <div class="rlf-part rlf-part_transfer">
             <div class="rlf-column1">
                 <div class="rlf-airport">Пересадка</div>
@@ -89,7 +89,7 @@
             </div>
         </div>
     </div>
-    <div class="b-ticket_2ways-block" ng-if="etapAgg.etapBack != null && !$last">
+    <div class="b-ticket_2ways-block" ng-if="etapAgg.etapBack != null && etapAgg.etapBack.nextEtapBack != null && !$last">
         <div class="rlf-part rlf-part_transfer">
             <div class="rlf-column1">
                 <div class="rlf-airport">Пересадка</div>
