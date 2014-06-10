@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    uglify = require('gulp-uglify'),
+    uglify = require('gulp-uglifyjs'),
     templateCache = require('gulp-angular-templatecache'),
     gulpif = require('gulp-if'),
     cleanhtml = require('gulp-cleanhtml'),

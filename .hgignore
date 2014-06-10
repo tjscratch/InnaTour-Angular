@@ -56,6 +56,7 @@ spa/*.sh
 
 build
 nginx.nginx_conf
+npm-debug.log
 
 # игнорируем собранный файл спрайтов
 spa/img/sprites/*.json

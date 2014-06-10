@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
+var uglify = require('gulp-uglifyjs');
 var gulpif = require('gulp-if');
 var conf = require('./config');
 
@@ -20,7 +20,9 @@ gulp.task('build-concat', ['build-templates'], function () {
     ])
 
         .pipe(concat('app-main.js'))
-        .pipe(gulpif(_ENV_ === 'production', uglify()))
+        .pipe(gulpif(_ENV_ === 'production', uglify({
+            outSourceMap: true
+        })))
         .pipe(gulp.dest(conf.build+'/js'));
 });
 

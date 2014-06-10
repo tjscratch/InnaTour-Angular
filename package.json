@@ -19,13 +19,14 @@
     "gulp-stylus": "~0.1.0",
     "gulp-template": "^0.1.1",
     "gulp-uglify": "~0.2.1",
+    "gulp-uglifyjs": "^0.3.0",
     "gulp-util": "^2.2.16",
     "nib": "^1.0.2",
     "node-sprite": "0.1.2",
+    "q": "^1.0.1",
     "require-dir": "^0.1.0",
     "run-sequence": "0.3.6",
-    "underscore": "^1.6.0",
-    "q": "^1.0.1"
+    "underscore": "^1.6.0"
   },
   "devDependencies": {
     "connect": "2.14.4",
@@ -47,12 +48,13 @@
     "gulp-stylus": "~0.1.0",
     "gulp-template": "^0.1.1",
     "gulp-uglify": "~0.2.1",
+    "gulp-uglifyjs": "^0.3.0",
     "gulp-util": "^2.2.16",
     "nib": "^1.0.2",
     "node-sprite": "0.1.2",
     "q": "^1.0.1",
     "require-dir": "^0.1.0",
     "run-sequence": "0.3.6",
-    "underscore": "^1.6.0",
+    "underscore": "^1.6.0"
   }
 }
