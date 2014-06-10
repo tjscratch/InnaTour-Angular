@@ -1,14 +1,16 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     templateCache = require('gulp-angular-templatecache'),
-    cleanhtml = require('gulp-cleanhtml');
+    gulpif = require('gulp-if'),
+    cleanhtml = require('gulp-cleanhtml'),
+    conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV;
 
-gulp.task('templates-ang', function () {
+gulp.task('build-templates', function () {
     return gulp.src([
-        '/spa/templates/**/*.html',
-        '/spa/js/angular/**/*.html'
+        conf.templ + '/**/*.html',
+        conf.dest + '/js/angular/**/*.html'
     ])
         .pipe(cleanhtml())
         .pipe(templateCache({
@@ -20,5 +22,5 @@ gulp.task('templates-ang', function () {
                 beautify: true
             }
         }))
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest(conf.build+'/js'));
 });

@@ -1,13 +1,20 @@
 var gulp = require('gulp'),
     concat = require('gulp-concat'),
-    less = require('gulp-less');
+    minifyCSS = require('gulp-minify-css'),
+    less = require('gulp-less'),
+    gulpif = require('gulp-if'),
+    conf = require('./config');
 
-var _ENV_ = process.env.NODE_ENV;
+var _ENV_ = process.env.NODE_ENV || '';
 
-gulp.task('styles', function () {
-    return gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
-        .pipe(concat('main.css'))
+gulp.task('less', function () {
+    return gulp.src([
+            conf.dest +'/less/main/*.less',
+            conf.dest +'/less/pages/*.less'
+    ])
+        .pipe(concat('main.less.css'))
         .pipe(less())
-        .pipe(gulp.dest('build/css'));
+        .pipe(gulpif(_ENV_ === 'production', minifyCSS()))
+        .pipe(gulp.dest(conf.build +'/css'));
 });
 

@@ -3,47 +3,60 @@ var gulp = require('gulp'),
     stylus = require('gulp-stylus'),
     minifyCSS = require('gulp-minify-css'),
     concat = require('gulp-concat'),
-    nib = require('nib');
+    gulpif = require('gulp-if'),
+    nib = require('nib'),
+    conf = require('./config');
 
-var _ENV_ = process.env.NODE_ENV;
+var _ENV_ = process.env.NODE_ENV || '';
 
-gulp.task('styles', function () {
+var optStyl = {
+    use: ['nib'],
+    import: ['nib']
+};
 
-    var optStyl = {
-        use: ['nib'],
-        import: ['nib']
-    };
-
-    gulp.src([__BUILD_FOLDER__ + '/spa/styl/ie.styl'])
-        .pipe(stylus(optStyl))
-        .pipe(concat('ie.min.css'))
-        .pipe(gulp.dest('build/css'));
-
-    gulp.src([__BUILD_FOLDER__ + '/spa/styl/ticket.styl'])
-        .pipe(stylus(optStyl))
-        .pipe(concat('ticket.min.css'))
-        .pipe(gulp.dest('build/css'));
-
-    gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
-        .pipe(concat('main.css'))
-        .pipe(less())
-        .pipe(gulp.dest('build/css'));
-
-    return  gulp.src([__BUILD_FOLDER__ + '/spa/styl/common.styl'])
+gulp.task('styl-common', function () {
+    return gulp.src([conf.styl + '/common.styl'])
         .pipe(stylus(optStyl))
         .pipe(concat('common.min.css'))
-        .pipe(gulp.dest('build/css'));
+        .pipe(gulpif(_ENV_ === 'production', minifyCSS()))
+        .pipe(gulp.dest(conf.build + '/css'))
 
+        .on('end', function() {
+
+        })
+
+        .on('error', function(err) {
+            if (!/tests? failed/.test(err.stack)) {
+                console.log(err.stack);
+            }
+        });
+});
+
+gulp.task('styl-ticket', function () {
+    return gulp.src([conf.styl + '/ticket.styl'])
+        .pipe(stylus(optStyl))
+        .pipe(concat('ticket.min.css'))
+        .pipe(gulpif(_ENV_ === 'production', minifyCSS()))
+        .pipe(gulp.dest(conf.build + '/css'));
 
 });
 
+gulp.task('styl-ie', function () {
+    return gulp.src([conf.styl + '/ie.styl'])
+        .pipe(stylus(optStyl))
+        .pipe(concat('ie.min.css'))
+        .pipe(gulpif(_ENV_ === 'production', minifyCSS()))
+        .pipe(gulp.dest(conf.build + '/css'));
+});
 
-gulp.task('print', function () {
-    gulp.src(['styl/print.styl'])
-        .pipe(stylus({
-            use: ['nib'],
-            import: ['nib']
-        }))
+
+gulp.task('styl-print', function () {
+    return gulp.src([conf.styl + '/print.styl'])
+        .pipe(stylus(optStyl))
         .pipe(concat('print.css'))
-        .pipe(gulp.dest('build/css'));
+        .pipe(gulpif(_ENV_ === 'production', minifyCSS()))
+        .pipe(gulp.dest(conf.build + '/css'));
 });
+
+
+gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print']);

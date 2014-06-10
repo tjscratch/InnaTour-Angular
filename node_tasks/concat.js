@@ -1,17 +1,26 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var gulpif = require('gulp-if');
+var conf = require('./config');
 
-var _ENV_ = process.env.NODE_ENV;
+var _ENV_ = process.env.NODE_ENV || '';
 
-gulp.task('test-concat', function () {
+// зависимость от сборки шаблонов
+gulp.task('build-concat', ['build-templates'], function () {
     return gulp.src([
-        '/spa/js/angular/helpers/*.js',
-        '/spa/js/datepicker.js',
-        '/spa/js/angular/models/app.model.js',
-        '/spa/js/angular/models/*.js',
-        '/spa/js/angular/**/*.js'
+            conf.dest + '/js/angular/helpers/*.js',
+            conf.dest + '/js/datepicker.js',
+            conf.dest + '/js/angular/models/app.model.js',
+            conf.dest + '/js/angular/models/*.js',
+            conf.dest + '/js/angular/**/*.js',
+
+            // собираем и шаблоны тоже
+            conf.build + '/js/templates.js'
     ])
+
         .pipe(concat('app-main.js'))
-        .pipe(gulp.dest('build'));
+        .pipe(gulpif(_ENV_ === 'production', uglify()))
+        .pipe(gulp.dest(conf.build+'/js'));
 });
 

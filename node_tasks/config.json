@@ -1,10 +1,19 @@
 {
-    "desktop": {
-        "src": [ "dev/desktop/js/**/*.js", "!dev/desktop/js/vendor/**"],
-        "dest": "build/desktop/js"
-    },
-    "mobile": {
-        "src": [ "dev/mobile/js/**/*.js", "!dev/mobile/js/vendor/**"],
-        "dest": "build/mobile/js"
+    "build" : "./build",
+    "dest" : "./spa",
+    "styl" : "./spa/styl",
+    "templ" : "./spa/templates",
+    "img" : "./spa/img",
+    "publish" : "./publish",
+
+    "hosts" : {
+        "b2b" : {
+            "test": "http://b2b.test.inna.ru",
+            "prod": "http://b2b.beta.inna.ru"
+        },
+        "api" : {
+            "test": "http://api.test.inna.ru",
+            "prod": "https://api.beta.inna.ru"
+        }
     }
 }

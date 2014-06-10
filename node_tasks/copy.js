@@ -1,29 +1,16 @@
 var gulp = require('gulp');
-var _ENV_ = process.env.NODE_ENV;
+var gulpif = require('gulp-if');
+var conf = require('./config');
 
-gulp.task('test-copy-files', function () {
-    gulp.src([
-        './index.html',
-        './web.config',
-        './closer.html'
-    ])
-        .pipe(gulp.dest('publish'));
+var _ENV_ = process.env.NODE_ENV || '';
 
-    gulp.src(['./tours/**/*'])
-        .pipe(gulp.dest('publish/tours'));
+gulp.task('copy-project', function () {
+    gulp.src(['./index.html', './web.config', './closer.html']).pipe(gulp.dest(conf.publish));
 
-    return gulp.src([
-        './spa/**/*',
+    gulp.src('build/**/*').pipe(gulp.dest(conf.publish));
+    gulp.src('spa/**/*').pipe(gulp.dest(conf.publish));
 
-        '!./spa/node_modules/**/*',
-        '!./spa/gulpfile.js',
-        '!./spa/package.json',
-        '!./spa/*.sublime-project',
-        '!./spa/*.sublime-workspace'
-    ])
-        .pipe(gulp.dest('publish/spa'));
-});
+    gulp.src('./tours/**/*').pipe(gulp.dest(conf.publish + '/tours'));
 
-return gulp.task('test-copy-test', function () {
-    console.log('sdlfkhjfgh');
+
 });
