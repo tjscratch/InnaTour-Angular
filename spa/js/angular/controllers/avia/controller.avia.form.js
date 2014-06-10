@@ -313,6 +313,17 @@ innaAppControllers.
                 Validators.defined($scope.criteria.ToId, Error('ToId'));
                 Validators.notEqual($scope.criteria.FromId, $scope.criteria.ToId, Error('ToId'));
 
+                //если запомнили город - то проверяем и его
+                if ($scope.lastCityFromId != null && $scope.lastCityToId != null) {
+                    Validators.notEqual($scope.lastCityFromId, $scope.lastCityToId, Error('ToId'));
+                }
+                else if ($scope.lastCityFromId != null && $scope.lastCityToId == null) {
+                    Validators.notEqual($scope.lastCityFromId, $scope.criteria.ToId, Error('ToId'));
+                }
+                else if ($scope.lastCityFromId == null && $scope.lastCityToId != null) {
+                    Validators.notEqual($scope.criteria.FromId, $scope.lastCityToId, Error('ToId'));
+                }
+
                 Validators.defined($scope.criteria.BeginDate, Error('BeginDate'));
                 if ($scope.criteria.PathType == 0) {//туда обратно
                     Validators.defined($scope.criteria.EndDate, Error('EndDate'));
@@ -346,20 +357,33 @@ innaAppControllers.
                 })
             }
 
-            $scope.setResultCallbackFrom = function (item) {
+            $scope.setResultCallbackFrom = function (item, city) {
                 if (item != null) {
                     //console.log('$scope.setResultCallbackFrom: %s', item.CodeIata);
                     $scope.criteria.FromUrl = item.CodeIata;
                     $scope.criteria.From = item.Name;
                 }
+                if (city != null) {
+                    $scope.lastCityFromId = city.Id;
+                }
+                else {
+                    $scope.lastCityFromId = null;
+                }
             }
 
-            $scope.setResultCallbackTo = function (item) {
+            $scope.setResultCallbackTo = function (item, city) {
                 if (item != null) {
                     $scope.criteria.ToUrl = item.CodeIata;
                     $scope.criteria.To = item.Name;
                 }
+                if (city != null) {
+                    $scope.lastCityToId = city.Id;
+                }
+                else {
+                    $scope.lastCityToId = null;
+                }
             }
+
 
             /*Klass*/
             $scope.klass = _.find(TripKlass.options, function (klass) {
