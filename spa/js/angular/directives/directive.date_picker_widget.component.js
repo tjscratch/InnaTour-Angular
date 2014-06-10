@@ -1,6 +1,6 @@
 ﻿innaAppDirectives.directive('datePickerWidget', [
     '$templateCache',
-    'eventsHelper', function ($templateCache, eventsHelper) {
+    'eventsHelper', '$filter', function ($templateCache, eventsHelper, $filter) {
     return {
         replace: true,
         template: $templateCache.get('components/date_picker_widget.html'),
@@ -65,6 +65,14 @@
 
                 var bits = date.split('.');
                 return [bits[0], bits[1]].join('.');
+            };
+
+            $scope.long = function (date) {
+                if (!date || date == '01.01.1970') return '';
+
+                var jsDate = dateHelper.dateToJsDate(date);
+
+                return $filter('date')(jsDate, 'd MMMM');
             };
 
             $scope.headClicked = false;

@@ -387,6 +387,17 @@ innaAppControllers.
                     return "Когда";
             }
 
+            $scope.getBeginDateLong = function () {
+                //log('date:' + $scope.form.beginDate);
+                var date = $scope.form.beginDate;
+                if (date != null) {
+                    var jsDate = dateHelper.dateToJsDate(date);
+                    return $filter('date')(jsDate, 'd MMMM');
+                }
+                else
+                    return "Когда";
+            }
+
             function prepareToTerm(text) {
                 var ind = text.indexOf(',');
                 if (ind > -1) {
