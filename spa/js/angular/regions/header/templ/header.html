@@ -18,7 +18,9 @@
                     <li class="header-info-menu-item">
                         <a href="/#/about/">О компании</a>
                     </li>
-                    <li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                    <!-- user comes from $rootScope -->
+                    <li class="header-info-menu-item" ng-if="user.isAgency()">{{user.raw.SupportPhone}}</li>
+                    <li class="header-info-menu-item" ng-if="!user.isAgency()">+7&nbsp;495 742-1212</li>
                 </ul>
             </div>
         </div>
@@ -26,17 +28,18 @@
     <div class="header-menu ng-hide" ng-show="isHeaderVisible">
         <div class="header__container">
             <ul class="header__nav">
-                <li><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
+                <li><a href="/#/packages/" ng-class="{active:isActive('/packages/')}">Перелет&nbsp;+&nbsp;Отель</a></li>
                 <li><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
+                <li><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
+                <li><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
                 <li><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru"
                        target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li>
-                <li><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
-                <li><a href="/#/packages/" ng-class="{active:isActive('/packages/')}">Билет + отель</a></li>
+                <li><a href="/catalog/guide/" ng-class="{active:isActive('/guide/')}">Каталог стран</a></li>
             </ul>
 
             <ng:include src="'auth/header.html'"></ng:include>
         </div>
-
+        
         <ng:include src="getHeadForm()"></ng:include>
     </div>
 </div>

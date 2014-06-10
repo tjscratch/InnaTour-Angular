@@ -1,19 +1,26 @@
 .result-small {
 
   &__cell {
-    display: table-cell;
     font-size: 14px;
     border-right: 1px solid #4d4d4d;
-    vertical-align: middle;
+    vertical-align: top;
+    height : 47px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 
     &:nth-child(2) {
-      padding: 0 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    &:last-child {
+      border-right: 0 none;
     }
   }
 
   .flight, .hotel-info-date {
     color: #c0c0c2;
-    line-height: 16px;
+    height: 26px;
   }
 
   .flight {
@@ -25,22 +32,21 @@
 
   .flight__image {
     position: relative;
-    top: 4px;
+    top: -1px;
+    vertical-align middle
   }
 
   .hotel-info-name {
     color: #fff;
     font-weight: normal;
+    min-height: 26px;
   }
 
   .corner-price {
     color: #fff;
     font-family: ProximaNova;
     font-size: 24px;
+    text-align : right;
     font-weight: bold;
-
-    position: absolute;
-    right: 0;
-    top: 6px;
   }
 }

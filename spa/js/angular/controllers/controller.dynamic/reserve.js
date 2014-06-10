@@ -215,11 +215,17 @@
                 });
                 m.Passengers = pasList;
 
+                //Children: "1_2"
+                var childAgers = [];
+                _.each($routeParams.Children.split('_'), function(item){
+                    childAgers.push(item);
+                });
+
                 m.SearchParams = {
                     HotelId: $scope.hotel.HotelId,
                     HotelProviderId: $scope.hotel.ProviderId,
-                    TicketBackId: $scope.item.VariantId1,
-                    TicketToId: $scope.item.VariantId2,
+                    TicketToId: $scope.item.VariantId1,
+                    TicketBackId: $scope.item.VariantId2,
                     RoomId: $scope.roomId,
                     Filter: {
                         DepartureId: $routeParams.DepartureId,
@@ -227,7 +233,8 @@
                         StartVoyageDate: $scope.searchParams.StartVoyageDate,
                         EndVoyageDate: $scope.searchParams.EndVoyageDate,
                         TicketClass: $routeParams.TicketClass,
-                        Adult: $routeParams.Adult
+                        Adult: $routeParams.Adult,
+                        ChildrenAges: childAgers
                     },
                     IsNeededVisa: $scope.addition.isNeededVisa,
                     IsNeededTransfer: $scope.addition.isNeededTransfer,
@@ -239,13 +246,14 @@
 
             //бронируем
             $scope.reserve = function () {
+                //console.log('$scope.reserve');
                 var m = $scope.getApiModelForReserve();
                 var model = m.model;
                 var apiModel = m.apiModel;
 
                 paymentService.packageReserve(apiModel,
                     function (data) {
-                        $scope.$apply(function ($scope) {
+                        $scope.safeApply(function () {
                             console.log('order: ' + angular.toJson(data));
                             if (data != null && data.OrderNum != null && data.OrderNum.length > 0) {
                                 //сохраняем orderId
@@ -264,14 +272,15 @@
                                 }
                             }
                             else {
+                                console.error('packageReserve: %s', angular.toJson(data));
                                 $scope.showReserveError();
                             }
                         });
                     },
                     function (data, status) {
-                        $scope.$apply(function ($scope) {
+                        $scope.safeApply(function () {
                             //ошибка
-                            console.log('paymentService.reserve error');
+                            console.error('paymentService.reserve error');
                             $scope.showReserveError();
                         });
                     });

@@ -5,13 +5,21 @@ innaAppDirectives.directive('partialSelect', ['$templateCache', function ($templ
         scope: {
             list: '=',
             result: '=',
-            isOpen: '='
+            isOpen: '=',
+            resultSet: '&'
         },
         controller: function ($scope) {
 
             /*Events*/
             $scope.itemClick = function (option) {
-                $scope.result = { id: option.Id, name: option.Name };
+                var item = { id: option.Id, name: option.Name };
+                
+                if ($scope.resultSet) {
+                    $scope.resultSet({ item: item });
+                }
+                else {
+                    $scope.result = item;
+                }
             }
 
             function setResultIfOneItem() {

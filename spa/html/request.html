@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Инна-Тур - Авиа</title>
-    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/common.min.css" />
+    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <link rel="stylesheet" href="../css/common.min.css"/>
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="../css/ie.min.css" />
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" href="../css/ie.min.css"/>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
     <script src="../lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="../js/jquery.ui.datepicker-ru.js"></script>
     <!--[if lt IE 10]>
-        <script src="../js/ie.placeholder.js"></script>
+    <script src="../js/ie.placeholder.js"></script>
     <![endif]-->
     <script src="../js/search_form.js"></script>
     <script src="../js/results.js"></script>
@@ -22,173 +22,205 @@
 </head>
 
 <body class="body-bg">
-    <div class="header Header">
-        <div class="header-info">
-            <div class="header-info-container">
-                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
-                --><span class="header-text"></span><!--
-                --><div class="header-info-container-right">
-                    <ul class="header-info-menu" style="margin-right:0px;">
-                        <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li><!--
-                        --><li class="header-info-menu-item"><a href="/#/about/">О компании</a></li><!--
-                        --><li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
-                    </ul>
-                </div>
+<div class="main">
+<div class="header Header">
+    <div class="header-info">
+        <div class="header-info-container row">
+            <div class="col-xs-6 col-no-padding">
+                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР"
+                                                        title="ИННА ТУР"></i><i
+                        class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a>
+                <span class="header-text"></span>
             </div>
-        </div>
-        <div class="header-menu">
-            <ul class="header-menu-container-items"><!--
-                --><li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li><!--
-                --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
-                --><li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li><!--
-                --><li class="header-menu-item"><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
-            </ul>
-
+            <div class="col-xs-6 header-info-container-right col-no-padding">
+                <ul class="header-info-menu" style="margin-right:0px;">
+                    <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
+                    <!--
+                                            -->
+                    <li class="header-info-menu-item"><a href="/#/about/">О компании</a></li>
+                    <!--
+                                            -->
+                    <li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                </ul>
+            </div>
         </div>
     </div>
+    <div class="header-menu">
+        <ul class="header-menu-container-items"><!--
+                -->
+            <li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
+            <!--
+                            -->
+            <li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a>
+            </li>
+            <!--
+                            -->
+            <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru"
+                                            target="_blank"
+                                            ng-class="{active:isActive('/hotels/')}">Отели</a></li>
+            <!--
+                            -->
+            <li class="header-menu-item"><a href="/#/individualtours/"
+                                            ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
+        </ul>
 
-    <form action="" class="results-body">
-        <div class="main__center">
-            <!-- Request -->
-            <div class="r__header">
-                <a href="#" class="r__back">К списку заявок</a>
-                <div class="r__time">До истечения брони: <br>13 ч. 50 м.</div>
-                <div class="r__number">Заявка <b>FH34796</b> на продажу забронирована <br>до 13 янв 2014 12:00 по МСК</div>
+    </div>
+</div>
+
+
+<div class="wrpr">
+
+<form action="" class="results-body">
+<div class="main__center">
+<!-- Request -->
+<div class="r__header">
+    <a href="#" class="r__back">К списку заявок</a>
+
+    <div class="r__time">До истечения брони: <br>13 ч. 50 м.</div>
+    <div class="r__number">Заявка <b>FH34796</b> на продажу забронирована <br>до 13 янв 2014 12:00 по МСК</div>
+</div>
+<div class="r__info">
+    <div class="r__info-table">
+        <div class="r__info-tr">
+            <span class="r__info-th">Сумма заявки ИТОГО:</span>
+            <span class="r__info-td">125 533,34</span>
+        </div>
+        <div class="r__info-tr">
+            <span class="r__info-th">Сумма заявки NET:</span>
+            <span class="r__info-td">100 535,34</span>
+        </div>
+        <div class="r__info-tr">
+            <span class="r__info-th">Комиссия агента:</span>
+            <span class="r__info-td">150</span>
+        </div>
+        <div class="r__info-tr">
+            <span class="r__info-th">Сбор агента:</span>
+            <span class="r__info-td">125</span>
+        </div>
+        <div class="r__info-tr">
+            <span class="r__info-th">Доход агента:</span>
+            <span class="r__info-td">300</span>
+        </div>
+        <a href="#" class="button button_small">Выписать</a>
+        <a href="#" class="button button_small">Анулировать</a>
+    </div>
+    <div class="r__info-main">
+        Создана: 11 янв 2014, 13:30 <br>
+        Оператор: Колесов Д.В. <br>
+        Торговая точка: Филиал на Остоженке
+    </div>
+    <div class="r__info-contacts">
+        <span class="r__info-contacts-client">Клиент:</span> Николай Петров <br>
+        +7 (903) 111–34–32 <br>
+        <a href="#">petrov@mail.ru</a>
+    </div>
+</div>
+<div class="r__numbers-container">
+    <div class="r__numbers-block">
+        <div class="r__numbers-label">Возврат билетов:</div>
+        <div class="r__numbers-wrap">
+            <div class="r__numbers">
+                <a href="#">4378643948</a>
             </div>
-            <div class="r__info">
-                <div class="r__info-table">
-                    <div class="r__info-tr">
-                        <span class="r__info-th">Сумма заявки ИТОГО:</span>
-                        <span class="r__info-td">125 533,34</span>
-                    </div>
-                    <div class="r__info-tr">
-                        <span class="r__info-th">Сумма заявки NET:</span>
-                        <span class="r__info-td">100 535,34</span>
-                    </div>
-                    <div class="r__info-tr">
-                        <span class="r__info-th">Комиссия агента:</span>
-                        <span class="r__info-td">150</span>
-                    </div>
-                    <div class="r__info-tr">
-                        <span class="r__info-th">Сбор агента:</span>
-                        <span class="r__info-td">125</span>
-                    </div>
-                    <div class="r__info-tr">
-                        <span class="r__info-th">Доход агента:</span>
-                        <span class="r__info-td">300</span>
-                    </div>
-                    <a href="#" class="button button_small">Выписать</a>
-                    <a href="#" class="button button_small">Анулировать</a>
+            <div class="r__numbers">
+                <a href="#">4378643948</a>
+            </div>
+        </div>
+    </div>
+    <div class="r__numbers-block">
+        <div class="r__numbers-label">Возврат отеля:</div>
+        <div class="r__numbers-wrap">
+            <div class="r__numbers">
+                <a href="#">4378643948</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="r__numbers-container">
+    <div class="r__numbers-block">
+        <div class="r__numbers-label">Возврат билетов:</div>
+        <div class="r__numbers-wrap">
+            <div class="r__numbers">
+                <a href="#">4378643948</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="r__numbers-container">
+    <div class="r__numbers-block">
+        <div class="r__numbers-label">Возврат билетов:</div>
+        <div class="r__numbers-wrap">
+            <div class="r__numbers">
+                <div class="r__numbers-inner">
+                    <span>старый</span>
+                    <a href="#">4378643948</a>
                 </div>
-                <div class="r__info-main">
-                    Создана: 11 янв 2014, 13:30 <br>
-                    Оператор: Колесов Д.В. <br>
-                    Торговая точка: Филиал на Остоженке
-                </div>
-                <div class="r__info-contacts">
-                    <span class="r__info-contacts-client">Клиент:</span> Николай Петров <br>
-                    +7 (903) 111–34–32 <br>
-                    <a href="#">petrov@mail.ru</a>
+                <img src="../img/arrow2.png" class="r__numbers-arrow" alt="">
+
+                <div class="r__numbers-inner">
+                    <span>старый</span>
+                    <a href="#">4378643948</a>
                 </div>
             </div>
-            <div class="r__numbers-container">
-                <div class="r__numbers-block">
-                    <div class="r__numbers-label">Возврат билетов:</div>
-                    <div class="r__numbers-wrap">
-                        <div class="r__numbers">
-                            <a href="#">4378643948</a>
-                        </div>
-                        <div class="r__numbers">
-                            <a href="#">4378643948</a>
-                        </div>
-                    </div>
+            <div class="r__numbers">
+                <div class="r__numbers-inner">
+                    <span>старый</span>
+                    <a href="#">4378643948</a>
                 </div>
-                <div class="r__numbers-block">
-                    <div class="r__numbers-label">Возврат отеля:</div>
-                    <div class="r__numbers-wrap">
-                        <div class="r__numbers">
-                            <a href="#">4378643948</a>
-                        </div>
-                    </div>
+                <img src="../img/arrow2.png" class="r__numbers-arrow" alt="">
+
+                <div class="r__numbers-inner">
+                    <span>старый</span>
+                    <a href="#">4378643948</a>
                 </div>
             </div>
-            <div class="r__numbers-container">
-                <div class="r__numbers-block">
-                    <div class="r__numbers-label">Возврат билетов:</div>
-                    <div class="r__numbers-wrap">
-                        <div class="r__numbers">
-                            <a href="#">4378643948</a>
-                        </div>
-                    </div>
+        </div>
+    </div>
+</div>
+<div class="r__time-help">Все времена прилета и вылета указаны по местному времени</div>
+<div class="results-list_960">
+
+    <div class="b-result b-result_col_two b-result_big result row buy__fly">
+
+        <div class="b-result__cell result-cell">
+            <img class="logo" alt="" src="../img/expedia.png">
+
+            <div class="b-ticket_2ways buy__tickets">
+                <div class="rlf-fly">
+                    <span class="rlf-city">Санкт-Петербург</span> LED
+                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                    <span class="rlf-city">Санта-Круз-де</span> TFS
+                    <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
+                </div>
+                <div class="rlf-fly rlf-fly_back">
+                    <span class="rlf-city">Санкт-Петербург</span> LED
+                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                    <span class="rlf-city">Санта-Круз-де</span> TFS
+                    <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
                 </div>
             </div>
-            <div class="r__numbers-container">
-                <div class="r__numbers-block">
-                    <div class="r__numbers-label">Возврат билетов:</div>
-                    <div class="r__numbers-wrap">
-                        <div class="r__numbers">
-                            <div class="r__numbers-inner">
-                                <span>старый</span>
-                                <a href="#">4378643948</a>
-                            </div>
-                            <img src="../img/arrow2.png" class="r__numbers-arrow" alt="">
-                            <div class="r__numbers-inner">
-                                <span>старый</span>
-                                <a href="#">4378643948</a>
-                            </div>
-                        </div>
-                        <div class="r__numbers">
-                            <div class="r__numbers-inner">
-                                <span>старый</span>
-                                <a href="#">4378643948</a>
-                            </div>
-                            <img src="../img/arrow2.png" class="r__numbers-arrow" alt="">
-                            <div class="r__numbers-inner">
-                                <span>старый</span>
-                                <a href="#">4378643948</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+            <span class="icon icon-plane-grey"></span>
+
+            <div class="bottom-actions">
+                <a class="pull-left" href="">Заменить</a>
+                <a class="pull-right" href="">Подробнее</a>
             </div>
-            <div class="r__time-help">Все времена прилета и вылета указаны по местному времени</div>
-            <div class="results-list_960">
-                <div class="result buy__fly">
-                    <div class="result-cell result-cell-480">
-                        <img class="logo" alt="" src="../img/expedia.png">
 
-                        <div class="b-ticket_2ways buy__tickets">
-                            <div class="rlf-fly">
-                                <span class="rlf-city">Санкт-Петербург</span> LED
-                                <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                                <span class="rlf-city">Санта-Круз-де</span> TFS
-                                <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
-                            </div>
-                            <div class="rlf-fly rlf-fly_back">
-                                <span class="rlf-city">Санкт-Петербург</span> LED
-                                <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                                <span class="rlf-city">Санта-Круз-де</span> TFS
-                                <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
-                            </div>
-                        </div>
-
-                        <span class="icon icon-plane-grey"></span>
-
-                        <div class="bottom-actions">
-                            <a class="pull-left" href="">Заменить</a>
-                            <a class="pull-right" href="">Подробнее</a>
-                        </div>
-                    </div><!--
-                        --><div class="result-cell-gap"><div class="result-cell-gap-wrap"></div></div>
+            <div class="b-result-cell__gap">
+                <div class="b-result-cell__gap_wrap"></div>
+            </div>
+        </div>
 
 
+        <div class="b-result__cell result-cell">
+            <img class="logo" alt="" src="../img/expedia.png">
 
-                        <div class="result-cell result-cell-480">
-                    <img class="logo" alt="" src="../img/expedia.png">
-
-                    <div class="hotel-info">
-                        <img alt="" src="../img/hotel.png"><!--
-                                --><div class="hotel-info-content">
+            <div class="hotel-info">
+                <div class="hotel-info__wrapper">
+                    <img alt="" src="../img/hotel.png"><!--
+                                -->
+                    <div class="hotel-info-content">
                         <div class="star-container">
                             <span class="icon icon-star"></span>
                             <span class="icon icon-star"></span>
@@ -196,193 +228,226 @@
                             <span class="icon icon-star"></span>
                         </div>
                         <h3 class="hotel-info-name">Mercure Luna Sharm El Sheikh vherhgek</h3>
+
                         <div class="hotel-info-date">с 7 фев по 16 фев, 8 ночей</div>
                     </div>
-                        <div class="hotel-info-tripadvisor">
-                            <span class="icon icon-tripadvisor"></span>
-                            <span class="icon icon-tripadvisor-like"></span>
-                            <span class="icon icon-tripadvisor-like"></span>
-                            <span class="icon icon-tripadvisor-like"></span>
-                            <span class="icon icon-tripadvisor-like"></span>
-                            <span class="icon icon-tripadvisor-like"></span>
-                            1412 отзывов
-                        </div>
+                </div>
+                <div class="b-tripadvisor hotel-info-tripadvisor">
+
+                    <div class="b-tripadvisor__owl">
+                        <span class="icon-sprite-tripadvisor"></span>
                     </div>
 
-                    <div class="bottom-actions">
-                        <a class="active pull-left" href="">Заменить</a>
-                        <a class="pull-right" href="">Подробнее</a>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="r__booking">
-                <div class="r__booking-block">Бронь <b>GHFDRT</b></div>
-                <div class="r__booking-block">Бронь <b>THRTHER</b></div>
-            </div>
-            <div class="r__time-help">Все времена прилета и вылета указаны по местному времени</div>
-            <div class="r__buy">
-                <div class="buy__fly">
-                    <header class="rl-item-header">
-                        <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span class="rl-airline-text">Aeroflot</span></span>
-                    </header>
-                    <div class="b-ticket_2ways">
-                        <div class="rlf-fly">
-                            <span class="rlf-city">Санкт-Петербург</span> LED
-                            <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                            <span class="rlf-city">Санта-Круз-де-Тенерифе</span> TFS
-                            <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
+                    <div class="b-display-table">
+                        <div class="b-display-cell">
+                            <span class="icon-sprite-tripadvisor-like"></span>
                         </div>
-                        <div class="rlf-fly rlf-fly_back">
-                            <span class="rlf-city">Санкт-Петербург</span> LED
-                            <span class="rlf-fly-arrow"></span>
-                            <span class="rlf-city">Санта-Круз</span> TFS
-                            <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
+                        <div class="b-display-cell">
+                            <span class="icon-sprite-tripadvisor-like"></span>
                         </div>
-                    </div>
-                    <footer class="rl-footer">
-                        <span class="rl-tickets-number">Последние 3 места, чартер</span>
-                        <a href="#" class="rl-more-info">Подробнее</a>
-                    </footer>
-                </div>
-                <div class="buy__warning">
-                    При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование авиакомпании.
-                </div>
-            </div>
-            <div class="r__booking">
-                <div class="r__booking-block">Бронь <b>GHFDRT</b></div>
-            </div>
-            <table class="r__tickets r__tickets_ext">
-                <col width="35">
-                <col width="154">
-                <col width="134">
-                <col width="99">
-                <col width="199">
-                <col width="94">
-                <col width="119">
-                <col width="119">
-                <tr>
-                    <th></th>
-                    <th>Фамилия, Имя</th>
-                    <th>День рожд.</th>
-                    <th>Гражданство</th>
-                    <th>Документ</th>
-                    <th>Срок дейст.</th>
-                    <th>Бонусная карта</th>
-                    <th>Билеты</th>
-                </tr>
-                <tr>
-                    <td>М</td>
-                    <td>PETROV VLADIMIR</td>
-                    <td>30.09.1979, 36 лет</td>
-                    <td>РФ</td>
-                    <td>Паспорт 5678358392</td>
-                    <td>23.03.2019</td>
-                    <td>SU 4657820583</td>
-                    <td><a href="#" class="r__tickets-load">4378643948</a></td>
-                </tr>
-                <tr>
-                    <td>М</td>
-                    <td>PETROV VLADIMIR</td>
-                    <td>30.09.1979, 36 лет</td>
-                    <td>РФ</td>
-                    <td>Паспорт 5678358392</td>
-                    <td>23.03.2019</td>
-                    <td>SU 4657820583</td>
-                    <td><a href="#" class="r__tickets-load">4378643948</a></td>
-                </tr>
-            </table>
-            <div class="r__download"><a href="#">Скачать ваучер отеля</a> • <a href="#">Скачать весь пакет документов</a></div>
-            <table class="r__tickets">
-                <col width="104">
-                <col width="205">
-                <col width="115">
-                <col width="190">
-                <col width="350">
-                <tr>
-                    <th colspan="4">Изменения по заявке</th>
-                    <th class="r__tickets-buttons">
-                        <a href="#" class="button button_small">Возврат</a>
-                        <a href="#" class="button button_small">Обмен</a>
-                    </th>
-                </tr>
-                <tr>
-                    <td>12 сен 2014</td>
-                    <td>Заявка на обмен <a href="#">AH344TY</a></td>
-                    <td>Колесов Д.В.</td>
-                    <td><span class="r__tickets-reset">Анулировано</span></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>12 сен 2014</td>
-                    <td>Заявка на обмен <a href="#">AH344TY</a></td>
-                    <td>Колесов Д.В.</td>
-                    <td><span class="r__tickets-change">Запрос обмена</span></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>12 сен 2014</td>
-                    <td>Заявка на обмен <a href="#">AH344TY</a></td>
-                    <td>Колесов Д.В.</td>
-                    <td><span class="r__tickets-return">Запрос возврата</span></td>
-                    <td></td>
-                </tr>
-            </table>
-            <table class="r__tickets">
-                <col width="104">
-                <col width="205">
-                <col width="115">
-                <col width="190">
-                <col width="350">
-                <tr>
-                    <th colspan="4">Изменения по заявке</th>
-                    <th class="r__tickets-buttons">
-                    </th>
-                </tr>
-                <tr>
-                    <td>12 сен 2014</td>
-                    <td>Заявка на обмен <a href="#">AH344TY</a></td>
-                    <td>Колесов Д.В.</td>
-                    <td><span class="r__tickets-reset">Возврат выполнен</span></td>
-                    <td></td>
-                </tr>
-            </table>
-            <div class="r__container">
-                <div class="r__chat">
-                    <div class="r__message-container">
-                        <div class="r__message-empty">Сообщения по заявке</div>
-                        <div class="r__message">
-                            <div class="r__message-text">Можно ли заказать русскоговорящего гида?</div>
-                            <div class="r__message-info">
-                                <b>18:40</b> 12 сен 2014
-                                <div class="r__message-author">Колесов Д.В.</div>
-                            </div>
+                        <div class="b-display-cell">
+                            <span class="icon-sprite-tripadvisor-like"></span>
                         </div>
-                        <div class="r__message r__message_answer">
-                            <div class="r__message-text">Можно ли заказать русскоговорящего гида?</div>
-                            <div class="r__message-info">
-                                <b>18:40</b> 12 сен 2014
-                                <div class="r__message-author">Колесов Д.В.</div>
-                            </div>
+                        <div class="b-display-cell">
+                            <span class="icon-sprite-tripadvisor-like"></span>
                         </div>
-                        <div class="r__message">
-                            <div class="r__message-text">Можно ли заказать русскоговорящего гида?</div>
-                            <div class="r__message-info">
-                                <b>18:40</b> 12 сен 2014
-                                <div class="r__message-author">Колесов Д.В.</div>
+                        <div class="b-display-cell">
+                            <span class="icon-sprite-tripadvisor-like"></span>
+                        </div>
+
+                        <!-- Шаг 0.5 -->
+                        <div class="b-display-cell">
+                            <span class="icon-sprite-tripadvisor-half"></span>
+                        </div>
+
+                        <div class="b-display-cell">
+                            <div class="b-tripadvisor__reviews">
+                                1412 отзывов
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="button button_small">Написать</a>
-                </div>
-                <div class="r__requirements">
-                    <p class="r__requirements-text">Клиент просил некурящий номер</p>
-                    <a href="#" class="button button_small">Редактировать</a>
                 </div>
             </div>
-            <!-- /Request -->
+
+            <div class="bottom-actions">
+                <a class="active pull-left" href="">Заменить</a>
+                <a class="pull-right" href="">Подробнее</a>
+            </div>
         </div>
-    </form>
+    </div>
+</div>
+<div class="r__booking">
+    <div class="r__booking-block">Бронь <b>GHFDRT</b></div>
+    <div class="r__booking-block">Бронь <b>THRTHER</b></div>
+</div>
+<div class="r__time-help">Все времена прилета и вылета указаны по местному времени</div>
+<div class="r__buy">
+    <div class="buy__fly">
+        <header class="rl-item-header">
+            <span class="rl-airline"><img src="../uploads/logo2.png" alt=""><span
+                    class="rl-airline-text">Aeroflot</span></span>
+        </header>
+        <div class="b-ticket_2ways">
+            <div class="rlf-fly">
+                <span class="rlf-city">Санкт-Петербург</span> LED
+                <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                <span class="rlf-city">Санта-Круз-де-Тенерифе</span> TFS
+                <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
+            </div>
+            <div class="rlf-fly rlf-fly_back">
+                <span class="rlf-city">Санкт-Петербург</span> LED
+                <span class="rlf-fly-arrow"></span>
+                <span class="rlf-city">Санта-Круз</span> TFS
+                <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
+            </div>
+        </div>
+        <footer class="rl-footer">
+            <span class="rl-tickets-number">Последние 3 места, чартер</span>
+            <a href="#" class="rl-more-info">Подробнее</a>
+        </footer>
+    </div>
+    <div class="buy__warning">
+        При необходимости наличия визы для осуществления перелёта, не забудьте внести информацию о визе на странице
+        оформленного заказа для каждого пассажира по крайней мере за 24 часа до первого вылета. Это требование
+        авиакомпании.
+    </div>
+</div>
+<div class="r__booking">
+    <div class="r__booking-block">Бронь <b>GHFDRT</b></div>
+</div>
+<table class="r__tickets r__tickets_ext">
+    <col width="35">
+    <col width="154">
+    <col width="134">
+    <col width="99">
+    <col width="199">
+    <col width="94">
+    <col width="119">
+    <col width="119">
+    <tr>
+        <th></th>
+        <th>Фамилия, Имя</th>
+        <th>День рожд.</th>
+        <th>Гражданство</th>
+        <th>Документ</th>
+        <th>Срок дейст.</th>
+        <th>Бонусная карта</th>
+        <th>Билеты</th>
+    </tr>
+    <tr>
+        <td>М</td>
+        <td>PETROV VLADIMIR</td>
+        <td>30.09.1979, 36 лет</td>
+        <td>РФ</td>
+        <td>Паспорт 5678358392</td>
+        <td>23.03.2019</td>
+        <td>SU 4657820583</td>
+        <td><a href="#" class="r__tickets-load">4378643948</a></td>
+    </tr>
+    <tr>
+        <td>М</td>
+        <td>PETROV VLADIMIR</td>
+        <td>30.09.1979, 36 лет</td>
+        <td>РФ</td>
+        <td>Паспорт 5678358392</td>
+        <td>23.03.2019</td>
+        <td>SU 4657820583</td>
+        <td><a href="#" class="r__tickets-load">4378643948</a></td>
+    </tr>
+</table>
+<div class="r__download"><a href="#">Скачать ваучер отеля</a> • <a href="#">Скачать весь пакет документов</a></div>
+<table class="r__tickets">
+    <col width="104">
+    <col width="205">
+    <col width="115">
+    <col width="190">
+    <col width="350">
+    <tr>
+        <th colspan="4">Изменения по заявке</th>
+        <th class="r__tickets-buttons">
+            <a href="#" class="button button_small">Возврат</a>
+            <a href="#" class="button button_small">Обмен</a>
+        </th>
+    </tr>
+    <tr>
+        <td>12 сен 2014</td>
+        <td>Заявка на обмен <a href="#">AH344TY</a></td>
+        <td>Колесов Д.В.</td>
+        <td><span class="r__tickets-reset">Анулировано</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>12 сен 2014</td>
+        <td>Заявка на обмен <a href="#">AH344TY</a></td>
+        <td>Колесов Д.В.</td>
+        <td><span class="r__tickets-change">Запрос обмена</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>12 сен 2014</td>
+        <td>Заявка на обмен <a href="#">AH344TY</a></td>
+        <td>Колесов Д.В.</td>
+        <td><span class="r__tickets-return">Запрос возврата</span></td>
+        <td></td>
+    </tr>
+</table>
+<table class="r__tickets">
+    <col width="104">
+    <col width="205">
+    <col width="115">
+    <col width="190">
+    <col width="350">
+    <tr>
+        <th colspan="4">Изменения по заявке</th>
+        <th class="r__tickets-buttons">
+        </th>
+    </tr>
+    <tr>
+        <td>12 сен 2014</td>
+        <td>Заявка на обмен <a href="#">AH344TY</a></td>
+        <td>Колесов Д.В.</td>
+        <td><span class="r__tickets-reset">Возврат выполнен</span></td>
+        <td></td>
+    </tr>
+</table>
+<div class="r__container">
+    <div class="r__chat">
+        <div class="r__message-container">
+            <div class="r__message-empty">Сообщения по заявке</div>
+            <div class="r__message">
+                <div class="r__message-text">Можно ли заказать русскоговорящего гида?</div>
+                <div class="r__message-info">
+                    <b>18:40</b> 12 сен 2014
+                    <div class="r__message-author">Колесов Д.В.</div>
+                </div>
+            </div>
+            <div class="r__message r__message_answer">
+                <div class="r__message-text">Можно ли заказать русскоговорящего гида?</div>
+                <div class="r__message-info">
+                    <b>18:40</b> 12 сен 2014
+                    <div class="r__message-author">Колесов Д.В.</div>
+                </div>
+            </div>
+            <div class="r__message">
+                <div class="r__message-text">Можно ли заказать русскоговорящего гида?</div>
+                <div class="r__message-info">
+                    <b>18:40</b> 12 сен 2014
+                    <div class="r__message-author">Колесов Д.В.</div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="button button_small">Написать</a>
+    </div>
+    <div class="r__requirements">
+        <p class="r__requirements-text">Клиент просил некурящий номер</p>
+        <a href="#" class="button button_small">Редактировать</a>
+    </div>
+</div>
+<!-- /Request -->
+</div>
+</form>
+</div>
+</div>
 
 </body>
 </html>

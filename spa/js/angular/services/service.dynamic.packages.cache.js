@@ -1,3 +1,7 @@
+
+// TODO : передалть работу с куками на $cookieStore
+// TODO : удалить $.cookie из проекта
+
 innaAppServices.factory('DynamicPackagesCacheWizard', [
     function() {
         var PREFIX = 'DynamicPackagesCacheWizard__';

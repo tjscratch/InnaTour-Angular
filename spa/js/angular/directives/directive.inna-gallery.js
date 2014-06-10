@@ -43,9 +43,38 @@ angular.module('innaApp.directives')
                     /*Properties*/
                     $scope.pics = new PicList();
 
+                    /*Methods*/
+                    $scope.getViewportStyle = function(){
+                        if(!$scope.pics.current) return {};
+
+                        var MAX_WIDTH = 960, MAX_HEIGHT = 480;
+
+                        var kw = 1, kh = 1, k;
+
+                        var width = $scope.pics.current.width;
+                        var height = $scope.pics.current.height;
+
+                        if(width > MAX_WIDTH) kw = MAX_WIDTH / width;
+                        if(height > MAX_HEIGHT) kh = MAX_HEIGHT / height;
+
+                        k = Math.min(kh, kw);
+
+                        return {
+                            backgroundImage: 'url(~)'.split('~').join($scope.pics.current.src),
+                            width: parseInt(width * k),
+                            height: parseInt(height * k)
+                        };
+                    };
+
                     /*Initial*/
                     (function(){
+                        var deferreds = [];
+
                         $scope.urls.forEach(function(url, _index){
+                            var deferred = new $.Deferred();
+
+                            deferreds.push(deferred.promise());
+
                             var pic = new Image();
 
                             pic.onload = function(){
@@ -54,9 +83,23 @@ angular.module('innaApp.directives')
                                 if(_index === 0) {
                                     $scope.pics.setCurrent(pic);
                                 }
+
+                                deferred.resolve();
+                            };
+
+                            pic.onerror = function(){
+                                deferred.resolve();
                             };
 
                             pic.src = url.Large;
+
+                            pic.__order = _index;
+                        });
+
+                        $.when.apply($, deferreds).then(function(){
+                            $scope.pics.list.sort(function(p1, p2){
+                                return p1.__order - p2.__order;
+                            });
                         });
                     })();
                 }

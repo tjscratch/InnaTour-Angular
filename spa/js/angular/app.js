@@ -2,6 +2,7 @@
 
 var app = angular.module('innaApp', [
   'ngRoute',
+  'innaApp.Cookie',
   'innaApp.templates',
   'innaApp.filters',
   'innaApp.services',
@@ -11,6 +12,8 @@ var app = angular.module('innaApp', [
   'innaApp.API',
   'ngSanitize'
 ]);
+
+var testInnaTest = 123;
 
 app.constant('innaApp.Urls', {
     URL_BUY: '/buy/',
@@ -204,6 +207,8 @@ app.config([
       ]);
   }
 ]);
+
+var innaAppCookie = angular.module('innaApp.Cookie', ['ngCookies']);
 
 var innaAppControllers = angular.module('innaApp.controllers', []);
 

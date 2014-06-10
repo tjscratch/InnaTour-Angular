@@ -57,7 +57,6 @@
         </div>
     </div>
 
-
     <div class="b-result__cell">
         <img ng-src="{{bundle.hotel.data.ProviderLogoUrl}}" alt="" class="logo">
 
@@ -115,7 +114,7 @@
 
         <p class="corner-price cross">
             {{bundle.getFullPrice() | price}}
-            <ng-include src="'components/ruble.html'"/>
+            <ng-include src="'components/ruble.html'"></ng-include>
             <span class="price-description">по отдельности</span>
         </p>
 
@@ -130,28 +129,28 @@
             <ul>
                 <li class="list-price-item">Перелет
                         <span class="list-price pull-right">{{bundle.ticket.data.Price | price}}
-                            <ng-include src="'components/ruble.html'"/>
+                            <ng-include src="'components/ruble.html'"></ng-include>
                         </span>
                 </li>
                 <li class="list-price-item">Отель
                         <span class="list-price pull-right">{{bundle.hotel.data.Price | price}}
-                            <ng-include src="'components/ruble.html'"/>
+                            <ng-include src="'components/ruble.html'"></ng-include>
                         </span>
                 </li>
             </ul>
             <div class="list-price list-price-total">{{bundle.getFullPrice() | price}}
-                <ng-include src="'components/ruble.html'"/>
+                <ng-include src="'components/ruble.html'"></ng-include>
             </div>
             <ul>
                 <li>В пакете:
                         <span class="list-price green pull-right">
                             {{bundle.getFullPackagePrice() | price}}
-                            <ng-include src="'components/ruble.html'"/>
+                            <ng-include src="'components/ruble.html'"></ng-include>
                         </span>
                 </li>
                 <li>Экономия
                         <span class="list-price green pull-right">{{(bundle.getFullPrice() - bundle.getFullPackagePrice()) | price}}
-                            <ng-include src="'components/ruble.html'"/>
+                            <ng-include src="'components/ruble.html'"></ng-include>
                         </span>
                 </li>
             </ul>
@@ -161,25 +160,26 @@
                     <li class="list-price-item">Сбор ИННА Тур
                             <span class="list-price green pull-right">
                                 {{bundle.hotel.data.PriceObject.TotalInnaProfit | price}}
-                                <ng-include src="'components/ruble.html'"/>
+                                <ng-include src="'components/ruble.html'"></ng-include>
                             </span>
                     </li>
                     <li class="list-price-item">Сбор агента
                             <span class="list-price green pull-right">
                                 {{bundle.hotel.data.PriceObject.TotalAgentProfit | price}}
-                                <ng-include src="'components/ruble.html'"/>
+                                <ng-include src="'components/ruble.html'"></ng-include>
                             </span>
                     </li>
                     <li class="list-price-item">Агентское вознаграждение
                             <span class="list-price green pull-right">
                                 {{bundle.hotel.data.PriceObject.TotalAgentReward | price}}
-                                <ng-include src="'components/ruble.html'"/>
+                                <ng-include src="'components/ruble.html'"></ng-include>
                             </span>
                     </li>
                 </ul>
             </div>
         </div>
-        <span class="price-description">вместе</span>
+
+        <span class="price-description">экономия: {{bundle.getFullPrice() - bundle.getFullPackagePrice() | price}} <ng-include src="'components/ruble.html'"></ng-include></span>
 
         <p></p>
 

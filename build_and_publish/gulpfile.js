@@ -33,7 +33,8 @@ gulp.task('change-build-folder-RELEASE', function () {
 });
 
 gulp.task('styles', function () {
-    gulp.src([__BUILD_FOLDER__ + '/spa/styl/common.styl'])
+	var res = null;
+    res = gulp.src([__BUILD_FOLDER__ + '/spa/styl/common.styl'])
         .pipe(stylus({
             use: ['nib'],
             import: ['nib']
@@ -41,7 +42,7 @@ gulp.task('styles', function () {
         .pipe(concat('common.min.css'))
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
-    gulp.src([__BUILD_FOLDER__ + '/spa/styl/ie.styl'])
+    res = gulp.src([__BUILD_FOLDER__ + '/spa/styl/ie.styl'])
         .pipe(stylus({
             use: ['nib'],
             import: ['nib']
@@ -49,7 +50,7 @@ gulp.task('styles', function () {
         .pipe(concat('ie.min.css'))
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
-    gulp.src([__BUILD_FOLDER__ + '/spa/styl/ticket.styl'])
+    res = gulp.src([__BUILD_FOLDER__ + '/spa/styl/ticket.styl'])
         .pipe(stylus({
             use: ['nib'],
             import: ['nib']
@@ -57,10 +58,11 @@ gulp.task('styles', function () {
         .pipe(concat('ticket.min.css'))
         .pipe(minifyCSS(opts))
         .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
-    gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
+    res = gulp.src([__BUILD_FOLDER__ + '/spa/css/main/*.less', 'css/pages/*.less'])
         .pipe(concat('main.css'))
         .pipe(less())
         .pipe(gulp.dest(__BUILD_FOLDER__ + '/spa/css'));
+	return res;
 });
 
 //===============Очистка========================
@@ -73,12 +75,9 @@ function cleanFiles(destFolder) {
 }
 
 gulp.task('templates-ang', function () {
-
-    gulp.src([
+    return gulp.src([
         __BUILD_FOLDER__ + '/spa/templates/**/*.html',
-        __BUILD_FOLDER__ + '/spa/js/angular/**/*.html',
-        //__BUILD_FOLDER__ + '!/spa/templates/components/hotel.html',
-        __BUILD_FOLDER__ + '!/spa/templates/components/ticket.html'
+        __BUILD_FOLDER__ + '/spa/js/angular/**/*.html'
     ])
         .pipe(cleanhtml())
         .pipe(templateCache({
@@ -174,12 +173,12 @@ function getSrcFiles(folder) {
 }
 
 gulp.task('test-build-app-main-js', function () {
-    gulp.src(getSrcFiles(BUILD_TEST_FOLDER))
+    return gulp.src(getSrcFiles(BUILD_TEST_FOLDER))
         .pipe(concat('app-main.js'))
         .pipe(gulp.dest(BUILD_TEST_FOLDER + '/spa/js'));
 });
 gulp.task('release-build-app-main-js', function () {
-    gulp.src(getSrcFiles(BUILD_RELEASE_FOLDER))
+    return gulp.src(getSrcFiles(BUILD_RELEASE_FOLDER))
         .pipe(concat('app-main.js'))
         .pipe(gulp.dest(BUILD_RELEASE_FOLDER + '/spa/js'));
 });
