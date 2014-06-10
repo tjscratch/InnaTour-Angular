@@ -60,3 +60,13 @@ build_and_publish/css/main.css
 nginx.nginx_conf
 spa/css/ticket.min.css
 spa/css/main.css
+
+
+# VisualStudio
+App_Data
+Web.Debug.config
+Web.Release.config
+website.publishproj
+Solution.v12.suo
+Inna.Frontend.csproj
+Inna.Frontend.SPA.sln
