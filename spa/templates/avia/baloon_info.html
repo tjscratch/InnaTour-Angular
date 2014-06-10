@@ -19,7 +19,7 @@
                     <!--<li><a href="javascript:void(0)" class="b-tickets__icons-print" ng-click="popupItemInfo.print($event, item)"></a></li>
                     <li><a href="javascript:void(0)" class="b-tickets__icons-share" ng-click="popupItemInfo.share($event, item)"></a></li>-->
                 </ul>
-                <div class="b-tickets__footer-inner">
+                <div class="b-tickets__footer-inner" ng-if="hotel == null">
                     <div class="b-tickets__footer-price-block">
                         <div class="b-tickets__footer-price">{{item.Price| price}}
                             <ng-include src="'components/ruble.html'" /></div>
