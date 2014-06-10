@@ -32,6 +32,8 @@ app.constant('innaApp.Urls', {
     URL_AUTH_RESTORE: '/account/restore-password/',
     URL_AUTH_SIGNUP: '/account/signup/',
 
+    B2B_DISPLAY_ORDER: '/display-order/',
+
     eof: null
 });
 
@@ -177,6 +179,10 @@ app.config([
             when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
                 templateUrl: '/spa/templates/pages/avia/tickets_reserve.html',
                 controller: 'DynamicReserveTicketsCtrl'
+            }).
+            when(url.B2B_DISPLAY_ORDER + ':OrderId', {
+                templateUrl: '/spa/templates/pages/dynamic/display-order.html',
+                controller: 'B2B_DisplayOrder'
             }).
             when(url.URL_AUTH_RESTORE, morda()).
             when(url.URL_AUTH_SIGNUP, morda());
