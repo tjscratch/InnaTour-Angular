@@ -1,10 +1,10 @@
-﻿<!-- Baloon -->
+<!-- Baloon -->
 <div style="display: block" class="overlay js-overlay" ng-show="popupItemInfo.isShow">
     <div class="balloon baloon_ticket" ng-class="{'baloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}" close-popup is-show="popupItemInfo.isShow">
         <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
             <div title="Закрыть" class="baloon-close" ng-click="popupItemInfo.isShow = false"></div>
 
-            <h3 class="b-tickets__title">Подробная и информация по перелету</h3>
+            <h3 class="b-tickets__title">Подробная информация по перелету</h3>
                 <ng:include ng-if="item.EtapsBack.length > 0" src="'avia/popup_item_info_two_ways.html'"></ng:include>
                 <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null" src="'avia/popup_item_info_one_way.html'"></ng:include>
             <div class="b-tickets__footer">
@@ -19,7 +19,7 @@
                     <!--<li><a href="javascript:void(0)" class="b-tickets__icons-print" ng-click="popupItemInfo.print($event, item)"></a></li>
                     <li><a href="javascript:void(0)" class="b-tickets__icons-share" ng-click="popupItemInfo.share($event, item)"></a></li>-->
                 </ul>
-                <div class="b-tickets__footer-inner">
+                <div class="b-tickets__footer-inner" ng-if="hotel == null">
                     <div class="b-tickets__footer-price-block">
                         <div class="b-tickets__footer-price">{{item.Price| price}}
                             <ng-include src="'components/ruble.html'" /></div>

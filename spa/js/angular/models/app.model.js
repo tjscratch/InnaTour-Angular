@@ -297,7 +297,7 @@ inna.Models._CollectionFactory = function () {
                 filter.filterFn(item);
             });
         });
-    }, 100);
+    }, 250);
 
     return Collection;
 }

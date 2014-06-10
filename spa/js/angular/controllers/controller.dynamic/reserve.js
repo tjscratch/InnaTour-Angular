@@ -215,6 +215,14 @@
                 });
                 m.Passengers = pasList;
 
+                //Children: "1_2"
+                var childAgers = [];
+                if ($routeParams.Children != null && $routeParams.Children.length > 0) {
+                    _.each($routeParams.Children.split('_'), function (item) {
+                        childAgers.push(item);
+                    });
+                }
+
                 m.SearchParams = {
                     HotelId: $scope.hotel.HotelId,
                     HotelProviderId: $scope.hotel.ProviderId,
@@ -227,7 +235,8 @@
                         StartVoyageDate: $scope.searchParams.StartVoyageDate,
                         EndVoyageDate: $scope.searchParams.EndVoyageDate,
                         TicketClass: $routeParams.TicketClass,
-                        Adult: $routeParams.Adult
+                        Adult: $routeParams.Adult,
+                        ChildrenAges: childAgers
                     },
                     IsNeededVisa: $scope.addition.isNeededVisa,
                     IsNeededTransfer: $scope.addition.isNeededTransfer,

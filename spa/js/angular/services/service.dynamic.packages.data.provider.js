@@ -35,6 +35,11 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                     TicketBackId: ticketBackId,
                     Filter: searchParams
                 }, callback, error);
+            },
+            displayOrder: function(orderId, success, error){
+                AjaxHelper.get(api.B2B_DISPLAY_ORDER, {
+                    orderNum: orderId
+                }, success, error);
             }
         }
     }

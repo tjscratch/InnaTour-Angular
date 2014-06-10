@@ -21,7 +21,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="rlf-travel-time">{{etapAgg.etapTo.WayTimeFormatted}}</div>
+                <div class="rlf-travel-time" ng-if="etapAgg.etapTo.WayTime > 0">{{etapAgg.etapTo.WayTimeFormatted}}</div>
+                <div class="rlf-travel-time" ng-if="!(etapAgg.etapTo.WayTime > 0)">&nbsp;</div>
                 <div class="b-tickets__block-rel">
                     <div class="rlf-column1-abs">
                         <div class="rlf-airport">{{etapAgg.etapTo.InCode}}</div>
@@ -59,7 +60,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="rlf-travel-time">{{etapAgg.etapBack.WayTimeFormatted}}</div>
+                <div class="rlf-travel-time" ng-if="etapAgg.etapBack.WayTime > 0">{{etapAgg.etapBack.WayTimeFormatted}}</div>
+                <div class="rlf-travel-time" ng-if="!(etapAgg.etapBack.WayTime > 0)">&nbsp;</div>
                 <div class="b-tickets__block-rel">
                     <div class="rlf-column1-abs">
                         <div class="rlf-airport">{{etapAgg.etapBack.InCode}}</div>
@@ -81,7 +83,8 @@
         <div class="rlf-part rlf-part_transfer">
             <div class="rlf-column1">
                 <div class="rlf-airport">Пересадка</div>
-                <div class="rlf-travel-time">{{etapAgg.etapTo.WaitTimeFormatted}}</div>
+                <div class="rlf-travel-time" ng-if="etapAgg.etapTo.WayTime > 0">{{etapAgg.etapTo.WaitTimeFormatted}}</div>
+                <div class="rlf-travel-time" ng-if="!(etapAgg.etapTo.WayTime > 0)">&nbsp;</div>
             </div>
             <div class="rlf-colum4">
                 {{etapAgg.etapTo.NextOutCity}}, {{etapAgg.etapTo.NextOutPort}} ({{etapAgg.etapTo.NextOutCode}}), {{etapAgg.etapTo.NextOutCountryName}}
@@ -93,7 +96,8 @@
         <div class="rlf-part rlf-part_transfer">
             <div class="rlf-column1">
                 <div class="rlf-airport">Пересадка</div>
-                <div class="rlf-travel-time">{{etapAgg.etapBack.WaitTimeFormatted}}</div>
+                <div class="rlf-travel-time" ng-if="etapAgg.etapBack.WayTime > 0">{{etapAgg.etapBack.WaitTimeFormatted}}</div>
+                <div class="rlf-travel-time" ng-if="!(etapAgg.etapBack.WayTime > 0)">&nbsp;</div>
             </div>
             <div class="rlf-colum4">
                 {{etapAgg.etapBack.NextOutCity}}, {{etapAgg.etapBack.NextOutPort}} ({{etapAgg.etapBack.NextOutCode}}), {{etapAgg.etapBack.NextOutCountryName}}

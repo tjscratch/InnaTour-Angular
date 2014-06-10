@@ -24,6 +24,8 @@ angular.module('innaApp.API', [])
             DYNAMIC_HOTEL_DETAILS: url('/Packages/SearchHotel'),
             DYNAMIC_GET_DIRECTORY_BY_IP: url('/Packages/DirectoryByIP'),
 
+            B2B_DISPLAY_ORDER: url('/Payment/Index'),
+
             AUTH_SIGN_UP: url('/Account/Register/Post'),
             AUTH_SIGN_UP_STEP_2: url('/Account/Confirm/Post'),
             AUTH_SIGN_IN: url('/Account/Login/Post'),

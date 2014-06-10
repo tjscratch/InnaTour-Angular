@@ -68,6 +68,14 @@ inna.Models.Hotels.HotelsCollection.prototype.search = function(id){
     return null;
 }
 
+inna.Models.Hotels.HotelsCollection.prototype.drop = function(hotel){
+    var index = this.list.indexOf(hotel);
+
+    if(index !== -1) {
+        this.list.splice(index, 1);
+    }
+};
+
 inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;
 

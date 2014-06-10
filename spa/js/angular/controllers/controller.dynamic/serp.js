@@ -45,7 +45,11 @@ innaAppControllers
                             serpScope.$digest();
                         },
                         function () { //error
-                            console.log('error');
+                            $scope.$apply(function($scope){
+                                hotel404();
+                                $scope.hotels.drop(hotel);
+                                $scope.closeHotelDetails();
+                            });
                         }
                     );
                 }

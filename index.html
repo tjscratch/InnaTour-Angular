@@ -152,8 +152,20 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js"></script>
+<script src="/spa/lib/angular-cookies.min.js"></script>
+<script src="/spa/lib/angular-locale_ru-ru.js"></script>
+
+<script src="/spa/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="/spa/js/jquery.ui.datepicker-ru.js"></script>
 
 
+<!-- polyfill -->
+<script src="/spa/lib/polyfill.js"></script>
+<!-- polyfill -->
+
+<!-- jq plugins -->
+<script src="/spa/js/angular/plugins/carousel.js"></script>
+<!-- / jq plugins -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js"></script>
@@ -161,19 +173,24 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=false"></script>
 <script type="text/javascript" src="//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 
-<!--[if lt IE 10]>
-    <script src="/spa/js/ie.placeholder.js"></script>
+<script type="text/javascript" src="/spa/js/google.maps.clustering.js"></script>
 
-    <script src="spa/lib/xdomain.min.js"></script>
-    <script>
-        xdomain.slaves({
-            "http://api.test.inna.ru": "/proxy.html",
-            "http://api.inna.ru": "/proxy.html"
-        });
-    </script>
-<![endif]-->
+
+
 <!--<script src="/spa/js/search_form.js"></script>-->
 
+
+<!--[if lt IE 10]>
+<script src="/spa/js/ie.placeholder.js"></script>
+<script src="spa/lib/xdomain.min.js"></script>
+<script>
+    xdomain.slaves({
+        "http://api.test.inna.ru": "/proxy.html",
+        "https://api.beta.inna.ru": "/proxy.html",
+        "https://api.inna.ru": "/proxy.html"
+    });
+</script>
+<![endif]-->
 
 <!--contacts-->
 <script src="//api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
@@ -262,6 +279,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/controllers/controller.dynamic/serp.js"></script>
 <script src="/spa/js/angular/controllers/controller.dynamic/reserve.js"></script>
 <script src="/spa/js/angular/controllers/controllers.js"></script>
+<script src="/spa/js/angular/controllers/controller.dynamic/display-order.js"></script>
 <script src="/spa/js/angular/directives/avia_results_filter/directive.filter.sort.js"></script>
 <script src="/spa/js/angular/directives/avia_results_filter/directive.filter.airport.js"></script>
 <script src="/spa/js/angular/directives/avia_results_filter/directive.filter.aircompany.js"></script>
