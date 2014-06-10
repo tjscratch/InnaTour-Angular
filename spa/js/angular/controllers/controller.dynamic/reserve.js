@@ -217,9 +217,11 @@
 
                 //Children: "1_2"
                 var childAgers = [];
-                _.each($routeParams.Children.split('_'), function(item){
-                    childAgers.push(item);
-                });
+                if ($routeParams.Children != null && $routeParams.Children.length > 0) {
+                    _.each($routeParams.Children.split('_'), function (item) {
+                        childAgers.push(item);
+                    });
+                }
 
                 m.SearchParams = {
                     HotelId: $scope.hotel.HotelId,

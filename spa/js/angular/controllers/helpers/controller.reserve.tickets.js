@@ -3,9 +3,9 @@
 
 innaAppControllers.
     controller('ReserveTicketsCtrl', ['$log', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'Validators',
+        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'Validators', 'innaApp.API.events',
         function ReserveTicketsCtrl($log, $timeout, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators) {
+            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Events) {
 
             var self = this;
             function log(msg) {
@@ -741,12 +741,23 @@ innaAppControllers.
                     passengers.push(item);
                 }
 
-                $scope.model = {
-                    price: $scope.item.Price,
+                var userInfo = {
                     name: '',
                     secondName: '',
                     email: '',
-                    phone: '+7',
+                    phone: '+7'
+                };
+
+                if ($rootScope.user != null && $rootScope.user.raw != null) {
+                    fillFromUserProfile(userInfo, $rootScope.user.raw);
+                }
+
+                $scope.model = {
+                    price: $scope.item.Price,
+                    name: userInfo.name,
+                    secondName: userInfo.secondName,
+                    email: userInfo.email,
+                    phone: userInfo.phone,
                     wannaNewsletter: false,//Я хочу получать рассылку спецпредложений
                     passengers: passengers
 
@@ -988,6 +999,20 @@ innaAppControllers.
                     }
                 });
             };
+
+            //заполнение из профиля при логине
+            $rootScope.$on(Events.AUTH_SIGN_IN, function (event, data) {
+                $scope.safeApply(function () {
+                    fillFromUserProfile($scope.model, data);
+                });
+            });
+
+            function fillFromUserProfile(object, user) {
+                object.name = user.FirstName;
+                object.secondName = user.LastName;
+                object.email = user.Email;
+                object.phone = user.Phone;
+            }
 
             $scope.$on('$destroy', function () {
                 if ($scope.validationModel != null) {
