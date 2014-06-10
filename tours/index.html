@@ -56,7 +56,8 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     <div class="header">
         <div class="header-info">
             <div class="header-info-container">
-                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
+                <a href="/" class="header-info-logo">
+                    <i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i><i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a><!--
                 --><span class="header-text"></span><!--
                 --><div class="header-info-container-right">
                     <ul class="header-info-menu" style="margin-right:0px;">
@@ -74,7 +75,8 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                 --><!--
                 --><li class="header-menu-item"><a href="/#/" class="active">Туры</a></li><!--
                 --><li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li><!--
-                --><li class="header-menu-item"><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank">Отели</aonclick></li><!--
+                --><li class="header-menu-item"><a
+                    onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank">Отели</a></li><!--
                 --><li class="header-menu-item"><a href="/#/individualtours/">Программы</a></li><!--
                 --><!--
                 -->
@@ -94,7 +96,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
                     useCard: false,
                     results: "group",
                     useForm: false,
-                    formType: "horizontal",
+                    formType: "horizontal"
                 });</script>
             <span style="visibility:hidden;" class="sletat-copyright">Идет загрузка модуля <a href="http://sletat.ru/" title="поиск туров" target="_blank">поиска туров</a> &hellip;</span>
 
@@ -208,6 +210,9 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/jquery.ui.datepicker-ru.js"></script>
 <script src="/spa/js/debug.js"></script>
 
+<script src="/spa/lib/angular-cookies.min.js"></script>
+<script src="/spa/lib/angular-locale_ru-ru.js"></script>
+
 <script src="/spa/js/angular/helpers/utils.js"></script>
 <script src="/spa/js/angular/helpers/urlhelper.js"></script>
 <script src="/spa/js/angular/helpers/date.helper.js"></script>
@@ -221,7 +226,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/app.js"></script>
 
 <!-- templateCache -->
-<script src="/spa/build/templates.js"></script>
+<script src="/build/js/templates.js"></script>
 
 <script src="/spa/js/angular/ang.helpers/url.helper.js"></script>
 <script src="/spa/js/angular/ang.helpers/api.js"></script>

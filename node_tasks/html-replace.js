@@ -17,7 +17,7 @@ gulp.task('replace-index', function () {
             'app-host': 'app_main.host = \'' + apiHost + '\';',
             'b2b-host': 'app_main.b2bHost = \'' + b2bHost + '\';'
         }))
-        .pipe(gulp.dest(conf.build));
+        .pipe(gulp.dest('./'));
 });
 
 
@@ -28,7 +28,7 @@ gulp.task('release-tours', function () {
             'app-host': 'app_main.host = \'' + apiHost + '\';',
             'b2b-host': 'app_main.b2bHost = \'' + b2bHost + '\';'
         }))
-        .pipe(gulp.dest(conf.build+'/tours'));
+        .pipe(gulp.dest('./tours'));
 });
 
 
