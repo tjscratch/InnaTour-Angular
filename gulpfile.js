@@ -25,3 +25,4 @@ gulp.task('build-project', function (callback) {
 gulp.task('default', ['build-project'], function (callback) {
     runSequence('watch', callback);
 });
+
