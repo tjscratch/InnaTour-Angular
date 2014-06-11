@@ -13,22 +13,18 @@
 
             <p class="corner-price">
                 {{virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed}}
-                <!--<ng-include src="'components/ruble.html'" />-->
                 <span class="b-rub">q</span>
+                <span class="icon-crown icon-sprite-crown" ng-if="hotel.data.IsPackage"></span>
             </p>
 
             <div class="price">
                 {{virtualBundle.getFullPackagePrice() | price}}
-                <!--<ng-include src="'components/ruble.html'" />-->
                 <span class="b-rub">q</span>
-
-                <span class="icon-crown icon-sprite-crown"></span>
 
                 <ng:include src="'components/item-price-details.html'" ng-init="item = hotel"></ng:include>
 
                 <span class="price-description">
                     экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}
-                    <!--<ng-include src="'components/ruble.html'" />-->
                     <span class="b-rub">q</span>
                 </span>
 
