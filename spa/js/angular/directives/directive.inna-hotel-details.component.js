@@ -42,6 +42,7 @@ angular.module('innaApp.directives')
                     $scope.dataFullyLoaded = false;
 
                     $scope.displayRoom = $location.search().room;
+                    $scope.onlyRoom = null;
 
                     /*Proxy*/
                     $scope.dateHelper = dateHelper;
@@ -107,6 +108,23 @@ angular.module('innaApp.directives')
 
                     $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
                         $scope.dataFullyLoaded = true;
+
+                        if($scope.displayRoom) {
+                            var onlyRoom = null;
+
+                            $scope.hotel.detailed.Rooms.every(function(room){
+                                if(room.RoomId === $scope.displayRoom) {
+                                    onlyRoom = room;
+                                }
+
+                                return true;
+                            });
+
+                            if(onlyRoom) {
+                                $scope.onlyRoom = [onlyRoom];
+                                onlyRoom.isOpen = true;
+                            }
+                        }
                     })
                 }
             ],
