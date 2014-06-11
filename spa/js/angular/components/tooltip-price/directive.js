@@ -13,23 +13,24 @@ angular.module('innaApp.directives')
                 '$scope',
                 '$element',
                 function($scope, $element){
+                    var hotelDataPrice = {};
+                    var ticketDataPrice = {};
 
-                    if($scope.item.hotel.data.PriceObject != 'undefined'){
+                    if(!angular.isUndefined($scope.item.hotel.data.PriceObject)){
                         $scope.isPriceObject = true;
                     }
 
-                    if($scope.isHotel){
+                    if($scope.isHotel && $scope.isPriceObject){
                         $scope.item.PriceObject = $scope.item.hotel.data.PriceObject;
                         hotelDataPrice = $scope.item.ticket.data.PriceObject;
                     }
 
-                    if($scope.isTicket){
+                    if($scope.isTicket && $scope.isPriceObject){
                         $scope.item.PriceObject = $scope.item.ticket.data.PriceObject;
                         ticketDataPrice = $scope.item.ticket.data.PriceObject;
                     }
 
-                    if($scope.isBundle){
-                        console.log($scope.item.getFullTotalPrice());
+                    if($scope.isBundle && $scope.isPriceObject){
                         $scope.item.PriceObject = $scope.item.getFullTotalPrice();
                     }
 
