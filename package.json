@@ -53,6 +53,7 @@
     "gulp-cleanhtml": "0.0.2",
     "gulp-concat": "~2.2.0",
     "gulp-csscomb": "~0.1.0",
+    "gulp-flatten": "0.0.2",
     "gulp-gzip": "0.0.5",
     "gulp-html-replace": "^1.1.0",
     "gulp-htmlmin": "^0.1.2",

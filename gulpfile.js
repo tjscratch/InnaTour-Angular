@@ -18,11 +18,11 @@ console.info('----------------------------');
 // Полная сборка проект
 // Сборка в production запускается в окружении - production
 // NODE_ENV=production gulp build-project
+// После сборки проект копируется в папку PUBLISH
 gulp.task('build-project', function (callback) {
-    runSequence(['styles', 'less', 'build-concat'], 'html-replace', callback);
+    runSequence(['styles', 'less', 'build-concat'], 'html-replace', 'copy-project', callback);
 });
 
 gulp.task('default', ['build-project'], function (callback) {
     runSequence('watch', callback);
 });
-
