@@ -81,6 +81,7 @@ inna.Models.Hotels.Hotel = function(raw) {
 
     this.data.CheckIn = dateHelper.apiDateToJsDate(this.data.CheckIn);
     this.data.CheckOut = dateHelper.apiDateToJsDate(this.data.CheckOut);
+    this.data.TaFactorCeiled = Math.ceil(this.data.TaFactor);
 };
 
 inna.Models.Hotels.Hotel.prototype.toJSON = function(){

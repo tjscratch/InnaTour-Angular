@@ -41,8 +41,6 @@
                                 $scope.sorters.current = sorter;
                                 $scope.items.sort(sorter.sortingFn);
                                 $scope.popup.isOpen = false;
-
-                                console.log(sorter, $scope.items.list.map(function(item){ return item.data.Price; }));
                             }
 
                             /*Initial*/

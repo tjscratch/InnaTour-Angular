@@ -25,7 +25,7 @@ angular.module('innaApp.directives')
                     });
 
                     Option.prototype.describe = function(){
-                        return _.generateRange(0, this.value - 1).map(function(){
+                        return _.generateRange(1, this.value).map(function(){
                             return '<span class="icon-sprite-tripadvisor-like"></span>';
                         }).join('');
                     }
@@ -38,7 +38,7 @@ angular.module('innaApp.directives')
                         var fits = false;
 
                         this.options.getSelected().each(function(option){
-                            fits = fits || (option.value == hotel.data.TaFactor);
+                            fits = fits || (option.value == hotel.data.TaFactorCeiled);
                         });
 
                         if(!fits) hotel.hidden = true;
@@ -47,17 +47,22 @@ angular.module('innaApp.directives')
 
                     /*Watchers*/
                     var unwatchHotelsCollection = $scope.$watchCollection('hotels', function(hotels){
-                        var collections = {}
+                        var collections = {};
 
                         hotels.each(function(hotel){
                             (
-                                collections[hotel.data.TaFactor] || (
-                                    collections[hotel.data.TaFactor] = new inna.Models.Hotels.HotelsCollection()
+                                collections[hotel.data.TaFactorCeiled] || (
+                                    collections[hotel.data.TaFactorCeiled] = new inna.Models.Hotels.HotelsCollection()
                                 )
                             ).push(hotel);
                         });
 
-                        for(var factor in collections) if(collections.hasOwnProperty(factor)) {
+                        var factors = Object.keys(collections).sort();
+
+                        for(var i = 0, factor = 0; factor = factors[i++];) {
+                            if(!parseInt(factor)) continue;
+                            if(!collections.hasOwnProperty(factor)) continue;
+
                             $scope.options.push(new Option(factor, factor, collections[factor].getMinPrice()));
                         }
                     });

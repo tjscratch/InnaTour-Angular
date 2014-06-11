@@ -59,8 +59,6 @@ angular.module('innaApp.directives')
                                 $scope.options.push(new Option(type, type, collections[type].getMinPrice()));
                             }
 
-                            console.log($scope.options);
-
                             unwatchHotelsCollection();
                         });
                     }
