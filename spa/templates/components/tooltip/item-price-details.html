@@ -1,16 +1,25 @@
-<span class="icon icon-price-info JS-icon-price-info"></span>
+<!--
+    при подключении tooltip передаются параметры
+    item и icon
+
+    <ng:include src="'components/tooltip/item-price-details.html'" ng-init="item = combination.hotel; icon = true"></ng:include>
+ -->
+<span class="icon-price-info JS-icon-price-info"
+        ng-class="{'icon-sprite-price-info-white':icon, 'icon-sprite-price-info': !icon}"></span>
+
+        
 <div class="tooltip tooltip-price tooltip-price_at_hotel-card JS-tooltip-price" style="display:none;">
     <ul ng-if="!item.data.PriceObject.TotalAgentProfit">
         <li class="list-price-item">
             Отдельно
             <span class="list-price pull-right">
-                {{item.data.Price | price}} <span class="b-rub">q</span>
+                {{item.data.Price | price}} <ng-include src="'components/ruble.html'" />
             </span>
         </li>
         <li class="list-price-item">
             В пакете
             <span class="list-price pull-right">
-                {{item.data.PackagePrice | price}} <span class="b-rub">q</span>
+                {{item.data.PackagePrice | price}} <ng-include src="'components/ruble.html'" />
             </span>
         </li>
     </ul>
@@ -18,7 +27,7 @@
         <li>
             Экономия
             <span class="list-price green pull-right">
-                {{(item.data.Price - item.data.PackagePrice) | price}} <span class="b-rub">q</span>
+                {{(item.data.Price - item.data.PackagePrice) | price}} <ng-include src="'components/ruble.html'" />
             </span>
         </li>
     </ul>
@@ -27,19 +36,19 @@
             <li class="list-price-item">
                 Сбор ИННА Тур
                 <span class="list-price green pull-right">
-                    {{item.data.PriceObject.TotalInnaProfit | price}} <span class="b-rub">q</span>
+                    {{item.data.PriceObject.TotalInnaProfit | price}} <ng-include src="'components/ruble.html'" />
                 </span>
             </li>
             <li class="list-price-item">
                 Сбор агента
                 <span class="list-price green pull-right">
-                    {{item.data.PriceObject.TotalAgentProfit | price}} <span class="b-rub">q</span>
+                    {{item.data.PriceObject.TotalAgentProfit | price}} <ng-include src="'components/ruble.html'" />
                 </span>
             </li>
             <li class="list-price-item">
                 Агентское вознаграждение
                 <span class="list-price green pull-right">
-                    {{item.data.PriceObject.TotalAgentReward | price}} <span class="b-rub">q</span>
+                    {{item.data.PriceObject.TotalAgentReward | price}} <ng-include src="'components/ruble.html'" />
                 </span>
             </li>
         </ul>
