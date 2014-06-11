@@ -7,7 +7,6 @@ angular.module('innaApp.directives')
                 template: $templateCache.get('components/hotel/templ/index.html'),
                 scope: false,
                 transclude: true,
-
                 controller: [
                     '$scope',
                     '$element',
@@ -16,7 +15,7 @@ angular.module('innaApp.directives')
                         $scope.virtualBundle.hotel = $scope.hotel;
                         $scope.virtualBundle.ticket = $scope.combination.ticket;
 
-                        //console.log($scope.virtualBundle);
+                        console.log($scope);
 
                         $scope.goToMap = function () {
                             $scope.$emit('hotel:go-to-map', $scope.hotel);

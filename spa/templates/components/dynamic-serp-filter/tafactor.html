@@ -15,9 +15,10 @@
                     <input type="checkbox" ng-model="option.selected">
                     <span class="ra-checkbox"></span>
                     <span class="ra-fly-type">
+
                         <!-- tripadvisor -->
                         <ng:include src="'components/tripadvisor/index.html'"
-                                ng-repeat="data in [option]"></ng:include>
+                                ng-repeat="data in [option]" ng-init="withOutTd = true"></ng:include>
                     </span>
                     <span class="ra-fly-price">{{option.minPrice | price}}&nbsp;<ng-include src="'components/ruble.html'" /></span>
                 </label>
