@@ -1,6 +1,6 @@
 <span class="icon icon-price-info JS-icon-price-info"></span>
 <div class="tooltip tooltip-price tooltip-price_at_hotel-card JS-tooltip-price" style="display:none;">
-    <ul>
+    <ul ng-if="!item.data.PriceObject.TotalAgentProfit">
         <li class="list-price-item">
             Отдельно
             <span class="list-price pull-right">
@@ -14,7 +14,7 @@
             </span>
         </li>
     </ul>
-    <ul>
+    <ul ng-if="!item.data.PriceObject.TotalAgentProfit">
         <li>
             Экономия
             <span class="list-price green pull-right">
@@ -22,8 +22,7 @@
             </span>
         </li>
     </ul>
-    <div style="margin-top: 10px;" ng-if="item.data.PriceObject.TotalAgentProfit | defined">
-        <div class="list-price-total"></div>
+    <div ng-if="item.data.PriceObject.TotalAgentProfit | defined">
         <ul>
             <li class="list-price-item">
                 Сбор ИННА Тур

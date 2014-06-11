@@ -87,50 +87,13 @@
                 <div class="rect5"></div>
             </div>
 
-            <ul class="hotel-details-rooms">
-                <li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen}" ng-repeat="room in hotel.detailed.Rooms">
-                    <div class="hotel-details-rooms__room-short">
-                        <h3 class="hotel-details-rooms__room-title" ng-click="toggleRoom(room)">{{room.RoomName}}</h3>
-
-                        <div class="hotel-details-rooms__room-short-info">
-                            <div class="hotel-details-rooms__room-desc">
-                                <span ng-repeat="bed in room.BedTypeList">{{bed.Name}}<span ng-if="!$last"> ,</span></span>
-                            </div>
-                            <div class="hotel-details-rooms__room-cancel-rules"><span ng-if="room.IsRefundable">Бесплатная отмена бронирования</span></div>
-                            <div class="hotel-details-rooms__room-price">
-                                <div class="hotel-details-rooms__room-price-diff">
-                                    <span ng-if="$first">Включен в цену</span>
-                                    <span ng-if="!$first">{{room.Price - bundle.hotel.PackagePrice | signed}} Р</span>
-                                </div>
-                                <div class="hotel-details-rooms__room-price-full">К оплате: {{bundle.ticket.data.PackagePrice + room.Price | price}} Р</div>
-                            </div>
-                            <div class="hotel-details-rooms__room-actions">
-                                <button class="button button_size_l" ng-click="goReservation(room, hotel)">Купить</button>
-                            </div>
-                        </div>
-
-                        <ul class="hotel-details-extra">
-                            <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption.CategoryName}}</li>
-                        </ul>
-                    </div>
-                    <div class="hotel-details-rooms__room-long">
-                        <ul class="mini-gallery">
-                            <li ng-repeat="pic in room.Photos" class="mini-gallery__mini" style="background-image:url({{pic.Large}});">
-                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" ng-src="{{pic.Large}}" alt=""/></div>
-                            </li>
-                        </ul>
-                        <div class="hotel-details-rooms__room-long-text">
-                            <div ng-bind-html="room.Description"></div>
-                            <ul ng-if="room.RoomAmenities">
-                                <li ng-repeat="am in room.RoomAmenities">{{am.Name}}</li>
-                            </ul>
-                            <div ng-if="room.CancellationRule">
-                                <h3>Правила отмены</h3>
-                                <div ng-bind-html="room.CancellationRule"></div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+            <ul class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
+                <ng:any ng-if="!displayRoom">
+                    <ng:include src="'components/hotel-details-room.html'" ng-repeat="room in hotel.detailed.Rooms"></ng:include>
+                </ng:any>
+                <ng:any ng-if="displayRoom">
+                    <ng:include src="'components/hotel-details-room.html'" ng-init="room = searchRoom(displayRoom); room.isOpen = true;"></ng:include>
+                </ng:any>
             </ul>
         </div>
 
