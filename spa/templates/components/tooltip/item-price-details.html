@@ -4,13 +4,13 @@
         <li class="list-price-item">
             Отдельно
             <span class="list-price pull-right">
-                {{item.data.Price | price}} <span class="b-rub">q</span>
+                {{item.data.Price | price}} <ng-include src="'components/ruble.html'" />
             </span>
         </li>
         <li class="list-price-item">
             В пакете
             <span class="list-price pull-right">
-                {{item.data.PackagePrice | price}} <span class="b-rub">q</span>
+                {{item.data.PackagePrice | price}} <ng-include src="'components/ruble.html'" />
             </span>
         </li>
     </ul>
@@ -18,7 +18,7 @@
         <li>
             Экономия
             <span class="list-price green pull-right">
-                {{(item.data.Price - item.data.PackagePrice) | price}} <span class="b-rub">q</span>
+                {{(item.data.Price - item.data.PackagePrice) | price}} <ng-include src="'components/ruble.html'" />
             </span>
         </li>
     </ul>
@@ -28,19 +28,19 @@
             <li class="list-price-item">
                 Сбор ИННА Тур
                 <span class="list-price green pull-right">
-                    {{item.data.PriceObject.TotalInnaProfit | price}} <span class="b-rub">q</span>
+                    {{item.data.PriceObject.TotalInnaProfit | price}} <ng-include src="'components/ruble.html'" />
                 </span>
             </li>
             <li class="list-price-item">
                 Сбор агента
                 <span class="list-price green pull-right">
-                    {{item.data.PriceObject.TotalAgentProfit | price}} <span class="b-rub">q</span>
+                    {{item.data.PriceObject.TotalAgentProfit | price}} <ng-include src="'components/ruble.html'" />
                 </span>
             </li>
             <li class="list-price-item">
                 Агентское вознаграждение
                 <span class="list-price green pull-right">
-                    {{item.data.PriceObject.TotalAgentReward | price}} <span class="b-rub">q</span>
+                    {{item.data.PriceObject.TotalAgentReward | price}} <ng-include src="'components/ruble.html'" />
                 </span>
             </li>
         </ul>
