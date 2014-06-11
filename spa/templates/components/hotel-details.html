@@ -45,8 +45,8 @@
                     <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
                     <div class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</div>
                 </div>
-                <ul class="hotel-details-extra" ng-if="hotel.detailed.Extra">
-                    <li ng-repeat="(key, val) in hotel.detailed.Extra"
+                <ul class="hotel-details-extra" ng-if="hotel.data.Extra">
+                    <li ng-repeat="(key, val) in hotel.data.Extra"
                         class="hotel-details-extra__item hotel-details-extra__item_type_{{key | lowercase}}">{{val}}</li>
                 </ul>
             </div>
