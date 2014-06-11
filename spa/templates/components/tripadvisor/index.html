@@ -33,7 +33,7 @@
             <span class="icon-sprite-tripadvisor-half"></span>
         </div>
 
-        <div class="b-display-cell"><!-- ng-if="data.TaCommentCount" -->
+        <div class="b-display-cell" ng-if="!withOutTd"><!-- ng-if="data.TaCommentCount" -->
             <div class="b-tripadvisor__reviews">
                 {{data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
             </div>
