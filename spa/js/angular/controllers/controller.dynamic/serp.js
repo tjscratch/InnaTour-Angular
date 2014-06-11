@@ -109,7 +109,6 @@ innaAppControllers
                 if (!method || !param) return;
 
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
-                    //console.log(data, 'data');
                     $scope.$apply(function ($scope) {
                         apply($scope, data);
                         deferred.resolve();
@@ -194,11 +193,13 @@ innaAppControllers
                 }
 
 
-                $.when($scope.state.switchTo(defaultTab))
-                    .then(function () {
-                        onTabLoad(onTabLoadParam);
-                        $scope.baloon.hide();
-                    });
+                $scope.$apply(function($scope){
+                    $.when($scope.state.switchTo(defaultTab))
+                        .then(function () {
+                            onTabLoad(onTabLoadParam);
+                            $scope.baloon.hide();
+                        });
+                });
             }
 
             function loadTicketDetails(ids) {
