@@ -41,10 +41,18 @@
                                 $scope.sorters.current = sorter;
                                 $scope.items.sort(sorter.sortingFn);
                                 $scope.popup.isOpen = false;
+
+                                console.log(sorter, $scope.items.list.map(function(item){ return item.data.Price; }));
                             }
 
                             /*Initial*/
-                            $scope.select($scope.sorters.all[0]);
+                            $scope.$watch('items.list.length', function(len){
+                                if(!len) return;
+
+                                var defaultSorter = $scope.sorters.all[0];
+
+                                $scope.select(defaultSorter);
+                            });
                         }
                     ]
                 }
@@ -56,7 +64,7 @@
                     return ticket2.data.RecommendedFactor - ticket1.data.RecommendedFactor;
                 }));
                 $scope.sorters.add(new Sorter('По цене', function (ticket1, ticket2) {
-                    return ticket2.data.Price - ticket2.data.Price;
+                    return ticket2.data.Price - ticket1.data.Price;
                 }));
                 $scope.sorters.add(new Sorter('По времени в пути', function (ticket1, ticket2) {
                     return (ticket2.data.TimeTo + ticket2.data.TimeBack) - (ticket1.data.TimeTo + ticket1.data.TimeBack)
@@ -78,16 +86,16 @@
         .controller('innaDynamicSerpSorter_HotelsMixin', [
             '$scope',
             function ($scope) {
-                $scope.sorters.add(new Sorter('По стоимости за пакет', function (hotel1, hotel2) {
-                    return hotel2.data.MinimalPackagePrice - hotel1.data.MinimalPackagePrice;
+                $scope.sorters.add(new Sorter('По стоимости за пакет', function (hotel1, hotel2) { //desc
+                    return hotel1.data.PackagePrice - hotel2.data.PackagePrice;
                 }));
-                $scope.sorters.add(new Sorter('По рекомендованности', function (hotel1, hotel2) {
+                $scope.sorters.add(new Sorter('По рекомендованности', function (hotel1, hotel2) { //desc
                     return hotel1.data.RecommendFactor - hotel2.data.RecommendFactor;
                 }));
-                $scope.sorters.add(new Sorter('По рейтингу TripAdvisor', function (hotel1, hotel2) {
+                $scope.sorters.add(new Sorter('По рейтингу TripAdvisor', function (hotel1, hotel2) { //asc
                     return hotel1.data.TaFactor - hotel2.data.TaFactor;
                 }));
-                $scope.sorters.add(new Sorter('По названию', function (hotel1, hotel2) {
+                $scope.sorters.add(new Sorter('По названию', function (hotel1, hotel2) { //ask
                     var a = (hotel2.data.HotelName || '').toLowerCase();
                     var b = (hotel1.data.HotelName || '').toLowerCase();
 
@@ -95,13 +103,13 @@
                     if (a < b) return 1;
                     else return -1;
                 }));
-                $scope.sorters.add(new Sorter('По размеру скидки в %', function (hotel1, hotel2) {
-                    return hotel2.data.MinimalPackagePrice / hotel2.data.MinimalPrice -
-                        hotel1.data.MinimalPackagePrice / hotel1.data.MinimalPrice;
+                $scope.sorters.add(new Sorter('По размеру скидки в %', function (hotel1, hotel2) { //ask
+                    return hotel2.data.PackagePrice / hotel2.data.Price -
+                        hotel1.data.PackagePrice / hotel1.data.Price;
                 }));
-                $scope.sorters.add(new Sorter('По размеру скидки в руб.', function (hotel1, hotel2) {
-                    return (hotel2.data.MinimalPackagePrice - hotel2.data.MinimalPrice) -
-                        (hotel1.data.MinimalPackagePrice - hotel1.data.MinimalPrice);
+                $scope.sorters.add(new Sorter('По размеру скидки в руб.', function (hotel1, hotel2) { //ask
+                    return (hotel2.data.PackagePrice - hotel2.data.Price) -
+                        (hotel1.data.PackagePrice - hotel1.data.Price);
                 }));
             }
         ]);
