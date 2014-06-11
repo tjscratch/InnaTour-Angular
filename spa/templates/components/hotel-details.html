@@ -88,12 +88,7 @@
             </div>
 
             <ul class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
-                <ng:any ng-if="!displayRoom">
-                    <ng:include src="'components/hotel-details-room.html'" ng-repeat="room in hotel.detailed.Rooms"></ng:include>
-                </ng:any>
-                <ng:any ng-if="displayRoom">
-                    <ng:include src="'components/hotel-details-room.html'" ng-init="room = searchRoom(displayRoom); room.isOpen = true;"></ng:include>
-                </ng:any>
+                <ng:include src="'components/hotel-details-room.html'" ng-repeat="room in (onlyRoom || hotel.detailed.Rooms)"></ng:include>
             </ul>
         </div>
 
