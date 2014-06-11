@@ -1,0 +1,79 @@
+<span class="icon-price-info js-show-tooltip cursor-pointer"
+        ng-class="{'icon-sprite-price-info':!icon, 'icon-sprite-price-info-white':icon}"></span>
+
+<div class="tooltip tooltip-price tooltip-price_at_hotel-card JS-tooltip-price"
+     style="display:none;"
+     ng-class="{'tooltip-price_big':isPriceObject}">
+
+    <div clas="tooltip-price__user" ng-if="!isPriceObject">
+        <div class="tooltip-price__title">По отдельности</div>
+
+        <ul class="tooltip-price__list tooltip-price__list_top">
+            <li class="list-price-item">Перелет
+                <span class="list-price pull-right">{{item.ticket.data.Price | price}}
+                    <ng-include src="'components/ruble.html'"></ng-include>
+                </span>
+            </li>
+            <li class="list-price-item">Отель
+                <span class="list-price pull-right">{{item.hotel.data.Price | price}}
+                    <ng-include src="'components/ruble.html'"></ng-include>
+                </span>
+            </li>
+        </ul>
+
+        <div class="list-price list-price-total">
+            <div class="list-price-total__wrapper">
+                {{item.getFullPrice() | price}}
+                <ng-include src="'components/ruble.html'"></ng-include>
+                <div class="list-price-total__strike_through"></div>
+            </div>
+        </div>
+
+        <ul class="tooltip-price__list tooltip-price__list_top">
+            <li>
+                В пакете:
+                <span class="list-price green pull-right">
+                    {{item.getFullPackagePrice() | price}}
+                    <ng-include src="'components/ruble.html'"></ng-include>
+                </span>
+            </li>
+            <li>
+                Экономия:
+                <span class="list-price green pull-right">
+                    {{(item.getFullPrice() - item.getFullPackagePrice()) | price}}
+                    <ng-include src="'components/ruble.html'"></ng-include>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="tooltip-price__b2b" ng-if="isPriceObject">
+        <ul>
+            <li class="list-price-item">
+                Сбор Инна Тур
+                <span class="list-price pull-right">
+                    {{item.PriceObject.TotalInnaProfit | price}} <ng-include src="'components/ruble.html'"/>
+                </span>
+            </li>
+            <li class="list-price-item">
+                Сбор агента
+                <span class="list-price pull-right">
+                    {{item.PriceObject.TotalInnaAgentRate | price}} <ng-include src="'components/ruble.html'"/>
+                </span>
+            </li>
+            <li class="list-price-item">
+                Агентское вознаграждение
+                <span class="list-price pull-right">
+                    {{item.PriceObject.TotalAgentRate | price}} <ng-include src="'components/ruble.html'"/>
+                </span>
+            </li>
+            <li class="list-price-item">
+                Доход агента
+                <span class="list-price pull-right">
+                    {{item.PriceObject.TotalAgentProfit | price}} <ng-include src="'components/ruble.html'"/>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

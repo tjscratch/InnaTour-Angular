@@ -81,6 +81,7 @@ inna.Models.Hotels.Hotel = function(raw) {
 
     this.data.CheckIn = dateHelper.apiDateToJsDate(this.data.CheckIn);
     this.data.CheckOut = dateHelper.apiDateToJsDate(this.data.CheckOut);
+    this.data.TaFactorCeiled = Math.ceil(this.data.TaFactor);
 };
 
 inna.Models.Hotels.Hotel.prototype.toJSON = function(){
@@ -108,6 +109,19 @@ inna.Models.Dynamic.Combination.prototype.parse = function(data){
 
 inna.Models.Dynamic.Combination.prototype.getFullPackagePrice = function(){
     return +this.ticket.data.PackagePrice + +this.hotel.data.PackagePrice;
+}
+
+inna.Models.Dynamic.Combination.prototype.getFullTotalPrice = function(){
+    var tPrice = this.ticket.data.PriceObject
+    var hPrice = this.hotel.data.PriceObject;
+
+    return {
+        TotalAgentProfit: tPrice.TotalAgentProfit + hPrice.TotalAgentProfit,
+        TotalAgentRate: tPrice.TotalAgentRate + hPrice.TotalAgentRate,
+        TotalAgentReward: tPrice.TotalAgentReward + hPrice.TotalAgentReward,
+        TotalInnaProfit: tPrice.TotalInnaProfit + hPrice.TotalInnaProfit,
+        TotalPrice: tPrice.TotalPrice + hPrice.TotalPrice
+    }
 }
 
 inna.Models.Dynamic.Combination.prototype.getFullPrice = function(){

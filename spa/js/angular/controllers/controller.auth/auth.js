@@ -85,8 +85,6 @@ angular.module('innaApp.controllers')
             }
 
             $scope.recognize = function(){
-                console.log('RECOGNIZE');
-
                 AuthDataProvider.recognize(setUserInfo);
             }
 
@@ -94,7 +92,6 @@ angular.module('innaApp.controllers')
 
             /*EventListeners*/
             $scope.$on(Events.AUTH_SIGN_IN, function (event, data) {
-                //console.log(data);
                 $scope.safeApply(function(){
                     setUserInfo(data);
                     $scope.close();

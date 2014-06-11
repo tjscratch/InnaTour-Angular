@@ -39,11 +39,11 @@ angular.module('innaApp.directives')
                             if(!fits) hotel.hidden = true;
                         };
                         $scope.options = $scope.filter.options = new Options();
-                        $scope.options.push(new Option('1 звезда', 1));
-                        $scope.options.push(new Option('2 звезда', 2));
-                        $scope.options.push(new Option('3 звезда', 3));
-                        $scope.options.push(new Option('4 звезда', 4));
                         $scope.options.push(new Option('5 звезда', 5));
+                        $scope.options.push(new Option('4 звезда', 4));
+                        $scope.options.push(new Option('3 звезда', 3));
+                        $scope.options.push(new Option('2 звезда', 2));
+                        $scope.options.push(new Option('1 звезда', 1));
 
                         /*Watchers*/
                         var unwatchHotelsCollection = $scope.$watchCollection('hotels', function(hotels){
