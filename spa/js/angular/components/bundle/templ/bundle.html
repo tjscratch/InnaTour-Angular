@@ -124,13 +124,13 @@
         <p class="price">
             {{bundle.getFullPackagePrice() | price}}
             <ng-include src="'components/ruble.html'"></ng-include>
-            <span class="icon icon-price-info" ng-click="infoPopup.toggle()"></span>
+            <span class="icon-price-info  icon-sprite-price-info" ng-click="infoPopup.toggle()"></span>
         </p>
 
         <!-- tooltip -->
         <ng:include src="'components/tooltip/item-price-bundle.html'"
                     ng-if="infoPopup.isOpen"
-                    ng-init="bundle = bundle"></ng:include>
+                    ng-init="item = bundle"></ng:include>
 
 
         <span class="price-description">экономия: {{bundle.getFullPrice() - bundle.getFullPackagePrice() | price}} <ng-include src="'components/ruble.html'"></ng-include></span>

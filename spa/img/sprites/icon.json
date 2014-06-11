@@ -1,7 +1,7 @@
 {
   "name": "icon",
-  "checksum": "35a637b14d0e2a49243e534b85eca4df",
-  "shortsum": "35a63",
+  "checksum": "f6bf2226a59bb2fc5ff386251e05fd21",
+  "shortsum": "f6bf2",
   "images": [
     {
       "name": "airplane",
@@ -31,13 +31,22 @@
       "positionY": 36
     },
     {
+      "name": "price-info-icon",
+      "filename": "price-info-icon.png",
+      "checksum": "62e9697edbb5fd0235966c5cf296b1c3",
+      "width": 17,
+      "height": 17,
+      "positionX": 0,
+      "positionY": 55
+    },
+    {
       "name": "remove",
       "filename": "remove.png",
       "checksum": "9645c6af00b75786a67462b80e6a19a4",
       "width": 9,
       "height": 10,
       "positionX": 0,
-      "positionY": 55
+      "positionY": 74
     },
     {
       "name": "switch-map-left-gray",
@@ -46,7 +55,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 67
+      "positionY": 86
     },
     {
       "name": "switch-map-left",
@@ -55,7 +64,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 82
+      "positionY": 101
     },
     {
       "name": "switch-map-right-white",
@@ -64,7 +73,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 97
+      "positionY": 116
     },
     {
       "name": "switch-map-right",
@@ -73,7 +82,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 116
+      "positionY": 135
     },
     {
       "name": "tripadvisor-half",
@@ -82,7 +91,7 @@
       "width": 14,
       "height": 14,
       "positionX": 0,
-      "positionY": 135
+      "positionY": 154
     },
     {
       "name": "tripadvisor-like",
@@ -91,7 +100,7 @@
       "width": 14,
       "height": 14,
       "positionX": 0,
-      "positionY": 151
+      "positionY": 170
     },
     {
       "name": "tripadvisor",
@@ -100,7 +109,7 @@
       "width": 27,
       "height": 16,
       "positionX": 0,
-      "positionY": 167
+      "positionY": 186
     }
   ]
 }

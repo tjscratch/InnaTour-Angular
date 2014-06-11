@@ -56,9 +56,13 @@
                         {{combination.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
                 </div>
                 <div class="result-small__cell col-xs-3 col-no-padding">
+
                     <p class="corner-price">
-                        {{combination.getFullPackagePrice()}} Р
+                        {{combination.getFullPackagePrice() | price}}
+                        <ng-include src="'components/ruble.html'"></ng-include>
+                        <ng:include src="'components/tooltip/item-price-details.html'" ng-init="item = combination.hotel"></ng:include>
                     </p>
+
                 </div>
             </div>
         </div>
