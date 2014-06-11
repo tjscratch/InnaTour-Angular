@@ -13,16 +13,6 @@
                 <ng:include src="'components/tripadvisor/index.html'"
                             ng-repeat="data in [hotel.data]"></ng:include>
 
-                <!--<div class="hotel-info-tripadvisor">
-                    <span class="icon icon-tripadvisor"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 0"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 1"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 2"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 3"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 4"></span>
-                    <span class="hotel-details-ta-info__comments">{{hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}</span>
-                </div>-->
-
             </div>
             <div class="hotel-details-name">
                 <span class="hotel-details-stars">
@@ -42,7 +32,13 @@
             <div class="hotel-details__section-box">
                 <h2 class="hotel-details__section-title">Об отеле</h2>
                 <div class="hotel-details__section-text">
-                    <div class="baloon-loading" ng-if="!dataFullyLoaded"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
+                    <div class="spinner" ng-if="!dataFullyLoaded">
+                        <div class="rect1"></div>
+                        <div class="rect2"></div>
+                        <div class="rect3"></div>
+                        <div class="rect4"></div>
+                        <div class="rect5"></div>
+                    </div>
                     <div class="hotel-details__section-text-viewport"
                          ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}"
                          ng-bind-html="hotel.detailed.Hotel.Description"></div>
@@ -83,7 +79,13 @@
         <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">Выбор номера</h2>
 
-            <div class="baloon-loading" ng-if="!dataFullyLoaded"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
+            <div class="spinner" ng-if="!dataFullyLoaded">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
 
             <ul class="hotel-details-rooms">
                 <li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen}" ng-repeat="room in hotel.detailed.Rooms">

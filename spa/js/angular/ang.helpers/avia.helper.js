@@ -541,12 +541,15 @@
                 },
 
                 getTicketsCount: function (adultCount, childCount, infantsCount) {
-                    var iAdultCount = parseInt(adultCount);
-                    var infWithPlaces = parseInt(infantsCount) - iAdultCount;
-                    if (infWithPlaces < 0) {
-                        infWithPlaces = 0;
-                    }
-                    return iAdultCount + parseInt(childCount) + infWithPlaces;
+                    //var iAdultCount = parseInt(adultCount);
+                    //var infWithPlaces = parseInt(infantsCount) - iAdultCount;
+                    //if (infWithPlaces < 0) {
+                    //    infWithPlaces = 0;
+                    //}
+                    //return iAdultCount + parseInt(childCount) + infWithPlaces;
+
+                    //оказывается нужно тупо сложить
+                    return parseInt(adultCount) + parseInt(childCount) + parseInt(infantsCount);
                 },
 
                 popupItemInfo: function (ticketsCount, cabinClass) {
