@@ -16,7 +16,7 @@
                 {{virtualBundle.getFullPackagePrice() | price}}
                 <span class="b-rub">q</span>
 
-                <ng:include src="'components/item-price-details.html'" ng-init="item = ticket"></ng:include>
+                <ng:include src="'components/tooltip/item-price-details.html'" ng-init="item = ticket"></ng:include>
 
                 <span class="price-description">
                     экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}

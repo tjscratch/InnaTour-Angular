@@ -1,0 +1,69 @@
+<div class="tooltip tooltip-price" ng-if="infoPopup.isOpen">
+    <div class="tooltip-price__title">По отдельности</div>
+
+    <ul class="tooltip-price__list tooltip-price__list_top">
+        <li class="list-price-item">Перелет
+            <span class="list-price pull-right">{{bundle.ticket.data.Price | price}}
+                <ng-include src="'components/ruble.html'"></ng-include>
+            </span>
+        </li>
+        <li class="list-price-item">Отель
+            <span class="list-price pull-right">{{bundle.hotel.data.Price | price}}
+                <ng-include src="'components/ruble.html'"></ng-include>
+            </span>
+        </li>
+    </ul>
+
+    <div class="list-price list-price-total">
+        <div class="list-price-total__wrapper">
+            {{bundle.getFullPrice() | price}}
+            <ng-include src="'components/ruble.html'"></ng-include>
+            <div class="list-price-total__strike_through"></div>
+        </div>
+    </div>
+
+    <ul class="tooltip-price__list tooltip-price__list_top">
+        <li>
+            В пакете:
+            <span class="list-price green pull-right">
+                {{bundle.getFullPackagePrice() | price}}
+                <ng-include src="'components/ruble.html'"></ng-include>
+            </span>
+        </li>
+        <li>
+            Экономия:
+            <span class="list-price green pull-right">{{(bundle.getFullPrice() - bundle.getFullPackagePrice()) | price}}
+                <ng-include src="'components/ruble.html'"></ng-include>
+            </span>
+        </li>
+    </ul>
+
+    <div style="margin-top: 10px;" ng-if="bundle.hotel.data.PriceObject.TotalAgentProfit">
+        <div class="list-price-total"></div>
+
+
+        <ul class="tooltip-price__list tooltip-price__list_top">
+            <li class="list-price-item">
+                Сбор ИННА Тур
+                <span class="list-price green pull-right">
+                    {{bundle.hotel.data.PriceObject.TotalInnaProfit | price}}
+                    <ng-include src="'components/ruble.html'"></ng-include>
+                </span>
+            </li>
+            <li class="list-price-item">
+                Сбор агента
+                <span class="list-price green pull-right">
+                    {{bundle.hotel.data.PriceObject.TotalAgentProfit | price}}
+                    <ng-include src="'components/ruble.html'"></ng-include>
+                </span>
+            </li>
+            <li class="list-price-item">
+                Агентское вознаграждение
+                <span class="list-price green pull-right">
+                    {{bundle.hotel.data.PriceObject.TotalAgentReward | price}}
+                    <ng-include src="'components/ruble.html'"></ng-include>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

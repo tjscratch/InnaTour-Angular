@@ -80,10 +80,6 @@ angular.module('innaApp.directives')
                             pic.onload = function(){
                                 $scope.pics.list.push(pic);
 
-                                if(_index === 0) {
-                                    $scope.pics.setCurrent(pic);
-                                }
-
                                 deferred.resolve();
                             };
 
@@ -99,6 +95,12 @@ angular.module('innaApp.directives')
                         $.when.apply($, deferreds).then(function(){
                             $scope.pics.list.sort(function(p1, p2){
                                 return p1.__order - p2.__order;
+                            });
+
+                            $scope.$apply(function(){
+                                try{
+                                    $scope.pics.setCurrent($scope.pics.list[0]);
+                                } catch(e) {}
                             });
                         });
                     })();

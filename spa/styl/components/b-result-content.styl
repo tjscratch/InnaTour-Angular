@@ -16,9 +16,17 @@
     width 140px
 
     .list-price-item
+      position: relative;
+      margin-bottom : 4px;
+      padding-left : 9px;
+
       &:before
         content '•'
         color #4d4d4d
+        position absolute
+        left 0
+        top -1px
+
 
     .list-price
       font-weight bold
@@ -30,6 +38,30 @@
       border-top 1px solid #c0c0c2
       text-align right
 
+      &:after {
+        content : '';
+        display : block;
+        clear : both;
+      }
+
+      &__wrapper {
+        float  right
+      }
+
+      &__strike_through {
+        transform rotate(-8deg) translate3d(0, -9px, 0)
+        width 100%
+        border-top 1px solid #4d4d4d
+      }
+
+
+    &__title {
+
+    }
+
+    &__list_top {
+      margin-top : 12px;
+    }
 
   .tooltip-price_at_hotel-card
     left 10px
