@@ -22,7 +22,8 @@
                 <!--<ng-include src="'components/ruble.html'" />-->
                 <span class="b-rub">q</span>
 
-                <ng:include src="'components/tooltip/item-price-details.html'" ng-init="item = hotel"></ng:include>
+                <!-- tooltip price -->
+                <div tool-tip-price item="virtualBundle" is-hotel="true"></div>
 
                 <span class="price-description">
                     экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}

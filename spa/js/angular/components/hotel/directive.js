@@ -5,7 +5,6 @@ angular.module('innaApp.directives')
         function ($templateCache, $timeout) {
             return {
                 template: $templateCache.get('components/hotel/templ/index.html'),
-                //templateUrl: '/spa/js/angular/components/hotel/templ/index.html',
                 scope: false,
                 transclude: true,
 
@@ -13,37 +12,34 @@ angular.module('innaApp.directives')
                     '$scope',
                     '$element',
                     function ($scope, $element) {
-
-                        $scope.goToMap = function(){
-                            $scope.$emit('hotel:go-to-map', $scope.hotel);
-                        }
-
-                        $scope.setCurrent = function(){
-                            $scope.$emit('choose:hotel', $scope.hotel);
-                        }
-
                         $scope.virtualBundle = new inna.Models.Dynamic.Combination();
                         $scope.virtualBundle.hotel = $scope.hotel;
                         $scope.virtualBundle.ticket = $scope.combination.ticket;
 
                         //console.log($scope.virtualBundle);
 
+                        $scope.goToMap = function () {
+                            $scope.$emit('hotel:go-to-map', $scope.hotel);
+                        }
 
+                        $scope.setCurrent = function () {
+                            $scope.$emit('choose:hotel', $scope.hotel);
+                        }
 
-                       $element.on('click', '.js-hotel-item-details', function(evt){
-                         $scope.$emit('more:detail:hotel', $scope.hotel);
-                       });
+                        $element.on('click', '.js-hotel-item-details', function (evt) {
+                            $scope.$emit('more:detail:hotel', $scope.hotel);
+                        });
 
-                       $element.on('click', '.js-hotel-info-place', function(evt){
-                        $scope.$emit('hotel:go-to-map', $scope.hotel);
-                       });
-
+                        $element.on('click', '.js-hotel-info-place', function (evt) {
+                            $scope.$emit('hotel:go-to-map', $scope.hotel);
+                        });
                     }],
-                link : function($scope, $element){
+                link: function ($scope, $element) {
 
-                  $scope.$watch('hotel.currentlyInvisible', function(isInvis){
-                        if(!isInvis && $element.find('.b-carousel').length) {
-                            $timeout(function(){
+
+                    $scope.$watch('hotel.currentlyInvisible', function (isInvis) {
+                        if (!isInvis && $element.find('.b-carousel').length) {
+                            $timeout(function () {
 
                                 $element.find('.b-carousel').innaCarousel({
                                     photoList: $scope.hotel.data.Photos,
@@ -59,4 +55,4 @@ angular.module('innaApp.directives')
                     });
                 }
             }
-    }]);
+        }]);

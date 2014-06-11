@@ -111,6 +111,19 @@ inna.Models.Dynamic.Combination.prototype.getFullPackagePrice = function(){
     return +this.ticket.data.PackagePrice + +this.hotel.data.PackagePrice;
 }
 
+inna.Models.Dynamic.Combination.prototype.getFullTotalPrice = function(){
+    var tPrice = this.ticket.data.PriceObject
+    var hPrice = this.hotel.data.PriceObject;
+
+    return {
+        TotalAgentProfit: tPrice.TotalAgentProfit + hPrice.TotalAgentProfit,
+        TotalAgentRate: tPrice.TotalAgentRate + hPrice.TotalAgentRate,
+        TotalAgentReward: tPrice.TotalAgentReward + hPrice.TotalAgentReward,
+        TotalInnaProfit: tPrice.TotalInnaProfit + hPrice.TotalInnaProfit,
+        TotalPrice: tPrice.TotalPrice + hPrice.TotalPrice
+    }
+}
+
 inna.Models.Dynamic.Combination.prototype.getFullPrice = function(){
     return +this.ticket.data.Price + +this.hotel.data.Price;
 }

@@ -58,11 +58,19 @@
                 </div>
                 <div class="result-small__cell col-xs-3 col-no-padding">
 
-                    <p class="corner-price">
+                    <div class="corner-price">
+
                         {{combination.getFullPackagePrice() | price}}
+
                         <ng-include src="'components/ruble.html'"></ng-include>
-                        <ng:include src="'components/tooltip/item-price-details.html'" ng-init="item = combination.hotel; icon = true"></ng:include>
-                    </p>
+
+                        <!-- tooltip price -->
+                        <div class="b-tooltip-price"
+                             tool-tip-price item="combination"
+                             icon-white="true"
+                             is-bundle="true"></div>
+
+                    </div>
 
                 </div>
             </div>
