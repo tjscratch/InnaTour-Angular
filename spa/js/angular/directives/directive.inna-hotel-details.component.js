@@ -12,8 +12,8 @@ angular.module('innaApp.directives')
                 getTicketDetails: '=innaHotelDetailsGetTicketDetails'
             },
             controller: [
-                '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events',
-                function($scope, $element, $timeout, aviaHelper, Events){
+                '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events', '$location',
+                function($scope, $element, $timeout, aviaHelper, Events, $location){
                     /*Dom*/
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -40,6 +40,8 @@ angular.module('innaApp.directives')
                     $scope.bundle.setHotel($scope.hotel);
 
                     $scope.dataFullyLoaded = false;
+
+                    $scope.displayRoom = $location.search().room;
 
                     /*Proxy*/
                     $scope.dateHelper = dateHelper;
