@@ -62,6 +62,7 @@ publish
 # игнорируем собранный файл спрайтов
 spa/img/sprites/*.json
 spa/img/sprites/icon-*.png
+spa/css
 
 
 
