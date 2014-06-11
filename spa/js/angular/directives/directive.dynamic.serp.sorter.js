@@ -90,8 +90,8 @@
                 $scope.sorters.add(new Sorter('По рекомендованности', function (hotel1, hotel2) { //desc
                     return hotel1.data.RecommendFactor - hotel2.data.RecommendFactor;
                 }));
-                $scope.sorters.add(new Sorter('По рейтингу TripAdvisor', function (hotel1, hotel2) { //asc
-                    return hotel1.data.TaFactor - hotel2.data.TaFactor;
+                $scope.sorters.add(new Sorter('По рейтингу TripAdvisor', function (hotel1, hotel2) { //desc
+                    return hotel2.data.TaFactor - hotel1.data.TaFactor;
                 }));
                 $scope.sorters.add(new Sorter('По названию', function (hotel1, hotel2) { //ask
                     var a = (hotel2.data.HotelName || '').toLowerCase();
@@ -101,13 +101,13 @@
                     if (a < b) return 1;
                     else return -1;
                 }));
-                $scope.sorters.add(new Sorter('По размеру скидки в %', function (hotel1, hotel2) { //ask
-                    return hotel2.data.PackagePrice / hotel2.data.Price -
-                        hotel1.data.PackagePrice / hotel1.data.Price;
+                $scope.sorters.add(new Sorter('По размеру скидки в %', function (hotel1, hotel2) { //desc
+                    return hotel1.data.PackagePrice / hotel1.data.Price -
+                        hotel2.data.PackagePrice / hotel2.data.Price;
                 }));
-                $scope.sorters.add(new Sorter('По размеру скидки в руб.', function (hotel1, hotel2) { //ask
-                    return (hotel2.data.PackagePrice - hotel2.data.Price) -
-                        (hotel1.data.PackagePrice - hotel1.data.Price);
+                $scope.sorters.add(new Sorter('По размеру скидки в руб.', function (hotel1, hotel2) { //desc
+                    return (hotel1.data.PackagePrice - hotel1.data.Price) -
+                        (hotel2.data.PackagePrice - hotel2.data.Price);
                 }));
             }
         ]);
