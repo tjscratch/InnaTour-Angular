@@ -110,6 +110,7 @@
 
     <div class="b-result__cell result-buy">
         <button class="share-button" ng-class="{'active': linkPopup.isOpen}" ng-click="linkPopup.toggle()"></button>
+
         <div class="tooltip tooltip-share-link" ng-if="linkPopup.isOpen">
             <input type="text" class="share-link-input" ng-value="location">
             <span class="icon icon-cross" ng-click="linkPopup.toggle()"></span>
@@ -121,16 +122,15 @@
             <span class="price-description">по отдельности</span>
         </p>
 
-        <p class="price">
+        <div class="price">
             {{bundle.getFullPackagePrice() | price}}
             <ng-include src="'components/ruble.html'"></ng-include>
-            <span class="icon-price-info  icon-sprite-price-info" ng-click="infoPopup.toggle()"></span>
-        </p>
 
-        <!-- tooltip -->
-        <ng:include src="'components/tooltip/item-price-bundle.html'"
-                    ng-if="infoPopup.isOpen"
-                    ng-init="item = bundle"></ng:include>
+            <!-- tooltip price -->
+            <div tool-tip-price item="bundle" is-bundle="true"></div>
+        </div>
+
+
 
 
         <span class="price-description">экономия: {{bundle.getFullPrice() - bundle.getFullPackagePrice() | price}} <ng-include src="'components/ruble.html'"></ng-include></span>
