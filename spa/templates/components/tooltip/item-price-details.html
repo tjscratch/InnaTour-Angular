@@ -1,4 +1,12 @@
-<span class="icon-price-info icon-sprite-price-info JS-icon-price-info"></span>
+<!--
+    при подключении tooltip передаются параметры
+    item и icon
+
+    <ng:include src="'components/tooltip/item-price-details.html'" ng-init="item = combination.hotel; icon = true"></ng:include>
+ -->
+<span class="icon-price-info JS-icon-price-info"
+        ng-class="{'icon-sprite-price-info-white':icon, 'icon-sprite-price-info': !icon}"></span>
+
         
 <div class="tooltip tooltip-price tooltip-price_at_hotel-card JS-tooltip-price" style="display:none;">
     <ul ng-if="!item.data.PriceObject.TotalAgentProfit">

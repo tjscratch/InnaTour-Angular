@@ -48,7 +48,8 @@
                         <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 2"></span>
                         <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 3"></span>
                         <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 4"></span>
-                        {{combination.hotel.data.HotelName}}
+                        <!-- сокращаем соличество символов -->
+                        {{combination.hotel.data.HotelName | limitTo:24}}...
                     </h3>
                     <div class="hotel-info-date">
                         с {{combination.hotel.data.CheckIn | date: 'd MMM'}}
@@ -60,7 +61,7 @@
                     <p class="corner-price">
                         {{combination.getFullPackagePrice() | price}}
                         <ng-include src="'components/ruble.html'"></ng-include>
-                        <ng:include src="'components/tooltip/item-price-details.html'" ng-init="item = combination.hotel"></ng:include>
+                        <ng:include src="'components/tooltip/item-price-details.html'" ng-init="item = combination.hotel; icon = true"></ng:include>
                     </p>
 
                 </div>

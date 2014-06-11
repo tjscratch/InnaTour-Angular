@@ -1,7 +1,7 @@
 {
   "name": "icon",
-  "checksum": "f6bf2226a59bb2fc5ff386251e05fd21",
-  "shortsum": "f6bf2",
+  "checksum": "040a64bbdbfac15400fbe5ee385a023c",
+  "shortsum": "040a6",
   "images": [
     {
       "name": "airplane",
@@ -31,13 +31,22 @@
       "positionY": 36
     },
     {
-      "name": "price-info-icon",
-      "filename": "price-info-icon.png",
-      "checksum": "62e9697edbb5fd0235966c5cf296b1c3",
+      "name": "price-info-white",
+      "filename": "price-info-white.png",
+      "checksum": "52011a781f115b1887b63a0dbb437098",
       "width": 17,
-      "height": 17,
+      "height": 18,
       "positionX": 0,
       "positionY": 55
+    },
+    {
+      "name": "price-info",
+      "filename": "price-info.png",
+      "checksum": "dc1ffebf518af3716dbc3bce26a21c4d",
+      "width": 17,
+      "height": 18,
+      "positionX": 0,
+      "positionY": 75
     },
     {
       "name": "remove",
@@ -46,7 +55,7 @@
       "width": 9,
       "height": 10,
       "positionX": 0,
-      "positionY": 74
+      "positionY": 95
     },
     {
       "name": "switch-map-left-gray",
@@ -55,7 +64,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 86
+      "positionY": 107
     },
     {
       "name": "switch-map-left",
@@ -64,7 +73,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 101
+      "positionY": 122
     },
     {
       "name": "switch-map-right-white",
@@ -73,7 +82,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 116
+      "positionY": 137
     },
     {
       "name": "switch-map-right",
@@ -82,7 +91,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 135
+      "positionY": 156
     },
     {
       "name": "tripadvisor-half",
@@ -91,7 +100,7 @@
       "width": 14,
       "height": 14,
       "positionX": 0,
-      "positionY": 154
+      "positionY": 175
     },
     {
       "name": "tripadvisor-like",
@@ -100,7 +109,7 @@
       "width": 14,
       "height": 14,
       "positionX": 0,
-      "positionY": 170
+      "positionY": 191
     },
     {
       "name": "tripadvisor",
@@ -109,7 +118,7 @@
       "width": 27,
       "height": 16,
       "positionX": 0,
-      "positionY": 186
+      "positionY": 207
     }
   ]
 }
