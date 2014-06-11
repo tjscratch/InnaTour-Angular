@@ -57,7 +57,7 @@ angular.module('innaApp.directives')
                             ).push(hotel);
                         });
 
-                        var factors = Object.keys(collections).sort();
+                        var factors = Object.keys(collections).sort().reverse();
 
                         for(var i = 0, factor = 0; factor = factors[i++];) {
                             if(!parseInt(factor)) continue;

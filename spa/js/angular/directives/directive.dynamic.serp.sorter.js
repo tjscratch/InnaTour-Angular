@@ -101,9 +101,9 @@
                     if (a < b) return 1;
                     else return -1;
                 }));
-                $scope.sorters.add(new Sorter('По размеру скидки в %', function (hotel1, hotel2) { //desc
-                    return hotel1.data.PackagePrice / hotel1.data.Price -
-                        hotel2.data.PackagePrice / hotel2.data.Price;
+                $scope.sorters.add(new Sorter('По размеру скидки в %', function (hotel1, hotel2) { //asc
+                    return hotel2.data.PackagePrice / hotel2.data.Price -
+                        hotel1.data.PackagePrice / hotel1.data.Price;
                 }));
                 $scope.sorters.add(new Sorter('По размеру скидки в руб.', function (hotel1, hotel2) { //desc
                     return (hotel1.data.PackagePrice - hotel1.data.Price) -
