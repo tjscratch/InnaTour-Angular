@@ -23,7 +23,6 @@ angular.module('innaApp.directives')
                     '$element',
                     function ($scope, $element) {
 
-
                         if ($scope.mod_wrapper) {
                             $element.addClass('b-switch-filters_mod-wrapper');
                             $element.find('.button-map-list').addClass('checked');
