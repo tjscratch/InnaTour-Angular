@@ -32,7 +32,7 @@ angular.module('innaApp.directives')
                         if(!selected.options.length) return;
 
                         var show = false;
-                        var airlines = ticket.collectAirlines();
+                        var airlines = ticket.collectAirlines().etap;
 
                         selected.each(function(option){
                             for(var code in airlines) if(airlines.hasOwnProperty(code)) {

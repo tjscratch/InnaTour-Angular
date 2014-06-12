@@ -1,7 +1,7 @@
 {
   "name": "icon",
-  "checksum": "040a64bbdbfac15400fbe5ee385a023c",
-  "shortsum": "040a6",
+  "checksum": "066331fad4d4ec29ae75a45ddffbd401",
+  "shortsum": "06633",
   "images": [
     {
       "name": "airplane",
@@ -13,13 +13,49 @@
       "positionY": 0
     },
     {
+      "name": "corner-bot-hover",
+      "filename": "corner-bot-hover.png",
+      "checksum": "62687ddc3e4a4c75858054cc7d5b0930",
+      "width": 10,
+      "height": 11,
+      "positionX": 0,
+      "positionY": 20
+    },
+    {
+      "name": "corner-bot",
+      "filename": "corner-bot.png",
+      "checksum": "6d5b31cf2ab324c8cd9008b67ff48d93",
+      "width": 10,
+      "height": 11,
+      "positionX": 0,
+      "positionY": 33
+    },
+    {
+      "name": "corner-top-hover",
+      "filename": "corner-top-hover.png",
+      "checksum": "0f12e667ec3bd980816363b0179e3456",
+      "width": 10,
+      "height": 5,
+      "positionX": 0,
+      "positionY": 46
+    },
+    {
+      "name": "corner-top",
+      "filename": "corner-top.png",
+      "checksum": "f3a76af4a6d4b3155221dc0033324ee9",
+      "width": 10,
+      "height": 5,
+      "positionX": 0,
+      "positionY": 53
+    },
+    {
       "name": "crown",
       "filename": "crown.png",
       "checksum": "046b00de53fd87959d66e516be4888e1",
       "width": 21,
       "height": 14,
       "positionX": 0,
-      "positionY": 20
+      "positionY": 60
     },
     {
       "name": "hanger",
@@ -28,7 +64,7 @@
       "width": 9,
       "height": 17,
       "positionX": 0,
-      "positionY": 36
+      "positionY": 76
     },
     {
       "name": "price-info-white",
@@ -37,7 +73,7 @@
       "width": 17,
       "height": 18,
       "positionX": 0,
-      "positionY": 55
+      "positionY": 95
     },
     {
       "name": "price-info",
@@ -46,7 +82,7 @@
       "width": 17,
       "height": 18,
       "positionX": 0,
-      "positionY": 75
+      "positionY": 115
     },
     {
       "name": "remove",
@@ -55,7 +91,7 @@
       "width": 9,
       "height": 10,
       "positionX": 0,
-      "positionY": 95
+      "positionY": 135
     },
     {
       "name": "switch-map-left-gray",
@@ -64,7 +100,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 107
+      "positionY": 147
     },
     {
       "name": "switch-map-left",
@@ -73,7 +109,7 @@
       "width": 16,
       "height": 13,
       "positionX": 0,
-      "positionY": 122
+      "positionY": 162
     },
     {
       "name": "switch-map-right-white",
@@ -82,7 +118,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 137
+      "positionY": 177
     },
     {
       "name": "switch-map-right",
@@ -91,7 +127,7 @@
       "width": 14,
       "height": 17,
       "positionX": 0,
-      "positionY": 156
+      "positionY": 196
     },
     {
       "name": "tripadvisor-half",
@@ -100,7 +136,7 @@
       "width": 14,
       "height": 14,
       "positionX": 0,
-      "positionY": 175
+      "positionY": 215
     },
     {
       "name": "tripadvisor-like",
@@ -109,7 +145,7 @@
       "width": 14,
       "height": 14,
       "positionX": 0,
-      "positionY": 191
+      "positionY": 231
     },
     {
       "name": "tripadvisor",
@@ -118,7 +154,7 @@
       "width": 27,
       "height": 16,
       "positionX": 0,
-      "positionY": 207
+      "positionY": 247
     }
   ]
 }
