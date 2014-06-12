@@ -2,9 +2,20 @@
 
     <div class="b-result__cell b-result__cell_middle col-xs-9">
 
-        <span ng-repeat="(code, name) in ticket.collectAirlines()" class="result-cell__airlines">
+
+        <span ng-if="ticket.collectAirlines().size <= 3" ng-repeat="(code, name) in ticket.collectAirlines().etap" class="result-cell__airlines">
             <img ng-src="{{airLogo(code)}}" alt="" class="logo"><span class="rl-airline-text">{{name}}</span>
         </span>
+
+        <span ng-if="ticket.collectAirlines().size > 3" class="rl-airline">
+            <img ng-src="/spa/img/group.png" alt="">
+            <span class="rl-airline-text">Несколько авиакомпаний</span>
+        </span>
+
+        <!--<span ng-if="item.transportersList.length > 3" class="rl-airline">
+            <img ng-src="/spa/img/group.png" alt="">
+            <span class="rl-airline-text">Несколько авиакомпаний</span>
+        </span>-->
 
         <!-- Вытаскиваем сырые данные из ticket =  (ticketData = ticket.data) -->
         <div class="flight-info" ng-repeat="dir in ['To', 'Back']" ng-init="ticketData = ticket.data">
