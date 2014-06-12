@@ -1,621 +1,618 @@
 .overlay
-    position fixed
-    width 100%
-    height 100%
-    background rgba(51,51,51,.8)
-    z-index 500
-    left 0
-    top 0
-    min-width 600px
-    overflow auto
-    display none
+  position fixed
+  width 100%
+  height 100%
+  background rgba(51, 51, 51, .8)
+  z-index 500
+  left 0
+  top 0
+  min-width 600px
+  overflow auto
+  display none
 
 .balloon
-    position relative
-    left 50%
-    width 500px
-    background #fff
-    margin 0 0 20px -250px
-    border-radius 7px
-    padding 35px 0 15px
-    text-align center
-    top 100px
-    box-shadow: 0 2px 10px rgba(0,0,0,.3)
-    font-size 15px
-    letter-spacing -.025em
+  position relative
+  left 50%
+  width 500px
+  background #fff
+  margin 0 0 20px -250px
+  border-radius 7px
+  padding 35px 0 15px
+  text-align center
+  top 100px
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .3)
+  font-size 15px
+  letter-spacing -.025em
 
 .baloon-close
-    position absolute
-    padding 10px
-    top 7px
-    right 5px
-    width 12px
-    height 12px
-    cursor pointer
-    background url(../img/i.png) no-repeat 10px -1324px
-    border-radius 22px
+  position absolute
+  padding 10px
+  top 7px
+  right 5px
+  width 12px
+  height 12px
+  cursor pointer
+  background url(../img/i.png) no-repeat 10px -1324px
+  border-radius 22px
 
 .baloon-close:hover
-    background-color #ededed
+  background-color #ededed
 
 .baloon-title
-    font-weight bold
-    font-size 18px
-    padding 0 0 5px
+  font-weight bold
+  font-size 18px
+  padding 0 0 5px
 
 .balloon-info
-    padding 0 0 20px
-    color #666
-    font-size 14px
+  padding 0 0 20px
+  color #666
+  font-size 14px
 
-    a
-        color #000
+  a
+    color #000
 
 .baloon-button
-    margin 0 0 20px
-    display inline-block
-    font-size 16px
-    font-weight bold
-    line-height 1
-    padding 10px 20px
-    border-bottom 1px solid #7bad34
+  margin 0 0 20px
+  display inline-block
+  font-size 16px
+  font-weight bold
+  line-height 1
+  padding 10px 20px
+  border-bottom 1px solid #7bad34
 
 .baloon-button:hover
-    text-decoration none
+  text-decoration none
 
 .baloon-mail
-   width 38px
-   height 37px
-   display block
-   background url(../img/i.png) no-repeat 0 -1134px
-   margin 0 auto 7px
+  width 38px
+  height 37px
+  display block
+  background url(../img/i.png) no-repeat 0 -1134px
+  margin 0 auto 7px
 
 .baloon-canceled
-    width 29px
-    height 40px
-    display block
-    background url(../img/i.png) no-repeat 0 -1207px
-    margin 0 auto 13px
+  width 29px
+  height 40px
+  display block
+  background url(../img/i.png) no-repeat 0 -1207px
+  margin 0 auto 13px
 
 .baloon-problem
-    width 36px
-    height 40px
-    display block
-    background url(../img/i.png) no-repeat 0 -1274px
-    margin 0 auto 7px
+  width 36px
+  height 40px
+  display block
+  background url(../img/i.png) no-repeat 0 -1274px
+  margin 0 auto 7px
 
 .baloon-loading
-    width 50px
-    height 16px
-    background #dee2e2
-    border-top 16px solid #89C13A
-    margin 0 auto 12px
-    position relative
-    perspective 50px
+  width 50px
+  height 16px
+  background #dee2e2
+  border-top 16px solid #89C13A
+  margin 0 auto 12px
+  position relative
+  perspective 50px
 
 .baloon-loading:before
-    content ''
-    width 1px
-    height 32px
-    background #fff
-    position absolute
-    left 24px
-    top -16px
-    display block
+  content ''
+  width 1px
+  height 32px
+  background #fff
+  position absolute
+  left 24px
+  top -16px
+  display block
 
 .baloon-loading-block
-    width 24px
-    height 16px
-    border-top 16px solid #89C13A
-    position absolute
-    bottom 0
-    display block
-    outline 1px solid transparent
-    overflow hidden
+  width 24px
+  height 16px
+  border-top 16px solid #89C13A
+  position absolute
+  bottom 0
+  display block
+  outline 1px solid transparent
+  overflow hidden
 
 .baloon-loading-block1
-    left 0
-    animation preloader 4s linear infinite
+  left 0
+  animation preloader 4s linear infinite
 
 .baloon-loading-block2
-    right 0
-    animation preloader 4s linear .4s infinite
+  right 0
+  animation preloader 4s linear .4s infinite
 
 @keyframes preloader
-    0%
-        transform rotateX(0deg)
-        opacity 1
-        border-top-color #89C13A
-    25%
-        border-top-color #67912C
-    26%
-        border-top-color #CCCCCF
-    50%
-        transform rotateX(-170deg)
-        opacity 1
-        border-top-color #E6E7E9
-    51%
-        transform rotateX(-180deg)
-        opacity 0
-    100%
-        transform rotateX(0deg)
-        opacity 0
-        
+  0%
+    transform rotateX(0deg)
+    opacity 1
+    border-top-color #89C13A
+  25%
+    border-top-color #67912C
+  26%
+    border-top-color #CCCCCF
+  50%
+    transform rotateX(-170deg)
+    opacity 1
+    border-top-color #E6E7E9
+  51%
+    transform rotateX(-180deg)
+    opacity 0
+  100%
+    transform rotateX(0deg)
+    opacity 0
 
 .baloon-error
-    color #e20000
+  color #e20000
 
 .baloon_medium
-    width 740px
-    margin-left -370px
-    padding-bottom 0
-    overflow hidden
-    text-align left
+  width 740px
+  margin-left -370px
+  padding-bottom 0
+  overflow hidden
+  text-align left
 
 .b__rules-grey
-    background #e2e2e2
-    padding 0 53px 40px
-    color #333
+  background #e2e2e2
+  padding 0 53px 40px
+  color #333
 
-    h3
-        font-size 24px
-        line-height 1
-        padding 0 0 12px
+  h3
+    font-size 24px
+    line-height 1
+    padding 0 0 12px
 
-    h4
-        font-size 18px
-        line-height 1
-        padding 0 0 2px
+  h4
+    font-size 18px
+    line-height 1
+    padding 0 0 2px
 
-    p
-        font-size 13px
-        line-height 18px
-        letter-spacing -.025em
-        padding 0 0 20px
-
-        a
-            color #000
-
-            &:hover
-                text-decoration underline
-
-.b__rules-flies
-    display inline-block
-    position relative
-    margin -18px 0 33px
-    border 1px solid #ccc
-    background #fff
-    font-size 15px
+  p
+    font-size 13px
     line-height 18px
+    letter-spacing -.025em
+    padding 0 0 20px
 
     a
-        padding 7px 20px
-        display block
-        text-decoration none
-        color #666
+      color #000
 
-        span
-            border-bottom 1px dashed #595959
+      &:hover
+        text-decoration underline
 
-        b
-            color #333
+.b__rules-flies
+  display inline-block
+  position relative
+  margin -18px 0 33px
+  border 1px solid #ccc
+  background #fff
+  font-size 15px
+  line-height 18px
 
-    .current
-        color #fff
-        background #82b739
+  a
+    padding 7px 20px
+    display block
+    text-decoration none
+    color #666
 
-        span
-            border 0
+    span
+      border-bottom 1px dashed #595959
 
-        b
-            color #fff
+    b
+      color #333
+
+  .current
+    color #fff
+    background #82b739
+
+    span
+      border 0
+
+    b
+      color #fff
 
 .b__rules_attention
-    padding 0 53px 42px
-    letter-spacing -.025em
-    margin-top -16px
+  padding 0 53px 42px
+  letter-spacing -.025em
+  margin-top -16px
 
-    h3
-        font-size 24px
-        line-height 1
-        padding 0 0 10px
+  h3
+    font-size 24px
+    line-height 1
+    padding 0 0 10px
 
-    p
-        font-size 14px
-        line-height 17px
-        padding 0 0 6px
+  p
+    font-size 14px
+    line-height 17px
+    padding 0 0 6px
 
 // Tickets
 .baloon_ticket
-    width 600px
-    padding 9px 0 0
-    text-align left
+  width 600px
+  padding 9px 0 0
+  text-align left
 
-    .rlf-part
-        background #fbfbfb
-        border 0
+  .rlf-part
+    background #fbfbfb
+    border 0
 
-    .rlf-part_transfer
-        border 0
-        background #f1f1f2
-        border solid #d2d2d2
-        border-width 1px 0
+  .rlf-part_transfer
+    border 0
+    background #f1f1f2
+    border solid #d2d2d2
+    border-width 1px 0
 
-    .rlf-aviacompany
-        // float right
-        font-size 12px
-        line-height 18px
-        color #808080
-        // width 135px
-        margin-top -9px
+  .rlf-aviacompany
+    // float right
+    font-size 12px
+    line-height 18px
+    color #808080
+    // width 135px
+    margin-top -9px
 
-        img
-            display block
-            margin 0 0 3px
+    img
+      display block
+      margin 0 0 3px
 
-    .b-tickets__container
-        overflow hidden
+  .b-tickets__container
+    overflow hidden
 
-    .rlf-travel-time
-        clear both
-        font-size 12px
-        color #666
-        padding 2px 0
+  .rlf-travel-time
+    clear both
+    font-size 12px
+    color #666
+    padding 2px 0
 
-    .b-tickets__block
-        overflow hidden
-        position relative
+  .b-tickets__block
+    overflow hidden
+    position relative
 
-    .b-tickets__block-rel
-        overflow hidden
-        position relative
+  .b-tickets__block-rel
+    overflow hidden
+    position relative
 
-    .rlf-colum2
-        width 250px
+  .rlf-colum2
+    width 250px
 
-    .rlf-colum2-m
-        width 250px
-        margin-left 110px
+  .rlf-colum2-m
+    width 250px
+    margin-left 110px
 
-    .rlf-column1
-        width 100px
-        margin 0 10px 0 0
-
-    .rlf-column1-abs
-        position absolute
-        bottom 0px
-
-    .rlf-flight-info
-        font-size 14px
-        color #666
-
-        b
-            color #000
-
-    .rlf-airport
-        font-size 14px
-
-    .rlf-colum4
-        overflow hidden
-        float none
-        width auto
-        color #666
-
-    .rlf-fly
-        padding 0 0 15px 32px
-        color #666
-
-    .rlf-city
-        font-size 14px
-        color #000
-
-    .rlf-fly-arrow:after
-        background-position -19px -1791px
-        height 7px
-        width 11px
-        bottom -4px
-
-.b-tickets__title
-    font-size 20px
-    text-align center
-
-.b-tickets__icons
-    float left
-
-    li
-        float left
-        margin 0 8px 0 0
-
-        a
-            display block
-            width 31px
-            height 29px
-            border-radius 3px
-            border 1px solid transparent
-            position relative
-
-            &:before
-                content ''
-                display block
-                position absolute
-                background url(../img/ticket.png) no-repeat
-
-            &:hover
-                border-color #89c13a
-
-        .b-tickets__icons-link:before
-            width 17px
-            height 18px
-            background-position 0 -3px
-            left 7px
-            top 6px
-
-        .b-tickets__icons-link:hover:before
-            background-position 0 -82px
-
-        .b-tickets__icons-print:before
-            width 16px
-            height 16px
-            background-position -40px -4px
-            left 8px
-            top 6px
-
-        .b-tickets__icons-print:hover:before
-            background-position -40px -83px
-
-        .b-tickets__icons-share:before
-            width 16px
-            height 17px
-            background-position -80px -4px
-            left 7px
-            top 6px
-
-        .b-tickets__icons-share:hover:before
-            background-position -80px -83px
-
-.b-tickets__footer
-    clearfix()
-    padding 14px 12px 14px 6px
-
-.b-tickets__footer-inner
-    float right
-
-    .rl-buy-button
-        min-width 125px
-        text-align center
-        border-radius 3px
-        font-size 18px
-
-.b-tickets__footer-price-block
-    float left
-    text-align right
-    line-height 1
+  .rlf-column1
+    width 100px
     margin 0 10px 0 0
 
-.b-tickets__footer-price
-    font-size 24px
-    font-weight bold
-    margin-top -1px
+  .rlf-column1-abs
+    position absolute
+    bottom 0px
 
-    .rub
-        font-weight normal
+  .rlf-flight-info
+    font-size 14px
+    color #666
+
+    b
+      color #000
+
+  .rlf-airport
+    font-size 14px
+
+  .rlf-colum4
+    overflow hidden
+    float none
+    width auto
+    color #666
+
+  .rlf-fly
+    padding 0 0 15px 32px
+    color #666
+
+
+  .rlf-city
+    font-size 14px
+    color #000
+
+
+  .rlf-fly-arrow:after
+    background-position -19px -1791px
+    height 7px
+    width 11px
+    bottom -4px
+
+.b-tickets__title
+  font-size 20px
+  text-align center
+
+.b-tickets__icons
+  float left
+
+  li
+    float left
+    margin 0 8px 0 0
+
+    a
+      display block
+      width 31px
+      height 29px
+      border-radius 3px
+      border 1px solid transparent
+      position relative
+
+      &:before
+        content ''
+        display block
+        position absolute
+        background url(../img/ticket.png) no-repeat
+
+      &:hover
+        border-color #89c13a
+
+    .b-tickets__icons-link:before
+      width 17px
+      height 18px
+      background-position 0 -3px
+      left 7px
+      top 6px
+
+    .b-tickets__icons-link:hover:before
+      background-position 0 -82px
+
+    .b-tickets__icons-print:before
+      width 16px
+      height 16px
+      background-position -40px -4px
+      left 8px
+      top 6px
+
+    .b-tickets__icons-print:hover:before
+      background-position -40px -83px
+
+    .b-tickets__icons-share:before
+      width 16px
+      height 17px
+      background-position -80px -4px
+      left 7px
+      top 6px
+
+    .b-tickets__icons-share:hover:before
+      background-position -80px -83px
+
+.b-tickets__footer
+  clearfix()
+  padding 14px 12px 14px 6px
+
+.b-tickets__footer-inner
+  float right
+
+  .rl-buy-button
+    min-width 125px
+    text-align center
+    border-radius 3px
+    font-size 18px
+
+.b-tickets__footer-price-block
+  float left
+  text-align right
+  line-height 1
+  margin 0 10px 0 0
+
+.b-tickets__footer-price
+  font-size 24px
+  font-weight bold
+  margin-top -1px
+
+  .rub
+    font-weight normal
 
 .b-tickets__footer-price-info
-    font-size 12px
-    margin-top -3px
+  font-size 12px
+  margin-top -3px
 
 .b-ticket_2ways
-    clearfix()
+  clearfix()
 
-    .rlf-fly
-        float left
-        width 450px
-        box-sizing border-box
+  .rlf-fly
+    float left
+    width 450px
+    box-sizing border-box
 
 .baloon_2ticket
-    width 960px
-    margin-left -480px
+  width 960px
+  margin-left -480px
 
 .b-ticket_2ways
-    clearfix()
-    position relative
+  clearfix()
+  position relative
 
 .b-ticket_2ways-sep
 .b-ticket_1way-cont
-    border solid #d2d2d2
-    border-width 1px 0
-    background #fbfbfb
+  border solid #d2d2d2
+  border-width 1px 0
+  background #fbfbfb
 
 .b-ticket_2ways-sep:before
-    content ''
-    display block
-    position absolute
-    left 480px
-    top 0
-    bottom 0
-    border-left 1px solid #d2d2d2
+  content ''
+  display block
+  position absolute
+  left 480px
+  top 0
+  bottom 0
+  border-left 1px solid #d2d2d2
 
 .b-ticket_2ways-block
-    float left
-    width 480px
-
+  float left
+  width 480px
 
 .balloon .rlf-fly-arrow:after
-    top -3px
+  top -3px
 
 .balloon .rfl-column3
-    width 80px
-    text-align center
+  width 80px
+  text-align center
 
 .balloon .rl-buy-button
-    position relative
-    float right
-    bottom auto
-    right auto
+  position relative
+  float right
+  bottom auto
+  right auto
 
 .balloon-contacts
-    font-style normal
-    font-size 14px
+  font-style normal
+  font-size 14px
 
 .balloon-contacts-phone
-    color #000
-    margin 0 15px
-    padding 2px 0 2px 20px
-    background url(../img/i-phone.png) no-repeat
+  color #000
+  margin 0 15px
+  padding 2px 0 2px 20px
+  background url(../img/i-phone.png) no-repeat
 
 .balloon-contacts-skype
-    color #1e88c1
-    margin 0 15px
-    padding 2px 0 2px 27px
-    background url(../img/i-skype.png) no-repeat
-
+  color #1e88c1
+  margin 0 15px
+  padding 2px 0 2px 27px
+  background url(../img/i-skype.png) no-repeat
 
 // New balloon
 .balloon__title
-    font-size 20px
-    text-align center
-    margin 0 50px 24px
+  font-size 20px
+  text-align center
+  margin 0 50px 24px
 
 .balloon__text-block
-    border-bottom 1px solid #cdcdcd
-    padding 0 20px 8px
-    color #4d4d4d
-    margin 0 0 18px
+  border-bottom 1px solid #cdcdcd
+  padding 0 20px 8px
+  color #4d4d4d
+  margin 0 0 18px
 
-    &:last-child
-        border 0
-        margin 0
+  &:last-child
+    border 0
+    margin 0
 
 .balloon__title-sec
-    font-size 16px
-    padding 0 0 10px
+  font-size 16px
+  padding 0 0 10px
 
 .balloon__list li
-    list-style-type disc
-    margin 0 0 12px 12px
-    font-size 14px
+  list-style-type disc
+  margin 0 0 12px 12px
+  font-size 14px
 
 .balloon__textarea
-    display block
-    border 1px solid #c0c0c2
-    border-radius 3px
-    box-sizing border-box
-    padding 6px 10px
-    resize vertical
-    width 100%
-    height 100px
-    margin 0 0 10px
-    font 14px ProximaNova, Arial, sans-serif
+  display block
+  border 1px solid #c0c0c2
+  border-radius 3px
+  box-sizing border-box
+  padding 6px 10px
+  resize vertical
+  width 100%
+  height 100px
+  margin 0 0 10px
+  font 14px ProximaNova, Arial, sans-serif
 
 .balloon__textarea_comment
-    height 200px
+  height 200px
 
 .balloon-container
-    text-align center
-    padding 0 0 18px
+  text-align center
+  padding 0 0 18px
 
 .balloon__form
-    padding 0 20px
+  padding 0 20px
 
 .balloon__message
-    font-size 14px
-    color #4d4d4d
-    padding 11px
-    background #e8f3f9
-    margin 0 0 43px
-    display inline-block
-    border-radius 3px
+  font-size 14px
+  color #4d4d4d
+  padding 11px
+  background #e8f3f9
+  margin 0 0 43px
+  display inline-block
+  border-radius 3px
 
 .balloon__message-info
-    font-size 14px
-    color #4d4d4d
-    margin 0 0 27px -35px
+  font-size 14px
+  color #4d4d4d
+  margin 0 0 27px -35px
 
 .balloon__message-info-block
-    display inline-block
-    width 240px
-    height 12px
-    border-bottom 1px dotted #878787
-    margin 0 10px 6px 45px
+  display inline-block
+  width 240px
+  height 12px
+  border-bottom 1px dotted #878787
+  margin 0 10px 6px 45px
 
 .balloon__message-info-th
-    float left
-    background #fff
-    padding-right 5px
+  float left
+  background #fff
+  padding-right 5px
 
 .balloon__message-info-td
-    float right
-    background #fff
-    padding-left 5px
-    max-width 150px
-    overflow hidden
-    white-space nowrap
-    text-overflow ellipsis
+  float right
+  background #fff
+  padding-left 5px
+  max-width 150px
+  overflow hidden
+  white-space nowrap
+  text-overflow ellipsis
 
 .balloon_960
-    width 960px
-    margin-left -480px
+  width 960px
+  margin-left -480px
 
 .balloon__body
-    overflow auto
-    max-height 850px
+  overflow auto
+  max-height 850px
 
 .balloon__info
-    margin 0 20px 25px
-    font-size 14px
-    line-height 18px
-    color #333
+  margin 0 20px 25px
+  font-size 14px
+  line-height 18px
+  color #333
 
-    h4
-        padding 0 0 14px
-        font-size 14px
+  h4
+    padding 0 0 14px
+    font-size 14px
 
 .balloon__rules-item
-    display block
-    border-top 1px solid #cdcdcd
-    padding 12px 44px
-    font-size 15px
-    color #878787
-    position relative
+  display block
+  border-top 1px solid #cdcdcd
+  padding 12px 44px
+  font-size 15px
+  color #878787
+  position relative
 
-    b
-        color #000
-        font-size 14px
+  b
+    color #000
+    font-size 14px
 
-    img
-        margin 0 3px
+  img
+    margin 0 3px
 
 .balloon__rules li:first-child .balloon__rules-item
-    border 0
+  border 0
 
 .balloon__rules-text
-    background #fbfbfb
-    padding 12px 44px
-    font-size 13px
-    letter-spacing -.025em
-    border-top 1px solid #cdcdcd
+  background #fbfbfb
+  padding 12px 44px
+  font-size 13px
+  letter-spacing -.025em
+  border-top 1px solid #cdcdcd
 
 .balloon__rules-item-1way:before
-    content ''
-    width 21px
-    height 19px
-    display block
-    position absolute
-    background url(../img/tuda.png) no-repeat
-    left 13px
-    top 11px
+  content ''
+  width 21px
+  height 19px
+  display block
+  position absolute
+  background url(../img/tuda.png) no-repeat
+  left 13px
+  top 11px
 
 .balloon__rules-item-2ways:before
-    content ''
-    width 21px
-    height 19px
-    display block
-    position absolute
-    background url(../img/suda.png) no-repeat
-    left 13px
-    top 11px
-
-
+  content ''
+  width 21px
+  height 19px
+  display block
+  position absolute
+  background url(../img/suda.png) no-repeat
+  left 13px
+  top 11px
 
 
 
