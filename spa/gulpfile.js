@@ -84,3 +84,5 @@ gulp.task('watch', function () {
     });
 });
 gulp.task('default', ['styles', 'print', 'templates-ang', 'watch']);
+
+module.exports = gulp;
