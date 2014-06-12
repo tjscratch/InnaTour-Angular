@@ -138,4 +138,12 @@ innaAppFilters.filter('lowercaseFirst', function(){
 
         return bits.join('');
     }
-})
+});
+
+innaAppFilters.filter('stripTags', function(){
+    return function(input){
+        if(!input) return input;
+
+        return input.replace(/(<([^>]+)>)/ig, " ");
+    }
+});
