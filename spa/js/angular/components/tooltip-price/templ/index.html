@@ -5,21 +5,37 @@
      style="display:none;"
      ng-class="{'tooltip-price_big':isPriceObject}">
 
-    <div clas="tooltip-price__user" ng-if="!isPriceObject">
+    <div class="tooltip-price__user" ng-if="!isPriceObject">
         <div class="tooltip-price__title">По отдельности</div>
 
+
         <ul class="tooltip-price__list tooltip-price__list_top">
-            <li class="list-price-item">Перелет
-                <span class="list-price pull-right">{{item.ticket.data.Price | price}}
-                    <ng-include src="'components/ruble.html'"></ng-include>
-                </span>
+            <li class="list-price-item">
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding">
+                        Перелет
+                    </div>
+                    <div class="col-xs-6 col-no-padding list-price-item__right">
+                        <span class="list-price">{{item.ticket.data.Price | price}}
+                            <ng-include src="'components/ruble.html'"></ng-include>
+                        </span>
+                    </div>
+                </div>
             </li>
-            <li class="list-price-item">Отель
-                <span class="list-price pull-right">{{item.hotel.data.Price | price}}
-                    <ng-include src="'components/ruble.html'"></ng-include>
-                </span>
+            <li class="list-price-item">
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding">
+                        Отель
+                    </div>
+                    <div class="col-xs-6 col-no-padding list-price-item__right">
+                        <span class="list-price">{{item.hotel.data.Price | price}}
+                            <ng-include src="'components/ruble.html'"></ng-include>
+                        </span>
+                    </div>
+                </div>
             </li>
         </ul>
+
 
         <div class="list-price list-price-total">
             <div class="list-price-total__wrapper">
@@ -29,51 +45,92 @@
             </div>
         </div>
 
+
         <ul class="tooltip-price__list tooltip-price__list_top">
-            <li>
-                В пакете:
-                <span class="list-price green pull-right">
-                    {{item.getFullPackagePrice() | price}}
-                    <ng-include src="'components/ruble.html'"></ng-include>
-                </span>
+            <li class="list-price-item">
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding">
+                        В пакете:
+                    </div>
+                    <div class="col-xs-6 col-no-padding list-price-item__right">
+                        <span class="list-price green">
+                            {{item.getFullPackagePrice() | price}}
+                            <ng-include src="'components/ruble.html'"></ng-include>
+                        </span>
+                    </div>
+                </div>
             </li>
-            <li>
-                Экономия:
-                <span class="list-price green pull-right">
-                    {{(item.getFullPrice() - item.getFullPackagePrice()) | price}}
-                    <ng-include src="'components/ruble.html'"></ng-include>
-                </span>
+            <li class="list-price-item">
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding">
+                        Экономия:
+                    </div>
+                    <div class="col-xs-6 col-no-padding list-price-item__right">
+                        <span class="list-price green">
+                            {{(item.getFullPrice() - item.getFullPackagePrice()) | price}}
+                            <ng-include src="'components/ruble.html'"></ng-include>
+                        </span>
+                    </div>
+                </div>
             </li>
         </ul>
+
     </div>
 
 
     <div class="tooltip-price__b2b" ng-if="isPriceObject">
+
         <ul>
             <li class="list-price-item">
-                Сбор Инна Тур
-                <span class="list-price pull-right">
-                    {{item.PriceObject.TotalInnaProfit | price}} <ng-include src="'components/ruble.html'"/>
-                </span>
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding">
+                        Сбор Инна Тур
+                    </div>
+                    <div class="col-xs-6 col-no-padding list-price-item__right">
+                        <span class="list-price">
+                            {{item.PriceObject.TotalInnaProfit | price}} <ng-include src="'components/ruble.html'"/>
+                        </span>
+                    </div>
+                </div>
             </li>
             <li class="list-price-item">
-                Сбор агента
-                <span class="list-price pull-right">
-                    {{item.PriceObject.TotalInnaAgentRate | price}} <ng-include src="'components/ruble.html'"/>
-                </span>
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding">
+                        Сбор агента
+                    </div>
+                    <div class="col-xs-6 col-no-padding list-price-item__right">
+                        <span class="list-price">
+                            {{item.PriceObject.TotalInnaAgentRate | price}} <ng-include src="'components/ruble.html'"/>
+                        </span>
+                    </div>
+                </div>
             </li>
             <li class="list-price-item">
-                Агентское вознаграждение
-                <span class="list-price pull-right">
-                    {{item.PriceObject.TotalAgentRate | price}} <ng-include src="'components/ruble.html'"/>
-                </span>
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding">
+                        Агентское вознаграждение
+                    </div>
+                    <div class="col-xs-6 col-no-padding list-price-item__right">
+                        <span class="list-price">
+                            {{item.PriceObject.TotalAgentRate | price}} <ng-include src="'components/ruble.html'"/>
+                        </span>
+                    </div>
+                </div>
             </li>
+
             <li class="list-price-item">
-                Доход агента
-                <span class="list-price pull-right">
-                    {{item.PriceObject.TotalAgentProfit | price}} <ng-include src="'components/ruble.html'"/>
-                </span>
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding">
+                        Доход агента
+                    </div>
+                    <div class="col-xs-6 col-no-padding list-price-item__right">
+                        <span class="list-price">
+                            {{item.PriceObject.TotalAgentProfit | price}} <ng-include src="'components/ruble.html'"/>
+                        </span>
+                    </div>
+                </div>
             </li>
         </ul>
+
     </div>
 </div>
