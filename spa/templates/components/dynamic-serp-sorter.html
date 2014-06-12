@@ -1,6 +1,10 @@
-<a href="javascript:void(0);" class="filters__link" ng-click="popup.toggle()">Сортировать <span>{{sorters.current.caption | lowercase}}</span></a>
+<a href="javascript:void(0);" class="filters__link" ng-click="popup.toggle()">
+    Сортировать <span>{{sorters.current.caption | lowercaseFirst}}</span>
+</a>
 <div class="filters__baloon" ng-if="popup.isOpen">
     <ul class="search__list">
-        <li ng-class="{'current': sorters.current == sorter}" ng-repeat="sorter in sorters.all" ng-click="select(sorter)">{{sorter.caption}}</li>
+        <li ng-class="{'current': sorters.current == sorter}"
+            ng-repeat="sorter in sorters.all"
+            ng-click="select(sorter)">{{sorter.caption}}</li>
     </ul>
 </div>
