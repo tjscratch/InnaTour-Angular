@@ -33,8 +33,6 @@ angular.module('innaApp.directives')
 
                     $scope.showFullDescription = false;
 
-                    $scope.showMapFullScreen = false;
-
                     $scope.bundle = new inna.Models.Dynamic.Combination();
                     $scope.bundle.setTicket($scope.combination.ticket);
                     $scope.bundle.setHotel($scope.hotel);
@@ -51,27 +49,6 @@ angular.module('innaApp.directives')
                     /*Methods*/
                     $scope.toggleDescription = function(){
                         $scope.showFullDescription = !$scope.showFullDescription;
-                    };
-
-                    $scope.toggleMapDisplay = function(){
-                        function closeByEsc(event){
-                            if(event.which == 27) { //esc
-                                $scope.$apply(function(){
-                                    $scope.showMapFullScreen = false;
-                                });
-                            }
-                        }
-
-                        $scope.showMapFullScreen = !$scope.showMapFullScreen;
-
-                        if(map) {
-                            $timeout(function(){
-                                $(window).trigger('resize');
-                                google.maps.event.trigger(map, 'resize');
-                            }, 1);
-                        }
-
-                        $(document)[$scope.showMapFullScreen ? 'on' : 'off']('keyup', closeByEsc);
                     };
 
                     $scope.toggleRoom = function(room){
