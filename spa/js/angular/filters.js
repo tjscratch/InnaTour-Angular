@@ -127,3 +127,15 @@ innaAppFilters.filter('isFloat', function(){
       return n === +n && n !== (n|0);
     }
 });
+
+innaAppFilters.filter('lowercaseFirst', function(){
+    return function(text){
+        if(!text.length) return text;
+
+        var bits = text.split('');
+
+        bits[0] = bits[0].toLowerCase();
+
+        return bits.join('');
+    }
+})
