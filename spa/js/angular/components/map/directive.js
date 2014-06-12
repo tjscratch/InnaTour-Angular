@@ -58,6 +58,7 @@ angular.module('innaApp.directives')
                     var boxAir = $thisEl.querySelector('.big-map__balloon_air');
 
                     var markers = [];
+                    var carouselInit = false;
                     var _markerCluster = null;
                     var iconAirDefault = 'spa/img/map/marker-black-air.png?' + Math.random().toString(16);
                     var iconAirClick = 'spa/img/map/marker-green-air.png?' + Math.random().toString(16);
@@ -121,14 +122,21 @@ angular.module('innaApp.directives')
                      });*/
 
                     function initCarousel() {
-                        elem.find('.b-carousel').innaCarousel({
-                            photoList: scope.currentHotel.Photos,
+
+                        var carousel = $(boxPhoto).find('.b-carousel');
+                        var photoList = scope.currentHotel.Photos;
+
+                        carousel.innaCarousel({
+                            photoList: photoList,
                             map: true,
+                            size: 'Small',
                             style: {
                                 width: 360,
                                 height: 240
-                            }
+                            },
+                            fn: 'init'
                         });
+
                     }
 
                     function setActiveMarker(data_marker) {

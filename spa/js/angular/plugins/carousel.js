@@ -61,7 +61,7 @@
             }
         });
 
-        _slider[0].appendChild(fragment);
+        _slider.html(fragment);
 
         _holder.css({
             width: settings.style.width + 'px',
