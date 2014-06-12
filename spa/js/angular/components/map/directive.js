@@ -47,6 +47,10 @@ angular.module('innaApp.directives')
                         $scope.hotelDetails = function (currentHotel) {
                             $scope.$emit('more:detail:hotel', $scope.hotels.search(currentHotel.HotelId));
                         }
+
+                        $scope.$on('$destroy', function(){
+                            $scope.$emit('region-footer:show');
+                        })
                     }
                 ],
                 link: function (scope, elem, attrs) {
