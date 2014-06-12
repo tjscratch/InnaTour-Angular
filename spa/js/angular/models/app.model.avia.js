@@ -257,6 +257,19 @@ inna.Models.Avia.Ticket.prototype.collectAirlines = function () {
     }
 };
 
+inna.Models.Avia.Ticket.prototype.getBackOutCode = function(){
+    var etapsBack = this.getEtaps('Back');
+    var lastEtap = etapsBack[etapsBack.length - 1];
+
+    return lastEtap.data.OutCode;
+}
+
+inna.Models.Avia.Ticket.prototype.getBackInCode = function(){
+    var etapsBack = this.getEtaps('Back');
+    var lastEtap = etapsBack[etapsBack.length - 1];
+
+    return lastEtap.data.InCode;
+};
 
 inna.Models.Avia.Ticket.Etap = function (data) {
     this.data = data;
