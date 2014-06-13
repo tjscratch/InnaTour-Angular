@@ -587,7 +587,8 @@ Cvc = "486";
                 function getTarifs() {
                     paymentService.getTarifs({ variantTo: $scope.aviaInfo.VariantId1, varianBack: $scope.aviaInfo.VariantId2 },
                         function (data) {
-                            log('\npaymentService.getTarifs, data: ' + angular.toJson(data));
+                            console.log('\npaymentService.getTarifs, data:');
+                            console.log(data);
                             $scope.tarifs.tarifsData = data;
                         },
                         function (data, status) {
@@ -642,6 +643,7 @@ Cvc = "486";
                                     $scope.is3dscheck = false;
                                     //без 3dSecure
                                     checkPayment();
+                                    //testPayComplete();
                                 }
                                 else {
                                     //ошибка
@@ -729,6 +731,47 @@ Cvc = "486";
                 checkPayment();
             }
 
+            //function testPayComplete() {
+            //    $timeout(function () {
+            //        var data = 1;
+            //        $scope.isCkeckProcessing = false;
+            //        log('paymentService.payCheck, data: ' + angular.toJson(data));
+            //        //data = true;
+            //        if (data != null) {
+            //            if (data == 1 || data == 2) {
+            //                //прекращаем дергать
+            //                $interval.cancel(intCheck);
+
+            //                //скрываем попап с фреймом 3ds
+            //                if ($scope.is3dscheck) {
+            //                    $scope.buyFrame.hide();
+            //                }
+
+            //                if (data == 1) {
+            //                    $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту\n' + $scope.reservationModel.Email,
+            //                    aviaHelper.baloonType.success, function () {
+            //                        $location.path(Urls.URL_AVIA);
+            //                    }, {
+            //                        //buttonCaption: 'Распечатать билеты', successFn: function () {
+            //                        //    //print
+            //                        //    log('print tickets');
+            //                        //    alert('Не реализовано');
+            //                        //}
+            //                        buttonCaption: 'Ok', successFn: function () {
+            //                            $scope.baloon.hide();
+            //                            $location.path(Urls.URL_AVIA);
+            //                        }
+            //                    });
+            //                }
+            //                else if (data == 2) {
+            //                    $scope.baloon.showGlobalAviaErr();
+            //                }
+            //            }
+            //        }
+            //    }, 5000);
+            //}
+
+            //var intCheck = null;
             function checkPayment() {
                 $scope.isCkeckProcessing = false;
                 check();
@@ -755,14 +798,18 @@ Cvc = "486";
                                     }
 
                                     if (data == 1) {
-                                        $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту',
+                                        $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту\n' + $scope.reservationModel.Email,
                                         aviaHelper.baloonType.success, function () {
                                             $location.path(Urls.URL_AVIA);
                                         }, {
-                                            buttonCaption: 'Распечатать билеты', successFn: function () {
-                                                //print
-                                                log('print tickets');
-                                                alert('Не реализовано');
+                                            //buttonCaption: 'Распечатать билеты', successFn: function () {
+                                            //    //print
+                                            //    log('print tickets');
+                                            //    alert('Не реализовано');
+                                            //}
+                                            buttonCaption: 'Ok', successFn: function () {
+                                                $scope.baloon.hide();
+                                                $location.path(Urls.URL_AVIA);
                                             }
                                         });
                                     }
@@ -777,7 +824,6 @@ Cvc = "486";
                         });
                     }
                 }
-                
             }
 
             //срок оплаты билета
