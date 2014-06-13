@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 var _ENV_ = process.env.NODE_ENV || '';
 
 // смотрим на окружение и подставляем нужные хосты
-var apiHost = (_ENV_ === 'production') ? conf.hosts.api.prod : conf.hosts.api.test;
+var apiHost = (_ENV_ !== 'production') ? conf.hosts.api.prod : conf.hosts.api.test;
 var b2bHost = (_ENV_ === 'production') ? conf.hosts.b2b.prod : conf.hosts.b2b.test;
 
 

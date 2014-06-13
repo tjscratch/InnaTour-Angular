@@ -8,6 +8,9 @@ var gulp = require('gulp'),
 var _ENV_ = process.env.NODE_ENV || '';
 
 gulp.task('less', function () {
+
+    gulp.src(conf.dest +'/less/main/*.css').pipe(gulp.dest(conf.build +'/css'));
+
     return gulp.src([
             conf.dest +'/less/main/*.less',
             conf.dest +'/less/pages/*.less'
