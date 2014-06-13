@@ -845,17 +845,18 @@ innaAppControllers.
 
                 self.loadMore = function () {
                     $scope.$apply(function ($scope) {
-                        var fromIndex = $scope.visibleFilteredTicketsList.length;
-                        var toIndex = fromIndex + self.MAX_VISIBLE_ITEMS;
-                        if (toIndex > $scope.filteredTicketsList.length) {
-                            toIndex = $scope.filteredTicketsList.length;
-                        }
-                        if (fromIndex < toIndex) {
-                            for (var i = fromIndex; i < toIndex; i++) {
-                                $scope.visibleFilteredTicketsList.push($scope.filteredTicketsList[i]);
+                        if ($scope.visibleFilteredTicketsList != null) {
+                            var fromIndex = $scope.visibleFilteredTicketsList.length;
+                            var toIndex = fromIndex + self.MAX_VISIBLE_ITEMS;
+                            if (toIndex > $scope.filteredTicketsList.length) {
+                                toIndex = $scope.filteredTicketsList.length;
+                            }
+                            if (fromIndex < toIndex) {
+                                for (var i = fromIndex; i < toIndex; i++) {
+                                    $scope.visibleFilteredTicketsList.push($scope.filteredTicketsList[i]);
+                                }
                             }
                         }
-
                     });
 
                     //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));

@@ -40,8 +40,8 @@
                     <div class="b-field-block">
                         <label class="b-field-label">Пол</label>
                         <ul class="radio-list" ng-class="{error:passenger.sex == null}">
-                            <li><label><input disabled type="radio" name="male3" ng-model="passenger.sex" ng-value="{{sexType.man}}"><ins class="radio">М</ins></label></li>
-                            <li><label><input disabled type="radio" name="male3" ng-model="passenger.sex" ng-value="{{sexType.woman}}"><ins class="radio">Ж</ins></label></li>
+                            <li><label><input disabled type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.man" ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}"><ins class="radio">М</ins></label></li>
+                            <li><label><input disabled type="checkbox" name="male3" ng-model="passenger.sex" ng-checked="passenger.sex == sexType.woman" ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}"><ins class="radio">Ж</ins></label></li>
                         </ul>
                     </div>
                     <div class="b-field-block" style="width: 160px;">
@@ -189,7 +189,7 @@
                 </ul>
                 <h3>{{tarifs.setected.from}} → {{tarifs.setected.to}}</h3>
                 <h4>Полные правила применения тарифа</h4>
-                <p>Пожалуйста, ознакомьтесь детальнее с условиями <a href="#">обмена/возврата</a>.</p>
+                <!--<p>Пожалуйста, ознакомьтесь детальнее с условиями <a href="#">обмена/возврата</a>.</p>-->
                 <p ng-bind-html="tarifs.tarifItem.Text | breakFilter"></p>
             </div>
         </div>

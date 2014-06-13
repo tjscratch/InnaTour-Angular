@@ -14,7 +14,7 @@ innaAppDirectives.directive('partialSelect', ['$templateCache', function ($templ
             $scope.itemClick = function (option) {
                 var item = { id: option.Id, name: option.Name };
                 
-                if ($scope.resultSet) {
+                if ($scope.result == null && $scope.resultSet) {
                     $scope.resultSet({ item: item });
                 }
                 else {
