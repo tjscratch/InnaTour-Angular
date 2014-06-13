@@ -66,9 +66,10 @@ angular.module('innaApp.directives')
                         };
                     };
 
-                    /*Initial*/
-                    (function(){
+                    /*Watchers*/
+                    $scope.$watch('urls', function(){
                         var deferreds = [];
+                        $scope.pics.list = [];
 
                         $scope.urls.forEach(function(url, _index){
                             var deferred = new $.Deferred();
@@ -103,7 +104,7 @@ angular.module('innaApp.directives')
                                 } catch(e) {}
                             });
                         });
-                    })();
+                    });
                 }
             ]
         }
