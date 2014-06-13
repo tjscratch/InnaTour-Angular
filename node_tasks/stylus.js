@@ -14,6 +14,21 @@ var optStyl = {
     import: ['nib']
 };
 
+
+gulp.task('styl-components', function () {
+    return gulp.src([conf.styl + '/components/**/*.styl'])
+        .pipe(stylus(optStyl))
+        .pipe(concat('components.css'))
+        .pipe(gulp.dest(conf.styl + '/__temp__'))
+
+        .on('error', function(err) {
+            if (!/tests? failed/.test(err.stack)) {
+                console.log(err.stack);
+            }
+        });
+});
+
+
 gulp.task('styl-common', function () {
     return gulp.src([conf.styl + '/common.styl'])
         .pipe(stylus(optStyl))

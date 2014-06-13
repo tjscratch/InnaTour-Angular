@@ -23,4 +23,6 @@ gulp.task('build-project', function (callback) {
     runSequence(['styles', 'less', 'build-concat'], 'html-replace', 'copy-project', callback);
 });
 
-gulp.task('default', ['styles', 'less', 'watch']);
+gulp.task('default', function(callback){
+    runSequence(['styles', 'less', 'build-templates'], 'watch',  callback);
+});
