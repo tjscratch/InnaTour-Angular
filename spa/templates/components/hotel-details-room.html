@@ -34,7 +34,7 @@
             <p ng-bind-html="room.Description | stripTags"></p>
             <h3 ng-if="room.RoomAmenities">Услуги</h3>
             <p ng-if="room.RoomAmenities">
-                <span ng-repeat="am in room.RoomAmenities">{{am.Name}}<span ng-if="!$last">,&nbsp;</span></span>
+                <span ng-repeat="am in room.RoomAmenities">{{am.Name}}<span ng-if="!$last">,&nbsp;</span><span ng-if="$last">.</span></span>
             </p>
             <div ng-if="room.CancellationRule">
                 <h3>Правила отмены</h3>
