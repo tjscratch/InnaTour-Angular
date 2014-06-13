@@ -10,7 +10,6 @@ angular.module('innaApp.directives')
                 'aviaHelper',
                 function($scope, $element, aviaHelper){
 
-                    //console.log($scope);
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
                     $scope.dateHelper = dateHelper;
 

@@ -84,26 +84,22 @@
         .controller('innaDynamicSerpSorter_HotelsMixin', [
             '$scope',
             function ($scope) {
-                $scope.sorters.add(new Sorter('По стоимости за пакет', function (hotel1, hotel2) { //desc
+                $scope.sorters.add(new Sorter('По цене пакета', function (hotel1, hotel2) { //desc
                     return hotel1.data.PackagePrice - hotel2.data.PackagePrice;
                 }));
-                $scope.sorters.add(new Sorter('По рекомендованности', function (hotel1, hotel2) { //desc
+                $scope.sorters.add(new Sorter('По рейтингу Инна Тур', function (hotel1, hotel2) { //desc
                     return hotel1.data.RecommendFactor - hotel2.data.RecommendFactor;
                 }));
-                $scope.sorters.add(new Sorter('По рейтингу TripAdvisor', function (hotel1, hotel2) { //desc
+                $scope.sorters.add(new Sorter('По рейтингу Trip Advisor', function (hotel1, hotel2) { //desc
                     return hotel2.data.TaFactor - hotel1.data.TaFactor;
                 }));
                 $scope.sorters.add(new Sorter('По названию', function (hotel1, hotel2) { //ask
                     var a = (hotel2.data.HotelName || '').toLowerCase();
                     var b = (hotel1.data.HotelName || '').toLowerCase();
 
-                    //suddenly it works like so
+                    //suddenly it works this way
                     if (a < b) return 1;
                     else return -1;
-                }));
-                $scope.sorters.add(new Sorter('По размеру скидки в %', function (hotel1, hotel2) { //asc
-                    return hotel2.data.PackagePrice / hotel2.data.Price -
-                        hotel1.data.PackagePrice / hotel1.data.Price;
                 }));
                 $scope.sorters.add(new Sorter('По размеру скидки в руб.', function (hotel1, hotel2) { //desc
                     return (hotel1.data.PackagePrice - hotel1.data.Price) -

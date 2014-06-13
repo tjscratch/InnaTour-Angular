@@ -97,16 +97,14 @@ innaAppFilters.filter('visibleOnly', [function(){
     var TICKET_HEIGHT = 200;
 
     return function(list, scrollTop){
-        console.log('visibleOnly');
-
         var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
-        var limit = scrolledTickets * 1.1 + 5;
+        var limit = scrolledTickets * 1.5 + 5;
 
         var result = [];
 
         for(var i = 0, item = null; (item = list[i++]) && result.length <= limit;) {
             if(!item.hidden) {
-                item.currentlyInvisible = (i < (scrolledTickets - 1));
+                item.currentlyInvisible = (i < (scrolledTickets - 2));
 
                 result.push(item);
             }
@@ -129,3 +127,15 @@ innaAppFilters.filter('isFloat', function(){
       return n === +n && n !== (n|0);
     }
 });
+
+innaAppFilters.filter('lowercaseFirst', function(){
+    return function(text){
+        if(!text || !text.length) return text;
+
+        var bits = text.split('');
+
+        bits[0] = bits[0].toLowerCase();
+
+        return bits.join('');
+    }
+})
