@@ -98,7 +98,7 @@ innaAppFilters.filter('visibleOnly', [function(){
 
     return function(list, scrollTop){
         var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
-        var limit = scrolledTickets * 1.5 + 5;
+        var limit = scrolledTickets * 1.5 + 6;
 
         var result = [];
 
