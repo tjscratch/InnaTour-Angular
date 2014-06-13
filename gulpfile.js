@@ -24,5 +24,5 @@ gulp.task('build-project', function (callback) {
 });
 
 gulp.task('default', function(callback){
-    runSequence(['styles', 'less', 'build-templates'], 'watch',  callback);
+    runSequence('sprite', ['styles', 'less', 'build-templates'], 'watch',  callback);
 });
