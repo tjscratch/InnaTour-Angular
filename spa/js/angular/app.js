@@ -220,6 +220,10 @@ var innaAppTemlates = angular.module('innaApp.templates', []);
 
 var innaAppDirectives = angular.module('innaApp.directives', []);
 
+innaAppDirectives.config(['$sceProvider', function($sceProvider) {
+    $sceProvider.enabled(false);
+}]);
+
 var innaAppServices = angular.module('innaApp.services', []);
 
 var innaAppFilters = angular.module('innaApp.filters', []);
