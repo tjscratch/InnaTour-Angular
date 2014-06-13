@@ -316,7 +316,12 @@ Cvc = "486";
                 var $to = $('#' + id);
                 if ($to.attr('tt') != 'true') {
                     $to.attr('tt', 'true');
-                    $to.tooltipX({ autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' } });
+                    $to.tooltipX({ autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' },
+                        items: "[data-title]",
+                        content: function () {
+                            return $to.data("title");
+                        }
+                    });
                 }
                 $to.tooltipX("open");
             }
@@ -552,9 +557,9 @@ Cvc = "486";
                                 aviaHelper.addCustomFields(data.AviaInfo);
                                 $scope.aviaInfo = data.AviaInfo;
                                 $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
-
-                                $scope.price = $scope.reservationModel.price;
                             }
+
+                            $scope.price = $scope.reservationModel.price;
 
                             //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
                             console.log('reservationModel:');
@@ -826,6 +831,24 @@ Cvc = "486";
                 }
             }
 
+            var actionTypeEnum = { avia:'avia', dp: 'dp', service: 'service' };
+            function getActionType() {
+                //сервисный сбор
+                if ($scope.reservationModel.IsService) {
+                    return actionTypeEnum.service;
+                }
+                else {
+                    //если ДП
+                    if ($scope.hotel != null) {
+                        return actionTypeEnum.dp
+                    }
+                    else {
+                        //авиа
+                        return actionTypeEnum.avia;
+                    }
+                }
+            }
+
             //срок оплаты билета
             function paymentDeadline() {
                 var self = this;
@@ -863,19 +886,55 @@ Cvc = "486";
                 self.runExiresLogic = function () {
                     //заэкспайрилось - показываем попап, отключаем апдейт
                     self.destroy();
-                    $scope.baloon.show('', '', aviaHelper.baloonType.payExpires, function () {
-                        $location.path(Urls.URL_AVIA);
-                    }, {
-                        successFn: function () {
-                            $scope.baloon.hide();
-                            var url = Urls.URL_AVIA;
-                            if ($scope.reservationModel.filter != null && $scope.reservationModel.filter.length > 0) {
-                                var criteria = angular.fromJson($scope.reservationModel.filter);
-                                url = urlHelper.UrlToAviaSearch(criteria);
+
+                    var btCaption = null;
+                    var successFn = null;
+                    var closeUrl = null;
+
+                    var pageType = getActionType();
+                    switch (pageType) {
+                        case actionTypeEnum.service: {
+                            closeUrl = Urls.URL_ROOT;
+
+                            successFn = function () {
+                                $scope.baloon.hide();
+                                $location.path(Urls.URL_ROOT);
                             }
-                            //log('redirect to url: ' + url);
-                            $location.path(url);
+
+                            btCaption = 'На главную';
+                            break;
                         }
+                        case actionTypeEnum.dp: {
+                            closeUrl = Urls.URL_DYNAMIC_PACKAGES;
+
+                            successFn = function () {
+                                $scope.baloon.hide();
+                                $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                            }
+                            break;
+                        }
+                        case actionTypeEnum.avia: {
+                            closeUrl = Urls.URL_AVIA;
+
+                            successFn = function () {
+                                $scope.baloon.hide();
+                                var url = Urls.URL_AVIA;
+                                if ($scope.reservationModel.filter != null && $scope.reservationModel.filter.length > 0) {
+                                    var criteria = angular.fromJson($scope.reservationModel.filter);
+                                    url = urlHelper.UrlToAviaSearch(criteria);
+                                }
+                                //log('redirect to url: ' + url);
+                                $location.path(url);
+                            }
+                            break;
+                        }
+                    }
+                    
+                    $scope.baloon.show(null, null, aviaHelper.baloonType.payExpires, function () {
+                        $location.path(closeUrl);
+                    }, {
+                        successFn: successFn,
+                        buttonCaption: btCaption
                     });
                 }
                 self.destroy = function () {
