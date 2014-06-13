@@ -24,15 +24,15 @@
     .box-shadow(0, 5px, 10px, rgba(50, 50, 50, .25));
     color: #292929;
     .font-proxima-regular();
-    padding: 18px;
-    width: 308px;
+    padding: 10px;
+    width: 268px;
     z-index: 2 !important;
 
     .calendar-head {
         text-align: right;
-        border-bottom: 1px solid #e7e7e7;
-        margin: 0px -18px 0px -18px;
-        padding: 0px 20px 15px 0px;
+        border-bottom: 1px solid #c0c0c2;
+        margin: 0 -10px;
+        padding: 1px 20px 8px 0px;
 
         .check-container {
             width: 110px;
@@ -42,13 +42,13 @@
         .caption {
             position: absolute;
             left: 20px;
-            font-size: 18px;
+            font-size: 14px;
             .font-proxima-regular-bold();
         }
     }
 
     .ui-datepicker-header {
-        margin-top: 15px;
+        margin-top: 8px;
     }
 
     .ui-datepicker &-prev, .ui-datepicker &-prev-hover {
@@ -68,27 +68,17 @@
 
     &-calendar {
         th {
-            color: #acacac;
-            font-size: 11px;
+            color: #878787;
+            font-size: 10px;
             text-transform: uppercase;
 
             &.ui-datepicker-week-end {
-                color: #ff5c5c;
-            }
-        }
-        tbody tr {
-            border-top: 1px solid #e7e7e7;
-            margin: 1px 0;
-
-            &:first-child {
-                border-top: 0;
+                color: #dd3e14;
             }
         }
 
         td {
-            height: 40px;
             font-size: 20px;
-            line-height: 40px;
         }
     }
 
@@ -109,11 +99,11 @@
 
         &.ui-datepicker-week-end {
             span {
-                color: #ffa3a3;
+                color: #dd3e14;
             }
 
             a {
-                color: #ff5c5c;
+                color: #dd3e14;
             }
         }
 
@@ -125,7 +115,6 @@
 
         a {
             color: #000;
-            margin: 1px 0;
             padding: 0;
             text-align: center;
 
