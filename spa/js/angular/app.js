@@ -14,6 +14,7 @@ var app = angular.module('innaApp', [
 ]);
 
 app.constant('innaApp.Urls', {
+    URL_ROOT: '/',
     URL_BUY: '/buy/',
     URL_AVIA: '/avia/',
     URL_AVIA_SEARCH: '/avia/search/',
@@ -89,7 +90,7 @@ app.config([
 
         $routeProvider.
             //Главная
-            when('/', morda()).
+            when(url.URL_ROOT, morda()).
             when(url.URL_PROGRAMMS + 'category/:id', {
                 templateUrl: '/spa/templates/pages/it_category_page.html',
                 controller: 'IndividualToursCategoryCtrl'
