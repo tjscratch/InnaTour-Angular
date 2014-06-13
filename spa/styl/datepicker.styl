@@ -3,27 +3,49 @@
     border-radius(2px)
     height 35px
     position relative
+    overflow visible
     width 35px
 
     &:hover
         background #89c13a
 
-        &:before
-            color #fff
+    &:before
+        color #fff
 
     &:before
-        position: absolute
-        color #000
+      position: absolute
+      left 50%
+      top 50%
+      margin -4px 0 0 -2px
 
+
+
+
+.ui-icon-circle-triangle-w, .ui-icon-circle-triangle-e
+    &:before
+      content ''
+      width 0
+      height 0
+      border-style solid
 
 
 .ui-icon-circle-triangle-w
+  &:before
+    border-width 4.5px 5px 4.5px 0
+    border-color transparent #000 transparent transparent
+
+  &:hover
     &:before
-        content '◀'
+      border-color transparent #fff transparent transparent
 
 .ui-icon-circle-triangle-e
+  &:before
+    border-width 4.5px 0 4.5px 5px
+    border-color transparent transparent transparent #000
+
+  &:hover
     &:before
-        content '▶'
+      border-color transparent transparent transparent #fff
 
 
 
@@ -32,7 +54,11 @@
     box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
     color #292929
     font-family $ProximaNova
-    padding 18px
+    padding 10px
+
+    table
+        border-collapse separate
+        border-spacing 3px
 
 .search-ticket-form .ui-datepicker
     width 650px !important
@@ -77,11 +103,11 @@
 
 
 .ui-datepicker .ui-datepicker-header
-    margin-top 15px
+    margin-top 8px
 
 .ui-datepicker .ui-datepicker-prev
 .ui-datepicker .ui-datepicker-prev-hover
-    left 2px
+    left -5px
     top 0
 
 .ui-datepicker .ui-datepicker-next
@@ -94,45 +120,38 @@
     margin 0 0 6px
 
 .ui-datepicker-calendar th
-    color #acacac
-    font-size 11px
+    color #878787
+    font-size 10px
     text-transform uppercase
+    padding-top 12px
 
 .ui-datepicker-calendar th.ui-datepicker-week-end
     color #ff5c5c
 
-.ui-datepicker-calendar tbody tr
-    border-top 1px solid #e7e7e7
-    margin 1px 0
-
-.ui-datepicker-calendar tbody tr:first-child
-    border-top 0
-
 .ui-datepicker-calendar td
-    height 40px
     font-size 20px
-    line-height 40px
 
 .ui-datepicker table
     margin 0
+    width auto
 
 .ui-datepicker td
     padding 0
 
 .ui-datepicker td a
 .ui-datepicker td span
-    border 3px solid transparent
-    height 34px
-    line-height 32px
+    border 2px solid transparent
+    height 31px
+    line-height 31px
     display block
-    width 36px
-    margin 1px 0
+    width 31px
+    display inline-block
 
 .ui-datepicker td.ui-datepicker-week-end span
-    color #ffa3a3
+    color #dd3e14
 
 .ui-datepicker td.ui-datepicker-week-end a
-    color #ff5c5c
+    color #dd3e14
 
 .ui-datepicker td.ui-datepicker-today a
 .ui-datepicker td.ui-datepicker-today span

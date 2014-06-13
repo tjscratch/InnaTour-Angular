@@ -31,13 +31,14 @@
             </li>
         </ul>
         <div class="hotel-details-rooms__room-long-text">
-            <div ng-bind-html="room.Description"></div>
-            <ul ng-if="room.RoomAmenities">
-                <li ng-repeat="am in room.RoomAmenities">{{am.Name}}</li>
-            </ul>
+            <p ng-bind-html="room.Description | stripTags"></p>
+            <h3 ng-if="room.RoomAmenities">Услуги</h3>
+            <p ng-if="room.RoomAmenities">
+                <span ng-repeat="am in room.RoomAmenities">{{am.Name}}<span ng-if="!$last">,&nbsp;</span></span>
+            </p>
             <div ng-if="room.CancellationRule">
                 <h3>Правила отмены</h3>
-                <div ng-bind-html="room.CancellationRule"></div>
+                <p ng-bind-html="room.CancellationRule"></p>
             </div>
         </div>
     </div>
