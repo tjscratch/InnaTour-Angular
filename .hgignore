@@ -55,6 +55,7 @@ spa/js/debug.js
 spa/*.sh
 
 build
+build_and_publish
 nginx.nginx_conf
 npm-debug.log
 publish
@@ -62,6 +63,7 @@ publish
 # игнорируем собранный файл спрайтов
 spa/img/sprites/*.json
 spa/img/sprites/icon-*.png
+spa/styl/sprite.styl
 spa/css
 spa/build
 spa/node_modules
