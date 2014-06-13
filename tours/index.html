@@ -24,12 +24,12 @@
     <!--<link rel="stylesheet" href="/spa/css/jquery-ui-1.10.4.custom.css" />
     <link rel="stylesheet" type="text/css" href="/spa/css/main.css" />-->
 
-    <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css"/>
-    <link rel="stylesheet" href="/spa/css/main.css"/>
-    <link rel="stylesheet" href="/spa/css/common.min.css"/>
+    <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" href="/build/css/main.less.css" />
+    <link rel="stylesheet" href="/build/css/common.min.css" />
 
     <!--[if lt IE 9]>
-    <link rel="stylesheet" href="/spa/css/ie.min.css"/>
+    <link rel="stylesheet" href="/build/css/ie.min.css" />
     <![endif]-->
 
 
@@ -79,14 +79,14 @@
 
         <div class="header-menu">
             <ul class="header-menu-container-items">
-                <li class="header-menu-item"><a href="/#/" class="active">Туры</a></li>
-                <li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a>
-                </li>
-                <li class="header-menu-item">
-                    <a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru"
-                       target="_blank">Отели</a>
-                </li>
-                <li class="header-menu-item"><a href="/#/individualtours/">Программы</a></li>
+
+
+                <li class="header-menu-item"><a href="/#/packages/" >Перелет&nbsp;+&nbsp;Отель</a></li>
+                <li class="header-menu-item"><a href="/#/avia/" >Авиабилеты</a></li>
+                <li class="header-menu-item"><a href="/#/" >Туры</a></li>
+                <li class="header-menu-item"><a href="/#/individualtours/" >Программы</a></li>
+                <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank">Отели</a></li>
+                <li class="header-menu-item"><a href="/catalog/guide/">Каталог стран</a></li>
             </ul>
             <ng:include src="getHeadForm()"></ng:include>
         </div>
@@ -108,7 +108,7 @@
                         useCard: false,
                         results: "group",
                         useForm: false,
-                        formType: "horizontal",
+                        formType: "horizontal"
                     });</script>
         <span style="visibility:hidden;" class="sletat-copyright">Идет загрузка модуля <a href="http://sletat.ru/"
                                                                                           title="поиск туров"
@@ -203,23 +203,15 @@
 </script>
 
 
-<!--<script src="//code.jquery.com/jquery-1.8.3.min.js"></script>-->
 <script src="//yandex.st/jquery/1.11.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
-
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js"></script>
-
-<script src="/spa/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
-<script src="/spa/js/jquery.ui.datepicker-ru.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
 
 <!--[if lt IE 10]>
 <script src="/spa/js/ie.placeholder.js"></script>
-<![endif]-->
-
-<!--[if lt IE 10]>
 <script src="spa/lib/xdomain.min.js"></script>
 <script>
     xdomain.slaves({
@@ -235,8 +227,21 @@
         type="text/javascript"></script>
 
 <!-- build:app-main-js -->  <!--файлы заменяются при билде на app-main.js-->
-<script src="/spa/js/debug.js"></script>
 
+<script src="/spa/js/google.maps.clustering.js"></script>
+
+<!-- polyfill -->
+<script src="/spa/lib/polyfill.js"></script>
+
+<!-- jq plugins -->
+<script src="/spa/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="/spa/js/jquery.ui.datepicker-ru.js"></script>
+<script src="/spa/js/angular/plugins/carousel.js"></script>
+<!-- \ jq plugins -->
+
+<script src="/spa/js/debug.js"></script>
+<script src="/spa/lib/angular-cookies.min.js"></script>
+<script src="/spa/lib/angular-locale_ru-ru.js"></script>
 <script src="/spa/js/angular/helpers/utils.js"></script>
 <script src="/spa/js/angular/helpers/urlhelper.js"></script>
 <script src="/spa/js/angular/helpers/date.helper.js"></script>
@@ -250,7 +255,7 @@
 <script src="/spa/js/angular/app.js"></script>
 
 <!-- templateCache -->
-<script src="/spa/build/templates.js"></script>
+<script src="/build/js/templates.js"></script>
 
 <script src="/spa/js/angular/ang.helpers/url.helper.js"></script>
 <script src="/spa/js/angular/ang.helpers/api.js"></script>

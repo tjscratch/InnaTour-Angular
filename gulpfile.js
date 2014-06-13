@@ -1,49 +1,28 @@
+﻿var requireDir = require('require-dir');
+var dir = requireDir('./node_tasks');
+
 var gulp = require('gulp'),
-    concat = require('gulp-concat'),
-    less = require('gulp-less'),
-	minifyCSS = require('gulp-minify-css'),
-	uglify = require('gulp-uglify'),
-	stylus = require('gulp-stylus'),
-    nib = require('nib');
+    gutil = require('gulp-util'),
+    gulpif = require('gulp-if'),
+    runSequence = require('run-sequence'),
+    conf = require('./node_tasks/config');
 
 
-var paths = {
-    styles: 'spa/styl/**/*'
-};
+var _ENV_ = process.env.NODE_ENV || '';
+
+console.info('----------------------------');
+gutil.log(gutil.colors.green('node environment == ' + _ENV_));
+console.info('----------------------------');
 
 
-// Compiles LESS > CSS 
-gulp.task('build-less', function () {
-    return gulp.src('spa/css/main/main.less')
-        .pipe(less())
-        .pipe(gulp.dest('spa/css'));
+// Полная сборка проект
+// Сборка в production запускается в окружении - production
+// NODE_ENV=production gulp build-project
+// После сборки проект копируется в папку PUBLISH
+gulp.task('build-project', function (callback) {
+    runSequence(['styles', 'less', 'build-concat'], 'html-replace', 'copy-project', callback);
 });
 
-gulp.task('build-ticket', function () {
-    return gulp.src('spa/css/ticket.less')
-        .pipe(less())
-        .pipe(gulp.dest('spa/css'));
+gulp.task('default', function(callback){
+    runSequence(['styles', 'less', 'build-templates'], 'watch',  callback);
 });
-
-gulp.task('build-styl', function () {
-    gulp.src([
-            'spa/styl/main.styl'
-        ])
-		.pipe(concat('styles.min.styl'))
-            .on('error', function() {})
-		.pipe(stylus())
-            .on('error', function() {})
-//		.pipe(minifyCSS({
-//            keepBreaks: true
-//        }))
-//            .on('error', function() {})
-        .pipe(gulp.dest('spa/css'))
-            .on('error', function() {})
-});
-
-gulp.task('watch', function() {
-    gulp.watch(paths.styles, ['build-styl']);
-});
-
-
-gulp.task('default', ['build-less']);

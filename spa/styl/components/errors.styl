@@ -1,0 +1,75 @@
+.site-error-message
+  position absolute
+  bottom 145px
+  left 145px
+  color #fff
+  display table
+
+  &__code
+  &__description
+    display table-cell
+    vertical-align bottom
+
+  &__code
+    font-size 130px
+    line-height 88px
+    padding-right 20px
+
+  &__description
+    width 315px
+
+  &__description-title
+    font-size 26px
+    font-weight bold
+    margin-bottom 15px
+
+  &__description-text
+    font-size 20px
+
+.browser-message
+  width 385px
+  margin 0 auto 45px
+  color #4d4d4d
+
+  &__title
+    margin-bottom 20px
+    font-size $large
+
+  &__text
+    a
+      color #1e88c1
+
+    p
+      margin 10px 0
+
+.aux-page
+  position absolute
+  top 101px
+  bottom 0
+  left 0
+  right 0
+  background-size cover
+
+  &_type_404
+    background-image url(/spa/img/404.jpg)
+
+  &_type_403
+    background-image url(/spa/img/403.jpg)
+
+  &_type_500
+    background-image url(/spa/img/500-bg.jpg)
+
+.browser-options
+  width 540px
+  table-layout fixed
+  margin 0 auto
+
+  &__option
+    text-align center
+    vertical-align middle
+    padding-top 2px
+
+    a
+      color #4d4d4d !important
+      text-decoration none !important
+      font-size .9em

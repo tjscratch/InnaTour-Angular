@@ -1,0 +1,19 @@
+{
+    "build" : "./build",
+    "dest" : "./spa",
+    "styl" : "./spa/styl",
+    "templ" : "./spa/templates",
+    "img" : "./spa/img",
+    "publish" : "./publish",
+
+    "hosts" : {
+        "b2b" : {
+            "test": "http://b2b.test.inna.ru",
+            "prod": "http://b2b.beta.inna.ru"
+        },
+        "api" : {
+            "test": "http://api.test.inna.ru",
+            "prod": "https://api.beta.inna.ru"
+        }
+    }
+}

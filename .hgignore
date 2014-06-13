@@ -43,23 +43,37 @@ bin/*
 .settings/.jsdtscope
 .settings/org.eclipse.wst.jsdt.ui.superType.container
 .settings/org.eclipse.wst.jsdt.ui.superType.name
+
 spa/html/verstka_Vaneltin/img/.DS_Store
 spa/html/verstka_Vaneltin/img/flags/.DS_Store
 spa/html/verstka_Vaneltin/img/individual-tour/.DS_Store
 spa/html/verstka_Vaneltin/img/individual/.DS_Store
+
 spa/uploads/maket_photos/Thumbs.db
-build_and_publish/node_modules
-build_and_publish/publish_release/*
-build_and_publish/publish_test/*
+
 spa/js/debug.js
 spa/*.sh
-spa/css/common.min.css
-spa/build/
-build_and_publish/css/common.min.css
-build_and_publish/css/main.css
-nginx.nginx_conf
-spa/css/ticket.min.css
-spa/css/main.css
 
 build
+nginx.nginx_conf
+npm-debug.log
 publish
+
+# игнорируем собранный файл спрайтов
+spa/img/sprites/*.json
+spa/img/sprites/icon-*.png
+spa/css
+spa/build
+spa/node_modules
+
+
+
+# VisualStudio
+App_Data
+Web.Debug.config
+Web.Release.config
+website.publishproj
+Solution.v12.suo
+Inna.Frontend.csproj
+Inna.Frontend.SPA.sln
+start_on_node_server.cmd
