@@ -17,7 +17,8 @@
                     <div class="rlf-colum2">
                         <div class="rlf-flight-info">
                             <b>вылет {{etapAgg.etapTo.OutTimeFormatted}}</b>, {{etapAgg.etapTo.OutDateFormatted}} <br>
-                            {{etapAgg.etapTo.OutCity}}, {{etapAgg.etapTo.OutPort}}
+                            <span ng-if="etapAgg.etapTo.OutCity != etapAgg.etapTo.OutPort">{{etapAgg.etapTo.OutCity}}, {{etapAgg.etapTo.OutPort}}</span>
+                            <span ng-if="etapAgg.etapTo.OutCity == etapAgg.etapTo.OutPort">{{etapAgg.etapTo.OutCity}}</span>
                         </div>
                     </div>
                 </div>
@@ -30,7 +31,8 @@
                     <div class="rlf-colum2-m">
                         <div class="rlf-flight-info">
                             <b>прилет {{etapAgg.etapTo.InTimeFormatted}}</b>, {{etapAgg.etapTo.InDateFormatted}} <br>
-                            {{etapAgg.etapTo.InCity}}, {{etapAgg.etapTo.InPort}}
+                            <span ng-if="etapAgg.etapTo.InCity != etapAgg.etapTo.InPort">{{etapAgg.etapTo.InCity}}, {{etapAgg.etapTo.InPort}}</span>
+                            <span ng-if="etapAgg.etapTo.InCity == etapAgg.etapTo.InPort">{{etapAgg.etapTo.InCity}}</span>
                         </div>
                     </div>
                 </div>
