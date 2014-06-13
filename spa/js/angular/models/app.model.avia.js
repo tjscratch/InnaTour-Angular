@@ -172,6 +172,8 @@ inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function () {
         if (ticket.hidden) o.visible--;
     });
 
+    o.visible--; //because we don't display currently selected ticket/hotel
+
     return o;
 };
 
