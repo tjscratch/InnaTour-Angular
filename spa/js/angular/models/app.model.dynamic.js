@@ -35,6 +35,8 @@ inna.Models.Hotels.HotelsCollection.prototype.getVisibilityInfo = function(){
         if(hotel.hidden) o.visible--;
     });
 
+    o.visible--; //because we don't display currently selected ticket/hotel
+
     return o;
 };
 
