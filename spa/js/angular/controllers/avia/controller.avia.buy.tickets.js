@@ -557,9 +557,9 @@ Cvc = "486";
                                 aviaHelper.addCustomFields(data.AviaInfo);
                                 $scope.aviaInfo = data.AviaInfo;
                                 $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
-
-                                $scope.price = $scope.reservationModel.price;
                             }
+
+                            $scope.price = $scope.reservationModel.price;
 
                             //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
                             console.log('reservationModel:');
