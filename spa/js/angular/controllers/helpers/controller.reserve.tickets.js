@@ -150,7 +150,7 @@ innaAppControllers.
                             return peopleType.infant;
                         else if (age >= 2 && age <= 11)
                             return peopleType.child;
-                        else
+                        else if (age >= 12)
                             return peopleType.adult;
                     };
 
@@ -211,6 +211,7 @@ innaAppControllers.
 
                     //console.log('a: %d, c: %d, i: %d', availableAdultCount, availableChildCount, availableInfantsCount);
                     if (availableAdultCount < 0 || availableChildCount < 0 || availableInfantsCount < 0) {
+                        setNotValid(pas.birthday);
                         return false;
                     }
                 }
@@ -776,7 +777,13 @@ innaAppControllers.
             $scope.tooltipControl = {
                 init: function ($to){
                     //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
-                    $to.tooltipX({ autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' } });
+                    $to.tooltipX({
+                        autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' },
+                        items: "[data-title]",
+                        content: function () {
+                            return $to.data("title");
+                        }
+                    });
                 },
                 open: function ($to) {
                     //$to.tooltip("enable");
@@ -795,6 +802,17 @@ innaAppControllers.
                     catch(e){};
                 }
             };
+
+            $scope.getBirthTitle = function () {
+                var res = 'Проверьте даты рождения, \nвы делали поиск на ' + $scope.AdultCount + ' ' + $scope.helper.pluralForm($scope.AdultCount, 'взрослого', 'взрослых', 'взрослых');
+                if (parseInt($scope.ChildCount) > 0) {
+                    res += ', \n' + $scope.ChildCount + ' ' + $scope.helper.pluralForm($scope.ChildCount, 'ребенка', 'детей', 'детей') + ' (от 2 до 12 лет)';
+                }
+                if (parseInt($scope.InfantsCount) > 0) {
+                    res += ', \n' + $scope.InfantsCount + ' ' + $scope.helper.pluralForm($scope.InfantsCount, 'младенца', 'младенцев', 'младенцев') + ' (до 2-х лет)';
+                }
+                return res;
+            }
 
             //оплата
             $scope.processToPayment = function ($event) {

@@ -316,7 +316,12 @@ Cvc = "486";
                 var $to = $('#' + id);
                 if ($to.attr('tt') != 'true') {
                     $to.attr('tt', 'true');
-                    $to.tooltipX({ autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' } });
+                    $to.tooltipX({ autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' },
+                        items: "[data-title]",
+                        content: function () {
+                            return $to.data("title");
+                        }
+                    });
                 }
                 $to.tooltipX("open");
             }
@@ -552,9 +557,9 @@ Cvc = "486";
                                 aviaHelper.addCustomFields(data.AviaInfo);
                                 $scope.aviaInfo = data.AviaInfo;
                                 $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
-
-                                $scope.price = $scope.reservationModel.price;
                             }
+
+                            $scope.price = $scope.reservationModel.price;
 
                             //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
                             console.log('reservationModel:');
