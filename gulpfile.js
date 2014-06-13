@@ -20,9 +20,9 @@ console.info('----------------------------');
 // NODE_ENV=production gulp build-project
 // После сборки проект копируется в папку PUBLISH
 gulp.task('build-project', function (callback) {
-    runSequence(['styles', 'less', 'build-concat'], 'html-replace', 'copy-project', callback);
+    runSequence('sprite', ['styles', 'less', 'build-concat'], 'html-replace', 'copy-project', callback);
 });
 
 gulp.task('default', function(callback){
-    runSequence(['styles', 'less', 'build-templates'], 'watch',  callback);
+    runSequence('sprite', ['styles', 'less', 'build-templates'], 'watch',  callback);
 });
