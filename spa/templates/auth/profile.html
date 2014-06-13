@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="popup-form-row">
+    <div class="popup-form-row" ng-if="!user.raw.IsSocial">
         <a href="javascript:void(0);" class="forgot-password" ng-click="allowChangePassword()" ng-if="!state.allowChangePassword">Сменить пароль</a>
         <label for="" class="popup-form-label">Текущий пароль</label>
         <input type="password" class="popup-form-field" ng-disabled="!state.allowChangePassword" ng-model="currentPassword">
