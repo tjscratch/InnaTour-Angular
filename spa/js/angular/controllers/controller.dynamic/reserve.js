@@ -223,6 +223,10 @@
                     });
                 }
 
+                m.IsNeededVisa = $scope.addition.isNeededVisa,
+                m.IsNeededTransfer = $scope.addition.isNeededTransfer,
+                m.IsNeededMedicalInsurance = $scope.addition.isNeededMedicalInsurance,
+
                 m.SearchParams = {
                     HotelId: $scope.hotel.HotelId,
                     HotelProviderId: $scope.hotel.ProviderId,
@@ -238,9 +242,6 @@
                         Adult: $routeParams.Adult,
                         ChildrenAges: childAgers
                     },
-                    IsNeededVisa: $scope.addition.isNeededVisa,
-                    IsNeededTransfer: $scope.addition.isNeededTransfer,
-                    IsNeededMedicalInsurance: $scope.addition.isNeededMedicalInsurance,
                     CustomerWishlist: $scope.addition.customerWishlist
                 };
                 return m;
