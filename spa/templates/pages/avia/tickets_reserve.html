@@ -80,7 +80,7 @@
                     <input validate-events-dir ng-model="passenger.birthday.value"
                            ng-validation-model="passenger.birthday" validate="validate(item, type)" validate-type="validateType.birthdate"
                            ng-class="{error:isFieldInvalid(passenger.birthday)}"
-                           title="Неправильно введена дата рождения"
+                           ng-attr-title="Проверьте даты рождения, вы делали поиск на {{AdultCount}} {{helper.pluralForm(AdultCount, 'взрослого', 'взрослых', 'взрослых')}}, {{ChildCount}} {{helper.pluralForm(ChildCount, 'ребенка', 'детей', 'детей')}} (от 2 до 12 лет), {{InfantsCount}} {{helper.pluralForm(InfantsCount, 'младенца', 'младенцев', 'младенцев')}} (до 2-х лет)"
                            masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг"
                            class="b-field-text">
                 </div>
@@ -156,7 +156,13 @@
     </div>
     <div class="b-sum-container">
         <a ng-href="#" ng-click="fillDefaultModel($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>
-        <span class="b-sum" style="">Сумма к оплате:&nbsp;</span><span class="b-tickets-sum"><b>{{price| price}}</b> <ng-include src="'components/ruble.html'" /></span>
+        <span class="b-sum" style="">Сумма к оплате:&nbsp;</span>
+        <span class="b-tickets-sum">
+            <b>
+                <span>{{price| price}}</span>
+                <ng-include src="'components/ruble.html'" />
+            </b>
+        </span>
         <a ng-if="!user.isAgency()" ng-href="#" class="button b-sum-button" ng-click="processToPayment($event)">Перейти к оплате</a>
         <a ng-if="user.isAgency()" ng-href="#" class="button b-sum-button" ng-click="processToPayment($event)">Забронировать</a>
     </div>

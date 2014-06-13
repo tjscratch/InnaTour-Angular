@@ -8,11 +8,12 @@ angular.module('innaApp.directives')
                 back: '=innaHotelDetailsBack',
                 next: '=innaHotelDetailsNext',
                 combination: '=innaHotelDetailsBundle',
-                goReservation: '=innaHotelDetailesReservationFn'
+                goReservation: '=innaHotelDetailesReservationFn',
+                getTicketDetails: '=innaHotelDetailsGetTicketDetails'
             },
             controller: [
-                '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events',
-                function($scope, $element, $timeout, aviaHelper, Events){
+                '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events', '$location',
+                function($scope, $element, $timeout, aviaHelper, Events, $location){
                     /*Dom*/
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -32,13 +33,14 @@ angular.module('innaApp.directives')
 
                     $scope.showFullDescription = false;
 
-                    $scope.showMapFullScreen = false;
-
                     $scope.bundle = new inna.Models.Dynamic.Combination();
                     $scope.bundle.setTicket($scope.combination.ticket);
                     $scope.bundle.setHotel($scope.hotel);
 
                     $scope.dataFullyLoaded = false;
+
+                    $scope.displayRoom = $location.search().room;
+                    $scope.onlyRoom = null;
 
                     /*Proxy*/
                     $scope.dateHelper = dateHelper;
@@ -47,27 +49,6 @@ angular.module('innaApp.directives')
                     /*Methods*/
                     $scope.toggleDescription = function(){
                         $scope.showFullDescription = !$scope.showFullDescription;
-                    };
-
-                    $scope.toggleMapDisplay = function(){
-                        function closeByEsc(event){
-                            if(event.which == 27) { //esc
-                                $scope.$apply(function(){
-                                    $scope.showMapFullScreen = false;
-                                });
-                            }
-                        }
-
-                        $scope.showMapFullScreen = !$scope.showMapFullScreen;
-
-                        if(map) {
-                            $timeout(function(){
-                                $(window).trigger('resize');
-                                google.maps.event.trigger(map, 'resize');
-                            }, 1);
-                        }
-
-                        $(document)[$scope.showMapFullScreen ? 'on' : 'off']('keyup', closeByEsc);
                     };
 
                     $scope.toggleRoom = function(room){
@@ -104,6 +85,23 @@ angular.module('innaApp.directives')
 
                     $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
                         $scope.dataFullyLoaded = true;
+
+                        if($scope.displayRoom) {
+                            var onlyRoom = null;
+
+                            $scope.hotel.detailed.Rooms.every(function(room){
+                                if(room.RoomId === $scope.displayRoom) {
+                                    onlyRoom = room;
+                                }
+
+                                return true;
+                            });
+
+                            if(onlyRoom) {
+                                $scope.onlyRoom = [onlyRoom];
+                                onlyRoom.isOpen = true;
+                            }
+                        }
                     })
                 }
             ],

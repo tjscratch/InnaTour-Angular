@@ -13,16 +13,6 @@
                 <ng:include src="'components/tripadvisor/index.html'"
                             ng-repeat="data in [hotel.data]"></ng:include>
 
-                <!--<div class="hotel-info-tripadvisor">
-                    <span class="icon icon-tripadvisor"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 0"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 1"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 2"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 3"></span>
-                    <span class="icon icon-tripadvisor-like" ng-if="hotel.data.TaFactor > 4"></span>
-                    <span class="hotel-details-ta-info__comments">{{hotel.data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}</span>
-                </div>-->
-
             </div>
             <div class="hotel-details-name">
                 <span class="hotel-details-stars">
@@ -42,31 +32,27 @@
             <div class="hotel-details__section-box">
                 <h2 class="hotel-details__section-title">Об отеле</h2>
                 <div class="hotel-details__section-text">
-                    <div class="baloon-loading" ng-if="!dataFullyLoaded"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
+                    <div class="spinner" ng-if="!dataFullyLoaded">
+                        <div class="rect1"></div>
+                        <div class="rect2"></div>
+                        <div class="rect3"></div>
+                        <div class="rect4"></div>
+                        <div class="rect5"></div>
+                    </div>
                     <div class="hotel-details__section-text-viewport"
                          ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}"
                          ng-bind-html="hotel.detailed.Hotel.Description"></div>
                     <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
                     <div class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</div>
                 </div>
-                <ul class="hotel-details-extra" ng-if="hotel.detailed.Extra">
-                    <li ng-repeat="(key, val) in hotel.detailed.Extra"
+                <ul class="hotel-details-extra" ng-if="hotel.data.Extra">
+                    <li ng-repeat="(key, val) in hotel.data.Extra"
                         class="hotel-details-extra__item hotel-details-extra__item_type_{{key | lowercase}}">{{val}}</li>
                 </ul>
             </div>
         </div>
         <div class="hotel-details__section">
-            <h2 class="hotel-details__section-title">
-                <div class="hotel-details__section-title-section">
-                    {{hotel.data.Address}}
-                </div>
-                <div class="hotel-details__section-title-section">
-                    <ul class="hotel-details-control">
-                        <li class="hotel-details-control__button hotel-details-control__button_theme_icon-only" ng-click="toggleMapDisplay()"><img src="/spa/img/hotel-details-map-go-fullscreen.png"></li>
-                        <!--<li class="hotel-details-control__button">Панорама</li>-->
-                    </ul>
-                </div>
-            </h2>
+            <h2 class="hotel-details__section-title">{{hotel.data.HotelCityName}}, {{hotel.data.Address}}</h2>
             <div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
                 <div id="hotel-details-map"></div>
             </div>
@@ -76,57 +62,23 @@
 
             <div ng-if="combination"
                  inna-dynamic-bundle
-                 inna-dynamic-bundle-bundle="bundle"></div>
+                 inna-dynamic-bundle-bundle="bundle"
+                 inna-dynamic-bundle-ticket-details="getTicketDetails"
+                 inna-dynamic-bundle-close="back"></div>
         </div>
         <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">Выбор номера</h2>
 
-            <div class="baloon-loading" ng-if="!dataFullyLoaded"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
+            <div class="spinner" ng-if="!dataFullyLoaded">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
 
-            <ul class="hotel-details-rooms">
-                <li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen}" ng-repeat="room in hotel.detailed.Rooms">
-                    <div class="hotel-details-rooms__room-short">
-                        <h3 class="hotel-details-rooms__room-title" ng-click="toggleRoom(room)">{{room.RoomName}}</h3>
-
-                        <div class="hotel-details-rooms__room-short-info">
-                            <div class="hotel-details-rooms__room-desc">
-                                <span ng-repeat="bed in room.BedTypeList">{{bed.Name}}<span ng-if="!$last"> ,</span></span>
-                            </div>
-                            <div class="hotel-details-rooms__room-cancel-rules"><span ng-if="room.IsRefundable">Бесплатная отмена бронирования</span></div>
-                            <div class="hotel-details-rooms__room-price">
-                                <div class="hotel-details-rooms__room-price-diff">
-                                    <span ng-if="$first">Включен в цену</span>
-                                    <span ng-if="!$first">{{room.Price - bundle.hotel.PackagePrice | signed}} Р</span>
-                                </div>
-                                <div class="hotel-details-rooms__room-price-full">К оплате: {{bundle.ticket.data.PackagePrice + room.Price | price}} Р</div>
-                            </div>
-                            <div class="hotel-details-rooms__room-actions">
-                                <button class="button button_size_l" ng-click="goReservation(room, hotel)">Купить</button>
-                            </div>
-                        </div>
-
-                        <ul class="hotel-details-extra">
-                            <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption.CategoryName}}</li>
-                        </ul>
-                    </div>
-                    <div class="hotel-details-rooms__room-long">
-                        <ul class="mini-gallery">
-                            <li ng-repeat="pic in room.Photos" class="mini-gallery__mini" style="background-image:url({{pic.Large}});">
-                                <div class="mini-gallery__big"><img class="mini-gallery__big-img" ng-src="{{pic.Large}}" alt=""/></div>
-                            </li>
-                        </ul>
-                        <div class="hotel-details-rooms__room-long-text">
-                            <div ng-bind-html="room.Description"></div>
-                            <ul ng-if="room.RoomAmenities">
-                                <li ng-repeat="am in room.RoomAmenities">{{am.Name}}</li>
-                            </ul>
-                            <div ng-if="room.CancellationRule">
-                                <h3>Правила отмены</h3>
-                                <div ng-bind-html="room.CancellationRule"></div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+            <ul class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
+                <ng:include src="'components/hotel-details-room.html'" ng-repeat="room in (onlyRoom || hotel.detailed.Rooms)"></ng:include>
             </ul>
         </div>
 

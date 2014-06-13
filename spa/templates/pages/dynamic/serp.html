@@ -25,9 +25,9 @@
                         </div>
                     </div>
                     <div class="rlf-fly">
-                        <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
+                        <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.getBackOutCode()}}
                         <span class="rlf-fly-arrow"></span>
-                        <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
+                        <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.getBackInCode()}}
                         <div class="rlf-full-travel-time">
                             {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
                             {{ticket.getDuration('Back')}} в пути
@@ -80,4 +80,5 @@
      inna-hotel-details-back="closeHotelDetails"
      inna-hotel-details-next="getHotelDetails"
      inna-hotel-details-bundle="combination"
-     inna-hotel-detailes-reservation-fn="goReservation"></div>
+     inna-hotel-detailes-reservation-fn="goReservation"
+     inna-hotel-details-get-ticket-details="getTicketDetails"></div>

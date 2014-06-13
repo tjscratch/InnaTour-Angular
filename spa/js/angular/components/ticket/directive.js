@@ -6,10 +6,10 @@ angular.module('innaApp.directives')
             transclude: true,
             controller: [
                 '$scope',
+                '$element',
                 'aviaHelper',
-                function($scope, aviaHelper){
+                function($scope, $element, aviaHelper){
 
-                    //console.log($scope);
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
                     $scope.dateHelper = dateHelper;
 

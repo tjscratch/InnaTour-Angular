@@ -18,8 +18,10 @@ angular.module('innaApp.directives')
                     });
 
                     Option.prototype.describe = function(){
-                        return '# (%)'.split('#').join(this.title).split('%').join(this.code)
-                    }
+                        return '# (%)'.
+                            split('#').join(this.title).
+                            split('%').join(this.code);
+                    };
 
                     var Options = inna.Models.Avia.Filters._OptionsFactory();
 
@@ -43,15 +45,18 @@ angular.module('innaApp.directives')
                     $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Airport'));
                     $scope.options = $scope.filter.options = new Options();
                     $scope.filter.filterFn = function(ticket){
+                        console.log('---------------------------');
+
                         var show = false;
-                        var selected = this.options.getSelected();
 
-                        if(!selected.options.length) return;
-
-                        selected.each(function(option){
+                        this.options.getSelected().each(function(option){
                             ticket.everyEtap(function(etap){
+                                console.log(option.code, etap.data.InCode, etap.data.OutCode);
+
                                 show = show || etap.data.InCode == option.code || etap.data.OutCode == option.code;
                             });
+
+                            console.log(show);
                         });
 
                         if(!show) {

@@ -18,16 +18,7 @@
 
                         <!-- tripadvisor -->
                         <ng:include src="'components/tripadvisor/index.html'"
-                                ng-repeat="data in [option]"></ng:include>
-
-                        <!--<div>
-                            <span ng-if="option.value == 0">Без рейтинга</span>
-                            <span class="icon icon-tripadvisor-like" ng-if="option.value > 0"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="option.value > 1"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="option.value > 2"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="option.value > 3"></span>
-                            <span class="icon icon-tripadvisor-like" ng-if="option.value > 4"></span>
-                        </div>-->
+                                ng-repeat="data in [option]" ng-init="withOutTd = true"></ng:include>
                     </span>
                     <span class="ra-fly-price">{{option.minPrice | price}}&nbsp;<ng-include src="'components/ruble.html'" /></span>
                 </label>

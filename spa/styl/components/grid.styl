@@ -24,6 +24,26 @@
 	margin-right: -15px;*/
 }
 
+.row-fluid {
+  display: table;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.row-fluid__cell {
+  display: table-cell !important;
+  vertical-align: top;
+  box-sizing: border-box;
+  position: relative;
+  float : none !important;
+
+  &-v-middle {
+    vertical-align : middle;
+  }
+  &-v-bottom {
+    vertical-align : bottom;
+  }
+}
 
 .col-no-padding {
 	padding : 0 !important;

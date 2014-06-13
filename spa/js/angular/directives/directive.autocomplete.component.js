@@ -23,9 +23,10 @@
                     return $scope.placeholder;
             }
 
-            $scope.doResultCallback = function (item) {
+            $scope.doResultCallback = function (item, city) {
                 if ($scope.setResultCallback) {
-                    $scope.setResultCallback({ item : item });
+                    //var dataItem = { 'item': option, 'city': option };
+                    $scope.setResultCallback({ 'item': item, 'city': city });
                 }
             }
 
@@ -53,12 +54,12 @@
                     if (airport != null) {
                         $scope.input.val(airport.Name);
                         $scope.result = airport.Id;
-                        $scope.doResultCallback(airport);
+                        $scope.doResultCallback(airport, option);
                     }
                     else {
                         $scope.input.val(option.Name);
                         $scope.result = option.Id;
-                        $scope.doResultCallback(option);
+                        $scope.doResultCallback(option, null);
                     }
                 }
                 $scope.fulfilled = true;

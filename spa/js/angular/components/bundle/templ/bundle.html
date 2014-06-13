@@ -1,7 +1,7 @@
 <div class="b-result b-result_col_three row b-result-content">
     <div class="b-result__cell">
 
-            <span class="rl-airline" ng-repeat="(code, name) in bundle.ticket.collectAirlines()" ng-if="$index < 2">
+            <span class="rl-airline" ng-repeat="(code, name) in bundle.ticket.collectAirlines().etap" ng-if="$index < 2">
                 <span ng-switch="code">
                     <img src="/spa/img/no-logo-avia.png" alt="" ng-switch-when="''">
                     <img ng-src="{{airLogo(code)}}" alt="" ng-switch-default>
@@ -43,11 +43,11 @@
         </div>
         <span class="icon-sprite-airplane"></span>
 
-        <div class="bottom-actions" ng-if="getTicketDetails || state">
-            <a ng-if="state" href="javascript:void(0);" class="pull-left"
-               ng-class="{active: state.isActive(state.TICKETS_TAB)}"
-               ng-click="state.switchTo('ticket')">Заменить</a>
-            <a ng-if="getTicketDetails" href="javascript:void(0);" class="pull-right"
+        <div class="bottom-actions">
+            <a href="javascript:void(0);" class="pull-left"
+               ng-class="{active: !state || state.isActive(state.TICKETS_TAB)}"
+               ng-click="state && state.switchTo('ticket')">Заменить</a>
+            <a href="javascript:void(0);" class="pull-right"
                ng-click="getTicketDetails(bundle.ticket)">Подробнее</a>
         </div>
 
@@ -91,10 +91,13 @@
         </div>
         <span class="icon-sprite-hanger"></span>
 
-        <div class="bottom-actions" ng-if="getHotelDetails || state">
-            <a ng-if="state" href="javascript:void(0);" ng-class="{active: state.isActive(state.HOTELS_TAB)}"
-               ng-click="state.switchTo('hotel')" class="pull-left">Заменить</a>
-            <a ng-if="getHotelDetails" href="javascript:void(0);" class="pull-right"
+        <div class="bottom-actions">
+            <a href="javascript:void(0);"
+               ng-class="{active: state.isActive(state.HOTELS_TAB)}"
+               ng-click="(state && state.switchTo('hotel')) || (close && close())" class="pull-left">Заменить</a>
+            <a href="javascript:void(0);"
+               class="pull-right"
+               ng-class="{'active': !!!getHotelDetails}"
                ng-click="getHotelDetails(bundle.hotel)">Подробнее</a>
         </div>
 
@@ -107,6 +110,7 @@
 
     <div class="b-result__cell result-buy">
         <button class="share-button" ng-class="{'active': linkPopup.isOpen}" ng-click="linkPopup.toggle()"></button>
+
         <div class="tooltip tooltip-share-link" ng-if="linkPopup.isOpen">
             <input type="text" class="share-link-input" ng-value="location">
             <span class="icon icon-cross" ng-click="linkPopup.toggle()"></span>
@@ -118,66 +122,16 @@
             <span class="price-description">по отдельности</span>
         </p>
 
-        <p class="price">
+        <div class="price">
             {{bundle.getFullPackagePrice() | price}}
             <ng-include src="'components/ruble.html'"></ng-include>
-            <span class="icon icon-price-info" ng-click="infoPopup.toggle()"></span>
-        </p>
 
-        <div class="tooltip tooltip-price" ng-if="infoPopup.isOpen">
-            По отдельности
-            <ul>
-                <li class="list-price-item">Перелет
-                        <span class="list-price pull-right">{{bundle.ticket.data.Price | price}}
-                            <ng-include src="'components/ruble.html'"></ng-include>
-                        </span>
-                </li>
-                <li class="list-price-item">Отель
-                        <span class="list-price pull-right">{{bundle.hotel.data.Price | price}}
-                            <ng-include src="'components/ruble.html'"></ng-include>
-                        </span>
-                </li>
-            </ul>
-            <div class="list-price list-price-total">{{bundle.getFullPrice() | price}}
-                <ng-include src="'components/ruble.html'"></ng-include>
-            </div>
-            <ul>
-                <li>В пакете:
-                        <span class="list-price green pull-right">
-                            {{bundle.getFullPackagePrice() | price}}
-                            <ng-include src="'components/ruble.html'"></ng-include>
-                        </span>
-                </li>
-                <li>Экономия
-                        <span class="list-price green pull-right">{{(bundle.getFullPrice() - bundle.getFullPackagePrice()) | price}}
-                            <ng-include src="'components/ruble.html'"></ng-include>
-                        </span>
-                </li>
-            </ul>
-            <div style="margin-top: 10px;" ng-if="bundle.hotel.data.PriceObject.TotalAgentProfit">
-                <div class="list-price-total"></div>
-                <ul>
-                    <li class="list-price-item">Сбор ИННА Тур
-                            <span class="list-price green pull-right">
-                                {{bundle.hotel.data.PriceObject.TotalInnaProfit | price}}
-                                <ng-include src="'components/ruble.html'"></ng-include>
-                            </span>
-                    </li>
-                    <li class="list-price-item">Сбор агента
-                            <span class="list-price green pull-right">
-                                {{bundle.hotel.data.PriceObject.TotalAgentProfit | price}}
-                                <ng-include src="'components/ruble.html'"></ng-include>
-                            </span>
-                    </li>
-                    <li class="list-price-item">Агентское вознаграждение
-                            <span class="list-price green pull-right">
-                                {{bundle.hotel.data.PriceObject.TotalAgentReward | price}}
-                                <ng-include src="'components/ruble.html'"></ng-include>
-                            </span>
-                    </li>
-                </ul>
-            </div>
+            <!-- tooltip price -->
+            <div tool-tip-price item="bundle" is-bundle="true"></div>
         </div>
+
+
+
 
         <span class="price-description">экономия: {{bundle.getFullPrice() - bundle.getFullPackagePrice() | price}} <ng-include src="'components/ruble.html'"></ng-include></span>
 

@@ -12,9 +12,7 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                 AjaxHelper.get(api.DYNAMIC_GET_OBJECT_BY_ID, {id: id}, callback);
             },
             getUserLocation: function(callback){
-                //TODO
-
-                $timeout(function(){ callback(25); }, 500); // 25 is the fish! it's not a "magic" number
+                AjaxHelper.get(api.DYNAMIC_GET_DIRECTORY_BY_IP,callback);
 
                 return null;
             },
@@ -35,6 +33,11 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                     TicketBackId: ticketBackId,
                     Filter: searchParams
                 }, callback, error);
+            },
+            displayOrder: function(orderId, success, error){
+                AjaxHelper.get(api.B2B_DISPLAY_ORDER, {
+                    orderNum: orderId
+                }, success, error);
             }
         }
     }

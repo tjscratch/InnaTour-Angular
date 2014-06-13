@@ -45,7 +45,11 @@ innaAppControllers
                             serpScope.$digest();
                         },
                         function () { //error
-                            console.log('error');
+                            $scope.$apply(function($scope){
+                                hotel404();
+                                $scope.hotels.drop(hotel);
+                                $scope.closeHotelDetails();
+                            });
                         }
                     );
                 }
@@ -105,7 +109,7 @@ innaAppControllers
                 if (!method || !param) return;
 
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
-                    //console.log(data, 'data');
+
                     $scope.$apply(function ($scope) {
                         apply($scope, data);
                         deferred.resolve();
@@ -190,11 +194,13 @@ innaAppControllers
                 }
 
 
-                $.when($scope.state.switchTo(defaultTab))
-                    .then(function () {
-                        onTabLoad(onTabLoadParam);
-                        $scope.baloon.hide();
-                    });
+                $scope.$apply(function($scope){
+                    $.when($scope.state.switchTo(defaultTab))
+                        .then(function () {
+                            onTabLoad(onTabLoadParam);
+                            $scope.baloon.hide();
+                        });
+                });
             }
 
             function loadTicketDetails(ids) {
@@ -403,29 +409,6 @@ innaAppControllers
                 ServiceDynamicPackagesDataProvider.search(searchParams, combination200, combination500);
             }());
 
-            /*Because fuck angular, that's why!*/
-            $(function () {
-                var doc = $(document);
-                var onIconPriceClick = function (event) {
-                    event.stopPropagation();
-
-                    var parent = $(this).parents('.result')[0];
-                    var tooltip = $('.JS-tooltip-price', parent);
-
-                    tooltip.toggle();
-
-                    doc.on('click', function bodyClick() {
-                        tooltip.hide();
-                        doc.off('click', bodyClick);
-                    });
-                };
-
-                doc.on('click', '.JS-icon-price-info', {}, onIconPriceClick);
-
-                $scope.$on('$destroy', function () {
-                    doc.off('click', onIconPriceClick);
-                });
-            });
 
             $(function () {
                 var doc = $(document);
@@ -513,7 +496,8 @@ innaAppControllers
     ])
     .controller('DynamicPackageSERPRecommendedBundleCtrl', [
         '$scope',
-        function ($scope) {
+        '$element',
+        function ($scope, $element) {
             /*DOM*/
             var doc = $(document);
 

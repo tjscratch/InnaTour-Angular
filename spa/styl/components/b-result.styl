@@ -73,7 +73,7 @@
 
 		&:after {
 			border-radius: 4px;
-			box-shadow: 0 3px 5px rgba(0, 0, 0, .4);
+			box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
 			content: '';
 			height: 100%;
 			position: absolute;
@@ -84,6 +84,25 @@
 		}
 	}
 
+  &:hover {
+    .b-result__cell {
+      &:after {
+        box-shadow: 0 2px 3px rgba(0, 0, 0, .7);
+      }
+    }
+    .b-result-cell__gap {
+      &:before {
+        @extend .icon-sprite-corner-top-hover;
+      }
+
+
+      &:after {
+        @extend .icon-sprite-corner-bot-hover;
+      }
+    }
+
+  }
+
 	&-cell__gap {
 		position: absolute;
 		top: 0;
@@ -93,32 +112,29 @@
 
 		&:before, &:after {
 			content: '';
-			background: url(/spa/img/ticket-gaps.png) no-repeat;
-			display: block;
 			position: absolute;
 			overflow: hidden;
-			width: 10px;
 		}
 
 		&:before {
-			height: 6px;
-			top: 0;
+      @extend .icon-sprite-corner-top;
+			top: -0px;
 		}
 
 
 		&:after {
-			background-position: 0 -6px;
-			bottom: -6px;
-			height: 12px;
+      @extend .icon-sprite-corner-bot;
+			bottom: -5px;
+      top: auto;
 		}
 
 		&_wrap {
 			background: #cfcfcf;
 			border: solid #fff;
 			border-width: 0 5px 0 4px;
-			bottom: 6px;
+			bottom: 5px;
 			position: absolute;
-			top: 6px;
+			top: 5px;
 			width: 1px;
 		}
 	}
@@ -201,3 +217,6 @@
 	}
 }
 
+.icon-sprite-crown {
+	margin-left: 4px;
+}
