@@ -17,7 +17,7 @@
                     <b>вылет {{dateHelper.getTime(etap.getDateTime('Out'))}}</b>,
                     {{dateHelper.getDateShort(etap.getDateTime('Out'))}},
                     {{dateHelper.getDay(etap.getDateTime('Out'))}} <br>
-                    {{etap.data.OutCity}}, {{etap.data.OutPort}}
+                    {{etap.data.OutCity}}<span ng-if="etap.data.OutCity != etap.data.OutPort">, {{etap.data.OutPort}}</span>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                     <b>прилет {{dateHelper.getTime(etap.getDateTime('In'))}}</b>,
                     {{dateHelper.getDateShort(etap.getDateTime('In'))}},
                     {{dateHelper.getDay(etap.getDateTime('In'))}} <br>
-                    {{etap.data.InCity}}, {{etap.data.InPort}}
+                    {{etap.data.InCity}}<span ng-if="etap.data.InCity != etap.data.InPort">, {{etap.data.InPort}}</span>
                 </div>
             </div>
         </div>
