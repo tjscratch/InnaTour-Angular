@@ -3,9 +3,17 @@ angular.module('innaApp.controllers')
         '$scope',
         '$routeParams',
         'DynamicPackagesDataProvider',
-        function($scope, $routeParams, DynamicPackagesDataProvider){
+        'innaApp.API.events',
+        '$location',
+        function($scope, $routeParams, DynamicPackagesDataProvider, Events, $location){
             $scope.bundle = null;
             $scope.hotel = null;
+            $scope.back = null;
+
+            /*Methods*/
+            $scope.getTicketDetails = function(){
+                $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.bundle.ticket);
+            }
 
             /*Initial*/
             $scope.baloon.show('Собираем данные', 'Это может занять какое-то время');
@@ -23,8 +31,16 @@ angular.module('innaApp.controllers')
                         Rooms: [resp.Hotel.Room]
                     }
 
-                    console.log(resp);
+                    $scope.bundle.hotel.detailed.Rooms[0].isOpen = true;
                 });
+
+                $scope.$broadcast(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+
+                if('displayTicket' in $location.search()) {
+                    $scope.$apply(function($scope){
+                        $scope.getTicketDetails();
+                    });
+                }
             }, function(){ //error
                 $scope.baloon.showErr('Oops...', 'Указанного заказа не существует');
             });

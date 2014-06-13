@@ -5,73 +5,7 @@
     <ng:include src="'pages/dynamic/inc/serp.tickets.html'" ng-if="state.TICKETS_TAB" />
 </div>
 
-<!-- TicketDetails -->
-<div ng-controller="DynamicPackageSERPTicketPopupCtrl">
-    <div style="display:block;" class="overlay js-overlay" ng-if="ticket.data">
-        <div class="balloon baloon_ticket baloon_2ticket">
-            <div title="Закрыть" class="baloon-close" ng-click="closePopup()"></div>
-            <h3 class="b-tickets__title">Подробная информация по перелету</h3>
-
-            <div class="rlf-oneway">
-
-                <div class="b-ticket_2ways">
-                    <div class="rlf-fly">
-                        <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
-                        <span class="rlf-fly-arrow"></span>
-                        <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
-                        <div class="rlf-full-travel-time">
-                            {{ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
-                            {{ticket.getDuration('To')}} в пути
-                        </div>
-                    </div>
-                    <div class="rlf-fly">
-                        <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.getBackOutCode()}}
-                        <span class="rlf-fly-arrow"></span>
-                        <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.getBackInCode()}}
-                        <div class="rlf-full-travel-time">
-                            {{ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
-                            {{ticket.getDuration('Back')}} в пути
-                        </div>
-                    </div>
-                </div>
-
-                <div class="b-ticket_2ways b-ticket_2ways-sep">
-                    <div ng-repeat="zip in etapsZipped">
-                        <div class="clearfix">
-                            <div class="b-ticket_2ways-block" ng-repeat="etap in zip">
-                                <ng:include src="'components/ticket-details-etap.inc.html'"></ng:include>
-                            </div>
-                        </div>
-                        <div class="clearfix" ng-if="!$last">
-                            <div class="b-ticket_2ways-block" ng-repeat="(dir, etap) in {'To': zip[0], 'Back': zip[1]}">
-                                <div class="rlf-part rlf-part_transfer" ng-if="etap">
-                                    <ng:include src="'components/ticket-details-leg.inc.html'"></ng:include>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="b-tickets__footer">
-                <ul class="b-tickets__icons">
-                    <li>
-                        <a href="javascript:void(0);" class="b-tickets__icons-link" ng-click="sharePopup.toggle()"></a>
-                        <div class="tooltip tooltip-share-link tooltip-share-link_type_ticket-popup" ng-if="sharePopup.isOpen">
-                            <input type="text" class="share-link-input" ng-value="link">
-                            <span class="icon icon-cross" ng-click="sharePopup.toggle()"></span>
-                        </div>
-                    </li>
-                </ul>
-                <div class="b-tickets__footer-inner">
-                    <a class="rl-buy-button" href="javascript:void(0);" ng-click="setCurrent()">Выбрать</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-<!-- /TicketDetails -->
+<ng:include src="'pages/dynamic/inc/ticket-details.html"></ng:include>
 
 <div ng-if="hotelToShowDetails"
      inna-hotel-details

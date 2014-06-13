@@ -42,6 +42,8 @@ angular.module('innaApp.directives')
                     $scope.displayRoom = $location.search().room;
                     $scope.onlyRoom = null;
 
+                    $scope.TAWidget = '';
+
                     /*Proxy*/
                     $scope.dateHelper = dateHelper;
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
@@ -81,6 +83,8 @@ angular.module('innaApp.directives')
                         marker.setMap(map);
 
                         $scope.dataFullyLoaded = false;
+
+                        $scope.TAWidget = 'http://www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId={{hotel.data.HotelId}}'.split('{{hotel.data.HotelId}}').join('$scope.hotel.data.HotelId');
                     });
 
                     $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
@@ -102,6 +106,8 @@ angular.module('innaApp.directives')
                                 onlyRoom.isOpen = true;
                             }
                         }
+
+                        $scope.$digest();
                     })
                 }
             ],
