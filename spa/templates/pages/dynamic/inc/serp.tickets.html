@@ -1,7 +1,7 @@
 <div class="results-container results-container_top"
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
-        <div ng-repeat="ticket in tickets.filter(ticketFilters) | visibleOnly:padding.scrollTop"
+        <div ng-repeat="ticket in ticketsToDisplay = (tickets.filter(ticketFilters) | visibleOnly:padding.scrollTop)"
              inna-ticket
              ng-if="combination.ticket.data.VariantId1 != ticket.data.VariantId1">
 
@@ -26,6 +26,11 @@
 
             </div>
             <span class="button" ng-click="setTicket(ticket)">Выбрать</span>
+        </div>
+
+        <div ng-if="ticketsToDisplay.length == 0" class="results-list__empty results-list__empty_type_tickets">
+            <p>Варианты не найдены.</p>
+            <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
         </div>
     </div>
 </div>
