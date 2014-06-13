@@ -55,6 +55,7 @@ spa/js/debug.js
 spa/*.sh
 
 build
+build_and_publish
 nginx.nginx_conf
 npm-debug.log
 publish

@@ -10,8 +10,11 @@ inna.Models.Auth.User = function(data){
         AgencyName: data.AgencyName,
         Type: data.Type,
         AgencyActive: data.AgencyActive,
-        SupportPhone: data.SupportPhone
+        SupportPhone: data.SupportPhone,
+        IsSocial: data.IsSocial
     };
+
+    console.log(data);
 };
 
 inna.Models.Auth.User.prototype.displayName = function(){
