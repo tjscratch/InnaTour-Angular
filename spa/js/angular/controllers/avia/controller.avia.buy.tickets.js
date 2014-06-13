@@ -316,7 +316,12 @@ Cvc = "486";
                 var $to = $('#' + id);
                 if ($to.attr('tt') != 'true') {
                     $to.attr('tt', 'true');
-                    $to.tooltipX({ autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' } });
+                    $to.tooltipX({ autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' },
+                        items: "[data-title]",
+                        content: function () {
+                            return $to.data("title");
+                        }
+                    });
                 }
                 $to.tooltipX("open");
             }
