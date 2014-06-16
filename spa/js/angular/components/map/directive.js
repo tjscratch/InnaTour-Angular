@@ -21,7 +21,8 @@ angular.module('innaApp.directives')
                 controller: [
                     '$scope',
                     '$element',
-                    function ($scope, $element) {
+                    'innaApp.API.events',
+                    function ($scope, $element, Events) {
                         $scope.currentHotel = null;
                         $scope.currentHotelPreview = null;
                         $scope.airMarker = null;
@@ -41,7 +42,7 @@ angular.module('innaApp.directives')
                         });
 
                         $scope.setHotel = function (currentHotel) {
-                            $scope.$emit('choose:hotel', $scope.hotels.search(currentHotel.HotelId));
+                            $scope.$emit(Events.DYNAMIC_SERP_CHOOSE_HOTEL, $scope.hotels.search(currentHotel.HotelId));
                         }
 
                         $scope.hotelDetails = function (currentHotel) {

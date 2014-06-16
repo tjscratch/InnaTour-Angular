@@ -18,13 +18,13 @@ innaAppControllers
 
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
-            // Use event choose:hotel
+            // Use event choose:hotel = Events.DYNAMIC_SERP_CHOOSE_HOTEL
             inna.Models.Hotels.Hotel.prototype.setCurrent = function () {
                 $scope.combination.hotel = this;
                 $location.search('hotel', this.data.HotelId);
             };
 
-            $scope.$on('choose:hotel', function (evt, data) {
+            $scope.$on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function (evt, data) {
                 $scope.combination.hotel = data;
                 $location.search('hotel', data.data.HotelId);
             });
@@ -497,7 +497,8 @@ innaAppControllers
     .controller('DynamicPackageSERPRecommendedBundleCtrl', [
         '$scope',
         '$element',
-        function ($scope, $element) {
+        'innaApp.API.events',
+        function ($scope, $element, Events) {
             /*DOM*/
             var doc = $(document);
 

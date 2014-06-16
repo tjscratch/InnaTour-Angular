@@ -12,7 +12,8 @@ angular.module('innaApp.directives')
             controller: [
                 '$scope',
                 '$element',
-                function($scope, $element){
+                'innaApp.API.events',
+                function($scope, $element, Events){
                     var hotelDataPrice = {};
                     var ticketDataPrice = {};
 
@@ -30,8 +31,12 @@ angular.module('innaApp.directives')
                         ticketDataPrice = $scope.item.ticket.data.PriceObject;
                     }
 
+
                     if($scope.isBundle && $scope.isPriceObject){
                         $scope.item.PriceObject = $scope.item.getFullTotalPrice();
+                        $scope.$root.$on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function(evt, data){
+                            $scope.item.PriceObject = $scope.item.getFullTotalPrice();
+                        })
                     }
 
 
