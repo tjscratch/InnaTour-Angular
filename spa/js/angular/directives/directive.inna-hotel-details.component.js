@@ -92,7 +92,7 @@ angular.module('innaApp.directives')
 
                         $scope.dataFullyLoaded = false;
 
-                        $scope.TAWidget = 'http://www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId={{hotel.data.HotelId}}'.split('{{hotel.data.HotelId}}').join('$scope.hotel.data.HotelId');
+                        $scope.TAWidget = 'http://www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=' + $scope.hotel.data.HotelId;
                     });
 
                     $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
