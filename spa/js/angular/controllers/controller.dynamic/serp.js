@@ -15,6 +15,7 @@ innaAppControllers
             var cacheKey = '';
             var AS_MAP_CACHE_KEY = 'serp-as-map';
             var serpScope = $scope;
+            var isChooseHotel = null;
 
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
@@ -27,6 +28,7 @@ innaAppControllers
             $scope.$on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function (evt, data) {
                 $scope.combination.hotel = data;
                 $location.search('hotel', data.data.HotelId);
+                $scope.isChooseHotel = true;
             });
 
             /*Methods*/
