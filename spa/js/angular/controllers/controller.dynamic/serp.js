@@ -541,7 +541,6 @@ innaAppControllers
                 }
 
                 function changeParentScopePadding(param) {
-                    console.log(param, 'paramparamparamparamparamparam');
                     (param == 2) ?
                         $scope.padding.value = true :
                         $scope.padding.value = false
