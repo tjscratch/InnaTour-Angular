@@ -14,7 +14,12 @@ angular.module('innaApp.directives')
                 '$scope',
                 'aviaHelper',
                 '$element',
-                function($scope, aviaHelper, $element){
+                'innaApp.API.events',
+                function($scope, aviaHelper, $element, Events){
+
+                    /*$scope.$on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function (evt, data) {
+                        console.log('Events.DYNAMIC_SERP_CHOOSE_HOTEL = bundle');
+                    });*/
 
                     var infoPopupElems = $('.icon-price-info, .tooltip-price', $element);
 
