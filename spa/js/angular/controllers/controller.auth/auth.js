@@ -27,7 +27,7 @@ angular.module('innaApp.controllers')
 
                 AuthDataProvider.logout();
 
-                $scope.$emit(Events.AUTH_SIGN_OUT, wasLoggedUser.raw);
+                $scope.$root.$bradcast(Events.AUTH_SIGN_OUT, wasLoggedUser.raw);
             };
 
             $scope.open = function(){
@@ -95,7 +95,17 @@ angular.module('innaApp.controllers')
                 $scope.safeApply(function(){
                     setUserInfo(data);
                     $scope.close();
+
+                    if($scope.user.isAgency()) {
+                        window.location = $scope.B2B_HOST;
+                    }
                 });
+            });
+
+            $scope.$on(Events.AUTH_SIGN_OUT, function(event, loggedOutUserData){
+                if((new inna.Models.Auth.User(loggedOutUser)).isAgency()) {
+                    window.location = '/';
+                }
             });
 
             /*Initial*/
