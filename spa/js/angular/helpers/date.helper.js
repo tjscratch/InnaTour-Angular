@@ -144,15 +144,10 @@
 
     ddmmyyyy2yyyymmdd: function(ddmmyy){
         function trailingZero(n) {
-            return n > 10 ? n : ('0' + n);
+            return n >= 10 ? n : ('0' + n);
         }
 
         var date = Date.fromDDMMYY(ddmmyy);
-
-        //console.log(date);
-        //console.log(date.getFullYear());
-        //console.log(date.getMonth() + 1, trailingZero(date.getMonth() + 1));
-        //console.log(date.getDate(), trailingZero(date.getDate()));
 
         return [date.getFullYear(), trailingZero(date.getMonth() + 1), trailingZero(date.getDate())].join('-');
     },
