@@ -1,6 +1,6 @@
 ﻿<div class="rl-item">
     <div class="rl-item-separator"></div>
-    <div class="rl-left">
+    <div class="rl-left" ng-click="popupItemInfo.show($event, item, criteria, searchId)">
         <header class="rl-item-header">
             <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList">
                 <img ng-src="{{tr.logoUrl}}" alt="">
