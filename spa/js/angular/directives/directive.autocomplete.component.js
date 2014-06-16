@@ -341,7 +341,7 @@
                 $scope.$on('$destroy', function () {
                     $scope.input.off();
                     $(document).off('focus');
-                    $timeout.cancel(tmId);
+                    $timeout.cancel($scope.timeoutId);
                 });
             }
         }
