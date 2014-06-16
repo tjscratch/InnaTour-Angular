@@ -17,21 +17,21 @@
                     <b>вылет {{dateHelper.getTime(etap.getDateTime('Out'))}}</b>,
                     {{dateHelper.getDateShort(etap.getDateTime('Out'))}},
                     {{dateHelper.getDay(etap.getDateTime('Out'))}} <br>
-                    {{etap.data.OutCity}}, {{etap.data.OutPort}}
+                    {{etap.data.OutCity}}<span ng-if="etap.data.OutCity != etap.data.OutPort">, {{etap.data.OutPort}}</span>
                 </div>
             </div>
         </div>
         <div class="rlf-travel-time">{{etap.getDuration()}}</div>
         <div class="b-tickets__block">
             <div class="rlf-column1">
-                <div class="rlf-airport"><br>{{etap.data.Code}}</div>
+                <div class="rlf-airport"><br>{{etap.data.InCode}}</div>
             </div>
             <div class="rlf-colum2">
                 <div class="rlf-flight-info">
                     <b>прилет {{dateHelper.getTime(etap.getDateTime('In'))}}</b>,
                     {{dateHelper.getDateShort(etap.getDateTime('In'))}},
                     {{dateHelper.getDay(etap.getDateTime('In'))}} <br>
-                    {{etap.data.InCity}}, {{etap.data.InPort}}
+                    {{etap.data.InCity}}<span ng-if="etap.data.InCity != etap.data.InPort">, {{etap.data.InPort}}</span>
                 </div>
             </div>
         </div>

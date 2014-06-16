@@ -35,7 +35,7 @@
                     <b>{{ ticketData.BackDepartureDate | date: 'shortTime' }}</b>
                     <span>{{ ticketData.BackDepartureDate | date: 'd MMM' }}, </span>
                     <span>{{ ticketData.BackDepartureDate | date: 'EEE' }}</span><br>
-                    <span>{{ticketData.CityTo}} // {{ticket.getBackOutCode()}}</span>
+                    <span>{{ticketData.CityTo}} {{ticket.getBackOutCode()}}</span>
                 </span>
 
             </span>

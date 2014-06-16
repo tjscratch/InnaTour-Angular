@@ -3,7 +3,7 @@
     <div class="rlf-travel-time">{{etap.getLegDuration()}}</div>
 </div>
 <div class="rlf-colum4">
-    {{etap.data.InCity}}, {{etap.data.InPort}} ({{etap.data.InCityCode}}),
+    {{etap.data.InCity}}<span ng-if="etap.data.InCity != etap.data.InPort">, {{etap.data.InPort}}</span> ({{etap.data.InCityCode}}),
     {{etap.data.InCountryName}}
     <div class="rlf-transfer" ng-repeat="next in [ticket.getNextEtap(dir, etap)]">
         <span ng-if="next.data.OutPort != etap.data.InPort">Внимание: смена аэропорта!</span>

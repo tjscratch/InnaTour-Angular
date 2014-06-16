@@ -2,7 +2,150 @@
 <html lang="ru" class="bg_white">
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="/build/css/common.min.css" />
+
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: ProximaNova, Arial, sans-serif;
+}
+.report__table {
+  width: 100%;
+  background: #fff;
+  border-collapse: collapse;
+  margin: 0 0 20px;
+  letter-spacing: -0.01em;
+}
+.report__table th {
+  font-size: 14px;
+  color: #4d4d4d;
+  font-weight: normal;
+  text-align: left;
+  border: 1px solid #c1c1c3;
+  border-bottom: 0;
+  vertical-align: top;
+  padding: 12px 5px 11px;
+  white-space: nowrap;
+}
+.report__table td {
+  color: #4d4d4d;
+  font-size: 12px;
+  border: 1px solid #c1c1c3;
+  border-top: 0;
+  vertical-align: top;
+  padding: 9px 5px;
+  line-height: 20px;
+}
+.report__table td a {
+  color: #1e88c1;
+  font-weight: bold;
+  font-size: 10px;
+}
+.report__table tbody tr:first-child td {
+  background: linear-gradient(top, #cecece 0, #f8f8f8 5px, #fff 6px);
+  padding-top: 13px;
+}
+.report__table tfoot td {
+  background: #e6e7e9;
+  border-color: #e6e7e9 #b6b7b8;
+}
+.report__table .report__right {
+  text-align: right;
+}
+.report__table .report__center {
+  text-align: center;
+}
+
+.report__header {
+  padding: 0 0 8px;
+}
+.report__service-title {
+  vertical-align: middle;
+  font-size: 18px;
+  color: #000;
+  margin: 0 7px 0 0;
+  position: relative;
+  top: -3px;
+}
+
+.report__service {
+  float: left;
+}
+.report__all {
+  float: right;
+  color: #1e88c1;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.report__table_noborder td {
+  border-width: 1px 0;
+  font-size: 14px;
+}
+.report__table_noborder td a {
+  font-size: 14px;
+}
+.report__table_noborder th:first-child {
+  border-left: 0;
+}
+.report__table_noborder th:last-child {
+  border-right: 0;
+}
+.report__sort {
+  font-size: 16px;
+  padding: 8px 15px 9px;
+}
+.report__sort a {
+  color: #000;
+}
+.report__sort .current {
+  color: #1e88c1;
+}
+.report__separator {
+  margin: 0 10px;
+}
+.report__title {
+  font-size: 20px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0 8px 20px;
+}
+.report__print {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+.report__container {
+  padding: 20px;
+  width: 960px;
+  margin: 0 auto;
+}
+.report__container .report__table {
+  page-break-after: always;
+}
+.report__container .report__table td,
+.report__container .report__table th,
+.report__container .report__table td a {
+  color: #000;
+  text-decoration: none;
+  font-weight: normal;
+}
+.report__container .report__table th {
+  background: #c2c1c3;
+  border-bottom: 1px solid #e2e0e1;
+}
+.report__container .report__table tfoot td {
+  background: #e7e7e9;
+}
+.report__container .report__table tbody tr:first-child td {
+  background: #fff;
+}
+.report__container .report__table td,
+.report__container .report__table th {
+  border-color: #e2e0e1;
+}
+    </style>
 </head>
 
 <body>
