@@ -39,7 +39,7 @@ $count-list = 10;
     &-current {
       display: inline-block;
       font-family: 'ProximaNova';
-      font-weight : normal;
+      font-weight: normal;
       font-size: 16px;
       height: 48px;
       overflow: hidden;
@@ -59,13 +59,17 @@ $count-list = 10;
       right: 12px;
       top: 22px;
     }
+
+    &.search-form-humans {
+     border-right : 0 !important;
+    }
   }
 
   &-list,
   &-human-dialog {
     cursor: auto;
     background: #fff;
-    box-shadow : 0 5px 10px rgba(50, 50, 50, 0.25);
+    box-shadow: 0 5px 10px rgba(50, 50, 50, 0.25);
     padding: $list-padding 0;
     position: absolute;
     top: 100%;
@@ -94,7 +98,7 @@ $count-list = 10;
       color: #242424;
       cursor: pointer;
       font-family: 'ProximaNova';
-      font-weight : normal;
+      font-weight: normal;
       font-size: 14px;
       height: $list-item-height;
       line-height: 30px;
@@ -199,21 +203,19 @@ $count-list = 10;
   /* from */
   &-from {
     width: 180px;
-  }
 
-  &-from &-item-current {
-    width: 122px;
+    .search-form-item-current {
+      width: 122px;
+    }
   }
 
   /* to */
   &-to {
     width: 359px;
-  }
 
-  &-to &-list {
-    width: 360px;
+    .search-form-list {
+      width: 360px;
 
-    &-to {
       .description {
         color: #8c98a9;
       }
@@ -223,25 +225,30 @@ $count-list = 10;
         right: 7px;
         top: 5px
       }
+
+      .search-form-to {
+
+
+      }
     }
-  }
 
-  &-to &-list-item {
-    position: relative;
-  }
+    .search-form-list-item {
+      position: relative;
+    }
 
-  &-to .iata-code {
-    color: #878787;
-    position: absolute;
-    right: 7px;
-  }
+    .iata-code {
+      color: #878787;
+      position: absolute;
+      right: 7px;
+    }
 
-  &-to &-item-current {
-    border: 0;
-    height: 100%;
-    margin-top: 0;
-    outline: none;
-    width: 282px;
+    .search-form-item-current {
+      border: 0;
+      height: 100%;
+      margin-top: 0;
+      outline: none;
+      width: 282px;
+    }
   }
 
   &-date {
@@ -281,7 +288,7 @@ $count-list = 10;
     .search-form-item-current {
       font-size 14px;
       font-family: 'ProximaNova';
-      font-weight : normal;
+      font-weight: normal;
     }
   }
 
