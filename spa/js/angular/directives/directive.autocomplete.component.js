@@ -69,7 +69,6 @@
                 }
 
                 $scope.unfulfill = function () {
-                    console.log('keypress');
                     $scope.fulfilled = false;
                     $scope.result = null;
                 }

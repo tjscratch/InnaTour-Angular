@@ -1,12 +1,15 @@
 angular.module('innaApp.services')
     .factory('DynamicFormSubmitListener', [
-        '$rootScope', '$location', 'innaApp.Urls',
-        function($rootScope, $location, appURLs){
+        '$rootScope',
+        '$location',
+        'innaApp.Urls',
+        '$route',
+        function ($rootScope, $location, appURLs, $route) {
             return {
-                listen: function(){
-                    $rootScope.$on('inna.DynamicPackages.Search', function(event, data){
-                        $location.path(
-                            appURLs.URL_DYNAMIC_PACKAGES_SEARCH +
+                listen: function () {
+                    $rootScope.$on('inna.DynamicPackages.Search', function (event, data) {
+
+                        var searchUrl = appURLs.URL_DYNAMIC_PACKAGES_SEARCH +
                             [
                                 data.DepartureId,
                                 data.ArrivalId,
@@ -15,8 +18,17 @@ angular.module('innaApp.services')
                                 data.TicketClass,
                                 data.Adult,
                                 data.children.join('_')
-                            ].join('-')
-                        );
+                            ].join('-');
+
+
+                        if($location.path() == searchUrl) {
+                            $location.search({});
+                            $route.reload();
+                        }
+                         else {
+                            $location.path(searchUrl)
+                        }
+
                     });
                 }
             }
