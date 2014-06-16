@@ -506,14 +506,12 @@ innaAppControllers
 
                 if (body.scrollTop > 230) {
                     $scope.$apply(function () {
-                        $scope.display.setCurrent($scope.display.SHORT)
-                        $scope.$emit('header:hidden');
+                        $scope.display.shortDisplay(true);
                     });
 
                 } else {
                     $scope.$apply(function () {
-                        $scope.display.setCurrent($scope.display.FULL)
-                        $scope.$emit('header:visible');
+                        $scope.display.fullDisplay(true);
                     });
 
                 }
@@ -543,21 +541,26 @@ innaAppControllers
                 }
 
                 function changeParentScopePadding(param) {
+                    console.log(param, 'paramparamparamparamparamparam');
                     (param == 2) ?
                         $scope.padding.value = true :
                         $scope.padding.value = false
 
                 }
 
-                this.shortDisplay = function () {
-                    unwatchScroll();
+                this.shortDisplay = function (opt_param) {
+                    if(!opt_param)
+                        unwatchScroll();
+
                     this.current = this.SHORT;
                     $scope.$emit('header:hidden');
                     changeParentScopePadding(this.current);
                 }
 
-                this.fullDisplay = function () {
-                    doc.on('scroll', onScroll);
+                this.fullDisplay = function (opt_param) {
+                    if(!opt_param)
+                        doc.on('scroll', onScroll);
+
                     this.current = this.FULL;
                     $scope.$emit('header:visible');
                     changeParentScopePadding(this.current);
