@@ -46,17 +46,22 @@ angular.module('innaApp.directives')
                         }
                     }
 
+                    $scope.urls = appUrls;
 
                     $scope.getHeadForm = function () {
                         var loc = $location.path();
                         //log('$scope.getHeadForm, loc:' + loc);
+                        var isDynamic = (
+                            loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) &&
+                            !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) &&
+                            !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
+                        ) || loc == appUrls.URL_ROOT;
+
                         var abs = $location.absUrl();
-                        if (loc == '/' || abs.indexOf('/tours/?') > -1) {
+                        if (loc == appUrls.URL_TOURS || abs.indexOf(appUrls.URL_TOURS + '?') > -1) {
                             return 'nav_forms/tours_search_form.html';
                         }
-                        else if (loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) &&
-                            !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) &&
-                            !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)) {
+                        else if (isDynamic) {
                             return 'nav_forms/dynamic_search_form.html';
                         }
                         else if (loc.startsWith(appUrls.URL_AVIA) &&
