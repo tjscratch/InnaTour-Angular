@@ -437,6 +437,16 @@ Cvc = "486";
                 }
             }
             $scope.focusControl = new focusControl();
+
+            function scrollControl() {
+                var self = this;
+                self.scrollToCards = function () {
+                    $('html, body').animate({
+                        scrollTop: $(".b-tickets-info-container").offset().top + 400
+                    }, 200);
+                }
+            }
+            $scope.scrollControl = new scrollControl();
             
             //data loading ===========================================================================
             function initPayModel() {
@@ -611,6 +621,7 @@ Cvc = "486";
                 }
                 $scope.focusControl.init();
                 $scope.paymentDeadline.setUpdate();
+                $scope.scrollControl.scrollToCards();
             };
             
             //data loading ===========================================================================
