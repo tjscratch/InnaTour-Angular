@@ -12,7 +12,12 @@ angular.module('innaApp.directives')
                 getTicketDetails: '=innaHotelDetailsGetTicketDetails'
             },
             controller: [
-                '$scope', '$element', '$timeout', 'aviaHelper', 'innaApp.API.events', '$location',
+                '$scope',
+                '$element',
+                '$timeout',
+                'aviaHelper',
+                'innaApp.API.events',
+                '$location',
                 function($scope, $element, $timeout, aviaHelper, Events, $location){
                     /*Dom*/
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -44,6 +49,9 @@ angular.module('innaApp.directives')
 
                     $scope.TAWidget = '';
 
+
+
+
                     /*Proxy*/
                     $scope.dateHelper = dateHelper;
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
@@ -60,7 +68,7 @@ angular.module('innaApp.directives')
 
                     /*Watchers*/
                     $scope.$watch('hotel', function(hotel){
-                        console.log('innaHotelDetails:hotel=', hotel);
+                        //console.log('innaHotelDetails:hotel=', hotel);
 
                         if(!hotel) return;
 

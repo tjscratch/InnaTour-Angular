@@ -157,6 +157,7 @@ innaAppControllers
                         children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
                     }
                     $rootScope.$emit('inna.DynamicPackages.Search', o);
+
                 } catch(e) {
                     console.warn(e);
                     if($scope.hasOwnProperty(e.message)) {
