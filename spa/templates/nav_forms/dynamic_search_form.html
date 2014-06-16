@@ -5,29 +5,35 @@
          suggest="fromList"
          result="fromCurrent"
          ask-for-data="loadObjectById"
-         placeholder="Откуда"></div><!--
-	--><div dropdown-input
+         placeholder="Откуда"></div>
+
+    <div dropdown-input
             theme="search-field-block search__city"
             provide-suggest-callback="provideSuggestToToField"
             suggest="toList"
             result="toCurrent"
             ask-for-data="loadObjectById"
-            placeholder="Куда"></div><!--
-	--><div date-picker-widget
+            placeholder="Куда"></div>
+
+    <div date-picker-widget
             interval="false"
             date1="dateBegin"
             date2="dateEnd"
-            class="b-wrapp_type_inline"></div><!--
-	--><div counter-people
+            class="b-wrapp_type_inline"></div>
+    <div counter-people
             adult-count="adultCount"
             children-count="childrenCount"
             childrens-age="childrensAge"
-            class="b-wrapp_type_inline"></div><!--
-    --><div trip-preferences
-            show-back-trip-options="false"
-            klass-model="klass"></div><!--
-    --><div class="search-button-block_small"><input type="submit" value="Найти" ng-click="searchStart()"></div>
+            class="b-wrapp_type_inline"></div>
 
+    <div trip-preferences
+            show-back-trip-options="false"
+            klass-model="klass"></div>
+
+    <div class="search-button-block_small"><input type="submit" value="Найти" ng-click="searchStart()"></div>
+
+
+    <!-- TODO : вынести в стили -->
     <style>
         .search-form-item-current{height:48px;}
         .search-form-item{height:48px;}
