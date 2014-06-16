@@ -20,6 +20,7 @@ app.constant('innaApp.Urls', {
     URL_AVIA_SEARCH: '/avia/search/',
     URL_AVIA_RESERVATION: '/avia/reservation/',
     URL_AVIA_BUY: '/avia/buy/',
+    URL_TOURS: '/tours/',
     URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
@@ -73,10 +74,10 @@ app.config([
 
         //console.log($templateCache.get('pages/tours_grid_page.html'));
 
-        function morda(){
+        function dynamic(){
             return {
-                templateUrl: '/spa/templates/pages/tours_grid_page.html',
-                controller: 'ToursCtrl'
+                templateUrl: '/spa/templates/pages/dynamic/page.html',
+                controller: 'DynamicPackageMordaCtrl'
             }
         }
 
@@ -90,7 +91,11 @@ app.config([
 
         $routeProvider.
             //Главная
-            when(url.URL_ROOT, morda()).
+            when(url.URL_ROOT, dynamic()).
+            when(url.URL_TOURS, {
+                templateUrl: '/spa/templates/pages/tours_grid_page.html',
+                controller: 'ToursCtrl'
+            }).
             when(url.URL_PROGRAMMS + 'category/:id', {
                 templateUrl: '/spa/templates/pages/it_category_page.html',
                 controller: 'IndividualToursCategoryCtrl'
@@ -149,27 +154,7 @@ app.config([
                 templateUrl: '/spa/templates/pages/hotels_page.html',
                 controller: 'HotelsCtrl'
             }).
-            ////результаты поиска по отелям
-            //when('/hotels/search/:FromCityUrl-:ToCountryUrl-:ToRegionUrl-:StartMinString-:StartDateVariance-:AdultNumber-:ChildAgesString-:DurationMin', {
-            //    templateUrl: '/AngularTemplates/Search',
-            //    controller: 'SearchResultCtrl'
-            //}).
-            //when('/hotel/:hotelId/:searchId', {
-            //    templateUrl: '/AngularTemplates/HotelDetail',
-            //    controller: 'HotelsDetailsCtrl'
-            //}).
-            //when('/hotel/:hotelId/:searchId/tour/:tourId', {
-            //    templateUrl: '/AngularTemplates/TourDetail',
-            //    controller: 'TourDetailsCtrl'
-            //}).
-            //when('/payment/:orderId', {
-            //    templateUrl: '/AngularTemplates/PaymentPage',
-            //    controller: 'PaymentPageCtrl'
-            //}).
-            when(url.URL_DYNAMIC_PACKAGES, {
-                templateUrl: '/spa/templates/pages/dynamic/page.html',
-                controller: 'DynamicPackageMordaCtrl'
-            }).
+            when(url.URL_DYNAMIC_PACKAGES, dynamic()).
             when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
                 templateUrl: '/spa/templates/pages/dynamic/serp.html',
                 controller: 'DynamicPackageSERPCtrl',
@@ -183,11 +168,11 @@ app.config([
                 templateUrl: '/spa/templates/pages/dynamic/display-order.html',
                 controller: 'B2B_DisplayOrder'
             }).
-            when(url.URL_AUTH_RESTORE, morda()).
-            when(url.URL_AUTH_SIGNUP, morda());
-            //otherwise({
-            //    redirectTo: '/'
-            //});
+            when(url.URL_AUTH_RESTORE, dynamic()).
+            when(url.URL_AUTH_SIGNUP, dynamic()).
+            otherwise({
+                redirectTo: url.URL_ROOT
+            });
 
         //$locationProvider.html5Mode(true);
     }
