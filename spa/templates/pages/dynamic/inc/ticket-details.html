@@ -31,13 +31,15 @@
                     <div ng-repeat="zip in etapsZipped">
                         <div class="clearfix">
                             <div class="b-ticket_2ways-block" ng-repeat="etap in zip">
-                                <ng:include src="'components/ticket-details-etap.inc.html'"></ng:include>
+                                <ng:include src="'components/ticket-details-etap.inc.html'" ng-if="etap"></ng:include>
                             </div>
                         </div>
                         <div class="clearfix" ng-if="!$last">
-                            <div class="b-ticket_2ways-block" ng-repeat="(dir, etap) in {'To': zip[0], 'Back': zip[1]}">
-                                <div class="rlf-part rlf-part_transfer" ng-if="etap">
-                                    <ng:include src="'components/ticket-details-leg.inc.html'"></ng:include>
+                            <div ng-repeat="dir in ['To', 'Back']">
+                                <div class="b-ticket_2ways-block" ng-repeat="etap in ({'To': [zip[0]], 'Back': [zip[1]]})[dir]">
+                                    <div class="rlf-part rlf-part_transfer" ng-if="etap && ticket.getNextEtap(dir, etap)">
+                                        <ng:include src="'components/ticket-details-leg.inc.html'"></ng:include>
+                                    </div>
                                 </div>
                             </div>
                         </div>
