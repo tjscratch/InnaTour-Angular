@@ -103,6 +103,15 @@ innaAppControllers
                             ticket.setData(raw);
                             $scope.tickets.push(ticket);
                         }
+
+                        var zero = 0;
+                        $scope.tickets.each(function(ticket){
+                            if(ticket.data.NumSeats < 3 && ticket.data.NumSeats !== 0) console.log(ticket);
+
+                            if(ticket.data.NumSeats == 0) zero++;
+                        });
+
+                        console.log('total = %s; zero = %s', $scope.tickets.list.length, zero);
                     };
                 }
 

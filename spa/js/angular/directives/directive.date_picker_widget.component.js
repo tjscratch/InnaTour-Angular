@@ -31,6 +31,17 @@
                 return popupOptions;
             }
             
+            //direction: 'to' 'back'
+            $scope.roamingChanged = function (direction) {
+                if ($scope.data != null && $scope.data.isBackRoamingSelected != null && $scope.data.isToRoamingSelected != null) {
+                    if (direction == 'to') {
+                        $scope.data.isBackRoamingSelected = $scope.data.isToRoamingSelected;
+                    }
+                    else {
+                        $scope.data.isToRoamingSelected = $scope.data.isBackRoamingSelected;
+                    }
+                }
+            }
 
             /*Watchers*/
             $scope.$watch('date1', function(newValue, oldValue){
@@ -114,6 +125,11 @@
                 if ($scope.data.isOneWaySelected) {
                     //сбрасываем дату обратно
                     $scope.date2 = '';
+
+                    //убираем тултип
+                    try {
+                        $scope.input2.tooltip('destroy');
+                    } catch (e) { }
                 }
             }
 
@@ -123,7 +139,7 @@
                 else defaultDates.push(new Date());
 
                 if ($scope.date2) defaultDates.push(Date.fromDDMMYY($scope.date2));
-                else defaultDates.push(new Date());
+                else defaultDates.push(new Date(1));
                 return defaultDates;
             }
 

@@ -7,10 +7,6 @@ innaAppDirectives.directive('counterPeople', ['$templateCache', function($templa
             childrensAge: '='
         },
         controller: ['$scope', function($scope){
-            function ChildAgeSelector() {
-                this.value = 0;
-            }
-
             /*Properties*/
             $scope.isOpen = false;
 
@@ -24,7 +20,7 @@ innaAppDirectives.directive('counterPeople', ['$templateCache', function($templa
                 if(model == 'childrenCount') {
                     $scope.childrensAge = [];
                     for(var i = 0; i < $scope.childrenCount; i++) {
-                        $scope.childrensAge.push(new ChildAgeSelector());
+                        $scope.childrensAge.push({value: 0});
                     }
                 }
             }

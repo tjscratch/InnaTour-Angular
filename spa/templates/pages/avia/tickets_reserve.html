@@ -87,7 +87,7 @@
                 <div class="b-field-block" style="width: 180px;">
                     <label class="b-field-label">Гражданство</label>
                     <div class="cit">
-                        <input validate-events-dir
+                        <input validate-events-dir ng-model="passenger.citizenship.value.name"
                                ng-validation-model="passenger.citizenship" validate="validate(item, type)" validate-type="validateType.cit_required"
                                ng-class="{error:isFieldInvalid(passenger.citizenship)}"
                                ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.value.name}}" placeholder="Выберите" class="b-field-text b-field-select">

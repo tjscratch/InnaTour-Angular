@@ -25,7 +25,12 @@ innaAppControllers
                     StartVoyageDate: bits[2],
                     EndVoyageDate: bits[3],
                     TicketClass: bits[4],
-                    Adult: bits[5]
+                    Adult: bits[5],
+                    ChildrenAges: (function(ages){
+                        return ages ?
+                            ages.split('_').map(function(age){ return {value: age}; }) :
+                            []
+                    })(bits[6])
                 }
             })($location.path());
 
@@ -106,11 +111,11 @@ innaAppControllers
             $scope.adultCount = routeParams.Adult || 2;
 
             /*Children count*/
-            $scope.childrenCount = 0;
+            $scope.childrenCount = routeParams.ChildrenAges && routeParams.ChildrenAges.length || 0;
 
             /*Children ages*/
             //TODO fix English
-            $scope.childrensAge = [];
+            $scope.childrensAge = routeParams.ChildrenAges || [];
 
             /*Klass*/
             $scope.klass = _.find(TripKlass.options, function(klass){
