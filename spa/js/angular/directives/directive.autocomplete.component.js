@@ -69,14 +69,14 @@
                 }
 
                 $scope.unfulfill = function () {
-                    console.log('keypress');
+                    //console.log('keypress');
                     $scope.fulfilled = false;
                     $scope.result = null;
                 }
 
                 /*Watchers*/
                 $scope.$watch('result', function (newValue, oldValue) {
-                    console.log('$scope.$watch(result: %s', newValue);
+                    //console.log('$scope.$watch(result: %s', newValue);
                     if (newValue instanceof Error) {
                         $scope.result = oldValue;
 
