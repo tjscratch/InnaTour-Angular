@@ -551,8 +551,9 @@ innaAppDirectives.directive('validateSimple', [function () {
     };
 }]);
 
-innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', function ($rootScope, $parse) {
+innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$interval', function ($rootScope, $parse, $interval) {
     return {
+        require: 'ngModel',
         scope: {
             ngValidationModel: '=',
             validateType: '=',
@@ -560,7 +561,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
             validate: '&',
             supressSelectOnValue: '='
         },
-        link: function ($scope, element, attrs) {
+        link: function ($scope, element, attrs, ctrl) {
             var isInitDone = false;
             var eid = 'dir_inp_' + _.uniqueId();
             var $elem = $(element);
@@ -570,6 +571,8 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
                 if (isUserAction)
                     type = 'userAction';
 
+                //console.log('validate; ngValidationModel.value: %s', $scope.ngValidationModel.value);
+
                 $scope.validate({ item: $scope.ngValidationModel, type: type });
             };
 
@@ -578,6 +581,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
                     validate(true);
                 });
             //}).on('change', function () {
+            //    console.log('change');
             //    validate();
             }).on('keypress', function (event) {
                 var theEvent = event || window.event;
@@ -639,7 +643,20 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', functi
                 //validateThrottled();
             });
 
+            //fix autocomplete
+            var tId = $interval(function () {
+                //var valModelVal = $scope.ngValidationModel != null ? $scope.ngValidationModel.value : '';
+                //console.log('$elem.val(): %s, $modelValue: %s, ngValidationModel.value: %s', $elem.val(), ctrl.$modelValue, valModelVal);
+                if ($elem.val() != null && $elem.val().length > 2 && $elem.val() != ctrl.$modelValue) {
+                    //console.log('set value and validate');
+                    ctrl.$setViewValue($elem.val());
+                    validate();
+                }
+            }, 500);
+            
+
             $scope.$on('$destroy', function () {
+                $interval.cancel(tId);
                 $elem.off();
             });
         }

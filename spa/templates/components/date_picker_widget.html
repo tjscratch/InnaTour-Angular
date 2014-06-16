@@ -13,14 +13,14 @@
             <span class="dtpk-caption" ng-if="isFromSelecting">ТУДА</span>
             <span class="dtpk-caption" ng-if="!isFromSelecting">ОБРАТНО</span>
             <label class="dtpk-checkbox-label" ng-if="addButtons && isFromSelecting">
-                <input type="checkbox" ng-model="data.isToRoamingSelected" />
+                <input type="checkbox" ng-model="data.isToRoamingSelected" ng-change="roamingChanged('to')" />
                 <span class="dtpk-checkbox"></span>+/- 3 дня
             </label>
             <label class="dtpk-checkbox-label" ng-if="addButtons && !isFromSelecting">
-                <input type="checkbox" ng-model="data.isBackRoamingSelected" />
+                <input type="checkbox" ng-model="data.isBackRoamingSelected" ng-change="roamingChanged('back')" />
                 <span class="dtpk-checkbox"></span>+/- 3 дня
             </label>
-            <label class="dtpk-checkbox-label" ng-if="addButtons && isFromSelecting">
+            <label class="dtpk-checkbox-label" ng-if="addButtons">
                 <input type="checkbox" ng-model="data.isOneWaySelected" ng-change="oneWayChanged()"  />
                 <span class="dtpk-checkbox"></span>В одну сторону
             </label>

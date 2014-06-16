@@ -10,7 +10,8 @@ angular.module('innaApp.directives')
                 controller: [
                     '$scope',
                     '$element',
-                    function ($scope, $element) {
+                    'innaApp.API.events',
+                    function ($scope, $element, Events) {
                         $scope.virtualBundle = new inna.Models.Dynamic.Combination();
                         $scope.virtualBundle.hotel = $scope.hotel;
                         $scope.virtualBundle.ticket = $scope.combination.ticket;
@@ -20,7 +21,7 @@ angular.module('innaApp.directives')
                         }
 
                         $scope.setCurrent = function () {
-                            $scope.$emit('choose:hotel', $scope.hotel);
+                            $scope.$emit(Events.DYNAMIC_SERP_CHOOSE_HOTEL, $scope.hotel);
                         }
 
                         $element.on('click', '.js-hotel-item-details', function (evt) {
