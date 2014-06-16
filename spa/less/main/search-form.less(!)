@@ -1,6 +1,4 @@
-@list-item-height: 30px;
-@list-padding: 15px;
-@count-list: 10;
+
 
 .search-form-to .search-form-item-current {
     line-height: 1 !important;
@@ -64,11 +62,11 @@
     &-human-dialog {
         cursor: auto;
         background: #fff;
-        .box-shadow(0, 5px, 10px, rgba(50, 50, 50, .25));
+        /*.box-shadow(0, 5px, 10px, rgba(50, 50, 50, 0.25));*/
         padding: @list-padding 0;
         position: absolute;
         top: 100%;
-        z-index: -1;
+        z-index: 10;
         font-size: 14px;
         line-height: 1.2;
         letter-spacing: normal;
@@ -79,7 +77,8 @@
     }
 
     &-human-dialog {
-        left: -40px;
+        left: 0px;
+	      margin-top: 1px;
     }
 
     &-list {
@@ -276,7 +275,10 @@
     /* humans */
     &-humans {
         width: 119px;
-        border-right: 0;
+	      border-right: 1px solid #9f9f9f;
+	      .search-form-item-current{
+		      font:14px/48px ProximaNova,Arial,sans-serif;
+	      }
     }
 
 
