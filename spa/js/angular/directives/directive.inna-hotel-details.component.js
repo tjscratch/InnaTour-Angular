@@ -78,7 +78,7 @@ angular.module('innaApp.directives')
 
                         /*map is from Private section*/
                         map = new google.maps.Map($element.find('#hotel-details-map')[0], {
-                            zoom: 8,
+                            zoom: 16,
                             center: point
                         });
 
