@@ -6,7 +6,10 @@
             <div class="hotel-details-rooms__room-desc">
                 <span ng-repeat="bed in room.BedTypeList">{{bed.Name}}<span ng-if="!$last"> ,</span></span>
             </div>
-            <div class="hotel-details-rooms__room-cancel-rules"><span ng-if="room.IsRefundable">Бесплатная отмена бронирования</span></div>
+            <div class="hotel-details-rooms__room-cancel-rules">
+                <span class="hotel-details-rooms__room-cancel-rules-ok" ng-if="room.IsRefundable">Бесплатная отмена бронирования</span>
+                <span ng-if="!room.IsRefundable">Без возможности возврата</span>
+            </div>
             <div class="hotel-details-rooms__room-price">
                 <div class="hotel-details-rooms__room-price-diff">
                     <span ng-if="$first">Включен в цену</span>
