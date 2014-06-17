@@ -1,4 +1,4 @@
-﻿<div class="rlf-part" style="min-height: 84px;">
+<div class="rlf-part" style="min-height: 84px;">
     <div class="rfl-column3">
         <div class="rlf-aviacompany">
             <img ng-src="{{etap.TransporterCodeUrl}}" alt="" style="max-height: 25px; margin-bottom:5px !important;">
@@ -43,7 +43,8 @@
         <div class="rlf-travel-time" ng-if="!(etap.WayTime > 0)">&nbsp;</div>
     </div>
     <div class="rlf-colum4">
-        {{etap.NextOutCity}}, {{etap.NextOutPort}} ({{etap.NextOutCode}}), {{etap.NextOutCountryName}}
+        <span ng-if="etap.NextOutCity != etap.NextOutPort">{{etap.NextOutCity}}, {{etap.NextOutPort}} ({{etap.NextOutCode}}), {{etap.NextOutCountryName}}</span>
+        <span ng-if="etap.NextOutCity == etap.NextOutPort">{{etap.NextOutPort}} ({{etap.NextOutCode}}), {{etap.NextOutCountryName}}</span>
         <div class="rlf-transfer" ng-if="etap.InPortId != etap.NextOutPortId">Внимание: смена аэропорта!</div>
     </div>
 </div>
