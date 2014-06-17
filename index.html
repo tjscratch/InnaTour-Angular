@@ -98,7 +98,9 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         <!-- HEADER -->
         <header region-header></header>
 
-        <div class="button fixed-request-button" ng-click="popupForm_Show()" ng-show="!isActive('/individualtours/category/')" title="Отправить заявку"></div>
+        <div class="button fixed-request-button ng-hide" ng-click="popupForm_Show()"
+             ng-show="!isActive('/individualtours/category/') && !isActive('/packages/search/')"
+             title="Отправить заявку"></div>
 
         <!-- PAGE CONTENT -->
         <div class="wrpr">
