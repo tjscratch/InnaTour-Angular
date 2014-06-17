@@ -1,7 +1,7 @@
 ﻿
 
 innaAppDirectives.
-    directive('filterAircompany', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
+    directive('filterAircompany', ['$templateCache', 'eventsHelper', '$location', function ($templateCache, eventsHelper, $location) {
         return {
             replace: true,
             template: $templateCache.get('components/avia_results_filter/filter_aircompany.html'),
@@ -9,7 +9,7 @@ innaAppDirectives.
                 list: '='
             },
             controller: ['$scope', function ($scope) {
-
+                //console.log($scope.list);
                 $scope.isOpen = false;
 
                 $scope.resetFilter = function ($event) {
@@ -31,6 +31,25 @@ innaAppDirectives.
                     }
                     return false;
                 }
+
+                //заполняем выбранное из урла
+                function initSelectedFromUrl() {
+                    var transporterCode = $location.search().code;
+                    if (transporterCode != null) {
+                        var codes = transporterCode.split(',');
+                        if ($scope.list != null && codes != null && codes.length > 0) {
+                            _.each(codes, function (code) {
+                                var selItems = _.filter($scope.list, function (item) {
+                                    return item.TransporterCode == code;
+                                });
+                                if (selItems != null && selItems.length > 0) {
+                                    selItems[0].checked = true;
+                                }
+                            });
+                        }
+                    }
+                }
+                initSelectedFromUrl();
             }],
             link: function ($scope, element, attrs) {
                 $(document).click(function bodyClick(event) {
