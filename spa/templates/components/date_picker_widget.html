@@ -1,31 +1,35 @@
 <ng:any>
-<div class="search-date-block search__120" ng-click="toggleFrom($event)" data-title="Введена некорректная дата" style="position:relative;">
-    <input type="text" value="{{long(date1)}}" class="search-date search-date-arr" placeholder="Туда"/>
-    <div style="position:absolute;top:0;left:0;bottom:0;right:0;"></div>
-</div><!--
---><div class="search-date-block search__120" ng-click="toggleTo($event)" data-title="Введена некорректная дата" style="position:relative;">
-    <input type="text" value="{{long(date2)}}" class="search-date search-date-arr" placeholder="Обратно"/>
-    <div style="position:absolute;top:0;left:0;bottom:0;right:0;"></div>
-</div><!--
---><div class="js-datepicker datepicker-body" ng-show="isOpen">
-    <div class="dp-head-cont">
-        <div class="dtpk-head js-dp-head" style="margin: 0; padding: 0px 16px 10px 15px;">
-            <span class="dtpk-caption" ng-if="isFromSelecting">ТУДА</span>
-            <span class="dtpk-caption" ng-if="!isFromSelecting">ОБРАТНО</span>
-            <label class="dtpk-checkbox-label" ng-if="addButtons && isFromSelecting">
-                <input type="checkbox" ng-model="data.isToRoamingSelected" ng-change="roamingChanged('to')" />
-                <span class="dtpk-checkbox"></span>+/- 3 дня
-            </label>
-            <label class="dtpk-checkbox-label" ng-if="addButtons && !isFromSelecting">
-                <input type="checkbox" ng-model="data.isBackRoamingSelected" ng-change="roamingChanged('back')" />
-                <span class="dtpk-checkbox"></span>+/- 3 дня
-            </label>
-            <label class="dtpk-checkbox-label" ng-if="addButtons">
-                <input type="checkbox" ng-model="data.isOneWaySelected" ng-change="oneWayChanged()"  />
-                <span class="dtpk-checkbox"></span>В одну сторону
-            </label>
+    <div class="search-date-block search__120" ng-click="toggleFrom($event)" data-title="Введена некорректная дата"
+         style="position:relative;">
+        <input type="text" value="{{long(date1)}}" class="search-date search-date-arr" placeholder="Туда"/>
+
+        <div style="position:absolute;top:0;left:0;bottom:0;right:0;"></div>
+    </div>
+    <div class="search-date-block search__120" ng-click="toggleTo($event)" data-title="Введена некорректная дата"
+         style="position:relative;">
+        <input type="text" value="{{long(date2)}}" class="search-date search-date-arr" placeholder="Обратно"/>
+
+        <div style="position:absolute;top:0;left:0;bottom:0;right:0;"></div>
+    </div>
+    <div class="js-datepicker datepicker-body" ng-show="isOpen">
+        <div class="dp-head-cont">
+            <div class="dtpk-head js-dp-head" style="margin: 0; padding: 0px 16px 10px 15px;">
+                <span class="dtpk-caption" ng-if="isFromSelecting">ТУДА</span>
+                <span class="dtpk-caption" ng-if="!isFromSelecting">ОБРАТНО</span>
+                <label class="dtpk-checkbox-label" ng-if="addButtons && isFromSelecting">
+                    <input type="checkbox" ng-model="data.isToRoamingSelected" ng-change="roamingChanged('to')"/>
+                    <span class="dtpk-checkbox"></span>+/- 3 дня
+                </label>
+                <label class="dtpk-checkbox-label" ng-if="addButtons && !isFromSelecting">
+                    <input type="checkbox" ng-model="data.isBackRoamingSelected" ng-change="roamingChanged('back')"/>
+                    <span class="dtpk-checkbox"></span>+/- 3 дня
+                </label>
+                <label class="dtpk-checkbox-label" ng-if="addButtons">
+                    <input type="checkbox" ng-model="data.isOneWaySelected" ng-change="oneWayChanged()"/>
+                    <span class="dtpk-checkbox"></span>В одну сторону
+                </label>
+            </div>
         </div>
     </div>
-   </div>
 
 </ng:any>

@@ -7,9 +7,8 @@ angular.module('innaApp.controllers')
                 $scope.safeApply(function(){
                     $scope.$root.user = new inna.Models.Auth.User(data);
 
-                    if($scope.user.isAgency() && !$scope.user.raw.AgencyActive) {
+                    if($scope.$root.user.isAgency() && !$scope.user.raw.AgencyActive) {
                         $scope.logout();
-                        $scope.baloon.error('Агентство отключено', 'Авторизация невозможна');
                     }
                 });
             }
@@ -27,7 +26,7 @@ angular.module('innaApp.controllers')
 
                 AuthDataProvider.logout();
 
-                $scope.$root.$bradcast(Events.AUTH_SIGN_OUT, wasLoggedUser.raw);
+                $scope.$root.$broadcast(Events.AUTH_SIGN_OUT, wasLoggedUser.raw);
             };
 
             $scope.open = function(){
@@ -50,7 +49,7 @@ angular.module('innaApp.controllers')
             };
 
             $scope.showProfile = function(){
-            	if($scope.user.isAgency()) {
+            	if($scope.$root.user.isAgency()) {
             		window.location = $scope.B2B_HOST;
             		return;
             	}
@@ -96,14 +95,19 @@ angular.module('innaApp.controllers')
                     setUserInfo(data);
                     $scope.close();
 
-                    if($scope.user.isAgency()) {
+                    if($scope.$root.user && $scope.$root.user.isAgency()) {
                         window.location = $scope.B2B_HOST;
                     }
                 });
             });
 
             $scope.$on(Events.AUTH_SIGN_OUT, function(event, loggedOutUserData){
-                if((new inna.Models.Auth.User(loggedOutUser)).isAgency()) {
+                var user = new inna.Models.Auth.User(loggedOutUserData);
+                if(user.isAgency() && !user.raw.AgencyActive) {
+                    $scope.baloon.showErr('Агентство неактивно', 'Вход не возможен', function(){
+                        window.location = '/';
+                    });
+                } else if(user.isAgency()) {
                     window.location = '/';
                 }
             });

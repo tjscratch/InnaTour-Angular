@@ -28,6 +28,23 @@
         <link rel="stylesheet" href="/build/css/ie.min.css" />
     <![endif]-->
 
+    <script src="/spa/lib/if-browser.js"></script>
+    <script>
+        var old = ifBrowser();
+
+        if(old.bName) {
+            var oldV = old.bNameV.split('.');
+
+            if (oldV[0] == 'ie' && oldV[1] < 9) {
+                location.href = '/browser.html'
+            }
+
+            if ((oldV[0] == 'safari' && oldV[1] <= 5)) {
+                location.href = '/browser.html'
+            }
+        }
+    </script>
+
     <!--<script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -81,7 +98,9 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         <!-- HEADER -->
         <header region-header></header>
 
-        <div class="button fixed-request-button" ng-click="popupForm_Show()" ng-show="!isActive('/individualtours/category/')" title="Отправить заявку"></div>
+        <div class="button fixed-request-button ng-hide" ng-click="popupForm_Show()"
+             ng-show="!isActive('/individualtours/category/') && !isActive('/packages/search/')"
+             title="Отправить заявку"></div>
 
         <!-- PAGE CONTENT -->
         <div class="wrpr">
@@ -109,7 +128,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     app_main.b2bHost = 'http://b2b.test.inna.ru';
     //<!-- endbuild -->
 
-    app_main.version = '12';
+   /* app_main.version = '12';
     app_main.constants = {};
     app_main.constants.offersCategoriesProgramm = '1';
 
@@ -140,7 +159,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 
     var payUrl = app_main.host + '/Payment/Pay';
 
-    var deleteSearchHistoryUrl = app_main.host + '/api/v1/Search/DeleteHistory/Get';
+    var deleteSearchHistoryUrl = app_main.host + '/api/v1/Search/DeleteHistory/Get';*/
 </script>
 
 
@@ -148,11 +167,9 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="//yandex.st/jquery/1.11.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 
-<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>-->
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js"></script>
-
 
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
@@ -193,7 +210,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/plugins/carousel.js"></script>
 <!-- \ jq plugins -->
 
-<script src="/spa/js/debug.js"></script>
+<!--<script src="/spa/js/debug.js"></script>-->
 <script src="/spa/lib/angular-cookies.min.js"></script>
 <script src="/spa/lib/angular-locale_ru-ru.js"></script>
 <script src="/spa/js/angular/helpers/utils.js"></script>
@@ -201,7 +218,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/helpers/date.helper.js"></script>
 <script src="/spa/js/angular/helpers/string.helper.js"></script>
 <script src="/spa/js/angular/helpers/collections.helper.js"></script>
-<script src="/spa/js/angular/helpers/api.stub.js"></script>
+<!--<script src="/spa/js/angular/helpers/api.stub.js"></script>-->
 <script src="/spa/js/angular/helpers/cache_keys.js"></script>
 
 <script src="/spa/js/angular/tracking.js"></script>

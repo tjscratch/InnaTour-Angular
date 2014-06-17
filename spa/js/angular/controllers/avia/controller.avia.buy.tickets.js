@@ -561,6 +561,7 @@ Cvc = "486";
                                     setPackageTemplate();
                                     aviaHelper.addAggInfoFields(data.Hotel);
                                     $scope.hotel = data.Hotel;
+                                    $scope.room = data.Hotel.Room;
                                     $scope.isBuyPage = true;
                                 }
 

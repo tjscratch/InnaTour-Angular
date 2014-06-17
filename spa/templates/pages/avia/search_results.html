@@ -32,7 +32,7 @@
 <!-- Filters -->
 <div class="filters__body">
     <div class="js-filter-scroll">
-        <ul class="filters__container" ng-if="filteredTicketsList != null && filteredTicketsList.length > 0">
+        <ul class="filters__container" ng-if="ticketsList.length > 1">
             <li filter-transfer list="filter.TransferCountListAgg">
             </li>
             <li filter-price ng-model="filter" init-min-value="filter.minPriceInitial" init-max-value="filter.maxPriceInitial" min-value="filter.minPrice" max-value="filter.maxPrice">
@@ -57,6 +57,11 @@
         <ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
             <ng:include src="'avia/results_item.html'"></ng:include>
         </ng:any>
+
+        <div class="results-list__empty results-list__empty_type_tickets" ng-if="ticketsList.length > 0 && !(visibleFilteredTicketsList.length > 0)">
+            <p>Варианты не найдены.</p>
+            <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
+        </div>
     </div>
     <!-- /Results List -->
 

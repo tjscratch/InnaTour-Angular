@@ -90,6 +90,7 @@
                                      
                         aviaHelper.addAggInfoFields(data.RecommendedPair.Hotel);
                         $scope.hotel = data.RecommendedPair.Hotel;
+                        $scope.room = data.RecommendedPair.Room;
                         $scope.price = data.RecommendedPair.Price;
 
                         function getCheckParams() {

@@ -31,5 +31,5 @@ inna.Models.Auth.User.prototype.displayName = function(){
 }
 
 inna.Models.Auth.User.prototype.isAgency = function () {
-    return this.raw.AgencyName.length > 0 && this.raw.AgencyActive;
+    return this.raw.AgencyName.length > 0;
 };

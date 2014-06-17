@@ -1,31 +1,32 @@
-\<div class="b-result b-result_col_three row b-result-content">
+<div class="b-result b-result_col_three row b-result-content">
     <div class="b-result__cell">
 
-            <span class="rl-airline" ng-repeat="(code, name) in bundle.ticket.collectAirlines().etap" ng-if="$index < 2">
-                <span ng-switch="code">
-                    <img src="/spa/img/no-logo-avia.png" alt="" ng-switch-when="''">
-                    <img ng-src="{{airLogo(code)}}" alt="" ng-switch-default>
-                </span>
-                <span class="rl-airline-text">{{name}}</span>
+        <span class="rl-airline" ng-repeat="(code, name) in bundle.ticket.collectAirlines().etap" ng-if="$index < 2">
+            <span ng-switch="code">
+                <img src="/spa/img/no-logo-avia.png" alt="" ng-switch-when="''">
+                <img ng-src="{{airLogo(code)}}" alt="" ng-switch-default>
             </span>
+            <span class="rl-airline-text">{{name}}</span>
+        </span>
 
         <div class="flight-info">
-                <span class="date">
-                    <b>
-                        {{dateHelper.getTime(bundle.ticket.data.DepartureDate)}} {{bundle.ticket.data.OutCode}}
-                    </b>
-                    {{bundle.ticket.data.DepartureDate | date: 'd MMM'}}, {{bundle.ticket.data.DepartureDate | date: 'EEE'}}
-                </span>
+            <span class="date">
+                <b>
+                    {{dateHelper.getTime(bundle.ticket.data.DepartureDate)}} {{bundle.ticket.data.OutCode}}
+                </b>
+                {{bundle.ticket.data.DepartureDate | date: 'd MMM'}}, {{bundle.ticket.data.DepartureDate | date: 'EEE'}}
+            </span>
 
             <p class="arrow">
                 в пути: {{bundle.ticket.getDuration('To')}}<br>
                 {{bundle.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
             </p>
-                <span class="date">
-                    <b>{{dateHelper.getTime(bundle.ticket.data.ArrivalDate)}} {{bundle.ticket.data.InCode}}</b>
-                    {{bundle.ticket.data.ArrivalDate | date: 'd MMM'}}, {{bundle.ticket.data.ArrivalDate | date: 'EEE'}}
-                </span>
+            <span class="date">
+                <b>{{dateHelper.getTime(bundle.ticket.data.ArrivalDate)}} {{bundle.ticket.data.InCode}}</b>
+                {{bundle.ticket.data.ArrivalDate | date: 'd MMM'}}, {{bundle.ticket.data.ArrivalDate | date: 'EEE'}}
+            </span>
         </div>
+
         <div class="flight-info">
                 <span class="date">
                     <b>{{dateHelper.getTime(bundle.ticket.data.BackDepartureDate)}} {{bundle.ticket.data.InCode}}</b>

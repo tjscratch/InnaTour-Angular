@@ -78,7 +78,7 @@ angular.module('innaApp.directives')
 
                         /*map is from Private section*/
                         map = new google.maps.Map($element.find('#hotel-details-map')[0], {
-                            zoom: 8,
+                            zoom: 16,
                             center: point
                         });
 
@@ -93,6 +93,8 @@ angular.module('innaApp.directives')
                         $scope.dataFullyLoaded = false;
 
                         $scope.TAWidget = 'http://www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=' + $scope.hotel.data.HotelId;
+
+                        $scope.bundle.setHotel(hotel);
                     });
 
                     $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){

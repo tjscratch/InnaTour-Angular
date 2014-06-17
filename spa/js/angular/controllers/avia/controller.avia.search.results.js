@@ -293,7 +293,7 @@ innaAppControllers.
                                     //все норм - отправляем на страницу покупки
                                     var url = urlHelper.UrlToAviaTicketsReservation(buyCriteria);
                                     //log('Url: ' + url);
-                                    $location.path(url);
+                                    $location.url(url);
                                 }
                                 else {
                                     function noVariant() {

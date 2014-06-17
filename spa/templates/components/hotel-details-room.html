@@ -1,4 +1,4 @@
-<li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen}">
+<li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen, 'hotel-details-rooms__room_position_last': $last}">
     <div class="hotel-details-rooms__room-short">
         <h3 class="hotel-details-rooms__room-title" ng-click="toggleRoom(room)">{{room.RoomName}}</h3>
 
@@ -6,7 +6,10 @@
             <div class="hotel-details-rooms__room-desc">
                 <span ng-repeat="bed in room.BedTypeList">{{bed.Name}}<span ng-if="!$last"> ,</span></span>
             </div>
-            <div class="hotel-details-rooms__room-cancel-rules"><span ng-if="room.IsRefundable">Бесплатная отмена бронирования</span></div>
+            <div class="hotel-details-rooms__room-cancel-rules">
+                <span class="hotel-details-rooms__room-cancel-rules-ok" ng-if="room.IsRefundable">Бесплатная отмена бронирования</span>
+                <span ng-if="!room.IsRefundable">Без возможности возврата</span>
+            </div>
             <div class="hotel-details-rooms__room-price">
                 <div class="hotel-details-rooms__room-price-diff">
                     <span ng-if="$first">Включен в цену</span>
@@ -32,6 +35,12 @@
         </ul>
         <div class="hotel-details-rooms__room-long-text">
             <p ng-bind-html="room.Description | stripTags"></p>
+            <h3 ng-if="room.Extra">Включено в стоимость</h3>
+            <p ng-if="room.Extra">
+                <span ng-repeat="(name, list) in room.Extra" ng-init="isLastExtra = $last">
+                    <span ng-repeat-start="item in list.List" ng-init="isLastItem = $last">{{item}}</span><span ng-if="!isLastExtra || !isLastItem">, </span><span ng-if="isLastExtra && isLastItem" ng-repeat-end>.</span>
+                </span>
+            </p>
             <h3 ng-if="room.RoomAmenities">Услуги</h3>
             <p ng-if="room.RoomAmenities">
                 <span ng-repeat="am in room.RoomAmenities">{{am.Name}}<span ng-if="!$last">,&nbsp;</span><span ng-if="$last">.</span></span>
