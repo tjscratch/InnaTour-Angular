@@ -248,6 +248,11 @@
                         }
                     });
                 });
+
+                $scope.$on('$destroy', function() {
+                    $scope.datePicker.remove();
+                    $scope.datePicker = null;
+                });
             }
         }
     }])

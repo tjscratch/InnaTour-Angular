@@ -86,11 +86,8 @@
                     </div>
                 </div>
 
-                <!-- tripadvisor -->
-                <div class="hotel-info__tripadvisor">
-                    <ng:include src="'components/tripadvisor/index.html'"
-                                ng-repeat="data in [hotel] track by $index"></ng:include>
-                </div>
+                <h3 class="hotel-info-name">{{room.RoomName}}</h3>
+                <div class="hotel-info-date r__hotel-info"><span ng-repeat="bed in room.BedTypeList track by $index">{{bed.Name}}<span ng-if="!$last">,&nbsp;</span></span></div>
             </div>
 
             <div class="bottom-actions">
