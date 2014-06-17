@@ -106,7 +106,7 @@
         return { seconds: seconds, minutes: minutes, hours: hours, days: days, years: years };
     },
 
-    getTimeSpanMaxDays: function (ts){
+    getTimeSpanMaxDays: function (ts) {
         var days = ts.days;
         if (ts.hours > 0 || ts.minutes > 0 || ts.seconds > 0)
             days++;
@@ -132,7 +132,7 @@
         var b_m = birthday.getMonth();
         var b_d = birthday.getDate();
 
-        if (b_m < now_m){
+        if (b_m < now_m) {
             years++;
         }
         else if (b_m == now_m && b_d < now_d) {
@@ -142,7 +142,7 @@
         return years;
     },
 
-    ddmmyyyy2yyyymmdd: function(ddmmyy){
+    ddmmyyyy2yyyymmdd: function (ddmmyy) {
         function trailingZero(n) {
             return n >= 10 ? n : ('0' + n);
         }
@@ -152,14 +152,14 @@
         return [date.getFullYear(), trailingZero(date.getMonth() + 1), trailingZero(date.getDate())].join('-');
     },
 
-    isHoursBetween: function(date) {
+    isHoursBetween: function (date) {
         var start, end;
 
-        if(!(date instanceof Date)) {
+        if (!(date instanceof Date)) {
             date = dateHelper.apiDateToJsDate(date);
         }
 
-        if(arguments[1] instanceof Array) {
+        if (arguments[1] instanceof Array) {
             start = arguments[1][0];
             end = arguments[1][1];
         } else {
@@ -172,7 +172,7 @@
         return start < end ? (h >= start && h < end) : (h >= start || h < end);
     },
 
-    translateMonth: function(n) {
+    translateMonth: function (n) {
         return [
             'января', 'февраля', 'марта',
             'апреля', 'мая', 'июня',
@@ -181,7 +181,7 @@
         ][n]
     },
 
-    translateMonthShort: function(n) {
+    translateMonthShort: function (n) {
         return [
             'янв', 'фев', 'мар',
             'апр', 'мая', 'июн',
@@ -190,36 +190,42 @@
         ][n]
     },
 
-    translateDay: function(n){
+    translateDay: function (n) {
         return ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'][n]
     },
 
-    getTime: function(date) {
-        return [date.getHours(), date.getMinutes()].map(function(val){
-            if(val % 10 == val) return '' + '0' + val;
+    getTime: function (date) {
+        return [date.getHours(), date.getMinutes()].map(function (val) {
+            if (val % 10 == val) return '' + '0' + val;
 
             return val;
         }).join(':');
     },
 
-    getDateShort: function(date) {
+    getDateShort: function (date) {
         return [date.getDate(), dateHelper.translateMonth(date.getMonth())].join(' ');
     },
 
-    getDay: function(date){
+    getDay: function (date) {
         return dateHelper.translateDay(date.getDay());
     },
 
     eof: null
 };
 
-Date.fromDDMMYY = function(ddmmyy, asTS){
-    var bits = ddmmyy.split('.');
-    var mmddyy = [+bits[1], +bits[0], +bits[2]].join('.');
-    //var date = new Date(mmddyy);//в IE invalid date
-    var date = new Date(+bits[2], (+bits[1]-1), +bits[0]);
+Date.fromDDMMYY = function (ddmmyy, asTS) {
+    if (ddmmyy) {
+        var bits = ddmmyy.split('.');
+        var mmddyy = [+bits[1], +bits[0], +bits[2]].join('.');
+        //var date = new Date(mmddyy);//в IE invalid date
+        var date = new Date(+bits[2], (+bits[1] - 1), +bits[0]);
 
-    if(asTS) return +date;
 
-    return date;
+        if (asTS) return +date;
+
+
+        return date;
+    } else {
+        return '';
+    }
 };

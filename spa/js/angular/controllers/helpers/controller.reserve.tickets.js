@@ -1,5 +1,4 @@
-﻿﻿
-/* Controllers */
+﻿/* Controllers */
 
 innaAppControllers.
     controller('ReserveTicketsCtrl', ['$log', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',

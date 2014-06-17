@@ -6,7 +6,7 @@
         <span ng-if="ticket.collectAirlines().size <= 3" ng-repeat="(code, name) in ticket.collectAirlines().etap" class="result-cell__airlines">
             <img ng-src="{{airLogo(code)}}" alt="" class="logo"><span class="rl-airline-text">{{name}}</span>
         </span>
-
+        
         <span ng-if="ticket.collectAirlines().size > 3" class="rl-airline">
             <img ng-src="/spa/img/group.png" alt="">
             <span class="rl-airline-text">Несколько авиакомпаний</span>

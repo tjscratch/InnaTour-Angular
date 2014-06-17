@@ -12,6 +12,8 @@ var _ENV_ = process.env.NODE_ENV || '';
 
 console.info('----------------------------');
 gutil.log(gutil.colors.green('node environment == ' + _ENV_));
+var isWin = /^win/.test(process.platform);
+console.log(isWin);
 console.info('----------------------------');
 
 

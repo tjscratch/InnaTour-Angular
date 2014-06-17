@@ -249,15 +249,15 @@ inna.Models.Avia.Ticket.prototype.getNextEtap = function (dir, current) {
 inna.Models.Avia.Ticket.prototype.collectAirlines = function () {
     var airlines = [];
 
-    for (var i = 0, dir = null; dir = ['To', 'Back'][i++];) {
-        for (var j = 0, etap = null; etap = this.data['Etaps' + dir][j++];) {
-            airlines.push([etap.data.TransporterCode, etap.data.TransporterName]);
-        }
-    }
+    this.everyEtap(function(etap){
+        airlines.push([etap.data.TransporterCode, etap.data.TransporterName]);
+    });
+
+    var collected = _.object(airlines);
 
     return {
-        etap: _.object(airlines),
-        size: airlines.length
+        etap: collected,
+        size: Object.keys(collected).length
     }
 };
 

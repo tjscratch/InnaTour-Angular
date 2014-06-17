@@ -13,7 +13,7 @@
         },
         "api" : {
             "test": "http://api.test.inna.ru",
-            "prod": "https://api.beta.inna.ru"
+            "prod": "http://api.beta.inna.ru"
         }
     }
 }

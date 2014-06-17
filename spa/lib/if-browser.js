@@ -42,7 +42,10 @@ function ifBrowser(obj) {
 
 
         var data = {}
-        if(version) data.version = version.split('.')[0]
+        if(version) {
+            //console.log(version);
+            data.version = version.split('.')[0]
+        }
         data.bName = bName;
         data.bNameV = bName+'.' + version;
 
