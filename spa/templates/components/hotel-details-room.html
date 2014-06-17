@@ -1,4 +1,4 @@
-<li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen}">
+<li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen, 'hotel-details-rooms__room_position_last': $last}">
     <div class="hotel-details-rooms__room-short">
         <h3 class="hotel-details-rooms__room-title" ng-click="toggleRoom(room)">{{room.RoomName}}</h3>
 

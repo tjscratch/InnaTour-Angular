@@ -1,11 +1,11 @@
-﻿<form class="search-ticket-form" ng-controller="AviaFormCtrl">
+<form class="search-ticket-form" ng-controller="AviaFormCtrl">
     <div dropdown-input
         theme="search-field-block search__city"
         provide-suggest-callback="provideSuggestToFromList"
         suggest="fromList"
         result="criteria.FromId"
         set-result-item="fromInit"
-        set-result-callback="setResultCallbackFrom(item, city)"
+        set-result-callback="setResultCallbackFrom(item)"
         ask-for-data="loadObjectById"
         placeholder="Откуда вы летите?"></div>
     <div dropdown-input
@@ -14,7 +14,7 @@
         suggest="toList"
         result="criteria.ToId"
         set-result-item="toInit"
-        set-result-callback="setResultCallbackTo(item, city)"
+        set-result-callback="setResultCallbackTo(item)"
         ask-for-data="loadObjectById"
         placeholder="Куда вы летите?"></div>
     <span date-picker-widget 

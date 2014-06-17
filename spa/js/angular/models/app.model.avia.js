@@ -208,6 +208,8 @@ inna.Models.Avia.Ticket.prototype.setData = function (data) {
 };
 
 inna.Models.Avia.Ticket.__getDuration = function (raw, hoursIndicator, minutesIndicator) {
+    if(!raw) return '';
+
     var hours = Math.floor(raw / 60);
     var mins = raw % 60;
 
