@@ -31,16 +31,17 @@
     <script src="/spa/lib/if-browser.js"></script>
     <script>
         var old = ifBrowser();
-        /*alert(old.bName);
-        alert(old.version);*/
-        var oldV = old.bNameV.split('.');
 
-        if (oldV[0] == 'ie' && oldV[1] < 9) {
-            location.href = '/browser.html'
-        }
+        if(old.bName) {
+            var oldV = old.bNameV.split('.');
 
-        if((oldV[0] == 'safari' && oldV[1] <= 5)) {
-            location.href = '/browser.html'
+            if (oldV[0] == 'ie' && oldV[1] < 9) {
+                location.href = '/browser.html'
+            }
+
+            if ((oldV[0] == 'safari' && oldV[1] <= 5)) {
+                location.href = '/browser.html'
+            }
         }
     </script>
 
