@@ -1,4 +1,4 @@
-﻿﻿<div class="clearfix">
+﻿<div class="clearfix">
     <div class="b-ticket_2ways-block" ng-if="etapAgg.etapTo != null">
         <div class="rlf-part">
             <div class="rfl-column3">
@@ -89,7 +89,8 @@
                 <div class="rlf-travel-time" ng-if="!(etapAgg.etapTo.WayTime > 0)">&nbsp;</div>
             </div>
             <div class="rlf-colum4">
-                {{etapAgg.etapTo.NextOutCity}}, {{etapAgg.etapTo.NextOutPort}} ({{etapAgg.etapTo.NextOutCode}}), {{etapAgg.etapTo.NextOutCountryName}}
+                <span ng-if="etapAgg.etapTo.NextOutCity != etapAgg.etapTo.NextOutPort">{{etapAgg.etapTo.NextOutCity}}, {{etapAgg.etapTo.NextOutPort}} ({{etapAgg.etapTo.NextOutCode}}), {{etapAgg.etapTo.NextOutCountryName}}</span>
+                <span ng-if="etapAgg.etapTo.NextOutCity == etapAgg.etapTo.NextOutPort">{{etapAgg.etapTo.NextOutPort}} ({{etapAgg.etapTo.NextOutCode}}), {{etapAgg.etapTo.NextOutCountryName}}</span>
                 <div class="rlf-transfer" ng-if="etapAgg.etapTo.InPortId != etapAgg.etapTo.NextOutPortId">Внимание: смена аэропорта!</div>
             </div>
         </div>
@@ -102,7 +103,8 @@
                 <div class="rlf-travel-time" ng-if="!(etapAgg.etapBack.WayTime > 0)">&nbsp;</div>
             </div>
             <div class="rlf-colum4">
-                {{etapAgg.etapBack.NextOutCity}}, {{etapAgg.etapBack.NextOutPort}} ({{etapAgg.etapBack.NextOutCode}}), {{etapAgg.etapBack.NextOutCountryName}}
+                <span ng-if="etapAgg.etapBack.NextOutCity != etapAgg.etapBack.NextOutPort">{{etapAgg.etapBack.NextOutCity}}, {{etapAgg.etapBack.NextOutPort}} ({{etapAgg.etapBack.NextOutCode}}), {{etapAgg.etapBack.NextOutCountryName}}</span>
+                <span ng-if="etapAgg.etapBack.NextOutCity == etapAgg.etapBack.NextOutPort">{{etapAgg.etapBack.NextOutPort}} ({{etapAgg.etapBack.NextOutCode}}), {{etapAgg.etapBack.NextOutCountryName}}</span>
                 <div class="rlf-transfer" ng-if="etapAgg.etapBack.InPortId != etapAgg.etapBack.NextOutPortId">Внимание: смена аэропорта!</div>
             </div>
         </div>

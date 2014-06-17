@@ -11,7 +11,7 @@
                 <ul class="b-tickets__icons" ng-if="popupItemInfo.link != null && popupItemInfo.link.length > 0">
                     <li>
                         <a href="javascript:void(0)" class="b-tickets__icons-link" ng-click="popupItemInfo.getLink($event, item)"></a>
-                        <div class="tooltip tooltip-share-link tooltip-share-link_type_ticket-popup" ng-if="popupItemInfo.isGetLinkOpen">
+                        <div class="tooltip tooltip-share-link tooltip-share-link_type_ticket-popup" style="left: -145px;" ng-if="popupItemInfo.isGetLinkOpen">
                             <input type="text" class="share-link-input" ng-value="popupItemInfo.link">
                             <span class="icon icon-cross" style="margin-left: 5px;" ng-click="popupItemInfo.getLinkClose($event)"></span>
                         </div>

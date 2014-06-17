@@ -314,14 +314,14 @@ innaAppControllers.
                 Validators.notEqual($scope.criteria.FromId, $scope.criteria.ToId, Error('ToId'));
 
                 //если запомнили город - то проверяем и его
-                if ($scope.lastCityFromId != null && $scope.lastCityToId != null) {
-                    Validators.notEqual($scope.lastCityFromId, $scope.lastCityToId, Error('ToId'));
+                if ($scope.lastCityFromCode != null && $scope.lastCityToCode != null) {
+                    Validators.notEqual($scope.lastCityFromCode, $scope.lastCityToCode, Error('ToId'));
                 }
-                else if ($scope.lastCityFromId != null && $scope.lastCityToId == null) {
-                    Validators.notEqual($scope.lastCityFromId, $scope.criteria.ToId, Error('ToId'));
+                else if ($scope.lastCityFromCode != null && $scope.lastCityToCode == null) {
+                    Validators.notEqual($scope.lastCityFromCode, $scope.criteria.ToUrl, Error('ToId'));
                 }
-                else if ($scope.lastCityFromId == null && $scope.lastCityToId != null) {
-                    Validators.notEqual($scope.criteria.FromId, $scope.lastCityToId, Error('ToId'));
+                else if ($scope.lastCityFromCode == null && $scope.lastCityToCode != null) {
+                    Validators.notEqual($scope.criteria.FromUrl, $scope.lastCityToCode, Error('ToId'));
                 }
 
                 Validators.defined($scope.criteria.BeginDate, Error('BeginDate'));
@@ -357,30 +357,33 @@ innaAppControllers.
                 })
             }
 
-            $scope.setResultCallbackFrom = function (item, city) {
+            $scope.setResultCallbackFrom = function (item) {
                 if (item != null) {
-                    //console.log('$scope.setResultCallbackFrom: %s', item.CodeIata);
+                    //console.log('$scope.setResultCallbackFrom:');
+                    //console.log(item);
                     $scope.criteria.FromUrl = item.CodeIata;
                     $scope.criteria.From = item.Name;
                 }
-                if (city != null) {
-                    $scope.lastCityFromId = city.Id;
+                if (item.CityCodeIata != null) {
+                    $scope.lastCityFromCode = item.CityCodeIata;
                 }
                 else {
-                    $scope.lastCityFromId = null;
+                    $scope.lastCityFromCode = null;
                 }
             }
 
-            $scope.setResultCallbackTo = function (item, city) {
+            $scope.setResultCallbackTo = function (item) {
                 if (item != null) {
+                    //console.log('$scope.setResultCallbackTo:');
+                    //console.log(item);
                     $scope.criteria.ToUrl = item.CodeIata;
                     $scope.criteria.To = item.Name;
                 }
-                if (city != null) {
-                    $scope.lastCityToId = city.Id;
+                if (item.CityCodeIata != null) {
+                    $scope.lastCityToCode = item.CityCodeIata;
                 }
                 else {
-                    $scope.lastCityToId = null;
+                    $scope.lastCityToCode = null;
                 }
             }
 
