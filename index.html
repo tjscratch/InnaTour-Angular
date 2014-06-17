@@ -28,6 +28,22 @@
         <link rel="stylesheet" href="/build/css/ie.min.css" />
     <![endif]-->
 
+    <script src="/spa/lib/if-browser.js"></script>
+    <script>
+        var old = ifBrowser();
+        /*alert(old.bName);
+        alert(old.version);*/
+        var oldV = old.bNameV.split('.');
+
+        if (oldV[0] == 'ie' && oldV[1] < 9) {
+            location.href = '/browser.html'
+        }
+
+        if((oldV[0] == 'safari' && oldV[1] <= 5)) {
+            location.href = '/browser.html'
+        }
+    </script>
+
     <!--<script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
