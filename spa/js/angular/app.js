@@ -3,7 +3,6 @@
 var app = angular.module('innaApp', [
   'ngRoute',
   'innaApp.Cookie',
-  'ngLocale',
   'innaApp.templates',
   'innaApp.filters',
   'innaApp.services',

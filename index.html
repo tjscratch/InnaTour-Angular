@@ -91,33 +91,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     }
 </style>
 
-</head>
-<body class="light-theme" ng-class="{'body-bg':isActive('/avia/') || isActive('/packages/reservation/')}" ng-click="bodyClick()" popup-form>
-
-    <div class="main">
-        <!-- HEADER -->
-        <header region-header></header>
-
-        <div class="button fixed-request-button ng-hide" ng-click="popupForm_Show()"
-             ng-show="!isActive('/individualtours/category/') && !isActive('/packages/search/')"
-             title="Отправить заявку"></div>
-
-        <!-- PAGE CONTENT -->
-        <div class="wrpr">
-            <ng:view></ng:view>
-        </div>
-
-    </div>
-    <!-- FOOTER -->
-    <footer region-footer></footer>
-
-<ng:include src="'popup/mainform.html'"></ng:include>
-
-<!-- Baloon -->
-<div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type" close-fn="baloon.closeFn" data="baloon.data"></div>
-<!-- /Baloon -->
-
-
 <script type="text/javascript">
     var app_main = {};
     //<!-- build:app-host -->
@@ -128,7 +101,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     app_main.b2bHost = 'http://b2b.test.inna.ru';
     //<!-- endbuild -->
 
-   /* app_main.version = '12';
+    app_main.version = '12';
     app_main.constants = {};
     app_main.constants.offersCategoriesProgramm = '1';
 
@@ -159,8 +132,34 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 
     var payUrl = app_main.host + '/Payment/Pay';
 
-    var deleteSearchHistoryUrl = app_main.host + '/api/v1/Search/DeleteHistory/Get';*/
+    var deleteSearchHistoryUrl = app_main.host + '/api/v1/Search/DeleteHistory/Get';
 </script>
+
+</head>
+<body class="light-theme" ng-class="{'body-bg':isActive('/avia/') || isActive('/packages/reservation/')}" ng-click="bodyClick()" popup-form>
+
+    <div class="main">
+        <!-- HEADER -->
+        <header region-header></header>
+
+        <div class="button fixed-request-button ng-hide" ng-click="popupForm_Show()"
+             ng-show="!isActive('/individualtours/category/') && !isActive('/packages/search/')"
+             title="Отправить заявку"></div>
+
+        <!-- PAGE CONTENT -->
+        <div class="wrpr">
+            <ng:view></ng:view>
+        </div>
+
+    </div>
+    <!-- FOOTER -->
+    <footer region-footer></footer>
+
+<ng:include src="'popup/mainform.html'"></ng:include>
+
+<!-- Baloon -->
+<div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type" close-fn="baloon.closeFn" data="baloon.data"></div>
+<!-- /Baloon -->
 
 
 <!--<script src="//code.jquery.com/jquery-1.8.3.min.js"></script>-->

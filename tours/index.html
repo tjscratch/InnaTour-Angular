@@ -19,24 +19,24 @@
     </script>
     <![endif]-->
 
-    <link rel="shortcut icon" href="/favicon.ico"/> 
+    <link rel="shortcut icon" href="/favicon.ico"/>
 
     <!--<link rel="stylesheet" href="/spa/css/jquery-ui-1.10.4.custom.css" />
     <link rel="stylesheet" type="text/css" href="/spa/css/main.css" />-->
 
-    <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
-    <link rel="stylesheet" href="/build/css/main.less.css" />
-    <link rel="stylesheet" href="/build/css/common.min.css" />
+    <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css"/>
+    <link rel="stylesheet" href="/build/css/main.less.css"/>
+    <link rel="stylesheet" href="/build/css/common.min.css"/>
 
     <!--[if lt IE 9]>
-    <link rel="stylesheet" href="/build/css/ie.min.css" />
+    <link rel="stylesheet" href="/build/css/ie.min.css"/>
     <![endif]-->
 
     <script src="/spa/lib/if-browser.js"></script>
     <script>
         var old = ifBrowser();
 
-        if(old.bName) {
+        if (old.bName) {
             var oldV = old.bNameV.split('.');
 
             if (oldV[0] == 'ie' && oldV[1] < 9) {
@@ -66,7 +66,29 @@
     for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
     mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
     <!-- end Mixpanel -->
+    <script type="text/javascript">
+        var app_main = {};
+        //
+        <!-- build:app-host -->
+        app_main.host = 'http://api.test.inna.ru';
+        //
+        <!-- endbuild -->
 
+        //
+        <!-- build:b2b-host -->
+        app_main.b2bHost = 'http://b2b.test.inna.ru';
+        //
+        <!-- endbuild -->
+
+        app_main.version = '12';
+        app_main.constants = {};
+        app_main.constants.offersCategoriesProgramm = '1';
+
+        var getSletatUrl = app_main.host + '/api/v1/Dictionary/Sletat/Get';
+        var getSletatCityUrl = app_main.host + '/api/v1/Dictionary/SletatCity/Get';
+        var getSletatByIdUrl = app_main.host + '/api/v1/Dictionary/SletatById/Get';
+        var sendITCategoryRequestUrl = app_main.host + '/api/v1/RequestsTour/Post';
+    </script>
 </head>
 <body id="ng-app" ng-app="innaApp" ng-click="bodyClick()" ng-controller="RootCtrl" popup-form>
 <div class="main">
@@ -97,11 +119,12 @@
             <ul class="header-menu-container-items">
 
 
-                <li class="header-menu-item"><a href="/#/packages/" >Перелет&nbsp;+&nbsp;Отель</a></li>
-                <li class="header-menu-item"><a href="/#/avia/" >Авиабилеты</a></li>
+                <li class="header-menu-item"><a href="/#/packages/">Перелет&nbsp;+&nbsp;Отель</a></li>
+                <li class="header-menu-item"><a href="/#/avia/">Авиабилеты</a></li>
                 <li class="header-menu-item"><a href="/#/" class="active">Туры</a></li>
-                <li class="header-menu-item"><a href="/#/individualtours/" >Программы</a></li>
-                <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru" target="_blank">Отели</a></li>
+                <li class="header-menu-item"><a href="/#/individualtours/">Программы</a></li>
+                <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru"
+                                                target="_blank">Отели</a></li>
                 <li class="header-menu-item"><a href="/catalog/guide/">Каталог стран</a></li>
             </ul>
             <ng:include src="getHeadForm()"></ng:include>
@@ -118,27 +141,30 @@
             </div>
             <div style="margin: auto; width: 970px; min-height:100px;">
 
-            <div>
+                <div>
+                    <script type="text/javascript" src="//ui.sletat.ru/module-4.0/core.js" charset="utf-8"></script>
+                    <script type="text/javascript">
+                        sletat.FrameSearch.$create({
+                            useCard: false,
+                            results: "group",
+                            useJumpTo: true,
+                            jumpToTarget: "self",
+                            jumpToAddress: "http://inna.ru/tours"
+                        });</script>
+                    <span style="visibility:hidden;" class="sletat-copyright">Идет загрузка модуля <a
+                            href="http://sletat.ru/" title="поиск туров" target="_blank">поиска
+                        туров</a> &hellip;</span>
+                </div>
+
                 <script type="text/javascript" src="//ui.sletat.ru/module-4.0/core.js" charset="utf-8"></script>
                 <script type="text/javascript">
                     sletat.FrameSearch.$create({
-                        useCard : false,
+                        useCard: false,
                         results: "group",
-                        useJumpTo : true,
-                        jumpToTarget  : "self",
-                        jumpToAddress : "http://inna.ru/tours"
+                        useForm: false
                     });</script>
-                <span style="visibility:hidden;" class="sletat-copyright">Идет загрузка модуля <a href="http://sletat.ru/" title="поиск туров" target="_blank">поиска туров</a> &hellip;</span>
-            </div>
-
-            <script type="text/javascript" src="//ui.sletat.ru/module-4.0/core.js" charset="utf-8"></script>
-            <script type="text/javascript">
-                sletat.FrameSearch.$create({
-                    useCard: false,
-                    results: "group",
-                    useForm: false
-                });</script>
-            <span style="visibility:hidden;" class="sletat-copyright">Идет загрузка модуля <a href="http://sletat.ru/" title="поиск туров" target="_blank">поиска туров</a> &hellip;</span>
+                <span style="visibility:hidden;" class="sletat-copyright">Идет загрузка модуля <a
+                        href="http://sletat.ru/" title="поиск туров" target="_blank">поиска туров</a> &hellip;</span>
 
             </div>
 
@@ -206,26 +232,6 @@
 </div>
 
 <ng:include src="'popup/mainform.html'"></ng:include>
-
-<script type="text/javascript">
-    var app_main = {};
-    //<!-- build:app-host -->
-    app_main.host = 'http://api.test.inna.ru';
-    //<!-- endbuild -->
-
-    //<!-- build:b2b-host -->
-    app_main.b2bHost = 'http://b2b.test.inna.ru';
-    //<!-- endbuild -->
-
-    app_main.version = '12';
-    app_main.constants = {};
-    app_main.constants.offersCategoriesProgramm = '1';
-
-    var getSletatUrl = app_main.host + '/api/v1/Dictionary/Sletat/Get';
-    var getSletatCityUrl = app_main.host + '/api/v1/Dictionary/SletatCity/Get';
-    var getSletatByIdUrl = app_main.host + '/api/v1/Dictionary/SletatById/Get';
-    var sendITCategoryRequestUrl = app_main.host + '/api/v1/RequestsTour/Post';
-</script>
 
 
 <script src="//yandex.st/jquery/1.11.0/jquery.min.js"></script>
