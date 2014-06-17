@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:ng="http://angularjs.org">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -97,23 +97,32 @@
          title="Отправить заявку"></div>
 
     <div class="wrpr">
-        <div class="layout">
+        <div class="layout" style="padding-top:105px;">
             <div class="main-banner" style="height: 0px;">
             </div>
             <div style="margin: auto; width: 970px; min-height:100px;">
 
+            <div>
                 <script type="text/javascript" src="//ui.sletat.ru/module-4.0/core.js" charset="utf-8"></script>
                 <script type="text/javascript">
                     sletat.FrameSearch.$create({
-                        useCard: false,
+                        useCard : false,
                         results: "group",
-                        useForm: false,
-                        formType: "horizontal"
+                        useJumpTo : true,
+                        jumpToTarget  : "self",
+                        jumpToAddress : "http://inna.ru/tours"
                     });</script>
-        <span style="visibility:hidden;" class="sletat-copyright">Идет загрузка модуля <a href="http://sletat.ru/"
-                                                                                          title="поиск туров"
-                                                                                          target="_blank">поиска
-            туров</a> &hellip;</span>
+                <span style="visibility:hidden;" class="sletat-copyright">Идет загрузка модуля <a href="http://sletat.ru/" title="поиск туров" target="_blank">поиска туров</a> &hellip;</span>
+            </div>
+
+            <script type="text/javascript" src="//ui.sletat.ru/module-4.0/core.js" charset="utf-8"></script>
+            <script type="text/javascript">
+                sletat.FrameSearch.$create({
+                    useCard: false,
+                    results: "group",
+                    useForm: false
+                });</script>
+            <span style="visibility:hidden;" class="sletat-copyright">Идет загрузка модуля <a href="http://sletat.ru/" title="поиск туров" target="_blank">поиска туров</a> &hellip;</span>
 
             </div>
 
