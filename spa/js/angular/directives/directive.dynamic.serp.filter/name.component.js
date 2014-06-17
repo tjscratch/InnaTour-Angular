@@ -23,6 +23,7 @@ angular.module('innaApp.directives')
 
                         Option.prototype.reset = function(){
                             this.value = '';
+                            this.selected = false;
                         };
 
                         var Options = inna.Models.Avia.Filters._OptionsFactory();
@@ -33,7 +34,7 @@ angular.module('innaApp.directives')
 
                         Option.prototype.describe = function(){
                             return ['...', this.value.toLowerCase(), '...'].join('');
-                        }
+                        };
 
                         /*Properties*/
                         $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Name'));
@@ -45,7 +46,7 @@ angular.module('innaApp.directives')
                             var contains = (name.indexOf(val) !== -1);
 
                             if(!contains) hotel.hidden = true;
-                        }
+                        };
                         $scope.options = $scope.filter.options = new Options();
                         $scope.option = new Option('name');
                         $scope.options.push($scope.option);
@@ -54,7 +55,7 @@ angular.module('innaApp.directives')
                         /*Methods*/
                         $scope.reset = function(){
                             $scope.option.reset();
-                        }
+                        };
 
                         /*Watchers*/
                         $scope.$watch('option.value', function(){
