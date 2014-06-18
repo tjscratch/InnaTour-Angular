@@ -17,7 +17,7 @@ innaAppControllers
             var serpScope = $scope;
             var isChooseHotel = null;
 
-            function calibrate(list, scrollTop){
+            var calibrate = _.throttle(function (list, scrollTop){
                 console.time('calibrate');
 
                 var TICKET_HEIGHT = 200;
@@ -28,15 +28,13 @@ innaAppControllers
                 list.each(function(item){
                     if(!item.hidden) {
                         count++;
-                        var aboveViewport = (count < scrolledTickets - 2);
-                        var belowViewport = (count > limit);
 
-                        item.currentlyInvisible = (aboveViewport || belowViewport);
+                        item.currentlyInvisible = (count > limit);
                     }
                 });
 
                 console.timeEnd('calibrate');
-            }
+            }, 333);
 
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
@@ -380,12 +378,6 @@ innaAppControllers
 
             $scope.$watch('hotels', function (data) {
                 $scope.$broadcast('change:hotels:filters', data);
-
-                calibrate($scope.hotels, utils.getScrollTop());
-            }, true);
-
-            $scope.$watch('tickets', function (data) {
-                calibrate($scope.tickets, utils.getScrollTop());
             }, true);
 
             $scope.$watch('hotelFilters', function (data) {
@@ -460,7 +452,7 @@ innaAppControllers
                 function onScroll(event) {
                     var scrollTop = utils.getScrollTop();
 
-                    if(scrollTop % 2 == 0) { //'cause 2px is actually nothing
+                    if(scrollTop % 3 == 0) { //'cause 3px is actually nothing
                         $scope.$apply(function ($scope) {
                             $scope.padding.scrollTop = scrollTop;
 
