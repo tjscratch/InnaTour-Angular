@@ -1,9 +1,3 @@
-
-
-
-
-
-
 (function ($) {
 
     var methods = {

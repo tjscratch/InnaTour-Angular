@@ -33,22 +33,26 @@ angular.module('innaApp.directives')
                         });
                     }],
                 link: function ($scope, $element) {
-//                    $scope.$watch('hotel.currentlyInvisible', function (isInvis) {
-//                        if (!isInvis && $element.find('.b-carousel').length) {
-//                            $timeout(function () {
-//
-//                                $element.find('.b-carousel').innaCarousel({
-//                                    photoList: $scope.hotel.data.Photos,
-//                                    size: 'Small',
-//                                    style: {
-//                                        width: 200,
-//                                        height: 190
-//                                    }
-//                                });
-//
-//                            }, 1);
-//                        }
-//                    });
+                    $scope.$watch('hotel.currentlyInvisible', function (isInvis) {
+                        if (!isInvis) {
+                            $element.data('photos', $scope.hotel.data.Photos);
+
+                            $element.on('mouseover', function activateGallery(){
+                                var elem = $(this);
+
+                                $element.find('.b-carousel').innaCarousel({
+                                    photoList: elem.data('photos'),
+                                    size: 'Small',
+                                    style: {
+                                        width: 200,
+                                        height: 190
+                                    }
+                                });
+
+                                $element.off('mouseover', activateGallery);
+                            });
+                        }
+                    });
                 }
             }
         }]);
