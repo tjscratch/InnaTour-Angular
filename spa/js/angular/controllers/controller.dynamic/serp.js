@@ -17,6 +17,27 @@ innaAppControllers
             var serpScope = $scope;
             var isChooseHotel = null;
 
+            function calibrate(list, scrollTop){
+                console.time('calibrate');
+
+                var TICKET_HEIGHT = 200;
+                var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
+                var limit = scrolledTickets * 1.3 + 6;
+                var count = 0;
+
+                list.each(function(item){
+                    if(!item.hidden) {
+                        count++;
+                        var aboveViewport = (count < scrolledTickets - 2);
+                        var belowViewport = (count > limit);
+
+                        item.currentlyInvisible = (aboveViewport || belowViewport);
+                    }
+                });
+
+                console.timeEnd('calibrate');
+            }
+
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
             // Use event choose:hotel = Events.DYNAMIC_SERP_CHOOSE_HOTEL
@@ -209,6 +230,12 @@ innaAppControllers
                     $.when($scope.state.switchTo(defaultTab))
                         .then(function () {
                             onTabLoad(onTabLoadParam);
+
+                            console.log('initial calibation');
+                            calibrate($scope.hotels, 0);
+                            calibrate($scope.tickets, 0);
+                            console.log('/initial calibation');
+
                             $scope.baloon.hide();
                         });
                 });
@@ -353,6 +380,12 @@ innaAppControllers
 
             $scope.$watch('hotels', function (data) {
                 $scope.$broadcast('change:hotels:filters', data);
+
+                calibrate($scope.hotels, utils.getScrollTop());
+            }, true);
+
+            $scope.$watch('tickets', function (data) {
+                calibrate($scope.tickets, utils.getScrollTop());
             }, true);
 
             $scope.$watch('hotelFilters', function (data) {
@@ -427,9 +460,11 @@ innaAppControllers
                 function onScroll(event) {
                     var scrollTop = utils.getScrollTop();
 
-                    if(scrollTop % 3 == 0) { //'cause 3px is actually nothing
+                    if(scrollTop % 2 == 0) { //'cause 2px is actually nothing
                         $scope.$apply(function ($scope) {
                             $scope.padding.scrollTop = scrollTop;
+
+                            calibrate($scope.hotels, $scope.padding.scrollTop);
                         });
                     }
                 }
