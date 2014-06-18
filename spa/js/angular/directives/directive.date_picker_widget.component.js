@@ -3,6 +3,30 @@
     'eventsHelper',
     '$filter',
     function ($templateCache, eventsHelper, $filter) {
+
+        /**
+         * Позиционирование календаря
+         * @param opt_data
+         */
+        function setPosition(opt_data) {
+            var el = opt_data.elemFromPosition;
+            var coords = null;
+
+            (el) ? coords = utils.getCoords(el)
+                : coords = opt_data.coords;
+
+            if (!opt_data.slide) {
+                opt_data.picker.css({
+                    left: (coords.left - 250) + 'px',
+                    top: (coords.bottom) + 'px'
+                });
+            } else {
+                var left = (parseInt($(opt_data.picker).css('left')) + 120) + 'px';
+                $(opt_data.picker).animate({ left: left }, 300);
+            }
+        }
+
+
         return {
             replace: true,
             template: $templateCache.get('components/date_picker_widget.html'),
@@ -90,19 +114,6 @@
 
                 $scope.headClicked = false;
 
-                function datepickerPosition(evt){
-                    var coords =  utils.getCoords(evt.currentTarget);
-
-                    $scope.datePicker.css({
-                        left : (coords.left - 250)+'px',
-                        top : (coords.bottom)+'px'
-                        /*"-webkit-transform": "translate3d(" + (coords.left - 250) + "px, 0px, 0px)",
-                        "-moz-transform": "translate3d(" + (coords.left - 250) + "px, 0px, 0px)",
-                        "-ms-transform": "translate3d(" + (coords.left - 250) + "px, 0px, 0px)",
-                        "transform": "translate3d(" + (coords.left - 250) + "px, 0px, 0px)"*/
-                    });
-                }
-
                 $scope.setLastSel = function (lastSel) {
                     if ($scope.datePicker) {
                         //при клике будет выбрана дата от
@@ -123,7 +134,10 @@
                     $scope.isFromSelecting = true;
                     //при клике будет выбрана дата от
                     $scope.setLastSel(false);
-                    datepickerPosition($event);
+                    setPosition({
+                        elemFromPosition : $event.currentTarget,
+                        picker :  $scope.datePicker
+                    });
                 }
 
                 $scope.toggleTo = function ($event) {
@@ -138,7 +152,10 @@
                     $scope.isFromSelecting = false;
                     //при клике будет выбрана дата до
                     $scope.setLastSel(true);
-                    datepickerPosition($event);
+                    setPosition({
+                        elemFromPosition : $event.currentTarget,
+                        picker :  $scope.datePicker
+                    });
                 }
 
                 $scope.oneWayChanged = function () {
@@ -190,7 +207,7 @@
                     format: 'd.m.Y',
                     starts: 1,
                     onChange: function (formated, dates, el, lastSel, initDateFromIsSet) {
-                        console.log(lastSel, 'lastSel');
+
                         $scope.$apply(function ($scope) {
                             $scope.date1 = formated[0];
 
@@ -202,19 +219,19 @@
                             $scope.isFromSelecting = lastSel;
                             if (lastSel) {
                                 $scope.isOpen = false;
-                                console.log('choose 1');
+
                                 //если выбираем дату обратно, и установлена галка в одну сторону - снимаем ее
                                 if ($scope.data != null && $scope.data.isOneWaySelected) {
                                     $scope.data.isOneWaySelected = false;
-                                    console.log('choose 2');
                                 }
                             }
                             else {
-                                console.log(el);
-                                console.log('choose 3');
+
+                                setPosition({ slide : true, picker :  el });
+
+
                                 //если выбираем дату туда, и стоит галка в одну сторону
                                 if ($scope.data != null && $scope.data.isOneWaySelected) {
-                                    console.log('choose 4');
                                     $scope.setLastSel(true);
                                     $scope.isFromSelecting = true;
                                     $scope.isOpen = false;
@@ -254,7 +271,7 @@
                     });
                 });
 
-                $scope.$on('$destroy', function() {
+                $scope.$on('$destroy', function () {
                     $scope.datePicker.remove();
                     $scope.datePicker = null;
                 });
