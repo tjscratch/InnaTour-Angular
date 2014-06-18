@@ -143,6 +143,7 @@
                 msg: 'msg',
                 err: 'err',
                 msgClose: 'msgClose',
+                msgCancel: 'msgCancel',
                 success: 'success',
                 payExpires: 'payExpires'
             };
@@ -433,9 +434,21 @@
                     type: baloonType.msg,
                     closeFn: null,
                     showGlobalAviaErr: function () {
-                        helper.baloon.show("Что-то пошло не так", "Свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
+                        helper.baloon.show(null, null,
                             baloonType.err, function () {
                                 $location.path(Urls.URL_AVIA);
+                            });
+                    },
+                    showGlobalDpErr: function () {
+                        helper.baloon.show(null, null,
+                            baloonType.err, function () {
+                                $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                            });
+                    },
+                    showGlobalErr: function () {
+                        helper.baloon.show(null, null,
+                            baloonType.err, function () {
+                                $location.path(Urls.URL_ROOT);
                             });
                     },
                     showErr: function (caption, text, closeFn) {
@@ -443,6 +456,9 @@
                     },
                     showWithClose: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.msgClose, closeFn);
+                    },
+                    showWithCancel: function (caption, text, cancelFn) {
+                        helper.baloon.show(caption, text, baloonType.msgCancel, cancelFn);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);

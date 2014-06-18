@@ -38,4 +38,3 @@ gulp.task('build-concat', ['build-templates'], function () {
         })))
         .pipe(gulp.dest(conf.build +'/js'));
 });
-
