@@ -34,7 +34,7 @@ innaAppControllers
                 });
 
                 console.timeEnd('calibrate');
-            }, 100);
+            }, utils.isSafari ? 1 : 100);
 
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
@@ -454,7 +454,7 @@ innaAppControllers
                 function onScroll(event) {
                     var scrollTop = utils.getScrollTop();
 
-                    if(scrollTop % 3 == 0) { //'cause 3px is actually nothing
+                    if(utils.isSafari() || scrollTop % 3 == 0) { //'cause 3px is actually nothing
                         $scope.$apply(function ($scope) {
                             $scope.padding.scrollTop = scrollTop;
 
