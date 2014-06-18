@@ -8,10 +8,15 @@ angular.module('innaApp.directives')
                 '$scope',
                 '$element',
                 'aviaHelper',
-                function($scope, $element, aviaHelper){
+                'innaApp.API.events',
+                function($scope, $element, aviaHelper, Events){
 
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
                     $scope.dateHelper = dateHelper;
+
+                    $scope.setTicket = function () {
+                        $scope.$emit(Events.DYNAMIC_SERP_CHOOSE_TICKET, $scope.ticket);
+                    }
 
                     $scope.showWarning = function(){
                         var n = parseInt($scope.ticket.data.NumSeats);

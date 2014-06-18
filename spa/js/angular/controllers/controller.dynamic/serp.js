@@ -31,6 +31,12 @@ innaAppControllers
                 $scope.isChooseHotel = true;
             });
 
+            $scope.$on(Events.DYNAMIC_SERP_CHOOSE_TICKET, function (evt, data) {
+                $scope.combination.ticket = data;
+                $location.search('ticket', data.data.VariantId1);
+                $scope.isChooseHotel = true;
+            });
+
             /*Methods*/
             var getHotelDetails = function (hotel) {
 
@@ -313,12 +319,13 @@ innaAppControllers
             };
 
             $scope.setHotel = function (hotel) {
-                throw Error('NOT IMPLEMENTED! Use hote.setCurrent() instead');
+                throw Error('NOT IMPLEMENTED! Use hote.setCurrent() or Events.DYNAMIC_SERP_CHOOSE_HOTEL instead');
             };
 
             $scope.setTicket = function (ticket) {
-                $scope.combination.ticket = ticket;
-                $location.search('ticket', ticket.data.VariantId1);
+                /*$scope.combination.ticket = ticket;
+                $location.search('ticket', ticket.data.VariantId1);*/
+                throw Error('NOT IMPLEMENTED! Use Events.DYNAMIC_SERP_CHOOSE_TICKET instead');
             };
 
             $scope.goReservation = function (room, hotel) {
@@ -464,7 +471,8 @@ innaAppControllers
 
             $scope.setCurrent = function () {
                 //from parentScope
-                $scope.setTicket($scope.ticket);
+                //$scope.setTicket($scope.ticket);
+                $scope.$emit(Events.DYNAMIC_SERP_CHOOSE_TICKET, $scope.ticket);
 
                 $scope.closePopup();
             };
@@ -513,6 +521,13 @@ innaAppControllers
             /*DOM*/
             var doc = $(document);
 
+            $scope.$root.$on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function (evt, data) {
+                $scope.display.fullDisplay();
+            });
+            $scope.$root.$on(Events.DYNAMIC_SERP_CHOOSE_TICKET, function (evt, data) {
+                $scope.display.fullDisplay();
+            });
+
             var onScroll = function () {
                 var body = document.body || document.documentElement;
 
@@ -534,6 +549,7 @@ innaAppControllers
             };
 
             doc.on('scroll', onScroll);
+
 
 
             /*Properties*/
