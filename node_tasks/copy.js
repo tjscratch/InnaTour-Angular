@@ -13,6 +13,8 @@ gulp.task('copy-project', function () {
     gulp.src(['./Web.config']).pipe(gulp.dest(conf.publish+'/build/js'));
 
 
+    gulp.src(['./browser.html']).pipe(gulp.dest(conf.publish));
+
     gulp.src(conf.build + '/**').pipe(gulp.dest(conf.publish + '/build'));
     gulp.src(conf.dest +'/**').pipe(gulp.dest(conf.publish + '/spa'));
 
