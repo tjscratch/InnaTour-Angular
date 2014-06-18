@@ -97,8 +97,10 @@ innaAppFilters.filter('visibleOnly', [function(){
     var TICKET_HEIGHT = 200;
 
     return function(list, scrollTop){
+        console.time('visibleOnly');
+
         var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
-        var limit = scrolledTickets * 1.5 + 6;
+        var limit = scrolledTickets * 1.3 + 6;
 
         var result = [];
 
@@ -109,6 +111,8 @@ innaAppFilters.filter('visibleOnly', [function(){
                 result.push(item);
             }
         }
+
+        console.timeEnd('visibleOnly');
 
         return result;
     };

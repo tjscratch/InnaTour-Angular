@@ -1,4 +1,5 @@
-<div class="b-hotel_item b-result b-result_col_three_galary b-result_middle row b-result-content">
+<div class="b-hotel_item b-result b-result_col_three_galary b-result_middle row b-result-content"
+     ng-if="!hotel.currentlyInvisible">
 
     <div class="b-result__cell col-no-padding" bind-once>
 
@@ -68,4 +69,4 @@
     <div class="b-result__cell col-xs-3 result-choice" ng-transclude></div>
 </div>
 
-<!--<div class="result" style="height:190px;margin-bottom:10px;" ng-if="hotel.currentlyInvisible"></div>-->
+<div class="result" style="height:190px;margin-bottom:10px;" ng-if="hotel.currentlyInvisible"></div>

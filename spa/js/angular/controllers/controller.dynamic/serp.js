@@ -425,9 +425,13 @@ innaAppControllers
                 var doc = $(document);
 
                 function onScroll(event) {
-                    $scope.$apply(function ($scope) {
-                        $scope.padding.scrollTop = utils.getScrollTop();
-                    });
+                    var scrollTop = utils.getScrollTop();
+
+                    if(scrollTop % 3 == 0) { //'cause 3px is actually nothing
+                        $scope.$apply(function ($scope) {
+                            $scope.padding.scrollTop = scrollTop;
+                        });
+                    }
                 }
 
                 doc.on('scroll', onScroll);
