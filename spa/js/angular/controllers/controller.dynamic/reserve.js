@@ -11,8 +11,9 @@
         'innaApp.Urls',
         'storageService',
         'urlHelper',
+        '$timeout',
         function ($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper,
-            paymentService, Urls, storageService, urlHelper) {
+            paymentService, Urls, storageService, urlHelper, $timeout) {
 
             $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может занять несколько минут');
             //initial
@@ -140,25 +141,27 @@
                                     //$timeout.cancel(availableChecktimeout);
 
                                     function goToSearch() {
-                                        var url = $scope.goBackUrl();
-                                        console.log('redirect to url: ' + url);
+                                        var url = $scope.goBackUrl().replace('/#', '');
+                                        //console.log('redirect to url: ' + url);
                                         $location.url(url);
                                     }
 
                                     $scope.safeApply(function () {
                                         $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска",
                                             function () {
+                                                $timeout.cancel($scope.tmId);
                                                 goToSearch();
                                             });
                                     });
 
 
-                                    //$timeout(function () {
-                                    //    //очищаем хранилище для нового поиска
-                                    //    storageService.clearAviaSearchResults();
-                                    //    //билеты не доступны - отправляем на поиск
-                                    //    goToSearch();
-                                    //}, 3000);
+                                    $scope.tmId = $timeout(function () {
+                                        //очищаем хранилище для нового поиска
+                                        //storageService.clearAviaSearchResults();
+                                        $scope.baloon.hide();
+                                        //билеты не доступны - отправляем на поиск
+                                        goToSearch();
+                                    }, 3000);
                                 }
                             },
                             function (data, status) {
@@ -296,5 +299,9 @@
                         $location.url(Urls.URL_DYNAMIC_PACKAGES);
                     });
             }
+
+            $scope.$on('$destroy', function () {
+                $timeout.cancel($scope.tmId);
+            });
         }
     ]);

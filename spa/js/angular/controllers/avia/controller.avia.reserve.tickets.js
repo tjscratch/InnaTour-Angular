@@ -82,12 +82,14 @@ innaAppControllers.
 
                             $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска билетов",
                                 function () {
+                                    $timeout.cancel($scope.tmId);
                                     goToSearch();
                                 });
 
-                            $timeout(function () {
+                            $scope.tmId = $timeout(function () {
                                 //очищаем хранилище для нового поиска
-                                storageService.clearAviaSearchResults();
+                                //storageService.clearAviaSearchResults();
+                                $scope.baloon.hide();
                                 //билеты не доступны - отправляем на поиск
                                 goToSearch();
                             }, 3000);
@@ -275,5 +277,6 @@ innaAppControllers.
             }
 
             $scope.$on('$destroy', function () {
+                $timeout.cancel($scope.tmId);
             });
         }]);

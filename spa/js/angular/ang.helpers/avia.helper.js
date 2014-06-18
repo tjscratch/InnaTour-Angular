@@ -143,6 +143,7 @@
                 msg: 'msg',
                 err: 'err',
                 msgClose: 'msgClose',
+                msgCancel: 'msgCancel',
                 success: 'success',
                 payExpires: 'payExpires'
             };
@@ -443,6 +444,9 @@
                     },
                     showWithClose: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.msgClose, closeFn);
+                    },
+                    showWithCancel: function (caption, text, cancelFn) {
+                        helper.baloon.show(caption, text, baloonType.msgCancel, cancelFn);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);
