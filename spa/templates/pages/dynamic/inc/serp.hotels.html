@@ -2,11 +2,11 @@
      ng-if="!asMap && !hotelToShowDetails"
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
-        <div ng-repeat="hotel in hotels.list"
+        <div ng-repeat="hotel in hotelsToDisplay = (hotels.list | filter:{currentlyInvisible:false})"
              inna-hotel
              inna-hotel-hotel="hotel"
              inna-hotel-get-details="getHotelDetails"
-             ng-if="combination.hotel.data.HotelId != hotel.data.HotelId && !hotel.currentlyInvisible">
+             ng-if="combination.hotel.data.HotelId != hotel.data.HotelId">
 
             <!-- TRANSCLUDE -->
 
@@ -32,10 +32,10 @@
             <span class="button" ng-click="setCurrent()">Выбрать</span>
         </div>
 
-        <!--<div ng-if="hotelsToDisplay.length == 0" class="results-list__empty results-list__empty_type_hotels">-->
-            <!--<p>Варианты не найдены.</p>-->
-            <!--<p>Попробуйте изменить условия поиска или настройки фильтров.</p>-->
-        <!--</div>-->
+        <div ng-if="!hotelsToDisplay.length" class="results-list__empty results-list__empty_type_hotels">
+            <p>Варианты не найдены.</p>
+            <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
+        </div>
     </div>
 </div>
 

@@ -34,7 +34,7 @@ innaAppControllers
                 });
 
                 console.timeEnd('calibrate');
-            }, 333);
+            }, 100);
 
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
@@ -112,6 +112,8 @@ innaAppControllers
 
                             $scope.hotels.push(hotel);
                         }
+
+                        calibrate($scope.hotels, utils.getScrollTop());
                     };
                 } else if ($scope.state.isActive($scope.state.TICKETS_TAB)) {
                     method = 'getTicketsByCombination';
@@ -125,14 +127,7 @@ innaAppControllers
                             $scope.tickets.push(ticket);
                         }
 
-                        var zero = 0;
-                        $scope.tickets.each(function(ticket){
-                            if(ticket.data.NumSeats < 3 && ticket.data.NumSeats !== 0) console.log(ticket);
-
-                            if(ticket.data.NumSeats == 0) zero++;
-                        });
-
-                        console.log('total = %s; zero = %s', $scope.tickets.list.length, zero);
+                        calibrate($scope.tickets, utils.getScrollTop());
                     };
                 }
 
@@ -457,6 +452,7 @@ innaAppControllers
                             $scope.padding.scrollTop = scrollTop;
 
                             calibrate($scope.hotels, $scope.padding.scrollTop);
+                            calibrate($scope.tickets, $scope.padding.scrollTop);
                         });
                     }
                 }
