@@ -190,6 +190,7 @@
                     format: 'd.m.Y',
                     starts: 1,
                     onChange: function (formated, dates, el, lastSel, initDateFromIsSet) {
+                        console.log(lastSel, 'lastSel');
                         $scope.$apply(function ($scope) {
                             $scope.date1 = formated[0];
 
@@ -201,15 +202,19 @@
                             $scope.isFromSelecting = lastSel;
                             if (lastSel) {
                                 $scope.isOpen = false;
-
+                                console.log('choose 1');
                                 //если выбираем дату обратно, и установлена галка в одну сторону - снимаем ее
                                 if ($scope.data != null && $scope.data.isOneWaySelected) {
                                     $scope.data.isOneWaySelected = false;
+                                    console.log('choose 2');
                                 }
                             }
                             else {
+                                console.log(el);
+                                console.log('choose 3');
                                 //если выбираем дату туда, и стоит галка в одну сторону
                                 if ($scope.data != null && $scope.data.isOneWaySelected) {
+                                    console.log('choose 4');
                                     $scope.setLastSel(true);
                                     $scope.isFromSelecting = true;
                                     $scope.isOpen = false;
