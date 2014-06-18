@@ -1,38 +1,45 @@
-.big-map
+.big-map {
   position fixed
   top 410px
   left 0
   right 0
   bottom 0
 
-	&.big-map_short
-		top 115px
+  &.big-map_short {
+    top 115px
+  }
 
-	.b-hotels-on-map
-		height 100%
-		width 100%
+  .b-hotels-on-map {
+    height 100%
+    width 100%
+  }
 
-	.cluster
-		background : url('/spa/img/map/pin-circle.png') no-repeat 0 0;
-		background-size : 50px 50px;
+  .cluster {
+    /*background : url('/spa/img/map/pin-circle.png') no-repeat 0 0;*/
+    /*background-size : 50px 50px;*/
 
-		div
-			padding-top : 9px;
-			overflow : hidden;
+    div {
+      padding-top: 9px;
+      overflow: hidden;
+    }
 
-		img
-			display : none;
+    img {
+      display: block
+      width: 50px;
+      height: 50px;
+    }
 
-
-
-  .pin-circle
-    background url('/spa/img/map/pin-circle.png')
-    color #fff
-    cursor pointer
-    font-size 14px
-    height 62px
-    line-height 80px
-    position absolute
-    text-align center
-    width 62px
-    margin -31px 0 0 -31px
+    .pin-circle {
+      background url('/spa/img/map/pin-circle.png')
+      color #fff
+      cursor pointer
+      font-size 14px
+      height 62px
+      line-height 80px
+      position absolute
+      text-align center
+      width 62px
+      margin -31px 0 0 -31px
+    }
+  }
+}

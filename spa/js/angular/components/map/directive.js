@@ -49,7 +49,7 @@ angular.module('innaApp.directives')
                             $scope.$emit('more:detail:hotel', $scope.hotels.search(currentHotel.HotelId));
                         }
 
-                        $scope.$on('$destroy', function(){
+                        $scope.$on('$destroy', function () {
                             $scope.$emit('region-footer:show');
                         })
                     }
@@ -69,6 +69,8 @@ angular.module('innaApp.directives')
                     var iconAirClick = 'spa/img/map/marker-green-air.png?' + Math.random().toString(16);
                     var iconDefault = 'spa/img/map/pin-grey.png?' + Math.random().toString(16);
                     var iconHover = 'spa/img/map/pin-black.png?' + Math.random().toString(16);
+                    var iconCluster = 'spa/img/map/pin-circle.png?' + Math.random().toString(16);
+                    var iconHoverCluster = 'spa/img/map/pin-circle-black.png?' + Math.random().toString(16);
                     var iconClick = 'spa/img/map/pin-green.png?' + Math.random().toString(16);
                     var activeMarker = null;
                     var activeMarkerHover = null;
@@ -312,7 +314,7 @@ angular.module('innaApp.directives')
                             //clusterClass : 'big-map__cluster',
                             styles: [
                                 {
-                                    url: 'spa/img/map/empty.png',
+                                    url: iconCluster,
                                     height: 50,
                                     width: 50,
                                     anchor: [16, 0],
@@ -322,6 +324,13 @@ angular.module('innaApp.directives')
                                 }
                             ]
                         });
+
+                        /*GM.event.addListener(_markerCluster, 'mouseover', function (c) {
+                        })
+
+                        GM.event.addListener(_markerCluster, 'mouseover', function (c) {
+
+                        })*/
                     }
 
                     /**
