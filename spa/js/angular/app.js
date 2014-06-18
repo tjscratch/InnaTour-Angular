@@ -28,6 +28,7 @@ app.constant('innaApp.Urls', {
     URL_PROGRAMMS: '/individualtours/',
     URL_ABOUT: '/about/',
     URL_CONTACTS: '/contacts/',
+    URL_CERTIFICATES: '/certificates/',
 
     URL_AUTH_RESTORE: '/account/restore-password/',
     URL_AUTH_SIGNUP: '/account/signup/',
@@ -110,6 +111,10 @@ app.config([
             }).
             when(url.URL_CONTACTS, {
                 templateUrl: '/spa/templates/pages/contacts_page.html',
+                controller: 'ContactsCtrl'
+            }).
+            when(url.URL_CERTIFICATES, {
+                templateUrl: '/spa/templates/pages/certificates_page.html',
                 controller: 'ContactsCtrl'
             }).
             when(url.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
