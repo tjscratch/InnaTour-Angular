@@ -189,6 +189,26 @@
 
                         //console.log($scope.combination);
                     });
+                }, function (data, status) {//error
+                    function goMain() {
+                        $location.url(Urls.URL_DYNAMIC_PACKAGES);
+                    }
+
+                    $scope.safeApply(function () {
+                        $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на главную страницу",
+                            function () {
+                                $timeout.cancel($scope.tmId);
+                                goMain();
+                            });
+                    });
+
+                    $scope.tmId = $timeout(function () {
+                        //очищаем хранилище для нового поиска
+                        //storageService.clearAviaSearchResults();
+                        $scope.baloon.hide();
+                        //билеты не доступны - отправляем на поиск
+                        goMain();
+                    }, 3000);
                 });
             })();
 
@@ -294,10 +314,7 @@
             };
 
             $scope.showReserveError = function () {
-                $scope.baloon.showErr("Что-то пошло не так", "Ожидайте, служба поддержки свяжется с вами, \nили свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
-                    function () {
-                        $location.url(Urls.URL_DYNAMIC_PACKAGES);
-                    });
+                $scope.baloon.showGlobalDpErr();
             }
 
             $scope.$on('$destroy', function () {
