@@ -1,10 +1,13 @@
-app.directive('bindOnce', function() {
-    return {
-        scope: true,
-        link: function($scope) {
-            setTimeout(function() {
-                $scope.$destroy();
-            }, 0);
+app.directive('bindOnce', [
+    '$timeout',
+    function($timeout) {
+        return {
+            scope: true,
+            link: function($scope, $element) {
+                $timeout(function() {
+                    $scope.$destroy();
+                }, 0);
+            }
         }
     }
-});
+]);

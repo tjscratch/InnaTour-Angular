@@ -1,7 +1,7 @@
 <div class="results-container results-container_top"
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
-        <div ng-repeat="ticket in ticketsToDisplay = (tickets.filter(ticketFilters) | visibleOnly:padding.scrollTop)"
+        <div ng-repeat="ticket in ticketsToDisplay = (tickets.filter(ticketFilters) | filter:{currentlyInvisible:false})"
              inna-ticket
              ng-if="combination.ticket.data.VariantId1 != ticket.data.VariantId1">
 
