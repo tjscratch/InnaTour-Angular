@@ -17,6 +17,25 @@ innaAppControllers
             var serpScope = $scope;
             var isChooseHotel = null;
 
+            var calibrate = _.throttle(function (list, scrollTop){
+                console.time('calibrate');
+
+                var TICKET_HEIGHT = 200;
+                var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
+                var limit = scrolledTickets * 1.3 + 6;
+                var count = 0;
+
+                list.each(function(item){
+                    if(!item.hidden) {
+                        count++;
+
+                        item.currentlyInvisible = (count > limit);
+                    }
+                });
+
+                console.timeEnd('calibrate');
+            }, utils.isSafari ? 1 : 100);
+
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
             // Use event choose:hotel = Events.DYNAMIC_SERP_CHOOSE_HOTEL
@@ -99,6 +118,8 @@ innaAppControllers
 
                             $scope.hotels.push(hotel);
                         }
+
+                        calibrate($scope.hotels, utils.getScrollTop());
                     };
                 } else if ($scope.state.isActive($scope.state.TICKETS_TAB)) {
                     method = 'getTicketsByCombination';
@@ -112,14 +133,7 @@ innaAppControllers
                             $scope.tickets.push(ticket);
                         }
 
-                        var zero = 0;
-                        $scope.tickets.each(function(ticket){
-                            if(ticket.data.NumSeats < 3 && ticket.data.NumSeats !== 0) console.log(ticket);
-
-                            if(ticket.data.NumSeats == 0) zero++;
-                        });
-
-                        console.log('total = %s; zero = %s', $scope.tickets.list.length, zero);
+                        calibrate($scope.tickets, utils.getScrollTop());
                     };
                 }
 
@@ -215,6 +229,12 @@ innaAppControllers
                     $.when($scope.state.switchTo(defaultTab))
                         .then(function () {
                             onTabLoad(onTabLoadParam);
+
+                            console.log('initial calibation');
+                            calibrate($scope.hotels, 0);
+                            calibrate($scope.tickets, 0);
+                            console.log('/initial calibation');
+
                             $scope.baloon.hide();
                         });
                 });
@@ -432,9 +452,16 @@ innaAppControllers
                 var doc = $(document);
 
                 function onScroll(event) {
-                    $scope.$apply(function ($scope) {
-                        $scope.padding.scrollTop = utils.getScrollTop();
-                    });
+                    var scrollTop = utils.getScrollTop();
+
+                    if(utils.isSafari() || scrollTop % 3 == 0) { //'cause 3px is actually nothing
+                        $scope.$apply(function ($scope) {
+                            $scope.padding.scrollTop = scrollTop;
+
+                            calibrate($scope.hotels, $scope.padding.scrollTop);
+                            calibrate($scope.tickets, $scope.padding.scrollTop);
+                        });
+                    }
                 }
 
                 doc.on('scroll', onScroll);
