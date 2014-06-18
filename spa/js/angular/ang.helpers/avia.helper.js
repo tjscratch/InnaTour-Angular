@@ -434,9 +434,21 @@
                     type: baloonType.msg,
                     closeFn: null,
                     showGlobalAviaErr: function () {
-                        helper.baloon.show("Что-то пошло не так", "Свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
+                        helper.baloon.show(null, null,
                             baloonType.err, function () {
                                 $location.path(Urls.URL_AVIA);
+                            });
+                    },
+                    showGlobalDpErr: function () {
+                        helper.baloon.show(null, null,
+                            baloonType.err, function () {
+                                $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                            });
+                    },
+                    showGlobalErr: function () {
+                        helper.baloon.show(null, null,
+                            baloonType.err, function () {
+                                $location.path(Urls.URL_ROOT);
                             });
                     },
                     showErr: function (caption, text, closeFn) {

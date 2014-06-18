@@ -45,7 +45,13 @@
     <div class="balloon" ng-if="(type == baloonType.err)">
         <div class="baloon-close" title="Закрыть" ng-click="close($event)"></div>
         <div class="baloon-problem"></div>
-        <div class="baloon-title" ng-bind-html="caption | breakFilter"></div>
-        <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
+        <div class="baloon-title baloon-error" ng-bind-html="caption | breakFilter" ng-if="caption != null && caption.length > 0"></div>
+        <p class="balloon-info" ng-bind-html="text | breakFilter" ng-if="text != null && text.length > 0"></p>
+        <div class="baloon-title baloon-error" ng-if="!(caption != null && caption.length > 0)">Что-то пошло не так</div>
+        <p class="balloon-info" ng-if="!(text != null && text.length > 0)">cвяжитесь с оператором по телефону или скайпу </p>
+        <address class="balloon-contacts">
+            <span class="balloon-contacts-phone">+7 495 742-1212</span>
+            <a href="skype:inna tour?call" class="balloon-contacts-skype">Inna tour</a>
+        </address>
     </div>
 </div>

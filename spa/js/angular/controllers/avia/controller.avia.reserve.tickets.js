@@ -270,10 +270,7 @@ innaAppControllers.
             };
 
             $scope.showReserveError = function () {
-                $scope.baloon.showErr("Что-то пошло не так", "Ожидайте, служба поддержки свяжется с вами, \nили свяжитесь с оператором по телефону <b>+7 495 742-1212</b>",
-                    function () {
-                        $location.path(Urls.URL_AVIA);
-                    });
+                $scope.baloon.showGlobalAviaErr();
             }
 
             $scope.$on('$destroy', function () {
