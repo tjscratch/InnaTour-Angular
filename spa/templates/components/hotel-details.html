@@ -61,7 +61,7 @@
             </div>
         </div>
 
-        <div class="hotel-details__section" ng-if="!displayRoom && combination">
+        <div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom && combination">
             <h2 class="hotel-details__section-title">
                 <span ng-if="!buyAction">Пакет с этим отелем</span>
                 <span ng-if="buyAction">Выбранный пакет</span>
@@ -73,7 +73,7 @@
                  inna-dynamic-bundle-close="back"></div>
         </div>
 
-        <div class="hotel-details__section">
+        <div class="hotel-details__section" ng-if="!hotelOnly">
             <h2 class="hotel-details__section-title">Выбор номера</h2>
 
             <div class="spinner" ng-if="!dataFullyLoaded">

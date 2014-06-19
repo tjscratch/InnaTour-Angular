@@ -9,7 +9,8 @@ angular.module('innaApp.directives')
                 next: '=innaHotelDetailsNext',
                 combination: '=innaHotelDetailsBundle',
                 goReservation: '=innaHotelDetailesReservationFn',
-                getTicketDetails: '=innaHotelDetailsGetTicketDetails'
+                getTicketDetails: '=innaHotelDetailsGetTicketDetails',
+                hotelOnly: '@innaHotelDetailsHotelOnly'
             },
             controller: [
                 '$scope',
@@ -51,7 +52,9 @@ angular.module('innaApp.directives')
                             }
                         }
 
-                        $scope.$digest();
+                        try {
+                            $scope.$digest();
+                        } catch (e) {}
                     }
 
                     /*Properties*/
