@@ -58,6 +58,19 @@ innaAppControllers
 
             /*Methods*/
             var getHotelDetails = function (hotel, buyAction) {
+                serpScope.hotelToShowDetails = hotel;
+                $location.search('displayHotel', hotel.data.HotelId);
+
+                if(buyAction) {
+                    $location.search('action', 'buy');
+                }
+
+                if ($location.search().map) {
+                    delete $location.$$search.map;
+                    $location.$$compose();
+                }
+
+
                 if (!hotel.detailed) {
                     ServiceDynamicPackagesDataProvider.hotelDetails(
                         hotel.data.HotelId,
@@ -78,18 +91,8 @@ innaAppControllers
                             });
                         }
                     );
-                }
-
-                serpScope.hotelToShowDetails = hotel;
-                $location.search('displayHotel', hotel.data.HotelId);
-
-                if(buyAction) {
-                    $location.search('action', 'buy');
-                }
-
-                if ($location.search().map) {
-                    delete $location.$$search.map;
-                    $location.$$compose();
+                } else {
+                    serpScope.$broadcast(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
                 }
             };
 
