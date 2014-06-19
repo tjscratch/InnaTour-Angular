@@ -60,13 +60,13 @@ innaAppControllers.
             };
 
             //регистрируемся для получения данных для слайдера
-            sharedProperties.sliderUpdateCallback(function (data) {
-                $scope.slides = sharedProperties.getSlider();
-                //log('slider, sliderUpdateCallback, len: ' + $scope.slides.length);
+            //sharedProperties.sliderUpdateCallback(function (data) {
+            //    $scope.slides = sharedProperties.getSlider();
+            //    //log('slider, sliderUpdateCallback, len: ' + $scope.slides.length);
 
-                //событие - после которого отрабатывают jq скрипты для слайдера
-                $scope.$broadcast('sliderDataLoaded');
-            });
+            //    //событие - после которого отрабатывают jq скрипты для слайдера
+            //    $scope.$broadcast('sliderDataLoaded');
+            //});
 
             $('.Mouse-scroll').on('click', function () {
                 var $body = $('html, body'),
@@ -74,6 +74,12 @@ innaAppControllers.
                     position = $('.Offers-anchor').position();
 
                 $body.animate({ scrollTop: position.top - headerHeight }, 500)
+            });
+
+            $scope.$on('slider.set.content', function (event, data) {
+                //console.log('slider.set.content');
+                $scope.slides = data;
+                $scope.$broadcast('sliderDataLoaded');
             });
 
             $scope.$on('$destroy', function () {

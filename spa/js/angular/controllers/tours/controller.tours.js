@@ -56,11 +56,9 @@ innaAppControllers.
 
                 //вместо картинок - заглушки (часто ломают картинки)
                 //$scope.sections = stubber.fillStubImages(angular.fromJson(data.SectionLayouts));
-                $scope.slides = data.Slider;
 
-                //данные для слайдера - нужны другому контроллеру
-                //log('sharedProperties.setProperty');
-                sharedProperties.setSlider($scope.slides);
+                //данные для слайдера
+                $scope.$broadcast('slider.set.content', data.Slider);
 
                 //var test = sharedProperties.getProperty();
                 //log('test: ' + angular.toJson(test));
