@@ -157,6 +157,26 @@
             &_state_current
                 outline: 2px solid #89c13a
 
+    &__active
+        position absolute
+        top 0
+        bottom 0
+        cursor pointer
+        width 50%
+
+        &_type
+            &_prev
+                left 0
+            &_next
+                right 0
+
+        .b-carousel__control
+            display none
+
+        &:hover
+            .b-carousel__control
+                display block
+
 .hotel-details-extra
     font-size 0
 
