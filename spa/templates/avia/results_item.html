@@ -17,14 +17,14 @@
 
             <div class="rl-content row-fluid">
 
-                <div class="rl-fly row-fluid__cell">
+                <div class="rl-fly ">
                     <div class="rlf-flight-info">
                         <b>{{item.DepartureTimeFormatted}}</b>, {{item.DepartureDateFormatted}}<br>
                         {{item.AirportFrom}} {{item.OutCode}}
                     </div>
                 </div>
 
-                <div class="rl-travel-time row-fluid__cell">
+                <div class="rl-travel-time ">
                     в пути: {{item.TimeToFormatted}}<br>
                     <span ng-if="item.ToTransferCount > 0">
                         {{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}
@@ -32,7 +32,7 @@
                     <span ng-if="item.ToTransferCount == 0">прямой</span>
                 </div>
 
-                <div class="rl-fly row-fluid__cell col-xs-push-1">
+                <div class="rl-fly col-xs-push-1">
                     <div class="rlf-flight-info">
                         <b>{{item.ArrivalTimeFormatted}}</b>, {{item.ArrivalDateFormatted}}<br>
                         {{item.AirportTo}} {{item.InCode}}
@@ -40,16 +40,16 @@
                 </div>
             </div>
 
-            <div class="rl-content row-fluid" ng-if="item.EtapsBack.length > 0">
+            <div class="rl-content row" ng-if="item.EtapsBack.length > 0">
 
-                <div class="rl-fly row-fluid__cell">
+                <div class="rl-fly ">
                     <div class="rlf-flight-info">
                         <b>{{item.BackDepartureTimeFormatted}}</b>, {{item.BackDepartureDateFormatted}}<br>
                         {{item.AirportTo}} {{item.InCode}}
                     </div>
                 </div>
 
-                <div class="rl-travel-time row-fluid__cell">
+                <div class="rl-travel-time ">
                     в пути: {{item.TimeBackFormatted}}<br>
                     <span ng-if="item.BackTransferCount > 0">
                         {{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}
@@ -57,7 +57,7 @@
                     <span ng-if="item.BackTransferCount == 0">прямой</span>
                 </div>
 
-                <div class="rl-fly row-fluid__cell col-xs-push-1">
+                <div class="rl-fly col-xs-push-1">
                     <div class="rlf-flight-info">
                         <b>{{item.BackArrivalTimeFormatted}}</b>, {{item.BackArrivalDateFormatted}}<br>
                         {{item.AirportFrom}} {{item.OutCode}}
