@@ -731,14 +731,25 @@
 
 .rlf__flight-block
 	display  inline-block
-	max-width 210px
-	min-width 120px
+	max-width 175px
+	min-width 95px
 	vertical-align top
 	color #666
 	font-size 14px
+	position relative
 
 	b
 		color #000
+
+	&:first-child
+		padding-right 45px
+		margin-right 15px
+
+.rlf-fly-arrow_absolute
+	position absolute
+	right 7px
+	top 27px
+	margin 0
 
 .buy__fly_footer .buy__tickets
 	padding-bottom 30px
