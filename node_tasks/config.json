@@ -8,11 +8,11 @@
 
     "hosts" : {
         "b2b" : {
-            "test": "http://b2b.test.inna.ru",
+            "test": "http://b2b.beta.inna.ru",
             "prod": "http://b2b.beta.inna.ru"
         },
         "api" : {
-            "test": "http://api.test.inna.ru",
+            "test": "http://api.beta.inna.ru",
             "prod": "http://api.beta.inna.ru"
         }
     }

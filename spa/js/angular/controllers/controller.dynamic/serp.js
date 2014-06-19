@@ -57,8 +57,7 @@ innaAppControllers
             });
 
             /*Methods*/
-            var getHotelDetails = function (hotel) {
-
+            var getHotelDetails = function (hotel, buyAction) {
                 if (!hotel.detailed) {
                     ServiceDynamicPackagesDataProvider.hotelDetails(
                         hotel.data.HotelId,
@@ -83,6 +82,10 @@ innaAppControllers
 
                 serpScope.hotelToShowDetails = hotel;
                 $location.search('displayHotel', hotel.data.HotelId);
+
+                if(buyAction) {
+                    $location.search('action', 'buy');
+                }
 
                 if ($location.search().map) {
                     delete $location.$$search.map;
@@ -331,6 +334,7 @@ innaAppControllers
             $scope.closeHotelDetails = function () {
                 $scope.hotelToShowDetails = null;
                 delete $location.$$search.displayHotel
+                delete $location.$$search.action
                 $location.$$compose();
             };
 

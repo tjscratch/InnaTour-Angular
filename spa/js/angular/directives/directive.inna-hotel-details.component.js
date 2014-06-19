@@ -47,6 +47,8 @@ angular.module('innaApp.directives')
                     $scope.displayRoom = $location.search().room;
                     $scope.onlyRoom = null;
 
+                    $scope.buyAction = ($location.search().action == 'buy');
+
                     $scope.TAWidget = '';
 
 
@@ -68,27 +70,27 @@ angular.module('innaApp.directives')
 
                     /*Watchers*/
                     $scope.$watch('hotel', function(hotel){
-                        //console.log('innaHotelDetails:hotel=', hotel);
-
                         if(!hotel) return;
 
-                        if(!hotel.data.Latitude || !hotel.data.Longitude) return;
+                        if(!$scope.buyAction && hotel.data.Latitude && hotel.data.Longitude) {
+                            $timeout(function(){
+                                var point = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Longitude)
 
-                        var point = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Longitude)
+                                /*map is from Private section*/
+                                map = new google.maps.Map($element.find('#hotel-details-map')[0], {
+                                    zoom: 16,
+                                    center: point
+                                });
 
-                        /*map is from Private section*/
-                        map = new google.maps.Map($element.find('#hotel-details-map')[0], {
-                            zoom: 16,
-                            center: point
-                        });
+                                var marker = new google.maps.Marker({
+                                    position: point,
+                                    icon: '/spa/img/map/pin-grey.png?' + Math.random().toString(16),
+                                    title: hotel.data.HotelName
+                                });
 
-                        var marker = new google.maps.Marker({
-                            position: point,
-                            icon: '/spa/img/map/pin-grey.png?' + Math.random().toString(16),
-                            title: hotel.data.HotelName
-                        });
-
-                        marker.setMap(map);
+                                marker.setMap(map);
+                            }, 100);
+                        };
 
                         $scope.dataFullyLoaded = false;
 
