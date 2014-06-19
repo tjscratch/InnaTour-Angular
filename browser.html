@@ -6,23 +6,6 @@
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/build/css/main.less.css"/>
     <link rel="stylesheet" href="/build/css/common.min.css"/>
-
-    <script src="/spa/lib/if-browser.js"></script>
-    <script>
-        var old = ifBrowser();
-
-        if(old.bName) {
-            var oldV = old.bNameV.split('.');
-            if ((oldV[0] != 'safari' && oldV[1] <= 5)) {
-                location.href = '/'
-            }
-
-            if (oldV[0] != 'ie') {
-                location.href = '/'
-            }
-        }
-    </script>
-
 </head>
 
 <body>
