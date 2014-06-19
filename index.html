@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -34,12 +34,7 @@
 
         if(old.bName) {
             var oldV = old.bNameV.split('.');
-
             if (oldV[0] == 'ie' && oldV[1] < 9) {
-                location.href = '/spa/browser.html'
-            }
-
-            if ((oldV[0] == 'safari' && oldV[1] <= 5)) {
                 location.href = '/spa/browser.html'
             }
         }

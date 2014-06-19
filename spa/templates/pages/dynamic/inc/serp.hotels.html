@@ -23,7 +23,7 @@
                 <!-- tooltip price -->
                 <div tool-tip-price item="virtualBundle" is-hotel="true"></div>
 
-                <span class="price-description">
+                <span class="price-description" ng-if="(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) != 0">
                     экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}
                     <span class="b-rub">q</span>
                 </span>
