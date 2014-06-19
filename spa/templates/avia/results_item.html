@@ -70,9 +70,7 @@
 
 
         <div class="bottom-actions">
-            <span class="pull-left warning" ng-if="ticket.data.NumSeats == 1">
-                <span class="rl-tickets-number-avia">{{helper.getNumSeatsText(item.NumSeats, ticketsCount)}}</span>
-            </span>
+            <span class="rl-tickets-number-avia">{{helper.getNumSeatsText(item.NumSeats, ticketsCount)}}</span>
             <a href="#" class="pull-right" ng-click="popupItemInfo.show($event, item, criteria, searchId)">Подробнее</a>
         </div>
 
