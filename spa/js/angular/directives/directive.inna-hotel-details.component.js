@@ -9,7 +9,8 @@ angular.module('innaApp.directives')
                 next: '=innaHotelDetailsNext',
                 combination: '=innaHotelDetailsBundle',
                 goReservation: '=innaHotelDetailesReservationFn',
-                getTicketDetails: '=innaHotelDetailsGetTicketDetails'
+                getTicketDetails: '=innaHotelDetailsGetTicketDetails',
+                hotelOnly: '@innaHotelDetailsHotelOnly'
             },
             controller: [
                 '$scope',
@@ -30,6 +31,31 @@ angular.module('innaApp.directives')
                     ];
 
                     var map = null;
+
+                    var onload = function(){
+                        $scope.dataFullyLoaded = true;
+
+                        if($scope.displayRoom) {
+                            var onlyRoom = null;
+
+                            $scope.hotel.detailed.Rooms.every(function(room){
+                                if(room.RoomId === $scope.displayRoom) {
+                                    onlyRoom = room;
+                                }
+
+                                return true;
+                            });
+
+                            if(onlyRoom) {
+                                $scope.onlyRoom = [onlyRoom];
+                                onlyRoom.isOpen = true;
+                            }
+                        }
+
+                        try {
+                            $scope.$digest();
+                        } catch (e) {}
+                    }
 
                     /*Properties*/
                     $scope.background = 'url($)'.split('$').join(
@@ -94,30 +120,13 @@ angular.module('innaApp.directives')
                         $scope.TAWidget = 'http://www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=' + $scope.hotel.data.HotelId;
 
                         $scope.bundle.setHotel(hotel);
+
+                        if($scope.hotel.detailed) {
+                            onload();
+                        }
                     });
 
-                    $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
-                        $scope.dataFullyLoaded = true;
-
-                        if($scope.displayRoom) {
-                            var onlyRoom = null;
-
-                            $scope.hotel.detailed.Rooms.every(function(room){
-                                if(room.RoomId === $scope.displayRoom) {
-                                    onlyRoom = room;
-                                }
-
-                                return true;
-                            });
-
-                            if(onlyRoom) {
-                                $scope.onlyRoom = [onlyRoom];
-                                onlyRoom.isOpen = true;
-                            }
-                        }
-
-                        $scope.$digest();
-                    })
+                    $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, onload)
                 }
             ],
             link : function($scope, $element){
