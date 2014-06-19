@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -36,11 +36,11 @@
             var oldV = old.bNameV.split('.');
 
             if (oldV[0] == 'ie' && oldV[1] < 9) {
-                location.href = '/browser.html'
+                location.href = '/spa/browser.html'
             }
 
             if ((oldV[0] == 'safari' && oldV[1] <= 5)) {
-                location.href = '/browser.html'
+                location.href = '/spa/browser.html'
             }
         }
     </script>
@@ -94,11 +94,11 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script type="text/javascript">
     var app_main = {};
     //<!-- build:app-host -->
-    app_main.host = 'http://api.test.inna.ru';
+    app_main.host = 'http://api.beta.inna.ru';
     //<!-- endbuild -->
 
     //<!-- build:b2b-host -->
-    app_main.b2bHost = 'http://b2b.test.inna.ru';
+    app_main.b2bHost = 'http://b2b.beta.inna.ru';
     //<!-- endbuild -->
 
     app_main.version = '12';
