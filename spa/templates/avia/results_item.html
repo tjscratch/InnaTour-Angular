@@ -69,9 +69,13 @@
         </div>
 
 
-        <div class="bottom-actions">
-            <span class="rl-tickets-number-avia">{{helper.getNumSeatsText(item.NumSeats, ticketsCount)}}</span>
-            <a href="#" class="pull-right" ng-click="popupItemInfo.show($event, item, criteria, searchId)">Подробнее</a>
+        <div class="bottom-actions row">
+            <div class="col-xs-7 col-no-padding">
+                <span class="warning">{{helper.getNumSeatsText(item.NumSeats, ticketsCount)}}</span>
+            </div>
+            <div class="col-xs-6 col-no-padding align-right">
+                <a href="#" ng-click="popupItemInfo.show($event, item, criteria, searchId)">Подробнее</a>
+            </div>
         </div>
 
 
