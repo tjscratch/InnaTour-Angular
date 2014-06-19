@@ -114,7 +114,12 @@ angular.module('innaApp.directives')
                             });
                         }
                         function planY(){
-                            return buildPicList('Middle', function(pic){ return true; });
+                            return buildPicList('Middle', function(pic){
+                                var isHorizontal = (pic.width > pic.height); // exactly GT, not GE
+                                var smallEnough = pic.height < MAX_HEIGHT;
+
+                                return isHorizontal && smallEnough;
+                            });
                         }
 
                         $.whenAll(planZ()).then(function(){
