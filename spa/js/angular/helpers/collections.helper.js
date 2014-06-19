@@ -51,4 +51,8 @@ _.provide = function(jPath){
     }
 
     return o;
+};
+
+$.whenAll = function(list){
+    return $.when.apply($, list);
 }

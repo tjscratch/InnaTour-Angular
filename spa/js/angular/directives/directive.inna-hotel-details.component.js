@@ -51,9 +51,6 @@ angular.module('innaApp.directives')
 
                     $scope.TAWidget = '';
 
-
-
-
                     /*Proxy*/
                     $scope.dateHelper = dateHelper;
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
