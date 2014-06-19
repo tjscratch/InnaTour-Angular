@@ -25,6 +25,10 @@ innaAppControllers.
                 $log.log(msg);
             }
 
+            $scope.isAgency = function () {
+                return ($scope.$root.user != null && $scope.$root.user.isAgency());
+            }
+
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $scope.$on('avia.form.loaded', function (event) {
                 //console.log('avia.form.loaded');
@@ -38,27 +42,27 @@ innaAppControllers.
                 startLoadAndInit();
             });
 
-            $rootScope.$on(Events.AUTH_SIGN_IN, function (event, data) {
-                //console.log('Events.AUTH_SIGN_IN, type: %d', data.Type);
-                if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
-                    $scope.safeApply(function () {
-                        //если залогинен и b2b (Type = 2)
-                        //запускаем поиск
-                        startLoadAndInit();
-                    });
-                }
-            });
+            //$rootScope.$on(Events.AUTH_SIGN_IN, function (event, data) {
+            //    //console.log('Events.AUTH_SIGN_IN, type: %d', data.Type);
+            //    if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
+            //        $scope.safeApply(function () {
+            //            //если залогинен и b2b (Type = 2)
+            //            //запускаем поиск
+            //            startLoadAndInit();
+            //        });
+            //    }
+            //});
 
-            $rootScope.$on(Events.AUTH_SIGN_OUT, function (event, data) {
-                //console.log('Events.AUTH_SIGN_OUT, type: %d', data.raw.Type);
-                if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
-                    $scope.safeApply(function () {
-                        //если залогинен и b2b (Type = 2)
-                        //запускаем поиск
-                        startLoadAndInit();
-                    });
-                }
-            });
+            //$rootScope.$on(Events.AUTH_SIGN_OUT, function (event, data) {
+            //    //console.log('Events.AUTH_SIGN_OUT, type: %d', data.raw.Type);
+            //    if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
+            //        $scope.safeApply(function () {
+            //            //если залогинен и b2b (Type = 2)
+            //            //запускаем поиск
+            //            startLoadAndInit();
+            //        });
+            //    }
+            //});
 
             $scope.getSliderTimeFormat = aviaHelper.getSliderTimeFormat;
             $scope.getTransferCountText = aviaHelper.getTransferCountText;
@@ -155,7 +159,14 @@ innaAppControllers.
                         { name: "По времени прибытия ОБРАТНО", sort: avia.sortType.byBackArrivalTime }
                     ];
 
-                    self.sortType = avia.sortType.byRecommend;
+                    if ($scope.isAgency()) {
+                        self.list.unshift({ name: "По доходности", sort: avia.sortType.byAgencyProfit });
+                        self.sortType = avia.sortType.byAgencyProfit;
+                    }
+                    else
+                    {
+                        self.sortType = avia.sortType.byRecommend;
+                    }
                     self.reverse = false;
                 }
 
@@ -410,12 +421,45 @@ innaAppControllers.
                     //id поиска
                     $scope.searchId = data.QueryId;
 
+                    //var profit = 0;
+
                     //в этих полях дата будет в миллисекундах
                     for (var i = 0; i < data.Items.length; i++) {
                         var item = data.Items[i];
 
+                        //debug
+                        //item.PriceDetails.Profit = profit++;
+
                         //нужно добавить служебные поля для сортировки по датам и т.д.
                         aviaHelper.addCustomFields(item);
+
+                        function addTooltipData(item) {
+                            item.PriceDetailsTooltipData = [];
+
+                            if (item.PriceObject != null && item.PriceDetails != null) {
+                                item.PriceDetailsTooltipData.push({ name: 'Сбор Инна-Тур', price: item.PriceObject.TotalInnaProfit });
+                                item.PriceDetailsTooltipData.push({ name: 'Сбор агента', price: item.PriceObject.TotalAgentReward });
+                                item.PriceDetailsTooltipData.push({ name: 'Агентское вознаграждение', price: item.PriceObject.TotalAgentRate });
+
+                                item.PriceDetailsTooltipData.push({ name: 'Цена билета взр.', price: item.PriceDetails.SysAdtPrice });
+                                item.PriceDetailsTooltipData.push({ name: 'Сервисный сбор взр.', price: item.PriceDetails.AdultServiceCharge });
+
+                                if ($scope.criteria.ChildCount > 0) {
+                                    item.PriceDetailsTooltipData.push({ name: 'Цена билета дет.', price: item.PriceDetails.SysChdPrice });
+                                    item.PriceDetailsTooltipData.push({ name: 'Сервисный сбор дет.', price: item.PriceDetails.ChildServiceCharge });
+                                }
+
+                                if ($scope.criteria.InfantsCount > 0) {
+                                    item.PriceDetailsTooltipData.push({ name: 'Цена билета инф.', price: item.PriceDetails.SysInfPrice });
+                                    item.PriceDetailsTooltipData.push({ name: 'Сервисный сбор инф.', price: item.PriceDetails.InfantServiceCharge });
+                                }
+
+                                item.PriceDetailsTooltipData.push({ name: 'Цена билетов', price: item.PriceDetails.Price });
+                                item.PriceDetailsTooltipData.push({ name: 'Сервисный сбор', price: item.PriceDetails.ServiceCharge });
+                                item.PriceDetailsTooltipData.push({ name: 'Доход', price: item.PriceDetails.Profit });
+                            }
+                        }
+                        addTooltipData(item);
 
                         if (item.IsRecomendation) {
                             //recomendedItem = item;

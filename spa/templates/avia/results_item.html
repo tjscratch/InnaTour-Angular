@@ -85,7 +85,6 @@
         </div>
     </div>
 
-
     <!---->
     <div class="b-result__cell b-result__cell_middle col-xs-4 result-choice">
         <span class="rl-rec" ng-if="isItemRecomended">мы рекомендуем</span>
@@ -93,6 +92,10 @@
             <span class="rl-price-item">{{item.Price | price}}</span>
             <ng-include src="'components/ruble.html'"/>
         </span>
+        
+        <!-- tooltip price -->
+        <div tooltip-price-generic items="item.PriceDetailsTooltipData" ng-if="isAgency()"></div>
+        
         <span class="button" ng-click="goToPaymentClick($event, item)">Купить</span>
     </div>
 </div>
