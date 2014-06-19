@@ -3,8 +3,12 @@
         <div class="gallery__viewport"
              ng-style="getViewportStyle()">
 
-            <div class="b-carousel__prev" ng-if="pics.list.length > 1" ng-click="pics.prev()"></div>
-            <div class="b-carousel__next" ng-if="pics.list.length > 1" ng-click="pics.next()"></div>
+            <div class="gallery__active gallery__active_type_prev" ng-if="pics.list.length > 1" ng-click="pics.prev()">
+                <div class="b-carousel__control b-carousel__prev"></div>
+            </div>
+            <div class="gallery__active gallery__active_type_next" ng-if="pics.list.length > 1" ng-click="pics.next()">
+                <div class="b-carousel__control b-carousel__next"></div>
+            </div>
         </div>
     </div>
     <ul class="gallery__list" ng-if="pics.list.length > 1">
