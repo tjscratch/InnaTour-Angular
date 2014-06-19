@@ -114,7 +114,7 @@ angular.module('innaApp.directives')
                             });
                         }
                         function planY(){
-                            return buildPicList('Small', function(pic){ return true; });
+                            return buildPicList('Middle', function(pic){ return true; });
                         }
 
                         $.whenAll(planZ()).then(function(){
