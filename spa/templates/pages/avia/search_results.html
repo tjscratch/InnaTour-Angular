@@ -1,4 +1,4 @@
-﻿
+
 <style type="text/css">
     .rl-buy-button {
         z-index: 100;
@@ -32,7 +32,7 @@
 <!-- Filters -->
 <div class="filters__body">
     <div class="js-filter-scroll">
-        <ul class="filters__container" ng-if="ticketsList.length > 1">
+        <ul class="filters__container" ng-if="ticketsList.length > 0">
             <li filter-transfer list="filter.TransferCountListAgg">
             </li>
             <li filter-price ng-model="filter" init-min-value="filter.minPriceInitial" init-max-value="filter.maxPriceInitial" min-value="filter.minPrice" max-value="filter.maxPrice">
@@ -54,7 +54,7 @@
 
     <!-- Results List -->
     <div class="results-list results-list_720" style="float: left;">
-        <ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
+        <ng:any bindonce ng-repeat="item in visibleFilteredTicketsList track by $index">
             <ng:include src="'avia/results_item.html'"></ng:include>
         </ng:any>
 

@@ -1,15 +1,17 @@
-﻿<div class="b-result b-result_middle-180 b-result_flight-info row row_separator b-result-content">
+<div bindonce="item" class="b-result b-result_middle-180 b-result_flight-info row row_separator b-result-content">
     <div class="b-result__cell  col-xs-9"
          ng-click="popupItemInfo.show($event, item, criteria, searchId)">
 
-        <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"
-              class="result-cell__airlines">
-            <img ng-src="{{tr.logoUrl}}" alt="" class="logo">
-            <span class="rl-airline-text">{{tr.name}}</span>
-        </span>
+        <ng:any bindonce ng-repeat="tr in item.transportersList track by $index">
+            <span bo-if="!(item.transportersList.length > 3)" class="rl-airline" 
+                    class="result-cell__airlines">
+                <img ng-src="{{tr.logoUrl}}" alt="" class="logo">
+                <span class="rl-airline-text" bo-bind="tr.name"></span>
+            </span>
+        </ng:any>
 
-        <span ng-if="item.transportersList.length > 3" class="rl-airline">
-            <img ng-src="/spa/img/group.png" alt="">
+        <span bo-if="item.transportersList.length > 3" class="rl-airline">
+            <img src="/spa/img/group.png" alt="">
             <span class="rl-airline-text">Несколько авиакомпаний</span>
         </span>
 
@@ -19,48 +21,48 @@
 
                 <div class="rl-fly ">
                     <div class="rlf-flight-info">
-                        <b>{{item.DepartureTimeFormatted}}</b>, {{item.DepartureDateFormatted}}<br>
-                        {{item.AirportFrom}} {{item.OutCode}}
+                        <b bo-bind="item.DepartureTimeFormatted"></b>, <span bo-bind="item.DepartureDateFormatted"></span><br>
+                        <span bo-bind="item.AirportFrom"></span> <span bo-bind="item.OutCode"></span>
                     </div>
                 </div>
 
                 <div class="rl-travel-time ">
-                    в пути: {{item.TimeToFormatted}}<br>
-                    <span ng-if="item.ToTransferCount > 0">
-                        {{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}
+                    в пути: <span bo-bind="item.TimeToFormatted"></span><br>
+                    <span bo-if="item.ToTransferCount > 0">
+                        <span bo-bind="item.ToTransferCount"></span> <span bo-bind="getTransferCountText(item.ToTransferCount)"></span>
                     </span>
-                    <span ng-if="item.ToTransferCount == 0">прямой</span>
+                    <span bo-if="item.ToTransferCount == 0">прямой</span>
                 </div>
 
                 <div class="rl-fly col-xs-push-1">
                     <div class="rlf-flight-info">
-                        <b>{{item.ArrivalTimeFormatted}}</b>, {{item.ArrivalDateFormatted}}<br>
-                        {{item.AirportTo}} {{item.InCode}}
+                        <b bo-bind="item.ArrivalTimeFormatted"></b>, <span bo-bind="item.ArrivalDateFormatted"></span><br>
+                        <span bo-bind="item.AirportTo"></span> <span bo-bind="item.InCode"></span>
                     </div>
                 </div>
             </div>
 
-            <div class="rl-content row" ng-if="item.EtapsBack.length > 0">
+            <div class="rl-content row" bo-if="item.EtapsBack.length > 0">
 
                 <div class="rl-fly ">
                     <div class="rlf-flight-info">
-                        <b>{{item.BackDepartureTimeFormatted}}</b>, {{item.BackDepartureDateFormatted}}<br>
-                        {{item.AirportTo}} {{item.InCode}}
+                        <b bo-bind="item.BackDepartureTimeFormatted"></b>, <span bo-bind="item.BackDepartureDateFormatted"></span><br>
+                        <span bo-bind="item.AirportTo"></span> <span bo-bind="item.InCode"></span>
                     </div>
                 </div>
 
                 <div class="rl-travel-time ">
-                    в пути: {{item.TimeBackFormatted}}<br>
-                    <span ng-if="item.BackTransferCount > 0">
-                        {{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}
+                    в пути: <span bo-bind="item.TimeBackFormatted"></span><br>
+                    <span bo-if="item.BackTransferCount > 0">
+                        <span bo-bind="item.BackTransferCount"></span> <span bo-bind="getTransferCountText(item.BackTransferCount)"></span>
                     </span>
-                    <span ng-if="item.BackTransferCount == 0">прямой</span>
+                    <span bo-if="item.BackTransferCount == 0">прямой</span>
                 </div>
 
                 <div class="rl-fly col-xs-push-1">
                     <div class="rlf-flight-info">
-                        <b>{{item.BackArrivalTimeFormatted}}</b>, {{item.BackArrivalDateFormatted}}<br>
-                        {{item.AirportFrom}} {{item.OutCode}}
+                        <b bo-bind="item.BackArrivalTimeFormatted"></b>, <span bo-bind="item.BackArrivalDateFormatted"></span><br>
+                        <span bo-bind="item.AirportFrom"></span> <span bo-bind="item.OutCode"></span>
                     </div>
                 </div>
 
@@ -71,7 +73,7 @@
 
         <div class="bottom-actions row">
             <div class="col-xs-7 col-no-padding">
-                <span class="warning">{{helper.getNumSeatsText(item.NumSeats, ticketsCount)}}</span>
+                <span class="warning" bo-bind="helper.getNumSeatsText(item.NumSeats, ticketsCount)"></span>
             </div>
             <div class="col-xs-6 col-no-padding align-right">
                 <a href="#" ng-click="popupItemInfo.show($event, item, criteria, searchId)">Подробнее</a>
@@ -87,14 +89,14 @@
 
     <!---->
     <div class="b-result__cell b-result__cell_middle col-xs-4 result-choice">
-        <span class="rl-rec" ng-if="isItemRecomended">мы рекомендуем</span>
-        <span class="rl-price" ng-class="{'rl-price_1way':item.EtapsBack.length == 0}">
-            <span class="rl-price-item">{{item.Price | price}}</span>
+        <span class="rl-rec" bo-if="isItemRecomended">мы рекомендуем</span>
+        <span class="rl-price" bo-class="{'rl-price_1way':item.EtapsBack.length == 0}">
+            <span class="rl-price-item" bo-bind="item.Price | price"></span>
             <ng-include src="'components/ruble.html'"/>
         </span>
         
         <!-- tooltip price -->
-        <div tooltip-price-generic items="item.PriceDetailsTooltipData" ng-if="isAgency()"></div>
+        <div tooltip-price-generic items="item.PriceDetailsTooltipData" bo-if="isAgency()"></div>
         
         <span class="button" ng-click="goToPaymentClick($event, item)">Купить</span>
     </div>
