@@ -11,7 +11,7 @@
 
     <!-- Рекомендованный вариант -->
     <div class="results-list results-list_720" ng-if="recomendedItem != null">
-        <ng:any ng-repeat="item in [recomendedItem] track by $index">
+        <ng:any bindonce ng-repeat="item in [recomendedItem] track by $index">
             <ng:include ng-init="isItemRecomended = true" src="'avia/results_item.html'"></ng:include>
         </ng:any>
 

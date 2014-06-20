@@ -1,11 +1,11 @@
-<div bindonce="item" class="b-result b-result_middle-180 b-result_flight-info row row_separator b-result-content">
+<div class="b-result b-result_middle-180 b-result_flight-info row row_separator b-result-content">
     <div class="b-result__cell  col-xs-9"
          ng-click="popupItemInfo.show($event, item, criteria, searchId)">
 
         <ng:any bindonce ng-repeat="tr in item.transportersList track by $index">
             <span bo-if="!(item.transportersList.length > 3)" class="rl-airline" 
                     class="result-cell__airlines">
-                <img ng-src="{{tr.logoUrl}}" alt="" class="logo">
+                <img bo-src="tr.logoUrl" alt="" class="logo">
                 <span class="rl-airline-text" bo-bind="tr.name"></span>
             </span>
         </ng:any>
@@ -70,7 +70,6 @@
 
         </div>
 
-
         <div class="bottom-actions row">
             <div class="col-xs-6 col-no-padding">
                 <span class="warning" bo-bind="helper.getNumSeatsText(item.NumSeats, ticketsCount)"></span>
@@ -79,7 +78,6 @@
                 <a href="#" ng-click="popupItemInfo.show($event, item, criteria, searchId)">Подробнее</a>
             </div>
         </div>
-
 
         <!-- separator -->
         <div class="b-result-cell__gap">
