@@ -116,17 +116,17 @@ for prop, key in colsize {
 
 .row_separator {
   for prop, key in colsize {
-    .col-xs-{key+1} {
-      calc('width', s("%s %s %s", prop - ($separatorBlock / 2)), "100%");
-    }
+    > .col-xs-{key+1} {
+        calc('width', s("%s %s %s", prop - ($separatorBlock / 2)), "100%");
+      }
   }
 
   &.row_separator_over {
     for prop, key in colsize {
-      .col-xs-{key+1} {
-        &:nth-child(even){
-          calc('width', s("%s %s %s", prop - $separatorBlock), "100%");
-        }
+      > .col-xs-{key+1} {
+          &:nth-child(even){
+            calc('width', s("%s %s %s", prop - $separatorBlock), "100%");
+          }
       }
     }
   }
