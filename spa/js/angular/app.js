@@ -10,7 +10,8 @@ var app = angular.module('innaApp', [
   'innaApp.controllers',
   'innaApp.Url',
   'innaApp.API',
-  'ngSanitize'
+  'ngSanitize',
+  'pasvaz.bindonce'
 ]);
 
 app.constant('innaApp.Urls', {

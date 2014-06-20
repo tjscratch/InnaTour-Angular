@@ -16,25 +16,36 @@ innaAppControllers
             var AS_MAP_CACHE_KEY = 'serp-as-map';
             var serpScope = $scope;
             var isChooseHotel = null;
+            var MAX_HOTEL_LEN = 180;
 
-            var calibrate = _.throttle(function (list, scrollTop){
-                console.time('calibrate');
-
+            var calibrate = _.throttle(function (list, scrollTop, __now){
                 var TICKET_HEIGHT = 200;
                 var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
-                var limit = scrolledTickets * 1.3 + 6;
-                var count = 0;
 
-                list.each(function(item){
-                    if(!item.hidden) {
-                        count++;
+                if(!__now && calibrate.__scrolledTicketsCache == scrolledTickets) {
+                    console.log('do not calibrate');
+                    return;
+                } else {
+                    console.time('calibrate');
 
-                        item.currentlyInvisible = (count > limit);
-                    }
-                });
+                    calibrate.__scrolledTicketsCache = scrolledTickets;
 
-                console.timeEnd('calibrate');
+                    var limit = scrolledTickets * 1.1 + 5;
+                    var count = 0;
+
+                    list.each(function(item){
+                        if(!item.hidden) {
+                            count++;
+
+                            item.currentlyInvisible = (count > limit);
+                        }
+                    });
+
+                    console.timeEnd('calibrate');
+                }
             }, utils.isSafari ? 1 : 100);
+
+            calibrate.__scrolledTicketsCache = NaN;
 
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
@@ -332,6 +343,7 @@ innaAppControllers
             /*Simple proxy*/
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
+            $scope.events = Events;
 
 
             $scope.closeHotelDetails = function () {
@@ -392,6 +404,9 @@ innaAppControllers
             $scope.$watch('hotelFilters', function (data) {
                 $scope.hotels.filter($scope.hotelFilters);
                 $scope.$broadcast('change:filters', data);
+
+                calibrate($scope.hotels, utils.getScrollTop(), true);
+                calibrate($scope.tickets, utils.getScrollTop(), true);
             }, true);
 
 

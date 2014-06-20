@@ -2,16 +2,14 @@
      ng-if="!asMap && !hotelToShowDetails"
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
-        <div ng-repeat="hotel in hotelsToDisplay = (hotels.list | filter:{currentlyInvisible:false})"
+        <div ng-repeat="hotel in hotelsToDisplay = (hotels.list | filter:{currentlyInvisible: false, hidden: false})"
              inna-hotel
-             inna-hotel-hotel="hotel"
-             inna-hotel-get-details="getHotelDetails"
              ng-if="combination.hotel.data.HotelId != hotel.data.HotelId">
 
             <!-- TRANSCLUDE -->
 
             <p class="corner-price">
-                {{virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed}}
+                <span ng-bind="virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed"></span>
                 <span class="b-rub">q</span>
                 <span class="icon-crown icon-sprite-crown" ng-if="hotel.data.IsPackage"></span>
             </p>
