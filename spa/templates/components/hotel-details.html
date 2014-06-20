@@ -42,8 +42,12 @@
                         <div class="rect5"></div>
                     </div>
                     <div class="hotel-details__section-text-viewport"
-                         ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}"
-                         ng-bind-html="hotel.detailed.Hotel.Description"></div>
+                         ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
+                        <div ng-repeat="section in hotel.detailed.Hotel.Description">
+                            <!--<h4>{{section.Title}}</h4>-->
+                            <div ng-bind-html="section.Content"></div>
+                        </div>
+                    </div>
                     <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
                     <div class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</div>
                 </div>
