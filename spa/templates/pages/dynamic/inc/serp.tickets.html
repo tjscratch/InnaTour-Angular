@@ -28,7 +28,7 @@
             <span class="button" ng-click="setTicket(ticket)">Выбрать</span>
         </div>
 
-        <div ng-if="ticketsToDisplay.length == 0" class="results-list__empty results-list__empty_type_tickets">
+        <div ng-if="tickets.list.length && !ticketsToDisplay.length" class="results-list__empty results-list__empty_type_tickets">
             <p>Варианты не найдены.</p>
             <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
         </div>
