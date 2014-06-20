@@ -30,7 +30,7 @@ innaAppControllers
 
                     calibrate.__scrolledTicketsCache = scrolledTickets;
 
-                    var limit = scrolledTickets * 1.1 + 5;
+                    var limit = scrolledTickets * 1.1 + 7;
                     var count = 0;
 
                     list.each(function(item){
