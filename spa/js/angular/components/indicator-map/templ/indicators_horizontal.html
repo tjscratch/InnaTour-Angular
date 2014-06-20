@@ -1,4 +1,4 @@
-<aside class="b-switch-filters results-aside results-aside_mod results-aside_mod_horizontal" ng-if="items.list.length">
+<aside class="b-switch-filters results-aside results-aside_mod results-aside_mod_horizontal">
     <div class="ra-tags-container">
         <div class="b-switch-filters_buttons">
 
@@ -6,7 +6,7 @@
                 <span ng-click="action()" class="button-map-list b-display-inline"></span>
             </div>
 
-            <div class="b-switch-filters_buttons_right font-medium b-display-inline">
+            <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="items.list.length">
                 <b>{{items.getVisibilityInfo().visible}}</b> из <b>{{items.getVisibilityInfo().total}}</b> {{items.getVisibilityInfo().total | choosePlural:name}}
             </div>
         </div>
