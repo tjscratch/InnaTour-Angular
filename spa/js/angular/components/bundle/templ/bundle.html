@@ -46,8 +46,9 @@
 
         <div class="bottom-actions">
             <a href="javascript:void(0);" class="pull-left"
-               ng-class="{active: !state || state.isActive(state.TICKETS_TAB)}"
-               ng-click="state && state.switchTo('ticket')">
+               ng-if="state"
+               ng-class="{active: state.isActive(state.TICKETS_TAB)}"
+               ng-click="state.switchTo('ticket')">
                 Выбрать другой перелет
             </a>
             <a href="javascript:void(0);" class="pull-right"
@@ -97,7 +98,9 @@
         <div class="bottom-actions">
             <a href="javascript:void(0);"
                ng-class="{active: state.isActive(state.HOTELS_TAB)}"
-               ng-click="(state && state.switchTo('hotel')) || (close && close())" class="pull-left">
+               ng-click="state.switchTo('hotel')"
+               ng-if="state"
+               class="pull-left">
                 Выбрать другой отель
             </a>
             <a href="javascript:void(0);"
