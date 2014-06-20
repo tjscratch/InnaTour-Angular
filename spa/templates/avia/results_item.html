@@ -5,7 +5,7 @@
         <ng:any bindonce ng-repeat="tr in item.transportersList track by $index">
             <span bo-if="!(item.transportersList.length > 3)" class="rl-airline" 
                     class="result-cell__airlines">
-                <img ng-src="{{tr.logoUrl}}" alt="" class="logo">
+                <img bo-src="tr.logoUrl" alt="" class="logo">
                 <span class="rl-airline-text" bo-bind="tr.name"></span>
             </span>
         </ng:any>
