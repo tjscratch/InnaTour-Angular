@@ -260,17 +260,22 @@
                         } catch (e) {
                         }
                     }, 200);
-                }).on('keydown', function (event) {
+                }).on('keyup', function (event) {
                     var theEvent = event || window.event;
                     var key = theEvent.keyCode || theEvent.which;
                     //console.log('key: %d', key);
                     switch (key) {
                         case 13: {
                             $scope.$apply(function ($scope) {
-                                $scope.selectionControl.setSelected();
+                                if (!$scope.fulfilled) {
+                                    $scope.selectionControl.setSelected();
+                                }
+                                else {
+                                    $scope.fulfilled = false;
+                                }
                             });
 
-                            return false;
+                            //return false;
                             break;
                         }
                         case 9://tab
@@ -298,13 +303,23 @@
                             }
                         case 38: {//up
                             $scope.$apply(function ($scope) {
-                                $scope.selectionControl.selectPrev();
+                                if (!$scope.fulfilled) {
+                                    $scope.selectionControl.selectPrev();
+                                }
+                                else {
+                                    $scope.fulfilled = false;
+                                }
                             });
                             break;
                         }
                         case 40: {//down
                             $scope.$apply(function ($scope) {
-                                $scope.selectionControl.selectNext();
+                                if (!$scope.fulfilled) {
+                                    $scope.selectionControl.selectNext();
+                                }
+                                else {
+                                    $scope.fulfilled = false;
+                                }
                             });
                             break;
                         }
@@ -318,6 +333,8 @@
                 function goSearch() {
                     var value = $scope.input.val();
                     var preparedText = value.split(', ')[0].trim();
+
+                    //console.log('goSearch, text: %s, val: %s', preparedText, value);
 
                     if (preparedText.length) {
                         //делаем 1 запрос раз в 300мс, вместо 2-3-4-х пока пользак набирает
