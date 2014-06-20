@@ -4,8 +4,6 @@
     <div class="results-list results-list_720">
         <div ng-repeat="hotel in hotelsToDisplay = (hotels.list | filter:{currentlyInvisible: false, hidden: false})"
              inna-hotel
-             inna-hotel-hotel="hotel"
-             inna-hotel-get-details="getHotelDetails"
              ng-if="combination.hotel.data.HotelId != hotel.data.HotelId">
 
             <!-- TRANSCLUDE -->
