@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/build/css/main.less.css"/>
     <link rel="stylesheet" href="/build/css/common.min.css"/>
     <!--[if lt IE 9]>
-    <link rel="stylesheet" href="../css/ie.min.css"/>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
@@ -46,24 +45,40 @@
         </div>
     </div>
     <div class="header-menu">
-        <ul class="header-menu-container-items"><!--
-                -->
-            <li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
-            <!--
-                            -->
-            <li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a>
-            </li>
-            <!--
-                            -->
-            <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru"
-                                            target="_blank"
-                                            ng-class="{active:isActive('/hotels/')}">Отели</a></li>
-            <!--
-                            -->
-            <li class="header-menu-item"><a href="/#/individualtours/"
-                                            ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
-        </ul>
+        <div class="header__container">
+            <ul class="header__nav">
+                <li><a href="/#/">Перелет&nbsp;+&nbsp;Отель</a></li>
+                <li><a href="/#/avia/">Авиабилеты</a></li>
+                <li><a href="">Туры</a></li>
+                <li><a href="/#/individualtours/">Программы</a></li>
+                <li><a href="/#/individualtours/">Отели</a></li>
+                <li><a href="/catalog/guide/" ng-class="{active:isActive('/guide/')}">Каталог стран</a></li>
+            </ul>
+            <div class="header__user">
+                <ul class="header__user-nav">
+                    <li><a href="#" class="header__user-nav-name">Денис Колесов</a></li>
+                    <li>
+                        <a href="#">
+                            <i class="icon-sprite-letter"></i>
+                            <span class="header__user-nav-counter">8</span>
+                        </a>
+                    </li>
+                    <li><a href="#">Выйти</a></li>
+                </ul>
+                <div class="header__user-company">ООО "Курочки гриль"</div>
+            </div>
+        </div>
 
+        <div class="header__container">
+            <ul class="header__nav-sec">
+                <li><a href="#" class="current">Заявки</a></li>
+                <li><a href="#">Сообщения</a></li>
+                <li><a href="#">Отчеты</a></li>
+                <li><a href="#">Финансы</a></li>
+                <li><a href="#">Настройки</a></li>
+            </ul>
+            <div class="header__price">Доступно: <span class="header__sum">167 780</span> <span class="rub">Р</span></div>
+        </div>
     </div>
 </div>
 
