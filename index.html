@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -88,13 +88,21 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 
 <script type="text/javascript">
     var app_main = {};
-    //<!-- build:app-host -->
-    app_main.host = 'http://api.beta.inna.ru';
-    //<!-- endbuild -->
+	//<!-- build:app-host -->
+	app_main.host = 'http://apibeta.inna.ru';
+	//<!-- endbuild -->
 
-    //<!-- build:b2b-host -->
-    app_main.b2bHost = 'http://b2b.beta.inna.ru';
-    //<!-- endbuild -->
+	//<!-- build:b2b-host -->
+	app_main.b2bHost = 'http://b2bbeta.inna.ru';
+	//<!-- endbuild -->
+
+	//<!-- build:front-host -->
+	app_main.frontHost = 'https://beta.inna.ru';
+	//<!-- endbuild -->
+	
+	//<!-- build:static-host -->
+	app_main.staticHost = 'https://sbeta.inna.ru';
+	//<!-- endbuild -->
 
     app_main.version = '12';
     app_main.constants = {};
@@ -209,6 +217,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="/spa/js/jquery.ui.datepicker-ru.js"></script>
 <script src="/spa/js/angular/plugins/carousel.js"></script>
+<!--<script src="/spa/js/angular/plugins/tooltipWidget.js"></script>-->
 <!-- \ jq plugins -->
 
 <script src="/spa/js/debug.js"></script>
@@ -330,7 +339,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/components/ticket/directive.js"></script>
 <script src="/spa/js/angular/components/bundle/directive.js"></script>
 <script src="/spa/js/angular/components/tooltip-price/directive.js"></script>
-<script src="/spa/js/angular/components/tooltip-price-generic/directive.js"></script>
+<script src="/spa/js/angular/components/tooltip-price/price-generic.js"></script>
 <!-- / COMPONENTS -->
 
 <script src="/spa/js/angular/models/app.model.js"></script>

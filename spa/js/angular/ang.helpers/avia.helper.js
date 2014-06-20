@@ -148,7 +148,6 @@
                 payExpires: 'payExpires'
             };
 
-            var host = app_main.host.replace('api.', 's.'); //http://api.test.inna.ru
             var helper = {
                 sexType: { man: 1, woman: 2 },
 
@@ -273,7 +272,7 @@
                         return "/spa/img/group.png";
                     }
                     else {
-                        return host + "/Files/logo/" + logo + ".png";
+                        return app_main.staticHost + "/Files/logo/" + logo + ".png";
                     }
                 },
 
@@ -593,7 +592,7 @@
                             buyCriteria.VariantId1 = item.VariantId1;
                             buyCriteria.VariantId2 = item.VariantId2 != null ? item.VariantId2 : 0;
 
-                            var url = app_main.host.replace('api.', '') + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
+                            var url = app_main.frontHost + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
                             self.link = url;
                         }
                     }
