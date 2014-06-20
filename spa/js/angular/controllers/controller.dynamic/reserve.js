@@ -282,7 +282,7 @@
                     function (data) {
                         $scope.safeApply(function () {
                             console.log('order: ' + angular.toJson(data));
-                            if (data != null && data.OrderNum != null && data.OrderNum.length > 0) {
+                            if (data != null && data.OrderNum != null && data.OrderNum.length > 0 && data.Status != null && data.Status == 1 && data.OrderNum.length > 0) {
                                 //сохраняем orderId
                                 //storageService.setAviaOrderNum(data.OrderNum);
                                 $scope.OrderNum = data.OrderNum;

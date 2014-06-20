@@ -255,10 +255,10 @@
                             $scope.fulfilled = true;
                         });
 
-                        try {
-                            $scope.input.tooltip('destroy');
-                        } catch (e) {
-                        }
+                        //try {
+                        //    $scope.input.tooltip('destroy');
+                        //} catch (e) {
+                        //}
                     }, 200);
                 }).on('keyup', function (event) {
                     var theEvent = event || window.event;
