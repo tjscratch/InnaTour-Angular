@@ -8,11 +8,11 @@
         </div>
     </div>
     <div class="b-tickets__container">
-        <div class="b-tickets__block">
-            <div class="rlf-column1">
+        <div class="row b-tickets__block">
+            <div class="col-xs-4 col-no-padding">
                 <div class="rlf-airport">{{etap.OutCode}}</div>
             </div>
-            <div class="rlf-colum2">
+            <div class="col-xs-7 col-no-padding">
                 <div class="rlf-flight-info">
                     <b>вылет {{etap.OutTimeFormatted}}</b>, {{etap.OutDateFormatted}} <br>
                     <span ng-if="etap.InCity != etap.InPort">{{etap.OutCity}}, {{etap.OutPort}}</span>
@@ -22,11 +22,11 @@
         </div>
         <div class="rlf-travel-time" ng-if="etap.WayTime > 0">{{etap.WayTimeFormatted}}</div>
         <div class="rlf-travel-time" ng-if="!(etap.WayTime > 0)">&nbsp;</div>
-        <div class="b-tickets__block">
-            <div class="rlf-column1">
+        <div class="row b-tickets__block">
+            <div class="col-xs-4 col-no-padding">
                 <div class="rlf-airport"><br>{{etap.InCode}}</div>
             </div>
-            <div class="rlf-colum2" style="width:210px;">
+            <div class="col-xs-7 col-no-padding">
                 <div class="rlf-flight-info">
                     <b>прилет {{etap.InTimeFormatted}}</b>, {{etap.InDateFormatted}} <br>
                     <span ng-if="etap.InCity != etap.InPort">{{etap.InCity}}, {{etap.InPort}}</span>

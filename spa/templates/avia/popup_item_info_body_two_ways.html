@@ -10,25 +10,33 @@
                 </div>
             </div>
             <div class="b-tickets__container">
-                <div class="b-tickets__block">
-                    <div class="rlf-column1">
+
+                <!-- ROW -->
+                <div class="row b-tickets__block">
+
+                    <div class="col-xs-4 col-no-padding">
                         <div class="rlf-airport">{{etapAgg.etapTo.OutCode}}</div>
                     </div>
-                    <div class="rlf-colum2">
+
+                    <div class="col-xs-7 col-no-padding">
                         <div class="rlf-flight-info">
                             <b>вылет {{etapAgg.etapTo.OutTimeFormatted}}</b>, {{etapAgg.etapTo.OutDateFormatted}} <br>
                             <span ng-if="etapAgg.etapTo.OutCity != etapAgg.etapTo.OutPort">{{etapAgg.etapTo.OutCity}}, {{etapAgg.etapTo.OutPort}}</span>
                             <span ng-if="etapAgg.etapTo.OutCity == etapAgg.etapTo.OutPort">{{etapAgg.etapTo.OutCity}}</span>
                         </div>
                     </div>
+
                 </div>
                 <div class="rlf-travel-time" ng-if="etapAgg.etapTo.WayTime > 0">{{etapAgg.etapTo.WayTimeFormatted}}</div>
                 <div class="rlf-travel-time" ng-if="!(etapAgg.etapTo.WayTime > 0)">&nbsp;</div>
-                <div class="b-tickets__block-rel">
-                    <div class="rlf-column1-abs">
+
+
+                <!-- ROW -->
+                <div class="row b-tickets__block-rel">
+                    <div class="col-xs-4 col-no-padding">
                         <div class="rlf-airport">{{etapAgg.etapTo.InCode}}</div>
                     </div>
-                    <div class="rlf-colum2-m">
+                    <div class="col-xs-7 col-no-padding">
                         <div class="rlf-flight-info">
                             <b>прилет {{etapAgg.etapTo.InTimeFormatted}}</b>, {{etapAgg.etapTo.InDateFormatted}} <br>
                             <span ng-if="etapAgg.etapTo.InCity != etapAgg.etapTo.InPort">{{etapAgg.etapTo.InCity}}, {{etapAgg.etapTo.InPort}}</span>
@@ -36,6 +44,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -50,11 +59,13 @@
                 </div>
             </div>
             <div class="b-tickets__container">
-                <div class="b-tickets__block">
-                    <div class="rlf-column1">
+
+                <!-- ROW -->
+                <div class="row b-tickets__block">
+                    <div class="col-xs-4 col-no-padding ">
                         <div class="rlf-airport">{{etapAgg.etapBack.OutCode}}</div>
                     </div>
-                    <div class="rlf-colum2">
+                    <div class="col-xs-7 col-no-padding ">
                         <div class="rlf-flight-info">
                             <b>вылет {{etapAgg.etapBack.OutTimeFormatted}}</b>, {{etapAgg.etapBack.OutDateFormatted}} <br>
                             <span ng-if="etapAgg.etapBack.OutCity != etapAgg.etapBack.OutPort">{{etapAgg.etapBack.OutCity}}, {{etapAgg.etapBack.OutPort}}</span>
@@ -64,11 +75,14 @@
                 </div>
                 <div class="rlf-travel-time" ng-if="etapAgg.etapBack.WayTime > 0">{{etapAgg.etapBack.WayTimeFormatted}}</div>
                 <div class="rlf-travel-time" ng-if="!(etapAgg.etapBack.WayTime > 0)">&nbsp;</div>
-                <div class="b-tickets__block-rel">
-                    <div class="rlf-column1-abs">
+
+
+                <!-- ROW -->
+                <div class="row b-tickets__block-rel">
+                    <div class="col-xs-4 col-no-padding ">
                         <div class="rlf-airport">{{etapAgg.etapBack.InCode}}</div>
                     </div>
-                    <div class="rlf-colum2-m">
+                    <div class="col-xs-7 col-no-padding ">
                         <div class="rlf-flight-info">
                             <b>прилет {{etapAgg.etapBack.InTimeFormatted}}</b>, {{etapAgg.etapBack.InDateFormatted}} <br>
                             <span ng-if="etapAgg.etapBack.InCity != etapAgg.etapBack.InPort">{{etapAgg.etapBack.InCity}}, {{etapAgg.etapBack.InPort}}</span>
@@ -80,6 +94,9 @@
         </div>
     </div>
 </div>
+
+
+
 <div class="clearfix">
     <div class="b-ticket_2ways-block" ng-if="etapAgg.etapTo != null && etapAgg.etapTo.nextEtapTo != null && !$last">
         <div class="rlf-part rlf-part_transfer">
