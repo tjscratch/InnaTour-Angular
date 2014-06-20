@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -138,7 +138,11 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
         <header region-header></header>
 
         <div class="button fixed-request-button ng-hide" ng-click="popupForm_Show()"
-             ng-show="!isActive('/individualtours/category/') && !isActive('/packages/search/') && !isActive('/avia/search/')"
+             ng-show="!isActive('/individualtours/category/')
+             && !isActive('/packages/search/')
+             && !isActive('/avia/')
+             && !isActive('/')
+             && !isActive('/avia/search/')"
              title="Отправить заявку"></div>
 
         <!-- PAGE CONTENT -->
@@ -165,6 +169,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js"></script>
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-bindonce/0.3.1/bindonce.min.js"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js"></script>
@@ -308,8 +313,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="/spa/js/angular/directives/directive.partial.select.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-hotel-details.component.js"></script>
 <script src="/spa/js/angular/directives/directive.inna-gallery.js"></script>
-
-<script src="/spa/js/angular/directives/bind-once.js"></script>
 
 
 <!-- REGIONS -->
