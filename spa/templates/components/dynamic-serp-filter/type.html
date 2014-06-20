@@ -11,11 +11,11 @@
     <div class="ra-content">
         <ul class="ra-fly-type-list">
             <li ng-repeat="option in options.options" ng-if="option.shown">
-                <label>
+                <label bindonce="option">
                     <input type="checkbox" ng-model="option.selected">
                     <span class="ra-checkbox"></span>
-                    <span class="ra-fly-type">{{option.value}}</span>
-                    <span class="ra-fly-price">{{option.minPrice | price}}&nbsp;<ng-include src="'components/ruble.html'" /></span>
+                    <span class="ra-fly-type" bo-text="option.value"></span>
+                    <span class="ra-fly-price"><span bo-text="option.minPrice | price"></span>&nbsp;<ng-include src="'components/ruble.html'"></ng-include></span>
                 </label>
             </li>
         </ul>

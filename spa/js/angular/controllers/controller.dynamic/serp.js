@@ -30,7 +30,7 @@ innaAppControllers
 
                     calibrate.__scrolledTicketsCache = scrolledTickets;
 
-                    var limit = scrolledTickets * 1.1 + 7;
+                    var limit = scrolledTickets * 1.3 + 7;
                     var count = 0;
 
                     list.each(function(item){
@@ -136,7 +136,7 @@ innaAppControllers
                             $scope.hotels.push(hotel);
                         }
 
-                        calibrate($scope.hotels, utils.getScrollTop());
+                        calibrate($scope.hotels, utils.getScrollTop(), true);
                     };
                 } else if ($scope.state.isActive($scope.state.TICKETS_TAB)) {
                     method = 'getTicketsByCombination';
@@ -149,8 +149,6 @@ innaAppControllers
                             ticket.setData(raw);
                             $scope.tickets.push(ticket);
                         }
-
-                        calibrate($scope.tickets, utils.getScrollTop());
                     };
                 }
 
@@ -249,7 +247,6 @@ innaAppControllers
 
                             console.log('initial calibation');
                             calibrate($scope.hotels, 0);
-                            calibrate($scope.tickets, 0);
                             console.log('/initial calibation');
 
                             $scope.baloon.hide();
@@ -406,7 +403,6 @@ innaAppControllers
                 $scope.$broadcast('change:filters', data);
 
                 calibrate($scope.hotels, utils.getScrollTop(), true);
-                calibrate($scope.tickets, utils.getScrollTop(), true);
             }, true);
 
 
@@ -481,7 +477,6 @@ innaAppControllers
                             $scope.padding.scrollTop = scrollTop;
 
                             calibrate($scope.hotels, $scope.padding.scrollTop);
-                            calibrate($scope.tickets, $scope.padding.scrollTop);
                         });
                     }
                 }
