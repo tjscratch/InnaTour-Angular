@@ -30,7 +30,7 @@
             <span class="button" ng-click="setCurrent()">Выбрать</span>
         </div>
 
-        <div ng-if="!hotelsToDisplay.length" class="results-list__empty results-list__empty_type_hotels">
+        <div ng-if="hotels.list.length && !hotelsToDisplay.length" class="results-list__empty results-list__empty_type_hotels">
             <p>Варианты не найдены.</p>
             <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
         </div>
