@@ -86,11 +86,16 @@
          */
         var carouselSlide = function (index) {
             _slider.css({
+                left : "-" + (_sliderIndex * _sliderItemWidth) + "px"
+            });
+            //
+
+            /*_slider.css({
                 "-webkit-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
                 "-moz-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
                 "-ms-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
                 "transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)"
-            });
+            });*/
         }
 
 
