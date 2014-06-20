@@ -18,11 +18,11 @@ innaAppControllers
             var isChooseHotel = null;
             var MAX_HOTEL_LEN = 180;
 
-            var calibrate = _.throttle(function (list, scrollTop){
+            var calibrate = _.throttle(function (list, scrollTop, __now){
                 var TICKET_HEIGHT = 200;
                 var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
 
-                if(calibrate.__scrolledTicketsCache == scrolledTickets) {
+                if(!__now && calibrate.__scrolledTicketsCache == scrolledTickets) {
                     console.log('do not calibrate');
                     return;
                 } else {
@@ -30,7 +30,7 @@ innaAppControllers
 
                     calibrate.__scrolledTicketsCache = scrolledTickets;
 
-                    var limit = scrolledTickets * 1.1 + 5;
+                    var limit = scrolledTickets * 1.3 + 7;
                     var count = 0;
 
                     list.each(function(item){
@@ -136,7 +136,7 @@ innaAppControllers
                             $scope.hotels.push(hotel);
                         }
 
-                        calibrate($scope.hotels, utils.getScrollTop());
+                        calibrate($scope.hotels, utils.getScrollTop(), true);
                     };
                 } else if ($scope.state.isActive($scope.state.TICKETS_TAB)) {
                     method = 'getTicketsByCombination';
@@ -150,7 +150,7 @@ innaAppControllers
                             $scope.tickets.push(ticket);
                         }
 
-                        calibrate($scope.tickets, utils.getScrollTop());
+                        //calibrate($scope.tickets, utils.getScrollTop(), true);
                     };
                 }
 
@@ -249,7 +249,7 @@ innaAppControllers
 
                             console.log('initial calibation');
                             calibrate($scope.hotels, 0);
-                            calibrate($scope.tickets, 0);
+                            //calibrate($scope.tickets, 0);
                             console.log('/initial calibation');
 
                             $scope.baloon.hide();
@@ -343,6 +343,7 @@ innaAppControllers
             /*Simple proxy*/
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
+            $scope.events = Events;
 
 
             $scope.closeHotelDetails = function () {
@@ -403,6 +404,9 @@ innaAppControllers
             $scope.$watch('hotelFilters', function (data) {
                 $scope.hotels.filter($scope.hotelFilters);
                 $scope.$broadcast('change:filters', data);
+
+                calibrate($scope.hotels, utils.getScrollTop(), true);
+                //calibrate($scope.tickets, utils.getScrollTop(), true);
             }, true);
 
 
@@ -477,7 +481,7 @@ innaAppControllers
                             $scope.padding.scrollTop = scrollTop;
 
                             calibrate($scope.hotels, $scope.padding.scrollTop);
-                            calibrate($scope.tickets, $scope.padding.scrollTop);
+                            //calibrate($scope.tickets, $scope.padding.scrollTop);
                         });
                     }
                 }

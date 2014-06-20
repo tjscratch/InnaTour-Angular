@@ -9,7 +9,7 @@
             <!-- TRANSCLUDE -->
 
             <p class="corner-price">
-                {{virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed}}
+                <span ng-bind="virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed"></span>
                 <span class="b-rub">q</span>
                 <span class="icon-crown icon-sprite-crown" ng-if="hotel.data.IsPackage"></span>
             </p>

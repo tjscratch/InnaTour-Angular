@@ -231,6 +231,14 @@ app.factory('cache',['$cacheFactory', function ($cacheFactory) {
         toParam: toParam
     });
 
+    $(document).on('click', '.widget-popover', function(evt){
+        console.log('widget-popover');
+        $(this).popover({
+
+        });
+    })
+
+
     /**
      * Преобразует объект, массив или массив объектов в строку,
      * которая соответствует формату передачи данных через url
