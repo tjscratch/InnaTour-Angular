@@ -1047,5 +1047,21 @@ innaAppControllers.
                         $scope.scrollControl.loadMore();
                     }
                 });
+
+                $(window).on('scroll', function onWindowScroll(){
+                    var scrollTop = utils.getScrollTop();
+                    var filters = $('.filters__body');
+                    var FIXED_CLASS = 'filters__body_position_fixed';
+
+                    if(scrollTop > 206) {
+                        filters.addClass(FIXED_CLASS);
+                    } else {
+                        filters.removeClass(FIXED_CLASS);
+                    }
+
+                    $scope.$on('$destroy', function(){
+                        $(window).off('scroll', onWindowScroll);
+                    })
+                });
             }
         }]);
