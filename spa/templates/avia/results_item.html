@@ -20,7 +20,7 @@
                 <div class="rl-fly ">
                     <div class="rlf-flight-info">
                         <b>{{item.DepartureTimeFormatted}}</b>, {{item.DepartureDateFormatted}}<br>
-                        {{item.AirportFrom}} {{item.OutCode}}
+                        <span title="{{item.AirportFrom}}">{{item.AirportFrom  | limitFilter:16}} {{item.OutCode}}</span>
                     </div>
                 </div>
 
@@ -35,7 +35,7 @@
                 <div class="rl-fly col-xs-push-1">
                     <div class="rlf-flight-info">
                         <b>{{item.ArrivalTimeFormatted}}</b>, {{item.ArrivalDateFormatted}}<br>
-                        {{item.AirportTo}} {{item.InCode}}
+                        <span title="{{item.AirportTo}}">{{item.AirportTo  | limitFilter:14}} {{item.InCode}}</span>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <div class="rl-fly ">
                     <div class="rlf-flight-info">
                         <b>{{item.BackDepartureTimeFormatted}}</b>, {{item.BackDepartureDateFormatted}}<br>
-                        {{item.AirportTo}} {{item.InCode}}
+                        <span title="{{item.AirportTo}}">{{item.AirportTo  | limitFilter:16}} {{item.InCode}}</span>
                     </div>
                 </div>
 
@@ -60,7 +60,7 @@
                 <div class="rl-fly col-xs-push-1">
                     <div class="rlf-flight-info">
                         <b>{{item.BackArrivalTimeFormatted}}</b>, {{item.BackArrivalDateFormatted}}<br>
-                        {{item.AirportFrom}} {{item.OutCode}}
+                        <span title="{{item.AirportFrom}}">{{item.AirportFrom  | limitFilter:14}} {{item.OutCode}}</span>
                     </div>
                 </div>
 

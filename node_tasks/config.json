@@ -6,22 +6,30 @@
     "img" : "./spa/img",
     "publish" : "./publish",
 
+
+    "protocol" : {
+      "http": "http://",
+      "https": "https://"
+    },
+
     "hosts" : {
         "b2b" : {
             "test": "http://b2b.test.inna.ru",
-            "prod": "http://b2bbeta.inna.ru"
+            "prod": "https://b2bbeta.inna.ru"
         },
         "api" : {
             "test": "http://api.test.inna.ru",
-            "prod": "http://apibeta.inna.ru"
+            "prod": "https://apibeta.inna.ru"
         },
         "front" : {
             "test": "http://api.test.inna.ru",
-            "prod": "http://apibeta.inna.ru"
+            "prod": "https://apibeta.inna.ru"
         },
         "static" : {
             "test": "http://s.test.inna.ru",
-            "prod": "http://sbeta.inna.ru"
+            "prod": "https://sbeta.inna.ru"
         }
-    }
+    },
+
+    "tripadvisor" : "www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId="
 }

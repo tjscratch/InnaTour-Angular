@@ -117,7 +117,7 @@ angular.module('innaApp.directives')
 
                         $scope.dataFullyLoaded = false;
 
-                        $scope.TAWidget = 'http://www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=' + $scope.hotel.data.HotelId;
+                        $scope.TAWidget = app_main.tripadvisor + $scope.hotel.data.HotelId;
 
                         $scope.bundle.setHotel(hotel);
 
