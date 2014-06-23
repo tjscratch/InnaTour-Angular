@@ -3,7 +3,7 @@
         <ul class="offers-card-banner-list Offer-card-banners">
             <li class="offer-card-banner-item" bindonce ng-repeat="slide in slides track by $index">
                 <!--<img class="img" bo-src="slide.Image" />-->
-                <div class="img" ng-style="{backgroundImage: 'url(' + slide.Url + ')'}"></div>
+                <div class="img" ng-style="{backgroundImage: 'url(' + slide.Image + ')'}"></div>
                 <div class="darken-container" ng-click="offerClickSlider(slide, $event, $index)"></div>
                 <div class="info-container" ng-click="offerClickSlider(slide, $event, $index)">
                     <div class="info">
