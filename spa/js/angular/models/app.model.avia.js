@@ -177,7 +177,6 @@ inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function () {
 };
 
 inna.Models.Avia.TicketCollection.prototype.sort = function (sortingFn) {
-    console.log(this);
     this.list.sort(sortingFn);
 }
 

@@ -467,8 +467,8 @@ Cvc = "486";
                         if (data != null) {
                             
                             //log('\ngetPaymentData data: ' + angular.toJson(data));
-                            console.log('getPaymentData:');
-                            console.log(data);
+                            //console.log('getPaymentData:');
+                            //console.log(data);
 
                             function cutZero(val) {
                                 return val.replace(' 0:00:00', '');

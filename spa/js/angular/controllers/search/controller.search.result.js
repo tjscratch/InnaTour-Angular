@@ -302,7 +302,7 @@ innaAppControllers.
                         return input;
                     }
 
-                    console.log('applyFilterToHotels: ' + angular.toJson(filter));
+                    //console.log('applyFilterToHotels: ' + angular.toJson(filter));
 
                     var out = [];
                     //если не изменился - возвращаем тот же объект

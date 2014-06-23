@@ -37,8 +37,6 @@
 
     $.fn.tooltipWidget = function (options) {
 
-        console.log(options);
-
         /** Settings */
         var settings = $.extend({
             'photoList': [],

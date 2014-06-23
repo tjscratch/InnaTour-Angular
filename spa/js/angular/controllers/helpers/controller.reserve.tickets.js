@@ -305,6 +305,14 @@ innaAppControllers.
 
                 $scope.validate = function (item, type) {
                     if (item != null) {
+                        //dirty hack
+                        //из-за валидаторов дат, не проверяем, если пришло типа '__.__.____'
+                        if ((item.validationType == validateType.birthdate || item.validationType == validateType.expire)
+                            && item.value.indexOf('_') > -1) {
+                            $scope.setValid(item, true);
+                            return;
+                        }
+
                         //console.log('validate, key: %s, element: %s', model.key, model.$element.get(0));
                         //console.log('validate, item: %s; validationType: %s, type:%s', item.value, item.validationType, type);
                         switch (item.validationType) {

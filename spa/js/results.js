@@ -33,7 +33,7 @@
             var h = el.parent().offset();
             var w = $(window).scrollTop();
             w = parseInt(w + 150);
-            console.log(h.top, w);
+            //console.log(h.top, w);
             if(h.top < w) {
                 el.addClass(fixedClass);
             } else {
