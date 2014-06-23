@@ -252,6 +252,7 @@ innaAppControllers.
                         res += awaitingList.join(', ');
                     }
                 }
+                res += '\nУчитывается возраст на дату вылета.';
                 return res;
             }
 
