@@ -1,6 +1,6 @@
 <li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen, 'hotel-details-rooms__room_position_last': $last}">
-    <div class="hotel-details-rooms__room-short">
-        <h3 class="hotel-details-rooms__room-title" ng-click="toggleRoom(room)">{{room.RoomName}}</h3>
+    <div class="hotel-details-rooms__room-short" ng-click="toggleRoom(room)">
+        <h3 class="hotel-details-rooms__room-title">{{room.RoomName}}</h3>
 
         <div class="hotel-details-rooms__room-short-info">
             <div class="hotel-details-rooms__room-desc">
@@ -19,7 +19,7 @@
                 <div class="hotel-details-rooms__room-price-full">К оплате: {{bundle.ticket.data.PackagePrice + room.Price | price}} <ng-include src="'components/ruble.html'"></ng-include></div>
             </div>
             <div class="hotel-details-rooms__room-actions">
-                <button class="button button_size_l" ng-click="goReservation(room, hotel)">Купить</button>
+                <button class="button button_size_xl" ng-click="goReservation(room, hotel)">Купить</button>
             </div>
         </div>
 
