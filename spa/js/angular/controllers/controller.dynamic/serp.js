@@ -23,10 +23,10 @@ innaAppControllers
                 var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
 
                 if(!__now && calibrate.__scrolledTicketsCache == scrolledTickets) {
-                    console.log('do not calibrate');
+                    //console.log('do not calibrate');
                     return;
                 } else {
-                    console.time('calibrate');
+                    //console.time('calibrate');
 
                     calibrate.__scrolledTicketsCache = scrolledTickets;
 
@@ -41,7 +41,7 @@ innaAppControllers
                         }
                     });
 
-                    console.timeEnd('calibrate');
+                    //console.timeEnd('calibrate');
                 }
             }, utils.isSafari ? 1 : 100);
 

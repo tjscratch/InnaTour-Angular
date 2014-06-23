@@ -45,7 +45,7 @@ angular.module('innaApp.directives')
                     $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Airport'));
                     $scope.options = $scope.filter.options = new Options();
                     $scope.filter.filterFn = function(ticket){
-                        console.log('---------------------------');
+                        //console.log('---------------------------');
 
                         var show = false;
 
@@ -56,7 +56,7 @@ angular.module('innaApp.directives')
                                 show = show || etap.data.InCode == option.code || etap.data.OutCode == option.code;
                             });
 
-                            console.log(show);
+                            //console.log(show);
                         });
 
                         if(!show) {

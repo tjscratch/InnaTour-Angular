@@ -78,7 +78,7 @@ app.config([
 
         function dynamic(){
             return {
-                templateUrl: '/spa/templates/pages/dynamic/page.html',
+                templateUrl: 'pages/dynamic/page.html',
                 controller: 'DynamicPackageMordaCtrl'
             }
         }
