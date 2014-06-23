@@ -5,8 +5,21 @@ angular.module('innaApp.services')
             var cache = {};
 
             function doAjax(options) {
-                //console.log('doAjax, url: %s, useCache: %s', options.url, options.cache);
-                return $.ajax(options);
+                if(window.XDomainRequest) { //ie
+                    var deferred = new $.Deferred();
+
+                    var xdr = new XDomainRequest();
+
+                    xdr.onsuccess = function(){
+                        deferred.resolve();
+                    };
+                    xdr.open(options.type, options.url);
+                    xdr.send($.param(options.data, options.traditional));
+
+                    return deferred.promise();
+                } else {
+                    return $.ajax(options);
+                }
             }
 
             function buildOptions(url, data, method, useCache) {
@@ -21,7 +34,7 @@ angular.module('innaApp.services')
                     //async: typeof async !== 'undefined' ? async : true,
                     
                     eol: null
-                }
+                };
 
                 if (typeof useCache !== 'undefined'){
                     o.cache = useCache;
