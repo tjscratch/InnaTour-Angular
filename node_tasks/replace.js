@@ -11,6 +11,8 @@ var b2bHost = (_ENV_ === 'production') ? conf.hosts.b2b.prod : conf.hosts.b2b.te
 var apiFrontHost = (_ENV_ === 'production') ? conf.hosts.front.prod : conf.hosts.front.test;
 var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : conf.hosts.front.test;
 
+var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protocol.http;
+
 // Копируем в папку publish
 gulp.task('replace-index', function () {
     return gulp.src('./index.html')
@@ -19,7 +21,8 @@ gulp.task('replace-index', function () {
             'app-host': 'app_main.host = \'' + apiHost + '\';',
             'b2b-host': 'app_main.b2bHost = \'' + b2bHost + '\';',
             'front-host': 'app_main.frontHost = \'' + apiFrontHost + '\';',
-            'static-host': 'app_main.staticHost = \'' + staticHost + '\';'
+            'static-host': 'app_main.staticHost = \'' + staticHost + '\';',
+            'tripadvisor': 'app_main.tripadvisor = \'' + __PROTOCOL__ + conf.tripadvisor +'\';'
         }))
         .pipe(gulp.dest(conf.publish));
 });
@@ -37,7 +40,6 @@ gulp.task('release-tours', function () {
         }))
         .pipe(gulp.dest(conf.publish + '/tours'));
 });
-
 
 
 gulp.task('html-replace', ['replace-index', 'release-tours']);
