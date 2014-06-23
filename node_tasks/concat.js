@@ -9,6 +9,7 @@ var _ENV_ = process.env.NODE_ENV || '';
 // зависимость от сборки шаблонов
 gulp.task('build-concat', ['build-templates'], function () {
     return gulp.src([
+            conf.dest + '/js/angular/config.js',
             conf.dest + '/lib/polyfill.js',
             conf.dest + '/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js',
             conf.dest + '/js/jquery.ui.datepicker-ru.js',

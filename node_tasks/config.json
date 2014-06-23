@@ -6,6 +6,12 @@
     "img" : "./spa/img",
     "publish" : "./publish",
 
+
+    "protocol" : {
+      "http": "http://",
+      "https": "https://"
+    },
+
     "hosts" : {
         "b2b" : {
             "test": "http://b2b.test.inna.ru",
@@ -23,5 +29,7 @@
             "test": "http://s.test.inna.ru",
             "prod": "https://sbeta.inna.ru"
         }
-    }
+    },
+
+    "tripadvisor" : "www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId="
 }
