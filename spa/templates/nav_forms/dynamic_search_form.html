@@ -4,6 +4,7 @@
          provide-suggest-callback="provideSuggestToFromList"
          suggest="fromList"
          result="fromCurrent"
+         set-result-callback="setResultCallbackFrom(item)"
          ask-for-data="loadObjectById"
          placeholder="Откуда"></div>
 
@@ -12,6 +13,7 @@
             provide-suggest-callback="provideSuggestToToField"
             suggest="toList"
             result="toCurrent"
+            set-result-callback="setResultCallbackTo(item)"
             ask-for-data="loadObjectById"
             placeholder="Куда"></div>
 
@@ -31,16 +33,8 @@
             show-back-trip-options="false"
             klass-model="klass"></div>
 
-    <div class="search-button-block_small"><input type="submit" value="Найти" ng-click="searchStart()"></div>
+    <div class="search-button-block_small" ng-click="searchStart()">
+        <!--<input type="submit" value="Найти" >-->
+    </div>
 
-
-    <!-- TODO : вынести в стили -->
-    <!--<style>
-        .search-form-item-current{height:48px;}
-        .search-form-item{height:48px;}
-        .search-form-humans .search-form-item-current{font:14px/48px ProximaNova,Arial,sans-serif;}
-        .search-form-humans {width:119px;}
-        .search-form-human-dialog{font:14px/14px ProximaNova,Arial,sans-serif;}
-        .search-form-dialog-row .label {display: inline-block;line-height: 35px;vertical-align: top;}
-    </style>-->
 </form>

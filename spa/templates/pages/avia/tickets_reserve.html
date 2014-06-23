@@ -18,7 +18,7 @@
                 <!--<div class="b-field-block b-field-block-auth" style="width: 388px;">-->
                 <div class="b-field-block" style="width: 388px;">
                     <label class="b-field-label">E-mail</label>
-                    <input validate-events-dir ng-model="validationModel.email.value"
+                    <input autocomplete="off" validate-events-dir ng-model="validationModel.email.value"
                            ng-validation-model="validationModel.email" validate="validate(item, type)" validate-type="validateType.email"
                            ng-class="{error:isFieldInvalid(validationModel.email)}"
                            data-title="Неправильно введен email" type="text"
@@ -31,7 +31,7 @@
                 </div>
                 <div class="b-field-block" style="width: 180px;">
                     <label class="b-field-label">Мобильный телефон</label>
-                    <input validate-events-dir ng-model="validationModel.phone.value"
+                    <input autocomplete="off" validate-events-dir ng-model="validationModel.phone.value"
                            ng-validation-model="validationModel.phone" validate="validate(item, type)" validate-type="validateType.phone"
                            supress-select-on-value="'+7'"
                            ng-class="{error:isFieldInvalid(validationModel.phone)}"
@@ -63,21 +63,21 @@
                 </div>
                 <div class="b-field-block" style="width: 160px;">
                     <label class="b-field-label">Фамилия</label>
-                    <input upper-latin validate-events-dir ng-model="passenger.secondName.value"
+                    <input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.secondName.value"
                            ng-validation-model="passenger.secondName" validate="validate(item, type)" validate-type="validateType.required"
                            ng-class="{error:isFieldInvalid(passenger.secondName)}"
                            type="text" placeholder="IVANOV" class="b-field-text">
                 </div>
                 <div class="b-field-block b-field-block-surname" style="width: 150px;">
                     <label class="b-field-label">Имя</label>
-                    <input upper-latin validate-events-dir ng-model="passenger.name.value"
+                    <input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.name.value"
                            ng-validation-model="passenger.name" validate="validate(item, type)" validate-type="validateType.required"
                            ng-class="{error:isFieldInvalid(passenger.name)}"
                            type="text" placeholder="IVAN" class="b-field-text">
                 </div>
                 <div class="b-field-block" style="width: 110px;">
                     <label class="b-field-label">Дата рождения</label>
-                    <input validate-events-dir ng-model="passenger.birthday.value"
+                    <input autocomplete="off" validate-events-dir ng-model="passenger.birthday.value"
                            ng-validation-model="passenger.birthday" validate="validate(item, type)" validate-type="validateType.birthdate"
                            ng-class="{error:isFieldInvalid(passenger.birthday)}"
                            ng-attr-data-title="{{getBirthTitle() | breakFilter }}"
@@ -87,7 +87,7 @@
                 <div class="b-field-block" style="width: 180px;">
                     <label class="b-field-label">Гражданство</label>
                     <div class="cit">
-                        <input validate-events-dir ng-model="passenger.citizenship.value.name"
+                        <input autocomplete="off" validate-events-dir ng-model="passenger.citizenship.value.name"
                                ng-validation-model="passenger.citizenship" validate="validate(item, type)" validate-type="validateType.cit_required"
                                ng-class="{error:isFieldInvalid(passenger.citizenship)}"
                                ng-click="passenger.showCitListClick($event)" type="text" value="{{passenger.citizenship.value.name}}" placeholder="Выберите" class="b-field-text b-field-select">
@@ -97,7 +97,7 @@
                 </div>
                 <div class="b-field-block" style="width: 110px;">
                     <label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>
-                    <input validate-events-dir ng-model="passenger.doc_series_and_number.value" depends-on="passenger.citizenship"
+                    <input autocomplete="off" validate-events-dir ng-model="passenger.doc_series_and_number.value" depends-on="passenger.citizenship"
                            ng-validation-model="passenger.doc_series_and_number" validate="validate(item, type)" validate-type="validateType.document"
                            ng-class="{error:isFieldInvalid(passenger.doc_series_and_number)}"
                            data-title="Неправильный номер документа"
@@ -120,14 +120,14 @@
                     <div class="b-field-block" style="width: 150px;" ng-show="passenger.bonuscard.value.haveBonusCard == true">
                         <label class="b-field-label">Авиакомпания</label>
                         <div class="cit">
-                            <input ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.value.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
+                            <input autocomplete="off" ng-click="passenger.showCardListClick($event)" type="text" value="{{passenger.bonuscard.value.airCompany.name}}" class="b-field-text b-field-select" placeholder="Выберите">
                             <div partial-select list="bonusCardTransportersList" result="passenger.bonuscard.value.airCompany" is-open="passenger.dir.card.isOpen">
                             </div>
                         </div>
                     </div>
                     <div class="b-field-block" style="width: 150px;" ng-show="passenger.bonuscard.value.haveBonusCard == true">
                         <label class="b-field-label">Номер карты</label>
-                        <input digits-input type="text" ng-model="passenger.bonuscard.value.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
+                        <input autocomplete="off" digits-input type="text" ng-model="passenger.bonuscard.value.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
                     </div>
                 </div>
             </div>

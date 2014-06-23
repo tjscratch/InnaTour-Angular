@@ -1,17 +1,17 @@
-﻿<div class="layout">
+<div class="layout">
     <div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0" app-slider>
         <ul class="offers-card-banner-list Offer-card-banners">
-            <li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
-                <img class="img" ng-src="{{slide.Image}}" />
+            <li class="offer-card-banner-item" bindonce ng-repeat="slide in slides track by $index">
+                <img class="img" bo-src="slide.Image" />
                 <!--<div class="img" style="background-image: url('{{slide.Image}}')"></div>-->
                 <div class="darken-container" ng-click="offerClickSlider(slide, $event, $index)"></div>
                 <div class="info-container" ng-click="offerClickSlider(slide, $event, $index)">
                     <div class="info">
-                        <h3 class="name" ng-show="!isNullOrEmpty(slide.FrontTitleRow1)">{{slide.FrontTitleRow1}}</h3>
-                        <h3 class="name" ng-show="!isNullOrEmpty(slide.FrontTitleRow2)">{{slide.FrontTitleRow2}}</h3>
-                        <p class="description" ng-show="!isNullOrEmpty(slide.FrontSubTitleRow1)">{{slide.FrontSubTitleRow1}}</p>
-                        <p class="description" ng-show="!isNullOrEmpty(slide.FrontSubTitleRow2)">{{slide.FrontSubTitleRow2}}</p>
-                        <p class="description" ng-show="!isNullOrEmpty(slide.FrontPrice)"><span class="price">{{slide.FrontPrice}}</span></p>
+                        <h3 class="name" bo-if="!isNullOrEmpty(slide.FrontTitleRow1)" bo-bind="slide.FrontTitleRow1"></h3>
+                        <h3 class="name" bo-if="!isNullOrEmpty(slide.FrontTitleRow2)" bo-bind="slide.FrontTitleRow2"></h3>
+                        <p class="description" bo-if="!isNullOrEmpty(slide.FrontSubTitleRow1)" bo-bind="slide.FrontSubTitleRow1"></p>
+                        <p class="description" bo-if="!isNullOrEmpty(slide.FrontSubTitleRow2)" bo-bind="slide.FrontSubTitleRow2"></p>
+                        <p class="description" bo-if="!isNullOrEmpty(slide.FrontPrice)" bo-bind="slide.FrontPrice"><span class="price"></span></p>
                     </div>
                 </div>
             </li>
@@ -24,12 +24,12 @@
         </div>
     </div>
 
-    <div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}" ng-repeat="section in sections">
+    <div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}" bindonce ng-repeat="section in sections">
         <div class="offers-container">
-            <h2 class="offers-title">{{section.Name}}</h2>
-            <p class="offers-description">{{section.Description}}</p>
+            <h2 class="offers-title" bo-bind="section.Name"></h2>
+            <p class="offers-description" bo-bind="section.Description"></p>
             <div class="offers-list" ng-controller="OffersListCtrl">
-                <ng:any ng-repeat="block in section.OfferLayouts track by $index">
+                <ng:any bindonce ng-repeat="block in section.OfferLayouts track by $index">
                     <ng:include src="getTemplateUrlByBlockType(block.OfferLayoutType)">
                     </ng:include>
                 </ng:any>

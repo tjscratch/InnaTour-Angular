@@ -11,6 +11,8 @@ innaAppControllers.
                 if (data != null) {
                     $scope.$apply(function($scope) {
                         $scope.sections = data.SectionLayouts;
+                        //данные для слайдера
+                        $scope.$broadcast('slider.set.content', data.Slider);
                     });
                 }
             });

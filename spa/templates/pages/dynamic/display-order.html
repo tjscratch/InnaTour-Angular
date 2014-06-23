@@ -1,7 +1,8 @@
-<div ng-if="bundle"
+<div ng-if="!displayTicket && bundle"
      inna-hotel-details
      inna-hotel-details-hotel="hotel"
      inna-hotel-details-bundle="bundle"
-     inna-hotel-details-get-ticket-details="getTicketDetails"></div>
+     inna-hotel-details-get-ticket-details="getTicketDetails"
+     inna-hotel-details-hotel-only="true"></div>
 
-<ng:include src="'pages/dynamic/inc/ticket-details.html'"></ng:include>
+<ng:include src="'pages/dynamic/inc/ticket-details.html'" ng-if="displayTicket" ng-init="noClose=true;noChoose=true;"></ng:include>

@@ -16,25 +16,36 @@ innaAppControllers
             var AS_MAP_CACHE_KEY = 'serp-as-map';
             var serpScope = $scope;
             var isChooseHotel = null;
+            var MAX_HOTEL_LEN = 180;
 
-            var calibrate = _.throttle(function (list, scrollTop){
-                console.time('calibrate');
-
+            var calibrate = _.throttle(function (list, scrollTop, __now){
                 var TICKET_HEIGHT = 200;
                 var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
-                var limit = scrolledTickets * 1.3 + 6;
-                var count = 0;
 
-                list.each(function(item){
-                    if(!item.hidden) {
-                        count++;
+                if(!__now && calibrate.__scrolledTicketsCache == scrolledTickets) {
+                    console.log('do not calibrate');
+                    return;
+                } else {
+                    console.time('calibrate');
 
-                        item.currentlyInvisible = (count > limit);
-                    }
-                });
+                    calibrate.__scrolledTicketsCache = scrolledTickets;
 
-                console.timeEnd('calibrate');
+                    var limit = scrolledTickets * 1.3 + 7;
+                    var count = 0;
+
+                    list.each(function(item){
+                        if(!item.hidden) {
+                            count++;
+
+                            item.currentlyInvisible = (count > limit);
+                        }
+                    });
+
+                    console.timeEnd('calibrate');
+                }
             }, utils.isSafari ? 1 : 100);
+
+            calibrate.__scrolledTicketsCache = NaN;
 
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
@@ -57,7 +68,19 @@ innaAppControllers
             });
 
             /*Methods*/
-            var getHotelDetails = function (hotel) {
+            var getHotelDetails = function (hotel, buyAction) {
+                serpScope.hotelToShowDetails = hotel;
+                $location.search('displayHotel', hotel.data.HotelId);
+
+                if(buyAction) {
+                    $location.search('action', 'buy');
+                }
+
+                if ($location.search().map) {
+                    delete $location.$$search.map;
+                    $location.$$compose();
+                }
+
 
                 if (!hotel.detailed) {
                     ServiceDynamicPackagesDataProvider.hotelDetails(
@@ -79,14 +102,8 @@ innaAppControllers
                             });
                         }
                     );
-                }
-
-                serpScope.hotelToShowDetails = hotel;
-                $location.search('displayHotel', hotel.data.HotelId);
-
-                if ($location.search().map) {
-                    delete $location.$$search.map;
-                    $location.$$compose();
+                } else {
+                    serpScope.$broadcast(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
                 }
             };
 
@@ -119,7 +136,7 @@ innaAppControllers
                             $scope.hotels.push(hotel);
                         }
 
-                        calibrate($scope.hotels, utils.getScrollTop());
+                        calibrate($scope.hotels, utils.getScrollTop(), true);
                     };
                 } else if ($scope.state.isActive($scope.state.TICKETS_TAB)) {
                     method = 'getTicketsByCombination';
@@ -132,8 +149,6 @@ innaAppControllers
                             ticket.setData(raw);
                             $scope.tickets.push(ticket);
                         }
-
-                        calibrate($scope.tickets, utils.getScrollTop());
                     };
                 }
 
@@ -232,7 +247,6 @@ innaAppControllers
 
                             console.log('initial calibation');
                             calibrate($scope.hotels, 0);
-                            calibrate($scope.tickets, 0);
                             console.log('/initial calibation');
 
                             $scope.baloon.hide();
@@ -326,11 +340,13 @@ innaAppControllers
             /*Simple proxy*/
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
+            $scope.events = Events;
 
 
             $scope.closeHotelDetails = function () {
                 $scope.hotelToShowDetails = null;
                 delete $location.$$search.displayHotel
+                delete $location.$$search.action
                 $location.$$compose();
             };
 
@@ -385,6 +401,8 @@ innaAppControllers
             $scope.$watch('hotelFilters', function (data) {
                 $scope.hotels.filter($scope.hotelFilters);
                 $scope.$broadcast('change:filters', data);
+
+                calibrate($scope.hotels, utils.getScrollTop(), true);
             }, true);
 
 
@@ -433,7 +451,7 @@ innaAppControllers
 
             /*Initial Data fetching*/
             (function () {
-                $scope.baloon.showWithClose('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
+                $scope.baloon.showWithCancel('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
 
                 searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
                 searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);
@@ -459,7 +477,6 @@ innaAppControllers
                             $scope.padding.scrollTop = scrollTop;
 
                             calibrate($scope.hotels, $scope.padding.scrollTop);
-                            calibrate($scope.tickets, $scope.padding.scrollTop);
                         });
                     }
                 }

@@ -12,7 +12,7 @@ gulp.task('build-templates', function () {
         conf.templ + '/**/*.html',
         conf.dest + '/js/angular/**/*.html'
     ])
-        .pipe(cleanhtml())
+        //.pipe(cleanhtml())
         .pipe(templateCache({
             module: 'innaApp.templates'
         }))

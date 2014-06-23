@@ -294,8 +294,7 @@ Cvc = "486";
 
             $scope.oferta = {
                 url: function () {
-                    var host = app_main.host.replace('api.', 's.');
-                    return host + '/files/doc/offer.pdf';
+                    return app_main.staticHost + '/files/doc/offer.pdf';
                 }
             }
 

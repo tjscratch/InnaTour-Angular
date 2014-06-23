@@ -106,6 +106,7 @@ var avia = {
     dateFormat: 'dd MMMM yyyy, EEE',
     timeFormat: 'HH:mm',
     sortType: {
+        byAgencyProfit: ['-PriceDetails.Profit'],
         byRecommend: ['-IsRecomendation', 'RecommendedFactor', 'sort.DepartureDate', 'sort.ArrivalDate'],
         byPrice: ['Price', 'sort.DepartureDate', 'sort.ArrivalDate'],
         byTripTime: ['TimeTo', 'Price', 'sort.DepartureDate', 'sort.ArrivalDate'],
@@ -171,10 +172,6 @@ inna.Models.Avia.TicketCollection.prototype.getVisibilityInfo = function () {
     this.each(function (ticket) {
         if (ticket.hidden) o.visible--;
     });
-
-    o.visible--; //because we don't display currently selected ticket/hotel
-
-    if(o.visible < 0) o.visible = 0;
 
     return o;
 };

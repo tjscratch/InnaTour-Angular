@@ -8,13 +8,18 @@ angular.module('innaApp.directives')
             controller: [
                 '$scope',
                 function ($scope) {
-                    console.log('innaGallery', $scope);
+                    var MAX_WIDTH = 960, MAX_HEIGHT = 480;
+                    var MIN_WIDTH = 800, MIN_LENGTH = 5;
 
                     /*Models*/
                     function PicList(){
                         this.list = [];
                         this.current = null;
+                        this.plan = null;
                     }
+
+                    PicList.PLAN_Z = 'Z';
+                    PicList.PLAN_Y = 'Y';
 
                     PicList.prototype.setCurrent = function(pic){
                         this.current = pic;
@@ -47,53 +52,87 @@ angular.module('innaApp.directives')
                     $scope.getViewportStyle = function(){
                         if(!$scope.pics.current) return {};
 
-                        var MAX_WIDTH = 960, MAX_HEIGHT = 480;
+                        var style = {
+                            backgroundImage: 'url(~)'.split('~').join($scope.pics.current.src)
+                        }
 
-                        var kw = 1, kh = 1, k;
+                        if($scope.pics.plan == PicList.PLAN_Z) {
+                            style.width = MAX_WIDTH;
+                            style.height = MAX_HEIGHT;
+                        } else if ($scope.pics.plan == PicList.PLAN_Y) {
+                            style.width = $scope.pics.current.width;
+                            style.height = $scope.pics.current.height;
+                        } else {
+                            return {};
+                        }
 
-                        var width = $scope.pics.current.width;
-                        var height = $scope.pics.current.height;
-
-                        if(width > MAX_WIDTH) kw = MAX_WIDTH / width;
-                        if(height > MAX_HEIGHT) kh = MAX_HEIGHT / height;
-
-                        k = Math.min(kh, kw);
-
-                        return {
-                            backgroundImage: 'url(~)'.split('~').join($scope.pics.current.src),
-                            width: parseInt(width * k),
-                            height: parseInt(height * k)
-                        };
+                        return style;
                     };
 
                     /*Watchers*/
                     $scope.$watch('urls', function(){
-                        var deferreds = [];
-                        $scope.pics.list = [];
+                        var loaded = new $.Deferred();
 
-                        $scope.urls.forEach(function(url, _index){
-                            var deferred = new $.Deferred();
+                        function buildPicList(sizeName, testFn){
+                            var deffereds = [];
 
-                            deferreds.push(deferred.promise());
+                            $scope.pics.list = [];
 
-                            var pic = new Image();
+                            $scope.urls.forEach(function(url, _index){
+                                var deferred = new $.Deferred();
 
-                            pic.onload = function(){
-                                $scope.pics.list.push(pic);
+                                deffereds.push(deferred.promise());
 
-                                deferred.resolve();
-                            };
+                                var pic = new Image();
 
-                            pic.onerror = function(){
-                                deferred.resolve();
-                            };
+                                pic.onload = function(){
+                                    if(testFn(pic)) {
+                                        $scope.pics.list.push(pic);
+                                    }
 
-                            pic.src = url.Large;
+                                    deferred.resolve();
+                                };
 
-                            pic.__order = _index;
+                                pic.onerror = function(){
+                                    deferred.resolve();
+                                };
+
+                                pic.src = url[sizeName];
+
+                                pic.__order = _index;
+                            });
+
+                            return deffereds;
+                        }
+
+                        function planZ(){
+                            return buildPicList('Large', function(pic){
+                                var isHorizontal = (pic.width >= pic.height);
+                                var largeEnough = (pic.width > MIN_WIDTH);
+
+                                return isHorizontal && largeEnough;
+                            });
+                        }
+                        function planY(){
+                            return buildPicList('Middle', function(pic){
+                                var isHorizontal = (pic.width > pic.height); // exactly GT, not GE
+                                var smallEnough = pic.height < MAX_HEIGHT;
+
+                                return isHorizontal && smallEnough;
+                            });
+                        }
+
+                        $.whenAll(planZ()).then(function(){
+                            if($scope.pics.list.length >= MIN_LENGTH) {
+                                loaded.resolveWith(null, [PicList.PLAN_Z]);
+                            } else {
+                                $.whenAll(planY()).then(function(){
+                                    loaded.resolveWith(null, [PicList.PLAN_Y]);
+                                });
+                            }
                         });
 
-                        $.when.apply($, deferreds).then(function(){
+                        $.when(loaded).then(function(plan){
                             $scope.pics.list.sort(function(p1, p2){
                                 return p1.__order - p2.__order;
                             });
@@ -101,6 +140,8 @@ angular.module('innaApp.directives')
                             $scope.$apply(function(){
                                 try{
                                     $scope.pics.setCurrent($scope.pics.list[0]);
+
+                                    $scope.pics.plan = plan;
                                 } catch(e) {}
                             });
                         });

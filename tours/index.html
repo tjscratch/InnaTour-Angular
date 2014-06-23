@@ -42,10 +42,6 @@
             if (oldV[0] == 'ie' && oldV[1] < 9) {
                 location.href = '/browser.html'
             }
-
-            if ((oldV[0] == 'safari' && oldV[1] <= 5)) {
-                location.href = '/browser.html'
-            }
         }
     </script>
 
@@ -132,7 +128,11 @@
     </div>
 
     <div class="button fixed-request-button" ng-click="popupForm_Show()"
-         ng-show="!isActive('/individualtours/category/')"
+         ng-show="!isActive('/individualtours/category/')
+         && !isActive('/packages/search/')
+         && !isActive('/avia/')
+         && !isActive('/')
+         && !isActive('/avia/search/')"
          title="Отправить заявку"></div>
 
     <div class="wrpr">
