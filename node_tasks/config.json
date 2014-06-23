@@ -15,19 +15,19 @@
     "hosts" : {
         "b2b" : {
             "test": "http://b2b.test.inna.ru",
-            "prod": "http://b2bbeta.inna.ru"
+            "prod": "https://b2bbeta.inna.ru"
         },
         "api" : {
             "test": "http://api.test.inna.ru",
-            "prod": "http://apibeta.inna.ru"
+            "prod": "https://apibeta.inna.ru"
         },
         "front" : {
             "test": "http://api.test.inna.ru",
-            "prod": "http://apibeta.inna.ru"
+            "prod": "https://apibeta.inna.ru"
         },
         "static" : {
             "test": "http://s.test.inna.ru",
-            "prod": "http://sbeta.inna.ru"
+            "prod": "https://sbeta.inna.ru"
         }
     },
 
