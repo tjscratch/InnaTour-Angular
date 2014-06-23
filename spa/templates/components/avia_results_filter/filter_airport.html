@@ -11,7 +11,7 @@
                     <label>
                         <input type="checkbox" name="fly" ng-model="item.checked" />
                         <span class="ra-checkbox"></span>
-                        <span class="ra-fly-type">{{item.name}} {{item.code}}</span>
+                        <span class="ra-fly-type" title="{{item.name}}">{{item.name | limitFilter:20}} {{item.code}}</span>
                         <span class="ra-fly-price">{{item.price | price}} <ng-include src="'components/ruble.html'" /></span>
                     </label>
                 </li>
@@ -28,7 +28,7 @@
                         <label>
                             <input type="checkbox" name="fly" ng-model="item.checked" />
                             <span class="ra-checkbox"></span>
-                            <span class="ra-fly-type">{{item.name}} {{item.code}}</span>
+                            <span class="ra-fly-type" title="{{item.name}}">{{item.name | limitFilter:20}} {{item.code}}</span>
                             <span class="ra-fly-price">{{item.price | price}} 
                                 <!--<span class="b-rub">q</span>-->
                                 <ng-include src="'components/ruble.html'" />

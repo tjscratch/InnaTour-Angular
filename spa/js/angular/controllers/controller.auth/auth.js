@@ -34,7 +34,7 @@ angular.module('innaApp.controllers')
             };
 
             $scope.signInWith = function(method){
-                var brokerWindow = window.open(AuthDataProvider.socialBrockerURL(method), "width=300;height=300", "SocialBrocker");
+                var brokerWindow = window.open(AuthDataProvider.socialBrockerURL(method), "width=300;height=300", "SocialBroker");
 
                 brokerWindow.focus();
 

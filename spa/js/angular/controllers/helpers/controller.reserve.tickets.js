@@ -123,7 +123,10 @@ innaAppControllers.
                 }
             };
 
+            $scope.lastPeopleValidation = null;
+
             $scope.validatePeopleCount = function () {
+                closeAllTooltips();
                 if ($scope.validationModel != null && $scope.validationModel.passengers != null && $scope.validationModel.passengers.length > 0) {
                     var availableAdultCount = $scope.AdultCount;
                     var availableChildCount = $scope.ChildCount;
@@ -139,6 +142,7 @@ innaAppControllers.
                         infant: 'infant'
                     };
 
+                    var peopleFound = { adultsFoundCount: 0, childsFoundCount: 0, infantsFoundCount: 0 };
 
                     function getPeopleType(birthdate) {
                         var fromDate = dateHelper.dateToJsDate($scope.fromDate);
@@ -172,6 +176,7 @@ innaAppControllers.
                                         }
                                         else {
                                             availableAdultCount--;
+                                            peopleFound.adultsFoundCount++;
                                             if (availableAdultCount == 0) {
                                                 adultsFound = true;
                                             }
@@ -185,6 +190,7 @@ innaAppControllers.
                                         }
                                         else {
                                             availableChildCount--;
+                                            peopleFound.childsFoundCount++;
                                             if (availableChildCount == 0) {
                                                 childsFound = true;
                                             }
@@ -198,6 +204,7 @@ innaAppControllers.
                                         }
                                         else {
                                             availableInfantsCount--;
+                                            peopleFound.infantsFoundCount++;
                                             if (availableInfantsCount == 0) {
                                                 infantsFound = true;
                                             }
@@ -211,11 +218,49 @@ innaAppControllers.
                     //console.log('a: %d, c: %d, i: %d', availableAdultCount, availableChildCount, availableInfantsCount);
                     if (availableAdultCount < 0 || availableChildCount < 0 || availableInfantsCount < 0) {
                         setNotValid(pas.birthday);
+                        updateBirthTooltip({ adultsCount: availableAdultCount, childsCount: availableChildCount, infantsCount: availableInfantsCount });
                         return false;
                     }
                 }
+                updateBirthTooltip({ adultsCount: availableAdultCount, childsCount: availableChildCount, infantsCount: availableInfantsCount });
                 return true;
             };
+
+            function getBirthTitle(lastPeopleValidation) {
+                var res = 'Проверьте даты рождения, \nвы делали поиск на ' + $scope.AdultCount + ' ' + $scope.helper.pluralForm($scope.AdultCount, 'взрослого', 'взрослых', 'взрослых');
+                if (parseInt($scope.ChildCount) > 0) {
+                    res += ', \n' + $scope.ChildCount + ' ' + $scope.helper.pluralForm($scope.ChildCount, 'ребенка', 'детей', 'детей') + ' (от 2 до 12 лет)';
+                }
+                if (parseInt($scope.InfantsCount) > 0) {
+                    res += ', \n' + $scope.InfantsCount + ' ' + $scope.helper.pluralForm($scope.InfantsCount, 'младенца', 'младенцев', 'младенцев') + ' (до 2-х лет)';
+                }
+                if (lastPeopleValidation != null) {
+
+                    var awaitingList = [];
+                    if (lastPeopleValidation.adultsCount > 0) {
+                        awaitingList.push(lastPeopleValidation.adultsCount + ' ' + $scope.helper.pluralForm(lastPeopleValidation.adultsCount, 'взрослый', 'взрослых', 'взрослых'));
+                    }
+                    if (lastPeopleValidation.childsCount > 0) {
+                        awaitingList.push(lastPeopleValidation.childsCount + ' ' + $scope.helper.pluralForm(lastPeopleValidation.childsCount, 'ребенок', 'ребенка', 'детей'));
+                    }
+                    if (lastPeopleValidation.infantsCount > 0) {
+                        awaitingList.push(lastPeopleValidation.infantsCount + ' ' + $scope.helper.pluralForm(lastPeopleValidation.infantsCount, 'младенец', 'младенца', 'младенцев'));
+                    }
+
+                    if (awaitingList.length > 0) {
+                        res += ', \n' + 'Ожидается: ';
+                        res += awaitingList.join(', ');
+                    }
+                }
+                res += '\nУчитывается возраст на дату вылета.';
+                return res;
+            }
+
+            function updateBirthTooltip(lastPeopleValidation) {
+                //console.log('updateBirthTooltip');
+                $scope.birthTitle = getBirthTitle(lastPeopleValidation);
+                //console.log('$scope.birthTitle: ' + $scope.birthTitle);
+            }
 
             function updateValidationModel()
             {
@@ -260,6 +305,14 @@ innaAppControllers.
 
                 $scope.validate = function (item, type) {
                     if (item != null) {
+                        //dirty hack
+                        //из-за валидаторов дат, не проверяем, если пришло типа '__.__.____'
+                        if ((item.validationType == validateType.birthdate || item.validationType == validateType.expire)
+                            && item.value.indexOf('_') > -1) {
+                            $scope.setValid(item, true);
+                            return;
+                        }
+
                         //console.log('validate, key: %s, element: %s', model.key, model.$element.get(0));
                         //console.log('validate, item: %s; validationType: %s, type:%s', item.value, item.validationType, type);
                         switch (item.validationType) {
@@ -780,7 +833,8 @@ innaAppControllers.
                         autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' },
                         items: "[data-title]",
                         content: function () {
-                            return $to.data("title");
+                            return $to.attr('data-title');
+                            //return $to.data("title");
                         }
                     });
                 },
@@ -801,17 +855,6 @@ innaAppControllers.
                     catch(e){};
                 }
             };
-
-            $scope.getBirthTitle = function () {
-                var res = 'Проверьте даты рождения, \nвы делали поиск на ' + $scope.AdultCount + ' ' + $scope.helper.pluralForm($scope.AdultCount, 'взрослого', 'взрослых', 'взрослых');
-                if (parseInt($scope.ChildCount) > 0) {
-                    res += ', \n' + $scope.ChildCount + ' ' + $scope.helper.pluralForm($scope.ChildCount, 'ребенка', 'детей', 'детей') + ' (от 2 до 12 лет)';
-                }
-                if (parseInt($scope.InfantsCount) > 0) {
-                    res += ', \n' + $scope.InfantsCount + ' ' + $scope.helper.pluralForm($scope.InfantsCount, 'младенца', 'младенцев', 'младенцев') + ' (до 2-х лет)';
-                }
-                return res;
-            }
 
             //оплата
             $scope.processToPayment = function ($event) {
@@ -1031,12 +1074,15 @@ innaAppControllers.
                 object.phone = user.Phone;
             }
 
-            $scope.$on('$destroy', function () {
+            function closeAllTooltips() {
                 if ($scope.validationModel != null) {
                     $scope.validationModel.enumAllKeys(function (item) {
                         var $to = $("#" + item.id);
                         $scope.tooltipControl.close($to);
                     });
                 }
+            }
+            $scope.$on('$destroy', function () {
+                closeAllTooltips();
             });
         }]);
