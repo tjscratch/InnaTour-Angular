@@ -29,6 +29,17 @@ innaAppFilters.filter('breakFilter', function () {
     };
 });
 
+innaAppFilters.filter('limitFilter', ['$filter', function ($filter) {
+    return function (text, maxLength) {
+        if (text != null && text.length > maxLength)
+        {
+            var res = $filter('limitTo')(text, maxLength) + '...';
+            return res;
+        }
+        return text;
+    }
+}]);
+
 //приводит цену (123567) к виду (123 567)
 innaAppFilters.filter('price', function () {
     return function (val) {
