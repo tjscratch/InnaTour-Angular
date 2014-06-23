@@ -263,6 +263,12 @@ innaAppControllers.
             //тут меняем урл для поиска
             $scope.searchStart = function () {
                 try {
+
+                    //если не ввели дату обратно - то начинаем поиск в одну сторону, но если не стоит галка в одну сторону
+                    if ($scope.criteria.PathType == 0 && $scope.criteria.BeginDate != null && $scope.criteria.BeginDate.length > 0 && ($scope.criteria.EndDate == null || $scope.criteria.EndDate.length == 0)) {
+                        $scope.criteria.PathType = 1;//туда
+                    }
+
                     validate();
                     //if ok
 
@@ -325,6 +331,7 @@ innaAppControllers.
                 }
 
                 Validators.defined($scope.criteria.BeginDate, Error('BeginDate'));
+
                 if ($scope.criteria.PathType == 0) {//туда обратно
                     Validators.defined($scope.criteria.EndDate, Error('EndDate'));
                 }
