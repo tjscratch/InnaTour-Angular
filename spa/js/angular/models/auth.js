@@ -13,8 +13,6 @@ inna.Models.Auth.User = function(data){
         SupportPhone: data.SupportPhone,
         IsSocial: data.IsSocial
     };
-
-    console.log(data);
 };
 
 inna.Models.Auth.User.prototype.displayName = function(){
