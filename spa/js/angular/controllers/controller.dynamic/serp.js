@@ -52,6 +52,7 @@ innaAppControllers
                 if(!list || !list.list.length) return;
 
                 var template = $('#hotel-card')[0].innerText;
+                var template404 = $('#hotels-404')[0].innerText;
                 var html = '';
                 var resultContainer = $('#hotels-result-container');
 
@@ -73,29 +74,33 @@ innaAppControllers
                     }
                 });
 
-                resultContainer.html(html);
+                if(html == '') { //nothing found
+                    resultContainer.html(template404);
+                } else {
+                    resultContainer.html(html);
 
-                resultContainer
-                    .off()
-                    .on('click', function(event){
-                        var target = $(event.target);
-                        var hotel = list.getById(target.parents('.js-result-card').data('hotel-id'));
+                    resultContainer
+                        .off()
+                        .on('click', function(event){
+                            var target = $(event.target);
+                            var hotel = list.getById(target.parents('.js-result-card').data('hotel-id'));
 
-                        switch(true) {
-                            case target.hasClass('js-hotel-info-place'):
-                                onHotelInfoPlaceClick.call(target, event, hotel);
-                                break;
-                            case target.hasClass('js-hotel-item-details'):
-                                onHotelDetailsClick.call(target, event, hotel);
-                                break;
-                            case target.hasClass('js-show-tooltip'):
-                                onTooltipClick.call(target, event, hotel);
-                                break;
-                            case target.hasClass('js-set-current'):
-                                onSetCurrentHotel.call(target, event, hotel);
-                                break;
-                        }
-                    });
+                            switch(true) {
+                                case target.hasClass('js-hotel-info-place'):
+                                    onHotelInfoPlaceClick.call(target, event, hotel);
+                                    break;
+                                case target.hasClass('js-hotel-item-details'):
+                                    onHotelDetailsClick.call(target, event, hotel);
+                                    break;
+                                case target.hasClass('js-show-tooltip'):
+                                    onTooltipClick.call(target, event, hotel);
+                                    break;
+                                case target.hasClass('js-set-current'):
+                                    onSetCurrentHotel.call(target, event, hotel);
+                                    break;
+                            }
+                        });
+                }
             };
 
 

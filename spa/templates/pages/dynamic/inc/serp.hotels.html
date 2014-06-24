@@ -3,11 +3,6 @@
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
         <div id="hotels-result-container"></div>
-
-        <div ng-if="hotels.list.length && !hotelsToDisplay.length" class="results-list__empty results-list__empty_type_hotels">
-            <p>Варианты не найдены.</p>
-            <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
-        </div>
     </div>
 </div>
 
@@ -236,6 +231,13 @@
                 <span class="button js-set-current">Выбрать</span>
             </div>
         </div>
+    </div>
+</script>
+
+<script type="text/x-dummytemplate" id="hotels-404">
+    <div class="results-list__empty results-list__empty_type_hotels">
+        <p>Варианты не найдены.</p>
+        <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
     </div>
 </script>
 
