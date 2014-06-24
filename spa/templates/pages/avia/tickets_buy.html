@@ -1,4 +1,4 @@
-<!-- Search Results -->
+﻿<!-- Search Results -->
 <div class="results-body" style="padding-top: 110px;" id="buy-listener">
     <form action="javascript:void(0)" method="post" class="results-body">
         <div class="main__center" ng-if="reservationModel.IsService">
@@ -175,8 +175,8 @@
 
 <!-- Baloon -->
 <div style="display: block" class="overlay js-overlay" ng-show="tarifs.isOpened">
-    <div class="balloon baloon_medium">
-        <div title="Закрыть" class="baloon-close" ng-click="tarifs.close($event)"></div>
+    <div class="balloon balloon_medium">
+        <div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>
         <div class="b__rules-container">
             <div class="b__rules_attention">
                 <h3>Обратите внимание!</h3>
@@ -199,8 +199,8 @@
 
 <!-- Baloon -->
 <div style="display: block" class="overlay js-overlay" ng-show="buyFrame.isOpened">
-    <div class="balloon baloon_medium" style="padding: 0px; height: 430px; width: 960px; margin-left: -480px;">
-        <!--<div title="Закрыть" class="baloon-close" ng-click="tarifs.close($event)"></div>-->
+    <div class="balloon balloon_medium" style="padding: 0px; height: 430px; width: 960px; margin-left: -480px;">
+        <!--<div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>-->
         <iframe id="buy_frame_main" ng-src="{{buyFrame.iframeUrl}}" ng-if="buyFrame.iframeUrl != null" style="width:100%; height: 100%;"></iframe>
     </div>
 </div>

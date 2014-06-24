@@ -1,53 +1,53 @@
 <div class="overlay js-overlay" ng-style="{display: display}">
     <div class="balloon" ng-if="(type == baloonType.msg)">
-        <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
-        <div class="baloon-title" ng-bind-html="caption | breakFilter"></div>
+        <div class="balloon-loading"><div class="balloon-loading-block balloon-loading-block1"></div><div class="balloon-loading-block balloon-loading-block2"></div></div>
+        <div class="balloon-title" ng-bind-html="caption | breakFilter"></div>
         <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
     </div>
     <div class="balloon" ng-if="(type == baloonType.msgClose)">
-        <div class="baloon-close" title="Закрыть" ng-click="close($event)"></div>
-        <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
-        <div class="baloon-title" ng-bind-html="caption | breakFilter"></div>
+        <div class="balloon-close" title="Закрыть" ng-click="close($event)"></div>
+        <div class="balloon-loading"><div class="balloon-loading-block balloon-loading-block1"></div><div class="balloon-loading-block balloon-loading-block2"></div></div>
+        <div class="balloon-title" ng-bind-html="caption | breakFilter"></div>
         <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
     </div>
     <div class="balloon" ng-if="(type == baloonType.msgCancel)">
-        <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
-        <div class="baloon-title" ng-bind-html="caption | breakFilter"></div>
+        <div class="balloon-loading"><div class="balloon-loading-block balloon-loading-block1"></div><div class="balloon-loading-block balloon-loading-block2"></div></div>
+        <div class="balloon-title" ng-bind-html="caption | breakFilter"></div>
         <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
-        <a href="#" class="baloon-link" ng-click="close($event)">Прервать поиск</a>
+        <a href="#" class="balloon-link" ng-click="close($event)">Прервать поиск</a>
     </div>
     <!--<div class="balloon">
-        <div class="baloon-loading"></div>
-        <div class="baloon-title">Подождите, идет оплата</div>
+        <div class="balloon-loading"></div>
+        <div class="balloon-title">Подождите, идет оплата</div>
         <p class="balloon-info">это может занять до нескольких минут</p>
     </div>
     <div class="balloon">
-        <div class="baloon-loading"></div>
-        <div class="baloon-title">Выписываем авиабилеты</div>
+        <div class="balloon-loading"></div>
+        <div class="balloon-title">Выписываем авиабилеты</div>
         <p class="balloon-info">это может занять до нескольких минут</p>
     </div>-->
     <div class="balloon" ng-if="(type == baloonType.payExpires)">
-        <div class="baloon-close" title="Закрыть" ng-click="close($event)"></div>
-        <div class="baloon-canceled"></div>
-        <div class="baloon-title baloon-error" ng-bind-html="caption | breakFilter" ng-if="(caption != null && caption.length > 0)"></div>
-        <div class="baloon-title baloon-error" ng-if="!(caption != null && caption.length > 0)">Заказ анулирован</div>
+        <div class="balloon-close" title="Закрыть" ng-click="close($event)"></div>
+        <div class="balloon-canceled"></div>
+        <div class="balloon-title balloon-error" ng-bind-html="caption | breakFilter" ng-if="(caption != null && caption.length > 0)"></div>
+        <div class="balloon-title balloon-error" ng-if="!(caption != null && caption.length > 0)">Заказ анулирован</div>
         <p class="balloon-info">истек срок ожидания оплаты</p>
-        <a href="#" class="button baloon-button" ng-click="clickFn($event)" ng-if="(buttonCaption != null && buttonCaption.length > 0)">{{buttonCaption}}</a>
-        <a href="#" class="button baloon-button" ng-click="clickFn($event)" ng-if="!(buttonCaption != null && buttonCaption.length > 0)">Повторить поиск</a>
+        <a href="#" class="button balloon-button" ng-click="clickFn($event)" ng-if="(buttonCaption != null && buttonCaption.length > 0)">{{buttonCaption}}</a>
+        <a href="#" class="button balloon-button" ng-click="clickFn($event)" ng-if="!(buttonCaption != null && buttonCaption.length > 0)">Повторить поиск</a>
     </div>
     <div class="balloon" ng-if="(type == baloonType.success)">
-        <div class="baloon-close" title="Закрыть" ng-click="close($event)"></div>
-        <div class="baloon-mail"></div>
-        <div class="baloon-title" ng-bind-html="caption | breakFilter"></div>
+        <div class="balloon-close" title="Закрыть" ng-click="close($event)"></div>
+        <div class="balloon-mail"></div>
+        <div class="balloon-title" ng-bind-html="caption | breakFilter"></div>
         <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
-        <a href="#" class="button baloon-button" ng-click="clickFn($event)">{{buttonCaption}}</a>
+        <a href="#" class="button balloon-button" ng-click="clickFn($event)">{{buttonCaption}}</a>
     </div>
     <div class="balloon" ng-if="(type == baloonType.err)">
-        <div class="baloon-close" title="Закрыть" ng-click="close($event)"></div>
-        <div class="baloon-problem"></div>
-        <div class="baloon-title baloon-error" ng-bind-html="caption | breakFilter" ng-if="caption != null && caption.length > 0"></div>
+        <div class="balloon-close" title="Закрыть" ng-click="close($event)"></div>
+        <div class="balloon-problem"></div>
+        <div class="balloon-title balloon-error" ng-bind-html="caption | breakFilter" ng-if="caption != null && caption.length > 0"></div>
         <p class="balloon-info" ng-bind-html="text | breakFilter" ng-if="text != null && text.length > 0"></p>
-        <div class="baloon-title baloon-error" ng-if="!(caption != null && caption.length > 0)">Что-то пошло не так</div>
+        <div class="balloon-title balloon-error" ng-if="!(caption != null && caption.length > 0)">Что-то пошло не так</div>
         <p class="balloon-info" ng-if="!(text != null && text.length > 0)">cвяжитесь с оператором по телефону или скайпу </p>
         <address class="balloon-contacts">
             <span class="balloon-contacts-phone">+7 495 742-1212</span>
