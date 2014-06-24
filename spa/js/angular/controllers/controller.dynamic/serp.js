@@ -9,7 +9,8 @@ innaAppControllers
         '$location',
         'innaApp.Urls',
         'aviaHelper',
-        function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams, Events, $location, Urls, aviaHelper) {
+        '$filter',
+        function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams, Events, $location, Urls, aviaHelper, $filter) {
             /*Private*/
             var searchParams = angular.copy($routeParams);
             var cacheKey = '';
@@ -18,34 +19,37 @@ innaAppControllers
             var isChooseHotel = null;
             var MAX_HOTEL_LEN = 180;
 
-            var calibrate = _.throttle(function (list, scrollTop, __now){
-                var TICKET_HEIGHT = 200;
-                var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
+            var calibrate = function (list, scrollTop, __now){
+                console.log('calibrate');
 
-                if(!__now && calibrate.__scrolledTicketsCache == scrolledTickets) {
-                    //console.log('do not calibrate');
-                    return;
-                } else {
-                    //console.time('calibrate');
+                if(!list.list.length) return;
 
-                    calibrate.__scrolledTicketsCache = scrolledTickets;
+                var template = $('#hotel-card')[0].innerText;
+                var html = '';
+                var resultContainer = $('#hotels-result-container');
 
-                    var limit = scrolledTickets * 1.3 + 7;
-                    var count = 0;
+                list.each(function(item){
+                    if(!item.hidden) {
+                        var virtualBundle = new inna.Models.Dynamic.Combination();
+                        virtualBundle.hotel = item;
+                        virtualBundle.ticket = $scope.combination.ticket;
 
-                    list.each(function(item){
-                        if(!item.hidden) {
-                            count++;
+                        html += _.template(template, {
+                            hotel: item,
+                            virtualBundle: virtualBundle,
+                            combination: $scope.combination,
+                            isFloat: $filter('isFloat'),
+                            asQuantity: $filter('asQuantity'),
+                            signed: $filter('signed'),
+                            price: $filter('price')
+                        });
+                    }
+                });
 
-                            item.currentlyInvisible = (count > limit);
-                        }
-                    });
+                resultContainer.html(html);
 
-                    //console.timeEnd('calibrate');
-                }
-            }, utils.isSafari ? 1 : 100);
-
-            calibrate.__scrolledTicketsCache = NaN;
+                //TODO EVENTS
+            };
 
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
@@ -468,27 +472,27 @@ innaAppControllers
             }());
 
 
-            $(function () {
-                var doc = $(document);
-
-                function onScroll(event) {
-                    var scrollTop = utils.getScrollTop();
-
-                    if(utils.isSafari() || scrollTop % 3 == 0) { //'cause 3px is actually nothing
-                        $scope.$apply(function ($scope) {
-                            $scope.padding.scrollTop = scrollTop;
-
-                            calibrate($scope.hotels, $scope.padding.scrollTop);
-                        });
-                    }
-                }
-
-                doc.on('scroll', onScroll);
-
-                $scope.$on('$destroy', function () {
-                    doc.off('scroll', onScroll);
-                })
-            });
+//            $(function () {
+//                var doc = $(document);
+//
+//                function onScroll(event) {
+//                    var scrollTop = utils.getScrollTop();
+//
+//                    if(utils.isSafari() || scrollTop % 3 == 0) { //'cause 3px is actually nothing
+//                        $scope.$apply(function ($scope) {
+//                            $scope.padding.scrollTop = scrollTop;
+//
+//                            calibrate($scope.hotels, $scope.padding.scrollTop);
+//                        });
+//                    }
+//                }
+//
+//                doc.on('scroll', onScroll);
+//
+//                $scope.$on('$destroy', function () {
+//                    doc.off('scroll', onScroll);
+//                })
+//            });
         }
     ])
     .controller('DynamicPackageSERPTicketPopupCtrl', [
