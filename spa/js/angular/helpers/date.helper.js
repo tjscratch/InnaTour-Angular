@@ -132,11 +132,12 @@
         var b_m = birthday.getMonth();
         var b_d = birthday.getDate();
 
-        if (b_m < now_m) {
-            years++;
+        //дата вылета - июль(6 мес), дата рождения - июнь (5 мес)
+        if (b_m > now_m) {
+            years--;
         }
-        else if (b_m == now_m && b_d < now_d) {
-            years++;
+        else if (b_m == now_m && b_d > now_d) {
+            years--;
         }
 
         return years;
