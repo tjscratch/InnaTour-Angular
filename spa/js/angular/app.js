@@ -95,83 +95,83 @@ app.config([
             //Главная
             when(url.URL_ROOT, dynamic()).
             when(url.URL_TOURS, {
-                templateUrl: '/spa/templates/pages/tours_grid_page.html',
+                templateUrl: 'pages/tours_grid_page.html',
                 controller: 'ToursCtrl'
             }).
             when(url.URL_PROGRAMMS + 'category/:id', {
-                templateUrl: '/spa/templates/pages/it_category_page.html',
+                templateUrl: 'pages/it_category_page.html',
                 controller: 'IndividualToursCategoryCtrl'
             }).
             when(url.URL_PROGRAMMS, {
-                templateUrl: '/spa/templates/pages/it_grid_page.html',
+                templateUrl: 'pages/it_grid_page.html',
                 controller: 'IndividualToursCtrl'
             }).
             when(url.URL_ABOUT, {
-                templateUrl: '/spa/templates/pages/about_page.html',
+                templateUrl: 'pages/about_page.html',
                 controller: 'AboutCtrl'
             }).
             when(url.URL_CONTACTS, {
-                templateUrl: '/spa/templates/pages/contacts_page.html',
+                templateUrl: 'pages/contacts_page.html',
                 controller: 'ContactsCtrl'
             }).
             when(url.URL_CERTIFICATES, {
-                templateUrl: '/spa/templates/pages/certificates_page.html',
+                templateUrl: 'pages/certificates_page.html',
                 controller: 'ContactsCtrl'
             }).
             when(url.URL_AVIA + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
-                templateUrl: '/spa/templates/pages/avia/search_form.html',
+                templateUrl: 'pages/avia/search_form.html',
                 controller: 'AviaSearchMainCtrl'
             }).
             when(url.URL_AVIA, {
-                templateUrl: '/spa/templates/pages/tours_grid_page.html',
+                templateUrl: 'pages/tours_grid_page.html',
                 controller: 'AviaSearchMainCtrl'
             }).
             when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
-                templateUrl: '/spa/templates/pages/avia/search_results.html',
+                templateUrl: 'pages/avia/search_results.html',
                 controller: 'AviaSearchResultsCtrl'
             }).
             when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
                 ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
-                    templateUrl: '/spa/templates/pages/avia/tickets_reserve.html',
+                    templateUrl: 'pages/avia/tickets_reserve.html',
                     controller: 'AviaReserveTicketsCtrl'
                 }).
             //when(url.URL_AVIA_BUY + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
             //    ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2-:OrderNum', {
-            //        templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
+            //        templateUrl: 'pages/avia/tickets_buy.html',
             //        controller: 'AviaBuyTicketsCtrl'
             //    }).
             when(url.URL_BUY + ':OrderNum', {
-                templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
+                templateUrl: 'pages/avia/tickets_buy.html',
                 controller: 'AviaBuyTicketsCtrl'
             }).
             when(url.URL_AVIA_BUY + ':OrderNum', {
-                templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
+                templateUrl: 'pages/avia/tickets_buy.html',
                 controller: 'AviaBuyTicketsCtrl'
             }).
             when(url.URL_DYNAMIC_PACKAGES_BUY + ':OrderNum', {
-                templateUrl: '/spa/templates/pages/avia/tickets_buy.html',
+                templateUrl: 'pages/avia/tickets_buy.html',
                 controller: 'AviaBuyTicketsCtrl'
             }).
             when('/hotelticket/', {
-                templateUrl: '/spa/templates/pages/hotelticket_page.html',
+                templateUrl: 'pages/hotelticket_page.html',
                 controller: 'HotelPlusTicketCtrl'
             }).
             when('/hotels/', {
-                templateUrl: '/spa/templates/pages/hotels_page.html',
+                templateUrl: 'pages/hotels_page.html',
                 controller: 'HotelsCtrl'
             }).
             when(url.URL_DYNAMIC_PACKAGES, dynamic()).
             when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
-                templateUrl: '/spa/templates/pages/dynamic/serp.html',
+                templateUrl: 'pages/dynamic/serp.html',
                 controller: 'DynamicPackageSERPCtrl',
                 reloadOnSearch: false
             }).
             when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
-                templateUrl: '/spa/templates/pages/avia/tickets_reserve.html',
+                templateUrl: 'pages/avia/tickets_reserve.html',
                 controller: 'DynamicReserveTicketsCtrl'
             }).
             when(url.B2B_DISPLAY_ORDER + ':OrderId', {
-                templateUrl: '/spa/templates/pages/dynamic/display-order.html',
+                templateUrl: 'pages/dynamic/display-order.html',
                 controller: 'B2B_DisplayOrder'
             }).
             when(url.URL_AUTH_RESTORE, dynamic()).
