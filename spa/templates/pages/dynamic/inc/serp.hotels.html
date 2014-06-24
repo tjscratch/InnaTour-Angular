@@ -11,6 +11,10 @@
         <div class="b-hotel_item-wrapper">
             <div class="b-result__cell col-no-padding">
                 <div class="hotel-gallery b-carousel">
+                    <% for(var i = 0, pic = null; pic = hotel.data.Photos[i++];) { %>
+                        <input type="hidden" class="hotel-gallery__url-keeper" value="<%=pic.Small%>"/>
+                    <% } %>
+
                     <div class="hotel-gallery-arrow-left b-carousel__prev"></div>
                     <div class="hotel-gallery-arrow-right b-carousel__next"></div>
                     <div class="hotel-gallery-container b-carousel__holder">

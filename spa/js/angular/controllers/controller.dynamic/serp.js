@@ -99,7 +99,28 @@ innaAppControllers
                                     onSetCurrentHotel.call(target, event, hotel);
                                     break;
                             }
-                        });
+                        })
+                        .find('.hotel-gallery')
+                            .on('mouseenter', function activateGallery(){
+
+                                var elem = $(this);
+                                var list = elem.find('.hotel-gallery__url-keeper').get().map(function(keeper, i){
+                                    return {'Small': keeper.value};
+                                });
+
+                                console.log(list);
+
+                                elem.innaCarousel({
+                                    photoList: list,
+                                    size: 'Small',
+                                    style: {
+                                        width: 200,
+                                        height: 190
+                                    }
+                                });
+
+                                elem.off('mouseenter', activateGallery);
+                            });
                 }
             };
 
