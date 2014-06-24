@@ -1,7 +1,9 @@
 angular.module('innaApp.services')
     .service('innaApp.services.PageContentLoader', [
-        'innaApp.API.const', '$timeout',
-        function(urls, $timeout){
+        'innaApp.API.const',
+        '$timeout',
+        'AjaxHelper',
+        function(urls, $timeout, AjaxHelper){
             var cache = {};
 
             return {
@@ -16,17 +18,14 @@ angular.module('innaApp.services')
                         });
                     } else {
 
-                        $.ajax({
-                            url: url,
-                            dataType: 'json',
-                            method: 'get',
-                            success: function(data){
-                                cache[url] = data;
+                        AjaxHelper.get(url, null, function (data) {
+                            cache[url] = data;
 
-                                console.log('cache', cache);
+                            console.log('cache test', cache);
 
-                                callback(data);
-                            }
+                            callback(data);
+                        }, function (data, status) {
+
                         });
                     }
                 }

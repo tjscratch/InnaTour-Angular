@@ -15,7 +15,7 @@
         function ($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper,
             paymentService, Urls, storageService, urlHelper, $timeout) {
 
-            $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может занять несколько минут');
+            $scope.baloon.showExpireCheck();
             //initial
             (function(){
                 var children = $routeParams.Children ?
