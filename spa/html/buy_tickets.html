@@ -1354,47 +1354,108 @@
         </div>
     </div>
 
-    <!-- Baloon -->
+    <!-- balloon -->
     <div class="overlay js-overlay" style="display: block;">
         <div class="balloon">
-            <div class="baloon-loading"><div class="baloon-loading-block baloon-loading-block1"></div><div class="baloon-loading-block baloon-loading-block2"></div></div>
-            <div class="baloon-title">Бронирование авиабилетов</div>
-            <p class="balloon-info">подождите пожалуйста, это может занять несколько минут</p>
+            <div class="balloon-loading">
+                <img src="/spa/img/balloon/animation.gif" alt=""/>
+            </div>
+            <!--<div class="balloon-loading"><div class="balloon-loading-block balloon-loading-block1"></div><div class="balloon-loading-block balloon-loading-block2"></div></div>-->
+            <div class="balloon-title">Ищем варианты</div>
+            <p class="balloon-info">Поиск займет не более 30 секунд</p>
+            <div class="balloon-actions">
+                <a href="#" class="link">Прервать поиск</a>
+            </div>
         </div>
         <div class="balloon">
-            <div class="baloon-loading"></div>
-            <div class="baloon-title">Подождите, идет оплата</div>
-            <p class="balloon-info">это может занять до нескольких минут</p>
+            <div class="balloon-notfound"></div>
+            <div class="balloon-title">Мы ничего не нашли</div>
+            <p class="balloon-info">Попробуйте изменить условия поиска</p>
+            <div class="balloon-actions">
+                <a href="#" class="button balloon-button">Новый поиск</a>
+            </div>
         </div>
         <div class="balloon">
-            <div class="baloon-loading"></div>
-            <div class="baloon-title">Выписываем авиабилеты</div>
-            <p class="balloon-info">это может занять до нескольких минут</p>
+            <div class="balloon-loading">
+                <img src="/spa/img/balloon/animation.gif" alt=""/>
+            </div>
+            <div class="balloon-title">Бронирование авиабилетов</div>
+            <p class="balloon-info">Секундочку</p>
         </div>
         <div class="balloon">
-            <div class="baloon-close" title="Закрыть"></div>
-            <div class="baloon-mail"></div>
-            <div class="baloon-title">Билеты успешно выписаны</div>
-            <p class="balloon-info">и отправлены на электронную почту <br><a href="#">ratunkov@gmail.com</a></p>
+            <div class="balloon-close" title="Закрыть"></div>
+            <div class="balloon-mail"></div>
+            <div class="balloon-title">Заказ Выполнен</div>
+            <p class="balloon-info">Документы отправлены на электронную почту <br><a href="#">ratunkov@gmail.com</a></p>
         </div>
         <div class="balloon">
-            <div class="baloon-close" title="Закрыть"></div>
-            <div class="baloon-canceled"></div>
-            <div class="baloon-title baloon-error">Бронирование анулировано</div>
-            <p class="balloon-info">истек срок ожидания оплаты</p>
-            <a href="#" class="button baloon-button">Повторить поиск</a>
+            <div class="balloon-close" title="Закрыть"></div>
+            <div class="balloon-canceled"></div>
+            <div class="balloon-title balloon-error">Бронь анулирована</div>
+            <p class="balloon-info">Заказ не был оплачен в отведенное время</p>
+            <div class="balloon-actions">
+                <a href="#" class="button balloon-button">Новый поиск</a>
+           </div>
         </div>
         <div class="balloon">
-            <div class="baloon-close" title="Закрыть"></div>
-            <div class="baloon-problem"></div>
-            <div class="baloon-title baloon-error">Что-то пошло не так</div>
-            <p class="balloon-info">cвяжитесь с оператором по телефону или скайпу </p>
-            <address class="balloon-contacts">
-                <span class="balloon-contacts-phone">+7 495 742-1212</span>
-                <a href="#" class="balloon-contacts-skype">Inna tour</a>
-            </address>
+            <div class="balloon-loading">
+                <img src="/spa/img/balloon/animation.gif" alt=""/>
+            </div>
+            <div class="balloon-title">Оплата заказа</div>
+            <p class="balloon-info">Пожалуйста не закрывайте браузер</p>
+        </div>
+        <div class="balloon">
+            <div class="balloon-close" title="Закрыть"></div>
+            <div class="balloon-problem"></div>
+            <div class="balloon-title balloon-error">Не удалось оплатить заказ</div>
+            <p class="balloon-info">
+                Проверьте наличие достаточной суммы на счете, данные вашей карты и попробуйте оплатить еще раз
+            </p>
+            <p class="balloon-info">
+                <br/>
+                <b>Если не получается, позвоните нам</b>
+            </p>
+            <div class="balloon-actions">
+                <address class="balloon-contacts">
+                    <span class="balloon-contacts-phone">+7 495 742-1212</span>
+                    <a href="#" class="balloon-contacts-skype">Inna tour</a>
+                </address>
+            </div>
+        </div>
+        <div class="balloon">
+            <div class="balloon-close" title="Закрыть"></div>
+            <div class="balloon-problem"></div>
+            <div class="balloon-title balloon-error">Произошла ошибка</div>
+            <p class="balloon-info">Пожалуйста, позвоните нам</p>
+            <div class="balloon-actions">
+                <address class="balloon-contacts">
+                    <span class="balloon-contacts-phone">+7 495 742-1212</span>
+                    <a href="#" class="balloon-contacts-skype">Inna tour</a>
+                </address>
+            </div>
+        </div>
+        <div class="balloon">
+            <div class="balloon-close" title="Закрыть"></div>
+            <div class="balloon-problem"></div>
+            <div class="balloon-title balloon-error">Период проживания</div>
+            <p class="balloon-info">Сейчас мы можем предложить вам практически <br/> любое путешествие, но продолжительностью<br/> не более 30 дней.</p>
+        </div>
+        <div class="balloon">
+            <div class="balloon-close" title="Закрыть"></div>
+            <div class="balloon-problem"></div>
+            <div class="balloon-title balloon-error">Даты бронирования</div>
+            <p class="balloon-info">Выберите путешествие сроком менее 30 дней<br/> и ранее 6 месяцев от намеченной даты вылета</p>
+        </div>
+        <div class="balloon">
+            <div class="balloon-close" title="Закрыть"></div>
+            <div class="balloon-outdated"></div>
+            <div class="balloon-title">Рекомендуем вам обновить результаты поиска</div>
+            <p class="balloon-info">Выберите путешествие сроком менее 30 дней<br/> и ранее 6 месяцев от намеченной даты вылета</p>
+            <div class="balloon-actions">
+                <a href="#" class="button balloon-button">Обновить</a>
+            </div>
         </div>
     </div>
-    <!-- /Baloon -->
+    <!-- /balloon -->
 </body>
 </html>
