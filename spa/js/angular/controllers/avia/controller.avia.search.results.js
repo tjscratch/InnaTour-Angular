@@ -322,7 +322,7 @@ innaAppControllers.
                 $scope.goToPaymentClick = function ($event, item) {
                     eventsHelper.preventBubbling($event);
 
-                    $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может занять несколько минут');
+                    $scope.baloon.showExpireCheck();
                     //проверяем, что остались билеты для покупки
                     paymentService.checkAvailability({ variantTo: item.VariantId1, varianBack: item.VariantId2 },
                         function (data) {

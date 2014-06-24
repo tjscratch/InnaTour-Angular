@@ -815,7 +815,7 @@ Cvc = "486";
                                         }
 
                                         if (data == 1) {
-                                            $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту\n' + $scope.reservationModel.Email,
+                                            $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
                                             aviaHelper.baloonType.success, function () {
                                                 $location.path(Urls.URL_AVIA);
                                             }, {

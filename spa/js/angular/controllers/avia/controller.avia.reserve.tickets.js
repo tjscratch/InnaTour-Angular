@@ -51,7 +51,7 @@ innaAppControllers.
             //    $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может занять несколько минут');
             //}, 300);
 
-            $scope.baloon.show('Проверка доступности билетов', 'Подождите пожалуйста, это может занять несколько минут');
+            $scope.baloon.showExpireCheck();
             
             //проверяем, что остались билеты для покупки
             paymentService.checkAvailability({ variantTo: $routeParams.VariantId1, varianBack: $routeParams.VariantId2 },
