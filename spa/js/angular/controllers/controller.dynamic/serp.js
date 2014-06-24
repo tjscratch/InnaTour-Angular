@@ -453,7 +453,7 @@ innaAppControllers
 
             /*Initial Data fetching*/
             (function () {
-                $scope.baloon.showWithCancel('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
+                $scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', balloonCloser);
 
                 searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
                 searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);

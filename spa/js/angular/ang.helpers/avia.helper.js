@@ -141,6 +141,7 @@
 
             var baloonType = {
                 msg: 'msg',
+                alert: 'alert',
                 err: 'err',
                 msgClose: 'msgClose',
                 msgCancel: 'msgCancel',
@@ -453,6 +454,9 @@
                     },
                     showErr: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.err, closeFn);
+                    },
+                    showAlert: function (caption, text, closeFn) {
+                        helper.baloon.show(caption, text, baloonType.alert, closeFn);
                     },
                     showWithClose: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.msgClose, closeFn);
