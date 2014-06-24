@@ -6,17 +6,22 @@ angular.module('innaApp.services')
 
             function doAjax(options) {
                 return $.ajax(options);
-
-               /* if(window.XDomainRequest) { //ie
+/*
+                if(window.XDomainRequest) { //ie
                     var deferred = new $.Deferred();
 
                     var xdr = new XDomainRequest();
 
-                    xdr.onsuccess = function(){
-                        deferred.resolve();
-                    };
-                    xdr.open(options.type, options.url);
-                    xdr.send($.param(options.data, options.traditional));
+                    if(xdr) {
+                        xdr.onsuccess = function () {
+                            console.log('onsuccess');
+                            deferred.resolve();
+                        };
+
+                        xdr.open(options.type, options.url);
+                        xdr.withCredentials = true;
+                        xdr.send($.param(options.data, options.traditional));
+                    }
 
                     return deferred.promise();
                 } else {
