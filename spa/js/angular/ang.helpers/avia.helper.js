@@ -147,7 +147,8 @@
                 msgCancel: 'msgCancel',
                 success: 'success',
                 expireCheck: 'expireCheck',
-                payExpires: 'payExpires'
+                payExpires: 'payExpires',
+                notFound: 'notFound'
             };
 
             var helper = {
@@ -461,11 +462,14 @@
                     showWithClose: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.msgClose, closeFn);
                     },
-                    showWithCancel: function (caption, text, cancelFn) {
-                        helper.baloon.show(caption, text, baloonType.msgCancel, cancelFn);
+                    showWithCancel: function (caption, text, closeFn) {
+                        helper.baloon.show(caption, text, baloonType.msgCancel, closeFn);
                     },
                     showExpireCheck: function () {
                         helper.baloon.show(null, null, baloonType.expireCheck);
+                    },
+                    showNotFound: function (closeFn) {
+                        helper.baloon.show(null, null, baloonType.notFound, closeFn);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);
