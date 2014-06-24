@@ -145,6 +145,7 @@
                 msgClose: 'msgClose',
                 msgCancel: 'msgCancel',
                 success: 'success',
+                expireCheck: 'expireCheck',
                 payExpires: 'payExpires'
             };
 
@@ -458,6 +459,9 @@
                     },
                     showWithCancel: function (caption, text, cancelFn) {
                         helper.baloon.show(caption, text, baloonType.msgCancel, cancelFn);
+                    },
+                    showExpireCheck: function () {
+                        helper.baloon.show(null, null, baloonType.expireCheck);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);

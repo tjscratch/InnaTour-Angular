@@ -179,7 +179,12 @@
                     });
                 },
                 getSectionTours: function (params, successCallback, errCallback) {
-                    $http({ method: 'GET', url: apiUrls.GET_SECTION_TOURS, params: params, cache: true }).success(function (data, status) {
+                    $http({
+                        method: 'GET',
+                        url: apiUrls.GET_SECTION_TOURS,
+                        params: params,
+                        cache: true
+                    }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).

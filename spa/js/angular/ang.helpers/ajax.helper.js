@@ -5,7 +5,9 @@ angular.module('innaApp.services')
             var cache = {};
 
             function doAjax(options) {
-                if(window.XDomainRequest) { //ie
+                return $.ajax(options);
+
+               /* if(window.XDomainRequest) { //ie
                     var deferred = new $.Deferred();
 
                     var xdr = new XDomainRequest();
@@ -19,7 +21,7 @@ angular.module('innaApp.services')
                     return deferred.promise();
                 } else {
                     return $.ajax(options);
-                }
+                }*/
             }
 
             function buildOptions(url, data, method, useCache) {
