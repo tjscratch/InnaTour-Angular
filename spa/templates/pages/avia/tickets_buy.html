@@ -110,16 +110,16 @@
                     <div class="b-cc-block">
                         <label class="b-cc-block-label b-cc-block-label-number">Номер карты <br>(16 цифр)</label>
                         <div id="num1" class="b-cc js-cardnum-block" data-title="Неправильно введен номер карты">
-                            <input ng-class="{error:indicator.num1}" digits-input type="text" ng-model="payModel.num1"
+                            <input autocomplete="off" ng-class="{error:indicator.num1}" digits-input type="text" ng-model="payModel.num1"
                                    validate-simple validate="validateField(key, value)" key="num1" len="4" go-next="focusControl.next(key)"
                                    class="b-field-text b-field-text-small" maxlength="4">
-                            <input ng-class="{error:indicator.num2}" digits-input type="text" ng-model="payModel.num2"
+                            <input autocomplete="off" ng-class="{error:indicator.num2}" digits-input type="text" ng-model="payModel.num2"
                                    validate-simple validate="validateField(key, value)" key="num2" len="4" go-next="focusControl.next(key)"
                                    class="b-field-text b-field-text-small" maxlength="4">
-                            <input ng-class="{error:indicator.num3}" digits-input type="text" ng-model="payModel.num3"
+                            <input autocomplete="off" ng-class="{error:indicator.num3}" digits-input type="text" ng-model="payModel.num3"
                                    validate-simple validate="validateField(key, value)" key="num3" len="4" go-next="focusControl.next(key)"
                                    class="b-field-text b-field-text-small" maxlength="4">
-                            <input ng-class="{error:indicator.num4}" digits-input type="text" ng-model="payModel.num4"
+                            <input autocomplete="off" ng-class="{error:indicator.num4}" digits-input type="text" ng-model="payModel.num4"
                                    validate-simple validate="validateField(key, value)" key="num4" len="4" go-next="focusControl.next(key)"
                                    class="b-field-text b-field-text-small" maxlength="4">
                         </div>
@@ -129,14 +129,14 @@
                         <div class="b-cc js-card-valid">
                             <div class="b-cc-date">
                                 Месяц
-                                <input type="text" class="b-field-text b-field-text-small" 
+                                <input autocomplete="off" type="text" class="b-field-text b-field-text-small" 
                                        ng-class="{error:indicator.cardMonth}"
                                        validate-simple validate="validateField(key, value)" key="cardMonth" len="2" go-next="focusControl.next(key)"
                                        id="cardMonth" data-title="Неправильно введен месяц" digits-input ng-model="payModel.cardMonth" maxlength="2">
                             </div>
                             <div class="b-cc-date">
                                 Год
-                                <input type="text" class="b-field-text b-field-text-small" 
+                                <input autocomplete="off" type="text" class="b-field-text b-field-text-small" 
                                        ng-class="{error:indicator.cardYear}"
                                        validate-simple validate="validateField(key, value)" key="cardYear" len="2" go-next="focusControl.next(key)"
                                        id="cardYear" data-title="Неправильно введен год" digits-input ng-model="payModel.cardYear" maxlength="2">
@@ -145,7 +145,7 @@
                     </div>
                     <div class="b-cc-block">
                         <label class="b-cc-block-label b-cc-block-label-number">Держатель<br> карты</label>
-                        <input type="text" class="b-field-text b-field-text-name js-card-holder"
+                        <input autocomplete="off" type="text" class="b-field-text b-field-text-name js-card-holder"
                                ng-class="{error:indicator.cardHolder}"
                                validate-simple validate="validateField(key, value)" key="cardHolder"
                                id="cardHolder" data-title="Нужно ввести держателя карты" ng-model="payModel.cardHolder" to-upper>
@@ -153,7 +153,7 @@
                 </div>
                 <div class="b-cc-end">
                     <div class="b-cvc">
-                        <input type="text" autocomplete="off" class="b-field-text" maxlength="3" id="cvc2"
+                        <input autocomplete="off" type="text" autocomplete="off" class="b-field-text" maxlength="3" id="cvc2"
                                ng-class="{error:indicator.cvc2}"
                                validate-simple validate="validateField(key, value)" key="cvc2"
                                id="cvc2" data-title="Нужно ввести код" digits-input ng-model="payModel.cvc2">

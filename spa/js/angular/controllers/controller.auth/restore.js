@@ -57,7 +57,7 @@ angular.module('innaApp.controllers')
             }
 
             function setNewPassword(){
-                console.log('setNewPassword');
+                //console.log('setNewPassword');
 
                 AuthDataProvider.setNewPassword($scope.restoreToken, {
                     newPassword: $scope.password,

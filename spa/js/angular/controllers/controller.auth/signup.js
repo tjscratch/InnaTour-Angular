@@ -78,7 +78,7 @@ angular.module('innaApp.controllers')
     .controller('AuthRegistrationCtrl_Step2', [
         '$scope', 'AuthDataProvider',
         function($scope, AuthDataProvider) {
-            console.log('AuthRegistrationCtrl_Step2', $scope);
+            //console.log('AuthRegistrationCtrl_Step2', $scope);
 
             $scope.baloon.show('Завершаю регистрацию', 'Это займет несколько секунд');
 

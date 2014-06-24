@@ -83,8 +83,8 @@
                         }
                         $scope.addition = new addition();
 
-                        console.log('data:');
-                        console.log(data);
+                        //console.log('data:');
+                        //console.log(data);
                         //дополняем полями 
                         aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
                         $scope.item = data.RecommendedPair.AviaInfo;
@@ -281,8 +281,8 @@
                 paymentService.packageReserve(apiModel,
                     function (data) {
                         $scope.safeApply(function () {
-                            console.log('order: ' + angular.toJson(data));
-                            if (data != null && data.OrderNum != null && data.OrderNum.length > 0) {
+                            //console.log('order: ' + angular.toJson(data));
+                            if (data != null && data.OrderNum != null && data.OrderNum.length > 0 && data.Status != null && data.Status == 1 && data.OrderNum.length > 0) {
                                 //сохраняем orderId
                                 //storageService.setAviaOrderNum(data.OrderNum);
                                 $scope.OrderNum = data.OrderNum;

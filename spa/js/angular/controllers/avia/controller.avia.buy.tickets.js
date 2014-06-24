@@ -1,4 +1,4 @@
-﻿﻿﻿
+﻿﻿
 /* Controllers */
 
 innaAppControllers.
@@ -294,8 +294,7 @@ Cvc = "486";
 
             $scope.oferta = {
                 url: function () {
-                    var host = app_main.host.replace('api.', 's.');
-                    return host + '/files/doc/offer.pdf';
+                    return app_main.staticHost + '/files/doc/offer.pdf';
                 }
             }
 
@@ -468,8 +467,8 @@ Cvc = "486";
                         if (data != null) {
                             
                             //log('\ngetPaymentData data: ' + angular.toJson(data));
-                            console.log('getPaymentData:');
-                            console.log(data);
+                            //console.log('getPaymentData:');
+                            //console.log(data);
 
                             function cutZero(val) {
                                 return val.replace(' 0:00:00', '');
@@ -801,39 +800,47 @@ Cvc = "486";
                     if (!$scope.isCkeckProcessing) {
                         $scope.isCkeckProcessing = true;
                         paymentService.payCheck($scope.orderNum, function (data) {
-                            $scope.isCkeckProcessing = false;
-                            log('paymentService.payCheck, data: ' + angular.toJson(data));
-                            //data = true;
-                            if (data != null) {
-                                if (data == 1 || data == 2) {
-                                    //прекращаем дергать
-                                    $interval.cancel(intCheck);
+                            try
+                            {
+                                log('paymentService.payCheck, data: ' + angular.toJson(data));
+                                //data = true;
+                                if (data != null) {
+                                    if (data == 1 || data == 2) {
+                                        //прекращаем дергать
+                                        $interval.cancel(intCheck);
 
-                                    //скрываем попап с фреймом 3ds
-                                    if ($scope.is3dscheck) {
-                                        $scope.buyFrame.hide();
-                                    }
+                                        //скрываем попап с фреймом 3ds
+                                        if ($scope.is3dscheck) {
+                                            $scope.buyFrame.hide();
+                                        }
 
-                                    if (data == 1) {
-                                        $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту\n' + $scope.reservationModel.Email,
-                                        aviaHelper.baloonType.success, function () {
-                                            $location.path(Urls.URL_AVIA);
-                                        }, {
-                                            //buttonCaption: 'Распечатать билеты', successFn: function () {
-                                            //    //print
-                                            //    log('print tickets');
-                                            //    alert('Не реализовано');
-                                            //}
-                                            buttonCaption: 'Ok', successFn: function () {
-                                                $scope.baloon.hide();
+                                        if (data == 1) {
+                                            $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту\n' + $scope.reservationModel.Email,
+                                            aviaHelper.baloonType.success, function () {
                                                 $location.path(Urls.URL_AVIA);
-                                            }
-                                        });
-                                    }
-                                    else if (data == 2) {
-                                        $scope.baloon.showGlobalAviaErr();
+                                            }, {
+                                                //buttonCaption: 'Распечатать билеты', successFn: function () {
+                                                //    //print
+                                                //    log('print tickets');
+                                                //    alert('Не реализовано');
+                                                //}
+                                                buttonCaption: 'Ok', successFn: function () {
+                                                    $scope.baloon.hide();
+                                                    $location.path(Urls.URL_AVIA);
+                                                }
+                                            });
+                                        }
+                                        else if (data == 2) {
+                                            $scope.baloon.showGlobalAviaErr();
+                                        }
                                     }
                                 }
+                            }
+                            catch (e) {
+                                console.error(e);
+                            }
+                            finally {
+                                $scope.isCkeckProcessing = false;
                             }
                         }, function (data, status) {
                             $scope.isCkeckProcessing = false;

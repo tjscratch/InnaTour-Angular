@@ -18,11 +18,12 @@
 				wrapper: '<div class="datepicker"><div class="datepickerContainer"><table cellspacing="0" cellpadding="0"><tbody><tr></tr></tbody></table></div></div>',
 				head: [
 					'<td class="calendar calendar-<%=calendarNo%>">',
-					'<table cellspacing="0" cellpadding="0">',
+					'<table cellspacing="0" cellpadding="0" border="0" width="<%=37*7%>">',
+                        '<col width="37"/><col width="37"/><col width="37"/><col width="37"/><col width="37"/><col width="37"/><col width="37"/>',
 						'<thead>',
 							'<tr>',
 								'<th class="datepickerGoPrev"><a href="#"><span><%=prev%></span></a></th>',
-								'<th colspan="5" class="datepickerMonth"><a href="#"><span></span></a></th>',
+								'<th colspan="5" class="datepickerMonth"><span></span></th>',
 								'<th class="datepickerGoNext"><a href="#"><span><%=next%></span></a></th>',
 							'</tr>',
 							'<tr class="datepickerDoW">',
@@ -417,10 +418,10 @@
 				var height = tbl.offsetHeight;
 				cal.css({
 					width: width + options.extraWidth + 'px',
-					height: height + options.extraHeight + 'px'
+					//height: height + options.extraHeight + 'px'
 				}).find('div.datepickerContainer').css({
 					width: width + 'px',
-					height: height + 'px'
+					//height: height + 'px'
 				});
 			},
 			click = function(ev) {

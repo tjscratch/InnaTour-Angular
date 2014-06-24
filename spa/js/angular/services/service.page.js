@@ -9,13 +9,13 @@ angular.module('innaApp.services')
                     var url = urls["*_PAGE_CONTENT"] + id;
 
                     if(cache[url]) {
-                        console.log('have page in cache');
+
                         //to make it async as recommended @ http://errors.angularjs.org/1.2.16/$rootScope/inprog?p0=%24digest
                         $timeout(function(){
                             callback(cache[url]);
                         });
                     } else {
-                        console.log('do not have page in cache');
+
                         $.ajax({
                             url: url,
                             dataType: 'json',

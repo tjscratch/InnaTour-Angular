@@ -10,7 +10,8 @@ var app = angular.module('innaApp', [
   'innaApp.controllers',
   'innaApp.Url',
   'innaApp.API',
-  'ngSanitize'
+  'ngSanitize',
+  'pasvaz.bindonce'
 ]);
 
 app.constant('innaApp.Urls', {
@@ -77,7 +78,7 @@ app.config([
 
         function dynamic(){
             return {
-                templateUrl: '/spa/templates/pages/dynamic/page.html',
+                templateUrl: 'pages/dynamic/page.html',
                 controller: 'DynamicPackageMordaCtrl'
             }
         }
@@ -229,6 +230,7 @@ app.factory('cache',['$cacheFactory', function ($cacheFactory) {
     angular.extend(angular, {
         toParam: toParam
     });
+
 
     /**
      * Преобразует объект, массив или массив объектов в строку,

@@ -1,6 +1,5 @@
-﻿<html style="background-color:white;">
+<html style="background-color:white;">
 <head>
-    <link rel="stylesheet" href="http://spa.inna.travel/spa/css/common.min.css" />
 </head>
 <body>
     <form method="post" action="">
@@ -19,7 +18,7 @@
     </div>
 </div>
 
-    <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//yandex.st/jquery/1.11.0/jquery.min.js"></script>
 </body>
 </html>
 <script type="text/javascript">
@@ -38,7 +37,7 @@
     var PaReq = QueryString.getByName('PaReq');
     var TermUrl = QueryString.getByName('TermUrl');
     var MD = QueryString.getByName('MD');
-    console.log('buy frame form action url: %s, PaReq: %s, TermUrl: %s, MD: %s', actionUrl, PaReq, TermUrl, MD);
+    //console.log('buy frame form action url: %s, PaReq: %s, TermUrl: %s, MD: %s', actionUrl, PaReq, TermUrl, MD);
     $("form").attr('action', actionUrl);
     $($("input")[0]).val(PaReq);
     $($("input")[1]).val(TermUrl);

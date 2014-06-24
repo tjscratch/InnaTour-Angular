@@ -115,8 +115,9 @@
             calendars: 2,
             mode: 'range',
             starts: 1,
-            onChange: function(formated, dates)
-                { console.log(formated, dates); }
+            onChange: function(formated, dates) {
+              //console.log(formated, dates);
+             }
         });
 
     });

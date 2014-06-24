@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/build/css/main.less.css"/>
     <link rel="stylesheet" href="/build/css/common.min.css"/>
     <!--[if lt IE 9]>
-    <link rel="stylesheet" href="../css/ie.min.css"/>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
@@ -46,24 +45,40 @@
         </div>
     </div>
     <div class="header-menu">
-        <ul class="header-menu-container-items"><!--
-                -->
-            <li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
-            <!--
-                            -->
-            <li class="header-menu-item"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a>
-            </li>
-            <!--
-                            -->
-            <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru"
-                                            target="_blank"
-                                            ng-class="{active:isActive('/hotels/')}">Отели</a></li>
-            <!--
-                            -->
-            <li class="header-menu-item"><a href="/#/individualtours/"
-                                            ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
-        </ul>
+        <div class="header__container">
+            <ul class="header__nav">
+                <li><a href="/#/">Перелет&nbsp;+&nbsp;Отель</a></li>
+                <li><a href="/#/avia/">Авиабилеты</a></li>
+                <li><a href="">Туры</a></li>
+                <li><a href="/#/individualtours/">Программы</a></li>
+                <li><a href="/#/individualtours/">Отели</a></li>
+                <li><a href="/catalog/guide/" ng-class="{active:isActive('/guide/')}">Каталог стран</a></li>
+            </ul>
+            <div class="header__user">
+                <ul class="header__user-nav">
+                    <li><a href="#" class="header__user-nav-name">Денис Колесов</a></li>
+                    <li>
+                        <a href="#">
+                            <i class="icon-sprite-letter"></i>
+                            <span class="header__user-nav-counter">8</span>
+                        </a>
+                    </li>
+                    <li><a href="#">Выйти</a></li>
+                </ul>
+                <div class="header__user-company">ООО "Курочки гриль"</div>
+            </div>
+        </div>
 
+        <div class="header__container">
+            <ul class="header__nav-sec">
+                <li><a href="#" class="current">Заявки</a></li>
+                <li><a href="#">Сообщения</a></li>
+                <li><a href="#">Отчеты</a></li>
+                <li><a href="#">Финансы</a></li>
+                <li><a href="#">Настройки</a></li>
+            </ul>
+            <div class="header__price">Доступно: <span class="header__sum">167 780</span> <span class="rub">Р</span></div>
+        </div>
     </div>
 </div>
 
@@ -184,19 +199,70 @@
 
         <div class="b-result__cell result-cell">
             <img class="logo" alt="" src="../img/expedia.png">
+            <!--
+                        <div class="b-ticket_2ways buy__tickets">
+                            <div class="rlf-fly">
+                                <span class="rlf-city">Санкт-Петербург</span> LED
+                                <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                                <span class="rlf-city">Санта-Круз-де</span> TFS
+                                <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
+                            </div>
+                            <div class="rlf-fly rlf-fly_back">
+                                <span class="rlf-city">Санкт-Петербург</span> LED
+                                <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                                <span class="rlf-city">Санта-Круз-де</span> TFS
+                                <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
+                            </div>
+                        </div> -->
 
             <div class="b-ticket_2ways buy__tickets">
                 <div class="rlf-fly">
-                    <span class="rlf-city">Санкт-Петербург</span> LED
-                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                    <span class="rlf-city">Санта-Круз-де</span> TFS
-                    <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
+                    <div class="row-fluid">
+                        <div class="col-xs-5 col-no-padding row-fluid__cell">
+                            <div class="rlf__flight-block">
+                                <b>20:00</b> 26 сен, сб<br>
+                                <b>Санкт-Петербург</b> LED
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
+                            <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                        </div>
+                        <div class="col-xs-5 col-no-padding row-fluid__cell">
+                            <div class="rlf__flight-block">
+                                <b>19:50</b> 27 сен, сб<br>
+                                <b>Санта-Круз-де Тенерифе</b> TFS
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="rlf-full-travel-time">в пути: 23 часа 10 минут, 2 пересадки</div>
                 </div>
+
                 <div class="rlf-fly rlf-fly_back">
-                    <span class="rlf-city">Санкт-Петербург</span> LED
-                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                    <span class="rlf-city">Санта-Круз-де</span> TFS
-                    <div class="rlf-full-travel-time">2 пересадки, 23 ч 10 мин в пути</div>
+
+                    <div class="row-fluid">
+                        <div class="col-xs-5 col-no-padding row-fluid__cell">
+                            <div class="rlf__flight-block">
+                                <b>20:00</b> 26 сен, сб<br>
+                                <b>Санкт-Петербург</b> LED
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
+                            <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                        </div>
+                        <div class="col-xs-5 col-no-padding row-fluid__cell">
+
+                            <div class="rlf__flight-block">
+                                <b>19:50</b> 27 сен, сб<br>
+                                <b>Санта-Круз-де ТенерифеСанта-</b> TFS
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rlf-full-travel-time">в пути: 23 часа 10 минут, 2 пересадки</div>
                 </div>
             </div>
 
@@ -255,6 +321,9 @@
     </div>
 </div>
 <div class="r__time-help">Все времена прилета и вылета указаны по местному времени</div>
+
+
+<!-- buy -->
 <div class="r__buy">
     <div class="buy__fly">
         <header class="rl-item-header">
@@ -271,7 +340,7 @@
                                 class="ng-binding">Шереметьево</b> SVO
                         </div>
                     </div>
-                    <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-bottom"><span
+                    <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle"><span
                             class="rlf-fly-arrow rlf-fly-arrow_popup"></span></div>
                     <div class="col-xs-5 col-no-padding row-fluid__cell">
                         <div class="rlf__flight-block ng-binding"><b class="ng-binding">19:25</b> 17 июн, вт<br> <b
@@ -292,7 +361,7 @@
                                 class="ng-binding">Пальма-де-Майорка</b> PMI
                         </div>
                     </div>
-                    <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-bottom"><span
+                    <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle"><span
                             class="rlf-fly-arrow rlf-fly-arrow_popup"></span></div>
                     <div class="col-xs-5 col-no-padding row-fluid__cell">
                         <div class="rlf__flight-block ng-binding"><b class="ng-binding">18:15</b> 30 июн, пн<br> <b
@@ -316,9 +385,13 @@
         авиакомпании.
     </div>
 </div>
+
+
 <div class="r__booking">
     <div class="r__booking-block">Бронь <b>GHFDRT</b></div>
 </div>
+
+
 <table class="r__tickets r__tickets_ext">
     <col width="35">
     <col width="154">
@@ -359,7 +432,11 @@
         <td><a href="#" class="r__tickets-load">4378643948</a></td>
     </tr>
 </table>
+
+
 <div class="r__download"><a href="#">Скачать ваучер отеля</a> • <a href="#">Скачать весь пакет документов</a></div>
+
+
 <table class="r__tickets">
     <col width="104">
     <col width="205">
@@ -395,6 +472,8 @@
         <td></td>
     </tr>
 </table>
+
+
 <table class="r__tickets">
     <col width="104">
     <col width="205">
@@ -414,6 +493,8 @@
         <td></td>
     </tr>
 </table>
+
+
 <div class="r__container">
     <div class="r__chat">
         <div class="r__message-container">

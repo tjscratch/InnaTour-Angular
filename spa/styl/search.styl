@@ -29,6 +29,9 @@
   position relative
   float left
 
+  &.date-picker-widget
+    width : 240px
+
 .search-field-block
   width 170px
 
@@ -41,6 +44,8 @@
   box-sizing border-box
   height 48px
   color #000
+  -webkit-appearance none;
+  border-radius 0
 
 .search-field::-webkit-input-placeholder
   color #878787
@@ -116,6 +121,7 @@
   width 58px !important
   transition background-color 0.3s linear
   background url(/spa/img/i.png) no-repeat 14px -1937px #89c13a
+  cursor pointer
 
 .search-button-block:hover
 .search-button-block_small:hover

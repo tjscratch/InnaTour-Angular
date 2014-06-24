@@ -75,5 +75,14 @@ var utils = {
         };
     },
 
+    isSafari: function(){
+        var ua = navigator.userAgent.toLowerCase();
+
+        if(ua.indexOf('safari') == -1) return false;
+        if(ua.indexOf('chrome') > -1) return false;
+
+        return true;
+    },
+
     eof: null
 };

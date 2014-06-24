@@ -9,7 +9,8 @@ angular.module('innaApp.directives')
                 next: '=innaHotelDetailsNext',
                 combination: '=innaHotelDetailsBundle',
                 goReservation: '=innaHotelDetailesReservationFn',
-                getTicketDetails: '=innaHotelDetailsGetTicketDetails'
+                getTicketDetails: '=innaHotelDetailsGetTicketDetails',
+                hotelOnly: '@innaHotelDetailsHotelOnly'
             },
             controller: [
                 '$scope',
@@ -31,73 +32,7 @@ angular.module('innaApp.directives')
 
                     var map = null;
 
-                    /*Properties*/
-                    $scope.background = 'url($)'.split('$').join(
-                        backgrounds[parseInt(Math.random() * 100) % backgrounds.length]
-                    );
-
-                    $scope.showFullDescription = false;
-
-                    $scope.bundle = new inna.Models.Dynamic.Combination();
-                    $scope.bundle.setTicket($scope.combination.ticket);
-                    $scope.bundle.setHotel($scope.hotel);
-
-                    $scope.dataFullyLoaded = false;
-
-                    $scope.displayRoom = $location.search().room;
-                    $scope.onlyRoom = null;
-
-                    $scope.TAWidget = '';
-
-
-
-
-                    /*Proxy*/
-                    $scope.dateHelper = dateHelper;
-                    $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
-
-                    /*Methods*/
-                    $scope.toggleDescription = function(){
-                        $scope.showFullDescription = !$scope.showFullDescription;
-                    };
-
-                    $scope.toggleRoom = function(room){
-                        //converts undefined into boolean on the fly
-                        room.isOpen = !!!room.isOpen;
-                    };
-
-                    /*Watchers*/
-                    $scope.$watch('hotel', function(hotel){
-                        //console.log('innaHotelDetails:hotel=', hotel);
-
-                        if(!hotel) return;
-
-                        if(!hotel.data.Latitude || !hotel.data.Longitude) return;
-
-                        var point = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Longitude)
-
-                        /*map is from Private section*/
-                        map = new google.maps.Map($element.find('#hotel-details-map')[0], {
-                            zoom: 16,
-                            center: point
-                        });
-
-                        var marker = new google.maps.Marker({
-                            position: point,
-                            icon: '/spa/img/map/pin-grey.png?' + Math.random().toString(16),
-                            title: hotel.data.HotelName
-                        });
-
-                        marker.setMap(map);
-
-                        $scope.dataFullyLoaded = false;
-
-                        $scope.TAWidget = 'http://www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=' + $scope.hotel.data.HotelId;
-
-                        $scope.bundle.setHotel(hotel);
-                    });
-
-                    $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, function(){
+                    var onload = function(){
                         $scope.dataFullyLoaded = true;
 
                         if($scope.displayRoom) {
@@ -117,8 +52,81 @@ angular.module('innaApp.directives')
                             }
                         }
 
-                        $scope.$digest();
-                    })
+                        try {
+                            $scope.$digest();
+                        } catch (e) {}
+                    }
+
+                    /*Properties*/
+                    $scope.background = 'url($)'.split('$').join(
+                        backgrounds[parseInt(Math.random() * 100) % backgrounds.length]
+                    );
+
+                    $scope.showFullDescription = false;
+
+                    $scope.bundle = new inna.Models.Dynamic.Combination();
+                    $scope.bundle.setTicket($scope.combination.ticket);
+                    $scope.bundle.setHotel($scope.hotel);
+
+                    $scope.dataFullyLoaded = false;
+
+                    $scope.displayRoom = $location.search().room;
+                    $scope.onlyRoom = null;
+
+                    $scope.buyAction = ($location.search().action == 'buy');
+
+                    $scope.TAWidget = '';
+
+                    /*Proxy*/
+                    $scope.dateHelper = dateHelper;
+                    $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+
+                    /*Methods*/
+                    $scope.toggleDescription = function(){
+                        $scope.showFullDescription = !$scope.showFullDescription;
+                    };
+
+                    $scope.toggleRoom = function(room){
+                        //converts undefined into boolean on the fly
+                        room.isOpen = !!!room.isOpen;
+                    };
+
+                    /*Watchers*/
+                    $scope.$watch('hotel', function(hotel){
+                        if(!hotel) return;
+
+                        if(!$scope.buyAction && hotel.data.Latitude && hotel.data.Longitude) {
+                            $timeout(function(){
+                                var point = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Longitude)
+
+                                /*map is from Private section*/
+                                map = new google.maps.Map($element.find('#hotel-details-map')[0], {
+                                    zoom: 16,
+                                    center: point
+                                });
+
+                                var marker = new google.maps.Marker({
+                                    position: point,
+                                    icon: '/spa/img/map/pin-grey.png?' + Math.random().toString(16),
+                                    title: hotel.data.HotelName
+                                });
+
+                                marker.setMap(map);
+                            }, 100);
+                        };
+
+                        $scope.dataFullyLoaded = false;
+
+                        $scope.TAWidget = app_main.tripadvisor + $scope.hotel.data.HotelId;
+
+                        $scope.bundle.setHotel(hotel);
+
+                        if($scope.hotel.detailed) {
+                            onload();
+                        }
+                    });
+
+                    $scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, onload)
                 }
             ],
             link : function($scope, $element){

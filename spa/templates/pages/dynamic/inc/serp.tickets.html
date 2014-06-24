@@ -1,7 +1,7 @@
 <div class="results-container results-container_top"
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
-        <div ng-repeat="ticket in ticketsToDisplay = (tickets.filter(ticketFilters) | filter:{currentlyInvisible:false})"
+        <div ng-repeat="ticket in ticketsToDisplay = (tickets.filter(ticketFilters) | filter:{hidden: false})"
              inna-ticket
              ng-if="combination.ticket.data.VariantId1 != ticket.data.VariantId1">
 
@@ -19,7 +19,7 @@
                 <!-- tooltip price -->
                 <div tool-tip-price item="virtualBundle" is-ticket="true"></div>
 
-                <span class="price-description">
+                <span class="price-description" ng-if="(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) != 0">
                     экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}
                     <span class="b-rub">q</span>
                 </span>
@@ -28,7 +28,7 @@
             <span class="button" ng-click="setTicket(ticket)">Выбрать</span>
         </div>
 
-        <div ng-if="ticketsToDisplay.length == 0" class="results-list__empty results-list__empty_type_tickets">
+        <div ng-if="tickets.list.length && !ticketsToDisplay.length" class="results-list__empty results-list__empty_type_tickets">
             <p>Варианты не найдены.</p>
             <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
         </div>

@@ -1,18 +1,26 @@
-.tooltip
-  border-radius 4px
-  box-shadow 0 0 3px rgba(0,0,0,.6)
-  background #fff
-  padding 13px
-  position absolute
-  z-index: 2
+.tooltip-wrapper {
+  position: relative;
+}
 
-  &.tooltip-price_at_hotel-card
-    right : -15px;
+.tooltip {
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .6);
+  background: #fff;
+  padding: 13px;
+  position: absolute;
+  z-index: 2;
+
+  &.tooltip-price_at_hotel-card {
+    right: -15px;
     top 40px
+  }
 
+  &.tooltip-price_at_avia-card {
+    right: -2px;
+    top 115px
+  }
 
-
-  &:before
+  &:before {
     content ''
     display block
     position: absolute
@@ -24,8 +32,9 @@
     top -10px
     right 12px
     z-index: 2
+  }
 
-  &:after
+  &:after {
     content ''
     background url(/spa/img/tooltip/corner-shadow.png)
     display block
@@ -35,7 +44,40 @@
     top -12px
     right 4px
     z-index: 1
+  }
 
-.tooltip-share-link_type_ticket-popup
-    left -110px
-    bottom -30px
+  &.tooltip_right {
+    right: -220px;
+    bottom: -45px;
+    width : 230px;
+    left: auto;
+
+    &:before {
+      top: -10px;
+      right: auto;
+      left: 12px;
+    }
+
+    &:after {
+      top: -12px;
+      left: 4px;
+      right: auto;
+    }
+
+  }
+
+
+  .share-link-input {
+    border: 0;
+    background: #4d4d4d;
+    color: #fff;
+    height: 20px;
+    padding: 0 5px;
+    width: 200px;
+  }
+}
+
+.tooltip-share-link_type_ticket-popup {
+  left: -110px;
+  bottom: -30px;
+}

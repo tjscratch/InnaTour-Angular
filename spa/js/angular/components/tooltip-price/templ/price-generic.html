@@ -1,0 +1,20 @@
+<span class="icon-price-info js-show-tooltip cursor-pointer icon-sprite-price-info price-avia"></span>
+
+<div class="tooltip tooltip-price tooltip-price_at_avia-card JS-tooltip-price tooltip-price_big" style="display: none;">
+    <div class="tooltip-price__b2b">
+        <ul>
+            <li class="list-price-item" ng-repeat="item in items">
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding nowrap">
+                        {{item.name}}
+                    </div>
+                    <div class="col-xs-6 col-no-padding list-price-item__right">
+                        <span class="list-price">
+                            {{item.price | price}} <ng-include src="'components/ruble.html'"/>
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

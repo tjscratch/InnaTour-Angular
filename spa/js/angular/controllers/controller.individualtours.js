@@ -36,8 +36,7 @@ innaAppControllers.
 
             function updateModel(data) {
                 $scope.sections = data.SectionLayouts;
-                $scope.slides = data.Slider;
-                //данные для слайдера - нужны другому контроллеру
-                sharedProperties.setSlider($scope.slides);
+                //данные для слайдера
+                $scope.$broadcast('slider.set.content', data.Slider);
             }
         }]);
