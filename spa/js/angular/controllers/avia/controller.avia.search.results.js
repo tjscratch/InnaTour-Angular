@@ -120,7 +120,7 @@ innaAppControllers.
             //запрашиваем парамерты по их Url'ам
             function startLoadAndInit() {
                 //console.log('startLoadAndInit');
-                $scope.baloon.showWithCancel('Поиск вариантов', 'это займет не более 30 секунд', function () {
+                $scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', function () {
                     dataService.cancelAviaSearch();
                     $location.path(Urls.URL_AVIA);
                 });

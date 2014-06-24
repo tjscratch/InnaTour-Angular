@@ -458,7 +458,8 @@ Cvc = "486";
                     init();
                 }
                 else {
-                    $scope.baloon.show('Проверка билетов', 'Подождите пожалуйста, это может занять несколько минут');
+                    $scope.baloon.show('Подождите пожалуйста', 'Это может занять несколько секунд');
+
                     //запрос в api
                     paymentService.getPaymentData({
                         orderNum: $scope.orderNum
@@ -551,36 +552,46 @@ Cvc = "486";
                                 return m;
                             }
 
-                            $scope.reservationModel = bindApiModelToModel(data);
-                            if ($scope.reservationModel.IsService) {//сервисный сбор
-
+                            //проверяем не оплачен ли уже заказ
+                            if (data.IsPayed == true) {
+                                //уже оплачен
+                                $scope.baloon.showAlert('Заказ уже оплачен', '', function () {
+                                    $scope.baloon.hide();
+                                    $location.url(Urls.URL_ROOT);
+                                });
                             }
                             else {
-                                if (data.Hotel != null) {
-                                    setPackageTemplate();
-                                    aviaHelper.addAggInfoFields(data.Hotel);
-                                    $scope.hotel = data.Hotel;
-                                    $scope.room = data.Hotel.Room;
-                                    $scope.isBuyPage = true;
+                                $scope.reservationModel = bindApiModelToModel(data);
+                                if ($scope.reservationModel.IsService) {//сервисный сбор
+
+                                }
+                                else {
+                                    if (data.Hotel != null) {
+                                        setPackageTemplate();
+                                        aviaHelper.addAggInfoFields(data.Hotel);
+                                        $scope.hotel = data.Hotel;
+                                        $scope.room = data.Hotel.Room;
+                                        $scope.isBuyPage = true;
+                                    }
+
+                                    aviaHelper.addCustomFields(data.AviaInfo);
+                                    $scope.aviaInfo = data.AviaInfo;
+                                    $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
                                 }
 
-                                aviaHelper.addCustomFields(data.AviaInfo);
-                                $scope.aviaInfo = data.AviaInfo;
-                                $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
+                                $scope.price = $scope.reservationModel.price;
+
+                                //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
+                                console.log('reservationModel:');
+                                console.log($scope.reservationModel);
+
+                                $scope.baloon.hide();
+
+                                //aviaHelper.addCustomFields(data);
+                                //$scope.item = data;
+
+                                init();
                             }
-
-                            $scope.price = $scope.reservationModel.price;
-
-                            //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
-                            console.log('reservationModel:');
-                            console.log($scope.reservationModel);
-
-                            $scope.baloon.hide();
-
-                            //aviaHelper.addCustomFields(data);
-                            //$scope.item = data;
-
-                            init();
                         }
                         else {
                             log('paymentService.getPaymentData error, data is null');
