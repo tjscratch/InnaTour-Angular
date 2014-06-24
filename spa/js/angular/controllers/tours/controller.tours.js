@@ -1,10 +1,15 @@
-﻿
-'use strict';
+﻿'use strict';
 
 /* Controllers */
 
 innaAppControllers.
-    controller('ToursCtrl', ['$log', '$scope', '$rootScope', '$routeParams', 'dataService', 'sharedProperties',
+    controller('ToursCtrl', [
+        '$log',
+        '$scope',
+        '$rootScope',
+        '$routeParams',
+        'dataService',
+        'sharedProperties',
         function ToursCtrl($log, $scope, $rootScope, $routeParams, dataService, sharedProperties) {
             function log(msg) {
                 $log.log(msg);
@@ -22,6 +27,7 @@ innaAppControllers.
                 sliderId: QueryString.getFromUrlByName(location.href, 'sliderId'),
                 layoutOffersId: QueryString.getFromUrlByName(location.href, 'layoutOffersId')
             };
+
             dataService.getSectionTours(params, function (data) {
                 //обновляем данные
                 if (data != null) {
