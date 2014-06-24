@@ -20,19 +20,32 @@ innaAppControllers
             var MAX_HOTEL_LEN = 180;
 
             var onHotelInfoPlaceClick = function(event, hotel){
-                console.log('onHotelInfoPlaceClick', this, hotel);
+                $scope.$root.$broadcast('hotel:go-to-map', hotel);
             }
 
             var onHotelDetailsClick = function(event, hotel){
-                console.log('onHotelDetailsClick ', this, hotel);
+                $scope.$root.$broadcast('more:detail:hotel', hotel);
             }
 
             var onTooltipClick = function(event, hotel){
-                console.log('onTooltipClick ', this, hotel);
+                var tooltip = this.siblings('.JS-tooltip-price');
+
+                function closeTooltip(){
+                    tooltip.hide();
+                }
+
+                event.stopPropagation();
+                tooltip.toggle();
+
+                if(tooltip.is(':visible')) {
+                    $(document).on('click', closeTooltip);
+                } else {
+                    $(document).off('click', closeTooltip);
+                }
             }
 
             var onSetCurrentHotel = function(event, hotel){
-                console.log('onSetCurrentHotel', this, hotel);
+                $scope.$root.$broadcast(Events.DYNAMIC_SERP_CHOOSE_HOTEL, hotel);
             }
 
             var calibrate = function (list){
@@ -278,7 +291,6 @@ innaAppControllers
                     onTabLoadParam = $location.search().displayHotel;
                     defaultTab = $scope.state.HOTEL;
                 }
-
 
                 $scope.$apply(function($scope){
                     $.when($scope.state.switchTo(defaultTab))
