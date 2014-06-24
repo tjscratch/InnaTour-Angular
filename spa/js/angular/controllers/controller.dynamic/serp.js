@@ -19,10 +19,24 @@ innaAppControllers
             var isChooseHotel = null;
             var MAX_HOTEL_LEN = 180;
 
-            var calibrate = function (list, scrollTop, __now){
-                console.log('calibrate');
+            var onHotelInfoPlaceClick = function(event, hotel){
+                console.log('onHotelInfoPlaceClick', this, hotel);
+            }
 
-                if(!list.list.length) return;
+            var onHotelDetailsClick = function(event, hotel){
+                console.log('onHotelDetailsClick ', this, hotel);
+            }
+
+            var onTooltipClick = function(event, hotel){
+                console.log('onTooltipClick ', this, hotel);
+            }
+
+            var onSetCurrentHotel = function(event, hotel){
+                console.log('onSetCurrentHotel', this, hotel);
+            }
+
+            var calibrate = function (list){
+                if(!list || !list.list.length) return;
 
                 var template = $('#hotel-card')[0].innerText;
                 var html = '';
@@ -48,7 +62,27 @@ innaAppControllers
 
                 resultContainer.html(html);
 
-                //TODO EVENTS
+                resultContainer
+                    .off()
+                    .on('click', function(event){
+                        var target = $(event.target);
+                        var hotel = list.getById(target.parents('.js-result-card').data('hotel-id'));
+
+                        switch(true) {
+                            case target.hasClass('js-hotel-info-place'):
+                                onHotelInfoPlaceClick.call(target, event, hotel);
+                                break;
+                            case target.hasClass('js-hotel-item-details'):
+                                onHotelDetailsClick.call(target, event, hotel);
+                                break;
+                            case target.hasClass('js-show-tooltip'):
+                                onTooltipClick.call(target, event, hotel);
+                                break;
+                            case target.hasClass('js-set-current'):
+                                onSetCurrentHotel.call(target, event, hotel);
+                                break;
+                        }
+                    });
             };
 
 
@@ -470,29 +504,6 @@ innaAppControllers
 
                 ServiceDynamicPackagesDataProvider.search(searchParams, combination200, combination500);
             }());
-
-
-//            $(function () {
-//                var doc = $(document);
-//
-//                function onScroll(event) {
-//                    var scrollTop = utils.getScrollTop();
-//
-//                    if(utils.isSafari() || scrollTop % 3 == 0) { //'cause 3px is actually nothing
-//                        $scope.$apply(function ($scope) {
-//                            $scope.padding.scrollTop = scrollTop;
-//
-//                            calibrate($scope.hotels, $scope.padding.scrollTop);
-//                        });
-//                    }
-//                }
-//
-//                doc.on('scroll', onScroll);
-//
-//                $scope.$on('$destroy', function () {
-//                    doc.off('scroll', onScroll);
-//                })
-//            });
         }
     ])
     .controller('DynamicPackageSERPTicketPopupCtrl', [

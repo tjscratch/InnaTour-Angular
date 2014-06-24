@@ -3,12 +3,6 @@
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
         <div id="hotels-result-container"></div>
-        <!--<div ng-repeat="hotel in hotelsToDisplay = (hotels.list | filter:{currentlyInvisible: false, hidden: false})"-->
-             <!--inna-hotel-->
-             <!--ng-if="combination.hotel.data.HotelId != hotel.data.HotelId">-->
-
-            <!---->
-        <!--</div>-->
 
         <div ng-if="hotels.list.length && !hotelsToDisplay.length" class="results-list__empty results-list__empty_type_hotels">
             <p>Варианты не найдены.</p>
@@ -18,7 +12,7 @@
 </div>
 
 <script type="text/x-dummytemplate" id="hotel-card">
-    <div class="b-hotel_item b-result b-result_col_three_galary b-result_middle row b-result-content">
+    <div class="js-result-card b-hotel_item b-result b-result_col_three_galary b-result_middle row b-result-content" data-hotel-id="<%=hotel.data.HotelId%>">
         <div class="b-hotel_item-wrapper">
             <div class="b-result__cell col-no-padding">
                 <div class="hotel-gallery b-carousel">
@@ -239,7 +233,7 @@
                     <% } %>
 
                 </div>
-                <span class="button">Выбрать</span>
+                <span class="button js-set-current">Выбрать</span>
             </div>
         </div>
     </div>
