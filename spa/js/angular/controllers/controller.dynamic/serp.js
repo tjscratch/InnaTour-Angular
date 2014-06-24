@@ -187,6 +187,8 @@ innaAppControllers
                         $scope.hotels.flush();
 
                         for (var i = 0, raw = null; raw = data.Hotels[i++];) {
+                            if(!raw.HotelName) continue;
+
                             var hotel = new inna.Models.Hotels.Hotel(raw);
                             hotel.hidden = false;
                             hotel.currentlyInvisible = false;
@@ -508,7 +510,7 @@ innaAppControllers
 
             /*Initial Data fetching*/
             (function () {
-                $scope.baloon.showWithCancel('Подбор комбинаций', 'Подождите, пожалуйста', balloonCloser);
+                $scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', balloonCloser);
 
                 searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
                 searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);

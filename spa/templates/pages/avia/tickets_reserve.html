@@ -127,7 +127,7 @@
                     </div>
                     <div class="b-field-block" style="width: 150px;" ng-show="passenger.bonuscard.value.haveBonusCard == true">
                         <label class="b-field-label">Номер карты</label>
-                        <input autocomplete="off" digits-input type="text" ng-model="passenger.bonuscard.value.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
+                        <input autocomplete="off" digits-input type="text" maxlength="16" ng-model="passenger.bonuscard.value.number" class="b-field-text" placeholder="ХХХХХХХХХХХ">
                     </div>
                 </div>
             </div>

@@ -80,7 +80,7 @@ angular.module('innaApp.controllers')
         function($scope, AuthDataProvider) {
             //console.log('AuthRegistrationCtrl_Step2', $scope);
 
-            $scope.baloon.show('Завершаю регистрацию', 'Это займет несколько секунд');
+            $scope.baloon.show('Завершение регистрации', 'Это займет несколько секунд');
 
             AuthDataProvider.confirmRegistration($scope.signUpToken, function(resp){
                 $scope.safeApply(function(){
