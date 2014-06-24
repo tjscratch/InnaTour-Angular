@@ -887,7 +887,7 @@ innaAppControllers.
                 //если модель валидна - бронируем
                 if ($scope.validationModel.isModelValid()) {
 
-                    $scope.baloon.show("Бронирование авиабилетов", "Подождите пожалуйста, это может занять несколько минут");
+                    $scope.baloon.show("Бронирование авиабилетов", null);
                     //бронируем
                     $scope.reserve();
                 }
