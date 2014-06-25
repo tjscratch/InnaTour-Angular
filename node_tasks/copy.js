@@ -8,6 +8,7 @@ var _ENV_ = process.env.NODE_ENV || '';
 // Копируем в папаку publish
 gulp.task('copy-project', function () {
 
+    gulp.src(['./favicon.ico']).pipe(gulp.dest(conf.publish));
     gulp.src(['./Web.config']).pipe(gulp.dest(conf.publish));
     gulp.src(['./Web.config']).pipe(gulp.dest(conf.publish+'/build/css'));
     gulp.src(['./Web.config']).pipe(gulp.dest(conf.publish+'/build/js'));
