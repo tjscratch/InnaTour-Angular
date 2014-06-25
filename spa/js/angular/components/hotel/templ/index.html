@@ -35,7 +35,7 @@
                         <span class="icon icon-star" bo-if="hotel.data.Stars > 4"></span>
                     </div>
                     <h3 class="hotel-info-name" bo-text="hotel.data.HotelName"></h3>
-                    <a href="javascript:void(0);" class="hotel-info-place js-hotel-info-place" bo-text="hotel.data.Address"></a>
+                    <a href="javascript:void(0);" class="hotel-info-place js-hotel-info-place" bo-text="hotel.data.HotelCityName +', ' + hotel.data.Address"></a>
 
                     <div class="warning" bo-if="hotel.data.RoomCount == 1">Последний номер</div>
                 </div>
