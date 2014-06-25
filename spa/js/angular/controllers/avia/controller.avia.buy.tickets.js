@@ -327,6 +327,11 @@ Cvc = "486";
                     return app_main.staticHost + '/files/doc/offer.pdf';
                 }
             }
+            $scope.TKP = {
+                url: function () {
+                    return app_main.staticHost + '/files/doc/TCH.pdf';
+                }
+            }
 
             $scope.cancelReservation = {
                 show: function ($event) {
