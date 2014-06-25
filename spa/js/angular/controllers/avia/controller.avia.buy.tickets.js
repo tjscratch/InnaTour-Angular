@@ -237,90 +237,9 @@ Cvc = "486";
             }
             initValidateModel();
 
-            function tarifs() {
-                //log('tarifs');
-                var self = this;
+            $scope.tarifs = new $scope.helper.tarifs();
 
-                self.isOpened = false;
-
-                self.list = [];
-
-                self.fillInfo = function () {
-                    self.class = $scope.aviaInfo.CabineClass == 0 ? 'Эконом' : 'Бизнес';
-
-                    _.each($scope.aviaInfo.EtapsTo, function (etap) {
-                        self.list.push({
-                            from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
-                            num: etap.TransporterCode + '-' + etap.Number
-                        });
-                    });
-
-                    if ($scope.aviaInfo.EtapsBack != null) {
-                        _.each($scope.aviaInfo.EtapsBack, function (etap) {
-                            self.list.push({
-                                from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
-                                num: etap.TransporterCode + '-' + etap.Number
-                            });
-                        });
-                    }
-                }
-
-                self.selectedIndex = 0;
-                self.setected = null;
-                //self.class = $scope.criteria.CabinClass == 0 ? 'Эконом' : 'Бизнес';
-
-                self.tarifsData = null;
-                self.tarifItem = null;
-
-                self.tarifClick = function ($event, item) {
-                    eventsHelper.preventBubbling($event);
-                    self.setected = item;
-                    var index = self.list.indexOf(item);
-                    self.tarifItem = self.tarifsData[index];
-                }
-                self.show = function ($event) {
-                    eventsHelper.preventBubbling($event);
-                    self.selectedIndex = 0;
-                    self.setected = self.list[0];
-                    self.tarifItem = self.tarifsData[0];
-                    self.isOpened = true;
-                }
-                self.close = function ($event) {
-                    eventsHelper.preventBubbling($event);
-                    self.isOpened = false;
-                }
-            }
-            $scope.tarifs = new tarifs();
-
-            function hotelRules() {
-                var self = this;
-                self.isOpened = false;
-                self.haveData = false;
-
-                self.checkIn = null;
-                self.checkOut = null;
-                self.cancellationRules = null;
-                self.extra = null;
-
-                self.fillData = function (hotel) {
-                    self.haveData = true;
-                    self.checkIn = hotel.CheckInTime;
-                    self.checkOut = hotel.CheckOutTime;
-                    self.cancellationRules = hotel.Room.CancellationRule;
-                    self.extra = hotel.Amenities.Amenity_3;
-                    console.log(self);
-                }
-
-                self.show = function ($event) {
-                    eventsHelper.preventBubbling($event);
-                    self.isOpened = true;
-                }
-                self.close = function ($event) {
-                    eventsHelper.preventBubbling($event);
-                    self.isOpened = false;
-                }
-            }
-            $scope.hotelRules = new hotelRules();
+            $scope.hotelRules = new $scope.helper.hotelRules();
 
             $scope.oferta = {
                 url: function () {
@@ -666,7 +585,7 @@ Cvc = "486";
                 }
                 else {
                     loadTarifs();
-                    $scope.tarifs.fillInfo();
+                    $scope.tarifs.fillInfo($scope.aviaInfo);
                 }
                 $scope.focusControl.init();
                 $scope.paymentDeadline.setUpdate();

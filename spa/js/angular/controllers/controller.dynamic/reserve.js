@@ -83,8 +83,8 @@
                         }
                         $scope.addition = new addition();
 
-                        //console.log('data:');
-                        //console.log(data);
+                        console.log('data:');
+                        console.log(data);
                         //дополняем полями 
                         aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
                         $scope.item = data.RecommendedPair.AviaInfo;
@@ -118,6 +118,13 @@
                             }
                             return qData;
                         }
+
+                        //грузим тарифы
+                        $scope.loadTarifs($scope.item.VariantId1, $scope.item.VariantId2, data.RecommendedPair.AviaInfo);
+
+                        //правила отмены отеля
+                        $scope.hotelRules.fillData(data.RecommendedPair.Hotel);
+
                         //проверяем, что остались билеты для покупки
                         paymentService.packageCheckAvailability(getCheckParams(),
                             function (data) {

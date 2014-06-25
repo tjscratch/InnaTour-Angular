@@ -28,6 +28,23 @@ innaAppControllers.
             $scope.sexType = aviaHelper.sexType;
             $scope.helper = aviaHelper;
 
+            $scope.tarifs = new $scope.helper.tarifs();
+
+            $scope.hotelRules = new $scope.helper.hotelRules();
+
+            $scope.loadTarifs = function (variantTo, varianBack, aviaInfo) {
+                paymentService.getTarifs({ variantTo: variantTo, varianBack: varianBack },
+                    function (data) {
+                        console.log('\npaymentService.getTarifs, data:');
+                        console.log(data);
+                        $scope.tarifs.tarifsData = data;
+                        $scope.tarifs.fillInfo(aviaInfo);
+                    },
+                    function (data, status) {
+                        log('paymentService.getTarifs error');
+                    });
+            }
+
             $scope.login = {
                 isOpened: false,
                 isLogged: false,
