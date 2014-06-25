@@ -74,15 +74,15 @@ innaAppControllers.
 
             $scope.getLength = function () {
                 var len = $scope.ticketsList != null ? $scope.ticketsList.length : 0;
-                if ($scope.recomendedItem != null)
-                    len++;
+                //if ($scope.recomendedItem != null)
+                //    len++;
                 return len;
             }
 
             $scope.getFilteredLength = function () {
                 var len = $scope.filteredTicketsList != null ? $scope.filteredTicketsList.length : 0;
-                if ($scope.recomendedItem != null)
-                    len++;
+                //if ($scope.recomendedItem != null)
+                //    len++;
                 return len;
             }
 
