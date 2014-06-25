@@ -1,4 +1,5 @@
-<div class="b-result b-result_middle-180 b-result_flight-info row row_separator b-result-content">
+<div class="b-result b-result_flight-info row row_separator b-result-content"
+        ng-class="{'b-result_middle-130':!item.BackArrivalDate, 'b-result_middle-180':item.BackArrivalDate}">
     <div class="b-result__cell  col-xs-9"
          ng-click="popupItemInfo.show($event, item, criteria, searchId)">
 
