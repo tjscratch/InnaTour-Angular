@@ -166,8 +166,7 @@ innaAppControllers.
                         self.list.unshift({ name: "По доходности", sort: avia.sortType.byAgencyProfit });
                         self.sortType = avia.sortType.byAgencyProfit;
                     }
-                    else
-                    {
+                    else {
                         self.sortType = avia.sortType.byRecommend;
                     }
                     self.reverse = false;
@@ -202,11 +201,12 @@ innaAppControllers.
                     $scope.filteredTicketsList = null;
 
                     var searchCriteria = angular.copy($scope.criteria);
-                    if (searchCriteria.PathType == 1)//только туда
-                    {
+
+                    if (searchCriteria.PathType == 1) { //только туда
                         //нужно передать только дату туда
                         searchCriteria.EndDate = null;
                     }
+
                     dataService.startAviaSearch(searchCriteria, function (data) {
                         $scope.safeApply(function () {
                             //обновляем данные
@@ -407,22 +407,20 @@ innaAppControllers.
 
             function updateModel(data) {
                 //log('updateModel');
-                
-                if (data != null && data.Items != null && data.Items.length > 0) {
-                    var list = [];
-                    var recommendedList = [];
-                    var recomendedItem = null;
+                //console.log(data, 'sdhfjsgdfj');
+
+
+                var list = [];
+                var recommendedList = [];
+                var recomendedItem = null;
+
+                if (data && data.Items) {
 
                     //id поиска
                     $scope.searchId = data.QueryId;
 
-                    //var profit = 0;
-
                     //в этих полях дата будет в миллисекундах
-                    for (var i = 0; i < data.Items.length; i++) {
-                        var item = data.Items[i];
-
-                        //debug
+                    data.Items.forEach(function (item) {
                         //item.PriceDetails.Profit = profit++;
 
                         //нужно добавить служебные поля для сортировки по датам и т.д.
@@ -454,6 +452,7 @@ innaAppControllers.
                                 item.PriceDetailsTooltipData.push({ name: 'Доход', price: item.PriceDetails.Profit });
                             }
                         }
+
                         addTooltipData(item);
 
                         if (item.IsRecomendation) {
@@ -463,13 +462,16 @@ innaAppControllers.
                         else {
                             list.push(item);
                         }
-                    }
+                    });
+
+
 
                     function getRecommended() {
                         //находим рекомендованный - первый из сортировки по рейтингу INNA.RU - по рекомендованности (по умолчанию), затем по дате/времени отправления ТУДА, затем по дате/времени отправления ОБРАТНО
                         var min = { item: null, factor: Number.MAX_VALUE };
 
-                        _.each(recommendedList, function (item) {
+
+                        recommendedList.forEach(function (item) {
                             if (item.RecommendedFactor < min.factor) {
                                 min.item = item;
                                 min.factor = item.RecommendedFactor;
@@ -485,7 +487,8 @@ innaAppControllers.
                     //console.log(recomendedItem);
 
                     //добавляем к списку остальные рекомендованные
-                    _.each(recommendedList, function (item) {
+
+                    recommendedList.forEach(function (item) {
                         if (item != recomendedItem) {
                             list.push(item);
                         }
@@ -1040,18 +1043,18 @@ innaAppControllers.
                     }
                 });
 
-                $(window).on('scroll', function onWindowScroll(){
+                $(window).on('scroll', function onWindowScroll() {
                     var scrollTop = utils.getScrollTop();
                     var filters = $('.filters__body');
                     var FIXED_CLASS = 'filters__body_position_fixed';
 
-                    if(scrollTop > 206) {
+                    if (scrollTop > 206) {
                         filters.addClass(FIXED_CLASS);
                     } else {
                         filters.removeClass(FIXED_CLASS);
                     }
 
-                    $scope.$on('$destroy', function(){
+                    $scope.$on('$destroy', function () {
                         $(window).off('scroll', onWindowScroll);
                     })
                 });
