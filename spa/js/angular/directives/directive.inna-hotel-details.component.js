@@ -95,7 +95,7 @@ angular.module('innaApp.directives')
                     $scope.$watch('hotel', function(hotel){
                         if(!hotel) return;
 
-                        if(!$scope.buyAction && hotel.data.Latitude && hotel.data.Longitude) {
+                        if(hotel.data.Latitude && hotel.data.Longitude) {
                             $timeout(function(){
                                 var point = new google.maps.LatLng(hotel.data.Latitude, hotel.data.Longitude)
 
