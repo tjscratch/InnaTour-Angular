@@ -35,10 +35,10 @@
                     var y = parseInt(dParts[2], 10);
 
                     var day = parseInt(dParts[0], 10);
-                    if (!(day >= 1 && y <= 31))
+                    if (!(day >= 1 && day <= 31))
                         throw error;
                     var month = parseInt(dParts[1], 10);
-                    if (!(month >= 1 && y <= 12))
+                    if (!(month >= 1 && month <= 12))
                         throw error;
 
                     var today = new Date();
