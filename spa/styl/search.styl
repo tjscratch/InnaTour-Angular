@@ -92,10 +92,21 @@
 
 .search-date-block
   width 179px
+  position : relative;
+
+
+  &:after {
+    @extend .icon-sprite-calendar;
+    content: '';
+    position absolute;
+    right : 5px;
+    top: 50%;
+    margin-top : -8px;
+  }
 
 .search-date
   padding 0 28px 0 10px
-  background url(/spa/img/i.png) no-repeat right 5px top -1813px #fff
+  //background url(/spa/img/i.png) no-repeat right 5px top -1813px #fff
 
 .search-button-block
   border-left 1px solid #1c1c1c
@@ -394,3 +405,12 @@
       position absolute
       left 12px
       top 11px
+
+
+.tours-calendar-input {
+  position : absolute;
+  top:0;
+  left :0;
+  right :0;
+  bottom:0;
+}
