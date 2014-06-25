@@ -10,24 +10,13 @@
         <div class="main__center" ng-if="!reservationModel.IsService">
             <ng:include src="objectToReserveTemplate" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
 
-            <!--<div class="results-list_960">
-                <div class="b-result b-result_col_two b-result_pay result row buy__fly buy__fly_footer">
-                    <div class="b-result__cell result-cell" style="background: none;">
-                        <div class="bottom-actions">
-                            <a class="pull-right" href="#" ng-click="tarifs.show($event)">Условия тарифов</a>
-                        </div>
-                    </div>
-                    <div class="b-result__cell result-cell" style="background: none;">
-                        <div class="bottom-actions">
-                            <a class="pull-right" href="#" ng-click="hotelRules.show($event)">Условия и правила по отелю</a>
-                        </div>
-                    </div>
+            <div class="r__booking">
+                <div class="r__booking-block">
+                    <a class="r__booking-link" href="" ng-click="tarifs.show($event)">Условия тарифов</a>
                 </div>
-            </div>-->
-            <div class="buy-tarif-block" ng-if="hotelRules.haveData">
-                &nbsp;
-                <!--<a href="#" style="margin-left: 349px;" ng-click="tarifs.show($event)">Условия тарифов</a>
-                <a href="#" style="margin-left: 290px;" ng-click="hotelRules.show($event)">Условия и правила по отелю</a>-->
+                <div class="r__booking-block">
+                    <a class="r__booking-link" href="" ng-click="hotelRules.show($event)">Условия и правила по отелю</a>
+                </div>
             </div>
 
             <header class="buy__header">
