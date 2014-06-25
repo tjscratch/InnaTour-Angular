@@ -803,7 +803,7 @@ Cvc = "486";
             //        log('paymentService.payCheck, data: ' + angular.toJson(data));
             //        //data = true;
             //        if (data != null) {
-            //            if (data == 1 || data == 2) {
+            //            if (data.Result == 1 || data.Result == 2) {
             //                //прекращаем дергать
             //                $interval.cancel(intCheck);
 
@@ -812,7 +812,7 @@ Cvc = "486";
             //                    $scope.buyFrame.hide();
             //                }
 
-            //                if (data == 1) {
+            //                if (data.Result == 1) {
             //                    $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту\n' + $scope.reservationModel.Email,
             //                    aviaHelper.baloonType.success, function () {
             //                        $location.path(Urls.URL_AVIA);
@@ -828,7 +828,7 @@ Cvc = "486";
             //                        }
             //                    });
             //                }
-            //                else if (data == 2) {
+            //                else if (data.Result == 2) {
             //                    $scope.baloon.showGlobalAviaErr();
             //                }
             //            }
@@ -852,9 +852,9 @@ Cvc = "486";
                             try
                             {
                                 log('paymentService.payCheck, data: ' + angular.toJson(data));
-                                //data = true;
-                                if (data != null) {
-                                    if (data == 1 || data == 2 || data == '1' || data == '2') {
+                                //data = { Result: 1 };
+                                if (data != null ) {
+                                    if (data.Result == 1 || data.Result == 2) {
                                         //прекращаем дергать
                                         $interval.cancel(intCheck);
 
@@ -863,7 +863,7 @@ Cvc = "486";
                                             $scope.buyFrame.hide();
                                         }
 
-                                        if (data == 1 || data == '1') {
+                                        if (data.Result == 1) {
                                             $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
                                             aviaHelper.baloonType.success, function () {
                                                 $location.path(Urls.URL_AVIA);
@@ -879,7 +879,7 @@ Cvc = "486";
                                                 }
                                             });
                                         }
-                                        else if (data == 2 || data == '2') {
+                                        else if (data.Result == 2) {
                                             $scope.baloon.showGlobalAviaErr();
                                         }
                                     }
