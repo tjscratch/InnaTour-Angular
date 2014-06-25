@@ -87,6 +87,8 @@
                 <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
                 <a ng-if="!isBuyPage" ng-href="#" class="pull-right"
                    ng-click="popupItemInfo.show($event, item, null, null, true)">Подробнее</a>
+
+                <a href="#" ng-if="hotelRules.haveData" href="#" class="buy-tarif-link" ng-click="tarifs.show($event)">Условия тарифов</a>
             </div>
             <!-- separator -->
             <div class="b-result-cell__gap">
@@ -123,6 +125,8 @@
             <div class="bottom-actions">
                 <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
                 <a ng-if="!isBuyPage" ng-href="{{getHotelInfoLink(item.VariantId1, hotel.HotelId)}}" class="pull-right">Подробнее</a>
+                
+                <a ng-if="hotelRules.haveData" href="#" class="buy-tarif-link" ng-click="hotelRules.show($event)">Условия и правила по отелю</a>
             </div>
         </div>
 

@@ -292,6 +292,36 @@ Cvc = "486";
             }
             $scope.tarifs = new tarifs();
 
+            function hotelRules() {
+                var self = this;
+                self.isOpened = false;
+                self.haveData = false;
+
+                self.checkIn = null;
+                self.checkOut = null;
+                self.cancellationRules = null;
+                self.extra = null;
+
+                self.fillData = function (hotel) {
+                    self.haveData = true;
+                    self.checkIn = hotel.CheckInTime;
+                    self.checkOut = hotel.CheckOutTime;
+                    self.cancellationRules = hotel.Room.CancellationRule;
+                    self.extra = hotel.Amenities.Amenity_3;
+                    console.log(self);
+                }
+
+                self.show = function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    self.isOpened = true;
+                }
+                self.close = function ($event) {
+                    eventsHelper.preventBubbling($event);
+                    self.isOpened = false;
+                }
+            }
+            $scope.hotelRules = new hotelRules();
+
             $scope.oferta = {
                 url: function () {
                     return app_main.staticHost + '/files/doc/offer.pdf';
@@ -572,6 +602,9 @@ Cvc = "486";
                                         $scope.hotel = data.Hotel;
                                         $scope.room = data.Hotel.Room;
                                         $scope.isBuyPage = true;
+
+                                        //правила отмены отеля
+                                        $scope.hotelRules.fillData(data.Hotel);
                                     }
 
                                     aviaHelper.addCustomFields(data.AviaInfo);
@@ -816,7 +849,7 @@ Cvc = "486";
                                 log('paymentService.payCheck, data: ' + angular.toJson(data));
                                 //data = true;
                                 if (data != null) {
-                                    if (data == 1 || data == 2) {
+                                    if (data == 1 || data == 2 || data == '1' || data == '2') {
                                         //прекращаем дергать
                                         $interval.cancel(intCheck);
 
@@ -825,7 +858,7 @@ Cvc = "486";
                                             $scope.buyFrame.hide();
                                         }
 
-                                        if (data == 1) {
+                                        if (data == 1 || data == '1') {
                                             $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
                                             aviaHelper.baloonType.success, function () {
                                                 $location.path(Urls.URL_AVIA);
@@ -841,7 +874,7 @@ Cvc = "486";
                                                 }
                                             });
                                         }
-                                        else if (data == 2) {
+                                        else if (data == 2 || data == '2') {
                                             $scope.baloon.showGlobalAviaErr();
                                         }
                                     }

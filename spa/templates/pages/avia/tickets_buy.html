@@ -10,6 +10,26 @@
         <div class="main__center" ng-if="!reservationModel.IsService">
             <ng:include src="objectToReserveTemplate" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
 
+            <!--<div class="results-list_960">
+                <div class="b-result b-result_col_two b-result_pay result row buy__fly buy__fly_footer">
+                    <div class="b-result__cell result-cell" style="background: none;">
+                        <div class="bottom-actions">
+                            <a class="pull-right" href="#" ng-click="tarifs.show($event)">Условия тарифов</a>
+                        </div>
+                    </div>
+                    <div class="b-result__cell result-cell" style="background: none;">
+                        <div class="bottom-actions">
+                            <a class="pull-right" href="#" ng-click="hotelRules.show($event)">Условия и правила по отелю</a>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="buy-tarif-block" ng-if="hotelRules.haveData">
+                &nbsp;
+                <!--<a href="#" style="margin-left: 349px;" ng-click="tarifs.show($event)">Условия тарифов</a>
+                <a href="#" style="margin-left: 290px;" ng-click="hotelRules.show($event)">Условия и правила по отелю</a>-->
+            </div>
+
             <header class="buy__header">
                 <h2 class="buy__title">Информация о покупателе</h2>
             </header>
@@ -174,7 +194,7 @@
 <!-- Search Results -->
 
 <!-- Baloon -->
-<div style="display: block" class="overlay js-overlay" ng-show="tarifs.isOpened">
+<div style="display: block" class="overlay js-overlay" ng-if="tarifs.isOpened">
     <div class="balloon balloon_medium">
         <div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>
         <div class="b__rules-container">
@@ -202,6 +222,38 @@
     <div class="balloon balloon_medium" style="padding: 0px; height: 430px; width: 960px; margin-left: -480px;">
         <!--<div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>-->
         <iframe id="buy_frame_main" ng-src="{{buyFrame.iframeUrl}}" ng-if="buyFrame.iframeUrl != null" style="width:100%; height: 100%;"></iframe>
+    </div>
+</div>
+<!-- /Baloon -->
+
+<!-- Baloon cancel hotel -->
+<div style="display: block" class="overlay js-overlay" ng-if="hotelRules.isOpened">
+    <div class="balloon balloon_ticket">
+        <div title="Закрыть" class="balloon-close" ng-click="hotelRules.close($event)"></div>
+        <h3 class="balloon__title">Условия и правила по отелю</h3>
+        <div class="balloon__text-block">
+            <h4 class="balloon__title-sec">Условия заселения</h4>
+            <ul class="balloon__list">
+                <li>Заезд: до {{hotelRules.checkIn}}</li>
+                <li>Выезд: до {{hotelRules.checkOut}}</li>
+            </ul>
+        </div>
+        <div class="balloon__text-block">
+            <h4 class="balloon__title-sec">Правила отмены</h4>
+            <!--<ul class="balloon__list">
+                <li>В случае отмены или изменения бронирования в срок до 1 суток до даты заезда 
+штраф не взимается.</li>
+                <li>В случае отмены или изменения бронирования позднее этого срока или в случае 
+незаезда взимается 100 процентов от стоимости первой ночи проживания.</li>
+            </ul>-->
+            <p ng-bind-html="hotelRules.cancellationRules | breakFilter"></p>
+        </div>
+        <div class="balloon__text-block">
+            <h4 class="balloon__title-sec">Дополнительно</h4>
+            <ul class="balloon__list">
+                <li ng-repeat="item in hotelRules.extra.List">{{item}}</li>
+            </ul>
+        </div>
     </div>
 </div>
 <!-- /Baloon -->
