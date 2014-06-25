@@ -6,7 +6,7 @@
         <div class="buy__warning" ng-if="visaNeeded || visaNeeded_rules">
             <div ng-if="visaNeeded">Требуется виза.</div>
             <div ng-if="visaNeeded_rules">Обратите внимание на визовые правила
-                <span ng-if="cautionCountries.length > 0"> в странах: <span ng-repeat="c in cautionCountries">{{c}}<span ng-if="!($last)">, </span></span></span>.</div>
+                <span ng-if="cautionCountries.length > 0"> в странах: <span ng-repeat="c in cautionCountries">{{c}}<span ng-if="!($last)">,&nbsp;</span></span></span>.</div>
         </div>
 
         <header class="buy__header">
