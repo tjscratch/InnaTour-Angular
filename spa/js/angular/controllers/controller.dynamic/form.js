@@ -195,6 +195,23 @@ innaAppControllers
                 try {
                     validate();
                     //if ok
+
+                    var today = +(new Date());
+                    var begin = Date.fromDDMMYY($scope.dateBegin);
+                    var end = Date.fromDDMMYY($scope.dateEnd);
+
+                    var beforeStart = parseInt((begin - today) / 86400000); //days
+                    var duration = parseInt((end - begin) / 86400000); //days
+
+                    //half of a year
+                    //or
+                    //longer then 30 days
+                    if(beforeStart >= 30 * 6 || duration > 30) {
+                        $scope.baloon.showErr('Ограницения бронирования', 'Бронирование возможно не ранее, чем за 6 месяцев до планируемого путешествия и продолжительность путешествия не более 30 дней.');
+
+                        throw 1;
+                    }
+
                     var o = {
                         ArrivalId: $scope.toCurrent,
                         DepartureId: $scope.fromCurrent,
