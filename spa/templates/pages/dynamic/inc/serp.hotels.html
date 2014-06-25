@@ -40,7 +40,7 @@
                             <% } %>
                         </div>
                         <h3 class="hotel-info-name"><%=hotel.data.HotelName%></h3>
-                        <a href="javascript:void(0);" class="hotel-info-place js-hotel-info-place"><%=hotel.data.Address%></a>
+                        <a href="javascript:void(0);" class="hotel-info-place js-hotel-info-place"><%=hotel.data.HotelCityName%>, <%=hotel.data.Address%></a>
 
                         <% if(hotel.data.RoomCount == 1) { %><div class="warning">Последний номер</div><% } %>
                     </div>
