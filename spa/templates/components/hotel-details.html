@@ -48,10 +48,10 @@
                             <div ng-bind-html="section.Content"></div>
                         </div>
                         <p>
-                            <b>Подробные сведения</b><br/>
-                            <b>Время прибытия</b> <span ng-bind="hotel.detailed.Hotel.CheckInTime"></span>
+                            <b>Подробные сведения</b><br/><br/>
+                            <b>Время прибытия:</b> <span ng-bind="hotel.detailed.Hotel.CheckInTime"></span>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <b>Выезд</b> <span ng-bind="hotel.detailed.Hotel.CheckOutTime"></span>
+                            <b>Выезд:</b> <span ng-bind="hotel.detailed.Hotel.CheckOutTime"></span>
                         </p>
                     </div>
                     <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
