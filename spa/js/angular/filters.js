@@ -25,7 +25,7 @@ innaAppFilters.filter('arrayFirst', function () {
 
 innaAppFilters.filter('breakFilter', function () {
     return function (text) {
-        if (text !== undefined) return text.replace(/\n/g, '<br />');
+        if (text != null) return text.replace(/\n/g, '<br />');
     };
 });
 

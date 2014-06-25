@@ -1,10 +1,17 @@
-﻿
-'use strict';
+﻿'use strict';
 
 /* Controllers */
 
 innaAppControllers.
-    controller('ToursFormCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService', 'urlHelper',
+    controller('ToursFormCtrl', [
+        '$log',
+        '$scope',
+        '$rootScope',
+        '$routeParams',
+        '$filter',
+        '$location',
+        'dataService',
+        'urlHelper',
         function ToursFormCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, urlHelper) {
             function log(msg) {
                 $log.log(msg);
@@ -40,7 +47,7 @@ innaAppControllers.
                 },
                 function (data, status) {
                 });
-            
+
             //откуда
             $scope.form.from = fromList[0];
             $scope.form.fromIsOpen = false;
@@ -91,15 +98,14 @@ innaAppControllers.
                     $(".Calendar-input").datepicker("hide");
                     $(".Calendar-input").blur();
                 }
-                else
-                {
+                else {
                     $(".Calendar-input").datepicker("show");
                     $(".Calendar-input").focus();
                 }
 
                 preventBubbling($event);
             };
-            
+
             var nightsList = [
                 new nightItem("до 5 ночей", 1, 5),
                 new nightItem("5-7 ночей", "5", "7"),
@@ -157,7 +163,7 @@ innaAppControllers.
             $rootScope.addBodyClickListner('tours.form', bodyClick);
 
             //обработчик клика на body
-            function bodyClick(){
+            function bodyClick() {
                 //log('tours.form bodyClick');
                 closeAllPopups();
             }
@@ -170,8 +176,7 @@ innaAppControllers.
                 if (skipClose != skipCloseType.to)
                     $scope.form.toList = null;
 
-                if (skipClose != skipCloseType.date)
-                {
+                if (skipClose != skipCloseType.date) {
                     $(".Calendar-input").datepicker("hide");
                     $(".Calendar-input").blur();
                 }
@@ -303,7 +308,9 @@ innaAppControllers.
                             //пришел ответ
                             var toList = [];
                             //маппим объекты
-                            _.each(data, function (item) { toList.push(new toItemData(item)) });
+                            _.each(data, function (item) {
+                                toList.push(new toItemData(item))
+                            });
                             //ищем объект нужного типа
                             var toItem = _.find(toList, function (item) {
                                 return item.type == toType;
@@ -323,8 +330,7 @@ innaAppControllers.
                     $scope.form.beginDate = date;
                     $scope.form.beginDateIntervalChecked = false;
                 }
-                else
-                {//диапазон дат
+                else {//диапазон дат
                     var dateFrom = dateHelper.sletatDateToDate(QueryString.getByName('date1'));
                     var dateTo = dateHelper.sletatDateToDate(QueryString.getByName('date2'));
 
@@ -416,7 +422,9 @@ innaAppControllers.
                             if (data != null && data.length > 0) {
                                 var toList = [];
                                 //маппим объекты
-                                _.each(data, function (item) { toList.push(new toItemData(item)) });
+                                _.each(data, function (item) {
+                                    toList.push(new toItemData(item))
+                                });
                                 $scope.form.toList = toList;
 
                                 //устанавливаем первый - выбранным
@@ -465,7 +473,9 @@ innaAppControllers.
                 getCountryDelayed($scope);
             }, 300);
             var getCountryDelayed = function ($scope) {
-                $scope.$apply(function () { getCountry($scope); });
+                $scope.$apply(function () {
+                    getCountry($scope);
+                });
             };
 
             //откуда
@@ -581,8 +591,7 @@ innaAppControllers.
                 }
                 else if ($event.keyCode == 13) {//enter
                     var ind = $scope.form.toListSelectedIndex;
-                    if ($scope.form.toList == null)
-                    {
+                    if ($scope.form.toList == null) {
                         //сразу ищем
                         if ($scope.form.toText != "" && $scope.form.toText.length > 0) {
                             $scope.goFindTours();
@@ -629,7 +638,7 @@ innaAppControllers.
 
                     preventBubbling($event);
                 }
-                
+
             };
 
             $scope.toChange = function () {
@@ -748,7 +757,7 @@ innaAppControllers.
                 $scope.form.toText = $scope.form.toTextGetText($scope.form.to);
 
                 saveParamsToCookie();
-                
+
 
                 ///tours/?STA=1&country=119&city=1271&resorts=&hotels=&stars=&meals=&adults=2&kids=0&kids_ages=&currency=RUB&price_min=&price_max=&date=24/02/2014&nights_min=7&nights_max=7&three_day=1
 
@@ -775,8 +784,7 @@ innaAppControllers.
                 var isDateIntervalChecked = $scope.form.beginDateIntervalChecked;
                 var dateFrom = null;
                 var dateTo = null;
-                if (isDateIntervalChecked)
-                {
+                if (isDateIntervalChecked) {
                     var jsDateFrom = dateHelper.dateToJsDate(angular.copy($scope.form.beginDate));
                     var jsDateTo = dateHelper.dateToJsDate(angular.copy($scope.form.beginDate));
                     jsDateFrom.setDate(jsDateFrom.getDate() - DATE_INTERVAL_DAYS);

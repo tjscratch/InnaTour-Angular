@@ -74,15 +74,15 @@ innaAppControllers.
 
             $scope.getLength = function () {
                 var len = $scope.ticketsList != null ? $scope.ticketsList.length : 0;
-                if ($scope.recomendedItem != null)
-                    len++;
+                //if ($scope.recomendedItem != null)
+                //    len++;
                 return len;
             }
 
             $scope.getFilteredLength = function () {
                 var len = $scope.filteredTicketsList != null ? $scope.filteredTicketsList.length : 0;
-                if ($scope.recomendedItem != null)
-                    len++;
+                //if ($scope.recomendedItem != null)
+                //    len++;
                 return len;
             }
 
@@ -210,15 +210,7 @@ innaAppControllers.
                     dataService.startAviaSearch(searchCriteria, function (data) {
                         $scope.safeApply(function () {
                             //обновляем данные
-                            if (data != null) {
-                                //log('data: ' + angular.toJson(data));
-                                updateModel(data);
-                            }
-                            else {
-                                $scope.baloon.showErr('Ничего не найдено', 'Попробуйте поискать на другие даты, направления', function () {
-                                    $location.path(Urls.URL_AVIA);
-                                });
-                            }
+                            updateModel(data);
                         });
                     }, function (data, status) {
                         $scope.safeApply(function () {
@@ -415,7 +407,7 @@ innaAppControllers.
 
             function updateModel(data) {
                 //log('updateModel');
-
+                
                 if (data != null && data.Items != null && data.Items.length > 0) {
                     var list = [];
                     var recommendedList = [];
@@ -508,7 +500,7 @@ innaAppControllers.
                 else {
                     $scope.ticketsList = [];
                     log('updateModel - nothing to update, data is empty');
-                    $scope.baloon.showErr('К сожалению, ничего не нашлось', 'Попробуйте выбрать другие даты', function () {
+                    $scope.baloon.showNotFound(function () {
                         $location.path(Urls.URL_AVIA);
                     });
                     $scope.isDataLoading = false;

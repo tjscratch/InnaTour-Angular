@@ -26,11 +26,11 @@
             </div>
         </div>
 
-        <div class="hotel-details__section" ng-if="!buyAction && hotel.data.Photos.length">
+        <div class="hotel-details__section" ng-if="hotel.data.Photos.length">
             <div inna-gallery inna-gallery-pic-list="hotel.data.Photos"></div>
         </div>
 
-        <div class="hotel-details__section" ng-if="!buyAction && hotel.detailed.Hotel.Description">
+        <div class="hotel-details__section" ng-if="hotel.detailed.Hotel.Description">
             <div class="hotel-details__section-box">
                 <h2 class="hotel-details__section-title">Об отеле</h2>
                 <div class="hotel-details__section-text">
@@ -47,6 +47,12 @@
                             <!--<h4>{{section.Title}}</h4>-->
                             <div ng-bind-html="section.Content"></div>
                         </div>
+                        <p>
+                            <b>Подробные сведения</b><br/><br/>
+                            <b>Время прибытия:</b> <span ng-bind="hotel.detailed.Hotel.CheckInTime"></span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <b>Выезд:</b> <span ng-bind="hotel.detailed.Hotel.CheckOutTime"></span>
+                        </p>
                     </div>
                     <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
                     <div class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</div>
@@ -58,7 +64,7 @@
             </div>
         </div>
 
-        <div class="hotel-details__section" ng-if="!buyAction">
+        <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">{{hotel.data.HotelCityName}}, {{hotel.data.Address}}</h2>
             <div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
                 <div id="hotel-details-map"></div>
@@ -93,7 +99,7 @@
             </ul>
         </div>
 
-        <div class="hotel-details__section" ng-if="!buyAction">
+        <div class="hotel-details__section">
             <div class="hotel-details-resume">
                 <div class="hotel-details-resume__section hotel-details-resume__section_{{key}}" ng-repeat="(key, cat) in hotel.detailed.Hotel.Amenities">
                     <h4 class="hotel-details-resume__section-title">{{cat.CategoryName}}</h4>
@@ -105,7 +111,7 @@
         </div>
 
 
-        <div class="b-tripadvisor-widget-iframe" ng-if="!buyAction">
+        <div class="b-tripadvisor-widget-iframe">
             <iframe
                     class="iframe_widget"
                     name="tripadvisor"
