@@ -216,7 +216,7 @@
                 <li>Выезд: до {{hotelRules.checkOut}}</li>
             </ul>
         </div>
-        <div class="balloon__text-block">
+        <div class="balloon__text-block" ng-if="hotelRules.cancellationRules != null && hotelRules.cancellationRules.length > 0">
             <h4 class="balloon__title-sec">Правила отмены</h4>
             <!--<ul class="balloon__list">
                 <li>В случае отмены или изменения бронирования в срок до 1 суток до даты заезда 
@@ -226,7 +226,7 @@
             </ul>-->
             <p ng-bind-html="hotelRules.cancellationRules | breakFilter"></p>
         </div>
-        <div class="balloon__text-block">
+        <div class="balloon__text-block" ng-if="hotelRules.extra.List.length > 0">
             <h4 class="balloon__title-sec">Дополнительно</h4>
             <ul class="balloon__list">
                 <li ng-repeat="item in hotelRules.extra.List">{{item}}</li>
