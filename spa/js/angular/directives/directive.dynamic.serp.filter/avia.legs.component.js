@@ -6,7 +6,8 @@ angular.module('innaApp.directives')
                 template: $templateCache.get('components/dynamic-serp-filter/avia.legs.html'),
                 scope: {
                     tickets: '=innaDynamicSerpFilterAviaLegsTickets',
-                    filters: '=innaDynamicSerpFilterAviaLegsFilters'
+                    filters: '=innaDynamicSerpFilterAviaLegsFilters',
+                    bundle: '=innaDynamicSerpFilterAviaLegsBundle'
                 },
                 controller: [
                     '$scope', 'innaApp.API.events', '$element', '$controller',
@@ -68,7 +69,7 @@ angular.module('innaApp.directives')
 
                                 if(tickets.size()) {
                                     option.shown = true;
-                                    option.minPrice = tickets.getMinPrice();
+                                    option.minPrice = tickets.getMinPrice($scope.bundle);
                                 }
                             });
 
