@@ -1,4 +1,4 @@
-﻿﻿<header class="buy__header">
+﻿<header class="buy__header">
     <h2 class="buy__title">Оплата авиабилетов</h2>
     <a ng-if="goBackUrl().length > 0" ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой билет</a>
     <div class="buy__header-price">Стоимость заказа: <b>{{price| price}} <ng-include src="'components/ruble.html'" /></b></div>
@@ -66,7 +66,7 @@
     </div>
 
     <footer class="rl-footer">
-        <span class="rl-tickets-number">{{helper.getNumSeatsText(item.NumSeats, ticketsCount)}}</span>
+        <span class="rl-tickets-number">{{helper.getCharterAndNumSeatsText(item.NumSeats, ticketsCount, item.IsCharter)}}</span>
         <a ng-href="#" ng-if="goBackUrl().length > 0" class="rl-more-info" ng-click="popupItemInfo.show($event, item, criteria, searchId, true)">Подробнее</a>
     </footer>
 </div>
