@@ -20,7 +20,7 @@
             <a href="javascript:void(0);" ng-if="display.isCurrent(display.FULL)" ng-click="display.toggle()" class="expand-collapse-link">
                 <span class="icon-expand"></span> Свернуть
             </a>
-            <a href="javascript:void(0);" ng-if="display.isCurrent(display.SHORT)" ng-click="display.toggle()" class="expand-collapse-link">
+            <a href="javascript:void(0);" ng-if="display.isCurrent(display.SHORT)" class="expand-collapse-link">
                 <span class="icon-collapse"></span> Развернуть
             </a>
 
@@ -33,7 +33,7 @@
                  inna-dynamic-bundle-with-reservation-button="true"></div>
 
 
-            <div class="row result-small" ng-if="display.isCurrent(display.SHORT)">
+            <div class="row result-small" ng-if="display.isCurrent(display.SHORT)" ng-click="display.toggle()" style="cursor:pointer;">
                 <div class="result-small__cell col-xs-5 col-no-padding">
                     <p class="flight">
                         <img class="flight__image" ng-src="{{airLogo( combination.ticket.getEtaps('To')[0].data.TransporterCode )}}"
