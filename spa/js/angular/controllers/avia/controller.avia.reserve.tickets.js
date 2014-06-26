@@ -174,7 +174,7 @@ innaAppControllers.
                             //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
 
                             //тарифы
-                            $scope.loadTarifs($scope.criteria.VariantId1, $scope.criteria.VariantId2, $scope.item);
+                            //$scope.loadTarifs($scope.criteria.VariantId1, $scope.criteria.VariantId2, $scope.item);
 
                             //оповещаем лоадер, что метод отработал
                             loader.complete(self);
