@@ -1,6 +1,7 @@
-<div class="b-result b-result_flight-info row row_separator b-result-content"
+<div class="b-result b-result_col_two_short b-result_flight-info row b-result-content"
         ng-class="{'b-result_middle-130':!item.BackArrivalDate, 'b-result_middle-180':item.BackArrivalDate}">
-    <div class="b-result__cell  col-xs-9"
+
+    <div class="b-result__cell"
          ng-click="popupItemInfo.show($event, item, criteria, searchId)">
 
         <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"
@@ -87,7 +88,7 @@
     </div>
 
     <!---->
-    <div class="b-result__cell b-result__cell_middle col-xs-4 result-choice">
+    <div class="b-result__cell result-choice">
         <span class="rl-rec" ng-if="isItemRecomended">мы рекомендуем</span>
         <span class="rl-price" ng-class="{'rl-price_1way':item.EtapsBack.length == 0}">
             <span class="rl-price-item">{{item.Price | price}}</span>
