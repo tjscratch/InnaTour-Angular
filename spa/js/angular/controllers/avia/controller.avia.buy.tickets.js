@@ -584,8 +584,10 @@ Cvc = "486";
                 if ($scope.reservationModel.IsService) {
                 }
                 else {
-                    loadTarifs();
-                    $scope.tarifs.fillInfo($scope.aviaInfo);
+                    if ($scope.hotel != null) {
+                        loadTarifs();
+                        $scope.tarifs.fillInfo($scope.aviaInfo);
+                    }
                 }
                 $scope.focusControl.init();
                 $scope.paymentDeadline.setUpdate();
