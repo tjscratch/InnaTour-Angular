@@ -9,7 +9,8 @@ innaAppControllers
         '$location',
         'innaApp.Urls',
         'aviaHelper',
-        function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams, Events, $location, Urls, aviaHelper) {
+        '$filter',
+        function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams, Events, $location, Urls, aviaHelper, $filter) {
             /*Private*/
             var searchParams = angular.copy($routeParams);
             var cacheKey = '';
@@ -18,34 +19,110 @@ innaAppControllers
             var isChooseHotel = null;
             var MAX_HOTEL_LEN = 180;
 
-            var calibrate = _.throttle(function (list, scrollTop, __now){
-                var TICKET_HEIGHT = 200;
-                var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
+            var onHotelInfoPlaceClick = function(event, hotel){
+                $scope.$root.$broadcast('hotel:go-to-map', hotel);
+            }
 
-                if(!__now && calibrate.__scrolledTicketsCache == scrolledTickets) {
-                    //console.log('do not calibrate');
-                    return;
-                } else {
-                    //console.time('calibrate');
+            var onHotelDetailsClick = function(event, hotel){
+                $scope.$root.$broadcast('more:detail:hotel', hotel);
+            }
 
-                    calibrate.__scrolledTicketsCache = scrolledTickets;
+            var onTooltipClick = function(event, hotel){
+                var tooltip = this.siblings('.JS-tooltip-price');
 
-                    var limit = scrolledTickets * 1.3 + 7;
-                    var count = 0;
-
-                    list.each(function(item){
-                        if(!item.hidden) {
-                            count++;
-
-                            item.currentlyInvisible = (count > limit);
-                        }
-                    });
-
-                    //console.timeEnd('calibrate');
+                function closeTooltip(){
+                    tooltip.hide();
                 }
-            }, utils.isSafari ? 1 : 100);
 
-            calibrate.__scrolledTicketsCache = NaN;
+                event.stopPropagation();
+                tooltip.toggle();
+
+                if(tooltip.is(':visible')) {
+                    $(document).on('click', closeTooltip);
+                } else {
+                    $(document).off('click', closeTooltip);
+                }
+            }
+
+            var onSetCurrentHotel = function(event, hotel){
+                $scope.$root.$broadcast(Events.DYNAMIC_SERP_CHOOSE_HOTEL, hotel);
+            }
+
+            var calibrate = function (list){
+                if(!list || !list.list.length) return;
+
+                var template = $('#hotel-card')[0].innerText;
+                var template404 = $('#hotels-404')[0].innerText;
+                var html = '';
+                var resultContainer = $('#hotels-result-container');
+
+                list.each(function(item){
+                    if(!item.hidden) {
+                        var virtualBundle = new inna.Models.Dynamic.Combination();
+                        virtualBundle.hotel = item;
+                        virtualBundle.ticket = $scope.combination.ticket;
+
+                        html += _.template(template, {
+                            hotel: item,
+                            virtualBundle: virtualBundle,
+                            combination: $scope.combination,
+                            isFloat: $filter('isFloat'),
+                            asQuantity: $filter('asQuantity'),
+                            signed: $filter('signed'),
+                            price: $filter('price')
+                        });
+                    }
+                });
+
+                if(html == '') { //nothing found
+                    resultContainer.html(template404);
+                } else {
+                    resultContainer.html(html);
+
+                    resultContainer
+                        .off()
+                        .on('click', function(event){
+                            var target = $(event.target);
+                            var hotel = list.getById(target.parents('.js-result-card').data('hotel-id'));
+
+                            switch(true) {
+                                case target.hasClass('js-hotel-info-place'):
+                                    onHotelInfoPlaceClick.call(target, event, hotel);
+                                    break;
+                                case target.hasClass('js-hotel-item-details'):
+                                    onHotelDetailsClick.call(target, event, hotel);
+                                    break;
+                                case target.hasClass('js-show-tooltip'):
+                                    onTooltipClick.call(target, event, hotel);
+                                    break;
+                                case target.hasClass('js-set-current'):
+                                    onSetCurrentHotel.call(target, event, hotel);
+                                    break;
+                            }
+                        })
+                        .find('.hotel-gallery')
+                            .on('mouseenter', function activateGallery(){
+
+                                var elem = $(this);
+                                var list = elem.find('.hotel-gallery__url-keeper').get().map(function(keeper, i){
+                                    return {'Small': keeper.value};
+                                });
+
+                                console.log(list);
+
+                                elem.innaCarousel({
+                                    photoList: list,
+                                    size: 'Small',
+                                    style: {
+                                        width: 200,
+                                        height: 190
+                                    }
+                                });
+
+                                elem.off('mouseenter', activateGallery);
+                            });
+                }
+            };
 
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
@@ -243,7 +320,6 @@ innaAppControllers
                     defaultTab = $scope.state.HOTEL;
                 }
 
-
                 $scope.$apply(function($scope){
                     $.when($scope.state.switchTo(defaultTab))
                         .then(function () {
@@ -402,6 +478,10 @@ innaAppControllers
                 $scope.$broadcast('change:hotels:filters', data);
             }, true);
 
+            $scope.$on('Dynamic.Serp.*.Sorted', function(){
+                calibrate($scope.hotels);
+            });
+
             $scope.$watch('hotelFilters', function (data) {
                 $scope.hotels.filter($scope.hotelFilters);
                 $scope.$broadcast('change:filters', data);
@@ -468,29 +548,6 @@ innaAppControllers
 
                 ServiceDynamicPackagesDataProvider.search(searchParams, combination200, combination500);
             }());
-
-
-            $(function () {
-                var doc = $(document);
-
-                function onScroll(event) {
-                    var scrollTop = utils.getScrollTop();
-
-                    if(utils.isSafari() || scrollTop % 3 == 0) { //'cause 3px is actually nothing
-                        $scope.$apply(function ($scope) {
-                            $scope.padding.scrollTop = scrollTop;
-
-                            calibrate($scope.hotels, $scope.padding.scrollTop);
-                        });
-                    }
-                }
-
-                doc.on('scroll', onScroll);
-
-                $scope.$on('$destroy', function () {
-                    doc.off('scroll', onScroll);
-                })
-            });
         }
     ])
     .controller('DynamicPackageSERPTicketPopupCtrl', [

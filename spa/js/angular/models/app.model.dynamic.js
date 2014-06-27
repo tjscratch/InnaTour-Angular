@@ -2,11 +2,19 @@ _.provide('inna.Models.Hotels');
 
 inna.Models.Hotels.HotelsCollection = inna.Models._CollectionFactory();
 
-inna.Models.Hotels.HotelsCollection.prototype.getMinPrice = function(){
+inna.Models.Hotels.HotelsCollection.prototype.getMinPrice = function(bundle){
     var min = Number.MAX_VALUE;
 
     this.each(function(hotel){
         var price = hotel.data.PackagePrice;
+
+        if(bundle) {
+            var vBundle = new inna.Models.Dynamic.Combination();
+            vBundle.ticket = bundle.ticket;
+            vBundle.hotel = hotel;
+
+            price = vBundle.getFullPackagePrice();
+        }
 
         if(price < min) min = price;
     });
@@ -75,6 +83,18 @@ inna.Models.Hotels.HotelsCollection.prototype.drop = function(hotel){
         this.list.splice(index, 1);
     }
 };
+
+inna.Models.Hotels.HotelsCollection.prototype.getById = function(id){
+    var found = null;
+
+    this.each(function(hotel){
+        if(hotel.data.HotelId == id) {
+            found = hotel;
+        }
+    });
+
+    return found;
+}
 
 inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;

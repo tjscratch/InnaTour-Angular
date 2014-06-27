@@ -68,11 +68,11 @@
 
         <div class="bottom-actions">
             <span class="pull-left warning" ng-if="showWarning()">
-                Последние {{ticket.data.NumSeats | asQuantity:"место":"места":"мест"}}
+                {{ticket.data.NumSeats | asQuantity:"Последнее":"Последние":"Последние"}} {{ticket.data.NumSeats | asQuantity:"место":"места":"мест"}}
                 <span ng-if="ticket.data.IsCharter">, чартер</span>
             </span>
-            <span class="pull-left warning" ng-if="ticket.data.NumSeats == 1">
-                Последнее место<span ng-if="ticket.data.IsCharter">, чартер</span>
+            <span class="pull-left warning" ng-if="!showWarning()">
+                <span ng-if="ticket.data.IsCharter">Чартер</span>
             </span>
             <a href="javascript:void(0);" class="pull-right" ng-click="getTicketDetails(ticket)">Подробнее</a>
         </div>
