@@ -24,9 +24,11 @@ angular.module('innaApp.controllers')
 
                 $scope.$root.user = null;
 
-                AuthDataProvider.logout();
+                AuthDataProvider.logout(onLogoutCompleteOrError, onLogoutCompleteOrError);
 
-                $scope.$root.$broadcast(Events.AUTH_SIGN_OUT, wasLoggedUser.raw);
+                function onLogoutCompleteOrError() {
+                    $scope.$root.$broadcast(Events.AUTH_SIGN_OUT, wasLoggedUser.raw);
+                }
             };
 
             $scope.open = function(){

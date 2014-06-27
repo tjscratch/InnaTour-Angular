@@ -3,22 +3,23 @@
 <div class="results-container" style="padding-top: 25px;">
 
     <!-- Рекомендованный вариант -->
-    <div class="results-list results-list_720" ng-if="recomendedItem != null">
+    <div class="results-list results-list_720 pull-left" ng-if="recomendedItem != null">
         <ng:any ng-repeat="item in [recomendedItem] track by $index">
             <ng:include ng-init="isItemRecomended = true" src="'avia/results_item.html'"></ng:include>
         </ng:any>
-
     </div>
 
     <!-- Results Aside -->
-    <!--<aside class="results-aside results-aside_mod">
-        <div class="ra-best-block">
+    <aside class="res-aside-avia" ng-if="recomendedItem != null" ng-click="recommendedClick()">
+        <div class="res-aside-avia__img two-way" ng-if="recomendedItem.EtapsBack.length > 0"></div>
+        <div class="res-aside-avia__img one-way" ng-if="!(recomendedItem.EtapsBack.length > 0)"></div>
+        <!--<div class="ra-best-block">
             <div class="ra-best-title">Перелет + Отель ★★★</div>
             <div class="ra-best-price">30 200 <span class="rub">P</span></div>
             <p class="ra-best-descr">по отдельности: <span class="ra-best-descr-info">110 600 <span class="rub">P</span></span>экономия: 20 000 <span class="rub">P</span></p>
             <a href="#" class="ra-best-select">ВЫБРАТЬ</a>
-        </div>
-    </aside>-->
+        </div>-->
+    </aside>
     <!-- /Results Aside -->
 </div>
 
