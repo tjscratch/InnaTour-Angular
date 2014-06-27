@@ -3,6 +3,7 @@ var gulpif = require('gulp-if');
 var conf = require('./config');
 var fs = require('fs');
 var Q = require('q');
+var replace = require('gulp-replace-task');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -31,4 +32,9 @@ gulp.task('rename-build', ['copy-cache-build'], function (cb) {
         });
     });
     return deferred.promise;
+});
+
+
+gulp.task('replace-build-path', function () {
+    
 });
