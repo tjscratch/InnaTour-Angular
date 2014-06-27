@@ -504,23 +504,6 @@
                     return pluralForm(i, str1, str2, str3);
                 },
 
-                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter) {
-                    var sList = [];
-                    var seatsText = helper.getNumSeatsText(countLeft, ticketsCount);
-                    if (seatsText != null && seatsText.length > 0) {
-                        sList.push(seatsText);
-                    }
-                    if (isCharter) {
-                        if (sList.length == 0) {
-                            sList.push('Чартер');
-                        }
-                        else {
-                            sList.push('чартер');
-                        }
-                    }
-                    return sList.join(', ');
-                },
-
                 getNumSeatsText: function (countLeft, ticketsCount) {
                     countLeft = parseInt(countLeft);
                     function getPluralTickets(count) {
@@ -614,7 +597,6 @@
                         item = self.addAggFields(item);
                         self.item = item;
                         console.log(item);
-                        console.log(item.IsCharter);
 
                         if (criteria != null && searchId != null) {
                             var buyCriteria = angular.copy(criteria);

@@ -6,8 +6,7 @@ angular.module('innaApp.directives')
                 template: $templateCache.get('components/dynamic-serp-filter/type.html'),
                 scope: {
                     hotels: '=dynamicSerpFilterTypeHotels',
-                    filters: '=dynamicSerpFilterTypeFilters',
-                    bundle: '=dynamicSerpFilterTypeBundle'
+                    filters: '=dynamicSerpFilterTypeFilters'
                 },
                 controller: [
                     '$scope', '$controller', '$element',
@@ -57,7 +56,7 @@ angular.module('innaApp.directives')
                             });
 
                             for(var type in collections) if(collections.hasOwnProperty(type)) {
-                                $scope.options.push(new Option(type, type, collections[type].getMinPrice($scope.bundle)));
+                                $scope.options.push(new Option(type, type, collections[type].getMinPrice()));
                             }
 
                             unwatchHotelsCollection();

@@ -3,9 +3,8 @@ angular.module('innaApp.directives')
         return {
             template: $templateCache.get('components/dynamic-serp-filter/extra.html'),
             scope: {
-                hotels: '=dynamicSerpFilterExtraHotels',
-                filters: '=dynamicSerpFilterExtraFilters',
-                bundle: '=dynamicSerpFilterExtraBundle'
+                'hotels': '=dynamicSerpFilterExtraHotels',
+                'filters': '=dynamicSerpFilterExtraFilters'
             },
             controller: [
                 '$scope', '$controller', '$element',
@@ -59,7 +58,7 @@ angular.module('innaApp.directives')
                         });
 
                         for(var name in collections) if(collections.hasOwnProperty(name)) {
-                            $scope.options.push(new Option(collections[name].name, name, collections[name].collection.getMinPrice($scope.bundle)));
+                            $scope.options.push(new Option(collections[name].name, name, collections[name].collection.getMinPrice()));
                         };
 
                         unwatchCollectionHotels();

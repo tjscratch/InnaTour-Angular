@@ -6,8 +6,7 @@ angular.module('innaApp.directives')
             template: $templateCache.get('components/dynamic-serp-filter/tafactor.html'),
             scope: {
                 hotels: '=dynamicSerpFilterTafactorHotels',
-                filters: '=dynamicSerpFilterTafactorFilters',
-                bundle: '=dynamicSerpFilterTafactorBundle'
+                filters: '=dynamicSerpFilterTafactorFilters'
             },
             controller: [
                 '$scope',
@@ -64,7 +63,7 @@ angular.module('innaApp.directives')
                             if(!parseInt(factor)) continue;
                             if(!collections.hasOwnProperty(factor)) continue;
 
-                            $scope.options.push(new Option(factor, factor, collections[factor].getMinPrice($scope.bundle)));
+                            $scope.options.push(new Option(factor, factor, collections[factor].getMinPrice()));
                         }
                     });
                 }

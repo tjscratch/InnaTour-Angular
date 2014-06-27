@@ -1,4 +1,4 @@
-<!-- Search Results -->
+﻿<!-- Search Results -->
 <div class="results-body" style="padding-top: 110px;" id="buy-listener">
     <form action="javascript:void(0)" method="post" class="results-body">
         <div class="main__center" ng-if="reservationModel.IsService">
@@ -230,7 +230,7 @@
                 <li>Выезд: до {{hotelRules.checkOut}}</li>
             </ul>
         </div>
-        <div class="balloon__text-block" ng-if="hotelRules.cancellationRules != null && hotelRules.cancellationRules.length > 0">
+        <div class="balloon__text-block">
             <h4 class="balloon__title-sec">Правила отмены</h4>
             <!--<ul class="balloon__list">
                 <li>В случае отмены или изменения бронирования в срок до 1 суток до даты заезда 
@@ -240,7 +240,7 @@
             </ul>-->
             <p ng-bind-html="hotelRules.cancellationRules | breakFilter"></p>
         </div>
-        <div class="balloon__text-block" ng-if="hotelRules.extra.List.length > 0">
+        <div class="balloon__text-block">
             <h4 class="balloon__title-sec">Дополнительно</h4>
             <ul class="balloon__list">
                 <li ng-repeat="item in hotelRules.extra.List">{{item}}</li>

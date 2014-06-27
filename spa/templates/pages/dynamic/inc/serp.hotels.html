@@ -2,248 +2,40 @@
      ng-if="!asMap && !hotelToShowDetails"
      ng-class="{'results-container__short':padding.value}">
     <div class="results-list results-list_720">
-        <div id="hotels-result-container"></div>
-    </div>
-</div>
+        <div ng-repeat="hotel in hotelsToDisplay = (hotels.list | filter:{currentlyInvisible: false, hidden: false})"
+             inna-hotel
+             ng-if="combination.hotel.data.HotelId != hotel.data.HotelId">
 
-<script type="text/x-dummytemplate" id="hotel-card">
-    <div class="js-result-card b-hotel_item b-result b-result_col_three_galary b-result_middle row b-result-content" data-hotel-id="<%=hotel.data.HotelId%>">
-        <div class="b-hotel_item-wrapper">
-            <div class="b-result__cell col-no-padding">
-                <div class="hotel-gallery b-carousel">
-                    <% for(var i = 0, pic = null; pic = hotel.data.Photos[i++];) { %>
-                        <input type="hidden" class="hotel-gallery__url-keeper" value="<%=pic.Small%>"/>
-                    <% } %>
+            <!-- TRANSCLUDE -->
 
-                    <div class="hotel-gallery-arrow-left b-carousel__prev"></div>
-                    <div class="hotel-gallery-arrow-right b-carousel__next"></div>
-                    <div class="hotel-gallery-container b-carousel__holder">
-                        <!-- Slider -->
-                        <div class="b-carousel__slider">
-                            <div class="b-carousel_item" style="width:200px; height:190px;">
-                                <div class="b-carousel_item_image"
-                                     style="background-image: url(<%=hotel.data.Photos[0].Small%>);width:200px;height:190px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <p class="corner-price">
+                <span ng-bind="virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed"></span>
+                <span class="b-rub">q</span>
+                <span class="icon-crown icon-sprite-crown" ng-if="hotel.data.IsPackage"></span>
+            </p>
 
-            <div class="b-result__cell">
-                <img src="<%=hotel.data.ProviderLogoUrl%>" alt="" class="logo">
+            <div class="price">
+                {{virtualBundle.getFullPackagePrice() | price}}
+                <span class="b-rub">q</span>
 
-                <div class="hotel-info">
-                    <div class="hotel-info-content">
-                        <div>
-                            <% for(var i = 0; i <= hotel.data.Stars; i++) { %>
-                                <span class="icon icon-star"></span>
-                            <% } %>
-                        </div>
-                        <h3 class="hotel-info-name"><%=hotel.data.HotelName%></h3>
-                        <a href="javascript:void(0);" class="hotel-info-place js-hotel-info-place"><%=hotel.data.HotelCityName%>, <%=hotel.data.Address%></a>
+                <!-- tooltip price -->
+                <div tool-tip-price item="virtualBundle" is-hotel="true"></div>
 
-                        <% if(hotel.data.RoomCount == 1) { %><div class="warning">Последний номер</div><% } %>
-                    </div>
-                </div>
-
-                <div class="bottom-actions">
-                    <div class="row">
-                        <div class="col-xs-9 col-no-padding bottom-actions_left">
-                            <% if(hotel.data.TaFactor > 0) { %>
-                                <div class="b-tripadvisor hotel-info-tripadvisor">
-                                    <div class="b-tripadvisor__owl">
-                                        <span class="icon-sprite-tripadvisor"></span>
-                                    </div>
-                                    <div class="b-display-table">
-                                        <% for(var i = 0; i <= hotel.data.TaFactor; i++)  { %>
-                                            <div class="b-display-cell"><span class="icon-sprite-tripadvisor-like"></span></div>
-                                        <% } %>
-                                        <% if(isFloat(hotel.data.TaFactor)) { %>
-                                            <div class="b-display-cell">
-                                                <span class="icon-sprite-tripadvisor-half"></span>
-                                            </div>
-                                        <% } %>
-                                        <div class="b-display-cell">
-                                            <div class="b-tripadvisor__reviews">
-                                                <%=asQuantity(hotel.data.TaCommentCount, "отзыв", "отзыва", "отзывов", "нет отзывов")%>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <% } %>
-                        </div>
-                        <div class="col-xs-3 col-no-padding bottom-actions_right">
-                            <a href="javascript:void(0);" class="b-hotel_item__details js-hotel-item-details">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- separator -->
-                <div class="b-result-cell__gap">
-                    <div class="b-result-cell__gap_wrap"></div>
-                </div>
-            </div>
-
-            <div class="b-result__cell col-xs-3 result-choice">
-                <p class="corner-price">
-                    <span><%=signed(virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice())%></span>
+                <span class="price-description" ng-if="(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) != 0">
+                    экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}
                     <span class="b-rub">q</span>
-                    <% if(hotel.data.IsPackage) { %><span class="icon-crown icon-sprite-crown"></span><% } %>
-                </p>
+                </span>
 
-                <div class="price">
-                    <%=price(virtualBundle.getFullPackagePrice())%>
-                    <span class="b-rub">q</span>
-
-                    <!-- tooltip price -->
-                    <span class="icon-price-info js-show-tooltip cursor-pointer icon-sprite-price-info"></span>
-
-                    <div class="tooltip tooltip-price tooltip-price_at_hotel-card JS-tooltip-price <%=hotel.data.PriceObject ? 'tooltip-price_big' : ''%>" style="display:none;">
-                        <% if(!hotel.data.PriceObject) { %>
-                        <div class="tooltip-price__user">
-                            <div class="tooltip-price__title">По отдельности</div>
-                            <ul class="tooltip-price__list tooltip-price__list_top">
-                                <li class="list-price-item">
-                                    <div class="row">
-                                        <div class="col-xs-6 col-no-padding">
-                                            Перелет
-                                        </div>
-                                        <div class="col-xs-6 col-no-padding list-price-item__right">
-                                            <span class="list-price">
-                                                <%=price(virtualBundle.ticket.data.Price)%>
-                                                <span class="b-rub">q</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-price-item">
-                                    <div class="row">
-                                        <div class="col-xs-6 col-no-padding">
-                                            Отель
-                                        </div>
-                                        <div class="col-xs-6 col-no-padding list-price-item__right">
-                                            <span class="list-price">
-                                                <%=price(virtualBundle.hotel.data.Price)%>
-                                                <span class="b-rub">q</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="list-price list-price-total">
-                                <div class="list-price-total__wrapper">
-                                    <%=price(virtualBundle.getFullPrice())%>
-                                    <span class="b-rub">q</span>
-                                    <div class="list-price-total__strike_through"></div>
-                                </div>
-                            </div>
-                            <ul class="tooltip-price__list tooltip-price__list_top">
-                                <li class="list-price-item">
-                                    <div class="row">
-                                        <div class="col-xs-6 col-no-padding">
-                                            В пакете:
-                                        </div>
-                                        <div class="col-xs-6 col-no-padding list-price-item__right">
-                                            <span class="list-price green">
-                                                <%=price(virtualBundle.getFullPackagePrice())%>
-                                                <span class="b-rub">q</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-price-item">
-                                    <div class="row">
-                                        <div class="col-xs-6 col-no-padding">
-                                            Экономия:
-                                        </div>
-                                        <div class="col-xs-6 col-no-padding list-price-item__right">
-                                            <span class="list-price green">
-                                                <%=price(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice())%>
-                                                <span class="b-rub">q</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <% } else { %> <!-- if(hotel.data.PriceObject) -->
-                            <div class="tooltip-price__b2b">
-                                <ul>
-                                    <li class="list-price-item">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-no-padding">
-                                                Сбор Инна Тур
-                                            </div>
-                                            <div class="col-xs-6 col-no-padding list-price-item__right">
-                                            <span class="list-price">
-                                                <%=price(hotel.data.PriceObject.TotalInnaProfit)%>
-                                                <span class="b-rub">q</span>
-                                            </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-price-item">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-no-padding">
-                                                Сбор агента
-                                            </div>
-                                            <div class="col-xs-6 col-no-padding list-price-item__right">
-                                                <span class="list-price">
-                                                    <%=price(hotel.data.PriceObject.TotalAgentReward)%>
-                                                    <span class="b-rub">q</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-price-item">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-no-padding">Агентское вознаграждение</div>
-                                            <div class="col-xs-6 col-no-padding list-price-item__right">
-                                                <span class="list-price">
-                                                    <%=price(hotel.data.PriceObject.TotalAgentRate)%>
-                                                    <span class="b-rub">q</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-price-item">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-no-padding">
-                                                Доход агента
-                                            </div>
-                                            <div class="col-xs-6 col-no-padding list-price-item__right">
-                                                <span class="list-price">
-                                                    <%=price(item.data.PriceObject.TotalAgentProfit)%>
-                                                    <span class="b-rub">q</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        <% } %> <!-- if(hotel.data.PriceObject) -->
-                    </div>
-
-                    <% if((virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) != 0) { %>
-                        <span class="price-description">
-                            экономия: <%=price(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice())%>
-                            <span class="b-rub">q</span>
-                        </span>
-                    <% } %>
-
-                </div>
-                <span class="button js-set-current">Выбрать</span>
             </div>
+            <span class="button" ng-click="setCurrent()">Выбрать</span>
+        </div>
+
+        <div ng-if="hotels.list.length && !hotelsToDisplay.length" class="results-list__empty results-list__empty_type_hotels">
+            <p>Варианты не найдены.</p>
+            <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
         </div>
     </div>
-</script>
-
-<script type="text/x-dummytemplate" id="hotels-404">
-    <div class="results-list__empty results-list__empty_type_hotels">
-        <p>Варианты не найдены.</p>
-        <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
-    </div>
-</script>
+</div>
 
 <div ng-if="hotels.list.length && asMap"
      dynamic-serp-map
