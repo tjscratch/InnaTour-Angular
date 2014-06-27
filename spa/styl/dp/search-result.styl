@@ -10,9 +10,6 @@
   background-position 0 -14px
 }
 
-.results-list_960 {
-  width 960px
-}
 
 .recommend-bundle-container {
   position fixed
@@ -76,8 +73,6 @@
 }
 
 .recommend-bundle-wrap {
-  width 960px
-  margin 0 auto
   padding 30px 0 24px
   position: relative;
   z-index: 2
@@ -106,12 +101,11 @@
 }
 
 .results-container {
+  @extend .main__center;
   padding $full_padding 0 0
   font-family $ProximaNova
   position relative
   color #333
-  width 960px
-  margin 0 auto
   clearfix()
 
 

@@ -6,8 +6,6 @@
 
     &__wrap
         z-index 1
-        margin 0 auto
-        width 960px
         padding-bottom 20px
 
     &__section
@@ -30,13 +28,13 @@
             color #fff
             font-size 18px
             margin-bottom 18px
-            
+
             &-section
                 display table-cell
                 width 100%
                 min-width 400px
                 vertical-align bottom
-                
+
                 &:last-child
                     text-align right
 
@@ -92,7 +90,7 @@
             &_icon-only
                 padding 8px 7px 7px
                 position relative
-                top -1px 
+                top -1px
 
 .hotel-details-ta-info
     background #ded9d8
@@ -126,17 +124,16 @@
 
 .gallery
     &__viewport
-        margin 0 auto
         box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
         position relative
-        max-width 960px
+        width 100%
         background-repeat no-repeat
         background-position center center
         background-size cover
 
         &-wrap
             height 500px
-            width 960px
+            width $site-width
             display table-cell
             text-align center
             vertical-align middle
@@ -228,7 +225,7 @@
                 background-image url(/spa/img/hotels-extra/kids.png)
 
 
-                
+
 .hotel-details-map
     width 100%
     height 200px
@@ -247,32 +244,32 @@
         right 0
         height auto
         z-index 100
-    
+
 .hotel-details-rooms
     border-radius 8px
     box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
     background #fff
     overflow hidden
-    
+
     &__room
         border-bottom 1px solid #dedede
-    
+
         &-long
             display none
-            
+
         &-short
             padding 10px
-            
+
         &-title
             color #1e88c1
             font-size 14px
             font-weight normal
             cursor pointer
-            
+
         &-info
             display table
             width 100%
-            
+
         &-desc
         &-cancel-rules
         &-price
@@ -280,51 +277,51 @@
             display table-cell
             vertical-align top
             font-size 14px
-            
+
         &-desc
             width 100%
-            
+
         &-cancel-rules
             min-width 140px
             padding-right 5px
 
             &-ok
                 color $green
-            
+
         &-price
             min-width 165px
             padding-right 10px
             text-align right
             white-space nowrap
-            
+
             &-diff
                 font-size 18px
                 font-weight bold
-                
+
         &-actions
             min-width 180
             text-align right
-            
+
         &-long
             padding 10px
             background #eeeeee
             background linear-gradient(to bottom,  #eeeeee 0%,#ffffff 3%,#ffffff 97%,#eeeeee 100%)
-            border 1px solid #dedede 
+            border 1px solid #dedede
             border-width 1px 0 0
-            
+
         &-long-text
             font-size 14px
-            
+
             p
                 margin 10px 0
-                
+
             ul
                 margin-left 15px
                 padding-left 10px
-                
+
                 li
                     list-style disc
-            
+
         &_state_open
             .hotel-details-rooms__room-long
                 display block
@@ -332,7 +329,7 @@
                 content '▼'
                 font-size 11px
                 padding-left 4px
-                
+
 .button
     &_size_l
         font-size 18px
@@ -344,10 +341,10 @@
         font-weight normal
         height 40px
         width 170px
-        
+
 .mini-gallery
     font-size 0
-    
+
     &__mini
         display inline-block
         width 70px
@@ -356,21 +353,21 @@
         background-size cover
         position relative
         z-index 1
-        
+
         &:hover
             .mini-gallery__big
                 display block
-        
+
     &__big
         display none
         position absolute
         left 0
         top 73px
         border 2px solid #fff
-        border-radius 2px 
+        border-radius 2px
         box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
         z-index 2
-        
+
         &::after
             content ''
             display block
@@ -382,30 +379,30 @@
             border-style solid
             border-width 0 8px 10px 8px
             border-color transparent transparent #fff transparent
-        
+
 .hotel-details-resume
     font-size 14px
     color #fff
-    
+
     &__section
         padding 15px
         border-bottom 1px solid #878787
         overflow hidden
-        
+
         &:last-child
             border-bottom 0
-        
+
         &-title
             font-size 16px
             font-weight bold
             float left
             width 200px
-            
+
     &__list
         margin-left 240px
         padding-left 10px
         overflow hidden
-        
+
     &__item
         list-style inside disc
         float left
