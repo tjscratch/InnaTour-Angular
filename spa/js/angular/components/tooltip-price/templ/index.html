@@ -1,7 +1,8 @@
 
 <!-- временно прячем компонент -->
-<span class="icon-price-info js-show-tooltip cursor-pointer ng-hide"
-        ng-class="{'icon-sprite-price-info':!icon, 'icon-sprite-price-info-white':icon}"></span>
+<span class="icon-price-info js-show-tooltip cursor-pointer"
+        ng-class="{'icon-sprite-price-info':!icon, 'icon-sprite-price-info-white':icon}"
+        ng-if="isPriceObject"></span>
 
 <div class="tooltip tooltip-price tooltip-price_at_hotel-card JS-tooltip-price"
      style="display:none;"
@@ -132,6 +133,19 @@
                     </div>
                 </div>
             </li>
+
+           <!-- <li class="list-price-item">
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding">
+                        Доход агента test
+                    </div>
+                    <div class="col-xs-6 col-no-padding list-price-item__right">
+                        <span class="list-price">
+                            {{item.PriceObject.TotalPrice}}
+                        </span>
+                    </div>
+                </div>
+            </li>-->
         </ul>
 
     </div>
