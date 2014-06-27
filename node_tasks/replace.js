@@ -15,7 +15,6 @@ var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protoco
 
 // Копируем в папку publish
 gulp.task('replace-index', function () {
-
     var confReplace = {
         'app-main-js': '/'+ conf.version +'/js/app-main.js',
         'app-less': '/'+ conf.version +'/css/main.less.css',

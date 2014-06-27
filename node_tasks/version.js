@@ -15,12 +15,10 @@ var renameBuild = {
     suffix: "-" + Math.random(1000).toString(32)
 };
 
-var cacheNameBuild = renameBuild.prefix + renameBuild.basename + renameBuild.suffix;
-
 gulp.task('version-cache', function () {
     return gulp.src(conf.config_path)
         .pipe(jeditor({
-            'version': cacheNameBuild
+            'version': renameBuild.prefix + renameBuild.basename + renameBuild.suffix
         }))
         .pipe(gulp.dest("./node_tasks"));
 });
