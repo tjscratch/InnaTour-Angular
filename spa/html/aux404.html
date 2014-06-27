@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Инна-Тур - Авиа</title>
-    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" href="../lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css"/>
     <link rel="stylesheet" href="/build/css/main.less.css"/>
-    <link rel="stylesheet" href="../lib/datepicker/datepicker.css" />
-    <link rel="stylesheet" href="/build/css/common.min.css" />
+    <link rel="stylesheet" href="../lib/datepicker/datepicker.css"/>
+    <link rel="stylesheet" href="/build/css/common.min.css"/>
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="../css/ie.min.css" />
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" href="../css/ie.min.css"/>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
     <script src="../lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
     <script src="../js/jquery.ui.datepicker-ru.js"></script>
     <script src="../js/datepicker.js"></script>
     <!--[if lt IE 10]>
-        <script src="../js/ie.placeholder.js"></script>
+    <script src="../js/ie.placeholder.js"></script>
     <![endif]-->
     <script src="../js/search_form.js"></script>
     <script src="../js/results.js"></script>
@@ -25,29 +25,30 @@
 
 <body>
 
-    <div class="header Header">
-        <div class="header-info">
-            <div class="header-info-container row">
-                <div class="col-xs-6 col-no-padding">
-                    <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР"
-                                                            title="ИННА ТУР"></i><i
-                            class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a>
-                    <span class="header-text"></span>
-                </div>
-                <div class="col-xs-6 header-info-container-right col-no-padding">
-                    <ul class="header-info-menu" style="margin-right:0px;">
-                        <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
-                        <!--
-                                                -->
-                        <li class="header-info-menu-item"><a href="/#/about/">О компании</a></li>
-                        <!--
-                                                -->
-                        <li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
-                    </ul>
-                </div>
+<div class="header Header">
+    <div class="header-info">
+        <div class="header-info-container row">
+            <div class="col-xs-6 col-no-padding">
+                <a href="/" class="header-info-logo"><i class="icon icon-logo" alt="ИННА ТУР"
+                                                        title="ИННА ТУР"></i><i
+                        class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i></a>
+                <span class="header-text"></span>
+            </div>
+            <div class="col-xs-6 header-info-container-right col-no-padding">
+                <ul class="header-info-menu" style="margin-right:0px;">
+                    <li class="header-info-menu-item"><a href="http://www.inna.ru/agency/">Агентам</a></li>
+                    <!--
+                                            -->
+                    <li class="header-info-menu-item"><a href="/#/about/">О компании</a></li>
+                    <!--
+                                            -->
+                    <li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                </ul>
             </div>
         </div>
-        <div class="header-menu">
+    </div>
+    <div class="header-menu">
+        <div class="main__center">
             <ul class="header-menu-container-items"><!--
                 -->
                 <li class="header-menu-item"><a href="/#/" ng-class="{active:isActive('/')}">Туры</a></li>
@@ -65,39 +66,45 @@
                 <li class="header-menu-item"><a href="/#/individualtours/"
                                                 ng-class="{active:isActive('/individualtours/')}">Программы</a></li>
             </ul>
+        </div>
+    </div>
+</div>
 
+<div class="aux-page aux-page_type_404" style="display:none;">
+    <div class="site-error-message">
+        <div class="site-error-message__code">404</div>
+        <div class="site-error-message__description">
+            <div class="site-error-message__description-title">Страница не найдена</div>
+            <div class="site-error-message__description-text">Возможно она была удалена или вы неправильно набрали
+                адрес
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="aux-page aux-page_type_404" style="display:none;">
-        <div class="site-error-message">
-            <div class="site-error-message__code">404</div>
-            <div class="site-error-message__description">
-                <div class="site-error-message__description-title">Страница не найдена</div>
-                <div class="site-error-message__description-text">Возможно она была удалена или вы неправильно набрали адрес</div>
+<div class="aux-page aux-page_type_403" style="display:none;">
+    <div class="site-error-message">
+        <div class="site-error-message__code">403</div>
+        <div class="site-error-message__description">
+            <div class="site-error-message__description-title">Страница не найдена</div>
+            <div class="site-error-message__description-text">Возможно она была удалена или вы неправильно набрали
+                адрес
             </div>
         </div>
     </div>
-    
-    <div class="aux-page aux-page_type_403" style="display:none;">
-        <div class="site-error-message">
-            <div class="site-error-message__code">403</div>
-            <div class="site-error-message__description">
-                <div class="site-error-message__description-title">Страница не найдена</div>
-                <div class="site-error-message__description-text">Возможно она была удалена или вы неправильно набрали адрес</div>
+</div>
+
+<div class="aux-page aux-page_type_500">
+    <div class="site-error-message">
+        <div class="site-error-message__code"><img src="/spa/img/500.png"></div>
+        <div class="site-error-message__description">
+            <div class="site-error-message__description-title">Страница не найдена</div>
+            <div class="site-error-message__description-text">Возможно она была удалена или вы неправильно набрали
+                адрес
             </div>
         </div>
     </div>
-    
-    <div class="aux-page aux-page_type_500">
-        <div class="site-error-message">
-            <div class="site-error-message__code"><img src="/spa/img/500.png"></div>
-            <div class="site-error-message__description">
-                <div class="site-error-message__description-title">Страница не найдена</div>
-                <div class="site-error-message__description-text">Возможно она была удалена или вы неправильно набрали адрес</div>
-            </div>
-        </div>
-    </div>
-    
+</div>
+
 </body>
 </html>
