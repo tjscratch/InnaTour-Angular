@@ -51,10 +51,19 @@ innaAppControllers
             var calibrate = function (list){
                 if(!list || !list.list.length) return;
 
-                var template = $('#hotel-card')[0].innerText;
-                var template404 = $('#hotels-404')[0].innerText;
-                var html = '';
-                var resultContainer = $('#hotels-result-container');
+                var template, template404, html, resultContainer;
+
+                console.log('start calibrating');
+
+                try {
+                    template = $('#hotel-card')[0].innerHTML;
+                    template404 = $('#hotels-404')[0].innerHTML;
+                    html = '';
+                    resultContainer = $('#hotels-result-container');
+                } catch(e) {
+                    console.log('calibration failed');
+                    console.log(e);
+                }
 
                 list.each(function(item){
                     if(!item.hidden) {
