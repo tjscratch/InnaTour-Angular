@@ -12,17 +12,20 @@ var renameBuild = {
     suffix: "-" + Math.random(1000).toString(32)
 };
 
-global.cacheNameBuild = renameBuild.prefix + renameBuild.basename +   renameBuild.suffix;
+var cacheNameBuild = renameBuild.prefix + renameBuild.basename +   renameBuild.suffix;
 
-gulp.task('rename-build', ['copy-project'], function (cb) {
+gulp.task('rename-build', function (cb) {
     var deferred = Q.defer();
 
-    fs.rename(conf.publish + '/build', conf.publish + '/'+ cacheNameBuild, function (err) {
+    fs.rename(conf.build, './'+ cacheNameBuild, function (err) {
         if (err) throw err;
-        fs.stat(conf.publish + '/' + cacheNameBuild, function (err, stats) {
+        fs.stat(conf.build + '/' + cacheNameBuild, function (err, stats) {
             if (err) throw err;
             deferred.resolve();
         });
     });
     return deferred.promise;
 });
+
+
+exports.cacheNameBuild = cacheNameBuild;

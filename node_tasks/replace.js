@@ -15,29 +15,41 @@ var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protoco
 
 // Копируем в папку publish
 gulp.task('replace-index', function () {
+
+    var confReplace = {
+        'app-main-js': '/'+ conf.version +'/js/app-main.js',
+        'app-less': '/'+ conf.version +'/css/main.less.css',
+        'app-stylus': '/'+ conf.version +'/css/common.min.css',
+
+        'app-host': 'app_main.host = \'' + apiHost + '\';',
+        'b2b-host': 'app_main.b2bHost = \'' + b2bHost + '\';',
+        'front-host': 'app_main.frontHost = \'' + apiFrontHost + '\';',
+        'static-host': 'app_main.staticHost = \'' + staticHost + '\';',
+        'tripadvisor': 'app_main.tripadvisor = \'' + __PROTOCOL__ + conf.tripadvisor + '\';'
+    };
+
     return gulp.src('./index.html')
-        .pipe(htmlreplace({
-            'app-main-js': '/build/js/app-main.js',
-            'app-host': 'app_main.host = \'' + apiHost + '\';',
-            'b2b-host': 'app_main.b2bHost = \'' + b2bHost + '\';',
-            'front-host': 'app_main.frontHost = \'' + apiFrontHost + '\';',
-            'static-host': 'app_main.staticHost = \'' + staticHost + '\';',
-            'tripadvisor': 'app_main.tripadvisor = \'' + __PROTOCOL__ + conf.tripadvisor +'\';'
-        }))
+        .pipe(htmlreplace(confReplace))
         .pipe(gulp.dest(conf.publish));
 });
 
 
 // Копируем в папку publish/tours
 gulp.task('release-tours', function () {
+
+    var confReplace = {
+        'app-main-js': '/'+ conf.version +'/js/app-main.js',
+        'app-less': '/'+ conf.version +'/css/main.less.css',
+        'app-stylus': '/'+ conf.version +'/css/common.min.css',
+
+        'app-host': 'app_main.host = \'' + apiHost + '\';',
+        'b2b-host': 'app_main.b2bHost = \'' + b2bHost + '\';',
+        'front-host': 'app_main.frontHost = \'' + apiFrontHost + '\';',
+        'static-host': 'app_main.staticHost = \'' + staticHost + '\';'
+    };
+
     return gulp.src('./tours/index.html')
-        .pipe(htmlreplace({
-            'app-main-js': '/build/js/app-main.js',
-            'app-host': 'app_main.host = \'' + apiHost + '\';',
-            'b2b-host': 'app_main.b2bHost = \'' + b2bHost + '\';',
-            'front-host': 'app_main.frontHost = \'' + apiFrontHost + '\';',
-            'static-host': 'app_main.staticHost = \'' + staticHost + '\';'
-        }))
+        .pipe(htmlreplace(confReplace))
         .pipe(gulp.dest(conf.publish + '/tours'));
 });
 
