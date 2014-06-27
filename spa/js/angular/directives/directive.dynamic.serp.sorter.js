@@ -41,6 +41,8 @@
                                 $scope.sorters.current = sorter;
                                 $scope.items.sort(sorter.sortingFn);
                                 $scope.popup.isOpen = false;
+
+                                $scope.$root.$broadcast('Dynamic.Serp.*.Sorted');
                             }
 
                             /*Initial*/
