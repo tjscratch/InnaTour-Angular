@@ -28,6 +28,10 @@ innaAppServices.
             return !((ms + 1000 * 60 * 10) > (new Date()).getTime());//ToDo: bedug 10min
         }
 
+        function isOlderManyMinutes(ms) {
+            return !((ms + 1000 * 60 * 10000) > (new Date()).getTime());//ToDo: bedug 10min
+        }
+
         return {
             setAviaBuyItem: function (model) {
                 sessionStorage.AviaBuyItem = angular.toJson(model);
