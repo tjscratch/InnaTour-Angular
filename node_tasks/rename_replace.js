@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
-var rename = require("gulp-rename");
 var conf = require('./config');
 var fs = require('fs');
 var Q = require('q');
