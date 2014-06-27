@@ -27,7 +27,8 @@
     </div>
 
     <div class="header-menu ng-hide" ng-show="isHeaderVisible">
-        <div class="header__container">
+        <div class="main__center">
+            <div class="header__container">
             <ul class="header__nav">
                 <li><a href="/#{{urls.URL_ROOT}}" ng-class="{active:isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">Перелет&nbsp;+&nbsp;Отель</a></li>
                 <li><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
@@ -41,6 +42,7 @@
             <ng:include src="'auth/header.html'"></ng:include>
         </div>
         
-        <ng:include src="getHeadForm()"></ng:include>
+            <ng:include src="getHeadForm()"></ng:include>
+        </div>
     </div>
 </div>

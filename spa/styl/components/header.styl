@@ -1,15 +1,129 @@
 .header-padding-149
   padding-top 149px
 
-
 .header {
   position: fixed;
+  left: 0;
+  top: 0;
   width: 100%;
   z-index: 300;
 
+  &__container {
+    clearfix()
+    margin: 0 auto;
+    padding: 15px 0;
+    color: #fff;
+
+    a:hover {
+      text-decoration underline
+    }
+  }
+
+  &__nav-sec {
+    float left
+    font 14px Arial, sans-serif
+
+    li {
+      display inline-block
+      margin 0 20px 0 0
+    }
+
+    a {
+      color #c0c0c2
+    }
+
+    .current {
+      color #89c13a
+    }
+  }
+
+  &__price {
+    float right
+    font 14px Arial, sans-serif
+    color #c0c0c2
+    margin-top -2px
+
+    .b-rub {
+      color #fff
+    }
+  }
+
+  &__sum {
+    font bold 16px ProximaNova, Arial, sans-serif
+    color #fff
+    margin 0 5px
+  }
+
+  &__nav {
+    float left
+    font-size 17px
+
+    li {
+      display inline-block
+      margin 0 18px 0 0
+    }
+  }
+
+  &__user {
+    float right
+  }
+
+  &__user-company {
+    color #4d4d4d
+    font 14px Arial, sans-serif
+    text-align right
+  }
+
+  &__user-nav {
+    padding 0 0 3px
+    font-size 14px
+
+    li {
+      display: inline-block;
+      padding: 2px 0 0 9px;
+      margin: 0 0 0 7px;
+      border-left: 1px solid #4d4d4d;
+
+      &:first-child {
+        border: 0;
+      }
+    }
+
+    a {
+      color: #878787;
+    }
+
+    &-name {
+      color: #89c13a;
+      padding-left: 23px;
+      position: relative;
+    }
+
+    &-name:before,
+    &-nav-reg:before {
+      content ''
+      display block
+      position absolute
+      left 0
+      top 0
+      width 15px
+      height 14px
+      background url('/spa/img/header-user.png') no-repeat
+    }
+
+    &-reg {
+      padding-left 23px
+      position relative
+    }
+
+    &-counter {
+      color #fff
+    }
+  }
+
   &-info {
     background: linear-gradient(to bottom, #393939 0%, #202020 100%);
-    background-color :#2c2c2c;
+    background-color: #2c2c2c;
     border-bottom: 1px solid #363636;
     padding: 4px 0;
 
@@ -41,7 +155,7 @@
       font-family: ProximaNova;
       margin: auto;
       position: relative;
-      width: $grid-width;
+      width: $site-width;
 
       &-right {
         text-align: right;
@@ -128,7 +242,7 @@
 
   &-menu {
     background: linear-gradient(to bottom, #2d2d2d 0%, #1c1c1c 100%);
-    background-color :#2c2c2c;
+    background-color: #2c2c2c;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .4);
     font-size: 17px;
 
@@ -136,7 +250,7 @@
       font-family: Arial, sans-serif;
       height: 50px;
       margin: auto;
-      width: $grid-width;
+
 
       &:before {
         content: '';
