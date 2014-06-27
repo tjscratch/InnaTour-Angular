@@ -1,4 +1,4 @@
-﻿<div class="results-body results__body_mod" style="padding-top: 140px;">
+<div class="results-body results__body_mod" style="padding-top: 140px;">
 <!-- Search Results -->
 <div class="results-container" style="padding-top: 25px;">
 
@@ -49,7 +49,7 @@
 
     <!-- Results List -->
     <div class="results-list results-list_720" style="float: left;">
-        <ng:any ng-repeat="item in ticketsList track by $index">
+        <ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
             <ng:include src="'avia/results_item.html'"></ng:include>
         </ng:any>
 

@@ -1,6 +1,6 @@
 /*
 Верстка блока 3 колонки
-<div class="b-result row row_separator">
+<div class="b-result row ">
 
         <div class="b-result__cell col-xs-5">
 
@@ -179,24 +179,44 @@
 		}
 	}
 
-	 /*две колонки - равной ширины*/
+	 /* Две колонки равной ширины с учетом сепаратора*/
 	&.b-result_col_two {
 		.b-result__cell {
+      width : 49.4%;
       calc('width', s("50% - 5px"), "100%");
 		}
 	}
+
+  /*
+  Ширина для блока из двух клонок
+  Правая колонка шире
+   */
+  &.b-result_col_two_short {
+    .b-result__cell {
+      &:nth-child(1){
+        width : 72%;
+      }
+      &:nth-child(2){
+        width : 26%;
+      }
+    }
+  }
 
 	 /*три колонки - последняя колонка самая узкая*/
 	&.b-result_col_three {
 		.b-result__cell {
 
+      width:39.5%;
       calc('width', s("40% - %s", $separatorBlock/2), "100%");
 
+
       &:nth-child(even){
+        width:38%;
         calc('width', s("40% - %s", $separatorBlock), "100%");
       }
 
 			&:last-child {
+        width:20%;
         calc('width', s("20% - %s", $separatorBlock/2), "100%");
 			}
 		}
@@ -205,12 +225,15 @@
 	 /*три колонки - с фотогалереей 200px*/
 	&.b-result_col_three_galary {
 		.b-result__cell {
-			&:first-child {
+
+      &:first-child {
 				width : 200px;
 				margin-right :0;
         padding : 0;
 			}
+
       &:nth-child(even){
+        width : 45%;
         calc('width', s("47% - %s", $separatorBlock), "100%");
       }
 		}

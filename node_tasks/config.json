@@ -22,8 +22,8 @@
             "prod": "https://apibeta.inna.ru"
         },
         "front" : {
-            "test": "http://api.test.inna.ru",
-            "prod": "https://apibeta.inna.ru"
+            "test": "http://test.inna.ru",
+            "prod": "https://beta.inna.ru"
         },
         "static" : {
             "test": "http://s.test.inna.ru",

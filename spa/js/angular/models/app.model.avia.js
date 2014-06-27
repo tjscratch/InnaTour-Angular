@@ -144,12 +144,24 @@ inna.Models.Avia.TicketCollection.prototype.advancedSearch = function (criteria)
     return ticket || DEFAULT;
 }
 
-inna.Models.Avia.TicketCollection.prototype.getMinPrice = function () {
+inna.Models.Avia.TicketCollection.prototype.getMinPrice = function (bundle) {
     var min = Number.MAX_VALUE;
 
-    for (var i = 0, ticket = null; ticket = this.list[i++];) {
-        if (ticket.data.Price < min) min = ticket.data.Price;
-    }
+    this.each(function(ticket){
+        var price;
+
+        if(bundle) {
+            var vBundle = new inna.Models.Dynamic.Combination();
+            vBundle.hotel = bundle.hotel;
+            vBundle.ticket = ticket;
+
+            price = vBundle.getFullPackagePrice();
+        } else {
+            price = ticket.data.Price;
+        }
+
+        if (price < min) min = price;
+    });
 
     return min;
 };
