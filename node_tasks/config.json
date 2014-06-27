@@ -6,7 +6,6 @@
     "img" : "./spa/img",
     "publish" : "./publish",
 
-
     "protocol" : {
       "http": "http://",
       "https": "https://"

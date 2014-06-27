@@ -16,7 +16,6 @@ var isWin = /^win/.test(process.platform);
 console.log(isWin);
 console.info('----------------------------');
 
-
 // Полная сборка проект
 // Сборка в production запускается в окружении - production
 // NODE_ENV=production gulp build-project

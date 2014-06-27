@@ -3,7 +3,6 @@ var gulpif = require('gulp-if');
 var conf = require('./config');
 var fs = require('fs');
 var Q = require('q');
-var replace = require('gulp-replace-task');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -13,15 +12,9 @@ var renameBuild = {
     suffix: "-" + Math.random(1000).toString(32)
 };
 
-var cacheNameBuild = renameBuild.prefix + renameBuild.basename +   renameBuild.suffix;
+global.cacheNameBuild = renameBuild.prefix + renameBuild.basename +   renameBuild.suffix;
 
-// Копируем build и переименовываем ее
-
-gulp.task('copy-cache-build', function () {
-    return gulp.src(conf.build + '/**').pipe(gulp.dest(conf.publish + '/build'));
-});
-
-gulp.task('rename-build', ['copy-cache-build'], function (cb) {
+gulp.task('rename-build', ['copy-project'], function (cb) {
     var deferred = Q.defer();
 
     fs.rename(conf.publish + '/build', conf.publish + '/'+ cacheNameBuild, function (err) {
@@ -32,9 +25,4 @@ gulp.task('rename-build', ['copy-cache-build'], function (cb) {
         });
     });
     return deferred.promise;
-});
-
-
-gulp.task('replace-build-path', function () {
-
 });
