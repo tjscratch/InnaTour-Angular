@@ -169,8 +169,12 @@ innaAppControllers.
                             //log('getSelectedVariant dataItem: ' + angular.toJson(data));
                             $scope.item = data;
                             $scope.price = data.Price;
-                            //console.log($scope.item);
+                            console.log('data:');
+                            console.log($scope.item);
                             //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
+
+                            //тарифы
+                            //$scope.loadTarifs($scope.criteria.VariantId1, $scope.criteria.VariantId2, $scope.item);
 
                             //оповещаем лоадер, что метод отработал
                             loader.complete(self);
@@ -181,6 +185,8 @@ innaAppControllers.
                     function (data, status) {
                         $log.error('paymentService.getSelectedVariant error');
                     });
+
+                    
                     //}
                 };
 

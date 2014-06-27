@@ -237,64 +237,18 @@ Cvc = "486";
             }
             initValidateModel();
 
-            function tarifs() {
-                //log('tarifs');
-                var self = this;
+            $scope.tarifs = new $scope.helper.tarifs();
 
-                self.isOpened = false;
-
-                self.list = [];
-
-                self.fillInfo = function () {
-                    self.class = $scope.aviaInfo.CabineClass == 0 ? 'Эконом' : 'Бизнес';
-
-                    _.each($scope.aviaInfo.EtapsTo, function (etap) {
-                        self.list.push({
-                            from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
-                            num: etap.TransporterCode + '-' + etap.Number
-                        });
-                    });
-
-                    if ($scope.aviaInfo.EtapsBack != null) {
-                        _.each($scope.aviaInfo.EtapsBack, function (etap) {
-                            self.list.push({
-                                from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
-                                num: etap.TransporterCode + '-' + etap.Number
-                            });
-                        });
-                    }
-                }
-
-                self.selectedIndex = 0;
-                self.setected = null;
-                //self.class = $scope.criteria.CabinClass == 0 ? 'Эконом' : 'Бизнес';
-
-                self.tarifsData = null;
-                self.tarifItem = null;
-
-                self.tarifClick = function ($event, item) {
-                    eventsHelper.preventBubbling($event);
-                    self.setected = item;
-                    var index = self.list.indexOf(item);
-                    self.tarifItem = self.tarifsData[index];
-                }
-                self.show = function ($event) {
-                    eventsHelper.preventBubbling($event);
-                    self.selectedIndex = 0;
-                    self.setected = self.list[0];
-                    self.tarifItem = self.tarifsData[0];
-                    self.isOpened = true;
-                }
-                self.close = function ($event) {
-                    eventsHelper.preventBubbling($event);
-                    self.isOpened = false;
-                }
-            }
-            $scope.tarifs = new tarifs();
+            $scope.hotelRules = new $scope.helper.hotelRules();
 
             $scope.oferta = {
                 url: function () {
                     return app_main.staticHost + '/files/doc/offer.pdf';
+                }
+            }
+            $scope.TKP = {
+                url: function () {
+                    return app_main.staticHost + '/files/doc/TCH.pdf';
                 }
             }
 
@@ -572,6 +526,9 @@ Cvc = "486";
                                         $scope.hotel = data.Hotel;
                                         $scope.room = data.Hotel.Room;
                                         $scope.isBuyPage = true;
+
+                                        //правила отмены отеля
+                                        $scope.hotelRules.fillData(data.Hotel);
                                     }
 
                                     aviaHelper.addCustomFields(data.AviaInfo);
@@ -627,8 +584,10 @@ Cvc = "486";
                 if ($scope.reservationModel.IsService) {
                 }
                 else {
-                    loadTarifs();
-                    $scope.tarifs.fillInfo();
+                    if ($scope.hotel != null) {
+                        loadTarifs();
+                        $scope.tarifs.fillInfo($scope.aviaInfo);
+                    }
                 }
                 $scope.focusControl.init();
                 $scope.paymentDeadline.setUpdate();
@@ -704,9 +663,11 @@ Cvc = "486";
 
                 self.listenCloseEvent = function () {
                     $('#buy-listener').on('inna.buy.close', function (event, data) {
-                        console.log('triggered inna.buy.close');
+                        console.log('triggered inna.buy.close, isOrderPaid: ' + $scope.isOrderPaid);
                         $scope.safeApply(function () {
-                            $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
+                            if ($scope.isOrderPaid == false) {
+                                $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
+                            }
                             self.hide();
                         })
                     });
@@ -765,7 +726,7 @@ Cvc = "486";
             //        log('paymentService.payCheck, data: ' + angular.toJson(data));
             //        //data = true;
             //        if (data != null) {
-            //            if (data == 1 || data == 2) {
+            //            if (data.Result == 1 || data.Result == 2) {
             //                //прекращаем дергать
             //                $interval.cancel(intCheck);
 
@@ -774,7 +735,7 @@ Cvc = "486";
             //                    $scope.buyFrame.hide();
             //                }
 
-            //                if (data == 1) {
+            //                if (data.Result == 1) {
             //                    $scope.baloon.show('Билеты успешно выписаны', 'И отправены на электронную почту\n' + $scope.reservationModel.Email,
             //                    aviaHelper.baloonType.success, function () {
             //                        $location.path(Urls.URL_AVIA);
@@ -790,7 +751,7 @@ Cvc = "486";
             //                        }
             //                    });
             //                }
-            //                else if (data == 2) {
+            //                else if (data.Result == 2) {
             //                    $scope.baloon.showGlobalAviaErr();
             //                }
             //            }
@@ -801,6 +762,7 @@ Cvc = "486";
             //var intCheck = null;
             function checkPayment() {
                 $scope.isCkeckProcessing = false;
+                $scope.isOrderPaid = false;
                 check();
 
                 var intCheck = $interval(function () {
@@ -814,9 +776,12 @@ Cvc = "486";
                             try
                             {
                                 log('paymentService.payCheck, data: ' + angular.toJson(data));
-                                //data = true;
-                                if (data != null) {
-                                    if (data == 1 || data == 2) {
+                                //data = { Result: 1 };
+                                if (data != null ) {
+                                    if (data.Result == 1 || data.Result == 2) {
+                                        //пришел ответ - или оплачено или ошибка
+                                        $scope.isOrderPaid = true;
+
                                         //прекращаем дергать
                                         $interval.cancel(intCheck);
 
@@ -825,7 +790,7 @@ Cvc = "486";
                                             $scope.buyFrame.hide();
                                         }
 
-                                        if (data == 1) {
+                                        if (data.Result == 1) {
                                             $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
                                             aviaHelper.baloonType.success, function () {
                                                 $location.path(Urls.URL_AVIA);
@@ -841,7 +806,7 @@ Cvc = "486";
                                                 }
                                             });
                                         }
-                                        else if (data == 2) {
+                                        else if (data.Result == 2) {
                                             $scope.baloon.showGlobalAviaErr();
                                         }
                                     }

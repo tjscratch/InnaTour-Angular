@@ -6,7 +6,8 @@ angular.module('innaApp.directives')
                 template: $templateCache.get('components/dynamic-serp-filter/category.html'),
                 scope: {
                     hotels: '=dynamicSerpFilterCategoryHotels',
-                    filters: '=dynamicSerpFilterCategoryFilters'
+                    filters: '=dynamicSerpFilterCategoryFilters',
+                    bundle: '=dynamicSerpFilterCategoryBundle'
                 },
                 controller: [
                     '$scope', '$controller', '$element',
@@ -58,7 +59,7 @@ angular.module('innaApp.directives')
 
                                 if(fitting.size()) {
                                     option.shown = true;
-                                    option.minPrice = fitting.getMinPrice();
+                                    option.minPrice = fitting.getMinPrice($scope.bundle);
                                 }
                             });
 

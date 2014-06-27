@@ -4,7 +4,8 @@ angular.module('innaApp.directives')
             template: $templateCache.get('components/dynamic-serp-filter/avia.airlines.html'),
             scope: {
                 tickets: '=innaDynamicSerpFilterAviaAirlinesTickets',
-                filters: '=innaDynamicSerpFilterAviaAirlinesFilters'
+                filters: '=innaDynamicSerpFilterAviaAirlinesFilters',
+                bundle: '=innaDynamicSerpFilterAviaAirlinesBundle'
             },
             controller: [
                 '$scope', '$element', '$controller', 'innaApp.API.events',
@@ -64,7 +65,8 @@ angular.module('innaApp.directives')
                         });
 
                         for(var tName in collections) if(collections.hasOwnProperty(tName)) {
-                            $scope.options.push(new Option(tName, collections[tName].getMinPrice()));
+                            console.log(collections[tName].getMinPrice(), collections[tName].getMinPrice($scope.bundle));
+                            $scope.options.push(new Option(tName, collections[tName].getMinPrice($scope.bundle)));
                         }
 
                         unwatchCollectionTickets();

@@ -1,4 +1,4 @@
-﻿<!-- Search Results -->
+<!-- Search Results -->
 <div class="results-body" style="padding-top: 110px;" id="buy-listener">
     <form action="javascript:void(0)" method="post" class="results-body">
         <div class="main__center" ng-if="reservationModel.IsService">
@@ -9,6 +9,15 @@
         </div>
         <div class="main__center" ng-if="!reservationModel.IsService">
             <ng:include src="objectToReserveTemplate" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
+
+            <div class="r__booking">
+                <div class="r__booking-block">
+                    <a ng-if="tarifs.tarifsData != null" class="r__booking-link" href="" ng-click="tarifs.show($event)">Условия тарифов</a>
+                </div>
+                <div class="r__booking-block">
+                    <a ng-if="hotelRules.haveData" class="r__booking-link" href="" ng-click="hotelRules.show($event)">Условия и правила по отелю</a>
+                </div>
+            </div>
 
             <header class="buy__header">
                 <h2 class="buy__title">Информация о покупателе</h2>
@@ -164,8 +173,11 @@
             <div class="b-agreement-container">
                 <a ng-href="#" ng-click="fillTestData($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>
                 <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить" ng-click="processToBuy($event)"></span>
-                <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree"><ins class="b-checkbox" id="agree" data-title="Нужно согласиться с условиями"></ins>Я согласен с условиями <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a>, ознакомлен с <a ng-href="#" ng-click="tarifs.show($event)">правилами изменения</a> и <a href="#" ng-click="cancelReservation.show($event)">отмены бронирования</a> и 
-не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
+                <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree"><ins class="b-checkbox" id="agree" data-title="Нужно согласиться с условиями"></ins>
+                Я принимаю условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a>, 
+                <a href="http://www.iatatravelcentre.com/e-ticket-notice/Russian_Federation/Russian/" target="_blank">договора IATA</a>, 
+                <a ng-href="{{TKP.url()}}" target="_blank">ТКП</a>, 
+                <a ng-href="#" ng-click="tarifs.show($event)">тарифов</a>, и не возражаю против обработки моих персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
                 <img src="/spa/img/logos.png" class="b-logos" alt="">
             </div>
         </div>
@@ -174,7 +186,7 @@
 <!-- Search Results -->
 
 <!-- Baloon -->
-<div style="display: block" class="overlay js-overlay" ng-show="tarifs.isOpened">
+<div style="display: block" class="overlay js-overlay" ng-if="tarifs.isOpened">
     <div class="balloon balloon_medium">
         <div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>
         <div class="b__rules-container">
@@ -202,6 +214,38 @@
     <div class="balloon balloon_medium" style="padding: 0px; height: 430px; width: 960px; margin-left: -480px;">
         <!--<div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>-->
         <iframe id="buy_frame_main" ng-src="{{buyFrame.iframeUrl}}" ng-if="buyFrame.iframeUrl != null" style="width:100%; height: 100%;"></iframe>
+    </div>
+</div>
+<!-- /Baloon -->
+
+<!-- Baloon cancel hotel -->
+<div style="display: block" class="overlay js-overlay" ng-if="hotelRules.isOpened">
+    <div class="balloon balloon_ticket">
+        <div title="Закрыть" class="balloon-close" ng-click="hotelRules.close($event)"></div>
+        <h3 class="balloon__title">Условия и правила по отелю</h3>
+        <div class="balloon__text-block">
+            <h4 class="balloon__title-sec">Условия заселения</h4>
+            <ul class="balloon__list">
+                <li>Заезд: до {{hotelRules.checkIn}}</li>
+                <li>Выезд: до {{hotelRules.checkOut}}</li>
+            </ul>
+        </div>
+        <div class="balloon__text-block" ng-if="hotelRules.cancellationRules != null && hotelRules.cancellationRules.length > 0">
+            <h4 class="balloon__title-sec">Правила отмены</h4>
+            <!--<ul class="balloon__list">
+                <li>В случае отмены или изменения бронирования в срок до 1 суток до даты заезда 
+штраф не взимается.</li>
+                <li>В случае отмены или изменения бронирования позднее этого срока или в случае 
+незаезда взимается 100 процентов от стоимости первой ночи проживания.</li>
+            </ul>-->
+            <p ng-bind-html="hotelRules.cancellationRules | breakFilter"></p>
+        </div>
+        <div class="balloon__text-block" ng-if="hotelRules.extra.List.length > 0">
+            <h4 class="balloon__title-sec">Дополнительно</h4>
+            <ul class="balloon__list">
+                <li ng-repeat="item in hotelRules.extra.List">{{item}}</li>
+            </ul>
+        </div>
     </div>
 </div>
 <!-- /Baloon -->

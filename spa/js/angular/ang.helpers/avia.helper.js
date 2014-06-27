@@ -504,6 +504,23 @@
                     return pluralForm(i, str1, str2, str3);
                 },
 
+                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter) {
+                    var sList = [];
+                    var seatsText = helper.getNumSeatsText(countLeft, ticketsCount);
+                    if (seatsText != null && seatsText.length > 0) {
+                        sList.push(seatsText);
+                    }
+                    if (isCharter) {
+                        if (sList.length == 0) {
+                            sList.push('Чартер');
+                        }
+                        else {
+                            sList.push('чартер');
+                        }
+                    }
+                    return sList.join(', ');
+                },
+
                 getNumSeatsText: function (countLeft, ticketsCount) {
                     countLeft = parseInt(countLeft);
                     function getPluralTickets(count) {
@@ -515,53 +532,53 @@
 
                     switch (ticketsCount) {
                         case 1:
-                        {
-                            if (countLeft == 1) {
-                                return 'Остался последний билет';
+                            {
+                                if (countLeft == 1) {
+                                    return 'Остался последний билет';
+                                }
+                                else if (countLeft <= 3) {
+                                    return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                                }
+                                break;
                             }
-                            else if (countLeft <= 3) {
-                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                            }
-                            break;
-                        }
                         case 2:
-                        {
-                            if (countLeft <= 3) {
-                                return 'Остались последние билеты';
+                            {
+                                if (countLeft <= 3) {
+                                    return 'Остались последние билеты';
+                                }
+                                else if (countLeft <= 6) {
+                                    return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                                }
+                                break;
                             }
-                            else if (countLeft <= 6) {
-                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                            }
-                            break;
-                        }
                         case 3:
-                        {
-                            if (countLeft <= 5) {
-                                return 'Остались последние билеты';
+                            {
+                                if (countLeft <= 5) {
+                                    return 'Остались последние билеты';
+                                }
+                                else if (countLeft <= 9) {
+                                    return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                                }
+                                break;
                             }
-                            else if (countLeft <= 9) {
-                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                            }
-                            break;
-                        }
                         case 4:
-                        {
-                            if (countLeft <= 7) {
-                                return 'Остались последние билеты';
+                            {
+                                if (countLeft <= 7) {
+                                    return 'Остались последние билеты';
+                                }
+                                else if (countLeft <= 9) {
+                                    return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                                }
+                                break;
                             }
-                            else if (countLeft <= 9) {
-                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                            }
-                            break;
-                        }
                         case 5:
                         case 6:
-                        {
-                            if (countLeft <= 9) {
-                                return 'Остались последние билеты';
+                            {
+                                if (countLeft <= 9) {
+                                    return 'Остались последние билеты';
+                                }
+                                break;
                             }
-                            break;
-                        }
                     }
 
                     return '';
@@ -597,6 +614,7 @@
                         item = self.addAggFields(item);
                         self.item = item;
                         console.log(item);
+                        console.log(item.IsCharter);
 
                         if (criteria != null && searchId != null) {
                             var buyCriteria = angular.copy(criteria);
@@ -622,9 +640,9 @@
                                 var etapTo = i < item.EtapsTo.length ? item.EtapsTo[i] : null;
                                 var etapBack = i < item.EtapsBack.length ? item.EtapsBack[i] : null;
 
-                                var nextEtapTo = (i + 1) < item.EtapsTo.length ? item.EtapsTo[i+1] : null;
+                                var nextEtapTo = (i + 1) < item.EtapsTo.length ? item.EtapsTo[i + 1] : null;
                                 var nextEtapBack = (i + 1) < item.EtapsBack.length ? item.EtapsBack[i + 1] : null;
-                                
+
                                 if (etapTo != null) {
                                     etapTo.nextEtapTo = nextEtapTo;
                                 }
@@ -658,6 +676,92 @@
                     self.share = function ($event, item) {
                         eventsHelper.preventBubbling($event);
                         alert('Не реализовано');
+                    }
+                },
+
+                tarifs: function () {
+                    //log('tarifs');
+                    var self = this;
+
+                    self.isOpened = false;
+
+                    self.list = [];
+
+                    self.fillInfo = function (aviaInfo) {
+                        self.class = aviaInfo.CabineClass == 0 ? 'Эконом' : 'Бизнес';
+
+                        _.each(aviaInfo.EtapsTo, function (etap) {
+                            self.list.push({
+                                from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
+                                num: etap.TransporterCode + '-' + etap.Number
+                            });
+                        });
+
+                        if (aviaInfo.EtapsBack != null) {
+                            _.each(aviaInfo.EtapsBack, function (etap) {
+                                self.list.push({
+                                    from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
+                                    num: etap.TransporterCode + '-' + etap.Number
+                                });
+                            });
+                        }
+                    }
+
+                    self.selectedIndex = 0;
+                    self.setected = null;
+                    //self.class = $scope.criteria.CabinClass == 0 ? 'Эконом' : 'Бизнес';
+
+                    self.tarifsData = null;
+                    self.tarifItem = null;
+
+                    self.tarifClick = function ($event, item) {
+                        eventsHelper.preventBubbling($event);
+                        self.setected = item;
+                        var index = self.list.indexOf(item);
+                        self.tarifItem = self.tarifsData[index];
+                    }
+                    self.show = function ($event) {
+                        eventsHelper.preventBubbling($event);
+                        self.selectedIndex = 0;
+                        self.setected = self.list[0];
+                        self.tarifItem = self.tarifsData[0];
+                        self.isOpened = true;
+                    }
+                    self.close = function ($event) {
+                        eventsHelper.preventBubbling($event);
+                        self.isOpened = false;
+                    }
+                },
+
+                hotelRules: function () {
+                    var self = this;
+                    self.isOpened = false;
+                    self.haveData = false;
+
+                    self.checkIn = null;
+                    self.checkOut = null;
+                    self.cancellationRules = null;
+                    self.extra = null;
+
+                    self.fillData = function (hotel) {
+                        self.haveData = true;
+                        self.checkIn = hotel.CheckInTime;
+                        self.checkOut = hotel.CheckOutTime;
+                        self.cancellationRules = hotel.Room.CancellationRule;
+                        if (hotel.Amenities != null) {
+                            self.extra = hotel.Amenities.Amenity_3;
+                        }
+
+                        console.log(self);
+                    }
+
+                    self.show = function ($event) {
+                        eventsHelper.preventBubbling($event);
+                        self.isOpened = true;
+                    }
+                    self.close = function ($event) {
+                        eventsHelper.preventBubbling($event);
+                        self.isOpened = false;
                     }
                 },
 

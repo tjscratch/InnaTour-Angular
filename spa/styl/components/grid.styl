@@ -114,7 +114,14 @@ for prop, key in colsize {
   }
 }
 
-.row_separator {
+
+/*
+  Если у блока есть разделитель
+  На андройдах прохая поддержка
+  для этого смотри в b-result.styl
+  назначается жесткий размер в процентах
+*/
+/*.row_separator {
   for prop, key in colsize {
     > .col-xs-{key+1} {
         calc('width', s("%s %s %s", prop - ($separatorBlock / 2)), "100%");
@@ -125,12 +132,12 @@ for prop, key in colsize {
     for prop, key in colsize {
       > .col-xs-{key+1} {
           &:nth-child(even){
-            calc('width', s("%s %s %s", prop - $separatorBlock), "100%");
+            //calc('width', s("%s %s %s", prop - $separatorBlock), "100%");
           }
       }
     }
   }
-}
+}*/
 
 .col-xs-pull-12 {
 	right: 100%;
