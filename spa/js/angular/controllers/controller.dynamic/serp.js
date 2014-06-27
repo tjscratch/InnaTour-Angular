@@ -478,6 +478,10 @@ innaAppControllers
                 $scope.$broadcast('change:hotels:filters', data);
             }, true);
 
+            $scope.$on('Dynamic.Serp.*.Sorted', function(){
+                calibrate($scope.hotels);
+            });
+
             $scope.$watch('hotelFilters', function (data) {
                 $scope.hotels.filter($scope.hotelFilters);
                 $scope.$broadcast('change:filters', data);
