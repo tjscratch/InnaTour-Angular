@@ -25,8 +25,13 @@
     <link rel="stylesheet" type="text/css" href="/spa/css/main.css" />-->
 
     <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css"/>
-    <link rel="stylesheet" href="/build/css/main.less.css"/>
-    <link rel="stylesheet" href="/build/css/common.min.css"/>
+
+    <!-- build:app-less -->
+    <link rel="stylesheet" href="/build/css/main.less.css" />
+    <!-- endbuild -->
+    <!-- build:app-stylus -->
+    <link rel="stylesheet" href="/build/css/common.min.css" />
+    <!-- endbuild -->
 
     <!--[if lt IE 9]>
     <link rel="stylesheet" href="/build/css/ie.min.css"/>
@@ -116,18 +121,20 @@
 
 
         <div class="header-menu">
-            <ul class="header-menu-container-items">
+            <div class="main__center">
+                <ul class="header-menu-container-items">
 
 
-                <li class="header-menu-item"><a href="/#/packages/">Перелет&nbsp;+&nbsp;Отель</a></li>
-                <li class="header-menu-item"><a href="/#/avia/">Авиабилеты</a></li>
-                <li class="header-menu-item"><a href="/#/" class="active">Туры</a></li>
-                <li class="header-menu-item"><a href="/#/individualtours/">Программы</a></li>
-                <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru"
-                                                target="_blank">Отели</a></li>
-                <li class="header-menu-item"><a href="/catalog/guide/">Каталог стран</a></li>
-            </ul>
-            <ng:include src="getHeadForm()"></ng:include>
+                    <li class="header-menu-item"><a href="/#/packages/">Перелет&nbsp;+&nbsp;Отель</a></li>
+                    <li class="header-menu-item"><a href="/#/avia/">Авиабилеты</a></li>
+                    <li class="header-menu-item"><a href="/#/" class="active">Туры</a></li>
+                    <li class="header-menu-item"><a href="/#/individualtours/">Программы</a></li>
+                    <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru"
+                                                    target="_blank">Отели</a></li>
+                    <li class="header-menu-item"><a href="/catalog/guide/">Каталог стран</a></li>
+                </ul>
+                <ng:include src="getHeadForm()"></ng:include>
+            </div>
         </div>
     </div>
 
@@ -177,7 +184,7 @@
 </div>
 
 <div class="footer">
-    <div class="footer-content">
+    <div class="footer-content main__center">
         <div class="footer-menu">
             <ul class="footer-menu-links-list">
                 <li class="footer-menu-links-list-item"><a href="/#/about/">О компании</a></li>

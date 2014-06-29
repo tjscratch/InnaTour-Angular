@@ -10,9 +10,6 @@
   background-position 0 -14px
 }
 
-.results-list_960 {
-  width 960px
-}
 
 .recommend-bundle-container {
   position fixed
@@ -76,16 +73,9 @@
 }
 
 .recommend-bundle-wrap {
-  width 960px
-  margin 0 auto
   padding 30px 0 24px
   position: relative;
   z-index: 2
-
-  /*.recommend-bundle-container__toggle {
-    text-align : right;
-    padding-top : 12px;
-  }*/
 
   .expand-collapse-link {
     font-size 14px
@@ -106,12 +96,11 @@
 }
 
 .results-container {
+  @extend .main__center;
   padding $full_padding 0 0
   font-family $ProximaNova
   position relative
   color #333
-  width 960px
-  margin 0 auto
   clearfix()
 
 
@@ -125,3 +114,20 @@
 
 }
 
+.res-aside-avia
+    width: 235px
+    float: right
+    background-color: #fece07
+
+.res-aside-avia__img
+    width: 235px;
+    background: url('/spa/img/banner.png') no-repeat
+    cursor: pointer;
+
+    &.two-way
+        height: 180px;
+        background-position: 0px 0px;
+
+    &.one-way
+        height: 130px;
+        background-position: -255px -50px;

@@ -4,8 +4,13 @@
     <meta charset="utf-8"/>
     <title>Инна-Тур - Авиа</title>
     <link rel="shortcut icon" href="/favicon.ico"/>
-    <link rel="stylesheet" href="/build/css/main.less.css"/>
-    <link rel="stylesheet" href="/build/css/common.min.css"/>
+
+    <!-- build:app-less -->
+    <link rel="stylesheet" href="/build/css/main.less.css" />
+    <!-- endbuild -->
+    <!-- build:app-stylus -->
+    <link rel="stylesheet" href="/build/css/common.min.css" />
+    <!-- endbuild -->
 </head>
 
 <body>
@@ -34,17 +39,19 @@
 
 
         <div class="header-menu">
-            <ul class="header-menu-container-items">
+            <div class="main__center">
+                <ul class="header-menu-container-items">
 
 
-                <li class="header-menu-item"><a href="/#/packages/">Перелет&nbsp;+&nbsp;Отель</a></li>
-                <li class="header-menu-item"><a href="/#/avia/">Авиабилеты</a></li>
-                <li class="header-menu-item"><a href="/#/" class="active">Туры</a></li>
-                <li class="header-menu-item"><a href="/#/individualtours/">Программы</a></li>
-                <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru"
-                                                target="_blank">Отели</a></li>
-                <li class="header-menu-item"><a href="/catalog/guide/">Каталог стран</a></li>
-            </ul>
+                    <li class="header-menu-item"><a href="/#/packages/">Перелет&nbsp;+&nbsp;Отель</a></li>
+                    <li class="header-menu-item"><a href="/#/avia/">Авиабилеты</a></li>
+                    <li class="header-menu-item"><a href="/#/" class="active">Туры</a></li>
+                    <li class="header-menu-item"><a href="/#/individualtours/">Программы</a></li>
+                    <li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru"
+                                                    target="_blank">Отели</a></li>
+                    <li class="header-menu-item"><a href="/catalog/guide/">Каталог стран</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -86,11 +93,11 @@
                 <tr>
                     <td class="browser-options__option">
                         <a href="https://www.google.ru/intl/ru/chrome/browser/" target="_blank"
-                                                           class="browser-options__name">Chrome</a>
+                           class="browser-options__name">Chrome</a>
                     </td>
                     <td class="browser-options__option">
                         <a href="http://www.mozilla.org/ru/firefox/new/" target="_blank"
-                                                           class="browser-options__name">Firefox</a>
+                           class="browser-options__name">Firefox</a>
                     </td>
                     <td class="browser-options__option">
                         <a href="http://windows.microsoft.com/ru-ru/internet-explorer/download-ie" target="_blank"
@@ -98,11 +105,11 @@
                     </td>
                     <td class="browser-options__option">
                         <a href="http://www.opera.com/ru/computer/windows" target="_blank"
-                                                           class="browser-options__name">Opera</a>
+                           class="browser-options__name">Opera</a>
                     </td>
                     <td class="browser-options__option">
                         <a href="http://browser.yandex.ru/" target="_blank"
-                                                           class="browser-options__name">Yandex</a>
+                           class="browser-options__name">Yandex</a>
                     </td>
                 </tr>
             </table>
@@ -110,7 +117,7 @@
     </div>
 </div>
 <div class="footer">
-    <div class="footer-content">
+    <div class="footer-content main__center">
         <div class="footer-menu">
             <ul class="footer-menu-links-list">
                 <li class="footer-menu-links-list-item"><a href="/#/about/">О компании</a></li>

@@ -5,7 +5,8 @@
 
         <div class="recommend-bundle-background"></div>
 
-        <div class="recommend-bundle-wrap" ng-class="{'recommend-bundle-wrap_small': display.isCurrent(display.SHORT)}">
+        <div class="main__center recommend-bundle-wrap"
+             ng-class="{'recommend-bundle-wrap_small': display.isCurrent(display.SHORT)}">
 
             <h3 class="recommend-bundle-title" ng-if="display.isCurrent(display.FULL) && isChooseHotel">
                 Выбранный пакет
@@ -87,7 +88,7 @@
     </div>
 
     <!-- Переключаем фильтры на карте и на списке отелей -->
-    <div class="filters__body">
+    <div class="filters__body main__center">
         <!-- Показываем разные фильтры -->
         <ng:include src="'pages/dynamic/inc/serp.hotels.html__filters.html'" ng-if="!asMap && state.HOTELS_TAB"/>
         <ng:include src="'pages/dynamic/inc/serp.tickets.html__filters.html'" ng-if="!asMap && state.TICKETS_TAB"/>

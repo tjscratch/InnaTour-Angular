@@ -72,6 +72,10 @@ innaAppControllers.
 
             $scope.helper = aviaHelper;
 
+            $scope.recommendedClick = function () {
+                $location.url(Urls.URL_DYNAMIC_PACKAGES);
+            }
+
             $scope.getLength = function () {
                 var len = $scope.ticketsList != null ? $scope.ticketsList.length : 0;
                 //if ($scope.recomendedItem != null)
