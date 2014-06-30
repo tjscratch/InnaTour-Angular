@@ -122,9 +122,6 @@
                         //грузим тарифы
                         $scope.loadTarifs($scope.item.VariantId1, $scope.item.VariantId2, data.RecommendedPair.AviaInfo);
 
-                        //правила отмены отеля
-                        $scope.hotelRules.fillData(data.RecommendedPair.Hotel);
-
                         //проверяем, что остались билеты для покупки
                         paymentService.packageCheckAvailability(getCheckParams(),
                             function (data) {
@@ -134,6 +131,9 @@
                                     //если проверка из кэша - то отменяем попап
                                     //$timeout.cancel(availableChecktimeout);
                                     $scope.roomId = data.Rooms[0].RoomId;
+
+                                    //правила отмены отеля
+                                    $scope.hotelRules.fillData($scope.hotel);
 
                                     //загружаем все
                                     loadDataAndInit();

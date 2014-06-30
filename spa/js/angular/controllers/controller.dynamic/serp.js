@@ -170,11 +170,7 @@ innaAppControllers
             }
 
             function combination404() {
-                $scope.baloon.showErr(
-                    "Не удалось найти ни одной подходящей комбинации",
-                    "Попробуйте изменить параметры поиска",
-                    balloonCloser
-                );
+                $scope.baloon.showNotFound(balloonCloser);
             }
 
             function combination500() {
