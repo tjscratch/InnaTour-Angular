@@ -919,15 +919,15 @@ innaAppControllers.
                         //а/к - авиакомпании item'а входят в разрешенный список
                         var itemInTransportTo = null;
                         var itemInTransportBack = null;
-                        if (noTransporterChecked == false) {//н евыбисляем, если ничего не выбрано
-                            itemInTransportTo = _.all(item.EtapsTo, function (etap) {
+                        if (noTransporterChecked == false) {//не вычисляем, если ничего не выбрано
+                            itemInTransportTo = _.any(item.EtapsTo, function (etap) {
                                 return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
                             });
                             if (item.EtapsBack.length == 0) {
                                 itemInTransportBack = false;
                             }
                             else {
-                                itemInTransportBack = _.all(item.EtapsBack, function (etap) {
+                                itemInTransportBack = _.any(item.EtapsBack, function (etap) {
                                     return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
                                 });
                             }
