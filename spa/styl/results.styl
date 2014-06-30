@@ -68,7 +68,7 @@
 	clearfix()
 	font-size 14px
 	padding 6px 0
-	position relative
+	//position relative
 
 .ra-fly-type-list input
 	display none
@@ -509,6 +509,8 @@
 		z-index 100
 		left 50%
 		margin-left -480px
+		//фикс бага с перерисовкой в хроме
+		-webkit-transform: translate3d(0, 0, 0);
 
 .filters__container
 	background #fff

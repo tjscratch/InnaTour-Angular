@@ -1038,17 +1038,24 @@ innaAppControllers.
                     //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));
                 }
 
-                $(window).scroll(function () {
+                //$(window).scroll(function () {
+                //    var scrollTop = $(window).scrollTop();
+                //    if (scrollTop + $(window).height() > $(document).height() - 300 &&
+                //        scrollTop > $scope.scrollControl.lastScrollOffset) {
+                //        $scope.scrollControl.lastScrollOffset = scrollTop;
+                //        $scope.scrollControl.loadMore();
+                //    }
+                //});
+
+                function onWindowScroll() {
                     var scrollTop = $(window).scrollTop();
                     if (scrollTop + $(window).height() > $(document).height() - 300 &&
                         scrollTop > $scope.scrollControl.lastScrollOffset) {
                         $scope.scrollControl.lastScrollOffset = scrollTop;
                         $scope.scrollControl.loadMore();
                     }
-                });
 
-                $(window).on('scroll', function onWindowScroll() {
-                    var scrollTop = utils.getScrollTop();
+                    //var scrollTop = utils.getScrollTop();
                     var filters = $('.filters__body');
                     var FIXED_CLASS = 'filters__body_position_fixed';
 
@@ -1057,10 +1064,12 @@ innaAppControllers.
                     } else {
                         filters.removeClass(FIXED_CLASS);
                     }
+                }
 
-                    $scope.$on('$destroy', function () {
-                        $(window).off('scroll', onWindowScroll);
-                    })
+                $(window).on('scroll', onWindowScroll);
+
+                $scope.$on('$destroy', function () {
+                    $(window).off('scroll', onWindowScroll);
                 });
             }
         }]);
