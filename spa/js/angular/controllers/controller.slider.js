@@ -17,6 +17,13 @@ innaAppControllers.
                     return false;
             };
 
+            $scope.isFirstSlideDarken = function () {
+                if ($scope.slides != null && $scope.slides.length > 0) {
+                    return $scope.slides[0].NeedFilterBrightness;
+                }
+                return true;//по-умолчанию - затемнено
+            }
+
             function preventBubbling($event) {
                 if ($event.stopPropagation) $event.stopPropagation();
                 if ($event.preventDefault) $event.preventDefault();
@@ -77,7 +84,8 @@ innaAppControllers.
             });
 
             $scope.$on('slider.set.content', function (event, data) {
-                //console.log('slider.set.content');
+                //console.log('slider.set.content:');
+                //console.log(data);
                 $scope.slides = data;
                 $scope.$broadcast('sliderDataLoaded');
             });

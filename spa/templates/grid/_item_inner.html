@@ -1,5 +1,5 @@
 <img bo-src="item.Image" class="offer-img" alt=""/>
-<div class="darken-container"></div>
+<div class="darken-container" bo-if="item.NeedFilterBrightness"></div>
 <div class="offer-info" bo-if="!showImgOnly(item)">
     <div class="offer-info-container">
         <h3 class="offer-title" bo-if="!isNullOrEmpty(item.FrontTitleRow1)" bo-bind="item.FrontTitleRow1"></h3>
