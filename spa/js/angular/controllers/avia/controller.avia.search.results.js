@@ -157,8 +157,8 @@ innaAppControllers.
                     var self = this;
 
                     self.list = [
-                        { name: "По рейтингу", sort: avia.sortType.byRecommend },
                         { name: "По цене", sort: avia.sortType.byPrice },
+                        { name: "По рейтингу", sort: avia.sortType.byRecommend },
                         { name: "По времени в пути", sort: avia.sortType.byTripTime },
                         { name: "По времени отправления ТУДА", sort: avia.sortType.byDepartureTime },
                         { name: "По времени отправления ОБРАТНО", sort: avia.sortType.byBackDepartureTime },
@@ -171,7 +171,7 @@ innaAppControllers.
                         self.sortType = avia.sortType.byAgencyProfit;
                     }
                     else {
-                        self.sortType = avia.sortType.byRecommend;
+                        self.sortType = avia.sortType.byPrice;
                     }
                     self.reverse = false;
                 }
@@ -413,12 +413,11 @@ innaAppControllers.
                 //log('updateModel');
                 //console.log(data, 'sdhfjsgdfj');
 
-
                 var list = [];
                 var recommendedList = [];
                 var recomendedItem = null;
 
-                if (data && data.Items) {
+                if (data && data.Items && data.Items.length > 0) {
 
                     //id поиска
                     $scope.searchId = data.QueryId;
@@ -467,8 +466,6 @@ innaAppControllers.
                             list.push(item);
                         }
                     });
-
-
 
                     function getRecommended() {
                         //находим рекомендованный - первый из сортировки по рейтингу INNA.RU - по рекомендованности (по умолчанию), затем по дате/времени отправления ТУДА, затем по дате/времени отправления ОБРАТНО
