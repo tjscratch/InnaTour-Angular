@@ -10,10 +10,14 @@ var _ENV_ = process.env.NODE_ENV || '';
 gulp.task('copy-project', function () {
 
     var build = '/' + conf.version;
+
     gulp.src(['./favicon.ico']).pipe(gulp.dest(conf.publish));
     gulp.src(['./Web.config']).pipe(gulp.dest(conf.publish));
+
     gulp.src(conf.build + '/**').pipe(gulp.dest(conf.publish + build));
+
     gulp.src(['./Web.config']).pipe(gulp.dest(conf.publish + build + '/css'));
+
     gulp.src(['./Web.config']).pipe(gulp.dest(conf.publish + build + '/js'));
 
 

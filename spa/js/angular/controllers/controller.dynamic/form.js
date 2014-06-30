@@ -205,8 +205,8 @@ innaAppControllers
 
                     //half of a year
                     //or
-                    //longer then 30 days
-                    if(beforeStart >= 30 * 6 || duration > 30) {
+                    //longer then 28 days
+                    if(beforeStart >= 30 * 6 || duration > 28) {
                         $scope.baloon.showErr('Ограничения бронирования', 'Бронирование возможно не ранее, чем за 6 месяцев до планируемого путешествия и продолжительность путешествия не более 30 дней.');
 
                         throw 1;

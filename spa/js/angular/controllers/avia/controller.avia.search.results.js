@@ -157,8 +157,8 @@ innaAppControllers.
                     var self = this;
 
                     self.list = [
-                        { name: "По рейтингу", sort: avia.sortType.byRecommend },
                         { name: "По цене", sort: avia.sortType.byPrice },
+                        { name: "По рейтингу", sort: avia.sortType.byRecommend },
                         { name: "По времени в пути", sort: avia.sortType.byTripTime },
                         { name: "По времени отправления ТУДА", sort: avia.sortType.byDepartureTime },
                         { name: "По времени отправления ОБРАТНО", sort: avia.sortType.byBackDepartureTime },
@@ -171,7 +171,7 @@ innaAppControllers.
                         self.sortType = avia.sortType.byAgencyProfit;
                     }
                     else {
-                        self.sortType = avia.sortType.byRecommend;
+                        self.sortType = avia.sortType.byPrice;
                     }
                     self.reverse = false;
                 }
@@ -413,12 +413,11 @@ innaAppControllers.
                 //log('updateModel');
                 //console.log(data, 'sdhfjsgdfj');
 
-
                 var list = [];
                 var recommendedList = [];
                 var recomendedItem = null;
 
-                if (data && data.Items) {
+                if (data && data.Items && data.Items.length > 0) {
 
                     //id поиска
                     $scope.searchId = data.QueryId;
@@ -467,8 +466,6 @@ innaAppControllers.
                             list.push(item);
                         }
                     });
-
-
 
                     function getRecommended() {
                         //находим рекомендованный - первый из сортировки по рейтингу INNA.RU - по рекомендованности (по умолчанию), затем по дате/времени отправления ТУДА, затем по дате/времени отправления ОБРАТНО
@@ -922,15 +919,15 @@ innaAppControllers.
                         //а/к - авиакомпании item'а входят в разрешенный список
                         var itemInTransportTo = null;
                         var itemInTransportBack = null;
-                        if (noTransporterChecked == false) {//н евыбисляем, если ничего не выбрано
-                            itemInTransportTo = _.all(item.EtapsTo, function (etap) {
+                        if (noTransporterChecked == false) {//не вычисляем, если ничего не выбрано
+                            itemInTransportTo = _.any(item.EtapsTo, function (etap) {
                                 return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
                             });
                             if (item.EtapsBack.length == 0) {
                                 itemInTransportBack = false;
                             }
                             else {
-                                itemInTransportBack = _.all(item.EtapsBack, function (etap) {
+                                itemInTransportBack = _.any(item.EtapsBack, function (etap) {
                                     return (_.indexOf(transporterListCheckedList, etap.TransporterCode) > -1);
                                 });
                             }
@@ -1038,17 +1035,24 @@ innaAppControllers.
                     //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));
                 }
 
-                $(window).scroll(function () {
+                //$(window).scroll(function () {
+                //    var scrollTop = $(window).scrollTop();
+                //    if (scrollTop + $(window).height() > $(document).height() - 300 &&
+                //        scrollTop > $scope.scrollControl.lastScrollOffset) {
+                //        $scope.scrollControl.lastScrollOffset = scrollTop;
+                //        $scope.scrollControl.loadMore();
+                //    }
+                //});
+
+                function onWindowScroll() {
                     var scrollTop = $(window).scrollTop();
                     if (scrollTop + $(window).height() > $(document).height() - 300 &&
                         scrollTop > $scope.scrollControl.lastScrollOffset) {
                         $scope.scrollControl.lastScrollOffset = scrollTop;
                         $scope.scrollControl.loadMore();
                     }
-                });
 
-                $(window).on('scroll', function onWindowScroll() {
-                    var scrollTop = utils.getScrollTop();
+                    //var scrollTop = utils.getScrollTop();
                     var filters = $('.filters__body');
                     var FIXED_CLASS = 'filters__body_position_fixed';
 
@@ -1057,10 +1061,12 @@ innaAppControllers.
                     } else {
                         filters.removeClass(FIXED_CLASS);
                     }
+                }
 
-                    $scope.$on('$destroy', function () {
-                        $(window).off('scroll', onWindowScroll);
-                    })
+                $(window).on('scroll', onWindowScroll);
+
+                $scope.$on('$destroy', function () {
+                    $(window).off('scroll', onWindowScroll);
                 });
             }
         }]);

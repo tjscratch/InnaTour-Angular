@@ -5,7 +5,7 @@
             <li class="offer-card-banner-item" bindonce ng-repeat="slide in slides track by $index">
                 <!--<img class="img" bo-src="slide.Image" />-->
                 <div class="img" style="background-image: url('{{slide.Image}}')"></div>
-                <div class="darken-container" ng-click="offerClickSlider(slide, $event, $index)"></div>
+                <div class="darken-container" bo-if="slide.NeedFilterBrightness" ng-click="offerClickSlider(slide, $event, $index)"></div>
                 <div class="info-container" ng-click="offerClickSlider(slide, $event, $index)">
                     <div class="info">
                         <h3 class="name" bo-if="!isNullOrEmpty(slide.FrontTitleRow1)" bo-bind="slide.FrontTitleRow1"></h3>
@@ -21,6 +21,11 @@
             <ul class="banner-dots Banner-dots"></ul>
         </div>
         <div class="scroll-mouse-container" ng-show="slides.length > 0">
+
+            <!--<span class="smoothscroll-control Mouse-scroll">
+                <div class="icon-arrow-hint animated infinite hinge animated-arrow-1"></div>
+                <div class="icon-arrow-hint animated infinite hinge animated-arrow-2"></div>
+            </span>-->
             <i class="icon icon-scroll-mouse Mouse-scroll"></i>
         </div>
     </div>
