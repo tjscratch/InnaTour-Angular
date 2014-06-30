@@ -43,7 +43,7 @@ innaAppControllers
 
                     //console.timeEnd('calibrate');
                 }
-            }, utils.isSafari ? 1 : 100);
+            }, utils.isSafari ? 1 : 50);
 
             calibrate.__scrolledTicketsCache = NaN;
 
@@ -476,7 +476,7 @@ innaAppControllers
                 function onScroll(event) {
                     var scrollTop = utils.getScrollTop();
 
-                    if(utils.isSafari() || scrollTop % 3 == 0) { //'cause 3px is actually nothing
+                    if(utils.isSafari() || scrollTop % 5) { //skip one of 5
                         $scope.$apply(function ($scope) {
                             $scope.padding.scrollTop = scrollTop;
 
