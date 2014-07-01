@@ -10,7 +10,6 @@
                 <div class="hotel-gallery-container b-carousel__holder">
                     <!-- Slider -->
                     <div class="b-carousel__slider">
-                        <!-- Интайн стили это пиздец -->
                         <div class="b-carousel_item" style="width:200px; height:190px;">
                             <div class="b-carousel_item_image"
                                  bo-style="{'background-image': 'url(' + hotel.data.Photos[0].Small +')'}"
@@ -23,9 +22,12 @@
         </div>
 
         <div class="b-result__cell">
-            <img bo-src="hotel.data.ProviderLogoUrl" alt="" class="logo">
-
             <div class="hotel-info">
+                <div class="hotel-info__special-mark">
+                    <span class="icon-crown icon-sprite-crown"></span>
+                    Спецпредложение
+                </div>
+
                 <div class="hotel-info-content">
                     <div>
                         <span class="icon icon-star" bo-if="hotel.data.Stars > 0"></span>
