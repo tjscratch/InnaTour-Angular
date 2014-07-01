@@ -10,7 +10,7 @@ var _ENV_ = process.env.NODE_ENV || '';
 gulp.task('build-concat', ['build-templates', 'build-lib'], function () {
     return gulp.src([
             conf.build + '/js/app-lib.js',
-        
+
             conf.dest + '/js/angular/config.js',
             conf.dest + '/js/jquery.ui.datepicker-ru.js',
             conf.dest + '/js/google.maps.clustering.js',

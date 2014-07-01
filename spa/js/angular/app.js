@@ -8,6 +8,7 @@ var app = angular.module('innaApp', [
   'innaApp.services',
   'innaApp.directives',
   'innaApp.controllers',
+  'innaApp.conponents',
   'innaApp.Url',
   'innaApp.API',
   'ngSanitize',
@@ -212,6 +213,7 @@ app.config([
 var innaAppCookie = angular.module('innaApp.Cookie', ['ngCookies']);
 
 var innaAppControllers = angular.module('innaApp.controllers', []);
+var innaAppConponents = angular.module('innaApp.conponents', []);
 
 var innaAppTemlates = angular.module('innaApp.templates', []);
 

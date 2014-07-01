@@ -1,0 +1,75 @@
+<div class="b-result b-result_col_two b-result_pay result row buy__fly buy__fly_footer">
+
+    <div class="b-result__cell result-cell">
+
+        {{#!(item.transportersList.length > 3)}}
+            {{#item.transportersList}}
+                <span class="rl-airline">
+                    <img src="{{tr.logoUrl}}" alt="">
+                    <span class="rl-airline-text">{{tr.name}}</span>
+                </span>
+            {{/item.transportersList}}
+        {{/}}
+
+        {{#item.transportersList.length > 3}}
+            <span class="rl-airline">
+            <img src="/spa/img/group.png" alt="">
+            <span class="rl-airline-text">Несколько авиакомпаний</span>
+        </span>
+        {{/}}
+
+        <!-- partials -->
+        {{#ticket2ways}}
+            {{>ticket2ways}}
+        {{/}}
+
+
+        <div class="bottom-actions">
+            {{#!isBuyPage}}
+                <a href="#" class="pull-right" on-click="popupItemInfo.show($event, item, null, null, true)">
+                    Подробнее
+                </a>
+            {{/}}
+        </div>
+        <!-- separator -->
+        <div class="b-result-cell__gap">
+            <div class="b-result-cell__gap_wrap"></div>
+        </div>
+    </div>
+    <div class="b-result__cell result-cell">
+        <img ng-src="{{hotel.ProviderLogoUrl}}" alt="" class="logo">
+
+        <div class="hotel-info">
+            <div class="hotel-info__wrapper">
+                <img ng-src="{{hotel.HotelPhoto70}}" alt=""><!--
+                        -->
+                <div class="hotel-info-content">
+                    <div class="star-container">
+                        <span ng-repeat="star in hotel.starsList track by $index" class="icon icon-star"></span>
+                    </div>
+                    <h3 class="hotel-info-name" style="width: 360px;">{{hotel.HotelName}}</h3>
+
+                    <div class="hotel-info-date" ng-show="hotel != null">с
+                        {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMM', true)}} по
+                        {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMM', true)}}, {{hotel.NightCount}}
+                        {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="hotel-info-name">{{room.RoomName}}</h3>
+
+            <div class="hotel-info-date r__hotel-info"><span ng-repeat="bed in room.BedTypeList track by $index">{{bed.Name}}<span
+                    ng-if="!$last">,&nbsp;</span></span></div>
+        </div>
+
+        <div class="bottom-actions">
+            <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
+            <a ng-if="!isBuyPage" ng-href="{{getHotelInfoLink(item.VariantId1, hotel.HotelId)}}" class="pull-right">Подробнее</a>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="list-ticket"></div>

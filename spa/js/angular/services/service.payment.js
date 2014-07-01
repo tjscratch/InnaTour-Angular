@@ -1,5 +1,14 @@
 ﻿innaAppServices.
-    factory('paymentService', ['$rootScope', '$timeout', '$http', '$q', '$log', 'cache', 'storageService', 'innaApp.API.const', 'AjaxHelper',
+    factory('paymentService', [
+        '$rootScope',
+        '$timeout',
+        '$http',
+        '$q',
+        '$log',
+        'cache',
+        'storageService',
+        'innaApp.API.const',
+        'AjaxHelper',
         function ($rootScope, $timeout, $http, $q, $log, cache, storageService, apiUrls, AjaxHelper) {
             function log(msg) {
                 $log.log(msg);
