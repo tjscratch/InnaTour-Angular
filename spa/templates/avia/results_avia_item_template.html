@@ -1,0 +1,119 @@
+{{#items}}
+<div class="b-result b-result_col_two_short b-result_flight-info row b-result-content b-result_middle-180 {{ this.BackArrivalDate != null ? 'b-result_middle-180' : 'b-result_middle-130' }}">
+
+    <div class="b-result__cell" on-click='popupItemInfo_show:{{this}}'>
+
+        <span class="rl-airline" class="result-cell__airlines">
+            {{#this.transportersList}}
+            <img src="{{this.logoUrl}}" alt="" class="logo">
+            <span class="rl-airline-text">{{this.name}}</span>
+            {{/this.transportersList}}
+        </span>
+
+        {{#(this.transportersList.length > 3)}}
+        <span class="rl-airline">
+            <img src="/spa/img/group.png" alt="">
+            <span class="rl-airline-text">Несколько авиакомпаний</span>
+        </span>
+        {{/}}
+
+        <div class="row">
+
+            <div class="rl-content row-fluid">
+
+                <div class="rl-fly ">
+                    <div class="rlf-flight-info">
+                        <b>{{this.DepartureTimeFormatted}}</b>, {{this.DepartureDateFormatted}}<br>
+                        <span title="{{this.AirportFrom}}">{{limitFilter(this.AirportFrom, 16)}} {{this.OutCode}}</span>
+                    </div>
+                </div>
+
+                <div class="rl-travel-time ">
+                    в пути: {{this.TimeToFormatted}}<br>
+                    {{#(this.ToTransferCount > 0)}}
+                        <span>
+                            {{this.ToTransferCount}} {{helper.getTransferCountText(this.ToTransferCount)}}
+                        </span>
+                    {{/}}
+                    {{#(this.ToTransferCount == 0)}}
+                        <span>прямой</span>
+                    {{/}}
+                </div>
+
+                <div class="rl-fly col-xs-push-1">
+                    <div class="rlf-flight-info">
+                        <b>{{this.ArrivalTimeFormatted}}</b>, {{this.ArrivalDateFormatted}}<br>
+                        <span title="{{this.AirportTo}}">{{limitFilter(this.AirportTo, 14)}} {{this.InCode}}</span>
+                    </div>
+                </div>
+            </div>
+
+            {{#(this.EtapsBack.length > 0)}}
+            <div class="rl-content row">
+
+                <div class="rl-fly ">
+                    <div class="rlf-flight-info">
+                        <b>{{this.BackDepartureTimeFormatted}}</b>, {{this.BackDepartureDateFormatted}}<br>
+                        <span title="{{this.AirportTo}}">{{limitFilter(this.AirportTo,16)}} {{this.InCode}}</span>
+                    </div>
+                </div>
+
+                <div class="rl-travel-time ">
+                    в пути: {{this.TimeBackFormatted}}<br>
+                    {{#(this.BackTransferCount > 0)}}
+                        <span>
+                            {{this.BackTransferCount}} {{helper.getTransferCountText(this.BackTransferCount)}}
+                        </span>
+                    {{/}}
+                    {{#(this.BackTransferCount == 0)}}
+                        <span>прямой</span>
+                    {{/}}
+                </div>
+
+                <div class="rl-fly col-xs-push-1">
+                    <div class="rlf-flight-info">
+                        <b>{{this.BackArrivalTimeFormatted}}</b>, {{this.BackArrivalDateFormatted}}<br>
+                        <span title="{{this.AirportFrom}}">{{limitFilter(this.AirportFrom,14)}} {{this.OutCode}}</span>
+                    </div>
+                </div>
+
+            </div>
+            {{/}}
+
+        </div>
+
+        <div class="bottom-actions row">
+            <div class="col-xs-6 col-no-padding">
+                <span class="warning">{{helper.getCharterAndNumSeatsText(this.NumSeats, ticketsCount, this.IsCharter)}}</span>
+            </div>
+            <div class="col-xs-6 col-no-padding align-right">
+                <a href="#" on-click='popupItemInfo_show:{{this}}'>Подробнее</a>
+            </div>
+        </div>
+
+        <!-- separator -->
+        <div class="b-result-cell__gap">
+            <div class="b-result-cell__gap_wrap"></div>
+        </div>
+    </div>
+
+    <!---->
+    <div class="b-result__cell result-choice">
+        {{#isItemRecomended}}
+            <span class="rl-rec">мы рекомендуем</span>
+        {{/}}
+        <span class="rl-price {{this.EtapsBack.length == 0 ? 'rl-price_1way' : ''}}">
+            <span class="rl-price-item">{{priceFilter(this.Price)}}</span>
+            {{>components_ruble}}
+        </span>
+        
+        {{#isAgency()}}
+            <!-- tooltip price -->
+            <!--<div tooltip-price-generic items="item.PriceDetailsTooltipData" ng-if="isAgency()"></div>-->
+            {{>components_tooltip}}
+        {{/}}
+
+        <span class="button" on-click='goToPaymentClick:{{this}}'>Купить</span>
+    </div>
+</div>
+{{/items}}
