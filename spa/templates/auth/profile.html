@@ -10,9 +10,12 @@
     </div>
     <div class="popup-form-row">
         <label for="" class="popup-form-label">Email</label>
-        <input type="text" class="popup-form-field" disabled ng-model="user.raw.Email">
-        <div class="description">
+        <input type="text" class="popup-form-field" ng-disabled="!user.raw.IsSocial" ng-model="user.raw.Email">
+        <div class="description" ng-if="!errors.email">
             На этот адрес мы отправим Ваш электронный билет
+        </div>
+        <div class="description" style="color:red" ng-if="errors.email">
+            Введите, пожалуйста, действующий адрес электронной почты
         </div>
     </div>
 
