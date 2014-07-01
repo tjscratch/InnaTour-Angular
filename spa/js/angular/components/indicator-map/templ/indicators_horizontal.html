@@ -6,8 +6,8 @@
                 <span ng-click="action()" class="button-map-list b-display-inline"></span>
             </div>
 
-            <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="items.list.length">
-                <b>{{items.getVisibilityInfo().visible}}</b> из <b>{{items.getVisibilityInfo().total}}</b> {{items.getVisibilityInfo().total | choosePlural:name}}
+            <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="mod_wrapper && items.list.length - 1" style="font-size:14px;">
+                <b>{{items.getVisibilityInfo().visible}}</b> {{items.getVisibilityInfo().visible | choosePlural:"отель":"отеля":"отелей"}}
             </div>
         </div>
 
