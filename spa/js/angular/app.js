@@ -22,6 +22,7 @@ app.constant('innaApp.Urls', {
     URL_AVIA_RESERVATION: '/avia/reservation/',
     URL_AVIA_BUY: '/avia/buy/',
     URL_TOURS: '/tours/',
+    URL_DYNAMIC_PACKAGES_BUY_SUCCESS: '/packages/buy/success/',
     URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
@@ -147,6 +148,10 @@ app.config([
             when(url.URL_AVIA_BUY + ':OrderNum', {
                 templateUrl: 'pages/avia/tickets_buy.html',
                 controller: 'AviaBuyTicketsCtrl'
+            }).
+            when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum?', {
+                templateUrl: 'pages/page-root.html',
+                controller: 'PageBuySuccess'
             }).
             when(url.URL_DYNAMIC_PACKAGES_BUY + ':OrderNum', {
                 templateUrl: 'pages/avia/tickets_buy.html',
