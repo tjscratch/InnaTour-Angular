@@ -18,6 +18,10 @@ angular.module('innaApp.controllers')
                     Validators.phone($scope.user.raw.Phone, 'phone');
                 }
 
+                if($scope.user.raw.IsSocial) {
+                    Validators.email($scope.user.raw.Email, 'email');
+                }
+
                 if($scope.state.allowChangePassword) {
                     Validators.defined($scope.currentPassword, 'currentPassword');
                     Validators.defined($scope.newPassword, 'emptyPassword');
