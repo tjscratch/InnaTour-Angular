@@ -18,7 +18,7 @@ innaAppControllers
             var isChooseHotel = null;
             var MAX_HOTEL_LEN = 180;
 
-            var calibrate = _.throttle(function (list, scrollTop, __now){
+            var calibrate = function (list, scrollTop, __now){
                 var TICKET_HEIGHT = 200;
                 var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
 
@@ -43,7 +43,7 @@ innaAppControllers
 
                     //console.timeEnd('calibrate');
                 }
-            }, utils.isSafari ? 1 : 100);
+            };
 
             calibrate.__scrolledTicketsCache = NaN;
 
@@ -472,13 +472,11 @@ innaAppControllers
                 function onScroll(event) {
                     var scrollTop = utils.getScrollTop();
 
-                    if(utils.isSafari() || scrollTop % 3 == 0) { //'cause 3px is actually nothing
-                        $scope.$apply(function ($scope) {
-                            $scope.padding.scrollTop = scrollTop;
+                    $scope.$apply(function ($scope) {
+                        $scope.padding.scrollTop = scrollTop;
 
-                            calibrate($scope.hotels, $scope.padding.scrollTop);
-                        });
-                    }
+                        calibrate($scope.hotels, $scope.padding.scrollTop);
+                    });
                 }
 
                 doc.on('scroll', onScroll);
