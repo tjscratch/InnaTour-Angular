@@ -18,12 +18,11 @@
                 <span class="icon-crown icon-sprite-crown"></span>
             </h3>
 
-            <a href="javascript:void(0);" ng-if="display.isCurrent(display.FULL)" ng-click="display.toggle()" class="expand-collapse-link">
-                <span class="icon-expand"></span> Свернуть
-            </a>
-            <a href="javascript:void(0);" ng-if="display.isCurrent(display.SHORT)" class="expand-collapse-link">
-                <span class="icon-collapse"></span> Развернуть
-            </a>
+            <div class="w-expand-collapse-link_up w-expand-collapse-link" ng-if="display.isCurrent(display.FULL)">
+                <a href="javascript:void(0);" ng-if="display.isCurrent(display.FULL)" ng-click="display.toggle()" class="expand-collapse-link">
+                    <span class="icon-expand"></span> Свернуть
+                </a>
+            </div>
 
             <div ng-if="display.isCurrent(display.FULL) && combination.hotel && combination.ticket"
                  inna-dynamic-bundle
@@ -82,6 +81,11 @@
 
                     </div>
 
+                    <div class="w-expand-collapse-link_down w-expand-collapse-link" ng-if="display.isCurrent(display.SHORT)">
+                        <a href="javascript:void(0);" ng-if="display.isCurrent(display.SHORT)" class="expand-collapse-link">
+                            <span class="icon-collapse"></span> Развернуть
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
