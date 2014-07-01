@@ -77,13 +77,25 @@
   position: relative;
   z-index: 2
 
-  .expand-collapse-link {
-    font-size 14px
-    color #fff
+  .w-expand-collapse-link {
     position: absolute
     right 0
-    top 12px
+
+    &.w-expand-collapse-link_up {
+      top : 12px;
+    }
+
+    &.w-expand-collapse-link_down {
+      top: auto;
+      bottom: -4px;
+    }
+
+    .expand-collapse-link {
+      font-size 14px
+      color #fff
+    }
   }
+
 }
 
 .recommend-bundle-wrap_small {

@@ -1,5 +1,14 @@
 ﻿innaAppServices.
-    factory('dataService', ['$rootScope', '$http', '$q', '$log', 'cache', 'storageService', 'innaApp.API.const', 'urlHelper', 'AjaxHelper',
+    factory('dataService', [
+        '$rootScope',
+        '$http',
+        '$q',
+        '$log',
+        'cache',
+        'storageService',
+        'innaApp.API.const',
+        'urlHelper',
+        'AjaxHelper',
         function ($rootScope, $http, $q, $log, cache, storageService, apiUrls, urlHelper, AjaxHelper) {
             function log(msg) {
                 $log.log(msg);

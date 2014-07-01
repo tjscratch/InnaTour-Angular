@@ -1,210 +1,211 @@
 .results-aside
-	width 246px
-	float right
-	background #fff
-	margin-top : 17px;
+    width 246px
+    float right
+    background #fff
+    margin-top : 17px;
 
 
 .button-map-list
-	border-radius  :2px;
-	background #fff
+    border-radius  :2px;
+    background #fff
 
-	border 0
-	border-left 32px solid #89c13a
-	border-right 32px solid #e6e7e9
-	cursor pointer
-	height 30px
-	padding 0 1px 0 0
-	margin 0
-	position relative
+    border 0
+    border-left 32px solid #89c13a
+    border-right 32px solid #e6e7e9
+    cursor pointer
+    height 30px
+    padding 0 1px 0 0
+    margin 0
+    position relative
 
-	&:before, &:after
-		content ''
-		display block
-		position absolute
-		top 50%
+    &:before, &:after
+        content ''
+        display block
+        position absolute
+        top 50%
 
-	&:before
-		@extend .icon-sprite-switch-map-left
-		height 13px
-		width 16px
-		left -24px
-		margin-top -6px
+    &:before
+        @extend .icon-sprite-switch-map-left
+        height 13px
+        width 16px
+        left -24px
+        margin-top -6px
 
-	&:after
-		@extend .icon-sprite-switch-map-right
-		height 17px
-		width 14px
-		left 10px
-		margin-top -8px
+    &:after
+        @extend .icon-sprite-switch-map-right
+        height 17px
+        width 14px
+        left 10px
+        margin-top -8px
 
-	&.checked
-		border-left 32px solid #e6e7e9
-		border-right 32px solid #89c13a
-		padding 0 1px 0 0
+    &.checked
+        border-left 32px solid #e6e7e9
+        border-right 32px solid #89c13a
+        padding 0 1px 0 0
 
-		&:before
-			@extend .icon-sprite-switch-map-left-gray
+        &:before
+            @extend .icon-sprite-switch-map-left-gray
 
-		&:after
-			@extend .icon-sprite-switch-map-right-white
+        &:after
+            @extend .icon-sprite-switch-map-right-white
 
 
 
 .results-aside_mod
-	background none
-	width 230px
+    background none
+    width 230px
 
-	.ra-tags-container
-		margin 0 0 10px
+    .ra-tags-container
+        margin 0 0 10px
 
 .ra-tags-container_fixed
-	position fixed
-	top 200px
-	z-index 10
-	width 230px
+    position fixed
+    top 200px
+    z-index 10
+    width 230px
 
 .ra-tags-title
-	font-size 14px
-	color #333
-	font-weight normal
-	padding 12px 0 8px
+    font-size 14px
+    color #333
+    font-weight normal
+    padding 12px 0 8px
 
 .ra-tags-title_white
-	color #fff
+    color #fff
 
 .ra-tags-reset
-	display inline-block
-	padding-top 5px
-	font-size 12px
-	color #1a1a1a
-	text-decoration underline
+    display inline-block
+    padding 5px 0 0 11px
+    font-size 12px
+    color #1a1a1a
+    text-decoration underline
 
-	&:hover
-		text-decoration none
+    &:hover
+        text-decoration none
 
 .ra-best-block
-	background #edc63f
-	border-radius 4px
-	overflow hidden
-	position relative
-	box-shadow 1px 1px 4px rgba(0,0,0,.1)
-	padding 16px 10px 54px
-	text-align center
-	margin 0 0 10px
+    background #edc63f
+    border-radius 4px
+    overflow hidden
+    position relative
+    box-shadow 1px 1px 4px rgba(0,0,0,.1)
+    padding 16px 10px 54px
+    text-align center
+    margin 0 0 10px
 
 .ra-best-select
-	font-size 15px
-	color #fff
-	font-weight bold
-	text-decoration none
-	text-transform uppercase
-	background #4d4d4d
-	display block
-	position absolute
-	left 0
-	right 0
-	bottom 0
-	padding 10px
+    font-size 15px
+    color #fff
+    font-weight bold
+    text-decoration none
+    text-transform uppercase
+    background #4d4d4d
+    display block
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    padding 10px
 
 .ra-best-descr
-	font-size 14px
-	line-height 20px
-	color #4d4d4d
+    font-size 14px
+    line-height 20px
+    color #4d4d4d
 
 .ra-best-descr-info
-	display block
-	font-size 20px
-	text-decoration line-through
+    display block
+    font-size 20px
+    text-decoration line-through
 
 .ra-best-price
-	color #fff
-	font-size 36px
-	line-height 1
-	padding 0 0 8px
-	font-weight bold
-	text-shadow 0 3px 3px rgba(0,0,0,.25)
+    color #fff
+    font-size 36px
+    line-height 1
+    padding 0 0 8px
+    font-weight bold
+    text-shadow 0 3px 3px rgba(0,0,0,.25)
 
 .ra-best-title
-	font-size 15px
-	color #fff
-	font-weight bold
-	padding 0 0 7px
-	text-shadow 0 3px 3px rgba(0,0,0,.25)
+    font-size 15px
+    color #fff
+    font-weight bold
+    padding 0 0 7px
+    text-shadow 0 3px 3px rgba(0,0,0,.25)
 
 .ra-separator
-	height 1px
-	background #c0c0c2
-	margin 10px 0 0
+    height 1px
+    background #c0c0c2
+    margin 10px 0 0
 
 
 
 
 
 .b-switch-filters {
-	overflow : hidden;
+    overflow : hidden;
 
-	&_buttons {
-		margin-bottom : 4px;
+    &_buttons {
+        margin-bottom : 4px;
 
-		&_right {
-			position: relative;
-			padding-top : 5px;
-			left : 10px;
-		}
-	}
+        &_right {
+            position: relative;
+            margin-bottom: 7px
+            left : 10px;
+            font-size: 16px;
+        }
+    }
 
-	&__result {
-		overflow : hidden;
-	}
+    &__result {
+        overflow : hidden;
+    }
 
-	&.b-switch-filters_mod-wrapper {
-		float : none;
-		width : auto;
-		margin : 0;
+    &.b-switch-filters_mod-wrapper {
+        float : none;
+        width : auto;
+        margin : 0;
 
-		.b-switch-filters_buttons {
-			box-shadow 0 3px 5px rgba(0,0,0,.3)
-			background-color : #fff;
-			padding: 6px 0 5px 3px;
-			margin-bottom : 0;
-			margin-left : 4px;
+        .b-switch-filters_buttons {
+            box-shadow 0 3px 5px rgba(0,0,0,.3)
+            background-color : #fff;
+            padding: 6px 0 5px 3px;
+            margin-bottom : 0;
+            margin-left : 4px;
 
-			&_right {
-				padding-top : 8px;
-			}
-		}
+            &_right {
+                padding-top : 8px;
+            }
+        }
 
-		.b-switch-filters__result {
-			margin: 4px 0 0 4px;
-		}
-	}
+        .b-switch-filters__result {
+            margin: 4px 0 0 4px;
+        }
+    }
 
 
 
-	&__list {
-		list-style: none;
-		margin: 0;
-	}
+    &__list {
+        list-style: none;
+        margin: 0;
+    }
 
-	&__item {
-		background: #fff;
-		padding: 10px 26px 10px 11px;
-		position: relative;
-		display: inline-block;
-		font-size: 14px;
-		line-height : 1em;
-		box-shadow: 0 1px 4px rgba(0,0,0,.25);
-		margin: 0 4px 5px 0;
-	}
+    &__item {
+        background: #fff;
+        padding: 10px 26px 10px 11px;
+        position: relative;
+        display: inline-block;
+        font-size: 14px;
+        line-height : 1em;
+        box-shadow: 0 1px 4px rgba(0,0,0,.25);
+        margin: 0 4px 5px 0;
+    }
 
-	&__item_close {
-		display: block;
-		position: absolute;
-		width: 9px;
-		height: 15px;
-		right: 8px;
-		top: 7px;
-		background: url('/spa/img/remove.png') no-repeat center center;
-	}
+    &__item_close {
+        display: block;
+        position: absolute;
+        width: 9px;
+        height: 15px;
+        right: 8px;
+        top: 7px;
+        background: url('/spa/img/remove.png') no-repeat center center;
+    }
 }

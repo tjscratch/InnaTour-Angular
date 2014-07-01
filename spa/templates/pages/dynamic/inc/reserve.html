@@ -18,7 +18,6 @@
 <div class="main__center">
 
     <div class="b-result b-result_col_two b-result_pay result row buy__fly buy__fly_footer" ng-show="item != null">
-
         <div class="b-result__cell result-cell">
             <span ng-if="!(item.transportersList.length > 3)" class="rl-airline"
                   ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span
@@ -125,6 +124,5 @@
                 <a ng-if="!isBuyPage" ng-href="{{getHotelInfoLink(item.VariantId1, hotel.HotelId)}}" class="pull-right">Подробнее</a>
             </div>
         </div>
-
     </div>
 </div>

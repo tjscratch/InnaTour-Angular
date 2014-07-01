@@ -137,3 +137,7 @@ inna.Models.Dynamic.Combination.prototype.getFullTotalPrice = function(){
 inna.Models.Dynamic.Combination.prototype.getFullPrice = function(){
     return +this.ticket.data.Price + +this.hotel.data.Price;
 }
+
+inna.Models.Dynamic.Combination.prototype.getProfit = function(){
+    return this.getFullPrice() - this.getFullPackagePrice();
+}

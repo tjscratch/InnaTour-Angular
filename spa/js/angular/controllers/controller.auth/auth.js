@@ -103,13 +103,15 @@ angular.module('innaApp.controllers')
                 });
             });
 
-            $scope.$on(Events.AUTH_SIGN_OUT, function(event, loggedOutUserData){
-                var user = new inna.Models.Auth.User(loggedOutUserData);
+            $scope.$on(Events.AUTH_SIGN_OUT, function(event, userRaw){
+                var user = new inna.Models.Auth.User(userRaw);
+
                 if(user.isAgency() && !user.raw.AgencyActive) {
                     $scope.baloon.showErr('Агентство неактивно', 'Вход не возможен', function(){
                         window.location = '/';
                     });
                 } else if(user.isAgency()) {
+
                     window.location = '/';
                 }
             });
