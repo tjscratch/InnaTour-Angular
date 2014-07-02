@@ -1128,12 +1128,16 @@ innaAppControllers.
 
                     //var scrollTop = utils.getScrollTop();
                     var filters = $('.filters__body');
+                    var aside = $('.js-aside');
                     var FIXED_CLASS = 'filters__body_position_fixed';
+                    var FIXED_ASIDE_CLASS = 'results-aside_mod-fixed';
 
                     if (scrollTop > 206) {
                         filters.addClass(FIXED_CLASS);
+                        aside.addClass(FIXED_ASIDE_CLASS);
                     } else {
                         filters.removeClass(FIXED_CLASS);
+                        aside.removeClass(FIXED_ASIDE_CLASS);
                     }
                 }
 
