@@ -505,6 +505,7 @@
                 },
 
                 getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter) {
+                    //console.log('getCharterAndNumSeatsText: countLeft: %d, ticketsCount: %d, isCharter: %s', countLeft, ticketsCount, isCharter);
                     var sList = [];
                     var seatsText = helper.getNumSeatsText(countLeft, ticketsCount);
                     if (seatsText != null && seatsText.length > 0) {
@@ -614,7 +615,7 @@
                         item = self.addAggFields(item);
                         self.item = item;
                         console.log(item);
-                        console.log(item.IsCharter);
+                        console.log('item.IsCharter: ' + item.IsCharter);
 
                         if (criteria != null && searchId != null) {
                             var buyCriteria = angular.copy(criteria);

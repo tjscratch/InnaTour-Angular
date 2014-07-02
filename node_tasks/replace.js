@@ -9,7 +9,7 @@ var _ENV_ = process.env.NODE_ENV || '';
 var apiHost = (_ENV_ === 'production') ? conf.hosts.api.prod : conf.hosts.api.test;
 var b2bHost = (_ENV_ === 'production') ? conf.hosts.b2b.prod : conf.hosts.b2b.test;
 var apiFrontHost = (_ENV_ === 'production') ? conf.hosts.front.prod : conf.hosts.front.test;
-var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : conf.hosts.front.test;
+var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : conf.hosts.static.test;
 
 var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protocol.http;
 

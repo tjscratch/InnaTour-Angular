@@ -2,7 +2,7 @@
     width 246px
     float right
     background #fff
-    margin-top : 17px;
+    margin-top : 38px;
 
 
 .button-map-list
@@ -54,6 +54,15 @@
 .results-aside_mod
     background none
     width 230px
+    margin-top: 0px;
+
+    &.results-aside_mod-fixed
+        position: fixed;
+        top: 190px;
+        z-index: 100;
+        left: 50%;
+        margin-left: 250px;
+        -webkit-transform: translate3d(0, 0, 0);
 
     .ra-tags-container
         margin 0 0 10px
@@ -79,6 +88,9 @@
     font-size 12px
     color #1a1a1a
     text-decoration underline
+
+    &.avia
+        padding 5px 0 0 0
 
     &:hover
         text-decoration none
@@ -209,3 +221,26 @@
         background: url('/spa/img/remove.png') no-repeat center center;
     }
 }
+
+.b-switch-dynamic-serp-display
+    width 228px
+    height 100px
+    background: url(/spa/img/dynamic-serp-switch-to-map.png) no-repeat center center
+    box-shadow 0 1px 4px rgba(0,0,0,0.25)
+    cursor pointer
+
+    &_state_map
+        box-shadow none
+        height auto
+        background none
+
+    &__title
+        background #fff
+        color $blue
+        font-size 14px
+        line-height 30px
+        vertical-align middle
+        padding-left 25px
+
+        &-icon
+            vertical-align middle

@@ -50,9 +50,12 @@
 
     <!-- Results List -->
     <div class="results-list results-list_720" style="float: left;">
-        <ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
+        <!--<ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
             <ng:include src="'avia/results_item.html'"></ng:include>
-        </ng:any>
+        </ng:any>-->
+        
+        <!--переделал на reactive js-->
+        <ng:any id="avia_result_cont"></ng:any>
 
         <div class="results-list__empty results-list__empty_type_tickets" ng-if="ticketsList.length > 0 && !(visibleFilteredTicketsList.length > 0)">
             <p>Варианты не найдены.</p>
@@ -62,7 +65,7 @@
     <!-- /Results List -->
 
     <!-- Results Aside -->
-    <aside class="results-aside results-aside_mod">
+    <aside class="results-aside results-aside_mod js-aside">
 
         <div class="ra-tags-container">
             <h4 class="ra-tags-title" ng-if="ticketsList.length > 0"><b>{{getFilteredLength()}}</b> из <b>{{getLength()}}</b> перелетов</h4>
@@ -83,7 +86,7 @@
             </div>
             <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list) || anyChecked(filter.TransporterList)
                || anyChecked(filter.AirportFilter.fromPorts) || anyChecked(filter.AirportFilter.toPorts)"
-               class="ra-tags-reset" ng-click="resetAll($event)">Сбросить все</a>
+               class="ra-tags-reset avia" ng-click="resetAll($event)">Сбросить все фильтры</a>
         </div>
     </aside>
     <!-- /Results Aside -->
