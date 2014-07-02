@@ -64,6 +64,8 @@ publish
 spa/img/sprites/*.json
 spa/img/sprites/icon-*.png
 spa/styl/sprite.styl
+
+spa/styl/temp/*.styl
 spa/css
 spa/build
 spa/node_modules

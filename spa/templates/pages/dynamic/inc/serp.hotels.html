@@ -2,8 +2,8 @@
      ng-if="!asMap && !hotelToShowDetails"
      ng-class="{'results-container__short':padding.value}">
 
-    <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="hotels.list.length - 1">
-        Другие <b>{{hotels.getVisibilityInfo().visible}}</b> {{hotels.getVisibilityInfo().visible | choosePlural:"вариант":"варианта":"вариантов"}} отелей
+    <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="hotels.list.length - 1 > 0">
+        Другие <b>{{hotels.getVisibilityInfo().visible - 1}}</b> {{hotels.getVisibilityInfo().visible - 1 | choosePlural:"вариант":"варианта":"вариантов"}} отелей
     </div>
 
     <div class="results-list results-list_720">
@@ -11,26 +11,25 @@
              inna-hotel
              ng-if="combination.hotel.data.HotelId != hotel.data.HotelId">
 
-            <!-- TRANSCLUDE -->
+            <div class="price cross">
+                {{virtualBundle.getFullPrice() | price}} <span class="b-rub">q</span>
+                <div class="price-description">по отдельности</div>
+            </div>
 
-            <p class="corner-price">
-                <span ng-bind="virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed"></span>
-                <span class="b-rub">q</span>
-            </p>
+            <div class="corner-price">
+                <div class="price-description">Цена пакета</div>
 
-            <div class="price">
-                {{virtualBundle.getFullPackagePrice() | price}}
-                <span class="b-rub">q</span>
+                <div>{{virtualBundle.getFullPackagePrice() | price}}<span class="b-rub">q</span></div>
 
                 <!-- tooltip price -->
                 <div tool-tip-price item="virtualBundle" is-hotel="true"></div>
 
-                <span class="price-description" ng-if="(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) != 0">
-                    экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}
-                    <span class="b-rub">q</span>
-                </span>
-
+                <div class="price-description" ng-if="virtualBundle.getProfit() > 1000">
+                    экономия: {{virtualBundle.getProfit() | price}} <span class="b-rub">q</span>
+                </div>
             </div>
+
+
             <span class="button" ng-click="setCurrent()">Выбрать</span>
         </div>
 

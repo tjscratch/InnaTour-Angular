@@ -720,7 +720,13 @@
 .buy__more-container
   padding 0 0 20px
 
-.buy__autocomplete
+
+.buy__autocomplete {
+  box-sizing border-box
+  border-radius 3px
+  box-shadow 0 2px 2px rgba(0, 0, 0, .2)
+
+  border 1px solid #c0c0c2
   position absolute
   left 0
   right 0
@@ -728,31 +734,33 @@
   z-index 10
   top 53px
   font-size 14px
-  box-sizing border-box
-  border-radius 3px
-  border 1px solid #c0c0c2
-  box-shadow 0 2px 2px rgba(0, 0, 0, .2)
 
-  a
+  a {
     display block
     clearfix()
     padding 5px 10px 4px
     color #000
 
-    &:hover
+    &:hover {
       text-decoration none
       background #e6e7e9
+    }
+  }
 
-.buy__autocomplete_double
-  width 309px
+  &_double {
+    width 309px
+  }
 
-.buy__autocomplete-item1
-  float left
-  width 148px
+  &-item1 {
+    float left
+    width 148px
+  }
 
-.buy__autocomplete-item2
-  float right
-  width 138px
+  &-item2 {
+    float right
+    width 138px
+  }
+}
 
 .result
   z-index 5
@@ -812,71 +820,91 @@
   clearfix()
   padding 12px 0 8px
 
-.ui-tooltip
+.ui-tooltip {
   background #fff !important
   color #4D4D4D !important
   box-shadow 0 2px 4px rgba(0, 0, 0, .3)
   font-family $ProximaNova
 
-  &:before
+  &:before {
     border-color rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #fff !important
+  }
 
-.ui-tooltip-content:before
-  content url('/spa/img/error.png')
-  margin 0 5px 0 0
-  vertical-align middle
-  position relative
-  top 2px
+  &-content:before {
+    content url('/spa/img/error.png')
+    margin 0 5px 0 0
+    vertical-align middle
+    position relative
+    top 2px
+  }
+}
 
-.buy__result
+
+.buy__result {
   font-size 14px
+  padding-top: 20px;
 
-.buy__result-list-item
-  margin-top 5px
+  &__title {
+    margin-bottom : 30px;
+  }
 
-.buy__result-translation
-  color #878787
+  &-list-item {
+    margin-top 5px
+  }
 
-.buy__result-header-link
-  color #1e88c1
-  margin-right 10px
+  &-translation {
+    color #878787
+  }
 
-.buy__result-date-container
-  width 500px
+  &-header-link {
+    color #1e88c1
+    margin-right 10px
+  }
 
-.buy__result-order-container
-  width 350px
+  &-date-container {
+    width 500px
+  }
 
-.buy__result-order-terms
-  padding 30px 0 20px
+  &-order-container {
+    width 350px
+  }
 
-.buy__result-header
-  font-size 20px
-  font-weight bold
-  margin 2px 23px 0 0
+  &-order-terms {
+    padding 30px 0 20px
+  }
 
-.buy__result-guests
-  margin 20px 0
+  &-header {
+    font-size 20px
+    font-weight bold
+    margin 2px 23px 0 0
+  }
 
-.buy__result-sum
-  padding 0 0 18px 55px
-  border-bottom 5px solid #89be48
-  margin 0 0 20px
-  position: relative
+  &-guests {
+    margin 20px 0
+  }
 
-  &:before
-    content ''
-    display inline-block
-    width 43px
-    height 35px
-    background url(/spa/img/check-green-big.png)
-    position absolute
-    left 5px
-    top: 5px
+  &-sum {
+    padding 0 0 18px 55px
+    border-bottom 5px solid #89be48
+    margin 0 0 20px
+    position: relative
 
-.buy__result-sum-title
-  font-size 25px
-  font-weight bold
+    &:before {
+      content ''
+      display inline-block
+      width 43px
+      height 35px
+      background url(/spa/img/check-green-big.png)
+      position absolute
+      left 5px
+      top: 5px
+    }
+  }
+  &-sum-title {
+    font-size 25px
+    font-weight bold
+  }
+}
 
 
 

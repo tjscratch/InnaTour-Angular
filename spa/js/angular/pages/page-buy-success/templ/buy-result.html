@@ -1,0 +1,84 @@
+<div class="buy__result">
+
+    <div class="buy__blocks">
+
+        <div class="row buy__result__title">
+            <div class="col-xs-6 align-right">
+                <a href="" class="buy__result-header-link">условия тарифов</a>
+            </div>
+            <div class="col-xs-6 align-right">
+                <a class="buy__result-header-link" href="">Условия и правила по отелю</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-8 col-no-padding">
+
+                <ul class="buy__result-date-container">
+                    <li class="buy__result-list-item">
+                        Заезд {{Hotel.CheckInFull}} г. (до {{Hotel.CheckInTime}}), вт
+                    </li>
+                    <li class="buy__result-list-item">
+                        Отъезд {{Hotel.CheckOutFull}} г. (до {{Hotel.CheckOutTime}}), ср
+                    </li>
+                    <li class="buy__result-list-item">
+                        Продолжительность: {{Hotel.NightCountHotel}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-4 col-no-padding">
+
+                <ul class="buy__result-order-container">
+                    <li class="buy__result-list-item">
+                        Номер заказа: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
+                    </li>
+                    <li class="buy__result-list-item">
+                        Номер бронирования: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
+                    </li>
+                    <li class="buy__result-list-item">
+                        Номер подтверждения: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <ul class="buy__result-order-terms">
+            <li class="buy__result-list-item">Extra-person changes may apply and vary depending on hotel policy</li>
+            <li class="buy__result-list-item">Guest must show current government-issued proof of identity at the time of check-in.</li>
+            <li class="buy__result-list-item">Photo identification and credit card or cash deposit are required at check-in for incidental charges.</li>
+            <li class="buy__result-list-item">Special requests are subject to availability upon check-in and may incur additional charges.</li>
+            <li class="buy__result-list-item">Spisial requests cannot be guarandted.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h2 class="buy__result-header">{{Hotel.Room.RoomName}}</h2>
+        <div class="buy__result-translation">
+            {{#Hotel.Room.BedTypeList}}
+                <span>
+                    {{Name}}<span>,&nbsp;</span>
+                </span>
+            {{/Hotel.Room.BedTypeList}}
+        </div>
+
+        <div class="buy__result-guests">
+            Гости: {{PassengersData.adult}} и {{PassengersData.child}}
+        </div>
+
+        <div class="buy__result-sum">
+            <h2 class="buy__result-sum-title">Ваш заказ на сумму {{data.Price}} оплачен</h2>
+            <div class="buy__result-sum-description">Маршрутная квитанция (авиабилет) и подтверждение бронирования отеля, направлены на адрес электронной почты.</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6 col-no-padding">
+            <a href="" class="buy__result-header-link">условия тарифов</a>
+        </div>
+        <div class="col-xs-6 col-no-padding">
+            <a class="buy__result-header-link" href="">Условия и правила по отелю</a>
+        </div>
+    </div>
+</div>

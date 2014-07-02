@@ -67,7 +67,7 @@ innaAppServices.
             getAviaSearchResults: function (criteria) {
                 var res = angular.fromJson(sessionStorage.AviaSearchResults);
                 //проверяем, что достаем данные для нужных критериев поиска
-                if (res != null && angular.toJson(criteria) == angular.toJson(res.criteria) && !isOlderMinute(res.date))
+                if (res != null && angular.toJson(criteria) == angular.toJson(res.criteria) && !isOlderManyMinutes(res.date))
                 {
                     return res.data;
                 }
