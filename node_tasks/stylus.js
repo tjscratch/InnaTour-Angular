@@ -80,5 +80,5 @@ gulp.task('styl-print', function () {
 });
 
 
-gulp.task('styles', ['styles-app', 'styl-common', 'styl-ticket', 'styl-ie', 'styl-print']);
 gulp.task('styles-app', ['styl-components', 'styl-pages', 'styl-regions']);
+gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print']);
