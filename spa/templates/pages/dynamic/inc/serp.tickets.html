@@ -10,26 +10,24 @@
              inna-ticket
              ng-if="combination.ticket.data.VariantId1 != ticket.data.VariantId1">
 
-            <!-- TRANSCLUDE -->
-
-            <p class="corner-price">
-                {{virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed}}
-                <span class="b-rub">q</span>
-            </p>
-
             <div class="price">
-                {{virtualBundle.getFullPackagePrice() | price}}
-                <span class="b-rub">q</span>
+                {{virtualBundle.getFullPrice() | price}} <span class="b-rub">q</span>
+                <div class="price-description">по отдельности</div>
+            </div>
+
+            <div class="corner-price">
+                <div class="price-description">Цена пакета</div>
+
+                <div>{{virtualBundle.getFullPackagePrice() | price}}<span class="b-rub">q</span></div>
 
                 <!-- tooltip price -->
-                <div tool-tip-price item="virtualBundle" is-ticket="true"></div>
+                <div tool-tip-price item="virtualBundle" is-hotel="true"></div>
 
-                <span class="price-description" ng-if="(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) != 0">
-                    экономия: {{(virtualBundle.getFullPrice() - virtualBundle.getFullPackagePrice()) | price}}
-                    <span class="b-rub">q</span>
-                </span>
-
+                <div class="price-description" ng-if="virtualBundle.getProfit() > 1000">
+                    экономия: {{virtualBundle.getProfit() | price}} <span class="b-rub">q</span>
+                </div>
             </div>
+
             <span class="button" ng-click="setTicket(ticket)">Выбрать</span>
         </div>
 
