@@ -20,4 +20,4 @@ innaAppConponents.
 
             return dynamicBlock;
         }
-    ])
+    ]);
