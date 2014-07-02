@@ -20,6 +20,21 @@ gulp.task('watch', function () {
             server.changed(file.path);
         });
 
+    gulp.watch(conf.angular + '/components/**/*.styl', ['styl-components'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });
+
+    gulp.watch(conf.angular + '/pages/**/*.styl', ['styl-pages'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });
+
+    gulp.watch(conf.angular + '/regions/**/*.styl', ['styl-regions'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });
+
     gulp.watch(conf.dest+'/less/**/*', ['less']);
 
     gulp.watch([

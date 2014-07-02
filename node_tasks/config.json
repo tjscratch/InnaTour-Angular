@@ -1,6 +1,7 @@
 {
   "build": "./build",
   "dest": "./spa",
+  "angular": "./spa/js/angular",
   "styl": "./spa/styl",
   "templ": "./spa/templates",
   "img": "./spa/img",

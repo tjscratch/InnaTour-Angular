@@ -1,3 +1,6 @@
+/**
+ * use dateHelper
+ */
 innaAppControllers.
     controller('PageBuySuccess', [
         '$scope',
@@ -20,12 +23,14 @@ innaAppControllers.
 
             var Page = Ractive.extend({
                 debug: true,
+                el: document.querySelector('.page-root'),
                 template: $templateCache.get('pages/page-buy-success/templ/index.html'),
-                /*data: {
-                    ticket2ways: true,
-                    buyResult: true,
-                    partialInfoHotel: true
-                },*/
+                partials: {
+                    buyResult: $templateCache.get('pages/page-buy-success/templ/buy-result.html')
+                },
+                data: {
+
+                },
                 init: function () {
                     var that = this;
                     that._dynamicBlock = null;
@@ -34,8 +39,9 @@ innaAppControllers.
                     this.on({
                         change: function (data) {
                             console.log(data);
+
                             that._dynamicBlock = new dynamicBlock({
-                                el: this.find('.dynamicBlock'),
+                                el: this.find('.js-dynamic-block'),
                                 data: data
                             });
                         }
@@ -50,6 +56,13 @@ innaAppControllers.
                 parse: function (data) {
                     var avia = data.AviaInfo;
                     var hotel = data.Hotel;
+                    var passengers = data.Passengers;
+                    data.PassengersData = {
+                        adultCount : 0,
+                        childCount : 0,
+                        adult : '',
+                        child : ''
+                    };
 
                     // добавляем новые поля
                     aviaHelper.addCustomFields(avia);
@@ -60,9 +73,8 @@ innaAppControllers.
 
 
                     /* hotel data */
-                    hotel.CheckIn = $filter('date')(hotel.CheckIn, 'd MMM');
-                    hotel.CheckOut = $filter('date')(hotel.CheckOut, 'd MMM');
-                    //hotel.NightCount = hotel.NightCount + ' ' + $filter('decl')(hotel.NightCount, ["ночь", "ночи", "ночей"]);
+                    hotel.CheckInFull = $filter('date')(hotel.CheckIn, 'd MMMM yyyy');
+                    hotel.CheckOutFull = $filter('date')(hotel.CheckOut, 'd MMMM yyyy');
 
                     hotel.CheckInHotel = $filter('date')(hotel.CheckIn, 'd MMM');
                     hotel.CheckOutHotel = $filter('date')(hotel.CheckOut, 'd MMM');
@@ -74,9 +86,23 @@ innaAppControllers.
                         hotel.StarsArr.push(i);
                     }
 
+                    passengers.forEach(function(pass){
+
+                        var date = dateHelper.dateToJsDate(pass.Birthday);
+                        pass.age = dateHelper.calculateAge(date);
+
+                        if(pass.age >= 18){
+                            data.PassengersData.adultCount++;
+                            //data.PassengersData.adult
+                        }
+                        if(pass.age < 18){
+                            data.PassengersData.childCount++;
+                            //data.PassengersData.child
+                        }
+                    });
+
                     /* partials */
                     data.ticket2ways = true;
-                    data.buyResult = true;
                     data.partialInfoHotel = true;
 
                     return data;
@@ -95,13 +121,7 @@ innaAppControllers.
                 }
             });
 
-
-            var pageBuy = new Page({
-                el: document.querySelector('.page-root'),
-                partials: {
-                    buyResult: $templateCache.get('pages/page-buy-success/templ/buy-result.html')
-                }
-            });
+            var pageBuy = new Page();
 
             pageBuy.getDataBuy();
 

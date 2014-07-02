@@ -1,31 +1,27 @@
-
-<div class="dynamicBlock"></div>
-
-
+<div class="page-buy-success">
+    <div class="js-dynamic-block"></div>
 
 
-{{#visaNeeded || visaNeeded_rules}}
-    <div class="buy__warning">
-        {{#visaNeeded}}
+    {{#visaNeeded || visaNeeded_rules}}
+        <div class="buy__warning">
+            {{#visaNeeded}}
             <div>Требуется виза.</div>
-        {{/}}
-        {{#visaNeeded_rules}}
+            {{/}}
+            {{#visaNeeded_rules}}
             <div>Обратите внимание на визовые правила
-                    <span ng-if="cautionCountries.length > 0">
-                        в странах:
-                        <span ng-repeat="c in cautionCountries">
-                            {{c}} <span ng-if="!($last)">,&nbsp;</span>
-                        </span>
-                    </span>.
+                        <span ng-if="cautionCountries.length > 0">
+                            в странах:
+                            <span ng-repeat="c in cautionCountries">
+                                {{c}} <span ng-if="!($last)">,&nbsp;</span>
+                            </span>
+                        </span>.
             </div>
-        {{/}}
-    </div>
-{{/}}
-
-
-<!-- данные результата покупки -->
-<div>
-    {{#buyResult}}
-        {{>buyResult}}
+            {{/}}
+        </div>
     {{/}}
+
+
+    <!-- данные результата покупки -->
+    <div>{{>buyResult}}</div>
+
 </div>

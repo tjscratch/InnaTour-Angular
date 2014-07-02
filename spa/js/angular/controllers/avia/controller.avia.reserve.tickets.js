@@ -16,6 +16,8 @@ innaAppControllers.
             //нужно передать в шапку (AviaFormCtrl) $routeParams
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
+            $scope.isAviaPage = true;
+
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
@@ -174,7 +176,7 @@ innaAppControllers.
                             //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
 
                             //тарифы
-                            //$scope.loadTarifs($scope.criteria.VariantId1, $scope.criteria.VariantId2, $scope.item);
+                            $scope.loadTarifs($scope.criteria.VariantId1, $scope.criteria.VariantId2, $scope.item);
 
                             //оповещаем лоадер, что метод отработал
                             loader.complete(self);
