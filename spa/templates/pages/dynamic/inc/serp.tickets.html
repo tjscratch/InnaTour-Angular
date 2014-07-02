@@ -1,5 +1,10 @@
 <div class="results-container"
      ng-class="{'results-container__short':padding.value}">
+
+    <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="hotels.list.length - 1">
+        Другие <b>{{tickets.getVisibilityInfo().visible}}</b> {{tickets.getVisibilityInfo().visible | choosePlural:"вариант":"варианта":"вариантов"}} билетов
+    </div>
+
     <div class="results-list results-list_720">
         <div ng-repeat="ticket in ticketsToDisplay = (tickets.filter(ticketFilters) | filter:{hidden: false})"
              inna-ticket

@@ -82,20 +82,7 @@
 
 
     <div class="tooltip-price__b2b" ng-if="isPriceObject">
-
         <ul>
-            <li class="list-price-item">
-                <div class="row">
-                    <div class="col-xs-6 col-no-padding">
-                        Сбор Инна Тур
-                    </div>
-                    <div class="col-xs-6 col-no-padding list-price-item__right">
-                        <span class="list-price">
-                            {{item.PriceObject.TotalInnaProfit | price}} <ng-include src="'components/ruble.html'"/>
-                        </span>
-                    </div>
-                </div>
-            </li>
             <li class="list-price-item">
                 <div class="row">
                     <div class="col-xs-6 col-no-padding">
@@ -110,8 +97,8 @@
             </li>
             <li class="list-price-item">
                 <div class="row">
-                    <div class="col-xs-6 col-no-padding">
-                        Агентское вознаграждение
+                    <div class="col-xs-6 col-no-wrap col-no-padding">
+                        Агент. вознагр.
                     </div>
                     <div class="col-xs-6 col-no-padding list-price-item__right">
                         <span class="list-price">
@@ -120,11 +107,10 @@
                     </div>
                 </div>
             </li>
-
             <li class="list-price-item">
                 <div class="row">
                     <div class="col-xs-6 col-no-padding">
-                        Доход агента
+                        Доход
                     </div>
                     <div class="col-xs-6 col-no-padding list-price-item__right">
                         <span class="list-price">
@@ -133,20 +119,6 @@
                     </div>
                 </div>
             </li>
-
-           <!-- <li class="list-price-item">
-                <div class="row">
-                    <div class="col-xs-6 col-no-padding">
-                        Доход агента test
-                    </div>
-                    <div class="col-xs-6 col-no-padding list-price-item__right">
-                        <span class="list-price">
-                            {{item.PriceObject.TotalPrice}}
-                        </span>
-                    </div>
-                </div>
-            </li>-->
         </ul>
-
     </div>
 </div>

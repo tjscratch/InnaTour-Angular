@@ -1,6 +1,11 @@
 <div class="results-container"
      ng-if="!asMap && !hotelToShowDetails"
      ng-class="{'results-container__short':padding.value}">
+
+    <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="hotels.list.length - 1">
+        Другие <b>{{hotels.getVisibilityInfo().visible}}</b> {{hotels.getVisibilityInfo().visible | choosePlural:"вариант":"варианта":"вариантов"}} отелей
+    </div>
+
     <div class="results-list results-list_720">
         <div ng-repeat="hotel in hotelsToDisplay = (hotels.list | filter:{currentlyInvisible: false, hidden: false})"
              inna-hotel
@@ -11,7 +16,6 @@
             <p class="corner-price">
                 <span ng-bind="virtualBundle.getFullPackagePrice() - combination.getFullPackagePrice() | signed"></span>
                 <span class="b-rub">q</span>
-                <span class="icon-crown icon-sprite-crown" ng-if="hotel.data.IsPackage"></span>
             </p>
 
             <div class="price">
