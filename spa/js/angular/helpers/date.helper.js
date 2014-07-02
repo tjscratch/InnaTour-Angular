@@ -122,9 +122,10 @@
     },
 
     calculateAge: function (birthday, now) {
-        if (now == null) {
+        if (now == undefined) {
             now = new Date();
         }
+
         var years = now.getFullYear() - birthday.getFullYear();
 
         var now_m = now.getMonth();

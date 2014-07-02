@@ -1,0 +1,49 @@
+<div class="b-result b-result-content b-result_col_two b-result_220 buy__fly row">
+
+    <div class="b-result__cell result-cell">
+
+        <span class="icon-sprite-airplane"></span>
+
+        {{#!(AviaInfo.transportersList.length > 3)}}
+            {{#AviaInfo.transportersList}}
+                            <span class="rl-airline">
+                                <img src="{{logoUrl}}" alt="">
+                                <span class="rl-airline-text">{{name}}</span>
+                            </span>
+            {{/AviaInfo.transportersList}}
+        {{/}}
+
+        {{#AviaInfo.transportersList.length > 3}}
+            <span class="rl-airline">
+                <img src="/spa/img/group.png" alt="">
+                <span class="rl-airline-text">Несколько авиакомпаний</span>
+            </span>
+        {{/}}
+
+        <!-- partials -->
+        {{#ticket2ways}}
+            {{>ticket2ways}}
+        {{/}}
+
+
+        <div class="bottom-actions">
+            {{#!isBuyPage}}
+            <a href="#" class="pull-right" on-click="popupItemInfo.show($event, item, null, null, true)">
+                Подробнее
+            </a>
+            {{/}}
+        </div>
+        <!-- separator -->
+        <div class="b-result-cell__gap">
+            <div class="b-result-cell__gap_wrap"></div>
+        </div>
+    </div>
+    <div class="b-result__cell result-cell">
+
+        <!-- partials -->
+        {{#partialInfoHotel}}
+            {{>partialInfoHotel}}
+        {{/}}
+    </div>
+
+</div>

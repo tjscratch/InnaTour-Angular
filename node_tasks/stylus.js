@@ -16,17 +16,23 @@ var optStyl = {
 
 
 gulp.task('styl-components', function () {
-    return gulp.src([conf.styl + '/components/**/*.styl'])
-        .pipe(stylus(optStyl))
-        .pipe(concat('components.css'))
-        .pipe(gulp.dest(conf.styl + '/__temp__'))
-
-        .on('error', function(err) {
-            if (!/tests? failed/.test(err.stack)) {
-                console.log(err.stack);
-            }
-        });
+    return gulp.src([conf.angular + '/components/**/*.styl'])
+        .pipe(concat('components.styl'))
+        .pipe(gulp.dest(conf.styl + '/temp'))
 });
+
+gulp.task('styl-pages', function () {
+    return gulp.src([conf.angular + '/pages/**/*.styl'])
+        .pipe(concat('pages.styl'))
+        .pipe(gulp.dest(conf.styl + '/temp'))
+});
+
+gulp.task('styl-regions', function () {
+    return gulp.src([conf.angular + '/regions/**/*.styl'])
+        .pipe(concat('regions.styl'))
+        .pipe(gulp.dest(conf.styl + '/temp'))
+});
+
 
 
 gulp.task('styl-common', function () {
@@ -74,4 +80,5 @@ gulp.task('styl-print', function () {
 });
 
 
-gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print']);
+gulp.task('styles', ['styles-app', 'styl-common', 'styl-ticket', 'styl-ie', 'styl-print']);
+gulp.task('styles-app', ['styl-components', 'styl-pages', 'styl-regions']);

@@ -1,12 +1,14 @@
 ﻿<!-- Baloon -->
 <div style="display: block" class="overlay js-overlay" ng-show="popupItemInfo.isShow">
     <div class="balloon balloon_ticket" ng-class="{'balloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}" close-popup is-show="popupItemInfo.isShow">
+
         <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
             <div title="Закрыть" class="balloon-close" ng-click="popupItemInfo.isShow = false"></div>
 
             <h3 class="b-tickets__title">Подробная информация по перелету</h3>
                 <ng:include ng-if="item.EtapsBack.length > 0" src="'avia/popup_item_info_two_ways.html'"></ng:include>
                 <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null" src="'avia/popup_item_info_one_way.html'"></ng:include>
+
             <div class="b-tickets__footer">
                 <ul class="b-tickets__icons" ng-if="popupItemInfo.link != null && popupItemInfo.link.length > 0">
                     <li>
@@ -32,7 +34,6 @@
                     <a ng-if="!(popupItemInfo.hideBuyButton == true)" class="rl-buy-button" href="javascript:void(0)" ng-click="goToPaymentClick($event, item)">Купить</a>
                 </div>
             </div>
-
         </ng:any>
     </div>
 </div>
