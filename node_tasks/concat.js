@@ -10,7 +10,7 @@ var _ENV_ = process.env.NODE_ENV || '';
 gulp.task('build-concat', ['build-templates', 'build-lib'], function () {
     return gulp.src([
             conf.build + '/js/app-lib.js',
-        
+
             conf.dest + '/js/angular/config.js',
             conf.dest + '/js/jquery.ui.datepicker-ru.js',
             conf.dest + '/js/google.maps.clustering.js',
@@ -39,7 +39,7 @@ gulp.task('build-concat', ['build-templates', 'build-lib'], function () {
 gulp.task('build-lib', function () {
     return gulp.src([
             conf.dest + '/lib/underscore.js',
-            conf.dest + '/lib/ractive.js',
+            conf.dest + '/lib/ractive.min.js',
             conf.dest + '/lib/polyfill.js',
             conf.dest + '/lib/jquery.cookie.js',
             conf.dest + '/lib/jquery.maskedinput.js',

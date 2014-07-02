@@ -50,9 +50,12 @@
 
     <!-- Results List -->
     <div class="results-list results-list_720" style="float: left;">
-        <ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
+        <!--<ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
             <ng:include src="'avia/results_item.html'"></ng:include>
-        </ng:any>
+        </ng:any>-->
+        
+        <!--переделал на reactive js-->
+        <ng:any id="avia_result_cont"></ng:any>
 
         <div class="results-list__empty results-list__empty_type_tickets" ng-if="ticketsList.length > 0 && !(visibleFilteredTicketsList.length > 0)">
             <p>Варианты не найдены.</p>

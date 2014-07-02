@@ -5,6 +5,7 @@ innaAppControllers.
         '$log',
         '$scope',
         '$rootScope',
+        '$templateCache',
         '$timeout',
         '$routeParams',
         '$filter',
@@ -17,7 +18,7 @@ innaAppControllers.
         'urlHelper',
         'innaApp.Urls',
         'innaApp.API.events',
-        function AviaSearchResultsCtrl($log, $scope, $rootScope, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events) {
+        function AviaSearchResultsCtrl($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events) {
 
             var self = this;
             var header = document.querySelector('.header');
@@ -46,7 +47,7 @@ innaAppControllers.
             });
 
             //$rootScope.$on(Events.AUTH_SIGN_IN, function (event, data) {
-            //    //console.log('Events.AUTH_SIGN_IN, type: %d', data.Type);
+            //    console.log('Events.AUTH_SIGN_IN, type: %d', data.Type);
             //    if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
             //        $scope.safeApply(function () {
             //            //если залогинен и b2b (Type = 2)
@@ -57,12 +58,15 @@ innaAppControllers.
             //});
 
             //$rootScope.$on(Events.AUTH_SIGN_OUT, function (event, data) {
-            //    //console.log('Events.AUTH_SIGN_OUT, type: %d', data.raw.Type);
+            //    console.log('Events.AUTH_SIGN_OUT, type: %d', data.raw.Type);
             //    if ($location.path().startsWith(Urls.URL_AVIA_SEARCH) && data != null && data.Type == 2) {
             //        $scope.safeApply(function () {
             //            //если залогинен и b2b (Type = 2)
             //            //запускаем поиск
             //            startLoadAndInit();
+
+            //            //перерисовываем
+            //            //$scope.ractiveControl.reset();
             //        });
             //    }
             //});
@@ -494,6 +498,13 @@ innaAppControllers.
                             list.push(item);
                         }
                     });
+
+
+                    //ToDo: debug
+                    //размножаем данные для теста
+                    //for (var i = 0; i < 10; i++) {
+                    //    list = list.concat(list);
+                    //}
 
                     //добавляем список
                     $scope.ticketsList = list;
@@ -999,6 +1010,76 @@ innaAppControllers.
                 applySort();
             }, true);
 
+            function ractiveControl() {
+                var self = this;
+                //reactive init
+                self.ractive = new Ractive({
+                    el: 'avia_result_cont',
+                    template: $templateCache.get('avia/results_avia_item_template.html'),
+                    partials: {
+                        components_ruble: $templateCache.get('components/ruble.html'),
+                        components_tooltip: $templateCache.get('components/tooltip-price/templ/price-generic-ract.html')
+                    },
+                    data: {
+                        helper: aviaHelper,
+                        limitFilter: function (text, maxLength) {
+                            return $filter('limitFilter')(text, maxLength);
+                        },
+                        priceFilter: function (text) {
+                            return $filter('price')(text);
+                        },
+
+                        isAgency: $scope.isAgency,
+
+                        ticketsCount: $scope.ticketsCount,
+
+                        items: $scope.visibleFilteredTicketsList
+                    },
+                });
+
+                self.ractive.on({
+                    popupItemInfo_show: function (event, item) {
+                        //console.log('popupItemInfo_show:');
+                        $scope.safeApply(function () {
+                            $scope.popupItemInfo.show(event.original, item, $scope.criteria, $scope.searchId);
+                        });
+                    },
+                    goToPaymentClick: function (event, item) {
+                        //console.log('goToPaymentClick:');
+                        //console.log(item);
+                        $scope.safeApply(function () {
+                            $scope.goToPaymentClick(event.original, item);
+                        });
+                    },
+                    showPopup: function (event) {
+                        var evt = event.original;
+                        var item = event.context;
+
+                        evt.stopPropagation();
+
+                        var $element = $(event.node);
+                        var $tooltip = $element.find('.JS-tooltip-price');
+
+                        $tooltip.show();
+
+                        $(document).on('click', function bodyClick() {
+                            $tooltip.hide();
+                            $(document).off('click', bodyClick);
+                        });
+                    }
+                });
+
+                self.update = function () {
+                    self.ractive.set('items', $scope.visibleFilteredTicketsList);
+                }
+
+                self.reset = function () {
+                    console.log('ractive reset');
+                    self.ractive.reset('items', $scope.visibleFilteredTicketsList);
+                }
+            }
+            $scope.ractiveControl = new ractiveControl();
+
             function scrollControl() {
                 var self = this;
                 self.MAX_VISIBLE_ITEMS = 5;
@@ -1013,12 +1094,15 @@ innaAppControllers.
                         $scope.visibleFilteredTicketsList = $scope.filteredTicketsList;
                     }
 
+                    $scope.ractiveControl.update();
                     //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));
                 }
 
                 self.loadMore = function () {
                     $scope.$apply(function ($scope) {
                         if ($scope.visibleFilteredTicketsList != null) {
+                            var tmpAr = $scope.visibleFilteredTicketsList.concat();
+
                             var fromIndex = $scope.visibleFilteredTicketsList.length;
                             var toIndex = fromIndex + self.MAX_VISIBLE_ITEMS;
                             if (toIndex > $scope.filteredTicketsList.length) {
