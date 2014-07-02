@@ -18,7 +18,9 @@ innaAppControllers.
         'urlHelper',
         'innaApp.Urls',
         'innaApp.API.events',
-        function AviaSearchResultsCtrl($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events) {
+        'priceGenericRact',
+        function AviaSearchResultsCtrl($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService,
+            paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, priceGenericRact) {
 
             var self = this;
             var header = document.querySelector('.header');
@@ -437,9 +439,9 @@ innaAppControllers.
                             item.PriceDetailsTooltipData = [];
 
                             if (item.PriceObject != null && item.PriceDetails != null) {
-                                item.PriceDetailsTooltipData.push({ name: 'Сбор Инна-Тур', price: item.PriceObject.TotalInnaProfit });
-                                item.PriceDetailsTooltipData.push({ name: 'Сбор агента', price: item.PriceObject.TotalAgentReward });
-                                item.PriceDetailsTooltipData.push({ name: 'Агентское вознаграждение', price: item.PriceObject.TotalAgentRate });
+                                //item.PriceDetailsTooltipData.push({ name: 'Сбор Инна-Тур', price: item.PriceObject.TotalInnaProfit });
+                                //item.PriceDetailsTooltipData.push({ name: 'Сбор агента', price: item.PriceObject.TotalAgentReward });
+                                //item.PriceDetailsTooltipData.push({ name: 'Агентское вознаграждение', price: item.PriceObject.TotalAgentRate });
 
                                 item.PriceDetailsTooltipData.push({ name: 'Цена билета взр.', price: item.PriceDetails.SysAdtPrice });
                                 item.PriceDetailsTooltipData.push({ name: 'Сервисный сбор взр.', price: item.PriceDetails.AdultServiceCharge });
@@ -1012,6 +1014,7 @@ innaAppControllers.
 
             function ractiveControl() {
                 var self = this;
+
                 //reactive init
                 self.ractive = new Ractive({
                     el: 'avia_result_cont',
@@ -1034,7 +1037,7 @@ innaAppControllers.
                         ticketsCount: $scope.ticketsCount,
 
                         items: $scope.visibleFilteredTicketsList
-                    },
+                    }
                 });
 
                 self.ractive.on({
@@ -1052,20 +1055,7 @@ innaAppControllers.
                         });
                     },
                     showPopup: function (event) {
-                        var evt = event.original;
-                        var item = event.context;
-
-                        evt.stopPropagation();
-
-                        var $element = $(event.node);
-                        var $tooltip = $element.find('.JS-tooltip-price');
-
-                        $tooltip.show();
-
-                        $(document).on('click', function bodyClick() {
-                            $tooltip.hide();
-                            $(document).off('click', bodyClick);
-                        });
+                        priceGenericRact.events.showPopup(event);
                     }
                 });
 
@@ -1138,12 +1128,16 @@ innaAppControllers.
 
                     //var scrollTop = utils.getScrollTop();
                     var filters = $('.filters__body');
+                    var aside = $('.js-aside');
                     var FIXED_CLASS = 'filters__body_position_fixed';
+                    var FIXED_ASIDE_CLASS = 'results-aside_mod-fixed';
 
                     if (scrollTop > 206) {
                         filters.addClass(FIXED_CLASS);
+                        aside.addClass(FIXED_ASIDE_CLASS);
                     } else {
                         filters.removeClass(FIXED_CLASS);
+                        aside.removeClass(FIXED_ASIDE_CLASS);
                     }
                 }
 
