@@ -2,8 +2,11 @@
     <div class="ra-tags-container">
         <div class="b-switch-filters_buttons">
 
-            <div class="b-switch-filters_buttons_left b-display-inline">
-                <span ng-click="action()" class="button-map-list b-display-inline"></span>
+            <div class="b-switch-dynamic-serp-display" ng-click="action()">
+                <div class="b-switch-dynamic-serp-display__title">
+                    <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
+                    Посмотреть на карте
+                </div>
             </div>
 
             <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="mod_wrapper && items.list.length - 1" style="font-size:14px;">
