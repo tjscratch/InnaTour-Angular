@@ -57,6 +57,12 @@ innaAppControllers.
                     var avia = data.AviaInfo;
                     var hotel = data.Hotel;
                     var passengers = data.Passengers;
+                    data.PassengersData = {
+                        adultCount : 0,
+                        childCount : 0,
+                        adult : '',
+                        child : ''
+                    };
 
                     // добавляем новые поля
                     aviaHelper.addCustomFields(avia);
@@ -81,7 +87,18 @@ innaAppControllers.
                     }
 
                     passengers.forEach(function(pass){
-                        pass.age = dateHelper.calculateAge(new Date(pass.Birthday));
+
+                        var date = dateHelper.dateToJsDate(pass.Birthday);
+                        pass.age = dateHelper.calculateAge(date);
+
+                        if(pass.age >= 18){
+                            data.PassengersData.adultCount++;
+                            //data.PassengersData.adult
+                        }
+                        if(pass.age < 18){
+                            data.PassengersData.childCount++;
+                            //data.PassengersData.child
+                        }
                     });
 
                     /* partials */
