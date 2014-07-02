@@ -9,7 +9,15 @@
                 <span ng-if="cautionCountries.length > 0"> в странах: <span ng-repeat="c in cautionCountries">{{c}}<span ng-if="!($last)">,&nbsp;</span></span></span>.</div>
         </div>
 
-        <div class="r__booking">
+        <div class="r__booking" ng-if="isAviaPage">
+            <div class="r__booking-block">
+                
+            </div>
+            <div class="r__booking-block">
+                <a ng-if="tarifs.tarifsData != null" class="r__booking-link avia" href="" ng-click="tarifs.show($event)">Условия тарифов</a>
+            </div>
+        </div>
+        <div class="r__booking" ng-if="!isAviaPage">
             <div class="r__booking-block">
                 <a ng-if="tarifs.tarifsData != null" class="r__booking-link" href="" ng-click="tarifs.show($event)">Условия тарифов</a>
             </div>
