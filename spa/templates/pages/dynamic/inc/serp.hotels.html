@@ -2,8 +2,8 @@
      ng-if="!asMap && !hotelToShowDetails"
      ng-class="{'results-container__short':padding.value}">
 
-    <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="hotels.list.length - 1">
-        Другие <b>{{hotels.getVisibilityInfo().visible}}</b> {{hotels.getVisibilityInfo().visible | choosePlural:"вариант":"варианта":"вариантов"}} отелей
+    <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="hotels.list.length - 1 > 0">
+        Другие <b>{{hotels.getVisibilityInfo().visible - 1}}</b> {{hotels.getVisibilityInfo().visible - 1 | choosePlural:"вариант":"варианта":"вариантов"}} отелей
     </div>
 
     <div class="results-list results-list_720">
