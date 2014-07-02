@@ -62,7 +62,10 @@
     </div>
 
     <div class="b-result__cell">
-        <img ng-src="{{bundle.hotel.data.ProviderLogoUrl}}" alt="" class="logo">
+        <div class="hotel-info__special-mark" ng-if="bundle.getProfit() > 1000">
+            <span class="icon-crown icon-sprite-crown"></span>
+            Спецпредложение
+        </div>
 
         <div class="hotel-info">
             <div class="hotel-info__wrapper">
