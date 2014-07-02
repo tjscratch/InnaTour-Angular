@@ -7,70 +7,76 @@
             <div class="rlf-oneway">
 
                 <div class="b-ticket_2ways">
-                    <div class="rlf-fly">
-                        <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
-                        <span class="rlf-fly-arrow"></span>
-                        <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
-                        <div class="rlf-full-travel-time">
-                            {{ticket.getEtaps('To').length - 1 |
-                            asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
-                            {{ticket.getDuration('To')}} в пути
-                        </div>
-                    </div>
-                    <div class="rlf-fly rlf-fly_back">
-                        <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.getBackOutCode()}}
-                        <span class="rlf-fly-arrow"></span>
-                        <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.getBackInCode()}}
-                        <div class="rlf-full-travel-time">
-                            {{ticket.getEtaps('Back').length - 1 |
-                            asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
-                            {{ticket.getDuration('Back')}} в пути
-                        </div>
-                    </div>
-                </div>
-
-                <div class="b-ticket_2ways b-ticket_2ways-sep">
-                    <div ng-repeat="zip in etapsZipped">
-                        <div class="clearfix">
-                            <div class="b-ticket_2ways-block" ng-repeat="etap in zip">
-                                <ng:include src="'components/ticket-details-etap.inc.html'" ng-if="etap"></ng:include>
+                    <div class="row-fluid">
+                        <div class="col-xs-5 col-no-padding row-fluid__cell">
+                            <div class="rlf-fly">
+                                <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
+                                <span class="rlf-fly-arrow"></span>
+                                <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
+                                <div class="rlf-full-travel-time">
+                                    {{ticket.getEtaps('To').length - 1 |
+                                    asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
+                                    {{ticket.getDuration('To')}} в пути
+                                </div>
                             </div>
                         </div>
-                        <div class="clearfix" ng-if="!$last">
-                            <div ng-repeat="dir in ['To', 'Back']">
-                                <div class="b-ticket_2ways-block"
-                                     ng-repeat="etap in ({'To': [zip[0]], 'Back': [zip[1]]})[dir]">
-                                    <div class="rlf-part rlf-part_transfer"
-                                         ng-if="etap && ticket.getNextEtap(dir, etap)">
-                                        <ng:include src="'components/ticket-details-leg.inc.html'"></ng:include>
+                        <div class="col-xs-5 col-no-padding row-fluid__cell">
+                            <div class="rlf-fly rlf-fly_back">
+                                <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.getBackOutCode()}}
+                                <span class="rlf-fly-arrow"></span>
+                                <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.getBackInCode()}}
+                                <div class="rlf-full-travel-time">
+                                    {{ticket.getEtaps('Back').length - 1 |
+                                    asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
+                                    {{ticket.getDuration('Back')}} в пути
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="b-ticket_2ways b-ticket_2ways-sep">
+                        <div ng-repeat="zip in etapsZipped">
+                            <div class="clearfix">
+                                <div class="b-ticket_2ways-block" ng-repeat="etap in zip">
+                                    <ng:include src="'components/ticket-details-etap.inc.html'"
+                                                ng-if="etap"></ng:include>
+                                </div>
+                            </div>
+                            <div class="clearfix" ng-if="!$last">
+                                <div ng-repeat="dir in ['To', 'Back']">
+                                    <div class="b-ticket_2ways-block"
+                                         ng-repeat="etap in ({'To': [zip[0]], 'Back': [zip[1]]})[dir]">
+                                        <div class="rlf-part rlf-part_transfer"
+                                             ng-if="etap && ticket.getNextEtap(dir, etap)">
+                                            <ng:include src="'components/ticket-details-leg.inc.html'"></ng:include>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="b-tickets__footer">
-                <ul class="b-tickets__icons">
-                    <li>
-                        <div class="tooltip-wrapper tooltip-widget" data-settings='{ "position" : "right"}'>
-                            <a href="javascript:void(0);" class="tooltip__icon  b-tickets__icons-link"
-                               ng-click="sharePopup.toggle()"></a>
+                <div class="b-tickets__footer">
+                    <ul class="b-tickets__icons">
+                        <li>
+                            <div class="tooltip-wrapper tooltip-widget" data-settings='{ "position" : "right"}'>
+                                <a href="javascript:void(0);" class="tooltip__icon  b-tickets__icons-link"
+                                   ng-click="sharePopup.toggle()"></a>
 
-                            <div class="tooltip tooltip_right tooltip-share-link tooltip-share-link_type_ticket-popup"
-                                 ng-if="sharePopup.isOpen">
-                                <input type="text" class="share-link-input" ng-value="link">
-                                <span class="icon icon-cross" ng-click="sharePopup.toggle()"></span>
+                                <div class="tooltip tooltip_right tooltip-share-link tooltip-share-link_type_ticket-popup"
+                                     ng-if="sharePopup.isOpen">
+                                    <input type="text" class="share-link-input" ng-value="link">
+                                    <span class="icon icon-cross" ng-click="sharePopup.toggle()"></span>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="b-tickets__footer-inner">
-                    <a ng-if="!noChoose" class="rl-buy-button" href="javascript:void(0);" ng-click="setCurrent()">Выбрать</a>
+                        </li>
+                    </ul>
+                    <div class="b-tickets__footer-inner">
+                        <a ng-if="!noChoose" class="rl-buy-button" href="javascript:void(0);" ng-click="setCurrent()">Выбрать</a>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
