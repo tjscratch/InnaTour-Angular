@@ -22,9 +22,6 @@ innaAppControllers.
             $scope.bonusCardTransportersList = null;
             $scope.model = null;
 
-            $scope.visaNeeded = false;
-            $scope.visaNeeded_rules = false;
-
             $scope.sexType = aviaHelper.sexType;
             $scope.helper = aviaHelper;
 
