@@ -493,6 +493,7 @@ angular.module('innaApp.directives')
                      * Событие обновления фильтров
                      */
                     scope.$on('change:hotels:filters', function (evt, data) {
+                        console.log(data);
                         updateMap({
                             hotels: data,
                             airports: scope.airports
@@ -515,10 +516,10 @@ angular.module('innaApp.directives')
                         rawHotels = (hotels.toJSON) ? hotels.toJSON() : [];
                         removeMarkers();
 
-                        rawHotels.forEach(function (hotel) {
-
-                            //console.log(hotel.hidden, 'hotel.hidden');
+                        hotels.each(function (hotel) {
                             if (hotel.hidden) return;
+
+                            hotel = (hotel.toJSON) ? hotel.toJSON() : hotel.data;
 
                             if (!hotel.Latitude || !hotel.Longitude) return;
 
