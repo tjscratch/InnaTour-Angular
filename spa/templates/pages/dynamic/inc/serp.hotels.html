@@ -14,7 +14,7 @@
              inna-hotel
              ng-if="combination.hotel.data.HotelId != hotel.data.HotelId">
 
-            <div class="price">
+            <div class="price" ng-if="virtualBundle.getFullPrice() != virtualBundle.getFullPackagePrice()">
                 <span class="cross">{{virtualBundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
                 <div class="price-description">по отдельности</div>
             </div>
