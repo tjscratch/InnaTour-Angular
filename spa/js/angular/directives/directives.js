@@ -379,28 +379,75 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
             $elem.on('keypress', function (event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
+                var val = $elem.val();
+                var selStart = $elem.get(0).selectionStart;
+                var selEnd = $elem.get(0).selectionEnd;
+                var supressSelectOnValue = $elem.attr('supress-select-on-value');
+                if (supressSelectOnValue != null && supressSelectOnValue.length > 0) {
+                    supressSelectOnValue = supressSelectOnValue.replace(/'/g, "");
+                }
 
-                //console.log('phoneInput, key: ' + key);
-                //48-57 - цифры
-                //43 +
-
-                var plusEntered = $elem.val() == '+' || $elem.val().substring(0, 1) == '+';
-
-                if (!plusEntered) {
-                    //плюс не введен, даем ввести, или дописываем сами
-                    if (key != 43)
-                    {
-                        $elem.val("+");
-                        event.preventDefault();
+                //37-40 - стрелки
+                //8 - backspace
+                //46 - del
+                //35-36 - end, home
+                function isKeyInControlAndNavKeys(key) {
+                    if ((key >= 37 && key <= 40) || key == 8 || key == 46 || (key >= 35 && key <= 36)) {
+                        return true;
+                    }
+                    else {
                         return false;
                     }
                 }
-                else {
-                    //введен плюс, даем вводить только цифры
-                    if (!(key >= 48 && key <= 57)) {
-                        event.preventDefault();
+
+                function isKeyInNumKeys(key) {
+                    if (key >= 48 && key <= 57) {
+                        return true;
+                    }
+                    else {
                         return false;
                     }
+                }
+
+                function setEndSelection() {
+                    val = $elem.val();
+                    $elem.get(0).selectionStart = val.length;
+                    $elem.get(0).selectionEnd = val.length;
+                }
+
+                //console.log('phoneInput, key: %d, val: %s, val.len: %d, selStart: %d, selEnd: %d, supress: %s', key, val, val.length, selStart, selEnd, supressSelectOnValue);
+                //48-57 - цифры
+                //43 +
+
+                var plusEntered = (val == '+') || (val.substring(0, 1) == '+');
+                if (plusEntered) {
+                    if (selStart == selEnd) {
+                    }
+                    else {
+                        //если выделено все - то дописываем +
+                        if (selStart == 0 && selEnd == val.length) {
+                            if (supressSelectOnValue != null && val == supressSelectOnValue)//если значение +7
+                            {
+                                $elem.val(val);
+                                setEndSelection();
+                            }
+                            else {
+                                $elem.val("+");
+                                setEndSelection();
+                            }
+                        }
+                    }
+                }
+                else {
+                    $elem.val("+" + val);
+                    setEndSelection();
+                }
+
+                
+                //даем вводить только цифры
+                if (!isKeyInNumKeys(key) && !isKeyInControlAndNavKeys(key)) {
+                    event.preventDefault();
+                    return false;
                 }
             });
 
