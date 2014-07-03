@@ -19,7 +19,9 @@
                 <div class="price-description">по отдельности</div>
             </div>
 
-            <div class="price-description">Перелет + Отель</div>
+            <div class="price-description" ng-style="{'margin-top': virtualBundle.getFullPrice() == virtualBundle.getFullPackagePrice() ? '50px' : ''}">
+                Перелет + Отель
+            </div>
             <div class="corner-price">
                 <div>{{virtualBundle.getFullPackagePrice() | price}}<span class="b-rub">q</span></div>
 
