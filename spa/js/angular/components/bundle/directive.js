@@ -46,10 +46,10 @@ angular.module('innaApp.directives')
                         return $scope.__getTicketDetails(ticket);
                     }
 
-                    $scope.getHotelDetails = function($event, hotel){
+                    $scope.getHotelDetails = function($event, hotel, isBuyAction){
                         $event.stopPropagation();
 
-                        return $scope.__getHotelDetails(hotel);
+                        return $scope.__getHotelDetails(hotel, isBuyAction);
                     }
                 }
             ]
