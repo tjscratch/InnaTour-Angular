@@ -37,6 +37,13 @@ gulp.task('watch', function () {
 
     gulp.watch(conf.dest+'/less/**/*', ['less']);
 
+    // components page regions
+    gulp.watch([
+            conf.angular+'/components/**/*.js',
+            conf.angular+'/pages/**/*.js',
+            conf.angular+'/regions/**/*.js'
+    ], ['concat-comp-page-regions']);
+
     gulp.watch([
             conf.templ+'/**/*.html',
             conf.dest+'/js/angular/**/*.html'

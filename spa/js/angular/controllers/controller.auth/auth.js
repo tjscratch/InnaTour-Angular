@@ -104,7 +104,7 @@ angular.module('innaApp.controllers')
             });
 
             $scope.$on(Events.AUTH_SIGN_OUT, function(event, userRaw){
-                var user = new inna.Models.Auth.User(userRaw);
+                var user = new inna.Models.Auth.User(userRaw.raw);
 
                 if(user.isAgency() && !user.raw.AgencyActive) {
                     $scope.baloon.showErr('Агентство неактивно', 'Вход не возможен', function(){
