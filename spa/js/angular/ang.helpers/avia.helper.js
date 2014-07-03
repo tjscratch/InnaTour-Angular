@@ -402,6 +402,7 @@
                             if (item.AirportFrom === undefined) {
                                 item.AirportFrom = startEtapTo.OutPort;
                             }
+
                             if (item.OutCode === undefined) {
                                 item.OutCode = startEtapTo.OutCode;
                             }
@@ -694,7 +695,8 @@
                         _.each(aviaInfo.EtapsTo, function (etap) {
                             self.list.push({
                                 from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
-                                num: etap.TransporterCode + '-' + etap.Number
+                                num: etap.TransporterCode + '-' + etap.Number,
+                                rule : etap.Rule
                             });
                         });
 
@@ -702,7 +704,8 @@
                             _.each(aviaInfo.EtapsBack, function (etap) {
                                 self.list.push({
                                     from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
-                                    num: etap.TransporterCode + '-' + etap.Number
+                                    num: etap.TransporterCode + '-' + etap.Number,
+                                    rule : etap.Rule
                                 });
                             });
                         }
@@ -716,20 +719,20 @@
                     self.tarifItem = null;
 
                     self.tarifClick = function ($event, item) {
-                        eventsHelper.preventBubbling($event);
+                        if($event) eventsHelper.preventBubbling($event);
                         self.setected = item;
                         var index = self.list.indexOf(item);
                         self.tarifItem = self.tarifsData[index];
                     }
                     self.show = function ($event) {
-                        eventsHelper.preventBubbling($event);
+                        if($event) eventsHelper.preventBubbling($event);
                         self.selectedIndex = 0;
                         self.setected = self.list[0];
                         self.tarifItem = self.tarifsData[0];
                         self.isOpened = true;
                     }
                     self.close = function ($event) {
-                        eventsHelper.preventBubbling($event);
+                        if($event) eventsHelper.preventBubbling($event);
                         self.isOpened = false;
                     }
                 },
@@ -752,8 +755,6 @@
                         if (hotel.Amenities != null) {
                             self.extra = hotel.Amenities.Amenity_3;
                         }
-
-                        console.log(self);
                     }
 
                     self.show = function ($event) {

@@ -4,10 +4,10 @@
 
         <div class="row buy__result__title">
             <div class="col-xs-6 align-right">
-                <a href="" class="buy__result-header-link">условия тарифов</a>
+                <span on-click="showBalloonTicket" class="buy__result-header-link">Условия тарифов</span>
             </div>
             <div class="col-xs-6 align-right">
-                <a class="buy__result-header-link" href="">Условия и правила по отелю</a>
+                <span on-click="showBalloonHotel" class="buy__result-header-link" >Условия и правила по отелю</span>
             </div>
         </div>
 
@@ -44,13 +44,9 @@
         </div>
 
 
-        <ul class="buy__result-order-terms">
-            <li class="buy__result-list-item">Extra-person changes may apply and vary depending on hotel policy</li>
-            <li class="buy__result-list-item">Guest must show current government-issued proof of identity at the time of check-in.</li>
-            <li class="buy__result-list-item">Photo identification and credit card or cash deposit are required at check-in for incidental charges.</li>
-            <li class="buy__result-list-item">Special requests are subject to availability upon check-in and may incur additional charges.</li>
-            <li class="buy__result-list-item">Spisial requests cannot be guarandted.</li>
-        </ul>
+        <div class="buy__result-order-terms">
+            {{{Hotel.Room.PolicyDescription}}}
+        </div>
     </div>
 
     <div>
@@ -64,21 +60,29 @@
         </div>
 
         <div class="buy__result-guests">
-            Гости: {{PassengersData.adult}} и {{PassengersData.child}}
+            {{#PassengersData.adultCount}}
+            Гости: {{PassengersData.adult}}
+                {{#PassengersData.childCount}}
+                    и {{PassengersData.child}}
+                {{/}}
+            {{/}}
         </div>
 
         <div class="buy__result-sum">
-            <h2 class="buy__result-sum-title">Ваш заказ на сумму {{data.Price}} оплачен</h2>
-            <div class="buy__result-sum-description">Маршрутная квитанция (авиабилет) и подтверждение бронирования отеля, направлены на адрес электронной почты.</div>
+            <h2 class="buy__result-sum-title">Ваш заказ на сумму {{Price}} оплачен</h2>
+            <div class="buy__result-sum-description">Маршрутная квитанция (авиабилет) и подтверждение бронирования
+                отеля, направлены на ваш адрес электронной почты.</div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-xs-6 col-no-padding">
-            <a href="" class="buy__result-header-link">условия тарифов</a>
+        <div class="col-xs-8 col-no-padding">
+            По любым вопросам, Вы можете связаться с нами по телефону<br/>
+            +7 (495) 742-12-12 или по электронной почте sale@inna.ru
         </div>
-        <div class="col-xs-6 col-no-padding">
-            <a class="buy__result-header-link" href="">Условия и правила по отелю</a>
+        <div class="col-xs-4">
+            <h2>Желаем приятного путешествия! <br/>
+                Have a nice trip!</h2>
         </div>
     </div>
 </div>
