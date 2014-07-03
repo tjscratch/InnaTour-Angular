@@ -7,6 +7,7 @@ innaAppControllers.
         '$rootScope',
         '$templateCache',
         '$route',
+        '$routeParams',
         '$filter',
         '$location',
         'dataService',
@@ -18,7 +19,7 @@ innaAppControllers.
 
         // components
         'dynamicBlock',
-        function ($scope, $rootScope, $templateCache, $route, $filter, $location, dataService, paymentService, storageService, urlHelper, aviaHelper, innaAppUrls, dynamicBlock) {
+        function ($scope, $rootScope, $templateCache, $route, $routeParams, $filter, $location, dataService, paymentService, storageService, urlHelper, aviaHelper, innaAppUrls, dynamicBlock) {
 
 
             var Page = Ractive.extend({
@@ -93,13 +94,19 @@ innaAppControllers.
 
                         if(pass.age >= 18){
                             data.PassengersData.adultCount++;
-                            //data.PassengersData.adult
+
+                            data.PassengersData.adult = data.PassengersData.adultCount + ' '
+                                + $filter('decl')(data.PassengersData.adultCount, ["взрослый", "взрослых", "взрослых"]);
                         }
                         if(pass.age < 18){
                             data.PassengersData.childCount++;
-                            //data.PassengersData.child
+                            data.PassengersData.child = data.PassengersData.childCount + ' '
+                                + $filter('decl')(data.PassengersData.childCount, ["ребенок", "детей", "детей"]);
                         }
                     });
+
+                    data.Price = data.Price + ' '
+                        + $filter('decl')(data.Price, ["рубль", "рубля", "рублей"]);
 
                     /* partials */
                     data.ticket2ways = true;
@@ -113,7 +120,7 @@ innaAppControllers.
                  */
                 getDataBuy: function () {
                     var that = this;
-                    paymentService.getPaymentData({orderNum: 'PEE962'},
+                    paymentService.getPaymentData({orderNum: $routeParams.OrderNum},
                         function (data) {
                             that.set(that.parse(data));
                         }

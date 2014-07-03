@@ -2,49 +2,42 @@
 
     <div class="buy__blocks">
 
-        <div class="row">
-            <div class="col-xs-6 col-no-padding">
+        <div class="row buy__result__title">
+            <div class="col-xs-6 align-right">
                 <a href="" class="buy__result-header-link">условия тарифов</a>
             </div>
-            <div class="col-xs-6 col-no-padding">
+            <div class="col-xs-6 align-right">
                 <a class="buy__result-header-link" href="">Условия и правила по отелю</a>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-xs-6 col-no-padding">
+            <div class="col-xs-8 col-no-padding">
 
                 <ul class="buy__result-date-container">
                     <li class="buy__result-list-item">
                         Заезд {{Hotel.CheckInFull}} г. (до {{Hotel.CheckInTime}}), вт
-
-                        <div class="buy__result-translation">Check-In Sep 14, 2014 ({{Hotel.CheckInTime}}), Tue</div>
                     </li>
                     <li class="buy__result-list-item">
                         Отъезд {{Hotel.CheckOutFull}} г. (до {{Hotel.CheckOutTime}}), ср
-                        <div class="buy__result-translation">Check-Out Sep 30, 2014 (Hotel.CheckOutTime), Wed</div>
                     </li>
                     <li class="buy__result-list-item">
                         Продолжительность: {{Hotel.NightCountHotel}}
-                        <div class="buy__result-translation">Duration: 5 nights</div>
                     </li>
                 </ul>
             </div>
 
-            <div class="col-xs-6 col-no-padding">
+            <div class="col-xs-4 col-no-padding">
 
                 <ul class="buy__result-order-container">
                     <li class="buy__result-list-item">
                         Номер заказа: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
-                        <div class="buy__result-translation">Order number</div>
                     </li>
                     <li class="buy__result-list-item">
                         Номер бронирования: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
-                        <div class="buy__result-translation">Itenenary number</div>
                     </li>
                     <li class="buy__result-list-item">
                         Номер подтверждения: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
-                        <div class="buy__result-translation">Room Confirmation number</div>
                     </li>
                 </ul>
             </div>
@@ -71,12 +64,11 @@
         </div>
 
         <div class="buy__result-guests">
-            Гости: {{PassengersData.adult}} взрослых и ребенок
-            <div class="buy__result-translation">Guests: 2 adults and 1 child</div>
+            Гости: {{PassengersData.adult}} и {{PassengersData.child}}
         </div>
 
         <div class="buy__result-sum">
-            <h2 class="buy__result-sum-title">Ваш заказ на сумму 170 920 рублей оплачен</h2>
+            <h2 class="buy__result-sum-title">Ваш заказ на сумму {{data.Price}} оплачен</h2>
             <div class="buy__result-sum-description">Маршрутная квитанция (авиабилет) и подтверждение бронирования отеля, направлены на адрес электронной почты.</div>
         </div>
     </div>
