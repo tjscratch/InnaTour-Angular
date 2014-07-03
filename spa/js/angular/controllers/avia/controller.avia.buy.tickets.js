@@ -359,6 +359,16 @@ innaAppControllers.
 
             $scope.sexType = aviaHelper.sexType;
 
+            $scope.visaControl = new aviaHelper.visaControl();
+
+            function visaNeededCheck() {
+                if ($scope.reservationModel != null && $scope.reservationModel.passengers != null && $scope.aviaInfo != null) {
+                    //Id-шники гражданств пассажиров
+                    var passengersCitizenshipIds = _.map($scope.reservationModel.passengers, function (pas) { return pas.citizenship.id; });
+                    $scope.visaControl.check(passengersCitizenshipIds, $scope.aviaInfo);
+                }
+            }
+
             //focus
             function focusControl() {
                 var self = this;
@@ -554,6 +564,9 @@ innaAppControllers.
                                         aviaHelper.addCustomFields(data.AviaInfo);
                                         $scope.aviaInfo = data.AviaInfo;
                                         $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
+
+                                        //нужна ли виза
+                                        visaNeededCheck();
                                     }
 
                                     $scope.price = $scope.reservationModel.price;

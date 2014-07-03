@@ -10,14 +10,13 @@
              inna-ticket
              ng-if="combination.ticket.data.VariantId1 != ticket.data.VariantId1">
 
-            <div class="price">
+            <div class="price" ng-if="virtualBundle.getProfit() > 1000)">
                 <span class="cross">{{virtualBundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
                 <div class="price-description">по отдельности</div>
             </div>
 
+            <div class="price-description">Перелет + Отель</div>
             <div class="corner-price">
-                <div class="price-description">Перелет + Отель</div>
-
                 <div>{{virtualBundle.getFullPackagePrice() | price}}<span class="b-rub">q</span></div>
 
                 <!-- tooltip price -->

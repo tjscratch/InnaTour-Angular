@@ -7,7 +7,7 @@ var conf = require('./config');
 var _ENV_ = process.env.NODE_ENV || '';
 
 // зависимость от сборки шаблонов
-gulp.task('build-concat', ['build-templates', 'build-lib'], function () {
+gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-regions'], function () {
     return gulp.src([
             conf.build + '/js/app-lib.js',
 
@@ -36,10 +36,10 @@ gulp.task('build-concat', ['build-templates', 'build-lib'], function () {
 });
 
 
-gulp.task('build-lib', function () {
+gulp.task('concat-lib', function () {
     return gulp.src([
             conf.dest + '/lib/underscore.js',
-            conf.dest + '/lib/ractive.min.js',
+            conf.dest + '/lib/ractive.js',
             conf.dest + '/lib/polyfill.js',
             conf.dest + '/lib/jquery.cookie.js',
             conf.dest + '/lib/jquery.maskedinput.js',
@@ -55,10 +55,27 @@ gulp.task('build-lib', function () {
 });
 
 
+gulp.task('concat-components', function () {
+    return gulp.src(conf.dest + '/js/angular/components/**/*.js')
+        .pipe(concat('components.js'))
+        .pipe(gulp.dest(conf.build + '/js'));
+});
 
+gulp.task('concat-regions', function () {
+    return gulp.src(conf.dest + '/js/angular/regions/**/*.js')
+        .pipe(concat('regions.js'))
+        .pipe(gulp.dest(conf.build + '/js'));
+});
+
+gulp.task('concat-pages', function () {
+    return gulp.src(conf.dest + '/js/angular/pages/**/*.js')
+        .pipe(concat('pages.js'))
+        .pipe(gulp.dest(conf.build + '/js'));
+});
 
 
 /* NEXT TIME :) */
+
 
 
 gulp.task('concat-jq.plugins', function () {
@@ -90,17 +107,7 @@ gulp.task('concat-directives', function () {
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
-gulp.task('concat-regions', function () {
-    return gulp.src(conf.dest + '/js/angular/regions/**/*.js')
-        .pipe(concat('regions.js'))
-        .pipe(gulp.dest(conf.build + '/js'));
-});
 
-gulp.task('concat-components', function () {
-    return gulp.src(conf.dest + '/js/angular/components/**/*.js')
-        .pipe(concat('components.js'))
-        .pipe(gulp.dest(conf.build + '/js'));
-});
 
 
 gulp.task('concat-models', function () {
@@ -129,6 +136,12 @@ gulp.task('concat-api.helpers', function () {
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
+
+gulp.task('concat-comp-page-regions', [
+    'concat-pages',
+    'concat-regions',
+    'concat-components'
+]);
 
 gulp.task('concat-js', [
     'concat-lib',
