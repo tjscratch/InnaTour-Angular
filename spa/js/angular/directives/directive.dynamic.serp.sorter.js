@@ -58,11 +58,11 @@
         .controller('innaDynamicSerpSorter_TicketsMixin', [
             '$scope',
             function ($scope) {
-                $scope.sorters.add(new Sorter('По рейтингу', function (ticket1, ticket2) { //asc
-                    return ticket1.data.RecommendedFactor - ticket2.data.RecommendedFactor;
-                }));
                 $scope.sorters.add(new Sorter('По цене', function (ticket1, ticket2) { //asc
                     return ticket1.data.Price - ticket2.data.Price;
+                }));
+                $scope.sorters.add(new Sorter('По рейтингу Инна Тур', function (ticket1, ticket2) { //asc
+                    return ticket1.data.RecommendedFactor - ticket2.data.RecommendedFactor;
                 }));
                 $scope.sorters.add(new Sorter('По времени в пути', function (ticket1, ticket2) {
                     return (ticket2.data.TimeTo + ticket2.data.TimeBack) - (ticket1.data.TimeTo + ticket1.data.TimeBack)
