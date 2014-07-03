@@ -57,6 +57,8 @@ innaAppControllers.
                         el: this.find('.js-dynamic-block'),
                         data: data
                     });
+
+                    console.log(this._DynamicBlockAviaHotel);
                 },
 
 
