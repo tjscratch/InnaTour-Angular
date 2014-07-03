@@ -125,7 +125,7 @@
             <span class="icon icon-cross" ng-click="linkPopup.toggle()"></span>
         </div>
 
-        <p class="corner-price">
+        <p class="corner-price" ng-if="bundle.getFullPrice() != bundle.getFullPackagePrice()">
             <span class="cross">{{bundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
             <span class="price-description">по отдельности</span>
         </p>
