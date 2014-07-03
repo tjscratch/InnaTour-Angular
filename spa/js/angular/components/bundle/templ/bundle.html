@@ -49,7 +49,7 @@
                ng-if="state"
                ng-class="{active: state.isActive(state.TICKETS_TAB)}"
                ng-click="state.switchTo('ticket')">
-                Выбрать другой перелет
+                Заменить перелет
             </a>
             <a href="javascript:void(0);" class="pull-right"
                ng-click="getTicketDetails(bundle.ticket)">Подробнее</a>
@@ -104,7 +104,7 @@
                ng-click="state.switchTo('hotel')"
                ng-if="state"
                class="pull-left">
-                Выбрать другой отель
+                Заменить отель
             </a>
             <a href="javascript:void(0);"
                class="pull-right"
@@ -127,9 +127,8 @@
             <span class="icon icon-cross" ng-click="linkPopup.toggle()"></span>
         </div>
 
-        <p class="corner-price cross">
-            {{bundle.getFullPrice() | price}}
-            <ng-include src="'components/ruble.html'"></ng-include>
+        <p class="corner-price">
+            <span class="cross">{{bundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
             <span class="price-description">по отдельности</span>
         </p>
 
