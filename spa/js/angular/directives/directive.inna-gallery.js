@@ -8,7 +8,7 @@ angular.module('innaApp.directives')
             controller: [
                 '$scope',
                 function ($scope) {
-                    var MAX_WIDTH = 980, MAX_HEIGHT = 480;
+                    var MAX_WIDTH = 960, MAX_HEIGHT = 480;
                     var MIN_WIDTH = 800, MIN_LENGTH = 2;
 
                     /*Models*/

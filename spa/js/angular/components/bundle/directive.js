@@ -5,8 +5,8 @@ angular.module('innaApp.directives')
             scope: {
                 bundle: '=innaDynamicBundleBundle',
                 state: '=innaDynamicBundleState',
-                getTicketDetails: '=innaDynamicBundleTicketDetails',
-                getHotelDetails: '=innaDynamicBundleHotelDetails',
+                __getTicketDetails: '=innaDynamicBundleTicketDetails',
+                __getHotelDetails: '=innaDynamicBundleHotelDetails',
                 withReservationButton: '@innaDynamicBundleWithReservationButton',
                 close: '=innaDynamicBundleClose'
             },
@@ -39,6 +39,18 @@ angular.module('innaApp.directives')
                     $scope.dateHelper = dateHelper;
 
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+
+                    $scope.getTicketDetails = function($event, ticket){
+                        $event.stopPropagation();
+
+                        return $scope.__getTicketDetails(ticket);
+                    }
+
+                    $scope.getHotelDetails = function($event, hotel){
+                        $event.stopPropagation();
+
+                        return $scope.__getHotelDetails(hotel);
+                    }
                 }
             ]
         }
