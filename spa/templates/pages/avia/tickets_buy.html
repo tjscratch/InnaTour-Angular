@@ -10,6 +10,12 @@
         <div class="main__center" ng-if="!reservationModel.IsService">
             <ng:include src="objectToReserveTemplate" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
 
+            <div class="buy__warning" ng-if="visaControl.visaNeeded || visaControl.visaRulesNeeded">
+                <div ng-if="visaControl.visaNeeded">Требуется виза.</div>
+                <div ng-if="visaControl.visaRulesNeeded">Обратите внимание на визовые правила
+                    <span ng-if="visaControl.cautionCountries.length > 0"> в странах: <span ng-repeat="c in visaControl.cautionCountries">{{c}}<span ng-if="!($last)">,&nbsp;</span></span></span>.</div>
+            </div>
+
             <div class="r__booking" ng-if="(hotel != null)">
                 <div class="r__booking-block">
                     <a ng-if="tarifs.tarifsData != null" class="r__booking-link" href="" ng-click="tarifs.show($event)">Условия тарифов</a>
