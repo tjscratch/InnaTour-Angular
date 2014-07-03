@@ -52,13 +52,12 @@ innaAppControllers.
                  */
                 change: function (data) {
                     console.log(data);
+console.log(this.find('.js-dynamic-block'));
 
                     this._DynamicBlockAviaHotel = new DynamicBlockAviaHotel({
                         el: this.find('.js-dynamic-block'),
                         data: data
                     });
-
-                    console.log(this._DynamicBlockAviaHotel);
                 },
 
 
