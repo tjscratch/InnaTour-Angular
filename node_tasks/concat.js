@@ -7,7 +7,7 @@ var conf = require('./config');
 var _ENV_ = process.env.NODE_ENV || '';
 
 // зависимость от сборки шаблонов
-gulp.task('build-concat', ['build-templates', 'concat-comp-page-regions-lib'], function () {
+gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-regions'], function () {
     return gulp.src([
             conf.build + '/js/app-lib.js',
 
@@ -137,8 +137,7 @@ gulp.task('concat-api.helpers', function () {
 });
 
 
-gulp.task('concat-comp-page-regions-lib', [
-    'concat-lib',
+gulp.task('concat-comp-page-regions', [
     'concat-pages',
     'concat-regions',
     'concat-components'

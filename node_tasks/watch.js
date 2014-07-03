@@ -42,7 +42,7 @@ gulp.task('watch', function () {
             conf.angular+'/components/**/*.js',
             conf.angular+'/pages/**/*.js',
             conf.angular+'/regions/**/*.js'
-    ], ['concat-comp-page-regions-lib']);
+    ], ['concat-comp-page-regions']);
 
     gulp.watch([
             conf.templ+'/**/*.html',
