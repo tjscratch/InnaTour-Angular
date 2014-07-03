@@ -67,78 +67,14 @@ innaAppControllers.
             $scope.validateType = validateType;
 
             function visaNeededCheck() {
-                var isCitRussia = false;
-                var visaEtapNeeded = false;
-                var visaEtapRulesNeeded = false;
-
-                //console.log($scope.validationModel.passengers);
-
-                if ($scope.validationModel != null && $scope.validationModel.passengers != null &&
-                    $scope.item != null) {
-
-                    var isAllPassRussia = _.all($scope.validationModel.passengers, function (pas) { return pas.citizenship.value.id == 189; });//189 - Россия
-
-                    //страна куда
-                    var lastItem = _.last($scope.item.EtapsTo);
-                    //если не 0 - то визовая
-                    var visaEtapNeeded = lastItem.InVisaGroup != 0;
-
-                    var outVisaGroup = $scope.item.EtapsTo[0].OutVisaGroup;//страна откуда
-                    var inVisaGroup = lastItem.InVisaGroup;//страна куда
-
-                    var cautionCountries = [];
-
-                    if (outVisaGroup != inVisaGroup) {
-                        cautionCountries.push(lastItem.InCountryName);
-                    }
-
-                    if ($scope.item.EtapsTo != null) {
-                        for (var i = 0; i < $scope.item.EtapsTo.length; i++) {
-                            var etap = $scope.item.EtapsTo[i];
-                            if (etap.InVisaGroup != outVisaGroup) {
-                                visaEtapRulesNeeded = true;
-                                cautionCountries.push(etap.InCountryName);
-                            }
-                            if (etap.OutVisaGroup != outVisaGroup) {
-                                visaEtapRulesNeeded = true;
-                                cautionCountries.push(etap.OutCountryName);
-                            }
-                        }
-                    }
-
-                    if ($scope.item.EtapsBack != null) {
-                        for (var i = 0; i < $scope.item.EtapsBack.length; i++) {
-                            var etap = $scope.item.EtapsBack[i];
-                            if (etap.InVisaGroup != outVisaGroup) {
-                                visaEtapRulesNeeded = true;
-                                cautionCountries.push(etap.InCountryName);
-                            }
-                            if (etap.OutVisaGroup != outVisaGroup) {
-                                visaEtapRulesNeeded = true;
-                                cautionCountries.push(etap.OutCountryName);
-                            }
-                        }
-                    }
-                    cautionCountries = _.uniq(cautionCountries);
-                    $scope.cautionCountries = cautionCountries;
-                    //console.log('cautionCountries:');
-                    //console.log(cautionCountries);
+                if ($scope.validationModel != null && $scope.validationModel.passengers != null && $scope.item != null) {
+                    //Id-шники гражданств пассажиров
+                    var passengersCitizenshipIds = _.map($scope.validationModel.passengers, function (pas) { return pas.citizenship.value.id; });
+                    $scope.visaControl.check(passengersCitizenshipIds, $scope.item);
                 }
-
-                if (isAllPassRussia && visaEtapNeeded) {
-                    $scope.visaNeeded = true;
-                }
-                else {
-                    $scope.visaNeeded = false;
-                }
-
-                if (visaEtapRulesNeeded) {
-                    $scope.visaNeeded_rules = true;
-                }
-                else {
-                    $scope.visaNeeded_rules = false;
-                }
-            };
+            }
+            
+            $scope.visaControl = new aviaHelper.visaControl();
 
             $scope.lastPeopleValidation = null;
 
