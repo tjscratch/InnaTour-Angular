@@ -1,0 +1,30 @@
+<h3 class="balloon__title">Условия и правила по отелю</h3>
+
+<div class="balloon__text-block">
+    <h4 class="balloon__title-sec">Условия заселения</h4>
+    <ul class="balloon__list">
+        <li>Заезд: до {{hotelRules.checkIn}}</li>
+        <li>Выезд: до {{hotelRules.checkOut}}</li>
+    </ul>
+</div>
+
+{{#hotelRules.cancellationRules.length}}
+    <div class="balloon__text-block">
+        <h4 class="balloon__title-sec">Правила отмены</h4>
+
+        <p>{{hotelRules.cancellationRules}}</p>
+    </div>
+{{/}}
+
+{{#hotelRules.extra.List.length}}
+    <div class="balloon__text-block">
+        <h4 class="balloon__title-sec">Дополнительно</h4>
+        <ul class="balloon__list">
+            {{#hotelRules.extra.List}}
+                <li>{{item}}</li>
+            {{#hotelRules.extra.List}}
+        </ul>
+    </div>
+{{/}}
+
+
