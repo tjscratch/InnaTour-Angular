@@ -9,6 +9,10 @@ innaAppConponents.
                 template: $templateCache.get('components/dynamic-block/templ/base-dynamic.html'),
                 init: function (options) {
 
+                },
+
+                getHotelDetails : function(evt){
+                    console.log(evt);
                 }
             });
 

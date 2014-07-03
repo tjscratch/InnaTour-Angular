@@ -14,9 +14,9 @@ innaAppControllers.
         'innaApp.Urls',
 
         // components
-        'DynamicBlock',
+        'DynamicBlockAviaHotel',
         'Balloon',
-        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, DynamicBlock, Balloon) {
+        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, DynamicBlockAviaHotel, Balloon) {
 
 
             var Page = Ractive.extend({
@@ -31,7 +31,7 @@ innaAppControllers.
                 },
                 init: function () {
                     var that = this;
-                    this._dynamicBlock = null;
+                    this._DynamicBlockAviaHotel = null;
                     this._balloon = null;
                     this._partialBaloonTicket = $templateCache.get('components/balloon/templ/ticket-rules.html');
                     this._partialBaloonHotel = $templateCache.get('components/balloon/templ/hotel-rules.html');
@@ -53,7 +53,7 @@ innaAppControllers.
                 change: function (data) {
                     console.log(data);
 
-                    this._dynamicBlock = new DynamicBlock({
+                    this._DynamicBlockAviaHotel = new DynamicBlockAviaHotel({
                         el: this.find('.js-dynamic-block'),
                         data: data
                     });
