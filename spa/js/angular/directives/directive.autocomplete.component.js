@@ -342,21 +342,25 @@
                     }
                 }
 
-                $(document).click(function (event) {
+                function clickHanlder (event) {
                     var isInsideComponent = !!$(event.target).closest(elem).length;
 
                     if (!isInsideComponent) {
                         $scope.$apply(function ($scope) {
                             $scope.fulfilled = true;
-                            //select all
-                            $(event.target).select();
                         });
                     }
-                });
+                    else {
+                        //select all
+                        $(event.target).select();
+                    }
+                }
+                $(document).click(clickHanlder);
 
                 $scope.$on('$destroy', function () {
                     $scope.input.off();
                     $(document).off('focus');
+                    $(document).off('click', clickHanlder);
                     $timeout.cancel($scope.timeoutId);
                 });
             }
