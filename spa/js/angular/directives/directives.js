@@ -594,7 +594,11 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
             }).on('click', function (event) {
                 var val = $scope.ngValidationModel.value;
 
-                if (val != null && val.length > 0 && ($scope.supressSelectOnValue == null || val != $scope.supressSelectOnValue))//+7 для телефона
+                if ($scope.supressSelectOnValue != null)//не выделяем
+                {
+                    //|| val != $scope.supressSelectOnValue))//+7 для телефона
+                }
+                else if (val != null && val.length > 0)
                 {
                     $(this).select();
                 }
