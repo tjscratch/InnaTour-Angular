@@ -766,6 +766,88 @@
                     }
                 },
 
+                visaControl: function () {
+                    var self = this;
+
+                    self.cautionCountries = [];
+                    self.visaNeeded = false;
+                    self.visaRulesNeeded = false;
+
+                    self.check = function (passengersCitizenshipIds, currentItem) {
+                        var isCitRussia = false;
+                        var visaEtapNeeded = false;
+                        var visaEtapRulesNeeded = false;
+
+                        //console.log('passengersCitizenshipIds:');
+                        //console.log(passengersCitizenshipIds);
+
+                        if (passengersCitizenshipIds != null && currentItem != null) {
+
+                            var isAllPassRussia = _.all(passengersCitizenshipIds, function (citId) { return citId == 189; });//189 - Россия
+
+                            //страна куда
+                            var lastItem = _.last(currentItem.EtapsTo);
+                            //если не 0 - то визовая
+                            var visaEtapNeeded = lastItem.InVisaGroup != 0;
+
+                            var outVisaGroup = currentItem.EtapsTo[0].OutVisaGroup;//страна откуда
+                            var inVisaGroup = lastItem.InVisaGroup;//страна куда
+
+                            var cautionCountries = [];
+
+                            if (outVisaGroup != inVisaGroup) {
+                                cautionCountries.push(lastItem.InCountryName);
+                            }
+
+                            if (currentItem.EtapsTo != null) {
+                                for (var i = 0; i < currentItem.EtapsTo.length; i++) {
+                                    var etap = currentItem.EtapsTo[i];
+                                    if (etap.InVisaGroup != outVisaGroup) {
+                                        visaEtapRulesNeeded = true;
+                                        cautionCountries.push(etap.InCountryName);
+                                    }
+                                    if (etap.OutVisaGroup != outVisaGroup) {
+                                        visaEtapRulesNeeded = true;
+                                        cautionCountries.push(etap.OutCountryName);
+                                    }
+                                }
+                            }
+
+                            if (currentItem.EtapsBack != null) {
+                                for (var i = 0; i < currentItem.EtapsBack.length; i++) {
+                                    var etap = currentItem.EtapsBack[i];
+                                    if (etap.InVisaGroup != outVisaGroup) {
+                                        visaEtapRulesNeeded = true;
+                                        cautionCountries.push(etap.InCountryName);
+                                    }
+                                    if (etap.OutVisaGroup != outVisaGroup) {
+                                        visaEtapRulesNeeded = true;
+                                        cautionCountries.push(etap.OutCountryName);
+                                    }
+                                }
+                            }
+                            cautionCountries = _.uniq(cautionCountries);
+                            self.cautionCountries = cautionCountries;
+                            //console.log('cautionCountries:');
+                            //console.log(cautionCountries);
+                        }
+
+                        if (isAllPassRussia && visaEtapNeeded) {
+                            self.visaNeeded = true;
+                        }
+                        else {
+                            self.visaNeeded = false;
+                        }
+
+                        if (visaEtapRulesNeeded) {
+                            self.visaRulesNeeded = true;
+                        }
+                        else {
+                            self.visaRulesNeeded = false;
+                        }
+                    }
+                },
+
                 eof: null
             };
             return helper;

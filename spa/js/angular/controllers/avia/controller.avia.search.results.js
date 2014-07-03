@@ -507,6 +507,9 @@ innaAppControllers.
                     //for (var i = 0; i < 10; i++) {
                     //    list = list.concat(list);
                     //}
+                    //list = [list[0], list[1]];
+                    //list = [list[0]];
+                    //list = [];
 
                     //добавляем список
                     $scope.ticketsList = list;
