@@ -346,8 +346,9 @@ innaAppControllers
 
             $scope.closeHotelDetails = function () {
                 $scope.hotelToShowDetails = null;
-                delete $location.$$search.displayHotel
-                delete $location.$$search.action
+                delete $location.$$search.displayHotel;
+                delete $location.$$search.action;
+                delete $location.$$search.room;
                 $location.$$compose();
             };
 
