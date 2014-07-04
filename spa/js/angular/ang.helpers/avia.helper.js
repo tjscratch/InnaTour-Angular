@@ -610,6 +610,7 @@
                     self.ticketsClass = helper.getCabinClassName(cabinClass).toLowerCase();
 
                     self.show = function ($event, item, criteria, searchId, hideBuyButton) {
+                        //console.log('popupItemInfo.show');
                         eventsHelper.preventBubbling($event);
                         self.isShow = true;
                         self.hideBuyButton = hideBuyButton;
@@ -627,6 +628,11 @@
                             var url = app_main.frontHost + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
                             self.link = url;
                         }
+                    }
+
+                    self.hide = function () {
+                        //console.log('popupItemInfo.hide');
+                        self.isShow = false;
                     }
 
                     self.addAggFields = function (item) {

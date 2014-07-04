@@ -12,20 +12,23 @@ innaAppDirectives.
 innaAppDirectives.directive('closePopup', [function () {
     return {
         scope: {
-            isShow: '='
+            fnHide: '&'
         },
         link: function ($scope, element, attrs) {
-            $(document).click(function bodyClick(event) {
+            function bodyClick(event) {
                 var isInsideComponent = !!$(event.target).closest(element).length;
                 $scope.$apply(function ($scope) {
                     if (!isInsideComponent) {
-                        $scope.isShow = false;
+                        $scope.fnHide();
                     }
                 });
-            });
+            }
+
+            $(document).on('click', bodyClick);
 
             $scope.$on('$destroy', function () {
                 element.off();
+                $(document).off('click', bodyClick);
             });
         }
     };

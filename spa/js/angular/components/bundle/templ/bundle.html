@@ -120,7 +120,7 @@
     <div class="b-result__cell result-buy">
         <div class="js-share-component"></div>
 
-        <p class="corner-price" ng-if="bundle.getFullPrice() != bundle.getFullPackagePrice()">
+        <p class="corner-price" ng-if="bundle.getProfit() > 1000">
             <span class="cross">{{bundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
             <span class="price-description">по отдельности</span>
         </p>
@@ -134,7 +134,7 @@
             <div tool-tip-price item="bundle" is-bundle="true"></div>
         </div>
 
-        <span class="price-description" ng-if="(bundle.getFullPrice() - bundle.getFullPackagePrice()) != 0">
+        <span class="price-description" ng-if="bundle.getProfit() > 1000">
             экономия: {{bundle.getFullPrice() - bundle.getFullPackagePrice() | price}}
             <ng-include src="'components/ruble.html'"></ng-include>
         </span>
