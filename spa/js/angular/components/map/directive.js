@@ -115,7 +115,7 @@ angular.module('innaApp.directives')
 
                     var map = new GM.Map(mapContainer, {
                         center: new GM.LatLng(0, 0),
-                        disableDefaultUI: true,
+                        //disableDefaultUI: true,
                         styles: styleArray,
                         zoom: 8
                     });
