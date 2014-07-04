@@ -565,7 +565,8 @@ innaAppControllers
         '$scope',
         '$element',
         'innaApp.API.events',
-        function ($scope, $element, Events) {
+        '$location',
+        function ($scope, $element, Events, $location) {
             /*DOM*/
             var doc = $(document);
 
@@ -652,6 +653,10 @@ innaAppControllers
             $scope.$root.$on('bundle:hidden', function () {
                 $scope.display.shortDisplay();
             });
+
+            if($location.search().ticket || $location.search().hotel) {
+                $scope.isChooseHotel = true;
+            } // else use isChooseHotel from parent scope
 
             /*Events*/
             $scope.$on('$destroy', unwatchScroll);
