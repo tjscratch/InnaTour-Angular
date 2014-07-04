@@ -44,10 +44,10 @@
                             }
 
                             /*Initial*/
-                            $scope.$watch('items.list.length', function(len){
-                                if(!len) return;
-
+                            $scope.$on('Dynamic.SERP.Tab.Loaded', function(){
                                 var defaultSorter = $scope.sorters.all[0];
+
+                                console.log('SORT', defaultSorter);
 
                                 $scope.select(defaultSorter);
                             });
