@@ -1,0 +1,10 @@
+<div class="b-tooltip-share">
+    <span class="share-button {{isOpen ? 'active' : '' }}" on-click="toggleShow"></span>
+
+    {{#isOpen}}
+    <div class="tooltip b-tooltip-share__link tooltip-share-link">
+        <input type="text" class="share-link-input" ng-value="location">
+        <span class="icon-sprite-remove icon-cross" on-click="hide"></span>
+    </div>
+    {{/}}
+</div>

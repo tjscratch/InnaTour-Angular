@@ -118,12 +118,13 @@
     </div>
 
     <div class="b-result__cell result-buy">
-        <button class="share-button" ng-class="{'active': linkPopup.isOpen}" ng-click="linkPopup.toggle()"></button>
+        <div class="js-share-component"></div>
+        <!--<button class="share-button" ng-class="{'active': linkPopup.isOpen}" ng-click="linkPopup.toggle()"></button>
 
         <div class="tooltip tooltip-share-link" ng-if="linkPopup.isOpen">
             <input type="text" class="share-link-input" ng-value="location">
-            <span class="icon icon-cross" ng-click="linkPopup.toggle()"></span>
-        </div>
+            <span class="icon-sprite-remove icon-cross" ng-click="linkPopup.toggle()"></span>
+        </div>-->
 
         <p class="corner-price" ng-if="bundle.getFullPrice() != bundle.getFullPackagePrice()">
             <span class="cross">{{bundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
