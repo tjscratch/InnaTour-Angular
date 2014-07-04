@@ -14,12 +14,12 @@
              inna-hotel
              ng-if="combination.hotel.data.HotelId != hotel.data.HotelId">
 
-            <div class="price" ng-if="virtualBundle.getFullPrice() != virtualBundle.getFullPackagePrice()">
+            <div class="price" ng-if="virtualBundle.getProfit() > 1000">
                 <span class="cross">{{virtualBundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
                 <div class="price-description">по отдельности</div>
             </div>
 
-            <div class="price-description" ng-style="{'margin-top': virtualBundle.getFullPrice() == virtualBundle.getFullPackagePrice() ? '50px' : ''}">
+            <div class="price-description" ng-style="{'margin-top': virtualBundle.getProfit() <= 1000 ? '50px' : ''}"> 
                 Перелет + Отель
             </div>
             <div class="corner-price">
