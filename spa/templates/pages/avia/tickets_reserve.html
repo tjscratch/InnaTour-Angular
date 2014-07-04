@@ -3,10 +3,10 @@
     <div class="main__center">
         <ng:include src="objectToReserveTemplate"></ng:include>
 
-        <div class="buy__warning" ng-if="visaNeeded || visaNeeded_rules">
-            <div ng-if="visaNeeded">Требуется виза.</div>
-            <div ng-if="visaNeeded_rules">Обратите внимание на визовые правила
-                <span ng-if="cautionCountries.length > 0"> в странах: <span ng-repeat="c in cautionCountries">{{c}}<span ng-if="!($last)">,&nbsp;</span></span></span>.</div>
+        <div class="buy__warning" ng-if="visaControl.visaNeeded || visaControl.visaRulesNeeded">
+            <div ng-if="visaControl.visaNeeded">Требуется виза.</div>
+            <div ng-if="visaControl.visaRulesNeeded">Обратите внимание на визовые правила
+                <span ng-if="visaControl.cautionCountries.length > 0"> в странах: <span ng-repeat="c in visaControl.cautionCountries">{{c}}<span ng-if="!($last)">,&nbsp;</span></span></span>.</div>
         </div>
 
         <div class="r__booking" ng-if="isAviaPage">
@@ -172,7 +172,7 @@
         </ng:any>
     </div>
     <div class="b-sum-container">
-        <a ng-href="#" ng-click="fillDefaultModel($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>
+        <!--<a ng-href="#" ng-click="fillDefaultModel($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
         <span class="b-sum" style="">Сумма к оплате:&nbsp;</span>
         <span class="b-tickets-sum">
             <b>

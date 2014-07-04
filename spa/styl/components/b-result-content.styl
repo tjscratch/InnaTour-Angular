@@ -26,20 +26,13 @@
     color #acafb1
     font-family ProximaNova
     font-size 18px
-    position relative
 
-    &.cross:after
-      background #acafb1
-      display: block
-      content ''
-      height: 1px;
-      position absolute
-      top 35%
-      width: 60%;
+    .cross
+      text-decoration line-through
 
 
   .corner-price
-    margin 4px 0 0
+    margin -2px 0 0
 
   .result-hotel-gallery
     padding 0
@@ -138,7 +131,7 @@
     .price
       color #878787
       font-size 18px
-      margin-bottom 18px
+      margin -2px 0 18px
 
 
     .price-description
@@ -149,8 +142,7 @@
       font-size 24px
       font-weight bold
       color #000
-
-
+      position relative
 
   .icon-price-info
     cursor pointer
@@ -178,6 +170,23 @@
 
       &.active
         color: #c0c0c2
+
+    &__button
+        padding-top 20px
+        padding-bottom 10px
+        position absolute
+        bottom -10px
+
+        &_action
+            &_replace
+                padding-left 10px
+                padding-right 5px
+                left -10px
+
+            &_details
+                padding-left 5px
+                padding-right 10px
+                right 0
 
 
 

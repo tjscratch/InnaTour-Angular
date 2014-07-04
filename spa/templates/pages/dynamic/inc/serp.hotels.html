@@ -2,8 +2,11 @@
      ng-if="!asMap && !hotelToShowDetails"
      ng-class="{'results-container__short':padding.value}">
 
-    <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="hotels.list.length - 1 > 0">
-        Другие <b>{{hotels.getVisibilityInfo().visible - 1}}</b> {{hotels.getVisibilityInfo().visible - 1 | choosePlural:"вариант":"варианта":"вариантов"}} отелей
+    <div class="b-switch-filters_buttons_right font-medium" ng-if="(hotels.list | filter:{hidden: false}).length - 1 > 0">
+        Другие
+        <b>{{(hotels.list | filter:{hidden: false}).length - 1}}</b>
+        {{(hotels.list | filter:{hidden: false}).length - 1 | choosePlural:"вариант":"варианта":"вариантов"}}
+        отелей
     </div>
 
     <div class="results-list results-list_720">
@@ -11,21 +14,22 @@
              inna-hotel
              ng-if="combination.hotel.data.HotelId != hotel.data.HotelId">
 
-            <div class="price cross">
-                {{virtualBundle.getFullPrice() | price}} <span class="b-rub">q</span>
+            <div class="price" ng-if="virtualBundle.getProfit() > 1000">
+                <span class="cross">{{virtualBundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
                 <div class="price-description">по отдельности</div>
             </div>
 
+            <div class="price-description" ng-style="{'margin-top': virtualBundle.getProfit() <= 1000 ? '50px' : ''}"> 
+                Перелет + Отель
+            </div>
             <div class="corner-price">
-                <div class="price-description">Цена пакета</div>
-
                 <div>{{virtualBundle.getFullPackagePrice() | price}}<span class="b-rub">q</span></div>
 
                 <!-- tooltip price -->
                 <div tool-tip-price item="virtualBundle" is-hotel="true"></div>
 
                 <div class="price-description" ng-if="virtualBundle.getProfit() > 1000">
-                    экономия: {{virtualBundle.getProfit() | price}} <span class="b-rub">q</span>
+                    Скидка: {{virtualBundle.getProfit() | price}} <span class="b-rub">q</span>
                 </div>
             </div>
 
@@ -33,7 +37,7 @@
             <span class="button" ng-click="setCurrent()">Выбрать</span>
         </div>
 
-        <div ng-if="hotels.list.length && !hotelsToDisplay.length" class="results-list__empty results-list__empty_type_hotels">
+        <div ng-if="hotelsToDisplay.length - 1 <= 0" class="results-list__empty results-list__empty_type_hotels">
             <p>Варианты не найдены.</p>
             <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
         </div>

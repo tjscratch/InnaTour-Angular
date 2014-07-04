@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:ng="https://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -81,19 +81,19 @@
 <script type="text/javascript">
     var app_main = {};
 	//<!-- build:app-host -->
-	app_main.host = 'http://apibeta.inna.ru';
+	app_main.host = "http://api.test.inna.ru";
 	//<!-- endbuild -->
 
 	//<!-- build:b2b-host -->
-	app_main.b2bHost = 'https://b2bbeta.inna.ru';
+	app_main.b2bHost = 'http://b2b.test.inna.ru';
 	//<!-- endbuild -->
 
 	//<!-- build:front-host -->
-	app_main.frontHost = 'https://beta.inna.ru';
+	app_main.frontHost = 'http://test.inna.ru';
 	//<!-- endbuild -->
 	
 	//<!-- build:static-host -->
-	app_main.staticHost = 'https://sbeta.inna.ru';
+	app_main.staticHost = 'http://s.test.inna.ru';
 	//<!-- endbuild -->
 
     //<!-- build:tripadvisor -->
@@ -308,27 +308,13 @@
 <script src="/spa/js/angular/directives/directive.inna-gallery.js"></script>
 
 
-<!-- REGIONS -->
-<script src="/spa/js/angular/regions/header/header.js"></script>
-<script src="/spa/js/angular/regions/footer/footer.js"></script>
-<!-- \ REGIONS -->
+    <!-- PAGES REGIONS COMPONENTS -->
+    <script src="/build/js/pages.js"></script>
+    <script src="/build/js/components.js"></script>
+    <script src="/build/js/regions.js"></script>
+    <!-- /  -->
 
 
-<!-- PAGES -->
-<script src="/spa/js/angular/pages/page-buy-success/index.js"></script>
-<!-- \ PAGES -->
-
-
-<!-- COMPONENTS -->
-<script src="/spa/js/angular/components/indicator-map/directive.js"></script>
-<script src="/spa/js/angular/components/map/directive.js"></script>
-<script src="/spa/js/angular/components/hotel/directive.js"></script>
-<script src="/spa/js/angular/components/ticket/directive.js"></script>
-<script src="/spa/js/angular/components/bundle/directive.js"></script>
-<script src="/spa/js/angular/components/tooltip-price/directive.js"></script>
-<script src="/spa/js/angular/components/tooltip-price/price-generic.js"></script>
-<script src="/spa/js/angular/components/dynamic-block/avia-hotel.js"></script>
-<script src="/spa/js/angular/components/tooltip-price/price-generic-ract.js"></script>
 <!-- / COMPONENTS -->
 
 <script src="/spa/js/angular/models/app.model.js"></script>

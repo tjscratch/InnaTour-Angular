@@ -1,27 +1,53 @@
 <div class="page-buy-success">
+
+
+    <div class="page-buy-success__title">
+
+        <h2>Подтверждение бронирования и оплаты</h2>
+
+        <p class="page-buy-success__title__info buy__price-descr">
+            В цену включен ПЕРЕЛЕТ
+            <span>Москва – Хургада – Москва</span>
+            и отель
+            <span>Mercure Luna Sharm El Sheikh vherhgek</span>
+            с 25 сен по 30 сен, 5 ночей.<br/>
+            Цена окончательная со всеми налогами и сборами</p>
+
+        <h2 class="page-buy-success__title__info">Информация по бронированию</h2>
+
+    </div>
+
+
     <div class="js-dynamic-block"></div>
 
 
-    {{#visaNeeded || visaNeeded_rules}}
-        <div class="buy__warning">
-            {{#visaNeeded}}
-            <div>Требуется виза.</div>
-            {{/}}
-            {{#visaNeeded_rules}}
-            <div>Обратите внимание на визовые правила
-                        <span ng-if="cautionCountries.length > 0">
-                            в странах:
-                            <span ng-repeat="c in cautionCountries">
-                                {{c}} <span ng-if="!($last)">,&nbsp;</span>
-                            </span>
-                        </span>.
-            </div>
-            {{/}}
-        </div>
-    {{/}}
+
+    <!-- {{#visaNeeded || visaNeeded_rules}}
+     <div class="buy__warning">
+         {{#visaNeeded}}
+         <div>Требуется виза.</div>
+         {{/}}
+         {{#visaNeeded_rules}}
+         <div>Обратите внимание на визовые правила
+             {{#cautionCountries.length}}
+                 <span>
+                     в странах:
+                     <span ng-repeat="c in cautionCountries">
+                         {{c}} <span ng-if="!($last)">,&nbsp;</span>
+                     </span>
+                 </span>.
+             {{/}}
+         </div>
+         {{/}}
+     </div>
+     {{/}}-->
 
 
     <!-- данные результата покупки -->
-    <div>{{>buyResult}}</div>
+    <div>
+        {{#loadData}}
+        {{>buyResult}}
+        {{/}}
+    </div>
 
 </div>

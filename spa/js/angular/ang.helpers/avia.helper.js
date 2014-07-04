@@ -402,6 +402,7 @@
                             if (item.AirportFrom === undefined) {
                                 item.AirportFrom = startEtapTo.OutPort;
                             }
+
                             if (item.OutCode === undefined) {
                                 item.OutCode = startEtapTo.OutCode;
                             }
@@ -694,7 +695,8 @@
                         _.each(aviaInfo.EtapsTo, function (etap) {
                             self.list.push({
                                 from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
-                                num: etap.TransporterCode + '-' + etap.Number
+                                num: etap.TransporterCode + '-' + etap.Number,
+                                rule : etap.Rule
                             });
                         });
 
@@ -702,7 +704,8 @@
                             _.each(aviaInfo.EtapsBack, function (etap) {
                                 self.list.push({
                                     from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
-                                    num: etap.TransporterCode + '-' + etap.Number
+                                    num: etap.TransporterCode + '-' + etap.Number,
+                                    rule : etap.Rule
                                 });
                             });
                         }
@@ -716,20 +719,20 @@
                     self.tarifItem = null;
 
                     self.tarifClick = function ($event, item) {
-                        eventsHelper.preventBubbling($event);
+                        if($event) eventsHelper.preventBubbling($event);
                         self.setected = item;
                         var index = self.list.indexOf(item);
                         self.tarifItem = self.tarifsData[index];
                     }
                     self.show = function ($event) {
-                        eventsHelper.preventBubbling($event);
+                        if($event) eventsHelper.preventBubbling($event);
                         self.selectedIndex = 0;
                         self.setected = self.list[0];
                         self.tarifItem = self.tarifsData[0];
                         self.isOpened = true;
                     }
                     self.close = function ($event) {
-                        eventsHelper.preventBubbling($event);
+                        if($event) eventsHelper.preventBubbling($event);
                         self.isOpened = false;
                     }
                 },
@@ -752,8 +755,6 @@
                         if (hotel.Amenities != null) {
                             self.extra = hotel.Amenities.Amenity_3;
                         }
-
-                        console.log(self);
                     }
 
                     self.show = function ($event) {
@@ -763,6 +764,88 @@
                     self.close = function ($event) {
                         eventsHelper.preventBubbling($event);
                         self.isOpened = false;
+                    }
+                },
+
+                visaControl: function () {
+                    var self = this;
+
+                    self.cautionCountries = [];
+                    self.visaNeeded = false;
+                    self.visaRulesNeeded = false;
+
+                    self.check = function (passengersCitizenshipIds, currentItem) {
+                        var isCitRussia = false;
+                        var visaEtapNeeded = false;
+                        var visaEtapRulesNeeded = false;
+
+                        //console.log('passengersCitizenshipIds:');
+                        //console.log(passengersCitizenshipIds);
+
+                        if (passengersCitizenshipIds != null && currentItem != null) {
+
+                            var isAllPassRussia = _.all(passengersCitizenshipIds, function (citId) { return citId == 189; });//189 - Россия
+
+                            //страна куда
+                            var lastItem = _.last(currentItem.EtapsTo);
+                            //если не 0 - то визовая
+                            var visaEtapNeeded = lastItem.InVisaGroup != 0;
+
+                            var outVisaGroup = currentItem.EtapsTo[0].OutVisaGroup;//страна откуда
+                            var inVisaGroup = lastItem.InVisaGroup;//страна куда
+
+                            var cautionCountries = [];
+
+                            if (outVisaGroup != inVisaGroup) {
+                                cautionCountries.push(lastItem.InCountryName);
+                            }
+
+                            if (currentItem.EtapsTo != null) {
+                                for (var i = 0; i < currentItem.EtapsTo.length; i++) {
+                                    var etap = currentItem.EtapsTo[i];
+                                    if (etap.InVisaGroup != outVisaGroup) {
+                                        visaEtapRulesNeeded = true;
+                                        cautionCountries.push(etap.InCountryName);
+                                    }
+                                    if (etap.OutVisaGroup != outVisaGroup) {
+                                        visaEtapRulesNeeded = true;
+                                        cautionCountries.push(etap.OutCountryName);
+                                    }
+                                }
+                            }
+
+                            if (currentItem.EtapsBack != null) {
+                                for (var i = 0; i < currentItem.EtapsBack.length; i++) {
+                                    var etap = currentItem.EtapsBack[i];
+                                    if (etap.InVisaGroup != outVisaGroup) {
+                                        visaEtapRulesNeeded = true;
+                                        cautionCountries.push(etap.InCountryName);
+                                    }
+                                    if (etap.OutVisaGroup != outVisaGroup) {
+                                        visaEtapRulesNeeded = true;
+                                        cautionCountries.push(etap.OutCountryName);
+                                    }
+                                }
+                            }
+                            cautionCountries = _.uniq(cautionCountries);
+                            self.cautionCountries = cautionCountries;
+                            //console.log('cautionCountries:');
+                            //console.log(cautionCountries);
+                        }
+
+                        if (isAllPassRussia && visaEtapNeeded) {
+                            self.visaNeeded = true;
+                        }
+                        else {
+                            self.visaNeeded = false;
+                        }
+
+                        if (visaEtapRulesNeeded) {
+                            self.visaRulesNeeded = true;
+                        }
+                        else {
+                            self.visaRulesNeeded = false;
+                        }
                     }
                 },
 
