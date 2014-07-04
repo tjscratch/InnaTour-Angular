@@ -42,13 +42,13 @@
                                 $scope.sorters.current = sorter;
                                 $scope.items.sort(sorter.sortingFn);
                                 $scope.popup.isOpen = false;
+
+                                $scope.$emit('Dynamic.SERP.*.Sorting');
                             }
 
                             /*Initial*/
                             $scope.$on('Dynamic.SERP.Tab.Loaded', function(){
                                 var defaultSorter = $scope.sorters.all[0];
-
-                                console.log('SORT', defaultSorter);
 
                                 $scope.select(defaultSorter);
                             });
@@ -131,8 +131,9 @@
                     else return -1;
                 }));
                 $scope.sorters.add(new Sorter('По размеру скидки в руб.', function (hotel1, hotel2) { //desc
-                    return (hotel1.data.PackagePrice - hotel1.data.Price) -
-                        (hotel2.data.PackagePrice - hotel2.data.Price);
+                    var vbs = createVirtualBundles(hotel1, hotel2);
+
+                    return vbs[1].getProfit() - vbs[0].getProfit();
                 }));
             }
         ]);

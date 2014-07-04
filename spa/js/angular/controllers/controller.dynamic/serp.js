@@ -406,6 +406,10 @@ innaAppControllers
                 calibrate($scope.hotels, utils.getScrollTop(), true);
             }, true);
 
+            $scope.$on('Dynamic.SERP.*.Sorting', function(){
+                calibrate($scope.hotels, utils.getScrollTop(), true);
+            });
+
 
             function locatioAsMap(){
               if (!$scope.asMap) {
