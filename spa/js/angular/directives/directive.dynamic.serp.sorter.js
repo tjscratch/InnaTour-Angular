@@ -13,7 +13,8 @@
                     template: $templateCache.get('components/dynamic-serp-sorter.html'),
                     scope: {
                         items: '=innaDynamicSerpSorterItems',
-                        sortersFillerCtrlName: '@innaDynamicSerpSorterSortersFillerCtrlName'
+                        sortersFillerCtrlName: '@innaDynamicSerpSorterSortersFillerCtrlName',
+                        bundle: '=innaDynamicSerpSorterBundle'
                     },
                     controller: [
                         '$scope', '$controller', '$element',
@@ -58,8 +59,22 @@
         .controller('innaDynamicSerpSorter_TicketsMixin', [
             '$scope',
             function ($scope) {
-                $scope.sorters.add(new Sorter('По цене', function (ticket1, ticket2) { //asc
-                    return ticket1.data.Price - ticket2.data.Price;
+                function createVirtualBundles(ticket1, ticket2) {
+                    var virtualBundle1 = new inna.Models.Dynamic.Combination();
+                    var virtualBundle2 = new inna.Models.Dynamic.Combination();
+
+                    virtualBundle1.hotel = virtualBundle2.hotel = $scope.bundle.hotel;
+
+                    virtualBundle1.ticket = ticket1;
+                    virtualBundle2.ticket = ticket2;
+
+                    return [virtualBundle1, virtualBundle2];
+                }
+
+                $scope.sorters.add(new Sorter('По цене пакета', function (ticket1, ticket2) { //asc
+                    var vbs = createVirtualBundles(ticket1, ticket2);
+
+                    return vbs[0].getFullPackagePrice() - vbs[1].getFullPackagePrice();
                 }));
                 $scope.sorters.add(new Sorter('По рейтингу Инна Тур', function (ticket1, ticket2) { //asc
                     return ticket1.data.RecommendedFactor - ticket2.data.RecommendedFactor;
@@ -84,8 +99,22 @@
         .controller('innaDynamicSerpSorter_HotelsMixin', [
             '$scope',
             function ($scope) {
+                function createVirtualBundles(hotel1, hotel2) {
+                    var virtualBundle1 = new inna.Models.Dynamic.Combination();
+                    var virtualBundle2 = new inna.Models.Dynamic.Combination();
+
+                    virtualBundle1.ticket = virtualBundle2.ticket = $scope.bundle.ticket;
+
+                    virtualBundle1.hotel = hotel1;
+                    virtualBundle2.hotel = hotel2;
+
+                    return [virtualBundle1, virtualBundle2];
+                }
+
                 $scope.sorters.add(new Sorter('По цене пакета', function (hotel1, hotel2) { //desc
-                    return hotel1.data.PackagePrice - hotel2.data.PackagePrice;
+                    var vbs = createVirtualBundles(hotel1, hotel2);
+
+                    return vbs[0].getFullPackagePrice() - vbs[1].getFullPackagePrice();
                 }));
                 $scope.sorters.add(new Sorter('По рейтингу Инна Тур', function (hotel1, hotel2) { //desc
                     return hotel1.data.RecommendFactor - hotel2.data.RecommendFactor;
