@@ -49,6 +49,7 @@ angular.module('innaApp.directives')
                     $scope.urls = appUrls;
 
                     $scope.getHeadForm = function () {
+
                         var loc = $location.path();
                         //log('$scope.getHeadForm, loc:' + loc);
                         var isDynamic = (
@@ -68,9 +69,9 @@ angular.module('innaApp.directives')
                             !loc.startsWith(appUrls.URL_AVIA_RESERVATION) &&
                             !loc.startsWith(appUrls.URL_AVIA_BUY)) {
 
-                            //на бронировании и покупке формы нет
                             return 'nav_forms/avia_search_form.html';
                         }
+                        //на бронировании и покупке формы нет
                         else {
                             return '';
                         }

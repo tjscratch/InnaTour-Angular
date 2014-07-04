@@ -7,6 +7,7 @@ innaAppControllers.
         '$scope', '$rootScope', '$routeParams', 'innaApp.services.PageContentLoader', 'innaApp.API.pageContent.AVIA',
         function ($scope, $rootScope, $routeParams, PageContentLoader, sectionID) {
             /*Data fetching*/
+            //$('body').addClass('scrollVisible');
             PageContentLoader.getSectionById(sectionID, function (data) {
                 //обновляем данные
                 if (data != null) {
@@ -25,5 +26,9 @@ innaAppControllers.
                 $rootScope.$broadcast("avia.page.loaded", $routeParams, true);
             });
             $rootScope.$broadcast("avia.page.loaded", $routeParams, true);
+
+            /*$scope.$on('$destroy', function(){
+                $('body').removeClass('scrollVisible');
+            })*/
         }
     ]);

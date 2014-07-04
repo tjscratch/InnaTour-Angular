@@ -6,6 +6,7 @@ innaAppControllers.
         'innaApp.API.pageContent.DYNAMIC',
         function ($scope, DynamicFormSubmitListener, PageContentLoader, sectionID) {
             /*EventListeners*/
+            //$('body').addClass('scrollVisible');
             DynamicFormSubmitListener.listen();
 
             /*Data fetching*/
@@ -19,5 +20,9 @@ innaAppControllers.
                     });
                 }
             });
+
+            /*$scope.$on('$destroy', function(){
+                $('body').removeClass('scrollVisible');
+            })*/
         }
     ]);
