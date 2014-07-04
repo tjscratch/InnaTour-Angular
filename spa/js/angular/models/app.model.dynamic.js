@@ -74,7 +74,7 @@ inna.Models.Hotels.HotelsCollection.prototype.search = function(id){
     }
 
     return null;
-}
+};
 
 inna.Models.Hotels.HotelsCollection.prototype.drop = function(hotel){
     var index = this.list.indexOf(hotel);
@@ -83,6 +83,14 @@ inna.Models.Hotels.HotelsCollection.prototype.drop = function(hotel){
         this.list.splice(index, 1);
     }
 };
+
+inna.Models.Hotels.HotelsCollection.prototype.hideBundled = function(bundle) {
+    var hotelId = bundle.hotel.data.HotelId;
+
+    var hotel = this.search(hotelId);
+
+    hotel && (hotel.hidden = true);
+}
 
 inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;
