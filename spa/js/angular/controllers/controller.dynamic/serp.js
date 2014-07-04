@@ -162,6 +162,9 @@ innaAppControllers
 
                     $scope.$apply(function ($scope) {
                         apply($scope, data);
+
+                        $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
+
                         deferred.resolve();
                     });
                 });
@@ -245,9 +248,7 @@ innaAppControllers
                         .then(function () {
                             onTabLoad(onTabLoadParam);
 
-                            console.log('initial calibation');
                             calibrate($scope.hotels, 0);
-                            console.log('/initial calibation');
 
                             $scope.baloon.hide();
                         });
