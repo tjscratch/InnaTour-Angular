@@ -1,14 +1,17 @@
 <div class="results-container"
      ng-class="{'results-container__short':padding.value}">
 
+    {{  (combination && combination.ticket && tickets.hideBundled(combination)) ? '' : ''  }}
+    {{  (_notHiddenTickets = (tickets.filter(ticketFilters) | filter:{hidden: false})) ? '' : ''  }}
+    {{  (_notHiddenTicketsQuantity = _notHiddenTickets.length) ? '' : ''  }}
+
     <div class="b-switch-filters_buttons_right font-medium b-display-inline" ng-if="hotels.list.length - 1">
-        Другие <b>{{tickets.getVisibilityInfo().visible}}</b> {{tickets.getVisibilityInfo().visible | choosePlural:"вариант":"варианта":"вариантов"}} билетов
+        Другие <b>{{_notHiddenTicketsQuantity}}</b> {{_notHiddenTicketsQuantity | choosePlural:"вариант":"варианта":"вариантов"}} билетов
     </div>
 
     <div class="results-list results-list_720">
-        <div ng-repeat="ticket in ticketsToDisplay = (tickets.filter(ticketFilters) | filter:{hidden: false})"
-             inna-ticket
-             ng-if="combination.ticket.data.VariantId1 != ticket.data.VariantId1">
+        <div ng-repeat="ticket in _notHiddenTickets"
+             inna-ticket>
 
             <div class="price" ng-if="virtualBundle.getProfit() > 1000)">
                 <span class="cross">{{virtualBundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
@@ -32,7 +35,7 @@
             <span class="button" ng-click="setTicket(ticket)">Выбрать</span>
         </div>
 
-        <div ng-if="tickets.list.length && !ticketsToDisplay.length" class="results-list__empty results-list__empty_type_tickets">
+        <div ng-if="tickets.list.length && !_notHiddenTicketsQuantity" class="results-list__empty results-list__empty_type_tickets">
             <p>Варианты не найдены.</p>
             <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
         </div>

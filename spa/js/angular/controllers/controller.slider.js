@@ -5,7 +5,7 @@
 
 innaAppControllers.
     controller('SliderCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService', 'sharedProperties',
-        function SliderCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, sharedProperties) {
+        function ($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, sharedProperties) {
             function log(msg) {
                 $log.log(msg);
             }
