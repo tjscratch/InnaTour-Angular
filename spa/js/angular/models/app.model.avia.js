@@ -192,6 +192,15 @@ inna.Models.Avia.TicketCollection.prototype.sort = function (sortingFn) {
     this.list.sort(sortingFn);
 }
 
+inna.Models.Avia.TicketCollection.prototype.hideBundled = function(bundle){
+    var v1 = bundle.ticket.data.VariantId1;
+    var v2 = bundle.ticket.data.VariantId2;
+
+    var ticket = this.search(v1, v2);
+
+    ticket && (ticket.hidden = true);
+}
+
 inna.Models.Avia.Ticket = function () {
     this.data = null;
     this.hidden = false;
