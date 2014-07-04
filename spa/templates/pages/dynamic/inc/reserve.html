@@ -34,7 +34,7 @@
                         <div class="col-xs-5 col-no-padding row-fluid__cell">
                             <div class="rlf__flight-block">
                                 <b>{{item.DepartureTimeFormatted}}</b> {{item.DepartureDateFormatted}}<br>
-                                <b>{{item.AirportFrom}}</b> {{item.OutCode}}
+                                <b title="{{item.AirportFrom}}">{{item.AirportFrom | limitFilter:14}}</b> {{item.OutCode}}
                             </div>
                         </div>
                         <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
@@ -43,7 +43,7 @@
                         <div class="col-xs-5 col-no-padding row-fluid__cell">
                             <div class="rlf__flight-block">
                                 <b>{{item.ArrivalTimeFormatted}}</b> {{item.ArrivalDateFormatted}}<br>
-                                <b>{{item.AirportTo}}</b> {{item.InCode}}
+                                <b title="{{item.AirportTo}}">{{item.AirportTo | limitFilter:14}}</b> {{item.InCode}}
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="col-xs-5 col-no-padding row-fluid__cell">
                             <div class="rlf__flight-block">
                                 <b>{{item.BackDepartureTimeFormatted}}</b> {{item.BackDepartureDateFormatted}}<br>
-                                <b>{{item.AirportTo}}</b> {{item.InCode}}
+                                <b title="{{item.AirportTo}}">{{item.AirportTo | limitFilter:14}}</b> {{item.InCode}}
                             </div>
                         </div>
                         <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
@@ -67,7 +67,7 @@
                         <div class="col-xs-5 col-no-padding row-fluid__cell">
                             <div class="rlf__flight-block">
                                 <b>{{item.BackArrivalTimeFormatted}}</b> {{item.BackArrivalDateFormatted}}<br>
-                                <b>{{item.AirportFrom}}</b> {{item.OutCode}}
+                                <b title="{{item.AirportFrom}}">{{item.AirportFrom | limitFilter:14}}</b> {{item.OutCode}}
                             </div>
                         </div>
                     </div>
