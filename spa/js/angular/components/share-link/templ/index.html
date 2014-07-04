@@ -1,10 +1,15 @@
 <div class="b-tooltip-share">
-    <span class="share-button {{isOpen ? 'active' : '' }}" on-click="toggleShow"></span>
+    <span class="b-tooltip-share__button {{isVisible ? 'active' : '' }}" on-click="toggleShow">
+        {{#isVisible}}<i class="b-tooltip-share__button__icon icon-sprite-chain-white"></i>{{/}}
+        {{^isVisible}}<i class="b-tooltip-share__button__icon icon-sprite-chain-black"></i>{{/}}
+    </span>
 
-    {{#isOpen}}
-    <div class="tooltip b-tooltip-share__link tooltip-share-link">
-        <input type="text" class="share-link-input" ng-value="location">
-        <span class="icon-sprite-remove icon-cross" on-click="hide"></span>
+    <div class="tooltip b-tooltip-share__link tooltip-share-link
+    {{isVisible ? 'tooltip_show' : '' }}
+    {{right ? 'tooltip_right' : ''}}">
+        <div class="b-tooltip-share__input_wrapper">
+            <input type="text" class="b-tooltip-share__input" on-click="click" value="{{location}}"/>
+        </div>
+        <span class="icon-sprite-remove-big icon-cross" on-click="toggleShow"></span>
     </div>
-    {{/}}
 </div>

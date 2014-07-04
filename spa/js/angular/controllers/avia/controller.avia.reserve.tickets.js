@@ -1,14 +1,28 @@
-﻿﻿﻿
-/* Controllers */
+﻿/* Controllers */
 
 innaAppControllers.
-    controller('AviaReserveTicketsCtrl', ['$log', '$controller', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'Validators', 'innaApp.Urls',
-        function AviaReserveTicketsCtrl($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls) {
+    controller('AviaReserveTicketsCtrl', [
+        '$log',
+        '$controller',
+        '$timeout',
+        '$scope',
+        '$rootScope',
+        '$routeParams',
+        '$filter',
+        '$location',
+        'dataService',
+        'paymentService',
+        'storageService',
+        'aviaHelper',
+        'eventsHelper',
+        'urlHelper',
+        'Validators',
+        'innaApp.Urls',
+        function AviaReserveTicketsCtrl($log, $controller, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Urls) {
             $controller('ReserveTicketsCtrl', { $scope: $scope });
 
             var self = this;
+
             function log(msg) {
                 $log.log(msg);
             }
@@ -33,7 +47,7 @@ innaAppControllers.
             //====================================================
 
             $scope.goBackUrl = function () {
-                return '#' +  urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
+                return '#' + urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
             };
 
             $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $scope.criteria.CabinClass);
@@ -54,7 +68,7 @@ innaAppControllers.
             //}, 300);
 
             $scope.baloon.showExpireCheck();
-            
+
             //проверяем, что остались билеты для покупки
             paymentService.checkAvailability({ variantTo: $routeParams.VariantId1, varianBack: $routeParams.VariantId2 },
                 function (data) {
@@ -95,7 +109,7 @@ innaAppControllers.
                                 //билеты не доступны - отправляем на поиск
                                 goToSearch();
                             }, 3000);
-                        
+
                         }
                     });
                 },
@@ -160,35 +174,35 @@ innaAppControllers.
                     //else {
                     //запрос в api
                     paymentService.getSelectedVariant({
-                        variantId1: $scope.criteria.VariantId1,
-                        variantId2: $scope.criteria.VariantId2,
-                        idQuery: $scope.criteria.QueryId
-                    },
-                    function (data) {
-                        if (data != null && data != 'null') {
-                            //дополняем полями 
-                            aviaHelper.addCustomFields(data);
-                            //log('getSelectedVariant dataItem: ' + angular.toJson(data));
-                            $scope.item = data;
-                            $scope.price = data.Price;
-                            console.log('data:');
-                            console.log($scope.item);
-                            //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
+                            variantId1: $scope.criteria.VariantId1,
+                            variantId2: $scope.criteria.VariantId2,
+                            idQuery: $scope.criteria.QueryId
+                        },
+                        function (data) {
+                            if (data != null && data != 'null') {
+                                //дополняем полями
+                                aviaHelper.addCustomFields(data);
+                                //log('getSelectedVariant dataItem: ' + angular.toJson(data));
+                                $scope.item = data;
+                                $scope.price = data.Price;
+                                console.log('data:');
+                                console.log($scope.item);
+                                //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
 
-                            //тарифы
-                            $scope.loadTarifs($scope.criteria.VariantId1, $scope.criteria.VariantId2, $scope.item);
+                                //тарифы
+                                $scope.loadTarifs($scope.criteria.VariantId1, $scope.criteria.VariantId2, $scope.item);
 
-                            //оповещаем лоадер, что метод отработал
-                            loader.complete(self);
-                        }
-                        else
-                            $log.error('paymentService.getSelectedVariant error, data is null');
-                    },
-                    function (data, status) {
-                        $log.error('paymentService.getSelectedVariant error');
-                    });
+                                //оповещаем лоадер, что метод отработал
+                                loader.complete(self);
+                            }
+                            else
+                                $log.error('paymentService.getSelectedVariant error, data is null');
+                        },
+                        function (data, status) {
+                            $log.error('paymentService.getSelectedVariant error');
+                        });
 
-                    
+
                     //}
                 };
 

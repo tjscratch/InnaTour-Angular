@@ -1,0 +1,59 @@
+.tooltip {
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .6);
+  background: #fff;
+  padding: 13px 30px 13px 13px;
+  position: absolute;
+  display: none;
+  z-index: 2;
+  right -4px
+  top 30px
+  width : 200px;
+
+
+
+
+  .icon-cross {
+    cursor pointer
+    position absolute
+    right 10px
+    top 50%
+    margin-top -5px
+  }
+
+
+  &.tooltip_show {
+    display: block;
+  }
+
+  &.tooltip-price_at_hotel-card {
+    right: -15px;
+    top 40px
+  }
+
+  &:before {
+    content ''
+    display block
+    position: absolute
+    width 0
+    height 0
+    border-style solid
+    border-width 0 11px 11px
+    border-color transparent transparent #fff transparent
+    top -10px
+    right 12px
+    z-index: 2
+  }
+
+  &:after {
+    content ''
+    background url(/spa/img/tooltip/corner-shadow.png)
+    display block
+    position: absolute
+    width 42px
+    height: 12px
+    top -12px
+    right 4px
+    z-index: 1
+  }
+}

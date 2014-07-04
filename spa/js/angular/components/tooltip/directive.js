@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
     .directive('toolTipPrice', ['$templateCache', function($templateCache){
         return {
-            template: $templateCache.get('components/tooltip-price/templ/index.html'),
+            template: $templateCache.get('components/tooltip/templ/index.html'),
             scope: {
                 "item" : "=item",
                 "icon" : "=iconWhite",

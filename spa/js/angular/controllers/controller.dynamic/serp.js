@@ -493,10 +493,14 @@ innaAppControllers
         '$location',
         'innaApp.API.events',
         'aviaHelper',
-        function ($scope, $element, $location, Events, aviaHelper) {
+
+        // components
+        'ShareLink',
+        function ($scope, $element, $location, Events, aviaHelper, ShareLink) {
             $(function () {
                 $(document.body).append($element);
             });
+
 
             /*Scope Properties*/
             $scope.ticket = null;
@@ -552,6 +556,17 @@ innaAppControllers
                 })();
 
                 $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
+
+
+                setTimeout(function(){
+                    new ShareLink({
+                        el : $element.find('.js-share-component'),
+                        data : {
+                            right : true
+                        }
+                    })
+                }, 0)
+
             });
         }
     ])

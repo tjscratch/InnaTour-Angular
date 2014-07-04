@@ -1,111 +1,58 @@
-.share-button
-  background transparent
-  border 0
-  border-radius : 2px;
-  cursor pointer
+.tooltip-widget {
+  position : relative;
   height 30px
-  position absolute
-  margin 0
-  right 3px
-  top 2px
   width 32px
-
-  &:before
-    background url(/spa/img/ticket/clip.png)
-    content ''
-    display block
-    height 17px
-    margin 2px 0 0 2px
-    width: 17px
-
-  &:hover
-    background #e6e7e9
-
-    &:before
-      background-position 0 17px
-
-  &.active
-    background #89c13a
-
-    &:before
-      background-position 0 17px
-
-
-.tooltip-share-link
-  position absolute
-  padding 8px 29px 7px 6px
-  right -4px
-  top 30px
-
-  .icon-cross
-    cursor pointer
-    position absolute
-    right 9px
-    top 13px
-
-
-.share-link-input
-  border 0
-  background #4d4d4d
-  color #fff
-  height 20px
-  padding 0 5px
-  width 200px
-
-
-
-.tooltip-wrapper {
-  position: relative;
 }
 
-.tooltip {
-  border-radius: 4px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, .6);
-  background: #fff;
-  padding: 13px;
-  position: absolute;
-  z-index: 2;
+.b-tooltip-share {
 
-  &.tooltip-price_at_hotel-card {
-    right: -15px;
-    top 40px
+  &__button {
+    background transparent
+    border 0
+    border-radius: 2px;
+    height 30px
+    width 32px
+    position absolute
+    right 3px
+    top 2px
+    cursor pointer
+    margin 0
+
+    &__icon {
+      position : absolute;
+      left : 50%;
+      top: 50%;
+      margin : -8px 0 0 -8px;
+    }
+
+    //background url(/spa/img/ticket/clip.png)
+
+    &:hover {
+      background: #e6e7e9;
+    }
+
+    &.active {
+      background: #89c13a;
+    }
   }
 
-  &.tooltip-price_at_avia-card {
-    right: -2px;
-    top 115px
+  &__input_wrapper {
+    padding 0 5px
+    background #4d4d4d
   }
 
-  &:before {
-    content ''
-    display block
-    position: absolute
-    width 0
-    height 0
-    border-style solid
-    border-width 0 11px 11px
-    border-color transparent transparent #fff transparent
-    top -10px
-    right 12px
-    z-index: 2
+  &__input {
+    background #4d4d4d
+    border 0
+    color #fff
+    height 20px
+    width 100%;
   }
 
-  &:after {
-    content ''
-    background url(/spa/img/tooltip/corner-shadow.png)
-    display block
-    position: absolute
-    width 42px
-    height: 12px
-    top -12px
-    right 4px
-    z-index: 1
-  }
-
-  &.tooltip_right {
-    right: -220px;
+  .tooltip_right {
+    right: -230px;
     bottom: -45px;
-    width : 230px;
+    width: 230px;
     left: auto;
 
     &:before {
@@ -122,7 +69,6 @@
 
   }
 
-
   .share-link-input {
     border: 0;
     background: #4d4d4d;
@@ -133,9 +79,3 @@
   }
 }
 
-
-
-.tooltip-share-link_type_ticket-popup {
-  left: -110px;
-  bottom: -30px;
-}
