@@ -37,7 +37,9 @@
                     <h3 class="hotel-info-name" bo-text="hotel.data.HotelName"></h3>
                     <a href="javascript:void(0);" class="hotel-info-place js-hotel-info-place" bo-text="hotel.data.HotelCityName +', ' + hotel.data.Address"></a>
 
-                    <div class="warning" bo-if="hotel.data.RoomCount == 1">Последний номер</div>
+                    <div class="warning" bo-if="hotel.data.RoomCount == 1">Остался последний номер!</div>
+                    <div class="warning" bo-if="hotel.data.RoomCount == 2">Осталось два номера!</div>
+                    <div class="warning" bo-if="hotel.data.RoomCount == 3">Осталось три номера!</div>
                 </div>
             </div>
 
