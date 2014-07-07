@@ -41,7 +41,6 @@ innaAppControllers.
                 },
                 init: function () {
                     var that = this;
-                    this._DynamicBlockAviaHotel = null;
                     this._balloon = null;
                     this._partialBaloonTicket = $templateCache.get('components/balloon/templ/ticket-rules.html');
                     this._partialBaloonHotel = $templateCache.get('components/balloon/templ/hotel-rules.html');
@@ -52,6 +51,15 @@ innaAppControllers.
                         showBalloonTicket: this.showBalloonTicket,
                         showBalloonHotel: this.showBalloonHotel
                     })
+                },
+
+
+                /**
+                 * Событие изменения модели ractive
+                 * @param data
+                 */
+                change: function (data) {
+
                 },
 
                 showBalloonLoading: function (evt) {
