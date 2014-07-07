@@ -1,415 +1,411 @@
 .hotel-details
-    background #000
-    background-size cover
-    background-position fixed
-    padding: 155px 0 0px
+  padding: 155px 0 0px
 
-    &__wrap
-        z-index 1
-        padding-bottom 20px
+  &__wrap
+    z-index 1
+    padding-bottom 20px
 
-    &__section
-        margin 0 0 35px
+  &__section
+    margin 0 0 35px
 
-        &_layout_context
-            overflow hidden
+    &_layout_context
+      overflow hidden
 
-        &-box
-            background #fff
-            border-radius 8px
-            padding 20px
-            color #000
+    &-box
+      background #fff
+      border-radius 8px
+      padding 20px
+      color #000
 
-            .hotel-details__section-title
-                color #000
+      .hotel-details__section-title
+        color #000
 
-        &-title
-            width: 100%
-            color #fff
-            font-size 18px
-            margin-bottom 18px
+    &-title
+      width: 100%
+      color #fff
+      font-size 18px
+      margin-bottom 18px
 
-            &-section
-                display table-cell
-                width 100%
-                min-width 400px
-                vertical-align bottom
-
-                &:last-child
-                    text-align right
-
-        &-text
-            margin-bottom 30px
-            font-size 14px
-
-            .hotel-details__se          margin-bottom 14px
-
-            p
-                margin 0 0 20px 0
-
-            &-viewport
-                height: 150px
-                overflow hidden
-                text-overflow ellipsis
-
-                p
-                    margin-bottom 15px
-
-                &_state_open
-                    height auto
-
-            &-more
-                color #1e88c1
-                cursor pointer
-
-    &__ta
-        float right
-
-.hotel-details-control
-    font-size 0
-    color #fff
-    font-weight normal
-
-    &_pin_left
-        float left
-
-    &__button
-        background rgba(255, 255, 255, .3)
-        padding 10px 20px
-        font-size 14px
-        margin-right 10px
-        border-radius 4px
-        display inline-block
-        cursor pointer
+      &-section
+        display table-cell
+        width 100%
+        min-width 400px
         vertical-align bottom
 
-        &_theme
-            &_arrow
-                padding-left 10px
-                padding-right 10px
-            &_icon-only
-                padding 8px 7px 7px
-                position relative
-                top -1px
+        &:last-child
+          text-align right
+
+    &-text
+      margin-bottom 30px
+      font-size 14px
+
+      .hotel-details__se
+        margin-bottom 14px
+
+        p
+          margin 0 0 20px 0
+
+        &-viewport
+          height: 150px
+          overflow hidden
+          text-overflow ellipsis
+
+          p
+            margin-bottom 15px
+
+          &_state_open
+            height auto
+
+        &-more
+          color #1e88c1
+          cursor pointer
+
+  &__ta
+    float right
+
+.hotel-details-control
+  font-size 0
+  color #fff
+  font-weight normal
+
+  &_pin_left
+    float left
+
+  &__button
+    background rgba(255, 255, 255, .3)
+    padding 10px 20px
+    font-size 14px
+    margin-right 10px
+    border-radius 4px
+    display inline-block
+    cursor pointer
+    vertical-align bottom
+
+    &_theme
+      &_arrow
+        padding-left 10px
+        padding-right 10px
+      &_icon-only
+        padding 8px 7px 7px
+        position relative
+        top -1px
 
 .hotel-details-ta-info
-    background #ded9d8
-    border-radius 4px
-    padding 6px 20px 4px
-    font-size 0
+  background #ded9d8
+  border-radius 4px
+  padding 6px 20px 4px
+  font-size 0
 
-    &__comments
-        font-size 12px
-        color #4d4d4d
-        padding-left 10px
-        position relative
-        top -2px
+  &__comments
+    font-size 12px
+    color #4d4d4d
+    padding-left 10px
+    position relative
+    top -2px
 
-    .icon-tripadvisor
-        margin-right 10px
+  .icon-tripadvisor
+    margin-right 10px
 
 .hotel-details-name
-    font-size 24px
-    line-height 46px
-    color #fff
-    font-weight bold
-    text-align center
+  font-size 24px
+  line-height 46px
+  color #fff
+  font-weight bold
+  text-align center
 
-
-    .hotel-details-stars
-        white-space nowrap
-        position relative
-        top -3px
-        left -2px
+  .hotel-details-stars
+    white-space nowrap
+    position relative
+    top -3px
+    left -2px
 
 .gallery
-    &__viewport
-        box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
-        position relative
-        width 100%
-        background-repeat no-repeat
-        background-position center center
-        background-size cover
-        margin-left auto
-        margin-right auto
+  &__viewport
+    box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
+    position relative
+    width 100%
+    background-repeat no-repeat
+    background-position center center
+    background-size cover
+    margin-left auto
+    margin-right auto
 
-        &-wrap
-            height 500px
-            width $site-width
-            display table-cell
-            text-align center
-            vertical-align middle
+    &-wrap
+      height 500px
+      width $site-width
+      display table-cell
+      text-align center
+      vertical-align middle
 
-    &__list
-        font-size 0
-        text-align justify
-        margin-left -4px
+  &__list
+    font-size 0
+    text-align justify
+    margin-left -4px
 
-        &-item
-            width 70px
-            height 70px
-            background-size cover
-            margin-left 4px
-            margin-bottom 5px
-            display inline-block
-            cursor pointer
+    &-item
+      width 70px
+      height 70px
+      background-size cover
+      margin-left 4px
+      margin-bottom 5px
+      display inline-block
+      cursor pointer
 
-            &_state_current
-                outline: 2px solid #89c13a
+      &_state_current
+        outline: 2px solid #89c13a
 
-    &__active
-        position absolute
-        top 0
-        bottom 0
-        cursor pointer
-        width 50%
+  &__active
+    position absolute
+    top 0
+    bottom 0
+    cursor pointer
+    width 50%
 
-        &_type
-            &_prev
-                left 0
-            &_next
-                right 0
+    &_type
+      &_prev
+        left 0
+      &_next
+        right 0
 
-        .b-carousel__control
-            display none
+    .b-carousel__control
+      display none
 
-        &:hover
-            .b-carousel__control
-                display block
+    &:hover
+      .b-carousel__control
+        display block
 
-    &__disclaimer
-        font-size $small
-        color $gray-l
-        margin 5px 0
-
+  &__disclaimer
+    font-size $small
+    color $gray-l
+    margin 5px 0
 
 .hotel-details-extra
-    font-size 0
+  font-size 0
 
-    &__item
-        display inline-block
-        margin-right 7px
-        background-color #e6e7e9
-        color #4d4d4d
-        font-size 12px
-        border-radius 4px
-        padding 8px 10px 7px 30px
-        background-position 7px center
-        background-repeat no-repeat
+  &__item
+    display inline-block
+    margin-right 7px
+    background-color #e6e7e9
+    color #4d4d4d
+    font-size 12px
+    border-radius 4px
+    padding 8px 10px 7px 30px
+    background-position 7px center
+    background-repeat no-repeat
 
-        &_type
-            &_internet
-                background-image url(/spa/img/hotels-extra/internet.png)
+    &_type
+      &_internet
+        background-image url(/spa/img/hotels-extra/internet.png)
 
-            &_kitchen
-                background-image url(/spa/img/hotels-extra/kitchen.png)
+      &_kitchen
+        background-image url(/spa/img/hotels-extra/kitchen.png)
 
-            &_parking
-                background-image url(/spa/img/hotels-extra/parking.png)
+      &_parking
+        background-image url(/spa/img/hotels-extra/parking.png)
 
-            &_swimmingpool
-                background-image url(/spa/img/hotels-extra/pool.png)
+      &_swimmingpool
+        background-image url(/spa/img/hotels-extra/pool.png)
 
-            &_barrestaurant
-                background-image url(/spa/img/hotels-extra/lobby.png)
+      &_barrestaurant
+        background-image url(/spa/img/hotels-extra/lobby.png)
 
-            &_breakfast
-            &_meal
-                background-image url(/spa/img/hotels-extra/food.png)
+      &_breakfast
+      &_meal
+        background-image url(/spa/img/hotels-extra/food.png)
 
-            &_fitness
-                background-image url(/spa/img/hotels-extra/fitness.png)
+      &_fitness
+        background-image url(/spa/img/hotels-extra/fitness.png)
 
-            &_forpeoplewithdisabilities
-                background-image url(/spa/img/hotels-extra/insured.png)
+      &_forpeoplewithdisabilities
+        background-image url(/spa/img/hotels-extra/insured.png)
 
-            &_servicesforchildren
-                background-image url(/spa/img/hotels-extra/kids.png)
-
-
+      &_servicesforchildren
+        background-image url(/spa/img/hotels-extra/kids.png)
 
 .hotel-details-map
+  width 100%
+  height 200px
+  border-radius 8px
+  box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
+
+  #hotel-details-map
     width 100%
-    height 200px
-    border-radius 8px
-    box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
+    height 100%
 
-    #hotel-details-map
-        width 100%
-        height 100%
-
-    &_display_fullscreen
-        position absolute
-        top 0
-        bottom 0
-        left 0
-        right 0
-        height auto
-        z-index 100
+  &_display_fullscreen
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+    height auto
+    z-index 100
 
 .hotel-details-rooms
-    border-radius 8px
-    box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
-    background #fff
-    overflow hidden
+  border-radius 8px
+  box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
+  background #fff
+  overflow hidden
 
-    &__room
-        border-bottom 1px solid #dedede
+  &__room
+    border-bottom 1px solid #dedede
 
-        &-long
-            display none
+    &-long
+      display none
 
-        &-short
-            padding 10px
+    &-short
+      padding 10px
 
-        &-title
-            color #1e88c1
-            font-size 14px
-            font-weight normal
-            cursor pointer
+    &-title
+      color #1e88c1
+      font-size 14px
+      font-weight normal
+      cursor pointer
 
-        &-info
-            display table
-            width 100%
+    &-info
+      display table
+      width 100%
 
-        &-desc
-        &-cancel-rules
-        &-price
-        &-actions
-            display table-cell
-            vertical-align top
-            font-size 14px
+    &-desc
+    &-cancel-rules
+    &-price
+    &-actions
+      display table-cell
+      vertical-align top
+      font-size 14px
 
-        &-desc
-            width 100%
+    &-desc
+      width 100%
 
-        &-cancel-rules
-            min-width 140px
-            padding-right 5px
+    &-cancel-rules
+      min-width 140px
+      padding-right 5px
 
-            &-ok
-                color $green
+      &-ok
+        color $green
 
-        &-price
-            min-width 165px
-            padding-right 10px
-            text-align right
-            white-space nowrap
+    &-price
+      min-width 165px
+      padding-right 10px
+      text-align right
+      white-space nowrap
 
-            &-diff
-                font-size 18px
-                font-weight bold
+      &-diff
+        font-size 18px
+        font-weight bold
 
-        &-actions
-            min-width 180
-            text-align right
+    &-actions
+      min-width 180
+      text-align right
 
-        &-long
-            padding 10px
-            background #eeeeee
-            background linear-gradient(to bottom,  #eeeeee 0%,#ffffff 3%,#ffffff 97%,#eeeeee 100%)
-            border 1px solid #dedede
-            border-width 1px 0 0
+    &-long
+      padding 10px
+      background #eeeeee
+      background linear-gradient(to bottom, #eeeeee 0%, #ffffff 3%, #ffffff 97%, #eeeeee 100%)
+      border 1px solid #dedede
+      border-width 1px 0 0
 
-        &-long-text
-            font-size 14px
+    &-long-text
+      font-size 14px
 
-            p
-                margin 10px 0
+      p
+        margin 10px 0
 
-            ul
-                margin-left 15px
-                padding-left 10px
+      ul
+        margin-left 15px
+        padding-left 10px
 
-                li
-                    list-style disc
+        li
+          list-style disc
 
-        &_state_open
-            .hotel-details-rooms__room-long
-                display block
-            .hotel-details-rooms__room-title::after
-                content '▼'
-                font-size 11px
-                padding-left 4px
+    &_state_open
+
+      .hotel-details-rooms__room-long
+        display block
+
+    .hotel-details-rooms__room-title::after
+      content '▼'
+      font-size 11px
+      padding-left 4px
 
 .button
-    &_size_l
-        font-size 18px
-        font-weight normal
-        height 30px
-        width 170px
-    &_size_xl
-        font-size 18px
-        font-weight normal
-        height 40px
-        width 170px
+  &_size_l
+    font-size 18px
+    font-weight normal
+    height 30px
+    width 170px
+  &_size_xl
+    font-size 18px
+    font-weight normal
+    height 40px
+    width 170px
 
 .mini-gallery
-    font-size 0
+  font-size 0
 
-    &__mini
-        display inline-block
-        width 70px
-        height 70px
-        margin-right 5px
-        background-size cover
-        position relative
-        z-index 1
+  &__mini
+    display inline-block
+    width 70px
+    height 70px
+    margin-right 5px
+    background-size cover
+    position relative
+    z-index 1
 
-        &:hover
-            .mini-gallery__big
-                display block
+    &:hover
+      .mini-gallery__big
+        display block
 
-    &__big
-        display none
-        position absolute
-        left 0
-        top 73px
-        border 2px solid #fff
-        border-radius 2px
-        box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
-        z-index 2
+  &__big
+    display none
+    position absolute
+    left 0
+    top 73px
+    border 2px solid #fff
+    border-radius 2px
+    box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
+    z-index 2
 
-        &::after
-            content ''
-            display block
-            position absolute
-            top -10px
-            left 35px
-            width: 0;
-            height: 0;
-            border-style solid
-            border-width 0 8px 10px 8px
-            border-color transparent transparent #fff transparent
+    &::after
+      content ''
+      display block
+      position absolute
+      top -10px
+      left 35px
+      width: 0;
+      height: 0;
+      border-style solid
+      border-width 0 8px 10px 8px
+      border-color transparent transparent #fff transparent
 
 .hotel-details-resume
-    font-size 14px
-    color #fff
+  font-size 14px
+  color #fff
 
-    &__section
-        padding 15px
-        border-bottom 1px solid #878787
-        overflow hidden
+  &__section
+    padding 15px
+    border-bottom 1px solid #878787
+    overflow hidden
 
-        &:last-child
-            border-bottom 0
+    &:last-child
+      border-bottom 0
 
-        &-title
-            font-size 16px
-            font-weight bold
-            float left
-            width 200px
+    &-title
+      font-size 16px
+      font-weight bold
+      float left
+      width 200px
 
-    &__list
-        margin-left 240px
-        padding-left 15px
-        overflow hidden
+  &__list
+    margin-left 240px
+    padding-left 15px
+    overflow hidden
 
-    &__item
-        list-style disc
-        float left
-        width 40%
-        margin-right 9%
+  &__item
+    list-style disc
+    float left
+    width 40%
+    margin-right 9%
         
         
         
