@@ -1,10 +1,9 @@
 <li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen, 'hotel-details-rooms__room_position_last': $last}">
     <div class="hotel-details-rooms__room-short" ng-click="toggleRoom(room)">
-        <h3 class="hotel-details-rooms__room-title"><span>{{room.RoomName}}</span> <b>▼</b></h3>
-
         <div class="hotel-details-rooms__room-short-info">
             <div class="hotel-details-rooms__room-desc">
-                <span ng-repeat="bed in room.BedTypeList">{{bed.Name}}<span ng-if="!$last"> ,</span></span>
+                <h3 class="hotel-details-rooms__room-title"><span>{{room.RoomName}}</span> <b>▼</b></h3>
+                <div ng-repeat="bed in room.BedTypeList">{{bed.Name}}<span ng-if="!$last"> ,</span></div>
 
                 <ul class="hotel-details-extra">
                     <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption.CategoryName}}</li>
