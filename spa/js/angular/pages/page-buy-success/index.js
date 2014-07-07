@@ -19,15 +19,25 @@ innaAppControllers.
         function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, DynamicBlockAviaHotel, Balloon) {
 
 
+            $scope.hotelToShowDetails = null;
+
+
             var Page = Ractive.extend({
                 debug: true,
                 el: document.querySelector('.page-root'),
                 template: $templateCache.get('pages/page-buy-success/templ/index.html'),
+
                 partials: {
                     buyResult: $templateCache.get('pages/page-buy-success/templ/buy-result.html')
                 },
+                components : {
+                    DynamicBlockAviaHotel : DynamicBlockAviaHotel
+                },
                 data: {
                     loadData : false
+                },
+                beforeInit : function(options){
+
                 },
                 init: function () {
                     var that = this;
@@ -37,7 +47,6 @@ innaAppControllers.
                     this._partialBaloonHotel = $templateCache.get('components/balloon/templ/hotel-rules.html');
                     this._partialBaloonLoading = $templateCache.get('components/balloon/templ/loading.html');
 
-
                     this.on({
                         change: this.change,
                         showBalloonTicket: this.showBalloonTicket,
@@ -45,26 +54,9 @@ innaAppControllers.
                     })
                 },
 
-
-                /**
-                 * Событие изменения модели ractive
-                 * @param data
-                 */
-                change: function (data) {
-                    console.log(data);
-console.log(this.find('.js-dynamic-block'));
-
-                    this._DynamicBlockAviaHotel = new DynamicBlockAviaHotel({
-                        el: this.find('.js-dynamic-block'),
-                        data: data
-                    });
-                },
-
-
                 showBalloonLoading: function (evt) {
                     this._balloonLoading = new Balloon({
                         data: {
-                            //title: 'Loading....',
                             balloonClose: false
                         },
                         partials: {
@@ -125,6 +117,7 @@ console.log(this.find('.js-dynamic-block'));
                 getDataBuy: function () {
                     var that = this;
                     this.showBalloonLoading();
+
                     paymentService.getPaymentData({orderNum: $routeParams.OrderNum},
                         function (data) {
                             if (data) {

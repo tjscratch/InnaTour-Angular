@@ -15,12 +15,13 @@ innaAppConponents.
                 init: function (options) {
                     this._super(options);
 
-
+                    console.log(this.data);
                     this.on({
-                        getHotelDetails : this.getHotelDetails
+                        getHotelDetails: this.getHotelDetails
                     })
                 }
             });
+
             return DynamicBlockAviaHotel;
         }
     ]);
