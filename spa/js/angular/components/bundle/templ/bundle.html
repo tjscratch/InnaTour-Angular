@@ -106,8 +106,8 @@
             </a>
             <a href="javascript:void(0);"
                class="bottom-actions__button bottom-actions__button_action_details"
-               ng-class="{'active': !!!getHotelDetails}"
-               ng-click="getHotelDetails($event, bundle.hotel)">Подробнее</a>
+               ng-class="{'active': !!!__getHotelDetails}"
+               ng-click="!!__getHotelDetails && getHotelDetails($event, bundle.hotel)">Подробнее</a>
         </div>
 
 
