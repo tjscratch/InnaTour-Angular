@@ -82,11 +82,11 @@
                 $scope.sorters.add(new Sorter('По времени в пути', function (ticket1, ticket2) {
                     return (ticket2.data.TimeTo + ticket2.data.TimeBack) - (ticket1.data.TimeTo + ticket1.data.TimeBack)
                 }));
-                $scope.sorters.add(new Sorter('По времени отправления ТУДА', function (ticket1, ticket2) {
-                    return +ticket2.data.DepartureDate - +ticket1.data.DepartureDate;
+                $scope.sorters.add(new Sorter('По времени отправления ТУДА', function (ticket1, ticket2) { //desc
+                    return +ticket1.data.DepartureDate - +ticket2.data.DepartureDate;
                 }));
-                $scope.sorters.add(new Sorter('По времени отправления ОБРАТНО', function (ticket1, ticket2) {
-                    return +ticket2.data.BackDepartureDate - +ticket1.data.BackDepartureDate;
+                $scope.sorters.add(new Sorter('По времени отправления ОБРАТНО', function (ticket1, ticket2) { //desc
+                    return +ticket1.data.BackDepartureDate - +ticket2.data.BackDepartureDate;
                 }));
                 $scope.sorters.add(new Sorter('По времени прибытия ТУДА', function (ticket1, ticket2) {
                     return +ticket2.data.ArrivalDate - +ticket1.data.ArrivalDate;
