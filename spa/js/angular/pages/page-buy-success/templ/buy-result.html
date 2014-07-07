@@ -16,13 +16,16 @@
 
                 <ul class="buy__result-date-container">
                     <li class="buy__result-list-item">
-                        Заезд {{Hotel.CheckInFull}} г. (до {{Hotel.CheckInTime}}), вт
+                        Заезд {{Hotel.CheckInFull}} (до {{Hotel.CheckInTime}}), вт
+                        <div class="buy__result-translation">Check-In {{Hotel.CheckInFull}} ({{Hotel.CheckInTime}}), Tue</div>
                     </li>
                     <li class="buy__result-list-item">
                         Отъезд {{Hotel.CheckOutFull}} г. (до {{Hotel.CheckOutTime}}), ср
+                        <div class="buy__result-translation">Check-Out {{Hotel.CheckOutFull}} ({{Hotel.CheckOutTime}}), Wed</div>
                     </li>
                     <li class="buy__result-list-item">
-                        Продолжительность: {{Hotel.NightCountHotel}}
+                        Продолжительность: {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["ночь", "ночи", "ночей"])}}
+                        <div class="buy__result-translation">Duration: {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["night", "nights", "nights"])}}</div>
                     </li>
                 </ul>
             </div>
@@ -32,12 +35,15 @@
                 <ul class="buy__result-order-container">
                     <li class="buy__result-list-item">
                         Номер заказа: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
+                        <div class="buy__result-translation">Order number</div>
                     </li>
                     <li class="buy__result-list-item">
                         Номер бронирования: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
+                        <div class="buy__result-translation">Itenenary number</div>
                     </li>
                     <li class="buy__result-list-item">
                         Номер подтверждения: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
+                        <div class="buy__result-translation">Room Confirmation number</div>
                     </li>
                 </ul>
             </div>
@@ -61,15 +67,22 @@
 
         <div class="buy__result-guests">
             {{#PassengersData.adultCount}}
-            Гости: {{PassengersData.adult}}
-                {{#PassengersData.childCount}}
-                    и {{PassengersData.child}}
+                Гости: {{PassengersData.adultCount}} {{pluralize(PassengersData.adultCount, ["взрослый", "взрослых", "взрослых"])}}
+                    {{#PassengersData.childCount}}
+                        и {{PassengersData.childCount}} {{pluralize(PassengersData.childCount, ["ребенок", "детей", "детей"])}}
                 {{/}}
+
+                <div class="buy__result-translation">
+                    Guests: {{PassengersData.adultCount}} {{pluralize(PassengersData.adultCount, ["adult", "adults", "adults"])}}
+                    {{#PassengersData.childCount}}
+                        and {{PassengersData.childCount}} {{pluralize(PassengersData.childCount, ["child", "children", "children"])}}
+                    {{/}}
+                </div>
             {{/}}
         </div>
 
         <div class="buy__result-sum">
-            <h2 class="buy__result-sum-title">Ваш заказ на сумму {{Price}} оплачен</h2>
+            <h2 class="buy__result-sum-title">Ваш заказ на сумму {{Price}} {{pluralize(Price, ["рубль", "рубля", "рублей"])}} оплачен</h2>
             <div class="buy__result-sum-description">Маршрутная квитанция (авиабилет) и подтверждение бронирования
                 отеля, направлены на ваш адрес электронной почты.</div>
         </div>

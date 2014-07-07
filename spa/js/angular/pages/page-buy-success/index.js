@@ -34,14 +34,14 @@ innaAppControllers.
                     DynamicBlockAviaHotel : DynamicBlockAviaHotel
                 },
                 data: {
-                    loadData : false
+                    loadData : false,
+                    pluralize : utils.pluralize
                 },
                 beforeInit : function(options){
 
                 },
                 init: function () {
                     var that = this;
-                    this._DynamicBlockAviaHotel = null;
                     this._balloon = null;
                     this._partialBaloonTicket = $templateCache.get('components/balloon/templ/ticket-rules.html');
                     this._partialBaloonHotel = $templateCache.get('components/balloon/templ/hotel-rules.html');
@@ -52,6 +52,15 @@ innaAppControllers.
                         showBalloonTicket: this.showBalloonTicket,
                         showBalloonHotel: this.showBalloonHotel
                     })
+                },
+
+
+                /**
+                 * Событие изменения модели ractive
+                 * @param data
+                 */
+                change: function (data) {
+
                 },
 
                 showBalloonLoading: function (evt) {
@@ -154,7 +163,7 @@ innaAppControllers.
                     aviaHelper.addCustomFields(avia);
 
                     avia.transferCount = function (count) {
-                        return $filter('decl')(count, ['пересадка', 'пересадки', 'пересадок']);
+                        return utils.pluralize(count, ['пересадка', 'пересадки', 'пересадок']);
                     }
 
 
@@ -164,7 +173,6 @@ innaAppControllers.
 
                     hotel.CheckInHotel = $filter('date')(hotel.CheckIn, 'd MMM');
                     hotel.CheckOutHotel = $filter('date')(hotel.CheckOut, 'd MMM');
-                    hotel.NightCountHotel = hotel.NightCount + ' ' + $filter('decl')(hotel.NightCount, ["ночь", "ночи", "ночей"]);
 
                     /* stars */
                     hotel.StarsArr = [];
@@ -172,26 +180,13 @@ innaAppControllers.
                         hotel.StarsArr.push(i);
                     }
 
+                    // сколько взрослых и детей
                     passengers.forEach(function (pass) {
-
                         var date = dateHelper.dateToJsDate(pass.Birthday);
                         pass.age = dateHelper.calculateAge(date);
-
-                        if (pass.age >= 18) {
-                            data.PassengersData.adultCount++;
-
-                            data.PassengersData.adult = data.PassengersData.adultCount + ' '
-                                + $filter('decl')(data.PassengersData.adultCount, ["взрослый", "взрослых", "взрослых"]);
-                        }
-                        if (pass.age < 18) {
-                            data.PassengersData.childCount++;
-                            data.PassengersData.child = data.PassengersData.childCount + ' '
-                                + $filter('decl')(data.PassengersData.childCount, ["ребенок", "детей", "детей"]);
-                        }
+                        if (pass.age >= 18) data.PassengersData.adultCount++;
+                        if (pass.age < 18) data.PassengersData.childCount++;
                     });
-
-                    data.Price = data.Price + ' '
-                        + $filter('decl')(data.Price, ["рубль", "рубля", "рублей"]);
 
                     data.loadData = true;
                     data.ticket2ways = true;

@@ -7,12 +7,19 @@ innaAppConponents.
             var DynamicBlock = Ractive.extend({
                 debug: true,
                 template: $templateCache.get('components/dynamic-block/templ/base-dynamic.html'),
+                data : {
+                    transclude : false,
+                    transcludeContent : '<div></div>',
+                    collOneContent : '<div></div>',
+                    collTwoContent : '<div></div>',
+                    pluralize : utils.pluralize
+                },
                 init: function (options) {
-
+                    this._super(options);
                 },
 
                 getHotelDetails : function(evt){
-                    console.log(evt);
+
                 }
             });
 
