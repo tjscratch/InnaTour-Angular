@@ -1,14 +1,20 @@
 <li class="hotel-details-rooms__room" ng-class="{'hotel-details-rooms__room_state_open': room.isOpen, 'hotel-details-rooms__room_position_last': $last}">
     <div class="hotel-details-rooms__room-short" ng-click="toggleRoom(room)">
-        <h3 class="hotel-details-rooms__room-title">{{room.RoomName}}</h3>
+        <h3 class="hotel-details-rooms__room-title"><span>{{room.RoomName}}</span> <b>▼</b></h3>
 
         <div class="hotel-details-rooms__room-short-info">
             <div class="hotel-details-rooms__room-desc">
                 <span ng-repeat="bed in room.BedTypeList">{{bed.Name}}<span ng-if="!$last"> ,</span></span>
+
+                <ul class="hotel-details-extra">
+                    <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption.CategoryName}}</li>
+                </ul>
             </div>
             <div class="hotel-details-rooms__room-cancel-rules">
                 <span class="hotel-details-rooms__room-cancel-rules-ok" ng-if="room.IsRefundable">Бесплатная отмена бронирования</span>
                 <span ng-if="!room.IsRefundable">Без возможности возврата</span>
+
+                <div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 1">Остался последний номер!</div>
             </div>
             <div class="hotel-details-rooms__room-price">
                 <div class="hotel-details-rooms__room-price-diff">
@@ -22,10 +28,6 @@
                 <button class="button button_size_xl" ng-click="goReservation(room, hotel)">Купить</button>
             </div>
         </div>
-
-        <ul class="hotel-details-extra">
-            <li ng-repeat="(name, caption) in room.Extra" class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">{{caption.CategoryName}}</li>
-        </ul>
     </div>
     <div class="hotel-details-rooms__room-long">
         <ul class="mini-gallery">

@@ -180,47 +180,49 @@
     margin 5px 0
 
 .hotel-details-extra
-  font-size 0
+    font-size 0
+    margin-top 10px
 
-  &__item
-    display inline-block
-    margin-right 7px
-    background-color #e6e7e9
-    color #4d4d4d
-    font-size 12px
-    border-radius 4px
-    padding 8px 10px 7px 30px
-    background-position 7px center
-    background-repeat no-repeat
+    &__item
+        display inline-block
+        margin-right 7px
+        margin-bottom 4px
+        background-color #e6e7e9
+        color #4d4d4d
+        font-size 12px
+        border-radius 4px
+        padding 8px 10px 7px 30px
+        background-position 7px center
+        background-repeat no-repeat
 
-    &_type
-      &_internet
-        background-image url(/spa/img/hotels-extra/internet.png)
+        &_type
+          &_internet
+            background-image url(/spa/img/hotels-extra/internet.png)
 
-      &_kitchen
-        background-image url(/spa/img/hotels-extra/kitchen.png)
+          &_kitchen
+            background-image url(/spa/img/hotels-extra/kitchen.png)
 
-      &_parking
-        background-image url(/spa/img/hotels-extra/parking.png)
+          &_parking
+            background-image url(/spa/img/hotels-extra/parking.png)
 
-      &_swimmingpool
-        background-image url(/spa/img/hotels-extra/pool.png)
+          &_swimmingpool
+            background-image url(/spa/img/hotels-extra/pool.png)
 
-      &_barrestaurant
-        background-image url(/spa/img/hotels-extra/lobby.png)
+          &_barrestaurant
+            background-image url(/spa/img/hotels-extra/lobby.png)
 
-      &_breakfast
-      &_meal
-        background-image url(/spa/img/hotels-extra/food.png)
+          &_breakfast
+          &_meal
+            background-image url(/spa/img/hotels-extra/food.png)
 
-      &_fitness
-        background-image url(/spa/img/hotels-extra/fitness.png)
+          &_fitness
+            background-image url(/spa/img/hotels-extra/fitness.png)
 
-      &_forpeoplewithdisabilities
-        background-image url(/spa/img/hotels-extra/insured.png)
+          &_forpeoplewithdisabilities
+            background-image url(/spa/img/hotels-extra/insured.png)
 
-      &_servicesforchildren
-        background-image url(/spa/img/hotels-extra/kids.png)
+          &_servicesforchildren
+            background-image url(/spa/img/hotels-extra/kids.png)
 
 .hotel-details-map
   width 100%
@@ -261,6 +263,15 @@
       font-size 14px
       font-weight normal
       cursor pointer
+      position relative
+
+      span:hover
+        text-decoration underline
+
+      b
+        font-size .8em
+        position relative
+        top 1px
 
     &-info
       display table
@@ -322,11 +333,6 @@
 
       .hotel-details-rooms__room-long
         display block
-
-    .hotel-details-rooms__room-title::after
-      content '▼'
-      font-size 11px
-      padding-left 4px
 
 .button
   &_size_l
@@ -390,11 +396,18 @@
     &:last-child
       border-bottom 0
 
-    &-title
-      font-size 16px
-      font-weight bold
-      float left
-      width 200px
+        &-warning
+            color $red
+            margin-top 4px
+
+        &-long
+            display none
+
+        &-title
+          font-size 16px
+          font-weight bold
+          float left
+          width 200px
 
   &__list
     margin-left 240px
