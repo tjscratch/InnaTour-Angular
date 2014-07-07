@@ -12,11 +12,12 @@ innaAppControllers.
         'urlHelper',
         'aviaHelper',
         'innaApp.Urls',
+        '$locale',
 
         // components
         'DynamicBlockAviaHotel',
         'Balloon',
-        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, DynamicBlockAviaHotel, Balloon) {
+        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlockAviaHotel, Balloon) {
 
 
             $scope.hotelToShowDetails = null;
@@ -30,14 +31,15 @@ innaAppControllers.
                 partials: {
                     buyResult: $templateCache.get('pages/page-buy-success/templ/buy-result.html')
                 },
-                components : {
-                    DynamicBlockAviaHotel : DynamicBlockAviaHotel
+                components: {
+                    DynamicBlockAviaHotel: DynamicBlockAviaHotel
                 },
                 data: {
-                    loadData : false,
-                    pluralize : utils.pluralize
+                    loadData: false,
+                    pluralize: utils.pluralize,
+                    moment : moment
                 },
-                beforeInit : function(options){
+                beforeInit: function (options) {
 
                 },
                 init: function () {
@@ -165,14 +167,6 @@ innaAppControllers.
                     avia.transferCount = function (count) {
                         return utils.pluralize(count, ['пересадка', 'пересадки', 'пересадок']);
                     }
-
-
-                    /* hotel data */
-                    hotel.CheckInFull = $filter('date')(hotel.CheckIn, 'd MMMM yyyy');
-                    hotel.CheckOutFull = $filter('date')(hotel.CheckOut, 'd MMMM yyyy');
-
-                    hotel.CheckInHotel = $filter('date')(hotel.CheckIn, 'd MMM');
-                    hotel.CheckOutHotel = $filter('date')(hotel.CheckOut, 'd MMM');
 
                     /* stars */
                     hotel.StarsArr = [];

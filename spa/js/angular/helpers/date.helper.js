@@ -1,4 +1,8 @@
-﻿var dateHelper = {
+﻿
+
+
+
+var dateHelper = {
     apiDateToJsDate: function (dParam) {
         //"2014-01-31T20:45:00"
         if (dParam != null) {
@@ -183,6 +187,13 @@
         ][n]
     },
 
+    translateMonthEn: function (n) {
+        return ["January", "February", "March",
+            "April", "May", "June",
+            "July", "August", "September",
+            "October", "November", "December"][n]
+    },
+
     translateMonthShort: function (n) {
         return [
             'янв', 'фев', 'мар',
@@ -192,8 +203,22 @@
         ][n]
     },
 
+    translateMonthShortEn: function (n) {
+        return ["Jan", "Feb", "Mar", "Apr",
+            "May", "Jun", "Jul", "Aug", "Sep",
+            "Oct", "Nov", "Dec"][n]
+    },
+
     translateDay: function (n) {
         return ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'][n]
+    },
+
+    translateDayEn: function (n) {
+        return ["Monday","Tuesday","Wednesday","Thursday","Friday	","Saturday","Sunday"][n];
+    },
+
+    translateDayShortEn: function (n) {
+        return ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][n];
     },
 
     getTime: function (date) {

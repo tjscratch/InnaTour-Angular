@@ -14,14 +14,28 @@
         <div class="row">
             <div class="col-xs-8 col-no-padding">
 
+                <!-- форматирование дат moment  -->
                 <ul class="buy__result-date-container">
                     <li class="buy__result-list-item">
-                        Заезд {{Hotel.CheckInFull}} (до {{Hotel.CheckInTime}}), вт
-                        <div class="buy__result-translation">Check-In {{Hotel.CheckInFull}} ({{Hotel.CheckInTime}}), Tue</div>
+                        Заезд {{moment(Hotel.CheckIn).format('ll')}}
+                        (до {{moment(Hotel.CheckIn).format('HH:mm')}}),
+                        {{moment(Hotel.CheckIn).format('ddd')}}
+
+                        <div class="buy__result-translation">
+                            Check-In {{moment(Hotel.CheckIn).lang("en").format('ll')}}
+                            ({{moment(Hotel.CheckIn).lang("en").format('HH:mm')}}),
+                            {{moment(Hotel.CheckIn).lang("en").format('ddd')}}
+                        </div>
                     </li>
                     <li class="buy__result-list-item">
-                        Отъезд {{Hotel.CheckOutFull}} г. (до {{Hotel.CheckOutTime}}), ср
-                        <div class="buy__result-translation">Check-Out {{Hotel.CheckOutFull}} ({{Hotel.CheckOutTime}}), Wed</div>
+                        Отъезд {{moment(Hotel.CheckOut).format('ll')}} (до {{moment(Hotel.CheckOut).format('HH:mm')}}),
+                        {{moment(Hotel.CheckOut).format('ddd')}}
+
+                        <div class="buy__result-translation">
+                            Check-Out {{moment(Hotel.CheckOut).lang("en").format('ll')}}
+                            ({{moment(Hotel.CheckOut).lang("en").format('HH:mm')}}),
+                            {{moment(Hotel.CheckOut).lang("en").format('ddd')}}
+                        </div>
                     </li>
                     <li class="buy__result-list-item">
                         Продолжительность: {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["ночь", "ночи", "ночей"])}}
@@ -38,11 +52,11 @@
                         <div class="buy__result-translation">Order number</div>
                     </li>
                     <li class="buy__result-list-item">
-                        Номер бронирования: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
+                        Номер бронирования: <b>{{Hotel.Room.BookingData.Vendor}}</b>
                         <div class="buy__result-translation">Itenenary number</div>
                     </li>
                     <li class="buy__result-list-item">
-                        Номер подтверждения: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
+                        Номер подтверждения: <b>{{Hotel.Room.BookingData.PinCode}}</b>
                         <div class="buy__result-translation">Room Confirmation number</div>
                     </li>
                 </ul>
@@ -69,7 +83,7 @@
             {{#PassengersData.adultCount}}
                 Гости: {{PassengersData.adultCount}} {{pluralize(PassengersData.adultCount, ["взрослый", "взрослых", "взрослых"])}}
                     {{#PassengersData.childCount}}
-                        и {{PassengersData.childCount}} {{pluralize(PassengersData.childCount, ["ребенок", "детей", "детей"])}}
+                    и {{PassengersData.childCount}} {{pluralize(PassengersData.childCount, ["ребенок", "детей", "детей"])}}
                 {{/}}
 
                 <div class="buy__result-translation">
