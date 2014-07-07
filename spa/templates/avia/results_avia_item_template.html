@@ -4,17 +4,21 @@
 
     <div class="b-result__cell" on-click='popupItemInfo_show:{{this}}'>
 
-        <span class="rl-airline" class="result-cell__airlines">
+        <span class="rl-airline rl-airline__list" class="result-cell__airlines">
             {{#this.transportersList}}
-            <img src="{{this.logoUrl}}" alt="" class="logo">
-            <span class="rl-airline-text">{{this.name}}</span>
+            <span class="rl-airline__item">
+                <img src="{{this.logoUrl}}" alt="" class="logo">
+                <span class="rl-airline-text">{{this.name}}</span>
+            </span>
             {{/}}
         </span>
 
         {{#(this.transportersList.length > 3)}}
         <span class="rl-airline">
-            <img src="/spa/img/group.png" alt="">
-            <span class="rl-airline-text">Несколько авиакомпаний</span>
+            <span class="rl-airline__item">
+                <img src="/spa/img/group.png" alt="">
+                <span class="rl-airline-text">Несколько авиакомпаний</span>
+            </span>
         </span>
         {{/}}
 
