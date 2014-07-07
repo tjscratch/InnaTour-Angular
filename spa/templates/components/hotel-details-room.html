@@ -14,6 +14,8 @@
                 <span ng-if="!room.IsRefundable">Без возможности возврата</span>
 
                 <div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 1">Остался последний номер!</div>
+                <div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 2">Осталось два номера!</div>
+                <div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 3">Осталось три номера!</div>
             </div>
             <div class="hotel-details-rooms__room-price">
                 <div class="hotel-details-rooms__room-price-diff">
