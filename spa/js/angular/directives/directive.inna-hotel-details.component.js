@@ -91,6 +91,13 @@ angular.module('innaApp.directives')
                         room.isOpen = !!!room.isOpen;
                     };
 
+                    $scope.close = function(){
+                        delete $location.$$search.room;
+                        $location.$$compose();
+
+                        return $scope.back();
+                    };
+
                     /*Watchers*/
                     $scope.$watch('hotel', function(hotel){
                         if(!hotel) return;
