@@ -62,6 +62,10 @@ angular.module('innaApp.directives')
                         backgrounds[parseInt(Math.random() * 100) % backgrounds.length]
                     );
 
+                    $('body').css({
+                        "background" : $scope.background + "repeat fixed"
+                    })
+
                     $scope.showFullDescription = false;
 
                     $scope.bundle = new inna.Models.Dynamic.Combination();
@@ -140,6 +144,10 @@ angular.module('innaApp.directives')
                             $scope.back();
                         }
                     });
+
+                    $scope.$on('$destroy', function(){
+                        $('body').removeAttr('style');
+                    })
                 }
             ],
             link : function($scope, $element){

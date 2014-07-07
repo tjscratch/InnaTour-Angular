@@ -6,8 +6,6 @@ angular.module('innaApp.conponents').
 
             var EventManager = new Ractive();
 
-
-
             var TooltipBase = Ractive.extend({
                 append: true,
                 data: {
