@@ -11,7 +11,8 @@ innaAppConponents.
                     transclude : false,
                     transcludeContent : '<div></div>',
                     collOneContent : '<div></div>',
-                    collTwoContent : '<div></div>'
+                    collTwoContent : '<div></div>',
+                    pluralize : utils.pluralize
                 },
                 init: function (options) {
                     this._super(options);
