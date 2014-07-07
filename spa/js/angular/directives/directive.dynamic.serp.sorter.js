@@ -79,8 +79,8 @@
                 $scope.sorters.add(new Sorter('По рейтингу Инна Тур', function (ticket1, ticket2) { //asc
                     return ticket1.data.RecommendedFactor - ticket2.data.RecommendedFactor;
                 }));
-                $scope.sorters.add(new Sorter('По времени в пути', function (ticket1, ticket2) {
-                    return (ticket2.data.TimeTo + ticket2.data.TimeBack) - (ticket1.data.TimeTo + ticket1.data.TimeBack)
+                $scope.sorters.add(new Sorter('По времени в пути', function (ticket1, ticket2) {  //desc
+                    return (ticket1.data.TimeTo + ticket1.data.TimeBack) - (ticket2.data.TimeTo + ticket2.data.TimeBack)
                 }));
                 $scope.sorters.add(new Sorter('По времени отправления ТУДА', function (ticket1, ticket2) { //desc
                     return +ticket1.data.DepartureDate - +ticket2.data.DepartureDate;
