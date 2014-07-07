@@ -232,9 +232,9 @@ innaAppControllers
                     }
                 }
             }
-
-            $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
-                if(!angular.equals(parseRoute(url), routeParams)) document.location.reload();
-            });
+            
+//            $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
+//                if(!angular.equals(parseRoute(url), routeParams)) document.location.reload();
+//            });
         }
     ]);
