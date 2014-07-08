@@ -191,7 +191,8 @@ app.config([
                 redirectTo: url.URL_ROOT
             });
 
-        //$locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true);
+
     }
 ]);
 
