@@ -57,11 +57,7 @@
 
     <!-- Results List -->
     <div class="results-list results-list_720" style="float: left;">
-        <!--<ng:any ng-repeat="item in visibleFilteredTicketsList track by $index">
-            <ng:include src="'avia/results_item.html'"></ng:include>
-        </ng:any>-->
-        
-        <!--переделал на reactive js-->
+
         <ng:any id="avia_result_cont"></ng:any>
 
         <div class="results-list__empty results-list__empty_type_tickets" ng-if="ticketsList.length > 0 && !(visibleFilteredTicketsList.length > 0)">
@@ -78,17 +74,23 @@
             <!--<h4 class="ra-tags-title" ng-if="ticketsList.length > 0"><b>{{getFilteredLength()}}</b> из <b>{{getLength()}}</b> перелетов</h4>-->
             <div class="b-switch-filters__result">
                 <ul class="b-switch-filters__list ra-tags-list">
-                    <li class="b-switch-filters__item" ng-if="filter.maxPrice < filter.maxPriceInitial">до {{filter.maxPrice | price}} рублей<a class="b-switch-filters__item_close" ng-href="#" ng-click="resetPrice($event)"></a></li>
+                    <li class="b-switch-filters__item" ng-if="filter.maxPrice < filter.maxPriceInitial">до
+                        {{filter.maxPrice | price}} рублей<a class="b-switch-filters__item_close icon-sprite-remove" ng-href="#" ng-click="resetPrice($event)"></a></li>
                     <!--<li>Aeroflot <a href="#"></a></li>
                     <li>Transaero <a href="#"></a></li>
                     <li>Lufthansa <a href="#"></a></li>-->
                     <!--<li>до 1 пересадки <a href="#"></a></li>-->
-                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.TransferCountListAgg">{{item.name}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked"
+                        ng-repeat="item in filter.TransferCountListAgg">{{item.name}} <a class="b-switch-filters__item_close icon-sprite-remove" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
 
-                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.time.list">{{item.name}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.TransporterList">{{item.TransporterName}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.AirportFilter.fromPorts">{{item.name}} {{item.code}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
-                    <li class="b-switch-filters__item" ng-if="item.checked" ng-repeat="item in filter.AirportFilter.toPorts">{{item.name}} {{item.code}} <a class="b-switch-filters__item_close" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked"
+                        ng-repeat="item in filter.time.list">{{item.name}} <a class="b-switch-filters__item_close icon-sprite-remove" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked"
+                        ng-repeat="item in filter.TransporterList">{{item.TransporterName}} <a class="b-switch-filters__item_close icon-sprite-remove" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked"
+                        ng-repeat="item in filter.AirportFilter.fromPorts">{{item.name}} {{item.code}} <a class="b-switch-filters__item_close icon-sprite-remove" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
+                    <li class="b-switch-filters__item" ng-if="item.checked"
+                        ng-repeat="item in filter.AirportFilter.toPorts">{{item.name}} {{item.code}} <a class="b-switch-filters__item_close icon-sprite-remove" href="javascript:void(0)" ng-click="item.checked = false"></a></li>
                 </ul>
             </div>
             <a href="#" ng-show="filter.maxPrice < filter.maxPriceInitial || anyChecked(filter.TransferCountListAgg) || anyChecked(filter.time.list) || anyChecked(filter.TransporterList)

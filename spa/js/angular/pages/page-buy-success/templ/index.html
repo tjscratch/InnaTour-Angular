@@ -1,16 +1,16 @@
 <div class="page-buy-success">
 
-
     <div class="page-buy-success__title">
 
         <h2>Подтверждение бронирования и оплаты</h2>
 
         <p class="page-buy-success__title__info buy__price-descr">
             В цену включен ПЕРЕЛЕТ
-            <span>Москва – Хургада – Москва</span>
+            <span>{{AviaInfo.AirportFrom}} – {{AviaInfo.AirportTo}} – {{AviaInfo.AirportFrom}}</span>
             и отель
-            <span>Mercure Luna Sharm El Sheikh vherhgek</span>
-            с 25 сен по 30 сен, 5 ночей.<br/>
+            <span>{{Hotel.HotelName}}</span>
+            с {{moment(Hotel.CheckIn).format('DD MMMM')}} по {{moment(Hotel.CheckOut).format('DD MMMM')}},
+            {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["ночь", "ночи", "ночей"])}}<br/>
             Цена окончательная со всеми налогами и сборами</p>
 
         <h2 class="page-buy-success__title__info">Информация по бронированию</h2>
@@ -18,7 +18,9 @@
     </div>
 
 
-    <div class="js-dynamic-block"></div>
+    <div class="js-dynamic-block">
+        <DynamicBlockAviaHotel AviaInfo="{{AviaInfo}}" Hotel="{{Hotel}}" />
+    </div>
 
 
 
@@ -46,7 +48,7 @@
     <!-- данные результата покупки -->
     <div>
         {{#loadData}}
-        {{>buyResult}}
+            {{>buyResult}}
         {{/}}
     </div>
 

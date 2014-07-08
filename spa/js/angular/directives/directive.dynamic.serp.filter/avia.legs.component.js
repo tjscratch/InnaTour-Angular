@@ -31,9 +31,18 @@ angular.module('innaApp.directives')
                         $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Legs'));
 
                         $scope.filter.options = new Options();
-                        $scope.filter.options.push(new Option('Прямой', function(l){ return l == 1; }));
-                        $scope.filter.options.push(new Option('1 пересадка', function(l){ return l == 2; }));
-                        $scope.filter.options.push(new Option('2+ пересадки', function(l) { return l > 2; }));
+                        $scope.filter.options.push(new Option('Прямой', function(to, back){
+                            //true if fits
+                            return (to + back == 2);
+                        }));
+                        $scope.filter.options.push(new Option('1 пересадка', function(to, back){
+                            //true if fits
+                            return (to == 2 && back == 1) || (to == 1 && back == 2);
+                        }));
+                        $scope.filter.options.push(new Option('2+ пересадки', function(to, back) {
+                            //true if fits
+                            return (to >= 3) || (back >= 3);
+                        }));
 
                         $scope.filter.filterFn = function(ticket){
                             var options = $scope.filter.options.getSelected();
@@ -45,7 +54,7 @@ angular.module('innaApp.directives')
                             var legsBack = ticket.getEtaps('Back').length;
 
                             options.each(function(option){
-                                show = show || (option.comparator(legsTo) && option.comparator(legsBack));
+                                show = show || (option.comparator(legsTo, legsBack));
                             });
 
                             if(!show) ticket.hidden = true;
@@ -59,8 +68,7 @@ angular.module('innaApp.directives')
                                 var tickets = new inna.Models.Avia.TicketCollection();
 
                                 newVal.each(function(ticket){
-                                    var fits = option.comparator(ticket.getEtaps('To').length) ||
-                                        option.comparator(ticket.getEtaps('Back').length);
+                                    var fits = option.comparator(ticket.getEtaps('To').length, ticket.getEtaps('Back').length);
 
                                     if(fits) {
                                         tickets.push(ticket);

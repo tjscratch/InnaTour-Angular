@@ -13,8 +13,7 @@
                         <div class="b-carousel_item" style="width:200px; height:190px;">
                             <div class="b-carousel_item_image"
                                  bo-style="{'background-image': 'url(' + hotel.data.Photos[0].Small +')'}"
-                                 style="width:200px;height:190px;"
-                                    ></div>
+                                 style="width:200px;height:190px;"></div>
                         </div>
                     </div>
                 </div>
@@ -26,7 +25,7 @@
                 <span class="icon-crown icon-sprite-crown"></span>
                 Спецпредложение
             </div>
-            <div class="hotel-info">
+            <div class="hotel-info" ng-class="{'hotel-info_with_crown': virtualBundle.getProfit() > 1000}">
                 <div class="hotel-info-content">
                     <div>
                         <span class="icon icon-star" bo-if="hotel.data.Stars > 0"></span>
@@ -38,7 +37,9 @@
                     <h3 class="hotel-info-name" bo-text="hotel.data.HotelName"></h3>
                     <a href="javascript:void(0);" class="hotel-info-place js-hotel-info-place" bo-text="hotel.data.HotelCityName +', ' + hotel.data.Address"></a>
 
-                    <div class="warning" bo-if="hotel.data.RoomCount == 1">Последний номер</div>
+                    <div class="warning" bo-if="hotel.data.RoomCount == 1">Остался последний номер!</div>
+                    <div class="warning" bo-if="hotel.data.RoomCount == 2">Осталось два номера!</div>
+                    <div class="warning" bo-if="hotel.data.RoomCount == 3">Осталось три номера!</div>
                 </div>
             </div>
 

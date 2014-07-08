@@ -115,7 +115,19 @@ angular.module('innaApp.directives')
 
                     var map = new GM.Map(mapContainer, {
                         center: new GM.LatLng(0, 0),
-                        disableDefaultUI: true,
+                        mapTypeControl: true,
+                        mapTypeControlOptions: {
+                            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                            position: google.maps.ControlPosition.BOTTOM_CENTER
+                        },
+                        panControl: true,
+                        panControlOptions: {
+                            position: google.maps.ControlPosition.TOP_RIGHT
+                        },
+                        zoomControlOptions: {
+                            style: google.maps.ZoomControlStyle.LARGE,
+                            position: google.maps.ControlPosition.LEFT_CENTER
+                        },
                         styles: styleArray,
                         zoom: 8
                     });
@@ -493,7 +505,6 @@ angular.module('innaApp.directives')
                      * Событие обновления фильтров
                      */
                     scope.$on('change:hotels:filters', function (evt, data) {
-                        console.log(data);
                         updateMap({
                             hotels: data,
                             airports: scope.airports

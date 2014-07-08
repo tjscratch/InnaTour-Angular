@@ -162,6 +162,9 @@ innaAppControllers
 
                     $scope.$apply(function ($scope) {
                         apply($scope, data);
+
+                        $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
+
                         deferred.resolve();
                     });
                 });
@@ -245,9 +248,7 @@ innaAppControllers
                         .then(function () {
                             onTabLoad(onTabLoadParam);
 
-                            console.log('initial calibation');
                             calibrate($scope.hotels, 0);
-                            console.log('/initial calibation');
 
                             $scope.baloon.hide();
                         });
@@ -345,8 +346,8 @@ innaAppControllers
 
             $scope.closeHotelDetails = function () {
                 $scope.hotelToShowDetails = null;
-                delete $location.$$search.displayHotel
-                delete $location.$$search.action
+                delete $location.$$search.displayHotel;
+                delete $location.$$search.action;
                 $location.$$compose();
             };
 
@@ -404,6 +405,10 @@ innaAppControllers
 
                 calibrate($scope.hotels, utils.getScrollTop(), true);
             }, true);
+
+            $scope.$on('Dynamic.SERP.*.Sorting', function(){
+                calibrate($scope.hotels, utils.getScrollTop(), true);
+            });
 
 
             function locatioAsMap(){
@@ -493,10 +498,14 @@ innaAppControllers
         '$location',
         'innaApp.API.events',
         'aviaHelper',
-        function ($scope, $element, $location, Events, aviaHelper) {
+
+        // components
+        'ShareLink',
+        function ($scope, $element, $location, Events, aviaHelper, ShareLink) {
             $(function () {
                 $(document.body).append($element);
             });
+
 
             /*Scope Properties*/
             $scope.ticket = null;
@@ -552,6 +561,17 @@ innaAppControllers
                 })();
 
                 $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
+
+
+                setTimeout(function(){
+                    new ShareLink({
+                        el : $element.find('.js-share-component'),
+                        data : {
+                            right : true
+                        }
+                    })
+                }, 0)
+
             });
         }
     ])
@@ -559,7 +579,8 @@ innaAppControllers
         '$scope',
         '$element',
         'innaApp.API.events',
-        function ($scope, $element, Events) {
+        '$location',
+        function ($scope, $element, Events, $location) {
             /*DOM*/
             var doc = $(document);
 
@@ -646,6 +667,10 @@ innaAppControllers
             $scope.$root.$on('bundle:hidden', function () {
                 $scope.display.shortDisplay();
             });
+
+            if($location.search().ticket || $location.search().hotel) {
+                $scope.isChooseHotel = true;
+            } // else use isChooseHotel from parent scope
 
             /*Events*/
             $scope.$on('$destroy', unwatchScroll);

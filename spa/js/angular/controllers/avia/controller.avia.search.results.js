@@ -1,5 +1,4 @@
 ﻿/* Controllers */
-
 innaAppControllers.
     controller('AviaSearchResultsCtrl', [
         '$log',
@@ -18,9 +17,12 @@ innaAppControllers.
         'urlHelper',
         'innaApp.Urls',
         'innaApp.API.events',
-        'priceGenericRact',
-        function AviaSearchResultsCtrl($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService,
-            paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, priceGenericRact) {
+
+        // components
+        'PriceGenericRact',
+        'ShareLink',
+        function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService,
+            paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, PriceGenericRact, ShareLink) {
 
             var self = this;
             var header = document.querySelector('.header');
@@ -1023,8 +1025,10 @@ innaAppControllers.
                     el: 'avia_result_cont',
                     template: $templateCache.get('avia/results_avia_item_template.html'),
                     partials: {
-                        components_ruble: $templateCache.get('components/ruble.html'),
-                        components_tooltip: $templateCache.get('components/tooltip-price/templ/price-generic-ract.html')
+                        partials_ruble: $templateCache.get('components/ruble.html')
+                    },
+                    components: {
+                        componentsTooltip: PriceGenericRact
                     },
                     data: {
                         helper: aviaHelper,
@@ -1049,16 +1053,16 @@ innaAppControllers.
                         $scope.safeApply(function () {
                             $scope.popupItemInfo.show(event.original, item, $scope.criteria, $scope.searchId);
                         });
+
+                        var shareLink = new ShareLink({
+                            el : $('.js-share-component'),
+                            data : { right : true }
+                        })
                     },
                     goToPaymentClick: function (event, item) {
-                        //console.log('goToPaymentClick:');
-                        //console.log(item);
                         $scope.safeApply(function () {
                             $scope.goToPaymentClick(event.original, item);
                         });
-                    },
-                    showPopup: function (event) {
-                        priceGenericRact.events.showPopup(event);
                     }
                 });
 

@@ -1,11 +1,11 @@
-<div class="hotel-details ng-cloak" ng-style="{'background-image': background}">
+<div class="hotel-details ng-cloak" >
 
     <div class="hotel-details__wrap main__center">
 
         <div class="hotel-details__section hotel-details__section_layout_context">
             <ul class="hotel-details-control hotel-details-control_pin_left" ng-if="collection">
-                <li class="hotel-details-control__button" ng-click="back()">&larr; Список отелей</li>
-                <li class="hotel-details-control__button hotel-details-control__button_theme_arrow" ng-if="collection.hasNext(hotel)" ng-click="next(collection.getNext(hotel))">&rarr;</li>
+                <li class="hotel-details-control__button" ng-click="close()">&larr; Список отелей</li>
+                <!--for next-arrow look at -r 2062:ad2e52cea854 -->
             </ul>
             <div class="hotel-details__ta hotel-details-ta-info" ng-if="hotel.data.TaFactor">
 
@@ -57,7 +57,7 @@
                     <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
                     <div class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</div>
                 </div>
-                <ul class="hotel-details-extra" ng-if="hotel.data.Extra">
+                <ul class="hotel-details-extra" ng-if="hotel.detailed.Extra">
                     <li ng-repeat="(key, val) in hotel.data.Extra"
                         class="hotel-details-extra__item hotel-details-extra__item_type_{{key | lowercase}}">{{val}}</li>
                 </ul>

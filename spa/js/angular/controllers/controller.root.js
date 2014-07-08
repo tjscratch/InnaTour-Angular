@@ -12,11 +12,6 @@ innaAppControllers.
         'urlHelper',
         'innaApp.Urls',
         'aviaHelper',
-        function NavigationCtrl($log, $scope, $location, dataService, eventsHelper, urlHelper, appUrls, aviaHelper) {
-            function log(msg) {
-                $log.log(msg);
-            }
-
+        function ($log, $scope, $location, dataService, eventsHelper, urlHelper, appUrls, aviaHelper) {
             $scope.baloon = aviaHelper.baloon;
-
         }]);

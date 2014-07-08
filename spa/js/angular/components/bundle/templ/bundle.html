@@ -106,8 +106,8 @@
             </a>
             <a href="javascript:void(0);"
                class="bottom-actions__button bottom-actions__button_action_details"
-               ng-class="{'active': !!!getHotelDetails}"
-               ng-click="getHotelDetails($event, bundle.hotel)">Подробнее</a>
+               ng-class="{'active': !!!__getHotelDetails}"
+               ng-click="!!__getHotelDetails && getHotelDetails($event, bundle.hotel)">Подробнее</a>
         </div>
 
 
@@ -118,14 +118,9 @@
     </div>
 
     <div class="b-result__cell result-buy">
-        <button class="share-button" ng-class="{'active': linkPopup.isOpen}" ng-click="linkPopup.toggle()"></button>
+        <div class="js-share-component"></div>
 
-        <div class="tooltip tooltip-share-link" ng-if="linkPopup.isOpen">
-            <input type="text" class="share-link-input" ng-value="location">
-            <span class="icon icon-cross" ng-click="linkPopup.toggle()"></span>
-        </div>
-
-        <p class="corner-price" ng-if="bundle.getFullPrice() != bundle.getFullPackagePrice()">
+        <p class="corner-price" ng-if="bundle.getProfit() > 1000">
             <span class="cross">{{bundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
             <span class="price-description">по отдельности</span>
         </p>
@@ -139,7 +134,7 @@
             <div tool-tip-price item="bundle" is-bundle="true"></div>
         </div>
 
-        <span class="price-description" ng-if="(bundle.getFullPrice() - bundle.getFullPackagePrice()) != 0">
+        <span class="price-description" ng-if="bundle.getProfit() > 1000">
             экономия: {{bundle.getFullPrice() - bundle.getFullPackagePrice() | price}}
             <ng-include src="'components/ruble.html'"></ng-include>
         </span>

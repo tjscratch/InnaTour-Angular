@@ -38,9 +38,11 @@ gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-re
 
 gulp.task('concat-lib', function () {
     return gulp.src([
+            conf.dest + '/lib/moment-with-langs.js',
             conf.dest + '/lib/underscore.js',
             conf.dest + '/lib/ractive.js',
-            conf.dest + '/lib/polyfill.js',
+            conf.dest + '/lib/polyfill/polyfill.js',
+            conf.dest + '/lib/polyfill/classList.js',
             conf.dest + '/lib/jquery.cookie.js',
             conf.dest + '/lib/jquery.maskedinput.js',
             conf.dest + '/lib/angular-cookies.min.js',

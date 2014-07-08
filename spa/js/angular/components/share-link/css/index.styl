@@ -1,0 +1,81 @@
+.tooltip-widget {
+  position : relative;
+  height 30px
+  width 32px
+}
+
+.b-tooltip-share {
+
+  &__button {
+    background transparent
+    border 0
+    border-radius: 2px;
+    height 30px
+    width 32px
+    position absolute
+    right 3px
+    top 2px
+    cursor pointer
+    margin 0
+
+    &__icon {
+      position : absolute;
+      left : 50%;
+      top: 50%;
+      margin : -8px 0 0 -8px;
+    }
+
+    //background url(/spa/img/ticket/clip.png)
+
+    &:hover {
+      background: #e6e7e9;
+    }
+
+    &.active {
+      background: #89c13a;
+    }
+  }
+
+  &__input_wrapper {
+    padding 0 5px
+    background #4d4d4d
+  }
+
+  &__input {
+    background #4d4d4d
+    border 0
+    color #fff
+    height 20px
+    width 100%;
+  }
+
+  .tooltip_right {
+    right: -230px;
+    bottom: -45px;
+    width: 230px;
+    left: auto;
+
+    &:before {
+      top: -10px;
+      right: auto;
+      left: 12px;
+    }
+
+    &:after {
+      top: -12px;
+      left: 4px;
+      right: auto;
+    }
+
+  }
+
+  .share-link-input {
+    border: 0;
+    background: #4d4d4d;
+    color: #fff;
+    height: 20px;
+    padding: 0 5px;
+    width: 200px;
+  }
+}
+

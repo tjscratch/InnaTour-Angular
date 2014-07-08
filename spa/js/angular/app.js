@@ -15,6 +15,11 @@ var app = angular.module('innaApp', [
   'pasvaz.bindonce'
 ]);
 
+
+/* локализация дат moment */
+moment.lang('ru');
+
+
 app.constant('innaApp.Urls', {
     URL_ROOT: '/',
     URL_BUY: '/buy/',
@@ -186,7 +191,7 @@ app.config([
                 redirectTo: url.URL_ROOT
             });
 
-        //$locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
     }
 ]);
 

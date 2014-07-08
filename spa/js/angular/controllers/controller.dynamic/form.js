@@ -11,13 +11,13 @@ innaAppControllers
         function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs, $cookieStore){
             var AS_MAP_CACHE_KEY = 'serp-as-map';
 
-            var routeParams = (function(path){
+            var parseRoute = function(path){
                 if(path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) === -1) return {};
 
                 path = path.split('/');
                 path = path[path.length - 1] || path[path.length - 2];
 
-                var bits = path.split('-');
+                var bits = path.split('?')[0].split('-');
 
                 return {
                     DepartureId: bits[0],
@@ -32,7 +32,9 @@ innaAppControllers
                             []
                     })(bits[6])
                 }
-            })($location.path());
+            }
+
+            var routeParams = parseRoute($location.path());
 
             function validate(){
                 Validators.defined($scope.fromCurrent, Error('fromCurrent'));
@@ -230,5 +232,9 @@ innaAppControllers
                     }
                 }
             }
+
+//            $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
+//                if(!angular.equals(parseRoute(url), routeParams)) document.location.reload();
+//            });
         }
     ]);

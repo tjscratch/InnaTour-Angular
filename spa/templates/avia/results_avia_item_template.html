@@ -1,19 +1,24 @@
 {{#items}}
-<div class="b-result b-result_col_two_short b-result_flight-info row b-result-content b-result_middle-180 {{ this.BackArrivalDate != null ? 'b-result_middle-180' : 'b-result_middle-130' }}">
+<div class="b-result b-result_col_two_short b-result_flight-info row b-result-content
+{{ BackArrivalDate ? 'b-result_middle-180' : 'b-result_middle-130 b-result_oneway_avia' }}">
 
     <div class="b-result__cell" on-click='popupItemInfo_show:{{this}}'>
 
-        <span class="rl-airline" class="result-cell__airlines">
+        <span class="rl-airline rl-airline__list" class="result-cell__airlines">
             {{#this.transportersList}}
-            <img src="{{this.logoUrl}}" alt="" class="logo">
-            <span class="rl-airline-text">{{this.name}}</span>
+            <span class="rl-airline__item">
+                <img src="{{this.logoUrl}}" alt="" class="logo">
+                <span class="rl-airline-text">{{this.name}}</span>
+            </span>
             {{/}}
         </span>
 
         {{#(this.transportersList.length > 3)}}
         <span class="rl-airline">
-            <img src="/spa/img/group.png" alt="">
-            <span class="rl-airline-text">Несколько авиакомпаний</span>
+            <span class="rl-airline__item">
+                <img src="/spa/img/group.png" alt="">
+                <span class="rl-airline-text">Несколько авиакомпаний</span>
+            </span>
         </span>
         {{/}}
 
@@ -104,12 +109,12 @@
         {{/}}
         <span class="rl-price {{this.EtapsBack.length == 0 ? 'rl-price_1way' : ''}}">
             <span class="rl-price-item">{{priceFilter(this.Price)}}</span>
-            {{>components_ruble}}
+            {{>partials_ruble}}
         </span>
-        
+
+        <!-- tooltip price -->
         {{#isAgency()}}
-            <!-- tooltip price -->
-            {{>components_tooltip}}
+            <componentsTooltip PriceDetailsTooltipData="{{PriceDetailsTooltipData}}"/>
         {{/}}
 
         <span class="button" on-click='goToPaymentClick:{{this}}'>Купить</span>
