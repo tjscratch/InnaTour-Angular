@@ -9,8 +9,8 @@
             <span>{{AviaInfo.AirportFrom}} – {{AviaInfo.AirportTo}} – {{AviaInfo.AirportFrom}}</span>
             и отель
             <span>{{Hotel.HotelName}}</span>
-            с {{Hotel.CheckInHotel}} по {{Hotel.CheckOutHotel}},
-            {{Hotel.NightCountHotel}}<br/>
+            с {{moment(Hotel.CheckIn).format('DD MMMM')}} по {{moment(Hotel.CheckOut).format('DD MMMM')}},
+            {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["ночь", "ночи", "ночей"])}}<br/>
             Цена окончательная со всеми налогами и сборами</p>
 
         <h2 class="page-buy-success__title__info">Информация по бронированию</h2>
