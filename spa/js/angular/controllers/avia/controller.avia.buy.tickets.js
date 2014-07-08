@@ -827,6 +827,7 @@ innaAppControllers.
                                         }
 
                                         if (data.Result == 1) {
+
                                             $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
                                                 aviaHelper.baloonType.success, function () {
                                                     $location.path(Urls.URL_AVIA);

@@ -38,17 +38,17 @@
         <link rel="stylesheet" href="/build/css/ie.min.css" />
     <![endif]-->
 
-    <!--<script src="/spa/lib/if-browser.js"></script>
+    <script src="/spa/lib/if-browser.js"></script>
     <script>
         var old = ifBrowser();
 
         if(old.bName) {
             var oldV = old.bNameV.split('.');
-            if (oldV[0] == 'ie' && oldV[1] <= 9) {
+            if (oldV[0] == 'ie' && oldV[1] <= 8) {
                 location.href = '/spa/browser.html'
             }
         }
-    </script>-->
+    </script>
 
 <style type="text/css">
     .no-select {
@@ -178,15 +178,6 @@
 
 <!--[if lt IE 10]>
     <script src="/spa/js/ie.placeholder.js"></script>
-
-    <script src="spa/lib/xdomain.min.js"></script>
-    <script>
-        xdomain.slaves({
-            "http://api.test.inna.ru": "/proxy.html",
-            "https://apibeta.inna.ru": "/proxy.html",
-            "https://api.inna.ru": "/proxy.html"
-        });
-    </script>
 <![endif]-->
 <!--<script src="/spa/js/search_form.js"></script>-->
 
