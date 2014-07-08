@@ -15,10 +15,8 @@ var app = angular.module('innaApp', [
   'pasvaz.bindonce'
 ]);
 
-
 /* локализация дат moment */
 moment.lang('ru');
-
 
 app.constant('innaApp.Urls', {
     URL_ROOT: '/',

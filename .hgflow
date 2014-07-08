@@ -1,6 +1,6 @@
 [branchname]
-master = default
-develop = develop
+master = production
+develop = default
 feature = feature/
 release = release/
 hotfix = hotfix/
