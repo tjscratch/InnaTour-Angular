@@ -88,11 +88,11 @@
                 $scope.sorters.add(new Sorter('По времени отправления ОБРАТНО', function (ticket1, ticket2) { //desc
                     return +ticket1.data.BackDepartureDate - +ticket2.data.BackDepartureDate;
                 }));
-                $scope.sorters.add(new Sorter('По времени прибытия ТУДА', function (ticket1, ticket2) {
-                    return +ticket2.data.ArrivalDate - +ticket1.data.ArrivalDate;
+                $scope.sorters.add(new Sorter('По времени прибытия ТУДА', function (ticket1, ticket2) { //desc
+                    return +ticket1.data.ArrivalDate - +ticket2.data.ArrivalDate;
                 }));
-                $scope.sorters.add(new Sorter('По времени прибытия ОБРАТНО', function (ticket1, ticket2) {
-                    return +ticket2.data.BackArrivalDate - +ticket1.data.BackArrivalDate;
+                $scope.sorters.add(new Sorter('По времени прибытия ОБРАТНО', function (ticket1, ticket2) { //desc
+                    return +ticket1.data.BackArrivalDate - +ticket2.data.BackArrivalDate;
                 }));
             }
         ])

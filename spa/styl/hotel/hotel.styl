@@ -35,33 +35,32 @@
         &:last-child
           text-align right
 
-    &-text
-      margin-bottom 30px
-      font-size 14px
-
-      .hotel-details__se
-        margin-bottom 14px
-
-        p
-          margin 0 0 20px 0
-
-        &-viewport
-          height: 150px
-          overflow hidden
-          text-overflow ellipsis
-
-          p
-            margin-bottom 15px
-
-          &_state_open
-            height auto
-
-        &-more
-          color #1e88c1
-          cursor pointer
-
   &__ta
     float right
+
+.hotel-details__section
+    &-text
+        margin-bottom 30px
+        font-size 14px
+
+        p
+            margin 0 0 20px 0
+
+        &-viewport
+            height: 150px
+            overflow hidden
+            text-overflow ellipsis
+
+            p
+                margin-bottom 15px
+
+            &_state_open
+                height auto
+
+        &-more
+            color #1e88c1
+            cursor pointer
+
 
 .hotel-details-control
   font-size 0
@@ -252,6 +251,10 @@
   &__room
     border-bottom 1px solid #dedede
 
+    &-warning
+      color $red
+      margin-top 4px
+
     &-long
       display none
 
@@ -395,10 +398,6 @@
 
     &:last-child
       border-bottom 0
-
-        &-warning
-            color $red
-            margin-top 4px
 
         &-long
             display none
