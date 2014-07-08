@@ -32,7 +32,7 @@ innaAppControllers
                             []
                     })(bits[6])
                 }
-            }
+            };
 
             var routeParams = parseRoute($location.path());
 
@@ -226,15 +226,18 @@ innaAppControllers
                     $rootScope.$emit('inna.DynamicPackages.Search', o);
 
                 } catch(e) {
-                    console.warn(e);
                     if($scope.hasOwnProperty(e.message)) {
                         $scope[e.message] = e;
                     }
                 }
             }
 
-//            $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
-//                if(!angular.equals(parseRoute(url), routeParams)) document.location.reload();
-//            });
+            $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
+                var oldRouteParams = routeParams;
+
+                routeParams = parseRoute(url);
+
+                console.log(oldRouteParams, routeParams);
+            });
         }
     ]);
