@@ -41,6 +41,8 @@ angular.module('innaApp.directives')
 
                     /*Watchers*/
                     var unwatchCollectionHotels = $scope.$watchCollection('hotels', function(hotels){
+                        console.log('dynamicSerpFilterExtra::build-options');
+
                         if(!hotels || !hotels.list.length) return;
 
                         var collections = {};
@@ -64,6 +66,10 @@ angular.module('innaApp.directives')
 
                         unwatchCollectionHotels();
                     });
+
+                    $scope.$watch('options', function(){
+                        console.log('dynamicSerpFilterExtra::options');
+                    }, true);
                 }
             ]
         }

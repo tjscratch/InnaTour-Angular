@@ -1,4 +1,6 @@
-<ng:include src="'pages/dynamic/inc/bundle.html'" ng-if="combination.hotel && combination.ticket && !hotelToShowDetails"></ng:include>
+<ng:include src="'pages/dynamic/inc/bundle.html'"
+            ng-if="combination.hotel && combination.ticket"
+            ng-show="!hotelToShowDetails"></ng:include>
 
 
 <div class="results-body" ng-show="!showLanding && !hotelToShowDetails">

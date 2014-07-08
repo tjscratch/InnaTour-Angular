@@ -668,6 +668,10 @@ innaAppControllers
                 $scope.display.shortDisplay();
             });
 
+            $scope.$on('bundle:full', function () {
+                $scope.display.fullDisplay();
+            });
+
             if($location.search().ticket || $location.search().hotel) {
                 $scope.isChooseHotel = true;
             } // else use isChooseHotel from parent scope

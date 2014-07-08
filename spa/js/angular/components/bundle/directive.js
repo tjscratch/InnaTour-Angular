@@ -27,7 +27,7 @@ angular.module('innaApp.directives')
 
                     var shareLink = new ShareLink({
                         el : $element.find('.js-share-component')
-                    })
+                    });
 
                     var infoPopupElems = $('.icon-price-info, .tooltip-price', $element);
 
