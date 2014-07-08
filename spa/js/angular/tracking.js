@@ -1,5 +1,4 @@
-﻿
-var track = {
+﻿var track = {
     gotoBooking: function () {
         //отслеживаем в mixpanel
         if (window.mixpanel != null)

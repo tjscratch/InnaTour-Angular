@@ -8,5 +8,3 @@ angular.module('innaApp.conponents').
         return  new Ractive();
     }
 );
-
-
