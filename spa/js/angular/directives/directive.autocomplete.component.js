@@ -14,7 +14,8 @@
                 setResultItem: '=',
                 theme: '@',
                 askForData: '=',
-                placeholder: '@'
+                placeholder: '@',
+                urlProperty: '@'
             },
             controller: ['$scope', function ($scope) {
                 /*Properties*/
@@ -79,6 +80,12 @@
                     //$scope.result = null;
                 }
 
+                function askForDataByID(newValue) {
+                    $scope.askForData(newValue, function (data) {
+                        $scope.setCurrent(null, data);
+                    });
+                }
+
                 /*Watchers*/
                 $scope.$watch('result', function (newValue, oldValue) {
                     //console.log('$scope.$watch(result: %s', newValue);
@@ -97,9 +104,7 @@
                         }).tooltip('open');
                     } else if (!$scope.input.val()) {
                         if (newValue != null && newValue != 'null' && $scope.askForData) {
-                            $scope.askForData(newValue, function (data) {
-                                $scope.setCurrent(null, data);
-                            });
+                            askForDataByID(newValue);
                         }
                     }
                 });

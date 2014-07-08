@@ -237,8 +237,8 @@ innaAppControllers
 
                 routeParams = parseRoute(url);
 
-                if(!angular.equals(oldRouteParams, routeParams)) {
-                    $scope.$broadcast('DYNAMIC.locationChange', routeParams);
+                if(routeParams.ArrivalId !== oldRouteParams.ArrivalId || routeParams.DepartureId !== oldRouteParams.DepartureId) {
+                    window.location.reload();
                 }
             });
         }
