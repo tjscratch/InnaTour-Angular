@@ -1,5 +1,5 @@
 [branchname]
-master = default
+master = production
 develop = develop
 feature = feature/
 release = release/
