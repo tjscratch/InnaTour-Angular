@@ -18,7 +18,6 @@ var app = angular.module('innaApp', [
 /* локализация дат moment */
 moment.lang('ru');
 
-
 app.constant('innaApp.Urls', {
     URL_ROOT: '/',
     URL_BUY: '/buy/',
