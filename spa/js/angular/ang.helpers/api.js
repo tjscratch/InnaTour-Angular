@@ -6,6 +6,7 @@ angular.module('innaApp.API', [])
             if (window.DEV) host = 'http://api.lh.inna.ru:8077';
             if (window.DEV2) host = 'http://api.lh.inna.ru';
 
+            // test
             return host + '/api/v1' + s;
         }
 
