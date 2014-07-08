@@ -192,7 +192,6 @@ app.config([
             });
 
         //$locationProvider.html5Mode(false);
-
     }
 ]);
 
