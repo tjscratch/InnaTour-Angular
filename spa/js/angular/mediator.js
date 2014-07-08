@@ -1,6 +1,6 @@
 /**
  * Глобальный EventManager
- * mediator ...
+ * mediator
  */
 angular.module('innaApp.conponents').
     factory('mediator', function () {
