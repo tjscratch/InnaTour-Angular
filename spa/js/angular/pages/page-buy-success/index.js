@@ -109,7 +109,6 @@ innaAppControllers.
                     var hotelRules = new aviaHelper.hotelRules();
                     hotelRules.fillData(this.get('Hotel'));
 
-
                     this._balloonHotel = new Balloon({
                         data: {
                             balloon_class: 'balloon_ticket',

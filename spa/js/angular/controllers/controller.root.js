@@ -13,5 +13,7 @@ innaAppControllers.
         'innaApp.Urls',
         'aviaHelper',
         function ($log, $scope, $location, dataService, eventsHelper, urlHelper, appUrls, aviaHelper) {
+
+            // TODO : HELL
             $scope.baloon = aviaHelper.baloon;
         }]);
