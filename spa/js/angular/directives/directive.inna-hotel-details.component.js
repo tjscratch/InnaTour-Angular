@@ -99,6 +99,8 @@ angular.module('innaApp.directives')
                         delete $location.$$search.room;
                         $location.$$compose();
 
+                        $scope.$root.$broadcast('bundle:full');
+
                         return $scope.back();
                     };
 

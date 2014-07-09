@@ -809,6 +809,7 @@ innaAppControllers.
                 function check() {
                     if (!$scope.isCkeckProcessing) {
                         $scope.isCkeckProcessing = true;
+
                         paymentService.payCheck($scope.orderNum, function (data) {
                             try {
                                 log('paymentService.payCheck, data: ' + angular.toJson(data));
@@ -828,20 +829,25 @@ innaAppControllers.
 
                                         if (data.Result == 1) {
 
-                                            $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
-                                                aviaHelper.baloonType.success, function () {
-                                                    $location.path(Urls.URL_AVIA);
-                                                }, {
-                                                    //buttonCaption: 'Распечатать билеты', successFn: function () {
-                                                    //    //print
-                                                    //    log('print tickets');
-                                                    //    alert('Не реализовано');
-                                                    //}
-                                                    buttonCaption: 'Ok', successFn: function () {
-                                                        $scope.baloon.hide();
+                                            if (!$scope.hotel) {
+                                                $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
+                                                    aviaHelper.baloonType.success, function () {
                                                         $location.path(Urls.URL_AVIA);
-                                                    }
-                                                });
+                                                    }, {
+                                                        //buttonCaption: 'Распечатать билеты', successFn: function () {
+                                                        //    //print
+                                                        //    log('print tickets');
+                                                        //    alert('Не реализовано');
+                                                        //}
+                                                        buttonCaption: 'Ok', successFn: function () {
+                                                            $scope.baloon.hide();
+                                                            $location.path(Urls.URL_AVIA);
+                                                        }
+                                                    });
+                                            } else if($scope.hotel != null) {
+                                                // test location
+                                                redirectSuccessBuyPackage();
+                                            }
                                         }
                                         else if (data.Result == 2) {
                                             $scope.baloon.showGlobalAviaErr();
@@ -993,6 +999,12 @@ innaAppControllers.
                     }
                     ;
                 });
+            }
+
+
+            function redirectSuccessBuyPackage(){
+                $location.search({});
+                $location.path('packages/buy/success/'+ $scope.orderNum);
             }
 
             $scope.$on('$destroy', function () {

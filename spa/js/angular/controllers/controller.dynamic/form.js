@@ -237,7 +237,9 @@ innaAppControllers
 
                 routeParams = parseRoute(url);
 
-                console.log(oldRouteParams, routeParams);
+                if(!angular.equals(oldRouteParams, routeParams)) {
+                    $scope.$broadcast('DYNAMIC.locationChange', routeParams);
+                }
             });
         }
     ]);

@@ -13,8 +13,8 @@
             <h3 class="hotel-info-name">{{Hotel.HotelName}}</h3>
 
             <div class="hotel-info-date">
-                с {{Hotel.CheckInHotel}} по {{Hotel.CheckOutHotel}},
-                {{Hotel.NightCountHotel}}
+                с {{moment(Hotel.CheckIn).format('ll')}} по {{moment(Hotel.CheckOut).format('ll')}},
+                {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["ночь", "ночи", "ночей"])}}
             </div>
         </div>
     </div>
@@ -22,10 +22,10 @@
     <h3 class="hotel-info-name">{{Hotel.Room.RoomName}}</h3>
 
     <div class="hotel-info-date r__hotel-info">
-        {{#Hotel.Room.BedTypeList}}
+        {{#Hotel.Room.BedTypeList:i}}
         <span>
             {{Name}}
-            <span ng-if="!$last">,&nbsp;</span>
+            {{#(i+1) != Hotel.Room.BedTypeList.length}},&nbsp;{{/}}
         </span>
         {{/Hotel.Room.BedTypeList}}
     </div>
@@ -45,5 +45,5 @@
         </a>
     {{/}}
 
-    <a href="javascript:void(0)" class="pull-right" on-click="getHotelDetails">Подробнее</a>
+    <!--<a href="javascript:void(0)" class="pull-right" on-click="getHotelDetails">Подробнее</a>-->
 </div>
