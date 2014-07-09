@@ -16,7 +16,7 @@
                 askForData: '=',
                 placeholder: '@'
             },
-            controller: ['$scope', function ($scope) {
+            controller: ['$scope', '$timeout', function ($scope, $timeout) {
                 /*Properties*/
                 $scope.fulfilled = false;
 
@@ -25,13 +25,13 @@
                         return 'Откуда';
                     else
                         return $scope.placeholder;
-                }
+                };
 
                 $scope.doResultCallback = function (item) {
                     if ($scope.setResultCallback) {
                         $scope.setResultCallback({ 'item': item });
                     }
-                }
+                };
 
                 //эта хуйня нужна чтобы можно было присвоить и id и name сразу, без доп запросов
                 var unwatch = $scope.$watch('setResultItem', function (item) {
@@ -71,12 +71,18 @@
                         }
                     }
                     $scope.fulfilled = true;
-                }
+                };
 
                 $scope.unfulfill = function () {
                     //console.log('keypress unfulfill');
                     //$scope.fulfilled = false;
                     //$scope.result = null;
+                };
+
+                function askForDataByID(newValue) {
+                    $scope.askForData(newValue, function (data) {
+                        $scope.setCurrent(null, data);
+                    });
                 }
 
                 /*Watchers*/
@@ -97,11 +103,17 @@
                         }).tooltip('open');
                     } else if (!$scope.input.val()) {
                         if (newValue != null && newValue != 'null' && $scope.askForData) {
-                            $scope.askForData(newValue, function (data) {
-                                $scope.setCurrent(null, data);
-                            });
+                            askForDataByID(newValue);
                         }
                     }
+                });
+
+                $scope.$on('DYNAMIC.locationChange', function(event, routeParams){
+                    $scope.$root._dynamicSearchFormInvisible = true;
+
+                    $timeout(function(){
+                        $scope.$root._dynamicSearchFormInvisible = false;
+                    }, 1);
                 });
             }],
 

@@ -3,17 +3,15 @@ innaAppControllers
         '$scope',
         'DynamicFormSubmitListener',
         'DynamicPackagesDataProvider',
-        'DynamicPackagesCacheWizard',
         '$routeParams',
         'innaApp.API.events',
         '$location',
         'innaApp.Urls',
         'aviaHelper',
-        function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, DynamicPackagesCacheWizard, $routeParams, Events, $location, Urls, aviaHelper) {
+        function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper) {
             /*Private*/
             var searchParams = angular.copy($routeParams);
             var cacheKey = '';
-            var AS_MAP_CACHE_KEY = 'serp-as-map';
             var serpScope = $scope;
             var isChooseHotel = null;
             var MAX_HOTEL_LEN = 180;
@@ -322,9 +320,6 @@ innaAppControllers
                 };
             };
 
-            // JFYI !!+val does the following magic: convert val into integer (+val) and then convert to boolean (!!)
-            $scope.asMap = !!+DynamicPackagesCacheWizard.require(AS_MAP_CACHE_KEY);
-
             $scope.showLanding = true;
 
             /**
@@ -366,7 +361,6 @@ innaAppControllers
             };
 
             $scope.goReservation = function (room, hotel) {
-                console.log('go-reservation');
 
                 var url = Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
                     $routeParams.DepartureId,
@@ -391,10 +385,6 @@ innaAppControllers
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
-            $scope.$watch('asMap', function (newVal) {
-                DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, +newVal);
-            });
-
             $scope.$watch('hotels', function (data) {
                 $scope.$broadcast('change:hotels:filters', data);
             }, true);
@@ -411,8 +401,17 @@ innaAppControllers
             });
 
 
+            function getAsMap(){
+              return $scope.asMap;
+            }
+
+            function setAsMap(param){
+              $scope.asMap = param;
+            }
+
+
             function locatioAsMap(){
-              if (!$scope.asMap) {
+              if (!getAsMap()) {
                 delete $location.$$search.map;
                 $location.$$compose();
               } else {
@@ -423,7 +422,7 @@ innaAppControllers
             // слушаем событие от компонента отеля
             //  открываем карту с точкой этого отеля
             $scope.$on('hotel:go-to-map', function (evt, data) {
-                $scope.asMap = !$scope.asMap;
+                setAsMap(1);
 
                 // TODO - переделать
                 // прокидываем данные глубже для дочерних компонентов
@@ -436,21 +435,18 @@ innaAppControllers
 
 
             // прямая ссылка на карту
-            if ($location.$$search.map) {
-                $scope.asMap = 1;
-            }
+            setAsMap(($location.$$search.map) ? 1 : 0);
+
 
             // переход с карты на список по кнопке НАЗАД в браузере
             // работает тольео в одну сторону - назад
             $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
-                if (!$location.search().map) {
-                    $scope.asMap = 0;
-                }
+              setAsMap(($location.search().map) ? 1 : 0);
             });
 
             // случаем событие переключения контрола с карты на список и обратно
             $scope.$on('toggle:view:hotels:map', function () {
-                $scope.asMap = !$scope.asMap;
+                setAsMap((getAsMap()) ? 0 : 1);
                 locatioAsMap();
             });
 
