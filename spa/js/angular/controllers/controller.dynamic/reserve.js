@@ -285,8 +285,8 @@
                 var model = m.model;
                 var apiModel = angular.copy(m.apiModel);
 
-                apiModel.CustomerWishlist = apiModel.searchParams.CustomerWishlist;
-                delete apiModel.searchParams.CustomerWishlist;
+                //apiModel.CustomerWishlist = apiModel.searchParams.CustomerWishlist;
+                //delete apiModel.searchParams.CustomerWishlist;
 
                 paymentService.packageReserve(apiModel,
                     function (data) {
