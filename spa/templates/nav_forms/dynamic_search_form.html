@@ -1,4 +1,4 @@
-<form class="search-ticket-form" ng-controller="DynamicFormCtrl">
+<form class="search-ticket-form" ng-controller="DynamicFormCtrl" ng-if="!_dynamicSearchFormInvisible">
 	<div dropdown-input
          theme="search-field-block search__city"
          provide-suggest-callback="provideSuggestToFromList"
@@ -6,8 +6,7 @@
          result="fromCurrent"
          set-result-callback="setResultCallbackFrom(item)"
          ask-for-data="loadObjectById"
-         placeholder="Откуда"
-         urlProperty="DepartureId"></div>
+         placeholder="Откуда"></div>
 
     <div dropdown-input
             theme="search-field-block search__city"
@@ -16,8 +15,7 @@
             result="toCurrent"
             set-result-callback="setResultCallbackTo(item)"
             ask-for-data="loadObjectById"
-            placeholder="Куда"
-            urlProperty="ArrivalId"></div>
+            placeholder="Куда"></div>
 
     <div date-picker-widget
             interval="false"
