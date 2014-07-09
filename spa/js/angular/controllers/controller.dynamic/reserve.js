@@ -283,7 +283,10 @@
                 //console.log('$scope.reserve');
                 var m = $scope.getApiModelForReserve();
                 var model = m.model;
-                var apiModel = m.apiModel;
+                var apiModel = angular.copy(m.apiModel);
+
+                apiModel.CustomerWishlist = apiModel.searchParams.CustomerWishlist;
+                delete apiModel.searchParams.CustomerWishlist;
 
                 paymentService.packageReserve(apiModel,
                     function (data) {
