@@ -513,11 +513,15 @@
 // Filters
 .filters__body
     min-height 41px
-    position relative
+    position absolute;
+    left : 50%;
+    margin-left  : -($site-width / 2);
+    bottom : -41px;
 
     &_position_fixed
         position fixed
         top 148px
+        bottom: auto;
         z-index 102
         left 50%
         margin-left -480px
