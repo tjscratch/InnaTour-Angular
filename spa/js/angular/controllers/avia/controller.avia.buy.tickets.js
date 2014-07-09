@@ -829,7 +829,7 @@ innaAppControllers.
 
                                         if (data.Result == 1) {
 
-                                            if (!$scope.hotel) {
+                                            //if (!$scope.hotel) {
                                                 $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
                                                     aviaHelper.baloonType.success, function () {
                                                         $location.path(Urls.URL_AVIA);
@@ -844,11 +844,11 @@ innaAppControllers.
                                                             $location.path(Urls.URL_AVIA);
                                                         }
                                                     });
-                                            } else if($scope.hotel != null) {
-                                                // test location
-                                                $scope.baloon.hide();
-                                                redirectSuccessBuyPackage();
-                                            }
+                                            //} else if($scope.hotel != null) {
+                                            //    // test location
+                                            //    $scope.baloon.hide();
+                                            //    redirectSuccessBuyPackage();
+                                            //}
                                         }
                                         else if (data.Result == 2) {
                                             $scope.baloon.showGlobalAviaErr();
