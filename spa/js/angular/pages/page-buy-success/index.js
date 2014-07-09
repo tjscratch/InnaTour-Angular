@@ -173,6 +173,8 @@ innaAppControllers.
                         hotel.StarsArr.push(i);
                     }
 
+                    data.price = $filter('price')(data.Price);
+
                     // сколько взрослых и детей
                     passengers.forEach(function (pass) {
                         var date = dateHelper.dateToJsDate(pass.Birthday);
