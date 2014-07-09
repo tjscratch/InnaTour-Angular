@@ -846,6 +846,7 @@ innaAppControllers.
                                                     });
                                             } else if($scope.hotel != null) {
                                                 // test location
+                                                $scope.baloon.hide();
                                                 redirectSuccessBuyPackage();
                                             }
                                         }
