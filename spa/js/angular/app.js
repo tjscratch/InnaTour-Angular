@@ -188,7 +188,7 @@ app.config([
             when(url.URL_AUTH_RESTORE, dynamic()).
             when(url.URL_AUTH_SIGNUP, dynamic()).
             when(url.URL_HELP, {
-                templateUrl: 'pages/help.html',
+                templateUrl: 'pages/page-help/templ/base.html',
                 controller: 'HelpPageController'
             }).
             otherwise({
