@@ -429,6 +429,7 @@
 
                 baloonType: baloonType,
 
+                // TODO : welcome to hell
                 baloon: {
                     isVisible: false,
                     caption: '',
@@ -443,8 +444,9 @@
                             });
                     },
                     showGlobalDpErr: function () {
-                        helper.baloon.show(null, null,
-                            baloonType.err, function () {
+                        helper.baloon.show(null, null, baloonType.err,
+                            function () {
+                                // TODO : what a fuck ?
                                 $location.path(Urls.URL_DYNAMIC_PACKAGES);
                             });
                     },
