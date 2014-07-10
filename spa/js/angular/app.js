@@ -41,6 +41,8 @@ app.constant('innaApp.Urls', {
 
     B2B_DISPLAY_ORDER: '/display-order/',
 
+    URL_HELP: '/help/',
+
     eof: null
 });
 
@@ -185,6 +187,10 @@ app.config([
             }).
             when(url.URL_AUTH_RESTORE, dynamic()).
             when(url.URL_AUTH_SIGNUP, dynamic()).
+            when(url.URL_HELP, {
+                templateUrl: 'pages/help.html',
+                controller: 'HelpPageController'
+            }).
             otherwise({
                 redirectTo: url.URL_ROOT
             });
