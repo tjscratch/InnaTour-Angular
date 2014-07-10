@@ -42,6 +42,24 @@ innaAppControllers.
                     return true;
             };
 
+            $scope.hasImgBack = function(item){
+                return !$scope.isNullOrEmpty(item.BackTitleRow1) ||
+                !$scope.isNullOrEmpty(item.BackTitleRow2) ||
+                !$scope.isNullOrEmpty(item.BackSubTitleRow1) ||
+                !$scope.isNullOrEmpty(item.BackSubTitleRow2) ||
+                !$scope.isNullOrEmpty(item.BackPrice);
+            }
+
+            $scope.hasImgFront = function(item){
+                return !$scope.isNullOrEmpty(item.BackTitleRow1) ||
+                !$scope.isNullOrEmpty(item.BackTitleRow2) ||
+                !$scope.isNullOrEmpty(item.BackSubTitleRow1) ||
+                !$scope.isNullOrEmpty(item.BackSubTitleRow2) ||
+                !$scope.isNullOrEmpty(item.BackPrice)
+            }
+
+
+
             function preventBubbling($event) {
                 if ($event.stopPropagation) $event.stopPropagation();
                 if ($event.preventDefault) $event.preventDefault();

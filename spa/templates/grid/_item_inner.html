@@ -1,6 +1,6 @@
 <img bo-src="item.Image" class="offer-img" alt=""/>
 <div class="darken-container" bo-if="item.NeedFilterBrightness"></div>
-<div class="offer-info" bo-if="!showImgOnly(item)">
+<div class="offer-info" bo-if="hasImgFront(item)">
     <div class="offer-info-container">
         <h3 class="offer-title" bo-if="!isNullOrEmpty(item.FrontTitleRow1)" bo-bind="item.FrontTitleRow1"></h3>
         <h3 class="offer-title" bo-if="!isNullOrEmpty(item.FrontTitleRow2)" bo-bind="item.FrontTitleRow2"></h3>
@@ -11,7 +11,7 @@
         </p>
     </div>
 </div>
-<div class="offer-info-hover" bo-if="!showImgOnly(item)" >
+<div class="offer-info-hover" bo-if="hasImgBack(item)" >
     <div class="offer-info-container">
         <h3 class="offer-title" bo-if="!isNullOrEmpty(item.BackTitleRow1)" bo-bind="item.BackTitleRow1"></h3>
         <h3 class="offer-title" bo-if="!isNullOrEmpty(item.BackTitleRow2)" bo-bind="item.BackTitleRow2"></h3>
