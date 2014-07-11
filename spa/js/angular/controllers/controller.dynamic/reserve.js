@@ -12,10 +12,15 @@
         'storageService',
         'urlHelper',
         '$timeout',
+
+        '$templateCache',
+        //components
+        'Balloon',
         function ($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper,
-            paymentService, Urls, storageService, urlHelper, $timeout) {
+            paymentService, Urls, storageService, urlHelper, $timeout, $templateCache, Balloon) {
 
             $scope.baloon.showExpireCheck();
+
             //initial
             (function(){
                 var children = $routeParams.Children ?
@@ -324,7 +329,19 @@
             };
 
             $scope.showReserveError = function () {
-                $scope.baloon.showGlobalDpErr();
+                //$scope.baloon.showGlobalDpErr();
+                $scope.baloon.hide();
+                new Balloon({
+                    partials: {
+                        balloonContent: $templateCache.get('components/balloon/templ/server-error.html')
+                    },
+                    data : {
+                        balloonClose : true,
+                        callbackClose : function(){
+                            console.log('i think that i close');
+                        }
+                    }
+                }).show();
             }
 
             $scope.$on('$destroy', function () {

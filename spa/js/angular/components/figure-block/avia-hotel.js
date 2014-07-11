@@ -6,7 +6,6 @@ innaAppConponents.
         function (Events, $templateCache, DynamicBlock) {
 
             var DynamicBlockAviaHotel = DynamicBlock.extend({
-                debug: true,
                 template: $templateCache.get('components/figure-block/templ/avia-hotel.html'),
                 partials: {
                     ticket2ways: $templateCache.get('components/figure-block/templ/ticket2ways.html'),

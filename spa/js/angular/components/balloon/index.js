@@ -10,27 +10,36 @@ innaAppConponents.
                 debug: true,
                 append: true,
                 data: {
-                    balloonClose: true
-                },
-                init: function () {
-                    this._overlay = this.find('.js-overlay');
-                    this._balloon = this.find('.js-b-balloon');
+                    // show close button
+                    balloonClose: true,
+                    isVisible: false,
 
+                    //Вызвать метод когда будет закрыт попап
+                    //@override
+                    callbackClose: null
+                },
+                init: function (options) {
+                    this._super(options);
 
                     this.on({
                         hide: this.hide,
                         changeTarifs: this.changeTarifs
-                    })
-                },
-                show: function () {
-                    this._overlay.style.display = 'block';
-                    this._balloon.style.display = 'block';
-                },
-                hide: function () {
-                    this._overlay.style.display = 'none';
-                    this._balloon.style.display = 'none';
+                    });
                 },
 
+                show: function () {
+                    this.set({isVisible: true});
+                },
+                hide: function () {
+                    this.set({isVisible: false});
+                    if (typeof this.get('callbackClose') == 'function') {
+                        this.get('callbackClose')();
+                    }
+                },
+
+                toggleVisible: function () {
+                    this.toggle('isVisible');
+                },
 
                 changeTarifs: function (evt) {
 
