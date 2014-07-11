@@ -38,7 +38,8 @@
                 {{bundle.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
             </p>
                 <span class="date">
-                    <b>{{dateHelper.getTime(bundle.ticket.data.BackArrivalDate)}} {{bundle.ticket.data.OutCode}}</b>
+                    {{ (__etapsBack = bundle.ticket.getEtaps('Back')) ? '' : '' }}
+                    <b>{{dateHelper.getTime(bundle.ticket.data.BackArrivalDate)}} {{__etapsBack[__etapsBack.length - 1].data.InCode}}</b>
                     {{bundle.ticket.data.BackArrivalDate | date: 'd MMM'}}, {{bundle.ticket.data.BackArrivalDate | date: 'EEE'}}
                 </span>
         </div>
