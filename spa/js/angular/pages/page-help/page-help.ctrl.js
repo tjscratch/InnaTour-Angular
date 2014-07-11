@@ -8,6 +8,7 @@ angular.module('innaApp.controllers')
         function($scope, $templateCache, HelpDataService, ShareLink, $location){
             var EVENT_OPEN = 'OPEN';
 
+            var mediator = new Ractive();
 
             var toggler = Ractive.extend({
                 debug: true,
@@ -26,6 +27,8 @@ angular.module('innaApp.controllers')
                             
                             var link = $(event.node).data('link');
                             $location.hash(link);
+
+                            mediator.fire(EVENT_OPEN, this);
                         },
                         close: function(){
                             this.set('visible', false);
@@ -53,9 +56,12 @@ angular.module('innaApp.controllers')
                         self.set({
                             topics: data
                         });
-
-
                     });
+
+                    mediator.on(EVENT_OPEN, function(target){
+                        //todo
+                        
+                    })
                 }
             }));
         }
