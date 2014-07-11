@@ -364,7 +364,9 @@ innaAppControllers.
             function visaNeededCheck() {
                 if ($scope.reservationModel != null && $scope.reservationModel.passengers != null && $scope.aviaInfo != null) {
                     //Id-шники гражданств пассажиров
-                    var passengersCitizenshipIds = _.map($scope.reservationModel.passengers, function (pas) { return pas.citizenship.id; });
+                    var passengersCitizenshipIds = _.map($scope.reservationModel.passengers, function (pas) {
+                        return pas.citizenship.id;
+                    });
                     $scope.visaControl.check(passengersCitizenshipIds, $scope.aviaInfo);
                 }
             }
@@ -815,6 +817,11 @@ innaAppControllers.
                                 log('paymentService.payCheck, data: ' + angular.toJson(data));
                                 //data = { Result: 1 };
                                 if (data != null) {
+
+                                    /*------------*/
+                                    //data.Result = 1;
+                                    /*------------*/
+
                                     if (data.Result == 1 || data.Result == 2) {
                                         //пришел ответ - или оплачено или ошибка
                                         $scope.isOrderPaid = true;
@@ -829,11 +836,13 @@ innaAppControllers.
 
                                         if (data.Result == 1) {
 
-                                            //if (!$scope.hotel) {
+                                            if (!$scope.hotel) {
                                                 $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
-                                                    aviaHelper.baloonType.success, function () {
+                                                    aviaHelper.baloonType.success,
+                                                    function () {
                                                         $location.path(Urls.URL_AVIA);
-                                                    }, {
+                                                    },
+                                                    {
                                                         //buttonCaption: 'Распечатать билеты', successFn: function () {
                                                         //    //print
                                                         //    log('print tickets');
@@ -844,11 +853,9 @@ innaAppControllers.
                                                             $location.path(Urls.URL_AVIA);
                                                         }
                                                     });
-                                            //} else if($scope.hotel != null) {
-                                            //    // test location
-                                            //    $scope.baloon.hide();
-                                            //    redirectSuccessBuyPackage();
-                                            //}
+                                            } else if ($scope.hotel != null) {
+                                                redirectSuccessBuyPackage();
+                                            }
                                         }
                                         else if (data.Result == 2) {
                                             $scope.baloon.showGlobalAviaErr();
@@ -1003,14 +1010,16 @@ innaAppControllers.
             }
 
 
-            function redirectSuccessBuyPackage(){
+            function redirectSuccessBuyPackage() {
                 $location.search({});
-                $location.path('packages/buy/success/'+ $scope.orderNum);
+                $location.path('packages/buy/success/' + $scope.orderNum);
             }
 
             $scope.$on('$destroy', function () {
+                $scope.baloon.hide();
                 $scope.paymentDeadline.destroy();
                 destroyPopups();
                 $('#buy-listener').off();
+                $scope = null;
             });
         }]);

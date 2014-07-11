@@ -39,9 +39,6 @@ innaAppControllers.
                     pluralize: utils.pluralize,
                     moment : moment
                 },
-                beforeInit: function (options) {
-
-                },
                 init: function () {
                     var that = this;
                     this._balloon = null;

@@ -59,11 +59,7 @@
 
                 packageReserve: function (queryData, successCallback, errCallback) {
                     var qData = angular.toParam(queryData);
-                    AjaxHelper.post(apiUrls.PACKAGE_RESERVATION, qData, function (data) {
-                        successCallback(data);
-                    }, function (data, status) {
-                        errCallback(data, status);
-                    });
+                    AjaxHelper.post(apiUrls.PACKAGE_RESERVATION, qData, successCallback, errCallback);
                 },
 
                 getSelectedVariant: function (queryData, successCallback, errCallback) {

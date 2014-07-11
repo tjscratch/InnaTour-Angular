@@ -3,7 +3,7 @@ angular.module('innaApp.controllers')
         '$scope', '$location', 'innaApp.API.events', 'AuthDataProvider', 'innaApp.Urls',
         function($scope, $location, Events, AuthDataProvider, app){
             /*Private*/
-            function setUserInfo(data){
+            var setUserInfo = function(data){
                 $scope.safeApply(function(){
                     $scope.$root.user = new inna.Models.Auth.User(data);
 
