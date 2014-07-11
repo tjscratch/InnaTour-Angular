@@ -6,7 +6,7 @@ innaAppConponents.
 
             var DynamicBlock = Ractive.extend({
                 debug: true,
-                template: $templateCache.get('components/dynamic-block/templ/base-dynamic.html'),
+                template: $templateCache.get('components/figure-block/templ/base-dynamic.html'),
                 data : {
                     transclude : false,
                     transcludeContent : '<div></div>',

@@ -817,6 +817,11 @@ innaAppControllers.
                                 log('paymentService.payCheck, data: ' + angular.toJson(data));
                                 //data = { Result: 1 };
                                 if (data != null) {
+
+                                    /*------------*/
+                                    //data.Result = 1;
+                                    /*------------*/
+
                                     if (data.Result == 1 || data.Result == 2) {
                                         //пришел ответ - или оплачено или ошибка
                                         $scope.isOrderPaid = true;
@@ -1011,7 +1016,6 @@ innaAppControllers.
             }
 
             $scope.$on('$destroy', function () {
-                console.log('$destroy avia buy controller');
                 $scope.baloon.hide();
                 $scope.paymentDeadline.destroy();
                 destroyPopups();

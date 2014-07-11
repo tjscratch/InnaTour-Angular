@@ -18,7 +18,9 @@ innaAppConponents.
                     //@override
                     callbackClose: null
                 },
-                init: function () {
+                init: function (options) {
+                    this._super(options);
+
                     this.on({
                         hide: this.hide,
                         changeTarifs: this.changeTarifs
