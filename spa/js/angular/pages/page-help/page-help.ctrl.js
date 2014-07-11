@@ -22,19 +22,22 @@ angular.module('innaApp.controllers')
                 },
                 init: function(){
                     this.on({
-                        open: function(event){
-                            this.set('visible', true);
-                            
-                            var link = $(event.node).data('link');
-                            $location.hash(link);
-
-                            mediator.fire(EVENT_OPEN, this);
-                        },
-                        close: function(){
-                            this.set('visible', false);
-                            this.set('openIf', null);
-                        }
+                        open: this.open,
+                        close: this.close
                     });
+                },
+                
+                open: function(event){
+                    this.set('visible', true);
+
+                    var link = $(event.node).data('link');
+                    $location.hash(link);
+
+                    mediator.fire(EVENT_OPEN, this);
+                },
+                close: function(){
+                    this.set('visible', false);
+                    this.set('openIf', null);
                 }
             });
 
@@ -59,8 +62,9 @@ angular.module('innaApp.controllers')
                     });
 
                     mediator.on(EVENT_OPEN, function(target){
-                        //todo
-                        
+                        self.findAllComponents('Toggle').forEach(function(toggler){
+                            toggler !== target && toggler.close();
+                        });
                     })
                 }
             }));
