@@ -1,9 +1,9 @@
-<a href="javascript:void(0)" on-click="open" class="question-item-link" data-link="{{Id}}">{{Title}}</a>
+<a href="javascript:void(0)" on-click="open" class="question-item-link" data-link="{{ID}}">{{Title}}</a>
 
-{{#visible || Id == openIf}}
+{{#visible || ID == openIf}}
 <div class="question-answer-container">
     <div class="question-answer">
-        <div>{{{Text}}}</div>
+        <div>{{{Content}}}</div>
         <div class="question-button">
             <share />
         </div>

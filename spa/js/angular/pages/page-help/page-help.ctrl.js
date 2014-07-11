@@ -12,7 +12,7 @@ angular.module('innaApp.controllers')
 
             var toggler = Ractive.extend({
                 debug: true,
-                template: $templateCache.get('pages/page-help/templ/page-help-toggle.html'),
+                template: $templateCache.get('pages/page-help/templ/page-help-toggle.hbs.html'),
                 data : {
                     visible : false,
                     openIf: null
@@ -26,7 +26,7 @@ angular.module('innaApp.controllers')
                         close: this.close
                     });
                 },
-                
+
                 open: function(event){
                     this.set('visible', true);
 
@@ -44,7 +44,7 @@ angular.module('innaApp.controllers')
             new (Ractive.extend({
                 debug: true,
                 el: document.querySelector('.page-help'),
-                template: $templateCache.get('pages/page-help/templ/page-help.html'),
+                template: $templateCache.get('pages/page-help/templ/page-help.hbs.html'),
                 data: {
                     topics: null,
                     link: $location.hash()
