@@ -28,16 +28,18 @@ angular.module('innaApp.controllers')
                 },
 
                 open: function(event){
+                    mediator.fire(EVENT_OPEN, this);
+
                     this.set('visible', true);
 
                     var link = $(event.node).data('link');
                     $location.hash(link);
-
-                    mediator.fire(EVENT_OPEN, this);
                 },
                 close: function(){
                     this.set('visible', false);
                     this.set('openIf', null);
+
+                    $location.hash('');
                 }
             });
 
