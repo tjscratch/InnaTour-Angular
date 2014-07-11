@@ -6,6 +6,8 @@ angular.module('innaApp.controllers')
         'ShareLink',
         '$location',
         function($scope, $templateCache, HelpDataService, ShareLink, $location){
+            var EVENT_OPEN = 'OPEN';
+
 
             var toggler = Ractive.extend({
                 debug: true,
@@ -21,7 +23,7 @@ angular.module('innaApp.controllers')
                     this.on({
                         open: function(event){
                             this.set('visible', true);
-
+                            
                             var link = $(event.node).data('link');
                             $location.hash(link);
                         },
@@ -48,11 +50,11 @@ angular.module('innaApp.controllers')
                     var self = this;
 
                     HelpDataService.fetchAll(function(data){
-                        console.log(data);
-
                         self.set({
                             topics: data
-                        })
+                        });
+
+
                     });
                 }
             }));
