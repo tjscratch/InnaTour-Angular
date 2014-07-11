@@ -1038,6 +1038,9 @@ innaAppControllers.
                         priceFilter: function (text) {
                             return $filter('price')(text);
                         },
+                        console: function(){
+                            console.log.apply(console, arguments);
+                        },
 
                         isAgency: $scope.isAgency,
 
