@@ -56,6 +56,8 @@ angular.module('innaApp.API', [])
 
             "*_PAGE_CONTENT": url('/Section/Get/'),
 
+            HELP_TOPICS: url('/faq/get'),
+
             eof: null
         }
     })
