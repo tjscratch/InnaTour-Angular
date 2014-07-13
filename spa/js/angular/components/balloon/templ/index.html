@@ -1,6 +1,9 @@
-<div class="overlay js-overlay"></div>
+
+<div class="overlay js-overlay {{isVisible ? 'overlay_show' : ''}}"></div>
+
 
 <!--intro='fadeIn' outro='fadeOut'-->
+{{#isVisible}}
 <div class="b-balloon js-b-balloon balloon {{balloon_class}}">
 
     {{#balloonClose}}
@@ -15,3 +18,4 @@
         {{>balloonContent}}
     </div>
 </div>
+{{/}}
