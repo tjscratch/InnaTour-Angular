@@ -4,6 +4,7 @@
 
     <div class="b-result__cell" on-click='popupItemInfo_show:{{this}}'>
 
+        {{#(this.transportersList.length <= 3)}}
         <span class="rl-airline rl-airline__list" class="result-cell__airlines">
             {{#this.transportersList}}
             <span class="rl-airline__item">
@@ -12,6 +13,7 @@
             </span>
             {{/}}
         </span>
+        {{/}}
 
         {{#(this.transportersList.length > 3)}}
         <span class="rl-airline">
