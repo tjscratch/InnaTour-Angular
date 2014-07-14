@@ -784,7 +784,7 @@ innaAppControllers.
                     //$to.tooltip("open");
                     setTimeout(function () {
                         $to.tooltipX("open");
-                    }, 300);
+                    }, 50);
                 },
                 close: function ($to) {
                     //$to.tooltip("disable");
