@@ -37,4 +37,4 @@ angular.module('innaApp.services')
                 }
             }
         }
-    ])
+    ]);

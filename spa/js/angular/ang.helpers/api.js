@@ -76,6 +76,7 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_HOTEL_DETAILS_LOADED: 'inna.Dynamic.SERP.Hotel.DetailedInfo.Loaded',
             DYNAMIC_SERP_CHOOSE_HOTEL : 'choose:hotel',
             DYNAMIC_SERP_CHOOSE_TICKET : 'choose:ticket',
+            DYNAMIC_SERP_CLOSE_BUNDLE : 'bundle:close',
 
             AUTH_FORGOTTEN_LINK_CLICKED: 'inna.Auth.Forgotten-link-clicked',
             AUTH_SIGN_IN: 'inna.Auth.SignIn',
