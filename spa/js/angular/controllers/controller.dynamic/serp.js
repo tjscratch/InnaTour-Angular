@@ -587,9 +587,18 @@ innaAppControllers
                 $scope.display.fullDisplay();
             });
 
-            $scope.$root.$on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function (evt, data) {
-                alert('close');
-                $scope.display.shortDisplay();
+            // подписываемся на событие toggle:visible:bundle
+            // скрываем бандл вместе с шапкой
+            $scope.$root.$on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
+                $scope.$apply(function () {
+                    $scope.display.shortDisplay();
+                });
+            });
+
+            $scope.$root.$on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
+                $scope.$apply(function () {
+                    $scope.display.fullDisplay();
+                });
             });
 
             var onScroll = function () {
@@ -662,16 +671,6 @@ innaAppControllers
                     else this.fullDisplay();
                 }
             };
-
-            // подписываемся на событие toggle:visible:bundle
-            // скрываем бандл вместе с шапкой
-            $scope.$root.$on('bundle:hidden', function () {
-                $scope.display.shortDisplay();
-            });
-
-            $scope.$on('bundle:full', function () {
-                $scope.display.fullDisplay();
-            });
 
             if($location.search().ticket || $location.search().hotel) {
                 $scope.isChooseHotel = true;

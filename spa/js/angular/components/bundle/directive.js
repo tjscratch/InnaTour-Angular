@@ -20,22 +20,17 @@ angular.module('innaApp.directives')
                 'ShareLink',
                 function ($scope, aviaHelper, $element, Events, ShareLink) {
 
-                    window.addEventListener("orientationchange", function () {
-
-                        //alert(window.orientation);
-
-                        switch (window.orientation) {
-                            case 0:
-                                $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
-                                break;
-                            case -90:
-                                break;
-                            case 90:
-                                break;
-                            default:
-                                break;
+                    function orientation() {
+                        if (window.orientation % 180 === 0) {
+                            $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                        } else {
+                            $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
                         }
-                    }, false);
+                    }
+
+                    orientation();
+                    window.addEventListener("orientationchange", orientation, false);
+
 
                     var shareLink = new ShareLink({
                         el: $element.find('.js-share-component')
