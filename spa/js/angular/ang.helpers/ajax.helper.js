@@ -15,10 +15,9 @@ angular.module('innaApp.services')
                     dataType: 'json',
                     traditional: !hasObjects(data),
                     data: data,
-                    xhrFields: { withCredentials: true },
-                    crossDomain: true,
+                    //xhrFields: { withCredentials: true },
+                    //crossDomain: true,
                     //async: typeof async !== 'undefined' ? async : true,
-
                     eol: null
                 };
 
@@ -132,6 +131,11 @@ angular.module('innaApp.services')
                 var params = angular.extend({}, options);
                 options = null;
 
+
+                if(!params.data) {
+                    params.data = {};
+                }
+
                 if (typeof params.cache !== 'undefined') {
                     angular.extend(params, {cache: cache});
                 }
@@ -143,8 +147,8 @@ angular.module('innaApp.services')
                     cache : params.cache || false,
                     traditional: !hasObjects(params.data),
                     data: params.data,
-                    xhrFields: { withCredentials: true },
-                    crossDomain: true,
+                    //xhrFields: { withCredentials: true },
+                    //crossDomain: true,
                     eol: null,
                     beforeSend: function () {
 

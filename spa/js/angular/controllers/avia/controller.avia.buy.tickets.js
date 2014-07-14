@@ -822,7 +822,7 @@ innaAppControllers.
                                     //data.Result = 1;
                                     /*------------*/
 
-                                    if (data.Result == 1 || data.Result == 2) {
+                                    if (data.Result == 1 || data.Result == 2  || data.Result == 3) {
                                         //пришел ответ - или оплачено или ошибка
                                         $scope.isOrderPaid = true;
 
@@ -857,7 +857,7 @@ innaAppControllers.
                                                 redirectSuccessBuyPackage();
                                             }
                                         }
-                                        else if (data.Result == 2) {
+                                        else if (data.Result == 2 || data.Result == 3) {
                                             $scope.baloon.showGlobalAviaErr();
                                         }
                                     }

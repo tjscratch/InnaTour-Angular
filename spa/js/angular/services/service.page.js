@@ -19,6 +19,9 @@ angular.module('innaApp.services')
                     } else {
 
                         AjaxHelper.get(url, null, function (data) {
+
+                            console.log(data);
+
                             cache[url] = data;
 
                             console.log('cache test', cache);
