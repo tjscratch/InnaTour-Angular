@@ -587,10 +587,15 @@ innaAppControllers
                 $scope.display.fullDisplay();
             });
 
+            $scope.$root.$on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function (evt, data) {
+                alert('close');
+                $scope.display.shortDisplay();
+            });
+
             var onScroll = function () {
                 var body = document.body || document.documentElement;
 
-                if (body.scrollTop > 230) {
+                if (body.scrollTop > 100) {
                     $scope.$apply(function () {
                         $scope.display.shortDisplay(true);
                     });
