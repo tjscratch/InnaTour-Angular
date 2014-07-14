@@ -115,8 +115,8 @@
         <div class="rlf-part rlf-part_transfer" ng-if="etapAgg.etapBack != null && etapAgg.etapBack.nextEtapBack != null && !$last">
             <div class="rlf-column1">
                 <div class="rlf-airport">Пересадка</div>
-                <div class="rlf-travel-time" ng-if="etapAgg.etapBack.WayTime > 0">{{etapAgg.etapBack.WaitTimeFormatted}}</div>
-                <div class="rlf-travel-time" ng-if="!(etapAgg.etapBack.WayTime > 0)">&nbsp;</div>
+                <div class="rlf-travel-time" ng-if="etapAgg.etapBack.WaitTimeFormatted > 0">{{etapAgg.etapBack.WaitTimeFormatted}}</div>
+                <div class="rlf-travel-time" ng-if="!(etapAgg.etapBack.WaitTimeFormatted > 0)">&nbsp;</div>
             </div>
             <div class="rlf-colum4">
                 <span ng-if="etapAgg.etapBack.NextOutCity != etapAgg.etapBack.NextOutPort">{{etapAgg.etapBack.NextOutCity}}, {{etapAgg.etapBack.NextOutPort}} ({{etapAgg.etapBack.NextOutCode}}), {{etapAgg.etapBack.NextOutCountryName}}</span>
