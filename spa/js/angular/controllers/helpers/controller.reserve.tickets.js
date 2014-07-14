@@ -813,16 +813,15 @@ innaAppControllers.
                     return (item.value != null && (!_.isString(item.value) || item.value.length > 0));
                 });
                 if (invalidItem != null) {
-                    //показываем тултип
-                    var $to = $("#" + invalidItem.id);
-                    ////не навешивали тултип
-                    //if (!(invalidItem.haveTooltip == true)) {
-                    //    $scope.tooltipControl.init($to);
-                    //    invalidItem.haveTooltip = true;
-                    //}
-                    $scope.tooltipControl.init($to);
-                    $scope.tooltipControl.open($to);
-                    //прерываемся
+
+                    // скроллим страницу вверх
+                    // показываем тултип
+                    $("body").animate({"scrollTop":0},function(){
+                        var $to = $("#" + invalidItem.id);
+                        $scope.tooltipControl.init($to);
+                        $scope.tooltipControl.open($to);
+                    });
+
                     return;
                 }
 
