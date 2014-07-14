@@ -4,13 +4,14 @@
     <div class="b-result__cell"
          ng-click="popupItemInfo.show($event, item, criteria, searchId)">
 
-        <span ng-if="!(item.transportersList.length > 3)" class="rl-airline" ng-repeat="tr in item.transportersList"
-              class="result-cell__airlines">
-            <img ng-src="{{tr.logoUrl}}" alt="" class="logo">
-            <span class="rl-airline-text">{{tr.name}}</span>
+        <span ng-if="item.transportersList.length <= 3" class="result-cell__airlines">
+            <span ng-repeat="tr in item.transportersList">
+                <img ng-src="{{tr.logoUrl}}" alt="" class="logo">
+                <span class="rl-airline-text">{{tr.name}}</span>
+            </span>
         </span>
 
-        <span ng-if="item.transportersList.length > 3" class="rl-airline">
+        <span ng-if="item.transportersList.length > 3" class="result-cell__airlines rl-airline">
             <img ng-src="/spa/img/group.png" alt="">
             <span class="rl-airline-text">Несколько авиакомпаний</span>
         </span>
