@@ -50,12 +50,12 @@ angular.module('innaApp.services')
 
 
                         if (!data || (data == null)) {
-                            that._errorManager.set({ errId: 1 });
+                            //that._errorManager.set({ errId: 1 });
                             return false
                         }
 
                         if (data && (data.error != undefined)) {
-                            that._errorManager.set({ errId: data.error.id });
+                            //that._errorManager.set({ errId: data.error.id });
                             return false
                         }
 
