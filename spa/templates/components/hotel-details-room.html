@@ -10,7 +10,10 @@
                 </ul>
             </div>
             <div class="hotel-details-rooms__room-cancel-rules">
-                <span class="hotel-details-rooms__room-cancel-rules-ok" ng-if="room.IsRefundable">Бесплатная отмена бронирования</span>
+                <span class="hotel-details-rooms__room-cancel-rules-ok" ng-if="room.IsRefundable">
+                    <span ng-if="room.IsReturnsWithFine">Отмена бронирования со штрафом</span>
+                    <span ng-if="!room.IsReturnsWithFine">Бесплатная отмена бронирования</span>
+                </span>
                 <span ng-if="!room.IsRefundable">Без возможности возврата</span>
 
                 <div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 1">Остался последний номер!</div>
