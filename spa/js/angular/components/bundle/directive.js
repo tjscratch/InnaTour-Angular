@@ -20,15 +20,42 @@ angular.module('innaApp.directives')
                 'ShareLink',
                 function ($scope, aviaHelper, $element, Events, ShareLink) {
 
-                    function orientation() {
-                        if (window.orientation % 180 === 0) {
-                            $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                    function orientation(){
+                        var ua = navigator.userAgent.toLowerCase();
+                        var isAndroid = ua.indexOf("android") > -1;
+
+                        if (isAndroid) {
+                            switch (window.orientation) {
+                                case 0:
+                                    $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                                    break;
+                                case -90:
+                                    $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                                    break;
+                                case 90:
+                                    $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                                    break;
+                                default:
+                                    break;
+                            }
                         } else {
-                            $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                            switch (window.orientation) {
+                                case 0:
+                                    $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                                    break;
+                                case -90:
+                                    $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                                    break;
+                                case 90:
+                                    $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
 
-                    orientation();
+                    setTimeout(orientation, 0);
                     window.addEventListener("orientationchange", orientation, false);
 
 

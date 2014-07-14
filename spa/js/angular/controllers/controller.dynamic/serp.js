@@ -579,6 +579,7 @@ innaAppControllers
         function ($scope, $element, Events, $location) {
             /*DOM*/
             var doc = $(document);
+            $scope.isVisible = true;
 
             $scope.$root.$on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function (evt, data) {
                 $scope.display.fullDisplay();
@@ -590,30 +591,20 @@ innaAppControllers
             // подписываемся на событие toggle:visible:bundle
             // скрываем бандл вместе с шапкой
             $scope.$root.$on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
-                $scope.$apply(function () {
-                    $scope.display.shortDisplay();
-                });
+               $scope.display.shortDisplay();
             });
 
             $scope.$root.$on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
-                $scope.$apply(function () {
-                    $scope.display.fullDisplay();
-                });
+               $scope.display.fullDisplay();
             });
 
             var onScroll = function () {
                 var body = document.body || document.documentElement;
 
-                if (body.scrollTop > 100) {
-                    $scope.$apply(function () {
-                        $scope.display.shortDisplay(true);
-                    });
-
+                if (body.scrollTop >= 100) {
+                    $scope.display.shortDisplay(true);
                 } else {
-                    $scope.$apply(function () {
-                        $scope.display.fullDisplay(true);
-                    });
-
+                    $scope.display.fullDisplay(true);
                 }
             };
 
@@ -655,6 +646,7 @@ innaAppControllers
                     this.current = this.SHORT;
                     $scope.$emit('header:hidden');
                     changeParentScopePadding(this.current);
+                    $scope.isVisible = false;
                 }
 
                 this.fullDisplay = function (opt_param) {
@@ -664,17 +656,23 @@ innaAppControllers
                     this.current = this.FULL;
                     $scope.$emit('header:visible');
                     changeParentScopePadding(this.current);
+                    $scope.isVisible = true;
                 }
 
                 this.toggle = function () {
-                    if (this.isCurrent(this.FULL)) this.shortDisplay();
-                    else this.fullDisplay();
+                    var that = this;
+                    if (this.isCurrent(this.FULL)) {
+                        that.shortDisplay()
+                    }
+                    else {
+                       that.fullDisplay();
+                    }
                 }
             };
 
             if($location.search().ticket || $location.search().hotel) {
                 $scope.isChooseHotel = true;
-            } // else use isChooseHotel from parent scope
+            }
 
             /*Events*/
             $scope.$on('$destroy', unwatchScroll);

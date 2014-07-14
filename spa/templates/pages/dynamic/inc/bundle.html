@@ -1,28 +1,28 @@
 <div class="recommend-bundle-container"
      ng-controller="DynamicPackageSERPRecommendedBundleCtrl"
-     ng-class="{'recommend-bundle-container_short':display.isCurrent(display.SHORT)}">
+     ng-class="{'recommend-bundle-container_short':!isVisible}">
     <div class="recommend-bundle">
 
         <div class="recommend-bundle-background"></div>
 
         <div class="main__center recommend-bundle-wrap"
-             ng-class="{'recommend-bundle-wrap_small': display.isCurrent(display.SHORT)}">
+             ng-class="{'recommend-bundle-wrap_small': !isVisible}">
 
-            <h3 class="recommend-bundle-title" ng-if="display.isCurrent(display.FULL) && isChooseHotel">
+            <h3 class="recommend-bundle-title" ng-if="isVisible && isChooseHotel">
                 Выбранный вариант
             </h3>
 
-            <h3 class="recommend-bundle-title" ng-if="display.isCurrent(display.FULL) && !isChooseHotel">
+            <h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
                 Рекомендованный вариант
             </h3>
 
-            <div class="w-expand-collapse-link_up w-expand-collapse-link" ng-if="display.isCurrent(display.FULL)">
+            <div class="w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">
                 <a href="javascript:void(0);" ng-click="display.toggle()" class="expand-collapse-link">
                     <span class="icon-expand"></span> Свернуть
                 </a>
             </div>
 
-            <div ng-if="display.isCurrent(display.FULL) && combination.hotel && combination.ticket"
+            <div ng-if="isVisible && combination.hotel && combination.ticket"
                  inna-dynamic-bundle
                  inna-dynamic-bundle-bundle="combination"
                  inna-dynamic-bundle-state="state"
@@ -31,7 +31,7 @@
                  inna-dynamic-bundle-with-reservation-button="true"></div>
 
 
-            <div class="row result-small" ng-if="display.isCurrent(display.SHORT)" ng-click="display.toggle()" style="cursor:pointer;">
+            <div class="row result-small" ng-if="!isVisible" ng-click="display.toggle()" style="cursor:pointer;">
                 <div class="result-small__cell col-xs-5 col-no-padding">
                     <p class="flight">
                         <img class="flight__image" ng-src="{{airLogo( combination.ticket.getEtaps('To')[0].data.TransporterCode )}}"
@@ -79,7 +79,7 @@
 
                     </div>
 
-                    <div class="w-expand-collapse-link_down w-expand-collapse-link" ng-if="display.isCurrent(display.SHORT)">
+                    <div class="w-expand-collapse-link_down w-expand-collapse-link" ng-if="!isVisible">
                         <a href="javascript:void(0);" class="expand-collapse-link">
                             <span class="icon-collapse"></span> Развернуть
                         </a>
