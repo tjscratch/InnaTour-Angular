@@ -36,7 +36,8 @@ angular.module('innaApp.controllers')
             };
 
             $scope.signInWith = function(method){
-                var brokerWindow = window.open(AuthDataProvider.socialBrockerURL(method), "width=300;height=300", "SocialBroker");
+
+                var brokerWindow = window.open(AuthDataProvider.socialBrockerURL(method), "SocialBroker", "width=500,height=500,resizable=yes,scrollbars=no,status=no");
 
                 brokerWindow.focus();
 
@@ -48,6 +49,8 @@ angular.module('innaApp.controllers')
                         });
                     });
                 });
+
+                return false;
             };
 
             $scope.showProfile = function(){
