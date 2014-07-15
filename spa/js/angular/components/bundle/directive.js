@@ -20,22 +20,44 @@ angular.module('innaApp.directives')
                 'ShareLink',
                 function ($scope, aviaHelper, $element, Events, ShareLink) {
 
-                    window.addEventListener("orientationchange", function () {
+                    function orientation(){
+                        var ua = navigator.userAgent.toLowerCase();
+                        var isAndroid = ua.indexOf("android") > -1;
 
-                        //alert(window.orientation);
-
-                        switch (window.orientation) {
-                            case 0:
-                                $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
-                                break;
-                            case -90:
-                                break;
-                            case 90:
-                                break;
-                            default:
-                                break;
+                        if (isAndroid) {
+                            switch (window.orientation) {
+                                case 0:
+                                    $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                                    break;
+                                case -90:
+                                    $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                                    break;
+                                case 90:
+                                    $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } else {
+                            switch (window.orientation) {
+                                case 0:
+                                    $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                                    break;
+                                case -90:
+                                    $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                                    break;
+                                case 90:
+                                    $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
-                    }, false);
+                    }
+
+                    setTimeout(orientation, 0);
+                    window.addEventListener("orientationchange", orientation, false);
+
 
                     var shareLink = new ShareLink({
                         el: $element.find('.js-share-component')

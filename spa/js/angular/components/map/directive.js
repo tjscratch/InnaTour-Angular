@@ -29,7 +29,7 @@ angular.module('innaApp.directives')
 
                         // прячем footer
                         $scope.$emit('region-footer:hide');
-                        $scope.$emit('bundle:hidden');
+                        $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
                         $element.addClass('big-map_short');
 
 
