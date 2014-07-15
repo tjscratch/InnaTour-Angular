@@ -4,44 +4,62 @@ angular.module('innaApp.conponents').
         '$templateCache',
         function ($filter, $templateCache) {
 
-            var EventManager = new Ractive();
-
             var Tripadvisor = Ractive.extend({
+                template: $templateCache.get('components/tripadvisor/templ/index.hbs.html'),
                 append: true,
                 data: {
-                    isVisible: false
+                    withOutTd : false
                 },
                 init: function () {
                     var that = this;
 
+                    this.on({
+                        change : function(data){
+
+                        },
+                        teardown: function (evt) {
+
+                        }
+                    })
+
+                    this.observe('TaFactor', function(newValue, oldValue, keypath) {
+                        if (newValue) {
+                            this.set({ TaFactorArr: this.parse(this.get('TaFactor'))})
+                        }
+                    });
                 },
 
-                test: function (end) {
-                    console.log(end);
+                /**
+                 * Создаем массив для шаблона
+                 * @param end
+                 * @returns {Array}
+                 */
+                parse: function (end) {
                     var list = [];
-                    var start = 0;
+                    var isFloat = $filter('isFloat')(end);
 
-                    for (var i = 0; i < 5; i++) {
+                    for (var i = 0; i < 5; ++i) {
                         list.push({
-                            index: i,
                             value: null,
                             active: false,
                             isFloat: false
                         })
                     }
 
-
-                    if (start < end) {
-                        while (start < end) {
-                            list.forEach(function (item) {
-                                if (item.index == start) {
-                                    item.active = true;
-                                    item.value = end;
-                                }
-                            })
-                            start++;
+                    list.every(function (item, index) {
+                        //console.log((index + 1) <= end, (index + 1) , end, isFloat );
+                        if ((index + 1) <= end) {
+                            item.active = true;
+                            item.value = end;
+                        } else {
+                            if(isFloat){
+                                item.isFloat = true;
+                            }
+                            return false;
                         }
-                    }
+                        return true;
+                    })
+
                     return list;
                 }
 
