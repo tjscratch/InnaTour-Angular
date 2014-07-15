@@ -20,7 +20,8 @@
         .directive('innaHotel', [
             '$templateCache',
             '$timeout',
-            function ($templateCache, $timeout) {
+            'Tripadvisor',
+            function ($templateCache, $timeout, Tripadvisor) {
                 return {
                     template: $templateCache.get('components/hotel/templ/index.html'),
                     scope: false,
@@ -33,6 +34,16 @@
                             $scope.virtualBundle = new inna.Models.Dynamic.Combination();
                             $scope.virtualBundle.hotel = $scope.hotel;
                             $scope.virtualBundle.ticket = $scope.combination.ticket;
+
+                            // Tripadvisor
+                            var _tripadvisor = new Tripadvisor({
+                                el : $element.find('.js-tripadvisor-container'),
+                                data : {
+                                    TaCommentCount: $scope.hotel.data.TaCommentCount,
+                                    TaFactor: $scope.hotel.data.TaFactor,
+                                    TaFactorCeiled: $scope.hotel.data.TaFactorCeiled
+                                }
+                            })
 
                             $scope.goToMap = function () {
                                 $scope.$emit('hotel:go-to-map', $scope.hotel);
@@ -49,6 +60,12 @@
                             $element.on('click', '.js-hotel-info-place', function (evt) {
                                 $scope.$emit('hotel:go-to-map', $scope.hotel);
                             });
+
+
+                            $scope.$on('$destroy', function(){
+                                _tripadvisor.teardown();
+                                _tripadvisor = null;
+                            })
                         }],
                     link: function ($scope, $element) {
                         $scope.$watch('hotel.currentlyInvisible', function (isInvis) {

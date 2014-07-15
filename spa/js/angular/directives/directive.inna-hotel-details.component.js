@@ -19,7 +19,11 @@ angular.module('innaApp.directives')
                 'aviaHelper',
                 'innaApp.API.events',
                 '$location',
-                function($scope, $element, $timeout, aviaHelper, Events, $location){
+
+                // components
+                'Tripadvisor',
+                function($scope, $element, $timeout, aviaHelper, Events, $location, Tripadvisor){
+                    var _tripadvisor = null;
                     /*Dom*/
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
@@ -55,6 +59,17 @@ angular.module('innaApp.directives')
                         try {
                             $scope.$digest();
                         } catch (e) {}
+
+
+                        // Tripadvisor
+                        _tripadvisor = new Tripadvisor({
+                            el : $element.find('.js-tripadvisor-container'),
+                            data : {
+                                TaCommentCount: $scope.hotel.data.TaCommentCount,
+                                TaFactor: $scope.hotel.data.TaFactor,
+                                TaFactorCeiled: $scope.hotel.data.TaFactorCeiled
+                            }
+                        })
                     }
 
                     /*Properties*/
@@ -149,6 +164,8 @@ angular.module('innaApp.directives')
 
                     $scope.$on('$destroy', function(){
                         $('body').removeAttr('style');
+                        _tripadvisor.teardown();
+                        _tripadvisor = null;
                     })
                 }
             ],
