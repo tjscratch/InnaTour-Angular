@@ -16,11 +16,11 @@ innaAppControllers
             var isChooseHotel = null;
             var MAX_HOTEL_LEN = 180;
 
-            var calibrate = function (list, scrollTop, __now){
+            var calibrate = function (list, scrollTop, __now) {
                 var TICKET_HEIGHT = 200;
                 var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
 
-                if(!__now && calibrate.__scrolledTicketsCache == scrolledTickets) {
+                if (!__now && calibrate.__scrolledTicketsCache == scrolledTickets) {
                     //console.log('do not calibrate');
                     return;
                 } else {
@@ -31,8 +31,8 @@ innaAppControllers
                     var limit = scrolledTickets * 1.3 + 7;
                     var count = 0;
 
-                    list.each(function(item){
-                        if(!item.hidden) {
+                    list.each(function (item) {
+                        if (!item.hidden) {
                             count++;
 
                             item.currentlyInvisible = (count > limit);
@@ -70,7 +70,7 @@ innaAppControllers
                 serpScope.hotelToShowDetails = hotel;
                 $location.search('displayHotel', hotel.data.HotelId);
 
-                if(buyAction) {
+                if (buyAction) {
                     $location.search('action', 'buy');
                 }
 
@@ -93,7 +93,7 @@ innaAppControllers
                             serpScope.$digest();
                         },
                         function () { //error
-                            $scope.$apply(function($scope){
+                            $scope.$apply(function ($scope) {
                                 hotel404();
                                 $scope.hotels.drop(hotel);
                                 $scope.closeHotelDetails();
@@ -113,9 +113,9 @@ innaAppControllers
              * Переход в раздел - подробно об отеле
              */
             $scope.$on('more:detail:hotel', function (evt, data) {
-              // показать header - фотрма поиска перед переходом на страницу подробнее
-              $scope.$emit('header:visible');
-              if(data) getHotelDetails(data);
+                // показать header - фотрма поиска перед переходом на страницу подробнее
+                $scope.$emit('header:visible');
+                if (data) getHotelDetails(data);
             });
 
             function loadTab() {
@@ -129,7 +129,7 @@ innaAppControllers
                         $scope.hotels.flush();
 
                         for (var i = 0, raw = null; raw = data.Hotels[i++];) {
-                            if(!raw.HotelName) continue;
+                            if (!raw.HotelName) continue;
 
                             var hotel = new inna.Models.Hotels.Hotel(raw);
                             hotel.hidden = false;
@@ -241,7 +241,7 @@ innaAppControllers
                 }
 
 
-                $scope.$apply(function($scope){
+                $scope.$apply(function ($scope) {
                     $.when($scope.state.switchTo(defaultTab))
                         .then(function () {
                             onTabLoad(onTabLoadParam);
@@ -356,7 +356,7 @@ innaAppControllers
 
             $scope.setTicket = function (ticket) {
                 /*$scope.combination.ticket = ticket;
-                $location.search('ticket', ticket.data.VariantId1);*/
+                 $location.search('ticket', ticket.data.VariantId1);*/
                 throw Error('NOT IMPLEMENTED! Use Events.DYNAMIC_SERP_CHOOSE_TICKET instead');
             };
 
@@ -396,27 +396,27 @@ innaAppControllers
                 calibrate($scope.hotels, utils.getScrollTop(), true);
             }, true);
 
-            $scope.$on('Dynamic.SERP.*.Sorting', function(){
+            $scope.$on('Dynamic.SERP.*.Sorting', function () {
                 calibrate($scope.hotels, utils.getScrollTop(), true);
             });
 
 
-            function getAsMap(){
-              return $scope.asMap;
+            function getAsMap() {
+                return $scope.asMap;
             }
 
-            function setAsMap(param){
-              $scope.asMap = param;
+            function setAsMap(param) {
+                $scope.asMap = param;
             }
 
 
-            function locatioAsMap(){
-              if (!getAsMap()) {
-                delete $location.$$search.map;
-                $location.$$compose();
-              } else {
-                $location.search('map', 'show');
-              }
+            function locatioAsMap() {
+                if (!getAsMap()) {
+                    delete $location.$$search.map;
+                    $location.$$compose();
+                } else {
+                    $location.search('map', 'show');
+                }
             }
 
             // слушаем событие от компонента отеля
@@ -441,7 +441,7 @@ innaAppControllers
             // переход с карты на список по кнопке НАЗАД в браузере
             // работает тольео в одну сторону - назад
             $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
-              setAsMap(($location.search().map) ? 1 : 0);
+                setAsMap(($location.search().map) ? 1 : 0);
             });
 
             // случаем событие переключения контрола с карты на список и обратно
@@ -559,11 +559,11 @@ innaAppControllers
                 $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
 
 
-                setTimeout(function(){
+                setTimeout(function () {
                     new ShareLink({
-                        el : $element.find('.js-share-component'),
-                        data : {
-                            right : true
+                        el: $element.find('.js-share-component'),
+                        data: {
+                            right: true
                         }
                     })
                 }, 0)
@@ -591,20 +591,24 @@ innaAppControllers
             // подписываемся на событие toggle:visible:bundle
             // скрываем бандл вместе с шапкой
             $scope.$root.$on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
-               $scope.display.shortDisplay();
+                $scope.display.shortDisplay();
             });
 
             $scope.$root.$on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
-               $scope.display.fullDisplay();
+                $scope.display.fullDisplay();
             });
 
             var onScroll = function () {
                 var body = document.body || document.documentElement;
 
                 if (body.scrollTop >= 100) {
-                    $scope.display.shortDisplay(true);
+                    $scope.$apply(function ($scope) {
+                        $scope.display.shortDisplay(true);
+                    });
                 } else {
-                    $scope.display.fullDisplay(true);
+                    $scope.$apply(function ($scope) {
+                        $scope.display.fullDisplay(true);
+                    });
                 }
             };
 
@@ -613,7 +617,6 @@ innaAppControllers
             };
 
             doc.on('scroll', onScroll);
-
 
 
             /*Properties*/
@@ -640,7 +643,7 @@ innaAppControllers
                 }
 
                 this.shortDisplay = function (opt_param) {
-                    if(!opt_param)
+                    if (!opt_param)
                         unwatchScroll();
 
                     this.current = this.SHORT;
@@ -650,7 +653,7 @@ innaAppControllers
                 }
 
                 this.fullDisplay = function (opt_param) {
-                    if(!opt_param)
+                    if (!opt_param)
                         doc.on('scroll', onScroll);
 
                     this.current = this.FULL;
@@ -665,12 +668,12 @@ innaAppControllers
                         that.shortDisplay()
                     }
                     else {
-                       that.fullDisplay();
+                        that.fullDisplay();
                     }
                 }
             };
 
-            if($location.search().ticket || $location.search().hotel) {
+            if ($location.search().ticket || $location.search().hotel) {
                 $scope.isChooseHotel = true;
             }
 
