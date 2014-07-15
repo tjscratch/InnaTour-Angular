@@ -8,7 +8,6 @@ var _ENV_ = process.env.NODE_ENV || '';
 
 // Копируем в папаку publish
 gulp.task('copy-project', function () {
-
     var build = '/' + conf.version;
 
     gulp.src(['./favicon.ico']).pipe(gulp.dest(conf.publish));
@@ -21,10 +20,9 @@ gulp.task('copy-project', function () {
     gulp.src(['./Web.config']).pipe(gulp.dest(conf.publish + build + '/js'));
 
 
-    gulp.src(conf.dest + '/**').pipe(gulp.dest(conf.publish + '/spa'));
+    gulp.src([conf.dest + '/**', '!' + conf.dest + '/browser.html']).pipe(gulp.dest(conf.publish + '/spa'));
 
-    gulp.src(['./browser.html']).pipe(gulp.dest(conf.publish + '/spa'));
+    //gulp.src([conf.publish + '/browser.html']).pipe(gulp.dest(conf.publish + '/spa'));
 
     gulp.src('./tours/web.config').pipe(gulp.dest(conf.publish + '/tours'));
-
 });
