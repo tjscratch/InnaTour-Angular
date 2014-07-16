@@ -17,7 +17,12 @@ innaAppControllers.
         'eventsHelper',
         'urlHelper',
         'innaApp.Urls',
-        function AviaBuyTicketsCtrl($log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls) {
+
+        // components
+        '$templateCache',
+        'Balloon',
+        function AviaBuyTicketsCtrl($log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls
+            , $templateCache, Balloon) {
 
             var self = this;
 
@@ -822,7 +827,7 @@ innaAppControllers.
                                     //data.Result = 1;
                                     /*------------*/
 
-                                    if (data.Result == 1 || data.Result == 2  || data.Result == 3) {
+                                    if (data.Result > 0) {
                                         //пришел ответ - или оплачено или ошибка
                                         $scope.isOrderPaid = true;
 
@@ -857,8 +862,18 @@ innaAppControllers.
                                                 redirectSuccessBuyPackage();
                                             }
                                         }
-                                        else if (data.Result == 2 || data.Result == 3) {
+                                        else if (data.Result == 2) {
                                             $scope.baloon.showGlobalAviaErr();
+                                        }
+                                        else if(data.Result == 3){
+                                            $scope._baloon = new Balloon({
+                                                data : {
+                                                    balloonClose : true
+                                                },
+                                                partials : {
+                                                    balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
+                                                }
+                                            }).show();
                                         }
                                     }
                                 }
@@ -1017,6 +1032,10 @@ innaAppControllers.
 
             $scope.$on('$destroy', function () {
                 $scope.baloon.hide();
+                if($scope._baloon) {
+                    $scope._baloon.teardown();
+                    $scope._baloon = null;
+                }
                 $scope.paymentDeadline.destroy();
                 destroyPopups();
                 $('#buy-listener').off();
