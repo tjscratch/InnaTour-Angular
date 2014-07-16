@@ -58,6 +58,8 @@ angular.module('innaApp.API', [])
 
             HELP_TOPICS: url('/faq/get'),
 
+            PARTNERSHIP_GET_COOKIE: url('/Reklama/GetReklamaId'),
+
             eof: null
         }
     })
