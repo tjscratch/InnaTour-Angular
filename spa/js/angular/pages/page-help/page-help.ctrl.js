@@ -7,6 +7,7 @@ angular.module('innaApp.controllers')
         '$location',
         function($scope, $templateCache, HelpDataService, ShareLink, $location){
             var EVENT_OPEN = 'OPEN';
+            var hash = $location.hash();
 
             var mediator = new Ractive();
 
@@ -49,7 +50,7 @@ angular.module('innaApp.controllers')
                 template: $templateCache.get('pages/page-help/templ/page-help.hbs.html'),
                 data: {
                     topics: null,
-                    link: $location.hash()
+                    link: hash
                 },
                 components : {
                     Toggle : toggler
@@ -61,13 +62,20 @@ angular.module('innaApp.controllers')
                         self.set({
                             topics: data
                         });
+
+                        var offsetTop = parseInt(
+                            $(  self.find('[data-link="' + hash + '"]')  )
+                                .offset().top
+                        );
+
+                        document.documentElement.scrollTop = document.body.scrollTop = offsetTop - 120;
                     });
 
                     mediator.on(EVENT_OPEN, function(target){
                         self.findAllComponents('Toggle').forEach(function(toggler){
                             toggler !== target && toggler.close();
                         });
-                    })
+                    });
                 }
             }));
         }
