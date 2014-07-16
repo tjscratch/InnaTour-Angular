@@ -27,6 +27,8 @@ angular.module('innaApp.directives')
                             this.caption = baseOption.caption;
                             this.start = baseOption.start;
                             this.end = baseOption.end;
+
+                            this.shown = true;
                         });
 
                         Option.prototype.describe = function(){
@@ -163,31 +165,11 @@ angular.module('innaApp.directives')
 
                                 if(option.state != state) option.selected = false;
                             });
-                        }
+                        };
 
                         $scope.reset = function(dir) {
                             $scope.options.resetDir(dir);
-                        }
-
-                        /*Watchers*/
-                        var unwatchCollectionTickets = $scope.$watchCollection('tickets', function(tickets){
-                            if(!tickets || !tickets.list.length) return;
-
-                            for(var i = 0, option = null; option = $scope.options.options[i++];) {
-                                var atLeastOne = tickets.advancedSearch(function(ticket){
-                                    var propertyName = [option.direction.prefix, option.state.property].join('');
-                                    var date = ticket.data[propertyName];
-
-                                    return dateHelper.isHoursBetween(date, option.start, option.end);
-                                });
-
-                                if(atLeastOne) {
-                                    option.shown = true;
-                                }
-                            }
-
-                            unwatchCollectionTickets();
-                        });
+                        };
                     }
                 ]
             };

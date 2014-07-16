@@ -124,28 +124,29 @@
 .ui-slider-range
     background #89c13a !important
 
+
 .results-list
-    width 704px
+  width 704px
 
   &.results-list-clear
     width auto
 
-    &__empty
-        padding 100px 0 300px
-        background-repeat no-repeat
-        background-position center 50px
+  &__empty
+    padding 100px 0 300px
+    background-repeat no-repeat
+    background-position center 50px
 
-        &_type
-            &_hotels
-                background-image: url(/spa/img/empty-list__hotels.png)
-            &_tickets
-                background-image: url(/spa/img/empty-list__tickets.png)
+    &_type
+      &_hotels
+          background-image: url(/spa/img/empty-list__hotels.png)
+      &_tickets
+          background-image: url(/spa/img/empty-list__tickets.png)
 
-        p
-            font-size 18px
-            line-height 24px
-            text-align center
-            margin 0
+    p
+      font-size 18px
+      line-height 24px
+      text-align center
+      margin 0
 
 .results-list_720
     width 720px
@@ -221,12 +222,12 @@
     /*width 145px*/
     text-align center
     font-weight bold
-    padding 68px 0 0
+    padding 56px 0 0
     display block
     font-size 25px
 
 .rl-price_1way
-    padding-top 40px
+    padding-top 30px
 
 .rl-price-item
     letter-spacing -.025em
@@ -663,6 +664,13 @@
         float left
         overflow hidden
         width 108px
+
+        &_style_full-width
+            width auto
+
+            .ra-fly-type-list__item
+                width 50%
+                float left
 
 .filters__container_fixed
     position fixed

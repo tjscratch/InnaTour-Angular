@@ -3,10 +3,10 @@
 innaAppControllers.
     controller('ReserveTicketsCtrl', ['$log', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
         'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'Validators', 'innaApp.API.events',
-        function ReserveTicketsCtrl($log, $timeout, $scope, $rootScope, $routeParams, $filter, $location,
-            dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Events) {
+        function ReserveTicketsCtrl($log, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Events) {
 
             var self = this;
+
             function log(msg) {
                 $log.log(msg);
             }
@@ -66,11 +66,13 @@ innaAppControllers.
             function visaNeededCheck() {
                 if ($scope.validationModel != null && $scope.validationModel.passengers != null && $scope.item != null) {
                     //Id-шники гражданств пассажиров
-                    var passengersCitizenshipIds = _.map($scope.validationModel.passengers, function (pas) { return pas.citizenship.value.id; });
+                    var passengersCitizenshipIds = _.map($scope.validationModel.passengers, function (pas) {
+                        return pas.citizenship.value.id;
+                    });
                     $scope.visaControl.check(passengersCitizenshipIds, $scope.item);
                 }
             }
-            
+
             $scope.visaControl = new aviaHelper.visaControl();
 
             $scope.lastPeopleValidation = null;
@@ -120,47 +122,47 @@ innaAppControllers.
                             var type = getPeopleType(pas.birthday.value);
                             switch (type) {
                                 case peopleType.adult:
-                                    {
-                                        if (adultsFound) {
-                                            setNotValid(pas.birthday);
-                                        }
-                                        else {
-                                            availableAdultCount--;
-                                            peopleFound.adultsFoundCount++;
-                                            if (availableAdultCount == 0) {
-                                                adultsFound = true;
-                                            }
-                                        }
-                                        break;
+                                {
+                                    if (adultsFound) {
+                                        setNotValid(pas.birthday);
                                     }
+                                    else {
+                                        availableAdultCount--;
+                                        peopleFound.adultsFoundCount++;
+                                        if (availableAdultCount == 0) {
+                                            adultsFound = true;
+                                        }
+                                    }
+                                    break;
+                                }
                                 case peopleType.child:
-                                    {
-                                        if (childsFound) {
-                                            setNotValid(pas.birthday);
-                                        }
-                                        else {
-                                            availableChildCount--;
-                                            peopleFound.childsFoundCount++;
-                                            if (availableChildCount == 0) {
-                                                childsFound = true;
-                                            }
-                                        }
-                                        break;
+                                {
+                                    if (childsFound) {
+                                        setNotValid(pas.birthday);
                                     }
+                                    else {
+                                        availableChildCount--;
+                                        peopleFound.childsFoundCount++;
+                                        if (availableChildCount == 0) {
+                                            childsFound = true;
+                                        }
+                                    }
+                                    break;
+                                }
                                 case peopleType.infant:
-                                    {
-                                        if (infantsFound) {
-                                            setNotValid(pas.birthday);
-                                        }
-                                        else {
-                                            availableInfantsCount--;
-                                            peopleFound.infantsFoundCount++;
-                                            if (availableInfantsCount == 0) {
-                                                infantsFound = true;
-                                            }
-                                        }
-                                        break;
+                                {
+                                    if (infantsFound) {
+                                        setNotValid(pas.birthday);
                                     }
+                                    else {
+                                        availableInfantsCount--;
+                                        peopleFound.infantsFoundCount++;
+                                        if (availableInfantsCount == 0) {
+                                            infantsFound = true;
+                                        }
+                                    }
+                                    break;
+                                }
                             }
                         }
                     }
@@ -212,8 +214,7 @@ innaAppControllers.
                 //console.log('$scope.birthTitle: ' + $scope.birthTitle);
             }
 
-            function updateValidationModel()
-            {
+            function updateValidationModel() {
                 //log('updateValidationModel');
 
                 function getValidationItem(key, value, type) {
@@ -241,13 +242,11 @@ innaAppControllers.
 
                 $scope.setValid = function (model, isValid) {
                     if (model == null) return;
-                    if (isValid)
-                    {
+                    if (isValid) {
                         model.isValid = true;
                         model.isInvalid = false;
                     }
-                    else
-                    {
+                    else {
                         model.isValid = false;
                         model.isInvalid = true;
                     }
@@ -267,169 +266,162 @@ innaAppControllers.
                         //console.log('validate, item: %s; validationType: %s, type:%s', item.value, item.validationType, type);
                         switch (item.validationType) {
                             case validateType.required:
-                                {
-                                    tryValidate(item, function () {
-                                        Validators.defined(item.value, 'err');
-                                    });
-                                    break;
-                                }
+                            {
+                                tryValidate(item, function () {
+                                    Validators.defined(item.value, 'err');
+                                });
+                                break;
+                            }
                             case validateType.cit_required://для гражданства - проверяем, что id > 0 и name заполнен
-                                {
-                                    tryValidate(item, function () {
-                                        Validators.gtZero(item.value.id, 'err');
-                                        Validators.defined(item.value.name, 'err');
-                                    });
-                                    break;
-                                }
+                            {
+                                tryValidate(item, function () {
+                                    Validators.gtZero(item.value.id, 'err');
+                                    Validators.defined(item.value.name, 'err');
+                                });
+                                break;
+                            }
                             case validateType.email:
-                                {
-                                    tryValidate(item, function () {
-                                        Validators.email(item.value, 'err');
-                                    });
-                                    break;
-                                }
+                            {
+                                tryValidate(item, function () {
+                                    Validators.email(item.value, 'err');
+                                });
+                                break;
+                            }
                             case validateType.phone:
-                                {
-                                    tryValidate(item, function () {
-                                        Validators.phone(item.value, 'err');
-                                    });
-                                    break;
-                                }
+                            {
+                                tryValidate(item, function () {
+                                    Validators.phone(item.value, 'err');
+                                });
+                                break;
+                            }
                             case validateType.date:
-                                {
-                                    tryValidate(item, function () {
-                                        Validators.date(item.value, 'err');
-                                    });
-                                    break;
-                                }
+                            {
+                                tryValidate(item, function () {
+                                    Validators.date(item.value, 'err');
+                                });
+                                break;
+                            }
                             case validateType.birthdate:
-                                {
-                                    tryValidate(item, function () {
-                                        Validators.birthdate(item.value, 'err');
-                                        //if (!$scope.validatePeopleCount())
-                                        //    throw 'err';
-                                    });
-                                    break;
-                                }
+                            {
+                                tryValidate(item, function () {
+                                    Validators.birthdate(item.value, 'err');
+                                    //if (!$scope.validatePeopleCount())
+                                    //    throw 'err';
+                                });
+                                break;
+                            }
                             case validateType.expire:
-                                {
-                                    tryValidate(item, function () {
-                                        Validators.expire(item.value, 'err');
-                                    });
-                                    break;
-                                }
+                            {
+                                tryValidate(item, function () {
+                                    Validators.expire(item.value, 'err');
+                                });
+                                break;
+                            }
                             case validateType.document:
-                                {
-                                    var doc_num = item.value.replace(/\s+/g, '');
+                            {
+                                var doc_num = item.value.replace(/\s+/g, '');
 
-                                    //гражданство
-                                    var citizenship = item.dependsOnField;
+                                //гражданство
+                                var citizenship = item.dependsOnField;
 
-                                    //логика описана тут https://innatec.atlassian.net/browse/IN-746
-                                    tryValidate(item, function () {
-                                        Validators.defined(doc_num, 'err');
+                                //логика описана тут https://innatec.atlassian.net/browse/IN-746
+                                tryValidate(item, function () {
+                                    Validators.defined(doc_num, 'err');
 
-                                        //
-                                        if (citizenship == null || citizenship.value == null || !(citizenship.value.id > 0))
-                                            throw 'err';
+                                    //
+                                    if (citizenship == null || citizenship.value == null || !(citizenship.value.id > 0))
+                                        throw 'err';
 
-                                        if (citizenship.value.id == 189)//Россия
-                                        {
-                                            //нужно определить
-                                            //для граждан РФ, летящих внутри стран РФ, Абхазия, Белоруссия, Казахстан, Нагорный Карабах, 
-                                            //Приднестровье, Таджикистан, Украина, Южная Осетия
-                                            function isTripInsideRF(item) {
-                                                                                        //Нагорный Карабах, Приднестровье
-                                                //var insideRFcase = [189, 69829, 35, 124, 0, 0, 215, 226, 0];
-                                                                                                        //Южная Осетия
-                                                var insideRFcase = [189, 69829, 35, 124, 215, 226];
+                                    if (citizenship.value.id == 189)//Россия
+                                    {
+                                        //нужно определить
+                                        //для граждан РФ, летящих внутри стран РФ, Абхазия, Белоруссия, Казахстан, Нагорный Карабах,
+                                        //Приднестровье, Таджикистан, Украина, Южная Осетия
+                                        function isTripInsideRF(item) {
+                                            //Нагорный Карабах, Приднестровье
+                                            //var insideRFcase = [189, 69829, 35, 124, 0, 0, 215, 226, 0];
+                                            //Южная Осетия
+                                            var insideRFcase = [189, 69829, 35, 124, 215, 226];
 
-                                                var etapCountries = [];
-                                                if (item.EtapsTo != null) {
-                                                    for (var i = 0; i < item.EtapsTo.length; i++) {
-                                                        var etap = item.EtapsTo[i];
-                                                        etapCountries.push(etap.InCountryId);
-                                                        etapCountries.push(etap.OutCountryId);
-                                                    }
-                                                    //_.each(item.EtapsTo, function (etap) {
-                                                    //    etapCountries.push(etap.InCountryId);
-                                                    //    etapCountries.push(etap.OutCountryId);
-                                                    //});
+                                            var etapCountries = [];
+                                            if (item.EtapsTo != null) {
+                                                for (var i = 0; i < item.EtapsTo.length; i++) {
+                                                    var etap = item.EtapsTo[i];
+                                                    etapCountries.push(etap.InCountryId);
+                                                    etapCountries.push(etap.OutCountryId);
                                                 }
-                                                if (item.EtapsBack != null) {
-                                                    for (var i = 0; i < item.EtapsBack.length; i++) {
-                                                        var etap = item.EtapsBack[i];
-                                                        etapCountries.push(etap.InCountryId);
-                                                        etapCountries.push(etap.OutCountryId);
-                                                    }
-                                                    //_.each(item.EtapsBack, function (etap) {
-                                                    //    etapCountries.push(etap.InCountryId);
-                                                    //    etapCountries.push(etap.OutCountryId);
-                                                    //});
-                                                }
-                                                etapCountries = _.uniq(etapCountries);
-                                                //проверяем все страны в этапах
-                                                for (var i = 0; i < etapCountries.length; i++) {
-                                                    var etapCountry = etapCountries[i];
-                                                    if (_.indexOf(insideRFcase, etapCountry) < 0) //на каком-то этапе мы не попали в этот кейс
-                                                    {
-                                                        return false;
-                                                    }
-                                                }
-
-                                                //прошлись по всем этапам, везде мы в нужном списке стран
-                                                return true;
+                                                //_.each(item.EtapsTo, function (etap) {
+                                                //    etapCountries.push(etap.InCountryId);
+                                                //    etapCountries.push(etap.OutCountryId);
+                                                //});
                                             }
-
-                                            function isCaseValid(fn) {
-                                                try
-                                                {
-                                                    fn();
-                                                    return true;
+                                            if (item.EtapsBack != null) {
+                                                for (var i = 0; i < item.EtapsBack.length; i++) {
+                                                    var etap = item.EtapsBack[i];
+                                                    etapCountries.push(etap.InCountryId);
+                                                    etapCountries.push(etap.OutCountryId);
                                                 }
-                                                catch(err)
+                                                //_.each(item.EtapsBack, function (etap) {
+                                                //    etapCountries.push(etap.InCountryId);
+                                                //    etapCountries.push(etap.OutCountryId);
+                                                //});
+                                            }
+                                            etapCountries = _.uniq(etapCountries);
+                                            //проверяем все страны в этапах
+                                            for (var i = 0; i < etapCountries.length; i++) {
+                                                var etapCountry = etapCountries[i];
+                                                if (_.indexOf(insideRFcase, etapCountry) < 0) //на каком-то этапе мы не попали в этот кейс
                                                 {
                                                     return false;
                                                 }
                                             }
 
-                                            var tripInsideRF = isTripInsideRF($scope.item);
-                                            if (tripInsideRF)
-                                            {
-                                                //проверяем паспорт, загран, св. о рождении
-                                                if (isCaseValid(function () {
-                                                    Validators.ruPassport(doc_num, 'err');
-                                                }) ||
-                                                    isCaseValid(function () {
+                                            //прошлись по всем этапам, везде мы в нужном списке стран
+                                            return true;
+                                        }
+
+                                        function isCaseValid(fn) {
+                                            try {
+                                                fn();
+                                                return true;
+                                            }
+                                            catch (err) {
+                                                return false;
+                                            }
+                                        }
+
+                                        var tripInsideRF = isTripInsideRF($scope.item);
+                                        if (tripInsideRF) {
+                                            //проверяем паспорт, загран, св. о рождении
+                                            if (isCaseValid(function () {
+                                                Validators.ruPassport(doc_num, 'err');
+                                            }) ||
+                                                isCaseValid(function () {
                                                     Validators.enPassport(doc_num, 'err');
                                                 }) ||
-                                                    isCaseValid(function () {
+                                                isCaseValid(function () {
                                                     Validators.birthPassport(doc_num, 'err');
-                                                }))
-                                                {
-                                                    //все норм - не выкидываем исключение
-                                                }
-                                                else
-                                                {
-                                                    //одна или больше проверок сфейлиломсь - выкидываем исключение
-                                                    throw 'err';
-                                                }
+                                                })) {
+                                                //все норм - не выкидываем исключение
                                             }
-                                            else
-                                            {
-                                                //загран
-                                                Validators.enPassport(doc_num, 'err');
+                                            else {
+                                                //одна или больше проверок сфейлиломсь - выкидываем исключение
+                                                throw 'err';
                                             }
                                         }
-                                        else
-                                        {
-                                            //для граждан других стран
-                                            //непустая строка
-                                            //уже проверили в самом начале
+                                        else {
+                                            //загран
+                                            Validators.enPassport(doc_num, 'err');
                                         }
-                                    });
-                                    break;
-                                }
+                                    }
+                                    else {
+                                        //для граждан других стран
+                                        //непустая строка
+                                        //уже проверили в самом начале
+                                    }
+                                });
+                                break;
+                            }
                         }
 
                         //прячем тултип, если показывали
@@ -462,19 +454,18 @@ innaAppControllers.
 
                         var newItem = null;
                         //поля типа passengers - копируем в модель, и для них - на каждое поле создаем validation model
-                        if (_.isArray($scope.model[key]))
-                        {
+                        if (_.isArray($scope.model[key])) {
                             newItem = [];
                             _.each($scope.model[key], function (item, index) {
                                 var itemKeys = _.keys(item);
                                 var newIntItem = {};
                                 _.each(itemKeys, function (inKey) {
-                                    if (_.isFunction(item[inKey]) || _.any(ignoreKeys, function (item) { return item == inKey; }))
-                                    {
+                                    if (_.isFunction(item[inKey]) || _.any(ignoreKeys, function (item) {
+                                        return item == inKey;
+                                    })) {
                                         newIntItem[inKey] = angular.copy(item[inKey]);
                                     }
-                                    else
-                                    {
+                                    else {
                                         newIntItem[inKey] = getValidationItem(inKey, angular.copy(item[inKey]));
                                         if (inKey == 'citizenship') {
                                             newIntItem[inKey].setValue = function (item) {
@@ -487,15 +478,14 @@ innaAppControllers.
                                         }
                                     }
                                 });
-                                
+
                                 newItem.push(newIntItem);
                             });
                         }
-                        else
-                        {
+                        else {
                             newItem = getValidationItem(key, angular.copy($scope.model[key]));
                         }
-                        
+
                         //сохраняем id и тип валидации
                         if (oldItem != null) {
                             newItem.id = oldItem.id;
@@ -506,8 +496,7 @@ innaAppControllers.
                     });
                 };
 
-                function getValidationModel()
-                {
+                function getValidationModel() {
                     //основная модель для валидации
                     var validationModel = {
                         formPure: true,
@@ -518,13 +507,15 @@ innaAppControllers.
                                 return model[key];
                             });
                             //отбрасываем лишние поля
-                            validList = _.filter(validList, function (item) { return item.isValid != undefined });
+                            validList = _.filter(validList, function (item) {
+                                return item.isValid != undefined
+                            });
                             return validList;
                         },
-                        getArrayFileds: function() {
+                        getArrayFileds: function () {
                             var self = this;
                             var keys = _.keys(this);
-                            keys = _.filter(keys, function(k){
+                            keys = _.filter(keys, function (k) {
                                 return _.isArray(self[k]);
                             });
                             var validList = _.map(keys, function (key) {
@@ -538,6 +529,7 @@ innaAppControllers.
                         },
                         getFirstInvalidItem: function (conditionFn) {
                             var self = this;
+
                             function findInModel(model) {
                                 var list = self.getFields(model);
                                 var firstItem = _.find(list, function (item) {
@@ -596,9 +588,8 @@ innaAppControllers.
                     };
                     return validationModel;
                 }
-                
-                if ($scope.validationModel == null)
-                {
+
+                if ($scope.validationModel == null) {
                     var validationModel = getValidationModel();
                     $scope.validationModel = validationModel;
                 }
@@ -716,7 +707,7 @@ innaAppControllers.
                             number: ''
                         },
                         dir: {
-                            cit:{
+                            cit: {
                                 isOpen: false
                             },
                             card: {
@@ -732,7 +723,7 @@ innaAppControllers.
                             eventsHelper.preventBubbling($event);
                             //открываем список в директиве
                             this.dir.card.isOpen = !this.dir.card.isOpen;
-                        },
+                        }
                     };
                     //log('passengerModel showCitListClick: ' + passengerModel.showCitListClick)
                     return model;
@@ -777,7 +768,7 @@ innaAppControllers.
             };
 
             $scope.tooltipControl = {
-                init: function ($to){
+                init: function ($to) {
                     //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
                     $to.tooltipX({
                         autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' },
@@ -793,16 +784,17 @@ innaAppControllers.
                     //$to.tooltip("open");
                     setTimeout(function () {
                         $to.tooltipX("open");
-                    }, 300);
+                    }, 50);
                 },
                 close: function ($to) {
                     //$to.tooltip("disable");
                     //$to.tooltipX("destroy");
-                    try
-                    {
+                    try {
                         $to.tooltipX("destroy");
                     }
-                    catch(e){};
+                    catch (e) {
+                    }
+                    ;
                 }
             };
 
@@ -821,16 +813,15 @@ innaAppControllers.
                     return (item.value != null && (!_.isString(item.value) || item.value.length > 0));
                 });
                 if (invalidItem != null) {
-                    //показываем тултип
-                    var $to = $("#" + invalidItem.id);
-                    ////не навешивали тултип
-                    //if (!(invalidItem.haveTooltip == true)) {
-                    //    $scope.tooltipControl.init($to);
-                    //    invalidItem.haveTooltip = true;
-                    //}
-                    $scope.tooltipControl.init($to);
-                    $scope.tooltipControl.open($to);
-                    //прерываемся
+
+                    // скроллим страницу вверх
+                    // показываем тултип
+                    $("body").animate({"scrollTop":0},function(){
+                        var $to = $("#" + invalidItem.id);
+                        $scope.tooltipControl.init($to);
+                        $scope.tooltipControl.open($to);
+                    });
+
                     return;
                 }
 
@@ -883,7 +874,7 @@ innaAppControllers.
                 }
 
                 if ($scope.isCaseValid(function () {
-                   Validators.defined(doc_num, 'err');
+                    Validators.defined(doc_num, 'err');
                 })) {
                     return 3;//Иностранный документ
                 }
@@ -960,10 +951,10 @@ innaAppControllers.
             }
 
             var debugPassengersList = [
-    { name: 'IVAN', secondName: 'IVANOV', sex: $scope.sexType.man, birthday: '18.07.1976', series_and_number: '4507 04820' },
-    { name: 'TATIANA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '25.09.1978', series_and_number: '4507 04823' },
-    { name: 'SERGEY', secondName: 'IVANOV', sex: $scope.sexType.man, birthday: '12.07.2006', series_and_number: '4507 02853' },
-    { name: 'ELENA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '12.11.2013', series_and_number: '4507 01853' },
+                { name: 'IVAN', secondName: 'IVANOV', sex: $scope.sexType.man, birthday: '18.07.1976', series_and_number: '4507 04820' },
+                { name: 'TATIANA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '25.09.1978', series_and_number: '4507 04823' },
+                { name: 'SERGEY', secondName: 'IVANOV', sex: $scope.sexType.man, birthday: '12.07.2006', series_and_number: '4507 02853' },
+                { name: 'ELENA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '12.11.2013', series_and_number: '4507 01853' },
             ];
 
             $scope.fillDefaultModel = function ($event) {
@@ -1032,6 +1023,7 @@ innaAppControllers.
                     });
                 }
             }
+
             $scope.$on('$destroy', function () {
                 closeAllTooltips();
             });

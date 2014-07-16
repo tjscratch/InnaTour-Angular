@@ -1,5 +1,12 @@
 ﻿'use strict';
 
+
+// Ractive.defaults
+Ractive.defaults.data.pluralize = utils.pluralize || null;
+Ractive.defaults.data.moment = moment || null;
+
+
+
 var app = angular.module('innaApp', [
   'ngRoute',
   'innaApp.Cookie',
@@ -14,6 +21,8 @@ var app = angular.module('innaApp', [
   'ngSanitize',
   'pasvaz.bindonce'
 ]);
+
+
 
 /* локализация дат moment */
 moment.lang('ru');
@@ -40,6 +49,8 @@ app.constant('innaApp.Urls', {
     URL_AUTH_SIGNUP: '/account/signup/',
 
     B2B_DISPLAY_ORDER: '/display-order/',
+
+    URL_HELP: '/help/',
 
     eof: null
 });
@@ -185,6 +196,11 @@ app.config([
             }).
             when(url.URL_AUTH_RESTORE, dynamic()).
             when(url.URL_AUTH_SIGNUP, dynamic()).
+            when(url.URL_HELP, {
+                templateUrl: 'pages/page-help/templ/base.hbs.html',
+                controller: 'HelpPageController',
+                reloadOnSearch: false
+            }).
             otherwise({
                 redirectTo: url.URL_ROOT
             });

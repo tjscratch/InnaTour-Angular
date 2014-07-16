@@ -17,7 +17,12 @@ innaAppControllers.
         'eventsHelper',
         'urlHelper',
         'innaApp.Urls',
-        function AviaBuyTicketsCtrl($log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls) {
+
+        // components
+        '$templateCache',
+        'Balloon',
+        function AviaBuyTicketsCtrl($log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls
+            , $templateCache, Balloon) {
 
             var self = this;
 
@@ -364,7 +369,9 @@ innaAppControllers.
             function visaNeededCheck() {
                 if ($scope.reservationModel != null && $scope.reservationModel.passengers != null && $scope.aviaInfo != null) {
                     //Id-шники гражданств пассажиров
-                    var passengersCitizenshipIds = _.map($scope.reservationModel.passengers, function (pas) { return pas.citizenship.id; });
+                    var passengersCitizenshipIds = _.map($scope.reservationModel.passengers, function (pas) {
+                        return pas.citizenship.id;
+                    });
                     $scope.visaControl.check(passengersCitizenshipIds, $scope.aviaInfo);
                 }
             }
@@ -815,7 +822,12 @@ innaAppControllers.
                                 log('paymentService.payCheck, data: ' + angular.toJson(data));
                                 //data = { Result: 1 };
                                 if (data != null) {
-                                    if (data.Result == 1 || data.Result == 2) {
+
+                                    /*------------*/
+                                    //data.Result = 1;
+                                    /*------------*/
+
+                                    if (data.Result > 0) {
                                         //пришел ответ - или оплачено или ошибка
                                         $scope.isOrderPaid = true;
 
@@ -831,9 +843,11 @@ innaAppControllers.
 
                                             if (!$scope.hotel) {
                                                 $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
-                                                    aviaHelper.baloonType.success, function () {
+                                                    aviaHelper.baloonType.success,
+                                                    function () {
                                                         $location.path(Urls.URL_AVIA);
-                                                    }, {
+                                                    },
+                                                    {
                                                         //buttonCaption: 'Распечатать билеты', successFn: function () {
                                                         //    //print
                                                         //    log('print tickets');
@@ -844,14 +858,22 @@ innaAppControllers.
                                                             $location.path(Urls.URL_AVIA);
                                                         }
                                                     });
-                                            } else if($scope.hotel != null) {
-                                                // test location
-                                                $scope.baloon.hide();
+                                            } else if ($scope.hotel != null) {
                                                 redirectSuccessBuyPackage();
                                             }
                                         }
                                         else if (data.Result == 2) {
                                             $scope.baloon.showGlobalAviaErr();
+                                        }
+                                        else if(data.Result == 3){
+                                            $scope._baloon = new Balloon({
+                                                data : {
+                                                    balloonClose : true
+                                                },
+                                                partials : {
+                                                    balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
+                                                }
+                                            }).show();
                                         }
                                     }
                                 }
@@ -1003,14 +1025,20 @@ innaAppControllers.
             }
 
 
-            function redirectSuccessBuyPackage(){
+            function redirectSuccessBuyPackage() {
                 $location.search({});
-                $location.path('packages/buy/success/'+ $scope.orderNum);
+                $location.path('packages/buy/success/' + $scope.orderNum);
             }
 
             $scope.$on('$destroy', function () {
+                $scope.baloon.hide();
+                if($scope._baloon) {
+                    $scope._baloon.teardown();
+                    $scope._baloon = null;
+                }
                 $scope.paymentDeadline.destroy();
                 destroyPopups();
                 $('#buy-listener').off();
+                $scope = null;
             });
         }]);

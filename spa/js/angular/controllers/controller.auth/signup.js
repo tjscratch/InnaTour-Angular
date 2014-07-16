@@ -86,7 +86,6 @@ angular.module('innaApp.controllers')
                 $scope.safeApply(function(){
                     $scope.baloon.hide();
                     $scope.close();
-
                     $scope.safeApply($scope.recognize);
                 });
             });

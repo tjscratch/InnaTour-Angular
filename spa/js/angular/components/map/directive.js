@@ -9,7 +9,10 @@
 angular.module('innaApp.directives')
     .directive('dynamicSerpMap', [
         '$templateCache',
-        function ($templateCache) {
+
+        // components
+        'Tripadvisor',
+        function ($templateCache, Tripadvisor) {
 
             return {
                 template: $templateCache.get('components/map/templ/index.html'),
@@ -22,6 +25,8 @@ angular.module('innaApp.directives')
                     '$scope',
                     '$element',
                     'innaApp.API.events',
+
+
                     function ($scope, $element, Events) {
                         $scope.currentHotel = null;
                         $scope.currentHotelPreview = null;
@@ -29,7 +34,7 @@ angular.module('innaApp.directives')
 
                         // прячем footer
                         $scope.$emit('region-footer:hide');
-                        $scope.$emit('bundle:hidden');
+                        $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
                         $element.addClass('big-map_short');
 
 
@@ -56,6 +61,7 @@ angular.module('innaApp.directives')
                 ],
                 link: function (scope, elem, attrs) {
 
+                    var _tripadvisor = null;
                     var $thisEl = elem[0];
                     var mapContainer = $thisEl.querySelector('#big-map-canvas');
                     var boxPreview = $thisEl.querySelector('.big-map__balloon_preview');
@@ -157,6 +163,20 @@ angular.module('innaApp.directives')
 
                     function setActiveMarker(data_marker) {
                         var data = data_marker.marker;
+
+                        if (_tripadvisor) {
+                            _tripadvisor.teardown();
+                            _tripadvisor = null;
+                        }
+                        _tripadvisor = new Tripadvisor({
+                            el: $(data_marker.elem).find('.js-tripadvisor-container'),
+                            data: {
+                                TaCommentCount: data.activeMarker.$inna__hotel.TaCommentCount,
+                                TaFactor: data.activeMarker.$inna__hotel.TaFactor,
+                                TaFactorCeiled: data.activeMarker.$inna__hotel.TaFactorCeiled
+                            }
+                        });
+
 
                         // создаем свойство в объекте маркера
                         // различаем маркеры на которых был click или hover
@@ -335,11 +355,11 @@ angular.module('innaApp.directives')
                         });
 
                         /*GM.event.addListener(_markerCluster, 'mouseover', function (c) {
-                        })
+                         })
 
-                        GM.event.addListener(_markerCluster, 'mouseover', function (c) {
+                         GM.event.addListener(_markerCluster, 'mouseover', function (c) {
 
-                        })*/
+                         })*/
                     }
 
                     /**
@@ -565,6 +585,22 @@ angular.module('innaApp.directives')
 
                         map.fitBounds(_bounds);
                     });
+
+
+                    //destroy
+                    scope.$on('$destroy', function () {
+                        _tripadvisor.teardown();
+                        _tripadvisor = null;
+
+                        GM.event.addListener(map);
+                        GM = null;
+                        _bounds = null;
+                        map = null;
+                        boxInfoHover = null;
+                        boxInfo = null;
+                        boxInfoAir = null;
+                        dataInfoBox = null;
+                    })
                 }
             }
         }]);

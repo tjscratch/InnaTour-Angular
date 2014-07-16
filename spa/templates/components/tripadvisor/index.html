@@ -4,9 +4,9 @@
 -->
 <!---->
 <div class="b-tripadvisor hotel-info-tripadvisor"
-        ng-class="{'b-tripadvisor_short' : withOutTd}"
-        ng-if="data.TaFactor > 0"
-        title="Рейтинг TripAdvisor">
+     ng-class="{'b-tripadvisor_short' : withOutTd}"
+     ng-if="data.TaFactor > 0"
+     title="Рейтинг TripAdvisor">
 
     <div class="b-tripadvisor__owl">
         <span class="icon-sprite-tripadvisor"></span>
@@ -32,12 +32,6 @@
         <!-- Шаг 0.5 -->
         <div class="b-display-cell" ng-if="data.TaFactor | isFloat">
             <span class="icon-sprite-tripadvisor-half"></span>
-        </div>
-
-        <div class="b-display-cell" ng-if="!withOutTd"><!-- ng-if="data.TaCommentCount" -->
-            <div class="b-tripadvisor__reviews">
-                {{data.TaCommentCount | asQuantity:"отзыв":"отзыва":"отзывов":"нет отзывов"}}
-            </div>
         </div>
     </div>
 </div>

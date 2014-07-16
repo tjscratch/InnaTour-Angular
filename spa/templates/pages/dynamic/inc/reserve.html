@@ -1,7 +1,7 @@
 ﻿﻿
 <header class="buy__header">
     <h2 class="buy__title">Оплата пакета</h2>
-    <a ng-href="{{goBackUrl()}}" ng-if="!isBuyPage" class="buy__title-link">Выбрать другой номер</a>
+    <!--<a ng-href="{{goBackUrl()}}" ng-if="!isBuyPage" class="buy__title-link">Выбрать другой номер</a>-->
 
     <div class="buy__header-price">Стоимость пакета: <b>{{price| price}}
         <ng-include src="'components/ruble.html'"/>
@@ -22,8 +22,11 @@
             <span ng-if="!(item.transportersList.length > 3)" class="rl-airline"
                   ng-repeat="tr in item.transportersList"><img ng-src="{{tr.logoUrl}}" alt=""><span
                     class="rl-airline-text">{{tr.name}}</span></span>
-            <span ng-if="item.transportersList.length > 3" class="rl-airline"><img ng-src="/spa/img/group.png"
-                                                                                   alt=""><span class="rl-airline-text">Несколько авиакомпаний</span></span>
+
+            <span ng-if="item.transportersList.length > 3" class="rl-airline">
+                <img ng-src="/spa/img/group.png" alt="">
+                <span class="rl-airline-text">Несколько авиакомпаний</span>
+            </span>
 
             <div class="b-ticket_2ways buy__tickets">
 
@@ -91,7 +94,7 @@
             </div>
         </div>
         <div class="b-result__cell result-cell">
-            <img ng-src="{{hotel.ProviderLogoUrl}}" alt="" class="logo">
+            <img ng-if="hotel.ProviderLogoUrl" ng-src="{{hotel.ProviderLogoUrl}}" alt="" class="logo">
 
             <div class="hotel-info">
                 <div class="hotel-info__wrapper">

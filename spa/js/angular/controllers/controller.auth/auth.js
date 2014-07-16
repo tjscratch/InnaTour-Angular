@@ -3,7 +3,7 @@ angular.module('innaApp.controllers')
         '$scope', '$location', 'innaApp.API.events', 'AuthDataProvider', 'innaApp.Urls',
         function($scope, $location, Events, AuthDataProvider, app){
             /*Private*/
-            function setUserInfo(data){
+            var setUserInfo = function(data){
                 $scope.safeApply(function(){
                     $scope.$root.user = new inna.Models.Auth.User(data);
 
@@ -36,7 +36,8 @@ angular.module('innaApp.controllers')
             };
 
             $scope.signInWith = function(method){
-                var brokerWindow = window.open(AuthDataProvider.socialBrockerURL(method), "width=300;height=300", "SocialBroker");
+
+                var brokerWindow = window.open(AuthDataProvider.socialBrockerURL(method), "SocialBroker", "width=500,height=500,resizable=yes,scrollbars=no,status=no");
 
                 brokerWindow.focus();
 
@@ -48,6 +49,8 @@ angular.module('innaApp.controllers')
                         });
                     });
                 });
+
+                return false;
             };
 
             $scope.showProfile = function(){

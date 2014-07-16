@@ -228,8 +228,12 @@
                         successCallback(data);
                     }).
                     error(function (data, status) {
-                        errCallback(data, status);
+                        errCallback(data, status); 
                     });
+                },
+
+                getPartnershipCookie: function(data){
+                    AjaxHelper.get(apiUrls.PARTNERSHIP_GET_COOKIE, data, angular.noop, angular.noop, false);
                 }
             };
         }]);

@@ -4,6 +4,7 @@
 
     <div class="b-result__cell" on-click='popupItemInfo_show:{{this}}'>
 
+        {{#(this.transportersList.length <= 3)}}
         <span class="rl-airline rl-airline__list" class="result-cell__airlines">
             {{#this.transportersList}}
             <span class="rl-airline__item">
@@ -12,6 +13,7 @@
             </span>
             {{/}}
         </span>
+        {{/}}
 
         {{#(this.transportersList.length > 3)}}
         <span class="rl-airline">
@@ -78,7 +80,7 @@
                 <div class="rl-fly col-xs-push-1">
                     <div class="rlf-flight-info">
                         <b>{{this.BackArrivalTimeFormatted}}</b>, {{this.BackArrivalDateFormatted}}<br>
-                        <span title="{{this.AirportFrom}}">{{limitFilter(this.AirportFrom,14)}} {{this.OutCode}}</span>
+                        <span title="{{this.AirportFrom}}">{{limitFilter(EtapsBack[EtapsBack.length - 1].InCity, 14)}} {{EtapsBack[EtapsBack.length - 1].InCode}}</span>
                     </div>
                 </div>
 

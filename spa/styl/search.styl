@@ -361,8 +361,17 @@
 .ng-isolate-scope .search-pref-block
   top 51px
 
-.search-form-dialog-row .child-years-select-container
-  margin-left 3px
+.search-form-dialog-row {
+  .child-years-select-container {
+    margin-right : 3px;
+
+    &:last-child {
+      margin-right : 0px;
+    }
+  }
+
+}
+
 
 .search__city
   width 207px

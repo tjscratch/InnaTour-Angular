@@ -1,0 +1,20 @@
+<div class="layout-light bg_white">
+    <div class="faq">
+        <h2>Часто задаваемые вопросы</h2>
+        <p class="title-description">Если вы не нашли ответ на интересующий вас вопрос, свяжитесь с нашими менеджерами и мы поможем вам разобраться.</p>
+        <p class="contacts">
+            <span class="contacts-phone">+7 495 742-1212</span> <a href="skype:inna-tour?call" class="contacts-skype">Inna tour</a>
+        </p>
+
+        {{#topics.Items}}
+            <h3>{{Category}}</h3>
+            <ul class="question">
+                {{#Items}}
+                    <li class="question-item">
+                        <Toggle openIf="{{link}}"/>
+                    </li>
+                {{/Items}}
+            </ul>
+        {{/topics.Items}}
+    </div>
+</div>
