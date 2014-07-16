@@ -1,5 +1,12 @@
 ﻿'use strict';
 
+
+// Ractive.defaults
+Ractive.defaults.data.pluralize = utils.pluralize || null;
+Ractive.defaults.data.moment = moment || null;
+
+
+
 var app = angular.module('innaApp', [
   'ngRoute',
   'innaApp.Cookie',

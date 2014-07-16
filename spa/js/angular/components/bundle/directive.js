@@ -18,7 +18,8 @@ angular.module('innaApp.directives')
 
                 // components
                 'ShareLink',
-                function ($scope, aviaHelper, $element, Events, ShareLink) {
+                'Tripadvisor',
+                function ($scope, aviaHelper, $element, Events, ShareLink, Tripadvisor) {
 
                     function orientation(){
                         var ua = navigator.userAgent.toLowerCase();
@@ -59,9 +60,19 @@ angular.module('innaApp.directives')
                     window.addEventListener("orientationchange", orientation, false);
 
 
-                    var shareLink = new ShareLink({
+                    var _shareLink = new ShareLink({
                         el: $element.find('.js-share-component')
                     });
+
+                    // Tripadvisor
+                    var _tripadvisor = new Tripadvisor({
+                        el : $element.find('.js-tripadvisor-container'),
+                        data : {
+                            TaCommentCount: $scope.bundle.hotel.data.TaCommentCount,
+                            TaFactor: $scope.bundle.hotel.data.TaFactor,
+                            TaFactorCeiled: $scope.bundle.hotel.data.TaFactorCeiled
+                        }
+                    })
 
                     var infoPopupElems = $('.icon-price-info, .tooltip-price', $element);
 
@@ -84,8 +95,10 @@ angular.module('innaApp.directives')
 
                     //destroy
                     $scope.$on('$destroy', function () {
-                        shareLink.teardown();
-                        shareLink = null;
+                        _shareLink.teardown();
+                        _tripadvisor.teardown();
+                        _shareLink = null;
+                        _tripadvisor = null;
                     })
                 }
             ]

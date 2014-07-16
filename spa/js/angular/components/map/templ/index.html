@@ -21,8 +21,9 @@
                 <div class="row">
                     <div class="col-xs-7 col-no-padding">
                         <!-- tripadvisor -->
-                        <ng:include src="'components/tripadvisor/index.html'"
-                                    ng-repeat="data in [currentHotel]"></ng:include>
+                        <div class="js-tripadvisor-container"></div>
+                        <!--<ng:include src="'components/tripadvisor/index.html'"
+                                    ng-repeat="data in [currentHotel]"></ng:include>-->
 
                         <div>
                             <a href="javascript:void(0);" ng-click="hotelDetails(currentHotel)" class="details-link">Подробнее</a>
@@ -65,8 +66,9 @@
                 <div class="row">
                     <div class="col-xs-7 col-no-padding">
                         <!-- tripadvisor -->
-                        <ng:include src="'components/tripadvisor/index.html'"
-                                    ng-repeat="data in [currentHotelPreview]"></ng:include>
+                        <div class="js-tripadvisor-container"></div>
+                        <!--<ng:include src="'components/tripadvisor/index.html'"
+                                    ng-repeat="data in [currentHotelPreview]"></ng:include>-->
                     </div>
 
                     <div class="pull-right col-no-padding hotel-info-price-container">
