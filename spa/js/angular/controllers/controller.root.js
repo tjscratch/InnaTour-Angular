@@ -19,11 +19,11 @@ innaAppControllers.
 
             (function __INITIAL__(){
                 var advParams = {
-                    from: $location.search('from'),
-                    from_param: $location.search('from_param'),
-                    PartnerMarker: $location.search('PartnerMarker'),
-                    id_partner: $location.search('id_partner'),
-                    data: $location.search('data')
+                    from: $location.search().from || '',
+                    from_param: $location.search().from_param || '',
+                    PartnerMarker: $location.search().PartnerMarker || '',
+                    id_partner: $location.search().id_partner || '',
+                    data: $location.search().data || ''
                 };
 
                 delete $location.$$search.from
