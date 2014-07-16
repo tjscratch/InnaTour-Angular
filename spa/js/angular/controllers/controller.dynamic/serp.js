@@ -8,7 +8,11 @@ innaAppControllers
         '$location',
         'innaApp.Urls',
         'aviaHelper',
-        function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper) {
+
+        '$templateCache',
+        'Balloon',
+        function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache,  Balloon) {
+
             /*Private*/
             var searchParams = angular.copy($routeParams);
             var cacheKey = '';
