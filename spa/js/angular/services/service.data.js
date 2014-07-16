@@ -233,7 +233,7 @@
                 },
 
                 getPartnershipCookie: function(data){
-                    AjaxHelper.post(apiUrls.PARTNERSHIP_GET_COOKIE, data, angular.noop, angular.noop, false);
+                    AjaxHelper.get(apiUrls.PARTNERSHIP_GET_COOKIE, data, angular.noop, angular.noop, false);
                 }
             };
         }]);
