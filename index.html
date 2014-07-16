@@ -38,6 +38,13 @@
         <link rel="stylesheet" href="/build/css/ie.min.css" />
     <![endif]-->
 
+    <!--[if lt IE 10]>
+        <style type="text/css">
+            .spinner{background: #fff url(/spa/img/spinner.gif) no-repeat center center;}
+            .spinner * {display: none;}
+        </style>
+    <![endif]-->
+
     <script src="/spa/lib/if-browser.js"></script>
     <script>
         var old = ifBrowser();
@@ -46,6 +53,11 @@
             var oldV = old.bNameV.split('.');
             if (oldV[0] == 'ie' && oldV[1] <= 8) {
                 location.href = '/spa/browser.html'
+            } else if(oldV[0] == 'ie' && oldV[1] <= 9) {
+                var style = document.createElement('style');
+                style.innerHTML = '.spinner .rect{display:none !important;} .spinner .gif{display:inline;width:60px;height:60px;}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+                console.log('IE8');
             }
         }
     </script>
