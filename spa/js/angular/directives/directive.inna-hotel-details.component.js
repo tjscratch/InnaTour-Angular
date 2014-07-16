@@ -111,6 +111,12 @@ angular.module('innaApp.directives')
                     };
 
                     $scope.close = function(){
+                        if($scope.displayRoom) {
+                            window.history.back();
+
+                            return;
+                        }
+
                         delete $location.$$search.room;
                         $location.$$compose();
 
