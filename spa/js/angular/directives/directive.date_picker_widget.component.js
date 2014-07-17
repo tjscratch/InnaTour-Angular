@@ -239,6 +239,9 @@
                             }
                         });
 
+                        $scope.input1.val($scope.long($scope.date1));
+                        $scope.input2.val($scope.long($scope.date2));
+
                         try {
                             $scope.input1.tooltip('destroy');
                         } catch (e) {
@@ -247,6 +250,8 @@
                             $scope.input2.tooltip('destroy');
                         } catch (e) {
                         }
+
+
                     }
                 });
 

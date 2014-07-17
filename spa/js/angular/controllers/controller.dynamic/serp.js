@@ -581,7 +581,7 @@ innaAppControllers
                         zipped.push([eTo, eBack]);
                     }
 
-                    console.log('EtapsZipped = ', zipped);
+                    //console.log('EtapsZipped = ', zipped);
 
                     return zipped;
                 })();

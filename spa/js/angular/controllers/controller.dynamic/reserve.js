@@ -88,8 +88,8 @@
                         }
                         $scope.addition = new addition();
 
-                        console.log('data:');
-                        console.log(data);
+                        //console.log('data:');
+                        //console.log(data);
                         //дополняем полями 
                         aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
                         $scope.item = data.RecommendedPair.AviaInfo;
@@ -338,7 +338,7 @@
                     data : {
                         balloonClose : true,
                         callbackClose : function(){
-                            console.log('i think that i close');
+                            //console.log('i think that i close');
                         }
                     }
                 }).show();

@@ -117,7 +117,7 @@ innaAppControllers.
                         });
                     }, function (data, status) {
                         //ошибка получения данных
-                        console.log('avia.form: getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
+                        //console.log('avia.form: getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
                     });
                 }
             };

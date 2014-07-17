@@ -46,7 +46,7 @@
         var tooltipW = settings.tooltipElement.width()
 
         // позиционируем tooltip
-        console.log(settings.tooltipElement.width());
+        //console.log(settings.tooltipElement.width());
         settings.tooltipElement.css(settings.settings.position, '-' + settings.tooltipElement.width());
 
     };
