@@ -6,8 +6,7 @@ innaAppConponents.
         // components
         'Stars',
         'Tripadvisor',
-        'PriceGeneric',
-        function (Events, $templateCache, Stars, Tripadvisor, PriceGeneric) {
+        function (Events, $templateCache, Stars, Tripadvisor) {
 
             var DynamicBlock = Ractive.extend({
                 debug: true,
