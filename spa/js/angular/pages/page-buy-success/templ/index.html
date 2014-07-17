@@ -19,7 +19,9 @@
 
 
     <div class="js-dynamic-block">
-        <DynamicBlockAviaHotel AviaInfo="{{AviaInfo}}" hotel="{{Hotel}}" />
+        {{#if loadData}}
+            <DynamicBlockAviaHotel AviaInfo="{{AviaInfo}}" hotel="{{Hotel}}" />
+        {{/if}}
     </div>
 
 

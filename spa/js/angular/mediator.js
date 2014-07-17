@@ -3,7 +3,7 @@
  * mediator
  */
 angular.module('innaApp.conponents').
-    factory('mediator', function () {
+    factory('EventManager', function () {
         return  new Ractive();
     }
 );
