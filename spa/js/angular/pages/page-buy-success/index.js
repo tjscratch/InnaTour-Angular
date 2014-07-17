@@ -15,9 +15,9 @@ innaAppControllers.
         '$locale',
 
         // components
-        'DynamicBlockAviaHotel',
+        'DynamicBlock',
         'Balloon',
-        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlockAviaHotel, Balloon) {
+        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon) {
 
 
             $scope.hotelToShowDetails = null;

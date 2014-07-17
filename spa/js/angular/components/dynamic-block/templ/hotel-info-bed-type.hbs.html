@@ -1,0 +1,50 @@
+<img src="{{hotel.ProviderLogoUrl}}" alt="" class="logo">
+
+<div class="hotel-info">
+    <div class="hotel-info__wrapper">
+        <img src="{{hotel.HotelPhoto70}}" alt="{{hotel.HotelName}}">
+
+        <div class="hotel-info-content">
+            <div>
+                <!-- component Star -->
+                <Stars stars="{{hotel.Stars}}"/>
+            </div>
+            <h3 class="hotel-info-name">{{hotel.HotelName}}</h3>
+
+            <div class="hotel-info-date">
+                с {{moment(hotel.CheckIn).format('ll')}} по {{moment(hotel.CheckOut).format('ll')}},
+                {{hotel.NightCount}} {{pluralize(hotel.NightCount, ["ночь", "ночи", "ночей"])}}
+            </div>
+        </div>
+    </div>
+
+    <!-- component Tripadvisor -->
+    <Tripadvisor
+            TaCommentCount="{{hotel.TaCommentCount}}"
+            TaFactor="{{hotel.TaFactor}}"
+            TaFactorCeiled="{{hotel.TaFactorCeiled}}" />
+
+    <h3 class="hotel-info-name">{{hotel.Room.RoomName}}</h3>
+
+    <div class="hotel-info-date r__hotel-info">
+        {{#hotel.Room.BedTypeList:i}}
+        <span>
+            {{Name}}
+            {{#(i+1) != hotel.Room.BedTypeList.length}},&nbsp;{{/}}
+        </span>
+        {{/hotel.Room.BedTypeList}}
+    </div>
+
+</div>
+<span class="icon-sprite-hotel"></span>
+
+<div class="bottom-actions">
+    {{#state}}
+        <a href="#" on-click="state.switchTo('hotel')" c
+           lass="pull-left {{state.isActive(state.HOTELS_TAB) ? 'active' : ''}}">
+            Выбрать другой отель
+        </a>
+    {{/}}
+
+    <!--<a href="javascript:void(0)" class="pull-right" on-click="getHotelDetails">Подробнее</a>-->
+</div>
