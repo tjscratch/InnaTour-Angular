@@ -11,7 +11,9 @@ angular.module('innaApp.conponents').
             var HotelsList = Ractive.extend({
                 template: $templateCache.get('components/hotel/templ/list.hbs.html'),
                 data: {
-                    searchParams: angular.copy($routeParams)
+                    searchParams: angular.copy($routeParams),
+                    countHotelsVisible: 100,
+                    hotelList: []
                 },
                 components: {
                     HotelItem: HotelItem
@@ -32,22 +34,40 @@ angular.module('innaApp.conponents').
                         }
                     })
 
+
+                    /**
+                     * Срабатывает один раз
+                     * Далее копируем массив Hotels и работаем с копией
+                     */
                     this.observe('Hotels', function (newValue, oldValue, keypath) {
                         if (newValue) {
                             this.hotelsClone = [].concat(this.get('Hotels'));
 
                             // получаем первую порцию из 50 отелей
                             // далее по скроллингу
-                            this.set({ hotelList: this.nextArrayDoseHotels() })
+                            this.nextArrayDoseHotels();
+                            console.log(this.get('hotelList'));
 
                         }
                     });
 
-                    /*this.observe('hotelList', function (newValue, oldValue, keypath) {
+                    /**
+                     * Сделим за изменениями массива hotelList
+                     * Происходит когда добавляем новую порцию отелей
+                     */
+                    this.observe('hotelList', function (newValue, oldValue, keypath) {
                         if (newValue) {
-                            this.set({ hotelList: this.hotelsClone })
+
+                            console.log(newValue.length, this.get('Hotels').length, 'newValue');
+
+                            if (newValue.length == this.get('Hotels').length) {
+                                document.removeEventListener('scroll');
+                                this.set({hotelList: []});
+                            } else {
+                                this.updateCoords();
+                            }
                         }
-                    });*/
+                    });
                 },
 
                 beforeInit: function (data) {
@@ -64,12 +84,23 @@ angular.module('innaApp.conponents').
                  * @param event
                  */
                 onScroll: function (event) {
-                    var coords = utils.getCoords(this.find('.b-list-hotels__list'))
-                    var scrollTop = utils.getScrollTop();
+                    var elem = this.find('.b-list-hotels__list');   
+                    var coords =  utils.getCoords(elem),
+                        scrollTop = utils.getScrollTop(),
+                        viewportHeight = window.innerHeight;
 
-                    if((coords.bottom - scrollTop) <= scrollTop) {
+
+                    console.log(coords.top, (coords.bottom), (scrollTop + (viewportHeight)), scrollTop);
+
+                    if ((coords.bottom) <= (scrollTop + (viewportHeight))) {
                         console.log('get new dose');
+                        this.nextArrayDoseHotels();
                     }
+                },
+
+                updateCoords: function () {
+                    var elem = this.find('.b-list-hotels__list');
+                    this.set({coords: utils.getCoords(elem)});
                 },
 
                 /**
@@ -78,9 +109,24 @@ angular.module('innaApp.conponents').
                  * Берем порцию из клонированного массива
                  * @returns {Array}
                  */
-                nextArrayDoseHotels : function(){
-                    var newDose = this.hotelsClone.splice(0, 50);
-                    this.get('hotelList').push(newDose);
+                nextArrayDoseHotels: function () {
+                    var that = this,
+                        start = null,
+                        end = null,
+                        newDose = null;
+
+                    var throttle = _.throttle(function () {
+
+                        start = that.get('hotelList').length;
+                        end = that.get('countHotelsVisible');
+                        newDose = that.hotelsClone.splice(start, end);
+
+                        that.set({hotelList: that.get('hotelList').concat(newDose)});
+                    }, 500);
+
+                    throttle();
+
+                    console.log(this.get('hotelList'));
                     return newDose;
                 },
 

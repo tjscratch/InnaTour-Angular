@@ -65,7 +65,7 @@ var utils = {
         // (4)
         var top = box.top + scrollTop - clientTop;
         var left = box.left + scrollLeft - clientLeft;
-        var bottom = box.bottom + scrollTop - clientTop;
+        var bottom = box.bottom;
 
         // (5)
         return {
