@@ -1,10 +1,10 @@
 <ng:any>
     <div class="search-date-block search__120" ng-click="toggleFrom($event)" data-title="Выберите дату начала путешествия">
-        <input type="text" value="{{long(date1)}}" class="search-date search-date-arr" placeholder="Туда"/>
+        <input type="text" ng-value="{{long(date1)}}" class="search-date search-date-arr" placeholder="Туда"/>
         <div style="position:absolute;top:0;left:0;bottom:0;right:0;"></div>
     </div>
     <div class="search-date-block search__120" ng-click="toggleTo($event)" data-title="Выберите дату отправления обратно">
-        <input type="text" value="{{long(date2)}}" class="search-date search-date-arr" placeholder="Обратно"/>
+        <input type="text" ng-value="{{long(date2)}}" class="search-date search-date-arr" placeholder="Обратно"/>
         <div style="position:absolute;top:0;left:0;bottom:0;right:0;"></div>
     </div>
     <div class="js-datepicker datepicker-body" ng-show="isOpen">
@@ -27,5 +27,4 @@
             </div>
         </div>
     </div>
-
 </ng:any>
