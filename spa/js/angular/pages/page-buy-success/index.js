@@ -15,12 +15,34 @@ innaAppControllers.
         '$locale',
 
         // components
-        'DynamicBlockAviaHotel',
+        'DynamicBlock',
         'Balloon',
-        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlockAviaHotel, Balloon) {
+        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon) {
 
 
             $scope.hotelToShowDetails = null;
+
+            /** DynamicBlock.extend  */
+            var DynamicBlockAviaHotel = DynamicBlock.extend({
+                data : {
+                    settings : {
+                        height : 220,
+                        countColumn: 2,
+                        classBlock : 'buy__fly'
+                    }
+                },
+                partials: {
+                    collOneContent: $templateCache.get('components/dynamic-block/templ/ticket2ways.hbs.html'),
+                    collTwoContent: $templateCache.get('components/dynamic-block/templ/hotel-info-bed-type.hbs.html')
+                },
+                init: function (options) {
+                    this._super(options);
+
+                    this.on({
+                        getHotelDetails: this.getHotelDetails
+                    })
+                }
+            });
 
 
             var Page = Ractive.extend({
@@ -35,9 +57,7 @@ innaAppControllers.
                     DynamicBlockAviaHotel: DynamicBlockAviaHotel
                 },
                 data: {
-                    loadData: false,
-                    pluralize: utils.pluralize,
-                    moment : moment
+                    loadData: false
                 },
                 init: function () {
                     var that = this;
@@ -106,7 +126,7 @@ innaAppControllers.
                     var hotelRules = new aviaHelper.hotelRules();
                     hotelRules.fillData(this.get('Hotel'));
 
-                    this._balloonHotel = new Balloon({
+                    (new Balloon({
                         data: {
                             balloon_class: 'balloon_ticket',
                             hotelRules: hotelRules
@@ -114,8 +134,7 @@ innaAppControllers.
                         partials: {
                             balloonContent: this._partialBaloonHotel
                         }
-                    })
-                    this._balloonHotel.show();
+                    }).show());
                 },
 
                 /**
@@ -148,8 +167,8 @@ innaAppControllers.
                  */
                 parse: function (data) {
                     var avia = data.AviaInfo;
-                    var hotel = data.Hotel;
                     var passengers = data.Passengers;
+
                     data.PassengersData = {
                         adultCount: 0,
                         childCount: 0,
@@ -159,16 +178,6 @@ innaAppControllers.
 
                     // добавляем новые поля
                     aviaHelper.addCustomFields(avia);
-
-                    avia.transferCount = function (count) {
-                        return utils.pluralize(count, ['пересадка', 'пересадки', 'пересадок']);
-                    }
-
-                    /* stars */
-                    hotel.StarsArr = [];
-                    for (var i = 0; i < hotel.Stars; i++) {
-                        hotel.StarsArr.push(i);
-                    }
 
                     data.price = $filter('price')(data.Price);
 

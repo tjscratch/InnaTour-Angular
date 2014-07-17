@@ -1,3 +1,22 @@
+<span class="icon-sprite-airplane"></span>
+
+{{#if !(AviaInfo.transportersList.length > 3)}}
+	{{#each AviaInfo.transportersList}}
+		<span class="rl-airline">
+	        <img src="{{logoUrl}}" alt="">
+	        <span class="rl-airline-text">{{name}}</span>
+	    </span>
+	{{/each}}
+{{/if}}
+
+{{#if AviaInfo.transportersList.length > 3}}
+	<span class="rl-airline">
+	    <img src="/spa/img/group.png" alt="">
+	    <span class="rl-airline-text">Несколько авиакомпаний</span>
+	</span>
+{{/if}}
+
+
 <div class="b-ticket_2ways buy__tickets">
 
     <!-- to -->
@@ -23,16 +42,16 @@
         <div class="rlf-full-travel-time-info">
             в пути: {{AviaInfo.TimeToFormatted}},
 
-            {{#AviaInfo.ToTransferCount > 0}}
+            {{#if AviaInfo.ToTransferCount > 0}}
                 <span>
                     {{AviaInfo.ToTransferCount}}
-                    {{helper.getTransferCountText(AviaInfo.ToTransferCount)}}
+                    {{pluralize(AviaInfo.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}}
                 </span>
-            {{/}}
+            {{/if}}
 
-            {{#AviaInfo.ToTransferCount == 0}}
-                <span>прямой</span>
-            {{/}}
+            {{#if AviaInfo.ToTransferCount == 0}}
+            <span>прямой</span>
+            {{/if}}
         </div>
     </div>
 
@@ -61,16 +80,16 @@
         <div class="rlf-full-travel-time-info">
             в пути: {{AviaInfo.TimeBackFormatted}},
 
-            {{#AviaInfo.BackTransferCount > 0}}
+            {{#if AviaInfo.BackTransferCount > 0}}
                 <span>
                     {{AviaInfo.BackTransferCount}}
-                    {{AviaInfo.transferCount(AviaInfo.BackTransferCount)}}
+                    {{pluralize(AviaInfo.BackTransferCount, ['пересадка', 'пересадки', 'пересадок'])}}
                 </span>
-            {{/}}
+            {{/if}}
 
-            {{#AviaInfo.BackTransferCount == 0}}
+            {{#if AviaInfo.BackTransferCount == 0}}
                 <span>прямой</span>
-            {{/}}
+            {{/if}}
         </div>
     </div>
 

@@ -20,9 +20,9 @@
     <div class="balloon__text-block">
         <h4 class="balloon__title-sec">Дополнительно</h4>
         <ul class="balloon__list">
-            {{#hotelRules.extra.List}}
+            {{#each hotelRules.extra.List}}
                 <li>{{.}}</li>
-            {{#hotelRules.extra.List}}
+            {{/each}}
         </ul>
     </div>
 {{/}}
