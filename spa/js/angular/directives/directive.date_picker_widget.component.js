@@ -239,6 +239,9 @@
                             }
                         });
 
+                        console.log('IE-TEST:', $scope.input1.val());
+                        console.log('IE-TEST:', $scope.input2.val());
+
                         try {
                             $scope.input1.tooltip('destroy');
                         } catch (e) {
@@ -247,6 +250,8 @@
                             $scope.input2.tooltip('destroy');
                         } catch (e) {
                         }
+
+
                     }
                 });
 
