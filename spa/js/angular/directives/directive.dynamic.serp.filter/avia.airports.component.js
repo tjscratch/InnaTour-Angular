@@ -51,7 +51,7 @@ angular.module('innaApp.directives')
 
                         this.options.getSelected().each(function(option){
                             ticket.everyEtap(function(etap){
-                                console.log(option.code, etap.data.InCode, etap.data.OutCode);
+                                //console.log(option.code, etap.data.InCode, etap.data.OutCode);
 
                                 show = show || etap.data.InCode == option.code || etap.data.OutCode == option.code;
                             });

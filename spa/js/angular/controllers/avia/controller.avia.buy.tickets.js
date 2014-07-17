@@ -579,8 +579,8 @@ innaAppControllers.
                                     $scope.price = $scope.reservationModel.price;
 
                                     //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
-                                    console.log('reservationModel:');
-                                    console.log($scope.reservationModel);
+                                    //console.log('reservationModel:');
+                                    //console.log($scope.reservationModel);
 
                                     $scope.baloon.hide();
 
@@ -611,8 +611,8 @@ innaAppControllers.
                 function getTarifs() {
                     paymentService.getTarifs({ variantTo: $scope.aviaInfo.VariantId1, varianBack: $scope.aviaInfo.VariantId2 },
                         function (data) {
-                            console.log('\npaymentService.getTarifs, data:');
-                            console.log(data);
+                            //console.log('\npaymentService.getTarifs, data:');
+                            //console.log(data);
                             $scope.tarifs.tarifsData = data;
                         },
                         function (data, status) {
@@ -706,7 +706,7 @@ innaAppControllers.
 
                 self.listenCloseEvent = function () {
                     $('#buy-listener').on('inna.buy.close', function (event, data) {
-                        console.log('triggered inna.buy.close, isOrderPaid: ' + $scope.isOrderPaid);
+                        //console.log('triggered inna.buy.close, isOrderPaid: ' + $scope.isOrderPaid);
                         $scope.safeApply(function () {
                             if ($scope.isOrderPaid == false) {
                                 $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
@@ -880,7 +880,7 @@ innaAppControllers.
                                 }
                             }
                             catch (e) {
-                                console.error(e);
+                            //    console.error(e);
                             }
                             finally {
                                 $scope.isCkeckProcessing = false;

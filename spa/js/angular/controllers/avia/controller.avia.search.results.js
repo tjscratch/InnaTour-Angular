@@ -1039,7 +1039,7 @@ innaAppControllers.
                             return $filter('price')(text);
                         },
                         console: function(){
-                            console.log.apply(console, arguments);
+                            //console.log.apply(console, arguments);
                         },
 
                         isAgency: $scope.isAgency,
@@ -1074,7 +1074,7 @@ innaAppControllers.
                 }
 
                 self.reset = function () {
-                    console.log('ractive reset');
+                    //console.log('ractive reset');
                     self.ractive.reset('items', $scope.visibleFilteredTicketsList);
                 }
             }
