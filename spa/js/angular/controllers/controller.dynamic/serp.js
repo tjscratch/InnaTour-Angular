@@ -9,11 +9,13 @@ innaAppControllers
         'innaApp.Urls',
         'aviaHelper',
 
+        // components
+
         '$templateCache',
         'Balloon',
         'HotelsList',
         function ($scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper,
-                  $templateCache,  Balloon, HotelsList) {
+                    $templateCache,  Balloon, HotelsList) {
 
             /*Private*/
             var searchParams = angular.copy($routeParams);
@@ -83,7 +85,7 @@ innaAppControllers
             $scope.dateHelper = dateHelper;
             $scope.events = Events;
 
-            var calibrate = function (list, scrollTop, __now) {
+            /*var calibrate = function (list, scrollTop, __now) {
                 var TICKET_HEIGHT = 200;
                 var scrolledTickets = parseInt(scrollTop / TICKET_HEIGHT);
 
@@ -110,7 +112,7 @@ innaAppControllers
                 }
             };
 
-            calibrate.__scrolledTicketsCache = NaN;
+            calibrate.__scrolledTicketsCache = NaN;*/
 
 
             // TODO : Hotel.prototype.setCurrent method is deprecated
@@ -205,7 +207,7 @@ innaAppControllers
                             $scope.hotels.push(hotel);
                         }
 
-                        calibrate($scope.hotels, utils.getScrollTop(), true);
+                        //calibrate($scope.hotels, utils.getScrollTop(), true);
                     };
                 } else if ($scope.state.isActive($scope.state.TICKETS_TAB)) {
                     method = 'getTicketsByCombination';
@@ -223,10 +225,18 @@ innaAppControllers
 
                 if (!method || !param) return;
 
-                console.log(param, 'param');
+                //console.log(param, 'param');
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
 
-                    console.log(data);
+                    if(data.Hotels){
+
+                        (new HotelsList({
+                            el : document.querySelector('.results-list'),
+                            data : {
+                                Hotels : data.Hotels
+                            }
+                        }));
+                    }
 
                     $scope.$apply(function ($scope) {
                         apply($scope, data);
@@ -314,7 +324,7 @@ innaAppControllers
                         .then(function () {
                             onTabLoad(onTabLoadParam);
 
-                            calibrate($scope.hotels, 0);
+                            //calibrate($scope.hotels, 0);
 
                             $scope.baloon.hide();
                         });
@@ -399,14 +409,15 @@ innaAppControllers
             }, true);
 
             $scope.$watch('hotelFilters', function (data) {
-                $scope.hotels.filter($scope.hotelFilters);
-                $scope.$broadcast('change:filters', data);
+                console.log('hotelFilters');
+                //$scope.hotels.filter($scope.hotelFilters);
+                //$scope.$broadcast('change:filters', data);
 
-                calibrate($scope.hotels, utils.getScrollTop(), true);
+                //calibrate($scope.hotels, utils.getScrollTop(), true);
             }, true);
 
             $scope.$on('Dynamic.SERP.*.Sorting', function () {
-                calibrate($scope.hotels, utils.getScrollTop(), true);
+                //calibrate($scope.hotels, utils.getScrollTop(), true);
             });
 
 
@@ -476,10 +487,10 @@ innaAppControllers
             }());
 
 
-            $(function () {
+            /*$(function () {
                 var doc = $(document);
 
-                function onScroll(event) {
+                *//*function onScroll(event) {
                     var scrollTop = utils.getScrollTop();
 
                     $scope.$apply(function ($scope) {
@@ -489,12 +500,14 @@ innaAppControllers
                     });
                 }
 
-                doc.on('scroll', onScroll);
+                doc.on('scroll', onScroll);*//*
 
-                $scope.$on('$destroy', function () {
-                    doc.off('scroll', onScroll);
-                })
-            });
+            });*/
+
+            $scope.$on('$destroy', function () {
+                //doc.off('scroll', onScroll);
+                doc.off('scroll');
+            })
         }
     ])
     .controller('DynamicPackageSERPTicketPopupCtrl', [

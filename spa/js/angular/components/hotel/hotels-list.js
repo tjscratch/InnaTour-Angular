@@ -10,9 +10,8 @@ angular.module('innaApp.conponents').
 
             var HotelsList = Ractive.extend({
                 template: $templateCache.get('components/hotel/templ/list.hbs.html'),
-                append: true,
                 data: {
-                    //searchParams: angular.copy($routeParams)
+                    searchParams: angular.copy($routeParams)
                 },
                 components: {
                     HotelItem: HotelItem
@@ -20,19 +19,20 @@ angular.module('innaApp.conponents').
                 init: function () {
                     var that = this;
 
-                    console.log('list');
+                    console.log(this);
 
                     this.on({
                         change: function (data) {
-
+                            console.log(data);
                         },
                         teardown: function (evt) {
 
                         }
                     })
 
-                    this.observe('TaFactor', function (newValue, oldValue, keypath) {
+                    this.observe('Hotels', function (newValue, oldValue, keypath) {
                         if (newValue) {
+                            console.log(newValue);
                             //this.set({ TaFactorArr: ''})
                         }
                     });
