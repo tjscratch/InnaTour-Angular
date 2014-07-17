@@ -239,8 +239,8 @@
                             }
                         });
 
-                        console.log('IE-TEST:', $scope.input1.val());
-                        console.log('IE-TEST:', $scope.input2.val());
+                        $scope.input1.val($scope.long($scope.date1));
+                        $scope.input2.val($scope.long($scope.date2));
 
                         try {
                             $scope.input1.tooltip('destroy');
