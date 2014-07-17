@@ -1,3 +1,7 @@
+
+// TODO : deprecated
+// TODO  используется только в поиске авиабилетов
+
 angular.module('innaApp.directives')
     .directive('tooltipPriceGeneric', ['$templateCache', function($templateCache){
         return {

@@ -866,6 +866,7 @@ innaAppControllers.
                                             $scope.baloon.showGlobalAviaErr();
                                         }
                                         else if(data.Result == 3){
+                                            $scope.baloon.hide();
                                             $scope._baloon = new Balloon({
                                                 data : {
                                                     balloonClose : true
