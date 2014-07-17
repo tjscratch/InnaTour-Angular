@@ -1,0 +1,33 @@
+{{#if virtualBundle.getProfit() > 1000}}
+	<div class="price">
+	    <span class="cross">
+		    {{priceFilter(virtualBundle.getFullPrice())}}
+		    {{>ruble}}
+	    </span>
+	    <div class="price-description">по отдельности</div>
+	</div>
+{{/if}}
+
+<div class="price-description">
+    Перелет + Отель
+</div>
+<div class="corner-price">
+    <div>
+
+	    {{priceFilter(virtualBundle.getFullPackagePrice())}}
+	    {{>ruble}}
+    </div>
+
+    <!-- tooltip price -->
+    <div tool-tip-price item="virtualBundle" is-hotel="true"></div>
+
+	{{#if virtualBundle.getProfit() > 1000}}
+	    <div class="price-description">
+	        Скидка: {{priceFilter(virtualBundle.getProfit())}}
+		    {{>ruble}}
+	    </div>
+	{{/if}}
+</div>
+
+
+<span class="button" on-click="setCurrent">Выбрать</span>

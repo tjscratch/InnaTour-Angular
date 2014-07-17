@@ -1,0 +1,11 @@
+{{#if photoList.length}}
+	{{#each photoList}}
+        <div class="b-carousel_item {{map ? 'b-carousel_map_item' : ''}}"
+             style="width:{{width}}px;height:{{height}}px;">
+
+            <div class="b-carousel_item_image {{map ? 'b-carousel_map_item' : ''}}_image"
+                 style="background-image: url({{.[imageSize]}});"></div>
+        </div>
+
+	{{/each}}
+{{/if}}

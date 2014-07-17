@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     clean = require('gulp-clean'),
-    gulpif = require('gulp-if');
+    gulpif = require('gulp-if'),
+    conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';
 

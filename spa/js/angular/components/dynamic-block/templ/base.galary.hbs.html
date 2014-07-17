@@ -8,15 +8,8 @@
 	b-result_{{settings.height}}
 	{{settings.classBlock}}">
 
-    <div class="b-result__cell result-cell">
-
-	    <!-- content -->
+    <div class="b-result__cell result-cell col-no-padding">
 		{{>collOneContent}}
-
-        <!-- separator -->
-        <div class="b-result-cell__gap">
-            <div class="b-result-cell__gap_wrap"></div>
-        </div>
     </div>
 
     <div class="b-result__cell result-cell">
@@ -24,20 +17,13 @@
         <!-- content -->
 		{{>collTwoContent}}
 
-
-		{{#if settings.countColumn > 2}}
-            <!-- separator -->
-            <div class="b-result-cell__gap">
-                <div class="b-result-cell__gap_wrap"></div>
-            </div>
-		{{/if}}
+        <!-- separator -->
+        <div class="b-result-cell__gap">
+            <div class="b-result-cell__gap_wrap"></div>
+        </div>
     </div>
 
-	{{#if settings.countColumn == 3}}
-        <div class="b-result__cell result-cell col-xs-3 result-choice">
-
-            <!-- content -->
-			{{>collThreeContent}}
-        </div>
-	{{/if}}
+    <div class="b-result__cell result-cell col-xs-3 result-choice">
+		{{>collThreeContent}}
+    </div>
 </div>

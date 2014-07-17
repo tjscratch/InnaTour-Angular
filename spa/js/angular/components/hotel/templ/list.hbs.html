@@ -1,9 +1,16 @@
 <div class="b-list-hotels">
-	<h3>list</h3>
+
+	{{#if Hotels.length}}
+	    <div class="b-switch-filters_buttons_right font-medium">
+	        Другие <b>{{Hotels.length -1}}</b>
+			{{pluralize(Hotels.length -1, ["вариант","варианта","вариантов"])}}
+	        отелей
+	    </div>
+	{{/if}}
 
 	<div class="b-list-hotels__list">
-		{{#each Hotels}}
-			<HotelItem />
+		{{#each hotelList}}
+			<HotelItem hotel="{{.}}" combinationModel="{{combinationModel}}" />
 		{{/each}}
 	</div>
 </div>

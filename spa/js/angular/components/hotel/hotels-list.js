@@ -18,24 +18,70 @@ angular.module('innaApp.conponents').
                 },
                 init: function () {
                     var that = this;
+                    this.hotelsClone = [];
+                    this.hotelsDose = [];
 
-                    console.log(this);
+                    document.addEventListener('scroll', this.onScroll.bind(this), false);
 
                     this.on({
                         change: function (data) {
-                            console.log(data);
+
                         },
                         teardown: function (evt) {
-
+                            document.removeEventListener('scroll');
                         }
                     })
 
                     this.observe('Hotels', function (newValue, oldValue, keypath) {
                         if (newValue) {
-                            console.log(newValue);
-                            //this.set({ TaFactorArr: ''})
+                            this.hotelsClone = [].concat(this.get('Hotels'));
+
+                            // получаем первую порцию из 50 отелей
+                            // далее по скроллингу
+                            this.set({ hotelList: this.nextArrayDoseHotels() })
+
                         }
                     });
+
+                    /*this.observe('hotelList', function (newValue, oldValue, keypath) {
+                        if (newValue) {
+                            this.set({ hotelList: this.hotelsClone })
+                        }
+                    });*/
+                },
+
+                beforeInit: function (data) {
+                    console.log('beforeInit');
+                },
+
+                complete: function (data) {
+                    console.log('complete');
+                },
+
+                /**
+                 * Высчитываем координаты нижней границы блока с отелями
+                 * и скроллинга окна браузера
+                 * @param event
+                 */
+                onScroll: function (event) {
+                    var coords = utils.getCoords(this.find('.b-list-hotels__list'))
+                    var scrollTop = utils.getScrollTop();
+
+                    if((coords.bottom - scrollTop) <= scrollTop) {
+                        console.log('get new dose');
+                    }
+                },
+
+                /**
+                 * Новая порция отелей, добавляем по 50 штук
+                 * Добавляем в массив this.get('hotelList')
+                 * Берем порцию из клонированного массива
+                 * @returns {Array}
+                 */
+                nextArrayDoseHotels : function(){
+                    var newDose = this.hotelsClone.splice(0, 50);
+                    this.get('hotelList').push(newDose);
+                    return newDose;
                 },
 
                 getHotels: function () {

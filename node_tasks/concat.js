@@ -3,6 +3,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglifyjs');
 var gulpif = require('gulp-if');
 var conf = require('./config');
+var stripDebug = require('gulp-strip-debug');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -28,6 +29,7 @@ gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-re
     ])
 
         .pipe(concat('app-main.js'))
+        //.pipe(stripDebug())
         .pipe(gulpif(_ENV_ === 'production', uglify({
             mangle: false,
             outSourceMap: true
