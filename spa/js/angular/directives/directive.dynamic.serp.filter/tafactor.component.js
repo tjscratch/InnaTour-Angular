@@ -18,7 +18,7 @@ angular.module('innaApp.directives')
                     function ($scope, $controller, $element) {
 
 
-
+                        console.log($element[0]);
                         /*
                         var _tripadvisor = new Tripadvisor({
                             el: $element.find('.js-tripadvisor-container'),
@@ -50,6 +50,7 @@ angular.module('innaApp.directives')
 
                         /*Properties*/
                         $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('TaFactor'));
+
                         $scope.filter.filterFn = function (hotel) {
                             var fits = false;
 
@@ -59,12 +60,14 @@ angular.module('innaApp.directives')
 
                             if (!fits) hotel.hidden = true;
                         }
+
                         $scope.options = $scope.filter.options = new Options();
 
                         /*Watchers*/
-                        /*var unwatchHotelsCollection = $scope.$watchCollection('hotels', function (hotels) {
+                        var unwatchHotelsCollection = $scope.$watchCollection('hotels', function (hotels) {
 
                             var collections = {};
+                            console.log("$watchCollection('hotels trip");
 
                             hotels.each(function (hotel) {
                                 (
@@ -82,7 +85,7 @@ angular.module('innaApp.directives')
 
                                 $scope.options.push(new Option(factor, factor, collections[factor].getMinPrice($scope.bundle)));
                             }
-                        });*/
+                        });
 
 
                         //destroy
