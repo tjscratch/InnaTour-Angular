@@ -387,7 +387,7 @@ innaAppControllers
 
             $scope.$watch('hotelFilters', function (data) {
                 console.log('hotelFilters', data);
-                //$scope.hotels.filter($scope.hotelFilters);
+                $scope.hotels.filter(data);
                 //$scope.$broadcast('change:filters', data);
 
                 //calibrate($scope.hotels, utils.getScrollTop(), true);

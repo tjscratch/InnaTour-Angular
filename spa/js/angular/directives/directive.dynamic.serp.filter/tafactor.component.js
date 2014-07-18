@@ -18,7 +18,7 @@ angular.module('innaApp.directives')
                     function ($scope, $controller, $element) {
 
 
-                        console.log($element[0]);
+                        console.log($scope.options, '$scope.options');
                         /*
                         var _tripadvisor = new Tripadvisor({
                             el: $element.find('.js-tripadvisor-container'),
@@ -62,6 +62,11 @@ angular.module('innaApp.directives')
                         }
 
                         $scope.options = $scope.filter.options = new Options();
+
+
+                        $scope.$watch('options', function(data){
+                            console.log(data, 'data options');
+                        })
 
                         /*Watchers*/
                         var unwatchHotelsCollection = $scope.$watchCollection('hotels', function (hotels) {

@@ -288,12 +288,13 @@ inna.Models._CollectionFactory = function () {
             item.hidden = false;
         });
 
+
+
         this.each(function (item) {
             if (item.hidden) return; //already hidden;
 
             filters.each(function (filter) {
                 if (!filter.options.hasSelected()) return; //nothing selected, filter isn't interesting
-
                 filter.filterFn(item);
             });
         });
