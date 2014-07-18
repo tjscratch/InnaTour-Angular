@@ -4,6 +4,7 @@
 // Ractive.defaults
 Ractive.defaults.data.pluralize = utils.pluralize || null;
 Ractive.defaults.data.moment = moment || null;
+Ractive.defaults.debug = true;
 
 var app = angular.module('innaApp', [
   'ngRoute',

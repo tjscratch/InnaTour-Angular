@@ -5,40 +5,42 @@ angular.module('innaApp.conponents').
         function ($filter, $templateCache) {
 
             var HotelGallery = Ractive.extend({
-                template: $templateCache.get('components/hotel-gallery/templ/gallery.hbs.html'),
+                template: $templateCache.get('components/gallery/templ/gallery.hbs.html'),
                 append: true,
                 data: {
+                    isHovered : false,
                     imageSize : 'Small',
                     photoList: [],
+                    photoCollection : [],
                     width: 200,
                     height: 190
                 },
-                partials : {
-                    photoListTemplates : '<div>galary</div>'
-                },
+
                 init: function () {
                     var that = this;
                     that._sliderItemTotal = null;
                     this._slider = null;
                     that._sliderIndex = 0;
 
-                    this.on({
-                        change: function (data) {
 
-                        },
+                    this.on({
                         slideNext : this.slideNext,
                         slidePrev : this.slidePrev,
                         hover : this.onHover,
                         teardown: function (evt) {
 
+                        },
+                        change: function (data) {
+
                         }
                     })
 
-                   /* this.observe('photoList', function (newValue, oldValue, keypath) {
+                    this.observe('photoList', function (newValue, oldValue, keypath) {
                         if (newValue) {
-
+                            //клонируем массив - чтоб ractive не наблюдал за ним вверх по дочерним компонентам
+                            this.set({ Photos : this.get('photoList').concat([]) })
                         }
-                    });*/
+                    });
                 },
 
                 complete: function (data) {
@@ -54,7 +56,7 @@ angular.module('innaApp.conponents').
                     $(this._slider).css({
                         left: "-" + (this._sliderIndex * this.get('width')) + "px"
                     });
-                    //
+
 
                     /*_slider.css({
                      "-webkit-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
@@ -87,7 +89,16 @@ angular.module('innaApp.conponents').
                 },
 
                 onHover : function(){
-                   console.log('hover');
+                   this.set({isHovered : true});
+
+
+                    // отписываемся от события hover
+                    this.off('hover');
+
+                    // создаем новый массив исключая первый элемент
+                    var newArrPhoto = this.get('Photos').splice(1, this.get('Photos').length);
+
+                    this.set({photoCollection : newArrPhoto})
                 },
 
                 parse: function (end) {

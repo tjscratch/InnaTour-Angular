@@ -46,7 +46,10 @@ var utils = {
     },
 
     getScrollTop: function(){
-        return document.body.scrollTop || document.documentElement.scrollTop;
+        var body = document.body;
+        var docEl = document.documentElement;
+        var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+        return scrollTop;
     },
     getCoords: function (elem) {
         // (1)

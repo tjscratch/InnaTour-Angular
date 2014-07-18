@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
     .directive('innaDynamicBundle', ['$templateCache', function ($templateCache) {
         return {
-            template: $templateCache.get('components/bundle/templ/bundle.html'),
+            template: $templateCache.get('components/bundle/templ/bundle-big.html'),
             scope: {
                 bundle: '=innaDynamicBundleBundle',
                 state: '=innaDynamicBundleState',
@@ -11,6 +11,7 @@ angular.module('innaApp.directives')
                 close: '=innaDynamicBundleClose'
             },
             controller: [
+                'EventManager',
                 '$scope',
                 'aviaHelper',
                 '$element',
@@ -19,7 +20,7 @@ angular.module('innaApp.directives')
                 // components
                 'ShareLink',
                 'Tripadvisor',
-                function ($scope, aviaHelper, $element, Events, ShareLink, Tripadvisor) {
+                function (EventManager, $scope, aviaHelper, $element, Events, ShareLink, Tripadvisor) {
 
                     function orientation(){
                         var ua = navigator.userAgent.toLowerCase();
@@ -28,13 +29,13 @@ angular.module('innaApp.directives')
                         if (isAndroid) {
                             switch (window.orientation) {
                                 case 0:
-                                    $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                                    $scope.$emit(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE);
                                     break;
                                 case -90:
-                                    $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                                    $scope.$emit(Events.DYNAMIC_SERP_SET_OPEN_BUNDLE);
                                     break;
                                 case 90:
-                                    $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                                    $scope.$emit(Events.DYNAMIC_SERP_SET_OPEN_BUNDLE);
                                     break;
                                 default:
                                     break;
@@ -42,13 +43,13 @@ angular.module('innaApp.directives')
                         } else {
                             switch (window.orientation) {
                                 case 0:
-                                    $scope.$emit(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                                    $scope.$emit(Events.DYNAMIC_SERP_SET_OPEN_BUNDLE);
                                     break;
                                 case -90:
-                                    $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                                    $scope.$emit(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE);
                                     break;
                                 case 90:
-                                    $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                                    $scope.$emit(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE);
                                     break;
                                 default:
                                     break;

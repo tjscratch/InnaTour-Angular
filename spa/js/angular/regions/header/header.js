@@ -6,13 +6,15 @@ angular.module('innaApp.directives')
             replace: true,
             template: $templateCache.get('regions/header/templ/header.html'),
             controller: [
+                'EventManager',
                 '$scope',
                 '$location',
                 'eventsHelper',
                 'urlHelper',
                 'innaApp.Urls',
+                'innaApp.API.events',
                 'aviaHelper',
-                function ($scope, $location, eventsHelper, urlHelper, appUrls, aviaHelper) {
+                function (EventManager, $scope, $location, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
 
 
                     $scope.$on('$routeChangeStart', function (next, current) {
@@ -22,13 +24,31 @@ angular.module('innaApp.directives')
                     $scope.isHeaderVisible = true;
 
 
-                    $scope.$on('header:hidden', function () {
-                        $scope.isHeaderVisible = false;
+                    EventManager.on(Events.HEADER_VISIBLE, function(){
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = true;
+                        });
                     });
 
-                    $scope.$on('header:visible', function () {
-                        $scope.isHeaderVisible = true;
+                    EventManager.on(Events.HEADER_HIDDEN, function(){
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = false;
+                        });
                     });
+
+                    EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function(){
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = true;
+                        });
+                    });
+
+                    EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function(){
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = false;
+                        });
+                    });
+
+
 
 
                     $scope.isActive = function (route) {

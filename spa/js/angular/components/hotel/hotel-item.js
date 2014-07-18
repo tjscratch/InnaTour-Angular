@@ -30,30 +30,31 @@ angular.module('innaApp.conponents').
                 init: function () {
                     var that = this;
 
+                    var modelHotel = new inna.Models.Hotels.Hotel(this.get('hotel'))
+                    var virtualBundle = new inna.Models.Dynamic.Combination();
+                    virtualBundle.hotel = modelHotel;
+                    virtualBundle.ticket = this.get('combinationModel').ticket;
+
+                    this.set({
+                        virtualBundle : virtualBundle,
+                        modelHotel : modelHotel
+                    })
+
                     this.on({
+                        setCurrent : this.setCurrent,
+                        goToMap : this.goToMap,
                         change : function(data){
 
                         },
-                        setCurrent : this.setCurrent,
-                        goToMap : this.goToMap,
                         teardown: function (evt) {
 
                         }
                     })
 
-                    this.observe('hotel', function(newValue, oldValue, keypath) {
+                    /*this.observe('hotel', function(newValue, oldValue, keypath) {
                         if (newValue) {
-                            var modelHotel = new inna.Models.Hotels.Hotel(this.get('hotel'))
-                            var virtualBundle = new inna.Models.Dynamic.Combination();
-                            virtualBundle.hotel = modelHotel;
-                            virtualBundle.ticket = this.get('combinationModel').ticket;
-
-                            this.set({
-                                virtualBundle : virtualBundle,
-                                modelHotel : modelHotel
-                            })
                         }
-                    });
+                    });*/
 
 
                     /*$element.on('click', '.js-hotel-info-place', function (evt) {

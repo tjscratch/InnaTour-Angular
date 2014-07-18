@@ -4,15 +4,15 @@ angular.module('innaApp.conponents').
         '$filter',
         '$templateCache',
         '$routeParams',
+        'innaApp.API.events',
         'DynamicPackagesDataProvider',
         'HotelItem',
-        function (EventManager, $filter, $templateCache, $routeParams, DynamicPackagesDataProvider, HotelItem) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, DynamicPackagesDataProvider, HotelItem) {
 
-            var HotelsList = Ractive.extend({
+            var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/hotel/templ/list.hbs.html'),
                 data: {
-                    searchParams: angular.copy($routeParams),
-                    countHotelsVisible: 100,
+                    countHotelsVisible: 20,
                     hotelList: []
                 },
                 components: {
@@ -23,14 +23,26 @@ angular.module('innaApp.conponents').
                     this.hotelsClone = [];
                     this.hotelsDose = [];
 
-                    document.addEventListener('scroll', this.onScroll.bind(this), false);
+                    /**
+                     * Вызов метода не чаще 500
+                     * так как срабатывает по скроллингу
+                     * {@link http://underscorejs.org/}
+                     */
+                    this.debounceDose = _.throttle(this.nextArrayDoseHotels.bind(this), 300);
+
+
+                    var eventListener = function () {
+                        that.onScroll();
+                    };
+                    document.addEventListener('scroll', eventListener);
 
                     this.on({
                         change: function (data) {
 
                         },
                         teardown: function (evt) {
-                            document.removeEventListener('scroll');
+                            console.log('teardown sdfgsjhdgfhsd');
+                            document.removeEventListener('scroll', eventListener);
                         }
                     })
 
@@ -46,8 +58,6 @@ angular.module('innaApp.conponents').
                             // получаем первую порцию из 50 отелей
                             // далее по скроллингу
                             this.nextArrayDoseHotels();
-                            console.log(this.get('hotelList'));
-
                         }
                     });
 
@@ -58,25 +68,41 @@ angular.module('innaApp.conponents').
                     this.observe('hotelList', function (newValue, oldValue, keypath) {
                         if (newValue) {
 
-                            console.log(newValue.length, this.get('Hotels').length, 'newValue');
+                            /*console.table([
+                                {
+                                    newValue: newValue.length,
+                                    hotelList: this.get('hotelList').length,
+                                    Hotels: this.get('Hotels').length,
+                                    hotelsClone: this.hotelsClone.length
+                                }
+                            ]);*/
 
-                            if (newValue.length == this.get('Hotels').length) {
-                                document.removeEventListener('scroll');
-                                this.set({hotelList: []});
+                            // после добавления элементов в hotelList
+                            // обновляем координаты
+                            // оборачиваем в setTimeout, так как нужно дождаться вставки элементов в DOM
+                            if (newValue.length != this.get('Hotels').length) {
+                                setTimeout(this.updateCoords.bind(this), 0);
                             } else {
-                                this.updateCoords();
+                                console.log('removeEventListener');
+                                document.removeEventListener('scroll', eventListener);
                             }
                         }
                     });
+
+
+                    /**
+                     * Слушаем события от бандла
+                     * Обновляем координаты
+                     */
+                    EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
+                        that.updateCoords();
+                    });
+
+                    EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
+                        that.updateCoords();
+                    });
                 },
 
-                beforeInit: function (data) {
-                    console.log('beforeInit');
-                },
-
-                complete: function (data) {
-                    console.log('complete');
-                },
 
                 /**
                  * Высчитываем координаты нижней границы блока с отелями
@@ -84,23 +110,27 @@ angular.module('innaApp.conponents').
                  * @param event
                  */
                 onScroll: function (event) {
-                    var elem = this.find('.b-list-hotels__list');   
-                    var coords =  utils.getCoords(elem),
-                        scrollTop = utils.getScrollTop(),
-                        viewportHeight = window.innerHeight;
+                    var scrollTop = utils.getScrollTop(),
+                        viewportHeight = window.innerHeight,
+                        elHeight = this.get('elHeight');
 
 
-                    console.log(coords.top, (coords.bottom), (scrollTop + (viewportHeight)), scrollTop);
+                    //console.log((elHeight), (scrollTop + (viewportHeight + 100)));
 
-                    if ((coords.bottom) <= (scrollTop + (viewportHeight))) {
-                        console.log('get new dose');
-                        this.nextArrayDoseHotels();
+
+                    if ((scrollTop + (viewportHeight + 120)) >= elHeight) {
+                        // получаем новую порцию
+                        this.debounceDose();
                     }
                 },
 
                 updateCoords: function () {
                     var elem = this.find('.b-list-hotels__list');
-                    this.set({coords: utils.getCoords(elem)});
+                    var coords = utils.getCoords(elem);
+                    this.set({
+                        coords: coords,
+                        elHeight: (elem.offsetHeight + coords.top)
+                    });
                 },
 
                 /**
@@ -111,41 +141,50 @@ angular.module('innaApp.conponents').
                  */
                 nextArrayDoseHotels: function () {
                     var that = this,
-                        start = null,
-                        end = null,
-                        newDose = null;
-
-                    var throttle = _.throttle(function () {
-
-                        start = that.get('hotelList').length;
-                        end = that.get('countHotelsVisible');
+                        start = 0,
+                        end = that.get('countHotelsVisible'),
                         newDose = that.hotelsClone.splice(start, end);
 
+                    if (newDose.length) {
                         that.set({hotelList: that.get('hotelList').concat(newDose)});
-                    }, 500);
-
-                    throttle();
-
-                    console.log(this.get('hotelList'));
-                    return newDose;
+                    }
                 },
 
                 getHotels: function () {
-                    DynamicPackagesDataProvider['getHotelsByCombination'](
+                    var that = this,
+                        param = this.get('combinationModel').ticket.data.VariantId1,
+                        searchParam = angular.copy($routeParams);
+
+                    console.log(param);
+
+                    return DynamicPackagesDataProvider['getHotelsByCombination'](
                         param,
-                        this.get('searchParams '),
+                        searchParam,
                         function (data) {
                             console.log(data);
+
+                            if (data.Hotels) {
+                                that.set({ Hotels: data.Hotels });
+                            }
+
                             EventManager.fire('Dynamic.SERP.Tab.Loaded');
                         });
                 },
 
                 parse: function (end) {
 
-                }
+                },
 
+
+                beforeInit: function (data) {
+                    //console.log('beforeInit');
+                },
+
+                complete: function (data) {
+                    //console.log('complete');
+                }
             });
 
-            return HotelsList;
+            return ListPanel;
         }]);
 
