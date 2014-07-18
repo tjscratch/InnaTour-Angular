@@ -91,7 +91,6 @@ innaAppControllers
             $scope.events = Events;
 
 
-
             // TODO : Hotel.prototype.setCurrent method is deprecated
             // Use event choose:hotel = Events.DYNAMIC_SERP_CHOOSE_HOTEL
             inna.Models.Hotels.Hotel.prototype.setCurrent = function () {
@@ -176,21 +175,17 @@ innaAppControllers
                 if ($scope.state.isActive($scope.state.HOTELS_TAB)) {
                     method = 'getHotelsByCombination';
                     param = $scope.combination.ticket.data.VariantId1;
-                    /*apply = function ($scope, data) {
-                     $scope.hotels.flush();
 
-                     for (var i = 0, raw = null; raw = data.Hotels[i++];) {
-                     if (!raw.HotelName) continue;
+                    apply = function ($scope, data) {
+                        $scope.hotels.flush();
 
-                     var hotel = new inna.Models.Hotels.Hotel(raw);
-                     hotel.hidden = false;
-                     hotel.currentlyInvisible = false;
+                        for (var i = 0, raw = null; raw = data.Hotels[i++];) {
+                            if (!raw.HotelName) continue;
+                            var hotel = new inna.Models.Hotels.Hotel(raw);
+                            $scope.hotels.push(hotel);
+                        }
+                    };
 
-                     $scope.hotels.push(hotel);
-                     }
-
-                     //calibrate($scope.hotels, utils.getScrollTop(), true);
-                     };*/
                 } else if ($scope.state.isActive($scope.state.TICKETS_TAB)) {
                     method = 'getTicketsByCombination';
                     param = $scope.combination.hotel.data.HotelId;
@@ -219,15 +214,16 @@ innaAppControllers
                                 combinationModel: $scope.combination
                             }
                         });
-
-                        $scope.safeApply(function () {
-                            $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
-                            $scope.baloon.hide();
-                        })
-                        deferred.resolve();
                     } else {
                         console.log('load tickets');
                     }
+
+                    $scope.safeApply(function () {
+                        apply($scope, data);
+                        $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
+                        $scope.baloon.hide();
+                        deferred.resolve();
+                    })
                 });
 
                 return deferred.promise();
@@ -390,7 +386,7 @@ innaAppControllers
              }, true);*/
 
             $scope.$watch('hotelFilters', function (data) {
-                console.log('hotelFilters');
+                console.log('hotelFilters', data);
                 //$scope.hotels.filter($scope.hotelFilters);
                 //$scope.$broadcast('change:filters', data);
 

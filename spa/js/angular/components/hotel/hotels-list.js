@@ -175,6 +175,21 @@ angular.module('innaApp.conponents').
 
                 },
 
+                /**
+                 * Метод фильтрации списка отелей
+                 * Вызываем по событию от панели набора фильтров
+                 *
+                 * Фильтруем исходный массив Hotels
+                 * Выставляем новый набор для hotelList
+                 * И для this.hotelsClone
+                 * @param {Array} param_filters
+                 */
+                filter : function(param_filters){
+                    this.get('Hotels').filter(function(hotel){
+
+                    })
+                },
+
 
                 beforeInit: function (data) {
                     //console.log('beforeInit');

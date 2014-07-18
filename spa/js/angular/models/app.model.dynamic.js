@@ -96,9 +96,10 @@ inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;
 
     if(this.data) {
-        if(this.data.CheckIn) this.data.CheckIn = dateHelper.apiDateToJsDate(this.data.CheckIn);
-        if(this.data.CheckOut) this.data.CheckOut = dateHelper.apiDateToJsDate(this.data.CheckOut);
         if(this.data.TaFactor) this.data.TaFactorCeiled = Math.ceil(this.data.TaFactor);
+        /*if(this.data.CheckIn) this.data.CheckIn = dateHelper.apiDateToJsDate(this.data.CheckIn);
+        if(this.data.CheckOut) this.data.CheckOut = dateHelper.apiDateToJsDate(this.data.CheckOut);
+        if(this.data.TaFactor) this.data.TaFactorCeiled = Math.ceil(this.data.TaFactor);*/
     }
 };
 

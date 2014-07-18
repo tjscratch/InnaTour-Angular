@@ -68,6 +68,7 @@ angular.module('innaApp.directives')
 
                         /*Watchers*/
                         var unwatchCollectionHotels = $scope.$watchCollection('hotels', function(newVal) {
+
                             if(!newVal || !newVal.list.length) return;
 
                             $scope.option.min = newVal.getMinPrice() + ticketPrice;
