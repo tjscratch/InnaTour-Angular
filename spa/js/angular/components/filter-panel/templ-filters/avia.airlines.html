@@ -1,0 +1,23 @@
+<a href="javascript:void(0);"
+   class="filters__link"
+   ng-class="{filters__link_selected: options.hasSelected()}"
+   ng-click="popup.toggle()"
+   ng-if="options.options.length">Авиакомпании</a>
+<div class="filters__baloon" ng-if="popup.isOpen">
+    <header class="ra-header">
+        <h4 class="ra-title">Авиакомпании</h4>
+        <a class="ra-header-link" href="javascript:void(0);" ng-click="options.reset()">Сбросить</a>
+    </header>
+    <div class="ra-content">
+        <ul class="ra-fly-type-list">
+            <li ng-repeat="option in options.options">
+                <label>
+                    <input type="checkbox" ng-model="option.selected">
+                    <span class="ra-checkbox"></span>
+                    <span class="ra-fly-type">{{option.title}}</span>
+                    <span class="ra-fly-price">{{option.minPrice | price}}&nbsp;<ng-include src="'components/ruble.html'" /></span>
+                </label>
+            </li>
+        </ul>
+    </div>
+</div>

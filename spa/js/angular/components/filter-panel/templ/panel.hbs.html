@@ -1,0 +1,14 @@
+<div class="b-filter-panal  filters__body main__center {{(asMap) ? 'filters__body_dp' : '' }}">
+    <!-- Показываем разные фильтры -->
+	{{#if !asMap && state.HOTELS_TAB}}
+		<HotelsFilter />
+	{{/if}}
+
+	{{#if !asMap && state.TICKETS_TAB}}
+        <TicketFilter />
+	{{/if}}
+
+	{{#if asMap}}
+		<MapFilter />
+	{{/if}}
+</div>
