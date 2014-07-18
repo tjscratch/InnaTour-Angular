@@ -22,13 +22,12 @@ angular.module('innaApp.directives')
                     airports: '=dynamicSerpMapAirports'
                 },
                 controller: [
-                    'EventManager',
                     '$scope',
                     '$element',
                     'innaApp.API.events',
 
 
-                    function (EventManager, $scope, $element, Events) {
+                    function ($scope, $element, Events) {
                         $scope.currentHotel = null;
                         $scope.currentHotelPreview = null;
                         $scope.airMarker = null;
@@ -39,24 +38,12 @@ angular.module('innaApp.directives')
                         $element.addClass('big-map_short');
 
 
-                        /*$scope.$root.$on('header:hidden', function () {
+                        $scope.$root.$on('header:hidden', function () {
                             $element.addClass('big-map_short')
                         });
 
                         $scope.$root.$on('header:visible', function () {
                             $element.removeClass('big-map_short')
-                        });*/
-
-                        EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function(){
-                            $scope.safeApply(function () {
-                                $element.removeClass('big-map_short')
-                            });
-                        });
-
-                        EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function(){
-                            $scope.safeApply(function () {
-                                $element.addClass('big-map_short')
-                            });
                         });
 
                         $scope.setHotel = function (currentHotel) {
@@ -64,7 +51,7 @@ angular.module('innaApp.directives')
                         }
 
                         $scope.hotelDetails = function (currentHotel) {
-                            EventManager.fire('more:detail:hotel', $scope.hotels.search(currentHotel.HotelId));
+                            $scope.$emit('more:detail:hotel', $scope.hotels.search(currentHotel.HotelId));
                         }
 
                         $scope.$on('$destroy', function () {

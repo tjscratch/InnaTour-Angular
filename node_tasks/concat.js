@@ -3,7 +3,6 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglifyjs');
 var gulpif = require('gulp-if');
 var conf = require('./config');
-var stripDebug = require('gulp-strip-debug');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -29,7 +28,6 @@ gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-re
     ])
 
         .pipe(concat('app-main.js'))
-        //.pipe(stripDebug())
         .pipe(gulpif(_ENV_ === 'production', uglify({
             mangle: false,
             outSourceMap: true
@@ -42,8 +40,7 @@ gulp.task('concat-lib', function () {
     return gulp.src([
             conf.dest + '/lib/moment-with-langs.js',
             conf.dest + '/lib/underscore.js',
-            conf.dest + '/lib/ractive/ractive.js',
-            conf.dest + '/lib/ractive/ractive-events-hover.js',
+            conf.dest + '/lib/ractive.js',
             conf.dest + '/lib/polyfill/polyfill.js',
             conf.dest + '/lib/polyfill/classList.js',
             conf.dest + '/lib/jquery.cookie.js',

@@ -2,13 +2,12 @@ innaAppConponents.
     factory('DynamicBlock', [
         'innaApp.API.events',
         '$templateCache',
-        '$filter',
 
         // components
         'Stars',
         'Tripadvisor',
         'PriceGeneric',
-        function (Events, $templateCache, $filter, Stars, Tripadvisor, PriceGeneric) {
+        function (Events, $templateCache, Stars, Tripadvisor, PriceGeneric) {
 
             var DynamicBlock = Ractive.extend({
                 debug: true,
@@ -20,9 +19,6 @@ innaAppConponents.
                     settings : {
                         height : 220,
                         countColumn: 3
-                    },
-                    priceFilter: function (text) {
-                        return $filter('price')(text);
                     }
                 },
                 partials : {

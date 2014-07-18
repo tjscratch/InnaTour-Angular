@@ -46,10 +46,7 @@ var utils = {
     },
 
     getScrollTop: function(){
-        var body = document.body;
-        var docEl = document.documentElement;
-        var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-        return scrollTop;
+        return document.body.scrollTop || document.documentElement.scrollTop;
     },
     getCoords: function (elem) {
         // (1)
@@ -68,7 +65,7 @@ var utils = {
         // (4)
         var top = box.top + scrollTop - clientTop;
         var left = box.left + scrollLeft - clientLeft;
-        var bottom = box.bottom;
+        var bottom = box.bottom + scrollTop - clientTop;
 
         // (5)
         return {

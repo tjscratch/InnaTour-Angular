@@ -31,7 +31,6 @@
                         '$element',
                         'innaApp.API.events',
                         function ($scope, $element, Events) {
-
                             $scope.virtualBundle = new inna.Models.Dynamic.Combination();
                             $scope.virtualBundle.hotel = $scope.hotel;
                             $scope.virtualBundle.ticket = $scope.combination.ticket;

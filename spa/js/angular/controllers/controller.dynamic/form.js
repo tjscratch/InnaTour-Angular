@@ -185,7 +185,7 @@ innaAppControllers
             $scope.searchStart = function(){
 
               // удаляем куки состояния открытой карты
-              //DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, 0);
+              DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, 0);
 
               // если есть get параметр map=show, удалаяем его
               if ($location.search().map) {

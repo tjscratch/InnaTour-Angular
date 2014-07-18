@@ -2,7 +2,8 @@
  * Глобальный EventManager
  * mediator
  */
-angular.module('innaApp.services').service('EventManager', function () {
-        return new Ractive();
+angular.module('innaApp.conponents').
+    factory('mediator', function () {
+        return  new Ractive();
     }
 );

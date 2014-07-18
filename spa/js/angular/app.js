@@ -4,7 +4,8 @@
 // Ractive.defaults
 Ractive.defaults.data.pluralize = utils.pluralize || null;
 Ractive.defaults.data.moment = moment || null;
-Ractive.defaults.debug = true;
+
+
 
 var app = angular.module('innaApp', [
   'ngRoute',
@@ -21,9 +22,10 @@ var app = angular.module('innaApp', [
   'pasvaz.bindonce'
 ]);
 
+
+
 /* локализация дат moment */
 moment.lang('ru');
-
 
 app.constant('innaApp.Urls', {
     URL_ROOT: '/',
