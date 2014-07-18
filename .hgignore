@@ -37,6 +37,7 @@ bin/*
 *.log
 *.idea
 .git
+.gitignore
 *.DS_Store
 *.nginx_conf
 .project
