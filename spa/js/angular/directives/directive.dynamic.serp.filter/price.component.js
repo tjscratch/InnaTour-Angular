@@ -39,6 +39,8 @@ angular.module('innaApp.directives')
 
                         Option.prototype.reset = function(){
                             this.value = this.defaultValue;
+
+                            $scope.displayOnSlider();
                         };
 
                         Option.prototype.describe = function(){
@@ -63,8 +65,7 @@ angular.module('innaApp.directives')
 
                         $scope.reset = function(option) {
                             option.reset();
-                            $scope.displayOnSlider();
-                        }
+                        };
 
                         /*Watchers*/
                         var unwatchCollectionHotels = $scope.$watchCollection('hotels', function(newVal) {

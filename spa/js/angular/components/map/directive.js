@@ -602,8 +602,13 @@ angular.module('innaApp.directives')
 
                     //destroy
                     scope.$on('$destroy', function () {
-                        _tripadvisor.teardown();
-                        _tripadvisor = null;
+                        try {
+                            _tripadvisor.teardown();
+                        } catch(e) {
+                            //do nothing
+                        } finally {
+                            _tripadvisor = null;
+                        }
 
                         GM.event.addListener(map);
                         GM = null;
