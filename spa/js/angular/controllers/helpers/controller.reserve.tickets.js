@@ -225,7 +225,8 @@ innaAppControllers.
                         dependsOnField: null,//валидация зависит от поля
                         isValid: true,
                         isInvalid: false,
-                        validationType: null
+                        validationType: null,
+                        alwaysValid: false//поле не участвует в валидации
                     }
                 };
 
@@ -249,6 +250,16 @@ innaAppControllers.
                     else {
                         model.isValid = false;
                         model.isInvalid = true;
+                    }
+                }
+
+                $scope.setAlwaysValid = function (model, isValid) {
+                    if (model == null) return;
+                    if (isValid) {
+                        model.alwaysValid = true;
+                    }
+                    else {
+                        model.alwaysValid = false;
                     }
                 }
 
@@ -312,9 +323,21 @@ innaAppControllers.
                             }
                             case validateType.expire:
                             {
-                                tryValidate(item, function () {
-                                    Validators.expire(item.value, 'err');
-                                });
+                                var documentField = item.dependsOnField;
+                                if (documentField.isRuPassportAndInsideRF == true) {
+                                    //не проводим валидацию
+                                    //паспорт РФ и перелет внутри РФ
+                                    $scope.setValid(item, true);
+                                    $scope.setAlwaysValid(item, true);
+                                }
+                                else
+                                {
+                                    $scope.setAlwaysValid(item, false);
+                                    tryValidate(item, function () {
+                                        Validators.expire(item.value, 'err');
+                                    });
+                                }
+                                
                                 break;
                             }
                             case validateType.document:
@@ -392,6 +415,17 @@ innaAppControllers.
 
                                         var tripInsideRF = isTripInsideRF($scope.item);
                                         if (tripInsideRF) {
+                                            //проставляем флаг, что это российский паспорт
+                                            //флаг понадобится при валидации Действителен до
+                                            if (isCaseValid(function () {
+                                                Validators.ruPassport(doc_num, 'err');
+                                            })){
+                                                item.isRuPassportAndInsideRF = true;
+                                            }
+                                            else {
+                                                item.isRuPassportAndInsideRF = false;
+                                            }
+
                                             //проверяем паспорт, загран, св. о рождении
                                             if (isCaseValid(function () {
                                                 Validators.ruPassport(doc_num, 'err');
@@ -601,12 +635,12 @@ innaAppControllers.
                 //console.log($scope.validationModel);
 
                 $scope.isFieldInvalid = function (item) {
-                    //if (item != null && item.key == 'citizenship') {
-                    //    console.log(item);
+                    //if (item != null && item.key == 'doc_series_and_number') {
+                    //    console.log(item.isValid);
                     //}
-                    if (item != null && item.value != null && (!_.isString(item.value) || item.value.length > 0)) {
+                    if (item != null && item.value != null && (!_.isString(item.value) || item.value.length > 0 || item.alwaysValid)) {
                         if ($scope.validationModel.formPure) {
-                            return item.isInvalid && item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
+                            return item.isInvalid && ((item.value != null && item.value.length > 0) || item.alwaysValid);//подсвечиваем только если что-то введено в полях
                         }
                         else {
                             return item.isInvalid;

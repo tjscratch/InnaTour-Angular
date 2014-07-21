@@ -155,6 +155,7 @@
         <div class="b-field-block" style="width: 110px;">
             <label class="b-field-label b-field-label-docs">Действителен до</label>
             <input validate-events-dir ng-model="passenger.doc_expirationDate.value"
+                   depends-on="passenger.doc_series_and_number"
                    ng-validation-model="passenger.doc_expirationDate" validate="validate(item, type)"
                    validate-type="validateType.expire"
                    ng-class="{error:isFieldInvalid(passenger.doc_expirationDate)}"
