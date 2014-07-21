@@ -771,7 +771,13 @@ innaAppControllers.
                 init: function ($to) {
                     //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
                     $to.tooltipX({
-                        autoShow: false, autoHide: false, position: {at: 'center bottom' },
+                        autoShow: false,
+                        autoHide: false,
+                        position: {
+                            my: 'center top+22',
+                            at: 'center bottom',
+                            collision: "none"
+                        },
                         items: "[data-title]",
                         content: function () {
                             return $to.attr('data-title');
@@ -816,11 +822,8 @@ innaAppControllers.
 
                     // скроллим страницу вверх
                     // показываем тултип
-                    $("body, html").animate({"scrollTop":0},function(){
+                    $("body, html").animate({"scrollTop":400},function(){
                         var $to = $("#" + invalidItem.id);
-
-                        console.log('scrolltop');
-
                         $scope.tooltipControl.init($to);
                         $scope.tooltipControl.open($to);
                     });
