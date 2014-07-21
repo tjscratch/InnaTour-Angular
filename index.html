@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:ng="https://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -163,7 +163,7 @@
              title="Отправить заявку"></div>
 
         <!-- PAGE CONTENT -->
-        <div class="wrpr">
+        <div class="wrpr" ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/')}">
             <ng:view></ng:view>
         </div>
 
