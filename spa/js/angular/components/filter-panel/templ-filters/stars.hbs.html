@@ -1,0 +1,35 @@
+<div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+     on-click="toggle">
+	Звезды
+</div>
+
+{{#if isOpen}}
+<div class="filters__baloon">
+    <header class="ra-header">
+        <h4 class="ra-title">Звезды</h4>
+        <a class="ra-header-link" href="javascript:void(0);">Сбросить</a>
+    </header>
+
+    <div class="ra-content">
+        <ul class="ra-fly-type-list">
+
+            {{#each [1, 2, 3, 4, 5]}}
+            <li ng-if="option.shown">
+                <label>
+                    <input type="checkbox"/>
+                    <span class="ra-checkbox"></span>
+                    <span class="ra-fly-type">
+                        <Stars stars="{{@index}}"/>
+                    </span>
+                    <span class="ra-fly-price">
+                        <span bo-text="option.minPrice | price"></span>&nbsp;
+                        {{>ruble}}
+                    </span>
+                </label>
+            </li>
+            {{/each}}
+
+        </ul>
+    </div>
+</div>
+{{/if}}

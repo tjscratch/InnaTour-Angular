@@ -1,5 +1,5 @@
 angular.module('innaApp.conponents').
-    factory('Stars', [
+        factory('Stars', [
         '$filter',
         '$templateCache',
         function ($filter, $templateCache) {

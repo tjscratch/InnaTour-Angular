@@ -19,29 +19,49 @@ angular.module('innaApp.conponents').
         '$routeParams',
         'innaApp.API.events',
 
-        'HotelItem',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, HotelItem) {
+        'FilterExtra',
+        'FilterPrice',
+        'FilterName',
+        'FilterCategory',
+        'FilterSlider',
+        'FilterStars',
+        'FilterTaFactor',
+        'FilterType',
+        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterExtra, FilterPrice, FilterName, FilterCategory, FilterSlider, FilterStars, FilterTaFactor, FilterType) {
 
             var FilterPanel = Ractive.extend({
-                template: $templateCache.get('components/hotel/templ/list.hbs.html'),
+                template: $templateCache.get('components/filter-panel/templ/panel.hbs.html'),
                 data: {
-                    countHotelsVisible: 20,
-                    hotelList: [],
-                    asMap : false,
-                    state : {
-                        HOTELS_TAB : true,
-                        TICKETS_TAB : false
+                    asMap: false,
+                    filter_hotel: true,
+                    filter_avia: false,
+
+                    // данные для компонентов фильтров
+                    filtersData : {
+
                     }
                 },
+
+                // части шаблонов которые содержат компоненты фильтров
+                partials : {
+                    HotelsFilter : '<div>HotelsFilter</div>',
+                    TicketFilter : '<div>TicketFilter</div>',
+                    MapFilter : '<div>MapFilter</div>',
+
+                    ruble: $templateCache.get('components/ruble.html')
+                },
                 components: {
-                    HotelsFilter: '<div>HotelsFilter</div>',
-                    TicketFilter: '<div>TicketFilter</div>',
-                    MapFilter: '<div>MapFilter</div>'
+                    'FilterExtra' : FilterExtra,
+                    'FilterPrice' : FilterPrice,
+                    'FilterName' : FilterName,
+                    'FilterCategory' : FilterCategory,
+                    'FilterSlider' : FilterSlider,
+                    'FilterStars' : FilterStars,
+                    'FilterTaFactor' : FilterTaFactor,
+                    'FilterType' : FilterType
                 },
                 init: function () {
                     var that = this;
-                    this.hotelsClone = [];
-                    this.hotelsDose = [];
 
                     this.on({
                         change: function (data) {
@@ -58,6 +78,10 @@ angular.module('innaApp.conponents').
 
                 },
 
+
+                doFilter : function(){
+
+                },
 
                 beforeInit: function (data) {
                     //console.log('beforeInit');
