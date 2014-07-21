@@ -40,7 +40,11 @@ angular.module('innaApp.conponents').
             var FilterSort = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/sort.hbs.html'),
                 data: {
-                    lowercaseFirst : $filter('lowercaseFirst')
+                    lowercaseFirst : $filter('lowercaseFirst'),
+                    value : {
+                        name : 'sort',
+                        val : []
+                    }
                 },
                 components: {
                     SortedItem : SortedItem

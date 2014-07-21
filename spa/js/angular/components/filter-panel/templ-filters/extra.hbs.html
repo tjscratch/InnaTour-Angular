@@ -14,10 +14,10 @@
         <ul class="ra-fly-type-list">
 		    {{#each services.list}}
                 <li>
-                    <label bindonce="option">
-                        <input type="checkbox" name="extra" value="{{value}}">
+                    <label on-change="onChecked">
+                        <input type="checkbox" name="extra" value="{{this.value}}" checked="{{this.isChecked}}">
                         <span class="ra-checkbox"></span>
-                        <span class="ra-fly-type">{{name}}</span>
+                        <span class="ra-fly-type">{{this.name}}</span>
 
                         <span class="ra-fly-price"><span bo-text="option.minPrice | price"></span>&nbsp;
 	                        {{>ruble}}

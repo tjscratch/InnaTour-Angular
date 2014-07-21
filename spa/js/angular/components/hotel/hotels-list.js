@@ -111,6 +111,10 @@ angular.module('innaApp.conponents').
                     EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
                         that.updateCoords();
                     });
+
+                    EventManager.on('filter-panel:change', function (data) {
+                        that.doFilter(data);
+                    });
                 },
 
 
@@ -165,7 +169,7 @@ angular.module('innaApp.conponents').
                         param = this.get('combinationModel').ticket.data.VariantId1,
                         searchParam = angular.copy($routeParams);
 
-                    console.log(param);
+                    //console.log(param);
 
                     return DynamicPackagesDataProvider['getHotelsByCombination'](
                         param,
@@ -194,10 +198,22 @@ angular.module('innaApp.conponents').
                  * И для this.hotelsClone
                  * @param {Array} param_filters
                  */
-                filter : function(param_filters){
-                    this.get('Hotels').filter(function(hotel){
+                doFilter : function(param_filters){
+                    var newArr = [];
 
+                  /*  var filterHotel = this.get('Hotels').forEach(function(hotel){
+                        var test = param_filters.filter(function(filters){
+                            if(filters.name == 'stars') {
+                                var st = filters.val[0];
+                                if(hotel.Stars == st){
+                                    newArr.push(hotel);
+                                    return true;
+                                }
+                            }
+                        });
                     })
+
+                    console.log(filterHotel,newArr, newArr.length, 'filterHotel');*/
                 },
 
 

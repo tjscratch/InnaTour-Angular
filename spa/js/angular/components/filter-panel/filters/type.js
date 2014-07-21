@@ -13,7 +13,7 @@ angular.module('innaApp.conponents').
                 template: $templateCache.get('components/filter-panel/templ-filters/type.hbs.html'),
                 data: {
                     value : {
-                        name : 'type',
+                        name : 'HotelType',
                         val : []
                     }
                 },

@@ -13,7 +13,7 @@ angular.module('innaApp.conponents').
                 template: $templateCache.get('components/filter-panel/templ-filters/price.hbs.html'),
                 data: {
                     value : {
-                        name : 'price',
+                        name : 'Price',
                         val : ''
                     },
                     priceValue : null

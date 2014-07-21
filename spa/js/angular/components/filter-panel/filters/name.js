@@ -12,9 +12,9 @@ angular.module('innaApp.conponents').
             var FilterName = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/name.hbs.html'),
                 data: {
-                    value : {
-                        name : 'name',
-                        val : ''
+                    value: {
+                        name: 'HotelName',
+                        val: []
                     }
                 },
                 components: {
@@ -24,24 +24,30 @@ angular.module('innaApp.conponents').
                     this._super(options);
                     var that = this;
 
+                    var setName = _.throttle(function(data){
+                        that.set('value.val', data);
+                        console.log('onChecked', that.get('name.value'), data);
+                    }, 1500);
+
                     this.on({
                         change: function (data) {
 
-                        },
-                        teardown: function (evt) {
-
-                        }
-                    })
-
-                    this.observe('name.*', function (newValue, oldValue) {
-                        console.log('newValue', newValue);
-
-                        if (newValue && newValue.length) {
-                            this.set('value.val', newValue)
-                        } else {
-                            this.set('value.val', '')
+                            if (data && this.get('name.value')) {
+                                if (this.get('name.value').length) {
+                                    var nameData = this.get('name.value').toLowerCase();
+                                    setName(nameData);
+                                } else {
+                                    that.set('value.val', [])
+                                }
+                            }
                         }
                     });
+                },
+
+                changeName: function (data) {
+                    var that = this;
+
+
                 },
 
 

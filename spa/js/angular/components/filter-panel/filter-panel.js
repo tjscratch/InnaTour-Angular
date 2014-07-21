@@ -98,9 +98,9 @@ angular.module('innaApp.conponents').
 
 
                         child.observe('value.val', function (newValue, oldValue) {
-                            if (newValue) {
-                                console.log('observe == value');
-                                //console.log(that.get('filtersCollection'));
+                            if (newValue && newValue.length) {
+                                // собираем данные с панели фильтров
+                                that.collectChildData();
                             }
                         });
 
@@ -116,6 +116,23 @@ angular.module('innaApp.conponents').
                             }
                         })
                     })
+                },
+
+                /**
+                 * Проходим по всем дочерним компонентам и
+                 * собираем данные для фильтрации
+                 * обновляем массив filtersCollection
+                 */
+                collectChildData : function(){
+                    var that = this;
+                    var tempArr = [];
+                    this.findAllComponents().forEach(function(child){
+                        if(child.get('value')) {
+                            tempArr.push(child.get('value'));
+                        }
+                    })
+                    this.merge('filtersCollection', tempArr);
+                    EventManager.fire('filter-panel:change', this.get('filtersCollection'));
                 },
 
 

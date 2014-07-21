@@ -14,7 +14,7 @@ angular.module('innaApp.conponents').
                 template: $templateCache.get('components/filter-panel/templ-filters/tafactor.hbs.html'),
                 data: {
                     value: {
-                        name: 'tafactor',
+                        name: 'TaFactor',
                         val: []
                     },
                     tafactorValue: []

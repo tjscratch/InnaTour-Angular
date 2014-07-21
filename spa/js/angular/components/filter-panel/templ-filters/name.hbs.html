@@ -6,11 +6,9 @@
 
 <div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}">
     <div class="filter__range-container">
-            <span class="filter__range">
-	            <input type="text"
-                       class="js-range-val"
-                       style="width:140px;"
-                       value="{{name.value}}"></span>
+        <span class="filter__range">
+            <input type="text" class="b-filters__name" value="{{name.value}}">
+        </span>
         <a href="javascript:void(0);" class="ra-header-link" on-click="resetFilter">Сбросить</a>
     </div>
 </div>
