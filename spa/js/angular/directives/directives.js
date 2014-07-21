@@ -579,12 +579,13 @@ innaAppDirectives.directive('validateSimple', [function () {
                         validate(true);
                     });
                 }
-            }).on('click', function (event) {
-                var val = ngModel.$modelValue;
-                if (val != null && val.length > 0){
-                    $(this).select();
-                }
             });
+            //.on('click', function (event) {
+            //    var val = ngModel.$modelValue;
+            //    if (val != null && val.length > 0){
+            //        $(this).select();
+            //    }
+            //});
 
             if ($scope.len != null) {
                 $scope.$watch(function () { return ngModel.$modelValue; }, function (newVal, oldVal) {
@@ -630,9 +631,9 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
                 $scope.$apply(function () {
                     validate(true);
                 });
-            //}).on('change', function () {
-            //    console.log('change');
-            //    validate();
+                //}).on('change', function () {
+                //    console.log('change');
+                //    validate();
             }).on('keypress', function (event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
@@ -641,18 +642,19 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
                         validate(true);
                     });
                 }
-            }).on('click', function (event) {
-                var val = $scope.ngValidationModel.value;
-
-                if ($scope.supressSelectOnValue != null && val == $scope.supressSelectOnValue)//не выделяем
-                {
-                    //+7 для телефона
-                }
-                else if (val != null && val.length > 0)
-                {
-                    $(this).select();
-                }
             });
+            //.on('click', function (event) {
+            //    var val = $scope.ngValidationModel.value;
+
+            //    if ($scope.supressSelectOnValue != null && val == $scope.supressSelectOnValue)//не выделяем
+            //    {
+            //        //+7 для телефона
+            //    }
+            //    else if (val != null && val.length > 0)
+            //    {
+            //        $(this).select();
+            //    }
+            //});
 
 
             //обновляем раз в 300мс
