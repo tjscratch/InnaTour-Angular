@@ -19,10 +19,10 @@ innaAppControllers.
         'innaApp.API.events',
 
         // components
-        'PriceGenericRact',
+        'PriceGeneric',
         'ShareLink',
         function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService,
-            paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, PriceGenericRact, ShareLink) {
+            paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, PriceGeneric, ShareLink) {
 
             var self = this;
             var header = document.querySelector('.header');
@@ -1025,10 +1025,10 @@ innaAppControllers.
                     el: 'avia_result_cont',
                     template: $templateCache.get('avia/results_avia_item_template.html'),
                     partials: {
-                        partials_ruble: $templateCache.get('components/ruble.html')
+                        ruble: $templateCache.get('components/ruble.html')
                     },
                     components: {
-                        componentsTooltip: PriceGenericRact
+                        componentsTooltip: PriceGeneric
                     },
                     data: {
                         helper: aviaHelper,
@@ -1039,7 +1039,7 @@ innaAppControllers.
                             return $filter('price')(text);
                         },
                         console: function(){
-                            console.log.apply(console, arguments);
+                            //console.log.apply(console, arguments);
                         },
 
                         isAgency: $scope.isAgency,
@@ -1074,7 +1074,7 @@ innaAppControllers.
                 }
 
                 self.reset = function () {
-                    console.log('ractive reset');
+                    //console.log('ractive reset');
                     self.ractive.reset('items', $scope.visibleFilteredTicketsList);
                 }
             }

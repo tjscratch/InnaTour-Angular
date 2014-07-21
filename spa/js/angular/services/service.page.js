@@ -20,11 +20,11 @@ angular.module('innaApp.services')
 
                         AjaxHelper.get(url, null, function (data) {
 
-                            console.log(data);
+                            //console.log(data);
 
                             cache[url] = data;
 
-                            console.log('cache test', cache);
+                            //console.log('cache test', cache);
 
                             callback(data);
                         }, function (data, status) {

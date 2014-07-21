@@ -1,56 +1,48 @@
-angular.module('innaApp.directives')
-    .directive('tooltipPriceGeneric', ['$templateCache', function($templateCache){
-        return {
-            template: $templateCache.get('components/tooltip/templ/price-generic.html'),
-            scope: {
-                "items" : "="
-            },
-            controller: [
-                '$scope',
-                '$element',
-                'innaApp.API.events',
-                function($scope, $element, Events){
+angular.module('innaApp.conponents').
+    factory('PriceGeneric', [
+        '$filter',
+        '$templateCache',
+        'TooltipBase',
+        function ($filter, $templateCache, TooltipBase) {
 
-                    var isVisible = false;
+            /**
+             * Наследуется от базового класса TooltipBase
+             */
 
-                    var getIsVisible = function () {
-                        return isVisible;
+            var priceGeneric = TooltipBase.extend({
+                template: '{{>element}}',
+                //template: $templateCache.get('components/tooltip/templ/price-generic.hbs.html'),
+                isolated: true,
+                append: true,
+                partials : {
+                    ruble : $templateCache.get('components/ruble.html')
+                },
+                data: {
+                    isVisible: false,
+                    priceFilter: function (text) {
+                        return $filter('price')(text);
                     }
+                },
 
-                    var setIsVisible = function (data) {
-                        isVisible = data;
+                // dynamic template
+                setTemplate: function (options) {
+                    var templ = '';
+
+                    if (options.data.template) {
+                        templ = $templateCache.get('components/tooltip/templ/' + options.data.template);
+                    } else {
+                        templ = $templateCache.get('components/tooltip/templ/price-generic.hbs.html');
                     }
+                    options.partials.element = templ;
+                },
 
-                    var showToolTip = function (evt) {
-                        evt.stopPropagation();
-
-                        var tooltip = $element.find('.JS-tooltip-price');
-
-                        $(document).on('tooltip:hide', function () {
-                            setIsVisible(false);
-                            tooltip.hide();
-                        });
-
-                        $(document).trigger('tooltip:hide');
-
-                        if (!getIsVisible()) {
-                            tooltip.show();
-                            setIsVisible(true);
-                        }
-                        else {
-                            tooltip.hide();
-                            setIsVisible(false);
-                        }
-
-                        $(document).on('click', function bodyClick() {
-                            tooltip.hide();
-                            setIsVisible(false);
-                            $(document).off('click', bodyClick);
-                        });
-                    };
-
-                    $element.on('click', '.js-show-tooltip', showToolTip);
+                beforeInit: function (options) {
+                    this.setTemplate(options)
+                },
+                init: function (options) {
+                    this._super(options)
                 }
-            ]
-        }
-    }]);
+            });
+
+            return priceGeneric;
+        }]);
