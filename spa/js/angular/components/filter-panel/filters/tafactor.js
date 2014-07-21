@@ -12,26 +12,34 @@ angular.module('innaApp.conponents').
 
             var FilterTaFactor = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/tafactor.hbs.html'),
-                data: {},
-                components: {
-
+                data: {
+                    value: {
+                        name: 'tafactor',
+                        val: []
+                    },
+                    tafactorValue: []
                 },
                 init: function (options) {
                     this._super(options);
                     var that = this;
 
                     this.on({
-                        change: function (data) {
+                        onChecked: function (data) {
 
-                        },
-                        teardown: function (evt) {
-
+                            if (data && data.context) {
+                                if (data.context.isChecked) {
+                                    this.push('value.val', data.context.value)
+                                } else if (!data.context.isChecked) {
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.value), 1);
+                                }
+                            }
+                            //console.log('onChecked', this.get('value'));
                         }
-                    })
+                    });
                 },
 
-                components : {
-                    Tripadvisor : Tripadvisor
+                components: {
+                    Tripadvisor: Tripadvisor
                 },
 
                 parse: function (end) {

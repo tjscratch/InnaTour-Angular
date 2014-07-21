@@ -36,6 +36,7 @@ angular.module('innaApp.conponents').
                 append: true,
                 data: {
                     asMap: false,
+                    filtersCollection : [],
                     filter_hotel: true,
                     filter_avia: false,
 
@@ -85,11 +86,24 @@ angular.module('innaApp.conponents').
                  *
                  * if(childComponent._guid != child._guid) Если событие от другого компонента
                  * то прячем попап
+                 *
+                 *
+                 *  Слушаем изменения свойства value
+                 *  В нем содержится название свойства и собственно его значение
                  */
                 listenChildren: function () {
                     var that = this;
+                    var childComponents = this.findAllComponents();
+                    childComponents.forEach(function (child) {
 
-                    this.findAllComponents().forEach(function (child) {
+
+                        child.observe('value.val', function (newValue, oldValue) {
+                            if (newValue) {
+                                console.log('observe == value');
+                                //console.log(that.get('filtersCollection'));
+                            }
+                        });
+
                         child.observe('isOpen', function (newValue, oldValue) {
                             if (newValue) {
                                 that.fire('hide:child', child);

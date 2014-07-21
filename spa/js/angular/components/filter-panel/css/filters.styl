@@ -18,12 +18,86 @@
     z-index 102
   }
 
-
   &.filters__body_dp {
     position: absolute;
     left: 50%;
     margin-left: -($site-width / 2);
     bottom: -41px;
+  }
+
+  .filters__baloon {
+    position absolute
+    display none
+    left 0
+    background #fff
+    z-index 100
+    width 320px
+    box-shadow 0 3px 5px rgba(0, 0, 0, .3)
+    padding 3px 0
+
+    &.filters__baloon_show {
+      display: block;
+    }
+
+    &_240 {
+      width 240px
+    }
+
+    &-radio {
+      margin 0 12px 5px
+      clearfix()
+
+      input {
+        display none
+
+        &:checked + .ra-radio {
+          background #89c13a
+          color #fff
+        }
+
+        li {
+          float left
+          border-left 1px solid #fff
+
+          &:first-child {
+            border 0
+
+            .ra-radio {
+              border-radius 3px 0 0 3px
+            }
+          }
+
+          &:last-child .ra-radio {
+            border-radius 0 3px 3px 0
+          }
+        }
+
+        label {
+          display block
+          width 107px
+        }
+      }
+    }
+
+    &-days {
+      margin 0 12px
+      clearfix()
+
+      .ra-fly-type-list {
+        float left
+        overflow hidden
+        width 108px
+
+        &_style_full-width {
+          width auto
+
+          .ra-fly-type-list__item {
+            width 50%
+            float left
+          }
+        }
+      }
+    }
   }
 
 
@@ -48,6 +122,22 @@
         margin-right 0
       }
     }
+
+    .filters__sort {
+      float right
+      margin 0
+      position: relative;
+      white-space nowrap
+
+      a {
+        color #666
+      }
+
+      .filters__baloon {
+        left auto
+        right 0;
+      }
+    }
   }
 
   .filters__link {
@@ -58,7 +148,7 @@
     font-size 14px
     line-height 1
     position relative
-    cursor : pointer;
+    cursor: pointer;
 
     &_selected {
       color #89c13a
@@ -81,102 +171,50 @@
       color #1a1a1a
     }
   }
-}
 
 
-.filters__baloon {
-  position absolute
-  display none
-  left 0
-  background #fff
-  z-index 100
-  width 320px
-  box-shadow 0 3px 5px rgba(0, 0, 0, .3)
-  padding 3px 0
-
-  &.filters__baloon_show {
-    display : block;
-  }
-
-  &_240 {
-    width 240px
-  }
-
-  &-radio {
-    margin 0 12px 5px
-    clearfix()
-
-    input {
-      display none
-
-      &:checked + .ra-radio {
-        background #89c13a
-        color #fff
-      }
-
-      li {
-        float left
-        border-left 1px solid #fff
-
-        &:first-child {
-          border 0
-
-          .ra-radio {
-            border-radius 3px 0 0 3px
-          }
-        }
-
-        &:last-child .ra-radio {
-          border-radius 0 3px 3px 0
-        }
-      }
-
-      label {
-        display block
-        width 107px
-      }
-    }
-  }
-
-  &-days {
-    margin 0 12px
-    clearfix()
-
-    .ra-fly-type-list {
-      float left
-      overflow hidden
-      width 108px
-
-      &_style_full-width {
-        width auto
-
-        .ra-fly-type-list__item {
-          width 50%
-          float left
-        }
-      }
-    }
-  }
-}
-
-.filters__container .filters__sort {
-  float right
-  margin 0
-  position: relative;
-  white-space nowrap
-
-  a {
-    color #666
-  }
-
-  .filters__baloon {
-    left auto
-    right 0;
-  }
   .search__list {
-    position static
+    box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+    position absolute
+    left 0
+    padding 10px 0
+    width 100%
+    background #fff
+    margin-top 1px
+    overflow auto
+    max-height 360px
+    z-index 10
+
+    li {
+      padding 7px 33px 5px
+      cursor pointer
+      font-size 14px
+      position relative
+
+      &:hover {
+        background-color #e6e7e9
+      }
+    }
+
+    .current {
+      background-color #e6e7e9
+
+      &:before {
+        content ''
+        width 12px
+        height 10px
+        background url(/spa/img/i.png) no-repeat 0 -2030px
+        display block
+        position absolute
+        left 12px
+        top 11px
+      }
+    }
+
   }
+
 }
+
 
 .filter__range-container {
   clearfix()
@@ -212,10 +250,10 @@
 }
 
 .ra-radio {
-  text-align : center;
-  font-size :14px;
-  background :#e6e7e9;
-  padding :6px 0;
-  cursor :pointer;
-  display :block;
+  text-align: center;
+  font-size: 14px;
+  background: #e6e7e9;
+  padding: 6px 0;
+  cursor: pointer;
+  display: block;
 }

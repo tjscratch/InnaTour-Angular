@@ -16,7 +16,11 @@ angular.module('innaApp.conponents').
                 },
                 init: function () {
                     var that = this;
-                    console.log(this.get('data'));
+
+                    /**
+                     * Прокидываем напрямую данные для фильтров
+                     * Получается что все данные будут доступны без filtersData
+                     */
                     this.set(this.get('data'))
 
                     /**

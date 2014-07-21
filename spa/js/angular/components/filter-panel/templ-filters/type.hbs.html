@@ -14,8 +14,8 @@
         <ul class="ra-fly-type-list">
 			{{#each type.list}}
                 <li>
-                    <label bindonce="option">
-                        <input type="checkbox" name="type" value="{{value}}">
+                    <label on-change="onChecked">
+                        <input type="checkbox" name="type" value="{{value}}" checked="{{this.isChecked}}">
                         <span class="ra-checkbox"></span>
                         <span class="ra-fly-type">{{name}}</span>
 

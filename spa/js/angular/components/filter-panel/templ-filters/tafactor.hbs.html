@@ -14,12 +14,12 @@
 
 	        {{#each tafactor.list}}
             <li>
-                <label>
-                    <input type="checkbox" name="tafactor" value="{{.}}" />
+                <label on-change="onChecked">
+                    <input type="checkbox" name="tafactor" value="{{this.value}}" checked="{{this.isChecked}}" />
                     <span class="ra-checkbox"></span>
 
 	                <span class="ra-fly-type">
-                        <Tripadvisor TaFactor="{{.}}"
+                        <Tripadvisor TaFactor="{{this.value}}"
                                      withOutTd="{{tafactor.withOutTd}}" />
                     </span>
 

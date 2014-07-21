@@ -1,14 +1,12 @@
 <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
      on-click="toggle">
-    Сортировать <span>{{sorters.current.caption | lowercaseFirst}}</span>
+    Сортировать <span>{{lowercaseFirst(current)}}</span>
 </div>
 
 <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
     <ul class="search__list">
 	    {{#each sort}}
-        <li class="{{ selected ? 'current':''}}"
-
-            on-click="selectSort:{{value}}">{{name}}</li>
+		    <SortedItem data="{{.}}" />
 	    {{/each}}
     </ul>
 </div>

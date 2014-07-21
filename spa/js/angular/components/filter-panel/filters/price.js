@@ -11,7 +11,13 @@ angular.module('innaApp.conponents').
 
             var FilterPrice = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/price.hbs.html'),
-                data: {},
+                data: {
+                    value : {
+                        name : 'price',
+                        val : ''
+                    },
+                    priceValue : null
+                },
                 components: {
 
                 },
@@ -21,12 +27,18 @@ angular.module('innaApp.conponents').
 
                     this.on({
                         change: function (data) {
-
+                            if(data.priceValue){
+                                if (data.priceValue > 0) {
+                                    this.set('value.val', data.priceValue)
+                                } else {
+                                    this.set('value.val', '')
+                                }
+                            }
                         },
                         teardown: function (evt) {
 
                         }
-                    })
+                    });
                 },
 
 
@@ -40,7 +52,7 @@ angular.module('innaApp.conponents').
                 },
 
                 slide : function(val){
-                    this.set('price.value', val );
+                    this.set('priceValue', val );
                 },
 
                 complete: function (data) {

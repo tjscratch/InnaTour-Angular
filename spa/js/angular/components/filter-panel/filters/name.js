@@ -11,7 +11,12 @@ angular.module('innaApp.conponents').
 
             var FilterName = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/name.hbs.html'),
-                data: {},
+                data: {
+                    value : {
+                        name : 'name',
+                        val : ''
+                    }
+                },
                 components: {
 
                 },
@@ -27,6 +32,16 @@ angular.module('innaApp.conponents').
 
                         }
                     })
+
+                    this.observe('name.*', function (newValue, oldValue) {
+                        console.log('newValue', newValue);
+
+                        if (newValue && newValue.length) {
+                            this.set('value.val', newValue)
+                        } else {
+                            this.set('value.val', '')
+                        }
+                    });
                 },
 
 

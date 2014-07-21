@@ -8,13 +8,10 @@
     <div class="filter__range-container">
 
         <span class="filter__range">до
-	        <input type="text"
-                   class="js-range-val"
-                   value="{{price.value}}"/>
-
+	        <input type="text" class="js-range-val" value="{{price.value}}"/>
 	        {{>ruble}}
 	    </span>
-        <a href="javascript:void(0);" class="ra-header-link" ng-click="reset(option)">Сбросить</a>
+        <a href="javascript:void(0);" class="ra-header-link" on-click="resetFilter">Сбросить</a>
 
     </div>
     <div class="js-range filter__range-trackbar"></div>

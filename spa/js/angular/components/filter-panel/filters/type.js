@@ -11,7 +11,12 @@ angular.module('innaApp.conponents').
 
             var FilterType = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/type.hbs.html'),
-                data: {},
+                data: {
+                    value : {
+                        name : 'type',
+                        val : []
+                    }
+                },
                 components: {
 
                 },
@@ -20,13 +25,17 @@ angular.module('innaApp.conponents').
                     var that = this;
 
                     this.on({
-                        change: function (data) {
-
-                        },
-                        teardown: function (evt) {
-
+                        onChecked: function (data) {
+                            if (data && data.context) {
+                                if (data.context.isChecked) {
+                                    this.push('value.val', data.context.value)
+                                } else if (!data.context.isChecked) {
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.value), 1);
+                                }
+                            }
+                            //console.log('onChecked', this.get('value'));
                         }
-                    })
+                    });
                 },
 
 
