@@ -16,15 +16,6 @@ angular.module('innaApp.conponents').
                 init: function (options) {
                     this._super(options);
                     var that = this;
-
-                    this.on({
-                        change: function (data) {
-
-                        },
-                        teardown: function (evt) {
-
-                        }
-                    })
                 },
 
                 components : {

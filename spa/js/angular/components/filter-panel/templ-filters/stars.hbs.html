@@ -3,23 +3,23 @@
 	Звезды
 </div>
 
-{{#if isOpen}}
-<div class="filters__baloon">
+
+<div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
     <header class="ra-header">
         <h4 class="ra-title">Звезды</h4>
-        <a class="ra-header-link" href="javascript:void(0);">Сбросить</a>
+        <a class="ra-header-link" href="javascript:void(0);" on-click="resetFilter">Сбросить</a>
     </header>
 
     <div class="ra-content">
         <ul class="ra-fly-type-list">
 
-            {{#each [1, 2, 3, 4, 5]}}
-            <li ng-if="option.shown">
+            {{#each stars}}
+            <li>
                 <label>
-                    <input type="checkbox"/>
+                    <input type="checkbox" name="stars" value="{{.}}"/>
                     <span class="ra-checkbox"></span>
                     <span class="ra-fly-type">
-                        <Stars stars="{{@index}}"/>
+                        <Stars stars="{{.}}"/>
                     </span>
                     <span class="ra-fly-price">
                         <span bo-text="option.minPrice | price"></span>&nbsp;
@@ -32,4 +32,3 @@
         </ul>
     </div>
 </div>
-{{/if}}

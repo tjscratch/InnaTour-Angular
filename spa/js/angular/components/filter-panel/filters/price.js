@@ -39,8 +39,23 @@ angular.module('innaApp.conponents').
                     //console.log('beforeInit');
                 },
 
+                slide : function(val){
+                    this.set('price.value', val );
+                },
+
                 complete: function (data) {
-                    //console.log('complete');
+                    var that = this;
+                    var slider = this.find('.js-range')
+
+                    $(slider).slider({
+                        range: "min",
+                        min: 10000,
+                        max: 100000,
+                        value: that.get('price.value'),
+                        slide: function(event, ui) {
+                            that.slide(ui.value)
+                        }
+                    });
                 }
             });
 

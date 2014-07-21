@@ -15,7 +15,8 @@ innaAppControllers
         '$templateCache',
         'Balloon',
         'HotelsList',
-        function (EventManager, $scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, HotelsList) {
+        'FilterPanel',
+        function (EventManager, $scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, HotelsList, FilterPanel) {
 
             /*Private*/
             var searchParams = angular.copy($routeParams);
@@ -302,6 +303,12 @@ innaAppControllers
                     $.when($scope.state.switchTo(defaultTab))
                         .then(function () {
                             onTabLoad(onTabLoadParam);
+
+
+                            /* FilterPanel */
+                            (new FilterPanel({
+                                el : document.querySelector('.recommend-bundle-container')
+                            }))
 
                             //calibrate($scope.hotels, 0);
 

@@ -1,5 +1,5 @@
 angular.module('innaApp.conponents').
-    factory('FilterTaFactor', [
+    factory('FilterSort', [
         'EventManager',
         '$filter',
         '$templateCache',
@@ -7,11 +7,10 @@ angular.module('innaApp.conponents').
         'innaApp.API.events',
 
         'ClassFilter',
-        'Tripadvisor',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter, Tripadvisor) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
-            var FilterTaFactor = ClassFilter.extend({
-                template: $templateCache.get('components/filter-panel/templ-filters/tafactor.hbs.html'),
+            var FilterSort = ClassFilter.extend({
+                template: $templateCache.get('components/filter-panel/templ-filters/sort.hbs.html'),
                 data: {},
                 components: {
 
@@ -21,18 +20,10 @@ angular.module('innaApp.conponents').
                     var that = this;
 
                     this.on({
-                        change: function (data) {
-
-                        },
-                        teardown: function (evt) {
-
-                        }
+                        selectSort : this.selectSort
                     })
                 },
 
-                components : {
-                    Tripadvisor : Tripadvisor
-                },
 
                 parse: function (end) {
 
@@ -43,12 +34,16 @@ angular.module('innaApp.conponents').
                     //console.log('beforeInit');
                 },
 
+                selectSort : function(val){
+                    console.log(val);
+                },
+
                 complete: function (data) {
-                    //console.log('complete');
+
                 }
             });
 
-            return FilterTaFactor;
+            return FilterSort;
         }]);
 
 

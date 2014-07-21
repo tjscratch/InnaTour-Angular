@@ -9,32 +9,41 @@ angular.module('innaApp.conponents').
 
             var ClassFilter = Ractive.extend({
                 data: {
-                    isOpen: false
+                    isOpen: false,
+
+                    // значение фильтра
+                    value : null
                 },
                 init: function () {
                     var that = this;
+                    console.log(this.get('data'));
+                    this.set(this.get('data'))
 
+                    /**
+                     * Events
+                     */
                     this.on({
+                        toggle : function(){
+                            this.toggle('isOpen')
+                        },
+                        show: function () {
+                            this.set({ isOpen: true });
+                        },
+                        hide: function (opt_child) {
+                            this.set({ isOpen: false });
+                        },
+                        resetFilter : function(){
+                          console.log('reset');
+                        },
                         change: function (data) {
 
                         },
                         teardown: function (evt) {
-
+                            console.log('teardown filter all');
                         }
                     })
                 },
 
-                show: function () {
-                    this.set({ isOpen: true });
-                },
-
-                hide: function () {
-                    this.set({ isOpen: false });
-                },
-
-                toggle: function () {
-                    this.toggle('isOpen')
-                },
 
                 beforeInit: function (data) {
                     //console.log('beforeInit');

@@ -19,6 +19,7 @@ angular.module('innaApp.conponents').
         '$routeParams',
         'innaApp.API.events',
 
+        'FilterSettings',
         'FilterExtra',
         'FilterPrice',
         'FilterName',
@@ -27,41 +28,44 @@ angular.module('innaApp.conponents').
         'FilterStars',
         'FilterTaFactor',
         'FilterType',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterExtra, FilterPrice, FilterName, FilterCategory, FilterSlider, FilterStars, FilterTaFactor, FilterType) {
+        'FilterSort',
+        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, FilterExtra, FilterPrice, FilterName, FilterCategory, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
 
             var FilterPanel = Ractive.extend({
                 template: $templateCache.get('components/filter-panel/templ/panel.hbs.html'),
+                append: true,
                 data: {
                     asMap: false,
                     filter_hotel: true,
                     filter_avia: false,
 
                     // данные для компонентов фильтров
-                    filtersData : {
-
-                    }
+                    filtersData: FilterSettings
                 },
 
                 // части шаблонов которые содержат компоненты фильтров
-                partials : {
-                    HotelsFilter : '<div>HotelsFilter</div>',
-                    TicketFilter : '<div>TicketFilter</div>',
-                    MapFilter : '<div>MapFilter</div>',
+                partials: {
+                    HotelsFilter: $templateCache.get('components/filter-panel/templ/panel.hotel.filters.hbs.html'),
+                    TicketFilter: '<div>TicketFilter</div>',
+                    MapFilter: '<div>MapFilter</div>',
 
                     ruble: $templateCache.get('components/ruble.html')
                 },
                 components: {
-                    'FilterExtra' : FilterExtra,
-                    'FilterPrice' : FilterPrice,
-                    'FilterName' : FilterName,
-                    'FilterCategory' : FilterCategory,
-                    'FilterSlider' : FilterSlider,
-                    'FilterStars' : FilterStars,
-                    'FilterTaFactor' : FilterTaFactor,
-                    'FilterType' : FilterType
+                    'FilterExtra': FilterExtra,
+                    'FilterPrice': FilterPrice,
+                    'FilterName': FilterName,
+                    'FilterCategory': FilterCategory,
+                    'FilterSlider': FilterSlider,
+                    'FilterStars': FilterStars,
+                    'FilterTaFactor': FilterTaFactor,
+                    'FilterType': FilterType,
+                    'FilterSort' : FilterSort
                 },
                 init: function () {
                     var that = this;
+
+                    this.listenChildren();
 
                     this.on({
                         change: function (data) {
@@ -73,13 +77,40 @@ angular.module('innaApp.conponents').
                     })
                 },
 
+                /**
+                 * Слушаем событие изменения дочерних компонентов
+                 * FilterPanel выступает EventManager-ром для своих детей
+                 *
+                 * child._parent - каждый child слушает своего родителя
+                 *
+                 * if(childComponent._guid != child._guid) Если событие от другого компонента
+                 * то прячем попап
+                 */
+                listenChildren: function () {
+                    var that = this;
+
+                    this.findAllComponents().forEach(function (child) {
+                        child.observe('isOpen', function (newValue, oldValue) {
+                            if (newValue) {
+                                that.fire('hide:child', child);
+                            }
+                        });
+
+                        child._parent.on('hide:child', function (childComponent) {
+                            if (childComponent._guid != child._guid) {
+                                child.fire('hide');
+                            }
+                        })
+                    })
+                },
+
 
                 parse: function (end) {
 
                 },
 
 
-                doFilter : function(){
+                doFilter: function () {
 
                 },
 
