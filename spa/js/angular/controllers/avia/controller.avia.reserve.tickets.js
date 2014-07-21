@@ -116,6 +116,11 @@ innaAppControllers.
                 function (data, status) {
                     //error
                     //$timeout.cancel(availableChecktimeout);
+                    $scope.safeApply(function () {
+                        //ошибка
+                        log('paymentService.checkAvailability error');
+                        $scope.showReserveError();
+                    });
                 });
 
             //$scope.$watch('validationModel', function (newVal, oldVal) {
