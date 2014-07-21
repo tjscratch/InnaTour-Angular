@@ -250,8 +250,6 @@
                             $scope.input2.tooltip('destroy');
                         } catch (e) {
                         }
-
-
                     }
                 });
 
