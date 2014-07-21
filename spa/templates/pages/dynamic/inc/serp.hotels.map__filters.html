@@ -1,6 +1,6 @@
 <div class="js-filter-scroll">
     <div class="row">
-        <div class="col-xs-9 col-no-padding bg-white">
+        <div ng-class="{'col-xs-9 col-no-padding bg-white': asMap}">
             <ul class="filters__container">
                 <li class="filter"
                     dynamic-serp-filter-category
@@ -27,12 +27,19 @@
                     dynamic-serp-filter-extra
                     dynamic-serp-filter-extra-hotels="hotels"
                     dynamic-serp-filter-extra-filters="hotelFilters"></li>
+
+                <li ng-if="!asMap"
+                    class="filters__sort"
+                    inna-dynamic-serp-sorter
+                    inna-dynamic-serp-sorter-items="hotels"
+                    inna-dynamic-serp-sorter-sorters-filler-ctrl-name="innaDynamicSerpSorter_HotelsMixin"
+                    inna-dynamic-serp-sorter-bundle="combination"></li>
             </ul>
         </div>
-        <div class="col-xs-3 col-no-padding">
+        <div ng-class="{'col-xs-3 col-no-padding': asMap}">
             <div inna-dynamic-serp-filter-indicators
                  template-name="indicators_horizontal.html"
-                 mod-wpapper="true"
+                 mod-wpapper="asMap"
                  is-map="true"
                  inna-dynamic-serp-filter-indicators-filters="hotelFilters"
                  inna-dynamic-serp-filter-indicators-items="hotels"
