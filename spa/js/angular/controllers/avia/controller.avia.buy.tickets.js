@@ -261,11 +261,20 @@ innaAppControllers.
 
             $scope.hotelRules = new $scope.helper.hotelRules();
 
-            $scope.oferta = {
-                url: function () {
-                    return app_main.staticHost + '/files/doc/offer.pdf';
+            $scope.setOferta = function (isDp) {
+                var url = app_main.staticHost + '/files/doc/offer.pdf';
+
+                if (isDp) {
+                    url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+                }
+
+                $scope.oferta = {
+                    url: function () {
+                        return url;
+                    }
                 }
             }
+            
             $scope.TKP = {
                 url: function () {
                     return app_main.staticHost + '/files/doc/TCH.pdf';
@@ -567,6 +576,9 @@ innaAppControllers.
                                             //правила отмены отеля
                                             $scope.hotelRules.fillData(data.Hotel);
                                         }
+
+                                        var isDp = (data.Hotel != null);
+                                        $scope.setOferta(isDp);
 
                                         aviaHelper.addCustomFields(data.AviaInfo);
                                         $scope.aviaInfo = data.AviaInfo;

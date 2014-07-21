@@ -19,7 +19,8 @@ angular.module('innaApp.directives')
                 replace: true,
                 scope: {
                     hotels: '=dynamicSerpMapHotels',
-                    airports: '=dynamicSerpMapAirports'
+                    airports: '=dynamicSerpMapAirports',
+                    combination : '=dynamicSerpMapCombination'
                 },
                 controller: [
                     'EventManager',
@@ -181,6 +182,7 @@ angular.module('innaApp.directives')
                             _tripadvisor.teardown();
                             _tripadvisor = null;
                         }
+
                         _tripadvisor = new Tripadvisor({
                             el: $(data_marker.elem).find('.js-tripadvisor-container'),
                             data: {
@@ -380,6 +382,7 @@ angular.module('innaApp.directives')
                      * @param data
                      */
                     var markerEvents = function (data) {
+
                         var marker = data.marker;
                         var pos = data.pos;
 
@@ -567,6 +570,7 @@ angular.module('innaApp.directives')
                             var markerData = addMarker(angular.extend(hotel, { type: 'hotel' }));
                             var marker = markerData.marker;
                             marker.$inna__hotel = hotel;
+                            marker.$inna__hotel.PackagePrice = scope.combination.getFullPackagePrice();
                             marker._hotelId_ = hotel.HotelId;
 
                             markerEvents(markerData);

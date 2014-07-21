@@ -9,6 +9,8 @@
 
     <!--[if lt IE 9]>
     <script>
+        window.console = window.console || {};
+        window.console.log = window.console.log || function() {};
         document.createElement('ng-include');
         document.createElement('ng-pluralize');
         document.createElement('ng-view');
@@ -218,11 +220,8 @@
 <script src="/spa/js/datepicker.js"></script>
 <script src="/spa/js/angular/app.js"></script>
 
-<script src="/spa/js/angular/mediator.js"></script>
-
 <!-- templateCache -->
 <script src="/build/js/templates.js"></script>
-
 
 <script src="/spa/js/angular/ang.helpers/url.helper.js"></script>
 <script src="/spa/js/angular/ang.helpers/api.js"></script>
