@@ -38,7 +38,10 @@ angular.module('innaApp.directives')
                                 fits = fits || (option.value == hotel.data.HotelType);
                             });
 
-                            if(!fits) hotel.hidden = true;
+                            if(!fits) {
+                                hotel.hidden = true;
+                                hotel.data.hidden = true;
+                            }
                         };
                         $scope.options = $scope.filter.options = new Options();
 
