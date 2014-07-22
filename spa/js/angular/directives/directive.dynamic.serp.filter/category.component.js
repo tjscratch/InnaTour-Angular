@@ -37,7 +37,10 @@ angular.module('innaApp.directives')
                                 fits = fits || (hotel.data.Stars == option.value);
                             });
 
-                            if(!fits) hotel.hidden = true;
+                            if(!fits) {
+                                hotel.hidden = true;
+                                hotel.data.hidden = true;
+                            }
                         };
                         $scope.options = $scope.filter.options = new Options();
                         $scope.options.push(new Option('5 звезда', 5));
