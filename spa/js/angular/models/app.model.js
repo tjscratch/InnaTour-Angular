@@ -286,12 +286,13 @@ inna.Models._CollectionFactory = function () {
     Collection.prototype._doFilter = _.throttle(function (filters) {
         this.each(function (item) {
             item.hidden = false;
+            item.data.hidden = false;
         });
 
 
 
         this.each(function (item) {
-            if (item.hidden) return; //already hidden;
+            if (item.hidden || item.data.hidden) return; //already hidden;
 
             filters.each(function (filter) {
                 if (!filter.options.hasSelected()) return; //nothing selected, filter isn't interesting

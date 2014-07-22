@@ -183,6 +183,10 @@ innaAppControllers
                         for (var i = 0, raw = null; raw = data.Hotels[i++];) {
                             if (!raw.HotelName) continue;
                             var hotel = new inna.Models.Hotels.Hotel(raw);
+                            hotel.hidden = false;
+                            hotel.data.hidden = false;
+                            hotel.currentlyInvisible = false;
+
                             $scope.hotels.push(hotel);
                         }
                     };
