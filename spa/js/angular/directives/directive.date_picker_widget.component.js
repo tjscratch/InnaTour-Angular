@@ -105,7 +105,9 @@
                 };
 
                 $scope.long = function (date) {
-                    if (!date || date == '01.01.1970') return '';
+                    if (!date || date == '01.01.1970') {
+                        return '';
+                    }
 
                     var jsDate = dateHelper.dateToJsDate(date);
 
@@ -207,7 +209,7 @@
                     format: 'd.m.Y',
                     starts: 1,
                     onChange: function (formated, dates, el, lastSel, initDateFromIsSet) {
-
+                        console.log('onChange');
                         $scope.$apply(function ($scope) {
                             $scope.date1 = formated[0];
 
