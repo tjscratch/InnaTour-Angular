@@ -16,7 +16,10 @@ innaAppDirectives.directive('closePopup', [function () {
         },
         link: function ($scope, element, attrs) {
             function bodyClick(event) {
-                var isInsideComponent = !!$(event.target).closest(element).length;
+                var isInsideComponent = $.contains(element[0], event.target);
+
+                console.log('CLOSE_POPUP', element[0], event.target, isInsideComponent);
+
                 $scope.$apply(function ($scope) {
                     if (!isInsideComponent) {
                         $scope.fnHide();

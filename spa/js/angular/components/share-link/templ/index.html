@@ -1,7 +1,6 @@
 <div class="b-tooltip-share">
     <span class="b-tooltip-share__button {{isVisible ? 'active' : '' }}" on-click="toggleShow">
-        {{#isVisible}}<i class="b-tooltip-share__button__icon icon-sprite-chain-white"></i>{{/}}
-        {{^isVisible}}<i class="b-tooltip-share__button__icon icon-sprite-chain-black"></i>{{/}}
+        <i class="b-tooltip-share__button__icon {{ isVisible ? 'icon-sprite-chain-white' : 'icon-sprite-chain-black' }}"></i>
     </span>
 
     <div class="tooltip b-tooltip-share__link tooltip-share-link
