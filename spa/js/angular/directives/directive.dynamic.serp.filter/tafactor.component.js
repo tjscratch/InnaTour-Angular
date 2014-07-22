@@ -66,6 +66,8 @@ angular.module('innaApp.directives')
 
                         /*Watchers*/
                         var unwatchHotelsCollection = $scope.$watchCollection('hotels', function (hotels) {
+                            if(!hotels || !hotels.list.length) return;
+
                             var collections = {};
 
                             hotels.each(function (hotel) {
@@ -84,13 +86,15 @@ angular.module('innaApp.directives')
 
                                 $scope.options.push(new Option(factor, factor, collections[factor].getMinPrice($scope.bundle)));
                             }
+
+                            unwatchHotelsCollection();
                         });
 
 
                         //destroy
                         $scope.$on('$destroy', function () {
 
-                        })
+                        });
                     }
                 ]
             }
