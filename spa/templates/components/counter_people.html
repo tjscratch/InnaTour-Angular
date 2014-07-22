@@ -1,5 +1,5 @@
 <div class="search-form-item search-form-humans" ng-click="peopleFormClick($event)">
-    <div class="search-form-item-current" data-title="Колчиство пассажиров с местом может быть не больше 6">
+    <div class="search-form-item-current" style="display:block;" data-title="Колчиство пассажиров с местом может быть не больше 6">
         {{sum(adultCount, childrenCount) | asQuantity:"человек":"человека":"человек"}}
     </div>
     <i class="icon icon-triangle" ng-class="{bottom:!isOpen}"></i>

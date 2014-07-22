@@ -18,7 +18,7 @@ angular.module('innaApp.directives')
                     function ($scope, $controller, $element) {
 
 
-                        console.log($scope.options, '$scope.options');
+
                         /*
                         var _tripadvisor = new Tripadvisor({
                             el: $element.find('.js-tripadvisor-container'),
@@ -50,7 +50,6 @@ angular.module('innaApp.directives')
 
                         /*Properties*/
                         $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('TaFactor'));
-
                         $scope.filter.filterFn = function (hotel) {
                             var fits = false;
 
@@ -63,19 +62,13 @@ angular.module('innaApp.directives')
                                 hotel.data.hidden = true;
                             }
                         }
-
                         $scope.options = $scope.filter.options = new Options();
-
-
-                        $scope.$watch('options', function(data){
-                            console.log(data, 'data options');
-                        })
 
                         /*Watchers*/
                         var unwatchHotelsCollection = $scope.$watchCollection('hotels', function (hotels) {
+                            if(!hotels || !hotels.list.length) return;
 
                             var collections = {};
-                            console.log("$watchCollection('hotels trip");
 
                             hotels.each(function (hotel) {
                                 (
@@ -93,13 +86,15 @@ angular.module('innaApp.directives')
 
                                 $scope.options.push(new Option(factor, factor, collections[factor].getMinPrice($scope.bundle)));
                             }
+
+                            unwatchHotelsCollection();
                         });
 
 
                         //destroy
                         $scope.$on('$destroy', function () {
 
-                        })
+                        });
                     }
                 ]
             }
