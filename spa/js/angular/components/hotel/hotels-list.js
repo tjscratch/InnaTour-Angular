@@ -201,6 +201,8 @@ angular.module('innaApp.conponents').
                 doFilter : function(param_filters){
                     var newArr = [];
 
+                    console.log('filters');
+
                   /*  var filterHotel = this.get('Hotels').forEach(function(hotel){
                         var test = param_filters.filter(function(filters){
                             if(filters.name == 'stars') {

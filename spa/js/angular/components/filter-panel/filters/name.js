@@ -24,21 +24,27 @@ angular.module('innaApp.conponents').
                     this._super(options);
                     var that = this;
 
-                    var setName = _.throttle(function(data){
-                        that.set('value.val', data);
-                        console.log('onChecked', that.get('name.value'), data);
-                    }, 1500);
+                    this._timeOut = null;
+                    this._next = 0;
 
                     this.on({
                         change: function (data) {
 
-                            if (data && this.get('name.value')) {
-                                if (this.get('name.value').length) {
-                                    var nameData = this.get('name.value').toLowerCase();
-                                    setName(nameData);
-                                } else {
-                                    that.set('value.val', [])
-                                }
+                            // ставим условие чтоб тело функции change
+                            // выполнялось на изменение name.value
+                            if(data && data['name.value']) {
+                                clearTimeout(this._timeOut);
+
+                                this._timeOut = setTimeout(function () {
+                                    if (data && this.get('name.value')) {
+                                        if (this.get('name.value').length) {
+                                            var nameData = this.get('name.value').toLowerCase();
+                                            this.set('value.val', data);
+                                        } else {
+                                            that.set('value.val', [])
+                                        }
+                                    }
+                                }.bind(this), 1000);
                             }
                         }
                     });
@@ -46,8 +52,6 @@ angular.module('innaApp.conponents').
 
                 changeName: function (data) {
                     var that = this;
-
-
                 },
 
 

@@ -14,7 +14,7 @@ angular.module('innaApp.conponents').
                 data: {
                     value : {
                         name : 'Price',
-                        val : ''
+                        val : []
                     },
                     priceValue : null
                 },
@@ -24,19 +24,23 @@ angular.module('innaApp.conponents').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    this._timeOut = null;
 
                     this.on({
                         change: function (data) {
-                            if(data.priceValue){
-                                if (data.priceValue > 0) {
-                                    this.set('value.val', data.priceValue)
-                                } else {
-                                    this.set('value.val', '')
-                                }
-                            }
-                        },
-                        teardown: function (evt) {
 
+                            // ставим условие чтоб тело функции change
+                            // выполнялось на изменение priceValue
+                            if(data && data['price.value']) {
+                                clearTimeout(this._timeOut);
+                                this._timeOut = setTimeout(function () {
+                                    if (data['price.value'] > 0) {
+                                        this.push('value.val', data['price.value'])
+                                    } else {
+                                        this.set('value.val', [])
+                                    }
+                                }.bind(this), 1000);
+                            }
                         }
                     });
                 },
@@ -52,7 +56,7 @@ angular.module('innaApp.conponents').
                 },
 
                 slide : function(val){
-                    this.set('priceValue', val );
+                    this.set('price.value', val );
                 },
 
                 complete: function (data) {
