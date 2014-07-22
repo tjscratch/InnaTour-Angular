@@ -87,7 +87,7 @@
 
                 /*Watchers*/
                 $scope.$watch('result', function (newValue, oldValue) {
-                    //console.log('$scope.$watch(result: %s', newValue);
+                    console.log('$scope.$watch(result: %s (old: %s)', newValue, oldValue);
                     if (newValue instanceof Error) {
                         $scope.result = oldValue;
 

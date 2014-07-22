@@ -44,12 +44,11 @@ angular.module('innaApp.directives')
                             else
                                 return false;
                         }
-                    }
+                    };
 
                     $scope.urls = appUrls;
 
                     $scope.getHeadForm = function () {
-
                         var loc = $location.path();
                         //log('$scope.getHeadForm, loc:' + loc);
                         var isDynamic = (

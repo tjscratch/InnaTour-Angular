@@ -37,7 +37,14 @@ innaAppControllers.
             })();
 
             ['/spa/img/hotels/back-0.jpg', '/spa/img/hotels/back-1.jpg', '/spa/img/hotels/back-2.jpg'].forEach(function(img){
-                //preload dp backgrounds
-                new Image(img);
+                try {
+                    //preload dp backgrounds
+                    var preload = new Image();
+
+                    preload.src = img;
+                } catch(e) {
+                    //do nothing
+                }
+
             });
         }]);
