@@ -32,17 +32,15 @@ angular.module('innaApp.conponents').
 
                             // ставим условие чтоб тело функции change
                             // выполнялось на изменение name.value
-                            if(data && data['name.value']) {
+                            if (data && (data['name.value'] != undefined)) {
                                 clearTimeout(this._timeOut);
 
                                 this._timeOut = setTimeout(function () {
-                                    if (data && this.get('name.value')) {
-                                        if (this.get('name.value').length) {
-                                            var nameData = this.get('name.value').toLowerCase();
-                                            this.set('value.val', data);
-                                        } else {
-                                            that.set('value.val', [])
-                                        }
+                                    if (this.get('name.value').length) {
+                                        var nameData = this.get('name.value').toLowerCase();
+                                        this.set('value.val', [nameData]); //.split(' ')
+                                    } else {
+                                        this.set('value.val', [])
                                     }
                                 }.bind(this), 1000);
                             }

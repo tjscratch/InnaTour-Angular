@@ -98,7 +98,7 @@ angular.module('innaApp.conponents').
 
 
                         child.observe('value.val', function (newValue, oldValue) {
-                            if (newValue && newValue.length) {
+                            if (newValue) {
                                 // собираем данные с панели фильтров
                                 that.collectChildData();
                             }
@@ -127,12 +127,23 @@ angular.module('innaApp.conponents').
                     var that = this;
                     var tempArr = [];
                     this.findAllComponents().forEach(function(child){
-                        if(child.get('value')) {
-                            tempArr.push(child.get('value'));
-                        }
+                        if(child.get('value') && child.get('value.val').length) tempArr.push(child.get('value'));
                     })
                     this.merge('filtersCollection', tempArr);
-                    EventManager.fire('filter-panel:change', this.get('filtersCollection'));
+
+
+                    // маленькая защита от ложного срабатывания события
+                    console.log(this.get('filtersCollection').length);
+
+
+                    if(this.get('filtersCollection').length) {
+                        this.set('alreadyFiltered', true);
+                        EventManager.fire('filter-panel:change', this.get('filtersCollection'));
+                    } else {
+                        if(this.get('alreadyFiltered')){
+                            EventManager.fire('filter-panel:reset');
+                        }
+                    }
                 },
 
 

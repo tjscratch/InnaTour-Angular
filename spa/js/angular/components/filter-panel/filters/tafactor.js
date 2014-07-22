@@ -25,7 +25,6 @@ angular.module('innaApp.conponents').
 
                     this.on({
                         onChecked: function (data) {
-
                             if (data && data.context) {
                                 if (data.context.isChecked) {
                                     this.push('value.val', data.context.value)

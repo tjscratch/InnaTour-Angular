@@ -33,6 +33,8 @@ angular.module('innaApp.conponents').
                     this.hotelsClone = [];
                     this.hotelsDose = [];
 
+                    //this.set('Hotels', this.get('Hotels').splice(0, 2));
+
                     /**
                      * Вызов метода не чаще 500
                      * так как срабатывает по скроллингу
@@ -41,10 +43,11 @@ angular.module('innaApp.conponents').
                     this.debounceDose = _.throttle(this.nextArrayDoseHotels.bind(this), 300);
 
 
-                    var eventListener = function () {
+                    this.eventListener = function () {
                         that.onScroll();
                     };
-                    document.addEventListener('scroll', eventListener);
+
+                    this.addScroll();
 
                     this.on({
                         change: function (data) {
@@ -52,7 +55,7 @@ angular.module('innaApp.conponents').
                         },
                         teardown: function (evt) {
                             console.log('teardown sdfgsjhdgfhsd');
-                            document.removeEventListener('scroll', eventListener);
+                            document.removeEventListener('scroll', this.eventListener);
                         }
                     })
 
@@ -63,11 +66,7 @@ angular.module('innaApp.conponents').
                      */
                     this.observe('Hotels', function (newValue, oldValue, keypath) {
                         if (newValue) {
-                            this.hotelsClone = [].concat(this.get('Hotels'));
-
-                            // получаем первую порцию из 50 отелей
-                            // далее по скроллингу
-                            this.nextArrayDoseHotels();
+                            this.cloneData();
                         }
                     });
 
@@ -79,13 +78,13 @@ angular.module('innaApp.conponents').
                         if (newValue) {
 
                             /*console.table([
-                                {
-                                    newValue: newValue.length,
-                                    hotelList: this.get('hotelList').length,
-                                    Hotels: this.get('Hotels').length,
-                                    hotelsClone: this.hotelsClone.length
-                                }
-                            ]);*/
+                             {
+                             newValue: newValue.length,
+                             hotelList: this.get('hotelList').length,
+                             Hotels: this.get('Hotels').length,
+                             hotelsClone: this.hotelsClone.length
+                             }
+                             ]);*/
 
                             // после добавления элементов в hotelList
                             // обновляем координаты
@@ -93,8 +92,7 @@ angular.module('innaApp.conponents').
                             if (newValue.length != this.get('Hotels').length) {
                                 setTimeout(this.updateCoords.bind(this), 0);
                             } else {
-                                console.log('removeEventListener');
-                                document.removeEventListener('scroll', eventListener);
+                                this.removeScroll();
                             }
                         }
                     });
@@ -113,7 +111,11 @@ angular.module('innaApp.conponents').
                     });
 
                     EventManager.on('filter-panel:change', function (data) {
-                        that.doFilter(data);
+                        that.doFilter(that.get('Hotels'), data);
+                    });
+
+                    EventManager.on('filter-panel:reset', function (data) {
+                        that.resetFilter();
                     });
                 },
 
@@ -138,6 +140,22 @@ angular.module('innaApp.conponents').
                     }
                 },
 
+                addScroll : function(){
+                    console.log('addScroll');
+                    document.addEventListener('scroll', this.eventListener);
+                    this.set({scroll : true});
+                },
+
+                removeScroll : function(){
+                    console.log('removeScroll');
+                    document.removeEventListener('scroll', this.eventListener);
+                    this.set({scroll : false});
+                },
+
+                toggleScroll : function(){
+
+                },
+
                 updateCoords: function () {
                     var elem = this.find('.b-list-hotels__list');
                     var coords = utils.getCoords(elem);
@@ -160,7 +178,8 @@ angular.module('innaApp.conponents').
                         newDose = that.hotelsClone.splice(start, end);
 
                     if (newDose.length) {
-                        that.set({hotelList: that.get('hotelList').concat(newDose)});
+                        this.set({hotelList: this.get('hotelList').concat(newDose)});
+                        //this.push('hotelList', newDose);
                     }
                 },
 
@@ -196,26 +215,76 @@ angular.module('innaApp.conponents').
                  * Фильтруем исходный массив Hotels
                  * Выставляем новый набор для hotelList
                  * И для this.hotelsClone
-                 * @param {Array} param_filters
+                 * Если фильтруемое свойство строка, ищем в ней совпадение с помощью RegExp
+                 * @param {Array} collection - коллекция для фильтрации
+                 * @param {Array} param_filters - набор фильров
+                 * @return {Array} новый набор
                  */
-                doFilter : function(param_filters){
-                    var newArr = [];
+                doFilter: function (collection, param_filters) {
+                    var that = this;
 
-                    console.log('filters');
+                    // проходим циклом по отелям
+                    var filterHotel = collection.filter(function (item) {
+                        var tempArrFilter = [];
 
-                  /*  var filterHotel = this.get('Hotels').forEach(function(hotel){
-                        var test = param_filters.filter(function(filters){
-                            if(filters.name == 'stars') {
-                                var st = filters.val[0];
-                                if(hotel.Stars == st){
-                                    newArr.push(hotel);
-                                    return true;
+                        // проходим по коллекции фильтров
+                        param_filters.forEach(function (filters) {
+
+                            // если в объекте есть свойство фильтра
+                            if (item[filters.name] != undefined) {
+
+                                // игноррируем название отеля и цену
+                                if ((item[filters.name] != 'Price')) {
+
+                                    // проходим по значениям фильтра
+                                    var temp = filters.val.filter(function (filter_val) {
+
+                                        // если это строка ищем в ней совпадение с помощью RegExp
+                                        if (typeof item[filters.name] === 'string') {
+
+                                            var reg = new RegExp('...' + filter_val + '...', 'i');
+                                            if (reg.test(item[filters.name])) return true;
+
+                                        } else {
+                                            if (item[filters.name] == filter_val) return true;
+                                        }
+                                    });
+                                    if (temp.length) tempArrFilter.push(temp);
                                 }
                             }
                         });
+
+                        if (tempArrFilter.length == param_filters.length) {
+                            return true;
+                        }
                     })
 
-                    console.log(filterHotel,newArr, newArr.length, 'filterHotel');*/
+                    setTimeout(function(){
+                        that.cloneData(filterHotel);
+                    },0);
+
+                    if(!this.get('scroll') && filterHotel.length > 2){
+                        this.addScroll();
+                    }
+                    if(filterHotel.length < 3) this.removeScroll();
+                    //console.log(filterHotel, filterHotel.length, 'filterHotel');
+                },
+
+                resetFilter: function () {
+                    console.log('filter-panel:reset');
+                    if(!this.get('scroll')){
+                        this.addScroll();
+                    }
+                    this.cloneData();
+                },
+
+                cloneData: function (opt_data) {
+                    this.merge('hotelList', []);
+                    this.hotelsClone = [].concat(opt_data || this.get('Hotels'));
+
+                    // получаем первую порцию из 50 отелей
+                    // далее по скроллингу
+                    this.nextArrayDoseHotels();
                 },
 
 
