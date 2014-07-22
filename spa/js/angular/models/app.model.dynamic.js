@@ -40,7 +40,7 @@ inna.Models.Hotels.HotelsCollection.prototype.getVisibilityInfo = function(){
     o.visible = o.total;
 
     this.each(function(hotel){
-        if(hotel.hidden) o.visible--;
+        if(hotel.hidden || hotel.data.hidden) o.visible--;
     });
 
     return o;
@@ -62,7 +62,7 @@ inna.Models.Hotels.HotelsCollection.prototype.getNext = function(hotel){
 
         if(!next) return null;
 
-        if(!next.hidden) return next;
+        if(!next.hidden && !next.data.hidden) return next;
     }
 
     return null;
@@ -89,11 +89,12 @@ inna.Models.Hotels.HotelsCollection.prototype.hideBundled = function(bundle) {
 
     var hotel = this.search(hotelId);
 
-    hotel && (hotel.hidden = true);
+    hotel && (hotel.hidden = true) && (hotel.data.hidden = true);
 }
 
 inna.Models.Hotels.Hotel = function(raw) {
     this.data = raw;
+    this.data.hidden = false;
 
     if(this.data) {
         if(this.data.CheckIn) this.data.CheckIn = dateHelper.apiDateToJsDate(this.data.CheckIn);

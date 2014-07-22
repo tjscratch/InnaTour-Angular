@@ -55,6 +55,7 @@ angular.module('innaApp.directives')
                         $scope.filter.filterFn = function(hotel){
                             if(hotel.data.PackagePrice + ticketPrice > $scope.option.value) {
                                 hotel.hidden = true;
+                                hotel.data.hidden = true;
                             }
                         };
 
