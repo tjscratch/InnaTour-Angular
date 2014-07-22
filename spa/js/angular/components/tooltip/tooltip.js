@@ -35,7 +35,7 @@ angular.module('innaApp.conponents').
                         if(data._guid != that._guid) {
                             that.hide();
                         }
-                    })
+                    });
 
                     // по клику в любом месте кроме компонента
                     // прячем его
