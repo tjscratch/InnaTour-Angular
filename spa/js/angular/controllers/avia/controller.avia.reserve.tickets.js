@@ -116,6 +116,11 @@ innaAppControllers.
                 function (data, status) {
                     //error
                     //$timeout.cancel(availableChecktimeout);
+                    $scope.safeApply(function () {
+                        //ошибка
+                        log('paymentService.checkAvailability error');
+                        $scope.showReserveError();
+                    });
                 });
 
             //$scope.$watch('validationModel', function (newVal, oldVal) {
@@ -185,8 +190,8 @@ innaAppControllers.
                                 //log('getSelectedVariant dataItem: ' + angular.toJson(data));
                                 $scope.item = data;
                                 $scope.price = data.Price;
-                                console.log('data:');
-                                console.log($scope.item);
+                                //console.log('data:');
+                                //console.log($scope.item);
                                 //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
 
                                 //тарифы

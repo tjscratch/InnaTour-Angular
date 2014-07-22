@@ -618,8 +618,8 @@
                         self.hideBuyButton = hideBuyButton;
                         item = self.addAggFields(item);
                         self.item = item;
-                        console.log(item);
-                        console.log('item.IsCharter: ' + item.IsCharter);
+                        //console.log(item);
+                        //console.log('item.IsCharter: ' + item.IsCharter);
 
                         if (criteria != null && searchId != null) {
                             var buyCriteria = angular.copy(criteria);

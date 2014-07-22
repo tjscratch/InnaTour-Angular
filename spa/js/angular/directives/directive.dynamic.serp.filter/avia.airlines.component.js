@@ -65,7 +65,7 @@ angular.module('innaApp.directives')
                         });
 
                         for(var tName in collections) if(collections.hasOwnProperty(tName)) {
-                            console.log(collections[tName].getMinPrice(), collections[tName].getMinPrice($scope.bundle));
+                            //console.log(collections[tName].getMinPrice(), collections[tName].getMinPrice($scope.bundle));
                             $scope.options.push(new Option(tName, collections[tName].getMinPrice($scope.bundle)));
                         }
 

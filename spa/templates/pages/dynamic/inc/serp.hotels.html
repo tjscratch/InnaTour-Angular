@@ -16,31 +16,7 @@
     </div>
 
     <div class="results-list results-list_720">
-        <div ng-repeat="hotel in _hotelsToDisplay"
-             inna-hotel>
-
-            <div class="price" ng-if="virtualBundle.getProfit() > 1000">
-                <span class="cross">{{virtualBundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
-                <div class="price-description">по отдельности</div>
-            </div>
-
-            <div class="price-description" ng-style="{'margin-top': virtualBundle.getProfit() <= 1000 ? '50px' : ''}"> 
-                Перелет + Отель
-            </div>
-            <div class="corner-price">
-                <div>{{virtualBundle.getFullPackagePrice() | price}}<span class="b-rub">q</span></div>
-
-                <!-- tooltip price -->
-                <div tool-tip-price item="virtualBundle" is-hotel="true"></div>
-
-                <div class="price-description" ng-if="virtualBundle.getProfit() > 1000">
-                    Скидка: {{virtualBundle.getProfit() | price}} <span class="b-rub">q</span>
-                </div>
-            </div>
-
-
-            <span class="button" ng-click="setCurrent()">Выбрать</span>
-        </div>
+        <div ng-repeat="hotel in _hotelsToDisplay" inna-hotel></div>
 
         <!-- there are hotels loaded, but nothing to show 'cause of filters -->
         <div ng-if="hotels.list.length && _hotelsToDisplay.length <= 0" class="results-list__empty results-list__empty_type_hotels">
@@ -53,4 +29,5 @@
 <div ng-if="hotels.list.length && asMap"
      dynamic-serp-map
      dynamic-serp-map-hotels="hotels"
+     dynamic-serp-map-combination="combination"
      dynamic-serp-map-airports="airports"></div>
