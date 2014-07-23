@@ -23,7 +23,7 @@ angular.module('innaApp.directives')
 
                         Option.prototype.describe = function(){
                             return this.title;
-                        }
+                        };
 
                         var Options = inna.Models.Avia.Filters._OptionsFactory();
 
@@ -37,7 +37,8 @@ angular.module('innaApp.directives')
                         }));
                         $scope.filter.options.push(new Option('1 пересадка', function(to, back){
                             //true if fits
-                            return (to == 2 && back == 1) || (to == 1 && back == 2);
+                            var both = to + back;
+                            return both == 3 || both == 4;
                         }));
                         $scope.filter.options.push(new Option('2+ пересадки', function(to, back) {
                             //true if fits
@@ -80,6 +81,8 @@ angular.module('innaApp.directives')
                                     option.minPrice = tickets.getMinPrice($scope.bundle);
                                 }
                             });
+
+                            console.log('LEGS::options', $scope.filter.options);
 
                             unwatchCollectionTickets();
                         });
