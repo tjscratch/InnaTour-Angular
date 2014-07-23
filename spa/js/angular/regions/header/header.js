@@ -18,7 +18,9 @@ angular.module('innaApp.directives')
 
 
                     $scope.$on('$routeChangeStart', function (next, current) {
-                        $scope.$emit('header:visible');
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = true;
+                        });
                     });
 
                     $scope.isHeaderVisible = true;

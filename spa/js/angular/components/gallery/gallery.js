@@ -28,7 +28,7 @@ angular.module('innaApp.conponents').
                         slidePrev : this.slidePrev,
                         hover : this.onHover,
                         teardown: function (evt) {
-
+                            //console.log('teardown Gallery');
                         },
                         change: function (data) {
 
@@ -38,7 +38,7 @@ angular.module('innaApp.conponents').
                     this.observe('photoList', function (newValue, oldValue, keypath) {
                         if (newValue) {
                             //клонируем массив - чтоб ractive не наблюдал за ним вверх по дочерним компонентам
-                            this.set({ Photos : this.get('photoList').concat([]) })
+                            this.set({ Photos : [].concat(this.get('photoList')) })
                         }
                     });
                 },
@@ -89,9 +89,8 @@ angular.module('innaApp.conponents').
                 },
 
                 onHover : function(){
+                    console.log('hover');
                    this.set({isHovered : true});
-
-
                     // отписываемся от события hover
                     this.off('hover');
 

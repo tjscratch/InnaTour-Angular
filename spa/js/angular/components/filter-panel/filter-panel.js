@@ -94,6 +94,7 @@ angular.module('innaApp.conponents').
                 listenChildren: function () {
                     var that = this;
                     var childComponents = this.findAllComponents();
+
                     childComponents.forEach(function (child) {
 
 
@@ -126,6 +127,7 @@ angular.module('innaApp.conponents').
                 collectChildData : function(){
                     var that = this;
                     var tempArr = [];
+
                     this.findAllComponents().forEach(function(child){
                         if(child.get('value') && child.get('value.val').length) tempArr.push(child.get('value'));
                     })

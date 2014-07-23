@@ -12,7 +12,8 @@ angular.module('innaApp.directives')
 
         // components
         'Tripadvisor',
-        function ($templateCache, Tripadvisor) {
+        'HotelGallery',
+        function ($templateCache, Tripadvisor, HotelGallery) {
 
             return {
                 template: $templateCache.get('components/map/templ/index.html'),
@@ -27,8 +28,6 @@ angular.module('innaApp.directives')
                     '$scope',
                     '$element',
                     'innaApp.API.events',
-
-
                     function (EventManager, $scope, $element, Events) {
                         $scope.currentHotel = null;
                         $scope.currentHotelPreview = null;
@@ -36,18 +35,15 @@ angular.module('innaApp.directives')
 
                         // прячем footer
                         $scope.$emit('region-footer:hide');
-                        //$scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
                         EventManager.fire(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE);
                         $element.addClass('big-map_short');
 
 
                         EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
-                            console.log('DYNAMIC_SERP_OPEN_BUNDLE map');
                             $element.removeClass('big-map_short')
                         });
 
                         EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
-                            console.log('DYNAMIC_SERP_CLOSE_BUNDLE map');
                             $element.addClass('big-map_short')
                         });
 
@@ -89,6 +85,7 @@ angular.module('innaApp.directives')
                     var activeMarker = null;
                     var activeMarkerHover = null;
                     var GM = google.maps;
+                    var HotelGalleryComponent = null;
                     var _bounds = new GM.LatLngBounds();
                     var dataInfoBox = {
                         disableAutoPan: false,
@@ -152,21 +149,23 @@ angular.module('innaApp.directives')
                      });*/
 
                     function initCarousel() {
-
-                        var carousel = $(boxPhoto).find('.b-carousel');
                         var photoList = scope.currentHotel.Photos;
 
-                        carousel.innaCarousel({
-                            photoList: photoList,
-                            map: true,
-                            size: 'Small',
-                            style: {
-                                width: 360,
-                                height: 240
-                            },
-                            fn: 'init'
-                        });
+                        if(!HotelGalleryComponent) {
 
+                            HotelGalleryComponent = new HotelGallery({
+                                el: boxPhoto.querySelector('.js-b-carousel'),
+                                template : $templateCache.get('components/gallery/templ/gallery.map.hbs.html'),
+                                data: {
+                                    map: true,
+                                    photoList: photoList,
+                                    width: 360,
+                                    height: 240
+                                }
+                            })
+                        } else {
+                            HotelGalleryComponent.set({photoList: photoList})
+                        }
                     }
 
                     function setActiveMarker(data_marker) {
@@ -280,10 +279,12 @@ angular.module('innaApp.directives')
                             if (!boxInfo) {
                                 boxInfo = new InfoBox(dataInfoBox);
                                 boxInfo.open(map);
+                                boxInfo.setZIndex(3000);
                                 reDraw(boxInfo);
                             } else {
                                 boxInfo.setVisible(true);
                                 boxInfo.setPosition(data.pos);
+                                boxInfo.setZIndex(3000);
                             }
                             GM.event.addListener(boxInfo, 'domready', function () {
                                 $(boxPhoto).css('left', 'auto');
@@ -607,12 +608,13 @@ angular.module('innaApp.directives')
 
                     //destroy
                     scope.$on('$destroy', function () {
-                        try {
+                        if(_tripadvisor) {
                             _tripadvisor.teardown();
-                        } catch (e) {
-                            //do nothing
-                        } finally {
                             _tripadvisor = null;
+                        }
+                        if(HotelGalleryComponent){
+                            HotelGalleryComponent.teardown()
+                            HotelGalleryComponent = null;
                         }
 
                         GM.event.addListener(map);

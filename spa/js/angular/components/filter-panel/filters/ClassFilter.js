@@ -23,6 +23,8 @@ angular.module('innaApp.conponents').
                      */
                     this.set(this.get('data'))
 
+                    document.addEventListener('click', this.bodyClickHide.bind(this), false);
+
                     /**
                      * Events
                      */
@@ -44,8 +46,19 @@ angular.module('innaApp.conponents').
                         },
                         teardown: function (evt) {
                             console.log('teardown filter all');
+                            document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                         }
                     })
+                },
+
+                bodyClickHide : function(evt){
+                    var $this = evt.target;
+
+                    //console.log($this, evt, this);
+                    //console.log(this.find($this));
+                    /*if (!this.find('.' + $this.classList[0])) {
+                        //this.fire('hide');
+                    }*/
                 },
 
 

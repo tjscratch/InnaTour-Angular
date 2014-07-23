@@ -27,6 +27,7 @@ angular.module('innaApp.conponents').
                     HotelGallery: HotelGallery
                 },
 
+
                 init: function () {
                     var that = this;
 
@@ -48,7 +49,7 @@ angular.module('innaApp.conponents').
 
                         },
                         teardown: function (evt) {
-
+                            //console.log('teardown hotel item');
                         }
                     })
 

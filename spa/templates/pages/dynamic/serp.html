@@ -6,9 +6,7 @@
 <!-- List Panel hotels and tickets -->
 <div class="results-body"
      ng-show="(!showLanding && !hotelToShowDetails && !asMap) && (state.HOTELS_TAB || state.TICKETS_TAB)">
-    <div class="results-container" ng-class="{'results-container__short':padding.value}">
-        <div class="results-list results-list_720"></div>
-    </div>
+    <div class="results-container results-container_list" ng-class="{'results-container__short':padding.value}"></div>
 </div>
 
 <ng:include src="'pages/dynamic/inc/ticket-details.html'"></ng:include>

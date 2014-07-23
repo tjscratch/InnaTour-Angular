@@ -217,14 +217,30 @@ innaAppControllers
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
 
                     if (data.Hotels) {
-                        HotelsListComponent = new HotelsList({
-                            el: document.querySelector('.results-list'),
-                            data: {
-                                Hotels: data.Hotels, //[],
-                                combinationModel: $scope.combination
-                            }
-                        });
+                        console.log('Get Hotels');
+                        if(!HotelsListComponent) {
+                            HotelsListComponent = new HotelsList({
+                                el: document.querySelector('.results-container_list'),
+                                data: {
+                                    Hotels: data.Hotels, //[],
+                                    combinationModel: $scope.combination
+                                }
+                            });
+                        } else {
+                            document.querySelector('.results-container_list .b-list-hotels .b-list-hotels__list').innerHTML= '',
+
+                            console.log('set');
+
+                            setTimeout(function(){
+                                HotelsListComponent.set({
+                                    Hotels: data.Hotels,
+                                    combinationModel: $scope.combination
+                                })
+                            }, 3000)
+
+                        }
                     } else {
+                        console.log('Get tickets');
                         console.log('load tickets');
                     }
 
@@ -460,6 +476,14 @@ innaAppControllers
             });
 
             // случаем событие переключения контрола с карты на список и обратно
+            EventManager.on(Events.DYNAMIC_SERP_TOGGLE_MAP, function (data) {
+                $scope.safeApply(function () {
+                    setAsMap((getAsMap()) ? 0 : 1);
+                    locatioAsMap();
+                })
+            })
+
+            // TODO : deprecated
             $scope.$on('toggle:view:hotels:map', function () {
                 setAsMap((getAsMap()) ? 0 : 1);
                 locatioAsMap();

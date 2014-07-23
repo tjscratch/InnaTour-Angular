@@ -80,11 +80,13 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_CHOOSE_TICKET : 'choose:ticket',
             DYNAMIC_SERP_MORE_DETAIL_HOTEL : 'more:detail:hotel',
             DYNAMIC_SERP_BACK_LIST : 'hotels:back:list',
-            DYNAMIC_SERP_GO_TO_MAP : 'hotel:go-to-map',
             DYNAMIC_SERP_SET_CLOSE_BUNDLE : 'bundle:set:hidden',
             DYNAMIC_SERP_SET_OPEN_BUNDLE : 'bundle:set:full',
             DYNAMIC_SERP_CLOSE_BUNDLE : 'bundle:hidden',
             DYNAMIC_SERP_OPEN_BUNDLE : 'bundle:full',
+
+            DYNAMIC_SERP_TOGGLE_MAP : 'toggle:view:hotels:map',
+            DYNAMIC_SERP_GO_TO_MAP : 'hotel:go-to-map',
 
             HEADER_VISIBLE : 'header:visible',
             HEADER_HIDDEN : 'header:hidden',
