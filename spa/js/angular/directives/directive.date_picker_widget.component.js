@@ -209,7 +209,6 @@
                     format: 'd.m.Y',
                     starts: 1,
                     onChange: function (formated, dates, el, lastSel, initDateFromIsSet) {
-                        console.log('onChange');
                         $scope.$apply(function ($scope) {
                             $scope.date1 = formated[0];
 
