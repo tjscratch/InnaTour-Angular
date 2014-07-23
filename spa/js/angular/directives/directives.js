@@ -674,7 +674,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
 
             //когда придет модель - проставим аттрибут id элементу
             function updateAttrId(model) {
-                if (!isInitDone && model != null)
+                if (!isInitDone && (model != null || $scope.validateType == 'sex'))
                 {
                     //проставляем уникальный id элементу
                     $elem.attr("id", eid);

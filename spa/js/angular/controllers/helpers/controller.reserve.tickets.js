@@ -59,7 +59,8 @@ innaAppControllers.
                 date: 'date',
                 birthdate: 'birthdate',
                 expire: 'expire',
-                document: 'document'
+                document: 'document',
+                sex: 'sex'
             };
             $scope.validateType = validateType;
 
@@ -250,6 +251,11 @@ innaAppControllers.
                     else {
                         model.isValid = false;
                         model.isInvalid = true;
+                    }
+
+                    if (model.key == 'sex') {
+                        var $to = $('#' + model.id);
+                        $scope.tooltipControl.close($to);
                     }
                 }
 
@@ -791,6 +797,8 @@ innaAppControllers.
 
                 };
 
+                //$scope.fillDefaultModel();
+
                 if ($scope.afterPayModelInit != null)
                     $scope.afterPayModelInit();
             };
@@ -850,7 +858,7 @@ innaAppControllers.
 
                 //ищем первый невалидный элемент, берем только непустые
                 var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
-                    return (item.value != null && (!_.isString(item.value) || item.value.length > 0));
+                    return (item.value != null && (!_.isString(item.value) || item.value.length > 0)) || (item.value == null && item.key == 'sex');
                 });
                 if (invalidItem != null) {
 
@@ -998,7 +1006,9 @@ innaAppControllers.
             ];
 
             $scope.fillDefaultModel = function ($event) {
-                eventsHelper.preventBubbling($event);
+                if ($event) {
+                    eventsHelper.preventBubbling($event);
+                }
 
                 $scope.model.name = 'Иван';
                 $scope.model.secondName = 'Иванов';
