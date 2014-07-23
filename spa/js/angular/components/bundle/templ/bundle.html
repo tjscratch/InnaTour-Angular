@@ -1,147 +1,100 @@
-<div class="b-result b-result_col_three row b-result-content">
-    <div class="b-result__cell" ng-click="state && state.switchTo('ticket')" ng-style="{cursor: state ? 'pointer' : 'default'}">
+<div class="recommend-bundle-container"
+     ng-controller="DynamicPackageSERPRecommendedBundleCtrl"
+     ng-class="{'recommend-bundle-container_short':!isVisible}">
+    <div class="recommend-bundle">
 
-        <span class="rl-airline" ng-repeat="(code, name) in bundle.ticket.collectAirlines().etap" ng-if="$index < 2">
-            <span ng-switch="code">
-                <img src="/spa/img/no-logo-avia.png" alt="" ng-switch-when="''">
-                <img ng-src="{{airLogo(code)}}" alt="" ng-switch-default>
-            </span>
-            <span class="rl-airline-text">{{name}}</span>
-        </span>
+        <div class="recommend-bundle-background"></div>
 
-        <div class="flight-info">
-            <span class="date">
-                <b>
-                    {{dateHelper.getTime(bundle.ticket.data.DepartureDate)}} {{bundle.ticket.data.OutCode}}
-                </b>
-                {{bundle.ticket.data.DepartureDate | date: 'd MMM'}}, {{bundle.ticket.data.DepartureDate | date: 'EEE'}}
-            </span>
+        <div class="main__center recommend-bundle-wrap"
+             ng-class="{'recommend-bundle-wrap_small': !isVisible}">
 
-            <p class="arrow">
-                в пути: {{bundle.ticket.getDuration('To')}}<br>
-                {{bundle.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
-            </p>
-            <span class="date">
-                <b>{{dateHelper.getTime(bundle.ticket.data.ArrivalDate)}} {{bundle.ticket.data.InCode}}</b>
-                {{bundle.ticket.data.ArrivalDate | date: 'd MMM'}}, {{bundle.ticket.data.ArrivalDate | date: 'EEE'}}
-            </span>
-        </div>
+            <h3 class="recommend-bundle-title" ng-if="isVisible && isChooseHotel">
+                Выбранный вариант
+            </h3>
 
-        <div class="flight-info">
-                <span class="date">
-                    <b>{{dateHelper.getTime(bundle.ticket.data.BackDepartureDate)}} {{bundle.ticket.data.InCode}}</b>
-                    {{bundle.ticket.data.BackDepartureDate | date: 'd MMM'}}, {{bundle.ticket.data.BackDepartureDate | date: 'EEE'}}
-                </span>
+            <h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
+                Рекомендованный вариант
+            </h3>
 
-            <p class="arrow">
-                в пути: {{bundle.ticket.getDuration('Back')}}<br>
-                {{bundle.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
-            </p>
-                <span class="date">
-                    {{ (__etapsBack = bundle.ticket.getEtaps('Back')) ? '' : '' }}
-                    <b>{{dateHelper.getTime(bundle.ticket.data.BackArrivalDate)}} {{__etapsBack[__etapsBack.length - 1].data.InCode}}</b>
-                    {{bundle.ticket.data.BackArrivalDate | date: 'd MMM'}}, {{bundle.ticket.data.BackArrivalDate | date: 'EEE'}}
-                </span>
-        </div>
-        <span class="icon-sprite-airplane"></span>
+            <div class="w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">
+                <a href="javascript:void(0);" ng-click="display.toggle()" class="expand-collapse-link">
+                    <span class="icon-expand"></span> Свернуть
+                </a>
+            </div>
 
-        <div class="bottom-actions">
-            <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_replace"
-               ng-if="state"
-               ng-class="{active: state.isActive(state.TICKETS_TAB)}">
-                Заменить перелет
-            </a>
-            <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_details"
-               ng-click="getTicketDetails($event, bundle.ticket)">Подробнее</a>
-        </div>
+            <div ng-if="isVisible && combination.hotel && combination.ticket"
+                 inna-dynamic-bundle
+                 inna-dynamic-bundle-bundle="combination"
+                 inna-dynamic-bundle-state="state"
+                 inna-dynamic-bundle-ticket-details="getTicketDetails"
+                 inna-dynamic-bundle-hotel-details="getHotelDetails"
+                 inna-dynamic-bundle-with-reservation-button="true"></div>
 
-        <!-- separator -->
-        <div class="b-result-cell__gap">
-            <div class="b-result-cell__gap_wrap"></div>
-        </div>
-    </div>
 
-    <div class="b-result__cell" ng-click="state && state.switchTo('hotel')" ng-style="{cursor: state ? 'pointer' : 'default'}">
-        <div class="hotel-info__special-mark" ng-if="bundle.getProfit() > 1000">
-            <span class="icon-crown icon-sprite-crown"></span>
-            Спецпредложение
-        </div>
+            <div class="row result-small" ng-if="!isVisible" ng-click="display.toggle()" style="cursor:pointer;">
+                <div class="result-small__cell col-xs-5 col-no-padding">
+                    <p class="flight">
+                        <img class="flight__image" ng-src="{{airLogo( combination.ticket.getEtaps('To')[0].data.TransporterCode )}}"
+                             height=28
+                             alt="">
+                        <span class="white">{{combination.ticket.data.OutCode}} – {{combination.ticket.data.InCode}}, {{combination.ticket.data.DepartureDate | date: 'd MMM'}},</span>
 
-        <div class="hotel-info">
-            <div class="hotel-info__wrapper">
-                <img ng-src="{{bundle.hotel.data.HotelPhoto70}}" ng-if="bundle.hotel.data.HotelPhoto70" alt="">
-                <img src="/spa/img/hotels/no_photo70x70.png" ng-if="!bundle.hotel.data.HotelPhoto70" alt="">
-
-                <div class="hotel-info-content">
-                    <div>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 0"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 1"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 2"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 3"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 4"></span>
-                    </div>
-                    <h3 class="hotel-info-name">{{bundle.hotel.data.HotelName}}</h3>
-
+                        в пути: {{combination.ticket.getDuration('To')}}, {{combination.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
+                    </p>
+                    <p class="flight">
+                        <img class="flight__image" ng-src="{{airLogo( combination.ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28 alt="">
+                        <span class="white">{{combination.ticket.data.InCode}} – {{combination.ticket.data.OutCode}}, {{combination.ticket.data.BackDepartureDate | date: 'd MMM'}},</span>
+                        в пути: {{combination.ticket.getDuration('Back')}}, {{combination.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
+                    </p>
+                </div>
+                <div class="result-small__cell col-xs-4">
+                    <h3 class="hotel-info-name">
+                        <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 0"></span>
+                        <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 1"></span>
+                        <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 2"></span>
+                        <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 3"></span>
+                        <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 4"></span>
+                        <!-- сокращаем соличество символов -->
+                        {{combination.hotel.data.HotelName | limitTo:24}}...
+                    </h3>
                     <div class="hotel-info-date">
-                        с {{bundle.hotel.data.CheckIn | date: 'd MMM'}}
-                        по {{bundle.hotel.data.CheckOut | date: 'd MMM'}},
+                        с {{combination.hotel.data.CheckIn | date: 'd MMM'}}
+                        по {{combination.hotel.data.CheckOut | date: 'd MMM'}},
+                        {{combination.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
+                </div>
+                <div class="result-small__cell col-xs-3 col-no-padding">
 
-                        {{bundle.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+                    <div class="corner-price">
+
+                        {{combination.getFullPackagePrice() | price}}
+
+                        <ng-include src="'components/ruble.html'"></ng-include>
+
+                        <!-- tooltip price -->
+                        <div class="b-tooltip-price"
+                             tool-tip-price
+                             item="combination"
+                             icon-white="true"
+                             is-bundle="true"></div>
+
+                    </div>
+
+                    <div class="w-expand-collapse-link_down w-expand-collapse-link" ng-if="!isVisible">
+                        <a href="javascript:void(0);" class="expand-collapse-link">
+                            <span class="icon-collapse"></span> Развернуть
+                        </a>
                     </div>
                 </div>
             </div>
-
-            <!-- tripadvisor -->
-            <div class="hotel-info__tripadvisor">
-                <div class="js-tripadvisor-container"></div>
-            </div>
-        </div>
-        <span class="icon-sprite-hotel"></span>
-
-        <div class="bottom-actions">
-            <a href="javascript:void(0);"
-               ng-class="{active: state.isActive(state.HOTELS_TAB)}"
-               ng-if="state"
-               class="bottom-actions__button bottom-actions__button_action_replace">
-                Заменить отель
-            </a>
-            <a href="javascript:void(0);"
-               class="bottom-actions__button bottom-actions__button_action_details"
-               ng-class="{'active': !!!__getHotelDetails}"
-               ng-click="!!__getHotelDetails && getHotelDetails($event, bundle.hotel)">Подробнее</a>
-        </div>
-
-
-        <!-- separator -->
-        <div class="b-result-cell__gap">
-            <div class="b-result-cell__gap_wrap"></div>
         </div>
     </div>
 
-    <div class="b-result__cell result-buy">
-        <div class="js-share-component"></div>
+    <!-- Переключаем фильтры на карте и на списке отелей -->
+    <div class="filters__body main__center"
+            ng-class="{'filters__body_dp':asMap}">
+        <!-- Показываем разные фильтры -->
+        <ng:include src="'pages/dynamic/inc/serp.tickets.html__filters.html'" ng-if="!asMap && state.TICKETS_TAB"></ng:include>
 
-        <p class="corner-price" ng-if="bundle.getProfit() > 1000">
-            <span class="cross">{{bundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
-            <span class="price-description">по отдельности</span>
-        </p>
-
-        <div class="price">
-            <div class="price-description" style="font-weight:normal;">Перелет + Отель</div>
-            {{bundle.getFullPackagePrice() | price}}
-            <ng-include src="'components/ruble.html'"></ng-include>
-
-            <!-- tooltip price -->
-            <div tool-tip-price ig-if="bundle.hotel.data.PriceObject" item="bundle" is-bundle="true"></div>
-        </div>
-
-        <span class="price-description" ng-if="bundle.getProfit() > 1000">
-            экономия: {{bundle.getFullPrice() - bundle.getFullPackagePrice() | price}}
-            <ng-include src="'components/ruble.html'"></ng-include>
-        </span>
-
-        <p></p>
-
-        <span ng-if="withReservationButton" class="button" ng-click="getHotelDetails($event, bundle.hotel, true)">Купить</span>
+        <ng:include src="'pages/dynamic/inc/serp.hotels.map__filters.html'" ng-if="state.HOTELS_TAB"></ng:include>
     </div>
 </div>
