@@ -279,7 +279,7 @@
                     $scope.timeoutId = $timeout(function () {
                         $scope.$apply(function ($scope) {
                             $scope.selectionControl.setSelected();
-                            
+
                             $scope.fulfilled = true;
                         });
 
