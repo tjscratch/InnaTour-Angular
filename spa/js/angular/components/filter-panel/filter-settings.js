@@ -6,85 +6,110 @@ angular.module('innaApp.conponents').
                     value: 30000
                 },
                 stars: [
-                    {value : 1},
-                    {value : 2},
-                    {value : 3},
-                    {value : 4},
-                    {value : 5}
+                    {value: 1},
+                    {value: 2},
+                    {value: 3},
+                    {value: 4},
+                    {value: 5}
                 ].reverse(),
                 tafactor: {
-                    withOutTd : true,
-                    list : [
-                        {value : 1},
-                        {value : 2},
-                        {value : 3},
-                        {value : 4},
-                        {value : 5}
+                    withOutTd: true,
+                    list: [
+                        {value: 1},
+                        {value: 2},
+                        {value: 3},
+                        {value: 4},
+                        {value: 5}
                     ].reverse()
                 },
-                name : {
-                  value : ''
+                name: {
+                    value: ''
                 },
-                type : {
-                    list : [
+                type: {
+                    list: [
                         {
-                            name : 'Отель',
-                            value : 'hotel'
+                            name: 'Отель',
+                            value: 'hotel'
                         },
                         {
-                            name : 'Апарт-отель',
-                            value : 'apart_hotel'
+                            name: 'Апарт-отель',
+                            value: 'apart_hotel'
                         },
                         {
-                            name : 'Пансион',
-                            value : 'guesthouse'
+                            name: 'Пансион',
+                            value: 'guesthouse'
                         },
                         {
-                            name : 'Квартира',
-                            value : 'flat'
+                            name: 'Квартира',
+                            value: 'flat'
                         }
                     ]
                 },
-                services : {
-                    list : [
+                services: {
+                    list: [
                         {
-                            name : 'Фитнес',
-                            value : 'fitness'
+                            name: 'Фитнес',
+                            value: 'Fitness'
                         },
                         {
-                            name : 'Интернет',
-                            value : 'ethernet'
+                            name: 'Завтрак',
+                            value: 'Breakfast'
                         },
                         {
-                            name : 'Бассейн',
-                            value : 'pool'
+                            name: 'Бар/Ресторан',
+                            value: 'BarRestaurant'
                         },
                         {
-                            name : 'Сервисы для детей',
-                            value : 'for_children'
+                            name: 'Парковка',
+                            value: 'Parking'
+                        },
+                        {
+                            name: 'Кухня',
+                            value: 'Kitchen'
+                        },
+
+                        {
+                            name: 'Сервисы для людей с о.в',
+                            value: 'ForPeopleWithDisabilities'
+                        },
+                        {
+                            name: 'СПА',
+                            value: 'SPA'
+                        },
+                        {
+                            name: 'Интернет',
+                            value: 'Internet'
+                        },
+                        {
+                            name: 'Бассейн',
+                            value: 'SwimmingPool'
+                        },
+                        {
+                            name: 'Сервисы для детей',
+                            value: 'ServicesForChildren'
                         }
                     ]
                 },
-                sort : [
+                sort: [
                     {
-                        name : 'По цене пакета',
-                        value : 1
+                        name: 'По цене пакета',
+                        value: 1
                     },
                     {
-                        name : 'По рейтингу Инна Тур',
-                        value : 2
+                        name: 'По рейтингу Инна Тур',
+                        value: 2
                     },
                     {
-                        name : 'По рейтингу Trip Advisor',
-                        value : 3
+                        name: 'По рейтингу Trip Advisor',
+                        value: 3
                     },
                     {
-                        name : 'По названию',
-                        value : 4
+                        name: 'По названию',
+                        value: 4
                     },
                     {
-                        name : 'По размеру скидки в руб',
-                        value : 5
+                        name: 'По размеру скидки в руб',
+                        value: 5
                     }
                 ]
             }

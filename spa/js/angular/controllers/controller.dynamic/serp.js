@@ -22,6 +22,7 @@ innaAppControllers
             var searchParams = angular.copy($routeParams);
             var cacheKey = '';
             var serpScope = $scope;
+            $scope.hotelsRaw = null;
             $scope.isChooseHotel = null;
             var MAX_HOTEL_LEN = 180;
 
@@ -162,12 +163,16 @@ innaAppControllers
              * Событие more:detail:hotel вызывает метод getHotelDetails
              * Переход в раздел - подробно об отеле
              */
-            EventManager.on('more:detail:hotel', function (data) {
-                console.log(data);
+            EventManager.on(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, function (data) {
                 // показать header - форма поиска перед переходом на страницу подробнее
                 EventManager.fire(Events.HEADER_VISIBLE);
-                if (data) getHotelDetails(data);
+
+                $scope.safeApply(function () {
+                    if (data) getHotelDetails(data);
+                });
             });
+
+
 
             function loadTab() {
                 var method, param, apply;
@@ -179,6 +184,7 @@ innaAppControllers
 
                     apply = function ($scope, data) {
                         $scope.hotels.flush();
+                        $scope.hotelsRaw = data;
 
                         for (var i = 0, raw = null; raw = data.Hotels[i++];) {
                             if (!raw.HotelName) continue;
@@ -211,7 +217,6 @@ innaAppControllers
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
 
                     if (data.Hotels) {
-
                         HotelsListComponent = new HotelsList({
                             el: document.querySelector('.results-list'),
                             data: {
@@ -311,7 +316,7 @@ innaAppControllers
 
                             /* FilterPanel */
                             (new FilterPanel({
-                                el : document.querySelector('.recommend-bundle-container')
+                                el: document.querySelector('.recommend-bundle-container')
                             }))
 
                             //calibrate($scope.hotels, 0);
@@ -429,7 +434,7 @@ innaAppControllers
 
             // слушаем событие от компонента отеля
             //  открываем карту с точкой этого отеля
-            EventManager.on('hotel:go-to-map', function (data) {
+            EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, function (data) {
                 $scope.safeApply(function () {
                     setAsMap(1);
 
@@ -479,8 +484,10 @@ innaAppControllers
 
             $scope.$on('$destroy', function () {
                 console.log('$destroy serp');
-                HotelsListComponent.teardown();
-                HotelsListComponent = null;
+                if(HotelsListComponent) {
+                    HotelsListComponent.teardown();
+                    HotelsListComponent = null;
+                }
                 $(document).off('scroll');
             })
         }
@@ -598,6 +605,26 @@ innaAppControllers
             });
             $scope.$root.$on(Events.DYNAMIC_SERP_CHOOSE_TICKET, function (evt, data) {
                 $scope.display.fullDisplay();
+            });
+
+
+            // Ractive Events
+            EventManager.on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function (data) {
+                $scope.safeApply(function () {
+                    $scope.display.fullDisplay();
+                });
+            });
+
+            EventManager.on(Events.DYNAMIC_SERP_CHOOSE_TICKET, function (data) {
+                $scope.safeApply(function () {
+                    $scope.display.fullDisplay();
+                });
+            });
+
+            EventManager.on(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE, function(){
+                $scope.safeApply(function () {
+                    $scope.display.shortDisplay();
+                });
             });
 
             // подписываемся на событие toggle:visible:bundle

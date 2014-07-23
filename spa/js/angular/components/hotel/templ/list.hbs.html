@@ -14,6 +14,14 @@
 			{{/each}}
         </div>
 
+		{{#if !hotelList.length}}
+            <div class="b-list-hotels__list">
+                <div class="results-list__empty results-list__empty_type_hotels">
+                    <p>Варианты не найдены.</p>
+                    <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
+                </div>
+            </div>
+		{{/if}}
 	{{else}}
         <div class="b-list-hotels__list">
             <div class="results-list__empty results-list__empty_type_hotels">

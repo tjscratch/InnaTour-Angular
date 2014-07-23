@@ -20,7 +20,7 @@ angular.module('innaApp.directives')
                 scope: {
                     hotels: '=dynamicSerpMapHotels',
                     airports: '=dynamicSerpMapAirports',
-                    combination : '=dynamicSerpMapCombination'
+                    combination: '=dynamicSerpMapCombination'
                 },
                 controller: [
                     'EventManager',
@@ -36,36 +36,30 @@ angular.module('innaApp.directives')
 
                         // прячем footer
                         $scope.$emit('region-footer:hide');
-                        $scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                        //$scope.$emit(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                        EventManager.fire(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE);
                         $element.addClass('big-map_short');
 
 
-                        /*$scope.$root.$on('header:hidden', function () {
+                        EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
+                            console.log('DYNAMIC_SERP_OPEN_BUNDLE map');
+                            $element.removeClass('big-map_short')
+                        });
+
+                        EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
+                            console.log('DYNAMIC_SERP_CLOSE_BUNDLE map');
                             $element.addClass('big-map_short')
                         });
 
-                        $scope.$root.$on('header:visible', function () {
-                            $element.removeClass('big-map_short')
-                        });*/
-
-                        EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function(){
-                            $scope.safeApply(function () {
-                                $element.removeClass('big-map_short')
-                            });
-                        });
-
-                        EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function(){
-                            $scope.safeApply(function () {
-                                $element.addClass('big-map_short')
-                            });
-                        });
-
                         $scope.setHotel = function (currentHotel) {
+                            EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, $scope.hotels.search(currentHotel.HotelId));
+
+                            // TODO deprecated
                             $scope.$emit(Events.DYNAMIC_SERP_CHOOSE_HOTEL, $scope.hotels.search(currentHotel.HotelId));
                         }
 
                         $scope.hotelDetails = function (currentHotel) {
-                            EventManager.fire('more:detail:hotel', $scope.hotels.search(currentHotel.HotelId));
+                            EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, $scope.hotels.search(currentHotel.HotelId));
                         }
 
                         $scope.$on('$destroy', function () {
@@ -615,7 +609,7 @@ angular.module('innaApp.directives')
                     scope.$on('$destroy', function () {
                         try {
                             _tripadvisor.teardown();
-                        } catch(e) {
+                        } catch (e) {
                             //do nothing
                         } finally {
                             _tripadvisor = null;

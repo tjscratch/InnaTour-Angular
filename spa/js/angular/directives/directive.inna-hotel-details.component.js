@@ -13,6 +13,7 @@ angular.module('innaApp.directives')
                 hotelOnly: '@innaHotelDetailsHotelOnly'
             },
             controller: [
+                'EventManager',
                 '$scope',
                 '$element',
                 '$timeout',
@@ -22,7 +23,7 @@ angular.module('innaApp.directives')
 
                 // components
                 'Tripadvisor',
-                function($scope, $element, $timeout, aviaHelper, Events, $location, Tripadvisor){
+                function(EventManager, $scope, $element, $timeout, aviaHelper, Events, $location, Tripadvisor){
                     var _tripadvisor = null;
                     /*Dom*/
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -113,14 +114,14 @@ angular.module('innaApp.directives')
                     $scope.close = function(){
                         if($scope.displayRoom) {
                             window.history.back();
-
                             return;
                         }
 
                         delete $location.$$search.room;
                         $location.$$compose();
-
                         $scope.$root.$broadcast('bundle:full');
+
+                        EventManager.fire(Events.DYNAMIC_SERP_BACK_LIST);
 
                         return $scope.back();
                     };
@@ -170,8 +171,11 @@ angular.module('innaApp.directives')
 
                     $scope.$on('$destroy', function(){
                         $('body').removeAttr('style');
-                        _tripadvisor.teardown();
-                        _tripadvisor = null;
+
+                        if(_tripadvisor) {
+                            _tripadvisor.teardown();
+                            _tripadvisor = null;
+                        }
                     })
                 }
             ],

@@ -42,7 +42,7 @@ angular.module('innaApp.conponents').
                                     } else {
                                         this.set('value.val', [])
                                     }
-                                }.bind(this), 1000);
+                                }.bind(this), 500);
                             }
                         }
                     });
@@ -51,7 +51,6 @@ angular.module('innaApp.conponents').
                 changeName: function (data) {
                     var that = this;
                 },
-
 
                 parse: function (end) {
 

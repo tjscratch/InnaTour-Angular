@@ -43,6 +43,7 @@ angular.module('innaApp.conponents').
                     this.on({
                         setCurrent : this.setCurrent,
                         goToMap : this.goToMap,
+                        getHotelDetails : this.getHotelDetails,
                         change : function(data){
 
                         },
@@ -55,19 +56,14 @@ angular.module('innaApp.conponents').
                         if (newValue) {
                         }
                     });*/
-
-
-                    /*$element.on('click', '.js-hotel-info-place', function (evt) {
-                        $scope.$emit('hotel:go-to-map', $scope.hotel);
-                    });*/
                 },
 
                 getHotelDetails : function(){
-                    EventManager.fire('more:detail:hotel', this.get('modelHotel'));
+                    EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, this.get('modelHotel'));
                 },
 
                 goToMap : function(){
-                    EventManager.fire('hotel:go-to-map', this.get('modelHotel'));
+                    EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));
                 },
 
                 setCurrent : function(){
