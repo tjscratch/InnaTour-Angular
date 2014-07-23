@@ -2,11 +2,6 @@ angular.module('innaApp.API', [])
     .factory('innaApp.API.const', function () {
         function url(s) {
             var host = '';
-            /*var host = app_main.host || 'http://api.test.inna.ru';
-            if (window.DEV) host = 'http://api.lh.inna.ru:8077';
-            if (window.DEV2) host = 'http://api.lh.inna.ru';*/
-
-            // test
             return host + '/api/v1' + s;
         }
 
@@ -17,14 +12,14 @@ angular.module('innaApp.API', [])
 
             SEND_IT_CATEGORY_REQUEST: url('/RequestsTour/Post'),
 
-            DYNAMIC_FROM_SUGGEST: url('/Packages/From'),
-            DYNAMIC_TO_SUGGEST: url('/Packages/To'),
-            DYNAMIC_GET_OBJECT_BY_ID: url('/Packages/DirectoryById'),
-            DYNAMIC_SEARCH: window.DEV_DYNAMIC_SEARCH_PACKAGE_STUB || url('/Packages/Search'),
+            DYNAMIC_FROM_SUGGEST: url('/Dictionary/Directory'),
+            DYNAMIC_TO_SUGGEST: url('/Dictionary/Hotel'),
+            DYNAMIC_GET_OBJECT_BY_ID: url('/Dictionary/DirectoryById'),
+            DYNAMIC_SEARCH: url('/Packages/Search'),
             DYNAMIC_SEARCH_HOTELS: url('/Packages/SearchHotels'),
-            DYNAMIC_SEARCH_TICKETS: window.DEV_DYNAMIC_SEARCH_TICKETS_STUB || url('/Packages/SearchTickets'),
+            DYNAMIC_SEARCH_TICKETS: url('/Packages/SearchTickets'),
             DYNAMIC_HOTEL_DETAILS: url('/Packages/SearchHotel'),
-            DYNAMIC_GET_DIRECTORY_BY_IP: url('/Packages/DirectoryByIP'),
+            DYNAMIC_GET_DIRECTORY_BY_IP: url('/Dictionary/GetCurrentCity'),
 
             B2B_DISPLAY_ORDER: url('/Payment/Index'),
 
