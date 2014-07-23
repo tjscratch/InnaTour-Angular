@@ -3,12 +3,12 @@
         <input type="text" ng-value="long(date1)" class="search-date search-date-arr" placeholder="Туда"
                style="visibility: hidden;"/>
 
-        <div class="search-date-block__date">{{long(date1)}}</div>
+        <div class="search-date-block__date" ng-class="{'search-date-block__date_display_placeholder': !date1}">{{date1 ? long(date1) : 'Туда'}}</div>
     </div>
     <div class="search-date-block search__120" ng-click="toggleTo($event)" data-title="Выберите дату отправления обратно">
         <input type="text" ng-value="long(date2)" class="search-date search-date-arr" placeholder="Обратно"
                style="visibility: hidden;"/>
-        <div class="search-date-block__date">{{long(date2)}}</div>
+        <div class="search-date-block__date" ng-class="{'search-date-block__date_display_placeholder': !date2}">{{date2 ? long(date2) : 'Обратно'}}</div>
     </div>
     <div class="js-datepicker datepicker-body" ng-show="isOpen">
         <div class="dp-head-cont">
