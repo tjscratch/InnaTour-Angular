@@ -19,3 +19,10 @@
      inna-hotel-details-bundle="combination"
      inna-hotel-detailes-reservation-fn="goReservation"
      inna-hotel-details-get-ticket-details="getTicketDetails"></div>
+
+
+<div ng-if="(state.HOTELS_TAB && hotels.list.length && asMap)"
+     dynamic-serp-map
+     dynamic-serp-map-hotels="hotels"
+     dynamic-serp-map-combination="combination"
+     dynamic-serp-map-airports="airports"></div>
