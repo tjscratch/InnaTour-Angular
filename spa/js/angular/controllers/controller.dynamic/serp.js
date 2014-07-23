@@ -581,7 +581,12 @@ innaAppControllers
         '$element',
         'innaApp.API.events',
         '$location',
+<<<<<<< local
         function (EventManager, $scope, $element, Events, $location) {
+=======
+        '$timeout',
+        function ($scope, $element, Events, $location, $timeout) {
+>>>>>>> other
             /*DOM*/
             var doc = $(document);
             $scope.isVisible = true;
@@ -641,9 +646,11 @@ innaAppControllers
                 var body = document.body || document.documentElement;
 
                 if (body.scrollTop >= 100) {
-                    $scope.$apply(function ($scope) {
-                        $scope.display.shortDisplay(true);
-                    });
+                    if(doc.height() > 2000) {
+                        $scope.$apply(function ($scope) {
+                            $scope.display.shortDisplay(true);
+                        });
+                    }
                 } else {
                     $scope.$apply(function ($scope) {
                         $scope.display.fullDisplay(true);
