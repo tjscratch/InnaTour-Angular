@@ -132,7 +132,7 @@
             <ng-include src="'components/ruble.html'"></ng-include>
 
             <!-- tooltip price -->
-            <div tool-tip-price ig-if="bundle.hotel.data.PriceObject" item="bundle" is-bundle="true"></div>
+            <div tool-tip-price ng-if="bundle.hotel.data.PriceObject" item="bundle" is-bundle="true"></div>
         </div>
 
         <span class="price-description" ng-if="bundle.getProfit() > 1000">

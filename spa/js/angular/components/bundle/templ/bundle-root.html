@@ -1,0 +1,100 @@
+<div class="recommend-bundle-container"
+     ng-controller="DynamicPackageSERPRecommendedBundleCtrl"
+     ng-class="{'recommend-bundle-container_short':!isVisible}">
+    <div class="recommend-bundle">
+
+        <div class="recommend-bundle-background"></div>
+
+        <div class="main__center recommend-bundle-wrap"
+             ng-class="{'recommend-bundle-wrap_small': !isVisible}">
+
+            <h3 class="recommend-bundle-title" ng-if="isVisible && isChooseHotel">
+                Выбранный вариант
+            </h3>
+
+            <h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
+                Рекомендованный вариант
+            </h3>
+
+            <div class="w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">
+                <a href="javascript:void(0);" ng-click="display.toggle()" class="expand-collapse-link">
+                    <span class="icon-expand"></span> Свернуть
+                </a>
+            </div>
+
+            <div ng-if="isVisible && combination.hotel && combination.ticket"
+                 inna-dynamic-bundle
+                 inna-dynamic-bundle-bundle="combination"
+                 inna-dynamic-bundle-state="state"
+                 inna-dynamic-bundle-ticket-details="getTicketDetails"
+                 inna-dynamic-bundle-hotel-details="getHotelDetails"
+                 inna-dynamic-bundle-with-reservation-button="true"></div>
+
+
+            <div class="row result-small" ng-if="!isVisible" ng-click="display.toggle()" style="cursor:pointer;">
+                <div class="result-small__cell col-xs-5 col-no-padding">
+                    <p class="flight">
+                        <img class="flight__image" ng-src="{{airLogo( combination.ticket.getEtaps('To')[0].data.TransporterCode )}}"
+                             height=28
+                             alt="">
+                        <span class="white">{{combination.ticket.data.OutCode}} – {{combination.ticket.data.InCode}}, {{combination.ticket.data.DepartureDate | date: 'd MMM'}},</span>
+
+                        в пути: {{combination.ticket.getDuration('To')}}, {{combination.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
+                    </p>
+                    <p class="flight">
+                        <img class="flight__image" ng-src="{{airLogo( combination.ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28 alt="">
+                        <span class="white">{{combination.ticket.data.InCode}} – {{combination.ticket.data.OutCode}}, {{combination.ticket.data.BackDepartureDate | date: 'd MMM'}},</span>
+                        в пути: {{combination.ticket.getDuration('Back')}}, {{combination.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
+                    </p>
+                </div>
+                <div class="result-small__cell col-xs-4">
+                    <h3 class="hotel-info-name">
+                        <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 0"></span>
+                        <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 1"></span>
+                        <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 2"></span>
+                        <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 3"></span>
+                        <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 4"></span>
+                        <!-- сокращаем соличество символов -->
+                        {{combination.hotel.data.HotelName | limitTo:24}}...
+                    </h3>
+                    <div class="hotel-info-date">
+                        с {{combination.hotel.data.CheckIn | date: 'd MMM'}}
+                        по {{combination.hotel.data.CheckOut | date: 'd MMM'}},
+                        {{combination.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}</div>
+                </div>
+                <div class="result-small__cell col-xs-3 col-no-padding">
+
+                    <div class="corner-price">
+
+                        {{combination.getFullPackagePrice() | price}}
+
+                        <ng-include src="'components/ruble.html'"></ng-include>
+
+                        <!-- tooltip price -->
+                        <div class="b-tooltip-price"
+                             tool-tip-price
+                             item="combination"
+                             icon-white="true"
+                             is-bundle="true"></div>
+
+                    </div>
+
+                    <div class="w-expand-collapse-link_down w-expand-collapse-link" ng-if="!isVisible">
+                        <a href="javascript:void(0);" class="expand-collapse-link">
+                            <span class="icon-collapse"></span> Развернуть
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Переключаем фильтры на карте и на списке отелей -->
+    <div class="filters__body main__center"
+         ng-class="{'filters__body_dp':asMap}">
+        <!-- Показываем разные фильтры -->
+        <!--<ng:include src="'pages/dynamic/inc/serp.tickets.html__filters.html'" ng-if="!asMap && state.TICKETS_TAB"></ng:include>-->
+
+        <!--<ng:include src="'pages/dynamic/inc/serp.hotels.map__filters.html'" ng-if="state.HOTELS_TAB"></ng:include>-->
+    </div>
+</div>
