@@ -16,23 +16,10 @@
                     <span ng-if="visaControl.cautionCountries.length > 0"> в странах: <span ng-repeat="c in visaControl.cautionCountries">{{c}}<span ng-if="!($last)">,&nbsp;</span></span></span>.</div>
             </div>
 
-            <div class="r__booking" ng-if="(hotel != null)">
-                <div class="r__booking-block">
-                    <a ng-if="tarifs.tarifsData != null" class="r__booking-link" href="" ng-click="tarifs.show($event)">Условия тарифов</a>
-                </div>
-                <div class="r__booking-block">
-                    <a ng-if="hotelRules.haveData" class="r__booking-link" href="" ng-click="hotelRules.show($event)">Условия и правила по отелю</a>
-                </div>
-            </div>
-            <div class="r__booking" ng-if="!(hotel != null)">
-                <div class="r__booking-block">
-                </div>
-                <div class="r__booking-block">
-                    <a ng-if="tarifs.tarifsData != null" class="r__booking-link" href="" ng-click="tarifs.show($event)">Условия тарифов</a>
-                </div>
-            </div>
+            <p class="buy__price-descr" ng-if="(hotel != null) && (tarifs.tarifsData != null) && (hotelRules.haveData)">Внимание! К компонентам пакета применяются разные условия отмены бронирования.<br />Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами применения тарифа авиабилета</a> и <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a>.</p><br />
+            <p class="buy__price-descr" ng-if="!(hotel != null) && (tarifs.tarifsData != null)">Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами применения тарифа авиабилета</a>.</p><br />
 
-            <header class="buy__header">
+            <header class="buy__header" ng-if="!(hotel != null)">
                 <h2 class="buy__title">Информация о покупателе</h2>
             </header>
             <div>
