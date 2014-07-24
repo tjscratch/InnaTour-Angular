@@ -1028,7 +1028,7 @@ innaAppControllers.
                         ruble: $templateCache.get('components/ruble.html')
                     },
                     components: {
-                        componentsTooltip: PriceGeneric
+                        PriceGeneric: PriceGeneric
                     },
                     data: {
                         helper: aviaHelper,

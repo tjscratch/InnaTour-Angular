@@ -20,8 +20,9 @@
 
 	<!-- Показываем только для авторизованного пользователя b2b -->
 	<PriceGeneric template="index.hbs.html"
-	              virtualBundle="virtualBundle"
-	              modelHotel="modelHotel"
+	              virtualBundle="{{virtualBundle}}"
+	              modelHotel="{{modelHotel}}"
+                  PriceObject="{{hotel.PriceObject}}"
 	              is-hotel="true" />
 
 	{{#if virtualBundle.getProfit() > 1000}}

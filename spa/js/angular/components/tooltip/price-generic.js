@@ -40,10 +40,10 @@ angular.module('innaApp.conponents').
                     this.setTemplate(options)
                 },
                 init: function (options) {
-                    this._super(options)
-                },
+                    this._super(options);
+                }
 
-                priceObject : function(){
+                /*riceObject : function(){
                     if(!angular.isUndefined($scope.item.hotel.data.PriceObject)){
                         $scope.isPriceObject = true;
                     }
@@ -65,7 +65,7 @@ angular.module('innaApp.conponents').
                             $scope.item.PriceObject = $scope.item.getFullTotalPrice();
                         })
                     }
-                },
+                },*/
             });
 
             return priceGeneric;
