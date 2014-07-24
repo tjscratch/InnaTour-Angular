@@ -17,6 +17,11 @@ innaAppControllers.
                 $log.log(msg);
             }
 
+            $scope.getFlagUrl = function (code) {
+                var url = "background-image: url('/spa/img/flags/" + code + ".png')"
+                return url;
+            }
+
             //+- 5 дней
             var DATE_INTERVAL_DAYS = 5;
             var toItemType = { country: 'country', resort: 'resort', hotel: 'hotel' };
