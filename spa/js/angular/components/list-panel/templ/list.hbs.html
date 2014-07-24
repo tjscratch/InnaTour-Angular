@@ -1,0 +1,51 @@
+<div class="results-list b-results-list_dp">
+    <div class="b-list-panel">
+
+		{{#if Enumerable.length}}
+            <div class="b-switch-filters_buttons_right font-medium">
+                Другие <b>{{Enumerable.length -1}}</b>
+				{{pluralize(Enumerable.length -1, ["вариант","варианта","вариантов"])}}
+                отелей
+            </div>
+
+
+			<!-- Можно указать любой ( компонент - шаблон ) который будет вставлен на место EnumerableItem  -->
+            <div class="b-list-panel__list b-list-panel__hotels_list">
+	            {{#if iterable_hotels}}
+					{{#each EnumerableList}}
+						{{>EnumerableItemHotels}}
+					{{/each}}
+	            {{/if}}
+	            {{#if iterable_tickets}}
+		            {{#each EnumerableList}}
+			            {{>EnumerableItemTickets}}
+		            {{/each}}
+	            {{/if}}
+            </div>
+
+			{{#if !EnumerableList.length}}
+                <div class="b-list-panel__hotels_list">
+                    <div class="results-list__empty results-list__empty_type_hotels">
+                        <p>Варианты не найдены.</p>
+
+                        <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
+                    </div>
+                </div>
+			{{/if}}
+		{{else}}
+
+            <div class="b-list-panel__hotels_list">
+                <div class="results-list__empty results-list__empty_type_hotels">
+                    <p>Варианты не найдены.</p>
+
+                    <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
+                </div>
+            </div>
+		{{/if}}
+    </div>
+
+    <div class="indicator-filters">
+        <IndicatorFilters/>
+    </div>
+
+</div>

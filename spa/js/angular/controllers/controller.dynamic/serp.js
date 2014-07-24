@@ -14,9 +14,9 @@ innaAppControllers
 
         '$templateCache',
         'Balloon',
-        'HotelsList',
+        'ListPanel',
         'FilterPanel',
-        function (EventManager, $scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, HotelsList, FilterPanel) {
+        function (EventManager, $scope, DynamicFormSubmitListener, ServiceDynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel) {
 
             /*Private*/
             var searchParams = angular.copy($routeParams);
@@ -27,7 +27,7 @@ innaAppControllers
             var MAX_HOTEL_LEN = 180;
 
             /*Properties*/
-            var HotelsListComponent = null;
+            var ListPanelComponent = null;
             $scope.hotels = new inna.Models.Hotels.HotelsCollection();
             $scope.airports = null;
             $scope.hotelFilters = new inna.Models.Avia.Filters.FilterSet();
@@ -218,26 +218,21 @@ innaAppControllers
 
                     if (data.Hotels) {
                         console.log('Get Hotels');
-                        if(!HotelsListComponent) {
-                            HotelsListComponent = new HotelsList({
+                        if(!ListPanelComponent) {
+                            ListPanelComponent = new ListPanel({
                                 el: document.querySelector('.results-container_list'),
                                 data: {
-                                    Hotels: data.Hotels, //[],
+                                    iterable_hotels : true,
+                                    Enumerable: data.Hotels,
                                     combinationModel: $scope.combination
                                 }
                             });
                         } else {
-                            document.querySelector('.results-container_list .b-list-hotels .b-list-hotels__list').innerHTML= '',
-
-                            console.log('set');
-
-                            setTimeout(function(){
-                                HotelsListComponent.set({
-                                    Hotels: data.Hotels,
-                                    combinationModel: $scope.combination
-                                })
-                            }, 3000)
-
+                            console.log('Update Hotels');
+                            ListPanelComponent.set({
+                                Enumerable: data.Hotels,
+                                combinationModel: $scope.combination
+                            })
                         }
                     } else {
                         console.log('Get tickets');
@@ -508,9 +503,9 @@ innaAppControllers
 
             $scope.$on('$destroy', function () {
                 console.log('$destroy serp');
-                if(HotelsListComponent) {
-                    HotelsListComponent.teardown();
-                    HotelsListComponent = null;
+                if(ListPanelComponent) {
+                    ListPanelComponent.teardown();
+                    ListPanelComponent = null;
                 }
                 $(document).off('scroll');
             })

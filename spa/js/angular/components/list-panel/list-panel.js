@@ -1,15 +1,17 @@
 /**
  * ListPanel - панель для списка элементов
  * Выводит список отелей или билетов
+ * Принемает параметр {List<Array:Object>} Enumerable
  *
  * По скроллингу добавляем новые елементы
- * Количество элемментов порции задается в параметре - countHotelsVisible
+ * Количество элемментов порции задается в параметре - {Number} countItemsVisible
  *
  * Панель подписывается на фильтры и фильтрует свой набор
+ * Можно указать любой ( компонент - шаблон ) который будет вставлен на место partials -> EnumerableItem
  */
 
 angular.module('innaApp.conponents').
-    factory('HotelsList', [
+    factory('ListPanel', [
         'EventManager',
         '$filter',
         '$templateCache',
@@ -21,10 +23,15 @@ angular.module('innaApp.conponents').
         function (EventManager, $filter, $templateCache, $routeParams, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem) {
 
             var ListPanel = Ractive.extend({
-                template: $templateCache.get('components/hotel/templ/list.hbs.html'),
+                template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
                 data: {
-                    countHotelsVisible: 20,
-                    hotelList: []
+                    countItemsVisible: 20,
+                    Enumerable : [],
+                    EnumerableList: []
+                },
+                partials : {
+                    EnumerableItemHotels : $templateCache.get('components/list-panel/templ/enumerableItemHotel.hbs.html'),
+                    EnumerableItemTickets : $templateCache.get('components/list-panel/templ/enumerableItemTicket.hbs.html')
                 },
                 components: {
                     IndicatorFilters : IndicatorFilters,
@@ -32,18 +39,14 @@ angular.module('innaApp.conponents').
                 },
                 init: function () {
                     var that = this;
-                    this.hotelsClone = [];
-                    this.hotelsDose = [];
-
-                    //this.set('Hotels', this.get('Hotels').splice(0, 2));
-                    //this.set('Hotels', this.get('Hotels').concat(this.get('Hotels'), this.get('Hotels')));
-
+                    this.enumerableClone = [];
+                    this.enumerableDose = [];
                     /**
                      * Вызов метода не чаще 500
                      * так как срабатывает по скроллингу
                      * {@link http://underscorejs.org/}
                      */
-                    this.debounceDose = _.throttle(this.nextArrayDoseHotels.bind(this), 300);
+                    this.debounceDose = _.throttle(this.nextArrayDoseItems.bind(this), 300);
 
 
                     this.eventListener = function () {
@@ -57,7 +60,7 @@ angular.module('innaApp.conponents').
 
                         },
                         teardown: function (evt) {
-                            console.log('teardown HotelLIst');
+                            console.log('teardown ListPanel');
                             document.removeEventListener('scroll', this.eventListener);
                         }
                     })
@@ -65,34 +68,34 @@ angular.module('innaApp.conponents').
 
                     /**
                      * Срабатывает один раз
-                     * Далее копируем массив Hotels и работаем с копией
+                     * Далее копируем массив Enumerable и работаем с копией
                      */
-                    this.observe('Hotels', function (newValue, oldValue, keypath) {
+                    this.observe('Enumerable', function (newValue, oldValue, keypath) {
                         if (newValue) {
                             this.cloneData();
                         }
                     });
 
                     /**
-                     * Сделим за изменениями массива hotelList
+                     * Сделим за изменениями массива EnumerableList
                      * Происходит когда добавляем новую порцию отелей
                      */
-                    this.observe('hotelList', function (newValue, oldValue, keypath) {
+                    this.observe('EnumerableList', function (newValue, oldValue, keypath) {
                         if (newValue) {
 
                             /*console.table([
                              {
                              newValue: newValue.length,
-                             hotelList: this.get('hotelList').length,
-                             Hotels: this.get('Hotels').length,
-                             hotelsClone: this.hotelsClone.length
+                             EnumerableList: this.get('EnumerableList').length,
+                             Enumerable: this.get('Enumerable').length,
+                             enumerableClone: this.enumerableClone.length
                              }
                              ]);*/
 
-                            // после добавления элементов в hotelList
+                            // после добавления элементов в EnumerableList
                             // обновляем координаты
                             // оборачиваем в setTimeout, так как нужно дождаться вставки элементов в DOM
-                            if (newValue.length != this.get('Hotels').length) {
+                            if (newValue.length != this.get('Enumerable').length) {
                                 setTimeout(this.updateCoords.bind(this), 0);
                             } else {
                                 this.removeScroll();
@@ -114,7 +117,7 @@ angular.module('innaApp.conponents').
                     });
 
                     EventManager.on('filter-panel:change', function (data) {
-                        that.doFilter(that.get('Hotels'), data);
+                        that.doFilter(that.get('Enumerable'), data);
                     });
 
                     EventManager.on('filter-panel:reset', function (data) {
@@ -162,7 +165,7 @@ angular.module('innaApp.conponents').
                 },
 
                 updateCoords: function () {
-                    var elem = this.find('.b-list-hotels__list');
+                    var elem = this.find('.b-list-panel__list');
                     var coords = utils.getCoords(elem);
                     this.set({
                         coords: coords,
@@ -171,47 +174,23 @@ angular.module('innaApp.conponents').
                 },
 
                 /**
-                 * Новая порция отелей, добавляем по 50 штук
-                 * Добавляем в массив this.get('hotelList')
+                 * Новая порция отелей, добавляем по -n- штук
+                 * Добавляем в массив this.get('EnumerableList')
                  * Берем порцию из клонированного массива
                  * @returns {Array}
                  */
-                nextArrayDoseHotels: function () {
+                nextArrayDoseItems: function () {
                     var that = this,
                         start = 0,
-                        end = that.get('countHotelsVisible'),
-                        newDose = that.hotelsClone.splice(start, end);
+                        end = that.get('countItemsVisible'),
+                        newDose = that.enumerableClone.splice(start, end);
 
                     if (newDose.length) {
-                        this.set({hotelList: this.get('hotelList').concat(newDose)});
-                        //this.push('hotelList', newDose);
+                        this.set({EnumerableList: this.get('EnumerableList').concat(newDose)});
+                        //this.push('EnumerableList', newDose);
                     }
                 },
 
-                /**
-                 * TODO : этот метод пока не работает
-                 * @returns {*}
-                 */
-                getHotels: function () {
-                    var that = this,
-                        param = this.get('combinationModel').ticket.data.VariantId1,
-                        searchParam = angular.copy($routeParams);
-
-                    //console.log(param);
-
-                    return DynamicPackagesDataProvider['getHotelsByCombination'](
-                        param,
-                        searchParam,
-                        function (data) {
-                            console.log(data);
-
-                            if (data.Hotels) {
-                                that.set({ Hotels: data.Hotels });
-                            }
-
-                            EventManager.fire('Dynamic.SERP.Tab.Loaded');
-                        });
-                },
 
                 parse: function (end) {
 
@@ -221,9 +200,9 @@ angular.module('innaApp.conponents').
                  * Метод фильтрации списка отелей
                  * Вызываем по событию от панели набора фильтров
                  *
-                 * Фильтруем исходный массив Hotels
-                 * Выставляем новый набор для hotelList
-                 * И для this.hotelsClone
+                 * Фильтруем исходный массив Enumerable
+                 * Выставляем новый набор для EnumerableList
+                 * И для this.enumerableClone
                  *
                  * Так же можно обработать поля по имени отдельно
                  * в блоке switch - case
@@ -237,7 +216,7 @@ angular.module('innaApp.conponents').
 
                     //console.log(param_filters);
                     // проходим циклом по отелям
-                    var filterHotel = collection.filter(function (item) {
+                    var filterEnumerable = collection.filter(function (item) {
                         var tempArrFilter = [];
 
                         // проходим по коллекции фильтров
@@ -284,18 +263,18 @@ angular.module('innaApp.conponents').
                     // ставим фильтр в конец очереди чтоб не блокировать
                     // например переключение самих фильтров
                     setTimeout(function () {
-                        that.cloneData(filterHotel);
+                        that.cloneData(filterEnumerable);
                     }, 0);
 
                     // подписываемся на событие скролла если еще нет этого события
-                    if (!this.get('scroll') && filterHotel.length > 2) {
+                    if (!this.get('scroll') && filterEnumerable.length > 2) {
                         this.addScroll();
                     }
 
                     // если отелей меньше 3, то скролл нам не нужен
-                    if (filterHotel.length < 3) this.removeScroll();
+                    if (filterEnumerable.length < 3) this.removeScroll();
 
-                    console.log(filterHotel, filterHotel.length, 'filterHotel');
+                    console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
                 },
 
                 /**
@@ -313,16 +292,15 @@ angular.module('innaApp.conponents').
                  * @param opt_data
                  */
                 cloneData: function (opt_data) {
-                    this.merge('hotelList', []);
-                    this.hotelsClone = [].concat(opt_data || this.get('Hotels'));
+                    this.merge('EnumerableList', []);
+                    this.enumerableClone = [].concat(opt_data || this.get('Enumerable'));
 
                     // получаем первую порцию из 50 отелей
                     // далее по скроллингу
-                    this.nextArrayDoseHotels();
+                    this.nextArrayDoseItems();
                 },
 
-
-                beforeInit: function (data) {
+                beforeInit: function (options) {
                     //console.log('beforeInit');
                 },
 
