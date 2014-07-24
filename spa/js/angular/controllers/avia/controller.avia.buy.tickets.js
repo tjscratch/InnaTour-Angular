@@ -671,6 +671,9 @@ innaAppControllers.
 
                     $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
 
+                    //аналитика
+                    track.dpPaymentSubmit($scope.price);
+
                     paymentService.pay(apiPayModel,
                         function (data) {
                             log('\npaymentService.pay, data: ' + angular.toJson(data));

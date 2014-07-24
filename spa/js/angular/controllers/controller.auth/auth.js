@@ -41,14 +41,36 @@ angular.module('innaApp.controllers')
 
                 brokerWindow.focus();
 
-                $('#social-broker-listener').on('inna.Auth.SocialBroker.Result', function(event, data){
+                var socialBrokerListener = $('#social-broker-listener');
+
+                var interval = setInterval(function(){
+                    var cookieCloser = localStorage.getItem('closeSocialBroker');
+
+                    console.log('cookieCloser', cookieCloser);
+
+                    if(cookieCloser) {
+                        localStorage.setItem('closeSocialBroker', 0);
+
+                        login();
+                    }
+                }, 100);
+
+                var login = function(){
                     AuthDataProvider.recognize(function(data){
                         $scope.$apply(function($scope){
                             setUserInfo(data);
                             $scope.close();
                         });
                     });
-                });
+
+                    clearInterval(interval);
+
+                    socialBrokerListener.off('inna.Auth.SocialBroker.Result', login);
+                };
+
+                socialBrokerListener.on('inna.Auth.SocialBroker.Result', login);
+
+
 
                 return false;
             };

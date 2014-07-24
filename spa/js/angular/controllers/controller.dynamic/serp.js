@@ -132,6 +132,10 @@ innaAppControllers
 
 
                 if (!hotel.detailed) {
+
+                    //аналитика
+                    track.dpBuyPackage();
+
                     ServiceDynamicPackagesDataProvider.hotelDetails(
                         hotel.data.HotelId,
                         hotel.data.ProviderId,
@@ -448,6 +452,9 @@ innaAppControllers
                     hotel: hotel.data.HotelId,
                     ticket: $scope.combination.ticket.data.VariantId1
                 });
+
+                //аналитика
+                track.dpGoReserve();
 
                 $location.path(url);
             };

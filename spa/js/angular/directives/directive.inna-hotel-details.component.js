@@ -1,5 +1,5 @@
-angular.module('innaApp.directives')
-    .directive('innaHotelDetails', ['$templateCache', '$window', function($templateCache){
+angular.module('innaApp.directives')    
+    .directive('innaHotelDetails', ['$templateCache', '$window', function ($templateCache, $window) {
         return {
             template: $templateCache.get('components/hotel-details.html'),
             scope: {
@@ -79,8 +79,8 @@ angular.module('innaApp.directives')
                     );
 
                     $('body').css({
-                        "background" : $scope.background + "repeat fixed"
-                    })
+                        "background" : "#000 " + $scope.background + "repeat fixed"
+                    });
 
                     $scope.showFullDescription = false;
 
@@ -113,10 +113,10 @@ angular.module('innaApp.directives')
 
                     $scope.close = function(){
                         if($scope.displayRoom) {
-
                             setTimeout(function () {
                                 $window.history.back();
                             }, 0);
+
                             return;
                         }
 
