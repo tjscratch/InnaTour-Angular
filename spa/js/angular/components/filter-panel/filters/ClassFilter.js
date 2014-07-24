@@ -12,7 +12,7 @@ angular.module('innaApp.conponents').
                     isOpen: false,
 
                     // значение фильтра
-                    value : null
+                    value: null
                 },
                 init: function () {
                     var that = this;
@@ -29,7 +29,7 @@ angular.module('innaApp.conponents').
                      * Events
                      */
                     this.on({
-                        toggle : function(){
+                        toggle: function () {
                             this.toggle('isOpen')
                         },
                         show: function () {
@@ -38,8 +38,8 @@ angular.module('innaApp.conponents').
                         hide: function (opt_child) {
                             this.set({ isOpen: false });
                         },
-                        resetFilter : function(){
-                          console.log('reset');
+                        resetFilter: function () {
+                            console.log('reset');
                         },
                         change: function (data) {
 
@@ -51,16 +51,26 @@ angular.module('innaApp.conponents').
                     })
                 },
 
-                bodyClickHide : function(evt){
+                bodyClickHide: function (evt) {
+                    evt.stopPropagation();
                     var $this = evt.target;
 
-                    //console.log($this, evt, this);
-                    //console.log(this.find($this));
-                    /*if (!this.find('.' + $this.classList[0])) {
-                        //this.fire('hide');
-                    }*/
+                    if (!this.closest($this, '.filters__baloon')) {
+                        this.fire('hide');
+                    }
                 },
 
+                closest: function (elem, selector) {
+
+                    while (elem) {
+                        if (elem.matches && elem.matches(selector)) {
+                            return true;
+                        } else {
+                            elem = elem.parentNode;
+                        }
+                    }
+                    return false;
+                },
 
                 beforeInit: function (data) {
                     //console.log('beforeInit');
