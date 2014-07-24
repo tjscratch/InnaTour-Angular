@@ -214,6 +214,9 @@ innaAppControllers
                 if (!method || !param) return;
 
                 console.log(param, 'param');
+
+                // TODO : заглушка
+                // позже будет прелоадер
                 if(ListPanelComponent) {
                     ListPanelComponent.wait();
                 }
