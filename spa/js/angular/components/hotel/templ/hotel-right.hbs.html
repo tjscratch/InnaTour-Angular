@@ -14,13 +14,15 @@
 
 <div class="corner-price">
     <div>
-
 	    {{priceFilter(virtualBundle.getFullPackagePrice())}}
 	    {{>ruble}}
     </div>
 
-    <!-- tooltip price -->
-    <div tool-tip-price item="virtualBundle" is-hotel="true"></div>
+	<!-- Показываем только для авторизованного пользователя b2b -->
+	<PriceGeneric template="index.hbs.html"
+	              virtualBundle="virtualBundle"
+	              modelHotel="modelHotel"
+	              is-hotel="true" />
 
 	{{#if virtualBundle.getProfit() > 1000}}
 	    <div class="price-description">

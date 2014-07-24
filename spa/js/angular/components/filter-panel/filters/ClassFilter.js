@@ -55,8 +55,10 @@ angular.module('innaApp.conponents').
                     evt.stopPropagation();
                     var $this = evt.target;
 
-                    if (!this.closest($this, '.filters__baloon')) {
-                        this.fire('hide');
+                    if (!this.find('.'+$this.classList[0])) {
+                        if (this.get('isOpen') && !this.closest($this, '.filters__baloon')) {
+                            this.fire('hide');
+                        }
                     }
                 },
 

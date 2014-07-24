@@ -135,7 +135,7 @@ angular.module('innaApp.conponents').
 
 
                     // маленькая защита от ложного срабатывания события
-                    console.log(this.get('filtersCollection').length);
+                    console.log(this.get('filtersCollection').length, 'countFilters');
 
 
                     if(this.get('filtersCollection').length) {

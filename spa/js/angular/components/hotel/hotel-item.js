@@ -41,6 +41,8 @@ angular.module('innaApp.conponents').
                         modelHotel : modelHotel
                     })
 
+
+
                     this.on({
                         setCurrent : this.setCurrent,
                         goToMap : this.goToMap,
