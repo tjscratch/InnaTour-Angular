@@ -173,7 +173,6 @@ innaAppControllers
             });
 
 
-
             function loadTab() {
                 var method, param, apply;
                 var deferred = new $.Deferred();
@@ -217,48 +216,23 @@ innaAppControllers
 
                 // TODO : заглушка
                 // позже будет прелоадер
-                if(ListPanelComponent) {
+                if (ListPanelComponent) {
                     ListPanelComponent.wait();
                 }
 
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
 
-                    if (data.Hotels) {
-                        console.log('Get Hotels');
-                        if(!ListPanelComponent) {
-
-                            ListPanelComponent = new ListPanel({
-                                el: document.querySelector('.results-container_list'),
-                                data: {
-                                    indicator_filters : true,
-                                    iterable_hotels : true,
-                                    Enumerable: data.Hotels,
-                                    combinationModel: $scope.combination
-                                }
-                            });
-
-                        } else {
-                            console.log('Update Hotels');
-                            ListPanelComponent.set({
-                                Enumerable: data.Hotels,
-                                combinationModel: $scope.combination
-                            })
-                        }
-                    } else {
-                        console.log('Get tickets');
-                        console.log('load tickets');
-
-                        if(ListPanelComponent) {
-                            console.log('Update Tickets');
-                            ListPanelComponent.set({
-                                indicator_filters : false,
-                                iterable_hotels : false,
-                                iterable_tickets : true,
-                                Enumerable: data.AviaInfos,
-                                combinationModel: $scope.combination
-                            })
-                        }
+                    // удаляем существующий объект ListPanelComponent
+                    if (ListPanelComponent) {
+                        ListPanelComponent.teardown();
+                        ListPanelComponent = null;
                     }
+
+                    /** Если пришли даннные по отелям */
+                    if (data.Hotels) loadHotels(data);
+
+                    /** Если пришли даннные по билетам */
+                    if (data.AviaInfos) loadTickets(data);
 
                     $scope.safeApply(function () {
                         apply($scope, data);
@@ -269,6 +243,58 @@ innaAppControllers
                 });
 
                 return deferred.promise();
+            }
+
+            function loadHotels(data) {
+
+                console.log('Get Hotels');
+
+                if (!ListPanelComponent) {
+                    ListPanelComponent = new ListPanel({
+                        el: document.querySelector('.results-container_list'),
+                        data: {
+                            indicator_filters: true,
+                            iterable_hotels: true,
+                            Enumerable: data.Hotels,
+                            combinationModel: $scope.combination
+                        }
+                    });
+
+                } else {
+                    console.log('Update Hotels');
+                    ListPanelComponent.set({
+                        indicator_filters: true,
+                        iterable_hotels: true,
+                        iterable_tickets: false,
+                        Enumerable: data.Hotels,
+                        combinationModel: $scope.combination
+                    })
+                }
+
+                /** Если пришли даннные по билетам */
+
+            }
+
+            function loadTickets(data) {
+                console.log('Get Tickets');
+
+                if (!ListPanelComponent) {
+                    ListPanelComponent = new ListPanel({
+                        el: document.querySelector('.results-container_list'),
+                        data: {
+                            indicator_filters: false,
+                            iterable_hotels: false,
+                            iterable_tickets: true,
+                            Enumerable: data.AviaInfos,
+                            combinationModel: $scope.combination
+                        }
+                    });
+                } else {
+                    ListPanelComponent.set({
+                        Enumerable: data.AviaInfos,
+                        combinationModel: $scope.combination
+                    })
+                }
             }
 
             function combination404() {
@@ -524,7 +550,7 @@ innaAppControllers
 
             $scope.$on('$destroy', function () {
                 console.log('$destroy serp');
-                if(ListPanelComponent) {
+                if (ListPanelComponent) {
                     ListPanelComponent.teardown();
                     ListPanelComponent = null;
                 }
@@ -661,7 +687,7 @@ innaAppControllers
                 });
             });
 
-            EventManager.on(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE, function(){
+            EventManager.on(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE, function () {
                 $scope.safeApply(function () {
                     $scope.display.shortDisplay();
                 });

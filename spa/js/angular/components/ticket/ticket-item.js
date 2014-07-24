@@ -31,7 +31,8 @@ angular.module('innaApp.conponents').
                 init: function () {
                     var that = this;
 
-                    var modelTicket = new inna.Models.Hotels.Hotel(this.get('ticket'))
+                    var modelTicket = new inna.Models.Avia.Ticket();
+                    modelTicket.setData(this.get('ticket'));
                     var virtualBundle = new inna.Models.Dynamic.Combination();
                     virtualBundle.ticket = modelTicket;
                     virtualBundle.hotel = this.get('combinationModel').hotel;
@@ -39,9 +40,7 @@ angular.module('innaApp.conponents').
                     this.set({
                         virtualBundle : virtualBundle,
                         modelTicket : modelTicket
-                    })
-
-
+                    });
 
                     this.on({
                         setCurrent : this.setCurrent,
@@ -56,7 +55,7 @@ angular.module('innaApp.conponents').
                 },
 
                 getTicketDetails : function(){
-                    //EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, this.get('modelHotel'));
+                    EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, this.get('modelTicket'));
                 },
 
                 setCurrent : function(){

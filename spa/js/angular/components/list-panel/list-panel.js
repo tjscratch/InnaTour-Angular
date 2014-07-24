@@ -21,7 +21,8 @@ angular.module('innaApp.conponents').
         'DynamicPackagesDataProvider',
         'IndicatorFilters',
         'HotelItem',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem) {
+        'TicketItem',
+        function (EventManager, $filter, $templateCache, $routeParams, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem) {
 
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
@@ -36,7 +37,8 @@ angular.module('innaApp.conponents').
                 },
                 components: {
                     IndicatorFilters : IndicatorFilters,
-                    HotelItem: HotelItem
+                    HotelItem: HotelItem,
+                    TicketItem: TicketItem
                 },
                 init: function () {
                     var that = this;
