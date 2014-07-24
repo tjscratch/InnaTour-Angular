@@ -18,18 +18,18 @@ angular.module('innaApp.conponents').
                 template: $templateCache.get('components/dynamic-block/templ/base.galary.hbs.html'),
                 append: true,
                 data: {
-                    settings : {
-                        height : 200,
+                    settings: {
+                        height: 200,
                         countColumn: 3,
-                        classBlock : 'b-result_col_three_galary b-result_middle'
+                        classBlock: 'b-result_col_three_galary b-result_middle'
                     }
                 },
-                partials : {
-                    collOneContent : '<HotelGallery photoList="{{Photos}}"/>',
-                    collTwoContent : $templateCache.get('components/hotel/templ/hotel-center.hbs.html')
+                partials: {
+                    collOneContent: '<HotelGallery photoList="{{Photos}}"/>',
+                    collTwoContent: $templateCache.get('components/hotel/templ/hotel-center.hbs.html')
                     //collThreeContent : see DynamicBlock
                 },
-                components : {
+                components: {
                     HotelGallery: HotelGallery
                 },
 
@@ -43,17 +43,22 @@ angular.module('innaApp.conponents').
                     virtualBundle.ticket = this.get('combinationModel').ticket;
 
                     this.set({
-                        virtualBundle : virtualBundle,
-                        modelHotel : modelHotel
+                        virtualBundle: virtualBundle,
+                        modelHotel: modelHotel
                     })
 
 
-
                     this.on({
-                        setCurrent : this.setCurrent,
-                        goToMap : this.goToMap,
-                        getHotelDetails : this.getHotelDetails,
-                        change : function(data){
+                        setCurrent: this.setCurrent,
+                        goToMap: this.goToMap,
+                        getHotelDetails: this.getHotelDetails,
+                        insert: function () {
+                            console.log('insert');
+                        },
+                        remove: function () {
+                            console.log('remove');
+                        },
+                        change: function (data) {
 
                         },
                         teardown: function (evt) {
@@ -62,26 +67,41 @@ angular.module('innaApp.conponents').
                     })
 
                     /*this.observe('hotel', function(newValue, oldValue, keypath) {
-                        if (newValue) {
-                        }
-                    });*/
+                     if (newValue) {
+                     }
+                     });*/
                 },
 
-                getHotelDetails : function(){
+                getHotelDetails: function () {
                     EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, this.get('modelHotel'));
                 },
 
-                goToMap : function(){
+                goToMap: function () {
                     EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));
                 },
 
-                setCurrent : function(){
+                setCurrent: function () {
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, this.get('modelHotel'));
                 },
 
 
                 parse: function (end) {
 
+                },
+
+                transitions: {
+                    fade: function (t, params) {
+
+                    }
+                },
+
+
+                beforeInit: function (options) {
+                    //console.log('beforeInit');
+                },
+
+                complete: function (data) {
+                    console.log('complete');
                 }
 
             });

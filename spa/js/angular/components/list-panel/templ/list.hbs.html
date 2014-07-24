@@ -5,7 +5,8 @@
             <div class="b-switch-filters_buttons_right font-medium">
                 Другие <b>{{Enumerable.length -1}}</b>
 				{{pluralize(Enumerable.length -1, ["вариант","варианта","вариантов"])}}
-                отелей
+
+	            {{#if iterable_hotels}}отелей{{else}}билетов{{/if}}
             </div>
 
 
@@ -23,21 +24,25 @@
 	            {{/if}}
             </div>
 
+
+		<!-- Если в результате фильтрации не чего не найдено -->
 			{{#if !EnumerableList.length}}
                 <div class="b-list-panel__hotels_list">
-                    <div class="results-list__empty results-list__empty_type_hotels">
+                    <div class="results-list__empty
+                    {{ (iterable_hotels) ? 'results-list__empty_type_hotels':'results-list__empty_type_tickets'}}">
                         <p>Варианты не найдены.</p>
-
                         <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
                     </div>
                 </div>
 			{{/if}}
 		{{else}}
 
-            <div class="b-list-panel__hotels_list">
-                <div class="results-list__empty results-list__empty_type_hotels">
-                    <p>Варианты не найдены.</p>
 
+		<!-- Если сервис не чего не вернул  -->
+            <div class="b-list-panel__hotels_list">
+                <div class="results-list__empty
+                    {{ (iterable_hotels) ? 'results-list__empty_type_hotels':'results-list__empty_type_tickets'}}">
+                    <p>Варианты не найдены.</p>
                     <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
                 </div>
             </div>

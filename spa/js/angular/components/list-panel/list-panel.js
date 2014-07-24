@@ -27,9 +27,10 @@ angular.module('innaApp.conponents').
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
                 data: {
-                    countItemsVisible: 20,
+                    countItemsVisible: 10,
                     Enumerable : [],
-                    EnumerableList: []
+                    EnumerableList: [],
+                    EnumerableListNew : []
                 },
                 partials : {
                     EnumerableItemHotels : $templateCache.get('components/list-panel/templ/enumerableItemHotel.hbs.html'),
@@ -50,6 +51,8 @@ angular.module('innaApp.conponents').
                      * {@link http://underscorejs.org/}
                      */
                     this.debounceDose = _.throttle(this.nextArrayDoseItems.bind(this), 300);
+
+                    //this.set('Enumerable', this.get('Enumerable').concat(this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable')))
 
 
                     this.eventListener = function () {
@@ -189,12 +192,12 @@ angular.module('innaApp.conponents').
                         end = that.get('countItemsVisible'),
                         newDose = that.enumerableClone.splice(start, end);
 
+                    console.time("Execution time render");
                     if (newDose.length) {
                         this.set({EnumerableList: this.get('EnumerableList').concat(newDose)});
-                        //this.push('EnumerableList', newDose);
                     }
+                    console.timeEnd("Execution time render");
                 },
-
 
                 parse: function (end) {
 
@@ -217,9 +220,11 @@ angular.module('innaApp.conponents').
                  */
                 doFilter: function (collection, param_filters) {
                     var that = this;
+                    var filterEnumerable = [];
 
                     //console.log(param_filters);
                     // проходим циклом по отелям
+                    console.time("Execution time took");
                     var filterEnumerable = collection.filter(function (item) {
                         var tempArrFilter = [];
 
@@ -262,6 +267,7 @@ angular.module('innaApp.conponents').
                             return true;
                         }
                     })
+                    console.timeEnd("Execution time took");
 
 
                     // ставим фильтр в конец очереди чтоб не блокировать
@@ -301,6 +307,7 @@ angular.module('innaApp.conponents').
 
                     // получаем первую порцию из n item
                     // далее по скроллингу
+
                     this.nextArrayDoseItems();
                 },
 
