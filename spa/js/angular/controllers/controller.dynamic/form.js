@@ -120,6 +120,9 @@ innaAppControllers
                 DynamicPackagesCacheWizard.put('dateEnd', newVal);
             });
 
+            $scope.maxDateEnd = new Date();
+            $scope.maxDateEnd.setMonth($scope.maxDateEnd.getMonth() + 6);
+
             /*Adult count*/
             $scope.adultCount = routeParams.Adult || 2;
 

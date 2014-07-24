@@ -129,13 +129,13 @@
                         var nextBtn = tblCal.find('.datepickerGoNext');
                         var prevBtn = tblCal.find('.datepickerGoPrev');
 
-                        if(date < options.limits[0]) {
+                        if(date <= options.limits[0]) {
                             prevBtn.addClass('datepickerGoPrev__disabled');
                         } else {
                             prevBtn.removeClass('datepickerGoPrev__disabled');
                         }
 
-                        if(date > options.limits[1]) {
+                        if(date >= options.limits[1]) {
                             nextBtn.addClass('datepickerGoNext__disabled');
                         } else {
                             nextBtn.removeClass('datepickerGoNext__disabled');
