@@ -70,6 +70,52 @@ var track = {
         if (window.ga != null) {
             ga('send', 'pageview', url + '/inquiry_sent');
         }
+    },
+    //ДП. Построение воронок продаж
+    //https://innatec.atlassian.net/wiki/pages/viewpage.action?pageId=10518564
+    dpSearch: function () {//Клик по кнопке искать формы поиска (форма поиска динамическая)
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/main_search');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('main_search');
+        }
+    },
+    dpBuyPackage: function () {//нажатие кнопки "купить" на форме поиска пакета
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/recommended_variant');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('recommended_variant');
+        }
+    },
+    dpGoReserve: function () {//нажатие кнопки "купить" на форме выбора категории номера на странице отеля
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/buy_suite');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('buy_suite');
+        }
+    },
+    dpGoBuy: function () {//Факт нажатия кнопки "перейти к оплате" после заполнения формы данных пассажира
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/payment');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('payment');
+        }
+    },
+    dpPaymentSubmit: function (revenue) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
+        if (window.ga != null) {
+            console.log('track.dpPaymentSubmit, revenue: ' + revenue);
+            ga('require', 'ecommerce', 'ecommerce.js');
+
+            ga('ecommerce:addTransaction', {
+                'id': 'BM-1386656007-794', 'affiliation': 'inna.ru',
+                'revenue': revenue //'5497.00' // тут должна быть указана сумма продажи
+            });
+            ga('ecommerce:send');
+        }
     }
 };
 

@@ -223,6 +223,10 @@ innaAppControllers
                         Adult: $scope.adultCount,
                         children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
                     }
+
+                    //аналитика
+                    track.dpSearch();
+
                     $rootScope.$emit('inna.DynamicPackages.Search', o);
 
                 } catch(e) {
