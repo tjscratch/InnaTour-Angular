@@ -195,6 +195,13 @@
             link: function ($scope, element) {
                 var defaultDates = $scope.getPickerDates();
 
+                var today = new Date();
+                var leftLimit = new Date(+today);
+                var rightLimit = new Date(+today);
+
+                leftLimit.setDate(1);
+                rightLimit.setFullYear(today.getFullYear() + 1);
+
 
                 $scope.input1 = $('.search-date-block', element).eq(0);
                 $scope.input2 = $('.search-date-block', element).eq(1);
@@ -208,8 +215,8 @@
                     mode: 'range',
                     format: 'd.m.Y',
                     starts: 1,
+                    limits: [leftLimit, rightLimit],
                     onChange: function (formated, dates, el, lastSel, initDateFromIsSet) {
-                        console.log('onChange');
                         $scope.$apply(function ($scope) {
                             $scope.date1 = formated[0];
 
