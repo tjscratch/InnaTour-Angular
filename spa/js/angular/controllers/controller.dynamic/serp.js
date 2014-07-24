@@ -247,6 +247,17 @@ innaAppControllers
                     } else {
                         console.log('Get tickets');
                         console.log('load tickets');
+
+                        if(ListPanelComponent) {
+                            console.log('Update Tickets');
+                            ListPanelComponent.set({
+                                indicator_filters : false,
+                                iterable_hotels : false,
+                                iterable_tickets : true,
+                                Enumerable: data.AviaInfos,
+                                combinationModel: $scope.combination
+                            })
+                        }
                     }
 
                     $scope.safeApply(function () {

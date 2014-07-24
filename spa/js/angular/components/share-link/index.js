@@ -5,6 +5,11 @@ innaAppConponents.
         'TooltipBase',
         function (Events, $templateCache, TooltipBase) {
 
+            /**
+             * Компонент ShareLink
+             * @constructor
+             * @inherits TooltipBase
+             */
             var ShareLink = TooltipBase.extend({
                 template: $templateCache.get('components/share-link/templ/index.html'),
                 debug: true,

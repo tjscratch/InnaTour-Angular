@@ -8,6 +8,12 @@ angular.module('innaApp.conponents').
         'HotelGallery',
         function (EventManager, Events, $filter, $templateCache, DynamicBlock, HotelGallery) {
 
+
+            /**
+             * Компонент HotelItem
+             * @constructor
+             * @inherits DynamicBlock
+             */
             var HotelItem = DynamicBlock.extend({
                 template: $templateCache.get('components/dynamic-block/templ/base.galary.hbs.html'),
                 append: true,
@@ -20,8 +26,8 @@ angular.module('innaApp.conponents').
                 },
                 partials : {
                     collOneContent : '<HotelGallery photoList="{{Photos}}"/>',
-                    collTwoContent : $templateCache.get('components/hotel/templ/hotel-center.hbs.html'),
-                    collThreeContent : $templateCache.get('components/hotel/templ/hotel-right.hbs.html')
+                    collTwoContent : $templateCache.get('components/hotel/templ/hotel-center.hbs.html')
+                    //collThreeContent : see DynamicBlock
                 },
                 components : {
                     HotelGallery: HotelGallery

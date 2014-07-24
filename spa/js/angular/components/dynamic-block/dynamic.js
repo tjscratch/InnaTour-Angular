@@ -28,7 +28,7 @@ innaAppConponents.
                 partials : {
                     collOneContent : $templateCache.get('components/dynamic-block/templ/avia-dp.hbs.html'),
                     collTwoContent : $templateCache.get('components/dynamic-block/templ/hotel-dp.hbs.html'),
-                    collThreeContent : $templateCache.get('components/dynamic-block/templ/transclude-dp.hbs.html'),
+                    collThreeContent : $templateCache.get('components/dynamic-block/templ/combination-price.hbs.html'),
 
                     ruble: $templateCache.get('components/ruble.html')
                 },

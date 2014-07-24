@@ -4,6 +4,10 @@ angular.module('innaApp.conponents').
         '$templateCache',
         function ($filter, $templateCache) {
 
+            /**
+             * Компонент HotelGallery
+             * @constructor
+             */
             var HotelGallery = Ractive.extend({
                 template: $templateCache.get('components/gallery/templ/gallery.hbs.html'),
                 append: true,

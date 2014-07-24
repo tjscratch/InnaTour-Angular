@@ -31,6 +31,11 @@ angular.module('innaApp.conponents').
         'FilterSort',
         function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, FilterExtra, FilterPrice, FilterName, FilterCategory, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
 
+
+            /**
+             * Компонент FilterPanel
+             * @constructor
+             */
             var FilterPanel = Ractive.extend({
                 template: $templateCache.get('components/filter-panel/templ/panel.hbs.html'),
                 append: true,

@@ -6,9 +6,10 @@ angular.module('innaApp.conponents').
         function ($filter, $templateCache, TooltipBase) {
 
             /**
-             * Наследуется от базового класса TooltipBase
+             * Компонент priceGeneric
+             * @constructor
+             * @inherits TooltipBase
              */
-
             var priceGeneric = TooltipBase.extend({
                 template: '{{>element}}',
                 //template: $templateCache.get('components/tooltip/templ/price-generic.hbs.html'),
