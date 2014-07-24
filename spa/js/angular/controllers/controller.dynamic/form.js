@@ -98,7 +98,7 @@ innaAppControllers
                         $scope.toList = data;
                     });
                 })
-	        }
+	        };
 
             $scope.toCurrent = routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
 
@@ -244,6 +244,10 @@ innaAppControllers
                 if(!angular.equals(oldRouteParams, routeParams)) {
                     $scope.$broadcast('DYNAMIC.locationChange', routeParams);
                 }
+            });
+
+            $(window).on('unload beforeunload', function(){
+                DynamicPackagesCacheWizard.clear();
             });
         }
     ]);
