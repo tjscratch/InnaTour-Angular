@@ -213,20 +213,27 @@ innaAppControllers
 
                 if (!method || !param) return;
 
-                //console.log(param, 'param');
+                console.log(param, 'param');
+                if(ListPanelComponent) {
+                    ListPanelComponent.wait();
+                }
+
                 ServiceDynamicPackagesDataProvider[method](param, searchParams, function (data) {
 
                     if (data.Hotels) {
                         console.log('Get Hotels');
                         if(!ListPanelComponent) {
+
                             ListPanelComponent = new ListPanel({
                                 el: document.querySelector('.results-container_list'),
                                 data: {
+                                    indicator_filters : true,
                                     iterable_hotels : true,
                                     Enumerable: data.Hotels,
                                     combinationModel: $scope.combination
                                 }
                             });
+
                         } else {
                             console.log('Update Hotels');
                             ListPanelComponent.set({

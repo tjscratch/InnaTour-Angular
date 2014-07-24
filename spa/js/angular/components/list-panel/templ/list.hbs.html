@@ -10,7 +10,7 @@
 
 
 			<!-- Можно указать любой ( компонент - шаблон ) который будет вставлен на место EnumerableItem  -->
-            <div class="b-list-panel__list b-list-panel__hotels_list">
+            <div class="b-list-panel__list b-list-panel__hotels_list {{waitData ? 'b-list-panel__wait' : '' }}">
 	            {{#if iterable_hotels}}
 					{{#each EnumerableList}}
 						{{>EnumerableItemHotels}}
@@ -44,8 +44,11 @@
 		{{/if}}
     </div>
 
+
+	{{#if indicator_filters}}
     <div class="indicator-filters">
         <IndicatorFilters/>
     </div>
+	{{/if}}
 
 </div>

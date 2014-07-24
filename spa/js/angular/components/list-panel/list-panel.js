@@ -74,6 +74,7 @@ angular.module('innaApp.conponents').
                     this.observe('Enumerable', function (newValue, oldValue, keypath) {
                         if (newValue) {
                             this.cloneData();
+                            this.set({waitData : false})
                         }
                     });
 
@@ -299,6 +300,10 @@ angular.module('innaApp.conponents').
                     // получаем первую порцию из n item
                     // далее по скроллингу
                     this.nextArrayDoseItems();
+                },
+
+                wait : function(){
+                    this.set({waitData : true})
                 },
 
                 beforeInit: function (options) {
