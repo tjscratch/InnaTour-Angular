@@ -7,7 +7,8 @@
  * Количество элемментов порции задается в параметре - {Number} countItemsVisible
  *
  * Панель подписывается на фильтры и фильтрует свой набор
- * Можно указать любой ( компонент - шаблон ) который будет вставлен на место partials -> EnumerableItem
+ * Можно указать свои ( компоненты - шаблоны ) для EnumerableItemHotels или EnumerableItemTickets, так же можно расширить
+ * и добавить новые части, нужно будет поменять и шаблон @link list.hbs.html где нужно добавить условие
  */
 
 angular.module('innaApp.conponents').
@@ -131,7 +132,7 @@ angular.module('innaApp.conponents').
 
 
                 /**
-                 * Высчитываем координаты нижней границы блока с отелями
+                 * Высчитываем координаты нижней границы блока
                  * и скроллинга окна браузера
                  * @param event
                  */
@@ -197,7 +198,7 @@ angular.module('innaApp.conponents').
                 },
 
                 /**
-                 * Метод фильтрации списка отелей
+                 * Метод фильтрации списка
                  * Вызываем по событию от панели набора фильтров
                  *
                  * Фильтруем исходный массив Enumerable
@@ -295,7 +296,7 @@ angular.module('innaApp.conponents').
                     this.merge('EnumerableList', []);
                     this.enumerableClone = [].concat(opt_data || this.get('Enumerable'));
 
-                    // получаем первую порцию из 50 отелей
+                    // получаем первую порцию из n item
                     // далее по скроллингу
                     this.nextArrayDoseItems();
                 },
