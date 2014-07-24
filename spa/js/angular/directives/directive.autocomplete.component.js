@@ -87,7 +87,6 @@
 
                 /*Watchers*/
                 $scope.$watch('result', function (newValue, oldValue) {
-                    console.log('$scope.$watch(result: %s (old: %s)', newValue, oldValue);
                     if (newValue instanceof Error) {
                         $scope.result = oldValue;
 
@@ -215,6 +214,9 @@
                     }
                     self.setSelected = function () {
                         var i = self.list[self.selectedIndex];
+
+                        console.log('setSelected::i', i);
+
                         if (i) {
                             $scope.setCurrent(null, i.option, i.airport);
                         }
@@ -250,6 +252,18 @@
                 };
 
                 /*Events*/
+                function select(){
+                    console.log('SELECT');
+                    $scope.$apply(function ($scope) {
+                        if (!$scope.fulfilled) {
+                            $scope.selectionControl.setSelected();
+                        }
+                        else {
+                            $scope.fulfilled = false;
+                        }
+                    });
+                }
+
                 $scope.input.on('focus', function () {
                     //$scope.$apply(function ($scope) {
                     //    $scope.fulfilled = false;
@@ -264,13 +278,11 @@
                 }).on('blur', function () {
                     $scope.timeoutId = $timeout(function () {
                         $scope.$apply(function ($scope) {
+                            $scope.selectionControl.setSelected();
+
                             $scope.fulfilled = true;
                         });
 
-                        //try {
-                        //    $scope.input.tooltip('destroy');
-                        //} catch (e) {
-                        //}
                     }, 200);
                 }).on('keyup', function (event) {
                     var theEvent = event || window.event;
@@ -278,15 +290,7 @@
                     //console.log('key: %d', key);
                     switch (key) {
                         case 13: {
-                            $scope.$apply(function ($scope) {
-                                if (!$scope.fulfilled) {
-                                    $scope.selectionControl.setSelected();
-                                }
-                                else {
-                                    $scope.fulfilled = false;
-                                }
-                            });
-
+                            select();
                             //return false;
                             break;
                         }
@@ -294,7 +298,6 @@
                             {
                                 break;
                             }
-                        case 13:
                         case 16:
                         case 17:
                         case 18:
