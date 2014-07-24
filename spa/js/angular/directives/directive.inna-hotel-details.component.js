@@ -78,8 +78,8 @@ angular.module('innaApp.directives')
                     );
 
                     $('body').css({
-                        "background" : $scope.background + "repeat fixed"
-                    })
+                        "background" : "#000 " + $scope.background + "repeat fixed"
+                    });
 
                     $scope.showFullDescription = false;
 
@@ -174,9 +174,6 @@ angular.module('innaApp.directives')
                         _tripadvisor = null;
                     })
                 }
-            ],
-            link : function($scope, $element){
-
-            }
+            ]
         }
     }]);
