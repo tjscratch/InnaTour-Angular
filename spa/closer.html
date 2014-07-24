@@ -6,10 +6,19 @@
 </head>
 <body>
     <script>
-        window.opener.$('#social-broker-listener').trigger('inna.Auth.SocialBroker.Result', window.location.href);
-        window.close();
+        try {
+            if(window.opener) {
+                window.opener.$('#social-broker-listener').trigger('inna.Auth.SocialBroker.Result', window.location.href);
+            } else {
+                throw 1;
+            }
+        } catch (e) {
+            localStorage.setItem("closeSocialBroker", 1);
+        } finally {
+            window.close();
+        }
     </script>
 
-    popup
+    <div id="debug"></div>
 </body>
 </html>
