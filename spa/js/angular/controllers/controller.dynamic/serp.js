@@ -394,6 +394,10 @@ innaAppControllers
                 $location.path(url);
             };
 
+            $scope.goMap = function(){
+                $scope.$emit('toggle:view:hotels:map');
+            }
+
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
