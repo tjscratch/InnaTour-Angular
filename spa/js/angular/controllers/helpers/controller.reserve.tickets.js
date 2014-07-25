@@ -877,6 +877,10 @@ innaAppControllers.
                 if ($scope.validationModel.isModelValid()) {
 
                     $scope.baloon.show("Бронирование авиабилетов", null);
+
+                    //аналитика
+                    track.dpGoBuy();
+
                     //бронируем
                     $scope.reserve();
                 }

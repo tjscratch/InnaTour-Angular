@@ -2,7 +2,7 @@
         ng-class="{'b-result_middle-130 b-result_oneway_avia':!item.BackArrivalDate, 'b-result_middle-180':item.BackArrivalDate}">
 
     <div class="b-result__cell"
-         ng-click="popupItemInfo.show($event, item, criteria, searchId)">
+         ng-click="popupItemInfo_show($event, item, criteria, searchId)">
 
         <span ng-if="item.transportersList.length <= 3" class="result-cell__airlines">
             <span ng-repeat="tr in item.transportersList">
@@ -79,7 +79,7 @@
                 <span class="warning">{{helper.getCharterAndNumSeatsText(item.NumSeats, ticketsCount, item.IsCharter)}}</span>
             </div>
             <div class="col-xs-6 col-no-padding align-right">
-                <a href="#" ng-click="popupItemInfo.show($event, item, criteria, searchId)">Подробнее</a>
+                <a href="#" ng-click="popupItemInfo_show($event, item, criteria, searchId)">Подробнее</a>
             </div>
         </div>
 

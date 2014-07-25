@@ -1,4 +1,4 @@
-﻿<form class="search-form" ng-controller="ToursFormCtrl">
+<form class="search-form" ng-controller="ToursFormCtrl">
     <div class="search-form-item search-form-from <!--active-->" ng-click="fromFormClick($event)">
         <div class="search-form-item-current">
             {{form.from.name}}
@@ -24,7 +24,7 @@
                 <li class="search-form-list-item search-form-list-item-country" ng-click="toItemClick(item,$event)"
                     ng-class="{selected:form.toListSelectedIndex == $index}">
                     {{item.name}}<span class="description">{{getToItemDescription(item)}}</span>
-                    <i class="icon icon-flag" ng-class="'icon-flag-' + item.codeIcao"
+                    <i class="icon icon-flag" style="{{getFlagUrl(item.codeIcao)}}"
                        ng-show="isNeedToShowFlag(item)"></i>
                     <!--<span class="iata-code">{{item.codeIcao}}</span>-->
                 </li>

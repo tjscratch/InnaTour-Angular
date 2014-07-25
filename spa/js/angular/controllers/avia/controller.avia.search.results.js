@@ -1017,6 +1017,17 @@ innaAppControllers.
                 applySort();
             }, true);
 
+            $scope.popupItemInfo_show = function ($event, item, criteria, searchId) {
+                $scope.popupItemInfo.show($event, item, criteria, searchId);
+
+                //https://innatec.atlassian.net/browse/IN-2309
+                //Авиа. В детализации рекомендованного варианта пропала ссылка для копирования
+                var shareLink = new ShareLink({
+                    el: $('.js-share-component'),
+                    data: { right: true }
+                })
+            }
+
             function ractiveControl() {
                 var self = this;
 
