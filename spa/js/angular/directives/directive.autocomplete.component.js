@@ -14,7 +14,8 @@
                 setResultItem: '=',
                 theme: '@',
                 askForData: '=',
-                placeholder: '@'
+                placeholder: '@',
+                onError: '@'
             },
             controller: ['$scope', '$timeout', function ($scope, $timeout) {
                 /*Properties*/

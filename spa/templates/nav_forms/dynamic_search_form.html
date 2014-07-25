@@ -6,16 +6,18 @@
          result="fromCurrent"
          set-result-callback="setResultCallbackFrom(item)"
          ask-for-data="loadObjectById"
-         placeholder="Откуда"></div>
+         placeholder="Откуда"
+         on-error="Введите город отправления"></div>
 
     <div dropdown-input
-            theme="search-field-block search__city"
-            provide-suggest-callback="provideSuggestToToField"
-            suggest="toList"
-            result="toCurrent"
-            set-result-callback="setResultCallbackTo(item)"
-            ask-for-data="loadObjectById"
-            placeholder="Куда"></div>
+         theme="search-field-block search__city"
+         provide-suggest-callback="provideSuggestToToField"
+         suggest="toList"
+         result="toCurrent"
+         set-result-callback="setResultCallbackTo(item)"
+         ask-for-data="loadObjectById"
+         placeholder="Куда"
+         on-error="Введите город или страну, куда планируете поехать"></div>
 
     <div date-picker-widget
             interval="false"

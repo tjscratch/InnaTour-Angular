@@ -7,7 +7,8 @@
         set-result-item="fromInit"
         set-result-callback="setResultCallbackFrom(item)"
         ask-for-data="loadObjectById"
-        placeholder="Откуда"></div>
+        placeholder="Откуда"
+        on-error="Введите город отправления"></div>
     <div dropdown-input
         theme="search-field-block search__city"
         provide-suggest-callback="provideSuggestToToField"
@@ -16,7 +17,8 @@
         set-result-item="toInit"
         set-result-callback="setResultCallbackTo(item)"
         ask-for-data="loadObjectById"
-        placeholder="Куда"></div>
+        placeholder="Куда"
+        on-error="Введите город, куда планируете поехать"></div>
     <span date-picker-widget 
         interval="false"
         date1="criteria.BeginDate"
