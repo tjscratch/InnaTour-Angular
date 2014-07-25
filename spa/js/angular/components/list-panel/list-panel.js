@@ -27,6 +27,8 @@ angular.module('innaApp.conponents').
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
                 data: {
+                    iterable_hotels : null,
+                    iterable_tickets : null,
                     countItemsVisible: 10,
                     Enumerable : [],
                     EnumerableList: [],
@@ -89,6 +91,8 @@ angular.module('innaApp.conponents').
                      */
                     this.observe('EnumerableList', function (newValue, oldValue, keypath) {
                         if (newValue) {
+
+                            console.log(newValue, 'newValue');
 
                             /*console.table([
                              {
@@ -211,64 +215,40 @@ angular.module('innaApp.conponents').
                  * Выставляем новый набор для EnumerableList
                  * И для this.enumerableClone
                  *
-                 * Так же можно обработать поля по имени отдельно
-                 * в блоке switch - case
+                 * Каждый фильтр должен иметь функцию фильтрации - fn
+                 * filters.fn();
+                 * в качестве параметра примемает значение свойства item[filters.name]
                  *
                  * @param {Array} collection - коллекция для фильтрации
                  * @param {Array} param_filters - набор фильров
                  * @return {Array} новый набор
                  */
-                doFilter: function (collection, param_filters) {
+
+                doFilter : function(collection, param_filters){
                     var that = this;
                     var filterEnumerable = [];
 
-                    //console.log(param_filters);
-                    // проходим циклом по отелям
+                    // проход по коллекции данных
                     console.time("Execution time took");
-                    var filterEnumerable = collection.filter(function (item) {
-                        var tempArrFilter = [];
+                    for (var j = 0; j < collection.length; j++) {
+                        var item = collection[j];
 
-                        // проходим по коллекции фильтров
-                        param_filters.forEach(function (filters) {
-
-                            // если в объекте есть свойство фильтра
+                        // проход по фильтрам
+                        var filterResult = param_filters.filter(function(filters){
                             if (item[filters.name] == undefined) return false;
 
-                            // exclude
-                            switch(filters.name){
-                                case 'Price':
-                                    return false
+                            if(filters.fn != undefined) {
+                                return filters.fn(item[filters.name]);
                             }
-
-
-                            // проходим по значениям фильтра
-                            var temp = filters.val.filter(function (filter_val) {
-
-                                // отдельно обрабатываем поля если это необходимо
-                                switch(filters.name){
-                                    case 'TaFactor':
-                                       if (Math.floor(item[filters.name]) == filter_val) return true;
-                                    case 'HotelName':
-                                        var reg = new RegExp(filter_val, 'i');
-                                        if (reg.test(item[filters.name])) return true;
-                                    case 'Extra':
-                                        if(item[filters.name][filter_val] != undefined) return true;
-                                    default:
-                                        if (item[filters.name] == filter_val) return true;
-                                }
-                            });
-
-
-                            if (temp.length) tempArrFilter.push(temp);
-
                         });
 
-                        if (tempArrFilter.length == param_filters.length) {
-                            return true;
-                        }
-                    })
-                    console.timeEnd("Execution time took");
 
+                        //
+                        if(filterResult.length == param_filters.length) {
+                            filterEnumerable.push(item)
+                        }
+                    }
+                    console.timeEnd("Execution time took");
 
                     // ставим фильтр в конец очереди чтоб не блокировать
                     // например переключение самих фильтров
@@ -302,9 +282,8 @@ angular.module('innaApp.conponents').
                  * @param opt_data
                  */
                 cloneData: function (opt_data) {
-                    this.merge('EnumerableList', []);
+                    this.set('EnumerableList', []);
                     this.enumerableClone = [].concat(opt_data || this.get('Enumerable'));
-
                     // получаем первую порцию из n item
                     // далее по скроллингу
 

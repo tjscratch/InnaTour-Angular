@@ -295,7 +295,6 @@ innaAppControllers
                                 el: document.querySelector('.results-container_list'),
                                 data: {
                                     indicator_filters: false,
-                                    iterable_hotels: false,
                                     iterable_tickets: true,
                                     Enumerable: data.AviaInfos,
                                     combinationModel: $scope.combination

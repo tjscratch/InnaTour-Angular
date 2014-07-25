@@ -9,12 +9,20 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
+            var FilterThis = null;
             var FilterType = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/type.hbs.html'),
                 data: {
                     value : {
                         name : 'HotelType',
-                        val : []
+                        val : [],
+                        fn : function(data){
+                            var result = FilterThis.get('data.value.val').filter(function(item){
+                                if (data == item) return true;
+                            })
+
+                            return (result.length) ? true : false;
+                        }
                     }
                 },
                 components: {
@@ -23,6 +31,7 @@ angular.module('innaApp.conponents').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    FilterThis = this;
 
                     this.on({
                         onChecked: function (data) {
@@ -34,6 +43,9 @@ angular.module('innaApp.conponents').
                                 }
                             }
                             //console.log('onChecked', this.get('value'));
+                        },
+                        teardown: function (evt) {
+                            FilterThis = null;
                         }
                     });
                 },

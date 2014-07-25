@@ -10,17 +10,26 @@ angular.module('innaApp.conponents').
         'Stars',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter, Stars) {
 
+            var FilterThis = null;
             var FilterStars = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/stars.hbs.html'),
                 data: {
                     value: {
                         name: 'Stars',
-                        val: []
+                        val: [],
+                        fn : function(data){
+                            var result = FilterThis.get('value.val').filter(function(item){
+                                if (data == item) return true;
+                            })
+
+                            return (result.length) ? true : false;
+                        }
                     }
                 },
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    FilterThis = this;
 
                     this.on({
                         onChecked: function (data) {
@@ -33,6 +42,9 @@ angular.module('innaApp.conponents').
                                 }
                             }
                             //console.log('onChecked', this.get('value'));
+                        },
+                        teardown: function (evt) {
+                            FilterThis = null;
                         }
                     });
                 },

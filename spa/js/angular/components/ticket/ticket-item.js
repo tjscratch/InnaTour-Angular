@@ -20,7 +20,7 @@ angular.module('innaApp.conponents').
                         height: 200,
                         countColumn: 2,
                         classBlock: 'b-result_col_two_short b-result_flight-info',
-                        classColl3: 'result-choice'
+                        classColl2: 'result-choice'
                     },
                     showWarning: function () {
                         return this.showWarning;
@@ -50,7 +50,7 @@ angular.module('innaApp.conponents').
                     });
 
 
-                    //console.log(this.get('ticket'));
+                    console.log(this.get('ticket'));
 
                     this.on({
                         setCurrent: this.setCurrent,

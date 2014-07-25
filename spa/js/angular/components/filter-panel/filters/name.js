@@ -9,12 +9,18 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
+            var FilterThis = null;
+
             var FilterName = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/name.hbs.html'),
                 data: {
                     value: {
                         name: 'HotelName',
-                        val: []
+                        val: [],
+                        fn : function(data){
+                            var result = data.indexOf(FilterThis.get('value.val'));
+                            return (result >= 0) ? true : false;
+                        }
                     }
                 },
                 components: {
@@ -23,6 +29,7 @@ angular.module('innaApp.conponents').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    FilterThis = this;
 
                     this._timeOut = null;
                     this._next = 0;
@@ -38,12 +45,15 @@ angular.module('innaApp.conponents').
                                 this._timeOut = setTimeout(function () {
                                     if (this.get('name.value').length) {
                                         var nameData = this.get('name.value').toLowerCase();
-                                        this.set('value.val', [nameData]); //.split(' ')
+                                        this.set('value.val', nameData); //.split(' ')
                                     } else {
-                                        this.set('value.val', [])
+                                        this.set('value.val', '')
                                     }
                                 }.bind(this), 500);
                             }
+                        },
+                        teardown: function (evt) {
+                            FilterThis = null;
                         }
                     });
                 },

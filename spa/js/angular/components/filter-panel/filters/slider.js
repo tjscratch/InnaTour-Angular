@@ -24,7 +24,7 @@ angular.module('innaApp.conponents').
 
                         },
                         teardown: function (evt) {
-
+                            FilterThis = null;
                         }
                     })
                 },

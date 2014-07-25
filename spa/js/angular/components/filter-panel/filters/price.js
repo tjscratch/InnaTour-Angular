@@ -9,12 +9,16 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
+            var FilterThis = null;
             var FilterPrice = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/price.hbs.html'),
                 data: {
                     value : {
                         name : 'Price',
-                        val : []
+                        val : [],
+                        fn : function(data){
+
+                        }
                     },
                     priceValue : null
                 },
@@ -25,6 +29,7 @@ angular.module('innaApp.conponents').
                     this._super(options);
                     var that = this;
                     this._timeOut = null;
+                    FilterThis = this;
 
                     this.on({
                         change: function (data) {
@@ -41,6 +46,9 @@ angular.module('innaApp.conponents').
                                     }
                                 }.bind(this), 1000);
                             }
+                        },
+                        teardown: function (evt) {
+                            FilterThis = null;
                         }
                     });
                 },

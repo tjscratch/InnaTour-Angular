@@ -9,12 +9,21 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
+            var FilterThis = null;
             var FilterExtra = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/extra.hbs.html'),
                 data: {
-                    value : {
-                        name : 'Extra',
-                        val : []
+                    value: {
+                        name: 'Extra',
+                        val: [],
+                        fn: function (data) {
+                            var result = FilterThis.get('value.val').filter(function (filterExtra) {
+                                return data[filterExtra] != undefined
+                            })
+
+                            console.log(Object.keys(data).length , result.length);
+                            return (Object.keys(data).length == result.length)
+                        }
                     }
                 },
                 components: {
@@ -23,6 +32,7 @@ angular.module('innaApp.conponents').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    FilterThis = this;
 
                     this.on({
                         change: function (data) {
@@ -37,6 +47,9 @@ angular.module('innaApp.conponents').
                                 }
                             }
                             //console.log('onChecked', this.get('value'));
+                        },
+                        teardown: function (evt) {
+                            FilterThis = null;
                         }
                     })
                 },

@@ -27,11 +27,13 @@
 
 <!-- To -->
 <div class="flight-info">
-    <span class="date date_w_120">
-        <b>
-	        {{ticket.DepartureDate}} {{ticket.OutCode}}
-        </b>
-	    {{moment(ticket.DepartureDate).format('D MMM')}}, {{moment(ticket.DepartureDate).format('EEE')}}
+	<span class="date date_w_120">
+        <span>
+            <b>{{moment(ticket.DepartureDate).format('HH:mm')}}</b>
+            <span>{{moment(ticket.DepartureDate).format('e MMM')}},</span>
+            <span>{{moment(ticket.DepartureDate).format('dd')}}</span><br>
+            <span>{{ticket.CityFrom}} {{ticket.OutCode}}</span>
+        </span>
     </span>
 
     <p class="arrow">
@@ -49,18 +51,24 @@
 		{{/if}}
     </p>
     <span class="date date_w_120">
-        <b>{{dateHelper.getTime(bundle.ticket.data.ArrivalDate)}} {{ticket.InCode}}</b>
-	    {{moment(ticket.ArrivalDate).format('D MMM')}},
-	    {{moment(ticket.ArrivalDate).format('EEE')}}
+       <span>
+	       <b>{{moment(ticket.ArrivalDate).format('HH:mm')}}</b>
+	        <span>{{moment(ticket.ArrivalDate).format('e MMM')}},</span>
+	        <span>{{moment(ticket.ArrivalDate).format('dd')}}</span><br>
+	        <span>{{ticket.CityTo}} {{ticket.InCode}}</span>
+       </span>
     </span>
 </div>
 
 <!-- Back -->
 <div class="flight-info">
     <span class="date date_w_120">
-        <b>{{moment(ticket.BackDepartureDate).format('D MMM')}} {{ticket.InCode}}</b>
-	    {{moment(ticket.BackDepartureDate).format('D MMM')}},
-	    {{moment(ticket.BackDepartureDate).format('EEE')}}
+        <span>
+	        <b>{{moment(ticket.BackDepartureDate).format('HH:mm')}}</b>
+            <span>{{moment(ticket.BackDepartureDate).format('e MMM')}},</span>
+            <span>{{moment(ticket.BackDepartureDate).format('dd')}}</span><br>
+	        <span>{{ticket.CityTo}} {{modelTicket.getBackOutCode()}}</span>
+	    </span>
     </span>
 
     <p class="arrow">
@@ -78,9 +86,12 @@
 		{{/if}}
     </p>
     <span class="date date_w_120">
-        <b>{{dateHelper.getTime(bundle.ticket.data.BackArrivalDate)}} {{__etapsBack[__etapsBack.length - 1].data.InCode}}</b>
-	    {{moment(ticket.BackArrivalDate).format('D MMM')}},
-	    {{moment(ticket.BackArrivalDate).format('EEE')}}
+       <span>
+			<b>{{moment(ticket.BackArrivalDate).format('HH:mm')}}</b>
+            <span>{{moment(ticket.BackArrivalDate).format('e MMM')}},</span>
+            <span>{{moment(ticket.BackArrivalDate).format('dd')}}</span><br>
+            <span>{{ticket.CityFrom}} <span>{{modelTicket.getBackInCode()}}</span></span>
+        </span>
     </span>
 </div>
 
