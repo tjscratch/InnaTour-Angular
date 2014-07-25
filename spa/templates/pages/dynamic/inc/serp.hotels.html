@@ -1,0 +1,32 @@
+<div class="results-container"
+     ng-if="!asMap && !hotelToShowDetails"
+     ng-class="{'results-container__short':padding.value}">
+
+
+    {{  (combination && combination.hotel && hotels.hideBundled(combination)) ? '' : '' }}
+    {{  (_notHiddenHotels = (hotels.list | filter:{hidden: false})) ? '' : ''  }}
+    {{  (_notHiddenHotelsQuantity = _notHiddenHotels.length) ? '' : ''  }}
+    {{  (_hotelsToDisplay = (_notHiddenHotels | filter:{currentlyInvisible: false})) ? '' : ''  }}
+
+    <div class="b-switch-filters_buttons_right font-medium" ng-if="_notHiddenHotelsQuantity > 0">
+        <div class="b-switch-dynamic-serp-display__title b-switch-dynamic-serp-display__title_at_list" ng-click="goMap()">
+            <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
+            Посмотреть на карте
+        </div>
+
+        Другие
+        <b>{{_notHiddenHotelsQuantity}}</b>
+        {{_notHiddenHotelsQuantity | choosePlural:"вариант":"варианта":"вариантов"}}
+        отелей
+    </div>
+
+    <div class="results-list results-list_720">
+        <div ng-repeat="hotel in _hotelsToDisplay" inna-hotel></div>
+
+        <!-- there are hotels loaded, but nothing to show 'cause of filters -->
+        <div ng-if="hotels.list.length && _hotelsToDisplay.length <= 0" class="results-list__empty results-list__empty_type_hotels">
+            <p>Варианты не найдены.</p>
+            <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
+        </div>
+    </div>
+</div>

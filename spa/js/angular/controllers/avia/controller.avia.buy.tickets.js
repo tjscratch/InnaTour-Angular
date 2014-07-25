@@ -949,11 +949,12 @@ innaAppControllers.
                     if ($scope.reservationModel != null) {
                         $scope.reservationModel.experationSeconds = +$scope.reservationModel.experationSeconds - 1;
                         $scope.reservationModel.experationSecondsFormatted = $scope.getExpTimeSecFormatted($scope.reservationModel.experationSeconds);
+                        //console.log('Осталось %s секунд', $scope.reservationModel.experationSecondsFormatted);
                     }
                 }
                 self.ifExpires = function () {
                     if ($scope.reservationModel != null) {
-                        if ($scope.reservationModel.experationMinute != null && $scope.reservationModel.experationMinute > 0) {
+                        if ($scope.reservationModel.experationSeconds != null && $scope.reservationModel.experationSeconds > 0) {
                             return false;
                         }
                         else {
