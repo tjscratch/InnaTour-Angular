@@ -11,6 +11,7 @@
  * и добавить новые части, нужно будет поменять и шаблон @link list.hbs.html где нужно добавить условие
  */
 
+
 angular.module('innaApp.conponents').
     factory('ListPanel', [
         'EventManager',
@@ -46,7 +47,8 @@ angular.module('innaApp.conponents').
                 init: function () {
                     var that = this;
                     this.enumerableClone = [];
-                    this.enumerableDose = [];
+                    this._filterTimeout = null;
+
                     /**
                      * Вызов метода не чаще 500
                      * так как срабатывает по скроллингу
@@ -127,12 +129,20 @@ angular.module('innaApp.conponents').
                         that.updateCoords();
                     });
 
+                    // выполняем фильтрацию не чаще 300ms
+                    // защита от слишком частого нажатия на кнопки фильтрации
                     EventManager.on('filter-panel:change', function (data) {
-                        that.doFilter(that.get('Enumerable'), data);
+                        clearTimeout(that._filterTimeout);
+                        that._filterTimeout = setTimeout(function(){
+                            that.doFilter(that.get('Enumerable'), data);
+                        }, 300);
                     });
 
                     EventManager.on('filter-panel:reset', function (data) {
-                        that.resetFilter();
+                        clearTimeout(that._filterTimeout);
+                        that._filterTimeout = setTimeout(function(){
+                            that.resetFilter();
+                        }, 300);
                     });
 
                     EventManager.on(Events.DYNAMIC_SERP_BACK_LIST, function () {
@@ -282,7 +292,6 @@ angular.module('innaApp.conponents').
                  * @param opt_data
                  */
                 cloneData: function (opt_data) {
-                    this.set('EnumerableList', []);
                     this.enumerableClone = [].concat(opt_data || this.get('Enumerable'));
                     // получаем первую порцию из n item
                     // далее по скроллингу

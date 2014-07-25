@@ -138,11 +138,6 @@ angular.module('innaApp.conponents').
                     })
                     this.merge('filtersCollection', tempArr);
 
-
-                    // маленькая защита от ложного срабатывания события
-                    console.log(this.get('filtersCollection').length, 'countFilters');
-
-
                     if(this.get('filtersCollection').length) {
                         this.set('alreadyFiltered', true);
                         EventManager.fire('filter-panel:change', this.get('filtersCollection'));
