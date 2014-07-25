@@ -15,19 +15,17 @@ angular.module('innaApp.conponents').
              * @inherits DynamicBlock
              */
             var TicketItem = DynamicBlock.extend({
-                template: $templateCache.get('components/dynamic-block/templ/base.hbs.html'),
-                append: true,
                 data: {
                     settings: {
                         height: 200,
                         countColumn: 2,
                         classBlock: 'b-result_col_two_short b-result_flight-info',
-                        classColl3 : 'result-choice'
+                        classColl3: 'result-choice'
                     },
-                    showWarning : function(){
+                    showWarning: function () {
                         return this.showWarning;
                     },
-                    airLogo : function(logo){
+                    airLogo: function (logo) {
                         return this.airLogo(logo);
                     }
                 },
@@ -50,7 +48,6 @@ angular.module('innaApp.conponents').
                         virtualBundle: virtualBundle,
                         modelTicket: modelTicket
                     });
-
 
 
                     //console.log(this.get('ticket'));
@@ -76,15 +73,11 @@ angular.module('innaApp.conponents').
                 },
 
                 airLogo: function (logo) {
-                    console.log(logo);
-                    console.log(app_main.staticHost + "/Files/logo/" + logo + ".png");
-
-                    if (logo == 'many') {
+                    if (logo == 'many')
                         return "/spa/img/group.png";
-                    }
-                    else {
+                    else
                         return app_main.staticHost + "/Files/logo/" + logo + ".png";
-                    }
+
                 },
 
                 showWarning: function () {
@@ -93,7 +86,7 @@ angular.module('innaApp.conponents').
                     var routParam = angular.copy($routeParams);
                     var passengerCount = parseInt(routParam.Adult) + (routParam.ChildrenAges ? routParam.ChildrenAges.length : 0);
 
-                    if(!n) return false;
+                    if (!n) return false;
 
                     switch (passengerCount) {
                         case 1:

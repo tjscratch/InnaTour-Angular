@@ -15,13 +15,14 @@ angular.module('innaApp.conponents').
              * @inherits DynamicBlock
              */
             var HotelItem = DynamicBlock.extend({
-                template: $templateCache.get('components/dynamic-block/templ/base.galary.hbs.html'),
-                append: true,
                 data: {
                     settings: {
                         height: 200,
                         countColumn: 3,
-                        classBlock: 'b-result_col_three_galary b-result_middle'
+                        removeOneSeparator : true,
+                        classBlock: 'b-result_col_three_galary b-result_middle',
+                        classColl1 : 'col-no-padding',
+                        classColl3 : 'col-xs-3 result-choice'
                     }
                 },
                 partials: {
@@ -89,19 +90,12 @@ angular.module('innaApp.conponents').
 
                 },
 
-                transitions: {
-                    fade: function (t, params) {
-
-                    }
-                },
-
-
                 beforeInit: function (options) {
                     //console.log('beforeInit');
                 },
 
                 complete: function (data) {
-                    console.log('complete');
+                    //console.log('complete');
                 }
 
             });
