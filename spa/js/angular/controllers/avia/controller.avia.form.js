@@ -402,4 +402,7 @@ innaAppControllers.
             $scope.$watch('klass', function (newVal, oldVal) {
                 $scope.criteria.CabinClass = newVal.value;
             });
+
+            $scope.maxDate = new Date();
+            $scope.maxDate.setFullYear($scope.maxDate.getFullYear() + 1);
         }]);

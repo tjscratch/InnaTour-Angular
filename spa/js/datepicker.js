@@ -124,6 +124,25 @@
 							break;
 					}
 					tblCal.find('thead tr:first th:eq(1) span').text(dow);
+
+                    if(options.limits) {
+                        var nextBtn = tblCal.find('.datepickerGoNext');
+                        var prevBtn = tblCal.find('.datepickerGoPrev');
+
+                        if(date <= options.limits[0]) {
+                            prevBtn.addClass('datepickerGoPrev__disabled');
+                        } else {
+                            prevBtn.removeClass('datepickerGoPrev__disabled');
+                        }
+
+                        if(date >= options.limits[1]) {
+                            nextBtn.addClass('datepickerGoNext__disabled');
+                        } else {
+                            nextBtn.removeClass('datepickerGoNext__disabled');
+                        }
+                    }
+
+
 					dow = date.getFullYear()-6;
 					data = {
 						data: [],
@@ -190,7 +209,7 @@
                         if(date.getDate() == today.getDate() && date.getMonth() == today.getMonth() && date.getYear() == today.getYear()) {
                             data.weeks[indic].days[indic2].classname.push('datePicker-today');
                         }
-                        if(+date < +today) {
+                        if(+date < +today || (options.limits && +options.limits[1] <= +date)) {
                             data.weeks[indic].days[indic2].classname.push('datePicker-unavailable');
                             data.weeks[indic].days[indic2].classname.push('datepickerDisabled');
                         }

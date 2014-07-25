@@ -98,7 +98,7 @@ innaAppControllers
                         $scope.toList = data;
                     });
                 })
-	        }
+	        };
 
             $scope.toCurrent = routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
 
@@ -119,6 +119,9 @@ innaAppControllers
             $scope.$watch('dateEnd', function(newVal) {
                 DynamicPackagesCacheWizard.put('dateEnd', newVal);
             });
+
+            $scope.maxDateEnd = new Date();
+            $scope.maxDateEnd.setMonth($scope.maxDateEnd.getMonth() + 6);
 
             /*Adult count*/
             $scope.adultCount = routeParams.Adult || 2;
@@ -244,6 +247,10 @@ innaAppControllers
                 if(!angular.equals(oldRouteParams, routeParams)) {
                     $scope.$broadcast('DYNAMIC.locationChange', routeParams);
                 }
+            });
+
+            $(window).on('unload beforeunload', function(){
+                DynamicPackagesCacheWizard.clear();
             });
         }
     ]);
