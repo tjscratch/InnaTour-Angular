@@ -21,15 +21,18 @@ angular.module('innaApp.conponents').
                     settings: {
                         height: 200,
                         countColumn: 2,
-                        classBlock: 'b-result_col_two_short b-result_flight-info'
+                        classBlock: 'b-result_col_two_short b-result_flight-info',
+                        classColl3 : 'result-choice'
                     },
                     showWarning : function(){
                         return this.showWarning;
                     },
-                    airLogo : aviaHelper.setEtapsTransporterCodeUrl
+                    airLogo : function(logo){
+                        return this.airLogo(logo);
+                    }
                 },
                 partials: {
-                    collOneContent: $templateCache.get('components/dynamic-block/templ/avia-dp.hbs.html'),
+                    collOneContent: $templateCache.get('components/ticket/templ/avia-dp.hbs.html'),
                     collTwoContent: $templateCache.get('components/dynamic-block/templ/combination-price.hbs.html')
                 },
 
@@ -42,8 +45,6 @@ angular.module('innaApp.conponents').
                     var virtualBundle = new inna.Models.Dynamic.Combination();
                     virtualBundle.ticket = modelTicket;
                     virtualBundle.hotel = this.get('combinationModel').hotel;
-
-                    console.log(modelTicket.collectAirlines().etap);
 
                     this.set({
                         virtualBundle: virtualBundle,
@@ -72,6 +73,18 @@ angular.module('innaApp.conponents').
 
                 setCurrent: function () {
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_TICKET, this.get('modelTicket'));
+                },
+
+                airLogo: function (logo) {
+                    console.log(logo);
+                    console.log(app_main.staticHost + "/Files/logo/" + logo + ".png");
+
+                    if (logo == 'many') {
+                        return "/spa/img/group.png";
+                    }
+                    else {
+                        return app_main.staticHost + "/Files/logo/" + logo + ".png";
+                    }
                 },
 
                 showWarning: function () {

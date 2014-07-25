@@ -6,9 +6,9 @@
 <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
 {{#if modelTicket.collectAirlines().size <= 3}}
 
-	{{#each modelTicket.collectAirlines().etap}}
+	{{#each modelTicket.collectAirlines().etap:code}}
         <span class="result-cell__airlines">
-            <img src="{{airLogo(@key)}}" alt="" class="logo">
+            <img src="{{airLogo(code)}}" alt="" class="logo">
 	        <span class="rl-airline-text">{{this}}</span>
 		</span>
 	{{/each}}
