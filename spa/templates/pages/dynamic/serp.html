@@ -1,11 +1,11 @@
-<ng:include src="'pages/dynamic/inc/bundle.html'"
+<ng:include src="'components/bundle/templ/bundle-root.html'"
             ng-if="combination.hotel && combination.ticket"
             ng-show="!hotelToShowDetails"></ng:include>
 
 
 <div class="results-body" ng-show="!showLanding && !hotelToShowDetails">
-    <ng:include src="'pages/dynamic/inc/serp.hotels.html'" ng-if="state.HOTELS_TAB" />
-    <ng:include src="'pages/dynamic/inc/serp.tickets.html'" ng-if="state.TICKETS_TAB" />
+    <ng:include src="'pages/dynamic/inc/serp.hotels.html'" ng-if="state.HOTELS_TAB"/>
+    <ng:include src="'pages/dynamic/inc/serp.tickets.html'" ng-if="state.TICKETS_TAB"/>
 </div>
 
 <ng:include src="'pages/dynamic/inc/ticket-details.html'"></ng:include>
@@ -19,3 +19,11 @@
      inna-hotel-details-bundle="combination"
      inna-hotel-detailes-reservation-fn="goReservation"
      inna-hotel-details-get-ticket-details="getTicketDetails"></div>
+
+
+<div class="results-body" ng-if="hotels.list.length && asMap">
+    <div dynamic-serp-map
+        dynamic-serp-map-hotels="hotels"
+        dynamic-serp-map-combination="combination"
+        dynamic-serp-map-airports="airports"></div>
+</div>

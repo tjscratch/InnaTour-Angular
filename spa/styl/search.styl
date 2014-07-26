@@ -4,7 +4,7 @@
 .search-ticket-form
   font-size 0
   line-height 0
-  letter-spacing -1px
+  //letter-spacing -1px
   padding 0
   color #242424
   position relative
@@ -80,6 +80,22 @@
   width 179px
   position : relative;
 
+  &__date {
+    background : #fff;
+    padding-left: 10px;
+    height: 48px;
+    line-height : 48px;
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+
+    &_display_placeholder {
+        color: #666;
+    }
+  }
+
 
   &:after {
     @extend .icon-sprite-calendar;
@@ -149,7 +165,8 @@
   padding 0 10px
   font 14px / 48px $ProximaNova
   cursor pointer
-  background url(/spa/img/i.png) no-repeat right 7px top -1875px #fff
+  background url(/spa/img/i.png) no-repeat #fff
+  background-position right 7px top -1875px
 
 .search-pref-block
   position absolute

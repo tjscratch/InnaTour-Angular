@@ -19,7 +19,8 @@ angular.module('innaApp.directives')
                 replace: true,
                 scope: {
                     hotels: '=dynamicSerpMapHotels',
-                    airports: '=dynamicSerpMapAirports'
+                    airports: '=dynamicSerpMapAirports',
+                    combination : '=dynamicSerpMapCombination'
                 },
                 controller: [
                     '$scope',
@@ -168,6 +169,7 @@ angular.module('innaApp.directives')
                             _tripadvisor.teardown();
                             _tripadvisor = null;
                         }
+
                         _tripadvisor = new Tripadvisor({
                             el: $(data_marker.elem).find('.js-tripadvisor-container'),
                             data: {
@@ -367,6 +369,7 @@ angular.module('innaApp.directives')
                      * @param data
                      */
                     var markerEvents = function (data) {
+
                         var marker = data.marker;
                         var pos = data.pos;
 
@@ -376,7 +379,7 @@ angular.module('innaApp.directives')
                             var pos = this.getPosition();
 
                             scope.$apply(function ($scope) {
-                                $scope.currentHotel = marker.$inna__hotel;
+                                $scope.currentHotel = angular.copy(marker.$inna__hotel);
                             });
 
                             // ценрируем карту
@@ -407,7 +410,7 @@ angular.module('innaApp.directives')
 
                             if (!marker.infoBoxVisible) {
                                 scope.$apply(function ($scope) {
-                                    $scope.currentHotelPreview = marker.$inna__hotel;
+                                    $scope.currentHotelPreview = angular.copy(marker.$inna__hotel);
                                 });
 
                                 marker.setIcon(iconHover);
@@ -537,24 +540,32 @@ angular.module('innaApp.directives')
 
 
                     function updateMap(data) {
+                        var tempArrHotels = null;
                         var rawHotels = null;
                         var hotels = (data.hotels) ? data.hotels : [];
                         var airports = (data.airports) ? data.airports : [];
 
-                        rawHotels = (hotels.toJSON) ? hotels.toJSON() : [];
+                        tempArrHotels = (hotels.toJSON) ? hotels.toJSON() : [];
+                        rawHotels = [].concat(angular.copy(tempArrHotels));
                         removeMarkers();
 
-                        hotels.each(function (hotel) {
+                        rawHotels.forEach(function (hotel) {
+
                             if (hotel.hidden) return;
 
-                            hotel = (hotel.toJSON) ? hotel.toJSON() : hotel.data;
+                            var hotelRaw = angular.copy(hotel); //(hotel.toJSON) ? hotel.toJSON() : (hotel.data) ? hotel.data : hotel;
 
-                            if (!hotel.Latitude || !hotel.Longitude) return;
+                            if (!hotelRaw.Latitude || !hotelRaw.Longitude) return;
 
-                            var markerData = addMarker(angular.extend(hotel, { type: 'hotel' }));
+                            var markerData = addMarker(angular.extend(hotelRaw, { type: 'hotel' }));
                             var marker = markerData.marker;
-                            marker.$inna__hotel = hotel;
-                            marker._hotelId_ = hotel.HotelId;
+
+                            //getFullPackagePrice
+                            var fullPackage = (+scope.combination.ticket.data.PackagePrice + +hotelRaw.PackagePrice);
+                            hotelRaw.PackagePrice = fullPackage;
+                            marker.$inna__hotel = hotelRaw;
+
+                            marker._hotelId_ = hotelRaw.HotelId;
 
                             markerEvents(markerData);
                             _bounds.extend(markerData.pos);
@@ -589,8 +600,13 @@ angular.module('innaApp.directives')
 
                     //destroy
                     scope.$on('$destroy', function () {
-                        _tripadvisor.teardown();
-                        _tripadvisor = null;
+                        try {
+                            _tripadvisor.teardown();
+                        } catch(e) {
+                            //do nothing
+                        } finally {
+                            _tripadvisor = null;
+                        }
 
                         GM.event.addListener(map);
                         GM = null;

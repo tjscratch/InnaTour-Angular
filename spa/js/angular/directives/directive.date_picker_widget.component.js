@@ -35,7 +35,8 @@
                 date2: '=',
                 minDate: '=',
                 addButtons: '=',
-                data: '='
+                data: '=',
+                maxDate: '='
             },
             controller: ['$scope', function ($scope) {
                 /*Properties*/
@@ -105,7 +106,9 @@
                 };
 
                 $scope.long = function (date) {
-                    if (!date || date == '01.01.1970') return '';
+                    if (!date || date == '01.01.1970') {
+                        return '';
+                    }
 
                     var jsDate = dateHelper.dateToJsDate(date);
 
@@ -119,7 +122,7 @@
                         //при клике будет выбрана дата от
                         $scope.datePicker.SetLastSel(lastSel);
                     }
-                }
+                };
 
                 $scope.toggleFrom = function ($event) {
                     eventsHelper.preventDefault($event);
@@ -197,7 +200,7 @@
                 $scope.input1 = $('.search-date-block', element).eq(0);
                 $scope.input2 = $('.search-date-block', element).eq(1);
 
-                $scope.datePicker = $('.js-datepicker', element).DatePicker({
+                var options = {
                     flat: true,
                     date: defaultDates,
                     initDateToIsSet: ($scope.date1 != null),
@@ -207,7 +210,6 @@
                     format: 'd.m.Y',
                     starts: 1,
                     onChange: function (formated, dates, el, lastSel, initDateFromIsSet) {
-
                         $scope.$apply(function ($scope) {
                             $scope.date1 = formated[0];
 
@@ -250,22 +252,27 @@
                             $scope.input2.tooltip('destroy');
                         } catch (e) {
                         }
-
-
                     }
-                });
+                };
+
+                console.log('FORM::MAX_DATE', $scope.maxDate);
+
+                if($scope.maxDate) {
+                    var today = new Date();
+                    var leftLimit = new Date(+today);
+
+                    leftLimit.setDate(1);
+
+                    options.limits = [leftLimit, $scope.maxDate];
+                }
+
+                $scope.datePicker = $('.js-datepicker', element).DatePicker(options);
 
                 // Вставляем календарь в body
                 document.body.appendChild($scope.datePicker[0]);
 
                 $(document).click(function (event) {
                     var isInsideComponent = $.contains(element.get(0), event.target);
-
-                    //console.log('click', isInsideComponent);
-
-                    //$scope.$apply(function($scope){
-                    //    $scope.isOpen = isInsideComponent;
-                    //});
 
                     $scope.$apply(function ($scope) {
                         if (isInsideComponent && $scope.headClicked) {

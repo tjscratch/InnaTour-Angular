@@ -59,7 +59,8 @@ innaAppControllers.
                 date: 'date',
                 birthdate: 'birthdate',
                 expire: 'expire',
-                document: 'document'
+                document: 'document',
+                sex: 'sex'
             };
             $scope.validateType = validateType;
 
@@ -225,7 +226,8 @@ innaAppControllers.
                         dependsOnField: null,//валидация зависит от поля
                         isValid: true,
                         isInvalid: false,
-                        validationType: null
+                        validationType: null,
+                        alwaysValid: false//поле не участвует в валидации
                     }
                 };
 
@@ -249,6 +251,21 @@ innaAppControllers.
                     else {
                         model.isValid = false;
                         model.isInvalid = true;
+                    }
+
+                    if (model.key == 'sex') {
+                        var $to = $('#' + model.id);
+                        $scope.tooltipControl.close($to);
+                    }
+                }
+
+                $scope.setAlwaysValid = function (model, isValid) {
+                    if (model == null) return;
+                    if (isValid) {
+                        model.alwaysValid = true;
+                    }
+                    else {
+                        model.alwaysValid = false;
                     }
                 }
 
@@ -312,9 +329,21 @@ innaAppControllers.
                             }
                             case validateType.expire:
                             {
-                                tryValidate(item, function () {
-                                    Validators.expire(item.value, 'err');
-                                });
+                                var documentField = item.dependsOnField;
+                                if (documentField.isRuPassportAndInsideRF == true) {
+                                    //не проводим валидацию
+                                    //паспорт РФ и перелет внутри РФ
+                                    $scope.setValid(item, true);
+                                    $scope.setAlwaysValid(item, true);
+                                }
+                                else
+                                {
+                                    $scope.setAlwaysValid(item, false);
+                                    tryValidate(item, function () {
+                                        Validators.expire(item.value, 'err');
+                                    });
+                                }
+                                
                                 break;
                             }
                             case validateType.document:
@@ -392,6 +421,17 @@ innaAppControllers.
 
                                         var tripInsideRF = isTripInsideRF($scope.item);
                                         if (tripInsideRF) {
+                                            //проставляем флаг, что это российский паспорт
+                                            //флаг понадобится при валидации Действителен до
+                                            if (isCaseValid(function () {
+                                                Validators.ruPassport(doc_num, 'err');
+                                            })){
+                                                item.isRuPassportAndInsideRF = true;
+                                            }
+                                            else {
+                                                item.isRuPassportAndInsideRF = false;
+                                            }
+
                                             //проверяем паспорт, загран, св. о рождении
                                             if (isCaseValid(function () {
                                                 Validators.ruPassport(doc_num, 'err');
@@ -601,12 +641,12 @@ innaAppControllers.
                 //console.log($scope.validationModel);
 
                 $scope.isFieldInvalid = function (item) {
-                    //if (item != null && item.key == 'citizenship') {
-                    //    console.log(item);
+                    //if (item != null && item.key == 'doc_series_and_number') {
+                    //    console.log(item.isValid);
                     //}
-                    if (item != null && item.value != null && (!_.isString(item.value) || item.value.length > 0)) {
+                    if (item != null && item.value != null && (!_.isString(item.value) || item.value.length > 0 || item.alwaysValid)) {
                         if ($scope.validationModel.formPure) {
-                            return item.isInvalid && item.value != null && item.value.length > 0;//подсвечиваем только если что-то введено в полях
+                            return item.isInvalid && ((item.value != null && item.value.length > 0) || item.alwaysValid);//подсвечиваем только если что-то введено в полях
                         }
                         else {
                             return item.isInvalid;
@@ -757,6 +797,8 @@ innaAppControllers.
 
                 };
 
+                //$scope.fillDefaultModel();
+
                 if ($scope.afterPayModelInit != null)
                     $scope.afterPayModelInit();
             };
@@ -771,7 +813,13 @@ innaAppControllers.
                 init: function ($to) {
                     //$to.tooltip({ position: { my: 'center top+22', at: 'center bottom' } });
                     $to.tooltipX({
-                        autoShow: false, autoHide: false, position: { my: 'center top+22', at: 'center bottom' },
+                        autoShow: false,
+                        autoHide: false,
+                        position: {
+                            my: 'center top+22',
+                            at: 'center bottom',
+                            collision: "none"
+                        },
                         items: "[data-title]",
                         content: function () {
                             return $to.attr('data-title');
@@ -810,13 +858,13 @@ innaAppControllers.
 
                 //ищем первый невалидный элемент, берем только непустые
                 var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
-                    return (item.value != null && (!_.isString(item.value) || item.value.length > 0));
+                    return (item.value != null && (!_.isString(item.value) || item.value.length > 0)) || (item.value == null && item.key == 'sex');
                 });
                 if (invalidItem != null) {
 
                     // скроллим страницу вверх
                     // показываем тултип
-                    $("body").animate({"scrollTop":0},function(){
+                    $("body, html").animate({"scrollTop":400},function(){
                         var $to = $("#" + invalidItem.id);
                         $scope.tooltipControl.init($to);
                         $scope.tooltipControl.open($to);
@@ -829,6 +877,10 @@ innaAppControllers.
                 if ($scope.validationModel.isModelValid()) {
 
                     $scope.baloon.show("Бронирование авиабилетов", null);
+
+                    //аналитика
+                    track.dpGoBuy();
+
                     //бронируем
                     $scope.reserve();
                 }
@@ -958,7 +1010,9 @@ innaAppControllers.
             ];
 
             $scope.fillDefaultModel = function ($event) {
-                eventsHelper.preventBubbling($event);
+                if ($event) {
+                    eventsHelper.preventBubbling($event);
+                }
 
                 $scope.model.name = 'Иван';
                 $scope.model.secondName = 'Иванов';

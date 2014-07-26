@@ -16,7 +16,10 @@ innaAppDirectives.directive('closePopup', [function () {
         },
         link: function ($scope, element, attrs) {
             function bodyClick(event) {
-                var isInsideComponent = !!$(event.target).closest(element).length;
+                var isInsideComponent = $.contains(element[0], event.target);
+
+                console.log('CLOSE_POPUP', element[0], event.target, isInsideComponent);
+
                 $scope.$apply(function ($scope) {
                     if (!isInsideComponent) {
                         $scope.fnHide();
@@ -579,12 +582,13 @@ innaAppDirectives.directive('validateSimple', [function () {
                         validate(true);
                     });
                 }
-            }).on('click', function (event) {
-                var val = ngModel.$modelValue;
-                if (val != null && val.length > 0){
-                    $(this).select();
-                }
             });
+            //.on('click', function (event) {
+            //    var val = ngModel.$modelValue;
+            //    if (val != null && val.length > 0){
+            //        $(this).select();
+            //    }
+            //});
 
             if ($scope.len != null) {
                 $scope.$watch(function () { return ngModel.$modelValue; }, function (newVal, oldVal) {
@@ -630,9 +634,9 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
                 $scope.$apply(function () {
                     validate(true);
                 });
-            //}).on('change', function () {
-            //    console.log('change');
-            //    validate();
+                //}).on('change', function () {
+                //    console.log('change');
+                //    validate();
             }).on('keypress', function (event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
@@ -641,18 +645,19 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
                         validate(true);
                     });
                 }
-            }).on('click', function (event) {
-                var val = $scope.ngValidationModel.value;
-
-                if ($scope.supressSelectOnValue != null && val == $scope.supressSelectOnValue)//не выделяем
-                {
-                    //+7 для телефона
-                }
-                else if (val != null && val.length > 0)
-                {
-                    $(this).select();
-                }
             });
+            //.on('click', function (event) {
+            //    var val = $scope.ngValidationModel.value;
+
+            //    if ($scope.supressSelectOnValue != null && val == $scope.supressSelectOnValue)//не выделяем
+            //    {
+            //        //+7 для телефона
+            //    }
+            //    else if (val != null && val.length > 0)
+            //    {
+            //        $(this).select();
+            //    }
+            //});
 
 
             //обновляем раз в 300мс
@@ -669,7 +674,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
 
             //когда придет модель - проставим аттрибут id элементу
             function updateAttrId(model) {
-                if (!isInitDone && model != null)
+                if (!isInitDone && (model != null || $scope.validateType == 'sex'))
                 {
                     //проставляем уникальный id элементу
                     $elem.attr("id", eid);

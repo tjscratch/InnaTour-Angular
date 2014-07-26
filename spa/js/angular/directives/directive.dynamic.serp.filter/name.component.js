@@ -45,7 +45,10 @@ angular.module('innaApp.directives')
                             var name = hotel.data.HotelName.toLowerCase();
                             var contains = (name.indexOf(val) !== -1);
 
-                            if(!contains) hotel.hidden = true;
+                            if(!contains) {
+                                hotel.hidden = true;
+                                hotel.data.hidden = true;
+                            }
                         };
                         $scope.options = $scope.filter.options = new Options();
                         $scope.option = new Option('name');

@@ -85,6 +85,10 @@ innaAppControllers
 
 
                 if (!hotel.detailed) {
+
+                    //аналитика
+                    track.dpBuyPackage();
+
                     ServiceDynamicPackagesDataProvider.hotelDetails(
                         hotel.data.HotelId,
                         hotel.data.ProviderId,
@@ -137,6 +141,7 @@ innaAppControllers
 
                             var hotel = new inna.Models.Hotels.Hotel(raw);
                             hotel.hidden = false;
+                            hotel.data.hidden = false;
                             hotel.currentlyInvisible = false;
 
                             $scope.hotels.push(hotel);
@@ -383,8 +388,15 @@ innaAppControllers
                     ticket: $scope.combination.ticket.data.VariantId1
                 });
 
+                //аналитика
+                track.dpGoReserve();
+
                 $location.path(url);
             };
+
+            $scope.goMap = function(){
+                $scope.$emit('toggle:view:hotels:map');
+            }
 
             /*EventListener*/
             DynamicFormSubmitListener.listen();
@@ -580,7 +592,8 @@ innaAppControllers
         '$element',
         'innaApp.API.events',
         '$location',
-        function ($scope, $element, Events, $location) {
+        '$timeout',
+        function ($scope, $element, Events, $location, $timeout) {
             /*DOM*/
             var doc = $(document);
             $scope.isVisible = true;
@@ -606,9 +619,11 @@ innaAppControllers
                 var body = document.body || document.documentElement;
 
                 if (body.scrollTop >= 100) {
-                    $scope.$apply(function ($scope) {
-                        $scope.display.shortDisplay(true);
-                    });
+                    if(doc.height() > 2000) {
+                        $scope.$apply(function ($scope) {
+                            $scope.display.shortDisplay(true);
+                        });
+                    }
                 } else {
                     $scope.$apply(function ($scope) {
                         $scope.display.fullDisplay(true);

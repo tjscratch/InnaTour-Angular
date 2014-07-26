@@ -261,11 +261,20 @@ innaAppControllers.
 
             $scope.hotelRules = new $scope.helper.hotelRules();
 
-            $scope.oferta = {
-                url: function () {
-                    return app_main.staticHost + '/files/doc/offer.pdf';
+            $scope.setOferta = function (isDp) {
+                var url = app_main.staticHost + '/files/doc/offer.pdf';
+
+                if (isDp) {
+                    url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+                }
+
+                $scope.oferta = {
+                    url: function () {
+                        return url;
+                    }
                 }
             }
+            
             $scope.TKP = {
                 url: function () {
                     return app_main.staticHost + '/files/doc/TCH.pdf';
@@ -568,6 +577,9 @@ innaAppControllers.
                                             $scope.hotelRules.fillData(data.Hotel);
                                         }
 
+                                        var isDp = (data.Hotel != null);
+                                        $scope.setOferta(isDp);
+
                                         aviaHelper.addCustomFields(data.AviaInfo);
                                         $scope.aviaInfo = data.AviaInfo;
                                         $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
@@ -658,6 +670,9 @@ innaAppControllers.
                     log('\napiPayModel: ' + angular.toJson(apiPayModel));
 
                     $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
+
+                    //аналитика
+                    track.dpPaymentSubmit($scope.price);
 
                     paymentService.pay(apiPayModel,
                         function (data) {
@@ -934,11 +949,12 @@ innaAppControllers.
                     if ($scope.reservationModel != null) {
                         $scope.reservationModel.experationSeconds = +$scope.reservationModel.experationSeconds - 1;
                         $scope.reservationModel.experationSecondsFormatted = $scope.getExpTimeSecFormatted($scope.reservationModel.experationSeconds);
+                        //console.log('Осталось %s секунд', $scope.reservationModel.experationSecondsFormatted);
                     }
                 }
                 self.ifExpires = function () {
                     if ($scope.reservationModel != null) {
-                        if ($scope.reservationModel.experationMinute != null && $scope.reservationModel.experationMinute > 0) {
+                        if ($scope.reservationModel.experationSeconds != null && $scope.reservationModel.experationSeconds > 0) {
                             return false;
                         }
                         else {

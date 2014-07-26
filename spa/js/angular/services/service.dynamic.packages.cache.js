@@ -22,7 +22,7 @@ innaAppServices.factory('DynamicPackagesCacheWizard', [
 
         var o = {
             require: function(key, ifNullCallback){
-                var value = $.cookie(PREFIX + key) || null;
+                var value = localStorage.getItem(PREFIX + key) || null;
 
                 value = o.validate(key, value);
 
@@ -30,14 +30,14 @@ innaAppServices.factory('DynamicPackagesCacheWizard', [
             },
             put: function(key, value){
                 if(value !== null) {
-                    $.cookie(PREFIX + key, value);
+                    localStorage.setItem(PREFIX + key, value);
                 } else {
                     o.drop(key);
                 }
 
             },
             drop: function(key) {
-                $.removeCookie(PREFIX + key);
+                localStorage.removeItem(PREFIX + key);
             },
             validate: function(key, value){
                 var validator = validators[key];
@@ -55,8 +55,15 @@ innaAppServices.factory('DynamicPackagesCacheWizard', [
             notNull: function(value, callback){
                 if(value !== null || !callback) return value;
                 else return callback();
+            },
+            clear: function(){
+                var str = '';
+
+                for(var key in localStorage) if(key.startsWith(PREFIX)) {
+                    o.drop(key.split(PREFIX)[1]);
+                }
             }
-        }
+        };
 
         return o;
     }

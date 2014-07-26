@@ -282,7 +282,7 @@ inna.Models.Avia.Ticket.prototype.collectAirlines = function () {
 
 inna.Models.Avia.Ticket.prototype.getBackOutCode = function(){
     var etapsBack = this.getEtaps('Back');
-    var lastEtap = etapsBack[etapsBack.length - 1];
+    var lastEtap = etapsBack[0];
 
     return lastEtap.data.OutCode;
 }

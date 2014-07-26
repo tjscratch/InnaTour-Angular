@@ -57,12 +57,17 @@ angular.module('innaApp.directives')
                                 fits = fits || (option.value == hotel.data.TaFactorCeiled);
                             });
 
-                            if (!fits) hotel.hidden = true;
+                            if (!fits) {
+                                hotel.hidden = true;
+                                hotel.data.hidden = true;
+                            }
                         }
                         $scope.options = $scope.filter.options = new Options();
 
                         /*Watchers*/
                         var unwatchHotelsCollection = $scope.$watchCollection('hotels', function (hotels) {
+                            if(!hotels || !hotels.list.length) return;
+
                             var collections = {};
 
                             hotels.each(function (hotel) {
@@ -81,13 +86,15 @@ angular.module('innaApp.directives')
 
                                 $scope.options.push(new Option(factor, factor, collections[factor].getMinPrice($scope.bundle)));
                             }
+
+                            unwatchHotelsCollection();
                         });
 
 
                         //destroy
                         $scope.$on('$destroy', function () {
 
-                        })
+                        });
                     }
                 ]
             }

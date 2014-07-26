@@ -64,9 +64,14 @@ innaAppDirectives.directive('counterPeople', ['$templateCache', function($templa
 
             $(document).click(function bodyClick(event){
                 var isInsideComponent = !!$(event.target).closest(element).length;
+                var isOnComponentTitle = event.target == element || event.target == scope.rootElement[0];
 
                 scope.$apply(function($scope){
-                    $scope.isOpen = isInsideComponent;
+                    if(isOnComponentTitle) {
+                        $scope.isOpen = !$scope.isOpen;
+                    } else {
+                        $scope.isOpen = isInsideComponent;
+                    }
                 });
             });
         }

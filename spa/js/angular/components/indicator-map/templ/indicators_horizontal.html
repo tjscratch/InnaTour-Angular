@@ -1,13 +1,10 @@
-<aside class="b-switch-filters results-aside results-aside_mod results-aside_mod_horizontal">
+<aside class="b-switch-filters results-aside results-aside_mod results-aside_mod_horizontal"
+        ng-class="{'b-switch-filters_mod-wrapper': mod_wrapper}">
     <div class="ra-tags-container">
         <div class="b-switch-filters_buttons">
 
-            <div class="b-switch-dynamic-serp-display" ng-class="{'b-switch-dynamic-serp-display_state_map': mod_wrapper}" ng-click="action()">
-                <div class="b-switch-dynamic-serp-display__title" ng-if="!mod_wrapper">
-                    <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
-                    Посмотреть на карте
-                </div>
-                <div class="b-switch-dynamic-serp-display__title" ng-if="mod_wrapper">
+            <div class="b-switch-dynamic-serp-display b-switch-dynamic-serp-display_state_map" ng-if="mod_wrapper" ng-click="action()">
+                <div class="b-switch-dynamic-serp-display__title b-switch-dynamic-serp-display__title_at_map" ng-if="mod_wrapper">
                     <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-list2"></span>
                     Вернуться к списку
                 </div>
