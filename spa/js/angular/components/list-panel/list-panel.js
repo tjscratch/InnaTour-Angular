@@ -27,19 +27,16 @@ angular.module('innaApp.conponents').
 
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
-                append : true,
                 data: {
-                    iterable_hotels : true,
+                    iterable_hotels : false,
                     iterable_tickets : false,
-                    countItemsVisible: 10,
-                    Enumerable : [],
                     EnumerableList: [],
-                    EnumerableListNew : []
+                    countItemsVisible: 10
                 },
-                /*partials : {
+                partials : {
                     EnumerableItemHotels : $templateCache.get('components/list-panel/templ/enumerableItemHotel.hbs.html'),
                     EnumerableItemTickets : $templateCache.get('components/list-panel/templ/enumerableItemTicket.hbs.html')
-                },*/
+                },
                 components: {
                     IndicatorFilters : IndicatorFilters,
                     HotelItem: HotelItem,
@@ -81,14 +78,12 @@ angular.module('innaApp.conponents').
                      * Срабатывает один раз
                      * Далее копируем массив Enumerable и работаем с копией
                      */
-                    this.cloneData();
-
-                   /* this.observe('Enumerable', function (newValue, oldValue, keypath) {
+                    this.observe('Enumerable', function (newValue, oldValue, keypath) {
                         if (newValue) {
-
+                            this.cloneData();
                             this.set({waitData : false})
                         }
-                    });*/
+                    });
 
                     /**
                      * Сделим за изменениями массива EnumerableList
@@ -97,7 +92,7 @@ angular.module('innaApp.conponents').
                     this.observe('EnumerableList', function (newValue, oldValue, keypath) {
                         if (newValue) {
 
-                            console.log(newValue, 'newValue');
+                            /*console.log(newValue, 'newValue');
 
                             console.table([
                                 {
@@ -106,7 +101,7 @@ angular.module('innaApp.conponents').
                                     Enumerable: this.get('Enumerable').length,
                                     enumerableClone: this.enumerableClone.length
                                 }
-                            ]);
+                            ]);*/
 
                             // после добавления элементов в EnumerableList
                             // обновляем координаты
@@ -297,7 +292,7 @@ angular.module('innaApp.conponents').
                  * @param opt_data
                  */
                 cloneData: function (opt_data) {
-                    if(opt_data) this.set({EnumerableList: []});
+                    if(opt_data) this.set('EnumerableList', []);
                     this.enumerableClone = [].concat(opt_data || this.get('Enumerable'));
                     // получаем первую порцию из n item
                     // далее по скроллингу
