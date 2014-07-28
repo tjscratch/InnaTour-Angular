@@ -43,6 +43,13 @@ angular.module('innaApp.conponents').
                             }
                             //console.log('onChecked', this.get('value'));
                         },
+                        resetFilter: function () {
+                            this.set('tafactor.list.*.isChecked',  false);
+                            this.set({
+                                'value.val' : [],
+                                'isOpen': false
+                            });
+                        },
                         teardown: function (evt) {
                             FilterThis = null;
                         }

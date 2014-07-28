@@ -30,7 +30,10 @@ angular.module('innaApp.conponents').
                         },
                         unselected : function(){
                             this.set({ selected : false })
-                        }
+                        },
+                        resetFilter: function () {
+                            this.set('value.val', []);
+                        },
                     })
 
                 }

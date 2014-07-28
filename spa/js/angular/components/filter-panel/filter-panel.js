@@ -23,13 +23,12 @@ angular.module('innaApp.conponents').
         'FilterExtra',
         'FilterPrice',
         'FilterName',
-        'FilterCategory',
         'FilterSlider',
         'FilterStars',
         'FilterTaFactor',
         'FilterType',
         'FilterSort',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, FilterExtra, FilterPrice, FilterName, FilterCategory, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, FilterExtra, FilterPrice, FilterName, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
 
 
             /**
@@ -61,7 +60,6 @@ angular.module('innaApp.conponents').
                     'FilterExtra': FilterExtra,
                     'FilterPrice': FilterPrice,
                     'FilterName': FilterName,
-                    'FilterCategory': FilterCategory,
                     'FilterSlider': FilterSlider,
                     'FilterStars': FilterStars,
                     'FilterTaFactor': FilterTaFactor,
@@ -81,6 +79,16 @@ angular.module('innaApp.conponents').
 
                         }
                     })
+
+
+                    /** если нужно закрыть все открытые фильтры */
+                    EventManager.on(Events.FILTER_PANEL_CLOSE_FILTERS, function(){
+                        var childComponents = that.findAllComponents();
+
+                        childComponents.forEach(function(child){
+                            child.set({isOpen : false});
+                        })
+                    });
                 },
 
                 /**
@@ -140,6 +148,7 @@ angular.module('innaApp.conponents').
 
                     if(this.get('filtersCollection').length) {
                         this.set('alreadyFiltered', true);
+                        console.log('alreadyFiltered');
                         EventManager.fire('filter-panel:change', this.get('filtersCollection'));
                     } else {
                         if(this.get('alreadyFiltered')){
@@ -150,11 +159,6 @@ angular.module('innaApp.conponents').
 
 
                 parse: function (end) {
-
-                },
-
-
-                doFilter: function () {
 
                 },
 

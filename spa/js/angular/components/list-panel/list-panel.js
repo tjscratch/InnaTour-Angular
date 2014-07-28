@@ -271,10 +271,13 @@ angular.module('innaApp.conponents').
                         this.addScroll();
                     }
 
-                    // если отелей меньше 3, то скролл нам не нужен
-                    if (filterEnumerable.length < 3) this.removeScroll();
+                    // если список меньше колличества разовой порции, то скролл нам не нужен
+                    if (filterEnumerable.length <= this.get('countItemsVisible')) this.removeScroll();
 
-                    console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
+                    //console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
+
+
+                    //EventManager.fire(Events.FILTER_PANEL_CLOSE_FILTERS);
                 },
 
                 /**

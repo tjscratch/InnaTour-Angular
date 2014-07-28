@@ -18,8 +18,8 @@ angular.module('innaApp.conponents').
                         name: 'HotelName',
                         val: [],
                         fn : function(data){
-                            var result = data.indexOf(FilterThis.get('value.val'));
-                            return (result >= 0) ? true : false;
+                            var reg = new RegExp(FilterThis.get('value.val'), 'i');
+                            if (reg.test(data)) return true;
                         }
                     }
                 },
@@ -49,8 +49,15 @@ angular.module('innaApp.conponents').
                                     } else {
                                         this.set('value.val', '')
                                     }
-                                }.bind(this), 500);
+                                }.bind(this), 300);
                             }
+                        },
+                        resetFilter: function () {
+                            this.set({
+                                'value.val': [],
+                                'name.value' : '',
+                                'isOpen': false
+                            });
                         },
                         teardown: function (evt) {
                             FilterThis = null;

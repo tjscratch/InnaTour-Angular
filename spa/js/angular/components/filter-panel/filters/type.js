@@ -17,7 +17,7 @@ angular.module('innaApp.conponents').
                         name : 'HotelType',
                         val : [],
                         fn : function(data){
-                            var result = FilterThis.get('data.value.val').filter(function(item){
+                            var result = FilterThis.get('value.val').filter(function(item){
                                 if (data == item) return true;
                             })
 
@@ -37,12 +37,19 @@ angular.module('innaApp.conponents').
                         onChecked: function (data) {
                             if (data && data.context) {
                                 if (data.context.isChecked) {
-                                    this.push('value.val', data.context.value)
+                                    this.push('value.val', data.context.name) // data.context.value
                                 } else if (!data.context.isChecked) {
-                                    this.splice('value.val', this.get('value.val').indexOf(data.context.value), 1);
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.name), 1);
                                 }
                             }
                             //console.log('onChecked', this.get('value'));
+                        },
+                        resetFilter: function () {
+                            this.set('type.list.*.isChecked', false);
+                            this.set({
+                                'value.val' : [],
+                                'isOpen': false
+                            });
                         },
                         teardown: function (evt) {
                             FilterThis = null;

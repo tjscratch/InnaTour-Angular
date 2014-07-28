@@ -14,10 +14,11 @@ angular.module('innaApp.conponents').
                 template: $templateCache.get('components/filter-panel/templ-filters/price.hbs.html'),
                 data: {
                     value : {
-                        name : 'Price',
+                        name : 'PackagePrice',
                         val : [],
                         fn : function(data){
-
+                            console.log(data , FilterThis.get('value.val')[0]);
+                            return (data <= FilterThis.get('value.val')[0]);
                         }
                     },
                     priceValue : null
@@ -34,18 +35,14 @@ angular.module('innaApp.conponents').
                     this.on({
                         change: function (data) {
 
-                            // ставим условие чтоб тело функции change
-                            // выполнялось на изменение priceValue
-                            if(data && data['price.value']) {
-                                clearTimeout(this._timeOut);
-                                this._timeOut = setTimeout(function () {
-                                    if (data['price.value'] > 0) {
-                                        this.push('value.val', data['price.value'])
-                                    } else {
-                                        this.set('value.val', [])
-                                    }
-                                }.bind(this), 1000);
-                            }
+                        },
+                        resetFilter: function () {
+
+                            this.set({
+                                'price.value' : 0,
+                                'value.val' : 0,
+                                'isOpen': false
+                            });
                         },
                         teardown: function (evt) {
                             FilterThis = null;
@@ -58,13 +55,18 @@ angular.module('innaApp.conponents').
 
                 },
 
-
-                beforeInit: function (data) {
-                    //console.log('beforeInit');
-                },
-
                 slide : function(val){
-                    this.set('price.value', val );
+                    this.set('price.value', val);
+                    if(val) {
+                        clearTimeout(this._timeOut);
+                        this._timeOut = setTimeout(function () {
+                            if (val > 0) {
+                                this.set('value.val', [val])
+                            } else {
+                                this.set('value.val', [])
+                            }
+                        }.bind(this), 500);
+                    }
                 },
 
                 complete: function (data) {
@@ -73,8 +75,8 @@ angular.module('innaApp.conponents').
 
                     $(slider).slider({
                         range: "min",
-                        min: 10000,
-                        max: 100000,
+                        min: that.get('price.min'),
+                        max: that.get('price.max'),
                         value: that.get('price.value'),
                         slide: function(event, ui) {
                             that.slide(ui.value)

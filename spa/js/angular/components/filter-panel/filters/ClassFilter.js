@@ -38,9 +38,6 @@ angular.module('innaApp.conponents').
                         hide: function (opt_child) {
                             this.set({ isOpen: false });
                         },
-                        resetFilter: function () {
-                            console.log('reset');
-                        },
                         change: function (data) {
 
                         },

@@ -17,12 +17,12 @@ angular.module('innaApp.conponents').
                         name: 'Extra',
                         val: [],
                         fn: function (data) {
-                            var result = FilterThis.get('value.val').filter(function (filterExtra) {
-                                return data[filterExtra] != undefined
-                            })
-
-                            console.log(Object.keys(data).length , result.length);
-                            return (Object.keys(data).length == result.length)
+                            if(typeof data == 'object' && Object.keys(data).length) {
+                                var result = FilterThis.get('value.val').filter(function (filterExtra) {
+                                    return data[filterExtra] != undefined
+                                })
+                                return (FilterThis.get('value.val').length == result.length)
+                            }
                         }
                     }
                 },
@@ -47,6 +47,13 @@ angular.module('innaApp.conponents').
                                 }
                             }
                             //console.log('onChecked', this.get('value'));
+                        },
+                        resetFilter: function () {
+                           this.set('services.list.*.isChecked',  false);
+                           this.set({
+                               'value.val': [],
+                               'isOpen': false
+                           });
                         },
                         teardown: function (evt) {
                             FilterThis = null;

@@ -3,6 +3,8 @@ angular.module('innaApp.conponents').
         function () {
             return {
                 price: {
+                    min : 10000,
+                    max : 100000,
                     value: 30000
                 },
                 stars: [
