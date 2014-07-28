@@ -15,7 +15,7 @@ gulp.task('less', function () {
             conf.dest +'/less/main/*.less',
             conf.dest +'/less/pages/*.less'
     ])
-        .pipe(concat('main.less.css'))
+        .pipe(concat('main.less.css', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(less())
         .pipe(gulpif(_ENV_ === 'production', minifyCSS()))
         .pipe(gulp.dest(conf.build +'/css'));
