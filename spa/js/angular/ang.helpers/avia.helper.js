@@ -613,6 +613,7 @@
 
                     self.show = function ($event, item, criteria, searchId, hideBuyButton) {
                         //console.log('popupItemInfo.show');
+                        //console.log(item);
                         eventsHelper.preventBubbling($event);
                         self.isShow = true;
                         self.hideBuyButton = hideBuyButton;
