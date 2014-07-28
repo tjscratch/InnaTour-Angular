@@ -15,7 +15,8 @@
                 theme: '@',
                 askForData: '=',
                 placeholder: '@',
-                onError: '@'
+                onError: '@',
+                withCountry: '='
             },
             controller: ['$scope', '$timeout', function ($scope, $timeout) {
                 /*Properties*/
@@ -66,7 +67,11 @@
                             $scope.doResultCallback(airport);
                         }
                         else {
-                            $scope.input.val(option.Name);
+                            var valueBits = [option.Name];
+                            if($scope.withCountry) {
+                                valueBits.push(option.CountryName);
+                            }
+                            $scope.input.val(valueBits.join(', '));
                             $scope.result = option.Id;
                             $scope.doResultCallback(option);
                         }
