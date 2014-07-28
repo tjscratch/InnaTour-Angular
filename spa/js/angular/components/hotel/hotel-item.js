@@ -35,8 +35,9 @@ angular.module('innaApp.conponents').
                 },
 
 
-                init: function () {
+                init: function (options) {
                     var that = this;
+                    this._super(options);
 
                     var modelHotel = new inna.Models.Hotels.Hotel(this.get('hotel'))
                     var virtualBundle = new inna.Models.Dynamic.Combination();
@@ -53,17 +54,11 @@ angular.module('innaApp.conponents').
                         setCurrent: this.setCurrent,
                         goToMap: this.goToMap,
                         getHotelDetails: this.getHotelDetails,
-                        insert: function () {
-                            console.log('insert');
-                        },
-                        remove: function () {
-                            console.log('remove');
-                        },
                         change: function (data) {
 
                         },
                         teardown: function (evt) {
-                            //console.log('teardown hotel item');
+                            console.log('teardown hotel item');
                         }
                     })
 

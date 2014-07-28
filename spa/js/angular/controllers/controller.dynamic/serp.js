@@ -233,7 +233,6 @@ innaAppControllers
                                 el: document.querySelector('.results-container_list'),
                                 data: {
                                     indicator_filters: true,
-                                    iterable_hotels: true,
                                     Enumerable: data.Hotels,
                                     combinationModel: $scope.combination
                                 }
@@ -290,7 +289,7 @@ innaAppControllers
                         }
 
                         /** Если пришли даннные по отелям */
-                        if (data.AviaInfos) {
+                       /* if (data.AviaInfos) {
                             ListPanelComponent = new ListPanel({
                                 el: document.querySelector('.results-container_list'),
                                 data: {
@@ -300,7 +299,7 @@ innaAppControllers
                                     combinationModel: $scope.combination
                                 }
                             });
-                        }
+                        }*/
 
                         $scope.safeApply(function () {
                             $scope.tickets.flush();

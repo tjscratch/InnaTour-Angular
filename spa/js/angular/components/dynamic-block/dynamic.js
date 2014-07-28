@@ -49,8 +49,7 @@ innaAppConponents.
              * @constructor
              */
             var DynamicBlock = Ractive.extend({
-                debug: true,
-                append: true,
+                //append: true,
                 template: $templateCache.get('components/dynamic-block/templ/base.hbs.html'),
                 data: {
                     settings: {
