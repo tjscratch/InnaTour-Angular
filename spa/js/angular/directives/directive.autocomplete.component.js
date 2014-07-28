@@ -15,11 +15,12 @@
                 theme: '@',
                 askForData: '=',
                 placeholder: '@',
-                onError: '@'
+                onError: '@',
+                withCountry: '='
             },
             controller: ['$scope', '$timeout', function ($scope, $timeout) {
                 /*Properties*/
-                $scope.fulfilled = false;
+                $scope.needClose = false;
 
                 $scope.getPlaceholder = function () {
                     if ($scope.placeholder == null || $scope.placeholder.length == 0)
@@ -50,10 +51,12 @@
                     $scope.result = item.Id;
                 }
 
-                $scope.supressBlur = false;
+                //$scope.supressBlur = false;
 
                 /*Events*/
-                $scope.setCurrent = function ($event, option, airport) {
+                //doNotUpdateInputText - сделано, чтобы визуально элемент еще можно было выбирать, а фактически значение прокидывается сразу, при индикации выбранного в саджесте
+                $scope.setCurrent = function ($event, option, airport, doNotUpdateInputText) {
+                    //console.log('$scope.setCurrent');
                     $timeout.cancel($scope.timeoutId);
 
                     //запрещаем баблинг
@@ -61,22 +64,36 @@
 
                     if (option != null) {
                         if (airport != null) {
-                            $scope.input.val(airport.Name);
+                            if (!doNotUpdateInputText) {
+                                $scope.input.val(airport.Name);
+                            }
+                            
                             $scope.result = airport.Id;
                             $scope.doResultCallback(airport);
                         }
                         else {
-                            $scope.input.val(option.Name);
+                            var valueBits = [option.Name];
+                            if($scope.withCountry) {
+                                valueBits.push(option.CountryName);
+                            }
+                            
+                            if (!doNotUpdateInputText) {
+                                $scope.input.val(valueBits.join(', '));
+                            }
+
                             $scope.result = option.Id;
                             $scope.doResultCallback(option);
                         }
                     }
-                    $scope.fulfilled = true;
+
+                    if (!doNotUpdateInputText) {
+                        $scope.needClose = true;
+                    }
                 };
 
                 $scope.unfulfill = function () {
                     //console.log('keypress unfulfill');
-                    //$scope.fulfilled = false;
+                    //$scope.needClose = false;
                     //$scope.result = null;
                 };
 
@@ -212,14 +229,15 @@
                     };
                     self.updateInputText = function () {
                         //$scope.input.val(self.list[self.selectedIndex].item.Name);
+                        self.setSelected(true);
                     }
-                    self.setSelected = function () {
+                    self.setSelected = function (doNotUpdateInputText) {
                         var i = self.list[self.selectedIndex];
 
-                        console.log('setSelected::i', i);
+                        //console.log('setSelected::i', i);
 
                         if (i) {
-                            $scope.setCurrent(null, i.option, i.airport);
+                            $scope.setCurrent(null, i.option, i.airport, doNotUpdateInputText);
                         }
                         
                         //var inputs = $('.search-field', $scope.input.parent().parent());
@@ -236,7 +254,7 @@
                 $scope.$watch('suggest', function (newValue, oldValue) {
                     if (newValue != null && newValue !== oldValue) {
                         $scope.selectionControl.init();
-                        $scope.fulfilled = false;
+                        $scope.needClose = false;
                     }
                 }, false);
 
@@ -254,20 +272,20 @@
 
                 /*Events*/
                 function select(){
-                    console.log('SELECT');
+                    //console.log('SELECT');
                     $scope.$apply(function ($scope) {
-                        if (!$scope.fulfilled) {
+                        if (!$scope.needClose) {
                             $scope.selectionControl.setSelected();
                         }
                         else {
-                            $scope.fulfilled = false;
+                            $scope.needClose = false;
                         }
                     });
                 }
 
                 $scope.input.on('focus', function () {
                     //$scope.$apply(function ($scope) {
-                    //    $scope.fulfilled = false;
+                    //    $scope.needClose = false;
                     //});
 
                     try {
@@ -277,11 +295,12 @@
 
                     goSearch();
                 }).on('blur', function () {
+                    //console.log('input blur');
                     $scope.timeoutId = $timeout(function () {
                         $scope.$apply(function ($scope) {
                             $scope.selectionControl.setSelected();
 
-                            $scope.fulfilled = true;
+                            $scope.needClose = true;
                         });
 
                     }, 200);
@@ -319,22 +338,22 @@
                             }
                         case 38: {//up
                             $scope.$apply(function ($scope) {
-                                if (!$scope.fulfilled) {
+                                if (!$scope.needClose) {
                                     $scope.selectionControl.selectPrev();
                                 }
                                 else {
-                                    $scope.fulfilled = false;
+                                    $scope.needClose = false;
                                 }
                             });
                             break;
                         }
                         case 40: {//down
                             $scope.$apply(function ($scope) {
-                                if (!$scope.fulfilled) {
+                                if (!$scope.needClose) {
                                     $scope.selectionControl.selectNext();
                                 }
                                 else {
-                                    $scope.fulfilled = false;
+                                    $scope.needClose = false;
                                 }
                             });
                             break;
@@ -358,15 +377,18 @@
                     }
                 }
 
-                function clickHanlder (event) {
+                function clickHanlder(event) {
+                    
                     var isInsideComponent = !!$(event.target).closest(elem).length;
 
                     if (!isInsideComponent) {
+                        //console.log('clickHanlder outside');
                         $scope.$apply(function ($scope) {
-                            $scope.fulfilled = true;
+                            $scope.needClose = true;
                         });
                     }
                     else {
+                        //console.log('clickHanlder inside');
                         //select all
                         $(event.target).select();
                     }

@@ -23,8 +23,6 @@ innaAppControllers.
                 //$log.log.apply($log, arguments);
             }
 
-            var AVIA_COOK_NAME = "form_avia_cook";
-
             //console.log('$routeParams');
             //console.log($routeParams);
 
@@ -78,7 +76,7 @@ innaAppControllers.
 
             function setFromAndToFieldsFromUrl(routeCriteria, afterCompleteCallback) {
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
-                    $scope.criteria.From = 'загружается...';
+                    //$scope.criteria.From = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
                         $scope.$apply(function ($scope) {
                             //обновляем данные
@@ -99,7 +97,7 @@ innaAppControllers.
                 }
 
                 if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
-                    $scope.criteria.To = 'загружается...';
+                    //$scope.criteria.To = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
                         $scope.$apply(function ($scope) {
                             //обновляем данные
@@ -169,7 +167,7 @@ innaAppControllers.
                 var f_now = null;
                 var f_nowAdd5days = null;
 
-                var defaultCriteria = getParamsFromCookie();
+                var defaultCriteria = getParamsFromStorage();
 
                 if (defaultCriteria == null) {
                     defaultCriteria = new aviaCriteria({
@@ -201,18 +199,21 @@ innaAppControllers.
                 return defaultCriteria;
             };
             
-            function getParamsFromCookie() {
-                var cookVal = $.cookie(AVIA_COOK_NAME);
+            function getParamsFromStorage() {
+                var cookVal = aviaService.getForm();
+                //console.log('get stored value: %s', cookVal);
+
                 var resCriteria = null;
-                log('getParamsFromCookie, cookVal: ' + cookVal);
                 if (cookVal != null) {
                     var formVal = angular.fromJson(cookVal);
 
                     resCriteria = {};
                     resCriteria.FromId = formVal.FromId;
                     resCriteria.FromUrl = formVal.FromUrl;
+                    resCriteria.From = formVal.From;
                     resCriteria.ToId = formVal.ToId;
                     resCriteria.ToUrl = formVal.ToUrl;
+                    resCriteria.To = formVal.To;
                     resCriteria.BeginDate = formVal.BeginDate;
                     resCriteria.EndDate = formVal.EndDate;
                     resCriteria.AdultCount = formVal.AdultCount;
@@ -226,12 +227,14 @@ innaAppControllers.
                 return resCriteria;
             };
 
-            function saveParamsToCookie() {
+            function saveParamsToStorage() {
                 var saveObj = {};
                 saveObj.FromId = $scope.criteria.FromId;
                 saveObj.FromUrl = $scope.criteria.FromUrl;
+                saveObj.From = $scope.criteria.From;
                 saveObj.ToId = $scope.criteria.ToId;
                 saveObj.ToUrl = $scope.criteria.ToUrl;
+                saveObj.To = $scope.criteria.To;
                 saveObj.BeginDate = $scope.criteria.BeginDate;
                 saveObj.EndDate = $scope.criteria.EndDate;
                 saveObj.AdultCount = $scope.criteria.AdultCount;
@@ -243,13 +246,15 @@ innaAppControllers.
                 saveObj.PathType = $scope.criteria.PathType;
 
                 var cookVal = angular.toJson(saveObj);
-                log('saveParamsToCookie, cookVal: ' + cookVal);
-                //сохраняем сессионную куку
-                $.cookie(AVIA_COOK_NAME, cookVal);
+                //console.log('saved value: %s', cookVal);
 
-                var testVal = $.cookie(AVIA_COOK_NAME);
-                log('saveParamsToCookie, testVal: ' + testVal);
+                aviaService.saveForm(cookVal);
             };
+
+            function clearStorage() {
+                //console.log('clearStorage');
+                aviaService.clearForm();
+            }
 
             //добавляем в кэш откуда, куда
             //addDefaultFromToDirectionsToCache(defaultCriteria);
@@ -275,7 +280,7 @@ innaAppControllers.
                     if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0 &&
                         $scope.criteria.FromUrl.length > 0 && $scope.criteria.ToUrl.length > 0) {
 
-                        saveParamsToCookie();
+                        saveParamsToStorage();
                         //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
                         var oldUrl = $location.path();
                         var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
@@ -403,6 +408,17 @@ innaAppControllers.
                 $scope.criteria.CabinClass = newVal.value;
             });
 
+            $scope.$watch('criteria', function (newVal, oldVal) {
+                if (newVal != null) {
+                    saveParamsToStorage();
+                }
+            }, true);
+
             $scope.maxDate = new Date();
             $scope.maxDate.setFullYear($scope.maxDate.getFullYear() + 1);
+
+            //unload
+            $(window).on('unload beforeunload', function () {
+                clearStorage();
+            });
         }]);

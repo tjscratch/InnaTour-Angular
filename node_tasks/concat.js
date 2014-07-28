@@ -3,7 +3,6 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglifyjs');
 var gulpif = require('gulp-if');
 var conf = require('./config');
-var stripDebug = require('gulp-strip-debug');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -28,8 +27,7 @@ gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-re
             conf.dest + '/js/angular/**/*.js'
     ])
 
-        .pipe(concat('app-main.js'))
-        //.pipe(stripDebug())
+        .pipe(concat('app-main.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulpif(_ENV_ === 'production', uglify({
             mangle: false,
             outSourceMap: true
@@ -54,26 +52,26 @@ gulp.task('concat-lib', function () {
             conf.dest + '/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js'
     ])
 
-        .pipe(concat('app-lib.js'))
+        .pipe(concat('app-lib.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build +'/js'));
 });
 
 
 gulp.task('concat-components', function () {
     return gulp.src(conf.dest + '/js/angular/components/**/*.js')
-        .pipe(concat('components.js'))
+        .pipe(concat('components.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('concat-regions', function () {
     return gulp.src(conf.dest + '/js/angular/regions/**/*.js')
-        .pipe(concat('regions.js'))
+        .pipe(concat('regions.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('concat-pages', function () {
     return gulp.src(conf.dest + '/js/angular/pages/**/*.js')
-        .pipe(concat('pages.js'))
+        .pipe(concat('pages.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
@@ -88,26 +86,26 @@ gulp.task('concat-jq.plugins', function () {
             conf.dest + '/js/angular/plugins/carousel.js',
             conf.dest + '/js/datepicker.js'
     ])
-        .pipe(concat('jq.plugins.js'))
+        .pipe(concat('jq.plugins.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 
 gulp.task('concat-services', function () {
     return gulp.src(conf.dest + '/js/angular/services/**/*.js')
-        .pipe(concat('services.js'))
+        .pipe(concat('services.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('concat-controllers', function () {
     return gulp.src(conf.dest + '/js/angular/controllers/**/*.js')
-        .pipe(concat('controllers.js'))
+        .pipe(concat('controllers.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('concat-directives', function () {
     return gulp.src(conf.dest + '/js/angular/directives/**/*.js')
-        .pipe(concat('directives.js'))
+        .pipe(concat('directives.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
@@ -119,7 +117,7 @@ gulp.task('concat-models', function () {
             conf.dest + '/js/angular/models/app.model.js',
             conf.dest + '/js/angular/models/**/*.js'
     ])
-        .pipe(concat('models.js'))
+        .pipe(concat('models.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
@@ -129,14 +127,14 @@ gulp.task('concat-helpers', function () {
             conf.dest + '/js/angular/helpers/utils.js',
             conf.dest + '/js/angular/helpers/**/*.js'
     ])
-        .pipe(concat('helpers.js'))
+        .pipe(concat('helpers.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 
 gulp.task('concat-api.helpers', function () {
     return gulp.src(conf.dest + '/js/angular/ang.helpers/**/*.js')
-        .pipe(concat('api.helpers.js'))
+        .pipe(concat('api.helpers.js', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
