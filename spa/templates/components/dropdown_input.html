@@ -1,7 +1,7 @@
 <div class="b-wrapp_type_inline {{theme}}">
     <input type="text" data-title="{{onError || 'Поле заполнено некорректно' }}" class="search-field" placeholder="{{getPlaceholder()}}" ng-keydown="unfulfill()"/>
     <input type="hidden" ng-model="result"/>
-    <ul class="search-autocomplete" ng-if="!fulfilled && suggest">
+    <ul class="search-autocomplete" ng-if="!needClose && suggest">
         <li ng-repeat="item in suggest" ng-click="setCurrent($event, item)">
             <span class="search-autocomplete-block" ng-class="{selected:selectionControl.isItemSelected(item)}">
                 <span class="search-autocomplete-city">{{item.Name}}, <b>{{item.CountryName}}</b><em ng-show="item.Airport">, (все аэропорты)</em></span>
