@@ -95,23 +95,23 @@ angular.module('innaApp.conponents').
                 sort: [
                     {
                         name: 'По цене пакета',
-                        value: 1
+                        value: 'PackagePrice'
                     },
                     {
                         name: 'По рейтингу Инна Тур',
-                        value: 2
+                        value: 'RecommendedFactor'
                     },
                     {
                         name: 'По рейтингу Trip Advisor',
-                        value: 3
+                        value: 'TaFactor'
                     },
                     {
                         name: 'По названию',
-                        value: 4
+                        value: 'HotelName'
                     },
                     {
                         name: 'По размеру скидки в руб',
-                        value: 5
+                        value: 'getProfit'
                     }
                 ]
             }

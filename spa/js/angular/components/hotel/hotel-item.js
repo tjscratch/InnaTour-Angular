@@ -27,8 +27,8 @@ angular.module('innaApp.conponents').
                 },
                 partials: {
                     collOneContent: '<HotelGallery photoList="{{Photos}}"/>',
-                    collTwoContent: $templateCache.get('components/hotel/templ/hotel-center.hbs.html')
-                    //collThreeContent : see DynamicBlock
+                    collTwoContent: $templateCache.get('components/hotel/templ/hotel-center.hbs.html'),
+                    collThreeContent : $templateCache.get('components/dynamic-block/templ/combination-price.hbs.html')
                 },
                 components: {
                     HotelGallery: HotelGallery
@@ -44,6 +44,8 @@ angular.module('innaApp.conponents').
                     virtualBundle.hotel = modelHotel;
                     virtualBundle.ticket = this.get('combinationModel').ticket;
 
+
+                    //this.set('hotel.getProfit', virtualBundle.getProfit());
                     this.set({
                         virtualBundle: virtualBundle,
                         modelHotel: modelHotel

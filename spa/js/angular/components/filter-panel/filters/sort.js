@@ -15,25 +15,27 @@ angular.module('innaApp.conponents').
 
             var SortedItem = Ractive.extend({
                 // microtemplates
-                template : "<li class='{{ selected ? 'current':''}}' on-click='selectSort'>{{name}}</li>",
+                template : "<li class='{{ selected ? 'current':''}}' data-val='{{value}}' on-click='selectSort'>{{name}}</li>",
                 data : {
                     selected : false,
                     current : null
                 },
                 init : function(){
+                    var that = this;
+
                     this.on({
                         selectSort : function(data){
-                            this.set({
-                                current : this.get('name'),
-                                selected : true
-                            });
+                            this.set('selected', true);
                         },
                         unselected : function(){
                             this.set({ selected : false })
-                        },
-                        resetFilter: function () {
-                            this.set('value.val', []);
-                        },
+                        }
+                    })
+
+                    EventManager.on('sortChild:selected', function (childComponent) {
+                        if (childComponent._guid != that._guid) {
+                            that.set({ selected : false });
+                        }
                     })
 
                 }
@@ -44,9 +46,12 @@ angular.module('innaApp.conponents').
                 template: $templateCache.get('components/filter-panel/templ-filters/sort.hbs.html'),
                 data: {
                     lowercaseFirst : $filter('lowercaseFirst'),
-                    value : {
-                        name : 'sort',
-                        val : []
+                    nameFilter : 'Sort',
+                    sortValue : {
+                        val : '',
+                        fn : function(data){
+
+                        }
                     }
                 },
                 components: {
@@ -57,7 +62,10 @@ angular.module('innaApp.conponents').
                     var that = this;
 
                     this.on({
-                        selectSort : this.selectSort
+                        selectSort : this.selectSort,
+                        resetFilter: function () {
+                            this.set('value.val', []);
+                        }
                     })
 
                     var that = this;
@@ -68,16 +76,13 @@ angular.module('innaApp.conponents').
 
                         child.observe('selected', function (newValue, oldValue) {
                             if (newValue) {
-                                that.set({current : child.get('current')})
-                                that.fire('sortChild:selected', child);
+                                that.set('sortValue',{
+                                    current : child.get('name'),
+                                    val : child.get('value')
+                                })
+                                EventManager.fire('sortChild:selected', child);
                             }
                         });
-
-                        child._parent.on('sortChild:selected', function (childComponent) {
-                            if (childComponent._guid != child._guid) {
-                                child.fire('unselected');
-                            }
-                        })
                     })
                 },
 

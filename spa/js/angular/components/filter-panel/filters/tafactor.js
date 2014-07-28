@@ -18,9 +18,10 @@ angular.module('innaApp.conponents').
                         name: 'TaFactor',
                         val: [],
                         fn : function(data){
+
                             var result = FilterThis.get('value.val').filter(function(item){
                                 if (Math.floor(data) == item) return true;
-                            })
+                            });
 
                             return (result.length) ? true : false;
                         }

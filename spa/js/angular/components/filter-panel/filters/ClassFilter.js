@@ -39,13 +39,26 @@ angular.module('innaApp.conponents').
                             this.set({ isOpen: false });
                         },
                         change: function (data) {
-
                         },
                         teardown: function (evt) {
                             console.log('teardown filter all');
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                         }
                     })
+
+                    // прокидываем сообщение до родителя о том что изменился какойто из фильтров
+                    this.observe('value.val', function (newValue, oldValue) {
+                        if(newValue) {
+                            this._parent.fire('filter-panel:child:change', newValue)
+                        }
+                    });
+
+                    // сортировка
+                    this.observe('sortValue.val', function (newValue, oldValue) {
+                        if(newValue) {
+                            this._parent.fire('filter-panel:sort:change', newValue)
+                        }
+                    });
                 },
 
                 bodyClickHide: function (evt) {

@@ -17,7 +17,6 @@ angular.module('innaApp.conponents').
                         name : 'PackagePrice',
                         val : [],
                         fn : function(data){
-                            console.log(data , FilterThis.get('value.val')[0]);
                             return (data <= FilterThis.get('value.val')[0]);
                         }
                     },
@@ -40,7 +39,7 @@ angular.module('innaApp.conponents').
 
                             this.set({
                                 'price.value' : 0,
-                                'value.val' : 0,
+                                'value.val' : [],
                                 'isOpen': false
                             });
                         },

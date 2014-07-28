@@ -30,6 +30,7 @@ angular.module('innaApp.conponents').
                 data: {
                     iterable_hotels : false,
                     iterable_tickets : false,
+                    EnumerableClone : [],
                     EnumerableList: [],
                     countItemsVisible: 10
                 },
@@ -46,6 +47,11 @@ angular.module('innaApp.conponents').
                     var that = this;
                     this.enumerableClone = [];
                     this._filterTimeout = null;
+
+                    if(this.get('iterable_hotels')){
+                        this.parse(this.get('Enumerable'), { hotel :  true });
+                    }
+
 
                     /**
                      * Вызов метода не чаще 500
@@ -131,23 +137,32 @@ angular.module('innaApp.conponents').
 
                     // выполняем фильтрацию не чаще 300ms
                     // защита от слишком частого нажатия на кнопки фильтрации
-                    EventManager.on('filter-panel:change', function (data) {
+                    EventManager.on(Events.FILTER_PANEL_CHANGE, function (data) {
+                        console.log('change .FILTER_PANEL_CHANGE');
                         clearTimeout(that._filterTimeout);
                         that._filterTimeout = setTimeout(function(){
                             that.doFilter(that.get('Enumerable'), data);
                         }, 300);
                     });
 
-                    EventManager.on('filter-panel:reset', function (data) {
+                    EventManager.on(Events.FILTER_PANEL_RESET, function (data) {
+                        console.log('Events.FILTER_PANEL_RESET');
                         clearTimeout(that._filterTimeout);
                         that._filterTimeout = setTimeout(function(){
                             that.resetFilter();
-                        }, 300);
+                        }, 100);
                     });
 
                     EventManager.on(Events.DYNAMIC_SERP_BACK_LIST, function () {
                         that.resetFilter();
                     });
+
+
+                    EventManager.on(Events.FILTER_PANEL_SORT, function (data) {
+                        that.set('sortValue', data);
+                        that.cloneData(that.sorting(data));
+                    });
+
                 },
 
 
@@ -213,8 +228,27 @@ angular.module('innaApp.conponents').
                     console.timeEnd("Execution time render");
                 },
 
-                parse: function (end) {
+                /**
+                 * Проходим по всему списку и создаем virtualBundle
+                 * дополняем объект данными
+                 *
+                 * @param data
+                 * @param opt_param
+                 * @returns {*}
+                 */
+                parse: function (data, opt_param) {
+                    var that = this;
 
+                    if(opt_param.hotel) {
+                        data.forEach(function (item) {
+                            var modelHotel = new inna.Models.Hotels.Hotel(item)
+                            var virtualBundle = new inna.Models.Dynamic.Combination();
+                            virtualBundle.hotel = modelHotel;
+                            virtualBundle.ticket = that.get('combinationModel').ticket;
+                            item.getProfit = virtualBundle.getProfit();
+                        })
+                    }
+                    return data;
                 },
 
                 /**
@@ -274,11 +308,36 @@ angular.module('innaApp.conponents').
                     // если список меньше колличества разовой порции, то скролл нам не нужен
                     if (filterEnumerable.length <= this.get('countItemsVisible')) this.removeScroll();
 
-                    //console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
+                    console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
 
 
                     //EventManager.fire(Events.FILTER_PANEL_CLOSE_FILTERS);
                 },
+
+
+                /**
+                 * Сортируем список
+                 * Используем $filter('orderBy') из angular
+                 * @param {String} sortValue
+                 * @param {List<>} opt_sort_data
+                 */
+
+                sorting : function(sortValue, opt_sort_data){
+                    var that = this;
+                    var sortData = opt_sort_data || this.get('Enumerable');
+                    var sortReverse = true;
+                    var expression = sortValue;
+
+
+                    switch(sortValue){
+                        case 'PackagePrice':
+                            sortReverse = false;
+                    }
+                    //console.log(sortValue, expression, sortReverse);
+
+                    return $filter('orderBy')(sortData, expression, sortReverse);
+                },
+
 
                 /**
                  * Сбрасываем список до начального состояния без фильтров

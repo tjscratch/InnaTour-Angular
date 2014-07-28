@@ -16,8 +16,8 @@ angular.module('innaApp.conponents').
                 data: {
                     value: {
                         name: 'HotelName',
-                        val: [],
-                        fn : function(data){
+                        val: '',
+                        fn: function (data) {
                             var reg = new RegExp(FilterThis.get('value.val'), 'i');
                             if (reg.test(data)) return true;
                         }
@@ -40,22 +40,17 @@ angular.module('innaApp.conponents').
                             // ставим условие чтоб тело функции change
                             // выполнялось на изменение name.value
                             if (data && (data['name.value'] != undefined)) {
-                                clearTimeout(this._timeOut);
 
+                                clearTimeout(this._timeOut);
                                 this._timeOut = setTimeout(function () {
-                                    if (this.get('name.value').length) {
-                                        var nameData = this.get('name.value').toLowerCase();
-                                        this.set('value.val', nameData); //.split(' ')
-                                    } else {
-                                        this.set('value.val', '')
-                                    }
-                                }.bind(this), 300);
+                                    this.set('value.val', data['name.value']);
+                                }.bind(this), 100);
                             }
                         },
                         resetFilter: function () {
                             this.set({
                                 'value.val': [],
-                                'name.value' : '',
+                                'name.value': '',
                                 'isOpen': false
                             });
                         },
@@ -63,10 +58,6 @@ angular.module('innaApp.conponents').
                             FilterThis = null;
                         }
                     });
-                },
-
-                changeName: function (data) {
-                    var that = this;
                 },
 
                 parse: function (end) {

@@ -40,7 +40,7 @@ angular.module('innaApp.conponents').
                 append: true,
                 data: {
                     asMap: false,
-                    filtersCollection : [],
+                    filtersCollection: [],
                     filter_hotel: true,
                     filter_avia: false,
 
@@ -64,7 +64,7 @@ angular.module('innaApp.conponents').
                     'FilterStars': FilterStars,
                     'FilterTaFactor': FilterTaFactor,
                     'FilterType': FilterType,
-                    'FilterSort' : FilterSort
+                    'FilterSort': FilterSort
                 },
                 init: function () {
                     var that = this;
@@ -80,13 +80,21 @@ angular.module('innaApp.conponents').
                         }
                     })
 
+                    this.on('filter-panel:child:change', function(data){
+                        that.collectChildData();
+                    })
+
+                    // сортировка
+                    this.on('filter-panel:sort:change', function (newValue) {
+                        EventManager.fire(Events.FILTER_PANEL_SORT, newValue);
+                    });
 
                     /** если нужно закрыть все открытые фильтры */
-                    EventManager.on(Events.FILTER_PANEL_CLOSE_FILTERS, function(){
+                    EventManager.on(Events.FILTER_PANEL_CLOSE_FILTERS, function () {
                         var childComponents = that.findAllComponents();
 
-                        childComponents.forEach(function(child){
-                            child.set({isOpen : false});
+                        childComponents.forEach(function (child) {
+                            child.set({isOpen: false});
                         })
                     });
                 },
@@ -110,14 +118,6 @@ angular.module('innaApp.conponents').
 
                     childComponents.forEach(function (child) {
 
-
-                        child.observe('value.val', function (newValue, oldValue) {
-                            if (newValue) {
-                                // собираем данные с панели фильтров
-                                that.collectChildData();
-                            }
-                        });
-
                         child.observe('isOpen', function (newValue, oldValue) {
                             if (newValue) {
                                 that.fire('hide:child', child);
@@ -137,22 +137,23 @@ angular.module('innaApp.conponents').
                  * собираем данные для фильтрации
                  * обновляем массив filtersCollection
                  */
-                collectChildData : function(){
+                collectChildData: function () {
                     var that = this;
                     var tempArr = [];
 
-                    this.findAllComponents().forEach(function(child){
-                        if(child.get('value') && child.get('value.val').length) tempArr.push(child.get('value'));
+                    this.findAllComponents().forEach(function (child) {
+                        if (child.get('value') && child.get('value.val') && child.get('value.val').length) {
+                            tempArr.push(child.get('value'));
+                        }
                     })
                     this.merge('filtersCollection', tempArr);
 
-                    if(this.get('filtersCollection').length) {
+                    if (this.get('filtersCollection').length) {
                         this.set('alreadyFiltered', true);
-                        console.log('alreadyFiltered');
-                        EventManager.fire('filter-panel:change', this.get('filtersCollection'));
+                        EventManager.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
                     } else {
-                        if(this.get('alreadyFiltered')){
-                            EventManager.fire('filter-panel:reset');
+                        if (this.get('alreadyFiltered')) {
+                            EventManager.fire(Events.FILTER_PANEL_RESET);
                         }
                     }
                 },

@@ -81,6 +81,9 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_OPEN_BUNDLE : 'bundle:full',
 
             FILTER_PANEL_CLOSE_FILTERS : 'filter-panel:close-filters',
+            FILTER_PANEL_SORT : 'filter-panel:sort',
+            FILTER_PANEL_CHANGE : 'filter-panel:change',
+            FILTER_PANEL_RESET : 'filter-panel:reset',
 
             DYNAMIC_SERP_TOGGLE_MAP : 'toggle:view:hotels:map',
             DYNAMIC_SERP_GO_TO_MAP : 'hotel:go-to-map',
