@@ -539,7 +539,7 @@ innaAppControllers.
                                     m.expirationDate = dateHelper.apiDateToJsDate(data.ExperationDate);
                                     m.expirationDateFormatted = aviaHelper.getDateFormat(m.expirationDate, 'dd MMM yyyy');
                                     m.experationMinute = data.ExperationMinute;
-                                    m.experationSeconds = data.ExperationMinute * 60 + 59; // делаем в секундах
+                                    m.experationSeconds = data.ExperationMinute * 60 - 1; // делаем в секундах
                                     m.experationSecondsFormatted = $scope.getExpTimeSecFormatted(Math.abs(m.experationSeconds));
                                     m.filter = data.Filter;
                                     m.Name = data.Name;
