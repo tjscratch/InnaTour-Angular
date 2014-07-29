@@ -9,6 +9,11 @@
     {{  (_hotelsToDisplay = (_notHiddenHotels | filter:{currentlyInvisible: false})) ? '' : ''  }}
 
     <div class="b-switch-filters_buttons_right font-medium" ng-if="_notHiddenHotelsQuantity > 0">
+        <div class="b-switch-dynamic-serp-display__title b-switch-dynamic-serp-display__title_at_list" ng-click="goMap()">
+            <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
+            Посмотреть на карте
+        </div>
+
         Другие
         <b>{{_notHiddenHotelsQuantity}}</b>
         {{_notHiddenHotelsQuantity | choosePlural:"вариант":"варианта":"вариантов"}}

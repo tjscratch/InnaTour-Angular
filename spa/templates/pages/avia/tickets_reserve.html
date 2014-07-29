@@ -59,7 +59,7 @@
 <fieldset class="buy__blocks" ng-repeat="passenger in validationModel.passengers">
     <div class="b-field-group b-field-group-passport">
         <div class="b-field-block"
-             validate-events-dir ng-model="passenger.sex.value" ng-validation-model="passenger.sex" validate-type="validateType.sex" validate="validate(item, type)" data-title="Не выбран пол">
+             validate-events-dir ng-model="passenger.sex.value" ng-validation-model="passenger.sex" validate-type="validateType.sex" validate="validate(item, type)" data-title="Укажите пол пассажира">
             <label class="b-field-label">Пол</label>
             <ul class="radio-list" ng-class="{error:passenger.sex.isInvalid && !validationModel.formPure }"
                 ng-init="setValid(passenger.sex, passenger.sex.value != null)">
