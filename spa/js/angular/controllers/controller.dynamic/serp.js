@@ -45,6 +45,7 @@ innaAppControllers
 
             /*Properties*/
             var ListPanelComponent = null;
+            var FilterPanelComponent = null;
             $scope.hotels = new inna.Models.Hotels.HotelsCollection();
             $scope.airports = null;
             $scope.hotelFilters = new inna.Models.Avia.Filters.FilterSet();
@@ -229,6 +230,19 @@ innaAppControllers
 
                         /** Если пришли даннные по отелям */
                         if (data.Hotels) {
+
+                            /** переключаем фильтры или создаем панель */
+                            if(!FilterPanelComponent) {
+                                FilterPanelComponent = new FilterPanel({
+                                    el: document.querySelector('.recommend-bundle-container'),
+                                    data : {
+                                        combinationModel: $scope.combination
+                                    }
+                                })
+                            } else {
+                                FilterPanelComponent.toggleFilters();
+                            }
+
                             ListPanelComponent = new ListPanel({
                                 el: document.querySelector('.results-container_list'),
                                 data: {
@@ -288,8 +302,19 @@ innaAppControllers
                             ListPanelComponent = null;
                         }
 
+
+
                         /** Если пришли даннные по отелям */
                         if (data.AviaInfos) {
+
+                            /** переключаем фильтры*/
+                            if(FilterPanelComponent) {
+                                FilterPanelComponent.toggleFilters();
+                                // динамически создаем фильтры на основе данных билетов
+                                FilterPanelComponent.prepareAviaFiltersData(data.AviaInfos);
+                            }
+
+
                             ListPanelComponent = new ListPanel({
                                 el: document.querySelector('.results-container_list'),
                                 data: {
@@ -389,12 +414,6 @@ innaAppControllers
                     $.when($scope.state.switchTo(defaultTab))
                         .then(function () {
                             onTabLoad(onTabLoadParam);
-
-                            /* FilterPanel */
-                            (new FilterPanel({
-                                el: document.querySelector('.recommend-bundle-container')
-                            }))
-
                             $scope.baloon.hide();
                         });
                 });

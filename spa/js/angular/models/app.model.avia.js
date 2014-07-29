@@ -267,14 +267,20 @@ inna.Models.Avia.Ticket.prototype.getNextEtap = function (dir, current) {
 
 inna.Models.Avia.Ticket.prototype.collectAirlines = function () {
     var airlines = [];
+    var airlinesArr = [];
 
     this.everyEtap(function(etap){
         airlines.push([etap.data.TransporterCode, etap.data.TransporterName]);
+        airlinesArr.push({
+            code : etap.data.TransporterCode,
+            name : etap.data.TransporterName
+        });
     });
 
     var collected = _.object(airlines);
 
     return {
+        airlines : _.pluck(airlinesArr, 'name'),
         etap: collected,
         size: Object.keys(collected).length
     }

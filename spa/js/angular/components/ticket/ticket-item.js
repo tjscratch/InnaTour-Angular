@@ -50,7 +50,7 @@ angular.module('innaApp.conponents').
                     });
 
 
-                    console.log(this.get('ticket'));
+                    //console.log(this.get('ticket'));
 
                     this.on({
                         setCurrent: this.setCurrent,

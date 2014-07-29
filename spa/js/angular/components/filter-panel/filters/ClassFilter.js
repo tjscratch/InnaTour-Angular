@@ -5,23 +5,16 @@ angular.module('innaApp.conponents').
         '$templateCache',
         '$routeParams',
         'innaApp.API.events',
-        function (EventManager, $filter, $templateCache, $routeParams, Events) {
+        'FilterSettings',
+        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings) {
 
             var ClassFilter = Ractive.extend({
                 data: {
                     isOpen: false,
-
-                    // значение фильтра
                     value: null
                 },
                 init: function () {
                     var that = this;
-
-                    /**
-                     * Прокидываем напрямую данные для фильтров
-                     * Получается что все данные будут доступны без filtersData
-                     */
-                    this.set(this.get('data'))
 
                     document.addEventListener('click', this.bodyClickHide.bind(this), false);
 

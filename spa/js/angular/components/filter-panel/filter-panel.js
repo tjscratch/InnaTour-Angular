@@ -20,6 +20,11 @@ angular.module('innaApp.conponents').
         'innaApp.API.events',
 
         'FilterSettings',
+
+        'FilterTime',
+        'FilterAirline',
+        'FilterAirPort',
+
         'FilterExtra',
         'FilterPrice',
         'FilterName',
@@ -28,7 +33,7 @@ angular.module('innaApp.conponents').
         'FilterTaFactor',
         'FilterType',
         'FilterSort',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, FilterExtra, FilterPrice, FilterName, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterExtra, FilterPrice, FilterName, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
 
 
             /**
@@ -45,18 +50,22 @@ angular.module('innaApp.conponents').
                     filter_avia: false,
 
                     // данные для компонентов фильтров
-                    filtersData: FilterSettings
+                    filtersData: FilterSettings.get('settings')
                 },
 
                 // части шаблонов которые содержат компоненты фильтров
                 partials: {
                     HotelsFilter: $templateCache.get('components/filter-panel/templ/panel.hotel.filters.hbs.html'),
-                    TicketFilter: '<div>TicketFilter</div>',
+                    TicketFilter: $templateCache.get('components/filter-panel/templ/panel.avia.hbs.html'),
                     MapFilter: '<div>MapFilter</div>',
 
                     ruble: $templateCache.get('components/ruble.html')
                 },
                 components: {
+                    'FilterTime': FilterTime,
+                    'FilterAirline': FilterAirline,
+                    'FilterAirPort': FilterAirPort,
+
                     'FilterExtra': FilterExtra,
                     'FilterPrice': FilterPrice,
                     'FilterName': FilterName,
@@ -69,6 +78,10 @@ angular.module('innaApp.conponents').
                 init: function () {
                     var that = this;
 
+                    FilterSettings.on('change', function (data) {
+                        that.set('filtersData', FilterSettings.get('settings'));
+                    })
+
                     this.listenChildren();
 
                     this.on({
@@ -80,7 +93,7 @@ angular.module('innaApp.conponents').
                         }
                     })
 
-                    this.on('filter-panel:child:change', function(data){
+                    this.on('filter-panel:child:change', function (data) {
                         that.collectChildData();
                     })
 
@@ -158,9 +171,89 @@ angular.module('innaApp.conponents').
                     }
                 },
 
+                toggleFilters: function () {
+                    this.toggle('filter_hotel');
+                    this.toggle('filter_avia');
+                    this.listenChildren();
+                },
 
-                parse: function (end) {
 
+                /**
+                 *
+                 * @param {Object} data - данные на основе которых собираются фильтры
+                 */
+                prepareAviaFiltersData: function (data) {
+                    var that = this;
+                    // если это билет
+
+                    var collectAirlines = [];
+
+                    // собираем аэропорты
+                    //CityFrom
+                    //CityTo
+                    //AirportTo
+                    //AirportFrom
+                    var collectAirPort = [
+                        {
+                            state: 'from',
+                            name: data[0].CityFrom,
+                            list: []
+                        },
+                        {
+                            state: 'to',
+                            name: data[0].CityTo,
+                            list: []
+                        }
+                    ];
+
+                    // проходим по билетам
+                    data.forEach(function (item) {
+                        var modelTicket = new inna.Models.Avia.Ticket();
+                        modelTicket.setData(item);
+                        var virtualBundle = new inna.Models.Dynamic.Combination();
+                        virtualBundle.ticket = modelTicket;
+                        virtualBundle.hotel = that.get('combinationModel').hotel;
+
+
+                        // собираем коллекцию уникальных авиалиний
+                        var airline = _.union(modelTicket.collectAirlines().airlines);
+                        collectAirlines.push(airline);
+
+
+                        collectAirPort[0].list.push(item.AirportFrom);
+                        collectAirPort[1].list.push(item.AirportTo);
+                    })
+
+
+                    // удаляем вровни вложенности массива
+                    var flatten = _.flatten(collectAirlines)
+                    // возвращаем уникальные значания массива
+                    var union = _.union(flatten);
+
+                    var newAirLines = [];
+                    for (var i = 0; i < union.length; i++) {
+                        var o = union[i];
+                        newAirLines.push({
+                            name: o
+                        })
+                    }
+
+                    var from = _.union(collectAirPort[0].list);
+                    var to = _.union(collectAirPort[1].list);
+
+                    collectAirPort[0].list = [];
+                    collectAirPort[1].list = [];
+
+                    for (var i = 0; i < from.length; i++) {
+                        collectAirPort[0].list.push({ name: from[i] })
+                    }
+                    for (var i = 0; i < to.length; i++) {
+                        collectAirPort[1].list.push({ name: to[i] })
+                    }
+
+                    // передаем данные в модель фильтров
+                    FilterSettings.set({'settings.airlines': newAirLines});
+                    FilterSettings.set({'settings.airports': collectAirPort});
                 },
 
                 beforeInit: function (data) {

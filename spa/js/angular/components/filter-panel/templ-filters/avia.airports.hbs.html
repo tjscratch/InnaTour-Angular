@@ -1,0 +1,10 @@
+<div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+     on-click="toggle">
+    Аэропорты
+</div>
+
+<div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
+	{{#each airports}}
+        <FilterAirPortItem airport="{{.}}" />
+	{{/each}}
+</div>

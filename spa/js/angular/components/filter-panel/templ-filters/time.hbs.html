@@ -1,0 +1,9 @@
+<div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+     on-click="toggle">
+    Время
+</div>
+
+<div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}">
+    <AviaTimeItem title="{{airTime.to.title}}" data="{{airTime.to}}" dayState="{{airTime.dayState}}"/>
+    <AviaTimeItem title="{{airTime.back.title}}" data="{{airTime.back}}" dayState="{{airTime.dayState}}"/>
+</div>

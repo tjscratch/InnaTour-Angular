@@ -5,8 +5,14 @@
 
 <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
     <ul class="search__list">
-	    {{#each sort}}
-		    <SortedItem data="{{.}}" />
-	    {{/each}}
+	    {{#if hotels}}
+		    {{#each sort.hotels}}
+			    <SortedItem data="{{.}}" />
+		    {{/each}}
+	    {{else}}
+		    {{#each sort.avia}}
+                <SortedItem data="{{.}}" />
+		    {{/each}}
+		{{/if}}
     </ul>
 </div>

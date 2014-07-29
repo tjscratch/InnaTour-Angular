@@ -1,0 +1,28 @@
+<div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+     on-click="toggle">
+    Авиакомпании
+</div>
+
+
+<div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
+    <header class="ra-header">
+        <h4 class="ra-title">Авиакомпании</h4>
+        <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
+    </header>
+    <div class="ra-content">
+        <ul class="ra-fly-type-list">
+	        {{#each airlines}}
+            <li>
+                <label>
+                    <input type="checkbox" name="airlines" value="{{this.val}}" checked="{{this.isChecked}}">
+                    <span class="ra-checkbox"></span>
+                    <span class="ra-fly-type">{{this.name}}</span>
+                    <span class="ra-fly-price">
+	                    &nbsp;{{>ruble}}
+                    </span>
+                </label>
+            </li>
+	        {{/each}}
+        </ul>
+    </div>
+</div>

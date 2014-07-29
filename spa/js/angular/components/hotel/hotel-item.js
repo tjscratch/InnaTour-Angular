@@ -23,6 +23,13 @@ angular.module('innaApp.conponents').
                         classBlock: 'b-result_col_three_galary b-result_middle',
                         classColl1 : 'col-no-padding',
                         classColl3 : 'col-xs-3 result-choice'
+                    },
+                    shortName : function(name){
+                        if(name.length > 27) {
+                            return name.substr(0, 27)+'...';
+                        } else {
+                            return name
+                        }
                     }
                 },
                 partials: {
@@ -60,7 +67,7 @@ angular.module('innaApp.conponents').
 
                         },
                         teardown: function (evt) {
-                            console.log('teardown hotel item');
+                            //console.log('teardown hotel item');
                         }
                     })
 

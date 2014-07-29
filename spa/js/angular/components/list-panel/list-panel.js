@@ -28,6 +28,7 @@ angular.module('innaApp.conponents').
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
                 data: {
+                    indicator_filters: true,
                     iterable_hotels: false,
                     iterable_tickets: false,
                     EnumerableClone: [],
@@ -50,6 +51,8 @@ angular.module('innaApp.conponents').
 
                     if (this.get('iterable_hotels')) {
                         this.parse(this.get('Enumerable'), { hotel: true });
+                    } else {
+                        this.parse(this.get('Enumerable'), { ticket: true });
                     }
 
 
@@ -74,7 +77,7 @@ angular.module('innaApp.conponents').
 
                         },
                         teardown: function (evt) {
-                            console.log('teardown ListPanel');
+                            //console.log('teardown ListPanel');
                             document.removeEventListener('scroll', this.eventListener);
                         }
                     })
@@ -236,12 +239,25 @@ angular.module('innaApp.conponents').
                 parse: function (data, opt_param) {
                     var that = this;
 
+                    // подготавливаем данные для авиа отелей
                     if (opt_param.hotel) {
                         data.forEach(function (item) {
                             var modelHotel = new inna.Models.Hotels.Hotel(item)
                             var virtualBundle = new inna.Models.Dynamic.Combination();
                             virtualBundle.hotel = modelHotel;
                             virtualBundle.ticket = that.get('combinationModel').ticket;
+                            item.getProfit = virtualBundle.getProfit();
+                        })
+                    }
+
+                    // подготавливаем данные для авиа билетов
+                    if (opt_param.ticket) {
+                        data.forEach(function (item) {
+                            var modelTicket = new inna.Models.Avia.Ticket();
+                            modelTicket.setData(item);
+                            var virtualBundle = new inna.Models.Dynamic.Combination();
+                            virtualBundle.ticket = modelTicket;
+                            virtualBundle.hotel = that.get('combinationModel').hotel;
                             item.getProfit = virtualBundle.getProfit();
                         })
                     }
