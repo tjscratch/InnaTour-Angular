@@ -26,16 +26,18 @@ angular.module('innaApp.controllers')
                 $scope.bundle = new inna.Models.Dynamic.Combination();
                 $scope.bundle.ticket = new inna.Models.Avia.Ticket();
                 $scope.bundle.ticket.setData(resp.AviaInfo);
-                $scope.hotel = $scope.bundle.hotel = new inna.Models.Hotels.Hotel(resp.Hotel);
+
                 if(resp.Hotel) {
+                    $scope.hotel = $scope.bundle.hotel = new inna.Models.Hotels.Hotel(resp.Hotel);
+
                     $scope.bundle.hotel.detailed = {
                         Hotel: resp.Hotel,
                         Rooms: [resp.Hotel.Room]
                     };
-                }
 
-                if($scope.bundle.hotel.detailed) {
-                    $scope.bundle.hotel.detailed.Rooms[0].isOpen = true;
+                    if($scope.bundle.hotel.detailed) {
+                        $scope.bundle.hotel.detailed.Rooms[0].isOpen = true;
+                    }
                 }
 
                 $scope.$broadcast(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
