@@ -376,9 +376,9 @@ innaAppControllers.
             function setFromFieldsFromUrl() {
                 var self = this;
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
-                    $scope.criteria.From = 'загружается...';
+                    //$scope.criteria.From = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
-                        $scope.$apply(function ($scope) {
+                        $scope.safeApply(function () {
                             //обновляем данные
                             if (data != null) {
                                 $scope.criteria.From = data.name;
@@ -398,7 +398,7 @@ innaAppControllers.
             function setToFieldsFromUrl() {
                 var self = this;
                 if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
-                    $scope.criteria.To = 'загружается...';
+                    //$scope.criteria.To = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
                         $scope.$apply(function ($scope) {
                             //обновляем данные

@@ -36,12 +36,12 @@
                 };
 
                 //эта хуйня нужна чтобы можно было присвоить и id и name сразу, без доп запросов
-                var unwatch = $scope.$watch('setResultItem', function (item) {
-                    if (item != null) {
-                        init(item);
-                        //unwatch();
-                    }
-                }, true);
+                //var unwatch = $scope.$watch('setResultItem', function (item) {
+                //    if (item != null) {
+                //        init(item);
+                //        //unwatch();
+                //    }
+                //}, true);
 
                 function init(item) {
                     //console.log('init');

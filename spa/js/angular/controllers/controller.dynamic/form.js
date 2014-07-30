@@ -80,8 +80,12 @@ innaAppControllers
             }
 
             $scope.fromCurrent = routeParams.DepartureId || DynamicPackagesCacheWizard.require('fromCurrent', function(){
-                DynamicPackagesDataProvider.getUserLocation(function(data){
-                    $scope.fromCurrent = data;
+                DynamicPackagesDataProvider.getUserLocation(function (data) {
+                    if (data != null) {
+                        $scope.safeApply(function () {
+                            $scope.fromCurrent = data.Id;
+                        });
+                    }
                 });
             });
 
@@ -160,7 +164,7 @@ innaAppControllers
                 else {
                     $scope.lastFromCode = null;
                 }
-                if (item.CityCodeIata != null) {
+                if (item != null && item.CityCodeIata != null) {
                     $scope.lastCityFromCode = item.CityCodeIata;
                 }
                 else {
@@ -175,7 +179,7 @@ innaAppControllers
                 else {
                     $scope.lastToCode = null;
                 }
-                if (item.CityCodeIata != null) {
+                if (item != null && item.CityCodeIata != null) {
                     $scope.lastCityToCode = item.CityCodeIata;
                 }
                 else {
