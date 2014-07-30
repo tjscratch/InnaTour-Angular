@@ -2,9 +2,10 @@
     <div class="b-list-panel">
 
 		{{#if Enumerable.length}}
-            <div class="b-switch-filters_buttons_right font-medium">
-                Другие <b>{{Enumerable.length -1}}</b>
-				{{pluralize(Enumerable.length -1, ["вариант","варианта","вариантов"])}}
+
+			<div class="b-switch-filters_buttons_right font-medium">
+                Другие <b>{{EnumerableCount}}</b>
+				{{pluralize(EnumerableCount, ["вариант","варианта","вариантов"])}}
 
 				{{#if iterable_hotels}}отелей{{else}}билетов{{/if}}
             </div>

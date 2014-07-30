@@ -16,8 +16,9 @@ angular.module('innaApp.services').service('FilterSettings',
                 settings: {
                     airlines: {},
                     airports: [],
-                    airTime: {
-                        to: {
+                    airTime: [
+                        {
+                            direction: 'to',
                             title: 'Перелет туда',
                             state: [
                                 {
@@ -49,7 +50,8 @@ angular.module('innaApp.services').service('FilterSettings',
                                 }
                             ]
                         },
-                        back: {
+                        {
+                            direction: 'back',
                             title: 'Перелет обратно',
                             state: [
                                 {
@@ -81,7 +83,7 @@ angular.module('innaApp.services').service('FilterSettings',
                                 }
                             ]
                         }
-                    },
+                    ],
                     price: {
                         min: 10000,
                         max: 100000,

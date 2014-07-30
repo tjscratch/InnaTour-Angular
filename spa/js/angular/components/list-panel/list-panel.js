@@ -31,6 +31,7 @@ angular.module('innaApp.conponents').
                     indicator_filters: true,
                     iterable_hotels: false,
                     iterable_tickets: false,
+                    EnumerableCount : 0,
                     EnumerableClone: [],
                     EnumerableList: [],
                     countItemsVisible: 10
@@ -293,9 +294,19 @@ angular.module('innaApp.conponents').
                         var filterResult = param_filters.filter(function (filters) {
                             if (item[filters.name] == undefined) return false;
 
-                            if (filters.fn != undefined)
-                                return filters.fn(item[filters.name]);
+                            // для некоторых компонентов нужно передать не просто поле
+                            // по которому фильтруем, а весь item, так как более сложному фильтру нужно несколько полей
+                            if (filters.fn != undefined){
+                                var paramForFn = item[filters.name];
 
+                                switch(filters.name){
+                                    case 'DepartureDate':
+                                        paramForFn = item;
+                                }
+
+                                console.log(filters.fn(paramForFn), 'filters.fn(paramForFn)');
+                                return filters.fn(paramForFn);
+                            }
                         });
 
 
@@ -385,6 +396,7 @@ angular.module('innaApp.conponents').
                  * Если установлено свойство sortValue, то сортируем набор
                  */
                 resetFilter: function () {
+                    console.log('resetFilter -- resetFilter');
                     var sortResult = null;
                     this.set({
                         filtered: false,
@@ -405,7 +417,9 @@ angular.module('innaApp.conponents').
                  */
                 cloneData: function (opt_data) {
                     if (opt_data) this.set('EnumerableList', []);
-                    this.enumerableClone = [].concat(opt_data || this.get('Enumerable'));
+                    var list = opt_data || this.get('Enumerable');
+                    this.set('EnumerableCount', list.length);
+                    this.enumerableClone = [].concat(list);
 
                     // получаем первую порцию из n item
                     // далее по скроллингу

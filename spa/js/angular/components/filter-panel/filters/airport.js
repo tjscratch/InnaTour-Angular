@@ -17,8 +17,6 @@ angular.module('innaApp.conponents').
 
                 },
                 init: function () {
-                    console.log(this);
-
                     this.on({
                         change: function (data) {
                             console.log(data);
@@ -30,6 +28,7 @@ angular.module('innaApp.conponents').
                     })
                 }
             });
+
 
             var FilterAirPort = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/avia.airports.hbs.html'),
@@ -55,7 +54,7 @@ angular.module('innaApp.conponents').
 
                     this.on({
                         change: function (data) {
-                            console.log(data, 'sakdhdjf');
+
                         },
                         resetFilter: function () {
                             console.log('reset');

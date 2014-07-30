@@ -1,6 +1,6 @@
 <div class="filters__baloon__item">
     <header class="ra-header">
-        <h4 class="ra-title">{{title}}</h4>
+        <h4 class="ra-title">{{data.title}}</h4>
         <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
     </header>
 
@@ -8,7 +8,7 @@
         <div class="filters__baloon-radio">
             <div class="btn-group btn-group-justified">
 				{{#each data.state}}
-                    <label on-click="changeState" class="btn btn-{{(this.isActive) ? 'green' : ''}}">
+                    <label on-change="changeState" class="btn btn-{{(this.isActive) ? 'green' : ''}}">
                         <input type="radio" name="state" value="{{this.value}}" checked="{{this.isActive}}">
 						{{this.title}}
                     </label>
@@ -21,7 +21,7 @@
 
 				{{#each data.dayState}}
                     <li class="ra-fly-type-list__item">
-                        <label>
+                        <label on-change="changeDay">
                             <input type="checkbox" name="dayState" value="{{this.state}}" checked="{{this.isChecked}}">
                             <span class="ra-checkbox"></span>
                             <span class="ra-fly-type">{{this.name}}</span>
