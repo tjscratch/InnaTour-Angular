@@ -376,7 +376,7 @@ innaAppControllers.
                     $scope.criteria.FromUrl = item.CodeIata;
                     $scope.criteria.From = item.Name;
                 }
-                if (item.CityCodeIata != null) {
+                if (item != null && item.CityCodeIata != null) {
                     $scope.lastCityFromCode = item.CityCodeIata;
                 }
                 else {
@@ -391,7 +391,7 @@ innaAppControllers.
                     $scope.criteria.ToUrl = item.CodeIata;
                     $scope.criteria.To = item.Name;
                 }
-                if (item.CityCodeIata != null) {
+                if (item != null && item.CityCodeIata != null) {
                     $scope.lastCityToCode = item.CityCodeIata;
                 }
                 else {
