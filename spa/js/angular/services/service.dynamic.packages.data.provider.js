@@ -12,7 +12,7 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                 AjaxHelper.get(api.DYNAMIC_GET_OBJECT_BY_ID, {id: id}, callback);
             },
             getUserLocation: function(callback){
-                AjaxHelper.get(api.DYNAMIC_GET_DIRECTORY_BY_IP,callback);
+                AjaxHelper.get(api.DYNAMIC_GET_DIRECTORY_BY_IP, null, callback);
 
                 return null;
             },

@@ -255,7 +255,7 @@
                     }
                 };
 
-                console.log('FORM::MAX_DATE', $scope.maxDate);
+                //console.log('FORM::MAX_DATE', $scope.maxDate);
 
                 if($scope.maxDate) {
                     var today = new Date();
