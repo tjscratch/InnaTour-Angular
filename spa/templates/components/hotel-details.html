@@ -81,8 +81,9 @@
                  inna-dynamic-bundle-close="back"></div>
         </div>
 
-        <div class="hotel-details__section" ng-if="!hotelOnly">
-            <h2 class="hotel-details__section-title">Выбор номера</h2>
+        <div class="hotel-details__section">
+            <h2 class="hotel-details__section-title" ng-if="!hotelOnly">Выбор номера</h2>
+            <h2 class="hotel-details__section-title" ng-if="hotelOnly">Номер</h2>
 
             <div class="spinner" ng-if="!dataFullyLoaded">
                 <div class="rect rect1"></div>

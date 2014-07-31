@@ -36,12 +36,12 @@
                 };
 
                 //эта хуйня нужна чтобы можно было присвоить и id и name сразу, без доп запросов
-                var unwatch = $scope.$watch('setResultItem', function (item) {
-                    if (item != null) {
-                        init(item);
-                        //unwatch();
-                    }
-                }, true);
+                //var unwatch = $scope.$watch('setResultItem', function (item) {
+                //    if (item != null) {
+                //        init(item);
+                //        //unwatch();
+                //    }
+                //}, true);
 
                 function init(item) {
                     //console.log('init');
@@ -265,8 +265,10 @@
 
                 var getDelayed = function (preparedText, value) {
                     $scope.$apply(function ($scope) {
-                        //console.log('getDelayed: prepText: %s, value: %s', preparedText, value);
-                        $scope.provideSuggestCallback(preparedText, value);
+                        if (preparedText != null && preparedText.length >= 2) {
+                            //console.log('getDelayed: prepText: %s, value: %s', preparedText, value);
+                            $scope.provideSuggestCallback(preparedText, value);
+                        }
                     });
                 };
 
@@ -371,10 +373,11 @@
 
                     //console.log('goSearch, text: %s, val: %s', preparedText, value);
 
-                    if (preparedText.length) {
-                        //делаем 1 запрос раз в 300мс, вместо 2-3-4-х пока пользак набирает
-                        getThrottled(preparedText, value);
-                    }
+                    //if (preparedText.length) {
+                    //    //делаем 1 запрос раз в 300мс, вместо 2-3-4-х пока пользак набирает
+                    //    getThrottled(preparedText, value);
+                    //}
+                    getThrottled(preparedText, value);
                 }
 
                 function clickHanlder(event) {
