@@ -95,10 +95,9 @@ innaAppFilters.filter('signed', ['$filter', function ($filter) {
     return function (n) {
         var price = $filter('price');
 
-        if (n > 0) return '+ ' + price(n);
-        if (n < 0) return '– ' + price(-n);
+        if (n >= 0) return '+ ' + price(n);
 
-        return 0;
+        return '– ' + price(-n);
     }
 }]);
 
