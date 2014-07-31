@@ -23,28 +23,53 @@ innaAppControllers.
                 //$log.log.apply($log, arguments);
             }
 
-            //console.log('$routeParams');
+            //console.log('AviaFormCtrl');
             //console.log($routeParams);
 
             //флаг индикатор загрузки
             $scope.isDataLoading = false;
 
             //значения по-умобчанию
-            //$scope.criteria = getDefaultCriteria();
-            //$scope
-            loadParamsFromRouteOrDefault($routeParams);
+            (function () {
+                var def = getDefaultCriteria();
+                var defClass = 0;
+                if (def != null) {
+                    defClass = def.CabinClass;
+                }
+                $scope.criteria = {
+                    CabinClass: defClass
+                }
+            })()
 
             //$routeParams
             $scope.$on('avia.page.loaded', function (event, $routeParams, validateDate) {
+                initCriteriaWatch();
+
                 //console.log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams) + ' validateDate: ' + validateDate);
                 loadParamsFromRouteOrDefault($routeParams, validateDate);
             });
+
+            var wasInited = false;
+            function initCriteriaWatch() {
+                if (!wasInited) {
+                    wasInited = true;
+                    $scope.$watch('criteria', function (newVal, oldVal) {
+                        if (newVal != null) {
+                            saveParamsToStorage();
+                        }
+                    }, true);
+                }
+            }
+            
 
             $scope.$watch('datepickerButtons', function (newVal) {
                 $scope.datepickerButtons.updateScopeValues();
             }, true);
 
             function loadParamsFromRouteOrDefault(routeParams, validateDate) {
+                //console.log('loadParamsFromRouteOrDefault, routeParams:');
+                //console.log(routeParams);
+
                 var routeCriteria = null;
                 //если пусто
                 if (routeParams.FromUrl == null || routeParams.BeginDate == null) {
@@ -74,18 +99,22 @@ innaAppControllers.
 
             $rootScope.$broadcast("avia.form.loaded");
 
-            function setFromAndToFieldsFromUrl(routeCriteria, afterCompleteCallback) {
+            function setFromAndToFieldsFromUrl(routeCriteria) {
                 if (routeCriteria.FromUrl != null && routeCriteria.FromUrl.length > 0) {
                     //$scope.criteria.From = 'загружается...';
+
+                    //console.log('setFromAndToFieldsFromUrl, routeCriteria.FromUrl: %s', routeCriteria.FromUrl);
+
                     dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
                         $scope.$apply(function ($scope) {
                             //обновляем данные
                             if (data != null) {
-                                $scope.fromInit = { Id: data.id, Name: data.name, Url: data.url };
+                                //$scope.fromInit = { Id: data.id, Name: data.name, Url: data.url };
 
-                                $scope.criteria.From = data.name;
                                 $scope.criteria.FromId = data.id;
-                                $scope.criteria.FromUrl = data.url;
+
+                                //$scope.criteria.From = data.name;
+                                //$scope.criteria.FromUrl = data.url;
                                 //logCriteriaData();
                                 //console.log('avia.form: $scope.criteria.From: ' + angular.toJson($scope.criteria));
                             }
@@ -174,6 +203,16 @@ innaAppControllers.
                         "BeginDate": f_now, "EndDate": f_nowAdd5days,
                         "AdultCount": 1, "ChildCount": 0, "InfantsCount": 0, "CabinClass": 0, "IsToFlexible": 0, "IsBackFlexible": 0,
                         "PathType": 0
+                    });
+
+                    aviaService.getGetCurrentCity(function (data) {
+                        if (data != null) {
+                            $scope.safeApply(function () {
+                                $scope.criteria.FromId = data.Id;
+                            });
+                        }
+                    }, function (data, status) {
+                        console.error('aviaService.getGetCurrentCity err');
                     });
                     //console.log('avia.form: getting default');
                 }
@@ -376,7 +415,7 @@ innaAppControllers.
                     $scope.criteria.FromUrl = item.CodeIata;
                     $scope.criteria.From = item.Name;
                 }
-                if (item.CityCodeIata != null) {
+                if (item != null && item.CityCodeIata != null) {
                     $scope.lastCityFromCode = item.CityCodeIata;
                 }
                 else {
@@ -391,7 +430,7 @@ innaAppControllers.
                     $scope.criteria.ToUrl = item.CodeIata;
                     $scope.criteria.To = item.Name;
                 }
-                if (item.CityCodeIata != null) {
+                if (item != null && item.CityCodeIata != null) {
                     $scope.lastCityToCode = item.CityCodeIata;
                 }
                 else {
@@ -407,12 +446,6 @@ innaAppControllers.
             $scope.$watch('klass', function (newVal, oldVal) {
                 $scope.criteria.CabinClass = newVal.value;
             });
-
-            $scope.$watch('criteria', function (newVal, oldVal) {
-                if (newVal != null) {
-                    saveParamsToStorage();
-                }
-            }, true);
 
             $scope.maxDate = new Date();
             $scope.maxDate.setFullYear($scope.maxDate.getFullYear() + 1);

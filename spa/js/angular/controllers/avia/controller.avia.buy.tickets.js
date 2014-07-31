@@ -673,6 +673,24 @@ innaAppControllers.
 
                     //аналитика
                     track.dpPaymentSubmit($scope.price);
+                    //еще
+                    var pageType = getActionType();
+                    switch (pageType) {
+                        case actionTypeEnum.service:
+                            {
+                                break;
+                            }
+                        case actionTypeEnum.dp:
+                            {
+                                track.dpPayBtnSubmit();
+                                break;
+                            }
+                        case actionTypeEnum.avia:
+                            {
+                                track.aviaPayBtnSubmit();
+                                break;
+                            }
+                    }
 
                     paymentService.pay(apiPayModel,
                         function (data) {

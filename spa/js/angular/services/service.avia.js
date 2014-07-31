@@ -25,6 +25,9 @@
                 clearForm: function() {
                     localStorage.removeItem(PREFIX + KEY);
                 },
+                getGetCurrentCity: function (callbackSuccess, callbackError) {
+                    AjaxHelper.get(urls.DYNAMIC_GET_DIRECTORY_BY_IP, null, callbackSuccess, callbackError);
+                },
                 eof: null
             };
         }]);

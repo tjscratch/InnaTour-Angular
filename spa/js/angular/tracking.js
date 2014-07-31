@@ -116,7 +116,23 @@ var track = {
             });
             ga('ecommerce:send');
         }
-    }
+    },
+    aviaPayBtnSubmit: function () {
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/avia_pay');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('avia_pay');
+        }
+    },
+    dpPayBtnSubmit: function () {
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/aviahotel_pay');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('aviahotel_pay');
+        }
+    },
 };
 
 //$("#gotoBooking").click(function (e) {
