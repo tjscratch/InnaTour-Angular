@@ -13,9 +13,22 @@
         }
         .section {
             padding: 16px 0 24px;
-            border-bottom: 1px solid #c0bdbd;
+            border-top: 1px solid #c0bdbd;
             position: relative;
         }
+        .section:first-child {
+            border: 0;
+        }
+
+        .section_table__row {
+            border-top: 1px solid #c0bdbd;
+        }
+
+
+        .section_table__row td {
+            padding: 15px 0;
+        }
+
         .section_with_logo {
             background: url("/spa/img/logo.png") no-repeat 553px 114px, url("/spa/img/innatour.png") no-repeat 663px 123px;
         }
@@ -59,6 +72,11 @@
             border-collapse: collapse;
             margin-bottom: 24px;
         }
+        .section_table {
+            width: 100%;
+            border: 0;
+            margin-bottom: 40px;
+        }
         .table__cell {
             vertical-align: top;
             border: 2px solid #878786;
@@ -72,10 +90,20 @@
             display: block;
         }
 
-        .columns__col {
+        .columns__col2 {
             float: left;
             width: 45%;
             margin-right: 4%;
+        }
+        .columns__col3 {
+            float: left;
+            width: 30%;
+            margin-right: 2%;
+        }
+        .columns__col4 {
+            float: left;
+            width: 22%;
+            margin-right: 2%;
         }
         .stars {
             display: block;
@@ -108,7 +136,7 @@
     </div>
     <div class="section">
         <div class="columns">
-            <div class="columns__col">
+            <div class="columns__col2">
                 <h2 class="title section_title">
                     Общая информация
                 </h2>
@@ -120,7 +148,7 @@
                     Дата бронирования: 10 сентября 2014
                 </p>
             </div>
-            <div class="columns__col">
+            <div class="columns__col2">
                 <p class="content">
                     ООО "Инна Тур"<br>
                     Москва, ул Маленковскаяб 14-1<br>
@@ -132,7 +160,7 @@
     </div>
     <div class="section">
         <div class="columns">
-            <div class="columns__col">
+            <div class="columns__col2">
                 <h2 class="title section_title">
                     Покупатель
                 </h2>
@@ -145,7 +173,7 @@
             </div>
         </div>
     </div>
-    <table class="section section_table">
+    <table class="section table section_table">
         <thead>
             <tr>
                 <td>Туристы</td>
@@ -154,12 +182,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr class="section_table__row">
                 <td class="title">KOSTANTIN KONTANTINOPOLSKY MR</td>
                 <td>76 4564567</td>
                 <td>22.10.1984</td>
             </tr>
-            <tr>
+            <tr class="section_table__row">
                 <td class="title">NATALYA KONTANTINOPOLSKY MRS</td>
                 <td>48 4562345</td>
                 <td>01.04.1983</td>
@@ -168,8 +196,8 @@
     </table>
     <div class="section">
         <div class="columns">
-            <div class="columns__col">
-                <h2 class="title">
+            <div class="columns__col4">
+                <h2 class="title section_title">
                     Информация об отеле
                 </h2>
                 <p class="content">
@@ -181,24 +209,24 @@
                     Питание: Континентальный завтрак<br>
                 </p>
             </div>
-            <div class="columns__col">
-                <h2 class="title">
+            <div class="columns__col4">
+                <h2 class="title section_title">
                     Заезд
                 </h2>
                 <p class="content">
                     17 сентября 2014 года
                 </p>
             </div>
-            <div class="columns__col">
-                <h2 class="title">
+            <div class="columns__col4">
+                <h2 class="title section_title">
                     Выезд
                 </h2>
                 <p class="content">
                     24 сентября 2014 года
                 </p>
             </div>
-            <div class="columns__col">
-                <h2 class="title">
+            <div class="columns__col4">
+                <h2 class="title section_title">
                     Продолжительность
                 </h2>
                 <p class="content">
@@ -209,24 +237,24 @@
     </div>
     <div class="section">
         <div class="columns">
-            <div class="columns__col">
-                <h2 class="title">
+            <div class="columns__col3">
+                <h2 class="title section_title">
                     Информация о перелете
                 </h2>
                 <p class="content name">
                     Москва &#8211 Шарм-Эль-Шейх &#8211 Москва
                 </p>
             </div>
-            <div class="columns__col">
-                <h2 class="title">
+            <div class="columns__col3">
+                <h2 class="title section_title">
                     Дата вылета туда
                 </h2>
                 <p class="content">
                     17 сентября 2014 года
                 </p>
             </div>
-            <div class="columns__col">
-                <h2 class="title">
+            <div class="columns__col3">
+                <h2 class="title section_title">
                     Дата вылета обратно
                 </h2>
                 <p class="content">

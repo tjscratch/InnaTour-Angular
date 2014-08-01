@@ -134,3 +134,11 @@ innaAppFilters.filter('stripTags', function () {
         return input.replace(/(<([^>]+)>)/ig, " ");
     }
 });
+
+innaAppFilters.filter('console', function(){
+    return  function(input){
+        console.log(input);
+
+        return '';
+    };
+});

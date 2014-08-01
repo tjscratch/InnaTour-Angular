@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     htmlreplace = require('gulp-html-replace'),
+	uglify = require('gulp-uglifyjs'),
     conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';
@@ -15,6 +16,7 @@ var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protoco
 
 function getConfReplace(){
     return {
+        'app-config-js': '/'+ conf.version +'/js/config.js',
         'app-main-js': '/'+ conf.version +'/js/app-main.js',
         'app-less': '/'+ conf.version +'/css/main.less.css',
         'app-stylus': '/'+ conf.version +'/css/common.min.css',
@@ -28,6 +30,16 @@ function getConfReplace(){
 }
 
 // Копируем в папку publish
+gulp.task('replace-config', function () {
+    return gulp.src(conf.angular + '/config.js')
+        .pipe(htmlreplace(getConfReplace()))
+        .pipe(gulpif(_ENV_ === 'production', uglify({
+            mangle: false,
+            outSourceMap: true
+        })))
+        .pipe(gulp.dest(conf.build + '/js'));
+});
+
 gulp.task('replace-index', function () {
     return gulp.src('./index.html')
         .pipe(htmlreplace(getConfReplace()))
