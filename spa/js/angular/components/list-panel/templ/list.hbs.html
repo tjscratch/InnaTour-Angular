@@ -3,11 +3,26 @@
 
 		{{#if Enumerable.length}}
 
-			<div class="b-switch-filters_buttons_right font-medium">
-                Другие <b>{{EnumerableCount}}</b>
-				{{pluralize(EnumerableCount, ["вариант","варианта","вариантов"])}}
+            <div class="b-switch-filters_buttons_right font-medium">
+                <div class="row">
+                    <div class="col-xs-6 col-no-padding">
+                        Другие <b>{{EnumerableCount}}</b>
+						{{pluralize(EnumerableCount, ["вариант","варианта","вариантов"])}}
 
-				{{#if iterable_hotels}}отелей{{else}}билетов{{/if}}
+						{{#if iterable_hotels}}отелей{{else}}билетов{{/if}}
+                    </div>
+
+					{{#if iterable_hotels}}
+                        <div class="col-xs-6 col-no-padding">
+                            <div class="b-switch-dynamic-serp-display__title cursor-pointer pull-right"
+                                 on-click="goToMap">
+                                <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
+                                Посмотреть на карте
+                            </div>
+                        </div>
+					{{/if}}
+                </div>
+
             </div>
 
 
@@ -17,7 +32,7 @@
 
 				{{#if iterable_hotels}}
 					{{#each EnumerableList}}
-                        {{>EnumerableItemHotels}}
+						{{>EnumerableItemHotels}}
 					{{/each}}
 				{{/if}}
 
@@ -35,6 +50,7 @@
                     <div class="results-list__empty
                     {{ (iterable_hotels) ? 'results-list__empty_type_hotels':'results-list__empty_type_tickets'}}">
                         <p>Варианты не найдены.</p>
+
                         <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
                     </div>
                 </div>
@@ -46,6 +62,7 @@
                 <div class="results-list__empty
                     {{ (iterable_hotels) ? 'results-list__empty_type_hotels':'results-list__empty_type_tickets'}}">
                     <p>Варианты не найдены.</p>
+
                     <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
                 </div>
             </div>

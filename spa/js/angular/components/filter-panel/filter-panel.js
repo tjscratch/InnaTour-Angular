@@ -193,6 +193,11 @@ angular.module('innaApp.conponents').
                     this.listenChildren();
                 },
 
+                prepareHotelsFiltersData : function(data){
+                    var that = this;
+                    var collectExtra = [];
+                },
+
                 /**
                  * @param {Object} data - данные на основе которых собираются фильтры
                  */
@@ -202,6 +207,7 @@ angular.module('innaApp.conponents').
 
                     var collectAirlines = [];
                     var collectLegs = [];
+                    var collectExtra = [];
                     var OneLegs = false;
                     var TwoLegsPlus = false;
 
@@ -274,9 +280,11 @@ angular.module('innaApp.conponents').
                         collectAirPort[1].list.push({ name: to[i] })
 
                     // передаем данные в модель фильтров
-                    FilterSettings.set({'settings.airlines': newAirLines});
-                    FilterSettings.set({'settings.airports': collectAirPort});
-                    FilterSettings.set({'settings.airLegs.list': collectLegs});
+                    FilterSettings.set({
+                        'settings.airlines': newAirLines,
+                        'settings.airports': collectAirPort,
+                        'settings.airLegs.list': collectLegs
+                    });
                 },
 
 

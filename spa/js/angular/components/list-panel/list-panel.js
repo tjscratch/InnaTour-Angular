@@ -76,6 +76,9 @@ angular.module('innaApp.conponents').
                         change: function (data) {
 
                         },
+                        goToMap : function(){
+                            EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP);
+                        },
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
                             that.set('sortComponent', null);

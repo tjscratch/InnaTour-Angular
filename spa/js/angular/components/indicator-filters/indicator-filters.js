@@ -10,11 +10,9 @@ innaAppConponents.
                 data : {
                     filters : [],
                     mod_wrapper : false,
-                    atLeastOne : false,
+                    atLeastOne : false
                 },
                 init: function (options) {
-
-
                     this.on({
                         action : this.action
                     })

@@ -2,26 +2,6 @@
 'b-switch-filters_mod-wrapper' : ''}}">
 
     <div class="ra-tags-container">
-        <div class="b-switch-filters_buttons">
-
-            <div class="b-switch-dynamic-serp-display
-                        {{ mod_wrapper ? 'b-switch-dynamic-serp-display_state_map' : ''}}"
-                 on-click="action">
-
-				{{#if !mod_wrapper}}
-                    <div class="b-switch-dynamic-serp-display__title">
-                        <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
-                        Посмотреть на карте
-                    </div>
-				{{else}}
-                    <div class="b-switch-dynamic-serp-display__title">
-                        <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-list2"></span>
-                        Вернуться к списку
-                    </div>
-				{{/if}}
-            </div>
-        </div>
-
         <div class="b-switch-filters__result">
 
 			{{#each filters}}
