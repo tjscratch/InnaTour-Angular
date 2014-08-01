@@ -160,9 +160,10 @@ angular.module('innaApp.conponents').
                     });
 
 
-                    EventManager.on(Events.FILTER_PANEL_SORT, function (data) {
-                        that.set('sortValue', data);
-                        that.cloneData(that.sorting(data));
+                    EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
+                        that.set('sortComponent', sortComponent);
+                        console.log(sortComponent.get('sortType'));
+                        that.cloneData(that.sorting(sortComponent));
                     });
 
                 },
@@ -302,9 +303,11 @@ angular.module('innaApp.conponents').
                                 switch(filters.name){
                                     case 'DepartureDate':
                                         paramForFn = item;
+                                    case 'AirportFrom':
+                                        paramForFn = item;
                                 }
 
-                                console.log(filters.fn(paramForFn), 'filters.fn(paramForFn)');
+                                //console.log(filters.fn(paramForFn), 'filters.fn(paramForFn)');
                                 return filters.fn(paramForFn);
                             }
                         });
@@ -366,7 +369,7 @@ angular.module('innaApp.conponents').
                  * @param {String} sortValue
                  * @param {List<>} opt_sort_data
                  */
-                sorting: function (sortValue, opt_sort_data) {
+                sorting: function (sortComponent, opt_sort_data) {
                     var that = this;
                     var sortData = null;
 
@@ -377,17 +380,8 @@ angular.module('innaApp.conponents').
                         sortData = opt_sort_data || this.get('Enumerable');
 
 
-                    var sortReverse = true;
-                    var expression = sortValue;
-
-
-                    switch (sortValue) {
-                        case 'PackagePrice':
-                            sortReverse = false;
-                    }
-                    //console.log(sortValue, expression, sortReverse);
-
-                    return $filter('orderBy')(sortData, expression, sortReverse);
+                    // вызываем метод сортировки из компонента sortComponent
+                    return sortComponent.get('fn')(sortData);
                 },
 
 

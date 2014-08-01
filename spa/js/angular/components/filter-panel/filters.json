@@ -1,0 +1,167 @@
+{"filters": {
+
+
+    "hotels": {
+        "star": [
+            {
+                "value": 1,
+                "price": ""
+            },
+            {
+                "value": 2,
+                "price": ""
+            },
+            {
+                "value": 3,
+                "price": ""
+            },
+            {
+                "value": 4,
+                "price": ""
+            },
+            {
+                "value": 5,
+                "price": ""
+            }
+        ],
+        "rating": [
+            {
+                "value": 1,
+                "price": ""
+            },
+            {
+                "value": 2,
+                "price": ""
+            },
+            {
+                "value": 3,
+                "price": ""
+            },
+            {
+                "value": 4,
+                "price": ""
+            },
+            {
+                "value": 5,
+                "price": ""
+            }
+        ],
+        "price": {
+            "min": "",
+            "max": "",
+            "value": ""
+        },
+        "type": [
+            {
+                "name": "Отель",
+                "value": "hotel",
+                "price": ""
+            },
+            {
+                "name": "Апарт-отель",
+                "value": "apart_hotel",
+                "price": ""
+            },
+            {
+                "name": "Пансион",
+                "value": "guesthouse",
+                "price": ""
+            },
+            {
+                "name": "Квартира",
+                "value": "flat",
+                "price": ""
+            }
+        ],
+        "extra": [
+            {
+                "name": "Фитнес",
+                "value": "Fitness",
+                "price": ""
+            },
+            {
+                "name": "Завтрак",
+                "value": "Breakfast",
+                "price": ""
+            },
+            {
+                "name": "Бар/Ресторан",
+                "value": "BarRestaurant",
+                "price": ""
+            },
+            {
+                "name": "Парковка",
+                "value": "Parking",
+                "price": ""
+            }
+        ]
+    },
+
+
+    "tickets": {
+
+        "airlines": [
+            {
+                "name": "Transaero",
+                "code": "",
+                "price": ""
+            },
+            {
+                "name": "Air Berlin",
+                "code": "",
+                "price": ""
+            },
+            {
+                "name": "Lufthansa",
+                "code": "",
+                "price": ""
+            }
+        ],
+        "airports": [
+
+            {
+                "from": true,
+                "name": "Москва",
+                "list": [
+                    {
+                        "name": "Домодедово",
+                        "code": "DME",
+                        "price": ""
+                    },
+                    {
+                        "name": "Шарль-де-Голль ",
+                        "code": "CDG",
+                        "price": ""
+                    },
+                    {
+                        "name": "Домодедово",
+                        "code": "DME",
+                        "price": ""
+                    }
+                ]
+            },
+            {
+                "to": true,
+                "name": "Берлин",
+                "list": [
+                    {
+                        "name": "Домодедово",
+                        "code": "DME",
+                        "price": ""
+                    },
+                    {
+                        "name": "Шарль-де-Голль ",
+                        "code": "CDG",
+                        "price": ""
+                    },
+                    {
+                        "name": "Домодедово",
+                        "code": "DME",
+                        "price": ""
+                    }
+                ]
+
+            }
+        ]
+    }
+}}

@@ -14,13 +14,14 @@ angular.module('innaApp.directives')
                 'EventManager',
                 '$scope',
                 'aviaHelper',
+                '$location',
                 '$element',
                 'innaApp.API.events',
 
                 // components
                 'ShareLink',
                 'Tripadvisor',
-                function (EventManager, $scope, aviaHelper, $element, Events, ShareLink, Tripadvisor) {
+                function (EventManager, $scope, aviaHelper, $location, $element, Events, ShareLink, Tripadvisor) {
 
                     function orientation(){
                         var ua = navigator.userAgent.toLowerCase();
@@ -74,6 +75,20 @@ angular.module('innaApp.directives')
                             TaFactorCeiled: $scope.bundle.hotel.data.TaFactorCeiled
                         }
                     })
+
+
+                    $scope.toggleTab = function(data){
+                        if(data == 'ticket') {
+                            $scope.stateTicket = true;
+                            $scope.stateHotel = false;
+                        }
+                        if(data == 'hotel') {
+                            $scope.stateTicket = false;
+                            $scope.stateHotel = true;
+                        }
+
+                        EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, data);
+                    }
 
                     var infoPopupElems = $('.icon-price-info, .tooltip-price', $element);
 

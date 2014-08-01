@@ -80,6 +80,8 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_CLOSE_BUNDLE : 'bundle:hidden',
             DYNAMIC_SERP_OPEN_BUNDLE : 'bundle:full',
 
+            DYNAMIC_SERP_LOAD_TAB : 'DYNAMIC_SERP_LOAD_TAB',
+
             FILTER_PANEL_CLOSE_FILTERS : 'filter-panel:close-filters',
             FILTER_PANEL_SORT : 'filter-panel:sort',
             FILTER_PANEL_CHANGE : 'filter-panel:change',

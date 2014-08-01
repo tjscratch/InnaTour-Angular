@@ -44,13 +44,16 @@ angular.module('innaApp.conponents').
                     virtualBundle.ticket = modelTicket;
                     virtualBundle.hotel = this.get('combinationModel').hotel;
 
+                    // авиалинии этого билета
+                    var airline = _.union(modelTicket.collectAirlines().airlines);
+
                     this.set({
+                        'ticket.collectAirlines' : airline,
                         virtualBundle: virtualBundle,
                         modelTicket: modelTicket
                     });
 
-
-                    //console.log(this.get('ticket'));
+                    console.log(this.get('ticket'));
 
                     this.on({
                         setCurrent: this.setCurrent,
@@ -81,7 +84,6 @@ angular.module('innaApp.conponents').
                 },
 
                 showWarning: function () {
-                    console.log('showWarning showWarning showWarning');
                     var n = parseInt(this.get('NumSeats'));
                     var routParam = angular.copy($routeParams);
                     var passengerCount = parseInt(routParam.Adult) + (routParam.ChildrenAges ? routParam.ChildrenAges.length : 0);

@@ -8,7 +8,7 @@ angular.module('innaApp.conponents').
 
         'FilterSettings',
         'ClassFilter',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings,  ClassFilter) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, ClassFilter) {
 
             var FilterThis = null;
 
@@ -16,10 +16,18 @@ angular.module('innaApp.conponents').
                 template: $templateCache.get('components/filter-panel/templ-filters/avia.airlines.hbs.html'),
                 data: {
                     value: {
-                        name: 'FilterAirline',
-                        val: '',
+                        name: 'collectAirlines',
+                        val: [],
                         fn: function (data) {
-
+                            if (data.length) {
+                                var resultFilter = data.filter(function (airline) {
+                                    var result = FilterThis.get('value.val').filter(function (airline_local) {
+                                        return airline_local == airline;
+                                    })
+                                    return (result.length) ? true : false;
+                                })
+                                return (resultFilter.length) ? true : false;
+                            }
                         }
                     }
                 },
@@ -34,8 +42,15 @@ angular.module('innaApp.conponents').
                     this._timeOut = null;
 
                     this.on({
-                        change: function (data) {
-                            console.log(data, 'airline');
+
+                        onChecked: function (data) {
+                            if (data && data.context) {
+                                if (data.context.isChecked) {
+                                    this.push('value.val', data.context.name)
+                                } else if (!data.context.isChecked) {
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.name), 1);
+                                }
+                            }
                         },
                         resetFilter: function () {
                             this.set('airlines.*.isChecked', false);

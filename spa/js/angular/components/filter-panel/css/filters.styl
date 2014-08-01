@@ -36,12 +36,11 @@
     padding 3px 0
 
     &__item {
-      padding-bottom : 10px;
-      border-bottom : 1px solid #c0c0c2;
-
+      padding-bottom: 10px;
+      border-bottom: 1px solid #c0c0c2;
 
       &:last-child {
-        border-bottom : 0 none;
+        border-bottom: 0 none;
       }
     }
 
@@ -109,7 +108,6 @@
       }
     }
   }
-
 
   .filters__container {
     clearfix()
@@ -182,7 +180,6 @@
     }
   }
 
-
   .search__list {
     box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
     position absolute
@@ -206,6 +203,16 @@
       }
     }
 
+    &.search__list_sort {
+      li {
+        padding 0;
+      }
+      label {
+        cursor: pointer;
+        padding 7px 33px 5px
+      }
+    }
+
     .current {
       background-color #e6e7e9
 
@@ -224,7 +231,6 @@
   }
 
 }
-
 
 .filter__range-container {
   clearfix()
@@ -253,7 +259,7 @@
     }
 
     &.b-filters__name {
-      width:140px;
+      width: 140px;
     }
   }
 }

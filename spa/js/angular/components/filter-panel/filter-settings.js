@@ -178,23 +178,23 @@ angular.module('innaApp.services').service('FilterSettings',
                         hotels: [
                             {
                                 name: 'По цене пакета',
-                                value: 'PackagePrice'
+                                value: 'byPackagePrice'
                             },
                             {
                                 name: 'По рейтингу Инна Тур',
-                                value: 'RecommendedFactor'
+                                value: 'byRecommendedFactor'
                             },
                             {
                                 name: 'По рейтингу Trip Advisor',
-                                value: 'TaFactor'
+                                value: 'byTaFactor'
                             },
                             {
                                 name: 'По названию',
-                                value: 'HotelName'
+                                value: 'byName'
                             },
                             {
                                 name: 'По размеру скидки в руб',
-                                value: 'getProfit'
+                                value: 'byProfit'
                             }
                         ],
                         avia: [
@@ -208,23 +208,23 @@ angular.module('innaApp.services').service('FilterSettings',
                             },
                             {
                                 name: 'По времени в пути',
-                                value: 'TaFactor'
+                                value: 'byTripTime'
                             },
                             {
                                 name: 'По времени отправления ТУДА',
-                                value: 'HotelName'
+                                value: 'byDepartureDate'
                             },
                             {
                                 name: 'По времени отправления ОБРАТНО',
-                                value: 'getProfit'
+                                value: 'byBackDepartureDate'
                             },
                             {
                                 name: 'По времени прибытия ТУДА',
-                                value: 'getProfit'
+                                value: 'byArrivalDate'
                             },
                             {
                                 name: 'По времени прибытия ОБРАТНО',
-                                value: 'getProfit'
+                                value: 'byBackArrivalDate'
                             }
                         ]
                     }

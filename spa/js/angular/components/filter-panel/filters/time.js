@@ -19,8 +19,8 @@ angular.module('innaApp.conponents').
              * getDesignationDayTime
              *  'Утро', 6, 12,
              *  'День', 12, 18,
-             *  'Вечер', 18, 0
-             *  'Ночь', 24, 6
+             *  'Вечер', 18, 24
+             *  'Ночь', 0, 6
              *
              * @type {null}
              */
@@ -37,9 +37,14 @@ angular.module('innaApp.conponents').
                                 'data.state.1.isActive': false
                             });
                             this.set('data.dayState.*.isChecked', false);
+
+                            this._parent.fire('resetFilter', data)
                         },
                         changeDay: function (data) {
                             this._parent.fire('filterChange', data)
+                        },
+                        changeState : function(data){
+                            this._parent.fire('changeState', data)
                         }
                     })
                 }
@@ -67,7 +72,7 @@ angular.module('innaApp.conponents').
                         },
                         {
                             value: 'Night',
-                            start: '24',
+                            start: '0',
                             end: '6'
                         }
                     ],
@@ -95,7 +100,6 @@ angular.module('innaApp.conponents').
                                 });
 
 
-
                                 var timeTicket = moment(data[stateResult[0].value]);
                                 var hours = timeTicket.hours();
                                 var minute = timeTicket.minute();
@@ -118,7 +122,7 @@ angular.module('innaApp.conponents').
                                      * сравниваем часть дня и время вылета - прилета
                                      * если время входит в диапазон части дня, то возвращаем true
                                      */
-                                    console.log(hours , partDay.start, partDay.end);
+                                    //console.log(hours, partDay.start, partDay.end);
 
                                     if ((hours >= partDay.start) && (hours <= partDay.end)) {
                                         return true;
@@ -130,25 +134,24 @@ angular.module('innaApp.conponents').
                                 if (resultPartDay.length) return true;
                             });
 
-
-                            console.log(FilterThis.get('value.val').length , resultFilterTimeDate.length);
-
                             // если хоть какой то вернулься результат фильтрации
                             if (resultFilterTimeDate.length) {
                                 // условие AND
-                                if(FilterThis.get('value.val').length == resultFilterTimeDate.length) {
+                                if (FilterThis.get('value.val').length == resultFilterTimeDate.length) {
                                     return true;
                                 }
                             }
 
 
-
                         }
                     }
                 },
+
+
                 components: {
                     AviaTimeItem: AviaTimeItem
                 },
+
                 init: function (options) {
 
                     this._super(options);
@@ -162,7 +165,15 @@ angular.module('innaApp.conponents').
                         },
 
                         filterChange: function (data) {
-                            this.set('value.val', this.filter())
+                            this.set('value.val', this.filter());
+                        },
+
+                        changeState : function(){
+                            this.set('value.val', this.filter());
+                        },
+
+                        resetFilter : function(){
+                            this.set('value.val', this.filter());
                         },
 
                         teardown: function (evt) {

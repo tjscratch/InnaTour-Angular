@@ -19,14 +19,14 @@ angular.module('innaApp.conponents').
                     settings: {
                         height: 200,
                         countColumn: 3,
-                        removeOneSeparator : true,
+                        removeOneSeparator: true,
                         classBlock: 'b-result_col_three_galary b-result_middle',
-                        classColl1 : 'col-no-padding',
-                        classColl3 : 'col-xs-3 result-choice'
+                        classColl1: 'col-no-padding',
+                        classColl3: 'col-xs-3 result-choice'
                     },
-                    shortName : function(name){
-                        if(name.length > 27) {
-                            return name.substr(0, 27)+'...';
+                    shortName: function (name) {
+                        if (name.length > 27) {
+                            return name.substr(0, 27) + '...';
                         } else {
                             return name
                         }
@@ -35,12 +35,12 @@ angular.module('innaApp.conponents').
                 partials: {
                     collOneContent: '<HotelGallery photoList="{{Photos}}"/>',
                     collTwoContent: $templateCache.get('components/hotel/templ/hotel-center.hbs.html'),
-                    collThreeContent : $templateCache.get('components/dynamic-block/templ/combination-price.hbs.html')
+                    collThreeContent: $templateCache.get('components/dynamic-block/templ/combination-price.hbs.html')
                 },
+
                 components: {
                     HotelGallery: HotelGallery
                 },
-
 
                 init: function (options) {
                     var that = this;

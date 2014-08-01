@@ -36,6 +36,7 @@ angular.module('innaApp.conponents').
 
                     this.on({
                         change: function (data) {
+                            console.log(data, 'name');
 
                             // ставим условие чтоб тело функции change
                             // выполнялось на изменение name.value

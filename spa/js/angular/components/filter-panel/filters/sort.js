@@ -9,81 +9,60 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
-            /**
-             * Отдельный пункт сортировки
-             */
-
-            var SortedItem = Ractive.extend({
-                // microtemplates
-                template : "<li class='{{ selected ? 'current':''}}' data-val='{{value}}' on-click='selectSort'>{{name}}</li>",
-                data : {
-                    selected : false,
-                    current : null
-                },
-                init : function(){
-                    var that = this;
-
-                    this.on({
-                        selectSort : function(data){
-                            this.set('selected', true);
-                        },
-                        unselected : function(){
-                            this.set({ selected : false })
-                        }
-                    })
-
-                    EventManager.on('sortChild:selected', function (childComponent) {
-                        if (childComponent._guid != that._guid) {
-                            that.set({ selected : false });
-                        }
-                    })
-
-                }
-            })
-
-
+            var FilterThis = null;
             var FilterSort = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/sort.hbs.html'),
                 data: {
-                    lowercaseFirst : $filter('lowercaseFirst'),
-                    nameFilter : 'Sort',
-                    sortValue : {
-                        val : '',
-                        fn : function(data){
+                    sortType: {
+                        byAgencyProfit: ['-PriceDetails.Profit'],
+                        byRecommend: ['-IsRecomendation', 'RecommendedFactor', 'DepartureDate', 'ArrivalDate'],
+                        byPrice: ['Price', 'DepartureDate', 'ArrivalDate'],
+                        byTripTime: ['TimeTo', 'Price', 'DepartureDate', 'ArrivalDate'],
+                        byDepartureDate: 'DepartureDate',
+                        byBackDepartureDate: 'BackDepartureDate',
+                        byArrivalDate: 'ArrivalDate',
+                        byBackArrivalDate: 'BackArrivalDate',
+                        byPackagePrice: 'PackagePrice',
+                        byRecommendedFactor: '-RecommendedFactor',
+                        byTaFactor: '-TaFactor',
+                        byName: '-HotelName',
+                        byProfit: '-getProfit'
+                    },
+                    lowercaseFirst: $filter('lowercaseFirst'),
+                    current: '',
+                    sortValue: {
+                        name: 'Sort',
+                        val: ''
+                    },
+                    fn: function (data) {
+                        if(!data.length) return false;
 
-                        }
+                        var sortType =  FilterThis.get('sortType');
+                        var expression = sortType[FilterThis.get('sortValue.val')];
+
+                        return $filter('orderBy')(data, expression);
                     }
-                },
-                components: {
-                    SortedItem : SortedItem
+
                 },
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    FilterThis = this;
 
                     this.on({
-                        selectSort : this.selectSort,
+                        onSort: function (data) {
+                            this.set({
+                                'current': data.context.name,
+                                'sortValue.val': data.context.value
+                            })
+                        },
                         resetFilter: function () {
-                            this.set('value.val', []);
+                            this.set('sortValue.val', []);
+                        },
+                        teardown: function (evt) {
+                            FilterThis = null;
                         }
-                    })
-
-                    var that = this;
-
-
-                    // Слушаем события дочерних компонентов
-                    this.findAllComponents().forEach(function (child) {
-
-                        child.observe('selected', function (newValue, oldValue) {
-                            if (newValue) {
-                                that.set('sortValue',{
-                                    current : child.get('name'),
-                                    val : child.get('value')
-                                })
-                                EventManager.fire('sortChild:selected', child);
-                            }
-                        });
-                    })
+                    });
                 },
 
 

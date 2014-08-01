@@ -13,7 +13,7 @@
         <ul class="ra-fly-type-list">
 	        {{#each airlines}}
             <li>
-                <label>
+                <label on-change="onChecked">
                     <input type="checkbox" name="airlines" value="{{this.val}}" checked="{{this.isChecked}}">
                     <span class="ra-checkbox"></span>
                     <span class="ra-fly-type">{{this.name}}</span>

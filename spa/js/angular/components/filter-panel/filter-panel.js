@@ -93,14 +93,6 @@ angular.module('innaApp.conponents').
                         }
                     })
 
-                    this.on('filter-panel:child:change', function (data) {
-                        that.collectChildData();
-                    })
-
-                    // сортировка
-                    this.on('filter-panel:sort:change', function (newValue) {
-                        EventManager.fire(Events.FILTER_PANEL_SORT, newValue);
-                    });
 
                     /** если нужно закрыть все открытые фильтры */
                     EventManager.on(Events.FILTER_PANEL_CLOSE_FILTERS, function () {
@@ -129,7 +121,22 @@ angular.module('innaApp.conponents').
                     var that = this;
                     var childComponents = this.findAllComponents();
 
+
                     childComponents.forEach(function (child) {
+
+
+                        // изменение фильтров
+                        child.observe('value.val', function (newValue, oldValue) {
+                            that.collectChildData();
+                        });
+
+                        // сортировка
+                        child.observe('sortValue.val', function (newValue, oldValue) {
+                            if (newValue) {
+                                // передаем компонент сортировки - далее из него возьмем функцию сортировки
+                                EventManager.fire(Events.FILTER_PANEL_SORT, child);
+                            }
+                        });
 
                         child.observe('isOpen', function (newValue, oldValue) {
                             if (newValue) {
@@ -137,7 +144,7 @@ angular.module('innaApp.conponents').
                             }
                         });
 
-                        child._parent.on('hide:child', function (childComponent) {
+                        that.on('hide:child', function (childComponent) {
                             if (childComponent._guid != child._guid) {
                                 child.fire('hide');
                             }
@@ -159,6 +166,7 @@ angular.module('innaApp.conponents').
                             tempArr.push(child.get('value'));
                         }
                     })
+
                     this.merge('filtersCollection', tempArr);
 
                     if (this.get('filtersCollection').length) {
@@ -195,12 +203,12 @@ angular.module('innaApp.conponents').
                     //AirportFrom
                     var collectAirPort = [
                         {
-                            state: 'from',
+                            state: 'AirportFrom',
                             name: data[0].CityFrom,
                             list: []
                         },
                         {
-                            state: 'to',
+                            state: 'AirportTo',
                             name: data[0].CityTo,
                             list: []
                         }
@@ -220,6 +228,7 @@ angular.module('innaApp.conponents').
                         collectAirlines.push(airline);
 
 
+                        // аэропорты вылета - прилета
                         collectAirPort[0].list.push(item.AirportFrom);
                         collectAirPort[1].list.push(item.AirportTo);
                     })
@@ -267,5 +276,8 @@ angular.module('innaApp.conponents').
 
             return FilterPanel;
         }]);
+
+
+
 
 
