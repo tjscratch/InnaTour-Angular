@@ -331,10 +331,19 @@ innaAppControllers.
                             {
                                 var documentField = item.dependsOnField;
                                 if (documentField.isRuPassportAndInsideRF == true) {
-                                    //не проводим валидацию
-                                    //паспорт РФ и перелет внутри РФ
-                                    $scope.setValid(item, true);
-                                    $scope.setAlwaysValid(item, true);
+                                    //если что-то ввели - то проверяем даты
+                                    if (item.value != null && item.value.length > 0) {
+                                        $scope.setAlwaysValid(item, false);
+                                        tryValidate(item, function () {
+                                            Validators.expire(item.value, 'err');
+                                        });
+                                    }
+                                    else {
+                                        //не проводим валидацию
+                                        //паспорт РФ и перелет внутри РФ
+                                        $scope.setValid(item, true);
+                                        $scope.setAlwaysValid(item, true);
+                                    }
                                 }
                                 else
                                 {
