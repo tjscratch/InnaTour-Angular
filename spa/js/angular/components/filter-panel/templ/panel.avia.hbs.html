@@ -1,20 +1,10 @@
 <div class="js-filter-scroll">
     <ul class="filters__container">
-        <li class="filter">
-            <FilterPrice price="{{filtersData.price}}" />
-        </li>
-        <li class="filter">
-            <FilterTime airTime="{{filtersData.airTime}}"/>
-        </li>
-	    <li class="filter">
-            <FilterAirline airlines="{{filtersData.airlines}}"/>
-        </li>
-	    <li class="filter">
-            <FilterAirPort airports="{{filtersData.airports}}"/>
-        </li>
-
-        <li class="filters__sort">
-            <FilterSort sort="{{filtersData.sort.avia}}" />
-        </li>
+        <FilterAviaLegs airLegs="{{filtersData.airLegs}}"/>
+        <FilterPrice price="{{filtersData.price}}"/>
+        <FilterTime airTime="{{filtersData.airTime}}"/>
+        <FilterAirline airlines="{{filtersData.airlines}}"/>
+        <FilterAirPort airports="{{filtersData.airports}}"/>
+        <FilterSort sort="{{filtersData.sort.avia}}"/>
     </ul>
 </div>

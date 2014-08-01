@@ -50,16 +50,11 @@ angular.module('innaApp.conponents').
                                 } else if (!data.context.isChecked) {
                                     this.splice('value.val', this.get('value.val').indexOf(data.context.name), 1);
                                 }
+                                this.hasSelected();
                             }
                         },
                         resetFilter: function () {
                             this.set('airlines.*.isChecked', false);
-                            this.set({
-                                'value.val': [],
-                                'name.value': '',
-                                'isOpen': false
-                            });
-
                         },
                         teardown: function (evt) {
                             FilterThis = null;

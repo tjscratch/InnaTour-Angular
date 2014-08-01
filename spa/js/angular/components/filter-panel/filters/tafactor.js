@@ -41,15 +41,12 @@ angular.module('innaApp.conponents').
                                 } else if (!data.context.isChecked) {
                                     this.splice('value.val', this.get('value.val').indexOf(data.context.value), 1);
                                 }
+
+                                this.hasSelected();
                             }
-                            //console.log('onChecked', this.get('value'));
                         },
                         resetFilter: function () {
                             this.set('tafactor.list.*.isChecked',  false);
-                            this.set({
-                                'value.val' : [],
-                                'isOpen': false
-                            });
                         },
                         teardown: function (evt) {
                             FilterThis = null;
@@ -64,7 +61,6 @@ angular.module('innaApp.conponents').
                 parse: function (end) {
 
                 },
-
 
                 beforeInit: function (data) {
                     //console.log('beforeInit');

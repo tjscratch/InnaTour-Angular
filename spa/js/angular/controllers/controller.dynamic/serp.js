@@ -1,5 +1,6 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
+        'EventManager',
         '$scope',
         'DynamicFormSubmitListener',
         'DynamicPackagesDataProvider',
@@ -25,6 +26,7 @@ innaAppControllers
              * Так как в url не можем сразу передавать дату формата 2014-10-22
              * знак дефис служебный для angular
              */
+
             var routParam = angular.copy($routeParams);
             var searchParams = angular.extend(routParam, {
                 StartVoyageDate : dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),

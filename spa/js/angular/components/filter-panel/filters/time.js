@@ -170,6 +170,7 @@ angular.module('innaApp.conponents').
 
                         changeState : function(){
                             this.set('value.val', this.filter());
+                            this.hasSelected();
                         },
 
                         resetFilter : function(){

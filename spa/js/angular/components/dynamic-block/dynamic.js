@@ -84,6 +84,12 @@ innaAppConponents.
 
                 init: function (options) {
                     this._super(options);
+
+                    this.on({
+                        teardown: function (evt) {
+                            this.reset();
+                        }
+                    })
                 },
 
                 getHotelDetails: function (evt) {

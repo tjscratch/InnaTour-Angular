@@ -11,18 +11,17 @@ angular.module('innaApp.conponents').
             var ClassFilter = Ractive.extend({
                 data: {
                     isOpen: false,
+                    hasSelected: false,
                     value: null
                 },
                 init: function () {
                     var that = this;
 
-                    document.addEventListener('click', this.bodyClickHide.bind(this), false);
-
-                    /**
-                     * Events
-                     */
                     this.on({
-                        toggle: function () {
+                        toggle: function (evt) {
+                            if(evt && evt.original)
+                                evt.original.stopPropagation();
+
                             this.toggle('isOpen')
                         },
                         show: function () {
@@ -31,36 +30,25 @@ angular.module('innaApp.conponents').
                         hide: function (opt_child) {
                             this.set({ isOpen: false });
                         },
-                        change: function (data) {
+                        resetFilter: function () {
+                            this.set({
+                                'value.val': [],
+                                'isOpen': false,
+                                'hasSelected': false
+                            });
                         },
                         teardown: function (evt) {
-                            console.log('teardown filter all');
-                            document.removeEventListener('click', this.bodyClickHide.bind(this), false);
+
                         }
                     })
                 },
 
-                bodyClickHide: function (evt) {
-                    evt.stopPropagation();
-                    var $this = evt.target;
-
-                    if (!this.find('.'+$this.classList[0])) {
-                        if (this.get('isOpen') && !this.closest($this, '.filters__baloon')) {
-                            this.fire('hide');
-                        }
+                hasSelected: function () {
+                    if (this.get('value.val') && this.get('value.val').length) {
+                        this.set('hasSelected', true);
+                    } else {
+                        this.set('hasSelected', false);
                     }
-                },
-
-                closest: function (elem, selector) {
-
-                    while (elem) {
-                        if (elem.matches && elem.matches(selector)) {
-                            return true;
-                        } else {
-                            elem = elem.parentNode;
-                        }
-                    }
-                    return false;
                 },
 
                 beforeInit: function (data) {

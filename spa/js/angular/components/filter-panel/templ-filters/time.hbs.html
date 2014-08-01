@@ -1,10 +1,12 @@
-<div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
-     on-click="toggle">
-    Время
-</div>
+<li class="filter">
+    <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+         on-click="toggle">
+        Время
+    </div>
 
-<div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}">
-	{{#each airTime}}
-        <AviaTimeItem data="{{.}}"/>
-	{{/each}}
-</div>
+    <div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}">
+		{{#each airTime}}
+            <AviaTimeItem data="{{.}}"/>
+		{{/each}}
+    </div>
+</li>

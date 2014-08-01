@@ -1,34 +1,36 @@
-<div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
-     on-click="toggle">
-	Звезды
-</div>
+<li class="filter">
+    <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+         on-click="toggle">
+        Звезды
+    </div>
 
 
-<div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
-    <header class="ra-header">
-        <h4 class="ra-title">Звезды</h4>
-        <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
-    </header>
+    <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
+        <header class="ra-header">
+            <h4 class="ra-title">Звезды</h4>
+            <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
+        </header>
 
-    <div class="ra-content">
-        <ul class="ra-fly-type-list">
+        <div class="ra-content">
+            <ul class="ra-fly-type-list">
 
-            {{#each stars}}
-            <li>
-                <label on-change="onChecked">
-                    <input type="checkbox" name="stars" value="{{value}}" checked="{{this.isChecked}}"/>
-                    <span class="ra-checkbox"></span>
+				{{#each stars}}
+                    <li>
+                        <label on-change="onChecked">
+                            <input type="checkbox" name="stars" value="{{value}}" checked="{{this.isChecked}}"/>
+                            <span class="ra-checkbox"></span>
                     <span class="ra-fly-type">
                         <Stars stars="{{value}}"/>
                     </span>
                     <span class="ra-fly-price">
                         <span bo-text="option.minPrice | price"></span>&nbsp;
-                        {{>ruble}}
+	                    {{>ruble}}
                     </span>
-                </label>
-            </li>
-            {{/each}}
+                        </label>
+                    </li>
+				{{/each}}
 
-        </ul>
+            </ul>
+        </div>
     </div>
-</div>
+</li>

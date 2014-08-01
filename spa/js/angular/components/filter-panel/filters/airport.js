@@ -80,14 +80,13 @@ angular.module('innaApp.conponents').
 
                                 if (result.length) this.set('value.val', result)
                                 else this.set('value.val', [])
+
+                                this.hasSelected();
                             }
                         },
 
                         resetFilter: function () {
-                            this.set({
-                                'value.val': [],
-                                'isOpen': false
-                            });
+
                         },
                         teardown: function (evt) {
                             FilterThis = null;

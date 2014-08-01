@@ -41,14 +41,10 @@ angular.module('innaApp.conponents').
                                     this.splice('value.val', this.get('value.val').indexOf(data.context.value), 1);
                                 }
                             }
-                            //console.log('onChecked', this.get('value'));
+                            this.hasSelected();
                         },
                         resetFilter: function () {
                             this.set('stars.*.isChecked',  false);
-                            this.set({
-                                'value.val' : [],
-                                'isOpen': false
-                            });
                         },
                         teardown: function (evt) {
                             FilterThis = null;

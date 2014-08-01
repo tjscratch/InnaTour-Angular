@@ -24,6 +24,7 @@ angular.module('innaApp.conponents').
         'FilterTime',
         'FilterAirline',
         'FilterAirPort',
+        'FilterAviaLegs',
 
         'FilterExtra',
         'FilterPrice',
@@ -33,7 +34,7 @@ angular.module('innaApp.conponents').
         'FilterTaFactor',
         'FilterType',
         'FilterSort',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterExtra, FilterPrice, FilterName, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterExtra, FilterPrice, FilterName, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
 
 
             /**
@@ -65,6 +66,7 @@ angular.module('innaApp.conponents').
                     'FilterTime': FilterTime,
                     'FilterAirline': FilterAirline,
                     'FilterAirPort': FilterAirPort,
+                    'FilterAviaLegs': FilterAviaLegs,
 
                     'FilterExtra': FilterExtra,
                     'FilterPrice': FilterPrice,
@@ -79,17 +81,20 @@ angular.module('innaApp.conponents').
                     var that = this;
 
                     FilterSettings.on('change', function (data) {
+                        console.log(data, 'data');
                         that.set('filtersData', FilterSettings.get('settings'));
                     })
+
+                    document.addEventListener('click', this.bodyClickHide.bind(this), false);
 
                     this.listenChildren();
 
                     this.on({
                         change: function (data) {
-
                         },
                         teardown: function (evt) {
-
+                            //this.reset();
+                            document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                         }
                     })
 
@@ -124,11 +129,11 @@ angular.module('innaApp.conponents').
 
                     childComponents.forEach(function (child) {
 
-
                         // изменение фильтров
                         child.observe('value.val', function (newValue, oldValue) {
                             that.collectChildData();
-                        });
+                        }, {defer: true, init: false});
+
 
                         // сортировка
                         child.observe('sortValue.val', function (newValue, oldValue) {
@@ -136,13 +141,16 @@ angular.module('innaApp.conponents').
                                 // передаем компонент сортировки - далее из него возьмем функцию сортировки
                                 EventManager.fire(Events.FILTER_PANEL_SORT, child);
                             }
-                        });
+                        }, {defer: true, init: false});
 
+
+                        // открытие закрытие отдельного фильтра
                         child.observe('isOpen', function (newValue, oldValue) {
                             if (newValue) {
                                 that.fire('hide:child', child);
                             }
                         });
+
 
                         that.on('hide:child', function (childComponent) {
                             if (childComponent._guid != child._guid) {
@@ -185,9 +193,7 @@ angular.module('innaApp.conponents').
                     this.listenChildren();
                 },
 
-
                 /**
-                 *
                  * @param {Object} data - данные на основе которых собираются фильтры
                  */
                 prepareAviaFiltersData: function (data) {
@@ -195,12 +201,11 @@ angular.module('innaApp.conponents').
                     // если это билет
 
                     var collectAirlines = [];
+                    var collectLegs = [];
+                    var OneLegs = false;
+                    var TwoLegsPlus = false;
 
                     // собираем аэропорты
-                    //CityFrom
-                    //CityTo
-                    //AirportTo
-                    //AirportFrom
                     var collectAirPort = [
                         {
                             state: 'AirportFrom',
@@ -227,11 +232,26 @@ angular.module('innaApp.conponents').
                         var airline = _.union(modelTicket.collectAirlines().airlines);
                         collectAirlines.push(airline);
 
+                        // пересадки
+                        var legsTo = modelTicket.getEtaps('To').length;
+                        var legsBack = modelTicket.getEtaps('Back').length;
+                        var legsBoth = legsTo + legsBack;
+                        if (legsBoth == 3 || legsBoth == 4) OneLegs = true;
+                        if ((legsTo >= 3) || (legsBack >= 3)) TwoLegsPlus = true;
+
 
                         // аэропорты вылета - прилета
                         collectAirPort[0].list.push(item.AirportFrom);
                         collectAirPort[1].list.push(item.AirportTo);
                     })
+
+
+                    /** создаем фильтр пересадок */
+                    if (OneLegs)
+                        collectLegs.push({name: '1 пересадка', value: '1'})
+
+                    if (TwoLegsPlus)
+                        collectLegs.push({name: '2+ пересадки', value: '2'})
 
 
                     // удаляем вровни вложенности массива
@@ -240,33 +260,47 @@ angular.module('innaApp.conponents').
                     var union = _.union(flatten);
 
                     var newAirLines = [];
-                    for (var i = 0; i < union.length; i++) {
-                        var o = union[i];
-                        newAirLines.push({
-                            name: o
-                        })
-                    }
+                    for (var i = 0; i < union.length; i++)
+                        newAirLines.push({name: union[i]})
 
                     var from = _.union(collectAirPort[0].list);
                     var to = _.union(collectAirPort[1].list);
-
                     collectAirPort[0].list = [];
                     collectAirPort[1].list = [];
 
-                    for (var i = 0; i < from.length; i++) {
+                    for (var i = 0; i < from.length; i++)
                         collectAirPort[0].list.push({ name: from[i] })
-                    }
-                    for (var i = 0; i < to.length; i++) {
+                    for (var i = 0; i < to.length; i++)
                         collectAirPort[1].list.push({ name: to[i] })
-                    }
 
                     // передаем данные в модель фильтров
                     FilterSettings.set({'settings.airlines': newAirLines});
                     FilterSettings.set({'settings.airports': collectAirPort});
+                    FilterSettings.set({'settings.airLegs.list': collectLegs});
                 },
 
-                beforeInit: function (data) {
-                    //console.log('beforeInit');
+
+                bodyClickHide: function (evt) {
+                    evt.stopPropagation();
+                    var $this = evt.target;
+
+                    if (!this.find('.' + $this.classList[0]) && !this.closest($this, '.filter')) {
+                        this.findAllComponents().forEach(function (child) {
+                            child.fire('hide');
+                        })
+                    }
+                },
+
+                closest: function (elem, selector) {
+
+                    while (elem) {
+                        if (elem.matches && elem.matches(selector)) {
+                            return true;
+                        } else {
+                            elem = elem.parentNode;
+                        }
+                    }
+                    return false;
                 },
 
                 complete: function (data) {

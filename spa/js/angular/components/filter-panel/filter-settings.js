@@ -16,6 +16,9 @@ angular.module('innaApp.services').service('FilterSettings',
                 settings: {
                     airlines: {},
                     airports: [],
+                    airLegs : {
+                        list : []
+                    },
                     airTime: [
                         {
                             direction: 'to',
@@ -200,11 +203,11 @@ angular.module('innaApp.services').service('FilterSettings',
                         avia: [
                             {
                                 name: 'По цене пакета',
-                                value: 'PackagePrice'
+                                value: 'byPackagePrice'
                             },
                             {
-                                name: 'По рейтингу Инна Тур',
-                                value: 'RecommendedFactor'
+                                name: 'По рейтингу',
+                                value: 'byRecommend'
                             },
                             {
                                 name: 'По времени в пути',

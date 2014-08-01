@@ -31,7 +31,7 @@ angular.module('innaApp.conponents').
                     indicator_filters: true,
                     iterable_hotels: false,
                     iterable_tickets: false,
-                    EnumerableCount : 0,
+                    EnumerableCount: 0,
                     EnumerableClone: [],
                     EnumerableList: [],
                     countItemsVisible: 10
@@ -56,9 +56,8 @@ angular.module('innaApp.conponents').
                         this.parse(this.get('Enumerable'), { ticket: true });
                     }
 
-
                     /**
-                     * Вызов метода не чаще 500
+                     * Вызов метода не чаще 300
                      * так как срабатывает по скроллингу
                      * {@link http://underscorejs.org/}
                      */
@@ -79,7 +78,15 @@ angular.module('innaApp.conponents').
                         },
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
+                            that.set('sortComponent', null);
+                            //this.reset();
                             document.removeEventListener('scroll', this.eventListener);
+                            EventManager.off(Events.DYNAMIC_SERP_BACK_LIST);
+                            EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                            EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                            EventManager.off(Events.FILTER_PANEL_CHANGE);
+                            EventManager.off(Events.FILTER_PANEL_RESET);
+                            EventManager.off(Events.FILTER_PANEL_SORT);
                         }
                     })
 
@@ -162,8 +169,10 @@ angular.module('innaApp.conponents').
 
                     EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
                         that.set('sortComponent', sortComponent);
-                        console.log(sortComponent.get('sortType'));
-                        that.cloneData(that.sorting(sortComponent));
+                        setTimeout(function(){
+                            that.cloneData(that.sorting(sortComponent));
+                        },0)
+
                     });
 
                 },
@@ -205,11 +214,13 @@ angular.module('innaApp.conponents').
 
                 updateCoords: function () {
                     var elem = this.find('.b-list-panel__list');
-                    var coords = utils.getCoords(elem);
-                    this.set({
-                        coords: coords,
-                        elHeight: (elem.offsetHeight + coords.top)
-                    });
+                    if (elem) {
+                        var coords = utils.getCoords(elem);
+                        this.set({
+                            coords: coords,
+                            elHeight: (elem.offsetHeight + coords.top)
+                        });
+                    }
                 },
 
                 /**
@@ -297,13 +308,15 @@ angular.module('innaApp.conponents').
 
                             // для некоторых компонентов нужно передать не просто поле
                             // по которому фильтруем, а весь item, так как более сложному фильтру нужно несколько полей
-                            if (filters.fn != undefined){
+                            if (filters.fn != undefined) {
                                 var paramForFn = item[filters.name];
 
-                                switch(filters.name){
+                                switch (filters.name) {
                                     case 'DepartureDate':
                                         paramForFn = item;
                                     case 'AirportFrom':
+                                        paramForFn = item;
+                                    case 'AirLegs':
                                         paramForFn = item;
                                 }
 
@@ -370,7 +383,6 @@ angular.module('innaApp.conponents').
                  * @param {List<>} opt_sort_data
                  */
                 sorting: function (sortComponent, opt_sort_data) {
-                    var that = this;
                     var sortData = null;
 
                     // Если когда то была фильтрация, то берем и сортируем именно отфильтрованный набор
@@ -378,7 +390,6 @@ angular.module('innaApp.conponents').
                         sortData = this.get('EnumerableFiltered');
                     else
                         sortData = opt_sort_data || this.get('Enumerable');
-
 
                     // вызываем метод сортировки из компонента sortComponent
                     return sortComponent.get('fn')(sortData);
@@ -411,6 +422,7 @@ angular.module('innaApp.conponents').
                  */
                 cloneData: function (opt_data) {
                     if (opt_data) this.set('EnumerableList', []);
+
                     var list = opt_data || this.get('Enumerable');
                     this.set('EnumerableCount', list.length);
                     this.enumerableClone = [].concat(list);

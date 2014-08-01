@@ -1,23 +1,25 @@
-<div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
-     on-click="toggle">
-    Сортировать <span>{{lowercaseFirst(current)}}</span>
-</div>
+<li class="filters__sort">
+    <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+         on-click="toggle">
+        Сортировать <span>{{lowercaseFirst(current)}}</span>
+    </div>
 
-<div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
-    <ul class="search__list search__list_sort ra-fly-type-list">
-		{{#each sort}}
-            <!--<SortedItem data="{{.}}"/>-->
+    <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
+        <ul class="search__list search__list_sort ra-fly-type-list">
+			{{#each sort}}
+                <!--<SortedItem data="{{.}}"/>-->
 
-            <!-- on-click='selectSort' -->
-            <li class='{{ this.isChecked ? 'current':''}}'>
-                <label class="b-display-block" on-change="onSort">
-                    <input type="radio" name="sorting"
-                           value="{{this.value}}"
-                           checked="{{this.isChecked}}">
-					{{this.name}}
-                </label>
-            </li>
+                <!-- on-click='selectSort' -->
+                <li class='{{ this.isChecked ? 'current':''}}'>
+                    <label class="b-display-block" on-change="onSort">
+                        <input type="radio" name="sorting"
+                               value="{{this.value}}"
+                               checked="{{this.isChecked}}">
+						{{this.name}}
+                    </label>
+                </li>
 
-		{{/each}}
-    </ul>
-</div>
+			{{/each}}
+        </ul>
+    </div>
+</li>

@@ -1,34 +1,36 @@
-<div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
-     on-click="toggle">
-    Рейтинг
-</div>
+<li class="filter">
+    <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+         on-click="toggle">
+        Рейтинг
+    </div>
 
 
-<div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
-    <header class="ra-header">
-        <h4 class="ra-title">Рейтинг</h4>
-        <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
-    </header>
-    <div class="ra-content">
-        <ul class="ra-fly-type-list">
+    <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
+        <header class="ra-header">
+            <h4 class="ra-title">Рейтинг</h4>
+            <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
+        </header>
+        <div class="ra-content">
+            <ul class="ra-fly-type-list">
 
-	        {{#each tafactor.list}}
-            <li>
-                <label on-change="onChecked">
-                    <input type="checkbox" name="tafactor" value="{{this.value}}" checked="{{this.isChecked}}" />
-                    <span class="ra-checkbox"></span>
+				{{#each tafactor.list}}
+                    <li>
+                        <label on-change="onChecked">
+                            <input type="checkbox" name="tafactor" value="{{this.value}}" checked="{{this.isChecked}}"/>
+                            <span class="ra-checkbox"></span>
 
 	                <span class="ra-fly-type">
                         <Tripadvisor TaFactor="{{this.value}}"
-                                     withOutTd="{{tafactor.withOutTd}}" />
+                                     withOutTd="{{tafactor.withOutTd}}"/>
                     </span>
 
 	                <span class="ra-fly-price" bindonce="option"><span bo-text="option.minPrice | price"></span>&nbsp;
-                        {{>ruble}}
+		                {{>ruble}}
                     </span>
-                </label>
-            </li>
-		    {{/each}}
-        </ul>
+                        </label>
+                    </li>
+				{{/each}}
+            </ul>
+        </div>
     </div>
-</div>
+</li>

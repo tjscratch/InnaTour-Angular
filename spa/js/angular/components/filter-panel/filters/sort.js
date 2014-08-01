@@ -55,9 +55,15 @@ angular.module('innaApp.conponents').
                                 'current': data.context.name,
                                 'sortValue.val': data.context.value
                             })
+                            this.fire('toggle');
+                            this.hasSelected();
                         },
                         resetFilter: function () {
                             this.set('sortValue.val', []);
+                        },
+
+                        reset: function(data){
+
                         },
                         teardown: function (evt) {
                             FilterThis = null;
@@ -68,10 +74,6 @@ angular.module('innaApp.conponents').
 
                 parse: function (end) {
 
-                },
-
-                beforeInit: function (data) {
-                    //console.log('beforeInit');
                 },
 
                 complete: function (data) {

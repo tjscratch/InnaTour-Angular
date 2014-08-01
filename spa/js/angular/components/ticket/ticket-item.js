@@ -46,14 +46,19 @@ angular.module('innaApp.conponents').
 
                     // авиалинии этого билета
                     var airline = _.union(modelTicket.collectAirlines().airlines);
+                    var legsTo = modelTicket.getEtaps('To').length;
+                    var legsBack = modelTicket.getEtaps('Back').length;
 
                     this.set({
-                        'ticket.collectAirlines' : airline,
+                        'ticket.collectAirlines': airline,
+                        'ticket.legsTo': legsTo,
+                        'ticket.AirLegs': true,
+                        'ticket.legsBack': legsBack,
                         virtualBundle: virtualBundle,
                         modelTicket: modelTicket
                     });
 
-                    console.log(this.get('ticket'));
+                    //console.log(this.get('ticket'));
 
                     this.on({
                         setCurrent: this.setCurrent,

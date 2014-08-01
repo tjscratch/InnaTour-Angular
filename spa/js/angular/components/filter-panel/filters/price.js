@@ -36,12 +36,7 @@ angular.module('innaApp.conponents').
 
                         },
                         resetFilter: function () {
-
-                            this.set({
-                                'price.value' : 0,
-                                'value.val' : [],
-                                'isOpen': false
-                            });
+                            this.set({'price.value' : 0});
                         },
                         teardown: function (evt) {
                             FilterThis = null;
@@ -64,6 +59,7 @@ angular.module('innaApp.conponents').
                             } else {
                                 this.set('value.val', [])
                             }
+                            this.hasSelected();
                         }.bind(this), 500);
                     }
                 },

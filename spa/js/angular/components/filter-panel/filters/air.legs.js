@@ -1,5 +1,5 @@
 angular.module('innaApp.conponents').
-    factory('FilterType', [
+    factory('FilterAviaLegs', [
         'EventManager',
         '$filter',
         '$templateCache',
@@ -10,49 +10,57 @@ angular.module('innaApp.conponents').
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
             var FilterThis = null;
-            var FilterType = ClassFilter.extend({
-                template: $templateCache.get('components/filter-panel/templ-filters/type.hbs.html'),
-                data: {
-                    value : {
-                        name : 'HotelType',
-                        val : [],
-                        fn : function(data){
-                            var result = FilterThis.get('value.val').filter(function(item){
-                                if (data == item) return true;
-                            })
 
+            var FilterAviaLegs = ClassFilter.extend({
+                template: $templateCache.get('components/filter-panel/templ-filters/avia.legs.hbs.html'),
+                data: {
+                    value: {
+                        name: 'AirLegs',
+                        val: [],
+                        fn: function (data) {
+                            var legsBoth = data.legsTo + data.legsBack;
+                            var result = FilterThis.get('value.val').filter(function (item) {
+                                if (item == 1) {
+                                    if (legsBoth == 3 || legsBoth == 4) {
+                                        return true;
+                                    }
+                                }
+                                else if (item == 2) {
+                                    if ((data.legsTo >= 3) || (data.legsBack >= 3)) {
+                                        return true
+                                    }
+                                }
+                            });
                             return (result.length) ? true : false;
                         }
                     }
-                },
-                components: {
-
                 },
                 init: function (options) {
                     this._super(options);
                     var that = this;
                     FilterThis = this;
 
+
                     this.on({
                         onChecked: function (data) {
                             if (data && data.context) {
+
                                 if (data.context.isChecked) {
-                                    this.push('value.val', data.context.name) // data.context.value
+                                    this.push('value.val', data.context.value)
                                 } else if (!data.context.isChecked) {
-                                    this.splice('value.val', this.get('value.val').indexOf(data.context.name), 1);
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.value), 1);
                                 }
                             }
                             this.hasSelected();
                         },
                         resetFilter: function () {
-                            this.set('type.list.*.isChecked', false);
+                            this.set('airLegs.list.*.isChecked', false);
                         },
                         teardown: function (evt) {
                             FilterThis = null;
                         }
                     });
                 },
-
 
                 parse: function (end) {
 
@@ -68,7 +76,7 @@ angular.module('innaApp.conponents').
                 }
             });
 
-            return FilterType;
+            return FilterAviaLegs;
         }]);
 
 

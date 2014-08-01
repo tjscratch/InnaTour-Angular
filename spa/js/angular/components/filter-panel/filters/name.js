@@ -36,8 +36,6 @@ angular.module('innaApp.conponents').
 
                     this.on({
                         change: function (data) {
-                            console.log(data, 'name');
-
                             // ставим условие чтоб тело функции change
                             // выполнялось на изменение name.value
                             if (data && (data['name.value'] != undefined)) {
@@ -45,15 +43,11 @@ angular.module('innaApp.conponents').
                                 clearTimeout(this._timeOut);
                                 this._timeOut = setTimeout(function () {
                                     this.set('value.val', data['name.value']);
+                                    this.hasSelected();
                                 }.bind(this), 100);
                             }
                         },
                         resetFilter: function () {
-                            this.set({
-                                'value.val': [],
-                                'name.value': '',
-                                'isOpen': false
-                            });
                         },
                         teardown: function (evt) {
                             FilterThis = null;
