@@ -28,6 +28,12 @@ function getConfReplace(){
 }
 
 // Копируем в папку publish
+gulp.task('replace-config', function () {
+    return gulp.src(conf.angular + '/config.js')
+        .pipe(htmlreplace(getConfReplace()))
+        .pipe(gulp.dest(conf.angular));
+});
+
 gulp.task('replace-index', function () {
     return gulp.src('./index.html')
         .pipe(htmlreplace(getConfReplace()))

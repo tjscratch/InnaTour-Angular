@@ -54,7 +54,7 @@
                     //принудительно энкодим
                     term = encodeURIComponent(term);
                     //запрос по критериям поиска
-                    $http.get(getSletatUrl + '?term=' + term, { cache: true }).success(function (data, status) {
+                    $http.get(apiUrls.GET_SLETAT + '?term=' + term, { cache: true }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -66,7 +66,7 @@
                 getSletatCity: function (successCallback, errCallback) {
                     //log('getSletatCity: ' + term);
                     //запрос по критериям поиска
-                    $http.get(getSletatCityUrl, { cache: true }).success(function (data, status) {
+                    $http.get(apiUrls.GET_SLETAT_CITY, { cache: true }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -78,7 +78,7 @@
                 getSletatById: function (id, successCallback, errCallback) {
                     //log('getSletatById: ' + term);
                     //запрос по критериям поиска
-                    $http.get(getSletatByIdUrl + '?id=' + id, { cache: true }).success(function (data, status) {
+                    $http.get(apiUrls.GET_SLETAT_BY_ID + '?id=' + id, { cache: true }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -116,7 +116,7 @@
                 },
                 startSearchTours: function (criteria, successCallback, errCallback) {
                     //запрос по критериям поиска
-                    $http.post(beginSearchUrl, angular.toJson(criteria)).success(function (data, status) {
+                    $http.post(apiUrls.BEGIN_SEARCH, angular.toJson(criteria)).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -126,7 +126,7 @@
                     });
                 },
                 checkSearchTours: function (searchIdObj, successCallback, errCallback) {
-                    $http.post(checkSearchUrl, angular.toJson(searchIdObj)).success(function (data, status) {
+                    $http.post(apiUrls.CHECK_SEARCH, angular.toJson(searchIdObj)).success(function (data, status) {
                         successCallback(data);
                     }).
                     error(function (data, status) {
@@ -134,7 +134,7 @@
                     });
                 },
                 getLocationsByUrls: function (queryData, successCallback, errCallback) {
-                    $http.post(getLocationByUrls, angular.toJson(queryData)).success(function (data, status) {
+                    $http.post(apiUrls.GET_LOCATION_BY_URLS, angular.toJson(queryData)).success(function (data, status) {
                         successCallback(data);
                     }).
                     error(function (data, status) {
@@ -142,7 +142,7 @@
                     });
                 },
                 getHotelDetail: function (queryData, successCallback, errCallback) {
-                    $http.post(hotelDetailUrl, angular.toJson(queryData)).success(function (data, status) {
+                    $http.post(apiUrls.HOTEL_DETAIL, angular.toJson(queryData)).success(function (data, status) {
                         successCallback(data);
                     }).
                     error(function (data, status) {
@@ -150,7 +150,7 @@
                     });
                 },
                 getTourDetail: function (queryData, successCallback, errCallback) {
-                    $http.post(tourDetailUrl, angular.toJson(queryData)).success(function (data, status) {
+                    $http.post(apiUrls.TOUR_DETAIL, angular.toJson(queryData)).success(function (data, status) {
                         successCallback(data);
                     }).
                     error(function (data, status) {
@@ -159,7 +159,7 @@
                 },
                 getOrder: function (queryData, successCallback, errCallback) {
                     //запрос по критериям поиска
-                    $http.post(getOrderUrl, angular.toJson(queryData)).success(function (data, status) {
+                    $http.post(apiUrls.GET_ORDER, angular.toJson(queryData)).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -170,7 +170,7 @@
                 },
                 getPaymentPage: function (queryData, successCallback, errCallback) {
                     //запрос по критериям поиска
-                    $http.post(paymentPageUrl, angular.toJson(queryData)).success(function (data, status) {
+                    $http.post(apiUrls.PAYMENT_PAGE, angular.toJson(queryData)).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -180,7 +180,7 @@
                     });
                 },
                 pay: function (queryData, successCallback, errCallback) {
-                    $http.post(payUrl, angular.toJson(queryData)).success(function (data) {
+                    $http.post(apiUrls.PAY, angular.toJson(queryData)).success(function (data) {
                         successCallback(data);
                     }).
                     error(function (data, status) {

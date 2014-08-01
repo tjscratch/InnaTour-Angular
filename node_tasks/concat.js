@@ -9,22 +9,23 @@ var _ENV_ = process.env.NODE_ENV || '';
 // зависимость от сборки шаблонов
 gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-regions'], function () {
     return gulp.src([
-            conf.build + '/js/app-lib.js',
+			conf.build + '/js/app-lib.js',
 
-            conf.dest + '/js/angular/config.js',
             conf.dest + '/js/jquery.ui.datepicker-ru.js',
             conf.dest + '/js/google.maps.clustering.js',
-            conf.dest + '/js/angular/plugins/*.js',
+            conf.angular + '/plugins/*.js',
             conf.dest + '/js/datepicker.js',
-            conf.dest + '/js/angular/helpers/*.js',
-            conf.dest + '/js/angular/models/app.model.js',
-            conf.dest + '/js/angular/models/*.js',
-            conf.dest + '/js/angular/app.js',
+            conf.angular + '/helpers/*.js',
+            conf.angular + '/models/app.model.js',
+            conf.angular + '/models/*.js',
+            conf.angular + '/app.js',
 
             // собираем и шаблоны тоже
             conf.build + '/js/templates.js',
 
-            conf.dest + '/js/angular/**/*.js'
+            conf.angular + '/**/*.js',
+			// конфиг уже есть в app-lib.js, поэтому исключаем его тут
+			'!' + conf.angular + '/config.js'
     ])
 
         .pipe(concat('app-main.js', {insertSourceName:{open:'/*', close: '*/'}}))
@@ -38,7 +39,8 @@ gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-re
 
 gulp.task('concat-lib', function () {
     return gulp.src([
-            conf.dest + '/lib/moment-with-langs.js',
+			conf.angular + '/config.js',
+			conf.dest + '/lib/moment-with-langs.js',
             conf.dest + '/lib/underscore.js',
             conf.dest + '/lib/ractive.js',
             conf.dest + '/lib/polyfill/polyfill.js',
