@@ -6,6 +6,12 @@ var conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
+
+gulp.task('build-config', function () {
+    return gulp.src(conf.angular + '/config.js')
+        .pipe(gulp.dest(conf.build + '/js'));
+});
+
 // зависимость от сборки шаблонов
 gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-regions'], function () {
     return gulp.src([

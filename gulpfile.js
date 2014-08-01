@@ -21,9 +21,9 @@ console.info('----------------------------');
 // NODE_ENV=production gulp build-project
 // После сборки проект копируется в папку PUBLISH
 gulp.task('build-project', function (callback) {
-    runSequence('sprite', 'styles-app', 'replace-config-build', ['styles', 'less', 'build-concat'], 'version-cache', 'html-replace', 'copy-project', callback);
+    runSequence('sprite', 'styles-app', 'replace-config', ['styles', 'less', 'build-concat'], 'version-cache', 'html-replace', 'copy-project', callback);
 });
 
 gulp.task('default', function(callback){
-    runSequence('sprite', 'styles-app', 'replace-config', ['styles', 'less', 'build-templates', 'concat-lib', 'concat-comp-page-regions'], 'watch',  callback);
+    runSequence('sprite', 'styles-app', 'build-config', ['styles', 'less', 'build-templates', 'concat-lib', 'concat-comp-page-regions'], 'watch',  callback);
 });

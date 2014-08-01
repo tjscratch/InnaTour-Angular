@@ -12,13 +12,11 @@ var b2bHost = (_ENV_ === 'production') ? conf.hosts.b2b.prod : conf.hosts.b2b.te
 var apiFrontHost = (_ENV_ === 'production') ? conf.hosts.front.prod : conf.hosts.front.test;
 var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : conf.hosts.static.test;
 
-var confReplacePath = (_ENV_ === 'production') ? conf.version : conf.build;
-
 var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protocol.http;
 
 function getConfReplace(){
     return {
-		'app-config-js': '/'+ confReplacePath +'/js/config.js',
+		'app-config-js': '/'+ conf.version +'/js/config.js',
         'app-main-js': '/'+ conf.version +'/js/app-main.js',
         'app-less': '/'+ conf.version +'/css/main.less.css',
         'app-stylus': '/'+ conf.version +'/css/common.min.css',
@@ -31,21 +29,21 @@ function getConfReplace(){
     }
 }
 
-// Копируем в папку publish
-gulp.task('replace-config-build', function () {
-    return gulp.src(conf.angular + '/config.js')
-        .pipe(htmlreplace(getConfReplace()))
-		.pipe(gulpif(_ENV_ === 'production', uglify({
-            mangle: false,
-            outSourceMap: true
-        })))
-        .pipe(gulp.dest(conf.publish + '/' + conf.version + '/js'));
-});
+function getConfigJsReplace(){
+    return {
+        'app-config-js': '/'+ conf.version +'/js/config.js'
+    }
+}
 
+// Копируем в папку publish
 gulp.task('replace-config', function () {
     return gulp.src(conf.angular + '/config.js')
-        .pipe(htmlreplace(getConfReplace()))
-        .pipe(gulp.dest(conf.build + '/js'));
+		.pipe(htmlreplace(getConfReplace()))
+		// .pipe(gulpif(_ENV_ === 'production', uglify({
+            // mangle: false,
+            // outSourceMap: true
+        // })))
+        .pipe(gulp.dest(conf.publish + '/' + conf.version + '/js'));
 });
 
 gulp.task('replace-index', function () {
