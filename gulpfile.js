@@ -25,5 +25,5 @@ gulp.task('build-project', function (callback) {
 });
 
 gulp.task('default', function(callback){
-    runSequence('sprite', 'styles-app', ['styles', 'less', 'build-templates', 'concat-lib', 'concat-comp-page-regions'], 'watch',  callback);
+    runSequence('sprite', 'styles-app', 'replace-config', ['styles', 'less', 'build-templates', 'concat-lib', 'concat-comp-page-regions'], 'watch',  callback);
 });
