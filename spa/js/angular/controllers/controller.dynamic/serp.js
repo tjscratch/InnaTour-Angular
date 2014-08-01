@@ -1,6 +1,5 @@
 innaAppControllers
     .controller('DynamicPackageSERPCtrl', [
-        'EventManager',
         '$scope',
         'DynamicFormSubmitListener',
         'DynamicPackagesDataProvider',
@@ -517,11 +516,14 @@ innaAppControllers
                 $scope.asMap = param;
             }
 
+            function closeMap() {
+                delete $location.$$search.map;
+                $location.$$compose();
+            }
 
             function locatioAsMap() {
                 if (!getAsMap()) {
-                    delete $location.$$search.map;
-                    $location.$$compose();
+                    closeMap();
                 } else {
                     $location.search('map', 'show');
                 }
