@@ -67,33 +67,6 @@
     mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>
     <!-- end Mixpanel -->
 	
-    <script type="text/javascript">
-        var app_main = {};
-        //<!-- build:app-host -->
-        app_main.host = 'https://apibeta.inna.ru';
-        //<!-- endbuild -->
-
-        //<!-- build:b2b-host -->
-        app_main.b2bHost = 'https://b2bbeta.inna.ru';
-        //<!-- endbuild -->
-
-        //<!-- build:front-host -->
-        app_main.frontHost = 'https://beta.inna.ru';
-        //<!-- endbuild -->
-
-        //<!-- build:static-host -->
-        app_main.staticHost = 'https://sbeta.inna.ru';
-        //<!-- endbuild -->
-
-        app_main.version = '12';
-        app_main.constants = {};
-        app_main.constants.offersCategoriesProgramm = '1';
-
-        var getSletatUrl = app_main.host + '/api/v1/Dictionary/Sletat/Get';
-        var getSletatCityUrl = app_main.host + '/api/v1/Dictionary/SletatCity/Get';
-        var getSletatByIdUrl = app_main.host + '/api/v1/Dictionary/SletatById/Get';
-        var sendITCategoryRequestUrl = app_main.host + '/api/v1/RequestsTour/Post';
-    </script>
 </head>
 <body id="ng-app" ng-app="innaApp" ng-click="bodyClick()" ng-controller="RootCtrl" popup-form>
 <div class="main">
@@ -268,6 +241,10 @@
 <!--contacts-->
 <script src="//api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU"
         type="text/javascript"></script>
+
+<!-- build:app-config-js -->
+<script src="/build/js/config.js"></script>
+<!-- endbuild -->
 
 <!-- build:app-main-js -->  <!--файлы заменяются при билде на app-main.js-->
 

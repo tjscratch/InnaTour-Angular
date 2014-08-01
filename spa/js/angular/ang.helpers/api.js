@@ -6,6 +6,23 @@ angular.module('innaApp.API', [])
         }
 
         return {
+            GET_SLETAT: url('/Dictionary/Sletat/Get'),
+            GET_SLETAT_CITY: url('/Dictionary/SletatCity/Get'),
+            GET_SLETAT_BY_ID: url('/Dictionary/SletatById/Get'),
+
+            GET_LOCATION_BY_URLS: url('/Dictionary/LocationByUrl'),
+
+            BEGIN_SEARCH: url('/Search/BeginSearch/Get'),
+            CHECK_SEARCH: url('/Search/CheckSearch/Get'),
+
+            HOTEL_DETAIL: url('/HotelDetail/GetPage'),
+            TOUR_DETAIL: url('/TourDetail/GetPage'),
+
+            GET_ORDER: url('/Order'),
+
+            PAYMENT_PAGE: url('/Payment'),
+            PAY: url('/Payment/Pay'),
+
             GET_SECTION_TOURS: url('/Section/Get/1'),
             GET_SECTION_INDIVIDUAL_TOURS: url('/Section/Get/2'),
             GET_INDIVIDUAL_TOURS_CATEGORY: url('/IndividualTourCategory/Get'),
