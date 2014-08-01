@@ -1,6 +1,9 @@
 <div ng-controller="DynamicPackageSERPTicketPopupCtrl">
+
+    {{ (_oneWay = (ticket.getEtaps('Back').length == 0)) ? '' : '' }}
+
     <div style="display:block;" class="overlay js-overlay" ng-if="ticket.data">
-        <div class="balloon balloon_ticket balloon_2ticket">
+        <div class="balloon balloon_ticket" ng-class="{'balloon_2ticket': !_oneWay}">
             <div ng-if="!noClose" title="Закрыть" class="balloon-close" ng-click="closePopup()"></div>
             <h3 class="b-tickets__title">Подробная информация по перелету</h3>
 
@@ -20,7 +23,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-5 col-no-padding row-fluid__cell">
+                        <div class="col-xs-5 col-no-padding row-fluid__cell" ng-if="!_oneWay">
                             <div class="rlf-fly rlf-fly_back">
                                 <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.getBackOutCode()}}
                                 <span class="rlf-fly-arrow"></span>
@@ -34,7 +37,7 @@
                         </div>
                     </div>
 
-                    <div class="b-ticket_2ways b-ticket_2ways-sep">
+                    <div ng-class="{'b-ticket_2ways b-ticket_2ways-sep': !_oneWay, 'b-ticket_1way-cont': _oneWay}">
                         <div ng-repeat="zip in etapsZipped">
                             <div class="clearfix">
                                 <div class="b-ticket_2ways-block" ng-repeat="etap in zip">
