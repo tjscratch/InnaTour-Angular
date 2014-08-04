@@ -55,6 +55,13 @@
                 if (dParts.length == 3) {
                     var y = parseInt(dParts[2], 10);
 
+                    var day = parseInt(dParts[0], 10);
+                    if (!(day >= 1 && day <= 31))
+                        throw error;
+                    var month = parseInt(dParts[1], 10);
+                    if (!(month >= 1 && month <= 12))
+                        throw error;
+
                     var today = new Date();
                     var yyyy = today.getFullYear();
                     if (!(y >= yyyy && y <= (yyyy + 100)))
