@@ -78,8 +78,8 @@ angular.module('innaApp.services').service('FilterSettings',
                 ],
                 PackagePrice: {
                     min: 10000,
-                    max: 100000,
-                    value: 30000
+                    max: 200000,
+                    value: 70000
                 },
                 Stars: {
                     list: [

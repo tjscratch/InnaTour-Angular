@@ -13,14 +13,15 @@ angular.module('innaApp.conponents').
             var FilterPrice = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/price.hbs.html'),
                 data: {
-                    value : {
-                        name : 'PackagePrice',
-                        val : [],
-                        fn : function(data){
+                    value: {
+                        name: 'PackagePrice',
+                        val: [],
+                        fn: function (data) {
+                            console.log(data, FilterThis.get('value.val')[0]);
                             return (data <= FilterThis.get('value.val')[0]);
                         }
                     },
-                    priceValue : null
+                    priceValue: null
                 },
                 components: {
 
@@ -36,7 +37,7 @@ angular.module('innaApp.conponents').
 
                         },
                         resetFilter: function () {
-                            this.set({'price.value' : 0});
+                            this.set({'price.value': 0});
                         },
                         teardown: function (evt) {
                             FilterThis = null;
@@ -52,7 +53,11 @@ angular.module('innaApp.conponents').
                 IndicatorFiltersItemRemove: function (data) {
                     this._super(data);
                     var that = this;
-                    this.set('value.val', []);
+                    this.set({
+                        'value.val': that.get('PackagePrice.value'),
+                        'PackagePrice.value': val
+                    });
+
                     this.hasSelected();
                 },
 
@@ -61,9 +66,9 @@ angular.module('innaApp.conponents').
 
                 },
 
-                slide : function(val){
-                    this.set('price.value', val);
-                    if(val) {
+                slide: function (val) {
+                    this.set('PackagePrice.value', val);
+                    if (val) {
                         clearTimeout(this._timeOut);
                         this._timeOut = setTimeout(function () {
                             if (val > 0) {
@@ -82,10 +87,11 @@ angular.module('innaApp.conponents').
 
                     $(slider).slider({
                         range: "min",
-                        min: that.get('price.min'),
-                        max: that.get('price.max'),
-                        value: that.get('price.value'),
-                        slide: function(event, ui) {
+                        animate: true,
+                        min: that.get('PackagePrice.min'),
+                        max: that.get('PackagePrice.max'),
+                        value: that.get('PackagePrice.value'),
+                        slide: function (event, ui) {
                             that.slide(ui.value)
                         }
                     });
