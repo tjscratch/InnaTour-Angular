@@ -322,7 +322,6 @@ innaAppControllers
                             ListPanelComponent = new ListPanel({
                                 el: document.querySelector('.results-container_list'),
                                 data: {
-                                    indicator_filters: false,
                                     iterable_tickets: true,
                                     Enumerable: data.AviaInfos,
                                     combinationModel: $scope.combination

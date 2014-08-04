@@ -93,6 +93,8 @@ angular.module('innaApp.conponents').
                         teardown: function (evt) {
                             //this.reset();
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
+                            EventManager.off(Events.FILTER_PANEL_RESET_ALL);
+                            EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
                         }
                     })
 
@@ -104,6 +106,12 @@ angular.module('innaApp.conponents').
                         childComponents.forEach(function (child) {
                             child.set({isOpen: false});
                         })
+                    });
+
+                    EventManager.on(Events.FILTER_PANEL_RESET_ALL, function(){
+                        that.findAllComponents().forEach(function(item){
+                            item.fire('resetFilter');
+                        });
                     });
                 },
 
@@ -161,6 +169,7 @@ angular.module('innaApp.conponents').
                 /**
                  * Проходим по всем дочерним компонентам и
                  * собираем данные для фильтрации
+                 * также собираем объекты компонентов которые изменились
                  * обновляем массив filtersCollection
                  */
                 collectChildData: function () {
@@ -176,12 +185,9 @@ angular.module('innaApp.conponents').
                     this.merge('filtersCollection', tempArr);
 
                     if (this.get('filtersCollection').length) {
-                        this.set('alreadyFiltered', true);
                         EventManager.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
                     } else {
-                        if (this.get('alreadyFiltered')) {
-                            EventManager.fire(Events.FILTER_PANEL_RESET);
-                        }
+                       EventManager.fire(Events.FILTER_PANEL_RESET);
                     }
                 },
 
@@ -200,8 +206,6 @@ angular.module('innaApp.conponents').
                 prepareHotelsFiltersData : function(data){
                     var that = this;
                     var collectExtra = [];
-
-                   
                 },
 
                 /**

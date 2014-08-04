@@ -103,6 +103,7 @@ angular.module('innaApp.API', [])
             FILTER_PANEL_SORT : 'filter-panel:sort',
             FILTER_PANEL_CHANGE : 'filter-panel:change',
             FILTER_PANEL_RESET : 'filter-panel:reset',
+            FILTER_PANEL_RESET_ALL : 'filter-panel:reset_all',
 
             DYNAMIC_SERP_TOGGLE_MAP : 'toggle:view:hotels:map',
             DYNAMIC_SERP_GO_TO_MAP : 'hotel:go-to-map',

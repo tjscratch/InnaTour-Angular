@@ -38,21 +38,37 @@ angular.module('innaApp.conponents').
                         change: function (data) {
                             // ставим условие чтоб тело функции change
                             // выполнялось на изменение name.value
-                            if (data && (data['name.value'] != undefined)) {
+                            if (data && (data['name'] != undefined)) {
 
                                 clearTimeout(this._timeOut);
                                 this._timeOut = setTimeout(function () {
-                                    this.set('value.val', data['name.value']);
+                                    this.set('value.val', data['name']);
                                     this.hasSelected();
                                 }.bind(this), 100);
                             }
                         },
                         resetFilter: function () {
+                            this.set({
+                                'name' : '',
+                                'value.val': ''
+                            });
+
                         },
                         teardown: function (evt) {
                             FilterThis = null;
                         }
                     });
+                },
+
+                /**
+                 *
+                 * @param data
+                 * @override
+                 */
+                IndicatorFiltersItemRemove : function(data){
+                    this._super(data);
+                    this.fire('resetFilter');
+                    this.hasSelected();
                 },
 
                 parse: function (end) {

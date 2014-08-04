@@ -44,7 +44,7 @@ angular.module('innaApp.conponents').
                             this.hasSelected();
                         },
                         resetFilter: function () {
-                            this.set('stars.*.isChecked',  false);
+                            this.set('Stars.list.*.isChecked',  false);
                         },
                         teardown: function (evt) {
                             FilterThis = null;
@@ -56,10 +56,29 @@ angular.module('innaApp.conponents').
                     Stars: Stars
                 },
 
+
+                /**
+                 * @param data
+                 * @override
+                 */
+                IndicatorFiltersItemRemove : function(data){
+                    this._super(data);
+                    var that = this;
+
+                    this.splice('value.val', this.get('value.val').indexOf(data), 1);
+                    this.get('Stars.list').forEach(function(item, i){
+                        if(item.value == data){
+                            that.set('Stars.list.'+ i +'.isChecked',  false);
+                        }
+                    })
+
+                    this.hasSelected();
+                },
+
+
                 parse: function (end) {
 
                 },
-
 
                 beforeInit: function (data) {
                     //console.log('beforeInit');

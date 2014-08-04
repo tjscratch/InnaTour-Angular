@@ -153,7 +153,6 @@ angular.module('innaApp.conponents').
                     // выполняем фильтрацию не чаще 300ms
                     // защита от слишком частого нажатия на кнопки фильтрации
                     EventManager.on(Events.FILTER_PANEL_CHANGE, function (data) {
-                        console.log(data);
                         clearTimeout(that._filterTimeout);
                         that._filterTimeout = setTimeout(function () {
                             that.doFilter(that.get('Enumerable'), data);

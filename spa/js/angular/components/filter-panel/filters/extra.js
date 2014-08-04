@@ -17,9 +17,9 @@ angular.module('innaApp.conponents').
                         name: 'Extra',
                         val: [],
                         fn: function (data) {
-                            if(typeof data == 'object' && Object.keys(data).length) {
+                            if (typeof data == 'object' && Object.keys(data).length) {
                                 var result = FilterThis.get('value.val').filter(function (filterExtra) {
-                                    return data[filterExtra] != undefined
+                                    return data[filterExtra.value] != undefined
                                 })
                                 return (FilterThis.get('value.val').length == result.length)
                             }
@@ -38,18 +38,32 @@ angular.module('innaApp.conponents').
                         change: function (data) {
 
                         },
+
+                        /**
+                         * nameExtra для вывода названия на русском справа панели
+                         * indicator-filters
+                         * @param data
+                         */
                         onChecked: function (data) {
+                            var that = this;
                             if (data && data.context) {
+
                                 if (data.context.isChecked) {
-                                    this.push('value.val', data.context.value)
+
+                                    this.push('value.val', data.context);
+
                                 } else if (!data.context.isChecked) {
-                                    this.splice('value.val', this.get('value.val').indexOf(data.context.value), 1);
+
+                                    this.get('value.val').forEach(function (item, i) {
+                                        if (data.context.value == item.value) that.splice('value.val', i, 1);
+                                    })
+
                                 }
                             }
                             this.hasSelected();
                         },
                         resetFilter: function () {
-                           this.set('services.list.*.isChecked',  false);
+                            this.set('Extra.list.*.isChecked', false);
                         },
                         teardown: function (evt) {
                             FilterThis = null;
@@ -57,6 +71,26 @@ angular.module('innaApp.conponents').
                     })
                 },
 
+                /**
+                 * @param data
+                 * @override
+                 */
+                IndicatorFiltersItemRemove: function (data) {
+                    this._super(data);
+                    var that = this;
+
+                    this.get('value.val').forEach(function (item, i) {
+                        if (data.value == item.value) that.splice('value.val', i, 1);
+                    })
+
+                    this.get('Extra.list').forEach(function (item, i) {
+                        if (item.value == data.value) {
+                            that.set('Extra.list.' + i + '.isChecked', false);
+                        }
+                    })
+
+                    this.hasSelected();
+                },
 
                 parse: function (end) {
 

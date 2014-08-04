@@ -13,20 +13,20 @@
         <div class="ra-content">
             <ul class="ra-fly-type-list">
 
-				{{#each tafactor.list}}
+				{{#each TaFactor.list}}
                     <li>
                         <label on-change="onChecked">
                             <input type="checkbox" name="tafactor" value="{{this.value}}" checked="{{this.isChecked}}"/>
                             <span class="ra-checkbox"></span>
 
-	                <span class="ra-fly-type">
-                        <Tripadvisor TaFactor="{{this.value}}"
-                                     withOutTd="{{tafactor.withOutTd}}"/>
-                    </span>
+			                <span class="ra-fly-type">
+		                        <Tripadvisor TaFactor="{{this.value}}"
+		                                     withOutTd="{{TaFactor.withOutTd}}"/>
+		                    </span>
 
-	                <span class="ra-fly-price" bindonce="option"><span bo-text="option.minPrice | price"></span>&nbsp;
-		                {{>ruble}}
-                    </span>
+			                <span class="ra-fly-price" bindonce="option"><span bo-text="option.minPrice | price"></span>&nbsp;
+				                {{>ruble}}
+		                    </span>
                         </label>
                     </li>
 				{{/each}}

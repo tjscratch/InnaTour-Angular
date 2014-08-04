@@ -17,9 +17,9 @@ angular.module('innaApp.conponents').
                     value: {
                         name: 'TaFactor',
                         val: [],
-                        fn : function(data){
+                        fn: function (data) {
 
-                            var result = FilterThis.get('value.val').filter(function(item){
+                            var result = FilterThis.get('value.val').filter(function (item) {
                                 if (Math.floor(data) == item) return true;
                             });
 
@@ -46,7 +46,7 @@ angular.module('innaApp.conponents').
                             }
                         },
                         resetFilter: function () {
-                            this.set('tafactor.list.*.isChecked',  false);
+                            this.set('TaFactor.list.*.isChecked', false);
                         },
                         teardown: function (evt) {
                             FilterThis = null;
@@ -57,6 +57,26 @@ angular.module('innaApp.conponents').
                 components: {
                     Tripadvisor: Tripadvisor
                 },
+
+                /**
+                 *
+                 * @param data
+                 * @override
+                 */
+                IndicatorFiltersItemRemove: function (data) {
+                    this._super(data);
+                    var that = this;
+                    this.splice('value.val', this.get('value.val').indexOf(data), 1);
+
+                    this.get('TaFactor.list').forEach(function (item, i) {
+                        if (item.value == data) {
+                            that.set('TaFactor.list.' + i + '.isChecked', false);
+                        }
+                    })
+
+                    this.hasSelected();
+                },
+
 
                 parse: function (end) {
 

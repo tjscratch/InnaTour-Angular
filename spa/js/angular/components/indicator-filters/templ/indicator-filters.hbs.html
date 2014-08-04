@@ -3,63 +3,11 @@
     <div class="ra-tags-container">
         <div class="b-switch-filters__result">
 			{{#each filters}}
-                <!-- если значение фильтра не пустое -->
-				{{#if this.val && this.val.length}}
-
-                    <ul class="b-switch-filters__list ra-tags-list">
-
-						{{#if this.name == 'TaFactor'}}
-							{{#each this.val}}
-                                <li class="b-switch-filters__item">
-                                    <Tripadvisor TaFactor="{{.}}" withOutTd="true"/>
-	                                <span class="b-switch-filters__item_close icon-sprite-remove"
-                                          on-click="removeFilter"></span>
-                                </li>
-							{{/each}}
-						{{/if}}
-
-	                    {{#if this.name == 'PackagePrice'}}
-                            <li class="b-switch-filters__item">
-                                Не дороже {{this.val}} рублей
-                                <span class="b-switch-filters__item_close icon-sprite-remove"
-                                      on-click="removeFilter"></span>
-                            </li>
-						{{/if}}
-
-						{{#if this.name == 'Stars'}}
-							{{#each this.val}}
-                                <li class="b-switch-filters__item">
-                                    <Stars stars="{{.}}"/>
-	                                <span class="b-switch-filters__item_close icon-sprite-remove"
-                                          on-click="removeFilter"></span>
-                                </li>
-							{{/each}}
-						{{/if}}
-
-
-						{{#if this.name != 'Stars' && this.name != 'TaFactor' && this.name != 'PackagePrice'}}
-							{{#if isArray(this.val)}}
-								{{#each this.val}}
-                                    <li class="b-switch-filters__item">
-                                        <span>{{this}}</span>
-	                                <span class="b-switch-filters__item_close icon-sprite-remove"
-                                          on-click="removeFilter"></span>
-                                    </li>
-								{{/each}}
-							{{else}}
-                                <li class="b-switch-filters__item">
-                                    <span>{{this.val}}</span>
-	                                <span class="b-switch-filters__item_close icon-sprite-remove"
-                                          on-click="removeFilter"></span>
-                                </li>
-							{{/if}}
-						{{/if}}
-                    </ul>
-				{{/if}}
+                <IndicatorFiltersItem filterItem="{{.}}" />
 			{{/each}}
 
 			{{#if filters.length}}
-                <span on-click="resetFilters" class="ra-tags-reset like-link">
+                <span on-click="resetFilter" class="ra-tags-reset like-link">
 	                Сбросить все фильтры
                 </span>
 			{{/if}}

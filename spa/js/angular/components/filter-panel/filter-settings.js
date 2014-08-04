@@ -76,19 +76,22 @@ angular.module('innaApp.services').service('FilterSettings',
                         ]
                     }
                 ],
-                price: {
+                PackagePrice: {
                     min: 10000,
                     max: 100000,
                     value: 30000
                 },
-                stars: [
-                    {value: 1},
-                    {value: 2},
-                    {value: 3},
-                    {value: 4},
-                    {value: 5}
-                ].reverse(),
-                tafactor: {
+                Stars: {
+                    list: [
+                        {value: 1},
+                        {value: 2},
+                        {value: 3},
+                        {value: 4},
+                        {value: 5}
+                    ].reverse()
+                }
+                ,
+                TaFactor: {
                     withOutTd: true,
                     list: [
                         {value: 1},
@@ -98,10 +101,10 @@ angular.module('innaApp.services').service('FilterSettings',
                         {value: 5}
                     ].reverse()
                 },
-                name: {
+                HotelName: {
                     value: ''
                 },
-                type: {
+                HotelType: {
                     list: [
                         {
                             name: 'Отель',
@@ -121,7 +124,7 @@ angular.module('innaApp.services').service('FilterSettings',
                         }
                     ]
                 },
-                services: {
+                Extra: {
                     list: [
                         {
                             name: 'Фитнес',
@@ -235,6 +238,10 @@ angular.module('innaApp.services').service('FilterSettings',
         var FilterModel = Ractive.extend({
             data: {
                 settings: new Model()
+            },
+
+            init : function(){
+
             },
 
             resetModel: function () {

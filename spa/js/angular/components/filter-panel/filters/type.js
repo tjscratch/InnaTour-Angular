@@ -45,7 +45,7 @@ angular.module('innaApp.conponents').
                             this.hasSelected();
                         },
                         resetFilter: function () {
-                            this.set('type.list.*.isChecked', false);
+                            this.set('HotelType.list.*.isChecked', false);
                         },
                         teardown: function (evt) {
                             FilterThis = null;
@@ -53,6 +53,24 @@ angular.module('innaApp.conponents').
                     });
                 },
 
+                /**
+                 * @param data
+                 * @override
+                 */
+                IndicatorFiltersItemRemove : function(data){
+                    this._super(data);
+                    var that = this;
+
+                    this.splice('value.val', this.get('value.val').indexOf(data), 1);
+
+                    this.get('HotelType.list').forEach(function(item, i){
+                        if(item.name == data){
+                            that.set('HotelType.list.'+ i +'.isChecked',  false);
+                        }
+                    })
+
+                    this.hasSelected();
+                },
 
                 parse: function (end) {
 

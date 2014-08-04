@@ -3,59 +3,56 @@ innaAppConponents.
         'EventManager',
         'innaApp.API.events',
         '$templateCache',
+        'FilterSettings',
 
         // components
-        'Tripadvisor',
-        'Stars',
-        function (EventManager, Events, $templateCache, Tripadvisor, Stars) {
+        'IndicatorFiltersItem',
+        function (EventManager, Events, $templateCache, FilterSettings, IndicatorFiltersItem) {
 
             var IndicatorFilters = Ractive.extend({
                 template: $templateCache.get('components/indicator-filters/templ/indicator-filters.hbs.html'),
                 data: {
                     filters: [],
-                    isArray : angular.isArray,
+                    isArray: angular.isArray,
                     atLeastOne: false
                 },
                 components: {
-                    Tripadvisor: Tripadvisor,
-                    Stars: Stars
+                    IndicatorFiltersItem: IndicatorFiltersItem
                 },
                 init: function (options) {
                     var that = this;
 
                     this.on({
                         action: this.action,
-                        removeFilter : function(data){
-                            console.log(data);
+                        resetFilter: function (data) {
+                            EventManager.fire(Events.FILTER_PANEL_RESET_ALL);
                         },
                         teardown: function (evt) {
-                            EventManager.off(Events.FILTER_PANEL_CHANGE);
+                            EventManager.off(Events.FILTER_PANEL_CHANGE, this.changeFilters);
+                            EventManager.off(Events.FILTER_PANEL_RESET, this.resetFilters);
                         }
                     })
 
 
-                    this.observe('isVisible',
-                        function (newValue, oldValue) {
-                            if (newValue) {
-                                this.set({location: document.location});
-                                $(this._input).select();
-                            }
-                        }, {defer: true});
-
-                    EventManager.on(Events.FILTER_PANEL_CHANGE, function (data) {
-                        clearTimeout(that._filterTimeout);
-                        that._filterTimeout = setTimeout(function () {
-                            that.set('filters', data);
-                            console.log(data, 'IndicatorFilters');
-                        }, 300);
-                    });
+                    EventManager.on(Events.FILTER_PANEL_CHANGE, this.changeFilters.bind(this));
+                    /** событие сброса фильтров */
+                    EventManager.on(Events.FILTER_PANEL_RESET, this.resetFilters.bind(this));
                 },
 
+                changeFilters: function (data) {
+                    var that = this;
+                    clearTimeout(that._filterTimeout);
 
-                action: function () {
-                    // событие переключения на карты и обратно
-                    EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP);
+                    this._filterTimeout = setTimeout(function () {
+                        that.set('filters', data);
+                        console.log(data, 'IndicatorFilters');
+                    }, 300);
+                },
+
+                resetFilters : function(){
+                    this.set('filters', {});
                 }
+
             });
 
             return IndicatorFilters;

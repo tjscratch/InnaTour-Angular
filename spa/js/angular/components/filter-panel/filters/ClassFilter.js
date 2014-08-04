@@ -38,9 +38,11 @@ angular.module('innaApp.conponents').
                             });
                         },
                         teardown: function (evt) {
-
+                            EventManager.off('IndicatorFiltersItem:remove:'+ this.get('value.name'), this.IndicatorFiltersItemRemove);
                         }
                     })
+
+                    EventManager.on('IndicatorFiltersItem:remove:'+ this.get('value.name'), this.IndicatorFiltersItemRemove.bind(this));
                 },
 
                 hasSelected: function () {
@@ -49,6 +51,14 @@ angular.module('innaApp.conponents').
                     } else {
                         this.set('hasSelected', false);
                     }
+                },
+
+                /**
+                 * @param data
+                 * @override
+                 */
+                IndicatorFiltersItemRemove : function(data){
+
                 },
 
                 beforeInit: function (data) {
