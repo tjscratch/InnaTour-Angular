@@ -22,12 +22,9 @@ innaAppConponents.
                 init: function (options) {
                     var that = this;
 
-                    console.log(this);
-
                     this.on({
                         action: this.action,
                         removeFilter: function (data) {
-                            console.log(data);
                             EventManager.fire('IndicatorFiltersItem:remove:' + this.get('filterItem.name'), data.context);
                         },
                         teardown: function (evt) {

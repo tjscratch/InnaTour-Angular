@@ -44,6 +44,18 @@ angular.module('innaApp.conponents').
                     });
                 },
 
+                /**
+                 *
+                 * @param data
+                 * @override
+                 */
+                IndicatorFiltersItemRemove: function (data) {
+                    this._super(data);
+                    var that = this;
+                    this.set('value.val', []);
+                    this.hasSelected();
+                },
+
 
                 parse: function (end) {
 
