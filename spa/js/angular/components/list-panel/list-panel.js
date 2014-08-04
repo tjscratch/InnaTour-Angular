@@ -82,7 +82,8 @@ angular.module('innaApp.conponents').
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
                             that.set('sortComponent', null);
-                            //this.reset();
+                            this.reset();
+                            this.off();
                             document.removeEventListener('scroll', this.eventListener);
                             EventManager.off(Events.DYNAMIC_SERP_BACK_LIST);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
@@ -152,12 +153,14 @@ angular.module('innaApp.conponents').
                     // выполняем фильтрацию не чаще 300ms
                     // защита от слишком частого нажатия на кнопки фильтрации
                     EventManager.on(Events.FILTER_PANEL_CHANGE, function (data) {
+                        console.log(data);
                         clearTimeout(that._filterTimeout);
                         that._filterTimeout = setTimeout(function () {
                             that.doFilter(that.get('Enumerable'), data);
                         }, 300);
                     });
 
+                    /** событие сброса фильтров */
                     EventManager.on(Events.FILTER_PANEL_RESET, function (data) {
                         clearTimeout(that._filterTimeout);
                         that._filterTimeout = setTimeout(function () {
@@ -170,6 +173,7 @@ angular.module('innaApp.conponents').
                     });
 
 
+                    /** Событие сортировки */
                     EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
                         that.set('sortComponent', sortComponent);
                         setTimeout(function(){

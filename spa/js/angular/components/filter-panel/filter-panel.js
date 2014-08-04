@@ -18,7 +18,6 @@ angular.module('innaApp.conponents').
         '$templateCache',
         '$routeParams',
         'innaApp.API.events',
-
         'FilterSettings',
 
         'FilterTime',
@@ -51,7 +50,7 @@ angular.module('innaApp.conponents').
                     filter_avia: false,
 
                     // данные для компонентов фильтров
-                    filtersData: FilterSettings.get('settings')
+                    filtersModel: FilterSettings.get('settings')
                 },
 
                 // части шаблонов которые содержат компоненты фильтров
@@ -81,8 +80,7 @@ angular.module('innaApp.conponents').
                     var that = this;
 
                     FilterSettings.on('change', function (data) {
-                        console.log(data, 'data');
-                        that.set('filtersData', FilterSettings.get('settings'));
+                        that.set('filtersModel', FilterSettings.get('settings'));
                     })
 
                     document.addEventListener('click', this.bodyClickHide.bind(this), false);
@@ -188,6 +186,12 @@ angular.module('innaApp.conponents').
                 },
 
                 toggleFilters: function () {
+                    FilterSettings.resetModel();
+
+                    this.findAllComponents().forEach(function (child) {
+                        child.fire('resetFilter');
+                    })
+
                     this.toggle('filter_hotel');
                     this.toggle('filter_avia');
                     this.listenChildren();
@@ -196,6 +200,8 @@ angular.module('innaApp.conponents').
                 prepareHotelsFiltersData : function(data){
                     var that = this;
                     var collectExtra = [];
+
+                   
                 },
 
                 /**

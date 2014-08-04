@@ -23,11 +23,13 @@ innaAppConponents.
                 init: function (options) {
                     var that = this;
 
-
                     this.on({
                         action: this.action,
                         removeFilter : function(data){
-                            console.log(data.context);
+                            console.log(data);
+                        },
+                        teardown: function (evt) {
+                            EventManager.off(Events.FILTER_PANEL_CHANGE);
                         }
                     })
 

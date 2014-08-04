@@ -244,6 +244,9 @@ innaAppControllers
                                 FilterPanelComponent.toggleFilters();
                             }
 
+                            // динамически создаем фильтры на основе данных билетов
+                            FilterPanelComponent.prepareHotelsFiltersData(data.Hotels);
+
                             ListPanelComponent = new ListPanel({
                                 el: document.querySelector('.results-container_list'),
                                 data: {
