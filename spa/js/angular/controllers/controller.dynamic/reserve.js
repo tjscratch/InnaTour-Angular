@@ -302,6 +302,9 @@
                                 //storageService.setAviaOrderNum(data.OrderNum);
                                 $scope.OrderNum = data.OrderNum;
 
+                                //аналитика
+                                track.dpGoBuy();
+
                                 if ($scope.isAgency()) {
                                     $scope.goToB2bCabinet();
                                 }
