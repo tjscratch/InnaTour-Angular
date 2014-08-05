@@ -27,30 +27,6 @@ angular.module('innaApp.conponents').
 
             var FilterThis = null;
 
-            var AviaTimeItem = Ractive.extend({
-                template: $templateCache.get('components/filter-panel/templ-micro/time-item.hbs.html'),
-                init: function () {
-                    this.on({
-                        resetFilter: function (data) {
-                            this.set({
-                                'data.state.0.isActive': true,
-                                'data.state.1.isActive': false
-                            });
-                            this.set('data.dayState.*.isChecked', false);
-
-                            this._parent.fire('resetFilter', data)
-                        },
-                        changeDay: function (data) {
-                            this._parent.fire('filterChange', data)
-                        },
-                        changeState : function(data){
-                            this._parent.fire('changeState', data)
-                        }
-                    })
-                }
-            });
-
-
             var FilterTime = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/time.hbs.html'),
                 data: {
@@ -147,11 +123,6 @@ angular.module('innaApp.conponents').
                     }
                 },
 
-
-                components: {
-                    AviaTimeItem: AviaTimeItem
-                },
-
                 init: function (options) {
 
                     this._super(options);
@@ -168,12 +139,22 @@ angular.module('innaApp.conponents').
                             this.set('value.val', this.filter());
                         },
 
-                        changeState : function(){
+                        changeState: function () {
                             this.set('value.val', this.filter());
                             this.hasSelected();
                         },
 
-                        resetFilter : function(){
+                        resetFilter: function (data) {
+                            var that = this;
+
+                            this.get('airTime').forEach(function (item, i) {
+                                if (item.direction == data.context.direction) {
+                                    that.set('airTime.' + i + '.state.0.isActive', true);
+                                    that.set('airTime.' + i + '.state.1.isActive', false);
+                                    that.set('airTime.' + i + '.dayState.*.isChecked', false);
+                                }
+                            });
+
                             this.set('value.val', this.filter());
                         },
 
@@ -189,9 +170,7 @@ angular.module('innaApp.conponents').
                  * @returns {Array}
                  */
                 filter: function () {
-                    var airTime = [].concat(this.get('airTime'));
-
-                    var result = airTime.filter(function (item) {
+                    var result = this.get('airTime').filter(function (item) {
                         var dayStateResult = item.dayState.filter(function (st) {
                             return st.isChecked ? true : false;
                         });
@@ -206,6 +185,29 @@ angular.module('innaApp.conponents').
                         return dayTime.value == part;
                     });
                     return result[0];
+                },
+
+
+                /**
+                 * Копипаста метода filter
+                 *
+                 * @param data
+                 * @override
+                 */
+                IndicatorFiltersItemRemove: function (data) {
+                    this._super(data);
+                    var that = this;
+
+                    this.get('airTime').forEach(function (item, i) {
+                        item.dayState.forEach(function (st, j) {
+                            if ((item.direction == data.direction) && (st.state == data.state)) {
+                                that.set('airTime.' + i + '.dayState.' + j + '.isChecked', false);
+                                st.isChecked = false;
+                            }
+                        });
+                    });
+
+                    this.fire('filterChange');
                 }
             });
 

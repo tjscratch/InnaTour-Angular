@@ -31,11 +31,13 @@ angular.module('innaApp.conponents').
                             this.set({ isOpen: false });
                         },
                         resetFilter: function () {
-                            this.set({
-                                'value.val': [],
-                                'isOpen': false,
-                                'hasSelected': false
-                            });
+                            if(!this.get('sortValue')) {
+                                this.set({
+                                    'value.val': [],
+                                    'isOpen': false,
+                                    'hasSelected': false
+                                });
+                            }
                         },
                         teardown: function (evt) {
                             EventManager.off('IndicatorFiltersItem:remove:'+ this.get('value.name'), this.IndicatorFiltersItemRemove);

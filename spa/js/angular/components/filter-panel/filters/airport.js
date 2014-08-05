@@ -80,7 +80,6 @@ angular.module('innaApp.conponents').
 
                                 if (result.length) this.set('value.val', result)
                                 else this.set('value.val', [])
-
                                 this.hasSelected();
                             }
                         },
@@ -103,7 +102,20 @@ angular.module('innaApp.conponents').
                     var that = this;
 
 
+                    var result = this.get('airports').filter(function (filter, i) {
+                        var r = filter.list.filter(function (item, j) {
+                            if(item.name == data.name) {
+                                that.set('airports.' + i + '.list.' + j + '.isChecked', false);
+                                item.isChecked = false;
+                            }
+                            return item.isChecked
+                        })
+                        return r.length;
+                    })
 
+
+                    if (result.length) this.set('value.val', result)
+                    else this.set('value.val', [])
                     this.hasSelected();
                 }
 

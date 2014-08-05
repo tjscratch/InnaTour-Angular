@@ -20,7 +20,10 @@ angular.module('innaApp.conponents').
                             return (data <= FilterThis.get('value.val')[0]);
                         }
                     },
-                    priceValue: null
+                    priceValue: null,
+                    priceFilter: function (text) {
+                        return $filter('price')(text);
+                    }
                 },
                 components: {
 
@@ -29,17 +32,38 @@ angular.module('innaApp.conponents').
                     this._super(options);
                     var that = this;
                     this._timeOut = null;
+                    this._slider = null;
                     FilterThis = this;
 
                     this.on({
                         change: function (data) {
+                            if (data['PackagePrice.value']) {
 
+                                var priceValue = parseInt(data['PackagePrice.value'], 10);
+
+                                clearTimeout(this._timeOut);
+                                this._timeOut = setTimeout(function () {
+
+                                    if (priceValue > 0)
+                                        this.set('value.val', [priceValue])
+                                    else
+                                        this.set('value.val', [])
+
+
+                                    // выставляем значение слайдера
+                                    this._slider.slider('value', priceValue);
+                                    this.hasSelected();
+                                }.bind(this), 300);
+                            }
                         },
+
                         resetFilter: function () {
                             this.set({'price.value': 0});
                         },
                         teardown: function (evt) {
                             FilterThis = null;
+                            this._slider.slider("destroy");
+                            this._slider = null;
                         }
                     });
                 },
@@ -68,24 +92,13 @@ angular.module('innaApp.conponents').
 
                 slide: function (val) {
                     this.set('PackagePrice.value', val);
-                    if (val) {
-                        clearTimeout(this._timeOut);
-                        this._timeOut = setTimeout(function () {
-                            if (val > 0) {
-                                this.set('value.val', [val])
-                            } else {
-                                this.set('value.val', [])
-                            }
-                            this.hasSelected();
-                        }.bind(this), 500);
-                    }
                 },
 
                 complete: function (data) {
                     var that = this;
                     var slider = this.find('.js-range')
 
-                    $(slider).slider({
+                    this._slider = $(slider).slider({
                         range: "min",
                         animate: true,
                         min: that.get('PackagePrice.min'),

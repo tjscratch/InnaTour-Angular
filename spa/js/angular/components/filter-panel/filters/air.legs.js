@@ -69,8 +69,13 @@ angular.module('innaApp.conponents').
                 IndicatorFiltersItemRemove: function (data) {
                     this._super(data);
                     var that = this;
+                    this.splice('value.val', this.get('value.val').indexOf(data), 1);
 
-
+                    this.get('airLegs.list').forEach(function (item, i) {
+                        if (item.value == data) {
+                            that.set('airLegs.list.' + i + '.isChecked', false);
+                        }
+                    })
 
                     this.hasSelected();
                 }

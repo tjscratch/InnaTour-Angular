@@ -58,9 +58,6 @@ angular.module('innaApp.conponents').
                             this.fire('toggle');
                             this.hasSelected();
                         },
-                        resetFilter: function () {
-                            this.set('sortValue.val', []);
-                        },
 
                         reset: function(data){
 

@@ -13,6 +13,7 @@
 			{{/each}}
 		{{/if}}
 
+
 		{{#if filterItem.name == 'FullPackagePrice'}}
             <li class="b-switch-filters__item">
                 Не дороже {{filterItem.val}} {{pluralize(filterItem.val, ["рубль", "рубля", "рублей"])}}
@@ -20,6 +21,7 @@
                       on-click="removeFilter"></span>
             </li>
 		{{/if}}
+
 
 		{{#if filterItem.name == 'Stars'}}
 			{{#each filterItem.val}}
@@ -31,7 +33,8 @@
 			{{/each}}
 		{{/if}}
 
-	    {{#if filterItem.name == 'HotelType'}}
+
+		{{#if filterItem.name == 'HotelType'}}
 			{{#each filterItem.val}}
                 <li class="b-switch-filters__item">
                     <span>{{this}}</span>
@@ -42,7 +45,7 @@
 		{{/if}}
 
 
-	    {{#if filterItem.name == 'Extra'}}
+		{{#if filterItem.name == 'Extra'}}
 			{{#each filterItem.val}}
                 <li class="b-switch-filters__item">
                     <span>{{this.name}}</span>
@@ -52,7 +55,8 @@
 			{{/each}}
 		{{/if}}
 
-	    {{#if filterItem.name == 'HotelName'}}
+
+		{{#if filterItem.name == 'HotelName'}}
             <li class="b-switch-filters__item">
                 <span>{{filterItem.val}}</span>
                 <span class="b-switch-filters__item_close icon-sprite-remove"
@@ -60,34 +64,56 @@
             </li>
 		{{/if}}
 
-		<!--{{#if filterItem.name == 'DepartureDate'}}
+
+		{{#if filterItem.name == 'collectAirlines'}}
 			{{#each filterItem.val}}
-
-	                <li class="b-switch-filters__item">
-	                    <span>{{this.name}}</span>
-	                    <span class="b-switch-filters__item_close icon-sprite-remove"
-	                          on-click="removeFilter"></span>
-	                </li>
-			{{/each}}
-		{{/if}}-->
-
-
-<!--		{{#if this.name != 'Stars' && this.name != 'TaFactor' && this.name != 'PackagePrice'}}
-			{{#if isArray(this.val)}}
-				{{#each this.val}}
-                    <li class="b-switch-filters__item">
-                        <span>{{this}}</span>
-                        <span class="b-switch-filters__item_close icon-sprite-remove"
-                              on-click="removeFilter"></span>
-                    </li>
-				{{/each}}
-			{{else}}
                 <li class="b-switch-filters__item">
-                    <span>{{this.val}}</span>
-                    <span class="b-switch-filters__item_close icon-sprite-remove"
+                    <span>{{this}}</span>
+	                <span class="b-switch-filters__item_close icon-sprite-remove"
                           on-click="removeFilter"></span>
                 </li>
-			{{/if}}
-		{{/if}}-->
+			{{/each}}
+		{{/if}}
+
+
+		{{#if filterItem.name == 'AirportFrom'}}
+			{{#each filterItem.val}}
+				{{#each this.list}}
+					{{#if this.isChecked}}
+                        <li class="b-switch-filters__item">
+                            <span>{{name}}</span>
+	                    <span class="b-switch-filters__item_close icon-sprite-remove"
+                              on-click="removeFilter"></span>
+                        </li>
+					{{/if}}
+				{{/each}}
+			{{/each}}
+		{{/if}}
+
+
+		{{#if filterItem.name == 'DepartureDate'}}
+			{{#each TimeIndicator}}
+				{{#each days}}
+                    <li class="b-switch-filters__item">
+                        <span>{{../../state.title}} {{direction}}: {{this.name}}</span>
+	                    <span class="b-switch-filters__item_close icon-sprite-remove"
+                              on-click="removeFilter:{{directionOriginal}}"></span>
+                    </li>
+				{{/each}}
+			{{/each}}
+		{{/if}}
+
+		{{#if filterItem.name == 'AirLegs'}}
+			{{#each filterItem.val}}
+                <li class="b-switch-filters__item">
+					{{#if this == 1}}1 пересадка{{/if}}
+					{{#if this >= 2}}2+ пересадки{{/if}}
+                    <span class="b-switch-filters__item_close icon-sprite-remove"
+                          on-click="removeFilter:{{directionOriginal}}"></span>
+                </li>
+			{{/each}}
+		{{/if}}
+
+
     </ul>
 {{/if}}

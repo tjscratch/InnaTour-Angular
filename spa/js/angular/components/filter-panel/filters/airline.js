@@ -72,6 +72,16 @@ angular.module('innaApp.conponents').
 
 
 
+                    this.get('value.val').forEach(function (item, i) {
+                        if (data == item) that.splice('value.val', i, 1);
+                    })
+
+                    this.get('airlines').forEach(function (item, i) {
+                        if (item.name == data) {
+                            that.set('airlines.' + i + '.isChecked', false);
+                        }
+                    })
+
                     this.hasSelected();
                 }
 

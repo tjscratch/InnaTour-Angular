@@ -76,7 +76,7 @@ angular.module('innaApp.conponents').
                         change: function (data) {
 
                         },
-                        goToMap : function(){
+                        goToMap: function () {
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP);
                         },
                         teardown: function (evt) {
@@ -175,9 +175,9 @@ angular.module('innaApp.conponents').
                     /** Событие сортировки */
                     EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
                         that.set('sortComponent', sortComponent);
-                        setTimeout(function(){
+                        setTimeout(function () {
                             that.cloneData(that.sorting(sortComponent));
-                        },0)
+                        }, 0)
 
                     });
 
@@ -266,6 +266,7 @@ angular.module('innaApp.conponents').
                             virtualBundle.hotel = modelHotel;
                             virtualBundle.ticket = that.get('combinationModel').ticket;
                             item.getProfit = virtualBundle.getProfit();
+                            item.FullPackagePrice = virtualBundle.getFullPackagePrice();
                         })
                     }
 
@@ -278,6 +279,17 @@ angular.module('innaApp.conponents').
                             virtualBundle.ticket = modelTicket;
                             virtualBundle.hotel = that.get('combinationModel').hotel;
                             item.getProfit = virtualBundle.getProfit();
+                            item.FullPackagePrice = virtualBundle.getFullPackagePrice();
+
+                            // авиалинии этого билета
+                            var airline = _.union(modelTicket.collectAirlines().airlines);
+                            var legsTo = modelTicket.getEtaps('To').length;
+                            var legsBack = modelTicket.getEtaps('Back').length;
+
+                            item.collectAirlines = airline;
+                            item.legsTo = legsTo;
+                            item.AirLegs = true;
+                            item.legsBack = legsBack;
                         })
                     }
                     return data;
@@ -372,8 +384,8 @@ angular.module('innaApp.conponents').
                     setTimeout(function () {
                         var result = null;
 
-                        if (that.get('sortValue'))
-                            result = that.sorting(that.get('sortValue'), filteredData)
+                        if (that.get('sortComponent'))
+                            result = that.sorting(that.get('sortComponent'), filteredData)
                         else
                             result = filteredData;
 
@@ -416,8 +428,8 @@ angular.module('innaApp.conponents').
 
                     if (!this.get('scroll')) this.addScroll();
 
-                    if (this.get('sortValue'))
-                        sortResult = this.sorting(this.get('sortValue'), null);
+                    if (this.get('sortComponent'))
+                        sortResult = this.sorting(this.get('sortComponent'));
 
                     this.cloneData(sortResult);
                 },
@@ -440,14 +452,6 @@ angular.module('innaApp.conponents').
 
                 wait: function () {
                     this.set({waitData: true})
-                },
-
-                beforeInit: function (options) {
-                    //console.log('beforeInit');
-                },
-
-                complete: function (data) {
-                    //console.log('complete');
                 }
             });
 

@@ -51,10 +51,7 @@ angular.module('innaApp.conponents').
                     virtualBundle.hotel = modelHotel;
                     virtualBundle.ticket = this.get('combinationModel').ticket;
 
-
-                    //this.set('hotel.getProfit', virtualBundle.getProfit());
                     this.set({
-                        'hotel.FullPackagePrice': virtualBundle.getFullPackagePrice(),
                         virtualBundle: virtualBundle,
                         modelHotel: modelHotel
                     });
