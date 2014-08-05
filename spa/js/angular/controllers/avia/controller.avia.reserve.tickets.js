@@ -271,6 +271,9 @@ innaAppControllers.
                                 //storageService.setAviaOrderNum(data.OrderNum);
                                 $scope.criteria.OrderNum = data.OrderNum;
 
+                                //аналитика
+                                track.aviaGoBuy();
+
                                 if ($scope.isAgency()) {
                                     $scope.goToB2bCabinet();
                                 }
