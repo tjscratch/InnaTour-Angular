@@ -340,6 +340,9 @@ innaAppControllers.
                                     buyCriteria.VariantId1 = item.VariantId1;
                                     buyCriteria.VariantId2 = item.VariantId2 != null ? item.VariantId2 : 0;
 
+                                    //аналитика
+                                    track.aviaChooseVariant();
+
                                     //log('buyCriteria: ' + angular.toJson(buyCriteria));
                                     //все норм - отправляем на страницу покупки
                                     var url = urlHelper.UrlToAviaTicketsReservation(buyCriteria);
