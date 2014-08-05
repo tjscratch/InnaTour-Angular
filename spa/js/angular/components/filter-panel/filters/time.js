@@ -206,10 +206,6 @@ angular.module('innaApp.conponents').
                         return dayTime.value == part;
                     });
                     return result[0];
-                },
-
-                parse: function (data) {
-
                 }
             });
 

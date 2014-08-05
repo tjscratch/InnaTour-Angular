@@ -13,9 +13,9 @@
 			{{/each}}
 		{{/if}}
 
-		{{#if filterItem.name == 'PackagePrice'}}
+		{{#if filterItem.name == 'FullPackagePrice'}}
             <li class="b-switch-filters__item">
-                Не дороже {{filterItem.val}} рублей
+                Не дороже {{filterItem.val}} {{pluralize(filterItem.val, ["рубль", "рубля", "рублей"])}}
                 <span class="b-switch-filters__item_close icon-sprite-remove"
                       on-click="removeFilter"></span>
             </li>
@@ -60,13 +60,14 @@
             </li>
 		{{/if}}
 
-	<!--	{{#if filterItem.name == 'AirportFrom'}}
-			{{#each filterItem.list}}
-                <li class="b-switch-filters__item">
-                    <span>{{this.name}}</span>
-                    <span class="b-switch-filters__item_close icon-sprite-remove"
-                          on-click="removeFilter"></span>
-                </li>
+		<!--{{#if filterItem.name == 'DepartureDate'}}
+			{{#each filterItem.val}}
+
+	                <li class="b-switch-filters__item">
+	                    <span>{{this.name}}</span>
+	                    <span class="b-switch-filters__item_close icon-sprite-remove"
+	                          on-click="removeFilter"></span>
+	                </li>
 			{{/each}}
 		{{/if}}-->
 

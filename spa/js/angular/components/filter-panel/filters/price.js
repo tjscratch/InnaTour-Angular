@@ -14,10 +14,9 @@ angular.module('innaApp.conponents').
                 template: $templateCache.get('components/filter-panel/templ-filters/price.hbs.html'),
                 data: {
                     value: {
-                        name: 'PackagePrice',
+                        name: 'FullPackagePrice',
                         val: [],
                         fn: function (data) {
-                            console.log(data, FilterThis.get('value.val')[0]);
                             return (data <= FilterThis.get('value.val')[0]);
                         }
                     },
@@ -53,9 +52,10 @@ angular.module('innaApp.conponents').
                 IndicatorFiltersItemRemove: function (data) {
                     this._super(data);
                     var that = this;
+
                     this.set({
-                        'value.val': that.get('PackagePrice.value'),
-                        'PackagePrice.value': val
+                        'value.val': [],
+                        'PackagePrice.value': that.get('PackagePrice.value')
                     });
 
                     this.hasSelected();

@@ -54,10 +54,10 @@ angular.module('innaApp.conponents').
 
                     //this.set('hotel.getProfit', virtualBundle.getProfit());
                     this.set({
+                        'hotel.FullPackagePrice': virtualBundle.getFullPackagePrice(),
                         virtualBundle: virtualBundle,
                         modelHotel: modelHotel
-                    })
-
+                    });
 
                     this.on({
                         setCurrent: this.setCurrent,
@@ -69,12 +69,7 @@ angular.module('innaApp.conponents').
                         teardown: function (evt) {
                             //console.log('teardown hotel item');
                         }
-                    })
-
-                    /*this.observe('hotel', function(newValue, oldValue, keypath) {
-                     if (newValue) {
-                     }
-                     });*/
+                    });
                 },
 
                 getHotelDetails: function () {

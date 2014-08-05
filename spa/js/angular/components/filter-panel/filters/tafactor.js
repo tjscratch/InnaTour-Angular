@@ -75,19 +75,6 @@ angular.module('innaApp.conponents').
                     })
 
                     this.hasSelected();
-                },
-
-
-                parse: function (end) {
-
-                },
-
-                beforeInit: function (data) {
-                    //console.log('beforeInit');
-                },
-
-                complete: function (data) {
-                    //console.log('complete');
                 }
             });
 

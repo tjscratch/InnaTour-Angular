@@ -9,6 +9,9 @@ innaAppConponents.
         'IndicatorFiltersItem',
         function (EventManager, Events, $templateCache, FilterSettings, IndicatorFiltersItem) {
 
+            /**
+             * Выводим выбранные значения фильтров
+             */
             var IndicatorFilters = Ractive.extend({
                 template: $templateCache.get('components/indicator-filters/templ/indicator-filters.hbs.html'),
                 data: {
@@ -40,19 +43,13 @@ innaAppConponents.
                 },
 
                 changeFilters: function (data) {
-                    var that = this;
-                    clearTimeout(that._filterTimeout);
-
-                    this._filterTimeout = setTimeout(function () {
-                        that.set('filters', data);
-                        console.log(data, 'IndicatorFilters');
-                    }, 300);
+                    console.log(data);
+                    this.set('filters', data);
                 },
 
                 resetFilters : function(){
                     this.set('filters', {});
                 }
-
             });
 
             return IndicatorFilters;

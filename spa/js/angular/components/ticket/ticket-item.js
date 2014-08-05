@@ -50,6 +50,7 @@ angular.module('innaApp.conponents').
                     var legsBack = modelTicket.getEtaps('Back').length;
 
                     this.set({
+                        'ticket.FullPackagePrice': virtualBundle.getFullPackagePrice(),
                         'ticket.collectAirlines': airline,
                         'ticket.legsTo': legsTo,
                         'ticket.AirLegs': true,

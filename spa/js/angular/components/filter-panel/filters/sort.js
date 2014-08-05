@@ -69,15 +69,6 @@ angular.module('innaApp.conponents').
                             FilterThis = null;
                         }
                     });
-                },
-
-
-                parse: function (end) {
-
-                },
-
-                complete: function (data) {
-
                 }
             });
 

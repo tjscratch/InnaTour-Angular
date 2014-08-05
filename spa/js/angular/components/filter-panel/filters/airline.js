@@ -62,18 +62,19 @@ angular.module('innaApp.conponents').
                     });
                 },
 
-                parse: function (end) {
+                /**
+                 * @param data
+                 * @override
+                 */
+                IndicatorFiltersItemRemove: function (data) {
+                    this._super(data);
+                    var that = this;
 
-                },
 
 
-                beforeInit: function (data) {
-                    //console.log('beforeInit');
-                },
-
-                complete: function (data) {
-                    //console.log('complete');
+                    this.hasSelected();
                 }
+
             });
 
             return FilterAirline;

@@ -47,17 +47,13 @@ angular.module('innaApp.conponents').
                         onChecked: function (data) {
                             var that = this;
                             if (data && data.context) {
-
                                 if (data.context.isChecked) {
-
                                     this.push('value.val', data.context);
-
                                 } else if (!data.context.isChecked) {
 
                                     this.get('value.val').forEach(function (item, i) {
                                         if (data.context.value == item.value) that.splice('value.val', i, 1);
                                     })
-
                                 }
                             }
                             this.hasSelected();
@@ -79,6 +75,7 @@ angular.module('innaApp.conponents').
                     this._super(data);
                     var that = this;
 
+
                     this.get('value.val').forEach(function (item, i) {
                         if (data.value == item.value) that.splice('value.val', i, 1);
                     })
@@ -90,19 +87,6 @@ angular.module('innaApp.conponents').
                     })
 
                     this.hasSelected();
-                },
-
-                parse: function (end) {
-
-                },
-
-
-                beforeInit: function (data) {
-                    //console.log('beforeInit');
-                },
-
-                complete: function (data) {
-                    //console.log('complete');
                 }
             });
 

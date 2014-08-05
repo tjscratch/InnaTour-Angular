@@ -22,6 +22,8 @@ innaAppConponents.
                 init: function (options) {
                     var that = this;
 
+                    this.parse();
+
                     this.on({
                         action: this.action,
                         removeFilter: function (data) {
@@ -30,7 +32,38 @@ innaAppConponents.
                         teardown: function (evt) {
 
                         }
-                    })
+                    });
+                },
+
+                parse: function () {
+                    var filterItem = this.get('filterItem');
+
+                    console.log(filterItem, 'filterItem');
+
+                    if (filterItem.name == 'DepartureDate') {
+
+                        filterItem.val.forEach(function (item) {
+
+
+                            var resultState = item.state.filter(function (state) {
+                                return state.isActive;
+                            });
+
+                            var resultDays = item.dayState.filter(function (day) {
+                                return day.isChecked;
+                            });
+
+
+                            if (resultDays.length) {
+
+                            }
+                            if (resultState.length) {
+
+                            }
+                        })
+
+
+                    }
                 }
             });
 

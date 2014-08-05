@@ -69,19 +69,6 @@ angular.module('innaApp.conponents').
                     this._super(data);
                     this.fire('resetFilter');
                     this.hasSelected();
-                },
-
-                parse: function (end) {
-
-                },
-
-
-                beforeInit: function (data) {
-                    //console.log('beforeInit');
-                },
-
-                complete: function (data) {
-                    //console.log('complete');
                 }
             });
 
