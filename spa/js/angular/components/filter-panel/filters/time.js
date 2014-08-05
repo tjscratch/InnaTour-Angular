@@ -147,13 +147,15 @@ angular.module('innaApp.conponents').
                         resetFilter: function (data) {
                             var that = this;
 
-                            this.get('airTime').forEach(function (item, i) {
-                                if (item.direction == data.context.direction) {
-                                    that.set('airTime.' + i + '.state.0.isActive', true);
-                                    that.set('airTime.' + i + '.state.1.isActive', false);
-                                    that.set('airTime.' + i + '.dayState.*.isChecked', false);
-                                }
-                            });
+                            if(data && data.context) {
+                                this.get('airTime').forEach(function (item, i) {
+                                    if (item.direction == data.context.direction) {
+                                        that.set('airTime.' + i + '.state.0.isActive', true);
+                                        that.set('airTime.' + i + '.state.1.isActive', false);
+                                        that.set('airTime.' + i + '.dayState.*.isChecked', false);
+                                    }
+                                });
+                            }
 
                             this.set('value.val', this.filter());
                         },

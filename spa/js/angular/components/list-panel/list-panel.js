@@ -86,8 +86,8 @@ angular.module('innaApp.conponents').
                             this.off();
                             document.removeEventListener('scroll', this.eventListener);
                             EventManager.off(Events.DYNAMIC_SERP_BACK_LIST);
-                            EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
-                            EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                            EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
+                            EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
                             EventManager.off(Events.FILTER_PANEL_CHANGE);
                             EventManager.off(Events.FILTER_PANEL_RESET);
                             EventManager.off(Events.FILTER_PANEL_SORT);
@@ -142,13 +142,8 @@ angular.module('innaApp.conponents').
                      * Слушаем события от бандла
                      * Обновляем координаты
                      */
-                    EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
-                        that.updateCoords();
-                    });
-
-                    EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
-                        that.updateCoords();
-                    });
+                    EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords.bind(this));
+                    EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords.bind(this));
 
                     // выполняем фильтрацию не чаще 300ms
                     // защита от слишком частого нажатия на кнопки фильтрации

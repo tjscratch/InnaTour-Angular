@@ -43,7 +43,6 @@ innaAppConponents.
                 },
 
                 changeFilters: function (data) {
-                    console.log(data);
                     this.set('filters', data);
                 },
 
