@@ -29,6 +29,9 @@ var track = {
         //adt_count - количество взр
         //chd_count -  количество детей
         //source - откуда вызван поиск (main/search_result)
+
+        track.toursSearch();
+
         if (window.mixpanel != null)
             mixpanel.track("form.search", {
                 "departure_city_name": departure_city_name, "country_name": country_name, "departure_date": departure_date,
@@ -158,6 +161,14 @@ var track = {
             yaCounter12702715.reachGoal('avia_pay');
         }
     },
+    toursSearch: function () { //поиск туров
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/tour_search');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('tour_search');
+        }
+    }
 };
 
 //$("#gotoBooking").click(function (e) {
