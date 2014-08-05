@@ -1,5 +1,4 @@
-﻿
-'use strict';
+﻿'use strict';
 
 /* Controllers */
 
@@ -27,37 +26,24 @@ innaAppControllers.
 
             $scope.showImgOnly = function (item) {
                 if (
-                    //!$scope.isNullOrEmpty(item.FrontPrice) ||
-                    //!$scope.isNullOrEmpty(item.FrontTitleRow1) ||
-                    //!$scope.isNullOrEmpty(item.FrontTitleRow2) ||
-                    //!$scope.isNullOrEmpty(item.FrontSubTitleRow1) ||
-                    //!$scope.isNullOrEmpty(item.FrontSubTitleRow2) ||
-                    !$scope.isNullOrEmpty(item.BackTitleRow1) ||
-                    !$scope.isNullOrEmpty(item.BackTitleRow2) ||
-                    !$scope.isNullOrEmpty(item.BackSubTitleRow1) ||
-                    !$scope.isNullOrEmpty(item.BackSubTitleRow2) ||
-                    !$scope.isNullOrEmpty(item.BackPrice))
+                //!$scope.isNullOrEmpty(item.FrontPrice) ||
+                //!$scope.isNullOrEmpty(item.FrontTitleRow1) ||
+                //!$scope.isNullOrEmpty(item.FrontTitleRow2) ||
+                //!$scope.isNullOrEmpty(item.FrontSubTitleRow1) ||
+                //!$scope.isNullOrEmpty(item.FrontSubTitleRow2) ||
+                    !$scope.isNullOrEmpty(item.BackTitleRow1) || !$scope.isNullOrEmpty(item.BackTitleRow2) || !$scope.isNullOrEmpty(item.BackSubTitleRow1) || !$scope.isNullOrEmpty(item.BackSubTitleRow2) || !$scope.isNullOrEmpty(item.BackPrice))
                     return false;
                 else
                     return true;
             };
 
-            $scope.hasImgBack = function(item){
-                return !$scope.isNullOrEmpty(item.BackTitleRow1) ||
-                !$scope.isNullOrEmpty(item.BackTitleRow2) ||
-                !$scope.isNullOrEmpty(item.BackSubTitleRow1) ||
-                !$scope.isNullOrEmpty(item.BackSubTitleRow2) ||
-                !$scope.isNullOrEmpty(item.BackPrice);
+            $scope.hasImgBack = function (item) {
+                return !$scope.isNullOrEmpty(item.BackTitleRow1) || !$scope.isNullOrEmpty(item.BackTitleRow2) || !$scope.isNullOrEmpty(item.BackSubTitleRow1) || !$scope.isNullOrEmpty(item.BackSubTitleRow2) || !$scope.isNullOrEmpty(item.BackPrice);
             }
 
-            $scope.hasImgFront = function(item){
-                return !$scope.isNullOrEmpty(item.FrontTitleRow1) ||
-                !$scope.isNullOrEmpty(item.FrontTitleRow2) ||
-                !$scope.isNullOrEmpty(item.FrontSubTitleRow1) ||
-                !$scope.isNullOrEmpty(item.FrontSubTitleRow2) ||
-                !$scope.isNullOrEmpty(item.FrontPrice)
+            $scope.hasImgFront = function (item) {
+                return !$scope.isNullOrEmpty(item.FrontTitleRow1) || !$scope.isNullOrEmpty(item.FrontTitleRow2) || !$scope.isNullOrEmpty(item.FrontSubTitleRow1) || !$scope.isNullOrEmpty(item.FrontSubTitleRow2) || !$scope.isNullOrEmpty(item.FrontPrice)
             }
-
 
 
             function preventBubbling($event) {
@@ -106,18 +92,17 @@ innaAppControllers.
                 var showImgOnly = $scope.showImgOnly(item);
 
                 if (!showImgOnly && !!('ontouchstart' in window)) {//check for touch device
+
                     //первый клик пропускаем
                     if (item == $scope.lastClickedItem) {
                         click(item);
                     }
-                    else
-                    {
+                    else {
                         //кликаем на второй клик
                         $scope.lastClickedItem = item;
                     }
                 }
-                else
-                {
+                else {
                     //на компе - кликаем сразу
                     click(item);
                 }
