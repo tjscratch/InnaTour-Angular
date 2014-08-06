@@ -15,6 +15,7 @@ innaAppConponents.
             var IndicatorFilters = Ractive.extend({
                 template: $templateCache.get('components/indicator-filters/templ/indicator-filters.hbs.html'),
                 data: {
+                    asMap : false,
                     filters: [],
                     isArray: angular.isArray,
                     atLeastOne: false
@@ -40,6 +41,9 @@ innaAppConponents.
                     EventManager.on(Events.FILTER_PANEL_CHANGE, this.changeFilters.bind(this));
                     /** событие сброса фильтров */
                     EventManager.on(Events.FILTER_PANEL_RESET, this.resetFilters.bind(this));
+
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad.bind(this));
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad.bind(this));
                 },
 
                 changeFilters: function (data) {
@@ -48,6 +52,10 @@ innaAppConponents.
 
                 resetFilters : function(){
                     this.set('filters', {});
+                },
+
+                mapLoad : function(){
+                    this.toggle('asMap');
                 }
             });
 
