@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('innaApp.conponents').
     factory('TicketItem', [
         'EventManager',

@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('innaApp.directives')
     .directive('innaDynamicBundle', ['$templateCache', function ($templateCache) {
         return {
