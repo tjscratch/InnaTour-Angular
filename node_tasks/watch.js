@@ -64,5 +64,17 @@ gulp.task('watch-angular-parts', function () {
 	gulp.watch(conf.angular + '/directives/**/*.js', ['build-directives'])
         .on('change', function(file) {
             server.changed(file.path);
+        });
+	gulp.watch(conf.angular + '/models/**/*.js', ['build-models'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });		
+	gulp.watch(conf.angular + '/helpers/**/*.js', ['build-helpers'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });
+	gulp.watch(conf.angular + '/ang.helpers/**/*.js', ['build-ang.helpers'])
+        .on('change', function(file) {
+            server.changed(file.path);
         });		
 });
