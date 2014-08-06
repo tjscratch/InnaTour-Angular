@@ -179,7 +179,7 @@ var track = {
         if (window.yaCounter12702715 != null) {
             yaCounter12702715.reachGoal('prog_request');
         }
-    },
+    }
 };
 
 //$("#gotoBooking").click(function (e) {
