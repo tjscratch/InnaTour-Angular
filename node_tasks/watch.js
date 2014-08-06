@@ -49,3 +49,32 @@ gulp.task('watch', function () {
             conf.dest+'/js/angular/**/*.html'
     ], ['build-templates']);
 });
+
+gulp.task('watch-angular-parts', function () {
+    var server = livereload();
+
+    gulp.watch(conf.angular + '/controllers/**/*.js', ['build-controllers'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });
+	gulp.watch(conf.angular + '/services/**/*.js', ['build-services'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });
+	gulp.watch(conf.angular + '/directives/**/*.js', ['build-directives'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });
+	gulp.watch(conf.angular + '/models/**/*.js', ['build-models'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });		
+	gulp.watch(conf.angular + '/helpers/**/*.js', ['build-helpers'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });
+	gulp.watch(conf.angular + '/ang.helpers/**/*.js', ['build-ang.helpers'])
+        .on('change', function(file) {
+            server.changed(file.path);
+        });		
+});

@@ -67,6 +67,9 @@ var track = {
     requestSend: function (type, url) {
         //type - откуда кликали на форму из заявки или из блока сбоку (side/program)
         //category - главная страница, раздел экскурсионные туры, образование за рубежом и т.д.
+
+        track.programmSend();
+
         if (window.mixpanel != null) {
             mixpanel.track("inquiry.send", { "type": type, "url": url });
         }
@@ -167,6 +170,14 @@ var track = {
         }
         if (window.yaCounter12702715 != null) {
             yaCounter12702715.reachGoal('tour_search');
+        }
+    },
+    programmSend: function () { //Нажатие кнопки «Отправить» (Отправка заявки на программу)
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/prog_request');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('prog_request');
         }
     }
 };
