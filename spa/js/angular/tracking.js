@@ -29,6 +29,9 @@ var track = {
         //adt_count - количество взр
         //chd_count -  количество детей
         //source - откуда вызван поиск (main/search_result)
+
+        track.toursSearch();
+
         if (window.mixpanel != null)
             mixpanel.track("form.search", {
                 "departure_city_name": departure_city_name, "country_name": country_name, "departure_date": departure_date,
@@ -117,14 +120,6 @@ var track = {
             ga('ecommerce:send');
         }
     },
-    aviaPayBtnSubmit: function () {
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/avia_pay');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('avia_pay');
-        }
-    },
     dpPayBtnSubmit: function () {
         if (window.ga != null) {
             ga('send', 'pageview', '/virtual/aviahotel_pay');
@@ -133,6 +128,47 @@ var track = {
             yaCounter12702715.reachGoal('aviahotel_pay');
         }
     },
+    //Воронка "Авиабилеты"
+    aviaSearch: function () { //Нажатие кнопки «Поиск» (Поиск авиабилетов) 
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/avia_search');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('avia_search');
+        }
+    },
+    aviaChooseVariant: function () { //Нажатие кнопки «Купить» (Выбор авиабилета)
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/avia_variant');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('avia_variant');
+        }
+    },
+    aviaGoBuy: function () { //Нажатие кнопки «Перейти к оплате» (Переход к оплате) 
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/avia_payment');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('avia_payment');
+        }
+    },
+    aviaPayBtnSubmit: function () { //Нажатие кнопки «Оплатить» (Оплата авиабилета) 
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/avia_pay');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('avia_pay');
+        }
+    },
+    toursSearch: function () { //поиск туров
+        if (window.ga != null) {
+            ga('send', 'pageview', '/virtual/tour_search');
+        }
+        if (window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal('tour_search');
+        }
+    }
 };
 
 //$("#gotoBooking").click(function (e) {

@@ -319,6 +319,9 @@ innaAppControllers.
                     if ($scope.criteria.FromId > 0 && $scope.criteria.ToId > 0 &&
                         $scope.criteria.FromUrl.length > 0 && $scope.criteria.ToUrl.length > 0) {
 
+                        //аналитика
+                        track.aviaSearch();
+
                         saveParamsToStorage();
                         //log('$scope.searchStart: ' + angular.toJson($scope.criteria));
                         var oldUrl = $location.path();
