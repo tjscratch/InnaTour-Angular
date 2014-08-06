@@ -29,11 +29,11 @@ innaAppControllers
 
             var routParam = angular.copy($routeParams);
             var searchParams = angular.extend(routParam, {
-                StartVoyageDate : dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
-                EndVoyageDate : dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
-                HotelId : $location.search().hotel,
-                TicketId : $location.search().ticket,
-                ChildrenAges : (routParam.Children) ? routParam.Children.split('_') : null
+                StartVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
+                EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
+                HotelId: $location.search().hotel,
+                TicketId: $location.search().ticket,
+                ChildrenAges: (routParam.Children) ? routParam.Children.split('_') : null
             });
 
             console.log(searchParams);
@@ -196,7 +196,6 @@ innaAppControllers
             });
 
 
-
             function loadTab() {
                 if ($scope.state.isActive($scope.state.HOTELS_TAB))
                     return loadHotels();
@@ -233,10 +232,10 @@ innaAppControllers
                         if (data.Hotels) {
 
                             /** переключаем фильтры или создаем панель */
-                            if(!FilterPanelComponent) {
+                            if (!FilterPanelComponent) {
                                 FilterPanelComponent = new FilterPanel({
                                     el: document.querySelector('.recommend-bundle-container'),
-                                    data : {
+                                    data: {
                                         combinationModel: $scope.combination
                                     }
                                 })
@@ -250,7 +249,7 @@ innaAppControllers
                             ListPanelComponent = new ListPanel({
                                 el: document.querySelector('.results-container_list'),
                                 data: {
-                                    iterable_hotels : true,
+                                    iterable_hotels: true,
                                     Enumerable: data.Hotels,
                                     combinationModel: $scope.combination
                                 }
@@ -307,12 +306,11 @@ innaAppControllers
                         }
 
 
-
                         /** Если пришли даннные по отелям */
                         if (data.AviaInfos) {
 
                             /** переключаем фильтры*/
-                            if(FilterPanelComponent) {
+                            if (FilterPanelComponent) {
                                 FilterPanelComponent.toggleFilters();
                                 // динамически создаем фильтры на основе данных билетов
                                 FilterPanelComponent.prepareAviaFiltersData(data.AviaInfos);
@@ -454,20 +452,6 @@ innaAppControllers
                 $location.$$compose();
             };
 
-            $scope.getTicketDetails = function (ticket) {
-                $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
-            };
-
-            $scope.setHotel = function (hotel) {
-                throw Error('NOT IMPLEMENTED! Use hote.setCurrent() or Events.DYNAMIC_SERP_CHOOSE_HOTEL instead');
-            };
-
-            $scope.setTicket = function (ticket) {
-                /*$scope.combination.ticket = ticket;
-                 $location.search('ticket', ticket.data.VariantId1);*/
-                throw Error('NOT IMPLEMENTED! Use Events.DYNAMIC_SERP_CHOOSE_TICKET instead');
-            };
-
             $scope.goReservation = function (room, hotel) {
 
                 var url = Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
@@ -493,7 +477,7 @@ innaAppControllers
                 $location.path(url);
             };
 
-            $scope.goMap = function(){
+            $scope.goMap = function () {
                 $scope.$emit('toggle:view:hotels:map');
             }
 
@@ -506,10 +490,6 @@ innaAppControllers
                 //$scope.$broadcast('change:filters', data);
 
             }, true);
-
-            /*$scope.$on('Dynamic.SERP.*.Sorting', function () {
-
-             });*/
 
 
             function getAsMap() {
@@ -590,89 +570,6 @@ innaAppControllers
                 }
                 $(document).off('scroll');
             })
-        }
-    ])
-    .controller('DynamicPackageSERPTicketPopupCtrl', [
-        '$scope',
-        '$element',
-        '$location',
-        'innaApp.API.events',
-        'aviaHelper',
-
-        // components
-        'ShareLink',
-        function ($scope, $element, $location, Events, aviaHelper, ShareLink) {
-            $(function () {
-                $(document.body).append($element);
-            });
-
-
-            /*Scope Properties*/
-            $scope.ticket = null;
-            $scope.link = '';
-
-            /*Scope Methods*/
-            $scope.closePopup = function () {
-                //drop ?displayTicket = ...
-                delete $location.$$search.displayTicket;
-                $location.$$compose();
-
-                $scope.ticket = null;
-            };
-
-            $scope.setCurrent = function () {
-                //from parentScope
-                //$scope.setTicket($scope.ticket);
-                $scope.$emit(Events.DYNAMIC_SERP_CHOOSE_TICKET, $scope.ticket);
-
-                $scope.closePopup();
-            };
-
-            $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
-            $scope.dateHelper = dateHelper;
-
-            $scope.sharePopup = new inna.Models.Aux.AttachedPopup(function () {
-                $scope.link = document.location;
-            });
-
-            /*Listeners*/
-            $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (event, ticket) {
-
-                $scope.ticket = ticket;
-
-                $scope.etapsZipped = (function () {
-                    var zipped = [];
-
-                    var to = ticket.getEtaps('To');
-                    var back = ticket.getEtaps('Back');
-
-                    var maxLength = Math.max(to.length, back.length);
-
-                    for (var i = 0; i < maxLength; i++) {
-                        var eTo = to[i];
-                        var eBack = back[i];
-
-                        zipped.push([eTo, eBack]);
-                    }
-
-                    //console.log('EtapsZipped = ', zipped);
-
-                    return zipped;
-                })();
-
-                $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
-
-
-                setTimeout(function () {
-                    new ShareLink({
-                        el: $element.find('.js-share-component'),
-                        data: {
-                            right: true
-                        }
-                    })
-                }, 0)
-
-            });
         }
     ])
     .controller('DynamicPackageSERPRecommendedBundleCtrl', [

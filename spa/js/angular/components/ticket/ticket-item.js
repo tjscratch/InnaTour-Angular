@@ -51,7 +51,9 @@ angular.module('innaApp.conponents').
 
                     this.on({
                         setCurrent: this.setCurrent,
-                        getTicketDetails: this.getHotelDetails,
+                        getTicketDetails: function () {
+                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, this.get('modelTicket'));
+                        },
                         change: function (data) {
 
                         },
@@ -59,10 +61,6 @@ angular.module('innaApp.conponents').
                             //console.log('teardown ticket item');
                         }
                     });
-                },
-
-                getTicketDetails: function () {
-                    EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, this.get('modelTicket'));
                 },
 
                 setCurrent: function () {

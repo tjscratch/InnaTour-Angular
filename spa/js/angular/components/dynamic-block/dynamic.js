@@ -92,16 +92,12 @@ innaAppConponents.
                     })
                 },
 
-                getHotelDetails: function (evt) {
-
-                },
-
                 beforeInit: function (options) {
                     //console.log('beforeInit');
                 },
 
                 complete: function (data) {
-                    console.log('complete');
+                    //console.log('complete');
                 }
             });
 

@@ -20,11 +20,11 @@ innaAppConponents.
                     this._input = this.find('.b-tooltip-share__input');
 
                     this.observe('isVisible', function (newValue, oldValue) {
-                            if (newValue) {
-                                this.set({location: document.location});
-                                $(this._input).select();
-                            }
-                        }, {defer: true});
+                        if (newValue) {
+                            this.set({location: document.location});
+                            $(this._input).select();
+                        }
+                    }, {defer: true});
                 }
             });
 
