@@ -2,7 +2,6 @@ angular.module('innaApp.directives')
     .directive('ticketDetails', ['$templateCache', function ($templateCache) {
         return {
             template: $templateCache.get('components/ticket/templ/ticket-details.html'),
-            scope: false,
             controller: [
                 'EventManager',
                 '$scope',
@@ -13,21 +12,14 @@ angular.module('innaApp.directives')
 
                 'ShareLink',
                 function (EventManager, $scope, $element, $location, aviaHelper, Events, ShareLink) {
-                    $(function () {
-                        $(document.body).append($element);
-                    });
 
-
-                    /*Scope Properties*/
                     $scope.ticket = null;
                     $scope.link = '';
 
-                    /*Scope Methods*/
+
                     $scope.closePopup = function () {
-                        //drop ?displayTicket = ...
                         delete $location.$$search.displayTicket;
                         $location.$$compose();
-
                         $scope.ticket = null;
                     };
 

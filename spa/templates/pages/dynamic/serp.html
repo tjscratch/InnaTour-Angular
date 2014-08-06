@@ -8,7 +8,8 @@
     <div class="results-container results-container_list" ng-class="{'results-container__short':padding.value}"></div>
 </div>
 
-<ng:include src="'pages/dynamic/inc/ticket-details.html'"></ng:include>
+<!-- Попап - подробнее о авиа-билете -->
+<div ticket-details data="test"></div>
 
 <div ng-if="hotelToShowDetails"
      inna-hotel-details
