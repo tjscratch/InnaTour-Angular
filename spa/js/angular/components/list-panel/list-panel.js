@@ -28,7 +28,6 @@ angular.module('innaApp.conponents').
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
                 data: {
-                    indicator_filters: true,
                     iterable_hotels: false,
                     iterable_tickets: false,
                     EnumerableCount: 0,
@@ -76,8 +75,8 @@ angular.module('innaApp.conponents').
                         change: function (data) {
 
                         },
-                        goToMap: function () {
-                            EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP);
+                        goToMap: function (data) {
+                            EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.actualData(), data);
                         },
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
@@ -91,6 +90,7 @@ angular.module('innaApp.conponents').
                             EventManager.off(Events.FILTER_PANEL_CHANGE);
                             EventManager.off(Events.FILTER_PANEL_RESET);
                             EventManager.off(Events.FILTER_PANEL_SORT);
+                            EventManager.off(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
                         }
                     })
 
@@ -144,6 +144,7 @@ angular.module('innaApp.conponents').
                      */
                     EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords.bind(this));
                     EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords.bind(this));
+                    EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap.bind(this));
 
                     // выполняем фильтрацию не чаще 300ms
                     // защита от слишком частого нажатия на кнопки фильтрации
@@ -178,6 +179,9 @@ angular.module('innaApp.conponents').
 
                 },
 
+                proxyGoToMap : function(data){
+                    this.fire('goToMap', data);
+                },
 
                 /**
                  * Высчитываем координаты нижней границы блока
@@ -353,13 +357,12 @@ angular.module('innaApp.conponents').
                     // если список меньше колличества разовой порции, то скролл нам не нужен
                     if (filterEnumerable.length <= this.get('countItemsVisible')) this.removeScroll();
 
+                    EventManager.fire(Events.LIST_PANEL_FILTES_HOTELS_DONE, [].concat(filterEnumerable));
                     this.insertAfterFiltered(filterEnumerable);
 
 
                     //console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
 
-
-                    //EventManager.fire(Events.FILTER_PANEL_CLOSE_FILTERS);
                 },
 
 
@@ -399,15 +402,28 @@ angular.module('innaApp.conponents').
                     var sortData = null;
 
                     // Если когда то была фильтрация, то берем и сортируем именно отфильтрованный набор
-                    if (this.get('filtered') && this.get('EnumerableFiltered').length)
-                        sortData = this.get('EnumerableFiltered');
+                    if (this.isFiltred())
+                        sortData = this.actualData();
                     else
-                        sortData = opt_sort_data || this.get('Enumerable');
+                        sortData = opt_sort_data || this.actualData();
 
                     // вызываем метод сортировки из компонента sortComponent
                     return sortComponent.get('fn')(sortData);
                 },
 
+                isFiltred: function () {
+                    return (this.get('filtered') && this.get('EnumerableFiltered').length);
+                },
+
+                actualData: function () {
+                    var actual = null;
+                    if (this.isFiltred()) {
+                        actual = this.get('EnumerableFiltered');
+                    } else {
+                        actual = this.get('Enumerable')
+                    }
+                    return actual;
+                },
 
                 /**
                  * Сбрасываем список до начального состояния без фильтров
@@ -425,6 +441,10 @@ angular.module('innaApp.conponents').
 
                     if (this.get('sortComponent'))
                         sortResult = this.sorting(this.get('sortComponent'));
+                    else
+                        sortResult = this.get('Enumerable');
+
+                    EventManager.fire(Events.LIST_PANEL_FILTES_RESET_DONE, [].concat(sortResult));
 
                     this.cloneData(sortResult);
                 },

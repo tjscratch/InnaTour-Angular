@@ -49,8 +49,11 @@ angular.module('innaApp.conponents').
                     var that = this;
                     FilterThis = this;
 
+                    console.log('init sort');
+
                     this.on({
                         onSort: function (data) {
+                            console.log('data onSort', data);
                             this.set({
                                 'current': data.context.name,
                                 'sortValue.val': data.context.value
@@ -63,6 +66,7 @@ angular.module('innaApp.conponents').
 
                         },
                         teardown: function (evt) {
+                            console.log('teardown sort');
                             FilterThis = null;
                         }
                     });

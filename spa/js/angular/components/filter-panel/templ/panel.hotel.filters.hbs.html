@@ -1,11 +1,31 @@
-<div class="js-filter-scroll">
-    <ul class="filters__container">
-        <FilterStars Stars="{{filtersModel.Stars}}"/>
-        <FilterPrice PackagePrice="{{filtersModel.PackagePrice}}"/>
-        <FilterName HotelName="{{filtersModel.HotelName}}"/>
-        <FilterTaFactor TaFactor="{{filtersModel.TaFactor}}"/>
-        <FilterType HotelType="{{filtersModel.HotelType}}"/>
-        <FilterExtra Extra="{{filtersModel.Extra}}"/>
-		<FilterSort sort="{{filtersModel.sort.hotels}}"/>
-    </ul>
+<div class="row">
+    <div class="{{(asMap) ? 'col-xs-9 col-no-padding bg-white' : ''}}">
+        <ul class="filters__container">
+            <FilterStars Stars="{{filtersModel.Stars}}"/>
+            <FilterPrice PackagePrice="{{filtersModel.PackagePrice}}"/>
+            <FilterName HotelName="{{filtersModel.HotelName}}"/>
+            <FilterTaFactor TaFactor="{{filtersModel.TaFactor}}"/>
+            <FilterType HotelType="{{filtersModel.HotelType}}"/>
+            <FilterExtra Extra="{{filtersModel.Extra}}"/>
+
+			{{#if !asMap}}
+                <FilterSort sort="{{filtersModel.sort.hotels}}"/>
+			{{/if}}
+        </ul>
+    </div>
+
+	{{#if asMap}}
+        <div class="col-xs-3 col-no-padding">
+            <div class="b-switch-filters_buttons">
+                <div class="b-switch-dynamic-serp-display b-switch-dynamic-serp-display_state_map"
+                     on-click="goToHotelList">
+                    <div class="b-switch-dynamic-serp-display__title b-switch-dynamic-serp-display__title_at_map">
+                        <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-list2"></span>
+                        Вернуться к списку
+                    </div>
+                </div>
+            </div>
+        </div>
+	{{/if}}
 </div>
+

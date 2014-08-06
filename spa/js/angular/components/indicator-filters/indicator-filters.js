@@ -27,7 +27,7 @@ innaAppConponents.
 
                     this.on({
                         action: this.action,
-                        resetFilter: function (data) {
+                        resetAllFilters: function (data) {
                             EventManager.fire(Events.FILTER_PANEL_RESET_ALL);
                         },
                         teardown: function (evt) {

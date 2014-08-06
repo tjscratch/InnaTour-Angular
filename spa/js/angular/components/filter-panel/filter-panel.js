@@ -18,6 +18,9 @@ angular.module('innaApp.conponents').
         '$templateCache',
         '$routeParams',
         'innaApp.API.events',
+
+        'IndicatorFilters',
+
         'FilterSettings',
 
         'FilterTime',
@@ -33,7 +36,7 @@ angular.module('innaApp.conponents').
         'FilterTaFactor',
         'FilterType',
         'FilterSort',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterExtra, FilterPrice, FilterName, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, IndicatorFilters, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterExtra, FilterPrice, FilterName, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
 
 
             /**
@@ -62,6 +65,8 @@ angular.module('innaApp.conponents').
                     ruble: $templateCache.get('components/ruble.html')
                 },
                 components: {
+                    IndicatorFilters: IndicatorFilters,
+
                     'FilterTime': FilterTime,
                     'FilterAirline': FilterAirline,
                     'FilterAirPort': FilterAirPort,
@@ -88,6 +93,9 @@ angular.module('innaApp.conponents').
                     this.listenChildren();
 
                     this.on({
+                        goToHotelList : function(){
+                           EventManager.fire(Events.DYNAMIC_SERP_BACK_TO_MAP);
+                        },
                         change: function (data) {
                         },
                         teardown: function (evt) {
@@ -95,9 +103,16 @@ angular.module('innaApp.conponents').
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_RESET_ALL);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
+                            EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
                         }
                     })
 
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function(){
+                        that.set('asMap', true);
+                    });
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function(){
+                        that.set('asMap', false);
+                    });
 
                     /** если нужно закрыть все открытые фильтры */
                     EventManager.on(Events.FILTER_PANEL_CLOSE_FILTERS, function () {

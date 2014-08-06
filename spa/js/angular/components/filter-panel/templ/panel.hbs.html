@@ -1,18 +1,17 @@
-<div class="b-filter-panal  filters__body main__center {{(asMap) ? 'filters__body_dp' : '' }}">
+<div class="b-filter-panel  filters__body main__center {{(asMap) ? 'filters__body_dp' : '' }}">
     <!-- Показываем разные фильтры -->
-	{{#if !asMap}}
 
-		{{#if filter_hotel}}
-			{{>HotelsFilter}}
-		{{/if}}
-
-		{{#if filter_avia}}
-            {{>TicketFilter}}
-		{{/if}}
-
+	{{#if filter_hotel}}
+		{{>HotelsFilter}}
 	{{/if}}
 
-	{{#if asMap}}
-		{{>MapFilter}}
+	{{#if filter_avia && !asMap}}
+		{{>TicketFilter}}
 	{{/if}}
+
+
+	<!-- Находятся тут, так как нужно отображение поверх карты -->
+    <div class="indicator-filters">
+        <IndicatorFilters/>
+    </div>
 </div>

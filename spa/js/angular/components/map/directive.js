@@ -8,18 +8,21 @@
 
 angular.module('innaApp.directives')
     .directive('dynamicSerpMap', [
+        'EventManager',
         '$templateCache',
+        'innaApp.API.events',
 
         // components
         'Tripadvisor',
         'HotelGallery',
-        function ($templateCache, Tripadvisor, HotelGallery) {
+        function (EventManager, $templateCache, Events, Tripadvisor, HotelGallery) {
 
             return {
                 template: $templateCache.get('components/map/templ/index.html'),
                 replace: true,
                 scope: {
                     hotels: '=dynamicSerpMapHotels',
+                    hotelsForMap: '=mapHotels',
                     airports: '=dynamicSerpMapAirports',
                     combination: '=dynamicSerpMapCombination'
                 },
@@ -36,6 +39,7 @@ angular.module('innaApp.directives')
                         // прячем footer
                         $scope.$emit('region-footer:hide');
                         EventManager.fire(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE);
+                        EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD);
                         $element.addClass('big-map_short');
 
 
@@ -60,6 +64,10 @@ angular.module('innaApp.directives')
 
                         $scope.$on('$destroy', function () {
                             $scope.$emit('region-footer:show');
+                            EventManager.fire(Events.DYNAMIC_SERP_MAP_DESTROY);
+
+                            EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                            EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
                         })
                     }
                 ],
@@ -73,6 +81,7 @@ angular.module('innaApp.directives')
                     var boxAir = $thisEl.querySelector('.big-map__balloon_air');
 
                     var markers = [];
+                    var zoomMapDefault = 12;
                     var carouselInit = false;
                     var _markerCluster = null;
                     var iconAirDefault = 'spa/img/map/marker-black-air.png?' + Math.random().toString(16);
@@ -140,6 +149,10 @@ angular.module('innaApp.directives')
                         zoom: 8
                     });
 
+                    /** Событие обновления фильтров */
+                    EventManager.on(Events.LIST_PANEL_FILTES_HOTELS_DONE, updateMap);
+                    EventManager.on(Events.LIST_PANEL_FILTES_RESET_DONE, updateMap);
+
                     GM.event.addListener(map, 'click', function (evt) {
                         activeMarkerReset();
                     });
@@ -151,11 +164,11 @@ angular.module('innaApp.directives')
                     function initCarousel() {
                         var photoList = scope.currentHotel.Photos;
 
-                        if(!HotelGalleryComponent) {
+                        if (!HotelGalleryComponent) {
 
                             HotelGalleryComponent = new HotelGallery({
                                 el: boxPhoto.querySelector('.js-b-carousel'),
-                                template : $templateCache.get('components/gallery/templ/gallery.map.hbs.html'),
+                                template: $templateCache.get('components/gallery/templ/gallery.map.hbs.html'),
                                 data: {
                                     map: true,
                                     photoList: photoList,
@@ -364,6 +377,7 @@ angular.module('innaApp.directives')
                             ]
                         });
 
+                        zoomMapDefault = map.getZoom();
                         /*GM.event.addListener(_markerCluster, 'mouseover', function (c) {
                          })
 
@@ -481,7 +495,8 @@ angular.module('innaApp.directives')
                     }
 
 
-                    var showOneHotel = function (data_hotel) {
+                    function showOneHotel(data_hotel) {
+
                         // проходм по всем маркерам
                         var mark = markers.filter(function (marker) {
 
@@ -529,39 +544,24 @@ angular.module('innaApp.directives')
                     }
 
 
-                    /**
-                     * Событие обновления фильтров
-                     */
-                    scope.$on('change:hotels:filters', function (evt, data) {
-                        updateMap({
-                            hotels: data,
-                            airports: scope.airports
-                        })
-                    });
-
-                    /**
-                     * Переход с карточки отеля
-                     */
-                    scope.$on('map:show-one-hotel', function (evt, data) {
-                        showOneHotel(data.toJSON());
-                    });
-
-
                     function updateMap(data) {
+                        if(boxInfo){
+                            boxInfo.setVisible(false);
+                            //map.setZoom(zoomMapDefault);
+                        }
+
                         var tempArrHotels = null;
                         var rawHotels = null;
-                        var hotels = (data.hotels) ? data.hotels : [];
+                        var hotels = (data.hotels) ? data.hotels : data;
                         var airports = (data.airports) ? data.airports : [];
 
-                        tempArrHotels = (hotels.toJSON) ? hotels.toJSON() : [];
+                        tempArrHotels = (hotels.toJSON) ? hotels.toJSON() : hotels;
                         rawHotels = [].concat(angular.copy(tempArrHotels));
                         removeMarkers();
 
                         rawHotels.forEach(function (hotel) {
 
-                            if (hotel.hidden) return;
-
-                            var hotelRaw = angular.copy(hotel); //(hotel.toJSON) ? hotel.toJSON() : (hotel.data) ? hotel.data : hotel;
+                            var hotelRaw = angular.copy(hotel);
 
                             if (!hotelRaw.Latitude || !hotelRaw.Longitude) return;
 
@@ -605,14 +605,49 @@ angular.module('innaApp.directives')
                         map.fitBounds(_bounds);
                     });
 
+                    /**
+                     * Переход с карточки отеля
+                     */
+                    scope.$on(Events.DYNAMIC_SERP_TOGGLE_MAP_SINGLE, function (evt, data) {
+                        if(data) {
+                            showOneHotel((data.toJSON) ? data.toJSON() : data);
+                        }
+                    });
+
+
+                    /**
+                     * Следим за свойством hotelsForMap
+                     * Так как по условию  ng-if компонент еще не существует,
+                     * то мы не можем подписаться на событие в карте до ее инициализации
+                     *
+                     * Прокидываем событие в serp.js
+                     * и дальше меняем свойство в $scope
+                     *
+                     * Это действие выполняется если мы отфильтровали набор на странице списка
+                     * и потом перешли на карту, нам нужен уже фильтрованый набор данных
+                     *
+                     *
+                     * тоже самое можно сделать на angular через emit - broadcast
+                     */
+                    scope.$watchCollection('hotelsForMap', function (newValue, oldValue) {
+                        if (newValue != undefined && newValue.length) {
+                            updateMap({hotels: newValue});
+                        }
+                    });
+
 
                     //destroy
                     scope.$on('$destroy', function () {
-                        if(_tripadvisor) {
+                        EventManager.off(Events.LIST_PANEL_FILTES_HOTELS_DONE, updateMap);
+                        EventManager.off(Events.LIST_PANEL_FILTES_RESET_DONE, updateMap);
+                        EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP, updateMap);
+                        EventManager.off(Events.DYNAMIC_SERP_GO_TO_MAP, showOneHotel);
+
+                        if (_tripadvisor) {
                             _tripadvisor.teardown();
                             _tripadvisor = null;
                         }
-                        if(HotelGalleryComponent){
+                        if (HotelGalleryComponent) {
                             HotelGalleryComponent.teardown()
                             HotelGalleryComponent = null;
                         }

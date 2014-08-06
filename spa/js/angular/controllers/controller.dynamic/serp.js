@@ -36,11 +36,10 @@ innaAppControllers
                 ChildrenAges: (routParam.Children) ? routParam.Children.split('_') : null
             });
 
-            console.log(searchParams);
-
             var cacheKey = '';
             var serpScope = $scope;
             $scope.hotelsRaw = null;
+            $scope.hotelsForMap = null;
             $scope.isChooseHotel = null;
             var MAX_HOTEL_LEN = 180;
 
@@ -133,6 +132,35 @@ innaAppControllers
                     $location.search('ticket', data.data.VariantId1);
                     $scope.isChooseHotel = true;
                 });
+            });
+
+
+            /**
+             * переход со списка на карту
+             * срабатывает также когда переходим с карточки отеля
+             */
+            EventManager.on(Events.DYNAMIC_SERP_TOGGLE_MAP, function (data, single_hotel) {
+                $scope.safeApply(function () {
+                    setAsMap((getAsMap()) ? 0 : 1);
+                    locatioAsMap();
+                    $scope.hotelsForMap = data
+
+                    if(single_hotel) {
+                        setTimeout(function () {
+                            // прокидываем данные в карту
+                            $scope.$broadcast(Events.DYNAMIC_SERP_TOGGLE_MAP_SINGLE, single_hotel);
+                        }, 1000);
+                    }
+
+                });
+            });
+
+            // случаем событие переключения контрола с карты на список и обратно
+            EventManager.on(Events.DYNAMIC_SERP_BACK_TO_MAP, function (data) {
+                $scope.safeApply(function () {
+                    setAsMap((getAsMap()) ? 0 : 1);
+                    locatioAsMap();
+                })
             });
 
             /*Methods*/
@@ -484,13 +512,6 @@ innaAppControllers
             /*EventListener*/
             DynamicFormSubmitListener.listen();
 
-            $scope.$watch('hotelFilters', function (data) {
-                console.log('hotelFilters', data);
-                $scope.hotels.filter(data);
-                //$scope.$broadcast('change:filters', data);
-
-            }, true);
-
 
             function getAsMap() {
                 return $scope.asMap;
@@ -513,22 +534,6 @@ innaAppControllers
                 }
             }
 
-            // слушаем событие от компонента отеля
-            //  открываем карту с точкой этого отеля
-            EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, function (data) {
-                $scope.safeApply(function () {
-                    setAsMap(1);
-
-                    // TODO - переделать
-                    // прокидываем данные глубже для дочерних компонентов
-                    // так как карта инитится с задержкой видимо, и поэтому не может подписаться на событие
-                    setTimeout(function () {
-                        locatioAsMap();
-                        $scope.$broadcast('map:show-one-hotel', data);
-                    }, 1000);
-                });
-            });
-
 
             // прямая ссылка на карту
             setAsMap(($location.$$search.map) ? 1 : 0);
@@ -538,20 +543,6 @@ innaAppControllers
             // работает тольео в одну сторону - назад
             $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
                 setAsMap(($location.search().map) ? 1 : 0);
-            });
-
-            // случаем событие переключения контрола с карты на список и обратно
-            EventManager.on(Events.DYNAMIC_SERP_TOGGLE_MAP, function (data) {
-                $scope.safeApply(function () {
-                    setAsMap((getAsMap()) ? 0 : 1);
-                    locatioAsMap();
-                })
-            })
-
-            // TODO : deprecated
-            $scope.$on('toggle:view:hotels:map', function () {
-                setAsMap((getAsMap()) ? 0 : 1);
-                locatioAsMap();
             });
 
             /*Initial Data fetching*/
@@ -564,6 +555,11 @@ innaAppControllers
 
             $scope.$on('$destroy', function () {
                 console.log('$destroy serp');
+                EventManager.off(Events.DYNAMIC_SERP_BACK_TO_MAP);
+                EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
+                EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
+                EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
+                EventManager.off(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL);
                 if (ListPanelComponent) {
                     ListPanelComponent.teardown();
                     ListPanelComponent = null;
@@ -707,6 +703,11 @@ innaAppControllers
             };
 
             /*Events*/
-            $scope.$on('$destroy', unwatchScroll);
+            $scope.$on('$destroy', function(){
+                EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
+                EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
+                EventManager.off(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE);
+                unwatchScroll();
+            });
         }
     ]);

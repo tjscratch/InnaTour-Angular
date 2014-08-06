@@ -104,9 +104,15 @@ angular.module('innaApp.API', [])
             FILTER_PANEL_CHANGE : 'filter-panel:change',
             FILTER_PANEL_RESET : 'filter-panel:reset',
             FILTER_PANEL_RESET_ALL : 'filter-panel:reset_all',
+            LIST_PANEL_FILTES_HOTELS_DONE : 'LIST_PANEL_FILTES_HOTELS_DONE',
+            LIST_PANEL_FILTES_RESET_DONE : 'LIST_PANEL_FILTES_RESET_DONE',
 
             DYNAMIC_SERP_TOGGLE_MAP : 'toggle:view:hotels:map',
             DYNAMIC_SERP_GO_TO_MAP : 'hotel:go-to-map',
+            DYNAMIC_SERP_TOGGLE_MAP_SINGLE : 'hotel:go-to-map-single',
+            DYNAMIC_SERP_MAP_LOAD : 'hotel:map-load',
+            DYNAMIC_SERP_MAP_DESTROY : 'hotel:map-destroy',
+            DYNAMIC_SERP_BACK_TO_MAP : 'hotel:DYNAMIC_SERP_BACK_TO_MAP',
 
             HEADER_VISIBLE : 'header:visible',
             HEADER_HIDDEN : 'header:hidden',
