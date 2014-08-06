@@ -162,10 +162,6 @@ angular.module('innaApp.conponents').
                         }, 100);
                     });
 
-                    EventManager.on(Events.DYNAMIC_SERP_BACK_LIST, function () {
-                        that.resetFilter();
-                    });
-
 
                     /** Событие сортировки */
                     EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
@@ -175,6 +171,10 @@ angular.module('innaApp.conponents').
                         }, 0)
 
                     });
+
+                    /*EventManager.on(Events.DYNAMIC_SERP_BACK_LIST, function () {
+                     that.resetFilter();
+                     });*/
 
                 },
 
