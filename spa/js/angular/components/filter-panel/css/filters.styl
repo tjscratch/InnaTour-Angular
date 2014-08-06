@@ -4,7 +4,6 @@
 .filters__body {
   min-height 41px
   position relative;
-  background #fff
   box-shadow 0 3px 5px rgba(0, 0, 0, .3)
 
   &_position_fixed {
@@ -111,14 +110,8 @@
 
   .filters__container {
     clearfix()
-
-    &_fixed {
-      position: fixed;
-      top: 150px;
-      left: 0;
-      z-index: 500;
-      width: 100%;
-    }
+    background: #fff;
+    min-height: 41px;
 
     > li
     li.filter {
