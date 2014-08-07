@@ -66,7 +66,6 @@ angular.module('innaApp.directives')
                         $scope.$on('$destroy', function () {
                             $scope.$emit('region-footer:show');
                             EventManager.fire(Events.DYNAMIC_SERP_MAP_DESTROY);
-
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, mapSizeBig);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, mapSizeMini);
                         })

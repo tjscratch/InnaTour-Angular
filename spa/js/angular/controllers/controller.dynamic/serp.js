@@ -223,6 +223,11 @@ innaAppControllers
                 });
             });
 
+            EventManager.on(Events.DYNAMIC_SERP_LOAD_TAB, function(data_tab){
+                $scope.safeApply(function () {
+                    $scope.state.switchTo(data_tab)
+                });
+            })
 
             function loadTab() {
                 if ($scope.state.isActive($scope.state.HOTELS_TAB))
@@ -585,7 +590,6 @@ innaAppControllers
              * Кидаем события открытия и закрытия бандла
              */
             $scope.$watch('isVisible', function (data) {
-                console.log(data, 'isVisible');
                 if (data) {
                     EventManager.fire(Events.DYNAMIC_SERP_OPEN_BUNDLE);
                 } else {
@@ -693,7 +697,6 @@ innaAppControllers
                 }
 
                 this.toggle = function () {
-                    console.log('toggle bundle');
                     var that = this;
                     if (this.isCurrent(this.FULL)) {
                         that.shortDisplay()

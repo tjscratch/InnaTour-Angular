@@ -1,5 +1,5 @@
 <div class="b-result b-result_col_three row b-result-content">
-    <div class="b-result__cell" ng-click="state && state.switchTo('ticket')" ng-style="{cursor: state ? 'pointer' : 'default'}">
+    <div class="b-result__cell" ng-click="toggleTab('ticket')" ng-style="{cursor: !stateTicket ? 'pointer' : 'default'}">
 
         <span class="rl-airline" ng-repeat="(code, name) in bundle.ticket.collectAirlines().etap" ng-if="$index < 2">
             <span ng-switch="code">
@@ -48,7 +48,7 @@
         <div class="bottom-actions">
             <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_replace"
                ng-if="state"
-               ng-class="{active: state.isActive(state.TICKETS_TAB)}">
+               ng-class="{active: stateTicket}">
                 Заменить перелет
             </a>
             <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_details"
@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <div class="b-result__cell" ng-click="state && state.switchTo('hotel')" ng-style="{cursor: state ? 'pointer' : 'default'}">
+    <div class="b-result__cell" ng-click="toggleTab('hotel')" ng-style="{cursor: !stateHotel ? 'pointer' : 'default'}">
         <div class="hotel-info__special-mark" ng-if="bundle.getProfit() > 1000">
             <span class="icon-crown icon-sprite-crown"></span>
             Спецпредложение
@@ -100,7 +100,7 @@
 
         <div class="bottom-actions">
             <a href="javascript:void(0);"
-               ng-class="{active: state.isActive(state.HOTELS_TAB)}"
+               ng-class="{active: stateHotel}"
                ng-if="state"
                class="bottom-actions__button bottom-actions__button_action_replace">
                 Заменить отель

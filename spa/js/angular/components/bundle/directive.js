@@ -80,6 +80,11 @@ angular.module('innaApp.directives')
 
 
                     $scope.toggleTab = function(data){
+
+                        if($scope.tabActive == data) return false;
+
+                        $scope.tabActive = data;
+
                         if(data == 'ticket') {
                             $scope.stateTicket = true;
                             $scope.stateHotel = false;
@@ -90,7 +95,15 @@ angular.module('innaApp.directives')
                         }
 
                         EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, data);
-                    }
+                    };
+
+                    // по дефолту активный таб - hotel
+                    $scope.toggleTab('hotel');
+
+
+                    if ($location.search().displayTicket) $scope.toggleTab('ticket')
+                    if ($location.search().displayHotel) $scope.toggleTab('hotel')
+
 
                     var infoPopupElems = $('.icon-price-info, .tooltip-price', $element);
 
@@ -109,7 +122,6 @@ angular.module('innaApp.directives')
                         $event.stopPropagation();
                         return $scope.__getHotelDetails(hotel, isBuyAction);
                     }
-
 
                     //destroy
                     $scope.$on('$destroy', function () {

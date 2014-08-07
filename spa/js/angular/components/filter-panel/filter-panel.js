@@ -118,13 +118,10 @@ angular.module('innaApp.conponents').
                     });
 
                     EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function(){
-                        console.log('Events.DYNAMIC_SERP_MAP_LOAD');
                         that.set('asMap', true);
                     });
                     EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function(){
                         that.set('asMap', false);
-                        console.log(that.get('asMap'));
-                        console.log('Events.DYNAMIC_SERP_MAP_DESTROY');
                     });
 
                     /** если нужно закрыть все открытые фильтры */
