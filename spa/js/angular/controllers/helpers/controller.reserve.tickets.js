@@ -1075,7 +1075,18 @@ innaAppControllers.
                 object.name = user.FirstName;
                 object.secondName = user.LastName;
                 object.email = user.Email;
-                object.phone = user.Phone;
+                object.phone = correctPhone(user.Phone);
+            }
+
+            function correctPhone(phone) {
+                if (phone != null) {
+                    if (phone.length > 0) {
+                        if (phone[0] != '+') {
+                            phone = '+' + phone;
+                        }
+                    }
+                }
+                return phone;
             }
 
             function closeAllTooltips() {
