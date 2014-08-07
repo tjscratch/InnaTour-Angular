@@ -21,8 +21,7 @@ angular.module('innaApp.conponents').
                             var result = FilterThis.get('value.val').filter(function(item){
                                 if (data == item) return true;
                             })
-
-                            return (result.length) ? true : false;
+                            return result.length;
                         }
                     }
                 },

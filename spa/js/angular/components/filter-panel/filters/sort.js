@@ -83,7 +83,7 @@ angular.module('innaApp.conponents').
 
                 sortDefault: function () {
                     var that = this;
-                    
+
                     this.get('sort').filter(function (item) {
                         if (item.isChecked) {
                             that.set({

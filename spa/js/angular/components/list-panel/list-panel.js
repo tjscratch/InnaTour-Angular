@@ -350,10 +350,8 @@ angular.module('innaApp.conponents').
                         });
 
 
-                        //
                         if (filterResult.length == param_filters.length)
                             filterEnumerable.push(item)
-
                     }
 
                     // подписываемся на событие скролла если еще нет этого события
@@ -365,10 +363,11 @@ angular.module('innaApp.conponents').
                     if (filterEnumerable.length <= this.get('countItemsVisible')) this.removeScroll();
 
                     EventManager.fire(Events.LIST_PANEL_FILTES_HOTELS_DONE, [].concat(filterEnumerable));
+
                     this.insertAfterFiltered(filterEnumerable);
 
 
-                    //console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
+                    console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
 
                 },
 
@@ -387,14 +386,7 @@ angular.module('innaApp.conponents').
                     })
 
                     setTimeout(function () {
-                        var result = null;
-
-                        if (that.get('sortComponent'))
-                            result = that.sorting(that.get('sortComponent'), filteredData)
-                        else
-                            result = filteredData;
-
-                        that.cloneData(result);
+                        that.cloneData(that.sorting(filteredData));
                     }, 0);
                 },
 
@@ -416,7 +408,9 @@ angular.module('innaApp.conponents').
 
                     // вызываем метод сортировки из компонента sortComponent
                     var sortComponent = this.get('sortComponent');
-                    return sortComponent.get('fn')(sortData);
+                    var sortResult = sortComponent.get('fn')(sortData);
+
+                    return (sortResult && sortResult.length) ? sortResult : [];
                 },
 
                 isFiltred: function () {
