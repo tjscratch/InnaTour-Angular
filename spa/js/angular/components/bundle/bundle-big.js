@@ -10,8 +10,8 @@ angular.module('innaApp.directives')
                 stateTicket: "=stateTicket",
                 stateHotel: "=stateHotel",
                 tabActive: "=tabActive",
-                __getTicketDetails: '=innaDynamicBundleTicketDetails',
-                __getHotelDetails: '=innaDynamicBundleHotelDetails',
+                getTicketDetails: '=getTicketDetails',
+                getHotelDetails: '=getHotelDetails',
                 withReservationButton: '@innaDynamicBundleWithReservationButton',
                 close: '=innaDynamicBundleClose'
             },
@@ -53,12 +53,12 @@ angular.module('innaApp.directives')
 
                     $scope.getTicketDetails = function ($event, ticket) {
                         $event.stopPropagation();
-                        return $scope.__getTicketDetails(ticket);
+                        return $scope.getTicketDetails(ticket);
                     }
 
                     $scope.getHotelDetails = function ($event, hotel, isBuyAction) {
                         $event.stopPropagation();
-                        return $scope.__getHotelDetails(hotel, isBuyAction);
+                        return $scope.getHotelDetails(hotel, isBuyAction);
                     }
 
                     //destroy
