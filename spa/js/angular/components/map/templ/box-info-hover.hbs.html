@@ -1,0 +1,34 @@
+<!-- Показываем при наведении на маркер -->
+<div class="pin big-map__balloon_preview ng-hide" ng-show="currentHotelPreview">
+    <div class="pin-balloon">
+        <div class="pin-balloon-info">
+            <div>
+                <span class="icon icon-star" ng-if="currentHotelPreview.Stars > 0"></span>
+                <span class="icon icon-star" ng-if="currentHotelPreview.Stars > 1"></span>
+                <span class="icon icon-star" ng-if="currentHotelPreview.Stars > 2"></span>
+                <span class="icon icon-star" ng-if="currentHotelPreview.Stars > 3"></span>
+                <span class="icon icon-star" ng-if="currentHotelPreview.Stars > 4"></span>
+            </div>
+            <h3 class="hotel-name">{{currentHotelPreview.HotelName}}</h3>
+
+            <!-- ROW -->
+            <div class="row">
+                <div class="col-xs-7 col-no-padding">
+                    <!-- tripadvisor -->
+                    <div class="js-tripadvisor-container"></div>
+                    <!--<ng:include src="'components/tripadvisor/index.html'"
+			ng-repeat="data in [currentHotelPreview]"></ng:include>-->
+                </div>
+
+                <div class="pull-right col-no-padding hotel-info-price-container">
+                    <span>Перелет + Отель</span>
+
+                    <h3 class="hotel-info-price">
+						{{currentHotelPreview.PackagePrice | price}}
+                        <ng-include src="'components/ruble.html'" />
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

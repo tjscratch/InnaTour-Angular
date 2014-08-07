@@ -9,8 +9,6 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
-            var FilterThis = null;
-
             var FilterAirPortItem = Ractive.extend({
                 template: $templateCache.get('components/filter-panel/templ-micro/avia.airports-item.hbs.html'),
                 init: function () {
@@ -29,9 +27,9 @@ angular.module('innaApp.conponents').
                     value: {
                         name: 'AirportFrom',
                         val: [],
-                        fn: function (data) {
+                        fn: function (data, component_val) {
 
-                            var result = FilterThis.get('value.val').filter(function (airport) {
+                            var result = component_val.val.filter(function (airport) {
                                 if (!data[airport.state]) return false;
 
                                 var result = airport.list.filter(function (item) {
@@ -41,7 +39,7 @@ angular.module('innaApp.conponents').
                                 return result.length;
                             });
 
-                            return  (result.length == FilterThis.get('value.val').length);
+                            return  (result.length == component_val.val.length);
                         }
 
                     }
@@ -52,7 +50,6 @@ angular.module('innaApp.conponents').
                 init: function (options) {
                     this._super(options);
                     var that = this;
-                    FilterThis = this;
 
                     this._timeOut = null;
                     this._next = 0;
@@ -88,7 +85,7 @@ angular.module('innaApp.conponents').
 
                         },
                         teardown: function (evt) {
-                            FilterThis = null;
+
                         }
                     });
                 },

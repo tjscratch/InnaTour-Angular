@@ -10,18 +10,16 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, ClassFilter) {
 
-            var FilterThis = null;
-
             var FilterAirline = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/avia.airlines.hbs.html'),
                 data: {
                     value: {
                         name: 'collectAirlines',
                         val: [],
-                        fn: function (data) {
+                        fn: function (data, component_val) {
                             if (data.length) {
                                 var resultFilter = data.filter(function (airline) {
-                                    var result = FilterThis.get('value.val').filter(function (airline_local) {
+                                    var result = component_val.val.filter(function (airline_local) {
                                         return airline_local == airline;
                                     })
                                     return (result.length) ? true : false;
@@ -31,13 +29,10 @@ angular.module('innaApp.conponents').
                         }
                     }
                 },
-                components: {
 
-                },
                 init: function (options) {
                     this._super(options);
                     var that = this;
-                    FilterThis = this;
 
                     this._timeOut = null;
 
@@ -57,7 +52,6 @@ angular.module('innaApp.conponents').
                             this.set('airlines.*.isChecked', false);
                         },
                         teardown: function (evt) {
-                            FilterThis = null;
                         }
                     });
                 },

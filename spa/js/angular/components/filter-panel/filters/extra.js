@@ -9,30 +9,27 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
-            var FilterThis = null;
             var FilterExtra = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/extra.hbs.html'),
                 data: {
                     value: {
                         name: 'Extra',
                         val: [],
-                        fn: function (data) {
+                        fn: function (data, component_val) {
                             if (typeof data == 'object' && Object.keys(data).length) {
-                                var result = FilterThis.get('value.val').filter(function (filterExtra) {
+                                var result = component_val.val.filter(function (filterExtra) {
                                     return data[filterExtra.value] != undefined
                                 })
-                                return (FilterThis.get('value.val').length == result.length)
+                                return (component_val.val.length == result.length)
                             }
                         }
                     }
                 },
-                components: {
 
-                },
                 init: function (options) {
                     this._super(options);
                     var that = this;
-                    FilterThis = this;
+
 
                     this.on({
                         change: function (data) {
@@ -62,7 +59,7 @@ angular.module('innaApp.conponents').
                             this.set('Extra.list.*.isChecked', false);
                         },
                         teardown: function (evt) {
-                            FilterThis = null;
+
                         }
                     })
                 },

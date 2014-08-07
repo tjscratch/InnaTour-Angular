@@ -112,17 +112,19 @@ angular.module('innaApp.conponents').
                      * используем не стандартный механизм общения компонентов
                      */
                     EventManager.observe('giveSortComponent', function(value){
-                        console.log('giveSortComponent', value);
                         if(value && value == 'give') {
                             EventManager.set('getSortComponent', that.getSortComponent());
                         }
                     });
 
                     EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function(){
+                        console.log('Events.DYNAMIC_SERP_MAP_LOAD');
                         that.set('asMap', true);
                     });
                     EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function(){
                         that.set('asMap', false);
+                        console.log(that.get('asMap'));
+                        console.log('Events.DYNAMIC_SERP_MAP_DESTROY');
                     });
 
                     /** если нужно закрыть все открытые фильтры */

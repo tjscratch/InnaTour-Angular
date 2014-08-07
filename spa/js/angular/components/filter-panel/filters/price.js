@@ -9,15 +9,14 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
-            var FilterThis = null;
             var FilterPrice = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/price.hbs.html'),
                 data: {
                     value: {
                         name: 'FullPackagePrice',
                         val: [],
-                        fn: function (data) {
-                            return (data <= FilterThis.get('value.val')[0]);
+                        fn: function (data, component_val) {
+                            return (data <= component_val.val[0]);
                         }
                     },
                     priceValue: null,
@@ -33,7 +32,6 @@ angular.module('innaApp.conponents').
                     var that = this;
                     this._timeOut = null;
                     this._slider = null;
-                    FilterThis = this;
 
                     this.on({
                         change: function (data) {
@@ -61,7 +59,6 @@ angular.module('innaApp.conponents').
                             this.set({'price.value': 0});
                         },
                         teardown: function (evt) {
-                            FilterThis = null;
                             this._slider.slider("destroy");
                             this._slider = null;
                         }

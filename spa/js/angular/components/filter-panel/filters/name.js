@@ -9,7 +9,6 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
-            var FilterThis = null;
 
             var FilterName = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/name.hbs.html'),
@@ -17,19 +16,17 @@ angular.module('innaApp.conponents').
                     value: {
                         name: 'HotelName',
                         val: '',
-                        fn: function (data) {
-                            var reg = new RegExp(FilterThis.get('value.val'), 'i');
+                        fn: function (data, component_val) {
+                            var reg = new RegExp(component_val.val, 'i');
                             if (reg.test(data)) return true;
                         }
                     }
                 },
-                components: {
 
-                },
                 init: function (options) {
                     this._super(options);
                     var that = this;
-                    FilterThis = this;
+
 
                     this._timeOut = null;
                     this._next = 0;
@@ -55,7 +52,7 @@ angular.module('innaApp.conponents').
 
                         },
                         teardown: function (evt) {
-                            FilterThis = null;
+
                         }
                     });
                 },

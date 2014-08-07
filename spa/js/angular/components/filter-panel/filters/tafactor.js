@@ -10,16 +10,15 @@ angular.module('innaApp.conponents').
         'Tripadvisor',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter, Tripadvisor) {
 
-            var FilterThis = null;
             var FilterTaFactor = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/tafactor.hbs.html'),
                 data: {
                     value: {
                         name: 'TaFactor',
                         val: [],
-                        fn: function (data) {
+                        fn: function (data, component_val) {
 
-                            var result = FilterThis.get('value.val').filter(function (item) {
+                            var result = component_val.val.filter(function (item) {
                                 if (Math.floor(data) == item) return true;
                             });
 
@@ -31,7 +30,6 @@ angular.module('innaApp.conponents').
                 init: function (options) {
                     this._super(options);
                     var that = this;
-                    FilterThis = this;
 
                     this.on({
                         onChecked: function (data) {
@@ -49,7 +47,7 @@ angular.module('innaApp.conponents').
                             this.set('TaFactor.list.*.isChecked', false);
                         },
                         teardown: function (evt) {
-                            FilterThis = null;
+
                         }
                     });
                 },

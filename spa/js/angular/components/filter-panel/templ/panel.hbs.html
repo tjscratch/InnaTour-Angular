@@ -3,15 +3,15 @@
 
 	{{#if filter_hotel}}
 		{{>HotelsFilter}}
+        <div class="indicator-filters">
+            <IndicatorFilters/>
+        </div>
 	{{/if}}
 
 	{{#if filter_avia && !asMap}}
 		{{>TicketFilter}}
+        <div class="indicator-filters">
+            <IndicatorFilters/>
+        </div>
 	{{/if}}
-
-
-	<!-- Находятся тут, так как нужно отображение поверх карты -->
-    <div class="indicator-filters">
-        <IndicatorFilters/>
-    </div>
 </div>

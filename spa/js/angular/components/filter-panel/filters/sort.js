@@ -9,25 +9,10 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
-            var FilterThis = null;
+
             var FilterSort = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/sort.hbs.html'),
                 data: {
-                    sortType: {
-                        byAgencyProfit: ['-PriceDetails.Profit'],
-                        byRecommend: ['-IsRecomendation', 'RecommendedFactor', 'DepartureDate', 'ArrivalDate'],
-                        byPrice: ['Price', 'DepartureDate', 'ArrivalDate'],
-                        byTripTime: ['TimeTo', 'Price', 'DepartureDate', 'ArrivalDate'],
-                        byDepartureDate: 'DepartureDate',
-                        byBackDepartureDate: 'BackDepartureDate',
-                        byArrivalDate: 'ArrivalDate',
-                        byBackArrivalDate: 'BackArrivalDate',
-                        byPackagePrice: 'PackagePrice',
-                        byRecommendedFactor: '-RecommendedFactor',
-                        byTaFactor: '-TaFactor',
-                        byName: '-HotelName',
-                        byProfit: '-getProfit'
-                    },
                     lowercaseFirst: $filter('lowercaseFirst'),
                     current: '',
                     sortValue: {
@@ -35,12 +20,28 @@ angular.module('innaApp.conponents').
                         val: '',
                         defaultSort: 'byPackagePrice'
                     },
-                    fn: function (data) {
+                    fn: function (data, component_val) {
                         if (!data.length) return false;
 
-                        var sortType = FilterThis.get('sortType');
-                        var val = FilterThis.get('sortValue.val');
-                        var defaultSort = FilterThis.get('sortValue.defaultSort');
+                        var sortType = {
+                            byAgencyProfit: ['-PriceDetails.Profit'],
+                            byRecommend: ['-IsRecomendation', 'RecommendedFactor', 'DepartureDate', 'ArrivalDate'],
+                            byPrice: ['Price', 'DepartureDate', 'ArrivalDate'],
+                            byTripTime: ['TimeTo', 'Price', 'DepartureDate', 'ArrivalDate'],
+                            byDepartureDate: 'DepartureDate',
+                            byBackDepartureDate: 'BackDepartureDate',
+                            byArrivalDate: 'ArrivalDate',
+                            byBackArrivalDate: 'BackArrivalDate',
+                            byPackagePrice: 'PackagePrice',
+                            byRecommendedFactor: '-RecommendedFactor',
+                            byTaFactor: '-TaFactor',
+                            byName: '-HotelName',
+                            byProfit: '-getProfit'
+                        };
+
+
+                        var val = component_val.val;
+                        var defaultSort = component_val.defaultSort;
                         var expression = null;
 
                         if (val != '')
@@ -56,7 +57,8 @@ angular.module('innaApp.conponents').
                 init: function (options) {
                     this._super(options);
                     var that = this;
-                    FilterThis = this;
+
+                    console.log('init sort');
 
                     this.on({
                         onSort: function (data) {
@@ -72,8 +74,12 @@ angular.module('innaApp.conponents').
 
                         },
                         teardown: function (evt) {
-                            FilterThis = null;
+                            console.log('teardown sort');
                         }
+                    });
+
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
+                        that.set('asMap', false);
                     });
                 },
 

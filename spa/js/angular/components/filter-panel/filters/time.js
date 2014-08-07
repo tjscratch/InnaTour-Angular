@@ -24,50 +24,46 @@ angular.module('innaApp.conponents').
              *
              * @type {null}
              */
-
-            var FilterThis = null;
-
             var FilterTime = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/time.hbs.html'),
                 data: {
-                    partDay: [
-                        {
-                            value: 'Morning',
-                            start: '6',
-                            end: '12'
-                        },
-                        {
-                            value: 'Afternoon',
-                            start: '12',
-                            end: '18'
-                        },
-                        {
-                            value: 'Evening',
-                            start: '18',
-                            end: '24'
-                        },
-                        {
-                            value: 'Night',
-                            start: '0',
-                            end: '6'
-                        }
-                    ],
-
                     value: {
                         name: 'DepartureDate',
                         val: [],
 
                         // todo: получает на вход сам item билета
                         // немного сложная фильтрация
-                        fn: function (data_item) {
+                        fn: function (data_item, component_val) {
                             var data = angular.copy(data_item);
                             data_item = null;
+                            var partDaysConf = [
+                                {
+                                    value: 'Morning',
+                                    start: '6',
+                                    end: '12'
+                                },
+                                {
+                                    value: 'Afternoon',
+                                    start: '12',
+                                    end: '18'
+                                },
+                                {
+                                    value: 'Evening',
+                                    start: '18',
+                                    end: '24'
+                                },
+                                {
+                                    value: 'Night',
+                                    start: '0',
+                                    end: '6'
+                                }
+                            ];
 
                             if (!data.DepartureDate) throw new Error('error');
 
 
                             // проходим по собранным значениям
-                            var resultFilterTimeDate = FilterThis.get('value.val').filter(function (item) {
+                            var resultFilterTimeDate = component_val.val.filter(function (item) {
 
                                 // берем дату - значения направления
                                 // предполагаем что дата валидна
@@ -92,7 +88,13 @@ angular.module('innaApp.conponents').
 
 
                                     // получаем выбранную часть дня
-                                    var partDay = FilterThis.getPartDay(dayItem.state);
+                                    var partDay = (function (part) {
+                                        var result = partDaysConf.filter(function (dayTime) {
+                                            return dayTime.value == part;
+                                        });
+                                        return result[0];
+                                    }(dayItem.state))
+
 
                                     /**
                                      * сравниваем часть дня и время вылета - прилета
@@ -113,7 +115,7 @@ angular.module('innaApp.conponents').
                             // если хоть какой то вернулься результат фильтрации
                             if (resultFilterTimeDate.length) {
                                 // условие AND
-                                if (FilterThis.get('value.val').length == resultFilterTimeDate.length) {
+                                if (component_val.val.length == resultFilterTimeDate.length) {
                                     return true;
                                 }
                             }
@@ -124,12 +126,8 @@ angular.module('innaApp.conponents').
                 },
 
                 init: function (options) {
-
                     this._super(options);
-
                     var that = this;
-
-                    FilterThis = this;
 
                     this.on({
                         change: function (data) {
@@ -147,7 +145,7 @@ angular.module('innaApp.conponents').
                         resetFilter: function (data) {
                             var that = this;
 
-                            if(data && data.context) {
+                            if (data && data.context) {
                                 this.get('airTime').forEach(function (item, i) {
                                     if (item.direction == data.context.direction) {
                                         that.set('airTime.' + i + '.state.0.isActive', true);
@@ -161,7 +159,7 @@ angular.module('innaApp.conponents').
                         },
 
                         teardown: function (evt) {
-                            FilterThis = null;
+
                         }
                     });
                 },
@@ -180,13 +178,6 @@ angular.module('innaApp.conponents').
                     });
 
                     return result;
-                },
-
-                getPartDay: function (part) {
-                    var result = this.get('partDay').filter(function (dayTime) {
-                        return dayTime.value == part;
-                    });
-                    return result[0];
                 },
 
 

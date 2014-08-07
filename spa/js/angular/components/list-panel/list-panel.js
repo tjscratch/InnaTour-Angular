@@ -76,6 +76,10 @@ angular.module('innaApp.conponents').
 
                         },
                         goToMap: function (data) {
+                            /*EventManager.set('DYNAMIC_SERP_TOGGLE_MAP', {
+                                list : that.actualData(),
+                                single : data
+                            })*/
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.actualData(), data);
                         },
                         teardown: function (evt) {
@@ -166,7 +170,6 @@ angular.module('innaApp.conponents').
 
                     /** Событие сортировки */
                     EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
-                        console.log('Events.FILTER_PANEL_SORT');
                         setTimeout(function () {
                             that.cloneData(that.sorting());
                         }, 0)
@@ -345,7 +348,7 @@ angular.module('innaApp.conponents').
                                 }
 
                                 //console.log(filters.fn(paramForFn), 'filters.fn(paramForFn)');
-                                return filters.fn(paramForFn);
+                                return filters.fn(paramForFn, filters);
                             }
                         });
 
@@ -367,7 +370,7 @@ angular.module('innaApp.conponents').
                     this.insertAfterFiltered(filterEnumerable);
 
 
-                    console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
+                    //console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
 
                 },
 
@@ -408,7 +411,7 @@ angular.module('innaApp.conponents').
 
                     // вызываем метод сортировки из компонента sortComponent
                     var sortComponent = this.get('sortComponent');
-                    var sortResult = sortComponent.get('fn')(sortData);
+                    var sortResult = sortComponent.get('fn')(sortData, sortComponent.get('sortValue'));
 
                     return (sortResult && sortResult.length) ? sortResult : [];
                 },

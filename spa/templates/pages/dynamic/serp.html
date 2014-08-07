@@ -4,8 +4,19 @@
 
 
 <!-- List Panel hotels and tickets -->
-<div class="results-body" ng-show="(!showLanding && !hotelToShowDetails && !asMap)">
-    <div class="results-container results-container_list" ng-class="{'results-container__short':padding.value}"></div>
+<div class="results-body">
+    <div class="results-container results-container_list"
+         ng-class="{'results-container__short':padding.value}"
+         ng-show="(!showLanding && !hotelToShowDetails && !asMap)"></div>
+
+
+    <div dynamic-serp-map
+         dynamic-serp-map-hotels="hotels"
+         map-hotels="hotelsForMap"
+         as-map="asMap"
+         dynamic-serp-map-combination="combination"
+         dynamic-serp-map-airports="airports"
+         ng-if="hotels.list.length && asMap"></div>
 </div>
 
 <!-- Попап - подробнее о авиа-билете -->
@@ -20,12 +31,3 @@
      inna-hotel-details-bundle="combination"
      inna-hotel-detailes-reservation-fn="goReservation"
      inna-hotel-details-get-ticket-details="getTicketDetails"></div>
-
-
-<div class="results-body" ng-if="hotels.list.length && asMap">
-    <div dynamic-serp-map
-        dynamic-serp-map-hotels="hotels"
-        map-hotels="hotelsForMap"
-        dynamic-serp-map-combination="combination"
-        dynamic-serp-map-airports="airports"></div>
-</div>

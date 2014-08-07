@@ -9,17 +9,15 @@ angular.module('innaApp.conponents').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
-            var FilterThis = null;
-
             var FilterAviaLegs = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/avia.legs.hbs.html'),
                 data: {
                     value: {
                         name: 'AirLegs',
                         val: [],
-                        fn: function (data) {
+                        fn: function (data,component_val) {
                             var legsBoth = data.legsTo + data.legsBack;
-                            var result = FilterThis.get('value.val').filter(function (item) {
+                            var result = component_val.val.filter(function (item) {
                                 if (item == 1) {
                                     if (legsBoth == 3 || legsBoth == 4) {
                                         return true;
@@ -38,7 +36,6 @@ angular.module('innaApp.conponents').
                 init: function (options) {
                     this._super(options);
                     var that = this;
-                    FilterThis = this;
 
 
                     this.on({
@@ -57,7 +54,7 @@ angular.module('innaApp.conponents').
                             this.set('airLegs.list.*.isChecked', false);
                         },
                         teardown: function (evt) {
-                            FilterThis = null;
+
                         }
                     });
                 },

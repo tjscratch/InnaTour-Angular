@@ -11,18 +11,16 @@
         </ul>
     </div>
 
-	{{#if asMap}}
-        <div class="col-xs-3 col-no-padding b-switch-filters_mod-wrapper">
-            <div class="b-switch-filters_buttons">
-                <div class="b-switch-dynamic-serp-display b-switch-dynamic-serp-display_state_map"
-                     on-click="goToHotelList">
-                    <div class="b-switch-dynamic-serp-display__title b-switch-dynamic-serp-display__title_at_map">
-                        <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-list2"></span>
-                        Вернуться к списку
-                    </div>
+    <div class="col-xs-3 col-no-padding b-switch-filters_mod-wrapper {{(!asMap) ? 'ng-hide' : '' }}">
+        <div class="b-switch-filters_buttons">
+            <div class="b-switch-dynamic-serp-display b-switch-dynamic-serp-display_state_map"
+                 on-click="goToHotelList">
+                <div class="b-switch-dynamic-serp-display__title b-switch-dynamic-serp-display__title_at_map">
+                    <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-list2"></span>
+                    Вернуться к списку
                 </div>
             </div>
         </div>
-	{{/if}}
+    </div>
 </div>
 
