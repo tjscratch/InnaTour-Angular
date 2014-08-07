@@ -75,12 +75,23 @@ innaAppControllers.
                 if (routeParams.FromUrl == null || routeParams.BeginDate == null) {
                     //console.log('avia.form: $routeParams is empty');
                     routeCriteria = getDefaultCriteria();
+
+                    //URL для контекста по авиа
+                    var urlCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy(routeParams)));
+                    if (urlCriteria.FromUrl != null) {
+                        routeCriteria.FromUrl = urlCriteria.FromUrl;
+                    }
+                    if (urlCriteria.ToUrl != null) {
+                        routeCriteria.ToUrl = urlCriteria.ToUrl;
+                    }
                 }
                 else {
                     //критерии из урла
                     routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy(routeParams)));
                     //console.log('avia.form: routeCriteria: ' + angular.toJson(routeCriteria));
                 }
+
+                var testRouteCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy(routeParams)));
 
                 if (validateDate) {
                     validateDates(routeCriteria);

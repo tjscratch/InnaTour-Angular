@@ -138,6 +138,10 @@ app.config([
                 templateUrl: 'pages/avia/search_form.html',
                 controller: 'AviaSearchMainCtrl'
             }).
+            when(url.URL_AVIA + ':FromUrl-:ToUrl', {
+                templateUrl: 'pages/tours_grid_page.html',
+                controller: 'AviaSearchMainCtrl'
+            }).
             when(url.URL_AVIA, {
                 templateUrl: 'pages/tours_grid_page.html',
                 controller: 'AviaSearchMainCtrl'
