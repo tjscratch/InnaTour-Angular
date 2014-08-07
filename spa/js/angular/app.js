@@ -180,8 +180,8 @@ app.config([
             }).
             when(url.URL_DYNAMIC_PACKAGES, dynamic()).
             when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
-                templateUrl: 'pages/dynamic/serp.html',
-                controller: 'DynamicPackageSERPCtrl',
+                templateUrl: 'pages/page-dynamic/templ/serp.html',
+                controller: 'PageDynamicPackage',
                 reloadOnSearch: false
             }).
             when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {

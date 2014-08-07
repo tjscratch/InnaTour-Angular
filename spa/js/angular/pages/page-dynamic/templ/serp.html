@@ -1,6 +1,8 @@
-<ng:include src="'components/bundle/templ/bundle-root.html'"
-            ng-if="combination.hotel && combination.ticket"
-            ng-show="!hotelToShowDetails"></ng:include>
+<!-- Рекомендованный вариант пакета -->
+
+<div dynamic-bundle-root
+     ng-show="!hotelToShowDetails"
+     ng-if="combination.hotel && combination.ticket"></div>
 
 
 <!-- List Panel hotels and tickets -->
