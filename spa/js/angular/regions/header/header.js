@@ -39,12 +39,14 @@ angular.module('innaApp.directives')
                     });
 
                     EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function(){
+                        console.log('DYNAMIC_SERP_OPEN_BUNDLE');
                         $scope.safeApply(function () {
                             $scope.isHeaderVisible = true;
                         });
                     });
 
                     EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function(){
+                        console.log('DYNAMIC_SERP_CLOSE_BUNDLE');
                         $scope.safeApply(function () {
                             $scope.isHeaderVisible = false;
                         });

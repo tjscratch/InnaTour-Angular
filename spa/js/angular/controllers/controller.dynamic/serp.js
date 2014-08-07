@@ -585,6 +585,7 @@ innaAppControllers
              * Кидаем события открытия и закрытия бандла
              */
             $scope.$watch('isVisible', function (data) {
+                console.log(data, 'isVisible');
                 if (data) {
                     EventManager.fire(Events.DYNAMIC_SERP_OPEN_BUNDLE);
                 } else {
@@ -692,6 +693,7 @@ innaAppControllers
                 }
 
                 this.toggle = function () {
+                    console.log('toggle bundle');
                     var that = this;
                     if (this.isCurrent(this.FULL)) {
                         that.shortDisplay()

@@ -42,14 +42,15 @@ angular.module('innaApp.directives')
                         EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD);
                         $element.addClass('big-map_short');
 
+                        function mapSizeMini(){
+                           $scope.mapSize = true
+                        }
+                        function mapSizeBig(){
+                            $scope.mapSize = false
+                        }
 
-                        EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
-                            $element.removeClass('big-map_short')
-                        });
-
-                        EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
-                            $element.addClass('big-map_short')
-                        });
+                        EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, mapSizeBig);
+                        EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, mapSizeMini);
 
                         $scope.setHotel = function (currentHotel) {
                             EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, $scope.hotels.search(currentHotel.HotelId));
@@ -66,8 +67,8 @@ angular.module('innaApp.directives')
                             $scope.$emit('region-footer:show');
                             EventManager.fire(Events.DYNAMIC_SERP_MAP_DESTROY);
 
-                            EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE);
-                            EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
+                            EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, mapSizeBig);
+                            EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, mapSizeMini);
                         })
                     }
                 ],
