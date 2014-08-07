@@ -32,13 +32,22 @@ angular.module('innaApp.conponents').
                     current: '',
                     sortValue: {
                         name: 'Sort',
-                        val: ''
+                        val: '',
+                        defaultSort: 'byPackagePrice'
                     },
                     fn: function (data) {
-                        if(!data.length) return false;
+                        if (!data.length) return false;
 
-                        var sortType =  FilterThis.get('sortType');
-                        var expression = sortType[FilterThis.get('sortValue.val')];
+                        var sortType = FilterThis.get('sortType');
+                        var val = FilterThis.get('sortValue.val');
+                        var defaultSort = FilterThis.get('sortValue.defaultSort');
+                        var expression = null;
+
+                        if (val != '')
+                            expression = sortType[val];
+                        else
+                            expression = sortType[defaultSort];
+
 
                         return $filter('orderBy')(data, expression);
                     }
@@ -62,7 +71,7 @@ angular.module('innaApp.conponents').
                             this.hasSelected();
                         },
 
-                        reset: function(data){
+                        reset: function (data) {
 
                         },
                         teardown: function (evt) {
@@ -70,6 +79,22 @@ angular.module('innaApp.conponents').
                             FilterThis = null;
                         }
                     });
+                },
+
+                sortDefault: function () {
+                    var that = this;
+                    
+                    this.get('sort').filter(function (item) {
+                        if (item.isChecked) {
+                            that.set({
+                                'current': item.name,
+                                'sortValue.val': 'byPackagePrice'
+                            })
+                            that.hasSelected();
+
+                            return true;
+                        }
+                    })
                 }
             });
 

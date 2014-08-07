@@ -173,7 +173,8 @@ angular.module('innaApp.services').service('FilterSettings',
                     hotels: [
                         {
                             name: 'По цене пакета',
-                            value: 'byPackagePrice'
+                            value: 'byPackagePrice',
+                            isChecked : true
                         },
                         {
                             name: 'По рейтингу Инна Тур',

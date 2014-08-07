@@ -166,17 +166,24 @@ angular.module('innaApp.conponents').
 
                     /** Событие сортировки */
                     EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
-                        that.set('sortComponent', sortComponent);
+                        console.log('Events.FILTER_PANEL_SORT');
                         setTimeout(function () {
-                            that.cloneData(that.sorting(sortComponent));
+                            that.cloneData(that.sorting());
                         }, 0)
-
                     });
 
-                    /*EventManager.on(Events.DYNAMIC_SERP_BACK_LIST, function () {
-                     that.resetFilter();
-                     });*/
 
+                    /**
+                     * запрашиваем и отдаем компонент сортировки
+                     * используем не стандартный механизм общения компонентов
+                     */
+                    EventManager.set('giveSortComponent', 'give');
+                    EventManager.observe('getSortComponent', function(newValue, oldValue, keypath){
+                        if(newValue) {
+                            that.set('sortComponent', newValue);
+                            newValue.sortDefault();
+                        }
+                    })
                 },
 
                 proxyGoToMap : function(data){
@@ -398,7 +405,7 @@ angular.module('innaApp.conponents').
                  * @param {String} sortValue
                  * @param {List<>} opt_sort_data
                  */
-                sorting: function (sortComponent, opt_sort_data) {
+                sorting: function (opt_sort_data) {
                     var sortData = null;
 
                     // Если когда то была фильтрация, то берем и сортируем именно отфильтрованный набор
@@ -408,6 +415,7 @@ angular.module('innaApp.conponents').
                         sortData = opt_sort_data || this.actualData();
 
                     // вызываем метод сортировки из компонента sortComponent
+                    var sortComponent = this.get('sortComponent');
                     return sortComponent.get('fn')(sortData);
                 },
 
@@ -431,7 +439,6 @@ angular.module('innaApp.conponents').
                  */
                 resetFilter: function () {
                     console.log('resetFilter -- resetFilter');
-                    var sortResult = null;
                     this.set({
                         filtered: false,
                         EnumerableFiltered: []
@@ -439,10 +446,7 @@ angular.module('innaApp.conponents').
 
                     if (!this.get('scroll')) this.addScroll();
 
-                    if (this.get('sortComponent'))
-                        sortResult = this.sorting(this.get('sortComponent'));
-                    else
-                        sortResult = this.get('Enumerable');
+                    var sortResult = this.sorting();
 
                     EventManager.fire(Events.LIST_PANEL_FILTES_RESET_DONE, [].concat(sortResult));
 

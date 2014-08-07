@@ -107,6 +107,17 @@ angular.module('innaApp.conponents').
                         }
                     })
 
+                    /**
+                     * запрашиваем и отдаем компонент сортировки
+                     * используем не стандартный механизм общения компонентов
+                     */
+                    EventManager.observe('giveSortComponent', function(value){
+                        console.log('giveSortComponent', value);
+                        if(value && value == 'give') {
+                            EventManager.set('getSortComponent', that.getSortComponent());
+                        }
+                    });
+
                     EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function(){
                         that.set('asMap', true);
                     });
@@ -312,6 +323,9 @@ angular.module('innaApp.conponents').
                     });
                 },
 
+                getSortComponent : function(){
+                  return this.findComponent('FilterSort');
+                },
 
                 bodyClickHide: function (evt) {
                     evt.stopPropagation();
