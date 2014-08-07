@@ -1,4 +1,8 @@
-<li class="filters__sort">
+
+<!--
+	Прячем компонент если находимся на карте
+-->
+<li class="filters__sort {{(asMap) ? 'ng-hide' : ''}}">
     <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
          on-click="toggle">
         Сортировать <span>{{lowercaseFirst(current)}}</span>

@@ -7,10 +7,7 @@
             <FilterTaFactor TaFactor="{{filtersModel.TaFactor}}"/>
             <FilterType HotelType="{{filtersModel.HotelType}}"/>
             <FilterExtra Extra="{{filtersModel.Extra}}"/>
-
-			{{#if !asMap}}
-                <FilterSort sort="{{filtersModel.sort.hotels}}"/>
-			{{/if}}
+            <FilterSort sort="{{filtersModel.sort.hotels}}" asMap="{{asMap}}"/>
         </ul>
     </div>
 
