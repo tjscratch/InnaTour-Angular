@@ -95,10 +95,9 @@ innaAppFilters.filter('signed', ['$filter', function ($filter) {
     return function (n) {
         var price = $filter('price');
 
-        if (n > 0) return '+ ' + price(n);
-        if (n < 0) return '– ' + price(-n);
+        if (n >= 0) return '+ ' + price(n);
 
-        return 0;
+        return '– ' + price(-n);
     }
 }]);
 
@@ -134,4 +133,12 @@ innaAppFilters.filter('stripTags', function () {
 
         return input.replace(/(<([^>]+)>)/ig, " ");
     }
+});
+
+innaAppFilters.filter('console', function(){
+    return  function(input){
+        console.log(input);
+
+        return '';
+    };
 });

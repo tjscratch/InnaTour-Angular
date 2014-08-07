@@ -138,8 +138,8 @@
                     //при клике будет выбрана дата от
                     $scope.setLastSel(false);
                     setPosition({
-                        elemFromPosition : $event.currentTarget,
-                        picker :  $scope.datePicker
+                        elemFromPosition: $event.currentTarget,
+                        picker: $scope.datePicker
                     });
                 }
 
@@ -156,8 +156,8 @@
                     //при клике будет выбрана дата до
                     $scope.setLastSel(true);
                     setPosition({
-                        elemFromPosition : $event.currentTarget,
-                        picker :  $scope.datePicker
+                        elemFromPosition: $event.currentTarget,
+                        picker: $scope.datePicker
                     });
                 }
 
@@ -229,7 +229,7 @@
                             }
                             else {
 
-                                setPosition({ slide : true, picker :  el });
+                                setPosition({ slide: true, picker: el });
 
 
                                 //если выбираем дату туда, и стоит галка в одну сторону
@@ -257,7 +257,7 @@
 
                 //console.log('FORM::MAX_DATE', $scope.maxDate);
 
-                if($scope.maxDate) {
+                if ($scope.maxDate) {
                     var today = new Date();
                     var leftLimit = new Date(+today);
 
@@ -289,4 +289,4 @@
                 });
             }
         }
-    }])
+    }]);

@@ -11,26 +11,45 @@ innaAppControllers
         function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs, $cookieStore){
             var AS_MAP_CACHE_KEY = 'serp-as-map';
 
-            var parseRoute = function(path){
-                if(path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) === -1) return {};
+            var parseRoute = function (path) {
+                function getBits(path) {
+                    path = path.split('/');
+                    path = path[path.length - 1] || path[path.length - 2];
 
-                path = path.split('/');
-                path = path[path.length - 1] || path[path.length - 2];
-
-                var bits = path.split('?')[0].split('-');
-
-                return {
-                    DepartureId: bits[0],
-                    ArrivalId: bits[1],
-                    StartVoyageDate: bits[2],
-                    EndVoyageDate: bits[3],
-                    TicketClass: bits[4],
-                    Adult: bits[5],
-                    ChildrenAges: (function(ages){
-                        return ages ?
-                            ages.split('_').map(function(age){ return {value: age}; }) :
-                            []
-                    })(bits[6])
+                    return path.split('?')[0].split('-');
+                }
+                
+                if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) > -1)
+                {
+                    var bits = getBits(path);
+                    return {
+                        DepartureId: bits[0],
+                        ArrivalId: bits[1],
+                        StartVoyageDate: bits[2],
+                        EndVoyageDate: bits[3],
+                        TicketClass: bits[4],
+                        Adult: bits[5],
+                        ChildrenAges: (function (ages) {
+                            return ages ?
+                                ages.split('_').map(function (age) { return { value: age }; }) :
+                                []
+                        })(bits[6])
+                    };
+                }
+                else if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES) > -1) { //IN-2466 URL для контекста по ДП
+                    var bits = getBits(path);
+                    if (bits.length == 2) {
+                        return {
+                            DepartureId: bits[0],
+                            ArrivalId: bits[1]
+                        };
+                    }
+                    else {
+                        return {};
+                    }
+                }
+                else {
+                    return {};
                 }
             };
 

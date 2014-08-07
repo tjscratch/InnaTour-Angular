@@ -1,6 +1,4 @@
 ﻿
-'use strict';
-
 /* Controllers */
 
 innaAppControllers.

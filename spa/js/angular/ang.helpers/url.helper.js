@@ -2,36 +2,18 @@
     .factory('urlHelper', ['innaApp.Urls', function (appUrls) {
 
         var helper = {
-            ver: app_main.version,
+            //ver: app_main.version,
             Prefix: '#',
             Delimiter: '-',
             DelimiterReplace: '_',
 
-            addPathAndVersion: function (url) {
-                //версия нужна чтобы обновлялись шаблоны
-                //return url + '?v=' + helper.ver;
-                return url;
-            },
             getInnerTemplate: function () {
                 return 'grid/_item_inner.html';
             },
             getTemplateUrlByBlockType: function (type) {
                 var bType = tours.grid.blockType;
-                //switch (type) {
-                //    case bType.bXL: return helper.addPathAndVersion('templates/grid/item_XL.html');
-                //    case bType.b2SL: return helper.addPathAndVersion('templates/grid/item_2SL.html');
-                //    case bType.bL2S: return helper.addPathAndVersion('templates/grid/item_L2S.html');
-                //    case bType.b2M: return helper.addPathAndVersion('templates/grid/item_2M.html');
-                //    case bType.bLSS: return helper.addPathAndVersion('templates/grid/item_LSS.html');
-                //    case bType.bSSL: return helper.addPathAndVersion('templates/grid/item_SSL.html');
-                //    case bType.bL3L3L3: return helper.addPathAndVersion('templates/grid/item_L3L3L3.html');
-                //    case bType.bP2P1P1: return helper.addPathAndVersion('templates/grid/item_P2P1P1.html');
-                //    case bType.bP1P2P1: return helper.addPathAndVersion('templates/grid/item_P1P2P1.html');
-                //    case bType.bP1P1P2: return helper.addPathAndVersion('templates/grid/item_P1P1P2.html');
-                //    default: return helper.addPathAndVersion('templates/grid/item_XL.html');
-                //}
 
-                //шаблоны тянутся с главной, чтобы не было проблем с кэшированием
+                //шаблоны тянутся из templateCache
                 switch (type) {
                     case bType.bXL: return 'grid/item_XL.html';
                     case bType.b2SL: return 'grid/item_2SL.html';

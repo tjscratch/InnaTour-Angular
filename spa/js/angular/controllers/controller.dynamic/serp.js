@@ -316,6 +316,8 @@ innaAppControllers
                     if (tabName == 'ticket') {
                         this.TICKETS_TAB = true;
                         this.HOTELS_TAB = false;
+
+                        closeMap();
                     } else if (tabName == 'hotel') {
                         this.HOTELS_TAB = true;
                         this.TICKETS_TAB = false;
@@ -425,11 +427,14 @@ innaAppControllers
                 $scope.asMap = param;
             }
 
+            function closeMap() {
+                delete $location.$$search.map;
+                $location.$$compose();
+            }
 
             function locatioAsMap() {
                 if (!getAsMap()) {
-                    delete $location.$$search.map;
-                    $location.$$compose();
+                    closeMap();
                 } else {
                     $location.search('map', 'show');
                 }
