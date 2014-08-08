@@ -16,7 +16,8 @@
                 askForData: '=',
                 placeholder: '@',
                 onError: '@',
-                withCountry: '='
+                withCountry: '=',
+                event: '@'
             },
             controller: ['$scope', '$timeout', function ($scope, $timeout) {
                 /*Properties*/
@@ -42,6 +43,31 @@
                         $scope.input.val(item.Name);
                     }
                     $scope.result = item.Id;
+                }
+
+                if ($scope.event) {
+                    $scope.$on($scope.event, function (event, id) {
+                        console.log('dropdownInput event, id:', id);
+                        if (id != null) {
+                            if (id instanceof Error) {
+                                $scope.input.tooltip({
+                                    position: {
+                                        my: 'center top+22',
+                                        at: 'center bottom'
+                                    },
+                                    items: "[data-title]",
+                                    content: function () {
+                                        return $scope.input.data("title");
+                                    }
+                                }).tooltip('open');
+                            } else {
+                                if (id != null && id != 'null' && $scope.askForData) {
+                                    console.log('askForDataByID', id);
+                                    askForDataByID(id);
+                                }
+                            }
+                        }
+                    });
                 }
 
                 //$scope.supressBlur = false;
@@ -91,27 +117,27 @@
                 }
 
                 /*Watchers*/
-                $scope.$watch('result', function (newValue, oldValue) {
-                    if (newValue instanceof Error) {
-                        $scope.result = oldValue;
+                //$scope.$watch('result', function (newValue, oldValue) {
+                //    if (newValue instanceof Error) {
+                //        $scope.result = oldValue;
 
-                        $scope.input.tooltip({
-                            position: {
-                                my: 'center top+22',
-                                at: 'center bottom'
-                            },
-                            items: "[data-title]",
-                            content: function () {
-                                return $scope.input.data("title");
-                            }
-                        }).tooltip('open');
-                    } else if (!$scope.input.val()) {
-                        if (newValue != null && newValue != 'null' && $scope.askForData) {
-                            console.log('askForDataByID', newValue);
-                            askForDataByID(newValue);
-                        }
-                    }
-                });
+                //        $scope.input.tooltip({
+                //            position: {
+                //                my: 'center top+22',
+                //                at: 'center bottom'
+                //            },
+                //            items: "[data-title]",
+                //            content: function () {
+                //                return $scope.input.data("title");
+                //            }
+                //        }).tooltip('open');
+                //    } else if (!$scope.input.val()) {
+                //        if (newValue != null && newValue != 'null' && $scope.askForData) {
+                //            console.log('askForDataByID', newValue);
+                //            askForDataByID(newValue);
+                //        }
+                //    }
+                //});
 
                 $scope.$on('DYNAMIC.locationChange', function(event, routeParams){
                     $scope.$root._dynamicSearchFormInvisible = true;
