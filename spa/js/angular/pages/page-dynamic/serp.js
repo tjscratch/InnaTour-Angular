@@ -40,8 +40,8 @@ innaAppControllers
             var serpScope = $scope;
             $scope.hotelsRaw = null;
             $scope.hotelsForMap = null;
-            $scope.isChooseHotel = null;
             var MAX_HOTEL_LEN = 180;
+            $scope.padding = true;
 
             /*Properties*/
             var ListPanelComponent = null;
@@ -90,18 +90,6 @@ innaAppControllers
 
             $scope.showLanding = true;
 
-            if ($location.search().ticket || $location.search().hotel) {
-                $scope.isChooseHotel = true;
-            }
-
-            /**
-             * Изменяем класс у results-container
-             * Смотри DynamicPackageSERPRecommendedBundleCtrl
-             * @type {{}}
-             */
-            $scope.padding = {
-                scrollTop: 0
-            };
 
             $scope.passengerCount = 0;
 
@@ -122,7 +110,6 @@ innaAppControllers
                 $scope.safeApply(function () {
                     $scope.combination.hotel = data;
                     $location.search('hotel', data.data.HotelId);
-                    $scope.isChooseHotel = true;
                 });
             });
 
@@ -130,7 +117,6 @@ innaAppControllers
                 $scope.safeApply(function () {
                     $scope.combination.ticket = data;
                     $location.search('ticket', data.data.VariantId1);
-                    $scope.isChooseHotel = true;
                 });
             });
 
@@ -145,7 +131,7 @@ innaAppControllers
                     locatioAsMap();
                     $scope.hotelsForMap = data
 
-                    if(single_hotel) {
+                    if (single_hotel) {
                         setTimeout(function () {
                             // прокидываем данные в карту
                             $scope.$broadcast(Events.DYNAMIC_SERP_TOGGLE_MAP_SINGLE, single_hotel);
@@ -162,6 +148,21 @@ innaAppControllers
                     locatioAsMap();
                 })
             });
+
+
+            /**
+             * Изменяем класс у results-container
+             */
+            function changePadding(data){
+                $scope.safeApply(function () {
+                    $scope.padding = data;
+                });
+            }
+            /**
+             * События открытия закрытия - рекомендованного варианта
+             */
+            EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, changePadding);
+            EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, changePadding);
 
             /*Methods*/
             var getHotelDetails = function (hotel, buyAction) {
@@ -223,7 +224,7 @@ innaAppControllers
                 });
             });
 
-            EventManager.on(Events.DYNAMIC_SERP_LOAD_TAB, function(data_tab){
+            EventManager.on(Events.DYNAMIC_SERP_LOAD_TAB, function (data_tab) {
                 $scope.safeApply(function () {
                     $scope.state.switchTo(data_tab)
                 });
@@ -565,10 +566,19 @@ innaAppControllers
                 EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
                 EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
                 EventManager.off(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL);
+                EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, changePadding);
+                EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, changePadding);
+
                 if (ListPanelComponent) {
                     ListPanelComponent.teardown();
                     ListPanelComponent = null;
                 }
+
+                if (FilterPanelComponent) {
+                    FilterPanelComponent.teardown();
+                    FilterPanelComponent = null;
+                }
+
                 $(document).off('scroll');
             })
         }

@@ -95,8 +95,7 @@ angular.module('innaApp.directives')
                     EventManager.observe('DYNAMIC_SERP_TOGGLE_MAP', function (value) {
                         console.log(value, 'DYNAMIC_SERP_TOGGLE_MAP');
 
-                        //$scope.$emit('region-footer:hide');
-                        EventManager.fire(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE);
+                        EventManager.fire(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
                         EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD);
                         that.fire('shortMap');
 

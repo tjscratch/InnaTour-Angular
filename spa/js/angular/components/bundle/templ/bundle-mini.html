@@ -1,4 +1,5 @@
-<div class="row result-small" ng-if="!isVisible" ng-click="display.toggle()" style="cursor:pointer;">
+<div class="row result-small" ng-click="display.fullDisplay()" style="cursor:pointer;">
+
     <div class="result-small__cell col-xs-5 col-no-padding">
         <p class="flight">
             <img class="flight__image" ng-src="{{airLogo( combination.ticket.getEtaps('To')[0].data.TransporterCode )}}"
