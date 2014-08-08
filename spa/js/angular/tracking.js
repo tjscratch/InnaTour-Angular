@@ -14,7 +14,7 @@ var track = {
         if (window.mixpanel != null)
             mixpanel.track("redirect", { "service": "booking" });
         //отслеживаем в гугл аналитике
-        writeAnalitics('bookingcom');
+        track.writeAnalitics('bookingcom');
 
     },
     offerClick: function (sectionName, type, name, position, fn) {
@@ -67,7 +67,7 @@ var track = {
         if (window.mixpanel != null) {
             mixpanel.track("inquiry.form", { "type": type, "url": url });
         }
-        writeAnalitics(url + '/inquiry');
+        track.writeAnalitics(url + '/inquiry');
     },
     requestSend: function (type, url) {
         //type - откуда кликали на форму из заявки или из блока сбоку (side/program)
@@ -78,61 +78,93 @@ var track = {
         if (window.mixpanel != null) {
             mixpanel.track("inquiry.send", { "type": type, "url": url });
         }
-        writeAnalitics(url + '/inquiry_sent');
+        track.writeAnalitics(url + '/inquiry_sent');
     },
     //ДП. Построение воронок продаж
     //https://innatec.atlassian.net/wiki/pages/viewpage.action?pageId=10518564
     dpSearch: function () {//Клик по кнопке искать формы поиска (форма поиска динамическая)
-        writeAnalitics('/virtual/main_search', 'main_search');
+        track.writeAnalitics('/virtual/main_search', 'main_search');
     },
     dpBuyPackage: function () {//нажатие кнопки "купить" на форме поиска пакета
-        writeAnalitics('/virtual/recommended_variant', 'recommended_variant');
+        track.writeAnalitics('/virtual/recommended_variant', 'recommended_variant');
     },
     dpGoReserve: function () {//нажатие кнопки "купить" на форме выбора категории номера на странице отеля
-        writeAnalitics('/virtual/buy_suite', 'buy_suite');
+        track.writeAnalitics('/virtual/buy_suite', 'buy_suite');
     },
     dpGoBuy: function () {//Факт нажатия кнопки "перейти к оплате" после заполнения формы данных пассажира
-        writeAnalitics('/virtual/payment', 'payment');
+        track.writeAnalitics('/virtual/payment', 'payment');
     },
-    dpPaymentSubmit: function (revenue) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
+    dpPaymentSubmit: function (orderNum, revenue, IATA1, IATA2, hotelName) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
         if (window.ga != null) {
-            console.log('track.dpPaymentSubmit, revenue: ' + revenue);
-            ga('require', 'ecommerce', 'ecommerce.js');
+            console.log('track.dpPaymentSubmit, order: %s, revenue: %s', orderNum, revenue);
 
             ga('ecommerce:addTransaction', {
-                'id': 'BM-1386656007-794', 'affiliation': 'inna.ru',
-                'revenue': revenue //'5497.00' // тут должна быть указана сумма продажи
+                'id': '' + orderNum,                     // номер заказа.
+                'affiliation': 'Inna.ru',   // адрес сайта (наш, всегда один и тот-же).
+                'revenue': '' + revenue,               // общая стоимость заказа.
+                'shipping': '0',                  // всегда ноль.
+                'tax': '0'                     // всегда ноль.
             });
-            ga('ecommerce:send');
+
+            ga('ecommerce:addItem', { 
+                'id': '' + orderNum, // номер заказа. (тот-же, который в указан в первой части)
+                'name': IATA1 + '_' + IATA2 + ' ' + hotelName, //название товара в виде [аэропорт-откуда]_[аэропорт_[куда] [название отеля]
+                'sku': 0,   
+                'category': 'dp', // динамическое пакетирование
+                'price': '' + revenue, // сумма заказа
+                'quantity': '1' //всегда 1
+            });
         }
     },
     dpPayBtnSubmit: function () {
-        writeAnalitics('/virtual/aviahotel_pay', 'aviahotel_pay');
+        track.writeAnalitics('/virtual/aviahotel_pay', 'aviahotel_pay');
     },
     //Воронка "Авиабилеты"
     aviaSearch: function () { //Нажатие кнопки «Поиск» (Поиск авиабилетов) 
-        writeAnalitics('/virtual/avia_search', 'avia_search');
+        track.writeAnalitics('/virtual/avia_search', 'avia_search');
     },
     aviaChooseVariant: function () { //Нажатие кнопки «Купить» (Выбор авиабилета)
-        writeAnalitics('/virtual/avia_variant', 'avia_variant');
+        track.writeAnalitics('/virtual/avia_variant', 'avia_variant');
     },
     aviaGoBuy: function () { //Нажатие кнопки «Перейти к оплате» (Переход к оплате) 
-        writeAnalitics('/virtual/avia_payment', 'avia_payment');
+        track.writeAnalitics('/virtual/avia_payment', 'avia_payment');
     },
     aviaPayBtnSubmit: function () { //Нажатие кнопки «Оплатить» (Оплата авиабилета) 
-        writeAnalitics('/virtual/avia_pay', 'avia_pay');
+        track.writeAnalitics('/virtual/avia_pay', 'avia_pay');
+    },
+    aivaPaymentSubmit: function (orderNum, revenue, IATA1, IATA2) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
+        if (window.ga != null) {
+            console.log('track.aivaPaymentSubmit, order: %s, revenue: %s', orderNum, revenue);
+
+            ga('ecommerce:addTransaction', {
+                'id': '' + orderNum,                     // номер заказа (билета).
+                'affiliation': 'Inna.ru',   // адрес сайта (наш, всегда один и тот-же).
+                'revenue': '' + revenue,               // общая стоимость заказа.
+                'shipping': '0',                  // всегда ноль.
+                'tax': '0'                     // всегда ноль.
+            });
+
+            ga('ecommerce:addItem', { 
+                'id': '' + orderNum,  //номер заказа (билета)   
+                'name': IATA1 + '_' + IATA2, // [аэропорт "откуда"]_[аэропорт_"куда"]
+                'sku': 0,  
+                'category': 'avia', // авиабилет
+                'price': '' + revenue, // сумма заказа
+                'quantity': '1' //всегда 1
+            }); 
+        }
     },
     toursSearch: function () { //поиск туров
-        writeAnalitics('/virtual/tour_search', 'tour_search');
+        track.writeAnalitics('/virtual/tour_search', 'tour_search');
     },
     programmSend: function () { //Нажатие кнопки «Отправить» (Отправка заявки на программу)
-        writeAnalitics('/virtual/prog_request', 'prog_request');
+        track.writeAnalitics('/virtual/prog_request', 'prog_request');
     },
     noResultsDp: function () { //нет результатов для поиска ДП (появление меню "мы ничего не нашли")
-        writeAnalitics('/virtual/search_noresults', 'search_noresults');
+        track.writeAnalitics('/virtual/search_noresults', 'search_noresults');
     },
     noResultsAvia: function () { //нет результатов для поиска авиабилетов (появление меню "мы ничего не нашли")
-        writeAnalitics('/virtual/search_avianoresults', 'search_avianoresults');
+        track.writeAnalitics('/virtual/search_avianoresults', 'search_avianoresults');
     }
 };
 
