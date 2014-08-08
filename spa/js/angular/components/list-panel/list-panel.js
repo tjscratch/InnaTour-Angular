@@ -18,12 +18,13 @@ angular.module('innaApp.conponents').
         '$filter',
         '$templateCache',
         '$routeParams',
+        '$location',
         'innaApp.API.events',
         'DynamicPackagesDataProvider',
         'IndicatorFilters',
         'HotelItem',
         'TicketItem',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem) {
+        function (EventManager, $filter, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem) {
 
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
@@ -269,6 +270,12 @@ angular.module('innaApp.conponents').
 
                     // подготавливаем данные для авиа отелей
                     if (opt_param.hotel) {
+
+                        var routParam = angular.copy($routeParams);
+                        var searchParams = angular.extend(routParam, {
+                            ChildrenAges: (routParam.Children) ? routParam.Children.split('_') : null
+                        });
+
                         data.forEach(function (item) {
                             var modelHotel = new inna.Models.Hotels.Hotel(item)
                             var virtualBundle = new inna.Models.Dynamic.Combination();
@@ -276,6 +283,7 @@ angular.module('innaApp.conponents').
                             virtualBundle.ticket = that.get('combinationModel').ticket;
                             item.getProfit = virtualBundle.getProfit();
                             item.FullPackagePrice = virtualBundle.getFullPackagePrice();
+                            item.searchParams = searchParams;
                         })
                     }
 

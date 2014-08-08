@@ -3,7 +3,7 @@
 
     <div class="recommend-bundle">
 
-        <div class="recommend-bundle-background"></div>
+        <div class="recommend-bundle-background" ng-if="!displayHotel"></div>
 
         <div class="main__center recommend-bundle-wrap"
              ng-class="{'recommend-bundle-wrap_small': !isVisible}">
@@ -28,8 +28,6 @@
                  state-ticket="stateTicket"
                  state-hotel="stateHotel"
                  tab-active="tabActive"
-                 get-ticket-details="getTicketDetails"
-                 get-hotel-details="getHotelDetails"
                  inna-dynamic-bundle-with-reservation-button="true"></div>
 
             <ng-include src="'components/bundle/templ/bundle-mini.html'" ng-if="!isVisible"></ng-include>

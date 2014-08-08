@@ -10,8 +10,6 @@ angular.module('innaApp.directives')
                 stateTicket: "=stateTicket",
                 stateHotel: "=stateHotel",
                 tabActive: "=tabActive",
-                getTicketDetails: '=getTicketDetails',
-                getHotelDetails: '=getHotelDetails',
                 withReservationButton: '@innaDynamicBundleWithReservationButton',
                 close: '=innaDynamicBundleClose'
             },
@@ -22,15 +20,58 @@ angular.module('innaApp.directives')
                 '$location',
                 '$element',
                 'innaApp.API.events',
+                '$routeParams',
 
                 // components
                 'ShareLink',
                 'Tripadvisor',
-                function (EventManager, $scope, aviaHelper, $location, $element, Events, ShareLink, Tripadvisor) {
+                function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams, ShareLink, Tripadvisor) {
+
+                    var searchParams = angular.copy($routeParams);
+
+                    /**
+                     * Строим URL для страницы подробнее об отеле
+                     * :DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:ProviderId?
+                     *
+                     */
+                    $scope.computedUrlDetails = function (opt_param) {
+
+                        var DepartureId = searchParams.DepartureId;
+                        var ArrivalId = searchParams.ArrivalId;
+                        var StartVoyageDate = searchParams.StartVoyageDate;
+                        var EndVoyageDate = searchParams.EndVoyageDate;
+                        var TicketClass = searchParams.TicketClass;
+                        var Adult = searchParams.Adult || 0;
+                        var Children = searchParams.Children || 0;
+                        var hotelID = $scope.bundle.hotel.data.HotelId;
+                        var ticketId = $scope.bundle.ticket.data.VariantId1;
+                        var ticketBackId = $scope.bundle.ticket.data.VariantId2;
+                        var providerId = $scope.bundle.hotel.data.ProviderId;
+
+                        var urlDetails = '/#/packages/details/' + [
+                            DepartureId,
+                            ArrivalId,
+                            StartVoyageDate,
+                            EndVoyageDate,
+                            TicketClass,
+                            Adult,
+                            Children,
+                            hotelID,
+                            ticketId,
+                            ticketBackId,
+                            providerId
+                        ].join('-');
+
+                        return (opt_param) ? urlDetails + '?action=buy' : urlDetails;
+                    }
 
                     var _shareLink = new ShareLink({
                         el: $element.find('.js-share-component')
                     });
+
+                    console.log('bundle');
+                    console.log($scope.bundle);
+                    console.log('bundle');
 
                     // Tripadvisor
                     var _tripadvisor = new Tripadvisor({
@@ -42,6 +83,10 @@ angular.module('innaApp.directives')
                         }
                     })
 
+                    if ($location.search().displayHotel) {
+                        $scope.displayHotel = true;
+                    }
+
 
                     var infoPopupElems = $('.icon-price-info, .tooltip-price', $element);
 
@@ -51,18 +96,19 @@ angular.module('innaApp.directives')
                     $scope.dateHelper = dateHelper;
                     $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
 
-                    $scope.getTicketDetails = function ($event, ticket) {
+                    $scope.bundleTicketDetails = function ($event, ticket) {
                         $event.stopPropagation();
                         return $scope.getTicketDetails(ticket);
                     }
 
-                    $scope.getHotelDetails = function ($event, hotel, isBuyAction) {
+                    $scope.bundleHotelDetails = function ($event, hotel, isBuyAction) {
                         $event.stopPropagation();
-                        return $scope.getHotelDetails(hotel, isBuyAction);
-                    }
+                        EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, hotel, isBuyAction);
+                    };
 
                     //destroy
                     $scope.$on('$destroy', function () {
+                        console.log('$destroy bundle big');
                         _shareLink.teardown();
                         _tripadvisor.teardown();
                         _shareLink = null;

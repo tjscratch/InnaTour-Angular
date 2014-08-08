@@ -104,6 +104,10 @@ inna.Models.Hotels.Hotel = function(raw) {
     }
 };
 
+inna.Models.Hotels.Hotel.prototype.setData = function (data) {
+    this.data = angular.copy(data);
+};
+
 inna.Models.Hotels.Hotel.prototype.toJSON = function(){
     return this.data;
 }

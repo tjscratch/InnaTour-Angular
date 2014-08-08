@@ -47,11 +47,12 @@
 
         <div class="bottom-actions">
             <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_replace"
+               ng-if="!displayHotel"
                ng-class="{active: stateTicket}">
                 Заменить перелет
             </a>
             <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_details"
-               ng-click="getTicketDetails($event, bundle.ticket)">Подробнее</a>
+               ng-click="bundleTicketDetails($event, bundle.ticket)">Подробнее</a>
         </div>
 
         <!-- separator -->
@@ -100,13 +101,15 @@
         <div class="bottom-actions">
             <a href="javascript:void(0);"
                ng-class="{active: stateHotel}"
+               ng-if="!displayHotel"
                class="bottom-actions__button bottom-actions__button_action_replace">
                 Заменить отель
             </a>
-            <a href="javascript:void(0);"
+
+            <a href="{{computedUrlDetails()}}"
+               target="_blank"
                class="bottom-actions__button bottom-actions__button_action_details"
-               ng-class="{'active': !!!getHotelDetails}"
-               ng-click="!!getHotelDetails && getHotelDetails($event, bundle.hotel)">Подробнее</a>
+               ng-class="{'active': displayHotel}">Подробнее</a>
         </div>
 
 
@@ -140,6 +143,11 @@
 
         <p></p>
 
-        <span ng-if="withReservationButton" class="button" ng-click="getHotelDetails($event, bundle.hotel, true)">Купить</span>
+        <a class="button"
+           href="{{computedUrlDetails('buy')}}"
+           target="_blank"
+           ng-if="withReservationButton">
+            Купить
+        </a>
     </div>
 </div>

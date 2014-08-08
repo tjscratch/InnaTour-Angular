@@ -1,8 +1,7 @@
 <!-- Рекомендованный вариант пакета -->
 
 <div dynamic-bundle-root
-     ng-show="!hotelToShowDetails"
-     ng-if="combination.hotel && combination.ticket"></div>
+     ng-if="combination.hotel && combination.ticket && !hotelToShowDetails"></div>
 
 
 <!-- List Panel hotels and tickets -->
@@ -23,13 +22,3 @@
 
 <!-- Попап - подробнее о авиа-билете -->
 <div ticket-details data="test"></div>
-
-<div ng-if="hotelToShowDetails"
-     inna-hotel-details
-     inna-hotel-details-hotel="hotelToShowDetails"
-     inna-hotel-details-collection="hotels"
-     inna-hotel-details-back="closeHotelDetails"
-     inna-hotel-details-next="getHotelDetails"
-     inna-hotel-details-bundle="combination"
-     inna-hotel-detailes-reservation-fn="goReservation"
-     inna-hotel-details-get-ticket-details="getTicketDetails"></div>

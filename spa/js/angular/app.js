@@ -37,6 +37,7 @@ app.constant('innaApp.Urls', {
     URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
+    URL_DYNAMIC_HOTEL_DETAILS : '/packages/details/',
     URL_DYNAMIC_PACKAGES_RESERVATION: '/packages/reservation/',
     URL_PROGRAMMS: '/individualtours/',
     URL_ABOUT: '/about/',
@@ -183,6 +184,10 @@ app.config([
                 templateUrl: 'pages/page-dynamic/templ/serp.html',
                 controller: 'PageDynamicPackage',
                 reloadOnSearch: false
+            }).
+            when(url.URL_DYNAMIC_HOTEL_DETAILS + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
+                templateUrl: 'pages/page-dynamic-details/templ/hotel-details.html',
+                controller: 'PageHotelDetails'
             }).
             when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
                 templateUrl: 'pages/avia/tickets_reserve.html',

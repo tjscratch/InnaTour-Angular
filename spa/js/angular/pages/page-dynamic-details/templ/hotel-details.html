@@ -3,31 +3,25 @@
     <div class="hotel-details__wrap main__center">
 
         <div class="hotel-details__section hotel-details__section_layout_context">
-            <ul class="hotel-details-control hotel-details-control_pin_left" ng-if="collection">
-                <li class="hotel-details-control__button" ng-click="close()">&larr; {{displayRoom ? 'Вернуться' : 'Список отелей'}}</li>
-                <!--for next-arrow look at -r 2062:ad2e52cea854 -->
+            <ul class="hotel-details-control hotel-details-control_pin_left">
+                <li class="hotel-details-control__button" ng-click="goToSearchDynamic()">&larr; {{displayRoom ? 'Вернуться' : 'Список отелей'}}</li>
             </ul>
-            <div class="hotel-details__ta hotel-details-ta-info" ng-if="hotel.data.TaFactor">
+            <div class="hotel-details__ta hotel-details-ta-info" ng-if="hotel.TaFactor">
                 <!-- tripadvisor -->
                 <div class="js-tripadvisor-container"></div>
             </div>
             <div class="hotel-details-name">
-                <span class="hotel-details-stars">
-                    <span class="icon icon-star" ng-if="hotel.data.Stars > 0"></span>
-                    <span class="icon icon-star" ng-if="hotel.data.Stars > 1"></span>
-                    <span class="icon icon-star" ng-if="hotel.data.Stars > 2"></span>
-                    <span class="icon icon-star" ng-if="hotel.data.Stars > 3"></span>
-                    <span class="icon icon-star" ng-if="hotel.data.Stars > 4"></span>
-                </span>
-                {{hotel.data.HotelName}}
+                <!-- Stars -->
+                <span class="hotel-details-stars js-hotel-details-stars"></span>
+                <span class="b-display-inline">{{hotel.HotelName}}</span>
             </div>
         </div>
 
-        <div class="hotel-details__section" ng-if="hotel.data.Photos.length">
-            <div inna-gallery inna-gallery-pic-list="hotel.data.Photos"></div>
+        <div class="hotel-details__section" ng-if="hotel.Photos.length">
+            <div inna-gallery inna-gallery-pic-list="hotel.Photos"></div>
         </div>
 
-        <div class="hotel-details__section" ng-if="hotel.detailed.Hotel.Description">
+        <div class="hotel-details__section" ng-if="hotel.Description">
             <div class="hotel-details__section-box">
                 <h2 class="hotel-details__section-title">Об отеле</h2>
                 <div class="hotel-details__section-text">
@@ -41,29 +35,29 @@
                     </div>
                     <div class="hotel-details__section-text-viewport"
                          ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
-                        <div ng-repeat="section in hotel.detailed.Hotel.Description">
+                        <div ng-repeat="section in hotel.Description">
                             <!--<h4>{{section.Title}}</h4>-->
                             <div ng-bind-html="section.Content"></div>
                         </div>
                         <p>
                             <b>Подробные сведения</b><br/><br/>
-                            <b>Время прибытия:</b> <span ng-bind="hotel.detailed.Hotel.CheckInTime"></span>
+                            <b>Время прибытия:</b> <span ng-bind="hotel.CheckInTime"></span>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <b>Выезд:</b> <span ng-bind="hotel.detailed.Hotel.CheckOutTime"></span>
+                            <b>Выезд:</b> <span ng-bind="hotel.CheckOutTime"></span>
                         </p>
                     </div>
                     <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
                     <div class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</div>
                 </div>
-                <ul class="hotel-details-extra" ng-if="hotel.detailed.Hotel.Extra">
-                    <li ng-repeat="(key, val) in hotel.detailed.Hotel.Extra"
+                <ul class="hotel-details-extra" ng-if="hotel.Extra">
+                    <li ng-repeat="(key, val) in hotel.Extra"
                         class="hotel-details-extra__item hotel-details-extra__item_type_{{key | lowercase}}">{{val}}</li>
                 </ul>
             </div>
         </div>
 
         <div class="hotel-details__section">
-            <h2 class="hotel-details__section-title">{{hotel.data.HotelCityName}}, {{hotel.data.Address}}</h2>
+            <h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
             <div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
                 <div id="hotel-details-map"></div>
             </div>
@@ -77,8 +71,7 @@
 
             <div inna-dynamic-bundle
                  inna-dynamic-bundle-bundle="bundle"
-                 inna-dynamic-bundle-ticket-details="getTicketDetails"
-                 inna-dynamic-bundle-close="back"></div>
+                 inna-dynamic-bundle-ticket-details="getTicketDetails"></div>
         </div>
 
         <div class="hotel-details__section">
@@ -95,13 +88,13 @@
             </div>
 
             <ul class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
-                <ng:include src="'components/hotel-details-room.html'" ng-repeat="room in (onlyRoom || hotel.detailed.Rooms)"></ng:include>
+                <ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'" ng-repeat="room in (onlyRoom || hotelRooms)"></ng:include>
             </ul>
         </div>
 
         <div class="hotel-details__section">
             <div class="hotel-details-resume">
-                <div class="hotel-details-resume__section hotel-details-resume__section_{{key}}" ng-repeat="(key, cat) in hotel.detailed.Hotel.Amenities">
+                <div class="hotel-details-resume__section hotel-details-resume__section_{{key}}" ng-repeat="(key, cat) in hotel.Amenities">
                     <h4 class="hotel-details-resume__section-title">{{cat.CategoryName}}</h4>
                     <ul class="hotel-details-resume__list">
                         <li class="hotel-details-resume__item" ng-repeat="item in cat.List track by $index">{{item}}</li>

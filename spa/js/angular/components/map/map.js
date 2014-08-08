@@ -37,7 +37,7 @@ angular.module('innaApp.directives')
                         $scope.currentHotelPreview = null;
                         $scope.airMarker = null;
 
-                        EventManager.fire(Events.DYNAMIC_SERP_SET_CLOSE_BUNDLE);
+                        EventManager.fire(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
                         EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD);
 
                         function mapSizeMini(){

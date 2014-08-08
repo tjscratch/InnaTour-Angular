@@ -3,11 +3,12 @@ angular.module('innaApp.conponents').
         'EventManager',
         'innaApp.API.events',
         '$filter',
+        '$routeParams',
+        '$location',
         '$templateCache',
         'DynamicBlock',
         'HotelGallery',
-        function (EventManager, Events, $filter, $templateCache, DynamicBlock, HotelGallery) {
-
+        function (EventManager, Events, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery) {
 
             /**
              * Компонент HotelItem
@@ -30,6 +31,44 @@ angular.module('innaApp.conponents').
                         } else {
                             return name
                         }
+                    },
+
+                    /**
+                     * Строим URL для страницы подробнее об отеле
+                     * :DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:ProviderId?
+                     *
+                     * searchParams -  добавляется в каждую карточку отеля в компоненте list-panel:parse
+                     */
+                    computedUrlDetails: function () {
+                        var searchParams = this.get('searchParams');
+
+                        var DepartureId = searchParams.DepartureId;
+                        var ArrivalId = searchParams.ArrivalId;
+                        var StartVoyageDate = searchParams.StartVoyageDate;
+                        var EndVoyageDate = searchParams.EndVoyageDate;
+                        var TicketClass = searchParams.TicketClass;
+                        var Adult = searchParams.Adult || 0;
+                        var Children = searchParams.Children || 0;
+                        var hotelID = this.get('hotel.HotelId');
+                        var ticketId = this.get('virtualBundle.ticket.data.VariantId1');
+                        var ticketBackId = this.get('virtualBundle.ticket.data.VariantId2');
+                        var providerId = this.get('hotel.ProviderId');
+
+                        var urlDetails = '/#/packages/details/' + [
+                            DepartureId,
+                            ArrivalId,
+                            StartVoyageDate,
+                            EndVoyageDate,
+                            TicketClass,
+                            Adult,
+                            Children,
+                            hotelID,
+                            ticketId,
+                            ticketBackId,
+                            providerId
+                        ].join('-');
+
+                        return urlDetails;
                     }
                 },
                 partials: {
@@ -67,6 +106,11 @@ angular.module('innaApp.conponents').
                             //console.log('teardown hotel item');
                         }
                     });
+
+
+                    /*this.observe('combinationModel', function(data){
+                     console.log('hotels observe combinationModel', data);
+                     })*/
                 },
 
                 getHotelDetails: function () {

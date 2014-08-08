@@ -17,8 +17,9 @@ angular.module('innaApp.directives')
 
                         $scope.isChooseHotel = null;
                         $scope.isVisible = true;
+                        $scope.displayHotel = false;
+                        $scope.displayTicket = false;
                         var doc = $(document);
-
 
                         function orientation() {
                             var ua = navigator.userAgent.toLowerCase();
@@ -80,8 +81,8 @@ angular.module('innaApp.directives')
                         $scope.toggleTab('hotel');
 
 
-                        if ($location.search().displayTicket) $scope.toggleTab('ticket')
-                        if ($location.search().displayHotel) $scope.toggleTab('hotel')
+                        if ($location.search().displayTicket) $scope.displayTicket = true;
+                        if ($location.search().displayHotel) $scope.displayHotel = true;
                         if ($location.search().ticket || $location.search().hotel) {
                             $scope.isChooseHotel = true;
                         }
@@ -164,6 +165,7 @@ angular.module('innaApp.directives')
 
                         /*Events*/
                         $scope.$on('$destroy', function () {
+                            console.log('$destroy bundle root');
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
