@@ -1,13 +1,20 @@
 ﻿
 
 var track = {
+    writeAnalitics: function (gaGoal, yaGoal) {
+        if (gaGoal != null && window.ga != null) {
+            ga('send', 'pageview', gaGoal);
+        }
+        if (yaGoal != null && window.yaCounter12702715 != null) {
+            yaCounter12702715.reachGoal(yaGoal);
+        }
+    },
     gotoBooking: function () {
         //отслеживаем в mixpanel
         if (window.mixpanel != null)
             mixpanel.track("redirect", { "service": "booking" });
         //отслеживаем в гугл аналитике
-        if (window.ga != null)
-            ga('send', 'pageview', 'bookingcom');
+        writeAnalitics('bookingcom');
 
     },
     offerClick: function (sectionName, type, name, position, fn) {
@@ -60,9 +67,7 @@ var track = {
         if (window.mixpanel != null) {
             mixpanel.track("inquiry.form", { "type": type, "url": url });
         }
-        if (window.ga != null) {
-            ga('send', 'pageview', url + '/inquiry');
-        }
+        writeAnalitics(url + '/inquiry');
     },
     requestSend: function (type, url) {
         //type - откуда кликали на форму из заявки или из блока сбоку (side/program)
@@ -73,43 +78,21 @@ var track = {
         if (window.mixpanel != null) {
             mixpanel.track("inquiry.send", { "type": type, "url": url });
         }
-        if (window.ga != null) {
-            ga('send', 'pageview', url + '/inquiry_sent');
-        }
+        writeAnalitics(url + '/inquiry_sent');
     },
     //ДП. Построение воронок продаж
     //https://innatec.atlassian.net/wiki/pages/viewpage.action?pageId=10518564
     dpSearch: function () {//Клик по кнопке искать формы поиска (форма поиска динамическая)
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/main_search');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('main_search');
-        }
+        writeAnalitics('/virtual/main_search', 'main_search');
     },
     dpBuyPackage: function () {//нажатие кнопки "купить" на форме поиска пакета
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/recommended_variant');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('recommended_variant');
-        }
+        writeAnalitics('/virtual/recommended_variant', 'recommended_variant');
     },
     dpGoReserve: function () {//нажатие кнопки "купить" на форме выбора категории номера на странице отеля
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/buy_suite');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('buy_suite');
-        }
+        writeAnalitics('/virtual/buy_suite', 'buy_suite');
     },
     dpGoBuy: function () {//Факт нажатия кнопки "перейти к оплате" после заполнения формы данных пассажира
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/payment');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('payment');
-        }
+        writeAnalitics('/virtual/payment', 'payment');
     },
     dpPaymentSubmit: function (revenue) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
         if (window.ga != null) {
@@ -124,61 +107,32 @@ var track = {
         }
     },
     dpPayBtnSubmit: function () {
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/aviahotel_pay');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('aviahotel_pay');
-        }
+        writeAnalitics('/virtual/aviahotel_pay', 'aviahotel_pay');
     },
     //Воронка "Авиабилеты"
     aviaSearch: function () { //Нажатие кнопки «Поиск» (Поиск авиабилетов) 
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/avia_search');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('avia_search');
-        }
+        writeAnalitics('/virtual/avia_search', 'avia_search');
     },
     aviaChooseVariant: function () { //Нажатие кнопки «Купить» (Выбор авиабилета)
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/avia_variant');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('avia_variant');
-        }
+        writeAnalitics('/virtual/avia_variant', 'avia_variant');
     },
     aviaGoBuy: function () { //Нажатие кнопки «Перейти к оплате» (Переход к оплате) 
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/avia_payment');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('avia_payment');
-        }
+        writeAnalitics('/virtual/avia_payment', 'avia_payment');
     },
     aviaPayBtnSubmit: function () { //Нажатие кнопки «Оплатить» (Оплата авиабилета) 
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/avia_pay');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('avia_pay');
-        }
+        writeAnalitics('/virtual/avia_pay', 'avia_pay');
     },
     toursSearch: function () { //поиск туров
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/tour_search');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('tour_search');
-        }
+        writeAnalitics('/virtual/tour_search', 'tour_search');
     },
     programmSend: function () { //Нажатие кнопки «Отправить» (Отправка заявки на программу)
-        if (window.ga != null) {
-            ga('send', 'pageview', '/virtual/prog_request');
-        }
-        if (window.yaCounter12702715 != null) {
-            yaCounter12702715.reachGoal('prog_request');
-        }
+        writeAnalitics('/virtual/prog_request', 'prog_request');
+    },
+    noResultsDp: function () { //нет результатов для поиска ДП (появление меню "мы ничего не нашли")
+        writeAnalitics('/virtual/search_noresults', 'search_noresults');
+    },
+    noResultsAvia: function () { //нет результатов для поиска авиабилетов (появление меню "мы ничего не нашли")
+        writeAnalitics('/virtual/search_avianoresults', 'search_avianoresults');
     }
 };
 
