@@ -47,7 +47,7 @@
 
                 if ($scope.event) {
                     $scope.$on($scope.event, function (event, id) {
-                        console.log('dropdownInput event, id:', id);
+                        //console.log('dropdownInput event, id:', id);
                         if (id != null) {
                             if (id instanceof Error) {
                                 $scope.input.tooltip({
@@ -62,7 +62,7 @@
                                 }).tooltip('open');
                             } else {
                                 if (id != null && id != 'null' && $scope.askForData) {
-                                    console.log('askForDataByID', id);
+                                    //console.log('askForDataByID', id);
                                     askForDataByID(id);
                                 }
                             }

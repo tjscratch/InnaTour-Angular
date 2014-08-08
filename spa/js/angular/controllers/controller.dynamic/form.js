@@ -103,10 +103,16 @@ innaAppControllers
                     if (data != null) {
                         $scope.safeApply(function () {
                             $scope.fromCurrent = data.Id;
+                            $rootScope.$broadcast("dp_form_from_update", data.Id);
                         });
                     }
                 });
             });
+
+            //обновляем значения в саджесте
+            setTimeout(function () {
+                $rootScope.$broadcast("dp_form_from_update", $scope.fromCurrent);
+            }, 0);
 
             $scope.$watch('fromCurrent', function(newVal){
                 DynamicPackagesCacheWizard.put('fromCurrent', newVal);
@@ -123,7 +129,11 @@ innaAppControllers
                 })
 	        };
 
-            $scope.toCurrent = routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
+	        $scope.toCurrent = routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
+            //обновляем значения в саджесте
+	        setTimeout(function () {
+	            $rootScope.$broadcast("dp_form_to_update", $scope.toCurrent);
+	        }, 0);
 
             $scope.$watch('toCurrent', function(newVal){
                 DynamicPackagesCacheWizard.put('toCurrent', newVal);
