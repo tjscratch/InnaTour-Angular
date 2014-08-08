@@ -1,12 +1,40 @@
 ﻿
 
 var track = {
+    PREFIX: 'track_results_',
+    aviaKey: 'avia_',
+    dpKey: 'dp_',
     writeAnalitics: function (gaGoal, yaGoal) {
         if (gaGoal != null && window.ga != null) {
             ga('send', 'pageview', gaGoal);
         }
         if (yaGoal != null && window.yaCounter12702715 != null) {
             yaCounter12702715.reachGoal(yaGoal);
+        }
+    },
+    denyTrackSuccessResult: function (page, key) {
+        localStorage.setItem(track.PREFIX + page + key, 1);
+        //console.log('analitics, denyTrackSuccessResult()');
+    },
+    isTrackSuccessResultAllowed: function (page, key) {
+        var item = localStorage.getItem(track.PREFIX + page + key) || null;
+        if (item != null) {
+            //console.log('analitics, %s TrackSuccessResult denied', page);
+            return false;
+        }
+        else {
+            //console.log('analitics, %s TrackSuccessResult allowed', page);
+            return true;
+        }
+    },
+    resetTrackSuccessResult: function (page) {
+        //console.log('analitics, reset TrackSuccessResult');
+        for (var key in localStorage) {
+            //console.log('analitics, localStorage key: %s', key);
+            if (key.startsWith(track.PREFIX + page)) {
+                localStorage.removeItem(key);
+                //console.log('analitics, localStorage key: %s dropped', key);
+            }
         }
     },
     gotoBooking: function () {
@@ -94,6 +122,9 @@ var track = {
     dpGoBuy: function () {//Факт нажатия кнопки "перейти к оплате" после заполнения формы данных пассажира
         track.writeAnalitics('/virtual/payment', 'payment');
     },
+    dpPayBtnSubmit: function () {
+        track.writeAnalitics('/virtual/aviahotel_pay', 'aviahotel_pay');
+    },
     dpPaymentSubmit: function (orderNum, revenue, IATA1, IATA2, hotelName) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
         if (window.ga != null) {
             console.log('track.dpPaymentSubmit, order: %s, revenue: %s', orderNum, revenue);
@@ -115,9 +146,6 @@ var track = {
                 'quantity': '1' //всегда 1
             });
         }
-    },
-    dpPayBtnSubmit: function () {
-        track.writeAnalitics('/virtual/aviahotel_pay', 'aviahotel_pay');
     },
     //Воронка "Авиабилеты"
     aviaSearch: function () { //Нажатие кнопки «Поиск» (Поиск авиабилетов) 
@@ -165,6 +193,12 @@ var track = {
     },
     noResultsAvia: function () { //нет результатов для поиска авиабилетов (появление меню "мы ничего не нашли")
         track.writeAnalitics('/virtual/search_avianoresults', 'search_avianoresults');
+    },
+    successResultsDp: function () { //коды для фиксации успешной выдачи результатов поиска ДП
+        track.writeAnalitics('/virtual/search_yesresults', 'search_yesresults');
+    },
+    successResultsAvia: function () { //коды для фиксации успешной выдачи результатов поиска авиа
+        track.writeAnalitics('/virtual/search_aviayesresults', 'search_aviayesresults');
     }
 };
 

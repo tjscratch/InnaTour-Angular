@@ -342,6 +342,9 @@ innaAppControllers.
                         $location.path(url);
 
                         if (oldUrl == url) {
+                            //сброс запрета слежения аналитики
+                            track.resetTrackSuccessResult(track.aviaKey);
+
                             $rootScope.$broadcast("avia.search.start");
                         }
                     }
