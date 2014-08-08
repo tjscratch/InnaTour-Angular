@@ -118,7 +118,7 @@
                                 return $scope.input.data("title");
                             }
                         }).tooltip('open');
-                    } else if (!$scope.input.val()) {
+                    } else {// if (!$scope.input.val()) {
                         if (newValue != null && newValue != 'null' && $scope.askForData) {
                             askForDataByID(newValue);
                         }
