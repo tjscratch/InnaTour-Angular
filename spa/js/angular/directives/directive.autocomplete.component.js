@@ -20,6 +20,7 @@
             },
             controller: ['$scope', '$timeout', function ($scope, $timeout) {
                 /*Properties*/
+                $scope.isOpened = false;
                 $scope.needClose = false;
 
                 $scope.getPlaceholder = function () {
@@ -79,7 +80,7 @@
                     }
 
                     if (!doNotUpdateInputText) {
-                        $scope.needClose = true;
+                        $scope.isOpened = false;
                     }
                 };
 
@@ -106,6 +107,7 @@
                         }).tooltip('open');
                     } else if (!$scope.input.val()) {
                         if (newValue != null && newValue != 'null' && $scope.askForData) {
+                            console.log('askForDataByID', newValue);
                             askForDataByID(newValue);
                         }
                     }
@@ -233,7 +235,7 @@
                 $scope.$watch('suggest', function (newValue, oldValue) {
                     if (newValue != null && newValue !== oldValue) {
                         $scope.selectionControl.init();
-                        $scope.needClose = false;
+                        $scope.isOpened = true;
                     }
                 }, false);
 
@@ -255,18 +257,18 @@
                 function select(){
                     //console.log('SELECT');
                     $scope.$apply(function ($scope) {
-                        if (!$scope.needClose) {
+                        if ($scope.isOpened) {
                             $scope.selectionControl.setSelected();
                         }
                         else {
-                            $scope.needClose = false;
+                            $scope.isOpened = true;
                         }
                     });
                 }
 
                 $scope.input.on('focus', function () {
                     //$scope.$apply(function ($scope) {
-                    //    $scope.needClose = false;
+                    //    $scope.isOpened = true;
                     //});
 
                     try {
@@ -281,7 +283,7 @@
                         $scope.$apply(function ($scope) {
                             $scope.selectionControl.setSelected();
 
-                            $scope.needClose = true;
+                            $scope.isOpened = false;
                         });
 
                     }, 200);
@@ -319,22 +321,22 @@
                             }
                         case 38: {//up
                             $scope.$apply(function ($scope) {
-                                if (!$scope.needClose) {
+                                if ($scope.isOpened) {
                                     $scope.selectionControl.selectPrev();
                                 }
                                 else {
-                                    $scope.needClose = false;
+                                    $scope.isOpened = true;
                                 }
                             });
                             break;
                         }
                         case 40: {//down
                             $scope.$apply(function ($scope) {
-                                if (!$scope.needClose) {
+                                if ($scope.isOpened) {
                                     $scope.selectionControl.selectNext();
                                 }
                                 else {
-                                    $scope.needClose = false;
+                                    $scope.isOpened = true;
                                 }
                             });
                             break;
@@ -366,7 +368,7 @@
                     if (!isInsideComponent) {
                         //console.log('clickHanlder outside');
                         $scope.$apply(function ($scope) {
-                            $scope.needClose = true;
+                            $scope.isOpened = false;
                         });
                     }
                     else {
