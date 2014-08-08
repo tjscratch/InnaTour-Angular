@@ -63,7 +63,8 @@
             </div>
         </div>
 
-        <div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom && combination">
+        <div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom && dataFullyLoaded">
+
             <h2 class="hotel-details__section-title">
                 <span ng-if="!buyAction">Пакет с этим отелем</span>
                 <span ng-if="buyAction">Выбранный пакет</span>

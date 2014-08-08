@@ -69,9 +69,9 @@ angular.module('innaApp.directives')
                         el: $element.find('.js-share-component')
                     });
 
-                    console.log('bundle');
+                    /*console.log('bundle');
                     console.log($scope.bundle);
-                    console.log('bundle');
+                    console.log('bundle');*/
 
                     // Tripadvisor
                     var _tripadvisor = new Tripadvisor({
