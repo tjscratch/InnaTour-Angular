@@ -35,14 +35,6 @@
                     }
                 };
 
-                //эта хуйня нужна чтобы можно было присвоить и id и name сразу, без доп запросов
-                //var unwatch = $scope.$watch('setResultItem', function (item) {
-                //    if (item != null) {
-                //        init(item);
-                //        //unwatch();
-                //    }
-                //}, true);
-
                 function init(item) {
                     //console.log('init');
                     if ($scope.input) {
@@ -89,12 +81,6 @@
                     if (!doNotUpdateInputText) {
                         $scope.needClose = true;
                     }
-                };
-
-                $scope.unfulfill = function () {
-                    //console.log('keypress unfulfill');
-                    //$scope.needClose = false;
-                    //$scope.result = null;
                 };
 
                 function askForDataByID(newValue) {
@@ -239,13 +225,6 @@
                         if (i) {
                             $scope.setCurrent(null, i.option, i.airport, doNotUpdateInputText);
                         }
-                        
-                        //var inputs = $('.search-field', $scope.input.parent().parent());
-                        //console.log(inputs);
-                        //var ind = inputs.index($scope.input);
-                        //console.log(ind);
-                        //ind++;
-                        //inputs[ind].focus();
                     }
                 }
 

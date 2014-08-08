@@ -12,10 +12,11 @@ innaAppControllers.
         '$location',
         'dataService',
         'cache',
+        'innaApp.Urls',
         'urlHelper',
         'aviaHelper',
         'aviaService', 'Validators',
-        function AviaFormCtrl($log, $scope, $rootScope, $filter, $routeParams, $location, dataService, cache, urlHelper, aviaHelper,
+        function AviaFormCtrl($log, $scope, $rootScope, $filter, $routeParams, $location, dataService, cache, Urls, urlHelper, aviaHelper,
             aviaService, Validators) {
 
             var self = this;
@@ -43,6 +44,7 @@ innaAppControllers.
 
             //$routeParams
             $scope.$on('avia.page.loaded', function (event, $routeParams, validateDate) {
+                //console.log('avia.page.loaded');
                 initCriteriaWatch();
 
                 //console.log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams) + ' validateDate: ' + validateDate);
@@ -127,7 +129,7 @@ innaAppControllers.
                                 //$scope.criteria.From = data.name;
                                 //$scope.criteria.FromUrl = data.url;
                                 //logCriteriaData();
-                                //console.log('avia.form: $scope.criteria.From: ' + angular.toJson($scope.criteria));
+                                //console.log('loaded $scope.criteria.FromUrl: ' + $scope.criteria.FromUrl);
                             }
                         });
                     }, function (data, status) {
@@ -142,13 +144,13 @@ innaAppControllers.
                         $scope.$apply(function ($scope) {
                             //обновляем данные
                             if (data != null) {
-                                $scope.toInit = { Id: data.id, Name: data.name, Url: data.url };
+                                //$scope.toInit = { Id: data.id, Name: data.name, Url: data.url };
 
-                                $scope.criteria.To = data.name;
+                                //$scope.criteria.To = data.name;
                                 $scope.criteria.ToId = data.id;
-                                $scope.criteria.ToUrl = data.url;
+                                //$scope.criteria.ToUrl = data.url;
 
-                                //console.log('$scope.criteria.ToUrl: %s', $scope.criteria.ToUrl);
+                                //console.log('loaded $scope.criteria.ToUrl: %s', $scope.criteria.ToUrl);
                                 //logCriteriaData();
                                 //console.log('avia.form: $scope.criteria.To: ' + angular.toJson($scope.criteria));
                             }
@@ -340,6 +342,9 @@ innaAppControllers.
                         $location.path(url);
 
                         if (oldUrl == url) {
+                            //сброс запрета слежения аналитики
+                            track.resetTrackSuccessResult(track.aviaKey);
+
                             $rootScope.$broadcast("avia.search.start");
                         }
                     }

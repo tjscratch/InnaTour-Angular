@@ -253,6 +253,9 @@ innaAppControllers
                     //аналитика
                     track.dpSearch();
 
+                    //сброс запрета слежения аналитики
+                    track.resetTrackSuccessResult(track.dpKey);
+
                     $rootScope.$emit('inna.DynamicPackages.Search', o);
 
                 } catch(e) {
