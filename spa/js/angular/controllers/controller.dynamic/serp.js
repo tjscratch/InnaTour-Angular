@@ -180,6 +180,8 @@ innaAppControllers
             }
 
             function combination404() {
+                //аналитика
+                track.noResultsDp();
                 $scope.baloon.showNotFound(balloonCloser);
             }
 

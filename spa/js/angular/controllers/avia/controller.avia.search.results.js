@@ -525,6 +525,8 @@ innaAppControllers.
                 else {
                     $scope.ticketsList = [];
                     log('updateModel - nothing to update, data is empty');
+                    //аналитика
+                    track.noResultsAvia();
                     $scope.baloon.showNotFound(function () {
                         $location.path(Urls.URL_AVIA);
                     });

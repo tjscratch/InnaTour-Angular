@@ -76,15 +76,14 @@ innaAppControllers.
                 eventsHelper.preventBubbling($event);
 
                 $scope.payModel = {
-                    num1: '5469',
-                    num2: '4000',
-                    num3: '1273',
-                    num4: '3023',
+                    num1: '',
+                    num2: '',
+                    num3: '',
+                    num4: '',
                     cvc2: '',
-                    //cvc2: '952',
-                    cardHolder: 'ILYA GERASIMENKO',
-                    cardMonth: '07',
-                    cardYear: '15',
+                    cardHolder: '',
+                    cardMonth: '',
+                    cardYear: '',
                     agree: true
                 };
             }
@@ -584,6 +583,17 @@ innaAppControllers.
                                         $scope.aviaInfo = data.AviaInfo;
                                         $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
 
+                                        function getIATACodes(info) {
+                                            var res = { codeFrom: '', codeTo: '' };
+                                            if (info.EtapsTo != null && info.EtapsTo.length > 0) {
+                                                res.codeFrom = info.EtapsTo[0].OutCode;//первый
+                                                res.codeTo = info.EtapsTo[info.EtapsTo.length - 1].InCode;//последний
+                                            }
+                                            return res;
+                                        }
+                                        //коды аэропортов
+                                        $scope.ports = getIATACodes(data.AviaInfo);
+
                                         //нужна ли виза
                                         visaNeededCheck();
                                     }
@@ -671,8 +681,6 @@ innaAppControllers.
 
                     $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
 
-                    //аналитика
-                    track.dpPaymentSubmit($scope.price);
                     //еще
                     var pageType = getActionType();
                     switch (pageType) {
@@ -873,8 +881,14 @@ innaAppControllers.
                                         }
 
                                         if (data.Result == 1) {
+                                            var pageType = getActionType();
 
                                             if (!$scope.hotel) {
+                                                //аналитика - авиа - заказ выполнен
+                                                if (pageType == actionTypeEnum.avia) {
+                                                    track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
+                                                }
+                                                
                                                 $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
                                                     aviaHelper.baloonType.success,
                                                     function () {
@@ -892,6 +906,11 @@ innaAppControllers.
                                                         }
                                                     });
                                             } else if ($scope.hotel != null) {
+                                                //аналитика - ДП - заказ выполнен
+                                                if (pageType == actionTypeEnum.dp) {
+                                                    track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
+                                                }
+
                                                 redirectSuccessBuyPackage();
                                             }
                                         }
