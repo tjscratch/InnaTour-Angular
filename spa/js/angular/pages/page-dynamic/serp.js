@@ -395,6 +395,19 @@ innaAppControllers
                 }
             }
 
+            function loadHotelDetails(){
+
+            }
+
+
+            $scope.getTicketDetails = function (ticket) {
+                EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
+            };
+
+            $scope.loadHotelDetails = function (ticket) {
+                //EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
+            };
+
 
             $scope.goMap = function () {
                 $scope.$emit('toggle:view:hotels:map');

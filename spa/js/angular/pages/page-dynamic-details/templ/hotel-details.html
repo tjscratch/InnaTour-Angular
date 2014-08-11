@@ -1,11 +1,12 @@
 <div class="hotel-details ng-cloak" ng-if="hotelLoaded">
-
     <div class="hotel-details__wrap main__center">
 
         <div class="hotel-details__section hotel-details__section_layout_context">
-            <ul class="hotel-details-control hotel-details-control_pin_left">
-                <li class="hotel-details-control__button" ng-click="goToSearchDynamic()">&larr; {{displayRoom ? 'Вернуться' : 'Список отелей'}}</li>
-            </ul>
+            <div class="hotel-details-control hotel-details-control_pin_left">
+                <a href="{{computedUrlBackList()}}" class="hotel-details-control__button">
+                    &larr; {{displayRoom ? 'Вернуться' : 'Список отелей'}}
+                </a>
+            </div>
             <div class="hotel-details__ta hotel-details-ta-info" ng-if="hotel.TaFactor">
                 <!-- tripadvisor -->
                 <div class="js-tripadvisor-container"></div>

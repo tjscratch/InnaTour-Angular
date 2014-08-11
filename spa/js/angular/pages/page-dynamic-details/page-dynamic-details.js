@@ -29,6 +29,9 @@ innaAppControllers
 
 
             var routParam = angular.copy($routeParams);
+            var StartVoyageDateGoBack = routParam.StartVoyageDate;
+            var EndVoyageDateGoBack = routParam.EndVoyageDate;
+
             var searchParams = angular.extend(routParam, {
                 StartVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
                 EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
@@ -58,8 +61,8 @@ innaAppControllers
             var _balloonLoading = new Balloon({
                 data: {
                     balloonClose: false,
-                    template : 'loading.html',
-                    wait : 1000
+                    template: 'loading.html',
+                    wait: 1000
                 }
             })
             _balloonLoading.show();
@@ -126,6 +129,21 @@ innaAppControllers
             };
 
             getHotelDetails();
+
+            $scope.computedUrlBackList = function () {
+
+                var urlDetails = '/#/packages/search/' + [
+                    searchParams.DepartureId,
+                    searchParams.ArrivalId,
+                    StartVoyageDateGoBack,
+                    EndVoyageDateGoBack,
+                    searchParams.TicketClass,
+                    searchParams.Adult,
+                    searchParams.Children
+                ].join('-');
+
+                return urlDetails;
+            };
 
             $scope.goReservation = function (room) {
 
