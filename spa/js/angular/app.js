@@ -137,6 +137,10 @@ app.config([
                 templateUrl: 'pages/avia/search_form.html',
                 controller: 'AviaSearchMainCtrl'
             }).
+            when(url.URL_AVIA + ':FromUrl-:ToUrl', {
+                templateUrl: 'pages/tours_grid_page.html',
+                controller: 'AviaSearchMainCtrl'
+            }).
             when(url.URL_AVIA, {
                 templateUrl: 'pages/tours_grid_page.html',
                 controller: 'AviaSearchMainCtrl'
@@ -179,6 +183,7 @@ app.config([
                 templateUrl: 'pages/hotels_page.html',
                 controller: 'HotelsCtrl'
             }).
+            when(url.URL_DYNAMIC_PACKAGES + ':DepartureId-:ArrivalId', dynamic()).//URL для контекста по ДП
             when(url.URL_DYNAMIC_PACKAGES, dynamic()).
             when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
                 templateUrl: 'pages/page-dynamic/templ/serp.html',

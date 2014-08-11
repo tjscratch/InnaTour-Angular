@@ -12,10 +12,11 @@ innaAppControllers.
         '$location',
         'dataService',
         'cache',
+        'innaApp.Urls',
         'urlHelper',
         'aviaHelper',
         'aviaService', 'Validators',
-        function AviaFormCtrl($log, $scope, $rootScope, $filter, $routeParams, $location, dataService, cache, urlHelper, aviaHelper,
+        function AviaFormCtrl($log, $scope, $rootScope, $filter, $routeParams, $location, dataService, cache, Urls, urlHelper, aviaHelper,
             aviaService, Validators) {
 
             var self = this;
@@ -43,6 +44,7 @@ innaAppControllers.
 
             //$routeParams
             $scope.$on('avia.page.loaded', function (event, $routeParams, validateDate) {
+                //console.log('avia.page.loaded');
                 initCriteriaWatch();
 
                 //console.log('avia.page.loaded $routeParams: ' + angular.toJson($routeParams) + ' validateDate: ' + validateDate);
@@ -75,12 +77,23 @@ innaAppControllers.
                 if (routeParams.FromUrl == null || routeParams.BeginDate == null) {
                     //console.log('avia.form: $routeParams is empty');
                     routeCriteria = getDefaultCriteria();
+
+                    //URL для контекста по авиа
+                    var urlCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy(routeParams)));
+                    if (urlCriteria.FromUrl != null) {
+                        routeCriteria.FromUrl = urlCriteria.FromUrl;
+                    }
+                    if (urlCriteria.ToUrl != null) {
+                        routeCriteria.ToUrl = urlCriteria.ToUrl;
+                    }
                 }
                 else {
                     //критерии из урла
                     routeCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy(routeParams)));
                     //console.log('avia.form: routeCriteria: ' + angular.toJson(routeCriteria));
                 }
+
+                var testRouteCriteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy(routeParams)));
 
                 if (validateDate) {
                     validateDates(routeCriteria);
@@ -112,11 +125,12 @@ innaAppControllers.
                                 //$scope.fromInit = { Id: data.id, Name: data.name, Url: data.url };
 
                                 $scope.criteria.FromId = data.id;
+                                $rootScope.$broadcast("avia_form_from_update", data.id);
 
                                 //$scope.criteria.From = data.name;
                                 //$scope.criteria.FromUrl = data.url;
                                 //logCriteriaData();
-                                //console.log('avia.form: $scope.criteria.From: ' + angular.toJson($scope.criteria));
+                                //console.log('loaded $scope.criteria.FromUrl: ' + $scope.criteria.FromUrl);
                             }
                         });
                     }, function (data, status) {
@@ -131,13 +145,14 @@ innaAppControllers.
                         $scope.$apply(function ($scope) {
                             //обновляем данные
                             if (data != null) {
-                                $scope.toInit = { Id: data.id, Name: data.name, Url: data.url };
+                                //$scope.toInit = { Id: data.id, Name: data.name, Url: data.url };
 
-                                $scope.criteria.To = data.name;
+                                //$scope.criteria.To = data.name;
                                 $scope.criteria.ToId = data.id;
-                                $scope.criteria.ToUrl = data.url;
+                                $rootScope.$broadcast("avia_form_to_update", data.id);
+                                //$scope.criteria.ToUrl = data.url;
 
-                                //console.log('$scope.criteria.ToUrl: %s', $scope.criteria.ToUrl);
+                                //console.log('loaded $scope.criteria.ToUrl: %s', $scope.criteria.ToUrl);
                                 //logCriteriaData();
                                 //console.log('avia.form: $scope.criteria.To: ' + angular.toJson($scope.criteria));
                             }
@@ -209,6 +224,7 @@ innaAppControllers.
                         if (data != null) {
                             $scope.safeApply(function () {
                                 $scope.criteria.FromId = data.Id;
+                                $rootScope.$broadcast("avia_form_from_update", data.Id);
                             });
                         }
                     }, function (data, status) {
@@ -329,6 +345,9 @@ innaAppControllers.
                         $location.path(url);
 
                         if (oldUrl == url) {
+                            //сброс запрета слежения аналитики
+                            track.resetTrackSuccessResult(track.aviaKey);
+
                             $rootScope.$broadcast("avia.search.start");
                         }
                     }
@@ -341,6 +360,12 @@ innaAppControllers.
                     console.warn(e);
                     if ($scope.criteria.hasOwnProperty(e.message)) {
                         $scope.criteria[e.message] = e;
+
+                        if (e.message == 'FromId') {
+                            $rootScope.$broadcast("avia_form_from_update", e);
+                        } else if (e.message == 'ToId') {
+                            $rootScope.$broadcast("avia_form_to_update", e);
+                        }
                     }
                 }   
             };
