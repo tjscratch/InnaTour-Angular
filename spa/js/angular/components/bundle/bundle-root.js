@@ -61,24 +61,20 @@ angular.module('innaApp.directives')
 
                         $scope.toggleTab = function (data) {
 
-                            if ($scope.tabActive == data) return false;
+                            if ($scope.asMap) {
+                                EventManager.fire(Events.MAP_CLOSE);
+                            }
 
+                            if ($scope.tabActive == data) return false;
                             $scope.tabActive = data;
 
-                            if (data == 'ticket') {
-                                $scope.stateTicket = true;
-                                $scope.stateHotel = false;
-                            }
-                            if (data == 'hotel') {
-                                $scope.stateTicket = false;
-                                $scope.stateHotel = true;
-                            }
+                            setActiveTab(data);
 
                             EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, data);
                         };
 
                         // по дефолту активный таб - hotel
-                        $scope.toggleTab('hotel');
+                        setActiveTab('hotel');
 
 
                         if ($location.search().displayTicket) $scope.displayTicket = true;
@@ -87,6 +83,18 @@ angular.module('innaApp.directives')
                             $scope.isChooseHotel = true;
                         }
 
+
+                        function setActiveTab(data) {
+                            $scope.tabActive = data;
+                            if (data == 'ticket') {
+                                $scope.stateTicket = true;
+                                $scope.stateHotel = false;
+                            }
+                            if (data == 'hotel') {
+                                $scope.stateTicket = false;
+                                $scope.stateHotel = true;
+                            }
+                        }
 
                         /**
                          * Управляем состоянием - выбранного варианта
@@ -170,6 +178,7 @@ angular.module('innaApp.directives')
                         /*Events*/
                         $scope.$on('$destroy', function () {
                             console.log('$destroy bundle root');
+                            EventManager.off(Events.DYNAMIC_SERP_BUNDLE_SET_ACTIVE_TAB, $scope.toggleTab);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE);

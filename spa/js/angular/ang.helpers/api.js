@@ -111,6 +111,7 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_MAP_LOAD : 'hotel:map-load',
             DYNAMIC_SERP_MAP_DESTROY : 'hotel:map-destroy',
             DYNAMIC_SERP_BACK_TO_MAP : 'hotel:DYNAMIC_SERP_BACK_TO_MAP',
+            MAP_CLOSE : 'map:close',
 
             HEADER_VISIBLE : 'region-header:show',
             HEADER_HIDDEN : 'region-header:hide',

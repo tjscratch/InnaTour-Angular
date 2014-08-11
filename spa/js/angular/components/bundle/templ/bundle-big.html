@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <div class="b-result__cell" ng-click="toggleTab('hotel')" ng-style="{cursor: !stateHotel ? 'pointer' : 'default'}">
+    <div class="b-result__cell" ng-click="toggleTab('hotel')" ng-style="{cursor: (!stateHotel || asMap) ? 'pointer' : 'default'}">
         <div class="hotel-info__special-mark" ng-if="bundle.getProfit() > 1000">
             <span class="icon-crown icon-sprite-crown"></span>
             Спецпредложение
@@ -100,7 +100,7 @@
 
         <div class="bottom-actions">
             <a href="javascript:void(0);"
-               ng-class="{active: stateHotel}"
+               ng-class="{'active': (stateHotel && !asMap)}"
                ng-if="!displayHotel"
                class="bottom-actions__button bottom-actions__button_action_replace">
                 Заменить отель

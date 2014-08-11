@@ -10,6 +10,7 @@ angular.module('innaApp.directives')
                 stateTicket: "=stateTicket",
                 stateHotel: "=stateHotel",
                 tabActive: "=tabActive",
+                asMap : "=asMap",
                 withReservationButton: '@innaDynamicBundleWithReservationButton',
                 close: '=innaDynamicBundleClose'
             },
@@ -107,6 +108,7 @@ angular.module('innaApp.directives')
                         $event.stopPropagation();
                         EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, hotel, isBuyAction);
                     };
+
 
                     //destroy
                     $scope.$on('$destroy', function () {

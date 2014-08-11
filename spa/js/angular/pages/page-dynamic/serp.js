@@ -152,11 +152,12 @@ innaAppControllers
             /**
              * Изменяем класс у results-container
              */
-            function changePadding(data){
+            function changePadding(data) {
                 $scope.safeApply(function () {
                     $scope.padding = data;
                 });
             }
+
             /**
              * События открытия закрытия - рекомендованного варианта
              */
@@ -168,6 +169,11 @@ innaAppControllers
                 $scope.safeApply(function () {
                     $scope.state.switchTo(data_tab)
                 });
+            })
+
+            EventManager.on(Events.MAP_CLOSE, function (data_tab) {
+                setAsMap(0);
+                locatioAsMap();
             })
 
             function loadTab() {
@@ -184,8 +190,6 @@ innaAppControllers
              */
             function loadHotels() {
                 console.log('Get Hotels');
-                setAsMap(0);
-                locatioAsMap();
 
                 var param = $scope.combination.ticket.data.VariantId1;
                 var routeParams = angular.copy(searchParams);
@@ -261,8 +265,6 @@ innaAppControllers
              */
             function loadTickets() {
                 console.log('Get Tickets');
-                setAsMap(0);
-                locatioAsMap();
 
                 var param = $scope.combination.hotel.data.HotelId;
                 var routeParams = angular.copy(searchParams);
@@ -399,7 +401,7 @@ innaAppControllers
                 }
             }
 
-            function loadHotelDetails(){
+            function loadHotelDetails() {
 
             }
 
