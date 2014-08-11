@@ -15,13 +15,15 @@ angular.module('innaApp.directives')
                 'ShareLink',
                 function (EventManager, $scope, $element, $location, aviaHelper, Events, ShareLink) {
 
+                    $('body').append($element);
+
                     $scope.ticket = null;
                     $scope.link = '';
 
 
                     $scope.closePopup = function () {
-                        delete $location.$$search.displayTicket;
-                        $location.$$compose();
+                        //delete $location.$$search.displayTicket;
+                        //$location.$$compose();
                         $scope.ticket = null;
                     };
 
