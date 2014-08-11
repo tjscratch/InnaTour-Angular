@@ -22,8 +22,8 @@ angular.module('innaApp.directives')
 
 
                     $scope.closePopup = function () {
-                        //delete $location.$$search.displayTicket;
-                        //$location.$$compose();
+                        delete $location.$$search.displayTicket;
+                        $location.$$compose();
                         $scope.ticket = null;
                     };
 
