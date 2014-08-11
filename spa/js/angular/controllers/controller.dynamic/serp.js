@@ -249,7 +249,7 @@ innaAppControllers
                     $scope.showLanding = false;
                 });
 
-                if ($location.search().displayTicket) {
+                if ($location.search().displayTicket || $location.search().display == 'tickets') {
                     onTabLoad = loadTicketDetails;
                     onTabLoadParam = $location.search().displayTicket;
                     defaultTab = $scope.state.TICKET;
@@ -273,6 +273,8 @@ innaAppControllers
             }
 
             function loadTicketDetails(ids) {
+                if(!ids) return;
+
                 try {
                     var ticketIds = ids.split('_');
                     var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
