@@ -22,9 +22,10 @@ innaAppControllers
         '$routeParams',
 
         // components
+        'Balloon',
         'Tripadvisor',
         'Stars',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, Tripadvisor, Stars) {
+        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, Balloon, Tripadvisor, Stars) {
 
 
             var routParam = angular.copy($routeParams);
@@ -38,6 +39,7 @@ innaAppControllers
             var _tripadvisor = null;
             var _stars = null;
             var map = null;
+            $scope.hotelLoaded = false;
             $scope.showFullDescription = false;
             $scope.dataFullyLoaded = false;
             $scope.TAWidget = '';
@@ -52,6 +54,15 @@ innaAppControllers
                 '/spa/img/hotels/back-1.jpg',
                 '/spa/img/hotels/back-2.jpg'
             ];
+
+            var _balloonLoading = new Balloon({
+                data: {
+                    balloonClose: false,
+                    template : 'loading.html',
+                    wait : 1000
+                }
+            })
+            _balloonLoading.show();
 
             function hotel404() {
                 $scope.baloon.showErr(
@@ -96,6 +107,8 @@ innaAppControllers
                         $scope.bundle.setTicket(ticket);
                         $scope.bundle.setHotel(hotel);
                         $scope.$digest();
+                        $scope.hotelLoaded = true;
+                        _balloonLoading.hide();
                         EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
                     },
                     error: function () { //error
