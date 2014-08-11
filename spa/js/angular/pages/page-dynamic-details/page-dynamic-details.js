@@ -110,6 +110,12 @@ innaAppControllers
                         $scope.hotelLoaded = true;
                         _balloonLoading.hide();
                         EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+
+                        $scope.dataFullyLoaded = false;
+                        $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
+
+                        loadMap();
+                        onload();
                     },
                     error: function () { //error
                         $scope.$apply(function ($scope) {
@@ -146,6 +152,28 @@ innaAppControllers
                 $location.path(url);
             };
 
+            var loadMap = function () {
+                if ($scope.hotel.Latitude && $scope.hotel.Longitude) {
+
+                    $timeout(function () {
+                        var point = new google.maps.LatLng($scope.hotel.Latitude, $scope.hotel.Longitude)
+
+                        /*map is from Private section*/
+                        map = new google.maps.Map(document.getElementById('hotel-details-map'), {
+                            zoom: 16,
+                            center: point
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: point,
+                            icon: '/spa/img/map/pin-grey.png?' + Math.random().toString(16),
+                            title: $scope.hotel.HotelName
+                        });
+
+                        marker.setMap(map);
+                    }, 1);
+                }
+            };
 
             var onload = function () {
                 $scope.dataFullyLoaded = true;
@@ -217,40 +245,6 @@ innaAppControllers
             $scope.goToSearchDynamic = function () {
                 console.log('goToSearchDynamic');
             };
-
-            /*Watchers*/
-            $scope.$watch('hotel', function (hotel) {
-                if (!hotel) return;
-
-                if (hotel.Latitude && hotel.Longitude) {
-
-                    $timeout(function () {
-                        var point = new google.maps.LatLng(hotel.Latitude, hotel.Longitude)
-
-                        /*map is from Private section*/
-                        map = new google.maps.Map(document.querySelector('#hotel-details-map'), {
-                            zoom: 16,
-                            center: point
-                        });
-
-                        var marker = new google.maps.Marker({
-                            position: point,
-                            icon: '/spa/img/map/pin-grey.png?' + Math.random().toString(16),
-                            title: hotel.HotelName
-                        });
-
-                        marker.setMap(map);
-                    }, 100);
-                }
-
-                $scope.dataFullyLoaded = false;
-
-                $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
-
-                onload();
-
-                console.log($scope.bundle, '$scope.bundle');
-            });
 
             //$scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, onload);
 
