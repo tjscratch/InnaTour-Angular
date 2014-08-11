@@ -429,6 +429,13 @@ innaAppControllers.
                 var recomendedItem = null;
 
                 if (data && data.Items && data.Items.length > 0) {
+                    //аналитика - успешные результаты
+                    var trackKey = $location.url();
+                    if (track.isTrackSuccessResultAllowed(track.aviaKey, trackKey)) {
+                        track.successResultsAvia(track.aviaKey);
+                        //console.log('analitics: success result');
+                        track.denyTrackSuccessResult(track.aviaKey, trackKey);
+                    }
 
                     //id поиска
                     $scope.searchId = data.QueryId;
@@ -525,6 +532,8 @@ innaAppControllers.
                 else {
                     $scope.ticketsList = [];
                     log('updateModel - nothing to update, data is empty');
+                    //аналитика
+                    track.noResultsAvia();
                     $scope.baloon.showNotFound(function () {
                         $location.path(Urls.URL_AVIA);
                     });

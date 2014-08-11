@@ -23,9 +23,14 @@
     bottom: -41px;
   }
 
+  &.b-filter-panel {
+    .filters__baloon {
+      display: none;
+    }
+  }
+
   .filters__baloon {
     position absolute
-    display none
     left 0
     background #fff
     z-index 100
@@ -60,28 +65,6 @@
         &:checked + .ra-radio {
           background #89c13a
           color #fff
-        }
-
-        li {
-          float left
-          border-left 1px solid #fff
-
-          &:first-child {
-            border 0
-
-            .ra-radio {
-              border-radius 3px 0 0 3px
-            }
-          }
-
-          &:last-child .ra-radio {
-            border-radius 0 3px 3px 0
-          }
-        }
-
-        label {
-          display block
-          width 107px
         }
       }
     }
@@ -173,6 +156,32 @@
     }
   }
 
+
+
+  &.filters__body_avia {
+    .filters__baloon-radio {
+      li {
+        float left
+        border-left 1px solid #fff
+
+        &:first-child {
+          border 0
+
+          .ra-radio {
+            border-radius 3px 0 0 3px
+          }
+        }
+
+        &:last-child .ra-radio {
+          border-radius 0 3px 3px 0
+        }
+      }
+      label {
+        display block
+        width 107px
+      }
+    }
+  }
 }
 
 .filter__range-container {

@@ -245,6 +245,7 @@ angular.module('innaApp.conponents').
                     var collectExtra = [];
                     var OneLegs = false;
                     var TwoLegsPlus = false;
+                    var DirectLegs = false;
 
                     // собираем аэропорты
                     var collectAirPort = [
@@ -279,6 +280,7 @@ angular.module('innaApp.conponents').
                         var legsBoth = legsTo + legsBack;
                         if (legsBoth == 3 || legsBoth == 4) OneLegs = true;
                         if ((legsTo >= 3) || (legsBack >= 3)) TwoLegsPlus = true;
+                        if (legsBoth == 2) DirectLegs = true;
 
 
                         // аэропорты вылета - прилета
@@ -288,11 +290,12 @@ angular.module('innaApp.conponents').
 
 
                     /** создаем фильтр пересадок */
+                    if (DirectLegs)
+                        collectLegs.push({name: 'прямой', value: '1'})
                     if (OneLegs)
-                        collectLegs.push({name: '1 пересадка', value: '1'})
-
+                        collectLegs.push({name: '1 пересадка', value: '2'})
                     if (TwoLegsPlus)
-                        collectLegs.push({name: '2+ пересадки', value: '2'})
+                        collectLegs.push({name: '2+ пересадки', value: '3'})
 
 
                     // удаляем вровни вложенности массива

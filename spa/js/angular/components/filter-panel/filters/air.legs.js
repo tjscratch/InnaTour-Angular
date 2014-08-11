@@ -15,15 +15,18 @@ angular.module('innaApp.conponents').
                     value: {
                         name: 'AirLegs',
                         val: [],
-                        fn: function (data,component_val) {
+                        fn: function (data, component_val) {
                             var legsBoth = data.legsTo + data.legsBack;
                             var result = component_val.val.filter(function (item) {
-                                if (item == 1) {
+                                if (item == 1 && legsBoth == 2) {
+                                    return true;
+                                }
+                                else if (item == 2) {
                                     if (legsBoth == 3 || legsBoth == 4) {
                                         return true;
                                     }
                                 }
-                                else if (item == 2) {
+                                else if (item == 3) {
                                     if ((data.legsTo >= 3) || (data.legsBack >= 3)) {
                                         return true
                                     }

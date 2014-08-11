@@ -143,7 +143,7 @@ angular.module('innaApp.directives')
                         var onScroll = function () {
                             var body = document.body || document.documentElement;
 
-                            if (body.scrollTop >= 100) {
+                            if (body.scrollTop >= 200) {
                                 $scope.$apply(function ($scope) {
                                     $scope.display.shortDisplay(true);
                                 });
