@@ -314,3 +314,53 @@ $count-list = 10;
     width: 117px;
   }
 }
+
+.search__list {
+  box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+  position absolute
+  left 0
+  padding 10px 0
+  width 100%
+  background #fff
+  margin-top 1px
+  overflow auto
+  max-height 360px
+  z-index 10
+
+  li {
+    padding 7px 33px 5px
+    cursor pointer
+    font-size 14px
+    position relative
+
+    &:hover {
+      background-color #e6e7e9
+    }
+  }
+
+  &.search__list_sort {
+    li {
+      padding 0;
+    }
+    label {
+      cursor: pointer;
+      padding 7px 33px 5px
+    }
+  }
+
+  .current {
+    background-color #e6e7e9
+
+    &:before {
+      content ''
+      width 12px
+      height 10px
+      background url(/spa/img/i.png) no-repeat 0 -2030px
+      display block
+      position absolute
+      left 12px
+      top 11px
+    }
+  }
+
+}
