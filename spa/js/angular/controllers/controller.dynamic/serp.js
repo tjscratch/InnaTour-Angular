@@ -180,6 +180,8 @@ innaAppControllers
             }
 
             function combination404() {
+                //аналитика
+                track.noResultsDp();
                 $scope.baloon.showNotFound(balloonCloser);
             }
 
@@ -226,6 +228,14 @@ innaAppControllers
                 var defaultTab = $scope.state.HOTEL;
 
                 if (!data || !data.RecommendedPair) return $scope.$apply(combination404);
+
+                //аналитика
+                var trackKey = $location.url();
+                if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
+                    track.successResultsAvia(track.dpKey);
+                    //console.log('analitics: dp success result');
+                    track.denyTrackSuccessResult(track.dpKey, trackKey);
+                }
 
                 $scope.airports = data.Airports || [];
                 cacheKey = data.SearchId;
