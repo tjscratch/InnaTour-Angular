@@ -67,10 +67,9 @@
             Спецпредложение
         </div>
 
-
-
         <div class="hotel-info">
             <div class="hotel-info__wrapper">
+                {{bundle | console}}
                 <img ng-src="{{bundle.hotel.data.HotelPhoto70}}" ng-if="bundle.hotel.data.HotelPhoto70" alt="">
                 <img src="/spa/img/hotels/no_photo70x70.png" ng-if="!bundle.hotel.data.HotelPhoto70" alt="">
 
