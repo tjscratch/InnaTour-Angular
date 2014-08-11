@@ -366,7 +366,7 @@ angular.module('innaApp.conponents').
                     }
 
                     // подписываемся на событие скролла если еще нет этого события
-                    if (!this.get('scroll') && filterEnumerable.length > 2)
+                    if (!this.get('scroll') && filterEnumerable.length > this.get('countItemsVisible'))
                         this.addScroll();
 
 
