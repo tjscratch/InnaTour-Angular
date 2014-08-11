@@ -184,6 +184,8 @@ innaAppControllers
              */
             function loadHotels() {
                 console.log('Get Hotels');
+                setAsMap(0);
+                locatioAsMap();
 
                 var param = $scope.combination.ticket.data.VariantId1;
                 var routeParams = angular.copy(searchParams);
@@ -259,6 +261,8 @@ innaAppControllers
              */
             function loadTickets() {
                 console.log('Get Tickets');
+                setAsMap(0);
+                locatioAsMap();
 
                 var param = $scope.combination.hotel.data.HotelId;
                 var routeParams = angular.copy(searchParams);
@@ -426,6 +430,7 @@ innaAppControllers
             }
 
             function closeMap() {
+                setAsMap(0);
                 delete $location.$$search.map;
                 $location.$$compose();
             }
