@@ -121,7 +121,7 @@ innaAppControllers
 
             getHotelDetails();
 
-            $scope.goReservation = function (room, hotel) {
+            $scope.goReservation = function (room) {
 
                 var url = Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
                     $routeParams.DepartureId,
@@ -136,8 +136,8 @@ innaAppControllers
 
                 $location.search({
                     room: room.RoomId,
-                    hotel: hotel.data.HotelId,
-                    ticket: $scope.combination.ticket.data.VariantId1
+                    hotel: $scope.hotel.HotelId,
+                    ticket: $scope.bundle.ticket.data.VariantId1
                 });
 
                 //аналитика
