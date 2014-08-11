@@ -40,6 +40,11 @@ innaAppControllers.
                             for (var i = 0; i < data.SectionLayouts.length; i++) {
                                 var section = data.SectionLayouts[i];
 
+                                //включаем отображение доп. полей
+                                if (routeSectionID != null) {
+                                    section.canDisplayDataForLandingPages = true;
+                                }
+
                                 if (section.RenderTextType == 2) {//текст в 2 колонки
                                     section.columsTextIntro = StringHelper.splitToTwoColumns(section.TextIntro);
                                 }
