@@ -32,6 +32,18 @@
 
     <div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}" bindonce ng-repeat="section in sections">
         <div class="offers-container">
+
+            <h2 class="offers-title" bo-if="!isNullOrEmpty(section.SectionTitle)" bo-bind="section.SectionTitle"></h2>
+            <p class="offers-title offers-title-sub" bo-if="!isNullOrEmpty(section.SubSectionTitle)" bo-bind="section.SubSectionTitle"></p>
+
+            <p class="offers-description" bo-if="!isNullOrEmpty(section.TextIntro) && section.RenderTextType == 1" bo-html="section.TextIntro"></p>
+            <div class="offers-col-cont" bo-if="!isNullOrEmpty(section.TextIntro) && section.RenderTextType == 2">
+                <p class="offers-description" bo-html="section.columsTextIntro[0]"></p>
+            </div>
+            <div class="offers-col-cont" bo-if="!isNullOrEmpty(section.TextIntro) && section.RenderTextType == 2">
+                <p class="offers-description" bo-html="section.columsTextIntro[1]"></p>
+            </div>
+
             <h2 class="offers-title" bo-bind="section.Name"></h2>
             <p class="offers-description" bo-bind="section.Description"></p>
             <div class="offers-list" ng-controller="OffersListCtrl">

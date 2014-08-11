@@ -25,6 +25,11 @@ QueryString = {
             }
         }
         return null;
+    },
+    getBits: function (path) {
+        path = path.split('/');
+        path = path[path.length - 1] || path[path.length - 2];
+        return path.split('?')[0].split('-');
     }
 };
 
