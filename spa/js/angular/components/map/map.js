@@ -11,11 +11,13 @@ angular.module('innaApp.directives')
         'EventManager',
         '$templateCache',
         'innaApp.API.events',
+        '$routeParams',
+        '$location',
 
         // components
         'Tripadvisor',
         'HotelGallery',
-        function (EventManager, $templateCache, Events, Tripadvisor, HotelGallery) {
+        function (EventManager, $templateCache, Events, $routeParams, $location, Tripadvisor, HotelGallery) {
 
             return {
                 template: $templateCache.get('components/map/templ/index.html'),
@@ -31,6 +33,7 @@ angular.module('innaApp.directives')
                     '$scope',
                     '$element',
                     'innaApp.API.events',
+
                     function (EventManager, $scope, $element, Events) {
 
                         $scope.currentHotel = null;
@@ -40,10 +43,11 @@ angular.module('innaApp.directives')
                         document.documentElement.style.overflow = 'hidden';
 
 
-                        function mapSizeMini(){
-                           $scope.mapSize = true
+                        function mapSizeMini() {
+                            $scope.mapSize = true
                         }
-                        function mapSizeBig(){
+
+                        function mapSizeBig() {
                             $scope.mapSize = false
                         }
 
@@ -52,7 +56,6 @@ angular.module('innaApp.directives')
 
                         EventManager.fire(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
                         EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD);
-
 
 
                         $scope.setHotel = function (currentHotel) {
@@ -208,8 +211,37 @@ angular.module('innaApp.directives')
                         else {
                             activeMarker = data.activeMarker;
                             if (data.infoBoxVisible) data.activeMarker.infoBoxVisible = true;
-                        }
 
+                            /**
+                             * Строим URL для страницы подробнее об отеле
+                             * :DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:ProviderId?
+                             *
+                             * searchParams -  добавляется в каждую карточку отеля в компоненте list-panel:parse
+                             */
+                            scope.computedUrlDetails = function () {
+                                var routParam = angular.copy($routeParams);
+
+                                var ticketId = scope.combination.ticket.data.VariantId1;
+                                var ticketBackId = scope.combination.ticket.data.VariantId2;
+
+
+                                var urlDetails = '/#/packages/details/' + [
+                                    routParam.DepartureId,
+                                    routParam.ArrivalId,
+                                    routParam.StartVoyageDate,
+                                    routParam.EndVoyageDate,
+                                    routParam.TicketClass,
+                                    routParam.Adult || 0,
+                                    routParam.Children || 0,
+                                    data.activeMarker.$inna__hotel.HotelId,
+                                    ticketId,
+                                    ticketBackId,
+                                    data.activeMarker.$inna__hotel.ProviderId
+                                ].join('-');
+
+                                return urlDetails;
+                            }
+                        }
 
                     }
 
@@ -545,7 +577,7 @@ angular.module('innaApp.directives')
 
 
                     function updateMap(data) {
-                        if(boxInfo){
+                        if (boxInfo) {
                             boxInfo.setVisible(false);
                             //map.setZoom(zoomMapDefault);
                         }
@@ -609,7 +641,7 @@ angular.module('innaApp.directives')
                      * Переход с карточки отеля
                      */
                     scope.$on(Events.DYNAMIC_SERP_TOGGLE_MAP_SINGLE, function (evt, data) {
-                        if(data) {
+                        if (data) {
                             showOneHotel((data.toJSON) ? data.toJSON() : data);
                         }
                     });

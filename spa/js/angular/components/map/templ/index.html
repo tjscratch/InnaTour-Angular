@@ -26,7 +26,8 @@
                                     ng-repeat="data in [currentHotel]"></ng:include>-->
 
                         <div>
-                            <a href="javascript:void(0);" ng-click="hotelDetails(currentHotel)" class="details-link">Подробнее</a>
+                            <a href="{{computedUrlDetails()}}" target="_blank" ng-click="hotelDetails(currentHotel)"
+                               class="details-link">Подробнее</a>
                         </div>
                     </div>
 
