@@ -187,21 +187,6 @@ angular.module('innaApp.directives')
                     function setActiveMarker(data_marker) {
                         var data = data_marker.marker;
 
-                        if (_tripadvisor) {
-                            _tripadvisor.teardown();
-                            _tripadvisor = null;
-                        }
-
-                        _tripadvisor = new Tripadvisor({
-                            el: $(data_marker.elem).find('.js-tripadvisor-container'),
-                            data: {
-                                TaCommentCount: data.activeMarker.$inna__hotel.TaCommentCount,
-                                TaFactor: data.activeMarker.$inna__hotel.TaFactor,
-                                TaFactorCeiled: data.activeMarker.$inna__hotel.TaFactorCeiled
-                            }
-                        });
-
-
                         // создаем свойство в объекте маркера
                         // различаем маркеры на которых был click или hover
                         if (data.hover) {
@@ -211,6 +196,20 @@ angular.module('innaApp.directives')
                         else {
                             activeMarker = data.activeMarker;
                             if (data.infoBoxVisible) data.activeMarker.infoBoxVisible = true;
+
+                            if (_tripadvisor) {
+                                _tripadvisor.teardown();
+                                _tripadvisor = null;
+                            }
+
+                            _tripadvisor = new Tripadvisor({
+                                el: $(data_marker.elem).find('.js-tripadvisor-container'),
+                                data: {
+                                    TaCommentCount: data.activeMarker.$inna__hotel.TaCommentCount,
+                                    TaFactor: data.activeMarker.$inna__hotel.TaFactor,
+                                    TaFactorCeiled: data.activeMarker.$inna__hotel.TaFactorCeiled
+                                }
+                            });
 
                             /**
                              * Строим URL для страницы подробнее об отеле
@@ -513,7 +512,8 @@ angular.module('innaApp.directives')
                                 pos: pos,
                                 marker: {
                                     activeMarker: marker,
-                                    air: true
+                                    air: true,
+                                    hover: false
                                 }
                             });
 
