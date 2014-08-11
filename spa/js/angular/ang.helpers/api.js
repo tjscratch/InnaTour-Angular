@@ -112,8 +112,11 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_MAP_DESTROY : 'hotel:map-destroy',
             DYNAMIC_SERP_BACK_TO_MAP : 'hotel:DYNAMIC_SERP_BACK_TO_MAP',
 
-            HEADER_VISIBLE : 'header:visible',
-            HEADER_HIDDEN : 'header:hidden',
+            HEADER_VISIBLE : 'region-header:show',
+            HEADER_HIDDEN : 'region-header:hide',
+
+            FOOTER_VISIBLE : 'region-footer:show',
+            FOOTER_HIDDEN : 'region-footer:hide',
 
             AUTH_FORGOTTEN_LINK_CLICKED: 'inna.Auth.Forgotten-link-clicked',
             AUTH_SIGN_IN: 'inna.Auth.SignIn',

@@ -61,8 +61,8 @@ innaAppControllers
             var _balloonLoading = new Balloon({
                 data: {
                     balloonClose: false,
-                    template : 'loading.html',
-                    wait : 1000
+                    template: 'loading.html',
+                    wait: 1000
                 }
             })
             _balloonLoading.show();
@@ -124,7 +124,7 @@ innaAppControllers
 
             getHotelDetails();
 
-            $scope.computedUrlBackList = function(){
+            $scope.computedUrlBackList = function () {
 
                 var urlDetails = '/#/packages/search/' + [
                     searchParams.DepartureId,

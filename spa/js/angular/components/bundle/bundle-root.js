@@ -98,11 +98,13 @@ angular.module('innaApp.directives')
                             this.shortDisplay = function (opt_param) {
                                 if (!opt_param) unwatchScroll();
                                 $scope.isVisible = false;
+                                EventManager.fire(Events.DYNAMIC_SERP_CLOSE_BUNDLE, false);
                             }
 
                             this.fullDisplay = function (opt_param) {
                                 if (!opt_param) doc.on('scroll', onScroll);
                                 $scope.isVisible = true;
+                                EventManager.fire(Events.DYNAMIC_SERP_OPEN_BUNDLE, true);
                             }
 
                             this.toggle = function () {
@@ -144,17 +146,19 @@ angular.module('innaApp.directives')
                             }
                         };
 
-                        /**
-                         * слушаем isVisible
-                         * Кидаем события открытия и закрытия бандла
-                         */
-                        $scope.$watch('isVisible', function (data) {
-                            if (data) {
-                                EventManager.fire(Events.DYNAMIC_SERP_OPEN_BUNDLE, true);
-                            } else {
-                                EventManager.fire(Events.DYNAMIC_SERP_CLOSE_BUNDLE, false);
-                            }
+
+                        EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
+                            $scope.safeApply(function () {
+                                $scope.isVisible = true;
+                            });
                         });
+
+                        EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
+                            $scope.safeApply(function () {
+                                $scope.isVisible = false;
+                            });
+                        });
+
 
                         var unwatchScroll = function () {
                             doc.off('scroll', onScroll);
