@@ -58,13 +58,6 @@
             </div>
         </div>
 
-        <div class="hotel-details__section">
-            <h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
-            <div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
-                <div id="hotel-details-map"></div>
-            </div>
-        </div>
-
         <div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom && dataFullyLoaded">
 
             <h2 class="hotel-details__section-title">
@@ -93,6 +86,13 @@
             <ul class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
                 <ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'" ng-repeat="room in (onlyRoom || hotelRooms)"></ng:include>
             </ul>
+        </div>
+
+        <div class="hotel-details__section">
+            <h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
+            <div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
+                <div id="hotel-details-map"></div>
+            </div>
         </div>
 
         <div class="hotel-details__section">
