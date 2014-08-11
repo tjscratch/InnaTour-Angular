@@ -98,8 +98,8 @@ angular.module('innaApp.directives')
 
                     $scope.bundleTicketDetails = function ($event, ticket) {
                         $event.stopPropagation();
-                        return $scope.getTicketDetails(ticket);
-                    }
+                        EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
+                    };
 
                     $scope.bundleHotelDetails = function ($event, hotel, isBuyAction) {
                         $event.stopPropagation();
