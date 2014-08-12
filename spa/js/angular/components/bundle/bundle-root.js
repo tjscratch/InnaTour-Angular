@@ -19,6 +19,7 @@ angular.module('innaApp.directives')
                         $scope.isVisible = true;
                         $scope.displayHotel = false;
                         $scope.displayTicket = false;
+                        var scroll = false;
                         var doc = $(document);
 
                         function orientation() {
@@ -141,6 +142,7 @@ angular.module('innaApp.directives')
                         });
 
                         var onScroll = function () {
+                            scroll = true;
                             var body = document.body || document.documentElement;
 
                             if (body.scrollTop >= 200) {
@@ -170,19 +172,33 @@ angular.module('innaApp.directives')
 
                         var unwatchScroll = function () {
                             doc.off('scroll', onScroll);
+                            scroll = false;
                         };
 
                         doc.on('scroll', onScroll);
+
+                        EventManager.on(Events.LIST_PANEL_FILTES_HOTELS_DONE, function(data){
+                            if(data.length < 10 && scroll) {
+                                unwatchScroll();
+                            } else if(data.length > 10 && !scroll) {
+                                doc.on('scroll', onScroll);
+                            }
+                        })
+
+                        EventManager.on(Events.FILTER_PANEL_RESET, function (data) {
+                            if(!scroll) doc.on('scroll', onScroll);
+                        });
 
 
                         /*Events*/
                         $scope.$on('$destroy', function () {
                             console.log('$destroy bundle root');
-                            EventManager.off(Events.DYNAMIC_SERP_BUNDLE_SET_ACTIVE_TAB, $scope.toggleTab);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE);
+                            EventManager.off(Events.LIST_PANEL_FILTES_HOTELS_DONE);
+                            EventManager.off(Events.FILTER_PANEL_RESET)
                             unwatchScroll();
                         });
                     }
