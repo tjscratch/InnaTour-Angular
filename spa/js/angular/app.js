@@ -14,7 +14,7 @@ var app = angular.module('innaApp', [
   'innaApp.services',
   'innaApp.directives',
   'innaApp.controllers',
-  'innaApp.conponents',
+  'innaApp.components',
   'innaApp.Url',
   'innaApp.API',
   'ngSanitize',
@@ -241,7 +241,7 @@ app.config([
 var innaAppCookie = angular.module('innaApp.Cookie', ['ngCookies']);
 
 var innaAppControllers = angular.module('innaApp.controllers', []);
-var innaAppConponents = angular.module('innaApp.conponents', []);
+var innaAppConponents = angular.module('innaApp.components', []);
 
 var innaAppTemlates = angular.module('innaApp.templates', []);
 

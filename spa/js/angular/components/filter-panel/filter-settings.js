@@ -1,4 +1,4 @@
-angular.module('innaApp.services').service('FilterSettings',
+angular.module('innaApp.components').factory('FilterSettings',
     function () {
 
         var Model = function () {
@@ -89,8 +89,7 @@ angular.module('innaApp.services').service('FilterSettings',
                         {value: 4},
                         {value: 5}
                     ].reverse()
-                }
-                ,
+                },
                 TaFactor: {
                     withOutTd: true,
                     list: [
@@ -174,7 +173,7 @@ angular.module('innaApp.services').service('FilterSettings',
                         {
                             name: 'По цене пакета',
                             value: 'byPackagePrice',
-                            isChecked : true
+                            isChecked: true
                         },
                         {
                             name: 'По рейтингу Инна Тур',
@@ -241,8 +240,13 @@ angular.module('innaApp.services').service('FilterSettings',
                 settings: new Model()
             },
 
-            init : function(){
-
+            init: function () {
+                this.on({
+                    teardown: function (evt) {
+                        console.log('teardown FilterSettings');
+                        this.reset({ settings: {} });
+                    }
+                })
             },
 
             resetModel: function () {
@@ -250,7 +254,7 @@ angular.module('innaApp.services').service('FilterSettings',
             }
         });
 
-        return new FilterModel();
+        return FilterModel;
     });
 
 

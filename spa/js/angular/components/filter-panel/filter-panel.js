@@ -8,10 +8,9 @@
  *
  * EventManager.fire('FilterPanel:change', filtersCollection)
  * Логику фильтрации реализуют все компоненты подписчики
- */
+*/
 
-
-angular.module('innaApp.conponents').
+angular.module('innaApp.components').
     factory('FilterPanel', [
         'EventManager',
         '$filter',
@@ -53,7 +52,7 @@ angular.module('innaApp.conponents').
                     filter_avia: false,
 
                     // данные для компонентов фильтров
-                    filtersModel: FilterSettings.get('settings')
+                    filtersModel: null
                 },
 
                 // части шаблонов которые содержат компоненты фильтров
@@ -84,11 +83,18 @@ angular.module('innaApp.conponents').
                 init: function () {
                     var that = this;
 
-                    FilterSettings.on('change', function (data) {
-                        that.set('filtersModel', FilterSettings.get('settings'));
+                    this._modelFilters = new FilterSettings();
+                    console.log(this._modelFilters, 'this._modelFilters');
+                    this.set('filtersModel', this._modelFilters.get('settings'));
+
+                    console.log(this._modelFilters.get('settings'), "this._modelFilters.get('settings')");
+
+                    this._modelFilters.on('change', function (data) {
+                        that.set('filtersModel', this.get('settings'));
                     })
 
                     document.addEventListener('click', this.bodyClickHide.bind(this), false);
+
 
                     this.listenChildren();
 
@@ -99,11 +105,18 @@ angular.module('innaApp.conponents').
                         change: function (data) {
                         },
                         teardown: function (evt) {
-                            //this.reset();
+                            console.log('teardown FilterPanel');
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_RESET_ALL);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
                             EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
+
+                            this._modelFilters.teardown();
+                            this._modelFilters.off();
+                            this._modelFilters = null;
+                            /*this.findAllComponents().forEach(function (child) {
+                                child.fire('resetFilter');
+                            })*/
                         }
                     })
 
@@ -138,6 +151,11 @@ angular.module('innaApp.conponents').
                             item.fire('resetFilter');
                         });
                     });
+
+
+                    /*this.observe('filtersModel', function(value){
+                        console.log(value, 'observe filtersModel');
+                    })*/
                 },
 
                 /**
@@ -217,7 +235,7 @@ angular.module('innaApp.conponents').
                 },
 
                 toggleFilters: function () {
-                    FilterSettings.resetModel();
+                    this._modelFilters.resetModel();
 
                     this.findAllComponents().forEach(function (child) {
                         child.fire('resetFilter');
@@ -318,7 +336,7 @@ angular.module('innaApp.conponents').
                         collectAirPort[1].list.push({ name: to[i] })
 
                     // передаем данные в модель фильтров
-                    FilterSettings.set({
+                    this._modelFilters.set({
                         'settings.airlines': newAirLines,
                         'settings.airports': collectAirPort,
                         'settings.airLegs.list': collectLegs
@@ -359,8 +377,3 @@ angular.module('innaApp.conponents').
 
             return FilterPanel;
         }]);
-
-
-
-
-

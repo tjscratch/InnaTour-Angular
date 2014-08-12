@@ -32,10 +32,14 @@ innaAppConponents.
                             EventManager.fire(Events.FILTER_PANEL_RESET_ALL);
                         },
                         teardown: function (evt) {
+                            //console.log('teardown IndicatorFilters');
                             EventManager.off(Events.FILTER_PANEL_CHANGE, this.changeFilters);
                             EventManager.off(Events.FILTER_PANEL_RESET, this.resetFilters);
+                            EventManager.off(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad);
+                            EventManager.off(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad);
+                            this.reset({});
                         }
-                    })
+                    });
 
 
                     EventManager.on(Events.FILTER_PANEL_CHANGE, this.changeFilters.bind(this));

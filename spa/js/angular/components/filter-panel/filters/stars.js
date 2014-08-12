@@ -1,4 +1,4 @@
-angular.module('innaApp.conponents').
+angular.module('innaApp.components').
     factory('FilterStars', [
         'EventManager',
         '$filter',
@@ -44,7 +44,7 @@ angular.module('innaApp.conponents').
                             this.set('Stars.list.*.isChecked',  false);
                         },
                         teardown: function (evt) {
-
+                            console.log('teardown FilterStars');
                         }
                     });
                 },
