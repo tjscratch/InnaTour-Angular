@@ -130,21 +130,6 @@ innaAppControllers
 
             getHotelDetails();
 
-            $scope.computedUrlBackList = function () {
-
-                var urlDetails = '/#/packages/search/' + [
-                    searchParams.DepartureId,
-                    searchParams.ArrivalId,
-                    StartVoyageDateGoBack,
-                    EndVoyageDateGoBack,
-                    searchParams.TicketClass,
-                    searchParams.Adult,
-                    searchParams.Children
-                ].join('-');
-
-                return urlDetails;
-            };
-
             $scope.goReservation = function (room) {
 
                 var url = Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
