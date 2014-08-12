@@ -34,21 +34,19 @@ innaAppControllers.
                 //обновляем данные
                 if (data != null) {
                     $scope.$apply(function ($scope) {
-
-                        //доп-обработка - добавляем текст в 2 колонки, если нужно
-                        if (data.SectionLayouts != null && data.SectionLayouts.length > 0) {
-                            for (var i = 0; i < data.SectionLayouts.length; i++) {
-                                var section = data.SectionLayouts[i];
-
-                                //включаем отображение доп. полей
-                                if (routeSectionID != null) {
-                                    section.canDisplayDataForLandingPages = true;
-                                }
-
-                                if (section.RenderTextType == 2) {//текст в 2 колонки
-                                    section.columsTextIntro = StringHelper.splitToTwoColumns(section.TextIntro);
-                                }
+                        
+                        if (data.Landing != null) {
+                            //включаем отображение доп. полей
+                            if (routeSectionID != null) {
+                                data.Landing.canDisplayDataForLandingPages = true;
                             }
+
+                            //доп-обработка - добавляем текст в 2 колонки, если нужно
+                            if (data.Landing == 2) {//текст в 2 колонки
+                                data.Landing.columsTextIntro = StringHelper.splitToTwoColumns(data.Landing.TextIntro);
+                            }
+
+                            $scope.landing = data.Landing;
                         }
 
                         $scope.sections = data.SectionLayouts;
