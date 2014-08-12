@@ -311,7 +311,7 @@ angular.module('innaApp.components').
 
                     /** создаем фильтр пересадок */
                     if (DirectLegs)
-                        collectLegs.push({name: 'прямой', value: '1'})
+                        collectLegs.push({name: 'без пересадок', value: '1'})
                     if (OneLegs)
                         collectLegs.push({name: '1 пересадка', value: '2'})
                     if (TwoLegsPlus)
