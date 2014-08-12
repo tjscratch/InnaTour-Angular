@@ -2,19 +2,14 @@
     <div class="hotel-details__wrap main__center">
 
         <div class="hotel-details__section hotel-details__section_layout_context">
-            <div class="hotel-details-control hotel-details-control_pin_left">
-                <a href="{{computedUrlBackList()}}" class="hotel-details-control__button">
-                    &larr; {{displayRoom ? 'Вернуться' : 'Список отелей'}}
-                </a>
-            </div>
             <div class="hotel-details__ta hotel-details-ta-info" ng-if="hotel.TaFactor">
                 <!-- tripadvisor -->
                 <div class="js-tripadvisor-container"></div>
             </div>
             <div class="hotel-details-name">
+                <span class="b-display-inline">{{hotel.HotelName}}</span>
                 <!-- Stars -->
                 <span class="hotel-details-stars js-hotel-details-stars"></span>
-                <span class="b-display-inline">{{hotel.HotelName}}</span>
             </div>
         </div>
 
