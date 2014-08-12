@@ -42,7 +42,7 @@ innaAppControllers.
                             }
 
                             //доп-обработка - добавляем текст в 2 колонки, если нужно
-                            if (data.Landing == 2) {//текст в 2 колонки
+                            if (data.Landing.RenderTextType == 2) {//текст в 2 колонки
                                 data.Landing.columsTextIntro = StringHelper.splitToTwoColumns(data.Landing.TextIntro);
                             }
 

@@ -34,19 +34,19 @@
         <div class="offers-container">
 
             <div bo-if="landing.canDisplayDataForLandingPages && $index == 0">
-                <h2 class="offers-title" bo-if="!isNullOrEmpty(landing.SectionTitle)" bo-bind="landing.SectionTitle"></h2>
-                <p class="offers-title offers-title-sub" bo-if="!isNullOrEmpty(landing.SubSectionTitle)" bo-bind="landing.SubSectionTitle"></p>
+                <h2 class="landing-title" bo-if="!isNullOrEmpty(landing.SectionTitle)" bo-bind="landing.SectionTitle"></h2>
+                <p class="landing-title-sub" bo-if="!isNullOrEmpty(landing.SubSectionTitle)" bo-bind="landing.SubSectionTitle"></p>
 
                 <p class="offers-description" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 1" bo-html="landing.TextIntro"></p>
-                <div class="offers-col-cont" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2">
+                <div class="landing-col left" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2">
                     <p class="offers-description" bo-html="landing.columsTextIntro[0]"></p>
                 </div>
-                <div class="offers-col-cont" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2">
+                <div class="landing-col right" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2">
                     <p class="offers-description" bo-html="landing.columsTextIntro[1]"></p>
                 </div>
             </div>
 
-            <h2 class="offers-title" bo-bind="section.Name"></h2>
+            <h2 class="landing-title" bo-bind="section.Name"></h2>
             <p class="offers-description" bo-bind="section.Description"></p>
             <div class="offers-list" ng-controller="OffersListCtrl">
                 <ng:any bindonce ng-repeat="block in section.OfferLayouts track by $index">
