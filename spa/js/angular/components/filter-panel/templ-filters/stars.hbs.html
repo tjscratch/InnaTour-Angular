@@ -19,13 +19,15 @@
                         <label on-change="onChecked">
                             <input type="checkbox" name="stars" value="{{value}}" checked="{{this.isChecked}}"/>
                             <span class="ra-checkbox"></span>
-                    <span class="ra-fly-type">
-                        <Stars stars="{{value}}"/>
-                    </span>
-                    <span class="ra-fly-price">
-                        <span bo-text="option.minPrice | price"></span>&nbsp;
-	                    {{>ruble}}
-                    </span>
+
+		                    <span class="ra-fly-type">
+		                        <Stars stars="{{value}}"/>
+		                    </span>
+
+		                    <span class="ra-fly-price">
+		                        <span>{{Price}}</span>&nbsp;
+			                    {{>ruble}}
+	                        </span>
                         </label>
                     </li>
 				{{/each}}

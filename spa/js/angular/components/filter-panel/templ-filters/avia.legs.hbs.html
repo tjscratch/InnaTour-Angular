@@ -18,9 +18,11 @@
                                 <input type="checkbox" name="legs" value="{{this.value}}" checked="{{this.isChecked}}">
                                 <span class="ra-checkbox"></span>
                                 <span class="ra-fly-type">{{this.name}}</span>
-                                <span class="ra-fly-price">&nbsp;
+
+	                            <span class="ra-fly-price">
+		                            <span>{{Price}}</span>&nbsp;
 	                                {{>ruble}}
-                                </span>
+	                            </span>
                             </label>
                         </li>
 					{{/each}}

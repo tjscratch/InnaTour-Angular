@@ -18,9 +18,10 @@
                             <input type="checkbox" name="airlines" value="{{this.val}}" checked="{{this.isChecked}}">
                             <span class="ra-checkbox"></span>
                             <span class="ra-fly-type">{{this.name}}</span>
-                    <span class="ra-fly-price">
-	                    &nbsp;{{>ruble}}
-                    </span>
+		                    <span class="ra-fly-price">
+		                        <span>{{Price}}</span>&nbsp;
+			                    {{>ruble}}
+	                        </span>
                         </label>
                     </li>
 				{{/each}}

@@ -24,9 +24,10 @@
 		                                     withOutTd="{{TaFactor.withOutTd}}"/>
 		                    </span>
 
-			                <span class="ra-fly-price" bindonce="option"><span bo-text="option.minPrice | price"></span>&nbsp;
+			                <span class="ra-fly-price">
+		                        <span>{{Price}}</span>&nbsp;
 				                {{>ruble}}
-		                    </span>
+	                        </span>
                         </label>
                     </li>
 				{{/each}}

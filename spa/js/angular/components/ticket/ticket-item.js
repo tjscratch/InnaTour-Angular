@@ -51,6 +51,8 @@ angular.module('innaApp.components').
                         modelTicket: modelTicket
                     });
 
+                    console.log(this.get('ticket'));
+
                     this.on({
                         setCurrent: this.setCurrent,
                         getTicketDetails: function () {

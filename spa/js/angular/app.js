@@ -1,11 +1,5 @@
 ﻿'use strict';
 
-
-// Ractive.defaults
-Ractive.defaults.data.pluralize = utils.pluralize || null;
-Ractive.defaults.data.moment = moment || null;
-Ractive.defaults.debug = true;
-
 var app = angular.module('innaApp', [
   'ngRoute',
   'innaApp.Cookie',
@@ -56,7 +50,16 @@ app.constant('innaApp.Urls', {
     eof: null
 });
 
-app.run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
+app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, $location, $window, $filter) {
+
+
+
+    // Ractive.defaults
+    Ractive.defaults.data.pluralize = utils.pluralize || null;
+    Ractive.defaults.data.moment = moment || null;
+    Ractive.defaults.debug = true;
+    Ractive.defaults.data.$filter = $filter;
+
     $rootScope.bodyClickListeners = [];
 
     $rootScope.addBodyClickListner = function (key, eventDelegate) {
@@ -89,9 +92,8 @@ app.config([
     '$httpProvider',
     'innaApp.Urls',
     '$sceProvider',
-    function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider) {
 
-        //console.log($templateCache.get('pages/tours_grid_page.html'));
+    function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider, $filter) {
 
         function dynamic(){
             return {

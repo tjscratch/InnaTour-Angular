@@ -82,8 +82,6 @@ angular.module('innaApp.components').
                 },
                 init: function () {
                     var that = this;
-
-                    console.log('test init filterPanel');
                     this.setModel();
 
                     document.addEventListener('click', this.bodyClickHide.bind(this), false);
