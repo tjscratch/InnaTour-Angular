@@ -49,6 +49,8 @@ app.constant('innaApp.Urls', {
 
     B2B_DISPLAY_ORDER: '/display-order/',
 
+    URL_PACKAGES_LANDING: '/packages/ppc/',
+
     URL_HELP: '/help/',
 
     eof: null
@@ -109,6 +111,8 @@ app.config([
         $routeProvider.
             //Главная
             when(url.URL_ROOT, dynamic()).
+            when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?', dynamic()).
+            when(url.URL_PACKAGES_LANDING + ':sectionId', dynamic()).
             when(url.URL_TOURS, {
                 templateUrl: 'pages/tours_grid_page.html',
                 controller: 'ToursCtrl'
