@@ -17,11 +17,11 @@ angular.module('innaApp.directives')
                 function (EventManager, $scope, $location, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
 
 
-                    $scope.$on('$routeChangeStart', function (next, current) {
+                    /*$scope.$on('$routeChangeStart', function (next, current) {
                         $scope.safeApply(function () {
                             $scope.isHeaderVisible = true;
                         });
-                    });
+                    });*/
 
                     $scope.isHeaderVisible = true;
 
