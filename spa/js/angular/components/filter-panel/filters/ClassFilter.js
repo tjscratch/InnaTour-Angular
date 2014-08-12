@@ -1,12 +1,11 @@
-angular.module('innaApp.conponents').
+angular.module('innaApp.components').
     factory('ClassFilter', [
         'EventManager',
         '$filter',
         '$templateCache',
         '$routeParams',
         'innaApp.API.events',
-        'FilterSettings',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events) {
 
             var ClassFilter = Ractive.extend({
                 data: {

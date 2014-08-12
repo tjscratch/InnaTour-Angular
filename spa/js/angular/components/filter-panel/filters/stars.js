@@ -1,4 +1,4 @@
-angular.module('innaApp.conponents').
+angular.module('innaApp.components').
     factory('FilterStars', [
         'EventManager',
         '$filter',
@@ -31,7 +31,6 @@ angular.module('innaApp.conponents').
                     this.on({
                         onChecked: function (data) {
                             if (data && data.context) {
-
                                 if (data.context.isChecked) {
                                     this.push('value.val', data.context.value)
                                 } else if (!data.context.isChecked) {
@@ -39,12 +38,15 @@ angular.module('innaApp.conponents').
                                 }
                             }
                             this.hasSelected();
+
+
                         },
                         resetFilter: function () {
                             this.set('Stars.list.*.isChecked',  false);
                         },
                         teardown: function (evt) {
-
+                            console.log('teardown FilterStars');
+                            this.set({value : {}})
                         }
                     });
                 },

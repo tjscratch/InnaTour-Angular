@@ -12,7 +12,7 @@
  */
 
 
-angular.module('innaApp.conponents').
+angular.module('innaApp.components').
     factory('ListPanel', [
         'EventManager',
         '$filter',

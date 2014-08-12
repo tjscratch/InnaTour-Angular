@@ -10,8 +10,7 @@
  * Логику фильтрации реализуют все компоненты подписчики
  */
 
-
-angular.module('innaApp.conponents').
+angular.module('innaApp.components').
     factory('FilterPanel', [
         'EventManager',
         '$filter',
@@ -53,7 +52,7 @@ angular.module('innaApp.conponents').
                     filter_avia: false,
 
                     // данные для компонентов фильтров
-                    filtersModel: FilterSettings.get('settings')
+                    filtersModel: null
                 },
 
                 // части шаблонов которые содержат компоненты фильтров
@@ -84,26 +83,32 @@ angular.module('innaApp.conponents').
                 init: function () {
                     var that = this;
 
-                    FilterSettings.on('change', function (data) {
-                        that.set('filtersModel', FilterSettings.get('settings'));
-                    })
+                    console.log('test init filterPanel');
+                    this.setModel();
 
                     document.addEventListener('click', this.bodyClickHide.bind(this), false);
+
 
                     this.listenChildren();
 
                     this.on({
-                        goToHotelList : function(){
-                           EventManager.fire(Events.DYNAMIC_SERP_BACK_TO_MAP);
+                        goToHotelList: function () {
+                            EventManager.fire(Events.DYNAMIC_SERP_BACK_TO_MAP);
                         },
                         change: function (data) {
                         },
                         teardown: function (evt) {
-                            //this.reset();
+                            console.log('teardown FilterPanel');
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_RESET_ALL);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
                             EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
+
+                            this._modelFilters = null;
+
+                            this.findAllComponents().forEach(function (child) {
+                                child.fire('resetFilter');
+                            })
                         }
                     })
 
@@ -111,16 +116,16 @@ angular.module('innaApp.conponents').
                      * запрашиваем и отдаем компонент сортировки
                      * используем не стандартный механизм общения компонентов
                      */
-                    EventManager.observe('giveSortComponent', function(value){
-                        if(value && value == 'give') {
+                    EventManager.observe('giveSortComponent', function (value) {
+                        if (value && value == 'give') {
                             EventManager.set('getSortComponent', that.getSortComponent());
                         }
                     });
 
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function(){
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function () {
                         that.set('asMap', true);
                     });
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function(){
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
                         that.set('asMap', false);
                     });
 
@@ -133,11 +138,16 @@ angular.module('innaApp.conponents').
                         })
                     });
 
-                    EventManager.on(Events.FILTER_PANEL_RESET_ALL, function(){
-                        that.findAllComponents().forEach(function(item){
+                    EventManager.on(Events.FILTER_PANEL_RESET_ALL, function () {
+                        that.findAllComponents().forEach(function (item) {
                             item.fire('resetFilter');
                         });
                     });
+
+
+                    /*this.observe('filtersModel', function(value){
+                     console.log(value, 'observe filtersModel');
+                     })*/
                 },
 
                 /**
@@ -212,12 +222,22 @@ angular.module('innaApp.conponents').
                     if (this.get('filtersCollection').length) {
                         EventManager.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
                     } else {
-                       EventManager.fire(Events.FILTER_PANEL_RESET);
+                        EventManager.fire(Events.FILTER_PANEL_RESET);
                     }
                 },
 
+
+                setModel: function () {
+                    var that = this;
+                    this._modelFilters = new FilterSettings();
+                    this.set('filtersModel', this._modelFilters.get('settings'));
+                    this._modelFilters.on('change', function (data) {
+                        that.set('filtersModel', this.get('settings'));
+                    })
+                },
+
                 toggleFilters: function () {
-                    FilterSettings.resetModel();
+                    this.setModel();
 
                     this.findAllComponents().forEach(function (child) {
                         child.fire('resetFilter');
@@ -228,7 +248,7 @@ angular.module('innaApp.conponents').
                     this.listenChildren();
                 },
 
-                prepareHotelsFiltersData : function(data){
+                prepareHotelsFiltersData: function (data) {
                     var that = this;
                     var collectExtra = [];
                 },
@@ -291,7 +311,7 @@ angular.module('innaApp.conponents').
 
                     /** создаем фильтр пересадок */
                     if (DirectLegs)
-                        collectLegs.push({name: 'прямой', value: '1'})
+                        collectLegs.push({name: 'без пересадок', value: '1'})
                     if (OneLegs)
                         collectLegs.push({name: '1 пересадка', value: '2'})
                     if (TwoLegsPlus)
@@ -318,15 +338,15 @@ angular.module('innaApp.conponents').
                         collectAirPort[1].list.push({ name: to[i] })
 
                     // передаем данные в модель фильтров
-                    FilterSettings.set({
+                    this._modelFilters.set({
                         'settings.airlines': newAirLines,
                         'settings.airports': collectAirPort,
                         'settings.airLegs.list': collectLegs
                     });
                 },
 
-                getSortComponent : function(){
-                  return this.findComponent('FilterSort');
+                getSortComponent: function () {
+                    return this.findComponent('FilterSort');
                 },
 
                 bodyClickHide: function (evt) {
@@ -359,8 +379,3 @@ angular.module('innaApp.conponents').
 
             return FilterPanel;
         }]);
-
-
-
-
-

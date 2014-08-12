@@ -1,4 +1,4 @@
-angular.module('innaApp.conponents').
+angular.module('innaApp.components').
     factory('FilterAviaLegs', [
         'EventManager',
         '$filter',

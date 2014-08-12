@@ -14,7 +14,7 @@ var app = angular.module('innaApp', [
   'innaApp.services',
   'innaApp.directives',
   'innaApp.controllers',
-  'innaApp.conponents',
+  'innaApp.components',
   'innaApp.Url',
   'innaApp.API',
   'ngSanitize',
@@ -48,6 +48,8 @@ app.constant('innaApp.Urls', {
     URL_AUTH_SIGNUP: '/account/signup/',
 
     B2B_DISPLAY_ORDER: '/display-order/',
+
+    URL_PACKAGES_LANDING: '/packages/ppc/',
 
     URL_HELP: '/help/',
 
@@ -109,6 +111,8 @@ app.config([
         $routeProvider.
             //Главная
             when(url.URL_ROOT, dynamic()).
+            when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?', dynamic()).
+            when(url.URL_PACKAGES_LANDING + ':sectionId', dynamic()).
             when(url.URL_TOURS, {
                 templateUrl: 'pages/tours_grid_page.html',
                 controller: 'ToursCtrl'
@@ -241,7 +245,7 @@ app.config([
 var innaAppCookie = angular.module('innaApp.Cookie', ['ngCookies']);
 
 var innaAppControllers = angular.module('innaApp.controllers', []);
-var innaAppConponents = angular.module('innaApp.conponents', []);
+var innaAppConponents = angular.module('innaApp.components', []);
 
 var innaAppTemlates = angular.module('innaApp.templates', []);
 

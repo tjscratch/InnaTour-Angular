@@ -1,7 +1,16 @@
-angular.module('innaApp.services').service('FilterSettings',
+angular.module('innaApp.components').factory('FilterSettings',
     function () {
 
-        var Model = function () {
+        /**
+         * Модель панели фильтрации
+         * Наследуется от Ractive
+         * Можно сделать set данных и получить их get
+         *
+         * Можно слушать событие change изменение модели
+         * FilterSettings.on('change', function(){})
+         */
+
+        function Model() {
             return {
                 airlines: {},
                 airports: [],
@@ -89,8 +98,7 @@ angular.module('innaApp.services').service('FilterSettings',
                         {value: 4},
                         {value: 5}
                     ].reverse()
-                }
-                ,
+                },
                 TaFactor: {
                     withOutTd: true,
                     list: [
@@ -174,7 +182,7 @@ angular.module('innaApp.services').service('FilterSettings',
                         {
                             name: 'По цене пакета',
                             value: 'byPackagePrice',
-                            isChecked : true
+                            isChecked: true
                         },
                         {
                             name: 'По рейтингу Инна Тур',
@@ -227,30 +235,21 @@ angular.module('innaApp.services').service('FilterSettings',
             }
         }
 
-        /**
-         * Модель панели фильтрации
-         * Наследуется от Ractive
-         * Можно сделать set данных и получить их get
-         *
-         * Можно слушать событие change изменение модели
-         * FilterSettings.on('change', function(){})
-         */
-
         var FilterModel = Ractive.extend({
             data: {
-                settings: new Model()
+                settings: null
             },
 
-            init : function(){
+            init: function () {
 
             },
 
-            resetModel: function () {
-                this.reset({ settings: new Model() });
+            beforeInit : function(){
+                this.data.settings = Model();
             }
         });
 
-        return new FilterModel();
+        return FilterModel;
     });
 
 

@@ -1,4 +1,4 @@
-angular.module('innaApp.conponents').
+angular.module('innaApp.components').
     factory('FilterAirline', [
         'EventManager',
         '$filter',
@@ -6,9 +6,8 @@ angular.module('innaApp.conponents').
         '$routeParams',
         'innaApp.API.events',
 
-        'FilterSettings',
         'ClassFilter',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, FilterSettings, ClassFilter) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
             var FilterAirline = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/avia.airlines.hbs.html'),

@@ -1,4 +1,4 @@
-angular.module('innaApp.conponents').
+angular.module('innaApp.components').
     factory('FilterSort', [
         'EventManager',
         '$filter',
@@ -58,8 +58,6 @@ angular.module('innaApp.conponents').
                     this._super(options);
                     var that = this;
 
-                    console.log('init sort');
-
                     this.on({
                         onSort: function (data) {
                             this.set({
@@ -74,7 +72,7 @@ angular.module('innaApp.conponents').
 
                         },
                         teardown: function (evt) {
-                            console.log('teardown sort');
+
                         }
                     });
 
