@@ -1,7 +1,16 @@
 angular.module('innaApp.components').factory('FilterSettings',
     function () {
 
-        var Model = function () {
+        /**
+         * Модель панели фильтрации
+         * Наследуется от Ractive
+         * Можно сделать set данных и получить их get
+         *
+         * Можно слушать событие change изменение модели
+         * FilterSettings.on('change', function(){})
+         */
+
+        function Model() {
             return {
                 airlines: {},
                 airports: [],
@@ -226,31 +235,17 @@ angular.module('innaApp.components').factory('FilterSettings',
             }
         }
 
-        /**
-         * Модель панели фильтрации
-         * Наследуется от Ractive
-         * Можно сделать set данных и получить их get
-         *
-         * Можно слушать событие change изменение модели
-         * FilterSettings.on('change', function(){})
-         */
-
         var FilterModel = Ractive.extend({
             data: {
-                settings: new Model()
+                settings: null
             },
 
             init: function () {
-                this.on({
-                    teardown: function (evt) {
-                        console.log('teardown FilterSettings');
-                        this.reset({ settings: {} });
-                    }
-                })
+
             },
 
-            resetModel: function () {
-                this.reset({ settings: new Model() });
+            beforeInit : function(){
+                this.data.settings = Model();
             }
         });
 

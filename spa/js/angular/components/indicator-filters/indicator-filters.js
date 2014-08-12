@@ -37,7 +37,7 @@ innaAppConponents.
                             EventManager.off(Events.FILTER_PANEL_RESET, this.resetFilters);
                             EventManager.off(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad);
                             EventManager.off(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad);
-                            this.reset({});
+                            this.reset({filters : {}});
                         }
                     });
 

@@ -8,7 +8,7 @@
  *
  * EventManager.fire('FilterPanel:change', filtersCollection)
  * Логику фильтрации реализуют все компоненты подписчики
-*/
+ */
 
 angular.module('innaApp.components').
     factory('FilterPanel', [
@@ -83,15 +83,8 @@ angular.module('innaApp.components').
                 init: function () {
                     var that = this;
 
-                    this._modelFilters = new FilterSettings();
-                    console.log(this._modelFilters, 'this._modelFilters');
-                    this.set('filtersModel', this._modelFilters.get('settings'));
-
-                    console.log(this._modelFilters.get('settings'), "this._modelFilters.get('settings')");
-
-                    this._modelFilters.on('change', function (data) {
-                        that.set('filtersModel', this.get('settings'));
-                    })
+                    console.log('test init filterPanel');
+                    this.setModel();
 
                     document.addEventListener('click', this.bodyClickHide.bind(this), false);
 
@@ -99,8 +92,8 @@ angular.module('innaApp.components').
                     this.listenChildren();
 
                     this.on({
-                        goToHotelList : function(){
-                           EventManager.fire(Events.DYNAMIC_SERP_BACK_TO_MAP);
+                        goToHotelList: function () {
+                            EventManager.fire(Events.DYNAMIC_SERP_BACK_TO_MAP);
                         },
                         change: function (data) {
                         },
@@ -111,12 +104,11 @@ angular.module('innaApp.components').
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
                             EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
 
-                            this._modelFilters.teardown();
-                            this._modelFilters.off();
                             this._modelFilters = null;
-                            /*this.findAllComponents().forEach(function (child) {
+
+                            this.findAllComponents().forEach(function (child) {
                                 child.fire('resetFilter');
-                            })*/
+                            })
                         }
                     })
 
@@ -124,16 +116,16 @@ angular.module('innaApp.components').
                      * запрашиваем и отдаем компонент сортировки
                      * используем не стандартный механизм общения компонентов
                      */
-                    EventManager.observe('giveSortComponent', function(value){
-                        if(value && value == 'give') {
+                    EventManager.observe('giveSortComponent', function (value) {
+                        if (value && value == 'give') {
                             EventManager.set('getSortComponent', that.getSortComponent());
                         }
                     });
 
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function(){
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function () {
                         that.set('asMap', true);
                     });
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function(){
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
                         that.set('asMap', false);
                     });
 
@@ -146,16 +138,16 @@ angular.module('innaApp.components').
                         })
                     });
 
-                    EventManager.on(Events.FILTER_PANEL_RESET_ALL, function(){
-                        that.findAllComponents().forEach(function(item){
+                    EventManager.on(Events.FILTER_PANEL_RESET_ALL, function () {
+                        that.findAllComponents().forEach(function (item) {
                             item.fire('resetFilter');
                         });
                     });
 
 
                     /*this.observe('filtersModel', function(value){
-                        console.log(value, 'observe filtersModel');
-                    })*/
+                     console.log(value, 'observe filtersModel');
+                     })*/
                 },
 
                 /**
@@ -230,12 +222,22 @@ angular.module('innaApp.components').
                     if (this.get('filtersCollection').length) {
                         EventManager.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
                     } else {
-                       EventManager.fire(Events.FILTER_PANEL_RESET);
+                        EventManager.fire(Events.FILTER_PANEL_RESET);
                     }
                 },
 
+
+                setModel: function () {
+                    var that = this;
+                    this._modelFilters = new FilterSettings();
+                    this.set('filtersModel', this._modelFilters.get('settings'));
+                    this._modelFilters.on('change', function (data) {
+                        that.set('filtersModel', this.get('settings'));
+                    })
+                },
+
                 toggleFilters: function () {
-                    this._modelFilters.resetModel();
+                    this.setModel();
 
                     this.findAllComponents().forEach(function (child) {
                         child.fire('resetFilter');
@@ -246,7 +248,7 @@ angular.module('innaApp.components').
                     this.listenChildren();
                 },
 
-                prepareHotelsFiltersData : function(data){
+                prepareHotelsFiltersData: function (data) {
                     var that = this;
                     var collectExtra = [];
                 },
@@ -343,8 +345,8 @@ angular.module('innaApp.components').
                     });
                 },
 
-                getSortComponent : function(){
-                  return this.findComponent('FilterSort');
+                getSortComponent: function () {
+                    return this.findComponent('FilterSort');
                 },
 
                 bodyClickHide: function (evt) {
