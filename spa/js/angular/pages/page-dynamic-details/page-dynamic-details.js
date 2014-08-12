@@ -10,23 +10,24 @@
 
 innaAppControllers
     .controller('PageHotelDetails', [
-        'EventManager',
-        '$window',
-        '$scope',
-        '$timeout',
-        'aviaHelper',
-        'innaApp.Urls',
-        'innaApp.API.events',
-        '$location',
-        'DynamicPackagesDataProvider',
+        'EventManager', '$window', '$scope',
+        '$timeout', 'aviaHelper', 'innaApp.Urls',
+        'innaApp.API.events', '$location', 'DynamicPackagesDataProvider',
         '$routeParams',
 
         // components
-        'Balloon',
-        'Tripadvisor',
-        'Stars',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, Balloon, Tripadvisor, Stars) {
+        'Balloon', 'Tripadvisor', 'Stars',
 
+        //lister
+        'DynamicFormSubmitListener',
+        function (
+            EventManager, $window, $scope,
+            $timeout, aviaHelper, Urls,
+            Events, $location, DynamicPackagesDataProvider,
+            $routeParams,
+            Balloon, Tripadvisor, Stars, DynamicFormSubmitListener) {
+
+            DynamicFormSubmitListener.listen();
 
             var routParam = angular.copy($routeParams);
             var StartVoyageDateGoBack = routParam.StartVoyageDate;
