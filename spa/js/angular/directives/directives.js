@@ -363,13 +363,22 @@ innaAppDirectives.directive('tooltipTitle', [function () {
 innaAppDirectives.directive('maskedInput', [function () {
     return {
         require: 'ngModel',
-        link: function ($scope, element, attrs, ngModel) {
+        link: function ($scope, element, attrs, ctrl) {
+            //обрабатываем значение, перед присваиванием модели
+            ctrl.$parsers.unshift(function (viewValue) {
+                var normValue = viewValue;
+                if (viewValue == '__.__.____') {
+                    normValue = '';
+                }
+                return normValue;
+            });
+
             var m = attrs.mask;
             element.mask(m, {
                 completed: function () {
                     var val = element.val();
                     $scope.$apply(function ($scope) {
-                        ngModel.$modelValue = val;
+                        ctrl.$modelValue = val;
                     })
                 }
             });
