@@ -84,10 +84,6 @@ innaAppControllers
              */
             function getHotelDetails() {
 
-                /*if (buyAction) {
-                 $location.search('action', 'buy');
-                 }*/
-
                 track.dpBuyPackage();
 
                 DynamicPackagesDataProvider.hotelDetails({
@@ -119,6 +115,17 @@ innaAppControllers
 
                         loadMap();
                         onload();
+
+                        if ($scope.buyAction) {
+                            $timeout(function(){
+                                console.log('START ANIMATION', $(document).height());
+                                $('html, body').animate({
+                                    scrollTop: 1290
+                                }, 300, function(){
+                                    console.log('TADA!');
+                                });
+                            }, 200);
+                        }
                     },
                     error: function () { //error
                         $scope.$apply(function ($scope) {
