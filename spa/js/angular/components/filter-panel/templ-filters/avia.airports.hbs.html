@@ -6,7 +6,27 @@
 
     <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
 		{{#each airports}}
-            <FilterAirPortItem airport="{{this}}"/>
+            <div class="filters__baloon__item">
+                <header class="ra-header">
+                    <h4 class="ra-title">{{this.Name}}</h4>
+                    <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
+                </header>
+                <div class="ra-content">
+                    <ul class="ra-fly-type-list">
+						{{#each this.List}}
+                            <li>
+                                <label on-change="onChecked">
+                                    <input type="checkbox" name="stateAirPort"
+                                           value="{{this.Code}}" checked="{{this.isChecked}}">
+                                    <span class="ra-checkbox"></span>
+                                    <span class="ra-fly-type">{{this.PortName}}</span>
+                                </label>
+                            </li>
+						{{/each}}
+                    </ul>
+                </div>
+            </div>
+
 		{{/each}}
     </div>
 </li>

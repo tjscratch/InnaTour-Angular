@@ -211,16 +211,18 @@ innaAppControllers
                         /** Если пришли даннные по отелям */
                         if (data.Hotels) {
 
+                            console.log(data.Filters, 'data.filters');
                             /** переключаем фильтры или создаем панель */
                             if (!FilterPanelComponent) {
                                 FilterPanelComponent = new FilterPanel({
                                     el: document.querySelector('.recommend-bundle-container'),
                                     data: {
-                                        combinationModel: $scope.combination
+                                        combinationModel: $scope.combination,
+                                        filtersData : data.Filters
                                     }
                                 })
                             } else {
-                                FilterPanelComponent.toggleFilters();
+                                FilterPanelComponent.toggleFilters(data.Filters);
                             }
 
                             // динамически создаем фильтры на основе данных билетов
@@ -289,11 +291,18 @@ innaAppControllers
                         /** Если пришли даннные по отелям */
                         if (data.AviaInfos) {
 
-                            /** переключаем фильтры*/
-                            if (FilterPanelComponent) {
-                                FilterPanelComponent.toggleFilters();
-                                // динамически создаем фильтры на основе данных билетов
-                                FilterPanelComponent.prepareAviaFiltersData(data.AviaInfos);
+                            if (!FilterPanelComponent) {
+                                FilterPanelComponent = new FilterPanel({
+                                    el: document.querySelector('.recommend-bundle-container'),
+                                    data: {
+                                        combinationModel: $scope.combination,
+                                        filtersData : data.Filters,
+                                        filter_hotel: false,
+                                        filter_avia: true
+                                    }
+                                })
+                            } else {
+                                FilterPanelComponent.toggleFilters(data.Filters);
                             }
 
 

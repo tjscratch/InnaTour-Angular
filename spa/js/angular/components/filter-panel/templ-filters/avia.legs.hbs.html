@@ -1,4 +1,4 @@
-{{#if airLegs.list.length}}
+{{#if airLegs.List.length}}
     <li class="filter">
         <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
              on-click="toggle">
@@ -12,12 +12,12 @@
 
             <div class="ra-content">
                 <ul class="ra-fly-type-list">
-					{{#each airLegs.list}}
+					{{#each AirLegs.List}}
                         <li>
                             <label on-change="onChecked">
-                                <input type="checkbox" name="legs" value="{{this.value}}" checked="{{this.isChecked}}">
+                                <input type="checkbox" name="legs" value="{{this.Value}}" checked="{{this.isChecked}}">
                                 <span class="ra-checkbox"></span>
-                                <span class="ra-fly-type">{{this.name}}</span>
+                                <span class="ra-fly-type">{{this.Name}}</span>
 
 	                            <span class="ra-fly-price">
 		                            <span>{{Price}}</span>&nbsp;

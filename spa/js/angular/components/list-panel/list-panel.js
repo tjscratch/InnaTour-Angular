@@ -181,7 +181,6 @@ angular.module('innaApp.components').
                      * запрашиваем и отдаем компонент сортировки
                      * используем не стандартный механизм общения компонентов
                      */
-                    EventManager.set('giveSortComponent', 'give');
                     EventManager.observe('getSortComponent', function(newValue, oldValue, keypath){
                         if(newValue) {
                             that.set('sortComponent', newValue);

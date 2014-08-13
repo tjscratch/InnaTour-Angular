@@ -35,9 +35,9 @@ angular.module('innaApp.components').
 
                     this.on({
                         change: function (data) {
-                            if (data['PackagePrice.value']) {
+                            if (data['Price.Value']) {
 
-                                var priceValue = parseInt(data['PackagePrice.value'], 10);
+                                var priceValue = parseInt(data['Price.Value'], 10);
 
                                 clearTimeout(this._timeOut);
                                 this._timeOut = setTimeout(function () {
@@ -56,7 +56,7 @@ angular.module('innaApp.components').
                         },
 
                         resetFilter: function () {
-                            this.set({'price.value': 0});
+                            this.set({'Price.Value': that.get('Price.Max')});
                         },
                         teardown: function (evt) {
                             this._slider.slider("destroy");
@@ -76,7 +76,7 @@ angular.module('innaApp.components').
 
                     this.set({
                         'value.val': [],
-                        'PackagePrice.value': that.get('PackagePrice.value')
+                        'Price.Value': that.get('Price.Value')
                     });
 
                     this.hasSelected();
@@ -88,7 +88,7 @@ angular.module('innaApp.components').
                 },
 
                 slide: function (val) {
-                    this.set('PackagePrice.value', val);
+                    this.set('Price.Value', val);
                 },
 
                 complete: function (data) {
@@ -98,9 +98,9 @@ angular.module('innaApp.components').
                     this._slider = $(slider).slider({
                         range: "min",
                         animate: true,
-                        min: that.get('PackagePrice.min'),
-                        max: that.get('PackagePrice.max'),
-                        value: that.get('PackagePrice.value'),
+                        min: that.get('Price.Min'),
+                        max: that.get('Price.Max'),
+                        value: that.get('Price.Value'),
                         slide: function (event, ui) {
                             that.slide(ui.value)
                         }

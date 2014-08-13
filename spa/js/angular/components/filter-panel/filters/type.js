@@ -35,15 +35,15 @@ angular.module('innaApp.components').
                         onChecked: function (data) {
                             if (data && data.context) {
                                 if (data.context.isChecked) {
-                                    this.push('value.val', data.context.name) // data.context.value
+                                    this.push('value.val', data.context.Value) // data.context.value
                                 } else if (!data.context.isChecked) {
-                                    this.splice('value.val', this.get('value.val').indexOf(data.context.name), 1);
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
                                 }
                             }
                             this.hasSelected();
                         },
                         resetFilter: function () {
-                            this.set('HotelType.list.*.isChecked', false);
+                            this.set('HotelType.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
 
@@ -61,9 +61,9 @@ angular.module('innaApp.components').
 
                     this.splice('value.val', this.get('value.val').indexOf(data), 1);
 
-                    this.get('HotelType.list').forEach(function(item, i){
-                        if(item.name == data){
-                            that.set('HotelType.list.'+ i +'.isChecked',  false);
+                    this.get('HotelType.List').forEach(function(item, i){
+                        if(item.Value == data){
+                            that.set('HotelType.List.'+ i +'.isChecked',  false);
                         }
                     })
 

@@ -9,18 +9,6 @@ angular.module('innaApp.components').
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {
 
-            var FilterAirPortItem = Ractive.extend({
-                template: $templateCache.get('components/filter-panel/templ-micro/avia.airports-item.hbs.html'),
-                init: function () {
-                    this.on({
-                        resetFilter: function () {
-                            this.set('airport.list.*.isChecked', false);
-                        }
-                    })
-                }
-            });
-
-
             var FilterAirPort = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/avia.airports.hbs.html'),
                 data: {
@@ -30,10 +18,10 @@ angular.module('innaApp.components').
                         fn: function (data, component_val) {
 
                             var result = component_val.val.filter(function (airport) {
-                                if (!data[airport.state]) return false;
+                                if (!data[airport.State]) return false;
 
-                                var result = airport.list.filter(function (item) {
-                                    return (item.isChecked && (data[airport.state] == item.name));
+                                var result = airport.List.filter(function (item) {
+                                    return (item.isChecked && (data[airport.State] == item.Code));
                                 })
 
                                 return result.length;
@@ -43,9 +31,6 @@ angular.module('innaApp.components').
                         }
 
                     }
-                },
-                components: {
-                    FilterAirPortItem: FilterAirPortItem
                 },
                 init: function (options) {
                     this._super(options);
@@ -57,32 +42,25 @@ angular.module('innaApp.components').
                     this.on({
                         change: function (data) {
 
-                            /**
-                             * Собираем данные, отмеченные аэропорты
-                             * Берем направление и смотрим какие из значений отмечены - isChecked
-                             *
-                             * data['airports.0'] == from
-                             * data['airports.1'] == to
-                             */
+                        },
 
-                            if (data['airports.0'] || data['airports.1']) {
-
-                                var result = this.get('airports').filter(function (filter) {
-                                    var r = filter.list.filter(function (item) {
-                                        return item.isChecked
+                        onChecked: function (data) {
+                            var that = this;
+                            if (data && data.context) {
+                                console.log(data.context);
+                                if (data.context.isChecked) {
+                                    this.push('value.val', data.context);
+                                } else if (!data.context.isChecked) {
+                                    this.get('value.val').forEach(function (item, i) {
+                                        if (data.context.Code == item.Code) that.splice('value.val', i, 1);
                                     })
-                                    return r.length;
-                                })
-
-
-                                if (result.length) this.set('value.val', result)
-                                else this.set('value.val', [])
-                                this.hasSelected();
+                                }
                             }
+                            this.hasSelected();
                         },
 
                         resetFilter: function () {
-
+                            this.set('airport.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
 
@@ -99,20 +77,19 @@ angular.module('innaApp.components').
                     var that = this;
 
 
-                    var result = this.get('airports').filter(function (filter, i) {
-                        var r = filter.list.filter(function (item, j) {
-                            if(item.name == data.name) {
-                                that.set('airports.' + i + '.list.' + j + '.isChecked', false);
+                    this.get('value.val').forEach(function (item, i) {
+                        if (data.Code == item.Code) that.splice('value.val', i, 1);
+                    })
+
+                    this.get('airports').forEach(function (airport, i) {
+                        airport.List.filter(function (item, j) {
+                            if(item.Code == data.Code) {
+                                that.set('airports.' + i + '.List.' + j + '.isChecked', false);
                                 item.isChecked = false;
                             }
                             return item.isChecked
                         })
-                        return r.length;
                     })
-
-
-                    if (result.length) this.set('value.val', result)
-                    else this.set('value.val', [])
                     this.hasSelected();
                 }
 

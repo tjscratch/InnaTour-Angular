@@ -18,7 +18,7 @@ angular.module('innaApp.components').
                         fn: function (data, component_val) {
                             if (typeof data == 'object' && Object.keys(data).length) {
                                 var result = component_val.val.filter(function (filterExtra) {
-                                    return data[filterExtra.value] != undefined
+                                    return data[filterExtra.Value] != undefined
                                 })
                                 return (component_val.val.length == result.length)
                             }
@@ -44,19 +44,19 @@ angular.module('innaApp.components').
                         onChecked: function (data) {
                             var that = this;
                             if (data && data.context) {
+                                console.log(data.context);
                                 if (data.context.isChecked) {
                                     this.push('value.val', data.context);
                                 } else if (!data.context.isChecked) {
-
                                     this.get('value.val').forEach(function (item, i) {
-                                        if (data.context.value == item.value) that.splice('value.val', i, 1);
+                                        if (data.context.Value == item.Value) that.splice('value.val', i, 1);
                                     })
                                 }
                             }
                             this.hasSelected();
                         },
                         resetFilter: function () {
-                            this.set('Extra.list.*.isChecked', false);
+                            this.set('Extra.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
 
@@ -72,14 +72,13 @@ angular.module('innaApp.components').
                     this._super(data);
                     var that = this;
 
-
                     this.get('value.val').forEach(function (item, i) {
-                        if (data.value == item.value) that.splice('value.val', i, 1);
+                        if (data.Value == item.Value) that.splice('value.val', i, 1);
                     })
 
-                    this.get('Extra.list').forEach(function (item, i) {
-                        if (item.value == data.value) {
-                            that.set('Extra.list.' + i + '.isChecked', false);
+                    this.get('Extra.List').forEach(function (item, i) {
+                        if (item.Value == data.Value) {
+                            that.set('Extra.List.' + i + '.isChecked', false);
                         }
                     })
 

@@ -10,173 +10,196 @@ angular.module('innaApp.components').factory('FilterSettings',
          * FilterSettings.on('change', function(){})
          */
 
-        function Model() {
+        function Model(data) {
             return {
-                airlines: {},
-                airports: [],
-                airLegs: {
-                    list: []
-                },
-                airTime: [
-                    {
-                        direction: 'to',
-                        title: 'Перелет туда',
-                        state: [
+                Hotels: {
+                    Stars: {
+                        list: [
                             {
-                                isActive: true,
-                                title: 'Вылет',
-                                value: 'DepartureDate'
+                                Value: 1,
+                                Price : 0
                             },
                             {
-                                title: 'Прилет',
-                                value: 'ArrivalDate'
+                                Value: 2,
+                                Price : 0
+                            },
+                            {
+                                Value: 3,
+                                Price : 0
+                            },
+                            {
+                                Value: 4,
+                                Price : 0
+                            },
+                            {
+                                Value: 5,
+                                Price : 0
                             }
-                        ],
-                        dayState: [
+                        ].reverse()
+                    },
+                    Price: {
+                        min: 0,
+                        max: 0,
+                        value: 0
+                    },
+                    TaFactor: {
+                        list: [
+                            {value: 1},
+                            {value: 2},
+                            {value: 3},
+                            {value: 4},
+                            {value: 5}
+                        ].reverse()
+                    },
+                    HotelName: {
+                        value: ''
+                    },
+                    HotelType: {
+                        list: [
                             {
-                                state: 'Morning',
-                                name: 'Утро'
+                                name: 'Отель',
+                                value: 'hotel'
                             },
                             {
-                                state: 'Afternoon',
-                                name: 'День'
+                                name: 'Апарт-отель',
+                                value: 'apart_hotel'
                             },
                             {
-                                state: 'Evening',
-                                name: 'Вечер'
+                                name: 'Пансион',
+                                value: 'guesthouse'
                             },
                             {
-                                state: 'Night',
-                                name: 'Ночь'
+                                name: 'Квартира',
+                                value: 'flat'
                             }
                         ]
                     },
-                    {
-                        direction: 'back',
-                        title: 'Перелет обратно',
-                        state: [
+                    Extra: {
+                        list: [
                             {
-                                isActive: true,
-                                title: 'Вылет',
-                                value: 'BackDepartureDate'
+                                name: 'Фитнес',
+                                value: 'Fitness'
                             },
                             {
-                                title: 'Прилет',
-                                value: 'BackArrivalDate'
-                            }
-                        ],
-                        dayState: [
-                            {
-                                state: 'Morning',
-                                name: 'Утро'
+                                name: 'Завтрак',
+                                value: 'Breakfast'
                             },
                             {
-                                state: 'Afternoon',
-                                name: 'День'
+                                name: 'Бар/Ресторан',
+                                value: 'BarRestaurant'
                             },
                             {
-                                state: 'Evening',
-                                name: 'Вечер'
+                                name: 'Парковка',
+                                value: 'Parking'
                             },
                             {
-                                state: 'Night',
-                                name: 'Ночь'
+                                name: 'Кухня',
+                                value: 'Kitchen'
+                            },
+
+                            {
+                                name: 'Сервисы для людей с о.в',
+                                value: 'ForPeopleWithDisabilities'
+                            },
+                            {
+                                name: 'СПА',
+                                value: 'SPA'
+                            },
+                            {
+                                name: 'Интернет',
+                                value: 'Internet'
+                            },
+                            {
+                                name: 'Бассейн',
+                                value: 'SwimmingPool'
+                            },
+                            {
+                                name: 'Сервисы для детей',
+                                value: 'ServicesForChildren'
                             }
                         ]
                     }
-                ],
-                PackagePrice: {
-                    min: 10000,
-                    max: 500000,
-                    value: 500000
                 },
-                Stars: {
-                    list: [
-                        {value: 1},
-                        {value: 2},
-                        {value: 3},
-                        {value: 4},
-                        {value: 5}
-                    ].reverse()
-                },
-                TaFactor: {
-                    withOutTd: true,
-                    list: [
-                        {value: 1},
-                        {value: 2},
-                        {value: 3},
-                        {value: 4},
-                        {value: 5}
-                    ].reverse()
-                },
-                HotelName: {
-                    value: ''
-                },
-                HotelType: {
-                    list: [
-                        {
-                            name: 'Отель',
-                            value: 'hotel'
-                        },
-                        {
-                            name: 'Апарт-отель',
-                            value: 'apart_hotel'
-                        },
-                        {
-                            name: 'Пансион',
-                            value: 'guesthouse'
-                        },
-                        {
-                            name: 'Квартира',
-                            value: 'flat'
-                        }
-                    ]
-                },
-                Extra: {
-                    list: [
-                        {
-                            name: 'Фитнес',
-                            value: 'Fitness'
-                        },
-                        {
-                            name: 'Завтрак',
-                            value: 'Breakfast'
-                        },
-                        {
-                            name: 'Бар/Ресторан',
-                            value: 'BarRestaurant'
-                        },
-                        {
-                            name: 'Парковка',
-                            value: 'Parking'
-                        },
-                        {
-                            name: 'Кухня',
-                            value: 'Kitchen'
-                        },
+                Tickets: {
+                    Airlines: {},
+                    Airports: [],
+                    AirLegs: {},
 
+                    AirTime: [
                         {
-                            name: 'Сервисы для людей с о.в',
-                            value: 'ForPeopleWithDisabilities'
+                            direction: 'to',
+                            title: 'Перелет туда',
+                            state: [
+                                {
+                                    isActive: true,
+                                    title: 'Вылет',
+                                    value: 'DepartureDate'
+                                },
+                                {
+                                    title: 'Прилет',
+                                    value: 'ArrivalDate'
+                                }
+                            ],
+                            dayState: [
+                                {
+                                    state: 'Morning',
+                                    name: 'Утро'
+                                },
+                                {
+                                    state: 'Afternoon',
+                                    name: 'День'
+                                },
+                                {
+                                    state: 'Evening',
+                                    name: 'Вечер'
+                                },
+                                {
+                                    state: 'Night',
+                                    name: 'Ночь'
+                                }
+                            ]
                         },
                         {
-                            name: 'СПА',
-                            value: 'SPA'
-                        },
-                        {
-                            name: 'Интернет',
-                            value: 'Internet'
-                        },
-                        {
-                            name: 'Бассейн',
-                            value: 'SwimmingPool'
-                        },
-                        {
-                            name: 'Сервисы для детей',
-                            value: 'ServicesForChildren'
+                            direction: 'back',
+                            title: 'Перелет обратно',
+                            state: [
+                                {
+                                    isActive: true,
+                                    title: 'Вылет',
+                                    value: 'BackDepartureDate'
+                                },
+                                {
+                                    title: 'Прилет',
+                                    value: 'BackArrivalDate'
+                                }
+                            ],
+                            dayState: [
+                                {
+                                    state: 'Morning',
+                                    name: 'Утро'
+                                },
+                                {
+                                    state: 'Afternoon',
+                                    name: 'День'
+                                },
+                                {
+                                    state: 'Evening',
+                                    name: 'Вечер'
+                                },
+                                {
+                                    state: 'Night',
+                                    name: 'Ночь'
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    Price: {
+                        min: 0,
+                        max: 0,
+                        value: 0
+                    }
                 },
+
                 sort: {
                     hotels: [
                         {
@@ -236,16 +259,16 @@ angular.module('innaApp.components').factory('FilterSettings',
         }
 
         var FilterModel = Ractive.extend({
-            data: {
-                settings: null
-            },
 
-            init: function () {
-
-            },
-
-            beforeInit : function(){
-                this.data.settings = Model();
+            /**
+             * Расширяем дефолтные настройки данными по фильтрам с сервера
+             * @param options
+             */
+            beforeInit: function (options) {
+                var model = Model();
+                angular.extend(model.Hotels, options.data.model.Hotels);
+                angular.extend(model.Tickets, options.data.model.Tickets);
+                this.data.settings = model;
             }
         });
 

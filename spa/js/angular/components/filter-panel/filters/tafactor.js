@@ -35,16 +35,16 @@ angular.module('innaApp.components').
                         onChecked: function (data) {
                             if (data && data.context) {
                                 if (data.context.isChecked) {
-                                    this.push('value.val', data.context.value)
+                                    this.push('value.val', data.context.Value)
                                 } else if (!data.context.isChecked) {
-                                    this.splice('value.val', this.get('value.val').indexOf(data.context.value), 1);
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
                                 }
 
                                 this.hasSelected();
                             }
                         },
                         resetFilter: function () {
-                            this.set('TaFactor.list.*.isChecked', false);
+                            this.set('TaFactor.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
 
@@ -66,9 +66,9 @@ angular.module('innaApp.components').
                     var that = this;
                     this.splice('value.val', this.get('value.val').indexOf(data), 1);
 
-                    this.get('TaFactor.list').forEach(function (item, i) {
-                        if (item.value == data) {
-                            that.set('TaFactor.list.' + i + '.isChecked', false);
+                    this.get('TaFactor.List').forEach(function (item, i) {
+                        if (item.Value == data) {
+                            that.set('TaFactor.List.' + i + '.isChecked', false);
                         }
                     })
 

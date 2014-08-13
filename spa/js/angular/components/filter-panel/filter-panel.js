@@ -82,6 +82,7 @@ angular.module('innaApp.components').
                 },
                 init: function () {
                     var that = this;
+
                     this.setModel();
 
                     document.addEventListener('click', this.bodyClickHide.bind(this), false);
@@ -102,23 +103,13 @@ angular.module('innaApp.components').
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
                             EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
 
-                            this._modelFilters = null;
-
                             this.findAllComponents().forEach(function (child) {
                                 child.fire('resetFilter');
                             })
                         }
-                    })
-
-                    /**
-                     * запрашиваем и отдаем компонент сортировки
-                     * используем не стандартный механизм общения компонентов
-                     */
-                    EventManager.observe('giveSortComponent', function (value) {
-                        if (value && value == 'give') {
-                            EventManager.set('getSortComponent', that.getSortComponent());
-                        }
                     });
+
+                    EventManager.set('getSortComponent', that.getSortComponent());
 
                     EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function () {
                         that.set('asMap', true);
@@ -143,9 +134,15 @@ angular.module('innaApp.components').
                     });
 
 
-                    /*this.observe('filtersModel', function(value){
-                     console.log(value, 'observe filtersModel');
-                     })*/
+                    /**
+                     * Слушаем изменение filtersData
+                     * Обновление настроек фильтров
+                     */
+                    this.observe('filtersData', function (value) {
+                        if (value) {
+                            this.setModel();
+                        }
+                    }, {init: false})
                 },
 
                 /**
@@ -224,22 +221,28 @@ angular.module('innaApp.components').
                     }
                 },
 
-
+                /**
+                 * Создаем новую модель фильтров
+                 * @param dataFilters
+                 */
                 setModel: function () {
-                    var that = this;
-                    this._modelFilters = new FilterSettings();
-                    this.set('filtersModel', this._modelFilters.get('settings'));
-                    this._modelFilters.on('change', function (data) {
-                        that.set('filtersModel', this.get('settings'));
-                    })
+                    if(this.get('filtersData')) {
+                        var modelFilters = new FilterSettings({
+                            data: {
+                                model: this.get('filtersData')
+                            }
+                        });
+
+                        this.set('filtersModel', modelFilters.get('settings'));
+                    }
                 },
 
-                toggleFilters: function () {
+                toggleFilters: function (dataFilters) {
                     this.setModel();
 
                     this.findAllComponents().forEach(function (child) {
                         child.fire('resetFilter');
-                    })
+                    });
 
                     this.toggle('filter_hotel');
                     this.toggle('filter_avia');
@@ -247,100 +250,14 @@ angular.module('innaApp.components').
                 },
 
                 prepareHotelsFiltersData: function (data) {
-                    var that = this;
-                    var collectExtra = [];
+
                 },
 
                 /**
                  * @param {Object} data - данные на основе которых собираются фильтры
                  */
                 prepareAviaFiltersData: function (data) {
-                    var that = this;
-                    // если это билет
 
-                    var collectAirlines = [];
-                    var collectLegs = [];
-                    var collectExtra = [];
-                    var OneLegs = false;
-                    var TwoLegsPlus = false;
-                    var DirectLegs = false;
-
-                    // собираем аэропорты
-                    var collectAirPort = [
-                        {
-                            state: 'AirportFrom',
-                            name: data[0].CityFrom,
-                            list: []
-                        },
-                        {
-                            state: 'AirportTo',
-                            name: data[0].CityTo,
-                            list: []
-                        }
-                    ];
-
-                    // проходим по билетам
-                    data.forEach(function (item) {
-                        var modelTicket = new inna.Models.Avia.Ticket();
-                        modelTicket.setData(item);
-                        var virtualBundle = new inna.Models.Dynamic.Combination();
-                        virtualBundle.ticket = modelTicket;
-                        virtualBundle.hotel = that.get('combinationModel').hotel;
-
-
-                        // собираем коллекцию уникальных авиалиний
-                        var airline = _.union(modelTicket.collectAirlines().airlines);
-                        collectAirlines.push(airline);
-
-                        // пересадки
-                        var legsTo = modelTicket.getEtaps('To').length;
-                        var legsBack = modelTicket.getEtaps('Back').length;
-                        var legsBoth = legsTo + legsBack;
-                        if (legsBoth == 3 || legsBoth == 4) OneLegs = true;
-                        if ((legsTo >= 3) || (legsBack >= 3)) TwoLegsPlus = true;
-                        if (legsBoth == 2) DirectLegs = true;
-
-
-                        // аэропорты вылета - прилета
-                        collectAirPort[0].list.push(item.AirportFrom);
-                        collectAirPort[1].list.push(item.AirportTo);
-                    })
-
-
-                    /** создаем фильтр пересадок */
-                    if (DirectLegs)
-                        collectLegs.push({name: 'без пересадок', value: '1'})
-                    if (OneLegs)
-                        collectLegs.push({name: '1 пересадка', value: '2'})
-                    if (TwoLegsPlus)
-                        collectLegs.push({name: '2+ пересадки', value: '3'})
-
-
-                    // удаляем вровни вложенности массива
-                    var flatten = _.flatten(collectAirlines)
-                    // возвращаем уникальные значания массива
-                    var union = _.union(flatten);
-
-                    var newAirLines = [];
-                    for (var i = 0; i < union.length; i++)
-                        newAirLines.push({name: union[i]})
-
-                    var from = _.union(collectAirPort[0].list);
-                    var to = _.union(collectAirPort[1].list);
-                    collectAirPort[0].list = [];
-                    collectAirPort[1].list = [];
-
-                    for (var i = 0; i < from.length; i++)
-                        collectAirPort[0].list.push({ name: from[i] })
-                    for (var i = 0; i < to.length; i++)
-                        collectAirPort[1].list.push({ name: to[i] })
-
-                    // передаем данные в модель фильтров
-                    this._modelFilters.set({
-                        'settings.airlines': newAirLines,
-                        'settings.airports': collectAirPort,
-                        'settings.airLegs.list': collectLegs
-                    });
                 },
 
                 getSortComponent: function () {

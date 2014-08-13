@@ -32,9 +32,9 @@ angular.module('innaApp.components').
                         onChecked: function (data) {
                             if (data && data.context) {
                                 if (data.context.isChecked) {
-                                    this.push('value.val', data.context.value)
+                                    this.push('value.val', data.context.Value)
                                 } else if (!data.context.isChecked) {
-                                    this.splice('value.val', this.get('value.val').indexOf(data.context.value), 1);
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
                                 }
                             }
                             this.hasSelected();
@@ -42,7 +42,7 @@ angular.module('innaApp.components').
 
                         },
                         resetFilter: function () {
-                            this.set('Stars.list.*.isChecked',  false);
+                            this.set('Stars.List.*.isChecked',  false);
                         },
                         teardown: function (evt) {
                             console.log('teardown FilterStars');
@@ -65,9 +65,9 @@ angular.module('innaApp.components').
                     var that = this;
 
                     this.splice('value.val', this.get('value.val').indexOf(data), 1);
-                    this.get('Stars.list').forEach(function(item, i){
-                        if(item.value == data){
-                            that.set('Stars.list.'+ i +'.isChecked',  false);
+                    this.get('Stars.List').forEach(function(item, i){
+                        if(item.Value == data){
+                            that.set('Stars.List.'+ i +'.isChecked',  false);
                         }
                     })
 

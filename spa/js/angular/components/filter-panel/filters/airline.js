@@ -40,15 +40,15 @@ angular.module('innaApp.components').
                         onChecked: function (data) {
                             if (data && data.context) {
                                 if (data.context.isChecked) {
-                                    this.push('value.val', data.context.name)
+                                    this.push('value.val', data.context.Name)
                                 } else if (!data.context.isChecked) {
-                                    this.splice('value.val', this.get('value.val').indexOf(data.context.name), 1);
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.Name), 1);
                                 }
                                 this.hasSelected();
                             }
                         },
                         resetFilter: function () {
-                            this.set('airlines.*.isChecked', false);
+                            this.set('airlines.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
                         }
@@ -69,9 +69,9 @@ angular.module('innaApp.components').
                         if (data == item) that.splice('value.val', i, 1);
                     })
 
-                    this.get('airlines').forEach(function (item, i) {
-                        if (item.name == data) {
-                            that.set('airlines.' + i + '.isChecked', false);
+                    this.get('airlines.List').forEach(function (item, i) {
+                        if (item.Name == data) {
+                            that.set('airlines.List.' + i + '.isChecked', false);
                         }
                     })
 

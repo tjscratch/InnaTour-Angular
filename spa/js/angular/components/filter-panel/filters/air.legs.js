@@ -46,15 +46,18 @@ angular.module('innaApp.components').
                             if (data && data.context) {
 
                                 if (data.context.isChecked) {
-                                    this.push('value.val', data.context.value)
+                                    this.push('value.val', data.context)
                                 } else if (!data.context.isChecked) {
-                                    this.splice('value.val', this.get('value.val').indexOf(data.context.value), 1);
+                                    //this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
+                                    this.get('value.val').forEach(function (item, i) {
+                                        if (data.context.Value == item.Value) that.splice('value.val', i, 1);
+                                    })
                                 }
                             }
                             this.hasSelected();
                         },
                         resetFilter: function () {
-                            this.set('airLegs.list.*.isChecked', false);
+                            this.set('airLegs.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
 
@@ -69,11 +72,21 @@ angular.module('innaApp.components').
                 IndicatorFiltersItemRemove: function (data) {
                     this._super(data);
                     var that = this;
-                    this.splice('value.val', this.get('value.val').indexOf(data), 1);
+                    /*this.splice('value.val', this.get('value.val').indexOf(data), 1);
 
-                    this.get('airLegs.list').forEach(function (item, i) {
-                        if (item.value == data) {
-                            that.set('airLegs.list.' + i + '.isChecked', false);
+                    this.get('airLegs.List').forEach(function (item, i) {
+                        if (item.Value == data) {
+                            that.set('airLegs.List.' + i + '.isChecked', false);
+                        }
+                    })*/
+
+                    this.get('value.val').forEach(function (item, i) {
+                        if (data.Value == item.Value) that.splice('value.val', i, 1);
+                    })
+
+                    this.get('airLegs.List').forEach(function (item, i) {
+                        if (item.Value == data.Value) {
+                            that.set('airLegs.List.' + i + '.isChecked', false);
                         }
                     })
 
