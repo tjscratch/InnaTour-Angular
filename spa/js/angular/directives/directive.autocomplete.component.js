@@ -117,27 +117,27 @@
                 }
 
                 /*Watchers*/
-                //$scope.$watch('result', function (newValue, oldValue) {
-                //    if (newValue instanceof Error) {
-                //        $scope.result = oldValue;
+                $scope.$watch('result', function (newValue, oldValue) {
+                    if (newValue instanceof Error) {
+                        $scope.result = oldValue;
 
-                //        $scope.input.tooltip({
-                //            position: {
-                //                my: 'center top+22',
-                //                at: 'center bottom'
-                //            },
-                //            items: "[data-title]",
-                //            content: function () {
-                //                return $scope.input.data("title");
-                //            }
-                //        }).tooltip('open');
-                //    } else if (!$scope.input.val()) {
-                //        if (newValue != null && newValue != 'null' && $scope.askForData) {
-                //            console.log('askForDataByID', newValue);
-                //            askForDataByID(newValue);
-                //        }
-                //    }
-                //});
+                        $scope.input.tooltip({
+                            position: {
+                                my: 'center top+22',
+                                at: 'center bottom'
+                            },
+                            items: "[data-title]",
+                            content: function () {
+                                return $scope.input.data("title");
+                            }
+                        }).tooltip('open');
+                    } else if (!$scope.input.val()) {
+                        if (newValue != null && newValue != 'null' && $scope.askForData) {
+                            console.log('askForDataByID', newValue);
+                            askForDataByID(newValue);
+                        }
+                    }
+                });
 
                 $scope.$on('DYNAMIC.locationChange', function(event, routeParams){
                     $scope.$root._dynamicSearchFormInvisible = true;
