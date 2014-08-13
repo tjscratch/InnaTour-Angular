@@ -77,10 +77,6 @@ angular.module('innaApp.components').
 
                         },
                         goToMap: function (data) {
-                            /*EventManager.set('DYNAMIC_SERP_TOGGLE_MAP', {
-                                list : that.actualData(),
-                                single : data
-                            })*/
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.actualData(), data);
                         },
                         teardown: function (evt) {

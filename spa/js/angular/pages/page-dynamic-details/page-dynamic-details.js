@@ -246,7 +246,7 @@ innaAppControllers
 
             /*$scope.$on('$locationChangeSuccess', function (data, url, datatest) {
              if (!('displayHotel' in $location.search())) {
-             $scope.back();
+                $scope.back();
              }
              });*/
 

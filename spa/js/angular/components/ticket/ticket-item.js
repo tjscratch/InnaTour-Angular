@@ -18,6 +18,7 @@ angular.module('innaApp.components').
              */
             var TicketItem = DynamicBlock.extend({
                 data: {
+                    hidden : false,
                     settings: {
                         height: 200,
                         countColumn: 2,
@@ -65,10 +66,28 @@ angular.module('innaApp.components').
                             //console.log('teardown ticket item');
                         }
                     });
+
+
+
+                    if(this.get('combinationModel').ticket.data.HotelId == this.get('ticket.VariantId1')){
+                        that.set('hidden', true);
+                    }
+
+
+                    /**
+                     * Когда выбераем отель, то прячем его( убираем из списка и показываем в выбранном варианте)
+                     * Тот отель что был выбран ранее, показываем
+                     */
+                    EventManager.on(Events.DYNAMIC_SERP_CHOOSE_TICKET, function(modelTicket, ticketId){
+                        if((ticketId != that.get('ticket.VariantId1')) && that.get('hidden')){
+                            that.set('hidden', false);
+                        }
+                    });
                 },
 
                 setCurrent: function () {
-                    EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_TICKET, this.get('modelTicket'));
+                    this.set('hidden', true);
+                    EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_TICKET, this.get('modelTicket'), this.get('ticket.VariantId1'));
                 },
 
                 airLogo: function (logo) {

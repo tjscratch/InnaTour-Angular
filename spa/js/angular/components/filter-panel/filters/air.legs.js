@@ -83,7 +83,6 @@ angular.module('innaApp.components').
                         if (data.Value == item.Value) that.splice('value.val', i, 1);
                     })
 
-                    console.log(this.get('AirLegs.List'), "this.get('AirLegs.List')");
                     this.get('AirLegs.List').forEach(function (item, i) {
                         if (item.Value == data.Value) {
                             that.set('AirLegs.List.' + i + '.isChecked', false);

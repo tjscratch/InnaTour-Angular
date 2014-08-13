@@ -45,7 +45,6 @@ angular.module('innaApp.components').
                             this.set('Stars.List.*.isChecked',  false);
                         },
                         teardown: function (evt) {
-                            console.log('teardown FilterStars');
                             this.set({value : {}})
                         }
                     });

@@ -44,7 +44,6 @@ angular.module('innaApp.components').
                         onChecked: function (data) {
                             var that = this;
                             if (data && data.context) {
-                                console.log(data.context);
                                 if (data.context.isChecked) {
                                     this.push('value.val', data.context);
                                 } else if (!data.context.isChecked) {

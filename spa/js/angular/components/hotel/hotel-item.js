@@ -17,6 +17,7 @@ angular.module('innaApp.components').
              */
             var HotelItem = DynamicBlock.extend({
                 data: {
+                    hidden : false,
                     settings: {
                         height: 200,
                         countColumn: 3,
@@ -108,9 +109,21 @@ angular.module('innaApp.components').
                     });
 
 
-                    /*this.observe('combinationModel', function(data){
-                     console.log('hotels observe combinationModel', data);
-                     })*/
+                    if(this.get('combinationModel').hotel.data.HotelId == this.get('hotel.HotelId')){
+                        that.set('hidden', true);
+                    }
+
+
+                    /**
+                     * Когда выбераем отель, то прячем его( убираем из списка и показываем в выбранном варианте)
+                     * Тот отель что был выбран ранее, показываем
+                     */
+                    EventManager.on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function(modelHotel, hotelId){
+                        if((hotelId != that.get('hotel.HotelId')) && that.get('hidden')){
+                            that.set('hidden', false);
+                        }
+
+                    });
                 },
 
                 getHotelDetails: function () {
@@ -122,7 +135,8 @@ angular.module('innaApp.components').
                 },
 
                 setCurrent: function () {
-                    EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, this.get('modelHotel'));
+                    this.set('hidden', true);
+                    EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, this.get('modelHotel'), this.get('hotel.HotelId'));
                 },
 
 

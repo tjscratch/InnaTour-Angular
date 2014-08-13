@@ -94,6 +94,7 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_BACK_LIST : 'hotels:back:list',
             DYNAMIC_SERP_CLOSE_BUNDLE : 'bundle:hidden',
             DYNAMIC_SERP_OPEN_BUNDLE : 'bundle:full',
+            DYNAMIC_SERP_HIDDEN_HOTEL : 'hotel:hidden',
 
             DYNAMIC_SERP_LOAD_TAB : 'DYNAMIC_SERP_LOAD_TAB',
 
