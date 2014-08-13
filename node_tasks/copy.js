@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
-var flatten = require('gulp-flatten');
 var conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';

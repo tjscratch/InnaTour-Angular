@@ -232,7 +232,7 @@ innaAppControllers
                 //аналитика
                 var trackKey = $location.url();
                 if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
-                    track.successResultsAvia(track.dpKey);
+                    track.successResultsDp(track.dpKey);
                     //console.log('analitics: dp success result');
                     track.denyTrackSuccessResult(track.dpKey, trackKey);
                 }
@@ -249,7 +249,7 @@ innaAppControllers
                     $scope.showLanding = false;
                 });
 
-                if ($location.search().displayTicket) {
+                if ($location.search().displayTicket || $location.search().display == 'tickets') {
                     onTabLoad = loadTicketDetails;
                     onTabLoadParam = $location.search().displayTicket;
                     defaultTab = $scope.state.TICKET;
@@ -273,6 +273,8 @@ innaAppControllers
             }
 
             function loadTicketDetails(ids) {
+                if(!ids) return;
+
                 try {
                     var ticketIds = ids.split('_');
                     var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);

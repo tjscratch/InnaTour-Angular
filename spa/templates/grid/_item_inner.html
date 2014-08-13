@@ -1,24 +1,24 @@
-<img bo-src="item.Image" class="offer-img has_img-front_{{hasImgFront(item) | json}} has_img-back_{{hasImgBack(item) | json}}" alt=""/>
-<div class="darken-container" bo-if="item.NeedFilterBrightness"></div>
+<img ng-src="item.Image" class="offer-img has_img-front_{{hasImgFront(item) | json}} has_img-back_{{hasImgBack(item) | json}}" alt=""/>
+<div class="darken-container" ng-if="item.NeedFilterBrightness"></div>
 <div class="offer-info" ng-if="hasImgFront(item)">
     <div class="offer-info-container">
-        <h3 class="offer-title" bo-if="!isNullOrEmpty(item.FrontTitleRow1)" bo-bind="item.FrontTitleRow1"></h3>
-        <h3 class="offer-title" bo-if="!isNullOrEmpty(item.FrontTitleRow2)" bo-bind="item.FrontTitleRow2"></h3>
-        <p class="offer-date" bo-if="!isNullOrEmpty(item.FrontSubTitleRow1)" bo-bind="item.FrontSubTitleRow1"></p>
-        <p class="offer-date" bo-if="!isNullOrEmpty(item.FrontSubTitleRow2)" bo-bind="item.FrontSubTitleRow2"></p>
-        <p class="offer-price" bo-if="!isNullOrEmpty(item.FrontPrice)">
-            от <span class="offer-price-number" bo-bind="item.FrontPrice">-</span>
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.FrontTitleRow1)" ng-bind="item.FrontTitleRow1"></h3>
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.FrontTitleRow2)" ng-bind="item.FrontTitleRow2"></h3>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.FrontSubTitleRow1)" ng-bind="item.FrontSubTitleRow1"></p>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.FrontSubTitleRow2)" ng-bind="item.FrontSubTitleRow2"></p>
+        <p class="offer-price" ng-if="!isNullOrEmpty(item.FrontPrice)">
+            от <span class="offer-price-number" ng-bind="item.FrontPrice">-</span>
         </p>
     </div>
 </div>
 <div class="offer-info-hover" ng-if="hasImgBack(item)" >
     <div class="offer-info-container">
-        <h3 class="offer-title" bo-if="!isNullOrEmpty(item.BackTitleRow1)" bo-bind="item.BackTitleRow1"></h3>
-        <h3 class="offer-title" bo-if="!isNullOrEmpty(item.BackTitleRow2)" bo-bind="item.BackTitleRow2"></h3>
-        <p class="offer-date" bo-if="!isNullOrEmpty(item.BackSubTitleRow1)" bo-bind="item.BackSubTitleRow1"></p>
-        <p class="offer-date" bo-if="!isNullOrEmpty(item.BackSubTitleRow2)" bo-bind="item.BackSubTitleRow2"></p>
-        <p class="offer-price" bo-if="!isNullOrEmpty(item.BackPrice)">
-            от <span class="offer-price-number" bo-bind="item.BackPrice">-</span>
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.BackTitleRow1)" ng-bind="item.BackTitleRow1"></h3>
+        <h3 class="offer-title" ng-if="!isNullOrEmpty(item.BackTitleRow2)" ng-bind="item.BackTitleRow2"></h3>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.BackSubTitleRow1)" ng-bind="item.BackSubTitleRow1"></p>
+        <p class="offer-date" ng-if="!isNullOrEmpty(item.BackSubTitleRow2)" ng-bind="item.BackSubTitleRow2"></p>
+        <p class="offer-price" ng-if="!isNullOrEmpty(item.BackPrice)">
+            от <span class="offer-price-number" ng-bind="item.BackPrice">-</span>
         </p>
     </div>
 </div>

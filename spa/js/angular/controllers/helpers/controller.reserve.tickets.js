@@ -330,7 +330,7 @@ innaAppControllers.
                             case validateType.expire:
                             {
                                 var documentField = item.dependsOnField;
-                                if (documentField.isRuPassportAndInsideRF == true) {
+                                if (documentField.isRuPassportOrBirthAndInsideRF == true) {
                                     //если что-то ввели - то проверяем даты
                                     if (item.value != null && item.value.length > 0) {
                                         $scope.setAlwaysValid(item, false);
@@ -434,11 +434,14 @@ innaAppControllers.
                                             //флаг понадобится при валидации Действителен до
                                             if (isCaseValid(function () {
                                                 Validators.ruPassport(doc_num, 'err');
-                                            })){
-                                                item.isRuPassportAndInsideRF = true;
+                                            }) ||
+                                                isCaseValid(function () {
+                                                    Validators.birthPassport(doc_num, 'err');
+                                            })) {
+                                                item.isRuPassportOrBirthAndInsideRF = true;
                                             }
                                             else {
-                                                item.isRuPassportAndInsideRF = false;
+                                                item.isRuPassportOrBirthAndInsideRF = false;
                                             }
 
                                             //проверяем паспорт, загран, св. о рождении

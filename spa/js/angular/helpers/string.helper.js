@@ -9,3 +9,26 @@ if(!_.isFunction(String.prototype.startsWith)) {
         return (this.indexOf(s) == 0);
     }
 }
+
+StringHelper = {
+    splitToTwoColumns: function (text) {
+        if (text != null) {
+            var len = text.length;
+            if (len > 2) {
+                var index = Math.floor(len / 2);//середина текста
+                var splitIndex = -1;
+                for (var i = index; i < len; i++) {//ищем пробел, запяту или точку
+                    if (text[i] == ' ' || text[i] == ',' || text[i] == '.') {
+                        splitIndex = i;
+                        break;
+                    }
+                }
+
+                if (splitIndex > -1 && splitIndex < len - 1) {//делим текст на 2 части
+                    return [text.substring(0, splitIndex), text.substring(splitIndex + 1, len)]
+                }
+            }
+        }
+        return [text, ''];
+    }
+};
