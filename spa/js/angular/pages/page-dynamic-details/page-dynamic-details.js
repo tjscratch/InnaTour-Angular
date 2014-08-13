@@ -1,32 +1,26 @@
-/*hotel: '=innaHotelDetailsHotel',
- collection: '=innaHotelDetailsCollection',
- back: '=innaHotelDetailsBack',
- next: '=innaHotelDetailsNext',
- combination: '=innaHotelDetailsBundle',
- goReservation: '=innaHotelDetailesReservationFn',
- getTicketDetails: '=innaHotelDetailsGetTicketDetails',
- hotelOnly: '@innaHotelDetailsHotelOnly'*/
-
-
 innaAppControllers
     .controller('PageHotelDetails', [
-        'EventManager',
-        '$window',
-        '$scope',
-        '$timeout',
-        'aviaHelper',
-        'innaApp.Urls',
-        'innaApp.API.events',
-        '$location',
-        'DynamicPackagesDataProvider',
+        'EventManager', '$window', '$scope',
+        '$timeout', 'aviaHelper', 'innaApp.Urls',
+        'innaApp.API.events', '$location', 'DynamicPackagesDataProvider',
         '$routeParams',
 
         // components
-        'Balloon',
-        'Tripadvisor',
-        'Stars',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, Balloon, Tripadvisor, Stars) {
+        'Tripadvisor', 'Stars',
 
+        //lister
+        'DynamicFormSubmitListener',
+        function (
+            EventManager, $window, $scope,
+            $timeout, aviaHelper, Urls,
+            Events, $location, DynamicPackagesDataProvider,
+            $routeParams,
+
+            Tripadvisor, Stars,
+
+            DynamicFormSubmitListener) {
+
+            DynamicFormSubmitListener.listen();
 
             var routParam = angular.copy($routeParams);
             var StartVoyageDateGoBack = routParam.StartVoyageDate;
@@ -58,14 +52,7 @@ innaAppControllers
                 '/spa/img/hotels/back-2.jpg'
             ];
 
-            var _balloonLoading = new Balloon({
-                data: {
-                    balloonClose: false,
-                    template: 'loading.html',
-                    wait: 1000
-                }
-            })
-            _balloonLoading.show();
+
 
             function hotel404() {
                 $scope.baloon.showErr(
@@ -107,7 +94,6 @@ innaAppControllers
                         $scope.bundle.setHotel(hotel);
                         $scope.$digest();
                         $scope.hotelLoaded = true;
-                        _balloonLoading.hide();
                         EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
 
                         $scope.dataFullyLoaded = false;
