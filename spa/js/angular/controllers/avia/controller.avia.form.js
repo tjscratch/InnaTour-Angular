@@ -125,6 +125,7 @@ innaAppControllers.
                                 //$scope.fromInit = { Id: data.id, Name: data.name, Url: data.url };
 
                                 $scope.criteria.FromId = data.id;
+                                $rootScope.$broadcast("avia_form_from_update", data.id);
 
                                 //$scope.criteria.From = data.name;
                                 //$scope.criteria.FromUrl = data.url;
@@ -148,6 +149,7 @@ innaAppControllers.
 
                                 //$scope.criteria.To = data.name;
                                 $scope.criteria.ToId = data.id;
+                                $rootScope.$broadcast("avia_form_to_update", data.id);
                                 //$scope.criteria.ToUrl = data.url;
 
                                 //console.log('loaded $scope.criteria.ToUrl: %s', $scope.criteria.ToUrl);
@@ -222,6 +224,7 @@ innaAppControllers.
                         if (data != null) {
                             $scope.safeApply(function () {
                                 $scope.criteria.FromId = data.Id;
+                                $rootScope.$broadcast("avia_form_from_update", data.Id);
                             });
                         }
                     }, function (data, status) {
@@ -357,6 +360,12 @@ innaAppControllers.
                     console.warn(e);
                     if ($scope.criteria.hasOwnProperty(e.message)) {
                         $scope.criteria[e.message] = e;
+
+                        if (e.message == 'FromId') {
+                            $rootScope.$broadcast("avia_form_from_update", e);
+                        } else if (e.message == 'ToId') {
+                            $rootScope.$broadcast("avia_form_to_update", e);
+                        }
                     }
                 }   
             };

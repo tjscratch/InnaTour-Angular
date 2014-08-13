@@ -16,10 +16,12 @@
                 askForData: '=',
                 placeholder: '@',
                 onError: '@',
-                withCountry: '='
+                withCountry: '=',
+                event: '@'
             },
             controller: ['$scope', '$timeout', function ($scope, $timeout) {
                 /*Properties*/
+                $scope.isOpened = false;
                 $scope.needClose = false;
 
                 $scope.getPlaceholder = function () {
@@ -41,6 +43,31 @@
                         $scope.input.val(item.Name);
                     }
                     $scope.result = item.Id;
+                }
+
+                if ($scope.event) {
+                    $scope.$on($scope.event, function (event, id) {
+                        //console.log('dropdownInput event, id:', id);
+                        if (id != null) {
+                            if (id instanceof Error) {
+                                $scope.input.tooltip({
+                                    position: {
+                                        my: 'center top+22',
+                                        at: 'center bottom'
+                                    },
+                                    items: "[data-title]",
+                                    content: function () {
+                                        return $scope.input.data("title");
+                                    }
+                                }).tooltip('open');
+                            } else {
+                                if (id != null && id != 'null' && $scope.askForData) {
+                                    //console.log('askForDataByID', id);
+                                    askForDataByID(id);
+                                }
+                            }
+                        }
+                    });
                 }
 
                 //$scope.supressBlur = false;
@@ -79,7 +106,7 @@
                     }
 
                     if (!doNotUpdateInputText) {
-                        $scope.needClose = true;
+                        $scope.isOpened = false;
                     }
                 };
 
@@ -90,26 +117,27 @@
                 }
 
                 /*Watchers*/
-                $scope.$watch('result', function (newValue, oldValue) {
-                    if (newValue instanceof Error) {
-                        $scope.result = oldValue;
+                //$scope.$watch('result', function (newValue, oldValue) {
+                //    if (newValue instanceof Error) {
+                //        $scope.result = oldValue;
 
-                        $scope.input.tooltip({
-                            position: {
-                                my: 'center top+22',
-                                at: 'center bottom'
-                            },
-                            items: "[data-title]",
-                            content: function () {
-                                return $scope.input.data("title");
-                            }
-                        }).tooltip('open');
-                    } else if (!$scope.input.val()) {
-                        if (newValue != null && newValue != 'null' && $scope.askForData) {
-                            askForDataByID(newValue);
-                        }
-                    }
-                });
+                //        $scope.input.tooltip({
+                //            position: {
+                //                my: 'center top+22',
+                //                at: 'center bottom'
+                //            },
+                //            items: "[data-title]",
+                //            content: function () {
+                //                return $scope.input.data("title");
+                //            }
+                //        }).tooltip('open');
+                //    } else if (!$scope.input.val()) {
+                //        if (newValue != null && newValue != 'null' && $scope.askForData) {
+                //            console.log('askForDataByID', newValue);
+                //            askForDataByID(newValue);
+                //        }
+                //    }
+                //});
 
                 $scope.$on('DYNAMIC.locationChange', function(event, routeParams){
                     $scope.$root._dynamicSearchFormInvisible = true;
@@ -233,7 +261,7 @@
                 $scope.$watch('suggest', function (newValue, oldValue) {
                     if (newValue != null && newValue !== oldValue) {
                         $scope.selectionControl.init();
-                        $scope.needClose = false;
+                        $scope.isOpened = true;
                     }
                 }, false);
 
@@ -255,18 +283,18 @@
                 function select(){
                     //console.log('SELECT');
                     $scope.$apply(function ($scope) {
-                        if (!$scope.needClose) {
+                        if ($scope.isOpened) {
                             $scope.selectionControl.setSelected();
                         }
                         else {
-                            $scope.needClose = false;
+                            $scope.isOpened = true;
                         }
                     });
                 }
 
                 $scope.input.on('focus', function () {
                     //$scope.$apply(function ($scope) {
-                    //    $scope.needClose = false;
+                    //    $scope.isOpened = true;
                     //});
 
                     try {
@@ -281,7 +309,7 @@
                         $scope.$apply(function ($scope) {
                             $scope.selectionControl.setSelected();
 
-                            $scope.needClose = true;
+                            $scope.isOpened = false;
                         });
 
                     }, 200);
@@ -319,22 +347,22 @@
                             }
                         case 38: {//up
                             $scope.$apply(function ($scope) {
-                                if (!$scope.needClose) {
+                                if ($scope.isOpened) {
                                     $scope.selectionControl.selectPrev();
                                 }
                                 else {
-                                    $scope.needClose = false;
+                                    $scope.isOpened = true;
                                 }
                             });
                             break;
                         }
                         case 40: {//down
                             $scope.$apply(function ($scope) {
-                                if (!$scope.needClose) {
+                                if ($scope.isOpened) {
                                     $scope.selectionControl.selectNext();
                                 }
                                 else {
-                                    $scope.needClose = false;
+                                    $scope.isOpened = true;
                                 }
                             });
                             break;
@@ -366,7 +394,7 @@
                     if (!isInsideComponent) {
                         //console.log('clickHanlder outside');
                         $scope.$apply(function ($scope) {
-                            $scope.needClose = true;
+                            $scope.isOpened = false;
                         });
                     }
                     else {

@@ -12,16 +12,9 @@ innaAppControllers
             var AS_MAP_CACHE_KEY = 'serp-as-map';
 
             var parseRoute = function (path) {
-                function getBits(path) {
-                    path = path.split('/');
-                    path = path[path.length - 1] || path[path.length - 2];
-
-                    return path.split('?')[0].split('-');
-                }
-                
                 if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) > -1)
                 {
-                    var bits = getBits(path);
+                    var bits = QueryString.getBits(path);
                     return {
                         DepartureId: bits[0],
                         ArrivalId: bits[1],
@@ -36,8 +29,25 @@ innaAppControllers
                         })(bits[6])
                     };
                 }
+                else if (path.indexOf(URLs.URL_PACKAGES_LANDING) > -1) { //ЛП
+                    var bits = QueryString.getBits(path);
+                    if (bits.length == 1) {
+                        return {
+                            sectionId: bits[0]
+                        };
+                    }
+                    else if (bits.length == 2) {
+                        return {
+                            sectionId: bits[0],
+                            Adult: bits[1]
+                        };
+                    }
+                    else {
+                        return {};
+                    }
+                }
                 else if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES) > -1) { //IN-2466 URL для контекста по ДП
-                    var bits = getBits(path);
+                    var bits = QueryString.getBits(path);
                     if (bits.length == 2) {
                         return {
                             DepartureId: bits[0],
@@ -103,10 +113,16 @@ innaAppControllers
                     if (data != null) {
                         $scope.safeApply(function () {
                             $scope.fromCurrent = data.Id;
+                            $rootScope.$broadcast("dp_form_from_update", data.Id);
                         });
                     }
                 });
             });
+
+            //обновляем значения в саджесте
+            setTimeout(function () {
+                $rootScope.$broadcast("dp_form_from_update", $scope.fromCurrent);
+            }, 0);
 
             $scope.$watch('fromCurrent', function(newVal){
                 DynamicPackagesCacheWizard.put('fromCurrent', newVal);
@@ -123,7 +139,11 @@ innaAppControllers
                 })
 	        };
 
-            $scope.toCurrent = routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
+	        $scope.toCurrent = routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
+            //обновляем значения в саджесте
+	        setTimeout(function () {
+	            $rootScope.$broadcast("dp_form_to_update", $scope.toCurrent);
+	        }, 0);
 
             $scope.$watch('toCurrent', function(newVal){
                 DynamicPackagesCacheWizard.put('toCurrent', newVal);

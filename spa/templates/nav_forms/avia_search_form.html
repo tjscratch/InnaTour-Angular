@@ -9,7 +9,8 @@
         ask-for-data="loadObjectById"
         placeholder="Откуда"
         on-error="Введите город отправления"
-        with-country="true"></div>
+        with-country="true"
+        event="avia_form_from_update"></div>
     <div dropdown-input
         theme="search-field-block search__city"
         provide-suggest-callback="provideSuggestToToField"
@@ -20,7 +21,8 @@
         ask-for-data="loadObjectById"
         placeholder="Куда"
         on-error="Введите город или страну, куда планируете поехать"
-        with-country="true"></div>
+        with-country="true"
+        event="avia_form_to_update"></div>
     <span date-picker-widget 
         interval="false"
         date1="criteria.BeginDate"
