@@ -1,13 +1,3 @@
-/*hotel: '=innaHotelDetailsHotel',
- collection: '=innaHotelDetailsCollection',
- back: '=innaHotelDetailsBack',
- next: '=innaHotelDetailsNext',
- combination: '=innaHotelDetailsBundle',
- goReservation: '=innaHotelDetailesReservationFn',
- getTicketDetails: '=innaHotelDetailsGetTicketDetails',
- hotelOnly: '@innaHotelDetailsHotelOnly'*/
-
-
 innaAppControllers
     .controller('PageHotelDetails', [
         'EventManager', '$window', '$scope',
@@ -16,7 +6,7 @@ innaAppControllers
         '$routeParams',
 
         // components
-        'Balloon', 'Tripadvisor', 'Stars',
+        'Tripadvisor', 'Stars',
 
         //lister
         'DynamicFormSubmitListener',
@@ -25,7 +15,10 @@ innaAppControllers
             $timeout, aviaHelper, Urls,
             Events, $location, DynamicPackagesDataProvider,
             $routeParams,
-            Balloon, Tripadvisor, Stars, DynamicFormSubmitListener) {
+
+            Tripadvisor, Stars,
+
+            DynamicFormSubmitListener) {
 
             DynamicFormSubmitListener.listen();
 
@@ -59,14 +52,7 @@ innaAppControllers
                 '/spa/img/hotels/back-2.jpg'
             ];
 
-            var _balloonLoading = new Balloon({
-                data: {
-                    balloonClose: false,
-                    template: 'loading.html',
-                    wait: 1000
-                }
-            })
-            _balloonLoading.show();
+
 
             function hotel404() {
                 $scope.baloon.showErr(
@@ -108,7 +94,6 @@ innaAppControllers
                         $scope.bundle.setHotel(hotel);
                         $scope.$digest();
                         $scope.hotelLoaded = true;
-                        _balloonLoading.hide();
                         EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
 
                         $scope.dataFullyLoaded = false;
