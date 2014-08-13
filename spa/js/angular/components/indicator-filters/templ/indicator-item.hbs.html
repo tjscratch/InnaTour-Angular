@@ -78,15 +78,13 @@
 
 		{{#if filterItem.name == 'AirportFrom'}}
 			{{#each filterItem.val}}
-				{{#each this.list}}
-					{{#if this.isChecked}}
-                        <li class="b-switch-filters__item">
-                            <span>{{Name}}</span>
-	                    <span class="b-switch-filters__item_close icon-sprite-remove"
-                              on-click="removeFilter"></span>
-                        </li>
-					{{/if}}
-				{{/each}}
+				{{#if this.isChecked}}
+                    <li class="b-switch-filters__item">
+                        <span>{{this.PortName}} {{this.Code}}</span>
+                    <span class="b-switch-filters__item_close icon-sprite-remove"
+                          on-click="removeFilter"></span>
+                    </li>
+				{{/if}}
 			{{/each}}
 		{{/if}}
 

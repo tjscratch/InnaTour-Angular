@@ -18,15 +18,15 @@ angular.module('innaApp.components').
                         fn: function (data, component_val) {
                             var legsBoth = data.legsTo + data.legsBack;
                             var result = component_val.val.filter(function (item) {
-                                if (item == 1 && legsBoth == 2) {
+                                if (item.Value == 1 && legsBoth == 2) {
                                     return true;
                                 }
-                                else if (item == 2) {
+                                else if (item.Value == 2) {
                                     if (legsBoth == 3 || legsBoth == 4) {
                                         return true;
                                     }
                                 }
-                                else if (item == 3) {
+                                else if (item.Value == 3) {
                                     if ((data.legsTo >= 3) || (data.legsBack >= 3)) {
                                         return true
                                     }
@@ -48,7 +48,6 @@ angular.module('innaApp.components').
                                 if (data.context.isChecked) {
                                     this.push('value.val', data.context)
                                 } else if (!data.context.isChecked) {
-                                    //this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
                                     this.get('value.val').forEach(function (item, i) {
                                         if (data.context.Value == item.Value) that.splice('value.val', i, 1);
                                     })
@@ -57,7 +56,7 @@ angular.module('innaApp.components').
                             this.hasSelected();
                         },
                         resetFilter: function () {
-                            this.set('airLegs.List.*.isChecked', false);
+                            this.set('AirLegs.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
 
@@ -84,9 +83,10 @@ angular.module('innaApp.components').
                         if (data.Value == item.Value) that.splice('value.val', i, 1);
                     })
 
-                    this.get('airLegs.List').forEach(function (item, i) {
+                    console.log(this.get('AirLegs.List'), "this.get('AirLegs.List')");
+                    this.get('AirLegs.List').forEach(function (item, i) {
                         if (item.Value == data.Value) {
-                            that.set('airLegs.List.' + i + '.isChecked', false);
+                            that.set('AirLegs.List.' + i + '.isChecked', false);
                         }
                     })
 

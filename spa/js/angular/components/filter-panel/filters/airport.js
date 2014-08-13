@@ -19,12 +19,7 @@ angular.module('innaApp.components').
 
                             var result = component_val.val.filter(function (airport) {
                                 if (!data[airport.State]) return false;
-
-                                var result = airport.List.filter(function (item) {
-                                    return (item.isChecked && (data[airport.State] == item.Code));
-                                })
-
-                                return result.length;
+                                return (data[airport.State] == airport.PortName);
                             });
 
                             return  (result.length == component_val.val.length);
