@@ -18,7 +18,7 @@
             if (!opt_data.slide) {
                 opt_data.picker.css({
                     left: (coords.left - 250) + 'px',
-                    top: (coords.bottom) + 'px'
+                    top: (coords.top + $(el).height()) + 'px'
                 });
             } else {
                 var left = (parseInt($(opt_data.picker).css('left')) + 120) + 'px';
@@ -209,7 +209,14 @@
                     mode: 'range',
                     format: 'd.m.Y',
                     starts: 1,
+                    show : function(){
+                      console.log('show  data Picker');
+                    },
+                    hide : function(){
+                      console.log('hide  data Picker');
+                    },
                     onChange: function (formated, dates, el, lastSel, initDateFromIsSet) {
+
                         $scope.$apply(function ($scope) {
                             $scope.date1 = formated[0];
 
