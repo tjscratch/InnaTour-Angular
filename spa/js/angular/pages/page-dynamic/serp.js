@@ -149,6 +149,8 @@ innaAppControllers
             });
 
 
+
+
             /**
              * Изменяем класс у results-container
              */
@@ -488,7 +490,6 @@ innaAppControllers
                 EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                 EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
                 EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
-                EventManager.off(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL);
                 EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, changePadding);
                 EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, changePadding);
 

@@ -156,18 +156,20 @@ angular.module('innaApp.directives')
                             }
                         };
 
-
-                        EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
+                        function openBundle(){
                             $scope.safeApply(function () {
                                 $scope.isVisible = true;
                             });
-                        });
+                        }
 
-                        EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
+                        function closeBundle(){
                             $scope.safeApply(function () {
                                 $scope.isVisible = false;
                             });
-                        });
+                        }
+
+                        EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, openBundle);
+                        EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, closeBundle);
 
 
                         var unwatchScroll = function () {
@@ -175,19 +177,22 @@ angular.module('innaApp.directives')
                             scroll = false;
                         };
 
-                        doc.on('scroll', onScroll);
-
-                        EventManager.on(Events.LIST_PANEL_FILTES_HOTELS_DONE, function(data){
+                        function filtersLoadDone(data){
                             if(data.length < 10 && scroll) {
                                 unwatchScroll();
                             } else if(data.length > 10 && !scroll) {
                                 doc.on('scroll', onScroll);
                             }
-                        })
+                        }
 
-                        EventManager.on(Events.FILTER_PANEL_RESET, function (data) {
+                        function filtersPanelReset(){
                             if(!scroll) doc.on('scroll', onScroll);
-                        });
+                        }
+
+                        doc.on('scroll', onScroll);
+
+                        EventManager.on(Events.LIST_PANEL_FILTES_HOTELS_DONE, filtersLoadDone);
+                        EventManager.on(Events.FILTER_PANEL_RESET, filtersPanelReset);
 
 
                         /*Events*/
@@ -195,10 +200,10 @@ angular.module('innaApp.directives')
                             console.log('$destroy bundle root');
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
-                            EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
-                            EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE);
-                            EventManager.off(Events.LIST_PANEL_FILTES_HOTELS_DONE);
-                            EventManager.off(Events.FILTER_PANEL_RESET)
+                            EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, openBundle);
+                            EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, closeBundle);
+                            EventManager.off(Events.LIST_PANEL_FILTES_HOTELS_DONE, filtersLoadDone);
+                            EventManager.off(Events.FILTER_PANEL_RESET, filtersPanelReset)
                             unwatchScroll();
                         });
                     }
