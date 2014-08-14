@@ -73,7 +73,7 @@ innaAppControllers.
                 $scope.offerClickInternal(item, $event, position, block.OfferLayoutType, section.Name);
             };
 
-            $scope.clickOnShadow = function(item, $event){
+            $scope.clickOnShadow = function(item, $event, position, blockType, sectionName){
                 console.log('CLICK_ON_SHADOW');
 
                 $event && $event.stopPropagation();
@@ -82,7 +82,7 @@ innaAppControllers.
                     location.href = item.Url;
                     $scope.lastClickedItem = null;
                 });
-            }
+            };
 
             $scope.offerClickInternal = function (item, $event, position, blockType, sectionName) {
                 preventBubbling($event);
@@ -94,7 +94,7 @@ innaAppControllers.
 
                     //первый клик пропускаем
                     if (item == $scope.lastClickedItem) {
-                        $scope.clickOnShadow(item);
+                        $scope.clickOnShadow(item, position, blockType, sectionName);
                     }
                     else {
                         //кликаем на второй клик
@@ -103,7 +103,7 @@ innaAppControllers.
                 }
                 else {
                     //на компе - кликаем сразу
-                    $scope.clickOnShadow(item);
+                    $scope.clickOnShadow(item, position, blockType, sectionName);
                 }
             };
         }]);
