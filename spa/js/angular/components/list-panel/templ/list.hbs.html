@@ -6,8 +6,8 @@
             <div class="b-switch-filters_buttons_right font-medium">
                 <div class="row">
                     <div class="col-xs-6 col-no-padding">
-                        Другие <b>{{EnumerableCount}}</b>
-						{{pluralize(EnumerableCount, ["вариант","варианта","вариантов"])}}
+                        Другие <b>{{(EnumerableCount-1)}}</b>
+						{{pluralize((EnumerableCount-1), ["вариант","варианта","вариантов"])}}
 
 						{{#if iterable_hotels}}отелей{{else}}перелетов{{/if}}
                     </div>

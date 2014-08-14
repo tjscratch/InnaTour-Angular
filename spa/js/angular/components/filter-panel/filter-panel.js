@@ -248,6 +248,10 @@ angular.module('innaApp.components').
                     this.listenChildren();
                 },
 
+
+                /**
+                 * @param {Object} data - данные на основе которых собираются фильтры
+                 */
                 prepareHotelsFiltersData: function (data) {
 
                 },

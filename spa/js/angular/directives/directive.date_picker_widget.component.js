@@ -290,7 +290,16 @@
                     });
                 });
 
+                function datePickerHide(){
+                    console.log('scroll');
+                    //$scope.datePicker.hide('slow');
+                    $(document).off('scroll', datePickerHide);
+                }
+
+                $(document).scroll(datePickerHide);
+
                 $scope.$on('$destroy', function () {
+                    $(document).off('scroll', datePickerHide);
                     $scope.datePicker.remove();
                     $scope.datePicker = null;
                 });
