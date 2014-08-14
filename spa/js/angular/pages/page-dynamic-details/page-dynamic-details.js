@@ -20,14 +20,30 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             var routParam = angular.copy($routeParams);
-            var StartVoyageDateGoBack = routParam.StartVoyageDate;
-            var EndVoyageDateGoBack = routParam.EndVoyageDate;
 
-            var searchParams = angular.extend(routParam, {
-                StartVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
-                EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
-                ChildrenAges: (routParam.Children) ? routParam.Children.split('_') : null
-            });
+            /**
+             * Смотрим на условие - переход из B2B
+             */
+            if (routParam.OrderId) {
+
+                $scope.displayTicket = ('displayTicket' in $location.search());
+
+                /*Methods*/
+                $scope.getTicketDetails = function () {
+                    $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.bundle.ticket);
+                };
+
+            } else {
+                var StartVoyageDateGoBack = routParam.StartVoyageDate;
+                var EndVoyageDateGoBack = routParam.EndVoyageDate;
+
+                var searchParams = angular.extend(routParam, {
+                    StartVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
+                    EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
+                    ChildrenAges: (routParam.Children) ? routParam.Children.split('_') : null
+                });
+            }
+
 
             /*Private*/
             var _tripadvisor = null;
@@ -59,6 +75,52 @@ innaAppControllers
                         $location.$$compose();
                     }
                 );
+            }
+
+            function getDisplayOrder() {
+
+                $scope.displayTicket = ('displayTicket' in $location.search());
+
+                $scope.isDisplayOrder = true;
+
+                /*Initial*/
+                $scope.baloon.show('Собираем данные', 'Это может занять какое-то время');
+
+                DynamicPackagesDataProvider.displayOrder({
+                    orderId: routParam.OrderId,
+                    success: function (resp) {
+                        $scope.baloon.hide();
+
+                        $scope.bundle = new inna.Models.Dynamic.Combination();
+                        $scope.bundle.ticket = new inna.Models.Avia.Ticket();
+                        $scope.bundle.ticket.setData(resp.AviaInfo);
+
+                        if (resp.Hotel) {
+                            var hotel = new inna.Models.Hotels.Hotel(resp.Hotel);
+                            $scope.bundle.setHotel(hotel);
+                            $scope.hotel = resp.Hotel;
+                            $scope.hotelRooms = [$scope.hotel.Room];
+                            $scope.hotelRooms[0].isOpen = true;
+                            $scope.hotelOnly = true;
+                            $scope.hotelLoaded = true;
+                            $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
+                            EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+                            loadMap();
+                            onload();
+                        }
+
+                        $scope.getTicketDetails = function(){
+                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.bundle.ticket, {noClose:true,noChoose:true});
+                        };
+
+                        if($scope.displayTicket) {
+                            $scope.getTicketDetails();
+                        }
+                    },
+                    error: function () { //error
+                        $scope.baloon.showErr('Oops...', 'Указанного заказа не существует');
+                    }
+                });
             }
 
 
@@ -117,7 +179,11 @@ innaAppControllers
                 });
             };
 
-            getHotelDetails();
+            if (!routParam.OrderId) {
+                getHotelDetails();
+            } else {
+                getDisplayOrder();
+            }
 
             $scope.goReservation = function (room) {
 

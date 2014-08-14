@@ -40,7 +40,12 @@ angular.module('innaApp.directives')
                     });
 
                     /*Listeners*/
-                    EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (ticket) {
+                    EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (ticket, opt_data) {
+
+                        if(opt_data){
+                            $scope.noChoose = opt_data.noChoose;
+                            $scope.noClose = opt_data.noClose;
+                        }
 
                         $scope.ticket = ticket;
 

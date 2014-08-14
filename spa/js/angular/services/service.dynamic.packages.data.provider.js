@@ -46,10 +46,10 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                     Filter: params.Filter
                 }, params.success, params.error);
             },
-            displayOrder: function(orderId, success, error){
+            displayOrder: function(params){
                 AjaxHelper.get(api.B2B_DISPLAY_ORDER, {
-                    orderNum: orderId
-                }, success, error);
+                    orderNum: params.orderId
+                }, params.success, params.error);
             }
         }
     }

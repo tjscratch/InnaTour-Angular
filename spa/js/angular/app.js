@@ -206,8 +206,11 @@ app.config([
                 controller: 'DynamicReserveTicketsCtrl'
             }).
             when(url.B2B_DISPLAY_ORDER + ':OrderId', {
-                templateUrl: 'pages/page-display-order/templ/display-order.html',
-                controller: 'B2B_DisplayOrder'
+                templateUrl: 'pages/page-dynamic-details/templ/hotel-details.html',
+                controller: 'PageHotelDetails',
+                reloadOnSearch: false
+                /*templateUrl: 'pages/page-display-order/templ/display-order.html',
+                controller: 'B2B_DisplayOrder'*/
             }).
             when(url.URL_AUTH_RESTORE, dynamic()).
             when(url.URL_AUTH_SIGNUP, dynamic()).

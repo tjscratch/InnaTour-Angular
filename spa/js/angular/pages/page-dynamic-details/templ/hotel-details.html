@@ -1,4 +1,4 @@
-<div class="hotel-details ng-cloak" ng-if="hotelLoaded">
+<div class="hotel-details ng-cloak" ng-class="{'hotel-details_display-order' : isDisplayOrder}" ng-if="hotelLoaded">
     <div class="hotel-details__wrap main__center">
 
         <div class="hotel-details__section hotel-details__section_layout_context">
@@ -113,3 +113,6 @@
         </div>
     </div>
 </div>
+
+<!-- Попап - подробнее о авиа-билете -->
+<div ticket-details ng-if="isDisplayOrder && displayTicket"></div>
