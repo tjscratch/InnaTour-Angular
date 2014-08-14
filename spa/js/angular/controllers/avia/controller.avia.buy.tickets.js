@@ -914,10 +914,10 @@ innaAppControllers.
                                                 redirectSuccessBuyPackage();
                                             }
                                         }
-                                        else if (data.Result == 2) {
+                                        else if (data.Result == 2) {//ошибка при бронировании
                                             $scope.baloon.showGlobalAviaErr();
                                         }
-                                        else if(data.Result == 3){
+                                        else if(data.Result == 3){//ошибка оплаты
                                             $scope.baloon.hide();
                                             $scope._baloon = new Balloon({
                                                 data : {
@@ -927,6 +927,8 @@ innaAppControllers.
                                                     balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
                                                 }
                                             }).show();
+                                        }
+                                        else if (data.Result == 3) {//заказ оплачен, но не прошла выписка
                                         }
                                     }
                                 }
