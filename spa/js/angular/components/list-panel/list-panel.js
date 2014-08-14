@@ -461,7 +461,7 @@ angular.module('innaApp.components').
                     if (opt_data) this.set('EnumerableList', []);
 
                     var list = opt_data || this.get('Enumerable');
-                    this.set('EnumerableCount', list.length);
+                    this.set('EnumerableCount', (list.length) ? (list.length - 1) : list.length );
                     this.enumerableClone = [].concat(list);
 
                     // получаем первую порцию из n item
