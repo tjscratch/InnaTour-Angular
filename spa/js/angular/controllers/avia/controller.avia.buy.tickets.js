@@ -873,7 +873,9 @@ innaAppControllers.
                                         $scope.isOrderPaid = true;
 
                                         //прекращаем дергать
-                                        $interval.cancel(intCheck);
+                                        if (data.Result != 4) {
+                                            $interval.cancel(intCheck);
+                                        }
 
                                         //скрываем попап с фреймом 3ds
                                         if ($scope.is3dscheck) {
@@ -928,7 +930,7 @@ innaAppControllers.
                                                 }
                                             }).show();
                                         }
-                                        else if (data.Result == 3) {//заказ оплачен, но не прошла выписка
+                                        else if (data.Result == 4) {//заказ оплачен, но не прошла выписка
                                         }
                                     }
                                 }
