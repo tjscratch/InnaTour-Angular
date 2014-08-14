@@ -292,7 +292,7 @@
 
                 function datePickerHide(){
                     console.log('scroll');
-                    //$scope.datePicker.hide('slow');
+                    //$scope.datePicker.hidePicker();
                     $(document).off('scroll', datePickerHide);
                 }
 

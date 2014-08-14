@@ -3,28 +3,29 @@
 
 		{{#if Enumerable.length}}
 
-            <div class="b-switch-filters_buttons_right font-medium">
-                <div class="row">
-                    <div class="col-xs-6 col-no-padding">
-                        Другие <b>{{(EnumerableCount)}}</b>
-						{{pluralize((EnumerableCount), ["вариант","варианта","вариантов"])}}
+			{{#if EnumerableCount}}
+                <div class="b-switch-filters_buttons_right font-medium">
+                    <div class="row">
+                        <div class="col-xs-6 col-no-padding">
+                            Другие <b>{{(EnumerableCount)}}</b>
+							{{pluralize((EnumerableCount), ["вариант","варианта","вариантов"])}}
 
-						{{#if iterable_hotels}}отелей{{else}}перелетов{{/if}}
+							{{#if iterable_hotels}}отелей{{else}}перелетов{{/if}}
+                        </div>
+
+						{{#if iterable_hotels && EnumerableCount}}
+                            <div class="col-xs-6 col-no-padding">
+                                <div class="b-switch-dynamic-serp-display__title cursor-pointer pull-right"
+                                     on-click="goToMap">
+                                    <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
+                                    Посмотреть на карте
+                                </div>
+                            </div>
+						{{/if}}
                     </div>
 
-					{{#if iterable_hotels}}
-                        <div class="col-xs-6 col-no-padding">
-                            <div class="b-switch-dynamic-serp-display__title cursor-pointer pull-right"
-                                 on-click="goToMap">
-                                <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
-                                Посмотреть на карте
-                            </div>
-                        </div>
-					{{/if}}
                 </div>
-
-            </div>
-
+			{{/if}}
 
             <!-- Можно указать любой ( компонент - шаблон ) который будет вставлен на место EnumerableItem  -->
             <div class="b-list-panel__list b-list-panel__hotels_list {{waitData ? 'b-list-panel__wait' : '' }}">
@@ -45,7 +46,7 @@
 
 
             <!-- Если в результате фильтрации не чего не найдено -->
-			{{#if !EnumerableList.length}}
+			{{#if !EnumerableCount}}
                 <div class="b-list-panel__hotels_list">
                     <div class="results-list__empty
                     {{ (iterable_hotels) ? 'results-list__empty_type_hotels':'results-list__empty_type_tickets'}}">
