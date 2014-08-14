@@ -19,7 +19,7 @@
                             <span class="ra-checkbox"></span>
                             <span class="ra-fly-type">{{this.Name}}</span>
 		                    <span class="ra-fly-price">
-		                        <span>{{Price}}</span>&nbsp;
+		                        <span>{{$filter('price')(Price)}}</span>
 			                    {{>ruble}}
 	                        </span>
                         </label>
