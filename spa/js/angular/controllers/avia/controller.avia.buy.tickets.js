@@ -661,10 +661,6 @@ innaAppControllers.
 
             //data loading ===========================================================================
 
-            function showPaymentProcessing() {
-                $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
-            }
-
             $scope.processToBuy = function ($event) {
                 eventsHelper.preventBubbling($event);
 
@@ -683,7 +679,7 @@ innaAppControllers.
 
                     log('\napiPayModel: ' + angular.toJson(apiPayModel));
 
-                    showPaymentProcessing();
+                    $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
 
                     //еще
                     var pageType = getActionType();
@@ -935,7 +931,7 @@ innaAppControllers.
                                             }).show();
                                         }
                                         else if (data.Result == 4) {//заказ оплачен, но не прошла выписка
-                                            showPaymentProcessing();
+                                            $scope.baloon.show('Оплата прошла успешно. Подождите, идет выписка', 'Это может занять несколько минут');
                                         }
                                     }
                                 }
