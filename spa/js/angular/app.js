@@ -206,7 +206,7 @@ app.config([
                 controller: 'DynamicReserveTicketsCtrl'
             }).
             when(url.B2B_DISPLAY_ORDER + ':OrderId', {
-                templateUrl: 'pages/dynamic/display-order.html',
+                templateUrl: 'pages/page-display-order/templ/display-order.html',
                 controller: 'B2B_DisplayOrder'
             }).
             when(url.URL_AUTH_RESTORE, dynamic()).

@@ -1,24 +1,21 @@
 innaAppControllers
     .controller('PageHotelDetails', [
-        'EventManager', '$window', '$scope',
-        '$timeout', 'aviaHelper', 'innaApp.Urls',
-        'innaApp.API.events', '$location', 'DynamicPackagesDataProvider',
+        'EventManager',
+        '$window',
+        '$scope',
+        '$timeout',
+        'aviaHelper',
+        'innaApp.Urls',
+        'innaApp.API.events',
+        '$location',
+        'DynamicPackagesDataProvider',
         '$routeParams',
+        'DynamicFormSubmitListener',
 
         // components
-        'Tripadvisor', 'Stars',
-
-        //lister
-        'DynamicFormSubmitListener',
-        function (
-            EventManager, $window, $scope,
-            $timeout, aviaHelper, Urls,
-            Events, $location, DynamicPackagesDataProvider,
-            $routeParams,
-
-            Tripadvisor, Stars,
-
-            DynamicFormSubmitListener) {
+        'Tripadvisor',
+        'Stars',
+        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, Tripadvisor, Stars) {
 
             DynamicFormSubmitListener.listen();
 
@@ -51,7 +48,6 @@ innaAppControllers
                 '/spa/img/hotels/back-1.jpg',
                 '/spa/img/hotels/back-2.jpg'
             ];
-
 
 
             function hotel404() {
@@ -103,11 +99,11 @@ innaAppControllers
                         onload();
 
                         if ($scope.buyAction) {
-                            $timeout(function(){
+                            $timeout(function () {
                                 console.log('START ANIMATION', $(document).height());
                                 $('html, body').animate({
                                     scrollTop: 1290
-                                }, 300, function(){
+                                }, 300, function () {
                                     console.log('TADA!');
                                 });
                             }, 200);
@@ -246,7 +242,7 @@ innaAppControllers
 
             /*$scope.$on('$locationChangeSuccess', function (data, url, datatest) {
              if (!('displayHotel' in $location.search())) {
-                $scope.back();
+             $scope.back();
              }
              });*/
 
