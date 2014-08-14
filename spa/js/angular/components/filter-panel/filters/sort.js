@@ -35,7 +35,7 @@ angular.module('innaApp.components').
                             byPackagePrice: 'PackagePrice',
                             byRecommendedFactor: '-RecommendedFactor',
                             byTaFactor: '-TaFactor',
-                            byName: '-HotelName',
+                            byName: 'HotelName',
                             byProfit: '-getProfit'
                         };
 
