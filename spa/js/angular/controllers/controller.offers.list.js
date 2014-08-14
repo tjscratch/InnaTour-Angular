@@ -84,6 +84,7 @@ innaAppControllers.
                     //log('offerClick, sectionName: ' + section.Name + '; name: ' + item.Name + '; url: ' + item.Url + '; position: ' + position + '; type: ' + block.OfferLayoutType);
                     track.offerClick(sectionName, blockType, item.Name, position, function () {
                         location.href = item.Url;
+                        $scope.lastClickedItem = null;
                     });
                     //location.href = item.Url;
                 }
