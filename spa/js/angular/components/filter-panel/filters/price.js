@@ -12,6 +12,7 @@ angular.module('innaApp.components').
             var FilterPrice = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/price.hbs.html'),
                 data: {
+                    setValue : 0,
                     value: {
                         name: 'FullPackagePrice',
                         val: [],
@@ -35,7 +36,7 @@ angular.module('innaApp.components').
 
                     this.on({
                         change: function (data) {
-                            if (data['Price.Value']) {
+                            if (data['Price.Value'] && data['setValue']) {
 
                                 var priceValue = parseInt(data['Price.Value'], 10);
 
@@ -56,7 +57,8 @@ angular.module('innaApp.components').
                         },
 
                         resetFilter: function () {
-                            this.set({'Price.Value': that.get('Price.Max')});
+                            this.set({'Price.Value': this.get('Price.Max')});
+                            this._slider.slider('value', this.get('Price.Max'));
                         },
                         teardown: function (evt) {
                             this._slider.slider("destroy");
@@ -76,8 +78,10 @@ angular.module('innaApp.components').
 
                     this.set({
                         'value.val': [],
-                        'Price.Value': that.get('Price.Value')
+                        'Price.Value': that.get('Price.Max')
                     });
+                    this._slider.slider('value', this.get('Price.Max'));
+
 
                     this.hasSelected();
                 },
@@ -87,8 +91,17 @@ angular.module('innaApp.components').
 
                 },
 
+                /**
+                 * Срабатывает на изменение положени слайдера
+                 * свойство setValue выставляется для проверки что это настоящее изменение цены,
+                 * а не сброс фильтра
+                 * @param val
+                 */
                 slide: function (val) {
-                    this.set('Price.Value', val);
+                    this.set({
+                        'setValue' : Math.random()*1000,
+                        'Price.Value' : val
+                    });
                 },
 
                 complete: function (data) {
