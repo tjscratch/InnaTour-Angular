@@ -4,25 +4,30 @@
     '$filter',
     function ($templateCache, eventsHelper, $filter) {
 
+
         /**
          * Позиционирование календаря
          * @param opt_data
          */
+        var elPositionCache = null;
+
         function setPosition(opt_data) {
-            var el = opt_data.elemFromPosition;
+            elPositionCache = opt_data.elemFromPosition || elPositionCache;
             var coords = null;
 
-            (el) ? coords = utils.getCoords(el)
-                : coords = opt_data.coords;
+            if(elPositionCache) {
+                (elPositionCache) ? coords = utils.getCoords(elPositionCache)
+                    : coords = opt_data.coords;
 
-            if (!opt_data.slide) {
-                opt_data.picker.css({
-                    left: (coords.left - 250) + 'px',
-                    top: (coords.top + $(el).height()) + 'px'
-                });
-            } else {
-                var left = (parseInt($(opt_data.picker).css('left')) + 120) + 'px';
-                $(opt_data.picker).animate({ left: left }, 300);
+                if (!opt_data.slide) {
+                    opt_data.picker.css({
+                        left: (coords.left - 250) + 'px',
+                        top: (coords.top + $(elPositionCache).height()) + 'px'
+                    });
+                } else {
+                    var left = (parseInt($(opt_data.picker).css('left')) + 120) + 'px';
+                    $(opt_data.picker).animate({ left: left }, 300);
+                }
             }
         }
 
@@ -137,6 +142,7 @@
                     $scope.isFromSelecting = true;
                     //при клике будет выбрана дата от
                     $scope.setLastSel(false);
+                    $scope.showPicker();
                     setPosition({
                         elemFromPosition: $event.currentTarget,
                         picker: $scope.datePicker
@@ -155,6 +161,7 @@
                     $scope.isFromSelecting = false;
                     //при клике будет выбрана дата до
                     $scope.setLastSel(true);
+                    $scope.showPicker();
                     setPosition({
                         elemFromPosition: $event.currentTarget,
                         picker: $scope.datePicker
@@ -209,11 +216,14 @@
                     mode: 'range',
                     format: 'd.m.Y',
                     starts: 1,
-                    show : function(){
-                      console.log('show  data Picker');
+                    onShow: function () {
+                        console.log('show  data Picker');
+
+                        return true;
                     },
-                    hide : function(){
-                      console.log('hide  data Picker');
+                    onHide: function () {
+                        console.log('hide  data Picker');
+                        return true;
                     },
                     onChange: function (formated, dates, el, lastSel, initDateFromIsSet) {
 
@@ -275,6 +285,7 @@
 
                 $scope.datePicker = $('.js-datepicker', element).DatePicker(options);
 
+
                 // Вставляем календарь в body
                 document.body.appendChild($scope.datePicker[0]);
 
@@ -290,18 +301,29 @@
                     });
                 });
 
-                function datePickerHide(){
-                    console.log('scroll');
-                    //$scope.datePicker.hidePicker();
-                    $(document).off('scroll', datePickerHide);
+                $scope.hidePicker = function (evt) {
+                    //console.log('$scope.hidePicker');
+                    setPosition({
+                        picker: $scope.datePicker
+                    });
+                    if ($(window).scrollTop() >= 100) {
+                        $scope.datePicker.hide();
+                        $(document).off('scroll', $scope.hidePicker);
+                    }
                 }
 
-                $(document).scroll(datePickerHide);
+                $scope.showPicker = function () {
+                    $scope.datePicker.show();
+                    $(document).on('scroll', $scope.hidePicker);
+                }
+
+                $(document).on('scroll', $scope.hidePicker);
 
                 $scope.$on('$destroy', function () {
-                    $(document).off('scroll', datePickerHide);
+                    $(document).off('scroll', $scope.hidePicker);
                     $scope.datePicker.remove();
                     $scope.datePicker = null;
+                    $scope = null;
                 });
             }
         }
