@@ -9,6 +9,7 @@ angular.module('innaApp.components').
 
             var ClassFilter = Ractive.extend({
                 data: {
+                    clearTimeHover : null,
                     isOpen: false,
                     hasSelected: false,
                     value: null
@@ -36,6 +37,16 @@ angular.module('innaApp.components').
                                     'isOpen': false,
                                     'hasSelected': false
                                 });
+                            }
+                        },
+                        onHover : function(evt){
+                            clearTimeout(this.get('clearTimeHover'));
+
+                            if(!evt.hover) {
+                                var time = setTimeout(function(){
+                                    that.fire('hide')
+                                }, 500);
+                                this.set('clearTimeHover', time);
                             }
                         },
                         teardown: function (evt) {

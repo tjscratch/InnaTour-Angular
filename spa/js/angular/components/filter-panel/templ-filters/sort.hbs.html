@@ -8,7 +8,7 @@
         Сортировать <span>{{lowercaseFirst(current)}}</span>
     </div>
 
-    <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
+    <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}" on-hover="onHover">
         <ul class="search__list search__list_sort ra-fly-type-list">
 			{{#each sort}}
                 <!--<SortedItem data="{{.}}"/>-->
