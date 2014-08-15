@@ -74,10 +74,6 @@ innaAppControllers.
             };
 
             $scope.clickOnShadow = function(item, $event, position, blockType, sectionName){
-                console.log('CLICK_ON_SHADOW');
-
-                alert('click on shadow');
-
                 $event && $event.stopPropagation();
 
                 track.offerClick(sectionName, blockType, item.Name, position, function () {
