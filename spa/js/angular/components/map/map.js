@@ -197,20 +197,6 @@ angular.module('innaApp.directives')
                             activeMarker = data.activeMarker;
                             if (data.infoBoxVisible) data.activeMarker.infoBoxVisible = true;
 
-                            if (_tripadvisor) {
-                                _tripadvisor.teardown();
-                                _tripadvisor = null;
-                            }
-
-                            _tripadvisor = new Tripadvisor({
-                                el: $(data_marker.elem).find('.js-tripadvisor-container'),
-                                data: {
-                                    TaCommentCount: data.activeMarker.$inna__hotel.TaCommentCount,
-                                    TaFactor: data.activeMarker.$inna__hotel.TaFactor,
-                                    TaFactorCeiled: data.activeMarker.$inna__hotel.TaFactorCeiled
-                                }
-                            });
-
                             /**
                              * Строим URL для страницы подробнее об отеле
                              * :DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:ProviderId?
@@ -230,8 +216,8 @@ angular.module('innaApp.directives')
                                     routParam.StartVoyageDate,
                                     routParam.EndVoyageDate,
                                     routParam.TicketClass,
-                                    routParam.Adult || 0,
-                                    routParam.Children || 0,
+                                        routParam.Adult || 0,
+                                        routParam.Children || 0,
                                     data.activeMarker.$inna__hotel.HotelId,
                                     ticketId,
                                     ticketBackId,
@@ -242,6 +228,21 @@ angular.module('innaApp.directives')
                             }
                         }
 
+                        if (_tripadvisor) {
+                            _tripadvisor.teardown();
+                            _tripadvisor = null;
+                        }
+
+
+                        _tripadvisor = new Tripadvisor({
+                            el: $(data_marker.elem).find('.js-tripadvisor-container'),
+                            data: {
+                                TaCommentCount: data.activeMarker.$inna__hotel.TaCommentCount,
+                                TaFactor: data.activeMarker.$inna__hotel.TaFactor,
+                                TaFactorCeiled: data.activeMarker.$inna__hotel.TaFactorCeiled
+                            }
+                        });
+                        
                     }
 
                     function activeMarkerReset() {
@@ -297,9 +298,6 @@ angular.module('innaApp.directives')
                                 boxInfoHover.setPosition(data.pos);
                                 boxInfoHover.setVisible(true);
                             }
-                            GM.event.addListener(boxInfoHover, 'domready', function () {
-                                $(boxPreview).css('left', 'auto');
-                            });
 
                             // инфобокс для аэропорта
                         } else if (dataMarker.air) {
@@ -311,9 +309,6 @@ angular.module('innaApp.directives')
                                 boxInfoAir.setPosition(data.pos);
                                 boxInfoAir.setVisible(true);
                             }
-                            GM.event.addListener(boxInfoAir, 'domready', function () {
-                                $(boxAir).css('left', 'auto');
-                            });
 
                             // инфобокс на клик маркера отеля
                         } else {
@@ -330,9 +325,6 @@ angular.module('innaApp.directives')
                                 boxInfo.setPosition(data.pos);
                                 boxInfo.setZIndex(3000);
                             }
-                            GM.event.addListener(boxInfo, 'domready', function () {
-                                $(boxPhoto).css('left', 'auto');
-                            });
                         }
                         setActiveMarker(data);
                     }

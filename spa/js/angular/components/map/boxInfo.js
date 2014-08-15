@@ -16,6 +16,7 @@ innaAppConponents.
             var MapInfoBox = Ractive.extend({
                 template: $templateCache.get('components/map/templ/box-info.hbs.html'),
                 data: {
+                    computedUrlDetails : this.computedUrlDetails,
                     settings: {
                         disableAutoPan: false,
                         closeBoxURL: "",
@@ -43,8 +44,36 @@ innaAppConponents.
 
                         }
                     })
+                },
+
+                /**
+                 * Строим URL для страницы подробнее об отеле
+                 * :DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:ProviderId?
+                 *
+                 * searchParams -  добавляется в каждую карточку отеля в компоненте list-panel:parse
+                 */
+                computedUrlDetails: function () {
+                    var routParam = angular.copy($routeParams);
+
+                    var ticketId = scope.combination.ticket.data.VariantId1;
+                    var ticketBackId = scope.combination.ticket.data.VariantId2;
 
 
+                    var urlDetails = '/#/packages/details/' + [
+                        routParam.DepartureId,
+                        routParam.ArrivalId,
+                        routParam.StartVoyageDate,
+                        routParam.EndVoyageDate,
+                        routParam.TicketClass,
+                            routParam.Adult || 0,
+                            routParam.Children || 0,
+                        data.activeMarker.$inna__hotel.HotelId,
+                        ticketId,
+                        ticketBackId,
+                        data.activeMarker.$inna__hotel.ProviderId
+                    ].join('-');
+
+                    return urlDetails;
                 }
             });
 

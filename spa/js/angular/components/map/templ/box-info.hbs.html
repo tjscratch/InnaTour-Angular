@@ -5,22 +5,17 @@
         <div class="js-b-carousel"></div>
 
         <div class="pin-balloon-info">
-            <div>
-                <span class="icon icon-star" ng-if="currentHotel.Stars > 0"></span>
-                <span class="icon icon-star" ng-if="currentHotel.Stars > 1"></span>
-                <span class="icon icon-star" ng-if="currentHotel.Stars > 2"></span>
-                <span class="icon icon-star" ng-if="currentHotel.Stars > 3"></span>
-                <span class="icon icon-star" ng-if="currentHotel.Stars > 4"></span>
-            </div>
+            <Stars stars="{{hotel.Stars}}"/>
             <h3 class="hotel-name">{{currentHotel.HotelName}}</h3>
 
             <!-- ROW -->
             <div class="row">
                 <div class="col-xs-7 col-no-padding">
                     <!-- tripadvisor -->
-                    <div class="js-tripadvisor-container"></div>
-                    <!--<ng:include src="'components/tripadvisor/index.html'"
-                                ng-repeat="data in [currentHotel]"></ng:include>-->
+                    <Tripadvisor
+                            TaCommentCount="{{hotel.TaCommentCount}}"
+                            TaFactor="{{hotel.TaFactor}}"
+                            TaFactorCeiled="{{hotel.TaFactorCeiled}}" />
 
                     <div>
                         <a href="javascript:void(0);" ng-click="hotelDetails(currentHotel)" class="details-link">Подробнее</a>
