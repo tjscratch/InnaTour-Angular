@@ -38,11 +38,11 @@
                 <p class="landing-title-sub" bo-if="!isNullOrEmpty(landing.SubSectionTitle)" bo-bind="landing.SubSectionTitle"></p>
 
                 <p class="offers-description" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 1" bo-html="landing.TextIntro"></p>
-                <div class="landing-col left" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2">
-                    <p class="offers-description" bo-html="landing.columsTextIntro[0]"></p>
-                </div>
-                <div class="landing-col right" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2">
-                    <p class="offers-description" bo-html="landing.columsTextIntro[1]"></p>
+                <div class="landing-cont">
+                    <div class="landing-col left offers-description" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2" bo-html="landing.columsTextIntro[0]">
+                    </div>
+                    <div class="landing-col right offers-description" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2" bo-html="landing.columsTextIntro[1]">
+                    </div>
                 </div>
             </div>
 
