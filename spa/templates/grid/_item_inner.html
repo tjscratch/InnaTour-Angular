@@ -11,7 +11,7 @@
         </p>
     </div>
 </div>
-<div class="offer-info-hover" ng-if="hasImgBack(item)" >
+<div class="offer-info-hover" ng-if="hasImgBack(item)" ng-click="clickOnShadow(item, $event)">
     <div class="offer-info-container">
         <h3 class="offer-title" ng-if="!isNullOrEmpty(item.BackTitleRow1)" ng-bind="item.BackTitleRow1"></h3>
         <h3 class="offer-title" ng-if="!isNullOrEmpty(item.BackTitleRow2)" ng-bind="item.BackTitleRow2"></h3>
