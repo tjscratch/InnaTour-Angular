@@ -43,7 +43,8 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                     HotelProviderId: params.HotelProviderId,
                     TicketToId: params.TicketToId,
                     TicketBackId: params.TicketBackId,
-                    Filter: params.Filter
+                    Filter: params.Filter,
+                    Rooms : params.Rooms
                 }, params.success, params.error);
             },
             displayOrder: function(params){

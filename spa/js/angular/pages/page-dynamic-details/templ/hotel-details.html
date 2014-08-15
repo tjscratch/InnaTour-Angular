@@ -13,7 +13,15 @@
             </div>
         </div>
 
-        <div class="hotel-details__section" ng-if="hotel.Photos.length">
+        <div class="hotel-details__section hotel-details__section_gallery" ng-if="hotel.Photos.length">
+            <div class="spinner" ng-if="!dataFullyLoadedGallery">
+                <div class="rect rect1"></div>
+                <div class="rect rect2"></div>
+                <div class="rect rect3"></div>
+                <div class="rect rect4"></div>
+                <div class="rect rect5"></div>
+                <img class="gif" src="/spa/img/spinner.gif">
+            </div>
             <div inna-gallery inna-gallery-pic-list="hotel.Photos"></div>
         </div>
 

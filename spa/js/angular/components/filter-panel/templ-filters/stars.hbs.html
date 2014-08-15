@@ -1,24 +1,25 @@
-<li class="filter">
-    <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
-         on-click="toggle">
-        Звезды
-    </div>
+{{#if Stars.List.length > 1}}
+    <li class="filter">
+        <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+             on-click="toggle">
+            Звезды
+        </div>
 
 
-    <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
-        <header class="ra-header">
-            <h4 class="ra-title">Звезды</h4>
-            <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
-        </header>
+        <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
+            <header class="ra-header">
+                <h4 class="ra-title">Звезды</h4>
+                <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
+            </header>
 
-        <div class="ra-content">
-            <ul class="ra-fly-type-list">
+            <div class="ra-content">
+                <ul class="ra-fly-type-list">
 
-				{{#each Stars.List}}
-                    <li>
-                        <label on-change="onChecked">
-                            <input type="checkbox" name="stars" value="{{Value}}" checked="{{this.isChecked}}"/>
-                            <span class="ra-checkbox"></span>
+					{{#each Stars.List}}
+                        <li>
+                            <label on-change="onChecked">
+                                <input type="checkbox" name="stars" value="{{Value}}" checked="{{this.isChecked}}"/>
+                                <span class="ra-checkbox"></span>
 
 		                    <span class="ra-fly-type">
 		                        <Stars stars="{{Value}}"/>
@@ -28,11 +29,12 @@
 		                        <span>{{$filter('price')(Price)}}</span>
 			                    {{>ruble}}
 	                        </span>
-                        </label>
-                    </li>
-				{{/each}}
+                            </label>
+                        </li>
+					{{/each}}
 
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-</li>
+    </li>
+{{/if}}

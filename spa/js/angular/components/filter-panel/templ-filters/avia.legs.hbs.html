@@ -1,4 +1,4 @@
-{{#if AirLegs.List}}
+{{#if AirLegs.List && AirLegs.List.length > 1}}
     <li class="filter">
         <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
              on-click="toggle">

@@ -1,7 +1,7 @@
 angular.module('innaApp.directives')
     .directive('innaGallery', ['$templateCache', function($templateCache){
         return {
-            template: $templateCache.get('components/gallery.html'),
+            template: $templateCache.get('components/gallery/templ/gallery.html'),
             scope: {
                 urls: '=innaGalleryPicList'
             },
@@ -53,7 +53,7 @@ angular.module('innaApp.directives')
                         if(!$scope.pics.current) return {};
 
                         var style = {
-                            backgroundImage: 'url(~)'.split('~').join($scope.pics.current.src)
+                            src : $scope.pics.current.src
                         }
 
                         if($scope.pics.plan == PicList.PLAN_Z) {
@@ -65,6 +65,8 @@ angular.module('innaApp.directives')
                         } else {
                             return {};
                         }
+
+                        $scope.styleCurrentImage = style;
 
                         return style;
                     };

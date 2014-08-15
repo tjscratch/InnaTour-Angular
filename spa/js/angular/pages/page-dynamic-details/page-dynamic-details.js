@@ -11,11 +11,12 @@ innaAppControllers
         'DynamicPackagesDataProvider',
         '$routeParams',
         'DynamicFormSubmitListener',
+        '$q',
 
         // components
         'Tripadvisor',
         'Stars',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, Tripadvisor, Stars) {
+        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars) {
 
             DynamicFormSubmitListener.listen();
 
@@ -128,7 +129,7 @@ innaAppControllers
              * Получаем данные по отелю
              */
             function getHotelDetails() {
-
+                var deferred = $q.defer();
                 track.dpBuyPackage();
 
                 DynamicPackagesDataProvider.hotelDetails({
@@ -157,30 +158,72 @@ innaAppControllers
                         $scope.dataFullyLoaded = false;
                         $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
 
-                        loadMap();
-                        onload();
+                        $timeout(function () {
+                            loadMap();
 
-                        if ($scope.buyAction) {
-                            $timeout(function () {
-                                console.log('START ANIMATION', $(document).height());
-                                $('html, body').animate({
-                                    scrollTop: 1290
-                                }, 300, function () {
-                                    console.log('TADA!');
-                                });
-                            }, 200);
-                        }
+                            /* Tripadvisor */
+                            _tripadvisor = new Tripadvisor({
+                                el: document.querySelector('.js-tripadvisor-container'),
+                                data: {
+                                    TaCommentCount: $scope.hotel.TaCommentCount,
+                                    TaFactor: $scope.hotel.TaFactor,
+                                    TaFactorCeiled: $scope.hotel.TaFactorCeiled
+                                }
+                            })
+
+                            /* Stars */
+                            _stars = new Stars({
+                                el: document.querySelector('.js-hotel-details-stars'),
+                                data: {
+                                    stars: $scope.hotel.Stars
+                                }
+                            })
+                        }, 50);
+
+                        deferred.resolve();
                     },
                     error: function () { //error
                         $scope.$apply(function ($scope) {
                             hotel404();
                         });
+
+                        deferred.reject();
+                    }
+                });
+
+                return deferred.promise;
+            };
+
+            function getHotelDetailsRooms() {
+
+                DynamicPackagesDataProvider.hotelDetails({
+                    HotelId: searchParams.HotelId,
+                    HotelProviderId: searchParams.ProviderId,
+                    TicketToId: searchParams.TicketId,
+                    TicketBackId: searchParams.TicketBackId,
+                    Filter: searchParams,
+                    Rooms : true,
+
+                    success: function (data) {
+                        $scope.hotelRooms = data.Rooms;
+                        onload();
+                    },
+                    error: function () {
+                        console.log('no rooms');
                     }
                 });
             };
 
             if (!routParam.OrderId) {
-                getHotelDetails();
+                getHotelDetails().then(function(){
+                    $timeout(function(){
+                        window.scrollTo(0, 1050);
+                        $scope.dataFullyLoadedGallery = true;
+                    },1000);
+
+                    getHotelDetailsRooms();
+
+                });
             } else {
                 getDisplayOrder();
             }
@@ -257,27 +300,6 @@ innaAppControllers
                     $scope.$digest();
                 } catch (e) {
                 }
-
-
-                setTimeout(function () {
-                    /* Tripadvisor */
-                    _tripadvisor = new Tripadvisor({
-                        el: document.querySelector('.js-tripadvisor-container'),
-                        data: {
-                            TaCommentCount: $scope.hotel.TaCommentCount,
-                            TaFactor: $scope.hotel.TaFactor,
-                            TaFactorCeiled: $scope.hotel.TaFactorCeiled
-                        }
-                    })
-
-                    /* Stars */
-                    _stars = new Stars({
-                        el: document.querySelector('.js-hotel-details-stars'),
-                        data: {
-                            stars: $scope.hotel.Stars
-                        }
-                    })
-                }, 0);
             }
 
             /*Properties*/
