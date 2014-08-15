@@ -103,6 +103,7 @@ angular.module('innaApp.components').
                     this.observe('Enumerable', function (newValue, oldValue, keypath) {
                         if (newValue) {
                             this.cloneData();
+                            this.enumerableCount(newValue);
                             this.set({waitData: false})
                         }
                     });
@@ -247,8 +248,9 @@ angular.module('innaApp.components').
                         newDose = that.enumerableClone.splice(start, end);
 
                     //console.time("Execution time render");
-                    if (newDose.length)
+                    if (newDose.length) {
                         this.set({EnumerableList: this.get('EnumerableList').concat(newDose)});
+                    }
                     //console.timeEnd("Execution time render");
                 },
 
@@ -391,6 +393,8 @@ angular.module('innaApp.components').
                         EnumerableFiltered: filteredData
                     })
 
+                    this.enumerableCount(filteredData, true);
+
                     setTimeout(function () {
                         that.cloneData(that.sorting(filteredData));
                     }, 0);
@@ -451,6 +455,7 @@ angular.module('innaApp.components').
                     EventManager.fire(Events.LIST_PANEL_FILTES_RESET_DONE, [].concat(sortResult));
 
                     this.cloneData(sortResult);
+                    this.enumerableCount(sortResult);
                 },
 
                 /**
@@ -461,12 +466,20 @@ angular.module('innaApp.components').
                     if (opt_data) this.set('EnumerableList', []);
 
                     var list = opt_data || this.get('Enumerable');
-                    this.set('EnumerableCount', (list.length) ? (list.length - 1) : list.length );
                     this.enumerableClone = [].concat(list);
 
                     // получаем первую порцию из n item
                     // далее по скроллингу
                     this.nextArrayDoseItems();
+                },
+
+                enumerableCount : function(data, opt_param){
+                    if(opt_param){
+                        this.set('EnumerableCount', data.length);
+                    } else {
+                        this.set('EnumerableCount', (data.length) ? (data.length - 1) : data.length);
+                    }
+                    //console.log(this.get('EnumerableCount'), 'count EnumerableCount');
                 },
 
                 wait: function () {

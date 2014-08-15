@@ -323,7 +323,6 @@
                     $(document).off('scroll', $scope.hidePicker);
                     $scope.datePicker.remove();
                     $scope.datePicker = null;
-                    $scope = null;
                 });
             }
         }

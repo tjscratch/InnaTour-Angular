@@ -153,6 +153,10 @@ angular.module('innaApp.components').
                                         that.set('airTime.' + i + '.dayState.*.isChecked', false);
                                     }
                                 });
+                            } else {
+                                that.set('airTime.*.state.0.isActive', true);
+                                that.set('airTime.*.state.1.isActive', false);
+                                that.set('airTime.*.dayState.*.isChecked', false);
                             }
 
                             this.set('value.val', this.filter());

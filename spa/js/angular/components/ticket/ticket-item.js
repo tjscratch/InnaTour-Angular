@@ -69,7 +69,7 @@ angular.module('innaApp.components').
 
 
 
-                    if(this.get('combinationModel').ticket.data.HotelId == this.get('ticket.VariantId1')){
+                    if(this.get('combinationModel').ticket.data.VariantId1 == this.get('ticket.VariantId1')){
                         that.set('hidden', true);
                     }
 
