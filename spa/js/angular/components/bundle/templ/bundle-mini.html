@@ -27,7 +27,7 @@
             <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 3"></span>
             <span class="icon icon-star" ng-if="combination.hotel.data.Stars > 4"></span>
             <!-- сокращаем соличество символов -->
-            {{combination.hotel.data.HotelName | limitTo:24}}...
+            {{combination.hotel.data.HotelName | textOverflow:24}}...
         </h3>
 
         <div class="hotel-info-date">
