@@ -26,6 +26,9 @@ innaAppControllers.
 
             var self = this;
 
+            var B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
+            $scope.B2B_HOST_Order = B2B_HOST + '/Order/Edit/';
+
             function log(msg) {
                 $log.log(msg);
             }
@@ -599,6 +602,9 @@ innaAppControllers.
                                     }
 
                                     $scope.price = $scope.reservationModel.price;
+                                    //признак, что b2b заказ
+                                    $scope.isAgency = data.IsAgency;
+                                    $scope.orderId = data.OrderId;
 
                                     //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
                                     //console.log('reservationModel:');
@@ -889,35 +895,43 @@ innaAppControllers.
                                         if (data.Result == 1) {
                                             var pageType = getActionType();
 
-                                            if (!$scope.hotel) {
-                                                //аналитика - авиа - заказ выполнен
-                                                if (pageType == actionTypeEnum.avia) {
-                                                    track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
-                                                }
-                                                
-                                                $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
-                                                    aviaHelper.baloonType.success,
-                                                    function () {
-                                                        $location.path(Urls.URL_AVIA);
-                                                    },
-                                                    {
-                                                        //buttonCaption: 'Распечатать билеты', successFn: function () {
-                                                        //    //print
-                                                        //    log('print tickets');
-                                                        //    alert('Не реализовано');
-                                                        //}
-                                                        buttonCaption: 'Ok', successFn: function () {
-                                                            $scope.baloon.hide();
-                                                            $location.path(Urls.URL_AVIA);
-                                                        }
-                                                    });
-                                            } else if ($scope.hotel != null) {
-                                                //аналитика - ДП - заказ выполнен
-                                                if (pageType == actionTypeEnum.dp) {
-                                                    track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
-                                                }
+                                            //если агентство - отправляем обратно в b2b интерфейс
+                                            if ($scope.isAgency) {
+                                                var b2bOrder = $scope.B2B_HOST_Order + $scope.orderId;
+                                                console.log('redirecting to: ' + b2bOrder);
+                                                window.location = b2bOrder;
+                                            }
+                                            else {
+                                                if (!$scope.hotel) {
+                                                    //аналитика - авиа - заказ выполнен
+                                                    if (pageType == actionTypeEnum.avia) {
+                                                        track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
+                                                    }
 
-                                                redirectSuccessBuyPackage();
+                                                    $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
+                                                        aviaHelper.baloonType.success,
+                                                        function () {
+                                                            $location.path(Urls.URL_AVIA);
+                                                        },
+                                                        {
+                                                            //buttonCaption: 'Распечатать билеты', successFn: function () {
+                                                            //    //print
+                                                            //    log('print tickets');
+                                                            //    alert('Не реализовано');
+                                                            //}
+                                                            buttonCaption: 'Ok', successFn: function () {
+                                                                $scope.baloon.hide();
+                                                                $location.path(Urls.URL_AVIA);
+                                                            }
+                                                        });
+                                                } else if ($scope.hotel != null) {
+                                                    //аналитика - ДП - заказ выполнен
+                                                    if (pageType == actionTypeEnum.dp) {
+                                                        track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
+                                                    }
+
+                                                    redirectSuccessBuyPackage();
+                                                }
                                             }
                                         }
                                         else if (data.Result == 2) {//ошибка при бронировании
