@@ -9,10 +9,8 @@ innaAppControllers
         'innaApp.Urls',
         '$cookieStore',
         function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs, $cookieStore){
-            var AS_MAP_CACHE_KEY = 'serp-as-map';
-
             var parseRoute = function (path) {
-                if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) > -1)
+                if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) > -1 || path.indexOf(URLs.URL_DYNAMIC_HOTEL_DETAILS) > -1)
                 {
                     var bits = QueryString.getBits(path);
                     return {
@@ -229,18 +227,13 @@ innaAppControllers
 
             /*Methods*/
             $scope.searchStart = function(){
-
-              // удаляем куки состояния открытой карты
-              //DynamicPackagesCacheWizard.put(AS_MAP_CACHE_KEY, 0);
-
               // если есть get параметр map=show, удалаяем его
               if ($location.search().map) {
                 delete $location.$$search.map;
                 $location.$$compose();
               }
 
-
-                try {
+              try {
                     validate();
                     //if ok
 
