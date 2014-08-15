@@ -242,7 +242,7 @@ angular.module('innaApp.directives')
                                 TaFactorCeiled: data.activeMarker.$inna__hotel.TaFactorCeiled
                             }
                         });
-                        
+
                     }
 
                     function activeMarkerReset() {
