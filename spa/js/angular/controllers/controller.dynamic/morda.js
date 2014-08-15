@@ -43,7 +43,7 @@ innaAppControllers.
 
                             //доп-обработка - добавляем текст в 2 колонки, если нужно
                             if (data.Landing.RenderTextType == 2) {//текст в 2 колонки
-                                data.Landing.columsTextIntro = StringHelper.splitToTwoColumns(data.Landing.TextIntro);
+                                data.Landing.columsTextIntro = StringHelper.splitToTwoColumnsByBrDelimiter(data.Landing.TextIntro);
                             }
 
                             $scope.landing = data.Landing;
