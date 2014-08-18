@@ -87,7 +87,7 @@ angular.module('innaApp.directives')
 
                     /* Stars */
                     var _stars = new Stars({
-                        el: document.querySelector('.js-stars-container'),
+                        el: $element.find('.js-stars-container'),
                         data: {
                             stars: $scope.bundle.hotel.data.Stars
                         }

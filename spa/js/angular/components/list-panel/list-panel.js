@@ -394,7 +394,7 @@ angular.module('innaApp.components').
                         EnumerableFiltered: filteredData
                     })
 
-                    this.enumerableCount(filteredData);
+                    this.enumerableCount(filteredData, true);
 
                     setTimeout(function () {
                         that.cloneData(that.sorting(filteredData));

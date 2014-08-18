@@ -13,118 +13,11 @@ angular.module('innaApp.components').factory('FilterSettings',
         function Model(data) {
             return {
                 Hotels: {
-                    Stars: {
-                        list: [
-                            {
-                                Value: 1,
-                                Price : 0
-                            },
-                            {
-                                Value: 2,
-                                Price : 0
-                            },
-                            {
-                                Value: 3,
-                                Price : 0
-                            },
-                            {
-                                Value: 4,
-                                Price : 0
-                            },
-                            {
-                                Value: 5,
-                                Price : 0
-                            }
-                        ].reverse()
-                    },
-                    Price: {
-                        min: 0,
-                        max: 0,
-                        value: 0
-                    },
-                    TaFactor: {
-                        list: [
-                            {value: 1},
-                            {value: 2},
-                            {value: 3},
-                            {value: 4},
-                            {value: 5}
-                        ].reverse()
-                    },
                     HotelName: {
                         value: ''
-                    },
-                    HotelType: {
-                        list: [
-                            {
-                                name: 'Отель',
-                                value: 'hotel'
-                            },
-                            {
-                                name: 'Апарт-отель',
-                                value: 'apart_hotel'
-                            },
-                            {
-                                name: 'Пансион',
-                                value: 'guesthouse'
-                            },
-                            {
-                                name: 'Квартира',
-                                value: 'flat'
-                            }
-                        ]
-                    },
-                    Extra: {
-                        list: [
-                            {
-                                name: 'Фитнес',
-                                value: 'Fitness'
-                            },
-                            {
-                                name: 'Завтрак',
-                                value: 'Breakfast'
-                            },
-                            {
-                                name: 'Бар/Ресторан',
-                                value: 'BarRestaurant'
-                            },
-                            {
-                                name: 'Парковка',
-                                value: 'Parking'
-                            },
-                            {
-                                name: 'Кухня',
-                                value: 'Kitchen'
-                            },
-
-                            {
-                                name: 'Сервисы для людей с о.в',
-                                value: 'ForPeopleWithDisabilities'
-                            },
-                            {
-                                name: 'СПА',
-                                value: 'SPA'
-                            },
-                            {
-                                name: 'Интернет',
-                                value: 'Internet'
-                            },
-                            {
-                                name: 'Бассейн',
-                                value: 'SwimmingPool'
-                            },
-                            {
-                                name: 'Сервисы для детей',
-                                value: 'ServicesForChildren'
-                            }
-                        ]
                     }
                 },
                 Tickets: {
-                    Airlines: {},
-                    Airports: [],
-                    AirLegs: {},
-
                     AirTime: [
                         {
                             direction: 'to',
@@ -192,12 +85,7 @@ angular.module('innaApp.components').factory('FilterSettings',
                                 }
                             ]
                         }
-                    ],
-                    Price: {
-                        min: 0,
-                        max: 0,
-                        value: 0
-                    }
+                    ]
                 },
 
                 sort: {
@@ -265,7 +153,7 @@ angular.module('innaApp.components').factory('FilterSettings',
              * @param options
              */
             beforeInit: function (options) {
-                var model = Model();
+                var model = new Model();
                 angular.extend(model.Hotels, options.data.model.Hotels);
                 angular.extend(model.Tickets, options.data.model.Tickets);
                 this.data.settings = model;

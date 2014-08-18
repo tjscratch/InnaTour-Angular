@@ -3,7 +3,10 @@
 angular.module('innaApp.directives')
     .directive('dynamicBundleRoot', [
         '$templateCache',
-        function ($templateCache) {
+        'DynamicPackagesDataProvider',
+        '$routeParams',
+        '$q',
+        function ($templateCache, DynamicPackagesDataProvider, $routeParams, $q) {
             return {
                 template: $templateCache.get('components/bundle/templ/bundle-root.html'),
                 controller: [
@@ -21,6 +24,7 @@ angular.module('innaApp.directives')
                         $scope.displayTicket = false;
                         var scroll = false;
                         var doc = $(document);
+                        var routParam = angular.copy($routeParams);
 
                         function orientation() {
                             var ua = navigator.userAgent.toLowerCase();
@@ -96,6 +100,34 @@ angular.module('innaApp.directives')
                                 $scope.stateHotel = true;
                             }
                         }
+
+
+
+                        function getHotelDetails() {
+                            var deferred = $q.defer();
+                            console.log('getHotelDetails getHotelDetails', routParam);
+
+                            DynamicPackagesDataProvider.hotelDetails({
+                                HotelId: $scope.combination.hotel.data.HotelId,
+                                HotelProviderId: $scope.combination.hotel.data.ProviderId,
+                                TicketToId: $scope.combination.ticket.data.VariantId1,
+                                TicketBackId: $scope.combination.ticket.data.VariantId2,
+                                Filter: routParam,
+
+                                success: function (data) {
+                                    deferred.resolve();
+                                },
+                                error: function () { //error
+                                    deferred.reject();
+                                }
+                            });
+
+                            return deferred.promise;
+                        };
+
+                        EventManager.on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, getHotelDetails);
+
+
 
                         /**
                          * Управляем состоянием - выбранного варианта
@@ -203,7 +235,8 @@ angular.module('innaApp.directives')
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, openBundle);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, closeBundle);
                             EventManager.off(Events.LIST_PANEL_FILTES_HOTELS_DONE, filtersLoadDone);
-                            EventManager.off(Events.FILTER_PANEL_RESET, filtersPanelReset)
+                            EventManager.off(Events.FILTER_PANEL_RESET, filtersPanelReset);
+                            EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL, getHotelDetails);
                             unwatchScroll();
                         });
                     }
