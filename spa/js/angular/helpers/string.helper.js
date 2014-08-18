@@ -15,17 +15,30 @@ StringHelper = {
         if (text != null) {
             var len = text.length;
             if (len > 2) {
-                var index = Math.floor(len / 2);//середина текста
+                var index = Math.floor(len / 2);//СЃРµСЂРµРґРёРЅР° С‚РµРєСЃС‚Р°
                 var splitIndex = -1;
-                for (var i = index; i < len; i++) {//ищем пробел, запяту или точку
+                for (var i = index; i < len; i++) {//РёС‰РµРј РїСЂРѕР±РµР», Р·Р°РїСЏС‚Сѓ РёР»Рё С‚РѕС‡РєСѓ
                     if (text[i] == ' ' || text[i] == ',' || text[i] == '.') {
                         splitIndex = i;
                         break;
                     }
                 }
 
-                if (splitIndex > -1 && splitIndex < len - 1) {//делим текст на 2 части
+                if (splitIndex > -1 && splitIndex < len - 1) {//РґРµР»РёРј С‚РµРєСЃС‚ РЅР° 2 С‡Р°СЃС‚Рё
                     return [text.substring(0, splitIndex), text.substring(splitIndex + 1, len)]
+                }
+            }
+        }
+        return [text, ''];
+    },
+    splitToTwoColumnsByBrDelimiter: function (text) {
+        var delimiter = '[br]';
+        if (text != null) {
+            var len = text.length;
+            if (len > 0) {
+                var delimIndex = text.indexOf(delimiter);
+                if (delimIndex > -1) {
+                    return [text.substring(0, delimIndex), text.substring(delimIndex + delimiter.length, len)]
                 }
             }
         }

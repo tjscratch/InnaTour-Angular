@@ -342,6 +342,12 @@
                         balloonClose : true,
                         callbackClose : function(){
                             //console.log('i think that i close');
+                            //какого хуя при ошибке просто закрывался попап и оставались на этой же странице??
+                            //если переделываешь - сделай - нормально, а не ломай поведение
+
+                            //отправляем на пакеты
+                            $location.search({});
+                            $location.path(Urls.URL_DYNAMIC_PACKAGES);
                         }
                     }
                 }).show();

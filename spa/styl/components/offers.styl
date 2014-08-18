@@ -27,6 +27,15 @@
     margin: 5px 0 15px 0;
 }
 
+.landing-cont {
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 100%;
+        clear: both;
+    }
+}
+
 .landing-col {
     float: left;
     width: 470px;
@@ -36,12 +45,7 @@
     }
     &.right {
         margin-left: 10px;
-        &:after {
-            content: '';
-            display: inline-block;
-            width: 100%;
-            clear: left;
-        }
+        
     }
 }
 

@@ -73,20 +73,17 @@ innaAppControllers.
                 $scope.offerClickInternal(item, $event, position, block.OfferLayoutType, section.Name);
             };
 
+            $scope.clickOnShadow = function(item, $event, position, blockType, sectionName){
+                $event && $event.stopPropagation();
+
+                track.offerClick(sectionName, blockType, item.Name, position, function () {
+                    location.href = item.Url;
+                    $scope.lastClickedItem = null;
+                });
+            };
+
             $scope.offerClickInternal = function (item, $event, position, blockType, sectionName) {
                 preventBubbling($event);
-
-                function click(item) {
-                    //var url = $scope.getHref(item);
-                    //url = '/tours/?sta=on&city=832&country=77&resorts=&hotels=&stars=&meals=&currency=RUB&adults=2&kids=0&kids_ages=0,0,0&priceMin=0&priceMax=0&nightsMin=10&nightsMax=14&date1=25%2F03%2F2014&date2=04%2F04%2F2014';
-                    //url = '#/individualtours/category/12';
-                    //url = 'http://beta.inna.ru/tours/?sta=on&city=832&country=125&resorts=&hotels=&stars=401&meals=114&currency=RUB&adults=1&kids=0&kid1=0&kid2=0&kid3=0&priceMin=0&priceMax=0&nightsMin=7&nightsMax=7&date1=03%2F05%2F2014&date2=03%2F05%2F2014';
-                    //log('offerClick, sectionName: ' + section.Name + '; name: ' + item.Name + '; url: ' + item.Url + '; position: ' + position + '; type: ' + block.OfferLayoutType);
-                    track.offerClick(sectionName, blockType, item.Name, position, function () {
-                        location.href = item.Url;
-                    });
-                    //location.href = item.Url;
-                }
 
                 //если без хувера, просто картинка - то сразу кликаем
                 var showImgOnly = $scope.showImgOnly(item);
@@ -95,7 +92,7 @@ innaAppControllers.
 
                     //первый клик пропускаем
                     if (item == $scope.lastClickedItem) {
-                        click(item);
+                        $scope.clickOnShadow(item, position, blockType, sectionName);
                     }
                     else {
                         //кликаем на второй клик
@@ -104,7 +101,7 @@ innaAppControllers.
                 }
                 else {
                     //на компе - кликаем сразу
-                    click(item);
+                    $scope.clickOnShadow(item, position, blockType, sectionName);
                 }
             };
         }]);
