@@ -196,7 +196,6 @@ angular.module('innaApp.components').
                  * @param event
                  */
                 onScroll: function (event) {
-                    console.log('scroll +++++');
                     var scrollTop = utils.getScrollTop(),
                         viewportHeight = window.innerHeight,
                         elHeight = this.get('elHeight');

@@ -29,6 +29,8 @@ angular.module('innaApp.directives')
                 'Stars',
                 function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams, ShareLink, Tripadvisor, Stars) {
 
+                    //console.profile('Draw');
+
                     var searchParams = angular.copy($routeParams);
 
                     /**
@@ -127,6 +129,8 @@ angular.module('innaApp.directives')
                         _shareLink = null;
                         _tripadvisor = null;
                     })
+
+                    //console.profileEnd('Draw');
                 }
             ]
         }
