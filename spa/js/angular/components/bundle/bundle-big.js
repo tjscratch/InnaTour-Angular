@@ -26,7 +26,8 @@ angular.module('innaApp.directives')
                 // components
                 'ShareLink',
                 'Tripadvisor',
-                function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams, ShareLink, Tripadvisor) {
+                'Stars',
+                function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams, ShareLink, Tripadvisor, Stars) {
 
                     var searchParams = angular.copy($routeParams);
 
@@ -84,6 +85,14 @@ angular.module('innaApp.directives')
                         }
                     })
 
+                    /* Stars */
+                    var _stars = new Stars({
+                        el: document.querySelector('.js-stars-container'),
+                        data: {
+                            stars: $scope.bundle.hotel.data.Stars
+                        }
+                    })
+
                     if ($location.search().displayHotel) {
                         $scope.displayHotel = true;
                     }
@@ -113,6 +122,8 @@ angular.module('innaApp.directives')
                         console.log('$destroy bundle big');
                         _shareLink.teardown();
                         _tripadvisor.teardown();
+                        _stars.teardown();
+                        _stars = null;
                         _shareLink = null;
                         _tripadvisor = null;
                     })

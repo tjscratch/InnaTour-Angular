@@ -67,7 +67,7 @@
 	        <b>{{moment(ticket.BackDepartureDate).format('HH:mm')}}</b>
             <span>{{moment(ticket.BackDepartureDate).format('D MMM')}},</span>
             <span>{{moment(ticket.BackDepartureDate).format('dd')}}</span><br>
-	        <span>{{ticket.CityTo}} {{modelTicket.getBackOutCode()}}</span>
+	        <span>{{ticket.CityTo}} {{ticket.OutCodeBack}}</span>
 	    </span>
     </span>
 
@@ -90,7 +90,7 @@
 			<b>{{moment(ticket.BackArrivalDate).format('HH:mm')}}</b>
             <span>{{moment(ticket.BackArrivalDate).format('D MMM')}},</span>
             <span>{{moment(ticket.BackArrivalDate).format('dd')}}</span><br>
-            <span>{{ticket.CityFrom}} <span>{{modelTicket.getBackInCode()}}</span></span>
+            <span>{{ticket.CityFrom}} <span>{{ticket.InCodeBack}}</span></span>
         </span>
     </span>
 </div>
