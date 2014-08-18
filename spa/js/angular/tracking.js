@@ -145,6 +145,8 @@ var track = {
                 'price': '' + revenue, // сумма заказа
                 'quantity': '1' //всегда 1
             });
+
+            ga('ecommerce:send');
         }
     },
     //Воронка "Авиабилеты"
@@ -179,7 +181,9 @@ var track = {
                 'category': 'avia', // авиабилет
                 'price': '' + revenue, // сумма заказа
                 'quantity': '1' //всегда 1
-            }); 
+            });
+
+            ga('ecommerce:send');
         }
     },
     toursSearch: function () { //поиск туров
