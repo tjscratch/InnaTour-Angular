@@ -224,11 +224,11 @@ angular.module('innaApp.components').
                  * Создаем новую модель фильтров
                  * @param dataFilters
                  */
-                setModel: function () {
-                    if(this.get('filtersData')) {
+                setModel: function (opt_data) {
+                    if(opt_data || this.get('filtersData')) {
                         var modelFilters = new FilterSettings({
                             data: {
-                                model: this.get('filtersData')
+                                model: opt_data || this.get('filtersData')
                             }
                         });
 
@@ -237,7 +237,7 @@ angular.module('innaApp.components').
                 },
 
                 toggleFilters: function (dataFilters) {
-                    this.setModel();
+                    this.setModel(dataFilters);
 
                     this.findAllComponents().forEach(function (child) {
                         child.fire('resetFilter');

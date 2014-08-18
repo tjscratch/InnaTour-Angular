@@ -20,10 +20,7 @@ angular.module('innaApp.components').
                             return (data <= component_val.val[0]);
                         }
                     },
-                    priceValue: null,
-                    priceFilter: function (text) {
-                        return $filter('price')(text);
-                    }
+                    priceValue: null
                 },
                 components: {
 
