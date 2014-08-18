@@ -136,6 +136,7 @@ innaAppControllers.
                     dataService.cancelAviaSearch();
                     $location.path(Urls.URL_AVIA);
                 });
+
                 loader.init([setFromFieldsFromUrl, setToFieldsFromUrl], ifDataLoadedStartSearch).run();
             }
 

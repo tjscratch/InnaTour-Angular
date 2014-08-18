@@ -146,6 +146,7 @@
                 msgClose: 'msgClose',
                 msgCancel: 'msgCancel',
                 success: 'success',
+                email: 'email',
                 expireCheck: 'expireCheck',
                 payExpires: 'payExpires',
                 notFound: 'notFound'
