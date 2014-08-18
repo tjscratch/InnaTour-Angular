@@ -69,6 +69,7 @@ angular.module('innaApp.components').
                             }
 
                             this.set('value.val', this.filter());
+                            this.hasSelected();
                         },
                         teardown: function (evt) {
 

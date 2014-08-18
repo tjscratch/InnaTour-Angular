@@ -135,11 +135,11 @@ angular.module('innaApp.components').
 
                         filterChange: function (data) {
                             this.set('value.val', this.filter());
+                            this.hasSelected();
                         },
 
                         changeState: function () {
                             this.set('value.val', this.filter());
-                            this.hasSelected();
                         },
 
                         resetFilter: function (data) {
@@ -160,6 +160,7 @@ angular.module('innaApp.components').
                             }
 
                             this.set('value.val', this.filter());
+                            this.hasSelected();
                         },
 
                         teardown: function (evt) {
@@ -205,6 +206,7 @@ angular.module('innaApp.components').
                     });
 
                     this.fire('filterChange');
+                    this.hasSelected();
                 }
             });
 
