@@ -74,7 +74,7 @@ innaAppControllers.
             };
 
             $scope.clickOnShadow = function(item, $event, position, blockType, sectionName){
-                $event && $event.stopPropagation();
+                $event && preventBubbling($event);
 
                 track.offerClick(sectionName, blockType, item.Name, position, function () {
                     location.href = item.Url;
