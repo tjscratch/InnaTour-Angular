@@ -178,15 +178,15 @@ angular.module('innaApp.components').
                      * запрашиваем и отдаем компонент сортировки
                      * используем не стандартный механизм общения компонентов
                      */
-                    EventManager.observe('getSortComponent', function(newValue, oldValue, keypath){
-                        if(newValue) {
+                    EventManager.observe('getSortComponent', function (newValue, oldValue, keypath) {
+                        if (newValue) {
                             that.set('sortComponent', newValue);
                             newValue.sortDefault();
                         }
                     })
                 },
 
-                proxyGoToMap : function(data){
+                proxyGoToMap: function (data) {
                     this.fire('goToMap', data);
                 },
 
@@ -394,7 +394,7 @@ angular.module('innaApp.components').
                         EnumerableFiltered: filteredData
                     })
 
-                    this.enumerableCount(filteredData, true);
+                    this.enumerableCount(filteredData);
 
                     setTimeout(function () {
                         that.cloneData(that.sorting(filteredData));
@@ -474,13 +474,13 @@ angular.module('innaApp.components').
                     this.nextArrayDoseItems();
                 },
 
-                enumerableCount : function(data, opt_param){
-                    if(opt_param){
-                        this.set('EnumerableCount', data.length);
-                    } else {
-                        this.set('EnumerableCount', (data.length) ? (data.length - 1) : data.length);
+                enumerableCount: function (data, opt_param) {
+                    if (data.length) {
+                        this.set('EnumerableCount', data.length - 1);
                     }
-                    //console.log(this.get('EnumerableCount'), 'count EnumerableCount');
+                    else{
+                        this.set('EnumerableCount', data.length);
+                    }
                 },
 
                 wait: function () {

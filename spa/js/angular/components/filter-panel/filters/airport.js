@@ -58,7 +58,7 @@ angular.module('innaApp.components').
                         },
 
                         resetFilter: function () {
-                            this.set('airport.List.*.isChecked', false);
+                            this.set('airports.*.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
 
