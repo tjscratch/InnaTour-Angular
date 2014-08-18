@@ -34,7 +34,7 @@ angular.module('innaApp.components').
                             if(!this.get('sortValue')) {
                                 this.set({
                                     'value.val': [],
-                                    'isOpen': false,
+                                    //'isOpen': false,
                                     'hasSelected': false
                                 });
                             }
