@@ -19,7 +19,11 @@ angular.module('innaApp.components').
 
                             var result = component_val.val.filter(function (airport) {
                                 if (!data[airport.State]) return false;
-                                return (data[airport.State] == airport.PortName);
+                                if(airport.State == 'AirportTo'){
+                                    return (data['InCode'] == airport.Code);
+                                } else if(airport.State == 'AirportFrom'){
+                                    return (data['OutCode'] == airport.Code);
+                                }
                             });
 
                             return  (result.length == component_val.val.length);
