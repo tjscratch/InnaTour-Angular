@@ -1,10 +1,9 @@
 .hidden
   display none
 
-.search-ticket-form
+.b-search-form
   font-size 0
   line-height 0
-  //letter-spacing -1px
   padding 0
   color #242424
   position relative
@@ -108,7 +107,6 @@
 
 .search-date
   padding 0 28px 0 10px
-  //background url(/spa/img/i.png) no-repeat right 5px top -1813px #fff
 
 .search-button-block
   border-left 1px solid #1c1c1c
@@ -125,16 +123,29 @@
   font-weight bold
   transition background-color 0.3s linear
 
-.search-button-block_small
+.search-form__submit
   border 0
-  position relative
+  position absolute
+  top: 0;
+  right: 0;
   overflow hidden
   height 48px
-  line-height 48px
-  width 58px !important
+  width 62px !important
   transition background-color 0.3s linear
-  background url(/spa/img/i.png) no-repeat 14px -1937px #89c13a
-  cursor pointer
+  background-color: #89c13a;
+  cursor pointer;
+
+  &:after
+    @extend .icon-sprite-search;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    margin-top: -15px;
+    z-index: 1;
+
+
 
 .search-button-block:hover
 .search-button-block_small:hover
@@ -158,6 +169,7 @@
 .search-people-block
   width 138px
   height 48px
+  z-index 2
 
 .search-people
   background #fff
