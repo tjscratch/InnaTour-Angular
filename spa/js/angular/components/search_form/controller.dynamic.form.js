@@ -8,10 +8,11 @@ innaAppControllers
         '$location',
         'innaApp.Urls',
         '$cookieStore',
-        function($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs, $cookieStore){
+        function ($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs, $cookieStore) {
+
             var parseRoute = function (path) {
-                if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) > -1 || path.indexOf(URLs.URL_DYNAMIC_HOTEL_DETAILS) > -1)
-                {
+
+                if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) > -1 || path.indexOf(URLs.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
                     var bits = QueryString.getBits(path);
                     return {
                         DepartureId: bits[0],
@@ -22,7 +23,9 @@ innaAppControllers
                         Adult: bits[5],
                         ChildrenAges: (function (ages) {
                             return ages ?
-                                ages.split('_').map(function (age) { return { value: age }; }) :
+                                ages.split('_').map(function (age) {
+                                    return { value: age };
+                                }) :
                                 []
                         })(bits[6])
                     };
@@ -63,7 +66,7 @@ innaAppControllers
 
             var routeParams = parseRoute($location.path());
 
-            function validate(){
+            function validate() {
                 Validators.defined($scope.fromCurrent, Error('fromCurrent'));
                 Validators.defined($scope.toCurrent, Error('toCurrent'));
                 Validators.notEqual($scope.fromCurrent, $scope.toCurrent, Error('toCurrent'));
@@ -79,34 +82,36 @@ innaAppControllers
                     Validators.notEqual($scope.lastFromCode, $scope.lastCityToCode, Error('toCurrent'));
                 }
 
-                var children = _.partition($scope.childrensAge, function(ageSelector){ return ageSelector.value < 2;});
+                var children = _.partition($scope.childrensAge, function (ageSelector) {
+                    return ageSelector.value < 2;
+                });
                 var infants = children[0].length;
                 children = children[1].length;
                 var separatedInfants = infants - $scope.adultCount;
-                if(separatedInfants < 0) separatedInfants = 0;
+                if (separatedInfants < 0) separatedInfants = 0;
 
-                if(+$scope.adultCount + children + separatedInfants > 6) throw Error('adultCount');
+                if (+$scope.adultCount + children + separatedInfants > 6) throw Error('adultCount');
 
                 Validators.defined($scope.dateBegin, Error('dateBegin'));
                 Validators.defined($scope.dateEnd, Error('dateEnd'));
             }
 
-            $scope.loadObjectById = function(id, callback){
+            $scope.loadObjectById = function (id, callback) {
                 DynamicPackagesDataProvider.getObjectById(id, callback);
             }
 
-    		/* From field */
+            /* From field */
             $scope.fromList = [];
 
-            $scope.provideSuggestToFromList = function(preparedText, rawText){
-                DynamicPackagesDataProvider.getFromListByTerm(preparedText, function(data){
-                    $scope.$apply(function($scope) {
+            $scope.provideSuggestToFromList = function (preparedText, rawText) {
+                DynamicPackagesDataProvider.getFromListByTerm(preparedText, function (data) {
+                    $scope.$apply(function ($scope) {
                         $scope.fromList = data;
                     });
                 })
             }
 
-            $scope.fromCurrent = routeParams.DepartureId || DynamicPackagesCacheWizard.require('fromCurrent', function(){
+            $scope.fromCurrent = routeParams.DepartureId || DynamicPackagesCacheWizard.require('fromCurrent', function () {
                 DynamicPackagesDataProvider.getUserLocation(function (data) {
                     if (data != null) {
                         $scope.safeApply(function () {
@@ -122,42 +127,42 @@ innaAppControllers
                 $rootScope.$broadcast("dp_form_from_update", $scope.fromCurrent);
             }, 0);
 
-            $scope.$watch('fromCurrent', function(newVal){
+            $scope.$watch('fromCurrent', function (newVal) {
                 DynamicPackagesCacheWizard.put('fromCurrent', newVal);
             });
 
-	        /* To field */
-	        $scope.toList = [];
+            /* To field */
+            $scope.toList = [];
 
-	        $scope.provideSuggestToToField = function(preparedText, rawText) {
-                DynamicPackagesDataProvider.getToListByTerm(preparedText, function(data){
-                    $scope.$apply(function($scope) {
+            $scope.provideSuggestToToField = function (preparedText, rawText) {
+                DynamicPackagesDataProvider.getToListByTerm(preparedText, function (data) {
+                    $scope.$apply(function ($scope) {
                         $scope.toList = data;
                     });
                 })
-	        };
+            };
 
-	        $scope.toCurrent = routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
+            $scope.toCurrent = routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
             //обновляем значения в саджесте
-	        setTimeout(function () {
-	            $rootScope.$broadcast("dp_form_to_update", $scope.toCurrent);
-	        }, 0);
+            setTimeout(function () {
+                $rootScope.$broadcast("dp_form_to_update", $scope.toCurrent);
+            }, 0);
 
-            $scope.$watch('toCurrent', function(newVal){
+            $scope.$watch('toCurrent', function (newVal) {
                 DynamicPackagesCacheWizard.put('toCurrent', newVal);
             });
 
             /*Begin date*/
             $scope.dateBegin = routeParams.StartVoyageDate || DynamicPackagesCacheWizard.require('dateBegin');
 
-            $scope.$watch('dateBegin', function(newVal) {
+            $scope.$watch('dateBegin', function (newVal) {
                 DynamicPackagesCacheWizard.put('dateBegin', newVal);
             });
 
             /*End date*/
             $scope.dateEnd = routeParams.EndVoyageDate || DynamicPackagesCacheWizard.require('dateEnd');
 
-            $scope.$watch('dateEnd', function(newVal) {
+            $scope.$watch('dateEnd', function (newVal) {
                 DynamicPackagesCacheWizard.put('dateEnd', newVal);
             });
 
@@ -175,14 +180,16 @@ innaAppControllers
             $scope.childrensAge = routeParams.ChildrenAges || [];
 
             /*Klass*/
-            $scope.klass = _.find(TripKlass.options, function(klass){
+            $scope.klass = _.find(TripKlass.options, function (klass) {
                 var cached = routeParams.TicketClass ||
-                    DynamicPackagesCacheWizard.require('klass', function(){ return TripKlass.ECONOM; });
+                    DynamicPackagesCacheWizard.require('klass', function () {
+                        return TripKlass.ECONOM;
+                    });
 
                 return (klass.value == cached);
             });
 
-            $scope.$watchCollection('klass', function(newVal){
+            $scope.$watchCollection('klass', function (newVal) {
                 newVal = newVal || TripKlass.options[0];
                 DynamicPackagesCacheWizard.put('klass', newVal.value);
             });
@@ -226,14 +233,14 @@ innaAppControllers
 
 
             /*Methods*/
-            $scope.searchStart = function(){
-              // если есть get параметр map=show, удалаяем его
-              if ($location.search().map) {
-                delete $location.$$search.map;
-                $location.$$compose();
-              }
+            $scope.searchStart = function () {
+                // если есть get параметр map=show, удалаяем его
+                if ($location.search().map) {
+                    delete $location.$$search.map;
+                    $location.$$compose();
+                }
 
-              try {
+                try {
                     validate();
                     //if ok
 
@@ -247,7 +254,7 @@ innaAppControllers
                     //half of a year
                     //or
                     //longer then 28 days
-                    if(beforeStart >= 30 * 6 || duration > 28) {
+                    if (beforeStart >= 30 * 6 || duration > 28) {
                         $scope.baloon.showErr('Ограничения бронирования', 'Бронирование возможно не ранее, чем за 6 месяцев до планируемого путешествия и продолжительность путешествия не более 30 дней.');
 
                         throw 1;
@@ -260,7 +267,9 @@ innaAppControllers
                         EndVoyageDate: $scope.dateEnd,
                         TicketClass: $scope.klass.value,
                         Adult: $scope.adultCount,
-                        children: _.map($scope.childrensAge, function(selector, n){ return selector.value; }),
+                        children: _.map($scope.childrensAge, function (selector, n) {
+                            return selector.value;
+                        })
                     }
 
                     //аналитика
@@ -271,8 +280,8 @@ innaAppControllers
 
                     $rootScope.$emit('inna.DynamicPackages.Search', o);
 
-                } catch(e) {
-                    if($scope.hasOwnProperty(e.message)) {
+                } catch (e) {
+                    if ($scope.hasOwnProperty(e.message)) {
                         $scope[e.message] = e;
                     }
                 }
@@ -283,12 +292,12 @@ innaAppControllers
 
                 routeParams = parseRoute(url);
 
-                if(!angular.equals(oldRouteParams, routeParams)) {
+                if (!angular.equals(oldRouteParams, routeParams)) {
                     $scope.$broadcast('DYNAMIC.locationChange', routeParams);
                 }
             });
 
-            $(window).on('unload beforeunload', function(){
+            $(window).on('unload beforeunload', function () {
                 DynamicPackagesCacheWizard.clear();
             });
         }

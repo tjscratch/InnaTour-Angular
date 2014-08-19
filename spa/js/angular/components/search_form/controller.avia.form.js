@@ -1,7 +1,5 @@
 ﻿'use strict';
 
-/* Controllers */
-
 innaAppControllers.
     controller('AviaFormCtrl', [
         '$log',
@@ -16,10 +14,10 @@ innaAppControllers.
         'urlHelper',
         'aviaHelper',
         'aviaService', 'Validators',
-        function AviaFormCtrl($log, $scope, $rootScope, $filter, $routeParams, $location, dataService, cache, Urls, urlHelper, aviaHelper,
-            aviaService, Validators) {
+        function ($log, $scope, $rootScope, $filter, $routeParams, $location, dataService, cache, Urls, urlHelper, aviaHelper, aviaService, Validators) {
 
             var self = this;
+
             function log(msg) {
                 //$log.log.apply($log, arguments);
             }
@@ -52,6 +50,7 @@ innaAppControllers.
             });
 
             var wasInited = false;
+
             function initCriteriaWatch() {
                 if (!wasInited) {
                     wasInited = true;
@@ -62,7 +61,7 @@ innaAppControllers.
                     }, true);
                 }
             }
-            
+
 
             $scope.$watch('datepickerButtons', function (newVal) {
                 $scope.datepickerButtons.updateScopeValues();
@@ -253,7 +252,7 @@ innaAppControllers.
 
                 return defaultCriteria;
             };
-            
+
             function getParamsFromStorage() {
                 var cookVal = aviaService.getForm();
                 //console.log('get stored value: %s', cookVal);
@@ -315,10 +314,13 @@ innaAppControllers.
             //addDefaultFromToDirectionsToCache(defaultCriteria);
             //списки по-умолчанию
 
-            $scope.pathTypeList = [{ name: 'Туда обратно', value: 0 }, { name: 'Туда', value: 1 }];
-            
+            $scope.pathTypeList = [
+                { name: 'Туда обратно', value: 0 },
+                { name: 'Туда', value: 1 }
+            ];
+
             //logCriteriaData();
-            log('AviaFormCtrl defaultCriteria: ' + angular.toJson($scope.criteria));
+            //log('AviaFormCtrl defaultCriteria: ' + angular.toJson($scope.criteria));
 
             //тут меняем урл для поиска
             $scope.searchStart = function () {
@@ -367,7 +369,7 @@ innaAppControllers.
                             $rootScope.$broadcast("avia_form_to_update", e);
                         }
                     }
-                }   
+                }
             };
 
             $scope.preventBubbling = function ($event) {

@@ -19,7 +19,7 @@ innaAppControllers.
                 }
             });
 
-            //нужно передать в шапку (AviaFormCtrl) $routeParams
+
             //$rootScope.$broadcast("avia.page.loaded", $routeParams, true);
             $scope.$on('avia.form.loaded', function (event) {
                 //console.log('avia.form.loaded');
