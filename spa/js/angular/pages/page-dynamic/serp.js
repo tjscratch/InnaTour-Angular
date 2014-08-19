@@ -36,6 +36,8 @@ innaAppControllers
                 ChildrenAges: (routParam.Children) ? routParam.Children.split('_') : null
             });
 
+            console.log(searchParams, 'searchParams');
+
             var cacheKey = '';
             var serpScope = $scope;
             $scope.hotelsRaw = null;

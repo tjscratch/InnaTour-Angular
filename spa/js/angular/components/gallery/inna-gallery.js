@@ -53,7 +53,7 @@ angular.module('innaApp.directives')
                         if(!$scope.pics.current) return {};
 
                         var style = {
-                            src : $scope.pics.current.src
+                            backgroundImage: 'url(~)'.split('~').join($scope.pics.current.src)
                         }
 
                         if($scope.pics.plan == PicList.PLAN_Z) {
@@ -65,8 +65,6 @@ angular.module('innaApp.directives')
                         } else {
                             return {};
                         }
-
-                        $scope.styleCurrentImage = style;
 
                         return style;
                     };

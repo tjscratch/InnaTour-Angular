@@ -59,6 +59,7 @@ angular.module('innaApp.components').
                             this._slider.slider('value', this.get('Price.Max'));
                         },
                         teardown: function (evt) {
+                            console.log('teardown price');
                             this._slider.slider("destroy");
                             this._slider = null;
                         }
