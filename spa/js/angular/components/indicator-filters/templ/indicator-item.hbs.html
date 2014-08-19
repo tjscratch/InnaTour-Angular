@@ -16,7 +16,8 @@
 
 		{{#if filterItem.name == 'FullPackagePrice'}}
             <li class="b-switch-filters__item">
-                Не дороже {{filterItem.val}} {{pluralize(filterItem.val, ["рубль", "рубля", "рублей"])}}
+                Не дороже {{$filter('price')(filterItem.val)}}
+	            {{pluralize(filterItem.val, ["рубль", "рубля","рублей"])}}
                 <span class="b-switch-filters__item_close icon-sprite-remove"
                       on-click="removeFilter"></span>
             </li>
