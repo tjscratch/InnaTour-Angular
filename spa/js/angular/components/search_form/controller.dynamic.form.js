@@ -173,7 +173,7 @@ innaAppControllers
             $scope.adultCount = routeParams.Adult || 2;
 
             /*Children count*/
-            $scope.childrenCount = routeParams.ChildrenAges && routeParams.ChildrenAges.length || 0;
+            $scope.childrenCount = (routeParams.ChildrenAges && routeParams.ChildrenAges.length) || 0;
 
             /*Children ages*/
             //TODO fix English
