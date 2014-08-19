@@ -32,11 +32,11 @@ angular.module('innaApp.directives')
                         });
                     });
 
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
+                    /*EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
                         $scope.safeApply(function () {
                             $scope.isHeaderVisible = true;
                         });
-                    });
+                    });*/
 
                     EventManager.on(Events.HEADER_HIDDEN, function () {
                         $scope.safeApply(function () {

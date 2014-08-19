@@ -227,7 +227,6 @@ angular.module('innaApp.components').
                  * @param dataFilters
                  */
                 setModel: function (opt_data) {
-                     console.log(opt_data, 'opt_data');
                     if(opt_data || this.get('filtersData')) {
                         var modelFilters = new FilterSettings({
                             data: {
