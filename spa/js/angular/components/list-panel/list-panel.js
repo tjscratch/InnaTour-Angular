@@ -49,6 +49,7 @@ angular.module('innaApp.components').
                     var that = this;
                     this.enumerableClone = [];
                     this._filterTimeout = null;
+                    this._scrollTimeout = null;
 
                     if (this.get('iterable_hotels')) {
                         this.parse(this.get('Enumerable'), { hotel: true });
@@ -201,7 +202,23 @@ angular.module('innaApp.components').
                         elHeight = this.get('elHeight');
 
 
+
                     //console.log((elHeight), (scrollTop + (viewportHeight + 100)));
+
+
+                    /**
+                     *  Вешаем класс на body - disable-hover
+                     *
+                     */
+                    clearTimeout(this._scrollTimeout);
+                    if(!document.body.classList.contains('disable-hover')) {
+                        document.body.classList.add('disable-hover')
+                    }
+
+                    this._scrollTimeout = setTimeout(function(){
+                        document.body.classList.remove('disable-hover')
+                    },500);
+
 
 
                     if ((scrollTop + (viewportHeight + 120)) >= elHeight) {
