@@ -6,35 +6,61 @@ angular.module('innaApp.directives')
             replace: true,
             template: $templateCache.get('regions/header/templ/header.html'),
             controller: [
+                'EventManager',
                 '$scope',
                 '$location',
                 'eventsHelper',
                 'urlHelper',
                 'innaApp.Urls',
+                'innaApp.API.events',
                 'aviaHelper',
-                function ($scope, $location, eventsHelper, urlHelper, appUrls, aviaHelper) {
+                function (EventManager, $scope, $location, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
 
 
-                    $scope.$on('$routeChangeStart', function (next, current) {
-                        $scope.$emit('header:visible');
-                    });
+                    /*$scope.$on('$routeChangeStart', function (next, current) {
+                     $scope.safeApply(function () {
+                     $scope.isHeaderVisible = true;
+                     });
+                     });*/
 
                     $scope.isHeaderVisible = true;
 
 
-                    $scope.$on('header:hidden', function () {
-                        $scope.isHeaderVisible = false;
+                    EventManager.on(Events.HEADER_VISIBLE, function () {
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = true;
+                        });
                     });
 
-                    $scope.$on('header:visible', function () {
-                        $scope.isHeaderVisible = true;
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = true;
+                        });
+                    });
+
+                    EventManager.on(Events.HEADER_HIDDEN, function () {
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = false;
+                        });
+                    });
+
+                    EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, function () {
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = true;
+                        });
+                    });
+
+                    EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, function () {
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = false;
+                        });
                     });
 
 
                     $scope.isActive = function (route) {
                         var loc = $location.path();
                         var abs = $location.absUrl();
-                        //console.log('loc: ' + loc + ' route: ' + route);
+
                         if (route == '/') {
                             return ((abs.indexOf('/tours/?') > -1) || loc == route);
                         }
@@ -48,28 +74,29 @@ angular.module('innaApp.directives')
 
                     $scope.urls = appUrls;
 
+
+                    /**
+                     * Определяет какая форма поиска будет показана
+                     * @returns {string}
+                     */
                     $scope.getHeadForm = function () {
                         var loc = $location.path();
                         //log('$scope.getHeadForm, loc:' + loc);
                         var isDynamic = (
-                            loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) &&
-                            !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) &&
-                            !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
-                        ) || loc == appUrls.URL_ROOT;
+                            loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
+                            ) || loc == appUrls.URL_ROOT;
 
                         var abs = $location.absUrl();
                         if (loc == appUrls.URL_TOURS || abs.indexOf(appUrls.URL_TOURS + '?') > -1) {
-                            return 'nav_forms/tours_search_form.html';
+                            return 'components/search_form/templ/tours_search_form.html';
                         }
                         else if (isDynamic) {
-                            return 'nav_forms/dynamic_search_form.html';
+                            return 'components/search_form/templ/dynamic_search_form.html';
                         }
-                        else if (loc.startsWith(appUrls.URL_AVIA) &&
-                            !loc.startsWith(appUrls.URL_AVIA_RESERVATION) &&
-                            !loc.startsWith(appUrls.URL_AVIA_BUY)) {
+                        else if (loc.startsWith(appUrls.URL_AVIA) && !loc.startsWith(appUrls.URL_AVIA_RESERVATION) && !loc.startsWith(appUrls.URL_AVIA_BUY)) {
+                            return 'components/search_form/templ/nav_forms/avia_search_form.html';
+                        }
 
-                            return 'nav_forms/avia_search_form.html';
-                        }
                         //на бронировании и покупке формы нет
                         else {
                             return '';
@@ -118,9 +145,6 @@ angular.module('innaApp.directives')
                         $scope.$root.isLoginPopupOpened = true;
                     };
 
-                }],
-            link: function ($scope, $element, attrs) {
-
-            }
+                }]
         };
     }]);

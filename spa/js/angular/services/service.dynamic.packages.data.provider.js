@@ -25,20 +25,32 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
             getTicketsByCombination: function(hotelId, params, callback){
                 AjaxHelper.getDebounced(api.DYNAMIC_SEARCH_TICKETS, _.extend({Id: hotelId}, params), callback);
             },
-            hotelDetails: function(hotelId, providerId, ticketToId, ticketBackId, searchParams, callback, error){
+
+            /**
+             *
+             * @param {Object} params
+             * hotelId =
+             * providerId =
+             * ticketToId =
+             * ticketBackId =
+             * searchParams =
+             * success =
+             * error =
+             */
+            hotelDetails: function(params){
                 AjaxHelper.get(api.DYNAMIC_HOTEL_DETAILS, {
-                    HotelId: hotelId,
-                    HotelProviderId: providerId,
-                    TicketToId: ticketToId,
-                    TicketBackId: ticketBackId,
-                    Filter: searchParams,
-                    rooms: 'true'
-                }, callback, error);
+                    HotelId: params.HotelId,
+                    HotelProviderId: params.HotelProviderId,
+                    TicketToId: params.TicketToId,
+                    TicketBackId: params.TicketBackId,
+                    Filter: params.Filter,
+                    Rooms : params.Rooms
+                }, params.success, params.error);
             },
-            displayOrder: function(orderId, success, error){
+            displayOrder: function(params){
                 AjaxHelper.get(api.B2B_DISPLAY_ORDER, {
-                    orderNum: orderId
-                }, success, error);
+                    orderNum: params.orderId
+                }, params.success, params.error);
             }
         }
     }

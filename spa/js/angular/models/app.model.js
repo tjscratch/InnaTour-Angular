@@ -289,6 +289,8 @@ inna.Models._CollectionFactory = function () {
             item.data.hidden = false;
         });
 
+
+
         this.each(function (item) {
             if (item.hidden || item.data.hidden) return; //already hidden;
 

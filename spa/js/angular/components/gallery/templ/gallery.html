@@ -1,0 +1,29 @@
+<div class="gallery gallery_len_{{pics.list.length}} gallery_plan_{{pics.plan}}" ng-if="pics.list.length != 0">
+    <div class="gallery__viewport-wrap">
+        <div class="gallery__viewport" ng-style="getViewportStyle()">
+            <img class="gallery__viewport_current-image"
+                 ng-src="{{styleCurrentImage.src}}"
+                 width="{{styleCurrentImage.width}}"
+                 height="{{styleCurrentImage.height}}"
+                 imageonload />
+
+            <div class="gallery__active gallery__active_type_prev" ng-if="pics.list.length > 1" ng-click="pics.prev()">
+                <div class="b-carousel__control b-carousel__prev"></div>
+            </div>
+            <div class="gallery__active gallery__active_type_next" ng-if="pics.list.length > 1" ng-click="pics.next()">
+                <div class="b-carousel__control b-carousel__next"></div>
+            </div>
+        </div>
+    </div>
+    <ul class="gallery__list" ng-if="pics.list.length > 1">
+        <li ng-repeat="pic in pics.list"
+            class="gallery__list-item"
+            ng-class="{'gallery__list-item_state_current': pics.isCurrent(pic)}"
+            style="background-image:url({{pic.src}});"
+            ng-click="pics.setCurrent(pic)"></li>
+    </ul>
+
+    <div class="gallery__disclaimer">Фотографии предоставлены отелем. Компания ИННА ТУР не несет ответвенности за
+        достоверность предоставленной информации.
+    </div>
+</div>

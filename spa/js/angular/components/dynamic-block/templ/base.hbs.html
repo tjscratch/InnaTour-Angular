@@ -2,41 +2,36 @@
 	Настраеваемый блок
 	настройки находятся в data.settings
 -->
-<div class="row b-result b-result-content
-	b-result_{{settings.height}}
-	{{settings.classBlock}}
-	{{ (settings.countColumn == 3)?'b-result_col_three':'b-result_col_two'}}">
+{{#if !hidden}}
+	<div class="row b-result b-result-content b-result_{{settings.height}} {{setClass()}}">
 
-    <div class="b-result__cell result-cell">
+	    <div class="b-result__cell result-cell {{settings.classColl1}}">
 
-	    <!-- content -->
-		{{>collOneContent}}
+			{{>collOneContent}}
 
-        <!-- separator -->
-        <div class="b-result-cell__gap">
-            <div class="b-result-cell__gap_wrap"></div>
-        </div>
-    </div>
+		    {{#if !settings.removeOneSeparator}}
+		        <div class="b-result-cell__gap">
+		            <div class="b-result-cell__gap_wrap"></div>
+		        </div>
+		    {{/if}}
+	    </div>
 
-    <div class="b-result__cell result-cell">
+	    <div class="b-result__cell result-cell {{settings.classColl2}}">
 
-        <!-- content -->
-		{{>collTwoContent}}
+			{{>collTwoContent}}
 
 
-		{{#if settings.countColumn > 2}}
-            <!-- separator -->
-            <div class="b-result-cell__gap">
-                <div class="b-result-cell__gap_wrap"></div>
-            </div>
+			{{#if settings.countColumn > 2}}
+	            <div class="b-result-cell__gap">
+	                <div class="b-result-cell__gap_wrap"></div>
+	            </div>
+			{{/if}}
+	    </div>
+
+		{{#if settings.countColumn == 3}}
+	        <div class="b-result__cell result-cell {{settings.classColl3}}">
+				{{>collThreeContent}}
+	        </div>
 		{{/if}}
-    </div>
-
-	{{#if settings.countColumn == 3}}
-        <div class="b-result__cell result-cell">
-
-            <!-- content -->
-			{{>collThreeContent}}
-        </div>
-	{{/if}}
-</div>
+	</div>
+{{/if}}

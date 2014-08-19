@@ -1,0 +1,217 @@
+{"Filters": {
+
+
+    "Hotels": {
+        "Stars": {
+            "List": [
+                {
+                    "Value": 1,
+                    "Price": ""
+                },
+                {
+                    "Value": 2,
+                    "Price": ""
+                },
+                {
+                    "Value": 3,
+                    "Price": ""
+                },
+                {
+                    "Value": 4,
+                    "Price": ""
+                },
+                {
+                    "Value": 5,
+                    "Price": ""
+                }
+            ]
+        },
+        "TaFactor": {
+            "List": [
+
+                {
+                    "Value": 1,
+                    "Price": ""
+                },
+                {
+                    "Value": 2,
+                    "Price": ""
+                },
+                {
+                    "Value": 3,
+                    "Price": ""
+                },
+                {
+                    "Value": 4,
+                    "Price": ""
+                },
+                {
+                    "Value": 5,
+                    "Price": ""
+                }
+            ]
+        },
+        "Price": {
+            "Min": "",
+            "Max": "",
+            "Value": ""
+        },
+        "HotelType": {
+            "list": [
+                {
+                    "name": "Отель",
+                    "value": "hotel"
+                },
+                {
+                    "name": "Апарт-отель",
+                    "value": "apart_hotel"
+                },
+                {
+                    "name": "Пансион",
+                    "value": "guesthouse"
+                },
+                {
+                    "name": "Квартира",
+                    "value": "flat"
+                }
+            ]
+        },
+        "Extra": {
+            "List": [
+                {
+                    "Name": "Фитнес",
+                    "Value": "Fitness"
+                },
+                {
+                    "Name": "Завтрак",
+                    "Value": "Breakfast"
+                },
+                {
+                    "Name": "Бар/Ресторан",
+                    "Value": "BarRestaurant"
+                },
+                {
+                    "Name": "Парковка",
+                    "Value": "Parking"
+                },
+                {
+                    "Name": "Кухня",
+                    "Value": "Kitchen"
+                },
+
+                {
+                    "Name": "Сервисы для людей с о.в",
+                    "Value": "ForPeopleWithDisabilities"
+                },
+                {
+                    "Name": "СПА",
+                    "Value": "SPA"
+                },
+                {
+                    "Name": "Интернет",
+                    "Value": "Internet"
+                },
+                {
+                    "Name": "Бассейн",
+                    "Value": "SwimmingPool"
+                },
+                {
+                    "Name": "Сервисы для детей",
+                    "Value": "ServicesForChildren"
+                }
+            ]
+        }
+    },
+
+
+    "Tickets": {
+
+        "Price": {
+            "Min": "",
+            "Max": "",
+            "Value": ""
+        },
+
+        "AirLegs": {
+            "List": [
+                {
+                    "Name": "без пересадок",
+                    "Value": "1"
+                },
+                {
+                    "Name": "1 пересадка",
+                    "Value": "2"
+                },
+                {
+                    "Name": "2+ пересадки",
+                    "Value": "3"
+                }
+            ]
+        },
+
+        "Airlines": {
+            "List": [
+                {
+                    "Name": "Transaero",
+                    "Code": "",
+                    "Price": ""
+                },
+                {
+                    "Name": "Air Berlin",
+                    "Code": "",
+                    "Price": ""
+                },
+                {
+                    "Name": "Lufthansa",
+                    "Code": "",
+                    "Price": ""
+                }
+            ]
+        },
+        "Airports": [
+            {
+                "State": "AirportFrom",
+                "Name": "Москва",
+                "List": [
+                    {
+                        "Name": "Домодедово",
+                        "Code": "DME",
+                        "Price": ""
+                    },
+                    {
+                        "Name": "Шарль-де-Голль ",
+                        "Code": "CDG",
+                        "Price": ""
+                    },
+                    {
+                        "Name": "Домодедово",
+                        "Code": "DME",
+                        "Price": ""
+                    }
+                ]
+            },
+            {
+                "State": "AirportTo",
+                "Name": "Берлин",
+                "List": [
+                    {
+                        "Name": "Домодедово",
+                        "Code": "DME",
+                        "Price": ""
+                    },
+                    {
+                        "Name": "Шарль-де-Голль ",
+                        "Code": "CDG",
+                        "Price": ""
+                    },
+                    {
+                        "Name": "Домодедово",
+                        "Code": "DME",
+                        "Price": ""
+                    }
+                ]
+
+            }
+        ]
+    }
+}}

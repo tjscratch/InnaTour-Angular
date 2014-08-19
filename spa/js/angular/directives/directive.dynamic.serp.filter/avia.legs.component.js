@@ -40,6 +40,7 @@ angular.module('innaApp.directives')
                             var both = to + back;
                             return both == 3 || both == 4;
                         }));
+
                         $scope.filter.options.push(new Option('2+ пересадки', function(to, back) {
                             //true if fits
                             return (to >= 3) || (back >= 3);

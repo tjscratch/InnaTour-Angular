@@ -1,4 +1,4 @@
-angular.module('innaApp.conponents').
+angular.module('innaApp.components').
     factory('Tripadvisor', [
         '$filter',
         '$templateCache',
@@ -8,7 +8,8 @@ angular.module('innaApp.conponents').
                 template: $templateCache.get('components/tripadvisor/templ/index.hbs.html'),
                 append: true,
                 data: {
-                    withOutTd : false
+                    withOutTd : false,
+                    TaFactorArr : []
                 },
                 init: function () {
                     var that = this;

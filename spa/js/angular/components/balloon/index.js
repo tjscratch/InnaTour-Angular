@@ -27,13 +27,34 @@ innaAppConponents.
                     });
                 },
 
+                partials: {
+                    balloonContent: function () {
+                        var templ = '<span></span>';
+                        if (this.get('template'))
+                            templ = $templateCache.get('components/balloon/templ/' + this.get('template'))
+
+                        return templ;
+                    }
+                },
+
                 show: function () {
                     this.set({isVisible: true});
                 },
                 hide: function () {
-                    this.set({isVisible: false});
-                    if (typeof this.get('callbackClose') == 'function') {
-                        this.get('callbackClose')();
+                    var that = this;
+
+                    if (this.get('wait')) {
+                        setTimeout(function () {
+                            that.set({isVisible: false});
+                            if (typeof that.get('callbackClose') == 'function') {
+                                that.get('callbackClose')();
+                            }
+                        }, this.get('wait'))
+                    } else {
+                        that.set({isVisible: false});
+                        if (typeof that.get('callbackClose') == 'function') {
+                            that.get('callbackClose')();
+                        }
                     }
                 },
 

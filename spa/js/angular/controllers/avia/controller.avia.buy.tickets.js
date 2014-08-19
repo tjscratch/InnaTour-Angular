@@ -33,7 +33,7 @@ innaAppControllers.
                 $log.log(msg);
             }
 
-            //нужно передать в шапку (AviaFormCtrl) $routeParams
+
             //$rootScope.$broadcast("avia.page.loaded", $routeParams);
 
             //критерии из урла

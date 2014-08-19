@@ -1,5 +1,5 @@
 <div class="b-result b-result_col_three row b-result-content">
-    <div class="b-result__cell" ng-click="state && state.switchTo('ticket')" ng-style="{cursor: state ? 'pointer' : 'default'}">
+    <div class="b-result__cell" ng-click="toggleTab('ticket')" ng-style="{cursor: !stateTicket ? 'pointer' : 'default'}">
 
         <span class="rl-airline" ng-repeat="(code, name) in bundle.ticket.collectAirlines().etap" ng-if="$index < 2">
             <span ng-switch="code">
@@ -29,7 +29,7 @@
 
         <div class="flight-info">
                 <span class="date">
-                    <b>{{dateHelper.getTime(bundle.ticket.data.BackDepartureDate)}} {{bundle.ticket.data.InCode}}</b>
+                    <b>{{dateHelper.getTime(bundle.ticket.data.BackDepartureDate)}} {{bundle.ticket.data.OutCodeBack}}</b>
                     {{bundle.ticket.data.BackDepartureDate | date: 'd MMM'}}, {{bundle.ticket.data.BackDepartureDate | date: 'EEE'}}
                 </span>
 
@@ -38,8 +38,7 @@
                 {{bundle.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
             </p>
                 <span class="date">
-                    {{ (__etapsBack = bundle.ticket.getEtaps('Back')) ? '' : '' }}
-                    <b>{{dateHelper.getTime(bundle.ticket.data.BackArrivalDate)}} {{__etapsBack[__etapsBack.length - 1].data.InCode}}</b>
+                    <b>{{dateHelper.getTime(bundle.ticket.data.BackArrivalDate)}} {{bundle.ticket.data.InCodeBack}}</b>
                     {{bundle.ticket.data.BackArrivalDate | date: 'd MMM'}}, {{bundle.ticket.data.BackArrivalDate | date: 'EEE'}}
                 </span>
         </div>
@@ -47,12 +46,12 @@
 
         <div class="bottom-actions">
             <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_replace"
-               ng-if="state"
-               ng-class="{active: state.isActive(state.TICKETS_TAB)}">
+               ng-if="!displayHotel"
+               ng-class="{active: stateTicket}">
                 Заменить перелет
             </a>
             <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_details"
-               ng-click="getTicketDetails($event, bundle.ticket)">Подробнее</a>
+               ng-click="bundleTicketDetails($event, bundle.ticket)">Подробнее</a>
         </div>
 
         <!-- separator -->
@@ -61,7 +60,7 @@
         </div>
     </div>
 
-    <div class="b-result__cell" ng-click="state && state.switchTo('hotel')" ng-style="{cursor: state ? 'pointer' : 'default'}">
+    <div class="b-result__cell" ng-click="toggleTab('hotel')" ng-style="{cursor: (!stateHotel || asMap) ? 'pointer' : 'default'}">
         <div class="hotel-info__special-mark" ng-if="bundle.getProfit() > 1000">
             <span class="icon-crown icon-sprite-crown"></span>
             Спецпредложение
@@ -69,18 +68,16 @@
 
         <div class="hotel-info">
             <div class="hotel-info__wrapper">
+                <!--{{bundle | console}}-->
                 <img ng-src="{{bundle.hotel.data.HotelPhoto70}}" ng-if="bundle.hotel.data.HotelPhoto70" alt="">
                 <img src="/spa/img/hotels/no_photo70x70.png" ng-if="!bundle.hotel.data.HotelPhoto70" alt="">
 
                 <div class="hotel-info-content">
-                    <div>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 0"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 1"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 2"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 3"></span>
-                        <span class="icon icon-star" ng-if="bundle.hotel.data.Stars > 4"></span>
-                    </div>
-                    <h3 class="hotel-info-name">{{bundle.hotel.data.HotelName}}</h3>
+                    <!-- Stars -->
+                    <div class="js-stars-container"></div>
+                    <h3 class="hotel-info-name">
+                        {{bundle.hotel.data.HotelName | textOverflow:50}}
+                    </h3>
 
                     <div class="hotel-info-date">
                         с {{bundle.hotel.data.CheckIn | date: 'd MMM'}}
@@ -100,15 +97,16 @@
 
         <div class="bottom-actions">
             <a href="javascript:void(0);"
-               ng-class="{active: state.isActive(state.HOTELS_TAB)}"
-               ng-if="state"
+               ng-class="{'active': (stateHotel && !asMap)}"
+               ng-if="!displayHotel"
                class="bottom-actions__button bottom-actions__button_action_replace">
                 Заменить отель
             </a>
-            <a href="javascript:void(0);"
+
+            <a href="{{computedUrlDetails()}}"
+               target="_blank"
                class="bottom-actions__button bottom-actions__button_action_details"
-               ng-class="{'active': !!!__getHotelDetails}"
-               ng-click="!!__getHotelDetails && getHotelDetails($event, bundle.hotel)">Подробнее</a>
+               ng-class="{'active': displayHotel}">Подробнее</a>
         </div>
 
 
@@ -142,6 +140,16 @@
 
         <p></p>
 
-        <span ng-if="withReservationButton" class="button" ng-click="getHotelDetails($event, bundle.hotel, true)">Купить</span>
+        <a class="button"
+           href="{{computedUrlDetails('buy')}}"
+           target="_blank"
+           ng-if="withReservationButton">
+            Купить
+        </a>
     </div>
 </div>
+
+
+
+<!-- Попап - подробнее о авиа-билете -->
+<div ticket-details></div>

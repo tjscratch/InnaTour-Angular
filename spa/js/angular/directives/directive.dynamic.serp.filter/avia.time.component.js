@@ -119,7 +119,9 @@ angular.module('innaApp.directives')
 
                         $scope.filter = $scope.filters.add(new inna.Models.Avia.Filters.Filter('Time'));
                         $scope.filter.options = $scope.options;
+
                         $scope.filter.filterFn = function(ticket){
+
                             function checkOptionsInsideCategory(ticket, options) {
                                 if(!options.options.length) return true;
 

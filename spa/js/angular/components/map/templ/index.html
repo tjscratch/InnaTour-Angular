@@ -1,11 +1,11 @@
-<div class="big-map">
+<div class="big-map" ng-class="{'big-map_short':mapSize}">
     <div id="big-map-canvas" class="b-hotels-on-map"></div>
 
     <div class="pin big-map__balloon ng-hide" ng-show="currentHotel">
         <div class="pin-balloon">
 
             <!-- компонент карусели -->
-            <ng:include  ng-if="currentHotel" src="'components/carousel/map.html'"></ng:include>
+            <div class="js-b-carousel"></div>
 
             <div class="pin-balloon-info">
                 <div>
@@ -26,7 +26,8 @@
                                     ng-repeat="data in [currentHotel]"></ng:include>-->
 
                         <div>
-                            <a href="javascript:void(0);" ng-click="hotelDetails(currentHotel)" class="details-link">Подробнее</a>
+                            <a href="{{computedUrlDetails()}}" target="_blank" ng-click="hotelDetails(currentHotel)"
+                               class="details-link">Подробнее</a>
                         </div>
                     </div>
 
@@ -67,8 +68,7 @@
                     <div class="col-xs-7 col-no-padding">
                         <!-- tripadvisor -->
                         <div class="js-tripadvisor-container"></div>
-                        <!--<ng:include src="'components/tripadvisor/index.html'"
-                                    ng-repeat="data in [currentHotelPreview]"></ng:include>-->
+
                     </div>
 
                     <div class="pull-right col-no-padding hotel-info-price-container">

@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="{{(asMap) ? 'col-xs-9 col-no-padding' : ''}}">
+        <ul class="filters__container">
+            <FilterStars Stars="{{filtersModel.Hotels.Stars}}"/>
+            <FilterPrice Price="{{filtersModel.Hotels.Price}}"/>
+            <FilterName HotelName="{{filtersModel.Hotels.HotelName}}"/>
+            <FilterTaFactor TaFactor="{{filtersModel.Hotels.TaFactor}}"/>
+            <FilterType HotelType="{{filtersModel.Hotels.HotelType}}"/>
+            <FilterExtra Extra="{{filtersModel.Hotels.Extra}}"/>
+            <FilterSort sort="{{filtersModel.sort.hotels}}" asMap="{{asMap}}"/>
+        </ul>
+    </div>
+
+    <div class="col-xs-3 col-no-padding b-switch-filters_mod-wrapper {{(!asMap) ? 'ng-hide' : '' }}">
+        <div class="b-switch-filters_buttons">
+            <div class="b-switch-dynamic-serp-display b-switch-dynamic-serp-display_state_map"
+                 on-click="goToHotelList">
+                <div class="b-switch-dynamic-serp-display__title b-switch-dynamic-serp-display__title_at_map">
+                    <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-list2"></span>
+                    Вернуться к списку
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

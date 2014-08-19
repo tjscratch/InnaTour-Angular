@@ -20,9 +20,10 @@ angular.module('innaApp.services')
                                 data.children.join('_')
                             ].join('-');
 
+                        $location.search({});
 
                         if($location.path() == searchUrl) {
-                            $location.search({});
+
                             $route.reload();
                         }
                          else {
