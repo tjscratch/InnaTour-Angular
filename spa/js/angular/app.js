@@ -196,7 +196,7 @@ app.config([
                 controller: 'PageDynamicPackage',
                 reloadOnSearch: false
             }).
-            when(url.URL_DYNAMIC_HOTEL_DETAILS + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
+            when(url.URL_DYNAMIC_HOTEL_DETAILS + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
                 templateUrl: 'pages/page-dynamic-details/templ/hotel-details.html',
                 controller: 'PageHotelDetails',
                 reloadOnSearch: false
