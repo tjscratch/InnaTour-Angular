@@ -94,7 +94,7 @@ angular.module('innaApp.directives')
                             return 'components/search_form/templ/dynamic_search_form.html';
                         }
                         else if (loc.startsWith(appUrls.URL_AVIA) && !loc.startsWith(appUrls.URL_AVIA_RESERVATION) && !loc.startsWith(appUrls.URL_AVIA_BUY)) {
-                            return 'components/search_form/templ/nav_forms/avia_search_form.html';
+                            return 'components/search_form/templ/avia_search_form.html';
                         }
 
                         //на бронировании и покупке формы нет
