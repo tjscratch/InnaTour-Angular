@@ -45,9 +45,9 @@
                         </div>
                         <p>
                             <b>Подробные сведения</b><br/><br/>
-                            <b>Время прибытия:</b> <span ng-bind="hotel.CheckInTime"></span>
+                            <b>Время прибытия:</b>&nbsp;{{hotel.CheckInTime}}
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <b>Выезд:</b> <span ng-bind="hotel.CheckOutTime"></span>
+                            <b>Выезд:</b>&nbsp;{{hotel.CheckOutTime}} | {{hotel|json}}
                         </p>
                     </div>
                     <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
