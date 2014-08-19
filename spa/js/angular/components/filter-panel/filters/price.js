@@ -54,6 +54,7 @@ angular.module('innaApp.components').
                         },
 
                         resetFilter: function () {
+                            console.log(this, 'this price');
                             this.set({'Price.Value': this.get('Price.Max')});
                             this._slider.slider('value', this.get('Price.Max'));
                         },
@@ -72,6 +73,7 @@ angular.module('innaApp.components').
                 IndicatorFiltersItemRemove: function (data) {
                     this._super(data);
                     var that = this;
+                    console.log(this, 'this price 2');
 
                     this.set({
                         'value.val': [],

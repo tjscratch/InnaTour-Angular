@@ -149,8 +149,6 @@ innaAppControllers
             });
 
 
-
-
             /**
              * Изменяем класс у results-container
              */
@@ -215,17 +213,16 @@ innaAppControllers
 
                             console.log(data.Filters, 'data.filters');
                             /** переключаем фильтры или создаем панель */
-                            if (!FilterPanelComponent) {
-                                FilterPanelComponent = new FilterPanel({
-                                    el: document.querySelector('.recommend-bundle-container'),
-                                    data: {
-                                        combinationModel: $scope.combination,
-                                        filtersData : data.Filters
-                                    }
-                                })
-                            } else {
-                                FilterPanelComponent.toggleFilters(data.Filters);
-                            }
+                            if (FilterPanelComponent) FilterPanelComponent.teardown();
+
+                            FilterPanelComponent = new FilterPanel({
+                                el: document.querySelector('.recommend-bundle-container'),
+                                data: {
+                                    combinationModel: $scope.combination,
+                                    filtersData: data.Filters
+                                }
+                            })
+
 
                             ListPanelComponent = new ListPanel({
                                 el: document.querySelector('.results-container_list'),
@@ -290,19 +287,17 @@ innaAppControllers
                         /** Если пришли даннные по отелям */
                         if (data.AviaInfos) {
 
-                            if (!FilterPanelComponent) {
-                                FilterPanelComponent = new FilterPanel({
-                                    el: document.querySelector('.recommend-bundle-container'),
-                                    data: {
-                                        combinationModel: $scope.combination,
-                                        filtersData : data.Filters,
-                                        filter_hotel: false,
-                                        filter_avia: true
-                                    }
-                                })
-                            } else {
-                                FilterPanelComponent.toggleFilters(data.Filters);
-                            }
+                            if (FilterPanelComponent) FilterPanelComponent.teardown();
+
+                            FilterPanelComponent = new FilterPanel({
+                                el: document.querySelector('.recommend-bundle-container'),
+                                data: {
+                                    combinationModel: $scope.combination,
+                                    filtersData: data.Filters,
+                                    filter_hotel: false,
+                                    filter_avia: true
+                                }
+                            })
 
 
                             ListPanelComponent = new ListPanel({
@@ -408,7 +403,7 @@ innaAppControllers
             }
 
             function loadTicketDetails(ids) {
-                if(!ids) return;
+                if (!ids) return;
 
                 try {
                     var ticketIds = ids.split('_');
