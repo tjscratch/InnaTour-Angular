@@ -49,7 +49,7 @@ angular.module('innaApp.components').
                         var EndVoyageDate = searchParams.EndVoyageDate;
                         var TicketClass = searchParams.TicketClass;
                         var Adult = searchParams.Adult || 0;
-                        var Children = searchParams.Children || 0;
+                        var Children = searchParams.Children || '';
                         var hotelID = this.get('hotel.HotelId');
                         var ticketId = this.get('virtualBundle.ticket.data.VariantId1');
                         var ticketBackId = this.get('virtualBundle.ticket.data.VariantId2');
