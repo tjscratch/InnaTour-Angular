@@ -375,7 +375,7 @@ innaAppControllers.
 
             $scope.sexType = aviaHelper.sexType;
 
-            $scope.visaControl = new aviaHelper.visaControl();
+            $socpe.visaControl = new aviaHelper.visaControl();
 
             function visaNeededCheck() {
                 if ($scope.reservationModel != null && $scope.reservationModel.passengers != null && $scope.aviaInfo != null) {

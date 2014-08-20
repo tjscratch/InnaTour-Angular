@@ -129,6 +129,8 @@ var track = {
         if (window.ga != null) {
             console.log('track.dpPaymentSubmit, order: %s, revenue: %s', orderNum, revenue);
 
+            ga('require', 'ecommerce', 'ecommerce.js');
+
             ga('ecommerce:addTransaction', {
                 'id': '' + orderNum,                     // номер заказа.
                 'affiliation': 'Inna.ru',   // адрес сайта (наш, всегда один и тот-же).
@@ -165,6 +167,8 @@ var track = {
     aivaPaymentSubmit: function (orderNum, revenue, IATA1, IATA2) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
         if (window.ga != null) {
             console.log('track.aivaPaymentSubmit, order: %s, revenue: %s', orderNum, revenue);
+
+            ga('require', 'ecommerce', 'ecommerce.js');
 
             ga('ecommerce:addTransaction', {
                 'id': '' + orderNum,                     // номер заказа (билета).
