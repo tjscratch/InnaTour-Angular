@@ -41,8 +41,11 @@ innaAppControllers
                 var searchParams = angular.extend(routParam, {
                     StartVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
                     EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
-                    ChildrenAges: (routParam.Children) ? routParam.Children.split('_') : null
                 });
+
+                if(routParam.Children && routParam.Children != "0"){
+                    searchParams.ChildrenAges = routParam.Children.split('_');
+                };
             }
 
 
