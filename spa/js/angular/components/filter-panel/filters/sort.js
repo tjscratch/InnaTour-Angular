@@ -21,7 +21,7 @@ angular.module('innaApp.components').
                         defaultSort: 'byPackagePrice'
                     },
                     fn: function (data, component_val) {
-                        if (!data.length) return false;
+                        if (!data || !data.length) return false;
 
                         var sortType = {
                             byAgencyProfit: ['-PriceDetails.Profit'],

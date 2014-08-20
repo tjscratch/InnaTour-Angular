@@ -98,7 +98,6 @@ angular.module('innaApp.components').
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_RESET_ALL);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
-                            EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
                             EventManager.off('IndicatorFiltersItem:remove');
 
                             this.findAllComponents().forEach(function (child) {

@@ -181,7 +181,6 @@ angular.module('innaApp.components').
                      */
                     EventManager.observe('getSortComponent', function (newValue, oldValue, keypath) {
                         if (newValue) {
-                            console.log(newValue, 'newValue newValue newValue sort');
                             that.set('sortComponent', newValue);
                             newValue.sortDefault();
                         }
