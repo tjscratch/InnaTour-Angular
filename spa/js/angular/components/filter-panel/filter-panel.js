@@ -139,7 +139,7 @@ angular.module('innaApp.components').
                     EventManager.on('IndicatorFiltersItem:remove', function(dataContext, componentName){
                         that.findAllComponents().forEach(function(component){
                             if(component.get('value.name') == componentName){
-                                component.fire('filtersItemRemove');
+                                component.fire('filtersItemRemove', dataContext, componentName);
                             }
                         })
                     });

@@ -192,7 +192,7 @@ app.config([
             when(url.URL_DYNAMIC_PACKAGES + ':DepartureId-:ArrivalId', dynamic()).//URL для контекста по ДП
             when(url.URL_DYNAMIC_PACKAGES, dynamic()).
             when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
-                templateUrl: 'pages/page-dynamic/templ/serp.html',
+                templateUrl: 'pages/page-dynamic/templ/page-dynamic-controller.html',
                 controller: 'PageDynamicPackage',
                 reloadOnSearch: false
             }).

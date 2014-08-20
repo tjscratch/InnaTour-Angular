@@ -81,6 +81,11 @@ angular.module('innaApp.components').
                     });
                 },
 
+                /**
+                 * Настройка сортировки поумолчанию устанавливается
+                 * в filter-settings.js
+                 * sort -> isChecked: true
+                 */
                 sortDefault: function () {
                     var that = this;
 
