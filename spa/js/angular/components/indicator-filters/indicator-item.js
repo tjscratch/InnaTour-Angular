@@ -3,12 +3,11 @@ innaAppConponents.
         'EventManager',
         'innaApp.API.events',
         '$templateCache',
-        'FilterSettings',
 
         // components
         'Tripadvisor',
         'Stars',
-        function (EventManager, Events, $templateCache, FilterSettings, Tripadvisor, Stars) {
+        function (EventManager, Events, $templateCache, Tripadvisor, Stars) {
 
             var IndicatorFiltersItem = Ractive.extend({
                 template: $templateCache.get('components/indicator-filters/templ/indicator-item.hbs.html'),
@@ -38,7 +37,7 @@ innaAppConponents.
                                 data.context.direction = param;
                             }
 
-                            EventManager.fire('IndicatorFiltersItem:remove:' + this.get('filterItem.name'), dataEvents);
+                            EventManager.fire('IndicatorFiltersItem:remove', dataEvents, this.get('filterItem.name'));
                         },
                         teardown: function (evt) {
 

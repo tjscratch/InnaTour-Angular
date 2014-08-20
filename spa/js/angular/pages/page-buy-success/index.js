@@ -18,6 +18,8 @@ innaAppControllers.
         'DynamicBlock',
         'Balloon',
         function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon) {
+            document.body.classList.add('lighten-theme');
+
             function preventDefault(evt) {
                 if (evt && evt.original) {
                     evt.original.preventDefault();
@@ -206,6 +208,12 @@ innaAppControllers.
 
             pageBuy.getDataBuy();
 
-
+            $scope.$on('$destroy', function(){
+                console.log('$destroy details');
+                document.body.classList.remove('lighten-theme');
+                pageBuy.teardown();
+                pageBuy = null;
+                DynamicBlockAviaHotel = null;
+            })
         }
     ]);

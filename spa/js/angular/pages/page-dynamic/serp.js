@@ -32,11 +32,14 @@ innaAppControllers
                 StartVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
                 EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
                 HotelId: $location.search().hotel,
-                TicketId: $location.search().ticket,
-                ChildrenAges: (routParam.Children) ? routParam.Children.split('_') : null
+                TicketId: $location.search().ticket
             });
 
-            console.log(searchParams, 'searchParams');
+            if(routParam.Children){
+                searchParams.ChildrenAges = routParam.Children.split('_');
+            };
+
+            //console.log(searchParams, 'searchParams');
 
             var cacheKey = '';
             var serpScope = $scope;
