@@ -72,11 +72,16 @@
     <div>
         <h2 class="buy__result-header">{{Hotel.Room.RoomName}}</h2>
         <div class="buy__result-translation">
-            {{#Hotel.Room.BedTypeList}}
+            {{#each Hotel.Room.BedTypeList:i}}
                 <span>
-                    {{Name}}<span>,&nbsp;</span>
+                    <!-- вывод точки или запятой -->
+                    {{#if Hotel.Room.BedTypeList.length != (i+1)}}
+                       {{Name}}<span>,&nbsp;</span>
+                    {{else}}
+                      {{Name}}.
+                    {{/if}}
                 </span>
-            {{/Hotel.Room.BedTypeList}}
+            {{/each}}
         </div>
 
         <div class="buy__result-guests">
@@ -96,7 +101,9 @@
         </div>
 
         <div class="buy__result-sum">
-            <h2 class="buy__result-sum-title">Ваш заказ на сумму {{price}} {{pluralize(Price, ["рубль", "рубля", "рублей"])}} оплачен</h2>
+            <h2 class="buy__result-sum-title">Ваш заказ на сумму {{price}}
+                {{pluralize(Price, ["рубль", "рубля","рублей"])}} оплачен.</h2>
+
             <div class="buy__result-sum-description">Маршрутная квитанция (авиабилет) и подтверждение бронирования
                 отеля, направлены на ваш адрес электронной почты.</div>
         </div>

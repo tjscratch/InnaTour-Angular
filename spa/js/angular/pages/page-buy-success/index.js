@@ -19,6 +19,7 @@ innaAppControllers.
         'Balloon',
         function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon) {
 
+            document.body.classList.add('lighten-theme');
 
             $scope.hotelToShowDetails = null;
 
@@ -201,6 +202,12 @@ innaAppControllers.
 
             pageBuy.getDataBuy();
 
-
+            $scope.$on('$destroy', function(){
+                console.log('$destroy details');
+                document.body.classList.remove('lighten-theme');
+                pageBuy.teardown();
+                pageBuy = null;
+                DynamicBlockAviaHotel = null;
+            })
         }
     ]);

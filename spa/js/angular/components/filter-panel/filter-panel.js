@@ -30,12 +30,11 @@ angular.module('innaApp.components').
         'FilterExtra',
         'FilterPrice',
         'FilterName',
-        'FilterSlider',
         'FilterStars',
         'FilterTaFactor',
         'FilterType',
         'FilterSort',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, IndicatorFilters, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterExtra, FilterPrice, FilterName, FilterSlider, FilterStars, FilterTaFactor, FilterType, FilterSort) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, IndicatorFilters, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterExtra, FilterPrice, FilterName, FilterStars, FilterTaFactor, FilterType, FilterSort) {
 
 
             /**
@@ -74,7 +73,6 @@ angular.module('innaApp.components').
                     'FilterExtra': FilterExtra,
                     'FilterPrice': FilterPrice,
                     'FilterName': FilterName,
-                    'FilterSlider': FilterSlider,
                     'FilterStars': FilterStars,
                     'FilterTaFactor': FilterTaFactor,
                     'FilterType': FilterType,
@@ -97,12 +95,11 @@ angular.module('innaApp.components').
                         change: function (data) {
                         },
                         teardown: function (evt) {
-                            console.log( 'teardown FilterPanel');
-
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_RESET_ALL);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
                             EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
+                            EventManager.off('IndicatorFiltersItem:remove');
 
                             this.findAllComponents().forEach(function (child) {
                                 child.fire('resetFilter');
@@ -134,6 +131,18 @@ angular.module('innaApp.components').
                         });
                     });
 
+
+                    /**
+                     * Событие сброса фильтра
+                     * Получаем его от компонента IndicatorFilters
+                     */
+                    EventManager.on('IndicatorFiltersItem:remove', function(dataContext, componentName){
+                        that.findAllComponents().forEach(function(component){
+                            if(component.get('value.name') == componentName){
+                                component.fire('filtersItemRemove');
+                            }
+                        })
+                    });
 
                     /**
                      * Слушаем изменение filtersData

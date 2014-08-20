@@ -54,12 +54,10 @@ angular.module('innaApp.components').
                         },
 
                         resetFilter: function () {
-                            console.log(this, 'this price');
                             this.set({'Price.Value': this.get('Price.Max')});
                             this._slider.slider('value', this.get('Price.Max'));
                         },
                         teardown: function (evt) {
-                            console.log('teardown price');
                             this._slider.slider("destroy");
                             this._slider = null;
                         }
@@ -72,9 +70,8 @@ angular.module('innaApp.components').
                  * @override
                  */
                 IndicatorFiltersItemRemove: function (data) {
-                    this._super(data);
+                    //this._super(data);
                     var that = this;
-                    console.log(this, 'this price 2');
 
                     this.set({
                         'value.val': [],
@@ -106,7 +103,7 @@ angular.module('innaApp.components').
 
                 complete: function (data) {
                     var that = this;
-                    var slider = this.find('.js-range')
+                    var slider = this.find('.js-range');
 
                     this._slider = $(slider).slider({
                         range: "min",
