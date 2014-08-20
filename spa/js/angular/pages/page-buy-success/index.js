@@ -17,7 +17,8 @@ innaAppControllers.
         // components
         'DynamicBlock',
         'Balloon',
-        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon) {
+        'NeedVisa',
+        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon, NeedVisa) {
             document.body.classList.add('lighten-theme');
 
             function preventDefault(evt) {
@@ -50,6 +51,18 @@ innaAppControllers.
                 }
             });
 
+            //var NeedVisa = NeedVisa.extend({
+            //    data: {
+                    
+            //    },
+            //    init: function (options) {
+            //        this._super(options);
+
+            //        //this.on({
+            //        //    //getHotelDetails: this.getHotelDetails
+            //        //})
+            //    }
+            //});
 
             var Page = Ractive.extend({
                 debug: true,
@@ -60,10 +73,12 @@ innaAppControllers.
                     buyResult: $templateCache.get('pages/page-buy-success/templ/buy-result.html')
                 },
                 components: {
-                    DynamicBlockAviaHotel: DynamicBlockAviaHotel
+                    DynamicBlockAviaHotel: DynamicBlockAviaHotel,
+                    NeedVisa: NeedVisa
                 },
                 data: {
-                    loadData: false
+                    loadData: false,
+                    AviaInfo: null
                 },
                 init: function () {
                     var that = this;
@@ -76,7 +91,14 @@ innaAppControllers.
                         change: this.change,
                         showBalloonTicket: this.showBalloonTicket,
                         showBalloonHotel: this.showBalloonHotel
-                    })
+                    });
+
+                    this.observe('AviaInfo', function (value) {
+                        if (value) {
+                            console.log('Page observe', value);
+                            //this.visaCheck();
+                        }
+                    }, { init: false });
                 },
 
 
@@ -199,6 +221,10 @@ innaAppControllers.
                     data.loadData = true;
                     data.ticket2ways = true;
                     data.partialInfoHotel = true;
+
+                    data.PassengersCitizenshipIds = _.map(data.Passengers, function (pas) {
+                        return pas.Citizen;
+                    });
 
                     return data;
                 }
