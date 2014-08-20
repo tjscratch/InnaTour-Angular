@@ -77,8 +77,8 @@ innaAppControllers.
                     NeedVisa: NeedVisa
                 },
                 data: {
-                    loadData: false,
-                    AviaInfo: null
+                    loadData: false//,
+                    //AviaInfo: null
                 },
                 init: function () {
                     var that = this;
