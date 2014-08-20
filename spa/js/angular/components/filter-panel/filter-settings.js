@@ -115,7 +115,8 @@ angular.module('innaApp.components').factory('FilterSettings',
                     avia: [
                         {
                             name: 'По цене пакета',
-                            value: 'byPackagePrice'
+                            value: 'byPackagePrice',
+                            isChecked: true
                         },
                         {
                             name: 'По рейтингу',
