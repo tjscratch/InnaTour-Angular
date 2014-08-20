@@ -18,7 +18,36 @@ innaAppControllers
         'FilterPanel',
         function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel) {
 
-            /*Private*/
+
+            var Page = Ractive.extend({
+                debug: true,
+                append : true,
+                el: document.querySelector('.results-body'),
+                template: $templateCache.get('pages/page-dynamic/templ/page-dynamic.html'),
+
+                partials: {
+
+                },
+                components: {
+                    ListPanel : ListPanel
+                },
+                data: {
+                    loadData: false
+                },
+                init: function () {
+                    var that = this;
+
+
+                    this.on({
+                        change: function(){
+
+                        }
+
+                    })
+                }
+            });
+
+            var PageDynamic = new Page();
 
             /**
              * Преобразуем даты и собираем данные для запроса
@@ -35,9 +64,10 @@ innaAppControllers
                 TicketId: $location.search().ticket
             });
 
-            if(routParam.Children && routParam.Children != "0"){
+            if (routParam.Children && routParam.Children != "0") {
                 searchParams.ChildrenAges = routParam.Children.split('_');
-            };
+            }
+            ;
 
             //console.log(searchParams, 'searchParams');
 
@@ -492,6 +522,9 @@ innaAppControllers
                 EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
                 EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, changePadding);
                 EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, changePadding);
+
+                PageDynamic.teardown();
+                PageDynamic = null;
 
                 if (ListPanelComponent) {
                     ListPanelComponent.teardown();
