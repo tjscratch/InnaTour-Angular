@@ -18,8 +18,13 @@ innaAppControllers.
         'DynamicBlock',
         'Balloon',
         function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon) {
-
             document.body.classList.add('lighten-theme');
+
+            function preventDefault(evt) {
+                if (evt && evt.original) {
+                    evt.original.preventDefault();
+                }
+            }
 
             $scope.hotelToShowDetails = null;
 
@@ -100,7 +105,7 @@ innaAppControllers.
                 },
 
                 showBalloonTicket: function (evt) {
-
+                    preventDefault(evt);
                     // вызываем aviaHelper.tarifs
                     var tarifs = new aviaHelper.tarifs()
                     tarifs.fillInfo(this.get('AviaInfo'));
@@ -124,6 +129,7 @@ innaAppControllers.
                 },
 
                 showBalloonHotel: function (evt) {
+                    preventDefault(evt);
                     var hotelRules = new aviaHelper.hotelRules();
                     hotelRules.fillData(this.get('Hotel'));
 
