@@ -47,6 +47,11 @@ body {
   &.scrollVisible {
     overflow-y: visible;
   }
+
+  &.disable-hover,
+  &.disable-hover * {
+    pointer-events: none !important;
+  }
 }
 
 .main {

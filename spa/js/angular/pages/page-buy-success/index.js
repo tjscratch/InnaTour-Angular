@@ -28,7 +28,7 @@ innaAppControllers.
                     settings : {
                         height : 220,
                         countColumn: 2,
-                        classBlock : 'buy__fly'
+                        classBlock: 'buy__fly b-result_col_two b-result_middle'
                     }
                 },
                 partials: {

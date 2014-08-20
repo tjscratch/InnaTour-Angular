@@ -97,6 +97,8 @@ angular.module('innaApp.components').
                         change: function (data) {
                         },
                         teardown: function (evt) {
+                            console.log( 'teardown FilterPanel');
+
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_RESET_ALL);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
@@ -225,7 +227,6 @@ angular.module('innaApp.components').
                  * @param dataFilters
                  */
                 setModel: function (opt_data) {
-                     console.log(opt_data, 'opt_data');
                     if(opt_data || this.get('filtersData')) {
                         var modelFilters = new FilterSettings({
                             data: {

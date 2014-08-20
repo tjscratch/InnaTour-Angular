@@ -7,6 +7,7 @@ angular.module('innaApp.services')
         function ($rootScope, $location, appURLs, $route) {
             return {
                 listen: function () {
+
                     $rootScope.$on('inna.DynamicPackages.Search', function (event, data) {
 
                         var searchUrl = appURLs.URL_DYNAMIC_PACKAGES_SEARCH +

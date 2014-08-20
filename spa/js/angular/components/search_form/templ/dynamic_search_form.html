@@ -1,4 +1,4 @@
-<form class="search-ticket-form" ng-controller="DynamicFormCtrl" ng-if="!_dynamicSearchFormInvisible">
+<form class="b-search-form search-ticket-form" ng-controller="DynamicFormCtrl" ng-if="!_dynamicSearchFormInvisible">
 
     <div dropdown-input
          theme="search-field-block search__city"
@@ -41,8 +41,6 @@
             show-back-trip-options="false"
             klass-model="klass"></div>
 
-    <div class="search-button-block_small" ng-click="searchStart()">
-        <!--<input type="submit" value="Найти" >-->
-    </div>
+    <div class="search-form__submit search-button-block_small" ng-click="searchStart()"></div>
 
 </form>

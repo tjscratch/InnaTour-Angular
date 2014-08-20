@@ -9,13 +9,17 @@
                         <div class="col-xs-6 col-no-padding">
                             <!--Другие <b>{{(EnumerableCount)}}</b>-->
 							{{#if iterable_hotels}}
-								{{pluralize((EnumerableCount),
-								["Другой "+ EnumerableCount +" вариант отеля","Другие "+ EnumerableCount +" варианта отелей",
-								"Другие "+ EnumerableCount +" вариантов отелей"])}}
+								{{{pluralize((EnumerableCount),[
+									"Другой <b>"+ EnumerableCount +"</b> вариант отеля",
+									"Другие <b>"+ EnumerableCount +"</b> варианта отелей",
+									"Другие <b>"+ EnumerableCount +"</b> вариантов отелей"
+								])}}}
 							{{else}}
-								{{pluralize((EnumerableCount),
-								["Другой "+ EnumerableCount +" вариант перелета","Другие "+ EnumerableCount +" варианта перелетов",
-								"Другие "+ EnumerableCount +" вариантов перелетов"])}}
+								{{{pluralize((EnumerableCount), [
+									"Другой <b>"+ EnumerableCount +"</b> вариант перелета",
+									"Другие <b>"+ EnumerableCount +"</b> варианта перелетов",
+									"Другие <b>"+ EnumerableCount +"</b> вариантов перелетов"
+								])}}}
 							{{/if}}
                         </div>
 

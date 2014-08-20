@@ -144,11 +144,13 @@ angular.module('innaApp.directives')
 
                             this.fullDisplay = function (opt_param) {
                                 if (!opt_param) doc.on('scroll', onScroll);
-                                $scope.isVisible = true;
+
                                 timeOutCloseBundle = setTimeout(function(){
                                     clearTimeout(timeOutCloseBundle);
                                     timeOutCloseBundle = null;
                                 }, 1000);
+
+                                $scope.isVisible = true;
                                 EventManager.fire(Events.DYNAMIC_SERP_OPEN_BUNDLE, true);
                             }
 
@@ -205,6 +207,8 @@ angular.module('innaApp.directives')
                             });
                         }
 
+
+                        EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, $scope.display.fullDisplay);
                         EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, openBundle);
                         EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, closeBundle);
 
@@ -235,6 +239,7 @@ angular.module('innaApp.directives')
                         /*Events*/
                         $scope.$on('$destroy', function () {
                             console.log('$destroy bundle root');
+                            EventManager.off(Events.DYNAMIC_SERP_MAP_DESTROY, $scope.display.fullDisplay);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, openBundle);

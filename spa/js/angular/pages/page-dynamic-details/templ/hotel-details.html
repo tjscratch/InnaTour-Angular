@@ -47,11 +47,13 @@
                             <b>Подробные сведения</b><br/><br/>
                             <b>Время прибытия:</b>&nbsp;{{hotel.CheckInTime}}
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <b>Выезд:</b>&nbsp;{{hotel.CheckOutTime}} | {{hotel|json}}
+                            <b>Выезд:</b>&nbsp;{{hotel.CheckOutTime}}
                         </p>
                     </div>
-                    <div class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</div>
-                    <div class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</div>
+                    <p>
+                        <span class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</span>
+                        <span class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</span>
+                    </p>
                 </div>
                 <ul class="hotel-details-extra" ng-if="hotel.Extra">
                     <li ng-repeat="(key, val) in hotel.Extra"
