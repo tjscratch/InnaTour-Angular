@@ -62,7 +62,7 @@ angular.module('innaApp.components').
                 IndicatorFiltersItemRemove : function(data){
                     this._super(data);
                     var that = this;
-                    
+
                     this.splice('value.val', this.get('value.val').indexOf(data), 1);
 
                     this.get('Stars.List').forEach(function(item, i){
