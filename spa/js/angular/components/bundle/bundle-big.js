@@ -46,7 +46,7 @@ angular.module('innaApp.directives')
                         var EndVoyageDate = searchParams.EndVoyageDate;
                         var TicketClass = searchParams.TicketClass;
                         var Adult = searchParams.Adult || 0;
-                        var Children = searchParams.Children || 0;
+                        var Children = searchParams.Children || '';
                         var hotelID = $scope.bundle.hotel.data.HotelId;
                         var ticketId = $scope.bundle.ticket.data.VariantId1;
                         var ticketBackId = $scope.bundle.ticket.data.VariantId2;
