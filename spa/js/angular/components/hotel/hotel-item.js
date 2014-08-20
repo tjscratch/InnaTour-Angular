@@ -55,6 +55,8 @@ angular.module('innaApp.components').
                         var ticketBackId = this.get('virtualBundle.ticket.data.VariantId2');
                         var providerId = this.get('hotel.ProviderId');
 
+                        console.log('computedUrlDetails::searchParams', searchParams, '(' + Children + ')');
+
                         var urlDetails = '/#/packages/details/' + [
                             DepartureId,
                             ArrivalId,
