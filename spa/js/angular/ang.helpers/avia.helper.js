@@ -740,6 +740,33 @@
                         self.setected = self.list[0];
                         self.tarifItem = self.tarifsData[0];
                         self.isOpened = true;
+
+                        //ToDo: потом отрефакторить и не потерять эту логику
+                        function setPosition() {
+                            var popup = $('.js-tarifs');
+                            if (popup) {
+                                var displayHeight = $(window).height();
+
+                                var rules = $('.b__rules-grey', popup);
+                                var rulesHeight = displayHeight - 350;
+                                if (rulesHeight < 200) {
+                                    rulesHeight = 200;
+                                }
+                                rules.css({ height: rulesHeight });
+
+                                var popupHeight = popup.height();
+                                popup.css({ top: (displayHeight / 2) - (popupHeight / 2) });
+                            }
+                        }
+
+                        setTimeout(function () {
+                            setPosition();
+                            $(window).resize(function () {
+                                setPosition();
+                            })
+                        }, 0);
+                        //</ToDo>
+                        
                     }
                     self.close = function ($event) {
                         if($event) eventsHelper.preventBubbling($event);
