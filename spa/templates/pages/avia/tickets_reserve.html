@@ -86,14 +86,14 @@
         <div class="b-field-block" style="width: 160px;">
             <label class="b-field-label">Фамилия</label>
             <input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.secondName.value"
-                   ng-validation-model="passenger.secondName" validate="validate(item, type)"
+                   ng-validation-model="passenger.secondName" validate="validate(item, type)" data-title="Укажите фамилию пассажира"
                    validate-type="validateType.required"
                    ng-class="{error:isFieldInvalid(passenger.secondName)}"
                    type="text" placeholder="IVANOV" class="b-field-text">
         </div>
         <div class="b-field-block b-field-block-surname" style="width: 150px;">
             <label class="b-field-label">Имя</label>
-            <input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.name.value"
+            <input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.name.value"  data-title="Укажите имя пассажира"
                    ng-validation-model="passenger.name" validate="validate(item, type)"
                    validate-type="validateType.required"
                    ng-class="{error:isFieldInvalid(passenger.name)}"

@@ -16,8 +16,8 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
 
                 return null;
             },
-            search: function(o, callback, error){
-                AjaxHelper.getDebounced(api.DYNAMIC_SEARCH, o, callback, error);
+            search: function(params/*o, callback, error*/){
+                AjaxHelper.getDebounced(api.DYNAMIC_SEARCH, params.data, params.success, params.error);
             },
             getHotelsByCombination: function(ticketId, params, callback){
                 AjaxHelper.getDebounced(api.DYNAMIC_SEARCH_HOTELS, _.extend({Id: ticketId}, params), callback);

@@ -49,12 +49,11 @@ angular.module('innaApp.components').
                                 this.set('clearTimeHover', time);
                             }
                         },
+                        filtersItemRemove : this.IndicatorFiltersItemRemove,
                         teardown: function (evt) {
-                            EventManager.off('IndicatorFiltersItem:remove:'+ this.get('value.name'), this.IndicatorFiltersItemRemove);
+
                         }
                     })
-
-                    EventManager.on('IndicatorFiltersItem:remove:'+ this.get('value.name'), this.IndicatorFiltersItemRemove.bind(this));
                 },
 
                 hasSelected: function () {

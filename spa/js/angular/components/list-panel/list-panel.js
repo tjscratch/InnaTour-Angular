@@ -286,9 +286,10 @@ angular.module('innaApp.components').
                     if (opt_param.hotel) {
 
                         var routParam = angular.copy($routeParams);
-                        var searchParams = angular.extend(routParam, {
-                            ChildrenAges: (routParam.Children) ? routParam.Children.split('_') : null
-                        });
+                        var searchParams = angular.extend(routParam, {});
+                        if(routParam.Children && routParam.Children != "0"){
+                            searchParams.ChildrenAges = routParam.Children.split('_');
+                        };
 
                         data.forEach(function (item) {
                             var modelHotel = new inna.Models.Hotels.Hotel(item)
