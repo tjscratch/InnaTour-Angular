@@ -46,11 +46,9 @@ innaAppControllers
             var FilterPanelComponent = null;
             var ListPanelComponent = null;
             $scope.hotels = new inna.Models.Hotels.HotelsCollection();
-            $scope.airports = null;
-            $scope.hotelFilters = new inna.Models.Avia.Filters.FilterSet();
             $scope.tickets = new inna.Models.Avia.TicketCollection();
-            $scope.ticketFilters = new inna.Models.Avia.Filters.FilterSet();
             $scope.combination = new inna.Models.Dynamic.Combination();
+            $scope.airports = null;
             $scope.showLanding = true;
             $scope.passengerCount = 0;
 
@@ -93,7 +91,7 @@ innaAppControllers
                     /** Слушаем событие изменения формы поиска */
                     DynamicFormSubmitListener.listen();
 
-                    this.stateTab();
+                    //this.stateTab();
                     this.getCombination();
 
                     $scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', this.balloonCloser);
@@ -180,10 +178,6 @@ innaAppControllers
                     })
 
 
-                    $scope.getTicketDetails = function (ticket) {
-                        EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
-                    };
-
                     $scope.loadHotelDetails = function (ticket) {
                         //EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
                     };
@@ -241,8 +235,13 @@ innaAppControllers
                         },
 
                         'loadTicketsData': function (value) {
-                            console.log(value);
                             if (value) {
+
+                                /** Выполняем это условие после того как данные загрузились */
+                                if ($location.search().displayTicket){
+                                    that.loadTicketDetails($location.search().displayTicket);
+                                }
+
                                 if (FilterPanelComponent) FilterPanelComponent.teardown();
                                 if (ListPanelComponent) ListPanelComponent.teardown();
 
@@ -285,6 +284,7 @@ innaAppControllers
                         this.set('TICKETS_TAB', true);
                         this.set('HOTELS_TAB', false);
                         this.set('defaultTab', 'ticket');
+
                     }
                     if ($location.search().displayHotel || (this.get('defaultTab') == 'hotel')) {
                         this.set('TICKETS_TAB', false);
@@ -353,17 +353,20 @@ innaAppControllers
 
                     DynamicPackagesDataProvider
                         .getTicketsByCombination(param, routeParams, function (data) {
-                            that.set('loadTicketsData', data);
                             $scope.baloon.hide();
                             $scope.safeApply(function () {
                                 $scope.tickets.flush();
+
                                 for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
                                     var ticket = new inna.Models.Avia.Ticket();
                                     ticket.setData(raw);
                                     $scope.tickets.push(ticket);
                                 }
+
+                                that.set('loadTicketsData', data);
+
                                 deferred.resolve();
-                            })
+                            });
                         });
 
                     return deferred;
@@ -444,19 +447,6 @@ innaAppControllers
                         return this.loadTickets();
                 },
 
-                ticket404: function () {
-                    var that = this;
-
-                    $scope.baloon.showErr(
-                        "Запрашиваемая билетная пара не найдена",
-                        "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
-                        function () {
-                            delete $location.$$search.displayTicket
-                            $location.$$compose();
-                        }
-                    );
-                },
-
                 getAsMap: function () {
                     return $scope.asMap;
                 },
@@ -484,6 +474,17 @@ innaAppControllers
                     $location.path(Urls.URL_DYNAMIC_PACKAGES);
                 },
 
+
+                /*--------TICKET DETAILS---------*/
+                /**
+                 * Если есть параметр в url displayTicket,
+                 * то загружаем tab ticket и поднимаем попап подробнее об этом билете
+                 * @param ticket
+                 */
+                getTicketDetails : function (ticket) {
+                    EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
+                },
+
                 loadTicketDetails: function (ids) {
                     var that = this;
 
@@ -493,12 +494,27 @@ innaAppControllers
                         var ticketIds = ids.split('_');
                         var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                         if (ticket) {
-                            $scope.getTicketDetails(ticket);
+                            this.getTicketDetails(ticket);
                         } else throw false;
                     } catch (e) {
                         this.ticket404();
                     }
                 },
+
+                ticket404: function () {
+                    var that = this;
+
+                    $scope.baloon.showErr(
+                        "Запрашиваемая билетная пара не найдена",
+                        "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
+                        function () {
+                            delete $location.$$search.displayTicket
+                            $location.$$compose();
+                        }
+                    );
+                },
+
+                /*--------TICKET DETAILS---------*/
 
                 trackAnalyst : function(){
                     var trackKey = $location.url();

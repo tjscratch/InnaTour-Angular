@@ -133,6 +133,17 @@ inna.Models.Avia.TicketCollection.prototype.search = function (id1, id2) {
     });
 };
 
+inna.Models.Avia.TicketCollection.prototype.searchId = function(id){
+    var L = this.list.length;
+    var ticket = null;
+    for (var i = 0; i < L ;i++) {
+        if(this.list[i].data.VariantId1 == id){
+            ticket = this.list[i];
+        }
+    }
+    return ticket;
+}
+
 inna.Models.Avia.TicketCollection.prototype.advancedSearch = function (criteria) {
     var DEFAULT = null;
     var ticket = DEFAULT;
