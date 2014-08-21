@@ -16,7 +16,8 @@ innaAppControllers
         // components
         'Tripadvisor',
         'Stars',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars) {
+        'Balloon',
+        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars, Balloon) {
 
             DynamicFormSubmitListener.listen();
 
@@ -71,6 +72,17 @@ innaAppControllers
 
 
             function hotel404() {
+                $scope._baloon = new Balloon({
+                    data : {
+                        callbackClose : function(){
+
+                        }
+                    },
+                    partials : {
+                        balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
+                    }
+                }).show();
+
                 $scope.baloon.showErr(
                     "Запрашиваемый отель не найден",
                     "Вероятно, комнаты в нем уже распроданы.",

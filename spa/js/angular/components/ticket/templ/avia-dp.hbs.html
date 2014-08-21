@@ -38,8 +38,8 @@
 
     <p class="arrow">
         в пути:
-		{{moment(ticket.TimeToTime).hours()}}&nbsp;ч.
-		{{moment(ticket.TimeToTime).minute()}}&nbsp;мин.<br>
+		{{moment(ticket.TimeTo).hours()}}&nbsp;ч.
+		{{moment(ticket.TimeTo).minute()}}&nbsp;мин.<br>
 
 		{{#if ticket.EtapsTo.length - 1}}
 			{{ticket.EtapsTo.length - 1}}
@@ -73,8 +73,8 @@
 
     <p class="arrow">
         в пути:
-		{{moment(ticket.TimeBackTime).hours()}}&nbsp;ч.
-		{{moment(ticket.TimeBackTime).minute()}}&nbsp;мин.<br>
+		{{moment(ticket.TimeBack).hours()}}&nbsp;ч.
+		{{moment(ticket.TimeBack).minute()}}&nbsp;мин.<br>
 
 		{{#if ticket.EtapsBack.length - 1}}
 			{{ticket.EtapsBack.length - 1}}

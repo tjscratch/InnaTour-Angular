@@ -46,11 +46,9 @@ innaAppControllers
             var FilterPanelComponent = null;
             var ListPanelComponent = null;
             $scope.hotels = new inna.Models.Hotels.HotelsCollection();
-            $scope.airports = null;
-            $scope.hotelFilters = new inna.Models.Avia.Filters.FilterSet();
             $scope.tickets = new inna.Models.Avia.TicketCollection();
-            $scope.ticketFilters = new inna.Models.Avia.Filters.FilterSet();
             $scope.combination = new inna.Models.Dynamic.Combination();
+            $scope.airports = null;
             $scope.showLanding = true;
             $scope.passengerCount = 0;
 
@@ -78,20 +76,22 @@ innaAppControllers
                     HOTEL: 'hotel',
                     TICKET: 'ticket',
                     HOTELS_TAB: true,
-                    loadHotelsData : null,
-                    loadTicketsData : null
+                    defaultTab : 'hotel',
+                    loadHotelsData: null,
+                    loadTicketsData: null
                 },
                 init: function () {
                     var that = this;
 
                     this.on({
-                        change: function () {}
+                        change: function () {
+                        }
                     })
 
                     /** Слушаем событие изменения формы поиска */
                     DynamicFormSubmitListener.listen();
 
-                    this.stateTab();
+                    //this.stateTab();
                     this.getCombination();
 
                     $scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', this.balloonCloser);
@@ -178,15 +178,9 @@ innaAppControllers
                     })
 
 
-                    $scope.getTicketDetails = function (ticket) {
-                        EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
-                    };
-
                     $scope.loadHotelDetails = function (ticket) {
                         //EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
                     };
-
-
 
 
                     /*-------------------------------------------------------*/
@@ -207,83 +201,95 @@ innaAppControllers
                      * Слушаем свойства loadHotelsData и loadTicketsData
                      * Устанавливаем их после успешной загрузки отелей или билетов
                      */
-                    this.observe('loadHotelsData', function(value){
-                        if(value){
+                    this.observe({
+                        'loadHotelsData': function (value) {
+                            if (value) {
 
-                            if (FilterPanelComponent) FilterPanelComponent.teardown();
-                            if (ListPanelComponent) ListPanelComponent.teardown();
+                                if (FilterPanelComponent) FilterPanelComponent.teardown();
+                                if (ListPanelComponent) ListPanelComponent.teardown();
 
-                            that.set({
-                                iterable_hotels: true,
-                                iterable_tickets: false,
-                                Enumerable: value.Hotels,
-                                combinationModel: $scope.combination
-                            });
-
-                            FilterPanelComponent = new FilterPanel({
-                                el: document.querySelector('.recommend-bundle-container'),
-                                data: {
-                                    combinationModel: $scope.combination,
-                                    filtersData: value.Filters
-                                }
-                            })
-
-                            ListPanelComponent = new ListPanel({
-                                el: that.find('.b-page-dynamic'),
-                                data: {
+                                that.set({
                                     iterable_hotels: true,
+                                    iterable_tickets: false,
                                     Enumerable: value.Hotels,
                                     combinationModel: $scope.combination
+                                });
+
+                                FilterPanelComponent = new FilterPanel({
+                                    el: document.querySelector('.recommend-bundle-container'),
+                                    data: {
+                                        combinationModel: $scope.combination,
+                                        filtersData: value.Filters
+                                    }
+                                })
+
+                                ListPanelComponent = new ListPanel({
+                                    el: that.find('.b-page-dynamic'),
+                                    data: {
+                                        iterable_hotels: true,
+                                        Enumerable: value.Hotels,
+                                        combinationModel: $scope.combination
+                                    }
+                                });
+                            }
+                        },
+
+                        'loadTicketsData': function (value) {
+                            if (value) {
+
+                                /** Выполняем это условие после того как данные загрузились */
+                                if ($location.search().displayTicket){
+                                    that.loadTicketDetails($location.search().displayTicket);
                                 }
-                            });
-                        }
-                    }, {init : false});
 
-                    this.observe('loadTicketsData', function(value){
-                        if(value){
-                            if (FilterPanelComponent) FilterPanelComponent.teardown();
-                            if (ListPanelComponent) ListPanelComponent.teardown();
+                                if (FilterPanelComponent) FilterPanelComponent.teardown();
+                                if (ListPanelComponent) ListPanelComponent.teardown();
 
-                            that.set({
-                                iterable_tickets: true,
-                                Enumerable: value.AviaInfos,
-                                combinationModel: $scope.combination
-                            })
-
-                            FilterPanelComponent = new FilterPanel({
-                                el: document.querySelector('.recommend-bundle-container'),
-                                data: {
-                                    combinationModel: $scope.combination,
-                                    filtersData: value.Filters,
-                                    filter_hotel: false,
-                                    filter_avia: true
-                                }
-                            })
-
-                            ListPanelComponent = new ListPanel({
-                                el: that.find('.b-page-dynamic'),
-                                data: {
+                                that.set({
                                     iterable_tickets: true,
                                     Enumerable: value.AviaInfos,
                                     combinationModel: $scope.combination
-                                }
-                            });
+                                })
+
+                                FilterPanelComponent = new FilterPanel({
+                                    el: document.querySelector('.recommend-bundle-container'),
+                                    data: {
+                                        combinationModel: $scope.combination,
+                                        filtersData: value.Filters,
+                                        filter_hotel: false,
+                                        filter_avia: true
+                                    }
+                                })
+
+                                ListPanelComponent = new ListPanel({
+                                    el: that.find('.b-page-dynamic'),
+                                    data: {
+                                        iterable_tickets: true,
+                                        Enumerable: value.AviaInfos,
+                                        combinationModel: $scope.combination
+                                    }
+                                });
+                            }
                         }
-                    }, {init : false});
+                    }, {init: false});
+
                 },
 
                 /**
                  *
                  * @param {String} opt_param
                  */
-                stateTab: function (opt_param) {
-                    if ($location.search().displayTicket || (opt_param && opt_param == 'ticket')) {
+                stateTab: function () {
+                    if ($location.search().displayTicket || (this.get('defaultTab') == 'ticket')) {
                         this.set('TICKETS_TAB', true);
                         this.set('HOTELS_TAB', false);
+                        this.set('defaultTab', 'ticket');
+
                     }
-                    if ($location.search().displayHotel || (opt_param && opt_param == 'hotel')) {
+                    if ($location.search().displayHotel || (this.get('defaultTab') == 'hotel')) {
                         this.set('TICKETS_TAB', false);
                         this.set('HOTELS_TAB', true);
+                        this.set('defaultTab', 'hotel');
                     }
                 },
 
@@ -347,17 +353,20 @@ innaAppControllers
 
                     DynamicPackagesDataProvider
                         .getTicketsByCombination(param, routeParams, function (data) {
-                            that.set('loadTicketsData', data);
                             $scope.baloon.hide();
                             $scope.safeApply(function () {
                                 $scope.tickets.flush();
+
                                 for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
                                     var ticket = new inna.Models.Avia.Ticket();
                                     ticket.setData(raw);
                                     $scope.tickets.push(ticket);
                                 }
+
+                                that.set('loadTicketsData', data);
+
                                 deferred.resolve();
-                            })
+                            });
                         });
 
                     return deferred;
@@ -375,19 +384,12 @@ innaAppControllers
                 combination200: function (data) {
                     var that = this;
 
-                    var onTabLoad = angular.noop;
                     var onTabLoadParam;
-                    var defaultTab = 'hotel';
 
                     if (!data || !data.RecommendedPair) return $scope.$apply(this.combination404);
 
                     //аналитика
-                    var trackKey = $location.url();
-                    if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
-                        track.successResultsDp(track.dpKey);
-                        //console.log('analitics: dp success result');
-                        track.denyTrackSuccessResult(track.dpKey, trackKey);
-                    }
+                    this.trackAnalyst();
 
                     $scope.airports = data.Airports || [];
                     cacheKey = data.SearchId;
@@ -400,23 +402,17 @@ innaAppControllers
                     });
 
                     if ($location.search().displayTicket || $location.search().display == 'tickets') {
-
-                        onTabLoad = this.loadTicketDetails;
                         onTabLoadParam = $location.search().displayTicket;
-                        defaultTab = 'ticket';
+                        that.set('defaultTab', 'ticket');
                     }
                     else if ($location.search().displayHotel) {
-
-                        onTabLoad = this.loadHotelDetails;
                         onTabLoadParam = $location.search().displayHotel;
-                        defaultTab = 'hotel';
-
+                        that.set('defaultTab', 'hotel');
                     }
 
 
                     $scope.$apply(function ($scope) {
-                        that.loadTab(defaultTab);
-                        onTabLoad(onTabLoadParam);
+                        that.loadTab();
                     });
                 },
 
@@ -441,25 +437,14 @@ innaAppControllers
                 loadTab: function (data_tab) {
                     var that = this;
 
-                    this.stateTab(data_tab);
+                    if(data_tab) this.set('defaultTab', data_tab);
+
+                    this.stateTab();
 
                     if (this.get('HOTELS_TAB'))
                         return this.loadHotels();
                     else if (this.get('TICKETS_TAB'))
                         return this.loadTickets();
-                },
-
-                ticket404: function () {
-                    var that = this;
-
-                    $scope.baloon.showErr(
-                        "Запрашиваемая билетная пара не найдена",
-                        "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
-                        function () {
-                            delete $location.$$search.displayTicket
-                            $location.$$compose();
-                        }
-                    );
                 },
 
                 getAsMap: function () {
@@ -489,6 +474,17 @@ innaAppControllers
                     $location.path(Urls.URL_DYNAMIC_PACKAGES);
                 },
 
+
+                /*--------TICKET DETAILS---------*/
+                /**
+                 * Если есть параметр в url displayTicket,
+                 * то загружаем tab ticket и поднимаем попап подробнее об этом билете
+                 * @param ticket
+                 */
+                getTicketDetails : function (ticket) {
+                    EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
+                },
+
                 loadTicketDetails: function (ids) {
                     var that = this;
 
@@ -498,10 +494,34 @@ innaAppControllers
                         var ticketIds = ids.split('_');
                         var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                         if (ticket) {
-                            $scope.getTicketDetails(ticket);
+                            this.getTicketDetails(ticket);
                         } else throw false;
                     } catch (e) {
                         this.ticket404();
+                    }
+                },
+
+                ticket404: function () {
+                    var that = this;
+
+                    $scope.baloon.showErr(
+                        "Запрашиваемая билетная пара не найдена",
+                        "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
+                        function () {
+                            delete $location.$$search.displayTicket
+                            $location.$$compose();
+                        }
+                    );
+                },
+
+                /*--------TICKET DETAILS---------*/
+
+                trackAnalyst : function(){
+                    var trackKey = $location.url();
+                    if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
+                        track.successResultsDp(track.dpKey);
+                        //console.log('analitics: dp success result');
+                        track.denyTrackSuccessResult(track.dpKey, trackKey);
                     }
                 },
 
