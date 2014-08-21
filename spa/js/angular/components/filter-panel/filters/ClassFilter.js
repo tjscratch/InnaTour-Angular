@@ -51,7 +51,7 @@ angular.module('innaApp.components').
                         },
                         filtersItemRemove : this.IndicatorFiltersItemRemove,
                         teardown: function (evt) {
-
+                            console.log('teardown child');
                         }
                     })
                 },

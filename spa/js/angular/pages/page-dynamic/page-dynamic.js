@@ -285,8 +285,6 @@ innaAppControllers
                         this.set('TICKETS_TAB', false);
                         this.set('HOTELS_TAB', true);
                     }
-
-
                 },
 
                 /**

@@ -17,11 +17,11 @@ angular.module('innaApp.directives')
                 function (EventManager, $scope, $location, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
 
 
-                    /*$scope.$on('$routeChangeStart', function (next, current) {
-                     $scope.safeApply(function () {
-                     $scope.isHeaderVisible = true;
-                     });
-                     });*/
+                    $scope.$on('$routeChangeStart', function (next, current) {
+                        $scope.safeApply(function () {
+                            $scope.isHeaderVisible = true;
+                        });
+                    });
 
                     $scope.isHeaderVisible = true;
 
@@ -33,10 +33,10 @@ angular.module('innaApp.directives')
                     });
 
                     /*EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
-                        $scope.safeApply(function () {
-                            $scope.isHeaderVisible = true;
-                        });
-                    });*/
+                     $scope.safeApply(function () {
+                     $scope.isHeaderVisible = true;
+                     });
+                     });*/
 
                     EventManager.on(Events.HEADER_HIDDEN, function () {
                         $scope.safeApply(function () {

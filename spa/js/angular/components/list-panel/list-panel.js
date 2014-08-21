@@ -83,7 +83,6 @@ angular.module('innaApp.components').
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
                             that.set('sortComponent', null);
-                            this.reset();
                             this.off();
                             document.removeEventListener('scroll', this.eventListener);
                             EventManager.off(Events.DYNAMIC_SERP_BACK_LIST);
