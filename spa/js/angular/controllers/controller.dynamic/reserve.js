@@ -83,12 +83,22 @@
                         return url;
                     };
 
-                    $scope.getHotelInfoLink = function (ticketId, hotelId) {
-                        var url = $scope.goBackUrl();
-                        url += "?ticket=" + ticketId + "&displayHotel=" + hotelId;
-                        if ($location.search().room != null) {
-                            url += "&room=" + $location.search().room;
-                        }
+                    //:DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId
+                    $scope.getHotelInfoLink = function (ticketId, ticketBackId, hotelId, providerId) {
+                        var url = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS +
+                            [
+                                $routeParams.DepartureId,
+                                $routeParams.ArrivalId,
+                                $routeParams.StartVoyageDate,
+                                $routeParams.EndVoyageDate,
+                                $routeParams.TicketClass,
+                                $routeParams.Adult,
+                                $routeParams.Children > 0 ? $routeParams.Children : '',
+                                hotelId,
+                                ticketId,
+                                ticketBackId,
+                                providerId
+                            ].join('-');
                         return url;
                     }
 

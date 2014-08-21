@@ -788,7 +788,9 @@
                         self.haveData = true;
                         self.checkIn = hotel.CheckInTime;
                         self.checkOut = hotel.CheckOutTime;
-                        self.cancellationRules = hotel.Room.CancellationRule;
+                        if (hotel.Room) {
+                            self.cancellationRules = hotel.Room.CancellationRule;
+                        }
                         if (hotel.Amenities != null) {
                             self.extra = hotel.Amenities.Amenity_3;
                         }
