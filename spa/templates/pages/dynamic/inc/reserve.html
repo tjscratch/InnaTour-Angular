@@ -1,4 +1,4 @@
-﻿﻿
+﻿
 <header class="buy__header">
     <h2 class="buy__title">Оплата пакета</h2>
     <!--<a ng-href="{{goBackUrl()}}" ng-if="!isBuyPage" class="buy__title-link">Выбрать другой номер</a>-->
@@ -122,7 +122,7 @@
 
             <div class="bottom-actions">
                 <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
-                <a ng-if="!isBuyPage" ng-href="{{getHotelInfoLink(item.VariantId1, hotel.HotelId)}}" class="pull-right">Подробнее</a>
+                <a ng-if="!isBuyPage" ng-href="{{getHotelInfoLink(item.VariantId1, item.VariantId2, hotel.HotelId, hotel.ProviderId)}}" target="_blank" class="pull-right">Подробнее</a>
             </div>
         </div>
     </div>

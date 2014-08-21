@@ -1,20 +1,19 @@
 .overlay
   position fixed
-  width 100%
-  height 100%
   background rgba(51, 51, 51, .8)
   z-index 500
   left 0
   top 0
-  min-width 600px
-  overflow auto
+  bottom 0
+  right 0
+  /*overflow auto*/
   display none
 
   &.overlay_show
     display block
 
 .balloon
-  position relative
+  position fixed
   left 50%
   width 400px
   /*height 142px*/
@@ -27,6 +26,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, .3)
   font-size 15px
   letter-spacing -.025em
+  z-index 501
 
   &.popup {
     height 142px
@@ -123,7 +123,7 @@
   width 740px
   margin-left -370px
   padding-bottom 0
-  overflow hidden
+  overflow auto
   text-align left
   
 .balloon-link
@@ -135,8 +135,11 @@
 
 .b__rules-grey
   background #e2e2e2
-  padding 0 53px 40px
+  padding: 60px 53px 40px;
   color #333
+  overflow: auto;
+  margin: -25px 0 0 0;
+  height: 300px;
 
   h3
     font-size 24px
@@ -163,7 +166,7 @@
 .b__rules-flies
   display inline-block
   position relative
-  margin -18px 0 33px
+  margin: 20px 0 -15px;
   border 1px solid #ccc
   background #fff
   font-size 15px
@@ -192,7 +195,7 @@
       color #fff
 
 .b__rules_attention
-  padding 0 53px 42px
+  padding 0 53px 0px
   letter-spacing -.025em
   margin-top -16px
 

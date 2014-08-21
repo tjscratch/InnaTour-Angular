@@ -49,7 +49,6 @@ innaAppControllers
                 };
             }
 
-
             /*Private*/
             var _tripadvisor = null;
             var _stars = null;
@@ -72,16 +71,17 @@ innaAppControllers
 
 
             function hotel404() {
-                $scope._baloon = new Balloon({
-                    data : {
-                        callbackClose : function(){
+                //ToDo
+                //$scope._baloon = new Balloon({
+                //    data : {
+                //        callbackClose : function(){
 
-                        }
-                    },
-                    partials : {
-                        balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
-                    }
-                }).show();
+                //        }
+                //    },
+                //    partials : {
+                //        balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
+                //    }
+                //}).show();
 
                 $scope.baloon.showErr(
                     "Запрашиваемый отель не найден",
@@ -220,8 +220,12 @@ innaAppControllers
                     Rooms : true,
 
                     success: function (data) {
-                        $scope.hotelRooms = data.Rooms;
-                        onload();
+                        if(data.Rooms.length) {
+                            $scope.hotelRooms = data.Rooms;
+                            onload();
+                        } else {
+                            $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
+                        }
                     },
                     error: function () {
                         console.log('no rooms');
