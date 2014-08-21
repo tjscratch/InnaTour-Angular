@@ -104,7 +104,13 @@
                 Заменить отель
             </a>
 
-            <a href="{{computedUrlDetails()}}"
+            <a ng-if="displayHotel"
+               class="active bottom-actions__button bottom-actions__button_action_details">
+                Подробнее
+            </a>
+
+            <a ng-if="!displayHotel"
+               href="{{computedUrlDetails()}}"
                target="_blank"
                class="bottom-actions__button bottom-actions__button_action_details"
                ng-class="{'active': displayHotel}">Подробнее</a>
