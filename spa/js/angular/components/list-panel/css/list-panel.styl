@@ -1,23 +1,52 @@
 .b-list-panel {
-  position : relative;
+  position: relative;
 
   &__wait {
     &:after {
-      content : '';
-      position : absolute;
+      content: '';
+      position: absolute;
       top: 0;
-      bottom : 0;
-      right : 0;
-      left :0;
-      background : #fff;
-      opacity : 0.5
-      z-index : 100;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background: #fff;
+      opacity: 0.5
+      z-index: 100;
     }
   }
 }
 
 .b-results-list_dp {
-  width : auto;
-  position : relative;
-  padding-right : 25%;
+  width: auto;
+  position: relative;
+  padding-right: 25%;
+}
+
+.results-list {
+
+  &.results-list-clear {
+    width auto
+  }
+
+  &__empty {
+    padding 100px 0 300px
+    background-repeat no-repeat
+    background-position center 50px
+
+    &_type {
+      &_hotels {
+        background-image: url(/spa/img/empty-list__hotels.png)
+      }
+      &_tickets {
+        background-image: url(/spa/img/empty-list__tickets.png)
+      }
+
+      p {
+        font-size 18px
+        line-height 24px
+        text-align center
+        margin 0
+      }
+    }
+  }
 }
