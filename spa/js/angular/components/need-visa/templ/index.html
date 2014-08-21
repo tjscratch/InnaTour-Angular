@@ -1,17 +1,20 @@
-<div>visaControl test</div>
 {{#if visaControl.visaNeeded || visaControl.visaRulesNeeded}}
-    <div class="buy__warning" ng-if="visaControl.visaNeeded || visaControl.visaRulesNeeded">
+    <div class="buy__warning">
         {{#if visaControl.visaNeeded}}
-            <div ng-if="visaControl.visaNeeded">Требуется виза.</div>
+            <div>Требуется виза.</div>
         {{/if}}
         {{#if visaControl.visaRulesNeeded}}
-            <div ng-if="visaControl.visaRulesNeeded">Обратите внимание на визовые правила
+            <div>Обратите внимание на визовые правила
                 {{#if visaControl.cautionCountries.length > 0}}
-                    <span ng-if="visaControl.cautionCountries.length > 0">в странах: 
-                    {{#each visaControl.cautionCountries:c}}
-                        <span ng-repeat="c in visaControl.cautionCountries">{{c}}<span ng-if="!($last)">,&nbsp;</span></span>
-                    {{/each}}
-                    </span>.
+                    <span>в странах: 
+                    {{#each visaControl.cautionCountries:i}}
+                        <span>{{.}}<!--line 
+                break-->{{#if i < (visaControl.cautionCountries.length - 1) }}<!--если не последний-->
+                            <span>,&nbsp;</span>
+                        {{/if}}
+                        </span>
+                    {{/each}}<!--line 
+                    break--></span>.
                 {{/if}}
             </div>
         {{/if}}

@@ -51,19 +51,6 @@ innaAppControllers.
                 }
             });
 
-            //var NeedVisa = NeedVisa.extend({
-            //    data: {
-                    
-            //    },
-            //    init: function (options) {
-            //        this._super(options);
-
-            //        //this.on({
-            //        //    //getHotelDetails: this.getHotelDetails
-            //        //})
-            //    }
-            //});
-
             var Page = Ractive.extend({
                 debug: true,
                 el: document.querySelector('.page-root'),
@@ -77,8 +64,7 @@ innaAppControllers.
                     NeedVisa: NeedVisa
                 },
                 data: {
-                    loadData: false//,
-                    //AviaInfo: null
+                    loadData: false
                 },
                 init: function () {
                     var that = this;
@@ -92,13 +78,6 @@ innaAppControllers.
                         showBalloonTicket: this.showBalloonTicket,
                         showBalloonHotel: this.showBalloonHotel
                     });
-
-                    this.observe('AviaInfo', function (value) {
-                        if (value) {
-                            console.log('Page observe', value);
-                            //this.visaCheck();
-                        }
-                    }, { init: false });
                 },
 
 
@@ -221,10 +200,6 @@ innaAppControllers.
                     data.loadData = true;
                     data.ticket2ways = true;
                     data.partialInfoHotel = true;
-
-                    data.PassengersCitizenshipIds = _.map(data.Passengers, function (pas) {
-                        return pas.Citizen;
-                    });
 
                     return data;
                 }
