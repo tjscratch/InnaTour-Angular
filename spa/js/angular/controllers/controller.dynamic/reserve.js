@@ -21,208 +21,225 @@
 
             $scope.baloon.showExpireCheck();
 
-            //initial
-            (function(){
-                var children = $routeParams.Children ?
-                    _.partition($routeParams.Children.split('_'), function(age){ return age > 2; }) :
-                    [[], []];
 
-                var searchParams = angular.copy($routeParams);
-                var cacheKey = '';
+            /*------------------------------------------*/
+            /*------------------------------------------*/
+            /*----------------- INIT -------------------*/
+            /*------------------------------------------*/
+            /*------------------------------------------*/
+            var children = $routeParams.Children ?
+                _.partition($routeParams.Children.split('_'), function(age){ return age > 2; }) :
+                [[], []];
 
-                searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
-                searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);
-                searchParams.Children && (searchParams.ChildrenAges = searchParams.Children.split('_'));
+            var searchParams = angular.copy($routeParams);
+            var cacheKey = '';
 
-                if ($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
-                if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
-                if ($location.search().room) searchParams['RoomId'] = $location.search().room;
+            searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
+            searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);
+            searchParams.Children && (searchParams.ChildrenAges = searchParams.Children.split('_'));
 
-                $scope.searchParams = searchParams;
+            if ($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
+            if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
+            if ($location.search().room) searchParams['RoomId'] = $location.search().room;
 
-                $scope.combination = {};
+            $scope.searchParams = searchParams;
 
-                DynamicPackagesDataProvider.search(searchParams, function(data){
-                    cacheKey = data.SearchId;
+            $scope.combination = {};
 
-                    $scope.$apply(function($scope){
-                        $controller('ReserveTicketsCtrl', { $scope: $scope });
-                        $scope.fromDate = $routeParams.StartVoyageDate;
-                        $scope.AdultCount = parseInt($routeParams.Adult);
-                        $scope.ChildCount = children[0].length;
-                        $scope.InfantsCount = children[1].length;
-                        $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
+            DynamicPackagesDataProvider.search({
+                data : searchParams,
+                success : successSearch,
+                error : errorSearch
+            });
+            
+            /*------------- INIT -----------------------*/
 
-                        $scope.ticketsCount = aviaHelper.getTicketsCount($scope.AdultCount, $scope.ChildCount, $scope.InfantsCount);
-                        $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $routeParams.TicketClass);
 
-                        $scope.goBackUrl = function () {
-                            var url = '/#' + Urls.URL_DYNAMIC_PACKAGES_SEARCH +
-                                [
-                                    $routeParams.DepartureId,
-                                    $routeParams.ArrivalId,
-                                    $routeParams.StartVoyageDate,
-                                    $routeParams.EndVoyageDate,
-                                    $routeParams.TicketClass,
-                                    $routeParams.Adult,
-                                    $routeParams.Children
-                                ].join('-');
-                            return url;
-                        };
+            function successSearch(data){
+                cacheKey = data.SearchId;
 
-                        $scope.getHotelInfoLink = function (ticketId, hotelId) {
-                            var url = $scope.goBackUrl();
-                            url += "?ticket=" + ticketId + "&displayHotel=" + hotelId;
-                            if ($location.search().room != null) {
-                                url += "&room=" + $location.search().room;
-                            }
-                            return url;
+                $scope.$apply(function($scope){
+                    $controller('ReserveTicketsCtrl', { $scope: $scope });
+                    $scope.fromDate = $routeParams.StartVoyageDate;
+                    $scope.AdultCount = parseInt($routeParams.Adult);
+                    $scope.ChildCount = children[0].length;
+                    $scope.InfantsCount = children[1].length;
+                    $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
+
+                    $scope.ticketsCount = aviaHelper.getTicketsCount($scope.AdultCount, $scope.ChildCount, $scope.InfantsCount);
+                    $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $routeParams.TicketClass);
+
+                    $scope.goBackUrl = function () {
+                        var url = '/#' + Urls.URL_DYNAMIC_PACKAGES_SEARCH +
+                            [
+                                $routeParams.DepartureId,
+                                $routeParams.ArrivalId,
+                                $routeParams.StartVoyageDate,
+                                $routeParams.EndVoyageDate,
+                                $routeParams.TicketClass,
+                                $routeParams.Adult,
+                                $routeParams.Children
+                            ].join('-');
+                        return url;
+                    };
+
+                    $scope.getHotelInfoLink = function (ticketId, hotelId) {
+                        var url = $scope.goBackUrl();
+                        url += "?ticket=" + ticketId + "&displayHotel=" + hotelId;
+                        if ($location.search().room != null) {
+                            url += "&room=" + $location.search().room;
                         }
-
-                        function addition() {
-                            var self = this;
-                            this.customerWishlist = '';
-                            this.isNeededVisa = false;
-                            this.isNeededTransfer = false;
-                            this.isNeededMedicalInsurance = false;
-                        }
-                        $scope.addition = new addition();
-
-                        //console.log('data:');
-                        //console.log(data);
-                        //дополняем полями 
-                        aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
-                        $scope.item = data.RecommendedPair.AviaInfo;
-                                     
-                        aviaHelper.addAggInfoFields(data.RecommendedPair.Hotel);
-                        $scope.hotel = data.RecommendedPair.Hotel;
-                        $scope.room = data.RecommendedPair.Room;
-                        $scope.price = data.RecommendedPair.Price;
-
-                        function getCheckParams() {
-                            var qData = {
-                                HotelId: $scope.hotel.HotelId,
-                                HoteProviderId: $scope.hotel.ProviderId,
-                                Rooms: $location.search().room,
-                                TicketToId: $scope.item.VariantId1,
-                                TicketBackId: $scope.item.VariantId2,
-                                TicketClass: $routeParams.TicketClass,
-                                'Filter[DepartureId]': $routeParams.DepartureId,
-                                'Filter[ArrivalId]': $routeParams.ArrivalId,
-                                'Filter[StartVoyageDate]': searchParams.StartVoyageDate,
-                                'Filter[EndVoyageDate]': searchParams.EndVoyageDate,
-                                'Filter[TicketClass]': $routeParams.TicketClass,
-                                'Filter[Adult]': $routeParams.Adult
-                            };
-                            if ($routeParams.Children) {
-                                var childs = $routeParams.Children.split('_');
-                                qData['Filter[ChildrenAges]'] = [];
-                                _.each(childs, function (age) {
-                                    qData['Filter[ChildrenAges]'].push(age);
-                                });
-                            }
-                            return qData;
-                        }
-
-                        //грузим тарифы
-                        $scope.loadTarifs($scope.item.VariantId1, $scope.item.VariantId2, data.RecommendedPair.AviaInfo);
-
-                        //проверяем, что остались билеты для покупки
-                        paymentService.packageCheckAvailability(getCheckParams(),
-                            function (data) {
-                                //data = false;
-                                if (data != null && data.IsTicketAvailable == true && data.Rooms != null &&
-                                    data.Rooms.length > 0 && data.Rooms[0].IsAvail == true && data.Rooms[0].RoomId.length > 0) {
-                                    //если проверка из кэша - то отменяем попап
-                                    //$timeout.cancel(availableChecktimeout);
-                                    $scope.roomId = data.Rooms[0].RoomId;
-
-                                    //правила отмены отеля
-                                    $scope.hotelRules.fillData($scope.hotel);
-
-                                    //загружаем все
-                                    loadDataAndInit();
-
-                                    //ToDo: debug
-                                    //$timeout(function () {
-                                    //    loadDataAndInit();
-                                    //}, 1000);
-                                }
-                                else {
-                                    //log('checkAvailability, false');
-                                    //$timeout.cancel(availableChecktimeout);
-
-                                    function goToSearch() {
-                                        var url = $scope.goBackUrl().replace('/#', '');
-                                        //console.log('redirect to url: ' + url);
-                                        $location.url(url);
-                                    }
-
-                                    $scope.safeApply(function () {
-                                        $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска",
-                                            function () {
-                                                $timeout.cancel($scope.tmId);
-                                                goToSearch();
-                                            });
-                                    });
-
-
-                                    $scope.tmId = $timeout(function () {
-                                        //очищаем хранилище для нового поиска
-                                        //storageService.clearAviaSearchResults();
-                                        $scope.baloon.hide();
-                                        //билеты не доступны - отправляем на поиск
-                                        goToSearch();
-                                    }, 3000);
-                                }
-                            },
-                            function (data, status) {
-                                //error
-                                //$timeout.cancel(availableChecktimeout);
-                                $scope.safeApply(function () {
-                                    $scope.showReserveError();
-                                });
-                            });
-                        
-                        function loadDataAndInit() {
-                            $scope.initPayModel();
-                        }
-
-                        $scope.afterPayModelInit = function () {
-                            //log('$scope.afterPayModelInit');
-                            $scope.baloon.hide();
-                            //$scope.fillDefaultModelDelay();
-                        };
-
-                        $scope.combination.Hotel = data.RecommendedPair.Hotel;
-                        $scope.combination.Ticket = data.RecommendedPair.AviaInfo;
-
-                        //$scope.initPayModel();
-
-                        //console.log($scope.combination);
-                    });
-                }, function (data, status) {//error
-                    function goMain() {
-                        $location.url(Urls.URL_DYNAMIC_PACKAGES);
+                        return url;
                     }
 
-                    $scope.safeApply(function () {
-                        $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на главную страницу",
-                            function () {
-                                $timeout.cancel($scope.tmId);
-                                goMain();
-                            });
-                    });
+                    function addition() {
+                        var self = this;
+                        this.customerWishlist = '';
+                        this.isNeededVisa = false;
+                        this.isNeededTransfer = false;
+                        this.isNeededMedicalInsurance = false;
+                    }
+                    $scope.addition = new addition();
 
-                    $scope.tmId = $timeout(function () {
-                        //очищаем хранилище для нового поиска
-                        //storageService.clearAviaSearchResults();
+                    //console.log('data:');
+                    //console.log(data);
+                    //дополняем полями
+                    aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
+                    $scope.item = data.RecommendedPair.AviaInfo;
+
+                    aviaHelper.addAggInfoFields(data.RecommendedPair.Hotel);
+                    $scope.hotel = data.RecommendedPair.Hotel;
+                    $scope.room = data.RecommendedPair.Room;
+                    $scope.price = data.RecommendedPair.Price;
+
+                    function getCheckParams() {
+                        var qData = {
+                            HotelId: $scope.hotel.HotelId,
+                            HoteProviderId: $scope.hotel.ProviderId,
+                            Rooms: $location.search().room,
+                            TicketToId: $scope.item.VariantId1,
+                            TicketBackId: $scope.item.VariantId2,
+                            TicketClass: $routeParams.TicketClass,
+                            'Filter[DepartureId]': $routeParams.DepartureId,
+                            'Filter[ArrivalId]': $routeParams.ArrivalId,
+                            'Filter[StartVoyageDate]': searchParams.StartVoyageDate,
+                            'Filter[EndVoyageDate]': searchParams.EndVoyageDate,
+                            'Filter[TicketClass]': $routeParams.TicketClass,
+                            'Filter[Adult]': $routeParams.Adult
+                        };
+                        if ($routeParams.Children) {
+                            var childs = $routeParams.Children.split('_');
+                            qData['Filter[ChildrenAges]'] = [];
+                            _.each(childs, function (age) {
+                                qData['Filter[ChildrenAges]'].push(age);
+                            });
+                        }
+                        return qData;
+                    }
+
+                    //грузим тарифы
+                    $scope.loadTarifs($scope.item.VariantId1, $scope.item.VariantId2, data.RecommendedPair.AviaInfo);
+
+                    //проверяем, что остались билеты для покупки
+                    paymentService.packageCheckAvailability(getCheckParams(),
+                        function (data) {
+                            //data = false;
+                            if (data != null && data.IsTicketAvailable == true && data.Rooms != null &&
+                                data.Rooms.length > 0 && data.Rooms[0].IsAvail == true && data.Rooms[0].RoomId.length > 0) {
+                                //если проверка из кэша - то отменяем попап
+                                //$timeout.cancel(availableChecktimeout);
+                                $scope.roomId = data.Rooms[0].RoomId;
+
+                                //правила отмены отеля
+                                $scope.hotelRules.fillData($scope.hotel);
+
+                                //загружаем все
+                                loadDataAndInit();
+
+                                //ToDo: debug
+                                //$timeout(function () {
+                                //    loadDataAndInit();
+                                //}, 1000);
+                            }
+                            else {
+                                //log('checkAvailability, false');
+                                //$timeout.cancel(availableChecktimeout);
+
+                                function goToSearch() {
+                                    var url = $scope.goBackUrl().replace('/#', '');
+                                    //console.log('redirect to url: ' + url);
+                                    $location.url(url);
+                                }
+
+                                $scope.safeApply(function () {
+                                    $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на результаты поиска",
+                                        function () {
+                                            $timeout.cancel($scope.tmId);
+                                            goToSearch();
+                                        });
+                                });
+
+
+                                $scope.tmId = $timeout(function () {
+                                    //очищаем хранилище для нового поиска
+                                    //storageService.clearAviaSearchResults();
+                                    $scope.baloon.hide();
+                                    //билеты не доступны - отправляем на поиск
+                                    goToSearch();
+                                }, 3000);
+                            }
+                        },
+                        function (data, status) {
+                            //error
+                            //$timeout.cancel(availableChecktimeout);
+                            $scope.safeApply(function () {
+                                $scope.showReserveError();
+                            });
+                        });
+
+                    function loadDataAndInit() {
+                        $scope.initPayModel();
+                    }
+
+                    $scope.afterPayModelInit = function () {
+                        //log('$scope.afterPayModelInit');
                         $scope.baloon.hide();
-                        //билеты не доступны - отправляем на поиск
-                        goMain();
-                    }, 3000);
+                        //$scope.fillDefaultModelDelay();
+                    };
+
+                    $scope.combination.Hotel = data.RecommendedPair.Hotel;
+                    $scope.combination.Ticket = data.RecommendedPair.AviaInfo;
+
+                    //$scope.initPayModel();
+
+                    //console.log($scope.combination);
                 });
-            })();
+            }
+
+            function errorSearch(data, status){
+                function goMain() {
+                    $location.url(Urls.URL_DYNAMIC_PACKAGES);
+                }
+
+                $scope.safeApply(function () {
+                    $scope.baloon.showWithClose("Вариант больше недоступен", "Вы будете направлены на главную страницу",
+                        function () {
+                            $timeout.cancel($scope.tmId);
+                            goMain();
+                        });
+                });
+
+                $scope.tmId = $timeout(function () {
+                    //очищаем хранилище для нового поиска
+                    //storageService.clearAviaSearchResults();
+                    $scope.baloon.hide();
+                    //билеты не доступны - отправляем на поиск
+                    goMain();
+                }, 3000);
+            }
+
+
+
 
             DynamicFormSubmitListener.listen();
 
