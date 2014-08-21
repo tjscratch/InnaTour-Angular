@@ -70,7 +70,7 @@ innaAppControllers
 
                 },
                 components: {
-                    //ListPanel: ListPanel
+                    ListPanel: ListPanel
                 },
                 data: {
                     loadData: false,
