@@ -72,8 +72,6 @@ angular.module('innaApp.directives')
                             }
 
                             if ($scope.tabActive == data) return false;
-                            $scope.tabActive = data;
-
                             setActiveTab(data);
 
                             EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, data);

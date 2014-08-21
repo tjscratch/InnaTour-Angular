@@ -31,8 +31,8 @@ angular.module('innaApp.components').
                 data: {
                     iterable_hotels: false,
                     iterable_tickets: false,
-                    Enumerable : [],
-                    combinationModel : null,
+                    /*Enumerable: [],
+                    combinationModel: null,*/
                     EnumerableCount: 0,
                     EnumerableClone: [],
                     EnumerableList: [],
@@ -53,11 +53,10 @@ angular.module('innaApp.components').
                     this._filterTimeout = null;
                     this._scrollTimeout = null;
 
-                    if (this.get('iterable_hotels')) {
+                    if (this.get('iterable_hotels'))
                         this.parse(this.get('Enumerable'), { hotel: true });
-                    } else {
+                    else
                         this.parse(this.get('Enumerable'), { ticket: true });
-                    }
 
                     /**
                      * Вызов метода не чаще 300
@@ -104,6 +103,8 @@ angular.module('innaApp.components').
                      */
                     this.observe('Enumerable', function (newValue, oldValue, keypath) {
                         if (newValue) {
+                            //console.log(that.get('combinationModel'), "that.get('combinationModel')");
+
                             this.cloneData();
                             this.enumerableCount(newValue);
                             this.set({waitData: false})
@@ -117,9 +118,9 @@ angular.module('innaApp.components').
                     this.observe('EnumerableList', function (newValue, oldValue, keypath) {
                         if (newValue) {
 
-                            /*console.log(newValue, 'newValue');
+                            //console.log(newValue, 'newValue');
 
-                             console.table([
+                            /* console.table([
                              {
                              newValue: newValue.length,
                              EnumerableList: this.get('EnumerableList').length,
@@ -139,7 +140,7 @@ angular.module('innaApp.components').
                                 }
                             }
                         }
-                    });
+                    }); /*{init: false}*/
 
 
                     /**
@@ -289,7 +290,7 @@ angular.module('innaApp.components').
                         if (routParam.Children && routParam.Children != "0") {
                             searchParams.ChildrenAges = routParam.Children.split('_');
                         }
-                        ;
+
 
                         data.forEach(function (item) {
                             var modelHotel = new inna.Models.Hotels.Hotel(item)

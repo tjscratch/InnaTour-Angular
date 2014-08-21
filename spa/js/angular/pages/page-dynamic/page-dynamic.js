@@ -78,14 +78,16 @@ innaAppControllers
                     HOTEL: 'hotel',
                     TICKET: 'ticket',
                     HOTELS_TAB: true,
-                    loadHotelsData : null,
-                    loadTicketsData : null
+                    defaultTab : 'hotel',
+                    loadHotelsData: null,
+                    loadTicketsData: null
                 },
                 init: function () {
                     var that = this;
 
                     this.on({
-                        change: function () {}
+                        change: function () {
+                        }
                     })
 
                     /** Слушаем событие изменения формы поиска */
@@ -187,8 +189,6 @@ innaAppControllers
                     };
 
 
-
-
                     /*-------------------------------------------------------*/
                     /*-------------------------------------------------------*/
                     /*-------------------------------------------------------*/
@@ -207,83 +207,89 @@ innaAppControllers
                      * Слушаем свойства loadHotelsData и loadTicketsData
                      * Устанавливаем их после успешной загрузки отелей или билетов
                      */
-                    this.observe('loadHotelsData', function(value){
-                        if(value){
+                    this.observe({
+                        'loadHotelsData': function (value) {
+                            if (value) {
 
-                            if (FilterPanelComponent) FilterPanelComponent.teardown();
-                            if (ListPanelComponent) ListPanelComponent.teardown();
+                                if (FilterPanelComponent) FilterPanelComponent.teardown();
+                                if (ListPanelComponent) ListPanelComponent.teardown();
 
-                            that.set({
-                                iterable_hotels: true,
-                                iterable_tickets: false,
-                                Enumerable: value.Hotels,
-                                combinationModel: $scope.combination
-                            });
-
-                            FilterPanelComponent = new FilterPanel({
-                                el: document.querySelector('.recommend-bundle-container'),
-                                data: {
-                                    combinationModel: $scope.combination,
-                                    filtersData: value.Filters
-                                }
-                            })
-
-                            ListPanelComponent = new ListPanel({
-                                el: that.find('.b-page-dynamic'),
-                                data: {
+                                that.set({
                                     iterable_hotels: true,
+                                    iterable_tickets: false,
                                     Enumerable: value.Hotels,
                                     combinationModel: $scope.combination
-                                }
-                            });
-                        }
-                    }, {init : false});
+                                });
 
-                    this.observe('loadTicketsData', function(value){
-                        if(value){
-                            if (FilterPanelComponent) FilterPanelComponent.teardown();
-                            if (ListPanelComponent) ListPanelComponent.teardown();
+                                FilterPanelComponent = new FilterPanel({
+                                    el: document.querySelector('.recommend-bundle-container'),
+                                    data: {
+                                        combinationModel: $scope.combination,
+                                        filtersData: value.Filters
+                                    }
+                                })
 
-                            that.set({
-                                iterable_tickets: true,
-                                Enumerable: value.AviaInfos,
-                                combinationModel: $scope.combination
-                            })
+                                ListPanelComponent = new ListPanel({
+                                    el: that.find('.b-page-dynamic'),
+                                    data: {
+                                        iterable_hotels: true,
+                                        Enumerable: value.Hotels,
+                                        combinationModel: $scope.combination
+                                    }
+                                });
+                            }
+                        },
 
-                            FilterPanelComponent = new FilterPanel({
-                                el: document.querySelector('.recommend-bundle-container'),
-                                data: {
-                                    combinationModel: $scope.combination,
-                                    filtersData: value.Filters,
-                                    filter_hotel: false,
-                                    filter_avia: true
-                                }
-                            })
+                        'loadTicketsData': function (value) {
+                            console.log(value);
+                            if (value) {
+                                if (FilterPanelComponent) FilterPanelComponent.teardown();
+                                if (ListPanelComponent) ListPanelComponent.teardown();
 
-                            ListPanelComponent = new ListPanel({
-                                el: that.find('.b-page-dynamic'),
-                                data: {
+                                that.set({
                                     iterable_tickets: true,
                                     Enumerable: value.AviaInfos,
                                     combinationModel: $scope.combination
-                                }
-                            });
+                                })
+
+                                FilterPanelComponent = new FilterPanel({
+                                    el: document.querySelector('.recommend-bundle-container'),
+                                    data: {
+                                        combinationModel: $scope.combination,
+                                        filtersData: value.Filters,
+                                        filter_hotel: false,
+                                        filter_avia: true
+                                    }
+                                })
+
+                                ListPanelComponent = new ListPanel({
+                                    el: that.find('.b-page-dynamic'),
+                                    data: {
+                                        iterable_tickets: true,
+                                        Enumerable: value.AviaInfos,
+                                        combinationModel: $scope.combination
+                                    }
+                                });
+                            }
                         }
-                    }, {init : false});
+                    }, {init: false});
+
                 },
 
                 /**
                  *
                  * @param {String} opt_param
                  */
-                stateTab: function (opt_param) {
-                    if ($location.search().displayTicket || (opt_param && opt_param == 'ticket')) {
+                stateTab: function () {
+                    if ($location.search().displayTicket || (this.get('defaultTab') == 'ticket')) {
                         this.set('TICKETS_TAB', true);
                         this.set('HOTELS_TAB', false);
+                        this.set('defaultTab', 'ticket');
                     }
-                    if ($location.search().displayHotel || (opt_param && opt_param == 'hotel')) {
+                    if ($location.search().displayHotel || (this.get('defaultTab') == 'hotel')) {
                         this.set('TICKETS_TAB', false);
                         this.set('HOTELS_TAB', true);
+                        this.set('defaultTab', 'hotel');
                     }
                 },
 
@@ -375,19 +381,12 @@ innaAppControllers
                 combination200: function (data) {
                     var that = this;
 
-                    var onTabLoad = angular.noop;
                     var onTabLoadParam;
-                    var defaultTab = 'hotel';
 
                     if (!data || !data.RecommendedPair) return $scope.$apply(this.combination404);
 
                     //аналитика
-                    var trackKey = $location.url();
-                    if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
-                        track.successResultsDp(track.dpKey);
-                        //console.log('analitics: dp success result');
-                        track.denyTrackSuccessResult(track.dpKey, trackKey);
-                    }
+                    this.trackAnalyst();
 
                     $scope.airports = data.Airports || [];
                     cacheKey = data.SearchId;
@@ -400,23 +399,17 @@ innaAppControllers
                     });
 
                     if ($location.search().displayTicket || $location.search().display == 'tickets') {
-
-                        onTabLoad = this.loadTicketDetails;
                         onTabLoadParam = $location.search().displayTicket;
-                        defaultTab = 'ticket';
+                        that.set('defaultTab', 'ticket');
                     }
                     else if ($location.search().displayHotel) {
-
-                        onTabLoad = this.loadHotelDetails;
                         onTabLoadParam = $location.search().displayHotel;
-                        defaultTab = 'hotel';
-
+                        that.set('defaultTab', 'hotel');
                     }
 
 
                     $scope.$apply(function ($scope) {
-                        that.loadTab(defaultTab);
-                        onTabLoad(onTabLoadParam);
+                        that.loadTab();
                     });
                 },
 
@@ -441,7 +434,9 @@ innaAppControllers
                 loadTab: function (data_tab) {
                     var that = this;
 
-                    this.stateTab(data_tab);
+                    if(data_tab) this.set('defaultTab', data_tab);
+
+                    this.stateTab();
 
                     if (this.get('HOTELS_TAB'))
                         return this.loadHotels();
@@ -502,6 +497,15 @@ innaAppControllers
                         } else throw false;
                     } catch (e) {
                         this.ticket404();
+                    }
+                },
+
+                trackAnalyst : function(){
+                    var trackKey = $location.url();
+                    if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
+                        track.successResultsDp(track.dpKey);
+                        //console.log('analitics: dp success result');
+                        track.denyTrackSuccessResult(track.dpKey, trackKey);
                     }
                 },
 
