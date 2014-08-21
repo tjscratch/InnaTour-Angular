@@ -181,27 +181,12 @@ innaAppControllers
                         //EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
                     };
 
-
-                    /*-------------------------------------------------------*/
-                    /*-------------------------------------------------------*/
-                    /*-------------------------------------------------------*/
-                    /*-------------------------------------------------------*/
-                    /*-------------------------------------------------------*/
-                    /*-------------                              ------------*/
-                    /*-------------                              ------------*/
-                    /*-------------                              ------------*/
-                    /*-------------------------------------------------------*/
-                    /*-------------------------------------------------------*/
-                    /*-------------------------------------------------------*/
-                    /*-------------------------------------------------------*/
-                    /*-------------------------------------------------------*/
-
                     /**
                      * Слушаем свойства loadHotelsData и loadTicketsData
                      * Устанавливаем их после успешной загрузки отелей или билетов
                      */
                     this.observe({
-                        'loadHotelsData': function (value) {
+                        loadHotelsData: function (value) {
                             if (value) {
 
                                 if (FilterPanelComponent) FilterPanelComponent.teardown();
@@ -220,7 +205,7 @@ innaAppControllers
                                         combinationModel: $scope.combination,
                                         filtersData: value.Filters
                                     }
-                                })
+                                });
 
                                 ListPanelComponent = new ListPanel({
                                     el: that.find('.b-page-dynamic'),
@@ -514,7 +499,6 @@ innaAppControllers
                 },
 
                 /*--------TICKET DETAILS---------*/
-
                 trackAnalyst : function(){
                     var trackKey = $location.url();
                     if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
