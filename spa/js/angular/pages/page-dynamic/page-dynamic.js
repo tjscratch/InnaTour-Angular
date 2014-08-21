@@ -2,7 +2,6 @@ innaAppControllers
     .controller('PageDynamicPackage', [
         'EventManager',
         '$scope',
-        '$q',
         'DynamicFormSubmitListener',
         'DynamicPackagesDataProvider',
         '$routeParams',
@@ -17,7 +16,7 @@ innaAppControllers
         'Balloon',
         'ListPanel',
         'FilterPanel',
-        function (EventManager, $scope, $q, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel) {
+        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel) {
 
             /**
              * Преобразуем даты и собираем данные для запроса
