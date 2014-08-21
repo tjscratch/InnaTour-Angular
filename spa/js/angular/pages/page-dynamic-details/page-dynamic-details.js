@@ -49,7 +49,6 @@ innaAppControllers
                 };
             }
 
-
             /*Private*/
             var _tripadvisor = null;
             var _stars = null;
@@ -221,8 +220,12 @@ innaAppControllers
                     Rooms : true,
 
                     success: function (data) {
-                        $scope.hotelRooms = data.Rooms;
-                        onload();
+                        if(data.Rooms.length) {
+                            $scope.hotelRooms = data.Rooms;
+                            onload();
+                        } else {
+                            $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
+                        }
                     },
                     error: function () {
                         console.log('no rooms');
