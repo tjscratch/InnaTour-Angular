@@ -30,7 +30,9 @@ angular.module('innaApp.components').
                     },
                     airLogo: function (logo) {
                         return this.airLogo(logo);
-                    }
+                    },
+
+                    TimeFormatted : aviaHelper.getFlightTimeFormatted
                 },
                 partials: {
                     collOneContent: $templateCache.get('components/ticket/templ/avia-dp.hbs.html'),
