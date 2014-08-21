@@ -72,19 +72,24 @@ angular.module('innaApp.directives')
                             }
 
                             if ($scope.tabActive == data) return false;
-                            $scope.tabActive = data;
-
                             setActiveTab(data);
 
                             EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, data);
                         };
 
-                        // по дефолту активный таб - hotel
-                        setActiveTab('hotel');
+
+                        /**
+                         * Выставляем активный таб
+                         * подефолту активный таб - hotel
+                         */
+                        if ($location.search().displayTicket)
+                            setActiveTab('ticket');
+                        else if ($location.search().displayHotel)
+                            setActiveTab('hotel');
+                        else
+                            setActiveTab('hotel');
 
 
-                        if ($location.search().displayTicket) $scope.displayTicket = true;
-                        if ($location.search().displayHotel) $scope.displayHotel = true;
                         if ($location.search().ticket || $location.search().hotel) {
                             $scope.isChooseHotel = true;
                         }
@@ -101,8 +106,6 @@ angular.module('innaApp.directives')
                                 $scope.stateHotel = true;
                             }
                         }
-
-
 
                         function getHotelDetails() {
                             var deferred = $q.defer();
