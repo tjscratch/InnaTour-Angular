@@ -93,7 +93,8 @@ innaAppControllers
                     //this.stateTab();
                     this.getCombination();
 
-                    $scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', this.balloonCloser);
+                    //$scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', this.balloonCloser);
+
                     $scope.passengerCount = parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0);
 
                     // прямая ссылка на карту
@@ -360,6 +361,7 @@ innaAppControllers
                     var that = this;
                     return DynamicPackagesDataProvider.search({
                         data: searchParams,
+                        preloader : this.balloonSearch(),
                         success: this.combination200.bind(that),
                         error: this.combination500.bind(that)
                     });
@@ -370,7 +372,9 @@ innaAppControllers
 
                     var onTabLoadParam;
 
-                    if (!data || !data.RecommendedPair) return $scope.$apply(this.combination404);
+                    if (!data || !data.RecommendedPair) {
+                        return this.combination404();
+                    }
 
                     //аналитика
                     this.trackAnalyst();
@@ -401,10 +405,25 @@ innaAppControllers
                 },
 
                 combination404: function () {
+                    console.log('combination404');
                     var that = this;
                     //аналитика
                     track.noResultsDp();
-                    $scope.baloon.showNotFound(that.balloonCloser);
+                    //$scope.baloon.showNotFound(that.balloonCloser);
+
+                    this._balloon404 = new Balloon({
+                        data : {
+                            template : 'not-found.html',
+                            callbackClose : function(){
+                                that.balloonCloser();
+                            },
+                            callback : function(evt){
+                                evt.original.stopPropagation();
+                                //this.balloonCloser();
+                                console.log('test test');
+                            }
+                        }
+                    });
                 },
 
                 combination500: function () {
@@ -456,6 +475,24 @@ innaAppControllers
                 balloonCloser: function () {
                     $location.search({});
                     $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                },
+
+                balloonSearch : function(){
+                    var that = this;
+
+                    return new Balloon({
+                        data : {
+                            template : 'search.html',
+                            callbackClose : function(){
+                                that.balloonCloser();
+                            },
+                            callback : function(evt){
+                                evt.original.stopPropagation();
+
+                                console.log('test test');
+                            }
+                        }
+                    });
                 },
 
 
@@ -541,6 +578,10 @@ innaAppControllers
                 if (ListPanelComponent) {
                     ListPanelComponent.teardown();
                     ListPanelComponent = null;
+                }
+                if(this._balloon404){
+                    this._balloon404.teardown();
+                    this._balloon404 = null;
                 }
 
                 $(document).off('scroll');

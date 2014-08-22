@@ -7,7 +7,7 @@ angular.module('innaApp.services')
             var ajax = {};
             var cache = {};
 
-            this._errorManager = new ErrorManager();
+            //this._errorManager = new ErrorManager();
 
 
             function doAjax(options) {
@@ -34,15 +34,14 @@ angular.module('innaApp.services')
                     //crossDomain: true,
                     eol: null,
                     beforeSend: function () {
-
                         // перед отправкой показываем прелоадер
-                        if (params.preloader != undefined) {
+                        if (params.preloader != undefined && params.preloader != null) {
                             params.preloader.show();
                         }
                     },
                     complete: function (data) {
                         // после любого ответа , уничтожаем прелоадер
-                        if (params.preloader != undefined) {
+                        if (params.preloader != undefined && params.preloader != null) {
                             params.preloader.dispose();
                         }
                     },
@@ -58,6 +57,14 @@ angular.module('innaApp.services')
                     },
                     error: function (data) {
                         //that._errorManager.set({ errId : 500 });
+
+                        /**
+                         * Можно передать объект компонента Balloon
+                         * для показа сообщения в случае ошибки
+                         */
+                        if (params.alert != undefined && params.alert != null) {
+                            params.alert.show();
+                        }
 
                         if (params.error && (typeof params.error == 'function')) {
                             params.error(data);
@@ -116,48 +123,56 @@ angular.module('innaApp.services')
                 });
             };
 
-            ajax.get = function (url, data, success, error, useCache) {
-                return doAjax({
-                    url: url,
-                    data: data,
-                    type: 'GET',
-                    cache: useCache,
-                    success: success,
-                    error: error
-                });
+            ajax.get = function (data) {
+                return doAjax(data);
             };
 
-            ajax.post = function (url, data, success, error, useCache) {
-                return doAjax({
-                    url: url,
-                    data: data,
-                    type: 'POST',
-                    cache: useCache,
-                    success: success,
-                    error: error
-                });
+            ajax.post = function (data) {
+                return doAjax(data);
             };
 
-            ajax.getDebounced = function (url, data, success, error, useCache) {
-                if (cache[url]) {
-                    cache[url].abort();
+            /**
+             *
+             * @param {Object} params
+             *  {
+             *      url : url,
+             *       data : data,
+             *       success : success,
+             *       error : error,
+             *       cache : useCache,
+             *       preloader : opt_preloader,
+             *       alert : opt_alert
+             *   }
+             * @returns {*}
+             */
+            ajax.getDebounced = function (params) {
+                if (cache[params.url]) {
+                    cache[params.url].abort();
                 }
 
-                var req = ajax.get(url, data, success, error, useCache).always(function () {
-                    delete cache[url];
+                var req = ajax.get(params).always(function () {
+                    delete cache[params.url];
                 });
 
-                cache[url] = req;
+                cache[params.url] = req;
 
                 return req;
             };
 
-            ajax.postDebaunced = function (url, data, success, error, useCache) {
+            ajax.postDebaunced = function (url, data, success, error, useCache, opt_preloader, opt_alert) {
                 if (cache[url]) {
                     cache[url].abort();
                 }
 
-                var req = ajax.post(url, data, success, error, useCache).always(function () {
+                var req = ajax.post({
+                    url : url,
+                    data : data,
+                    success : success,
+                    error : error,
+                    cache : useCache,
+                    preloader : opt_preloader,
+                    alert : opt_alert
+                }).always(function () {
                     delete cache[url];
                 });
 

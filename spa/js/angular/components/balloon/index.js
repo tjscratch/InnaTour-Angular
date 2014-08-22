@@ -14,16 +14,31 @@ innaAppConponents.
                     balloonClose: true,
                     isVisible: false,
 
-                    //Вызвать метод когда будет закрыт попап
-                    //@override
-                    callbackClose: null
+
+                    /**
+                     * Вызвать метод когда будет закрыт попап
+                     * @override
+                     */
+                    callbackClose: function(){
+
+                    },
+
+                    /**
+                     * кастомный метод, вызываем в своем шаблоне по требованию
+                     * @override
+                     */
+                    callback :  function(){
+
+                    }
                 },
                 init: function (options) {
                     this._super(options);
+                    console.log('init baloon', this);
 
                     this.on({
                         hide: this.hide,
-                        changeTarifs: this.changeTarifs
+                        changeTarifs: this.changeTarifs,
+                        callback : this.get('callback')
                     });
                 },
 
@@ -40,7 +55,8 @@ innaAppConponents.
                 show: function () {
                     this.set({isVisible: true});
                 },
-                hide: function () {
+                hide: function (evt) {
+                    evt.original.stopPropagation();
                     var that = this;
 
                     if (this.get('wait')) {
@@ -72,6 +88,11 @@ innaAppConponents.
                         to: evt.context.to,
                         _RULE_: evt.context.rule
                     });
+                },
+
+
+                dispose : function(){
+                    this.fire('hide');
                 }
             });
 
