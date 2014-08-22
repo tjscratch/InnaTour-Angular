@@ -222,6 +222,15 @@ innaAppControllers
                     success: function (data) {
                         if(data.Rooms.length) {
                             $scope.hotelRooms = data.Rooms;
+
+                            if($scope.hotel.CheckInTime == '00:00' && data.Hotel.CheckInTime) {
+                                $scope.hotel.CheckInTime = data.Hotel.CheckInTime
+                            }
+
+                            if($scope.hotel.CheckOutTime == '00:00' && data.Hotel.CheckOutTime) {
+                                $scope.hotel.CheckOutTime = data.Hotel.CheckOutTime
+                            }
+
                             onload();
                         } else {
                             $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
@@ -229,6 +238,7 @@ innaAppControllers
                     },
                     error: function () {
                         console.log('no rooms');
+                        $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
                     }
                 });
             };
