@@ -12,7 +12,7 @@ var b2bHost = (_ENV_ === 'production') ? conf.hosts.b2b.prod : ((_ENV_ === 'beta
 var apiFrontHost = (_ENV_ === 'production') ? conf.hosts.front.prod : ((_ENV_ === 'beta') ? conf.hosts.front.beta : conf.hosts.front.test);
 var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : ((_ENV_ === 'beta') ? conf.hosts.static.beta : conf.hosts.static.test);
 
-var __PROTOCOL__ = (_ENV_ === 'production' || _ENV_ === 'beta') ? conf.protocol.https : conf.protocol.http;
+var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protocol.http;
 
 function getConfReplace(){
     return {

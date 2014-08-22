@@ -15,17 +15,17 @@
     "b2b": {
       "test": "http://b2b.test.inna.ru",
       "prod": "https://b2b.inna.ru",
-	  "beta": "https://b2b.beta.inna.ru"
+	  "beta": "http://b2b.beta.inna.ru"
     },
     "api": {
       "test": "http://api.test.inna.ru",
       "prod": "https://api.inna.ru",
-	  "beta": "https://api.beta.inna.ru"
+	  "beta": "http://api.beta.inna.ru"
     },
     "front": {
       "test": "http://test.inna.ru",
       "prod": "https://inna.ru",
-	  "beta": "https://beta.inna.ru"
+	  "beta": "http://beta.inna.ru"
     },
     "static": {
       "test": "http://s.test.inna.ru",
