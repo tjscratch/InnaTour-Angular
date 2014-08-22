@@ -33,7 +33,7 @@ innaAppControllers.
                 $log.log(msg);
             }
 
-            //нужно передать в шапку (AviaFormCtrl) $routeParams
+
             //$rootScope.$broadcast("avia.page.loaded", $routeParams);
 
             //критерии из урла
@@ -668,7 +668,7 @@ innaAppControllers.
             //data loading ===========================================================================
 
             function showPaymentProcessing() {
-                $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
+                $scope.baloon.show('Оплата заказа', 'Пожалуйста, не закрывайте браузер');
             }
 
             $scope.processToBuy = function ($event) {
@@ -760,7 +760,7 @@ innaAppControllers.
                         //console.log('triggered inna.buy.close, isOrderPaid: ' + $scope.isOrderPaid);
                         $scope.safeApply(function () {
                             if ($scope.isOrderPaid == false) {
-                                $scope.baloon.show('Подождите, идет оплата', 'Это может занять несколько минут');
+                                showPaymentProcessing();
                             }
                             self.hide();
                         })
@@ -908,8 +908,8 @@ innaAppControllers.
                                                         track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
                                                     }
 
-                                                    $scope.baloon.show('Заказ Выполнен', 'Документы отправлены на электронную почту\n' + $scope.reservationModel.Email,
-                                                        aviaHelper.baloonType.success,
+                                                    $scope.baloon.show('Заказ выполнен', 'Документы отправлены на электронную почту',
+                                                        aviaHelper.baloonType.email,
                                                         function () {
                                                             $location.path(Urls.URL_AVIA);
                                                         },
@@ -922,7 +922,8 @@ innaAppControllers.
                                                             buttonCaption: 'Ok', successFn: function () {
                                                                 $scope.baloon.hide();
                                                                 $location.path(Urls.URL_AVIA);
-                                                            }
+                                                            },
+                                                            email: $scope.reservationModel.Email
                                                         });
                                                 } else if ($scope.hotel != null) {
                                                     //аналитика - ДП - заказ выполнен
@@ -949,7 +950,7 @@ innaAppControllers.
                                             }).show();
                                         }
                                         else if (data.Result == 4) {//заказ оплачен, но не прошла выписка
-                                            showPaymentProcessing();
+                                            $scope.baloon.show('Оформляем заказ', 'Пожалуйста, не закрывайте браузер');
                                         }
                                     }
                                 }

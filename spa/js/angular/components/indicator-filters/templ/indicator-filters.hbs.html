@@ -1,0 +1,16 @@
+<div class="b-switch-filters {{(asMap)? 'b-switch-filters_map' : ''}}">
+
+    <div class="ra-tags-container">
+        <div class="b-switch-filters__result">
+			{{#each filters}}
+                <IndicatorFiltersItem filterItem="{{.}}" />
+			{{/each}}
+
+			{{#if filters.length}}
+                <span on-click="resetAllFilters" class="ra-tags-reset like-link">
+	                Сбросить все фильтры
+                </span>
+			{{/if}}
+        </div>
+    </div>
+</div>

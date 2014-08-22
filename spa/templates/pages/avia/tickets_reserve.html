@@ -86,14 +86,14 @@
         <div class="b-field-block" style="width: 160px;">
             <label class="b-field-label">Фамилия</label>
             <input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.secondName.value"
-                   ng-validation-model="passenger.secondName" validate="validate(item, type)"
+                   ng-validation-model="passenger.secondName" validate="validate(item, type)" data-title="Укажите фамилию пассажира"
                    validate-type="validateType.required"
                    ng-class="{error:isFieldInvalid(passenger.secondName)}"
                    type="text" placeholder="IVANOV" class="b-field-text">
         </div>
         <div class="b-field-block b-field-block-surname" style="width: 150px;">
             <label class="b-field-label">Имя</label>
-            <input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.name.value"
+            <input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.name.value"  data-title="Укажите имя пассажира"
                    ng-validation-model="passenger.name" validate="validate(item, type)"
                    validate-type="validateType.required"
                    ng-class="{error:isFieldInvalid(passenger.name)}"
@@ -233,7 +233,7 @@
 
 <!-- Baloon -->
 <div style="display: block" class="overlay js-overlay" ng-if="tarifs.isOpened">
-    <div class="balloon balloon_medium">
+    <div class="balloon balloon_medium js-tarifs">
         <div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>
         <div class="b__rules-container">
             <div class="b__rules_attention">
@@ -245,13 +245,13 @@
                 <p>Если по перелёту используется несколько разных правил/тарифов, то при обмене/возврате применяются
                     более строгие правила. При обмене/возврате к возможным штрафным санкциям авиакомпании по правилам
                     тарифа, дополнительно взымается сервисный сбор за услугу оформления обмена/возврата билета.</p>
-            </div>
-            <div class="b__rules-grey">
                 <ul class="b__rules-flies">
                     <li ng-class="{current:item === tarifs.setected}" ng-repeat="item in tarifs.list"><a ng-href="#"
-                                                                                                         ng-click="tarifs.tarifClick($event, item)"><span><b>{{item.from}}
+                                                                                                            ng-click="tarifs.tarifClick($event, item)"><span><b>{{item.from}}
                         → {{item.to}},</b> {{item.num}}, {{tarifs.class}} (K)</span></a></li>
                 </ul>
+            </div>
+            <div class="b__rules-grey">
                 <h3>{{tarifs.setected.from}} → {{tarifs.setected.to}}</h3>
                 <h4>Полные правила применения тарифа</h4>
                 <!--<p>Пожалуйста, ознакомьтесь детальнее с условиями <a href="#">обмена/возврата</a>.</p>-->

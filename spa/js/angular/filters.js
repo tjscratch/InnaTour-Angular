@@ -135,6 +135,16 @@ innaAppFilters.filter('stripTags', function () {
     }
 });
 
+innaAppFilters.filter('textOverflow', ['$filter', function ($filter) {
+    return  function(text, limit){
+
+        if(text && (text.length > limit))
+            return $filter('limitTo')(text, limit) + '...';
+        else
+            return text;
+    };
+}]);
+
 innaAppFilters.filter('console', function(){
     return  function(input){
         console.log(input);

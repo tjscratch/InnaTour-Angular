@@ -70,7 +70,7 @@ angular.module('innaApp.API', [])
 
             HELP_TOPICS: url('/faq/get'),
 
-            PARTNERSHIP_GET_COOKIE: url('/Reklama/GetReklamaId'),
+            PARTNERSHIP_GET_COOKIE: url('Prt/GetPrtId'),
 
             eof: null
         }
@@ -90,8 +90,35 @@ angular.module('innaApp.API', [])
             DYNAMIC_SERP_HOTEL_DETAILS_LOADED: 'inna.Dynamic.SERP.Hotel.DetailedInfo.Loaded',
             DYNAMIC_SERP_CHOOSE_HOTEL : 'choose:hotel',
             DYNAMIC_SERP_CHOOSE_TICKET : 'choose:ticket',
+            DYNAMIC_SERP_MORE_DETAIL_HOTEL : 'more:detail:hotel',
+            DYNAMIC_SERP_BACK_LIST : 'hotels:back:list',
             DYNAMIC_SERP_CLOSE_BUNDLE : 'bundle:hidden',
             DYNAMIC_SERP_OPEN_BUNDLE : 'bundle:full',
+            DYNAMIC_SERP_HIDDEN_HOTEL : 'hotel:hidden',
+
+            DYNAMIC_SERP_LOAD_TAB : 'DYNAMIC_SERP_LOAD_TAB',
+
+            FILTER_PANEL_CLOSE_FILTERS : 'filter-panel:close-filters',
+            FILTER_PANEL_SORT : 'filter-panel:sort',
+            FILTER_PANEL_CHANGE : 'filter-panel:change',
+            FILTER_PANEL_RESET : 'filter-panel:reset',
+            FILTER_PANEL_RESET_ALL : 'filter-panel:reset_all',
+            LIST_PANEL_FILTES_HOTELS_DONE : 'LIST_PANEL_FILTES_HOTELS_DONE',
+            LIST_PANEL_FILTES_RESET_DONE : 'LIST_PANEL_FILTES_RESET_DONE',
+
+            DYNAMIC_SERP_TOGGLE_MAP : 'toggle:view:hotels:map',
+            DYNAMIC_SERP_GO_TO_MAP : 'hotel:go-to-map',
+            DYNAMIC_SERP_TOGGLE_MAP_SINGLE : 'hotel:go-to-map-single',
+            DYNAMIC_SERP_MAP_LOAD : 'hotel:map-load',
+            DYNAMIC_SERP_MAP_DESTROY : 'hotel:map-destroy',
+            DYNAMIC_SERP_BACK_TO_MAP : 'hotel:DYNAMIC_SERP_BACK_TO_MAP',
+            MAP_CLOSE : 'map:close',
+
+            HEADER_VISIBLE : 'region-header:show',
+            HEADER_HIDDEN : 'region-header:hide',
+
+            FOOTER_VISIBLE : 'region-footer:show',
+            FOOTER_HIDDEN : 'region-footer:hide',
 
             AUTH_FORGOTTEN_LINK_CLICKED: 'inna.Auth.Forgotten-link-clicked',
             AUTH_SIGN_IN: 'inna.Auth.SignIn',

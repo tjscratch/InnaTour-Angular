@@ -133,6 +133,17 @@ inna.Models.Avia.TicketCollection.prototype.search = function (id1, id2) {
     });
 };
 
+inna.Models.Avia.TicketCollection.prototype.searchId = function(id){
+    var L = this.list.length;
+    var ticket = null;
+    for (var i = 0; i < L ;i++) {
+        if(this.list[i].data.VariantId1 == id){
+            ticket = this.list[i];
+        }
+    }
+    return ticket;
+}
+
 inna.Models.Avia.TicketCollection.prototype.advancedSearch = function (criteria) {
     var DEFAULT = null;
     var ticket = DEFAULT;
@@ -267,14 +278,20 @@ inna.Models.Avia.Ticket.prototype.getNextEtap = function (dir, current) {
 
 inna.Models.Avia.Ticket.prototype.collectAirlines = function () {
     var airlines = [];
+    var airlinesArr = [];
 
     this.everyEtap(function(etap){
         airlines.push([etap.data.TransporterCode, etap.data.TransporterName]);
+        airlinesArr.push({
+            code : etap.data.TransporterCode,
+            name : etap.data.TransporterName
+        });
     });
 
     var collected = _.object(airlines);
 
     return {
+        airlines : _.pluck(airlinesArr, 'name'),
         etap: collected,
         size: Object.keys(collected).length
     }

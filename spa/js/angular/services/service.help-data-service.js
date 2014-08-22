@@ -7,7 +7,13 @@ angular.module('innaApp.services')
 
             return {
                 fetchAll: function(callback){
-                    AjaxHelper.get(urls.HELP_TOPICS, {}, callback, angular.noop, true);
+                    AjaxHelper.get({
+                        url : urls.HELP_TOPICS,
+                        data : {},
+                        success : callback,
+                        error : angular.noop,
+                        cache : true
+                    });
                 }
             }
         }

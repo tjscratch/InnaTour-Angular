@@ -1,49 +1,34 @@
 <div class="page-buy-success">
 
-    <div class="page-buy-success__title">
+
+        <div class="page-buy-success__title">
+
 
         <h2>Подтверждение бронирования и оплаты</h2>
 
         <p class="page-buy-success__title__info buy__price-descr">
             В цену включен ПЕРЕЛЕТ
             <span>{{AviaInfo.AirportFrom}} – {{AviaInfo.AirportTo}} – {{AviaInfo.AirportFrom}}</span>
-            и отель
-            <span>{{Hotel.HotelName}}</span>
+            и ОТЕЛЬ
+            <b>{{Hotel.HotelName}}</b>
             с {{moment(Hotel.CheckIn).format('DD MMMM')}} по {{moment(Hotel.CheckOut).format('DD MMMM')}},
-            {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["ночь", "ночи", "ночей"])}}<br/>
-            Цена окончательная со всеми налогами и сборами</p>
+            {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["ночь", "ночи", "ночей"])}}.<br/>
+            Цена окончательная со всеми налогами и сборами.</p>
 
-        <h2 class="page-buy-success__title__info">Информация по бронированию</h2>
+        <h2 class="page-buy-success__title__info">
+            Информация по бронированию
+            <div class="page-buy-success__title__info_en">Reservation details</div>
+        </h2>
 
     </div>
 
 
     <div class="js-dynamic-block">
-        <DynamicBlockAviaHotel AviaInfo="{{AviaInfo}}" hotel="{{Hotel}}" />
+        {{#if loadData}}
+            <DynamicBlockAviaHotel AviaInfo="{{AviaInfo}}" hotel="{{Hotel}}" />
+            <NeedVisa AviaInfo="{{AviaInfo}}" Passengers="{{Passengers}}" />    
+        {{/if}}
     </div>
-
-
-
-    <!-- {{#visaNeeded || visaNeeded_rules}}
-     <div class="buy__warning">
-         {{#visaNeeded}}
-         <div>Требуется виза.</div>
-         {{/}}
-         {{#visaNeeded_rules}}
-         <div>Обратите внимание на визовые правила
-             {{#cautionCountries.length}}
-                 <span>
-                     в странах:
-                     <span ng-repeat="c in cautionCountries">
-                         {{c}} <span ng-if="!($last)">,&nbsp;</span>
-                     </span>
-                 </span>.
-             {{/}}
-         </div>
-         {{/}}
-     </div>
-     {{/}}-->
-
 
     <!-- данные результата покупки -->
     <div>

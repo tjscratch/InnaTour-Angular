@@ -1,12 +1,5 @@
 ﻿'use strict';
 
-
-// Ractive.defaults
-Ractive.defaults.data.pluralize = utils.pluralize || null;
-Ractive.defaults.data.moment = moment || null;
-
-
-
 var app = angular.module('innaApp', [
   'ngRoute',
   'innaApp.Cookie',
@@ -15,17 +8,16 @@ var app = angular.module('innaApp', [
   'innaApp.services',
   'innaApp.directives',
   'innaApp.controllers',
-  'innaApp.conponents',
+  'innaApp.components',
   'innaApp.Url',
   'innaApp.API',
   'ngSanitize',
   'pasvaz.bindonce'
 ]);
 
-
-
 /* локализация дат moment */
 moment.lang('ru');
+
 
 app.constant('innaApp.Urls', {
     URL_ROOT: '/',
@@ -39,6 +31,7 @@ app.constant('innaApp.Urls', {
     URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
+    URL_DYNAMIC_HOTEL_DETAILS : '/packages/details/',
     URL_DYNAMIC_PACKAGES_RESERVATION: '/packages/reservation/',
     URL_PROGRAMMS: '/individualtours/',
     URL_ABOUT: '/about/',
@@ -57,7 +50,16 @@ app.constant('innaApp.Urls', {
     eof: null
 });
 
-app.run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
+app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, $location, $window, $filter) {
+
+
+
+    // Ractive.defaults
+    Ractive.defaults.data.pluralize = utils.pluralize || null;
+    Ractive.defaults.data.moment = moment || null;
+    Ractive.defaults.debug = true;
+    Ractive.defaults.data.$filter = $filter;
+
     $rootScope.bodyClickListeners = [];
 
     $rootScope.addBodyClickListner = function (key, eventDelegate) {
@@ -90,9 +92,8 @@ app.config([
     '$httpProvider',
     'innaApp.Urls',
     '$sceProvider',
-    function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider) {
 
-        //console.log($templateCache.get('pages/tours_grid_page.html'));
+    function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider, $filter) {
 
         function dynamic(){
             return {
@@ -191,8 +192,13 @@ app.config([
             when(url.URL_DYNAMIC_PACKAGES + ':DepartureId-:ArrivalId', dynamic()).//URL для контекста по ДП
             when(url.URL_DYNAMIC_PACKAGES, dynamic()).
             when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
-                templateUrl: 'pages/dynamic/serp.html',
-                controller: 'DynamicPackageSERPCtrl',
+                templateUrl: 'pages/page-dynamic/templ/page-dynamic-controller.html',
+                controller: 'PageDynamicPackage',
+                reloadOnSearch: false
+            }).
+            when(url.URL_DYNAMIC_HOTEL_DETAILS + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
+                templateUrl: 'pages/page-dynamic-details/templ/hotel-details.html',
+                controller: 'PageHotelDetails',
                 reloadOnSearch: false
             }).
             when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
@@ -200,8 +206,11 @@ app.config([
                 controller: 'DynamicReserveTicketsCtrl'
             }).
             when(url.B2B_DISPLAY_ORDER + ':OrderId', {
-                templateUrl: 'pages/dynamic/display-order.html',
-                controller: 'B2B_DisplayOrder'
+                templateUrl: 'pages/page-dynamic-details/templ/hotel-details.html',
+                controller: 'PageHotelDetails',
+                reloadOnSearch: false
+                /*templateUrl: 'pages/page-display-order/templ/display-order.html',
+                controller: 'B2B_DisplayOrder'*/
             }).
             when(url.URL_AUTH_RESTORE, dynamic()).
             when(url.URL_AUTH_SIGNUP, dynamic()).
@@ -241,7 +250,7 @@ app.config([
 var innaAppCookie = angular.module('innaApp.Cookie', ['ngCookies']);
 
 var innaAppControllers = angular.module('innaApp.controllers', []);
-var innaAppConponents = angular.module('innaApp.conponents', []);
+var innaAppConponents = angular.module('innaApp.components', []);
 
 var innaAppTemlates = angular.module('innaApp.templates', []);
 

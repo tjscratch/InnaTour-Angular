@@ -1,16 +1,16 @@
 .spinner {
     margin: 20px auto;
-    width: 60px;
+    width: 280px;
     height: 60px;
     text-align: center;
     font-size: 10px;
 
     &.in-balloon {
-        margin: 0px auto 20px auto;
+        margin: 0px auto 5px auto;
     }
 }
 
-.spinner > div {
+.spinner .rect {
     background-color: $green;
     height: 100%;
     width: 6px;
@@ -43,4 +43,10 @@
 
 .spinner .gif {
     display:none;
+}
+
+.spinner__text {
+    font-size: 14px;
+    text-align:center;
+    color: #ccc;
 }

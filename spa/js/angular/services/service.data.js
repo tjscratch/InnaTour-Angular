@@ -19,34 +19,39 @@
                     $http.get(apiUrls.DICTIONARY_ALL_COUNTRIES, { cache: true }).success(function (data, status) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
                 getDirectoryByUrl: function (term, successCallback, errCallback) {
-                    AjaxHelper.get(apiUrls.AVIA_FROM_SUGGEST, { term: term }, function (data) {
-                        if (data != null && data.length > 0) {
-                            //ищем запись с кодом IATA
-                            var resItem = _.find(data, function (item) {
-                                return item.CodeIata == term;
-                            });
-                            //если не нашли - берем первый
-                            if (resItem == null)
-                                resItem = data[0];
+                    AjaxHelper.get({
+                        url: apiUrls.AVIA_FROM_SUGGEST,
+                        data: { term: term },
+                        success: function (data) {
+                            if (data != null && data.length > 0) {
+                                //ищем запись с кодом IATA
+                                var resItem = _.find(data, function (item) {
+                                    return item.CodeIata == term;
+                                });
+                                //если не нашли - берем первый
+                                if (resItem == null)
+                                    resItem = data[0];
 
-                            var urlKey = urlHelper.getUrlFromData(resItem);
-                            //добавляем поле url
-                            resItem.id = resItem.Id;
-                            resItem.name = resItem.Name;
-                            resItem.url = urlKey;
+                                var urlKey = urlHelper.getUrlFromData(resItem);
+                                //добавляем поле url
+                                resItem.id = resItem.Id;
+                                resItem.name = resItem.Name;
+                                resItem.url = urlKey;
 
-                            //присваиваем значение через функцию коллбэк
-                            successCallback(resItem);
-                        }
-                        else {
-                            errCallback(data, status);
-                        }
-                    }, errCallback);
+                                //присваиваем значение через функцию коллбэк
+                                successCallback(resItem);
+                            }
+                            else {
+                                errCallback(data, status);
+                            }
+                        },
+                        error: errCallback
+                    });
                 },
 
                 getSletatDirectoryByTerm: function (term, successCallback, errCallback) {
@@ -58,10 +63,10 @@
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
                 },
                 getSletatCity: function (successCallback, errCallback) {
                     //log('getSletatCity: ' + term);
@@ -70,10 +75,10 @@
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
                 },
                 getSletatById: function (id, successCallback, errCallback) {
                     //log('getSletatById: ' + term);
@@ -82,10 +87,10 @@
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
                 },
                 startAviaSearch: function (criteria, successCallback, errCallback) {
                     //запрос по критериям поиска
@@ -111,7 +116,7 @@
                         });
                     }
                 },
-                cancelAviaSearch: function() {
+                cancelAviaSearch: function () {
                     AjaxHelper.cancelRequest(apiUrls.AVIA_BEGIN_SEARCH);
                 },
                 startSearchTours: function (criteria, successCallback, errCallback) {
@@ -120,42 +125,42 @@
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
                 },
                 checkSearchTours: function (searchIdObj, successCallback, errCallback) {
                     $http.post(apiUrls.CHECK_SEARCH, angular.toJson(searchIdObj)).success(function (data, status) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
                 getLocationsByUrls: function (queryData, successCallback, errCallback) {
                     $http.post(apiUrls.GET_LOCATION_BY_URLS, angular.toJson(queryData)).success(function (data, status) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
                 getHotelDetail: function (queryData, successCallback, errCallback) {
                     $http.post(apiUrls.HOTEL_DETAIL, angular.toJson(queryData)).success(function (data, status) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
                 getTourDetail: function (queryData, successCallback, errCallback) {
                     $http.post(apiUrls.TOUR_DETAIL, angular.toJson(queryData)).success(function (data, status) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
                 getOrder: function (queryData, successCallback, errCallback) {
                     //запрос по критериям поиска
@@ -163,10 +168,10 @@
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
                 },
                 getPaymentPage: function (queryData, successCallback, errCallback) {
                     //запрос по критериям поиска
@@ -174,18 +179,18 @@
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
                 },
                 pay: function (queryData, successCallback, errCallback) {
                     $http.post(apiUrls.PAY, angular.toJson(queryData)).success(function (data) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
                 getSectionTours: function (params, successCallback, errCallback) {
                     $http({
@@ -197,43 +202,49 @@
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
                 },
                 getSectionIndividualTours: function (params, successCallback, errCallback) {
                     $http({ method: 'GET', url: apiUrls.GET_SECTION_INDIVIDUAL_TOURS, params: params, cache: true }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
                 },
                 getIndividualToursCategory: function (id, successCallback, errCallback) {
                     $http({ method: 'GET', url: apiUrls.GET_INDIVIDUAL_TOURS_CATEGORY + '/' + id, cache: true }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        //вызываем err callback
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            //вызываем err callback
+                            errCallback(data, status);
+                        });
                 },
                 sendITCategoryRequest: function (queryData, successCallback, errCallback) {
                     var apiData = new sendRequestData(queryData);
                     $http.post(apiUrls.SEND_IT_CATEGORY_REQUEST, apiData).success(function (data) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status); 
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
 
-                getPartnershipCookie: function(data){
-                    AjaxHelper.get(apiUrls.PARTNERSHIP_GET_COOKIE, data, angular.noop, angular.noop, false);
+                getPartnershipCookie: function (data) {
+                    AjaxHelper.get({
+                        url : apiUrls.PARTNERSHIP_GET_COOKIE,
+                        data : data,
+                        success : angular.noop,
+                        error : angular.noop,
+                        cache : false
+                    });
                 }
             };
         }]);

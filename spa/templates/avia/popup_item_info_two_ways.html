@@ -15,10 +15,10 @@
             </div>
             <div class="col-xs-5 col-no-padding row-fluid__cell">
                 <div class="rlf-fly rlf-fly_back" style="padding-bottom: 13px;">
-                    <span class="rlf-city">{{item.CityTo}}</span> {{item.InCode}}
+                    <span class="rlf-city">{{item.CityTo}}</span> {{item.OutCodeBack}}
                     <span class="rlf-fly-arrow"></span>
                     {{ (_lastEtapBack = item.EtapsBack[item.EtapsBack.length - 1]) ? '' : '' }}
-                    <span class="rlf-city">{{_lastEtapBack.InCity}}</span> {{_lastEtapBack.InCode}}
+                    <span class="rlf-city">{{_lastEtapBack.InCity}}</span> {{item.InCodeBack}}
                     <div class="rlf-full-travel-time">в пути: {{item.TimeBackFormatted}}, <span
                             ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}</span><span
                             ng-if="item.BackTransferCount == 0">прямой</span></div>

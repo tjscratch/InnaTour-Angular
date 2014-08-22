@@ -737,8 +737,8 @@ innaAppControllers.
                     var model = {
                         index: index,
                         sex: null,
-                        name: '',
                         secondName: '',
+                        name: '',
                         birthday: '',
                         citizenship: {//Гражданство
                             id: 189,
@@ -870,8 +870,20 @@ innaAppControllers.
 
                 //ищем первый невалидный элемент, берем только непустые
                 var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
-                    return (item.value != null && (!_.isString(item.value) || item.value.length > 0)) || (item.value == null && item.key == 'sex');
+                    //алерт будет показываться даже при пустом значении
+                    switch (item.key) {
+                        case 'sex': {
+                            return (!_.isString(item.value) || item.value.length > 0 || (item.value == null && item.key == 'sex'));
+                        }
+                        case 'phone': {
+                            return true;// item.value != null && (!_.isString(item.value) || item.value.length > 0) && item.value != '+7';
+                        }
+                        default: {
+                            return true;// item.value != null && (!_.isString(item.value) || item.value.length > 0)
+                        }
+                    }
                 });
+
                 if (invalidItem != null) {
 
                     // скроллим страницу вверх
@@ -888,7 +900,7 @@ innaAppControllers.
                 //если модель валидна - бронируем
                 if ($scope.validationModel.isModelValid()) {
 
-                    $scope.baloon.show("Бронирование авиабилетов", null);
+                    $scope.baloon.show("Бронирование авиабилетов", "Это займет не более 30 секунд");
 
                     //аналитика
                     track.dpGoBuy();
@@ -896,7 +908,11 @@ innaAppControllers.
                     //бронируем
                     $scope.reserve();
                 }
+
+                
             };
+
+            
 
             $scope.goToB2bCabinet = function () {
                 location.href = app_main.b2bHost;

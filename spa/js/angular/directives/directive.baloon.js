@@ -43,6 +43,9 @@ innaAppDirectives.
                         if ($scope.data != null && _.has($scope.data, 'successFn')) {
                             $scope.successFn = $scope.data.successFn;
                         }
+                        if ($scope.data != null && _.has($scope.data, 'email')) {
+                            $scope.email = $scope.data.email;
+                        }
                     });
 
                     $scope.baloonType = aviaHelper.baloonType;

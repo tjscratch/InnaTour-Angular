@@ -14,26 +14,68 @@ innaAppConponents.
                     balloonClose: true,
                     isVisible: false,
 
-                    //Вызвать метод когда будет закрыт попап
-                    //@override
-                    callbackClose: null
+
+                    /**
+                     * Вызвать метод когда будет закрыт попап
+                     * @override
+                     */
+                    callbackClose: function () {
+
+                    },
+
+                    /**
+                     * кастомный метод, вызываем в своем шаблоне по требованию
+                     * @override
+                     */
+                    callback: function () {
+
+                    }
                 },
                 init: function (options) {
                     this._super(options);
+                    console.log('init baloon', this);
 
                     this.on({
                         hide: this.hide,
-                        changeTarifs: this.changeTarifs
+                        changeTarifs: this.changeTarifs,
+                        callback: function(){
+                            this.get('callback')();
+                            this.dispose();
+                        }
                     });
+                },
+
+                partials: {
+                    balloonContent: function () {
+                        var templ = '<span></span>';
+                        if (this.get('template'))
+                            templ = $templateCache.get('components/balloon/templ/' + this.get('template'))
+
+                        return templ;
+                    }
                 },
 
                 show: function () {
                     this.set({isVisible: true});
                 },
-                hide: function () {
-                    this.set({isVisible: false});
-                    if (typeof this.get('callbackClose') == 'function') {
-                        this.get('callbackClose')();
+
+
+                hide: function (evt) {
+                    //evt.original.stopPropagation();
+                    var that = this;
+
+                    if (this.get('wait')) {
+                        setTimeout(function () {
+                            that.set({isVisible: false});
+                            if (typeof that.get('callbackClose') == 'function') {
+                                that.get('callbackClose')();
+                            }
+                        }, this.get('wait'))
+                    } else {
+                        that.set({isVisible: false});
+                        if (typeof that.get('callbackClose') == 'function') {
+                            that.get('callbackClose')();
+                        }
                     }
                 },
 
@@ -51,6 +93,11 @@ innaAppConponents.
                         to: evt.context.to,
                         _RULE_: evt.context.rule
                     });
+                },
+
+
+                dispose: function () {
+                    this.set({isVisible: false});
                 }
             });
 

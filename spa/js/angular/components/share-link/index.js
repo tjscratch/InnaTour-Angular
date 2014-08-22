@@ -5,6 +5,11 @@ innaAppConponents.
         'TooltipBase',
         function (Events, $templateCache, TooltipBase) {
 
+            /**
+             * Компонент ShareLink
+             * @constructor
+             * @inherits TooltipBase
+             */
             var ShareLink = TooltipBase.extend({
                 template: $templateCache.get('components/share-link/templ/index.html'),
                 debug: true,
@@ -14,16 +19,12 @@ innaAppConponents.
                     var that = this;
                     this._input = this.find('.b-tooltip-share__input');
 
-                    this.observe(
-                        'isVisible',
-                        function (newValue, oldValue) {
-                            if (newValue) {
-                                this.set({location: document.location});
-                                $(this._input).select();
-                            }
-                        },
-                        {defer: true}
-                    );
+                    this.observe('isVisible', function (newValue, oldValue) {
+                        if (newValue) {
+                            this.set({location: document.location});
+                            $(this._input).select();
+                        }
+                    }, {defer: true});
                 }
             });
 

@@ -37,7 +37,7 @@ innaAppControllers.
                 return ($scope.$root.user != null && $scope.$root.user.isAgency());
             }
 
-            //нужно передать в шапку (AviaFormCtrl) $routeParams
+
             $scope.$on('avia.form.loaded', function (event) {
                 //console.log('avia.form.loaded');
                 $rootScope.$broadcast("avia.page.loaded", $routeParams);
@@ -136,6 +136,7 @@ innaAppControllers.
                     dataService.cancelAviaSearch();
                     $location.path(Urls.URL_AVIA);
                 });
+
                 loader.init([setFromFieldsFromUrl, setToFieldsFromUrl], ifDataLoadedStartSearch).run();
             }
 
@@ -1051,7 +1052,7 @@ innaAppControllers.
                         ruble: $templateCache.get('components/ruble.html')
                     },
                     components: {
-                        componentsTooltip: PriceGeneric
+                        PriceGeneric: PriceGeneric
                     },
                     data: {
                         helper: aviaHelper,

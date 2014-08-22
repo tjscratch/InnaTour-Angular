@@ -61,7 +61,7 @@
                 <div class="rl-fly ">
                     <div class="rlf-flight-info">
                         <b>{{this.BackDepartureTimeFormatted}}</b>, {{this.BackDepartureDateFormatted}}<br>
-                        <span title="{{this.AirportTo}}">{{limitFilter(this.AirportTo,16)}} {{this.InCode}}</span>
+                        <span title="{{this.AirportFromBack}}">{{limitFilter(this.AirportFromBack,16)}} {{this.OutCodeBack}}</span>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@
                 <div class="rl-fly col-xs-push-1">
                     <div class="rlf-flight-info">
                         <b>{{this.BackArrivalTimeFormatted}}</b>, {{this.BackArrivalDateFormatted}}<br>
-                        <span title="{{this.AirportFrom}}">{{limitFilter(EtapsBack[EtapsBack.length - 1].InCity, 14)}} {{EtapsBack[EtapsBack.length - 1].InCode}}</span>
+                        <span title="{{this.AirportToBack}}">{{limitFilter(this.AirportToBack, 14)}} {{this.InCodeBack}}</span>
                     </div>
                 </div>
 
@@ -116,7 +116,7 @@
 
         <!-- tooltip price -->
         {{#isAgency()}}
-            <componentsTooltip PriceDetailsTooltipData="{{PriceDetailsTooltipData}}"/>
+            <PriceGeneric PriceDetailsTooltipData="{{PriceDetailsTooltipData}}"/>
         {{/}}
 
         <span class="button" on-click='goToPaymentClick:{{this}}'>Купить</span>

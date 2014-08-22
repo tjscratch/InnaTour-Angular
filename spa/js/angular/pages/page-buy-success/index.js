@@ -17,8 +17,15 @@ innaAppControllers.
         // components
         'DynamicBlock',
         'Balloon',
-        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon) {
+        'NeedVisa',
+        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon, NeedVisa) {
+            document.body.classList.add('lighten-theme');
 
+            function preventDefault(evt) {
+                if (evt && evt.original) {
+                    evt.original.preventDefault();
+                }
+            }
 
             $scope.hotelToShowDetails = null;
 
@@ -28,7 +35,7 @@ innaAppControllers.
                     settings : {
                         height : 220,
                         countColumn: 2,
-                        classBlock : 'buy__fly'
+                        classBlock: 'buy__fly b-result_col_two b-result_middle'
                     }
                 },
                 partials: {
@@ -44,7 +51,6 @@ innaAppControllers.
                 }
             });
 
-
             var Page = Ractive.extend({
                 debug: true,
                 el: document.querySelector('.page-root'),
@@ -54,7 +60,8 @@ innaAppControllers.
                     buyResult: $templateCache.get('pages/page-buy-success/templ/buy-result.html')
                 },
                 components: {
-                    DynamicBlockAviaHotel: DynamicBlockAviaHotel
+                    DynamicBlockAviaHotel: DynamicBlockAviaHotel,
+                    NeedVisa: NeedVisa
                 },
                 data: {
                     loadData: false
@@ -70,7 +77,7 @@ innaAppControllers.
                         change: this.change,
                         showBalloonTicket: this.showBalloonTicket,
                         showBalloonHotel: this.showBalloonHotel
-                    })
+                    });
                 },
 
 
@@ -99,7 +106,7 @@ innaAppControllers.
                 },
 
                 showBalloonTicket: function (evt) {
-
+                    preventDefault(evt);
                     // вызываем aviaHelper.tarifs
                     var tarifs = new aviaHelper.tarifs()
                     tarifs.fillInfo(this.get('AviaInfo'));
@@ -123,6 +130,7 @@ innaAppControllers.
                 },
 
                 showBalloonHotel: function (evt) {
+                    preventDefault(evt);
                     var hotelRules = new aviaHelper.hotelRules();
                     hotelRules.fillData(this.get('Hotel'));
 
@@ -201,6 +209,12 @@ innaAppControllers.
 
             pageBuy.getDataBuy();
 
-
+            $scope.$on('$destroy', function(){
+                console.log('$destroy details');
+                document.body.classList.remove('lighten-theme');
+                pageBuy.teardown();
+                pageBuy = null;
+                DynamicBlockAviaHotel = null;
+            })
         }
     ]);
