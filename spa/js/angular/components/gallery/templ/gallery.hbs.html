@@ -1,4 +1,5 @@
-<div class="hotel-gallery b-carousel">
+<div class="hotel-gallery b-carousel" on-hover="hover">
+
     <div class="b-carousel__prev" on-click="slidePrev"></div>
     <div class="b-carousel__next" on-click="slideNext"></div>
 
@@ -13,7 +14,7 @@
 
 	        <!-- показываем первую картинку -->
             <div class="b-carousel_item"
-                 style="width:{{width}}px;height:{{height}}px;" on-hover="hover">
+                 style="width:{{width}}px;height:{{height}}px;">
 
                 <div class="b-carousel_item_image"
                      style="background-image: url({{photoList[0][imageSize]}});"></div>
