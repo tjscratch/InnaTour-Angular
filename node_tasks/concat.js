@@ -30,7 +30,7 @@ gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-re
     ])
 
         .pipe(concat('app-main.js', {insertSourceName:{open:'/*', close: '*/'}}))
-        .pipe(gulpif(_ENV_ === 'production', uglify({
+        .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
             mangle: false,
             outSourceMap: true
         })))
@@ -40,7 +40,8 @@ gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-re
 
 gulp.task('concat-lib', function () {
     return gulp.src([
-			conf.dest + '/lib/moment-with-langs.js',
+			conf.dest + '/lib/moment.js',
+			conf.dest + '/lib/moment-ru.js',
             conf.dest + '/lib/underscore.js',
             conf.dest + '/lib/ractive/ractive.js',
             conf.dest + '/lib/ractive/ractive-events-hover.js',

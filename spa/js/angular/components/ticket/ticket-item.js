@@ -30,7 +30,9 @@ angular.module('innaApp.components').
                     },
                     airLogo: function (logo) {
                         return this.airLogo(logo);
-                    }
+                    },
+
+                    TimeFormatted : aviaHelper.getFlightTimeFormatted
                 },
                 partials: {
                     collOneContent: $templateCache.get('components/ticket/templ/avia-dp.hbs.html'),
@@ -64,6 +66,7 @@ angular.module('innaApp.components').
                         },
                         teardown: function (evt) {
                             //console.log('teardown ticket item');
+                            //EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET, this.CHOOSE_TICKET);
                         }
                     });
 
@@ -82,7 +85,7 @@ angular.module('innaApp.components').
                         if((ticketId != that.get('ticket.VariantId1')) && that.get('hidden')){
                             that.set('hidden', false);
                         }
-                    });
+                    }); //this.CHOOSE_TICKET.bind(this)
                 },
 
                 setCurrent: function () {
@@ -96,6 +99,12 @@ angular.module('innaApp.components').
                     else
                         return app_main.staticHost + "/Files/logo/" + logo + ".png";
 
+                },
+
+                CHOOSE_TICKET : function(modelTicket, ticketId){
+                    if((ticketId != this.get('ticket.VariantId1')) && this.get('hidden')){
+                        this.set('hidden', false);
+                    }
                 },
 
                 showWarning: function () {

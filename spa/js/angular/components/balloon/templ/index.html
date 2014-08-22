@@ -1,12 +1,11 @@
-
 <div class="overlay js-overlay {{isVisible ? 'overlay_show' : ''}}"></div>
 
 {{#isVisible}}
 <div class="b-balloon js-b-balloon balloon {{balloon_class}}">
 
-    {{#balloonClose}}
+    {{#if balloonClose || callbackClose}}
         <div title="Закрыть" class="balloon-close" on-click="hide"></div>
-    {{/}}
+    {{/if}}
 
     {{#title}}
         <h3 class="b-tickets__title">title</h3>

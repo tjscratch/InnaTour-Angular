@@ -72,19 +72,29 @@ angular.module('innaApp.directives')
                             }
 
                             if ($scope.tabActive == data) return false;
-                            $scope.tabActive = data;
-
                             setActiveTab(data);
 
                             EventManager.fire(Events.DYNAMIC_SERP_LOAD_TAB, data);
                         };
 
-                        // по дефолту активный таб - hotel
-                        setActiveTab('hotel');
+
+                        /**
+                         * Выставляем активный таб
+                         * подефолту активный таб - hotel
+                         */
+                        if ($location.search().displayTicket) {
+                            setActiveTab('ticket');
+                            $scope.displayTicket = true;
+                        }
+                        else if ($location.search().displayHotel) {
+                            setActiveTab('hotel');
+                            $scope.displayHotel = true;
+                        }
+                        else {
+                            setActiveTab('hotel');
+                        }
 
 
-                        if ($location.search().displayTicket) $scope.displayTicket = true;
-                        if ($location.search().displayHotel) $scope.displayHotel = true;
                         if ($location.search().ticket || $location.search().hotel) {
                             $scope.isChooseHotel = true;
                         }
@@ -102,9 +112,7 @@ angular.module('innaApp.directives')
                             }
                         }
 
-
-
-                        function getHotelDetails() {
+                        /*function getHotelDetails() {
                             var deferred = $q.defer();
 
                             DynamicPackagesDataProvider.hotelDetails({
@@ -123,7 +131,7 @@ angular.module('innaApp.directives')
                             });
 
                             return deferred.promise;
-                        };
+                        };*/
 
 
 
@@ -169,7 +177,7 @@ angular.module('innaApp.directives')
                             $scope.safeApply(function () {
                                 $scope.isChooseHotel = true;
                                 $scope.display.fullDisplay();
-                                getHotelDetails();
+                                //getHotelDetails();
                             });
                         });
 
@@ -246,7 +254,7 @@ angular.module('innaApp.directives')
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, closeBundle);
                             EventManager.off(Events.LIST_PANEL_FILTES_HOTELS_DONE, filtersLoadDone);
                             EventManager.off(Events.FILTER_PANEL_RESET, filtersPanelReset);
-                            EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL, getHotelDetails);
+                            //EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL, getHotelDetails);
                             unwatchScroll();
                         });
                     }

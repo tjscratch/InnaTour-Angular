@@ -7,5 +7,10 @@
     {{etap.data.InCountryName}}
     <div class="rlf-transfer" ng-repeat="next in [ticket.getNextEtap(dir, etap)]">
         <span ng-if="next.data.OutPort != etap.data.InPort">Внимание: смена аэропорта!</span>
+        {{(_inTime = dateHelper.getTime(etap.getDateTime('In')).split(':')[0]) ? '' : ''}}
+        {{(_outTime = dateHelper.getTime(_nextEtap.getDateTime('Out')).split(':')[0]) ? '' : ''}}
+        {{(_inNight = (_inTime == '23' || _inTime == '00' || _inTime == '01' || _inTime == '02' || _inTime == '03' || _inTime == '04' || _inTime == '05' || _inTime == '06')) ? '' : ''}}
+        {{(_outNight = (_outTime == '00' || _outTime == '01' || _outTime == '02' || _outTime == '03' || _outTime == '04' || _outTime == '05' || _outTime == '06' || _outTime == '07')) ? '' : ''}}
+        <span ng-if="_inNight || _outNight">Внимание: ночная пересадка!</span>
     </div>
 </div>

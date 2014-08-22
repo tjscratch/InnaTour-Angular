@@ -16,7 +16,8 @@ innaAppControllers
         // components
         'Tripadvisor',
         'Stars',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars) {
+        'Balloon',
+        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars, Balloon) {
 
             DynamicFormSubmitListener.listen();
 
@@ -48,7 +49,6 @@ innaAppControllers
                 };
             }
 
-
             /*Private*/
             var _tripadvisor = null;
             var _stars = null;
@@ -71,6 +71,18 @@ innaAppControllers
 
 
             function hotel404() {
+                //ToDo
+                //$scope._baloon = new Balloon({
+                //    data : {
+                //        callbackClose : function(){
+
+                //        }
+                //    },
+                //    partials : {
+                //        balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
+                //    }
+                //}).show();
+
                 $scope.baloon.showErr(
                     "Запрашиваемый отель не найден",
                     "Вероятно, комнаты в нем уже распроданы.",
@@ -208,11 +220,25 @@ innaAppControllers
                     Rooms : true,
 
                     success: function (data) {
-                        $scope.hotelRooms = data.Rooms;
-                        onload();
+                        if(data.Rooms.length) {
+                            $scope.hotelRooms = data.Rooms;
+
+                            if($scope.hotel.CheckInTime == '00:00' && data.Hotel.CheckInTime) {
+                                $scope.hotel.CheckInTime = data.Hotel.CheckInTime
+                            }
+
+                            if($scope.hotel.CheckOutTime == '00:00' && data.Hotel.CheckOutTime) {
+                                $scope.hotel.CheckOutTime = data.Hotel.CheckOutTime
+                            }
+
+                            onload();
+                        } else {
+                            $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
+                        }
                     },
                     error: function () {
                         console.log('no rooms');
+                        $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
                     }
                 });
             };
