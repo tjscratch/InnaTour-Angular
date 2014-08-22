@@ -109,6 +109,7 @@ angular.module('innaApp.components').
                     });
 
 
+                    // исключаем выбранный вариант
                     if(this.get('combinationModel').hotel.data.HotelId == this.get('hotel.HotelId')){
                         that.set('hidden', true);
                     }
