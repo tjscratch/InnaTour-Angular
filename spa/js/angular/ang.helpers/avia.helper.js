@@ -112,12 +112,13 @@
                     var h = Math.floor(time / 60);
                     var addMins = time - h * 60;
                     //return h + " ч " + addMins + " мин" + " (" + time + ")";//debug
+                    //console.log(h, addMins);
                     if (addMins == 0)
-                        return h + " ч";
+                        return h + " ч.&nbsp;";
                     else if (h == 0)
-                        return addMins + " мин";
+                        return addMins + "&nbsp;мин.";
                     else
-                        return h + " ч " + addMins + " мин";
+                        return h + " ч.&nbsp;" + addMins + "&nbsp;мин.";
                 }
                 return "";
             }
@@ -788,7 +789,9 @@
                         self.haveData = true;
                         self.checkIn = hotel.CheckInTime;
                         self.checkOut = hotel.CheckOutTime;
-                        self.cancellationRules = hotel.Room.CancellationRule;
+                        if (hotel.Room) {
+                            self.cancellationRules = hotel.Room.CancellationRule;
+                        }
                         if (hotel.Amenities != null) {
                             self.extra = hotel.Amenities.Amenity_3;
                         }
@@ -886,7 +889,10 @@
                     }
                 },
 
+                getFlightTimeFormatted : getFlightTimeFormatted,
+
                 eof: null
             };
+
             return helper;
         }]);

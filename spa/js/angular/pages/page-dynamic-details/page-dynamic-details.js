@@ -71,16 +71,17 @@ innaAppControllers
 
 
             function hotel404() {
-                $scope._baloon = new Balloon({
-                    data : {
-                        callbackClose : function(){
+                //ToDo
+                //$scope._baloon = new Balloon({
+                //    data : {
+                //        callbackClose : function(){
 
-                        }
-                    },
-                    partials : {
-                        balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
-                    }
-                }).show();
+                //        }
+                //    },
+                //    partials : {
+                //        balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
+                //    }
+                //}).show();
 
                 $scope.baloon.showErr(
                     "Запрашиваемый отель не найден",
