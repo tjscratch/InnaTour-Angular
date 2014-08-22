@@ -61,7 +61,7 @@
                         <div class="col-xs-5 col-no-padding row-fluid__cell">
                             <div class="rlf__flight-block">
                                 <b>{{item.BackDepartureTimeFormatted}}</b> {{item.BackDepartureDateFormatted}}<br>
-                                <b title="{{item.AirportTo}}">{{item.AirportTo | limitFilter:14}}</b> {{item.InCode}}
+                                <b title="{{item.AirportFromBack}}">{{item.AirportFromBack | limitFilter:14}}</b> {{item.OutCodeBack}}
                             </div>
                         </div>
                         <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
@@ -70,7 +70,7 @@
                         <div class="col-xs-5 col-no-padding row-fluid__cell">
                             <div class="rlf__flight-block">
                                 <b>{{item.BackArrivalTimeFormatted}}</b> {{item.BackArrivalDateFormatted}}<br>
-                                <b title="{{item.AirportFrom}}">{{item.AirportFrom | limitFilter:14}}</b> {{item.OutCode}}
+                                <b title="{{item.AirportToBack}}">{{item.AirportToBack | limitFilter:14}}</b> {{item.InCodeBack}}
                             </div>
                         </div>
                     </div>
