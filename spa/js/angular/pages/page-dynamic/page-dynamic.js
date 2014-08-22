@@ -75,7 +75,7 @@ innaAppControllers
                     HOTEL: 'hotel',
                     TICKET: 'ticket',
                     HOTELS_TAB: true,
-                    defaultTab : 'hotel',
+                    defaultTab: 'hotel',
                     loadHotelsData: null,
                     loadTicketsData: null
                 },
@@ -92,8 +92,6 @@ innaAppControllers
 
                     //this.stateTab();
                     this.getCombination();
-
-                    //$scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', this.balloonCloser);
 
                     $scope.passengerCount = parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0);
 
@@ -223,7 +221,7 @@ innaAppControllers
                             if (value) {
 
                                 /** Выполняем это условие после того как данные загрузились */
-                                if ($location.search().displayTicket){
+                                if ($location.search().displayTicket) {
                                     that.loadTicketDetails($location.search().displayTicket);
                                 }
 
@@ -296,7 +294,7 @@ innaAppControllers
                     DynamicPackagesDataProvider
                         .getHotelsByCombination(param, routeParams, function (data) {
                             that.set('loadHotelsData', data);
-                            $scope.baloon.hide();
+                            that._balloonSearch.dispose();
                             $scope.safeApply(function () {
                                 $scope.hotels.flush();
                                 $scope.hotelsRaw = data;
@@ -311,7 +309,6 @@ innaAppControllers
                                 }
 
                                 $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
-                                $scope.baloon.hide();
                                 deferred.resolve();
                             })
                         });
@@ -338,18 +335,15 @@ innaAppControllers
 
                     DynamicPackagesDataProvider
                         .getTicketsByCombination(param, routeParams, function (data) {
-                            $scope.baloon.hide();
+                            that._balloonSearch.dispose();
                             $scope.safeApply(function () {
                                 $scope.tickets.flush();
-
                                 for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
                                     var ticket = new inna.Models.Avia.Ticket();
                                     ticket.setData(raw);
                                     $scope.tickets.push(ticket);
                                 }
-
                                 that.set('loadTicketsData', data);
-
                                 deferred.resolve();
                             });
                         });
@@ -359,9 +353,9 @@ innaAppControllers
 
                 getCombination: function () {
                     var that = this;
+                    this.balloonSearch();
                     return DynamicPackagesDataProvider.search({
                         data: searchParams,
-                        preloader : this.balloonSearch(),
                         success: this.combination200.bind(that),
                         error: this.combination500.bind(that)
                     });
@@ -375,6 +369,8 @@ innaAppControllers
                     if (!data || !data.RecommendedPair) {
                         return this.combination404();
                     }
+                    ;
+
 
                     //аналитика
                     this.trackAnalyst();
@@ -405,25 +401,26 @@ innaAppControllers
                 },
 
                 combination404: function () {
-                    console.log('combination404');
                     var that = this;
                     //аналитика
                     track.noResultsDp();
-                    //$scope.baloon.showNotFound(that.balloonCloser);
+
+                    if(this._balloonSearch){
+                        this._balloonSearch.dispose();
+                    }
 
                     this._balloon404 = new Balloon({
-                        data : {
-                            template : 'not-found.html',
-                            callbackClose : function(){
+                        data: {
+                            template: 'not-found.html',
+                            callbackClose: function () {
                                 that.balloonCloser();
                             },
-                            callback : function(evt){
-                                evt.original.stopPropagation();
-                                //this.balloonCloser();
-                                console.log('test test');
+                            callback: function (evt) {
+                                that.balloonCloser();
                             }
                         }
                     });
+                    this._balloon404.show();
                 },
 
                 combination500: function () {
@@ -440,7 +437,7 @@ innaAppControllers
                 loadTab: function (data_tab) {
                     var that = this;
 
-                    if(data_tab) this.set('defaultTab', data_tab);
+                    if (data_tab) this.set('defaultTab', data_tab);
 
                     this.stateTab();
 
@@ -477,22 +474,21 @@ innaAppControllers
                     $location.path(Urls.URL_DYNAMIC_PACKAGES);
                 },
 
-                balloonSearch : function(){
+                balloonSearch: function () {
                     var that = this;
 
-                    return new Balloon({
-                        data : {
-                            template : 'search.html',
-                            callbackClose : function(){
+                    this._balloonSearch = new Balloon({
+                        data: {
+                            template: 'search.html',
+                            callbackClose: function () {
                                 that.balloonCloser();
                             },
-                            callback : function(evt){
-                                evt.original.stopPropagation();
-
-                                console.log('test test');
+                            callback: function (evt) {
+                                that.balloonCloser();
                             }
                         }
                     });
+                    this._balloonSearch.show();
                 },
 
 
@@ -502,7 +498,7 @@ innaAppControllers
                  * то загружаем tab ticket и поднимаем попап подробнее об этом билете
                  * @param ticket
                  */
-                getTicketDetails : function (ticket) {
+                getTicketDetails: function (ticket) {
                     EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
                 },
 
@@ -536,7 +532,7 @@ innaAppControllers
                 },
 
                 /*--------TICKET DETAILS---------*/
-                trackAnalyst : function(){
+                trackAnalyst: function () {
                     var trackKey = $location.url();
                     if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
                         track.successResultsDp(track.dpKey);
@@ -560,7 +556,6 @@ innaAppControllers
 
 
             $scope.$on('$destroy', function () {
-                console.log('$destroy serp');
                 EventManager.off(Events.DYNAMIC_SERP_BACK_TO_MAP);
                 EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                 EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
@@ -579,7 +574,7 @@ innaAppControllers
                     ListPanelComponent.teardown();
                     ListPanelComponent = null;
                 }
-                if(this._balloon404){
+                if (this._balloon404) {
                     this._balloon404.teardown();
                     this._balloon404 = null;
                 }

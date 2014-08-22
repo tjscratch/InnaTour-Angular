@@ -19,7 +19,7 @@ innaAppConponents.
                      * Вызвать метод когда будет закрыт попап
                      * @override
                      */
-                    callbackClose: function(){
+                    callbackClose: function () {
 
                     },
 
@@ -27,7 +27,7 @@ innaAppConponents.
                      * кастомный метод, вызываем в своем шаблоне по требованию
                      * @override
                      */
-                    callback :  function(){
+                    callback: function () {
 
                     }
                 },
@@ -38,7 +38,10 @@ innaAppConponents.
                     this.on({
                         hide: this.hide,
                         changeTarifs: this.changeTarifs,
-                        callback : this.get('callback')
+                        callback: function(){
+                            this.get('callback')();
+                            this.dispose();
+                        }
                     });
                 },
 
@@ -55,8 +58,10 @@ innaAppConponents.
                 show: function () {
                     this.set({isVisible: true});
                 },
+
+
                 hide: function (evt) {
-                    evt.original.stopPropagation();
+                    //evt.original.stopPropagation();
                     var that = this;
 
                     if (this.get('wait')) {
@@ -91,8 +96,8 @@ innaAppConponents.
                 },
 
 
-                dispose : function(){
-                    this.fire('hide');
+                dispose: function () {
+                    this.set({isVisible: false});
                 }
             });
 

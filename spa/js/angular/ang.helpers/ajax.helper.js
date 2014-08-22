@@ -11,6 +11,7 @@ angular.module('innaApp.services')
 
 
             function doAjax(options) {
+
                 var params = angular.extend({}, options);
                 options = null;
 

@@ -112,7 +112,7 @@ angular.module('innaApp.directives')
                             }
                         }
 
-                        function getHotelDetails() {
+                        /*function getHotelDetails() {
                             var deferred = $q.defer();
 
                             DynamicPackagesDataProvider.hotelDetails({
@@ -131,7 +131,7 @@ angular.module('innaApp.directives')
                             });
 
                             return deferred.promise;
-                        };
+                        };*/
 
 
 
@@ -177,7 +177,7 @@ angular.module('innaApp.directives')
                             $scope.safeApply(function () {
                                 $scope.isChooseHotel = true;
                                 $scope.display.fullDisplay();
-                                getHotelDetails();
+                                //getHotelDetails();
                             });
                         });
 
