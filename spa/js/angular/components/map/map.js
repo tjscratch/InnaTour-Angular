@@ -593,6 +593,15 @@ angular.module('innaApp.directives')
                         });
                     }
 
+                    function setDefaultActiveMarker(){
+                        markers.forEach(function(marker){
+                            if(scope.combination.hotel.data.HotelId == marker._idHotel){
+                                scope.chosenHotel = marker;
+                                scope.chosenHotelActive = marker;
+                                scope.chosenHotelActive.setIcon(iconClick);
+                            }
+                        })
+                    }
 
                     function updateMap(data) {
                         if (boxInfo) {
@@ -644,6 +653,8 @@ angular.module('innaApp.directives')
                             markers.push(marker);
                         });
 
+                        setDefaultActiveMarker();
+
                         addCluster();
                     }
 
@@ -668,8 +679,6 @@ angular.module('innaApp.directives')
 
                     /**
                      * Следим за свойством hotelsForMap
-                     * Так как по условию  ng-if компонент еще не существует,
-                     * то мы не можем подписаться на событие в карте до ее инициализации
                      *
                      * Прокидываем событие в serp.js
                      * и дальше меняем свойство в $scope
