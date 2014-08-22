@@ -31,11 +31,11 @@
                     }
                 },
 
-                packageCheckAvailability: function (queryData, successCallback, errCallback){
+                packageCheckAvailability: function (queryData, successCallback, errCallback) {
                     AjaxHelper.getNoCache(apiUrls.PACKAGE_CHECK_AVAILABILITY, queryData, function (data) {
                         successCallback(data);
                     }, function (data, status) {
-                            errCallback(data, status);
+                        errCallback(data, status);
                     });
                 },
 
@@ -43,23 +43,34 @@
                     $http.get(apiUrls.PURCHASE_TRANSPORTER_GET_ALLIANCE, { cache: false, params: { names: queryData } }).success(function (data, status) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
 
                 reserve: function (queryData, successCallback, errCallback) {
                     var qData = angular.toParam(queryData);
-                    AjaxHelper.post(apiUrls.AVIA_RESERVATION, qData, function (data) {
-                        successCallback(data);
-                    }, function (data, status) {
-                        errCallback(data, status);
+
+                    AjaxHelper.post({
+                        url: apiUrls.AVIA_RESERVATION,
+                        data: qData,
+                        success: function (data) {
+                            successCallback(data);
+                        },
+                        error: function (data, status) {
+                            errCallback(data, status);
+                        }
                     });
                 },
 
                 packageReserve: function (queryData, successCallback, errCallback) {
                     var qData = angular.toParam(queryData);
-                    AjaxHelper.post(apiUrls.PACKAGE_RESERVATION, qData, successCallback, errCallback);
+                    AjaxHelper.post({
+                        url: apiUrls.PACKAGE_RESERVATION,
+                        data: qData,
+                        success: successCallback,
+                        error: errCallback
+                    });
                 },
 
                 getSelectedVariant: function (queryData, successCallback, errCallback) {
@@ -70,40 +81,40 @@
                     });
                 },
 
-                getPaymentData: function(queryData, successCallback, errCallback){
+                getPaymentData: function (queryData, successCallback, errCallback) {
                     $http.get(apiUrls.AVIA_RESERVATION_GET_PAY_DATA, { cache: false, params: queryData }).success(function (data, status) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
 
                 pay: function (queryData, successCallback, errCallback) {
                     $http.post(apiUrls.AVIA_PAY, queryData).success(function (data, status) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
 
                 payCheck: function (orderNum, successCallback, errCallback) {
                     $http.post(apiUrls.AVIA_PAY_CHECK, { value: orderNum }).success(function (data, status) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
 
                 getTarifs: function (queryData, successCallback, errCallback) {
                     $http.get(apiUrls.AVIA_TARIFS, { cache: true, params: queryData }).success(function (data, status) {
                         successCallback(data);
                     }).
-                    error(function (data, status) {
-                        errCallback(data, status);
-                    });
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
                 },
 
                 eof: null
