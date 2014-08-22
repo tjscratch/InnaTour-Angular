@@ -7,10 +7,10 @@ var gulp = require('gulp'),
 var _ENV_ = process.env.NODE_ENV || '';
 
 // смотрим на окружение и подставляем нужные хосты
-var apiHost = (_ENV_ === 'production') ? conf.hosts.api.prod : conf.hosts.api.test;
-var b2bHost = (_ENV_ === 'production') ? conf.hosts.b2b.prod : conf.hosts.b2b.test;
-var apiFrontHost = (_ENV_ === 'production') ? conf.hosts.front.prod : conf.hosts.front.test;
-var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : conf.hosts.static.test;
+var apiHost = (_ENV_ === 'production') ? conf.hosts.api.prod : ((_ENV_ === 'beta') ? conf.hosts.api.beta : conf.hosts.api.test);
+var b2bHost = (_ENV_ === 'production') ? conf.hosts.b2b.prod : ((_ENV_ === 'beta') ? conf.hosts.b2b.beta : conf.hosts.b2b.test);
+var apiFrontHost = (_ENV_ === 'production') ? conf.hosts.front.prod : ((_ENV_ === 'beta') ? conf.hosts.front.beta : conf.hosts.front.test);
+var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : ((_ENV_ === 'beta') ? conf.hosts.static.beta : conf.hosts.static.test);
 
 var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protocol.http;
 
@@ -33,7 +33,7 @@ function getConfReplace(){
 gulp.task('replace-config', function () {
     return gulp.src(conf.angular + '/config.js')
         .pipe(htmlreplace(getConfReplace()))
-        .pipe(gulpif(_ENV_ === 'production', uglify({
+        .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
             mangle: false,
             outSourceMap: true
         })))

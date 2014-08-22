@@ -30,7 +30,7 @@ gulp.task('build-concat', ['build-templates', 'concat-lib', 'concat-comp-page-re
     ])
 
         .pipe(concat('app-main.js', {insertSourceName:{open:'/*', close: '*/'}}))
-        .pipe(gulpif(_ENV_ === 'production', uglify({
+        .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
             mangle: false,
             outSourceMap: true
         })))
