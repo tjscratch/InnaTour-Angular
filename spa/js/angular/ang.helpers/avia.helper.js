@@ -112,13 +112,12 @@
                     var h = Math.floor(time / 60);
                     var addMins = time - h * 60;
                     //return h + " ч " + addMins + " мин" + " (" + time + ")";//debug
-                    //console.log(h, addMins);
                     if (addMins == 0)
-                        return h + " ч.&nbsp;";
+                        return h + " ч";
                     else if (h == 0)
-                        return addMins + "&nbsp;мин.";
+                        return addMins + " мин";
                     else
-                        return h + " ч.&nbsp;" + addMins + "&nbsp;мин.";
+                        return h + " ч " + addMins + " мин";
                 }
                 return "";
             }
