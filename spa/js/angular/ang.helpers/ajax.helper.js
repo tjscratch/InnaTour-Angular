@@ -129,6 +129,7 @@ angular.module('innaApp.services')
             };
 
             ajax.post = function (data) {
+                data.type = 'POST';
                 return doAjax(data);
             };
 
