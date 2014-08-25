@@ -662,6 +662,36 @@
                                     etapBack.nextEtapBack = nextEtapBack;
                                 }
 
+                                function setAlert(etap, nextEtap) {
+                                    if (etap != null) {
+                                        var alerts = [];
+                                        if (etap.InPortId != etap.NextOutPortId) {
+                                            alerts.push("Смена аэропорта");
+                                        }
+                                        if (etap.TransferWaitTime > 240) {//>4 часов - Долгая пересадка
+                                            alerts.push("Долгая пересадка");
+                                        }
+                                        if (nextEtap != null) {//Ночная стыковка
+                                            //различаются дни
+                                            var sameDay = etap.InDateFormatted == nextEtap.OutDateFormatted;
+                                            //час прилета в этап
+                                            var inHour = parseInt(etap.InTimeFormatted.split(':')[0]);
+                                            //час отлета из этапа
+                                            var outHour = parseInt(nextEtap.OutTimeFormatted.split(':')[0]);
+                                            //интервалы прилетов и вылетов пересакаются с интервалом 0-6 часов - ночная стыковка
+                                            if (!(inHour > 6 && outHour > 6 && sameDay)) {
+                                                alerts.push("Ночная стыковка");
+                                            }
+                                        }
+
+                                        etap.alert = alerts.join(', ');
+                                    }
+                                }
+
+                                //алерты
+                                setAlert(etapTo, nextEtapTo);
+                                setAlert(etapBack, nextEtapBack);
+
                                 item.etapsAgg.push({ etapTo: etapTo, etapBack: etapBack });
                             }
                         }
