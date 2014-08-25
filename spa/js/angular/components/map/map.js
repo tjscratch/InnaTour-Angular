@@ -58,10 +58,6 @@ angular.module('innaApp.directives')
                         EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD);
 
 
-                        $scope.setHotel = function (currentHotel) {
-                            EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, $scope.hotels.search(currentHotel.HotelId));
-                        }
-
                         $scope.hotelDetails = function (currentHotel) {
                             EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, $scope.hotels.search(currentHotel.HotelId));
                         }
@@ -76,6 +72,8 @@ angular.module('innaApp.directives')
                 ],
                 link: function (scope, elem, attrs) {
 
+                    scope.chosenHotel = null;
+                    scope.chosenHotelActive = null;
                     var _tripadvisor = null;
                     var $thisEl = elem[0];
                     var mapContainer = $thisEl.querySelector('#big-map-canvas');
@@ -164,6 +162,16 @@ angular.module('innaApp.directives')
                      console.log(map.getZoom(), 'zoom');
                      });*/
 
+                    scope.setHotel = function (currentHotel) {
+                        if (scope.chosenHotelActive) {
+                            scope.chosenHotelActive.setIcon(iconDefault);
+                        }
+                        scope.chosenHotelActive = scope.chosenHotel;
+                        scope.chosenHotelActive.setIcon(iconClick);
+
+                        EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, scope.hotels.search(currentHotel.HotelId));
+                    }
+
                     function initCarousel() {
                         var photoList = scope.currentHotel.Photos;
 
@@ -247,8 +255,16 @@ angular.module('innaApp.directives')
 
                     function activeMarkerReset() {
                         if (activeMarker && activeMarker.infoBoxVisible) {
-                            activeMarker.setIcon(iconDefault);
+
+                            /** сбрасываем цвет маркера */
+
+                            if (!scope.chosenHotelActive || (activeMarker._idHotel != scope.chosenHotelActive._idHotel)) {
+                                activeMarker.setIcon(iconDefault);
+                            }
+
+
                             boxInfo.setVisible(false);
+
                             activeMarker.infoBoxVisible = false;
                         }
                     }
@@ -425,6 +441,7 @@ angular.module('innaApp.directives')
 
                             scope.$apply(function ($scope) {
                                 $scope.currentHotel = angular.copy(marker.$inna__hotel);
+                                scope.chosenHotel = marker;
                             });
 
                             // ценрируем карту
@@ -433,7 +450,7 @@ angular.module('innaApp.directives')
                             // если уже есть активный маркер, то сбрасываем его
                             activeMarkerReset();
                             // меняем цвет маркера
-                            marker.setIcon(iconClick);
+                            //marker.setIcon(iconClick);
 
                             // Показываем большой infoBox
                             addInfoBox({
@@ -477,7 +494,16 @@ angular.module('innaApp.directives')
                             var marker = this;
                             if (!marker.infoBoxVisible) {
                                 boxInfoHover.setVisible(false);
-                                marker.setIcon(iconDefault);
+                                if (scope.chosenHotelActive) {
+                                    if (marker._idHotel != scope.chosenHotelActive._idHotel) {
+                                        marker.setIcon(iconDefault);
+                                    } else {
+                                        marker.setIcon(iconClick);
+                                    }
+                                } else {
+                                    marker.setIcon(iconDefault);
+                                }
+
                             }
                         });
                     }
@@ -567,6 +593,15 @@ angular.module('innaApp.directives')
                         });
                     }
 
+                    function setDefaultActiveMarker(){
+                        markers.forEach(function(marker){
+                            if(scope.combination.hotel.data.HotelId == marker._idHotel){
+                                scope.chosenHotel = marker;
+                                scope.chosenHotelActive = marker;
+                                scope.chosenHotelActive.setIcon(iconClick);
+                            }
+                        })
+                    }
 
                     function updateMap(data) {
                         if (boxInfo) {
@@ -596,6 +631,7 @@ angular.module('innaApp.directives')
                             var fullPackage = (+scope.combination.ticket.data.PackagePrice + +hotelRaw.PackagePrice);
                             hotelRaw.PackagePrice = fullPackage;
                             marker.$inna__hotel = hotelRaw;
+                            marker._idHotel = hotelRaw.HotelId;
 
                             marker._hotelId_ = hotelRaw.HotelId;
 
@@ -616,6 +652,8 @@ angular.module('innaApp.directives')
                             markerAirEvents(markerData);
                             markers.push(marker);
                         });
+
+                        setDefaultActiveMarker();
 
                         addCluster();
                     }
@@ -641,8 +679,6 @@ angular.module('innaApp.directives')
 
                     /**
                      * Следим за свойством hotelsForMap
-                     * Так как по условию  ng-if компонент еще не существует,
-                     * то мы не можем подписаться на событие в карте до ее инициализации
                      *
                      * Прокидываем событие в serp.js
                      * и дальше меняем свойство в $scope

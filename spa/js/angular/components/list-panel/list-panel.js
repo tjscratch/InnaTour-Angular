@@ -494,15 +494,15 @@ angular.module('innaApp.components').
 
                 enumerableCount: function (data, opt_param) {
 
-                    /*if (opt_param) {
+                    if (opt_param) {
                         this.set('EnumerableCount', data.length);
-                    } else {*/
+                    } else {
                         if (data.length) {
                             this.set('EnumerableCount', data.length - 1);
                         } else {
                             this.set('EnumerableCount', data.length);
                         }
-                    //}
+                    }
                 },
 
                 wait: function () {
