@@ -70,7 +70,7 @@ angular.module('innaApp.API', [])
 
             HELP_TOPICS: url('/faq/get'),
 
-            PARTNERSHIP_GET_COOKIE: url('Prt/GetPrtId'),
+            PARTNERSHIP_GET_COOKIE: url('/Prt/GetPrtId'),
 
             eof: null
         }
