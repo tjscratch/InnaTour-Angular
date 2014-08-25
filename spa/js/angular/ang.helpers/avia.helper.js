@@ -632,6 +632,23 @@
                             var url = app_main.frontHost + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
                             self.link = url;
                         }
+
+                        function setPosition() {
+                            var popup = $('.js-ticket-info-baloon');
+                            if (popup) {
+                                var displayHeight = $(window).height();
+                                var popupHeight = popup.height();
+                                popup.css({ top: Math.ceil(displayHeight / 2) - Math.ceil(popupHeight / 2) });
+                            }
+                        }
+
+                        setTimeout(function () {
+                            setPosition();
+                            $(window).resize(function () {
+                                setPosition();
+                            });
+                        }, 0);
+                        
                     }
 
                     self.hide = function () {
@@ -793,7 +810,7 @@
                             setPosition();
                             $(window).resize(function () {
                                 setPosition();
-                            })
+                            });
                         }, 0);
                         //</ToDo>
                         

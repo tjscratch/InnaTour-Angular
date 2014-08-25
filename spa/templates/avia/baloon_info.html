@@ -1,6 +1,6 @@
-﻿<!-- Baloon -->
+<!-- Baloon -->
 <div style="display: block" class="overlay js-overlay" ng-show="popupItemInfo.isShow">
-    <div class="balloon balloon_ticket" ng-class="{'balloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}" close-popup fn-hide="popupItemInfo.hide()">
+    <div class="balloon balloon_ticket js-ticket-info-baloon" ng-class="{'balloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}" close-popup fn-hide="popupItemInfo.hide()">
 
         <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
             <div title="Закрыть" class="balloon-close" ng-click="popupItemInfo.isShow = false"></div>
