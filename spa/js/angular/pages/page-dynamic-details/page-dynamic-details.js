@@ -245,10 +245,17 @@ innaAppControllers
 
             if (!routParam.OrderId) {
                 getHotelDetails().then(function(){
-                    $timeout(function(){
-                        window.scrollTo(0, 1050);
+
+                    // если пришли с параметром покупки
+                    // нажали в бандле - купить
+                    if($scope.buyAction) {
+                        $timeout(function () {
+                            window.scrollTo(0, 1050);
+                            $scope.dataFullyLoadedGallery = true;
+                        }, 1000);
+                    } else {
                         $scope.dataFullyLoadedGallery = true;
-                    },1000);
+                    }
 
                     getHotelDetailsRooms();
 
