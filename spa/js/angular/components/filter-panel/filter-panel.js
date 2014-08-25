@@ -100,9 +100,9 @@ angular.module('innaApp.components').
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
                             EventManager.off('IndicatorFiltersItem:remove');
 
-                            /*this.findAllComponents().forEach(function (child) {
+                            this.findAllComponents().forEach(function (child) {
                                 child.fire('resetFilter');
-                            })*/
+                            })
                         }
                     });
 
@@ -176,7 +176,6 @@ angular.module('innaApp.components').
 
                         // изменение фильтров
                         child.observe('value.val', function (newValue, oldValue) {
-                            console.log('value.val', newValue);
                             if(newValue != undefined) that.collectChildData();
 
                         }, {defer: true, init: false});

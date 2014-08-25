@@ -307,6 +307,7 @@ angular.module('innaApp.components').
                     // подготавливаем данные для авиа билетов
                     if (opt_param.ticket) {
                         data.forEach(function (item) {
+
                             var modelTicket = new inna.Models.Avia.Ticket();
                             modelTicket.setData(item);
                             var virtualBundle = new inna.Models.Dynamic.Combination();
@@ -314,6 +315,7 @@ angular.module('innaApp.components').
                             virtualBundle.hotel = that.get('combinationModel').hotel;
                             item.getProfit = virtualBundle.getProfit();
                             item.FullPackagePrice = virtualBundle.getFullPackagePrice();
+                            //item.etap
 
                             // авиалинии этого билета
                             var airline = _.union(modelTicket.collectAirlines().airlines);
