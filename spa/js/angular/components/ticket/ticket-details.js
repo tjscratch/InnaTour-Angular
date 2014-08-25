@@ -47,6 +47,11 @@ angular.module('innaApp.directives')
                             $scope.noClose = opt_data.noClose;
                         }
 
+                        //debugger;
+                        /*console.log(ticket);
+                        var popupItemInfo = new aviaHelper.popupItemInfo();
+                        popupItemInfo.addAggFields(ticket.data);*/
+
                         $scope.ticket = ticket;
 
                         $scope.etapsZipped = (function () {
