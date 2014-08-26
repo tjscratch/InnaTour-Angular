@@ -62,8 +62,8 @@ angular.module('innaApp.directives')
                             }
                         }
 
-                        setTimeout(orientation, 0);
-                        window.addEventListener("orientationchange", orientation, false);
+                        //setTimeout(orientation, 0);
+                        //window.addEventListener("orientationchange", orientation, false);
 
                         $scope.toggleTab = function (data) {
 
