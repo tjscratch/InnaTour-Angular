@@ -103,6 +103,8 @@ innaAppControllers
                             EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
                             loadMap();
                             onload();
+
+                            $scope.dataFullyLoadedGallery = true;
                         }
 
 
