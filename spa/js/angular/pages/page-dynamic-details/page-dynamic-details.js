@@ -105,7 +105,7 @@ innaAppControllers
                 DynamicPackagesDataProvider.displayOrder({
                     orderId: routParam.OrderId,
                     success: function (resp) {
-                        $scope.baloon.hide();
+                        $scope.baloon.close();
 
                         $scope.bundle = new inna.Models.Dynamic.Combination();
                         $scope.bundle.ticket = new inna.Models.Avia.Ticket();
