@@ -1,7 +1,7 @@
 {{ (_oneWay = (ticket.getEtaps('Back').length == 0)) ? '' : '' }}
 
 <div style="display:block;" class="overlay js-overlay overlay_ticket-details" ng-if="ticket.data">
-    <div class="balloon balloon_ticket" ng-class="{'balloon_2ticket': !_oneWay}">
+    <div class="balloon balloon_ticket balloon_ticket_ticket-details" ng-class="{'balloon_2ticket': !_oneWay}">
         <div ng-if="!noClose" title="Закрыть" class="balloon-close" ng-click="closePopup()"></div>
         <h3 class="b-tickets__title">Подробная информация по перелету</h3>
 
