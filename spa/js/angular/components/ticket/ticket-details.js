@@ -39,54 +39,55 @@ angular.module('innaApp.directives')
                         $scope.link = document.location;
                     });
 
-                    /*Listeners*/
-                    EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (ticket, opt_data) {
+                    function showDetails(ticket, opt_data) {
 
-                        $scope.safeApply(function () {
 
-                            if (opt_data) {
-                                $scope.noChoose = opt_data.noChoose;
-                                $scope.noClose = opt_data.noClose;
+                        if (opt_data) {
+                            $scope.noChoose = opt_data.noChoose;
+                            $scope.noClose = opt_data.noClose;
+                        }
+
+                        //debugger;
+                        /*console.log(ticket);
+                         var popupItemInfo = new aviaHelper.popupItemInfo();
+                         popupItemInfo.addAggFields(ticket.data);*/
+
+                        $scope.ticket = ticket;
+
+                        $scope.etapsZipped = (function () {
+                            var zipped = [];
+
+                            var to = ticket.getEtaps('To');
+                            var back = ticket.getEtaps('Back');
+
+                            var maxLength = Math.max(to.length, back.length);
+
+                            for (var i = 0; i < maxLength; i++) {
+                                var eTo = to[i];
+                                var eBack = back[i];
+
+                                zipped.push([eTo, eBack]);
                             }
 
-                            //debugger;
-                            /*console.log(ticket);
-                             var popupItemInfo = new aviaHelper.popupItemInfo();
-                             popupItemInfo.addAggFields(ticket.data);*/
+                            return zipped;
+                        })();
 
-                            $scope.ticket = ticket;
+                        $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
 
-                            $scope.etapsZipped = (function () {
-                                var zipped = [];
 
-                                var to = ticket.getEtaps('To');
-                                var back = ticket.getEtaps('Back');
-
-                                var maxLength = Math.max(to.length, back.length);
-
-                                for (var i = 0; i < maxLength; i++) {
-                                    var eTo = to[i];
-                                    var eBack = back[i];
-
-                                    zipped.push([eTo, eBack]);
+                        setTimeout(function () {
+                            new ShareLink({
+                                el: $element.find('.js-share-component'),
+                                data: {
+                                    right: true
                                 }
+                            })
+                        }, 0)
+                    }
 
-                                return zipped;
-                            })();
-
-                            $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
-
-
-                            setTimeout(function () {
-                                new ShareLink({
-                                    el: $element.find('.js-share-component'),
-                                    data: {
-                                        right: true
-                                    }
-                                })
-                            }, 0)
-
-                        });
+                    /*Listeners*/
+                    EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (ticket, opt_data) {
+                        showDetails(ticket, opt_data);
                     });
                 }
             ]

@@ -59,6 +59,11 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     Ractive.defaults.data.moment = moment || null;
     Ractive.defaults.debug = true;
     Ractive.defaults.data.$filter = $filter;
+    Ractive.components.DynamicPartial = Ractive.extend({
+        beforeInit: function(o){
+            o.template = o.data.partial
+        }
+    });
 
     $rootScope.bodyClickListeners = [];
 

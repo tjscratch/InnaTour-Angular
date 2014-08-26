@@ -71,21 +71,12 @@ innaAppControllers
                 '/spa/img/hotels/back-2.jpg'
             ];
 
-            /*_balloonLoad.set({
-             update : true,
-             template: "server-error.html",
-             callbackClose : function(){
-             delete $location.$$search.displayHotel
-             $location.$$compose();
-             }
-             });*/
 
             function getDisplayOrder() {
 
                 $scope.isDisplayOrder = true;
 
-                _balloonLoad.set({
-                    update: true,
+                _balloonLoad.updateView({
                     loading: true,
                     title: 'Собираем данные',
                     balloonContent: 'Это может занять какое-то время'
@@ -120,8 +111,7 @@ innaAppControllers
                         }
                     },
                     error: function () {
-                        _balloonLoad.set({
-                            update: true,
+                        _balloonLoad.updateView({
                             template: "err.html",
                             title: 'Oops...',
                             content: 'Указанного заказа не существует',
@@ -195,8 +185,7 @@ innaAppControllers
                         deferred.resolve();
                     },
                     error: function () {
-                        _balloonLoad.set({
-                            update: true,
+                        _balloonLoad.updateView({
                             template: 'err.html',
                             title: "Запрашиваемый отель не найден",
                             content: "Вероятно, комнаты в нем уже распроданы.",
