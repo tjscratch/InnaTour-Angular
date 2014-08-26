@@ -13,7 +13,7 @@
         link.rel = "stylesheet";
         link.href = "/spa/styl/partners" + src;
         insertAfter(link, d.getElementById("partners-css-inject"))
-        console.log('src', s.href);
+        console.log('partner css loaded', link.href);
     };
 
     function insertAfter(newNode, referenceNode) {
