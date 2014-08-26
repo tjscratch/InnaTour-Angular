@@ -39,8 +39,7 @@ angular.module('innaApp.directives')
                         $scope.link = document.location;
                     });
 
-                    function showDetails(ticket, opt_data) {
-
+                    function showDetails(evt, ticket, opt_data) {
 
                         if (opt_data) {
                             $scope.noChoose = opt_data.noChoose;
@@ -86,9 +85,17 @@ angular.module('innaApp.directives')
                     }
 
                     /*Listeners*/
-                    EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (ticket, opt_data) {
-                        showDetails(ticket, opt_data);
-                    });
+                    EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetails);
+
+                    $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function(evt, ticket, opt_data){
+                        $scope.$apply(function(){
+                            showDetails(evt, ticket, opt_data);
+                        })
+                    })
+
+                    $scope.$on('$destroy', function(){
+                        EventManager.off(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetails);
+                    })
                 }
             ]
         }

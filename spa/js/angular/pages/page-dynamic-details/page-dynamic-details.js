@@ -109,7 +109,7 @@ innaAppControllers
 
 
                         if (('displayTicket' in $location.search())) {
-                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.bundle.ticket, {noClose: true, noChoose: true});
+                           $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.bundle.ticket, {noClose: true, noChoose: true})
                         }
                     },
                     error: function () {

@@ -502,7 +502,7 @@ innaAppControllers
                  * @param ticket
                  */
                 getTicketDetails: function (ticket) {
-                    EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket);
+                    EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, null, ticket);
                 },
 
                 loadTicketDetails: function (ids) {
