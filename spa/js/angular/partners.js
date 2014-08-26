@@ -1,12 +1,33 @@
-(function(){
-    var partnersMap = {
-        'biletix': '/biletix/biletix.base.css'
+(function (d, w) {
+    var partnersMap = [{
+        'name': 'biletix',
+        'src': '/biletix/biletix.base.css'
+    }, {
+        'name': 'somepartner',
+        'src': '/somepartner/somepartner.base.css'
+    }];
+
+    function insertCss(src) {
+        var link = d.createElement("link");
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.href = "/spa/styl/partners" + src;
+        insertAfter(link, d.getElementById("partners-css-inject"))
+        console.log('src', s.href);
     };
 
-    //var src = partnersMap[patrner];
-    //console.log(app.host);
-    //console.log(location.host);
+    function insertAfter(newNode, referenceNode) {
+        referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    }
 
-    //document.getElementById("myList").insertBefore(newItem, existingItem);
+    var host = location.hostname;
+    for (var i = 0; i < partnersMap.length; i++) {
+        var partner = partnersMap[i];
 
-}());
+        if (host.indexOf(partner.name) > -1) {
+            insertCss(partner.src);
+            return;
+        }
+    }
+
+}(document, window));
