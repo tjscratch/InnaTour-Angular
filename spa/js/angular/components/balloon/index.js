@@ -11,6 +11,9 @@ innaAppConponents.
                 append: true,
                 data: {
                     // show close button
+                    title : '',
+                    loading : false,
+                    balloonContent : null,
                     balloonClose: true,
                     isVisible: false,
 
@@ -36,11 +39,22 @@ innaAppConponents.
                     console.log('init baloon', this);
 
                     this.on({
+                        change : function(data){
+
+                            if(data && data.update) {
+                                if(!this.get('isVisible')){
+                                    this.show();
+                                }
+                            }
+                        },
                         hide: this.hide,
                         changeTarifs: this.changeTarifs,
                         callback: function(){
                             this.get('callback')();
                             this.dispose();
+                        },
+                        teardown : function(){
+
                         }
                     });
                 },
@@ -52,7 +66,8 @@ innaAppConponents.
                             templ = $templateCache.get('components/balloon/templ/' + this.get('template'))
 
                         return templ;
-                    }
+                    },
+                    loading: $templateCache.get('components/balloon/templ/loading.html')
                 },
 
                 show: function () {
