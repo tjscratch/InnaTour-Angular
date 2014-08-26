@@ -173,7 +173,7 @@ angular.module('innaApp.components').
                     /** Событие сортировки */
                     EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
                         setTimeout(function () {
-                            that.cloneData(that.sorting());
+                            that.cloneData(that.sorting(), true);
                         }, 0)
                     });
 
@@ -507,13 +507,14 @@ angular.module('innaApp.components').
                  * Клонируем список отелей и далее работает с ним
                  * @param opt_data
                  */
-                cloneData: function (opt_data) {
+                cloneData: function (opt_data, opt_sort) {
                     if (opt_data) this.set('EnumerableList', []);
 
                     var list = opt_data || this.get('Enumerable');
 
                     // исключаем рекомендованный вариант
-                    list = this.excludeRecommended(list);
+                    if(!opt_sort)
+                        list = this.excludeRecommended(list);
 
                     this.enumerableCount(list);
                     this.enumerableClone = [].concat(list);
