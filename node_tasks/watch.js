@@ -34,6 +34,11 @@ gulp.task('watch', function () {
         .on('change', function(file) {
             server.changed(file.path);
         });
+		
+	gulp.watch(conf.styl + '/partners/**/*.styl', ['styl-partners'])
+	.on('change', function(file) {
+		server.changed(file.path);
+	});
 
     gulp.watch(conf.dest+'/less/**/*', ['less']);
 

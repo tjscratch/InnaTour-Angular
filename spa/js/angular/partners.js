@@ -1,8 +1,8 @@
 (function(){
     var partnersMap = {
-        'biletix' : '/biletix/index.css'
+        'biletix': '/biletix/biletix.base.css'
     };
 
-    //var src = partnersMap[patrner];
+    var src = partnersMap[patrner];
 
 }());
