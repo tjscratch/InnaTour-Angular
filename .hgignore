@@ -82,3 +82,4 @@ Solution.v12.suo
 Inna.Frontend.csproj
 Inna.Frontend.SPA.sln
 start_on_node_server.cmd
+spa/styl/partners/**/*.css
