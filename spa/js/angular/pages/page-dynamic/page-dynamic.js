@@ -84,6 +84,16 @@ innaAppControllers
 
                     this.on({
                         change: function () {
+                        },
+                        teardown : function(){
+                            if (this._balloon404) {
+                                this._balloon404.teardown();
+                                this._balloon404 = null;
+                            }
+                            if (this._balloonSearch) {
+                                this._balloonSearch.teardown();
+                                this._balloonSearch = null;
+                            }
                         }
                     })
 
@@ -573,10 +583,6 @@ innaAppControllers
                 if (ListPanelComponent) {
                     ListPanelComponent.teardown();
                     ListPanelComponent = null;
-                }
-                if (this._balloon404) {
-                    this._balloon404.teardown();
-                    this._balloon404 = null;
                 }
 
                 $(document).off('scroll');
