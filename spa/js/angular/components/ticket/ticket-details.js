@@ -42,48 +42,51 @@ angular.module('innaApp.directives')
                     /*Listeners*/
                     EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (ticket, opt_data) {
 
-                        if(opt_data){
-                            $scope.noChoose = opt_data.noChoose;
-                            $scope.noClose = opt_data.noClose;
-                        }
+                        $scope.safeApply(function () {
 
-                        //debugger;
-                        /*console.log(ticket);
-                        var popupItemInfo = new aviaHelper.popupItemInfo();
-                        popupItemInfo.addAggFields(ticket.data);*/
-
-                        $scope.ticket = ticket;
-
-                        $scope.etapsZipped = (function () {
-                            var zipped = [];
-
-                            var to = ticket.getEtaps('To');
-                            var back = ticket.getEtaps('Back');
-
-                            var maxLength = Math.max(to.length, back.length);
-
-                            for (var i = 0; i < maxLength; i++) {
-                                var eTo = to[i];
-                                var eBack = back[i];
-
-                                zipped.push([eTo, eBack]);
+                            if (opt_data) {
+                                $scope.noChoose = opt_data.noChoose;
+                                $scope.noClose = opt_data.noClose;
                             }
 
-                            return zipped;
-                        })();
+                            //debugger;
+                            /*console.log(ticket);
+                             var popupItemInfo = new aviaHelper.popupItemInfo();
+                             popupItemInfo.addAggFields(ticket.data);*/
 
-                        $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
+                            $scope.ticket = ticket;
 
+                            $scope.etapsZipped = (function () {
+                                var zipped = [];
 
-                        setTimeout(function () {
-                            new ShareLink({
-                                el: $element.find('.js-share-component'),
-                                data: {
-                                    right: true
+                                var to = ticket.getEtaps('To');
+                                var back = ticket.getEtaps('Back');
+
+                                var maxLength = Math.max(to.length, back.length);
+
+                                for (var i = 0; i < maxLength; i++) {
+                                    var eTo = to[i];
+                                    var eBack = back[i];
+
+                                    zipped.push([eTo, eBack]);
                                 }
-                            })
-                        }, 0)
 
+                                return zipped;
+                            })();
+
+                            $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
+
+
+                            setTimeout(function () {
+                                new ShareLink({
+                                    el: $element.find('.js-share-component'),
+                                    data: {
+                                        right: true
+                                    }
+                                })
+                            }, 0)
+
+                        });
                     });
                 }
             ]

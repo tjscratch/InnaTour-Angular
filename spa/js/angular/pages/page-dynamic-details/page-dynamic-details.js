@@ -82,8 +82,6 @@ innaAppControllers
 
             function getDisplayOrder() {
 
-                $scope.displayTicket = ('displayTicket' in $location.search());
-
                 $scope.isDisplayOrder = true;
 
                 _balloonLoad.set({
@@ -116,12 +114,9 @@ innaAppControllers
                             onload();
                         }
 
-                        $scope.getTicketDetails = function () {
-                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.bundle.ticket, {noClose: true, noChoose: true});
-                        };
 
-                        if ($scope.displayTicket) {
-                            $scope.getTicketDetails();
+                        if (('displayTicket' in $location.search())) {
+                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.bundle.ticket, {noClose: true, noChoose: true});
                         }
                     },
                     error: function () {
