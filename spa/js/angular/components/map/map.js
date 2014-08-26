@@ -36,6 +36,7 @@ angular.module('innaApp.directives')
 
                     function (EventManager, $scope, $element, Events) {
 
+                        /* прячем кнопку - отзывы и предложения */
                         $('#reformal_tab').hide();
 
                         $scope.currentHotel = null;
