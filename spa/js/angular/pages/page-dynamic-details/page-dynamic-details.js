@@ -145,6 +145,8 @@ innaAppControllers
                     Filter: searchParams,
 
                     success: function (data) {
+                        _balloonLoad.fire('hide');
+                        
                         var hotel = new inna.Models.Hotels.Hotel(data.Hotel);
                         var ticket = new inna.Models.Avia.Ticket();
                         ticket.setData(data.AviaInfo);
