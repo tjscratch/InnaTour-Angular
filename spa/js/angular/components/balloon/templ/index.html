@@ -24,13 +24,8 @@
     <div class="b-balloon__content">
 
         {{#if template}}
-
-            <!--
-                смотри глобальный конфиг ractive в app.js
-                http://stackoverflow.com/questions/23726907/how-to-update-partials
-            -->
             {{#reset}}
-                <DynamicPartial partial='{{partial}}' changeTarifs="{{changeTarifs}}" />
+                {{>partialUpdate}}
             {{/}}
         {{/if}}
 
