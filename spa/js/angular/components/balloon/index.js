@@ -14,7 +14,6 @@ innaAppConponents.
                     title: '',
                     loading: false,
                     balloonContent: null,
-                    balloonContentTest : '{{>balloonContent}}',
                     balloonClose: true,
                     isVisible: false,
 
@@ -60,11 +59,12 @@ innaAppConponents.
                     })
                 },
 
+
                 partials: {
                     balloonContent: function () {
                         var templ = '<span></span>';
-                        if (this.get('template'))
-                            templ = $templateCache.get('components/balloon/templ/' + this.get('template'))
+                        if (this.get('balloonPart'))
+                            templ = $templateCache.get('components/balloon/templ/' + this.get('balloonPart'))
 
                         return templ;
                     },
@@ -99,11 +99,12 @@ innaAppConponents.
                             partial : partial,
                             template : data.template,
                             loading: data.loading,
+                            balloonClose : data.balloonClose,
                             balloonContent: data.balloonContent,
                             title: data.title,
                             content: data.content,
-                            callbackClose: data.callbackClose,
-                            callback: data.callback
+                            callbackClose: data.callbackClose || null,
+                            callback: data.callback || null
                         });
 
 
