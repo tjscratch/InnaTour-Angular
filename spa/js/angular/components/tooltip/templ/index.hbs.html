@@ -1,7 +1,7 @@
-{{#if PriceObject}}
-    <div class="b-tooltip-price">
+{{#if PriceObjectCalculate}}
+    <div class="b-tooltip-price b-tooltip-price_{{tooltipKlass}}">
         <span class="icon-price-info cursor-pointer
-                {{!iconWhite ? 'icon-sprite-price-info' : 'icon-sprite-price-info-white'}}"
+                {{(!iconWhite) ? 'icon-sprite-price-info' : 'icon-sprite-price-info-white'}}"
                 on-click='toggleShow'></span>
 
 		{{#if isVisible}}
@@ -16,7 +16,7 @@
                                 </div>
                                 <div class="col-xs-6 col-no-padding list-price-item__right">
 			                        <span class="list-price">
-			                            {{priceFilter(PriceObject.TotalInnaAgentRate)}}
+			                            {{priceFilter(PriceObjectCalculate.TotalInnaAgentRate)}}
 				                        {{>ruble}}
 			                        </span>
                                 </div>
@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="col-xs-6 col-no-padding list-price-item__right">
 			                        <span class="list-price">
-			                            {{priceFilter(PriceObject.TotalAgentRate)}}
+			                            {{priceFilter(PriceObjectCalculate.TotalAgentRate)}}
 				                        {{>ruble}}
 			                        </span>
                                 </div>
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-xs-6 col-no-padding list-price-item__right">
 			                        <span class="list-price">
-			                            {{priceFilter(PriceObject.TotalAgentProfit)}}
+			                            {{priceFilter(PriceObjectCalculate.TotalAgentProfit)}}
 				                        {{>ruble}}
 			                        </span>
                                 </div>

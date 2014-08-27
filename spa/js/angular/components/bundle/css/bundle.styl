@@ -17,6 +17,13 @@
       }
     }
   }
+
+  .price-generic-container {
+    position : absolute;
+    top:0;
+    right :0;
+    z-index: 100;
+  }
 }
 
 .recommend-bundle {
@@ -72,8 +79,10 @@
     }
 
     &.w-expand-collapse-link_down {
+      position : relative;
       top: auto;
-      bottom: -4px;
+      bottom: 0;
+      padding-right : 24px;
     }
 
     .expand-collapse-link {

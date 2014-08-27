@@ -3,7 +3,7 @@
 <div class="results-container" style="padding-top: 25px;">
 
     <!-- Рекомендованный вариант -->
-    <div class="results-list results-list_720 pull-left" ng-if="recomendedItem != null">
+    <div class="results-list js-results-list-recomended results-list_720 pull-left" ng-if="recomendedItem != null">
         <ng:any ng-repeat="item in [recomendedItem] track by $index">
             <ng:include ng-init="isItemRecomended = true" src="'avia/results_item.html'"></ng:include>
         </ng:any>
