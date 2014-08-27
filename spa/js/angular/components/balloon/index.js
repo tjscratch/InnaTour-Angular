@@ -45,7 +45,10 @@ innaAppConponents.
                         hide: this.hide,
                         changeTarifs: this.changeTarifs,
                         callback: function () {
-                            this.get('callback')();
+                            if (typeof this.get('callback') == 'function') {
+                                this.get('callback')();
+                            }
+
                             this.dispose();
                         },
                         teardown: function () {
@@ -53,7 +56,7 @@ innaAppConponents.
                         }
                     });
 
-                    this.observe('partial', function(){
+                    this.observe('partialUpdate', function () {
                         this.set('reset', false);
                         this.set('reset', true);
                     })
@@ -93,13 +96,14 @@ innaAppConponents.
 
                         if (data.template) {
                             partial = $templateCache.get('components/balloon/templ/' + data.template);
+                            this.partials.partialUpdate = partial;
                         }
 
                         this.set({
-                            partial : partial,
-                            template : data.template,
+                            partialUpdate: partial,
+                            template: data.template,
                             loading: data.loading,
-                            balloonClose : data.balloonClose,
+                            balloonClose: data.balloonClose,
                             balloonContent: data.balloonContent,
                             title: data.title,
                             content: data.content,
