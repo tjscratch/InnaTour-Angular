@@ -144,7 +144,8 @@ inna.Models.Dynamic.Combination.prototype.getFullTotalPrice = function(){
         TotalAgentRate: tPrice.TotalAgentRate + hPrice.TotalAgentRate,
         TotalAgentReward: tPrice.TotalAgentReward + hPrice.TotalAgentReward,
         TotalInnaProfit: tPrice.TotalInnaProfit + hPrice.TotalInnaProfit,
-        TotalPrice: tPrice.TotalPrice + hPrice.TotalPrice
+        TotalPrice: tPrice.TotalPrice + hPrice.TotalPrice,
+        TotalInnaAgentRate : tPrice.TotalInnaAgentRate + hPrice.TotalInnaAgentRate
     }
 }
 

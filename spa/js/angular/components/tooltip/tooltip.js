@@ -53,7 +53,11 @@ angular.module('innaApp.components').
                     this.set({'isVisible': false});
                 },
 
-                toggleShow: function () {
+                toggleShow: function (evt) {
+                    if (evt && evt.original) {
+                        evt.original.preventDefault();
+                        evt.original.stopPropagation();
+                    }
                     this.toggle('isVisible');
                 }
             });

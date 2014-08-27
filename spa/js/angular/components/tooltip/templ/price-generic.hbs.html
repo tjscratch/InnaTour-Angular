@@ -1,27 +1,27 @@
 <div class="tooltip-price__avia">
     <span class="icon-price-info cursor-pointer icon-sprite-price-info" on-click='toggleShow'></span>
 
-    {{#if isVisible}}
-    <div class="tooltip tooltip-price tooltip-price_xbig {{isVisible ? 'tooltip_show' : '' }} ">
+	{{#if isVisible}}
+        <div class="tooltip tooltip-price tooltip-price_xbig {{isVisible ? 'tooltip_show' : '' }} ">
 
-        <div class="tooltip-price__b2b">
-            <ul>
-                {{#PriceDetailsTooltipData}}
-                <li class="list-price-item">
-                    <div class="row">
-                        <div class="col-xs-6 col-no-padding nowrap">
-                            {{name}}
-                        </div>
-                        <div class="col-xs-6 col-no-padding list-price-item__right">
+            <div class="tooltip-price__b2b">
+                <ul>
+					{{#each PriceDetailsTooltipData}}
+                        <li class="list-price-item">
+                            <div class="row">
+                                <div class="col-xs-6 col-no-padding nowrap">
+									{{name}}
+                                </div>
+                                <div class="col-xs-6 col-no-padding list-price-item__right">
                                 <span class="list-price">
                                     {{priceFilter(price)}} {{>ruble}}
                                 </span>
-                        </div>
-                    </div>
-                </li>
-                {{/PriceDetailsTooltipData}}
-            </ul>
+                                </div>
+                            </div>
+                        </li>
+					{{/each}}
+                </ul>
+            </div>
         </div>
-    </div>
-    {{/if}}
+	{{/if}}
 </div>

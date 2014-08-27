@@ -21,8 +21,7 @@ innaAppControllers.
         // components
         'PriceGeneric',
         'ShareLink',
-        function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService,
-            paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, PriceGeneric, ShareLink) {
+        function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, PriceGeneric, ShareLink) {
 
             var self = this;
             var header = document.querySelector('.header');
@@ -527,6 +526,18 @@ innaAppControllers.
                     //добавляем список
                     $scope.ticketsList = list;
                     $scope.recomendedItem = recomendedItem;
+
+
+                    /* PriceGeneric */
+                    $timeout(function(){
+                        $scope._priceGeneric = new PriceGeneric({
+                            el: $('.js-results-list-recomended .js-price-generic-container'),
+                            data: {
+                                PriceDetailsTooltipData : $scope.recomendedItem.PriceDetailsTooltipData
+                            }
+                        })
+                    }, 0)
+
 
                     updateFilter(data.Items);
                 }
@@ -1062,7 +1073,7 @@ innaAppControllers.
                         priceFilter: function (text) {
                             return $filter('price')(text);
                         },
-                        console: function(){
+                        console: function () {
                             //console.log.apply(console, arguments);
                         },
 
@@ -1082,8 +1093,8 @@ innaAppControllers.
                         });
 
                         var shareLink = new ShareLink({
-                            el : $('.js-share-component'),
-                            data : { right : true }
+                            el: $('.js-share-component'),
+                            data: { right: true }
                         })
                     },
                     goToPaymentClick: function (event, item) {
@@ -1098,11 +1109,34 @@ innaAppControllers.
                 }
 
                 self.reset = function () {
-                    //console.log('ractive reset');
                     self.ractive.reset('items', $scope.visibleFilteredTicketsList);
                 }
             }
+
             $scope.ractiveControl = new ractiveControl();
+
+            function onWindowScroll() {
+                var scrollTop = $(window).scrollTop();
+                if (scrollTop + $(window).height() > $(document).height() - 300 &&
+                    scrollTop > $scope.scrollControl.lastScrollOffset) {
+                    $scope.scrollControl.lastScrollOffset = scrollTop;
+                    $scope.scrollControl.loadMore();
+                }
+
+                //var scrollTop = utils.getScrollTop();
+                var filters = $('.filters__body');
+                var aside = $('.js-aside');
+                var FIXED_CLASS = 'filters__body_position_fixed';
+                var FIXED_ASIDE_CLASS = 'results-aside_mod-fixed';
+
+                if (scrollTop > 206) {
+                    filters.addClass(FIXED_CLASS);
+                    aside.addClass(FIXED_ASIDE_CLASS);
+                } else {
+                    filters.removeClass(FIXED_CLASS);
+                    aside.removeClass(FIXED_ASIDE_CLASS);
+                }
+            }
 
             function scrollControl() {
                 var self = this;
@@ -1143,42 +1177,15 @@ innaAppControllers.
                     //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));
                 }
 
-                //$(window).scroll(function () {
-                //    var scrollTop = $(window).scrollTop();
-                //    if (scrollTop + $(window).height() > $(document).height() - 300 &&
-                //        scrollTop > $scope.scrollControl.lastScrollOffset) {
-                //        $scope.scrollControl.lastScrollOffset = scrollTop;
-                //        $scope.scrollControl.loadMore();
-                //    }
-                //});
-
-                function onWindowScroll() {
-                    var scrollTop = $(window).scrollTop();
-                    if (scrollTop + $(window).height() > $(document).height() - 300 &&
-                        scrollTop > $scope.scrollControl.lastScrollOffset) {
-                        $scope.scrollControl.lastScrollOffset = scrollTop;
-                        $scope.scrollControl.loadMore();
-                    }
-
-                    //var scrollTop = utils.getScrollTop();
-                    var filters = $('.filters__body');
-                    var aside = $('.js-aside');
-                    var FIXED_CLASS = 'filters__body_position_fixed';
-                    var FIXED_ASIDE_CLASS = 'results-aside_mod-fixed';
-
-                    if (scrollTop > 206) {
-                        filters.addClass(FIXED_CLASS);
-                        aside.addClass(FIXED_ASIDE_CLASS);
-                    } else {
-                        filters.removeClass(FIXED_CLASS);
-                        aside.removeClass(FIXED_ASIDE_CLASS);
-                    }
-                }
-
                 $(window).on('scroll', onWindowScroll);
-
-                $scope.$on('$destroy', function () {
-                    $(window).off('scroll', onWindowScroll);
-                });
             }
+
+            $scope.$on('$destroy', function () {
+                $(window).off('scroll', onWindowScroll);
+                $scope._priceGeneric.teardown();
+                $scope._priceGeneric = null;
+
+                $scope.ractiveControl.teardown();
+                $scope.ractiveControl = null;
+            });
         }]);

@@ -39,20 +39,14 @@
             {{combination.getFullPackagePrice() | price}}
 
             <ng-include src="'components/ruble.html'"></ng-include>
-
-            <!-- tooltip price -->
-            <div class="b-tooltip-price"
-                 tool-tip-price
-                 item="combination"
-                 icon-white="true"
-                 is-bundle="true"></div>
-
         </div>
 
-        <div class="w-expand-collapse-link_down w-expand-collapse-link" ng-if="!isVisible">
-            <a href="javascript:void(0);" class="expand-collapse-link">
+        <div class="w-expand-collapse-link_down w-expand-collapse-link pull-right">
+            <a href="javascript:void(0);" class="expand-collapse-link" ng-if="!isVisible">
                 <span class="icon-collapse"></span> Развернуть
             </a>
+            <!-- tooltip price -->
+            <div class="price-generic-container js-price-generic-container"></div>
         </div>
     </div>
 </div>
