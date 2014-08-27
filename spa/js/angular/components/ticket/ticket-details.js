@@ -39,18 +39,17 @@ angular.module('innaApp.directives')
                         $scope.link = document.location;
                     });
 
-                    /*Listeners*/
-                    EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (ticket, opt_data) {
+                    function showDetails(evt, ticket, opt_data) {
 
-                        if(opt_data){
+                        if (opt_data) {
                             $scope.noChoose = opt_data.noChoose;
                             $scope.noClose = opt_data.noClose;
                         }
 
                         //debugger;
                         /*console.log(ticket);
-                        var popupItemInfo = new aviaHelper.popupItemInfo();
-                        popupItemInfo.addAggFields(ticket.data);*/
+                         var popupItemInfo = new aviaHelper.popupItemInfo();
+                         popupItemInfo.addAggFields(ticket.data);*/
 
                         $scope.ticket = ticket;
 
@@ -83,8 +82,20 @@ angular.module('innaApp.directives')
                                 }
                             })
                         }, 0)
+                    }
 
-                    });
+                    /*Listeners*/
+                    EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetails);
+
+                    $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function(evt, ticket, opt_data){
+                        $scope.$apply(function(){
+                            showDetails(evt, ticket, opt_data);
+                        })
+                    })
+
+                    $scope.$on('$destroy', function(){
+                        EventManager.off(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetails);
+                    })
                 }
             ]
         }

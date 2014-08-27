@@ -1,3 +1,7 @@
+<!--
+    В класс balloon можно передать любые параметры и настройки
+-->
+
 <div class="overlay js-overlay {{isVisible ? 'overlay_show' : ''}}"></div>
 
 {{#isVisible}}
@@ -7,12 +11,34 @@
         <div title="Закрыть" class="balloon-close" on-click="hide"></div>
     {{/if}}
 
-    {{#title}}
-        <h3 class="b-tickets__title">title</h3>
-    {{/}}
+
+    {{#if title && !loading && !content}}
+        <h3 class="b-tickets__title">{{title}}</h3>
+    {{/if}}
+
+
+    {{#if loading}}
+        {{>loading}}
+    {{/if}}
 
     <div class="b-balloon__content">
-        {{>balloonContent}}
+
+        {{#if template}}
+
+            <!--
+                смотри глобальный конфиг ractive в app.js
+                http://stackoverflow.com/questions/23726907/how-to-update-partials
+            -->
+            {{#reset}}
+                <DynamicPartial partial='{{partial}}' changeTarifs="{{changeTarifs}}" />
+            {{/}}
+        {{/if}}
+
+        {{#if balloonPart && (!template && !balloonContent)}}
+            {{>balloonContent}}
+        {{else}}
+            <p class="balloon-info">{{{balloonContent}}}</p>
+        {{/if}}
     </div>
 </div>
 {{/}}

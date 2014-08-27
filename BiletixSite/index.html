@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=980">
+    <title ng-bind="title">Biletix - Главная</title>
+
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .main {
+            width: 1023px;
+            margin: 0 auto;
+        }
+        .pic-cont {
+            width: 100%;
+            text-align: center;
+        }
+        .inna-script {
+            position: absolute;
+            top: 200px;
+            left: 0;
+            right: 0;
+            width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+
+</head>
+<body>
+	<div class="main">
+        <img src="main.png" />
+    </div>
+    <div class="pic-cont">
+        <img src="photo.jpg" />
+    </div>
+    
+    <div id="inna-frame" class="inna-script">
+        <script type="text/javascript" src="http://lh.inna.ru/spa/js/partners/module.js"></script>
+        <script type="text/javascript">
+            inna.searchFrom.init();
+        </script>
+    </div>
+</body>
+</html>

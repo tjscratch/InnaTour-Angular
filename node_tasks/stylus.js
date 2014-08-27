@@ -80,5 +80,12 @@ gulp.task('styl-print', function () {
 });
 
 
+gulp.task('styl-partners', function () {
+    return gulp.src([conf.styl + '/partners/**/*.base.styl'])
+		.pipe(stylus(optStyl))
+        .pipe(gulp.dest(conf.styl + '/partners'));
+});
+
+
 gulp.task('styles-app', ['styl-components', 'styl-pages', 'styl-regions']);
-gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print']);
+gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print', 'styl-partners']);

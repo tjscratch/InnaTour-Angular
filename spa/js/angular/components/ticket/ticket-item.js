@@ -59,7 +59,7 @@ angular.module('innaApp.components').
                     this.on({
                         setCurrent: this.setCurrent,
                         getTicketDetails: function () {
-                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, this.get('modelTicket'));
+                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, null, this.get('modelTicket'));
                         },
                         change: function (data) {
 

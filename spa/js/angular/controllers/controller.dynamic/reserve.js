@@ -359,19 +359,12 @@
             };
 
             $scope.showReserveError = function () {
-                //$scope.baloon.showGlobalDpErr();
                 $scope.baloon.hide();
-                new Balloon({
-                    partials: {
-                        balloonContent: $templateCache.get('components/balloon/templ/server-error.html')
-                    },
-                    data : {
-                        balloonClose : true,
-                        callbackClose : function(){
-                            //console.log('i think that i close');
-                            //какого хуя при ошибке просто закрывался попап и оставались на этой же странице??
-                            //если переделываешь - сделай - нормально, а не ломай поведение
 
+                new Balloon({
+                    data : {
+                        template : 'server-error.html',
+                        callbackClose : function(){
                             //отправляем на пакеты
                             $location.search({});
                             $location.path(Urls.URL_DYNAMIC_PACKAGES);
@@ -381,6 +374,7 @@
             }
 
             $scope.$on('$destroy', function () {
+                $scope.baloon.hide();
                 $timeout.cancel($scope.tmId);
             });
         }
