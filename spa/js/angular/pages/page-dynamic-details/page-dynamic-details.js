@@ -63,6 +63,7 @@ innaAppControllers
             $scope.buyAction = ($location.search().action == 'buy');
             $scope.dateHelper = dateHelper;
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+            $scope.dataFullyLoadedGallery = false;
             var _balloonLoad = new Balloon();
 
             var backgrounds = [
@@ -71,16 +72,16 @@ innaAppControllers
                 '/spa/img/hotels/back-2.jpg'
             ];
 
+            _balloonLoad.updateView({
+                loading: true,
+                title: 'Собираем данные',
+                balloonContent: 'Это может занять какое-то время'
+            });
+
 
             function getDisplayOrder() {
 
                 $scope.isDisplayOrder = true;
-
-                _balloonLoad.updateView({
-                    loading: true,
-                    title: 'Собираем данные',
-                    balloonContent: 'Это может занять какое-то время'
-                });
 
                 DynamicPackagesDataProvider.displayOrder({
                     orderId: routParam.OrderId,
