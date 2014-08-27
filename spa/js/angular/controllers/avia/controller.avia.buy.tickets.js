@@ -942,10 +942,8 @@ innaAppControllers.
                                             $scope.baloon.hide();
                                             $scope._baloon = new Balloon({
                                                 data : {
-                                                    balloonClose : true
-                                                },
-                                                partials : {
-                                                    balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
+                                                    balloonClose : true,
+                                                    balloonPart: 'pay-error.html'
                                                 }
                                             }).show();
                                         }
