@@ -5,7 +5,7 @@
          ng-click="popupItemInfo_show($event, item, criteria, searchId)">
 
         <span ng-if="item.transportersList.length <= 3" class="result-cell__airlines">
-            <span ng-repeat="tr in item.transportersList">
+            <span ng-repeat="tr in item.transportersList" class="rl-airline__item">
                 <img ng-src="{{tr.logoUrl}}" alt="" class="logo">
                 <span class="rl-airline-text">{{tr.name}}</span>
             </span>
