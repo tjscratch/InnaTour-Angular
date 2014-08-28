@@ -1185,7 +1185,9 @@ innaAppControllers.
                 $scope._priceGeneric.teardown();
                 $scope._priceGeneric = null;
 
-                $scope.ractiveControl.teardown();
-                $scope.ractiveControl = null;
+                if($scope.ractiveControl) {
+                    $scope.ractiveControl.teardown();
+                    $scope.ractiveControl = null;
+                }
             });
         }]);

@@ -319,6 +319,10 @@ app.factory('cache',['$cacheFactory', function ($cacheFactory) {
  */
 window.console = (function (origConsole) {
 
+    if (origConsole == undefined || origConsole.error == undefined || origConsole.error.apply == undefined) {
+        return;
+    }
+
     try {
         var locationSearch = location.hash.split('?')[1].split('&');
 
