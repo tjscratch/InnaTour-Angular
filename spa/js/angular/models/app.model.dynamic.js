@@ -140,12 +140,12 @@ inna.Models.Dynamic.Combination.prototype.getFullTotalPrice = function(){
     var hPrice = this.hotel.data.PriceObject;
 
     return {
-        TotalAgentProfit: tPrice.TotalAgentProfit + hPrice.TotalAgentProfit,
+        TotalAgentProfit: tPrice.TotalAgentProfit + hPrice.TotalAgentProfit + hPrice.TotalInnaAgentRate,
         TotalAgentRate: tPrice.TotalAgentRate + hPrice.TotalAgentRate,
         TotalAgentReward: tPrice.TotalAgentReward + hPrice.TotalAgentReward,
         TotalInnaProfit: tPrice.TotalInnaProfit + hPrice.TotalInnaProfit,
         TotalPrice: tPrice.TotalPrice + hPrice.TotalPrice,
-        TotalInnaAgentRate : tPrice.TotalInnaAgentRate + hPrice.TotalInnaAgentRate
+        TotalInnaAgentRate : hPrice.TotalInnaAgentRate
     }
 }
 
