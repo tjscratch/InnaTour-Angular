@@ -529,11 +529,11 @@ innaAppControllers.
 
 
                     /* PriceGeneric */
-                    $timeout(function(){
+                    $timeout(function () {
                         $scope._priceGeneric = new PriceGeneric({
                             el: $('.js-results-list-recomended .js-price-generic-container'),
                             data: {
-                                PriceDetailsTooltipData : $scope.recomendedItem.PriceDetailsTooltipData
+                                PriceDetailsTooltipData: $scope.recomendedItem.PriceDetailsTooltipData
                             }
                         })
                     }, 0)
@@ -1184,8 +1184,7 @@ innaAppControllers.
                 $(window).off('scroll', onWindowScroll);
                 $scope._priceGeneric.teardown();
                 $scope._priceGeneric = null;
-
-                $scope.ractiveControl.teardown();
                 $scope.ractiveControl = null;
+
             });
         }]);

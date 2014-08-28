@@ -23,8 +23,9 @@
             top: 200px;
             left: 0;
             right: 0;
-            width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            /*width: 1200px;*/
+            /*margin: 0 auto;*/
         }
     </style>
 
@@ -36,12 +37,16 @@
     <div class="pic-cont">
         <img src="photo.jpg" />
     </div>
+
+    <!--<iframe src="http://lh.inna.ru"></iframe>-->
     
-    <div id="inna-frame" class="inna-script">
+    <div class="inna-script">
         <script type="text/javascript" src="http://lh.inna.ru/spa/js/partners/module.js"></script>
         <script type="text/javascript">
             inna.searchFrom.init();
         </script>
+
+        <div id="inna-frame"></div>
     </div>
 </body>
 </html>
