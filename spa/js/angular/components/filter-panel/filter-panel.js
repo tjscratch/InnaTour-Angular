@@ -176,7 +176,8 @@ angular.module('innaApp.components').
 
                         // изменение фильтров
                         child.observe('value.val', function (newValue, oldValue) {
-                            that.collectChildData();
+                            if(newValue != undefined) that.collectChildData();
+
                         }, {defer: true, init: false});
 
 

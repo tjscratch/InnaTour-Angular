@@ -15,25 +15,24 @@
     "b2b": {
       "test": "http://b2b.test.inna.ru",
       "prod": "https://b2b.inna.ru",
-	  "beta": "http://b2b.beta.inna.ru"
+      "beta": "http://b2b.beta.inna.ru"
     },
     "api": {
       "test": "http://api.test.inna.ru",
       "prod": "https://api.inna.ru",
-	  "beta": "http://api.beta.inna.ru"
+      "beta": "http://api.beta.inna.ru"
     },
     "front": {
       "test": "http://test.inna.ru",
       "prod": "https://inna.ru",
-	  "beta": "http://beta.inna.ru"
+      "beta": "http://beta.inna.ru"
     },
     "static": {
       "test": "http://s.test.inna.ru",
       "prod": "https://s.inna.ru",
-	  "beta": "https://s.inna.ru"
+      "beta": "https://s.inna.ru"
     }
   },
   "tripadvisor": "www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=",
-  "version": "build-version-3",
-  "versionCode": 3
+  "version": "build-0.1051d15e-0.1770u28"
 }

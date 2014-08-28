@@ -44,9 +44,10 @@ innaAppControllers
                     EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
                 });
 
-                if(routParam.Children && routParam.Children != "0"){
+                if (routParam.Children && routParam.Children != "0") {
                     searchParams.ChildrenAges = routParam.Children.split('_');
-                };
+                }
+                ;
             }
 
             /*Private*/
@@ -62,6 +63,8 @@ innaAppControllers
             $scope.buyAction = ($location.search().action == 'buy');
             $scope.dateHelper = dateHelper;
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+            $scope.dataFullyLoadedGallery = false;
+            var _balloonLoad = new Balloon();
 
             var backgrounds = [
                 '/spa/img/hotels/back-0.jpg',
@@ -69,43 +72,21 @@ innaAppControllers
                 '/spa/img/hotels/back-2.jpg'
             ];
 
+            _balloonLoad.updateView({
+                loading: true,
+                title: 'Собираем данные',
+                balloonContent: 'Это может занять какое-то время'
+            });
 
-            function hotel404() {
-                //ToDo
-                //$scope._baloon = new Balloon({
-                //    data : {
-                //        callbackClose : function(){
-
-                //        }
-                //    },
-                //    partials : {
-                //        balloonContent : $templateCache.get('components/balloon/templ/pay-error.html')
-                //    }
-                //}).show();
-
-                $scope.baloon.showErr(
-                    "Запрашиваемый отель не найден",
-                    "Вероятно, комнаты в нем уже распроданы.",
-                    function () {
-                        delete $location.$$search.displayHotel
-                        $location.$$compose();
-                    }
-                );
-            }
 
             function getDisplayOrder() {
 
-                $scope.displayTicket = ('displayTicket' in $location.search());
-
                 $scope.isDisplayOrder = true;
-
-                /*Initial*/
-                $scope.baloon.show('Собираем данные', 'Это может занять какое-то время');
 
                 DynamicPackagesDataProvider.displayOrder({
                     orderId: routParam.OrderId,
                     success: function (resp) {
-                        $scope.baloon.hide();
+                        _balloonLoad.fire('hide');
 
                         $scope.bundle = new inna.Models.Dynamic.Combination();
                         $scope.bundle.ticket = new inna.Models.Avia.Ticket();
@@ -123,18 +104,27 @@ innaAppControllers
                             EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
                             loadMap();
                             onload();
+
+                            $scope.dataFullyLoadedGallery = true;
                         }
 
-                        $scope.getTicketDetails = function(){
-                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.bundle.ticket, {noClose:true,noChoose:true});
-                        };
 
-                        if($scope.displayTicket) {
-                            $scope.getTicketDetails();
+                        if (('displayTicket' in $location.search())) {
+                           $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.bundle.ticket, {noClose: true, noChoose: true})
                         }
                     },
-                    error: function () { //error
-                        $scope.baloon.showErr('Oops...', 'Указанного заказа не существует');
+                    error: function () {
+                        _balloonLoad.updateView({
+                            template: "err.html",
+                            title: 'Oops...',
+                            content: 'Указанного заказа не существует',
+                            callbackClose: function () {
+                                $scope.$apply(function ($scope) {
+                                    delete $location.$$search.displayHotel
+                                    $location.$$compose();
+                                });
+                            }
+                        });
                     }
                 });
             }
@@ -155,6 +145,8 @@ innaAppControllers
                     Filter: searchParams,
 
                     success: function (data) {
+                        _balloonLoad.fire('hide');
+                        
                         var hotel = new inna.Models.Hotels.Hotel(data.Hotel);
                         var ticket = new inna.Models.Avia.Ticket();
                         ticket.setData(data.AviaInfo);
@@ -197,11 +189,17 @@ innaAppControllers
 
                         deferred.resolve();
                     },
-                    error: function () { //error
-                        $scope.$apply(function ($scope) {
-                            hotel404();
+                    error: function () {
+                        _balloonLoad.updateView({
+                            template: 'err.html',
+                            title: "Запрашиваемый отель не найден",
+                            content: "Вероятно, комнаты в нем уже распроданы.",
+                            callbackClose: function () {
+                                $scope.$apply(function ($scope) {
+                                    $location.path(goToSearchDynamic());
+                                });
+                            }
                         });
-
                         deferred.reject();
                     }
                 });
@@ -217,17 +215,17 @@ innaAppControllers
                     TicketToId: searchParams.TicketId,
                     TicketBackId: searchParams.TicketBackId,
                     Filter: searchParams,
-                    Rooms : true,
+                    Rooms: true,
 
                     success: function (data) {
-                        if(data.Rooms.length) {
+                        if (data.Rooms.length) {
                             $scope.hotelRooms = data.Rooms;
 
-                            if($scope.hotel.CheckInTime == '00:00' && data.Hotel.CheckInTime) {
+                            if ($scope.hotel.CheckInTime == '00:00' && data.Hotel.CheckInTime) {
                                 $scope.hotel.CheckInTime = data.Hotel.CheckInTime
                             }
 
-                            if($scope.hotel.CheckOutTime == '00:00' && data.Hotel.CheckOutTime) {
+                            if ($scope.hotel.CheckOutTime == '00:00' && data.Hotel.CheckOutTime) {
                                 $scope.hotel.CheckOutTime = data.Hotel.CheckOutTime
                             }
 
@@ -244,11 +242,18 @@ innaAppControllers
             };
 
             if (!routParam.OrderId) {
-                getHotelDetails().then(function(){
-                    $timeout(function(){
-                        window.scrollTo(0, 1050);
+                getHotelDetails().then(function () {
+
+                    // если пришли с параметром покупки
+                    // нажали в бандле - купить
+                    if ($scope.buyAction) {
+                        $timeout(function () {
+                            window.scrollTo(0, 1050);
+                            $scope.dataFullyLoadedGallery = true;
+                        }, 1000);
+                    } else {
                         $scope.dataFullyLoadedGallery = true;
-                    },1000);
+                    }
 
                     getHotelDetailsRooms();
 
@@ -256,6 +261,30 @@ innaAppControllers
             } else {
                 getDisplayOrder();
             }
+
+            function goToSearchDynamic() {
+                var DepartureId = searchParams.DepartureId;
+                var ArrivalId = searchParams.ArrivalId;
+                var StartVoyageDate = StartVoyageDateGoBack;
+                var EndVoyageDate = EndVoyageDateGoBack;
+                var TicketClass = searchParams.TicketClass;
+                var Adult = searchParams.Adult || 0;
+                var Children = searchParams.Children || '';
+
+                var urlDetails = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                    DepartureId,
+                    ArrivalId,
+                    StartVoyageDate,
+                    EndVoyageDate,
+                    TicketClass,
+                    Adult,
+                    Children
+                ].join('-');
+
+                return urlDetails;
+            };
+            $scope.goToSearchDynamic = goToSearchDynamic;
+
 
             $scope.goReservation = function (room) {
 
@@ -350,11 +379,6 @@ innaAppControllers
                 room.isOpen = !!!room.isOpen;
             };
 
-
-            $scope.goToSearchDynamic = function () {
-                console.log('goToSearchDynamic');
-            };
-
             //$scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, onload);
 
             /*$scope.$on('$locationChangeSuccess', function (data, url, datatest) {
@@ -373,6 +397,11 @@ innaAppControllers
                 if (_stars) {
                     _stars.teardown();
                     _stars = null;
+                }
+
+                if(_balloonLoad){
+                    _balloonLoad.teardown();
+                    _balloonLoad = null;
                 }
             })
         }

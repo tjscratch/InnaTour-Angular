@@ -36,6 +36,9 @@ angular.module('innaApp.directives')
 
                     function (EventManager, $scope, $element, Events) {
 
+                        /* прячем кнопку - отзывы и предложения */
+                        $('#reformal_tab').hide();
+
                         $scope.currentHotel = null;
                         $scope.currentHotelPreview = null;
                         $scope.airMarker = null;
@@ -63,6 +66,7 @@ angular.module('innaApp.directives')
                         }
 
                         $scope.$on('$destroy', function () {
+                            $('#reformal_tab').show();
                             document.documentElement.style.overflow = 'auto';
                             EventManager.fire(Events.DYNAMIC_SERP_MAP_DESTROY);
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, mapSizeBig);

@@ -32,7 +32,7 @@ angular.module('innaApp.components').
                     iterable_hotels: false,
                     iterable_tickets: false,
                     /*Enumerable: [],
-                    combinationModel: null,*/
+                     combinationModel: null,*/
                     EnumerableCount: 0,
                     EnumerableClone: [],
                     EnumerableList: [],
@@ -106,10 +106,10 @@ angular.module('innaApp.components').
                             //console.log(that.get('combinationModel'), "that.get('combinationModel')");
 
                             this.cloneData();
-                            this.enumerableCount(newValue);
                             this.set({waitData: false})
                         }
-                    }); /*{defer: true, init: false}*/
+                    });
+                    /*{defer: true, init: false}*/
 
                     /**
                      * Сделим за изменениями массива EnumerableList
@@ -140,7 +140,8 @@ angular.module('innaApp.components').
                                 }
                             }
                         }
-                    }); /*{init: false}*/
+                    });
+                    /*{init: false}*/
 
 
                     /**
@@ -172,7 +173,7 @@ angular.module('innaApp.components').
                     /** Событие сортировки */
                     EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
                         setTimeout(function () {
-                            that.cloneData(that.sorting());
+                            that.cloneData(that.sorting(), true);
                         }, 0)
                     });
 
@@ -306,6 +307,7 @@ angular.module('innaApp.components').
                     // подготавливаем данные для авиа билетов
                     if (opt_param.ticket) {
                         data.forEach(function (item) {
+
                             var modelTicket = new inna.Models.Avia.Ticket();
                             modelTicket.setData(item);
                             var virtualBundle = new inna.Models.Dynamic.Combination();
@@ -313,6 +315,7 @@ angular.module('innaApp.components').
                             virtualBundle.hotel = that.get('combinationModel').hotel;
                             item.getProfit = virtualBundle.getProfit();
                             item.FullPackagePrice = virtualBundle.getFullPackagePrice();
+                            //item.etap
 
                             // авиалинии этого билета
                             var airline = _.union(modelTicket.collectAirlines().airlines);
@@ -326,6 +329,32 @@ angular.module('innaApp.components').
                         })
                     }
                     return data;
+                },
+
+
+                /**
+                 * Исключаем выбранный вариант
+                 * @param {Object} item
+                 */
+                excludeRecommended: function (collection) {
+                    var recomented = null;
+                    var result = null;
+
+                    if (this.get('iterable_hotels')) {
+                        recomented = this.get('combinationModel').hotel.data;
+                        result = collection.filter(function(item){
+                            return (recomented.HotelId != item.HotelId);
+                        })
+                    }
+
+                    if (this.get('iterable_tickets')) {
+                        recomented = this.get('combinationModel').ticket.data;
+                        result = collection.filter(function(item){
+                            return (recomented.VariantId1 != item.VariantId1);
+                        })
+                    }
+
+                    return result;
                 },
 
                 /**
@@ -412,8 +441,6 @@ angular.module('innaApp.components').
                         EnumerableFiltered: filteredData
                     })
 
-                    this.enumerableCount(filteredData, true);
-
                     setTimeout(function () {
                         that.cloneData(that.sorting(filteredData));
                     }, 0);
@@ -461,7 +488,7 @@ angular.module('innaApp.components').
                  * Если установлено свойство sortValue, то сортируем набор
                  */
                 resetFilter: function () {
-                    console.log('resetFilter -- resetFilter');
+                    //console.log('resetFilter -- resetFilter');
                     this.set({
                         filtered: false,
                         EnumerableFiltered: []
@@ -474,17 +501,22 @@ angular.module('innaApp.components').
                     EventManager.fire(Events.LIST_PANEL_FILTES_RESET_DONE, [].concat(sortResult));
 
                     this.cloneData(sortResult);
-                    this.enumerableCount(sortResult);
                 },
 
                 /**
                  * Клонируем список отелей и далее работает с ним
                  * @param opt_data
                  */
-                cloneData: function (opt_data) {
+                cloneData: function (opt_data, opt_sort) {
                     if (opt_data) this.set('EnumerableList', []);
 
                     var list = opt_data || this.get('Enumerable');
+
+                    // исключаем рекомендованный вариант
+                    if(!opt_sort)
+                        list = this.excludeRecommended(list);
+
+                    this.enumerableCount(list);
                     this.enumerableClone = [].concat(list);
 
                     // получаем первую порцию из n item
@@ -492,17 +524,8 @@ angular.module('innaApp.components').
                     this.nextArrayDoseItems();
                 },
 
-                enumerableCount: function (data, opt_param) {
-
-                    if (opt_param) {
-                        this.set('EnumerableCount', data.length);
-                    } else {
-                        if (data.length) {
-                            this.set('EnumerableCount', data.length - 1);
-                        } else {
-                            this.set('EnumerableCount', data.length);
-                        }
-                    }
+                enumerableCount: function (data) {
+                    this.set('EnumerableCount', data.length);
                 },
 
                 wait: function () {
@@ -512,4 +535,3 @@ angular.module('innaApp.components').
 
             return ListPanel;
         }]);
-

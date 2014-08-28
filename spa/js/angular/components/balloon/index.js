@@ -11,6 +11,9 @@ innaAppConponents.
                 append: true,
                 data: {
                     // show close button
+                    title: '',
+                    loading: false,
+                    balloonContent: null,
                     balloonClose: true,
                     isVisible: false,
 
@@ -31,27 +34,87 @@ innaAppConponents.
 
                     }
                 },
+
                 init: function (options) {
                     this._super(options);
-                    console.log('init baloon', this);
 
                     this.on({
+                        change: function (data) {
+
+                        },
                         hide: this.hide,
                         changeTarifs: this.changeTarifs,
-                        callback: function(){
-                            this.get('callback')();
+                        callback: function () {
+                            if (typeof this.get('callback') == 'function') {
+                                this.get('callback')();
+                            }
+
                             this.dispose();
+                        },
+                        teardown: function () {
+
                         }
                     });
+
+                    this.observe('partialUpdate', function () {
+                        this.set('reset', false);
+                        this.set('reset', true);
+                    })
                 },
+
 
                 partials: {
                     balloonContent: function () {
                         var templ = '<span></span>';
-                        if (this.get('template'))
-                            templ = $templateCache.get('components/balloon/templ/' + this.get('template'))
+                        if (this.get('balloonPart'))
+                            templ = $templateCache.get('components/balloon/templ/' + this.get('balloonPart'))
 
                         return templ;
+                    },
+                    loading: $templateCache.get('components/balloon/templ/loading.html')
+                },
+
+
+                /**
+                 * Обновление шаблона balloon
+                 * принемает все стандартные данные и дополнительные
+                 *
+                 *  template: - новый шаблон ( обновляет partials ),
+                 *  title: 'Oops...',
+                 *  balloonContent : - может быть как отдельный partials, так и просто html ( <div>test</div> )
+                 *  content: 'Указанного заказа не существует',
+                 *  callbackClose: function () {}
+                 *
+                 *
+                 *  если есть content, то и должен быть отдельный template
+                 * @param {Object} data
+                 */
+                updateView: function (data) {
+                    if (data) {
+
+                        var partial = '<span></span>';
+
+                        if (data.template) {
+                            partial = $templateCache.get('components/balloon/templ/' + data.template);
+                            this.partials.partialUpdate = partial;
+                        }
+
+                        this.set({
+                            partialUpdate: partial,
+                            template: data.template,
+                            loading: data.loading,
+                            balloonClose: data.balloonClose,
+                            balloonContent: data.balloonContent,
+                            title: data.title,
+                            content: data.content,
+                            callbackClose: data.callbackClose || null,
+                            callback: data.callback || null
+                        });
+
+
+                        if (!this.get('isVisible')) {
+                            this.show();
+                        }
                     }
                 },
 

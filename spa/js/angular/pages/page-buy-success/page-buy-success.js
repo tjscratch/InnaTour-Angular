@@ -1,4 +1,6 @@
 /**
+ * Страница успешной покупки пакета
+ *
  * use dateHelper
  */
 innaAppControllers.
@@ -8,6 +10,7 @@ innaAppControllers.
         '$templateCache',
         '$routeParams',
         '$filter',
+        '$timeout',
         'paymentService',
         'urlHelper',
         'aviaHelper',
@@ -18,22 +21,16 @@ innaAppControllers.
         'DynamicBlock',
         'Balloon',
         'NeedVisa',
-        function ($scope, $rootScope, $templateCache, $routeParams, $filter, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon, NeedVisa) {
+        function ($scope, $rootScope, $templateCache, $routeParams, $filter, $timeout, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon, NeedVisa) {
             document.body.classList.add('lighten-theme');
-
-            function preventDefault(evt) {
-                if (evt && evt.original) {
-                    evt.original.preventDefault();
-                }
-            }
 
             $scope.hotelToShowDetails = null;
 
-            /** DynamicBlock.extend  */
+
             var DynamicBlockAviaHotel = DynamicBlock.extend({
-                data : {
-                    settings : {
-                        height : 220,
+                data: {
+                    settings: {
+                        height: 220,
                         countColumn: 2,
                         classBlock: 'buy__fly b-result_col_two b-result_middle'
                     }
@@ -51,6 +48,11 @@ innaAppControllers.
                 }
             });
 
+
+            /**
+             * Контроллер page-buy-success
+             * @constructor
+             */
             var Page = Ractive.extend({
                 debug: true,
                 el: document.querySelector('.page-root'),
@@ -68,79 +70,63 @@ innaAppControllers.
                 },
                 init: function () {
                     var that = this;
-                    this._balloon = null;
-                    this._partialBaloonTicket = $templateCache.get('components/balloon/templ/ticket-rules.html');
-                    this._partialBaloonHotel = $templateCache.get('components/balloon/templ/hotel-rules.html');
-                    this._partialBaloonLoading = $templateCache.get('components/balloon/templ/loading.html');
+                    this._balloon = new Balloon();
 
                     this.on({
-                        change: this.change,
                         showBalloonTicket: this.showBalloonTicket,
-                        showBalloonHotel: this.showBalloonHotel
+                        showBalloonHotel: this.showBalloonHotel,
+                        teardown: function () {
+                            this._balloon.teardown();
+                            this._balloon = null;
+                        }
                     });
-                },
-
-
-                /**
-                 * Событие изменения модели ractive
-                 * @param data
-                 */
-                change: function (data) {
-
                 },
 
                 showBalloonLoading: function (evt) {
-                    this._balloonLoading = new Balloon({
-                        data: {
-                            balloonClose: false
-                        },
-                        partials: {
-                            balloonContent: this._partialBaloonLoading
-                        }
+                    this._balloon.updateView({
+                        balloonClose: false,
+                        template: 'loading.html'
                     });
-                    this._balloonLoading.show();
                 },
 
-                hideBalloonLoading: function () {
-                    this._balloonLoading.hide();
-                },
 
                 showBalloonTicket: function (evt) {
-                    preventDefault(evt);
+                    if (evt && evt.original) {
+                        evt.original.preventDefault();
+                    }
                     // вызываем aviaHelper.tarifs
                     var tarifs = new aviaHelper.tarifs()
                     tarifs.fillInfo(this.get('AviaInfo'));
                     tarifs.setected = tarifs.list[0];
                     tarifs.setected.current = true;
 
-                    this._balloonTicket = new Balloon({
+                    (new Balloon({
                         data: {
+                            balloonPart: 'ticket-rules.html',
                             balloon_class: 'balloon_medium',
                             AviaInfo: this.get('AviaInfo'),
                             tarifs: tarifs,
                             from: tarifs.setected.from,
                             to: tarifs.setected.to,
                             _RULE_: tarifs.setected.rule
-                        },
-                        partials: {
-                            balloonContent: this._partialBaloonTicket
                         }
-                    });
-                    this._balloonTicket.show();
+                    }).show());
+
                 },
 
                 showBalloonHotel: function (evt) {
-                    preventDefault(evt);
+                    if (evt && evt.original) {
+                        evt.original.preventDefault();
+                    }
+
                     var hotelRules = new aviaHelper.hotelRules();
                     hotelRules.fillData(this.get('Hotel'));
 
                     (new Balloon({
                         data: {
+                            balloonPart: 'hotel-rules.html',
                             balloon_class: 'balloon_ticket',
                             hotelRules: hotelRules
-                        },
-                        partials: {
-                            balloonContent: this._partialBaloonHotel
                         }
                     }).show());
                 },
@@ -154,16 +140,17 @@ innaAppControllers.
 
                     paymentService.getPaymentData({orderNum: $routeParams.OrderNum},
                         function (data) {
+
                             if (data) {
                                 that.set(that.parse(data));
                             }
 
-                            setTimeout(function () {
-                                that.hideBalloonLoading();
+                            $timeout(function () {
+                                that._balloon.hide();
                             }, 1000);
                         },
                         function () {
-                            that.hideBalloonLoading();
+                            that._balloon.hide();
                         }
                     );
                 },
@@ -209,8 +196,9 @@ innaAppControllers.
 
             pageBuy.getDataBuy();
 
-            $scope.$on('$destroy', function(){
-                console.log('$destroy details');
+            $scope.$on('$destroy', function () {
+                console.log('$destroy buy success');
+
                 document.body.classList.remove('lighten-theme');
                 pageBuy.teardown();
                 pageBuy = null;

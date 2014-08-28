@@ -62,8 +62,8 @@ angular.module('innaApp.directives')
                             }
                         }
 
-                        setTimeout(orientation, 0);
-                        window.addEventListener("orientationchange", orientation, false);
+                        //setTimeout(orientation, 0);
+                        //window.addEventListener("orientationchange", orientation, false);
 
                         $scope.toggleTab = function (data) {
 
@@ -175,6 +175,8 @@ angular.module('innaApp.directives')
 
                         EventManager.on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function (data) {
                             $scope.safeApply(function () {
+                                //console.log(data, 'data');
+                                $scope.combination.hotel = data;
                                 $scope.isChooseHotel = true;
                                 $scope.display.fullDisplay();
                                 //getHotelDetails();

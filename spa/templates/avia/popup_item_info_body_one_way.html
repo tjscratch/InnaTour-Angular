@@ -45,6 +45,6 @@
     <div class="rlf-colum4">
         <span ng-if="etap.NextOutCity != etap.NextOutPort">{{etap.NextOutCity}}, {{etap.NextOutPort}} ({{etap.NextOutCode}}), {{etap.NextOutCountryName}}</span>
         <span ng-if="etap.NextOutCity == etap.NextOutPort">{{etap.NextOutPort}} ({{etap.NextOutCode}}), {{etap.NextOutCountryName}}</span>
-        <div class="rlf-transfer" ng-if="etap.InPortId != etap.NextOutPortId">Внимание: смена аэропорта!</div>
+        <div class="rlf-transfer" ng-if="etap.alert">{{etap.alert}}</div>
     </div>
 </div>
