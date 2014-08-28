@@ -84,13 +84,14 @@ innaAppControllers
                     this._balloonLoad = new Balloon();
 
                     this.on({
-                        change: function () {
-                        },
                         teardown: function () {
                             if (this._balloonLoad) {
                                 this._balloonLoad.teardown();
                                 this._balloonLoad = null;
                             }
+                            if (FilterPanelComponent) FilterPanelComponent.teardown();
+                            if (ListPanelComponent) ListPanelComponent.teardown();
+                            ListPanelComponent = FilterPanelComponent = null;
                         }
                     })
 
@@ -563,6 +564,8 @@ innaAppControllers
                 EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                 EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
                 EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP);
+                EventManager.off(Events.MAP_CLOSE);
+                EventManager.off(Events.DYNAMIC_SERP_LOAD_TAB);
                 EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, PageDynamic.changePadding);
                 EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, PageDynamic.changePadding);
 

@@ -14,7 +14,6 @@ innaAppConponents.
                     title: '',
                     loading: false,
                     balloonContent: null,
-                    balloonContentTest : '{{>balloonContent}}',
                     balloonClose: true,
                     isVisible: false,
 
@@ -46,7 +45,10 @@ innaAppConponents.
                         hide: this.hide,
                         changeTarifs: this.changeTarifs,
                         callback: function () {
-                            this.get('callback')();
+                            if (typeof this.get('callback') == 'function') {
+                                this.get('callback')();
+                            }
+
                             this.dispose();
                         },
                         teardown: function () {
@@ -54,17 +56,18 @@ innaAppConponents.
                         }
                     });
 
-                    this.observe('partial', function(){
+                    this.observe('partialUpdate', function () {
                         this.set('reset', false);
                         this.set('reset', true);
                     })
                 },
 
+
                 partials: {
                     balloonContent: function () {
                         var templ = '<span></span>';
-                        if (this.get('template'))
-                            templ = $templateCache.get('components/balloon/templ/' + this.get('template'))
+                        if (this.get('balloonPart'))
+                            templ = $templateCache.get('components/balloon/templ/' + this.get('balloonPart'))
 
                         return templ;
                     },
@@ -93,17 +96,19 @@ innaAppConponents.
 
                         if (data.template) {
                             partial = $templateCache.get('components/balloon/templ/' + data.template);
+                            this.partials.partialUpdate = partial;
                         }
 
                         this.set({
-                            partial : partial,
-                            template : data.template,
+                            partialUpdate: partial,
+                            template: data.template,
                             loading: data.loading,
+                            balloonClose: data.balloonClose,
                             balloonContent: data.balloonContent,
                             title: data.title,
                             content: data.content,
-                            callbackClose: data.callbackClose,
-                            callback: data.callback
+                            callbackClose: data.callbackClose || null,
+                            callback: data.callback || null
                         });
 
 

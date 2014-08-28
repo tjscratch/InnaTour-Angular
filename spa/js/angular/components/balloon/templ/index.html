@@ -23,15 +23,14 @@
 
     <div class="b-balloon__content">
 
-        {{#if !balloonContent}}
-
-            <!--
-                смотри глобальный конфиг ractive в app.js
-                http://stackoverflow.com/questions/23726907/how-to-update-partials
-            -->
+        {{#if template}}
             {{#reset}}
-                <DynamicPartial partial='{{partial}}' />
+                {{>partialUpdate}}
             {{/}}
+        {{/if}}
+
+        {{#if balloonPart && (!template && !balloonContent)}}
+            {{>balloonContent}}
         {{else}}
             <p class="balloon-info">{{{balloonContent}}}</p>
         {{/if}}

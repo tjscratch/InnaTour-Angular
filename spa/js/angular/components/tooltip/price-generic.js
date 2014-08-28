@@ -15,11 +15,12 @@ angular.module('innaApp.components').
                 //template: $templateCache.get('components/tooltip/templ/price-generic.hbs.html'),
                 isolated: true,
                 append: true,
-                partials : {
-                    ruble : $templateCache.get('components/ruble.html')
-                },
                 data: {
                     isVisible: false,
+                    //virtualBundle : null,
+                    PriceObject: null,
+                    tooltipKlass : '',
+                    FullTotalPrice: null,
                     priceFilter: function (text) {
                         return $filter('price')(text);
                     }
@@ -34,39 +35,47 @@ angular.module('innaApp.components').
                     } else {
                         templ = $templateCache.get('components/tooltip/templ/price-generic.hbs.html');
                     }
+
                     options.partials.element = templ;
                 },
 
                 beforeInit: function (options) {
-                    this.setTemplate(options)
+                    if (options.partials) {
+                        this.setTemplate(options)
+                    }
                 },
+
+                partials: {
+                    element: function () {
+                        var templ = '<span></span>';
+
+                        if (this.get('template')) {
+                            templ = $templateCache.get('components/tooltip/templ/' + this.get('template'));
+                        } else {
+                            templ = $templateCache.get('components/tooltip/templ/price-generic.hbs.html');
+                        }
+                        return templ;
+                    },
+                    ruble: $templateCache.get('components/ruble.html')
+                },
+
                 init: function (options) {
                     this._super(options);
+
+                    this.isPriceObject = false;
+
+                    if (this.get('virtualBundle') && !angular.isUndefined(this.get('virtualBundle').hotel.data.PriceObject)) {
+                        this.isPriceObject = true;
+                    }
+
+
+                    this.observe('virtualBundle', function (value) {
+                        //console.log('value update', value);
+                        if (value && this.isPriceObject) {
+                            this.set('PriceObjectCalculate', this.get('virtualBundle').getFullTotalPrice());
+                        }
+                    })
                 }
-
-                /*riceObject : function(){
-                    if(!angular.isUndefined($scope.item.hotel.data.PriceObject)){
-                        $scope.isPriceObject = true;
-                    }
-
-                    if($scope.isHotel && $scope.isPriceObject){
-                        $scope.item.PriceObject = $scope.item.hotel.data.PriceObject;
-                        hotelDataPrice = $scope.item.ticket.data.PriceObject;
-                    }
-
-                    if($scope.isTicket && $scope.isPriceObject){
-                        $scope.item.PriceObject = $scope.item.ticket.data.PriceObject;
-                        ticketDataPrice = $scope.item.ticket.data.PriceObject;
-                    }
-
-
-                    if($scope.isBundle && $scope.isPriceObject){
-                        $scope.item.PriceObject = $scope.item.getFullTotalPrice();
-                        $scope.$root.$on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function(evt, data){
-                            $scope.item.PriceObject = $scope.item.getFullTotalPrice();
-                        })
-                    }
-                },*/
             });
 
             return priceGeneric;

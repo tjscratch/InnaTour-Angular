@@ -27,7 +27,8 @@ angular.module('innaApp.directives')
                 'ShareLink',
                 'Tripadvisor',
                 'Stars',
-                function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams, ShareLink, Tripadvisor, Stars) {
+                'PriceGeneric',
+                function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams, ShareLink, Tripadvisor, Stars, PriceGeneric) {
 
                     //console.profile('Draw');
 
@@ -95,6 +96,18 @@ angular.module('innaApp.directives')
                         }
                     })
 
+
+                    var _priceGeneric = new PriceGeneric({
+                        el: $element.find('.js-price-generic-container'),
+                        data: {
+                            template: "index.hbs.html",
+                            virtualBundle : $scope.bundle,
+                            tooltipKlass : 'bundle'
+                        }
+                    })
+
+
+
                     if ($location.search().displayHotel) {
                         $scope.displayHotel = true;
                     }
@@ -118,6 +131,9 @@ angular.module('innaApp.directives')
                         EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, hotel, isBuyAction);
                     };
 
+                    $scope.$watchCollection('bundle', function(value){
+                        _priceGeneric.set('virtualBundle', value);
+                    });
 
                     //destroy
                     $scope.$on('$destroy', function () {
@@ -125,9 +141,11 @@ angular.module('innaApp.directives')
                         _shareLink.teardown();
                         _tripadvisor.teardown();
                         _stars.teardown();
+                        _priceGeneric.teardown();
                         _stars = null;
                         _shareLink = null;
                         _tripadvisor = null;
+                        _priceGeneric = null;
                     })
 
                     //console.profileEnd('Draw');
