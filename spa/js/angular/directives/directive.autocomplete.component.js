@@ -133,7 +133,7 @@
                         }).tooltip('open');
                     } else if (!$scope.input.val()) {
                         if (newValue != null && newValue != 'null' && $scope.askForData) {
-                            console.log('askForDataByID', newValue);
+                            //console.log('askForDataByID', newValue);
                             askForDataByID(newValue);
                         }
                     }
