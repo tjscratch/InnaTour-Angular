@@ -1,40 +1,62 @@
-﻿window.parent.inna = {
+﻿var inna = {
     searchFrom: {
         init: function () {
-            //alert('inna.searchFrom init');
+            setTimeout(function () {
+                inna.searchFrom.init_internal();
+            }, 0);
+            
+        },
+        init_internal: function () {
+            var frameCont = document.getElementById('inna-frame');
+            //скрываем контейнер, пока не загрузили фрейм и не проставили высоту
+            frameCont.style.visibility = 'hidden';
+
             var fr = document.createElement("IFRAME");
             fr.id = "innaFrame1"
-            fr.onload = autoResize(fr.id);
-            fr.style.width = 1200 + "px";
+            //fr.onload = frameLoaded();
+            //fr.style.width = "1000px";
+            fr.style.width = "100%";
             fr.style.height = "500px";
-            //fr.style.overflow = "hidden";
+            fr.style.overflow = 'hidden';
             fr.border = 0;
             fr.frameBorder = 0;
-            fr.src = "http://lh.inna.ru/";
-            document.getElementById("inna-frame").appendChild(fr);
-            //document.body.appendChild(fr);
+            //fr.style.display = 'none';
+            fr.src = "http://biletix.lh.inna.ru/";
+            frameCont.appendChild(fr);
 
-            function autoResize(id) {
-                setTimeout(function () {
-                    resize(id);
-                }, 0);
-                //resize(id);
+            if (window.addEventListener) {
+                console.log('addEventListener');
+                window.addEventListener("message", receiveMessage, false);
+            }
+            else {
+                console.log('no addEventListener');
+                window.attachEvent("onmessage", receiveMessage);
             }
 
-            function resize(id) {
-                var newheight;
-                var newwidth;
-
-                if (document.getElementById) {
-                    var frame = document.getElementById(id);
-                    newheight = frame.contentWindow.document.body.scrollHeight;
-                    //newwidth = document.getElementById(id).contentWindow.document.body.scrollWidth;
+            function receiveMessage(event) {
+                var data = {};
+                try
+                {
+                    data = JSON.parse(event.data);
                 }
+                catch(e){
+                }
+                
+                //if (event.origin !== "http://lh.inna.ru")
+                //    return;
 
-                console.log('newheight', newheight);
-                frame.height = "";
-                frame.height = (newheight) + "px";
-                //document.getElementById(id).width = (newwidth) + "px";
+                if (data.height != null) {
+                    //console.log('receiveMessage from', event.origin);
+                    var frame = document.getElementById("innaFrame1");
+
+                    console.log('frame set height', data.height);
+                    if (data.height > 0) {
+                        frame.style.height = data.height + "px";
+                    }
+
+                    frameCont.style.visibility = '';
+                    frame.style.display = 'block';
+                }
             }
         }
     }

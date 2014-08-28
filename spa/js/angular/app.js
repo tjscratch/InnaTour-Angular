@@ -322,57 +322,61 @@ app.factory('cache',['$cacheFactory', function ($cacheFactory) {
  * На продакштне можно ввести у url ?DEBUG=TRUE
  * все console.log станут активными
  */
-window.console = (function (origConsole) {
+//window.console = (function (origConsole) {
 
-    try {
-        var locationSearch = location.hash.split('?')[1].split('&');
+//    if (origConsole == undefined || origConsole.error == undefined || origConsole.error.apply == undefined) {
+//        return;
+//    }
 
-        locationSearch.filter(function (item) {
-            var d = item.split('=');
-            if (d[0].toLowerCase() == 'debug' && d[1].toLowerCase() == 'true') {
-                window.FrontedDebug = true;
-                return true;
-            }
-        })
-    } catch(e){}
+//    try {
+//        var locationSearch = location.hash.split('?')[1].split('&');
 
-    if (!window.console)
-        console = {};
+//        locationSearch.filter(function (item) {
+//            var d = item.split('=');
+//            if (d[0].toLowerCase() == 'debug' && d[1].toLowerCase() == 'true') {
+//                window.FrontedDebug = true;
+//                return true;
+//            }
+//        })
+//    } catch(e){}
 
-    var isDebug = window.FrontedDebug || false,
-        logArray = {
-            logs: [],
-            errors: [],
-            warns: [],
-            infos: []
-        }
+//    if (!window.console)
+//        console = {};
 
-    return {
-        log: function () {
-            logArray.logs.push(arguments)
-            isDebug && origConsole.log && origConsole.log.apply(origConsole, arguments);
-        },
-        warn: function () {
-            logArray.warns.push(arguments)
-            isDebug && origConsole.warn && origConsole.warn.apply(origConsole, arguments);
-        },
-        error: function () {
-            logArray.errors.push(arguments)
-            isDebug && origConsole.error && origConsole.error.apply(origConsole, arguments);
-        },
-        info: function (v) {
-            logArray.infos.push(arguments)
-            isDebug && origConsole.info && origConsole.info.apply(origConsole, arguments);
-        },
-        debug: function (bool) {
-            isDebug = bool;
-        },
-        logArray: function () {
-            return logArray;
-        }
-    };
+//    var isDebug = window.FrontedDebug || false,
+//        logArray = {
+//            logs: [],
+//            errors: [],
+//            warns: [],
+//            infos: []
+//        }
 
-}(window.console));
+//    return {
+//        log: function () {
+//            logArray.logs.push(arguments)
+//            isDebug && origConsole.log && origConsole.log.apply(origConsole, arguments);
+//        },
+//        warn: function () {
+//            logArray.warns.push(arguments)
+//            isDebug && origConsole.warn && origConsole.warn.apply(origConsole, arguments);
+//        },
+//        error: function () {
+//            logArray.errors.push(arguments)
+//            isDebug && origConsole.error && origConsole.error.apply(origConsole, arguments);
+//        },
+//        info: function (v) {
+//            logArray.infos.push(arguments)
+//            isDebug && origConsole.info && origConsole.info.apply(origConsole, arguments);
+//        },
+//        debug: function (bool) {
+//            isDebug = bool;
+//        },
+//        logArray: function () {
+//            return logArray;
+//        }
+//    };
+
+//}(window.console));
 
 
 (function ($) {
