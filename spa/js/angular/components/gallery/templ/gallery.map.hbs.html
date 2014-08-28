@@ -1,6 +1,8 @@
-<div class="hotel-gallery b-carousel">
-    <div class="b-carousel__prev" on-click="slidePrev"></div>
-    <div class="b-carousel__next" on-click="slideNext"></div>
+<div class="hotel-gallery b-carousel" on-hover="hover">
+	{{#if photoCollection.length}}
+        <div class="b-carousel__prev" on-click="slidePrev"></div>
+        <div class="b-carousel__next" on-click="slideNext"></div>
+	{{/if}}
 
 	{{#if countPhoto}}
         <span class="hotel-gallery-photo-button">{{countPhoto}}</span>
@@ -11,8 +13,17 @@
 
         <!-- Slider -->
         <div class="b-carousel__slider" style="width:{{(photoList.length * width + 10)}}px;height:{{height}}px;">
+
+            <!-- показываем первую картинку -->
+            <div class="b-carousel_item"
+                 style="width:{{width}}px;height:{{height}}px;">
+
+                <div class="b-carousel_item_image"
+                     style="background-image: url({{photoList[0][imageSize]}});"></div>
+            </div>
+
 			<!-- остальные показываем после события hover -->
-	        {{#each Photos}}
+	        {{#each photoCollection}}
                 <div class="b-carousel_item b-carousel_map_item"
                      style="width:{{width}}px;height:{{height}}px;">
 
