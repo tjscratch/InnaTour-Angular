@@ -4,11 +4,11 @@
             <li class="crumb"><a href="#">Главная</a></li>
             <li class="crumb"><a href="#">Индивидуальные программы</a></li>
         </ul>-->
-        <div class="offers-card-banner-container" ng-controller="SliderCtrl" app-slider>
+        <div class="offers-card-banner-container programm" ng-controller="SliderCtrl" app-slider>
             <ul class="offers-card-banner-list Offer-card-banners" ng-show="slides.length > 0">
-                <li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
-                    <!--<img class="img" ng-src="{{slide.Url}}" />-->
-                    <div class="img" style="background-image: url('{{slide.Url}}')"></div>
+                <li class="offer-card-banner-item programm" ng-repeat="slide in slides track by $index">
+                    <img ng-src="{{slide.Url}}" />
+                    <!--<div class="img" style="background-image: url('{{slide.Url}}')"></div>-->
                 </li>
             </ul>
             <div class="darken-container" ng-if="isFirstSlideDarken()"></div>
@@ -55,10 +55,11 @@
                 <li class="offer-card" ng-repeat="offer in filteredOffersList track by $index">
                     <img ng-src="{{offer.ImageUrl}}" alt="" style="width:303px;height:209px;"/><!--
                     --><div class="offer-card-info">
-                        <h3 class="title" ng-bind-html="offer.Name"></h3>
+                        <!--<h3 class="title" ng-bind-html="offer.Name"></h3>-->
+                        <a class="link" ng-click="programClick(offer)" ng-href="{{offer.PdfUrl}}" target="_blank"><h3 class="title" ng-bind-html="offer.Name"></h3></a>
                         <p class="description" ng-bind-html="offer.Description | breakFilter"></p>
                         <span class="presentation-link pdf-link"><a ng-click="programClick(offer)" ng-href="{{offer.PdfUrl}}" target="_blank">Описание программы</a><!--???кб--></span>
-                        <button ng-if="!isOfferHaveUrl(offer)" class="button" ng-click="popupForm_Show(offer)">Отправить заявку</button>
+                        <button ng-if="!isOfferHaveUrl(offer)" class="button" ng-click="popupForm_Show(offer)">ОТПРАВИТЬ ЗАЯВКУ</button>
                         <a ng-if="isOfferHaveUrl(offer)" target="_blank" class="button" ng-href="{{offer.Url}}">&nbsp;&nbsp;&nbsp;Забронировать&nbsp;&nbsp;&nbsp;</a>
                     </div>
                 </li>
