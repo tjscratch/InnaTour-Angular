@@ -1,0 +1,137 @@
+.b-tour-form
+  position absolute
+  top 420px
+  left 200px
+
+  &-wrapper
+    background #fff
+    padding 0 19px 21px
+    width 401px
+
+
+  .main-label
+    background #64a1d3
+    font-size 27px
+    font-weight bold
+    color #fff
+    display inline-block
+    line-height 44px
+    padding 0 18px
+
+  .b-search-field
+    border 1px solid #bfbfc1
+    display inline-block
+    height 49px
+    margin 14px 0 4px
+    vertical-align top
+
+    &__long
+      width 399px
+
+    &__half
+      width 189px
+
+    &__class
+      width 119px
+      margin-left 20px
+      margin-right 10px
+
+    &__calendar,
+    &__list
+      position relative
+
+      &:after
+        background url("/spa/img/i.png") no-repeat
+        content ''
+        display block
+        position absolute
+        top 50%;
+        right 9px
+
+    &__list
+      &:after
+        background-position -45px -194px
+        width 11px
+        height 6px
+        margin-top -3px
+
+
+    &__calendar
+      &:after
+        background-position -39px -1830px
+        width 17px
+        height 16px
+        margin-top -8px
+
+
+
+      background-position 0 -171px
+
+
+    &-hor
+      text-align justify
+      font-size 0
+
+      &:after
+        width 100%
+        content: ''
+        display inline-block
+        height 0
+
+    &-value,
+    input
+      box-sizing border-box
+      border 0
+      height 100%
+      width 100%
+      padding 0 10px
+      font-size 14px
+
+
+    &-value
+      line-height 49px
+
+      .description
+        color #868685
+
+      .iata
+        position absolute
+        color #868685
+        right 30px
+
+
+
+
+  .b-search-button
+    background linear-gradient(top, #c1579a, #c15479)
+    display inline-block
+    height 49px
+    width 58px
+    margin-top 14px
+
+    &:after
+      @extend .icon-sprite-search;
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      margin-top: -15px;
+      z-index: 1;
+
+
+
+
+
+
+.dtpk-checkbox
+  border-color #3fa9f5
+  border-radius 0
+
+.dtpk-checkbox-label input:checked + .dtpk-checkbox
+  background-color #3fa9f5
+
+
+.ui-datepicker td a.ui-state-active,
+.ui-datepicker td a.ui-state-hover
+  background-color #3fa9f5

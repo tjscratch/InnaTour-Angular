@@ -14,6 +14,7 @@ angular.module('innaApp.components').
                 data: {
                     isHovered : false,
                     imageSize : 'Small',
+                    Photos : [],
                     photoList: [],
                     photoCollection : [],
                     width: 200,
