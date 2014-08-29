@@ -316,7 +316,7 @@ app.factory('cache',['$cacheFactory', function ($cacheFactory) {
  * На продакштне можно ввести у url ?DEBUG=TRUE
  * все console.log станут активными
  */
-window.console = (function (origConsole) {
+/*window.console = (function (origConsole) {
 
     if (origConsole == undefined || origConsole.error == undefined || origConsole.error.apply == undefined) {
         return;
@@ -370,7 +370,7 @@ window.console = (function (origConsole) {
         }
     };
 
-}(window.console));
+}(window.console));*/
 
 
 (function ($) {
