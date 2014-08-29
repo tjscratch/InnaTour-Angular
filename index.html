@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:ng="https://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl" style="overflow-y:scroll;">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -118,7 +118,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>
 <script id="partners-css-inject" src="spa/js/angular/partners.js"></script>
 
 </head>
-<body class="light-theme" ng-class="{'body-bg':isActive('/avia/') || isActive('/packages/reservation/')}" ng-click="bodyClick()" popup-form>
+<body class="light-theme" ng-class="{'body-bg':isBodyBg()}" ng-click="bodyClick()" popup-form>
 
     <div class="main">
         <!-- HEADER -->
