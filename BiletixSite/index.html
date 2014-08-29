@@ -4,6 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=980">
     <title ng-bind="title">Biletix - Главная</title>
+    <link rel="stylesheet" href="/build/css/common.min.css" />
 
     <style type="text/css">
         body{
@@ -48,5 +49,38 @@
 
         <div id="inna-frame"></div>
     </div>
+
+    <form class="b-tour-form">
+        <span class="main-label">Билет + Отель</span>
+        <div class="b-tour-form-wrapper">
+            <div class="b-search-field b-search-field__long b-search-field__list">
+                <!--<input type="text"/>-->
+                <div class="b-search-field-value">
+                    Москва, <span class="description">Россия</span>
+                    <span class="iata">MOW</span>
+                </div>
+            </div>
+            <div class="b-search-field b-search-field__long b-search-field__list">
+                <input type="text"/>
+            </div>
+            <div class="b-search-field-hor">
+                <div class="b-search-field b-search-field__half b-search-field__calendar">
+                    <input type="text"/>
+                </div>
+                <div class="b-search-field b-search-field__half b-search-field__calendar">
+                    <input type="text"/>
+                </div>
+            </div>
+            <div class="b-search-field-hor">
+                <div class="b-search-field b-search-field__half b-search-field__list">
+                    <input type="text"/>
+                </div>
+                <div class="b-search-field b-search-field__class b-search-field__list">
+                    <input type="text"/>
+                </div>
+                <div class="b-search-button"></div>
+            </div>
+        </div>
+    </form>
 </body>
 </html>
