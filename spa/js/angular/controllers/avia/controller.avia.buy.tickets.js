@@ -657,8 +657,8 @@ innaAppControllers.
                     //    loadTarifs();
                     //    $scope.tarifs.fillInfo($scope.aviaInfo);
                     //}
-                    loadTarifs();
                     $scope.tarifs.fillInfo($scope.aviaInfo);
+                    loadTarifs();
                 }
                 $scope.focusControl.init();
                 $scope.paymentDeadline.setUpdate();
