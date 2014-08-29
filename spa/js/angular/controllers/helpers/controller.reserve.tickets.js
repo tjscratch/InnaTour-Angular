@@ -810,6 +810,7 @@ innaAppControllers.
                 };
 
                 //$scope.fillDefaultModel();
+                $scope.fillStoredModel();
 
                 if ($scope.afterPayModelInit != null)
                     $scope.afterPayModelInit();
@@ -861,6 +862,9 @@ innaAppControllers.
             //оплата
             $scope.processToPayment = function ($event) {
                 eventsHelper.preventBubbling($event);
+
+                //для отладки, если есть параметр debug
+                $scope.saveFilledModel();
 
                 $scope.validationModel.validateAll();
                 $scope.validatePeopleCount();
@@ -1037,51 +1041,77 @@ innaAppControllers.
                 { name: 'ELENA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '12.11.2013', series_and_number: '4507 01853' },
             ];
 
-            $scope.fillDefaultModel = function ($event) {
-                if ($event) {
-                    eventsHelper.preventBubbling($event);
+            function isDebug() {
+                if (location.hash && location.hash.indexOf('debug') > -1) {
+                    return true;
                 }
+                return false;
+            }
 
-                $scope.model.name = 'Иван';
-                $scope.model.secondName = 'Иванов';
-                $scope.model.email = 'ivan.ivanov@gmail.com';
-                $scope.model.phone = '+79101234567';
-                var index = 0;
-                _.each($scope.model.passengers, function (pas) {
+            var reserve_debug_key = 'reserve_debug';
 
-                    if (index < debugPassengersList.length) {
-                        var debugItem = debugPassengersList[index];
-                        index++;
-
-                        pas.name = debugItem.name;
-                        pas.secondName = debugItem.secondName;
-                        pas.sex = debugItem.sex;
-                        pas.birthday = debugItem.birthday;
-                        pas.citizenship.id = 189;
-                        pas.citizenship.name = 'Россия';
-                        pas.doc_series_and_number = debugItem.series_and_number;
-                        pas.doc_expirationDate = '18.07.2015';
-                        pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
-                        pas.bonuscard.airCompany.id = 2;
-                        pas.bonuscard.airCompany.name = 'Aeroflot';
-                        pas.bonuscard.number = '1213473454';
+            $scope.fillStoredModel = function () {
+                if (isDebug()) {
+                    var res = localStorage.getItem(reserve_debug_key);
+                    if (res != null) {
+                        var model = JSON.parse(res);
+                        $scope.model = model;
                     }
-                    else {
-                        pas.name = 'IVAN';
-                        pas.secondName = 'IVANOV';
-                        pas.sex = $scope.sexType.man;
-                        pas.birthday = '18.07.1976';
-                        pas.citizenship.id = 189;
-                        pas.citizenship.name = 'Россия';
-                        pas.doc_series_and_number = '4507 048200';
-                        pas.doc_expirationDate = '18.07.2015';
-                        pas.bonuscard.haveBonusCard = true;
-                        pas.bonuscard.airCompany.id = 2;
-                        pas.bonuscard.airCompany.name = 'Aeroflot';
-                        pas.bonuscard.number = '1213463454';
-                    }
-                });
-            };
+                }
+            }
+
+            $scope.saveFilledModel = function () {
+                if (isDebug()) {
+                    var model = $scope.getModelFromValidationModel($scope.validationModel);
+                    localStorage.setItem(reserve_debug_key, JSON.stringify(model));
+                }
+            }
+
+            //$scope.fillDefaultModel = function ($event) {
+            //    if ($event) {
+            //        eventsHelper.preventBubbling($event);
+            //    }
+
+            //    $scope.model.name = 'Иван';
+            //    $scope.model.secondName = 'Иванов';
+            //    $scope.model.email = 'ivan.ivanov@gmail.com';
+            //    $scope.model.phone = '+79101234567';
+            //    var index = 0;
+            //    _.each($scope.model.passengers, function (pas) {
+
+            //        if (index < debugPassengersList.length) {
+            //            var debugItem = debugPassengersList[index];
+            //            index++;
+
+            //            pas.name = debugItem.name;
+            //            pas.secondName = debugItem.secondName;
+            //            pas.sex = debugItem.sex;
+            //            pas.birthday = debugItem.birthday;
+            //            pas.citizenship.id = 189;
+            //            pas.citizenship.name = 'Россия';
+            //            pas.doc_series_and_number = debugItem.series_and_number;
+            //            pas.doc_expirationDate = '18.07.2015';
+            //            pas.bonuscard.haveBonusCard = (index % 2 == 0 ? true : false);
+            //            pas.bonuscard.airCompany.id = 2;
+            //            pas.bonuscard.airCompany.name = 'Aeroflot';
+            //            pas.bonuscard.number = '1213473454';
+            //        }
+            //        else {
+            //            pas.name = 'IVAN';
+            //            pas.secondName = 'IVANOV';
+            //            pas.sex = $scope.sexType.man;
+            //            pas.birthday = '18.07.1976';
+            //            pas.citizenship.id = 189;
+            //            pas.citizenship.name = 'Россия';
+            //            pas.doc_series_and_number = '4507 048200';
+            //            pas.doc_expirationDate = '18.07.2015';
+            //            pas.bonuscard.haveBonusCard = true;
+            //            pas.bonuscard.airCompany.id = 2;
+            //            pas.bonuscard.airCompany.name = 'Aeroflot';
+            //            pas.bonuscard.number = '1213463454';
+            //        }
+            //    });
+            //};
 
             //заполнение из профиля при логине
             $rootScope.$on(Events.AUTH_SIGN_IN, function (event, data) {
