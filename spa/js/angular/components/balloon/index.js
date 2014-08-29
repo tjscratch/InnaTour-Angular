@@ -60,6 +60,18 @@ innaAppConponents.
                         this.set('reset', false);
                         this.set('reset', true);
                     })
+
+                    this.observe('balloonContentPartial', function (value) {
+                        this.partials.partialUpdate = value;
+                        this.set('reset', false);
+                        this.set('reset', true);
+                    })
+                },
+
+                beforeInit: function(o){
+                    if(o && o.data && o.data.template) {
+                        this.data.balloonContentPartial = $templateCache.get('components/balloon/templ/' + o.data.template);
+                    }
                 },
 
 

@@ -668,6 +668,7 @@ angular.module('innaApp.directives')
                     }
 
                     scope.$watchCollection('[hotels, airports]', function (data) {
+                        console.log(data, 'data');
                         updateMap({
                             hotels: data[0],
                             airports: data[1]
@@ -680,6 +681,7 @@ angular.module('innaApp.directives')
                      * Переход с карточки отеля
                      */
                     scope.$on(Events.DYNAMIC_SERP_TOGGLE_MAP_SINGLE, function (evt, data) {
+                        console.log(data, 'single data');
                         if (data) {
                             showOneHotel((data.toJSON) ? data.toJSON() : data);
                         }
