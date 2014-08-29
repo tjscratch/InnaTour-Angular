@@ -34,6 +34,7 @@
     function widgetCode() {
         document.getElementsByTagName('html')[0].style.overflowY = 'hidden';
 
+        var lastHeight = 0;
         function sendHeight() {
             //var body = document.body;
             //var html = document.documentElement;
@@ -43,8 +44,11 @@
             //console.log('inna doc height', height);
             //console.log('inna body height', bodyHeight);
 
-            var msg = JSON.stringify({ 'height': height });
-            window.parent.postMessage(msg, '*');
+            if (height != lastHeight) {
+                lastHeight = height;
+                var msg = JSON.stringify({ 'height': height });
+                window.parent.postMessage(msg, '*');
+            }
         }
 
         //ToDo: поменять интервал на событие

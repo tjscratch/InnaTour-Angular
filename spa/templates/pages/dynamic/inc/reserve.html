@@ -9,7 +9,7 @@
 </header>
 
 <p class="buy__price-descr" ng-show="item != null && hotel != null">В цену включен ПЕРЕЛЕТ {{item.CityFrom}} –
-    {{item.CityTo}} – {{item.CityFrom}} и отель {{hotel.HotelName}}
+    {{item.CityTo}} – {{item.CityFrom}} и ОТЕЛЬ {{hotel.HotelName}}
     с {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMM', true)}}
     по {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMM', true)}}, {{hotel.NightCount}}
     {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}. Цена окончательная со
