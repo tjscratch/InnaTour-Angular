@@ -1,8 +1,8 @@
-﻿var inna = {
+﻿var innaModule = {
     searchFrom: {
         init: function () {
             setTimeout(function () {
-                inna.searchFrom.init_internal();
+                innaModule.searchFrom.init_internal();
             }, 0);
             
         },
