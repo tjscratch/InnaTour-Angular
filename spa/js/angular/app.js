@@ -92,7 +92,6 @@ app.config([
     '$httpProvider',
     'innaApp.Urls',
     '$sceProvider',
-
     function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider, $filter) {
 
         function dynamic(){
