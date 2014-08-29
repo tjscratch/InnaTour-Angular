@@ -68,8 +68,12 @@
                     AjaxHelper.post({
                         url: apiUrls.PACKAGE_RESERVATION,
                         data: qData,
-                        success: successCallback,
-                        error: errCallback
+                        success: function (data) {
+                            successCallback(data);
+                        },
+                        error: function (data, status) {
+                            errCallback(data, status);
+                        }
                     });
                 },
 
