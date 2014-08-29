@@ -4,6 +4,7 @@
 
 innaAppControllers.
     controller('RootCtrl', [
+        'EventManager',
         '$log',
         '$scope',
         '$location',
@@ -11,8 +12,15 @@ innaAppControllers.
         'eventsHelper',
         'urlHelper',
         'innaApp.Urls',
+        'innaApp.API.events',
         'aviaHelper',
-        function ($log, $scope, $location, dataService, eventsHelper, urlHelper, appUrls, aviaHelper) {
+        function (EventManager, $log, $scope, $location, dataService, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
+
+            $scope.$on('$routeChangeStart', function (next, current) {
+                EventManager.fire(Events.AJAX__RESET);
+            });
+
+
 
             // TODO : HELL
             $scope.baloon = aviaHelper.baloon;
