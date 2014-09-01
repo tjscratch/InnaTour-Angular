@@ -34,7 +34,12 @@
 
         return {
             replace: true,
-            template: $templateCache.get('components/date_picker_widget.html'),
+            template: function (el, attr) {
+                if (attr.templ) {
+                    return $templateCache.get(attr.templ);
+                }
+                return $templateCache.get('components/date_picker_widget.html');
+            },
             scope: {
                 date1: '=',
                 date2: '=',

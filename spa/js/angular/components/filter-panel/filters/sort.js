@@ -33,7 +33,7 @@ angular.module('innaApp.components').
                             byArrivalDate: 'ArrivalDate',
                             byBackArrivalDate: 'BackArrivalDate',
                             byPackagePrice: 'PackagePrice',
-                            byRecommendedFactor: '-RecommendedFactor',
+                            byRecommendedFactor: 'RecommendedFactor',
                             byTaFactor: '-TaFactor',
                             byName: 'HotelName',
                             byProfit: '-getProfit'

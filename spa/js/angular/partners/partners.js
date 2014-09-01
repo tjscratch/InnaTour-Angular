@@ -1,11 +1,29 @@
 (function (d, w) {
-    var partnersMap = [{
+    window.partners = {};
+    var self = window.partners;
+
+    self.partnersMap = [{
         'name': 'biletix',
         'src': '/biletix/biletix.base.css'
     }, {
         'name': 'somepartner',
         'src': '/somepartner/somepartner.base.css'
     }];
+
+    self.isUsingPartners = function () {
+        return self.getPartner() != null;
+    }
+    self.getPartner = function() {
+        var host = location.hostname;
+        for (var i = 0; i < self.partnersMap.length; i++) {
+            var partner = self.partnersMap[i];
+
+            if (host.indexOf(partner.name) > -1) {
+                return self.partnersMap[i];
+            }
+        }
+        return null;
+    }
 
     function insertCss(src) {
         var link = d.createElement("link");
@@ -18,17 +36,6 @@
 
     function insertAfter(newNode, referenceNode) {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-    }
-
-    var host = location.hostname;
-    for (var i = 0; i < partnersMap.length; i++) {
-        var partner = partnersMap[i];
-
-        if (host.indexOf(partner.name) > -1) {
-            widgetCode();
-            insertCss(partner.src);
-            return;
-        }
     }
 
     function widgetCode() {
@@ -55,6 +62,12 @@
         setInterval(function () {
             sendHeight();
         }, 500);
+    }
+
+    var partner = self.getPartner();
+    if (partner != null) {
+        widgetCode();
+        insertCss(partner.src);
     }
 
 }(document, window));

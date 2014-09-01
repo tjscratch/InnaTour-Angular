@@ -1048,7 +1048,10 @@ innaAppControllers.
                 //Авиа. В детализации рекомендованного варианта пропала ссылка для копирования
                 var shareLink = new ShareLink({
                     el: $('.js-share-component'),
-                    data: { right: true }
+                    data: {
+                        right: true,
+                        location : window.location
+                    }
                 })
             }
 
@@ -1094,7 +1097,10 @@ innaAppControllers.
 
                         var shareLink = new ShareLink({
                             el: $('.js-share-component'),
-                            data: { right: true }
+                            data: {
+                                right: true,
+                                location : window.location
+                            }
                         })
                     },
                     goToPaymentClick: function (event, item) {

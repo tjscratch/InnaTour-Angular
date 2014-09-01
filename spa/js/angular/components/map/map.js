@@ -180,23 +180,20 @@ angular.module('innaApp.directives')
                     }
 
                     function initCarousel() {
-                        var photoList = scope.currentHotel.Photos;
-
-                        if (!HotelGalleryComponent) {
-
-                            HotelGalleryComponent = new HotelGallery({
-                                el: boxPhoto.querySelector('.js-b-carousel'),
-                                template: $templateCache.get('components/gallery/templ/gallery.map.hbs.html'),
-                                data: {
-                                    map: true,
-                                    photoList: photoList,
-                                    width: 360,
-                                    height: 240
-                                }
-                            })
-                        } else {
-                            HotelGalleryComponent.set({photoList: photoList})
+                        if (HotelGalleryComponent) {
+                            HotelGalleryComponent.teardown();
+                            HotelGalleryComponent = null;
                         }
+                        HotelGalleryComponent = new HotelGallery({
+                            el: boxPhoto.querySelector('.js-b-carousel'),
+                            template: $templateCache.get('components/gallery/templ/gallery.map.hbs.html'),
+                            data: {
+                                map: true,
+                                photoList: scope.currentHotel.Photos,
+                                width: 360,
+                                height: 240
+                            }
+                        });
                     }
 
                     function setActiveMarker(data_marker) {
@@ -209,7 +206,7 @@ angular.module('innaApp.directives')
                             activeMarkerHover = data.activeMarker;
                             if (data.infoBoxPreview) data.activeMarker.infoBoxPreview = true;
                         }
-                        else if(!data.hover && !data.air) {
+                        else if (!data.hover && !data.air) {
                             activeMarker = data.activeMarker;
                             if (data.infoBoxVisible) data.activeMarker.infoBoxVisible = true;
 
@@ -226,14 +223,14 @@ angular.module('innaApp.directives')
                                 var ticketBackId = scope.combination.ticket.data.VariantId2;
 
 
-                                var urlDetails = '/#'+Urls.URL_DYNAMIC_HOTEL_DETAILS + [
+                                var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                                     routParam.DepartureId,
                                     routParam.ArrivalId,
                                     routParam.StartVoyageDate,
                                     routParam.EndVoyageDate,
                                     routParam.TicketClass,
-                                    routParam.Adult || 0,
-                                    routParam.Children || 0,
+                                        routParam.Adult || 0,
+                                        routParam.Children || 0,
                                     data.activeMarker.$inna__hotel.HotelId,
                                     ticketId,
                                     ticketBackId,
@@ -341,7 +338,8 @@ angular.module('innaApp.directives')
                                 boxInfoHover.setVisible(false);
                             }
                             if (!boxInfo) {
-                                boxInfo = new InfoBox(dataInfoBox);
+                                dataInfoBox.pixelOffset = new google.maps.Size(10, -20),
+                                    boxInfo = new InfoBox(dataInfoBox);
                                 boxInfo.open(map);
                                 boxInfo.setZIndex(3000);
                                 reDraw(boxInfo);
@@ -724,7 +722,7 @@ angular.module('innaApp.directives')
                             _tripadvisor = null;
                         }
                         if (HotelGalleryComponent) {
-                            HotelGalleryComponent.teardown()
+                            HotelGalleryComponent.teardown();
                             HotelGalleryComponent = null;
                         }
 

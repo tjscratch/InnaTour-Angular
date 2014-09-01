@@ -23,6 +23,7 @@ angular.module('innaApp.directives')
                         });
                     });
 
+                    $scope.isHeadVisible = true;
                     $scope.isHeaderVisible = true;
 
 
@@ -37,6 +38,12 @@ angular.module('innaApp.directives')
                      $scope.isHeaderVisible = true;
                      });
                      });*/
+
+                    EventManager.on(Events.HEAD_HIDDEN, function () {
+                        $scope.safeApply(function () {
+                            $scope.isHeadVisible = false;
+                        });
+                    });
 
                     EventManager.on(Events.HEADER_HIDDEN, function () {
                         $scope.safeApply(function () {
