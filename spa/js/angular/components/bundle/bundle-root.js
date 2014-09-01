@@ -82,7 +82,7 @@ angular.module('innaApp.directives')
                          * Выставляем активный таб
                          * подефолту активный таб - hotel
                          */
-                        if ($location.search().displayTicket) {
+                        if ($location.search().displayTicket || $location.search().display == 'tickets') {
                             setActiveTab('ticket');
                             $scope.displayTicket = true;
                         }
@@ -103,10 +103,14 @@ angular.module('innaApp.directives')
                         function setActiveTab(data) {
                             $scope.tabActive = data;
                             if (data == 'ticket') {
+                                $location.search('display', 'tickets');
                                 $scope.stateTicket = true;
                                 $scope.stateHotel = false;
                             }
                             if (data == 'hotel') {
+                                delete $location.$$search.display;
+                                $location.$$compose();
+
                                 $scope.stateTicket = false;
                                 $scope.stateHotel = true;
                             }

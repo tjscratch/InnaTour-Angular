@@ -47,7 +47,7 @@ angular.module('innaApp.directives')
                         }
 
                         //debugger;
-                        /*console.log(ticket);
+                         /*console.log(ticket);
                          var popupItemInfo = new aviaHelper.popupItemInfo();
                          popupItemInfo.addAggFields(ticket.data);*/
 
@@ -78,7 +78,8 @@ angular.module('innaApp.directives')
                             new ShareLink({
                                 el: $element.find('.js-share-component'),
                                 data: {
-                                    right: true
+                                    right: true,
+                                    location : window.location
                                 }
                             })
                         }, 0)

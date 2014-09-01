@@ -16,10 +16,17 @@ var isWin = /^win/.test(process.platform);
 console.log(isWin);
 console.info('----------------------------');
 
-// Полная сборка проект
-// Сборка в production запускается в окружении - production
-// NODE_ENV=production gulp build-project
-// После сборки проект копируется в папку PUBLISH
+
+
+/**
+ * Полная сборка проект
+ * Сборка в production запускается в окружении - production
+ * NODE_ENV=production gulp build-project
+ * После сборки проект копируется в папку PUBLISH
+ *
+ * Посмотреть основную сборку ( конкатенацию файлов )
+ * можно в файле node_tasks/concat.js
+ */
 gulp.task('build-project', function (callback) {
     runSequence(
         'remove-publish',
@@ -41,6 +48,5 @@ gulp.task('default', function (callback) {
         ['styles', 'less', 'build-templates', 'concat-lib', 'concat-comp-page-regions'],
         'build-angular-parts',
         'watch',
-        'watch-angular-parts',
         callback);
 });

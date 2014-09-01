@@ -117,7 +117,8 @@ angular.module('innaApp.API', [])
             MAP_CLOSE : 'map:close',
 
             HEADER_VISIBLE : 'region-header:show',
-            HEADER_HIDDEN : 'region-header:hide',
+            HEADER_HIDDEN: 'region-header:hide',
+            HEAD_HIDDEN: 'region-head:hide',
 
             FOOTER_VISIBLE : 'region-footer:show',
             FOOTER_HIDDEN : 'region-footer:hide',

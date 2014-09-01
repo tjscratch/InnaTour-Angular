@@ -19,9 +19,12 @@ innaAppConponents.
                     var that = this;
                     this._input = this.find('.b-tooltip-share__input');
 
+                    /*this.on('change', function(data){
+
+                    });*/
+
                     this.observe('isVisible', function (newValue, oldValue) {
                         if (newValue) {
-                            this.set({location: document.location});
                             $(this._input).select();
                         }
                     }, {defer: true});

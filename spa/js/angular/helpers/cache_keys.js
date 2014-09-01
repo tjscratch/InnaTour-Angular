@@ -1,5 +1,5 @@
 ﻿
-cacheKeys = {
+var cacheKeys = {
     getDirectoryByUrl: function (term) {
         return 'getDirectoryByUrl:' + term;
     },
