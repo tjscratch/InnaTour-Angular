@@ -10,7 +10,7 @@ if(!_.isFunction(String.prototype.startsWith)) {
     }
 }
 
-StringHelper = {
+var StringHelper = {
     splitToTwoColumns: function (text) {
         if (text != null) {
             var len = text.length;

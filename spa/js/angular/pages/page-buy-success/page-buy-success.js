@@ -2,6 +2,7 @@
  * Страница успешной покупки пакета
  *
  * use dateHelper
+ *
  */
 innaAppControllers.
     controller('PageBuySuccess', [

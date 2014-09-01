@@ -47,7 +47,7 @@ angular.module('innaApp.directives')
                         }
 
                         //debugger;
-                        /*console.log(ticket);
+                         /*console.log(ticket);
                          var popupItemInfo = new aviaHelper.popupItemInfo();
                          popupItemInfo.addAggFields(ticket.data);*/
 

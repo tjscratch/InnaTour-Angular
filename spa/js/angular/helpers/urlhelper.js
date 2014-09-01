@@ -1,5 +1,5 @@
 ﻿
-QueryString = {
+var QueryString = {
     getByName: function (name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
