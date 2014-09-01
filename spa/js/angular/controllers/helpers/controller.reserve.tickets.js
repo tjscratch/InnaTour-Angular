@@ -30,12 +30,13 @@ innaAppControllers.
             $scope.hotelRules = new $scope.helper.hotelRules();
 
             $scope.loadTarifs = function (variantTo, varianBack, aviaInfo) {
+                $scope.tarifs.fillInfo(aviaInfo);
+
                 paymentService.getTarifs({ variantTo: variantTo, varianBack: varianBack },
                     function (data) {
                         //console.log('\npaymentService.getTarifs, data:');
                         //console.log(data);
-                        $scope.tarifs.tarifsData = data;
-                        $scope.tarifs.fillInfo(aviaInfo);
+                        //$scope.tarifs.tarifsData = data;
                     },
                     function (data, status) {
                         log('paymentService.getTarifs error');
