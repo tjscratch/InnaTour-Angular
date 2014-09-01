@@ -78,7 +78,8 @@ angular.module('innaApp.directives')
                             new ShareLink({
                                 el: $element.find('.js-share-component'),
                                 data: {
-                                    right: true
+                                    right: true,
+                                    location : window.location
                                 }
                             })
                         }, 0)

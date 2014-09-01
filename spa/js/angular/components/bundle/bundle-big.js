@@ -20,6 +20,7 @@ angular.module('innaApp.directives')
                 'aviaHelper',
                 '$location',
                 '$element',
+                '$timeout',
                 'innaApp.API.events',
                 '$routeParams',
 
@@ -28,7 +29,7 @@ angular.module('innaApp.directives')
                 'Tripadvisor',
                 'Stars',
                 'PriceGeneric',
-                function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams, ShareLink, Tripadvisor, Stars, PriceGeneric) {
+                function (EventManager, $scope, aviaHelper, $location, $element, $timeout, Events, $routeParams, ShareLink, Tripadvisor, Stars, PriceGeneric) {
 
                     //console.profile('Draw');
 
@@ -71,7 +72,10 @@ angular.module('innaApp.directives')
                     }
 
                     var _shareLink = new ShareLink({
-                        el: $element.find('.js-share-component')
+                        el: $element.find('.js-share-component'),
+                        data : {
+                            location : document.location
+                        }
                     });
 
                     /*console.log('bundle');
@@ -133,6 +137,13 @@ angular.module('innaApp.directives')
 
                     $scope.$watchCollection('bundle', function(value){
                         _priceGeneric.set('virtualBundle', value);
+                    });
+
+                    $scope.$watchCollection('stateTicket', function(value){
+                        $timeout(function(){
+                            _shareLink.set('location', window.location);
+                        }, 0)
+
                     });
 
                     //destroy

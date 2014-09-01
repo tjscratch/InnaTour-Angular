@@ -16,7 +16,9 @@ angular.module('innaApp.controllers')
                 template: $templateCache.get('pages/page-help/templ/page-help-toggle.hbs.html'),
                 data : {
                     visible : false,
-                    openIf: null
+                    openIf: null,
+                    location : window.location,
+                    right : true
                 },
                 components : {
                   share : ShareLink
