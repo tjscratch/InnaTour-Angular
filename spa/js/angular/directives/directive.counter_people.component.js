@@ -1,6 +1,11 @@
 innaAppDirectives.directive('counterPeople', ['$templateCache', function($templateCache){
     return {
-        template: $templateCache.get('components/counter_people.html'),
+        template: function (el, attr) {
+            if (attr.templ) {
+                return $templateCache.get(attr.templ);
+            }
+            return $templateCache.get('components/counter_people.html');
+        },
         scope: {
             adultCount: '=',
             childrenCount: '=',

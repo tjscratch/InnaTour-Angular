@@ -1,6 +1,11 @@
 innaAppDirectives.directive('tripPreferences', ['$templateCache', function($templateCache){
     return {
-        template: $templateCache.get('components/trip_preferences.html'),
+        template: function (el, attr) {
+            if (attr.templ) {
+                return $templateCache.get(attr.templ);
+            }
+            return $templateCache.get('components/trip_preferences.html');
+        },
         replace: true,
         scope: {
             showBackTripOptions: '@',

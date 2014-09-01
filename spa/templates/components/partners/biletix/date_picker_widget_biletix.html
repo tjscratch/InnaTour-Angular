@@ -1,0 +1,35 @@
+<ng:any>
+    <div class="b-search-field-hor">
+        <div class="b-search-field b-search-field__half b-search-field__calendar" ng-click="toggleFrom($event)"
+             data-title="Выберите дату отправления туда">
+            <input type="text" ng-value="long(date1)" class="search-date search-date-arr" placeholder="Туда"
+                   style="visibility: hidden;" />
+            <div class="search-date-block__date" ng-class="{'search-date-block__date_display_placeholder': !date1}">{{date1 ? long(date1) : 'Туда'}}</div>
+        </div>
+        <div class="b-search-field b-search-field__half b-search-field__calendar pull-right" ng-click="toggleTo($event)" data-title="Выберите дату отправления обратно">
+            <input type="text" ng-value="long(date2)" class="search-date search-date-arr" placeholder="Обратно"
+                   style="visibility: hidden;" />
+            <div class="search-date-block__date" ng-class="{'search-date-block__date_display_placeholder': !date2}">{{date2 ? long(date2) : 'Обратно'}}</div>
+        </div>
+    </div>
+    <div class="js-datepicker datepicker-body" ng-show="isOpen">
+        <div class="dp-head-cont">
+            <div class="dtpk-head js-dp-head" style="margin: 0; padding: 0px 16px 10px 15px;">
+                <span class="dtpk-caption" ng-if="isFromSelecting">ТУДА</span>
+                <span class="dtpk-caption" ng-if="!isFromSelecting">ОБРАТНО</span>
+                <label class="dtpk-checkbox-label" ng-if="addButtons && isFromSelecting">
+                    <input type="checkbox" ng-model="data.isToRoamingSelected" ng-change="roamingChanged('to')" />
+                    <span class="dtpk-checkbox"></span>+/- 3 дня
+                </label>
+                <label class="dtpk-checkbox-label" ng-if="addButtons && !isFromSelecting">
+                    <input type="checkbox" ng-model="data.isBackRoamingSelected" ng-change="roamingChanged('back')" />
+                    <span class="dtpk-checkbox"></span>+/- 3 дня
+                </label>
+                <label class="dtpk-checkbox-label" ng-if="addButtons">
+                    <input type="checkbox" ng-model="data.isOneWaySelected" ng-change="oneWayChanged()" />
+                    <span class="dtpk-checkbox"></span>В одну сторону
+                </label>
+            </div>
+        </div>
+    </div>
+</ng:any>
