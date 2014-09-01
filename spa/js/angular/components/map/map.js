@@ -180,7 +180,11 @@ angular.module('innaApp.directives')
                     }
 
                     function initCarousel() {
-                        (new HotelGallery({
+                        if (HotelGalleryComponent) {
+                            HotelGalleryComponent.teardown();
+                            HotelGalleryComponent = null;
+                        }
+                        HotelGalleryComponent = new HotelGallery({
                             el: boxPhoto.querySelector('.js-b-carousel'),
                             template: $templateCache.get('components/gallery/templ/gallery.map.hbs.html'),
                             data: {
@@ -189,7 +193,7 @@ angular.module('innaApp.directives')
                                 width: 360,
                                 height: 240
                             }
-                        }));
+                        });
                     }
 
                     function setActiveMarker(data_marker) {
@@ -334,7 +338,8 @@ angular.module('innaApp.directives')
                                 boxInfoHover.setVisible(false);
                             }
                             if (!boxInfo) {
-                                boxInfo = new InfoBox(dataInfoBox);
+                                dataInfoBox.pixelOffset = new google.maps.Size(10, -20),
+                                    boxInfo = new InfoBox(dataInfoBox);
                                 boxInfo.open(map);
                                 boxInfo.setZIndex(3000);
                                 reDraw(boxInfo);
@@ -715,6 +720,10 @@ angular.module('innaApp.directives')
                         if (_tripadvisor) {
                             _tripadvisor.teardown();
                             _tripadvisor = null;
+                        }
+                        if (HotelGalleryComponent) {
+                            HotelGalleryComponent.teardown();
+                            HotelGalleryComponent = null;
                         }
 
                         GM.event.addListener(map);
