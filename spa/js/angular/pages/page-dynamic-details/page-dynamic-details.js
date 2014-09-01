@@ -196,6 +196,8 @@ innaAppControllers
                             content: "Вероятно, комнаты в нем уже распроданы.",
                             callbackClose: function () {
                                 $scope.$apply(function ($scope) {
+                                    delete $location.$$search.displayHotel;
+                                    $location.$$compose();
                                     $location.path(goToSearchDynamic());
                                 });
                             }
