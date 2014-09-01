@@ -22,7 +22,7 @@ innaAppControllers.
         'Balloon',
         'NeedVisa',
         function ($scope, $rootScope, $templateCache, $routeParams, $filter, $timeout, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon, NeedVisa) {
-            document.body.classList.add('lighten-theme');
+            //document.body.classList.add('lighten-theme');
 
             $scope.hotelToShowDetails = null;
 

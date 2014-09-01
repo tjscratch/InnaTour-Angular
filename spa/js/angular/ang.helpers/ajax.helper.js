@@ -1,13 +1,27 @@
 angular.module('innaApp.services')
     .factory('AjaxHelper', [
+        'EventManager',
         '$templateCache',
         'ErrorManager',
-        function ($templateCache, ErrorManager) {
+        'innaApp.API.events',
+        function (EventManager, $templateCache, ErrorManager, Events) {
             var that = this;
             var ajax = {};
+            var ajaxCollection = [];
             var cache = {};
 
             //this._errorManager = new ErrorManager();
+
+            /**
+             * Сбрасываем все ajax запросы
+             */
+            EventManager.on(Events.AJAX__RESET, function(){
+                ajaxCollection.forEach(function(ajax){
+                    ajax.abort();
+                });
+
+                ajaxCollection = [];
+            });
 
 
             function doAjax(options) {
@@ -72,6 +86,9 @@ angular.module('innaApp.services')
                         }
                     }
                 });
+
+                ajaxCollection.push(async);
+                //console.log(ajaxCollection, 'ajaxCollection');
 
                 return async;
             }
@@ -182,6 +199,7 @@ angular.module('innaApp.services')
 
                 return req;
             };
+
 
             return ajax;
         }

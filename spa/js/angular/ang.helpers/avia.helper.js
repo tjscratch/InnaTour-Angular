@@ -779,13 +779,21 @@
                         if($event) eventsHelper.preventBubbling($event);
                         self.setected = item;
                         var index = self.list.indexOf(item);
-                        self.tarifItem = self.tarifsData[index];
+                        if (self.tarifsData != null && self.tarifsData.length > 0) {
+                            self.tarifItem = self.tarifsData[index];
+                        }
                     }
                     self.show = function ($event) {
                         if($event) eventsHelper.preventBubbling($event);
                         self.selectedIndex = 0;
                         self.setected = self.list[0];
-                        self.tarifItem = self.tarifsData[0];
+                        if (self.tarifsData != null && self.tarifsData.length > 0) {
+                            
+                            self.tarifItem = self.tarifsData[0];
+                        }
+                        else {
+                            self.tarifItem = null;
+                        }
                         self.isOpened = true;
 
                         //ToDo: потом отрефакторить и не потерять эту логику

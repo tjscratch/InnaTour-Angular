@@ -19,7 +19,12 @@ gulp.task('copy-project', function () {
     gulp.src(['./Web.config']).pipe(gulp.dest(conf.publish + build + '/js'));
 
 
-    gulp.src([conf.dest + '/**', '!' + conf.dest + '/browser.html']).pipe(gulp.dest(conf.publish + '/spa'));
+    gulp.src([
+            '!' + conf.dest + '/browser.html',
+            '!' + conf.dest + '/html/**',
+            '!' + conf.dest + '/html2/**',
+            conf.dest + '/**'])
+        .pipe(gulp.dest(conf.publish + '/spa'));
 
     //gulp.src([conf.publish + '/browser.html']).pipe(gulp.dest(conf.publish + '/spa'));
 

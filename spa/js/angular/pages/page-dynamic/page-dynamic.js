@@ -106,13 +106,9 @@ innaAppControllers
                     // прямая ссылка на карту
                     this.setAsMap(($location.$$search.map) ? 1 : 0);
 
-                    $scope.goMap = function () {
-                        $scope.$emit('toggle:view:hotels:map');
-                    }
-
                     // переход с карты на список по кнопке НАЗАД в браузере
                     // работает тольео в одну сторону - назад
-                    $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
+                    this.backFromMap = $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
                         that.setAsMap(($location.search().map) ? 1 : 0);
                     });
 
@@ -140,7 +136,7 @@ innaAppControllers
                         $scope.safeApply(function () {
                             that.setAsMap((that.getAsMap()) ? 0 : 1);
                             that.locatioAsMap();
-                            $scope.hotelsForMap = data
+                            $scope.hotelsForMap = data;
 
                             if (single_hotel) {
                                 setTimeout(function () {
@@ -303,6 +299,10 @@ innaAppControllers
                         .getHotelsByCombination(param, routeParams, function (data) {
                             that.set('loadHotelsData', data);
 
+                            if(data && data.Hotels) {
+                                $scope.hotelsForMap = data.Hotels;
+                            }
+
                             that._balloonLoad.dispose();
 
                             $scope.safeApply(function () {
@@ -381,7 +381,6 @@ innaAppControllers
                     if (!data || !data.RecommendedPair) {
                         return this.combination404();
                     }
-                    ;
 
 
                     //аналитика
@@ -560,6 +559,7 @@ innaAppControllers
 
 
             $scope.$on('$destroy', function () {
+                PageDynamic.backFromMap();
                 EventManager.off(Events.DYNAMIC_SERP_BACK_TO_MAP);
                 EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                 EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);

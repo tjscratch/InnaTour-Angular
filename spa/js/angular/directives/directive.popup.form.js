@@ -64,12 +64,7 @@ innaAppDirectives.directive('popupForm', [
                     $scope.request.name = "";
                     $scope.request.phone = "";
                     $scope.request.email = "";
-                    $scope.request.comments = "\
-                            Откуда: (Город вылета)\n\
-                            Куда: (Страна, курорт или отель)\n\
-                            Кто едет: (Сколько взрослых и детей, возраст детей)\n\
-                            Дата вылета и продолжительность:\n\
-                            Примерный бюджет: (руб.)";
+                    $scope.request.comments = "Откуда: (Город вылета)\nКуда: (Страна, курорт или отель)\nКто едет: (Сколько взрослых и детей, возраст детей)\nДата вылета и продолжительность:\nПримерный бюджет: (руб.)";
                     $scope.request.isSubscribe = true;
                     $scope.request.isValid = true;
                     $scope.isOpened = true;

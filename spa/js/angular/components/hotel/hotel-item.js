@@ -123,7 +123,6 @@ angular.module('innaApp.components').
                         if((hotelId != that.get('hotel.HotelId')) && that.get('hidden')){
                             that.set('hidden', false);
                         }
-
                     });
                 },
 

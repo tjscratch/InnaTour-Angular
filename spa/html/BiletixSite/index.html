@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=980">
+    <title ng-bind="title">Biletix - Главная</title>
+
+    <!-- build:app-stylus -->
+    <link rel="stylesheet" href="/build/css/common.min.css" />
+    <!-- endbuild -->
+
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .main {
+            width: 1023px;
+            margin: 0 auto;
+        }
+        .pic-cont {
+            width: 100%;
+            text-align: center;
+        }
+        .inna-script {
+            position: absolute;
+            top: 200px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            /*width: 1200px;*/
+            /*margin: 0 auto;*/
+        }
+    </style>
+
+</head>
+<body>
+	<div class="main">
+        <img src="main.png" />
+    </div>
+    <div class="pic-cont">
+        <img src="photo.jpg" />
+    </div>
+
+    <!--<iframe src="http://lh.inna.ru"></iframe>-->
+    
+    <div class="inna-script">
+        <script type="text/javascript" src="http://lh.inna.ru/spa/js/angular/partners/module.js"></script>
+        <script type="text/javascript">
+            innaModule.searchFrom.init();
+        </script>
+
+        <div id="inna-frame"></div>
+    </div>
+
+    <form class="b-tour-form">
+        <span class="main-label">Билет + Отель</span>
+        <div class="b-tour-form-wrapper">
+            <div class="b-search-field b-search-field__long b-search-field__list">
+                <!--<input type="text"/>-->
+                <div class="b-search-field-value">
+                    Москва, <span class="description">Россия</span>
+                    <span class="iata">MOW</span>
+                </div>
+            </div>
+            <div class="b-search-field b-search-field__long b-search-field__list">
+                <input type="text"/>
+            </div>
+            <div class="b-search-field-hor">
+                <div class="b-search-field b-search-field__half b-search-field__calendar">
+                    <input type="text"/>
+                </div>
+                <div class="b-search-field b-search-field__half b-search-field__calendar">
+                    <input type="text"/>
+                </div>
+            </div>
+            <div class="b-search-field-hor">
+                <div class="b-search-field b-search-field__half b-search-field__list">
+                    <input type="text"/>
+                </div>
+                <div class="b-search-field b-search-field__class b-search-field__list">
+                    <input type="text"/>
+                </div>
+                <div class="b-search-button"></div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

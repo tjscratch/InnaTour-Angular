@@ -1,5 +1,7 @@
 innaAppServices.factory('DynamicPackagesDataProvider', [
-    'innaApp.API.const', '$timeout', 'AjaxHelper',
+    'innaApp.API.const',
+    '$timeout',
+    'AjaxHelper',
     function (api, $timeout, AjaxHelper) {
         return {
             getFromListByTerm: function (term, callback) {

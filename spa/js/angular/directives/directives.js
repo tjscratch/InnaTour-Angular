@@ -294,18 +294,23 @@ innaAppDirectives.directive('appSlider', ['$timeout', function ($timeout) {
                         $banners.each(function (i, banner) {
                             var $banner = $(banner);
                             var $img = $banner.find('.img');
-                            var naturalWidth = $img[0].naturalWidth;
-                            var naturalHeight = $img[0].naturalHeight;
+                            if ($img && $img.length > 0) {
+                                var naturalWidth = $img[0].naturalWidth;
+                                var naturalHeight = $img[0].naturalHeight;
 
-                            var scaleH = w / naturalWidth;
-                            var scaleV = h / naturalHeight;
-                            var scale = scaleH > scaleV ? scaleH : scaleV;
+                                var scaleH = w / naturalWidth;
+                                var scaleV = h / naturalHeight;
+                                var scale = scaleH > scaleV ? scaleH : scaleV;
 
-                            $img.css({
-                                width: scale * naturalWidth,
-                                height: scale * naturalHeight
-                            });
+                                
+                            }
 
+                            if ($img) {
+                                $img.css({
+                                    width: scale * naturalWidth,
+                                    height: scale * naturalHeight
+                                });
+                            }
                         })
                     }
 

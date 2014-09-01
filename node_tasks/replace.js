@@ -55,6 +55,16 @@ gulp.task('replace-browser', function () {
 });
 
 
+gulp.task('replace-HTML', function () {
+    return gulp.src([
+            conf.dest + '/html/**/*.html',
+            conf.dest + '/html2/**/*.html'
+    ])
+        .pipe(htmlreplace(getConfReplace()))
+        .pipe(gulp.dest(conf.publish + '/spa/html'));
+});
+
+
 // Копируем в папку publish/tours
 gulp.task('release-tours', function () {
     return gulp.src('./tours/index.html')
@@ -63,4 +73,4 @@ gulp.task('release-tours', function () {
 });
 
 
-gulp.task('html-replace', ['replace-index', 'release-tours', 'replace-browser']);
+gulp.task('html-replace', ['replace-index', 'release-tours', 'replace-browser', 'replace-HTML']);

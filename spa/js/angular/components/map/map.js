@@ -13,11 +13,12 @@ angular.module('innaApp.directives')
         'innaApp.API.events',
         '$routeParams',
         '$location',
+        'innaApp.Urls',
 
         // components
         'Tripadvisor',
         'HotelGallery',
-        function (EventManager, $templateCache, Events, $routeParams, $location, Tripadvisor, HotelGallery) {
+        function (EventManager, $templateCache, Events, $routeParams, $location, Urls, Tripadvisor, HotelGallery) {
 
             return {
                 template: $templateCache.get('components/map/templ/index.html'),
@@ -169,9 +170,11 @@ angular.module('innaApp.directives')
                     scope.setHotel = function (currentHotel) {
                         if (scope.chosenHotelActive) {
                             scope.chosenHotelActive.setIcon(iconDefault);
+                            scope.chosenHotelActive.setZIndex(0);
                         }
                         scope.chosenHotelActive = scope.chosenHotel;
                         scope.chosenHotelActive.setIcon(iconClick);
+                        scope.chosenHotelActive.setZIndex(3000);
 
                         EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, scope.hotels.search(currentHotel.HotelId));
                     }
@@ -199,13 +202,14 @@ angular.module('innaApp.directives')
                     function setActiveMarker(data_marker) {
                         var data = data_marker.marker;
 
+                        //console.log(data);
                         // создаем свойство в объекте маркера
                         // различаем маркеры на которых был click или hover
                         if (data.hover) {
                             activeMarkerHover = data.activeMarker;
                             if (data.infoBoxPreview) data.activeMarker.infoBoxPreview = true;
                         }
-                        else {
+                        else if(!data.hover && !data.air) {
                             activeMarker = data.activeMarker;
                             if (data.infoBoxVisible) data.activeMarker.infoBoxVisible = true;
 
@@ -222,14 +226,14 @@ angular.module('innaApp.directives')
                                 var ticketBackId = scope.combination.ticket.data.VariantId2;
 
 
-                                var urlDetails = '/#/packages/details/' + [
+                                var urlDetails = '/#'+Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                                     routParam.DepartureId,
                                     routParam.ArrivalId,
                                     routParam.StartVoyageDate,
                                     routParam.EndVoyageDate,
                                     routParam.TicketClass,
-                                        routParam.Adult || 0,
-                                        routParam.Children || 0,
+                                    routParam.Adult || 0,
+                                    routParam.Children || 0,
                                     data.activeMarker.$inna__hotel.HotelId,
                                     ticketId,
                                     ticketBackId,
@@ -245,15 +249,16 @@ angular.module('innaApp.directives')
                             _tripadvisor = null;
                         }
 
-
-                        _tripadvisor = new Tripadvisor({
-                            el: $(data_marker.elem).find('.js-tripadvisor-container'),
-                            data: {
-                                TaCommentCount: data.activeMarker.$inna__hotel.TaCommentCount,
-                                TaFactor: data.activeMarker.$inna__hotel.TaFactor,
-                                TaFactorCeiled: data.activeMarker.$inna__hotel.TaFactorCeiled
-                            }
-                        });
+                        if (data.activeMarker.$inna__hotel && data.activeMarker.$inna__hotel.TaCommentCount) {
+                            _tripadvisor = new Tripadvisor({
+                                el: $(data_marker.elem).find('.js-tripadvisor-container'),
+                                data: {
+                                    TaCommentCount: data.activeMarker.$inna__hotel.TaCommentCount,
+                                    TaFactor: data.activeMarker.$inna__hotel.TaFactor,
+                                    TaFactorCeiled: data.activeMarker.$inna__hotel.TaFactorCeiled
+                                }
+                            });
+                        }
 
                     }
 
@@ -375,6 +380,7 @@ angular.module('innaApp.directives')
                             position: position,
                             animation: GM.Animation.DROP,
                             icon: image,
+                            //map: map,
                             shape: shape,
                             title: (data.HotelName) ? data.HotelName : ''
                         });
@@ -420,6 +426,8 @@ angular.module('innaApp.directives')
                             ]
                         });
 
+                        //console.log(_markerCluster.getTotalMarkers(), _markerCluster.getTotalClusters());
+
                         zoomMapDefault = map.getZoom();
                         /*GM.event.addListener(_markerCluster, 'mouseover', function (c) {
                          })
@@ -428,6 +436,7 @@ angular.module('innaApp.directives')
 
                          })*/
                     }
+
 
                     /**
                      * События маркера на карте
@@ -597,12 +606,13 @@ angular.module('innaApp.directives')
                         });
                     }
 
-                    function setDefaultActiveMarker(){
-                        markers.forEach(function(marker){
-                            if(scope.combination.hotel.data.HotelId == marker._idHotel){
+                    function setDefaultActiveMarker() {
+                        markers.forEach(function (marker) {
+                            if (scope.combination.hotel.data.HotelId == marker._idHotel) {
                                 scope.chosenHotel = marker;
                                 scope.chosenHotelActive = marker;
                                 scope.chosenHotelActive.setIcon(iconClick);
+                                scope.chosenHotelActive.setZIndex(3000);
                             }
                         })
                     }
@@ -615,6 +625,7 @@ angular.module('innaApp.directives')
 
                         var tempArrHotels = null;
                         var rawHotels = null;
+
                         var hotels = (data.hotels) ? data.hotels : data;
                         var airports = (data.airports) ? data.airports : [];
 
@@ -662,19 +673,10 @@ angular.module('innaApp.directives')
                         addCluster();
                     }
 
-                    scope.$watchCollection('[hotels, airports]', function (data) {
-                        updateMap({
-                            hotels: data[0],
-                            airports: data[1]
-                        })
-
-                        map.fitBounds(_bounds);
-                    });
-
                     /**
                      * Переход с карточки отеля
                      */
-                    scope.$on(Events.DYNAMIC_SERP_TOGGLE_MAP_SINGLE, function (evt, data) {
+                    var offMapSingle = scope.$on(Events.DYNAMIC_SERP_TOGGLE_MAP_SINGLE, function (evt, data) {
                         if (data) {
                             showOneHotel((data.toJSON) ? data.toJSON() : data);
                         }
@@ -693,19 +695,29 @@ angular.module('innaApp.directives')
                      *
                      * тоже самое можно сделать на angular через emit - broadcast
                      */
-                    scope.$watchCollection('hotelsForMap', function (newValue, oldValue) {
+                    var stopWatchHotels = scope.$watchCollection('hotelsForMap', function (newValue, oldValue) {
                         if (newValue != undefined && newValue.length) {
-                            updateMap({hotels: newValue});
+                            updateMap({
+                                hotels: newValue,
+                                airports: scope.airports
+                            });
+                            map.fitBounds(_bounds);
                         }
                     });
 
 
                     //destroy
                     scope.$on('$destroy', function () {
+                        //stopWatchHotelsAir();
+                        stopWatchHotels();
+                        offMapSingle();
+
                         EventManager.off(Events.LIST_PANEL_FILTES_HOTELS_DONE, updateMap);
                         EventManager.off(Events.LIST_PANEL_FILTES_RESET_DONE, updateMap);
                         EventManager.off(Events.DYNAMIC_SERP_TOGGLE_MAP, updateMap);
                         EventManager.off(Events.DYNAMIC_SERP_GO_TO_MAP, showOneHotel);
+
+                        removeMarkers();
 
                         if (_tripadvisor) {
                             _tripadvisor.teardown();
