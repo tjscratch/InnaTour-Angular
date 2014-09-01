@@ -19,14 +19,14 @@ angular.module('innaApp.directives')
                     $scope.isFooterVisible = true;
 
                     EventManager.on(Events.FOOTER_VISIBLE, function () {
-                        $scope.safeApply(function () {
+                        $scope.$root.safeApply(function () {
                             $scope.isFooterVisible = true;
                         });
                     });
 
 
                     EventManager.on(Events.FOOTER_HIDDEN, function () {
-                        $scope.safeApply(function () {
+                        $scope.$root.safeApply(function () {
                             $scope.isFooterVisible = false;
                         });
                     });
