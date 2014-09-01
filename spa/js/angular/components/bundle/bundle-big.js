@@ -135,8 +135,15 @@ angular.module('innaApp.directives')
                         EventManager.fire(Events.DYNAMIC_SERP_MORE_DETAIL_HOTEL, hotel, isBuyAction);
                     };
 
+                    // update components
                     $scope.$watchCollection('bundle', function(value){
                         _priceGeneric.set('virtualBundle', value);
+                        _tripadvisor.set({
+                            TaCommentCount: $scope.bundle.hotel.data.TaCommentCount,
+                            TaFactor: $scope.bundle.hotel.data.TaFactor,
+                            TaFactorCeiled: $scope.bundle.hotel.data.TaFactorCeiled
+                        });
+                        _stars.set('stars', $scope.bundle.hotel.data.Stars);
                     });
 
                     $scope.$watchCollection('stateTicket', function(value){
