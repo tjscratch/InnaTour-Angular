@@ -50,7 +50,8 @@
                                     {{ (_nextEtap = ticket.getNextEtap(dir, etap)) ? '' : '' }}
                                     <div class="rlf-part rlf-part_transfer"
                                          ng-if="etap && _nextEtap">
-                                        <ng:include src="'components/ticket-details-leg.inc.html'"></ng:include>
+                                        <ng:include
+                                                src="'components/ticket/templ/ticket-details-leg.html'"></ng:include>
                                     </div>
                                 </div>
                             </div>

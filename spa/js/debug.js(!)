@@ -21,6 +21,8 @@ function countWatchers() {
     return watchers;
 }
 
-setInterval(function(){
-    console.info('Count of watchers is %s now', countWatchers());
-}, 2000);
+if(window.FrontedDebug){
+	setInterval(function(){
+	    console.info('Count of watchers is %s now', countWatchers());
+	}, 2000);
+}
