@@ -124,14 +124,45 @@
             font-size: 14px;
             line-height: 24px;
         }
+
+        .d-table {
+            display: table;
+        }
+
+        .d-table-cell {
+            display: table-cell;
+        }
+
+        .d-table-cell_left {
+            text-align: left;
+        }
+
+        .d-table-cell_right {
+            text-align: right;
+        }
+
+        /*.b-logo {
+            width: '';
+            height: '';
+            background: url(@Model.LogoBase64) no-repeat 663px 123px;
+        }*/
     </style>
 </head>
 <body>
 <div class="p-wrapper">
     <div class="section section_with_logo">
-        <p class="title_size_l">Заказ <span class="title">A09231Q</span>
-            <span class="title__desc">Приложение №1 к Договору</span>
-        </p>
+        <div class="d-table">
+            <div class="d-table-cell d-table-cell_left">
+                <p class="title_size_l">Заказ <span class="title">A09231Q</span>
+                    <span class="title__desc">Приложение №1 к Договору</span>
+                </p>
+            </div>
+            <div class="d-table-cell d-table-cell_right">
+                <div class="b-logo">
+
+                </div>
+            </div>
+        </div>
     </div>
     <div class="section">
         <div class="columns">
