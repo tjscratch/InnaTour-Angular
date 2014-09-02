@@ -12,7 +12,7 @@
 
   &__section {
     margin 0 0 35px
-    position : relative;
+    position: relative;
 
     &_layout_context {
       overflow hidden
@@ -119,75 +119,81 @@
     white-space nowrap
     position relative
     left 8px
-    line-height : 1.7em;
+    line-height: 1.7em;
   }
 }
-
 
 .hotel-details-extra {
   font-size 0
   margin-top 10px
 
   &__item {
+    background-position 7px center
+    background-repeat no-repeat
+    border-radius 4px
     display inline-block
     margin-right 7px
     margin-bottom 4px
-    background-color #e6e7e9
+    /*background-color #e6e7e9*/
     color #4d4d4d
     font-size 12px
-    border-radius 4px
     padding 8px 10px 7px 30px
-    background-position 7px center
-    background-repeat no-repeat
+    position relative
 
-    &_type {
-      &_internet {
-        background-image url(/spa/img/hotels-extra/internet.png)
-      }
-
-      &_kitchen {
-        background-image url(/spa/img/hotels-extra/kitchen.png)
-        padding-left 35px
-      }
-
-      &_parking {
-        background-image url(/spa/img/hotels-extra/parking.png)
-      }
-
-      &_swimmingpool {
-        background-image url(/spa/img/hotels-extra/pool.png)
-      }
-
-      &_barrestaurant {
-        background-image url(/spa/img/hotels-extra/lobby.png)
-      }
-
-      &_breakfast,
-      &_meal {
-        background-image url(/spa/img/hotels-extra/food.png)
-      }
-
-      &_fitness {
-        background-image url(/spa/img/hotels-extra/fitness.png)
-      }
-
-      &_forpeoplewithdisabilities {
-        background-image url(/spa/img/hotels-extra/insured.png)
-      }
-
-      &_servicesforchildren {
-        background-image url(/spa/img/hotels-extra/kids.png)
-      }
-
-      &_transfer {
-        background-image url(/spa/img/hotels-extra/bus.png)
-        padding-left 36px
-      }
-
-      &_other {
-        display none
-      }
+    .icon-type-extra {
+      position absolute
+      top 50%
+      transform translateY(-50%)
+      left 7px
     }
+
+    .icon-type-extra-internet {
+      @extend .icon-sprite-extra-internet;
+    }
+
+    .icon-type-extra-kitchen {
+      @extend .icon-sprite-extra-kitchen;
+      padding-left 35px
+    }
+
+    .icon-type-extra-parking {
+      @extend .icon-sprite-extra-parking;
+    }
+
+    .icon-type-extra-swimmingpool {
+      @extend .icon-sprite-extra-pool;
+    }
+
+    .icon-type-extra-barrestaurant {
+      @extend .icon-sprite-extra-lobby;
+    }
+
+    .icon-type-extra-breakfast,
+    .icon-type-extra-meal {
+        @extend .icon-sprite-extra-food;
+    }
+
+    .icon-type-extra-fitness {
+      @extend .icon-sprite-extra-fitness;
+    }
+
+    .icon-type-extra-forpeoplewithdisabilities {
+      @extend .icon-sprite-extra-insured;
+    }
+
+    .icon-type-extra-servicesforchildren {
+      @extend .icon-sprite-extra-kids;
+    }
+
+    .icon-type-extra-transfer {
+      @extend .icon-sprite-extra-bus;
+      padding-left 36px
+    }
+
+    .icon-type-extra-other {
+      display none
+    }
+
   }
 }
 

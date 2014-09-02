@@ -1,18 +1,43 @@
-.button
-    text-shadow 0 0 transparent
-    -webkit-font-smoothing antialiased
-    padding 6px 16px
-    display inline-block
-    position relative
-    overflow hidden
+.button {
+  border-radius 3px
+  text-shadow 0 0 transparent
+  //-webkit-font-smoothing antialiased
+  padding 6px 16px
+  display inline-block
+  position relative
+  overflow hidden
 
-    input
-        position absolute
-        display block
-        left 0
-        top 0
-        width 300px
-        height 300px
-        cursor pointer
-        border 0
-        opacity 0
+  &:hover {
+    text-decoration none
+  }
+
+  input {
+    position absolute
+    display block
+    left 0
+    top 0
+    width 300px
+    height 300px
+    cursor pointer
+    border 0
+    opacity 0
+  }
+}
+
+.button_inline {
+  display inline-block
+  padding 8px 38px
+  line-height 1
+  font-size 18px
+  font-weight bold
+}
+
+.button_small {
+  padding 7px 30px
+  font-size 14px
+  font-weight bold
+  border-top 1px solid #bddd90
+  display inline-block
+  margin 0 2px 0 0
+  line-height 1
+}

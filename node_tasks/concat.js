@@ -18,6 +18,7 @@ gulp.task('build-concat', [
             conf.build + '/js/app-lib.js',
 
             conf.angular + '/app.js',
+            conf.build + '/js/templates.js',
             conf.build + '/js/angular-parts.js',
 
             conf.build + '/js/components.js',
@@ -140,7 +141,6 @@ gulp.task('build-angular-parts', [
             conf.angular + '/mediator.js',
 
             conf.build + '/js/angular-ang.helpers.js',
-            conf.build + '/js/templates.js',
             conf.build + '/js/angular-services.js',
             conf.build + '/js/angular-controllers.js',
             conf.build + '/js/angular-directives.js',
