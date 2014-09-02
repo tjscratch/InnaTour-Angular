@@ -2,7 +2,7 @@
 master = production
 develop = default
 feature = feature/
-release = release/
+release = release_2.0/
 hotfix = hotfix/
 support = support/
 
