@@ -1188,8 +1188,10 @@ innaAppControllers.
 
             $scope.$on('$destroy', function () {
                 $(window).off('scroll', onWindowScroll);
-                $scope._priceGeneric.teardown();
-                $scope._priceGeneric = null;
+                if ($scope._priceGeneric) {
+                    $scope._priceGeneric.teardown();
+                    $scope._priceGeneric = null;
+                }
                 $scope.ractiveControl = null;
 
             });

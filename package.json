@@ -49,7 +49,6 @@
   "analyze": false,
   "license": "Commercial",
   "devDependencies": {
-    "gulp-rimraf": "^0.1.0",
-    "gulp-spritesmith": "0.0.2"
+    "gulp-rimraf": "^0.1.0"
   }
 }

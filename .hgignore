@@ -52,6 +52,8 @@ spa/html/verstka_Vaneltin/img/individual/.DS_Store
 
 spa/uploads/maket_photos/Thumbs.db
 
+*-stub.json
+
 spa/js/debug.js
 spa/*.sh
 
