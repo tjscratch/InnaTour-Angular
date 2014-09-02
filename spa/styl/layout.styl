@@ -1,48 +1,12 @@
-html {
-
-}
-
-body {
-	font-family ProximaNova, Arial, sans-serif
-}
-
-.clearfix:before,
-.clearfix:after {
-	content: '';
-	display : block;
-	clear : both;
-}
-
-.clearfix:after {
-	clear: both;
-}
-
-.bg_white
-	background #fff
-
-html
-body
-	width 100%
-	height 100%
-	padding 0
-	margin 0
-
-
-input
-textarea
-	outline none
-
-// Common styles
-.clearfix
-	clearfix()
-
 body {
   -webkit-font-smoothing: subpixel-antialiased !important;
   -webkit-backface-visibility: hidden;
-  -moz-backface-visibility:    hidden;
-  -ms-backface-visibility:     hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
   font-smoothing: subpixel-antialiased !important;
-  background-size : 100%;
+  background-size: 100%;
+
+  font-family: ProximaNova, Arial, sans-serif;
 
   &.scrollVisible {
     overflow-y: visible;
@@ -59,31 +23,45 @@ body {
   //padding 0 $site-padding
 
   .wrpr {
-    padding-bottom : 300px;
+    padding-bottom: 300px;
 
     &.reserve {
-        padding-bottom : 280px;    
+      padding-bottom: 280px;
     }
   }
 }
 
 .layout {
-	padding: $padding_over_search 0 0;
-	position: relative;
-	z-index: 1;
+  padding: $padding_over_search 0 0;
+  position: relative;
+  z-index: 1;
 
-	&-light {
-		position: relative;
-		z-index: 1;
-		padding: $padding-layout-light 0 0;
-	}
+  &-light {
+    position: relative;
+    z-index: 1;
+    padding: $padding-layout-light 0 0;
+  }
 }
 
 .center-container {
-	margin: 0 auto;
-	width: $site-width;
+  margin: 0 auto;
+  width: $site-width;
 }
 
+.bg_white {
+  background #fff
+}
+
+.clearfix {
+  clearfix()
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
 
 .light-theme {
   background-color: #bdbec3;
@@ -94,14 +72,15 @@ body {
 }
 
 .cursor-pointer {
-  cursor : pointer;
+  cursor: pointer;
 }
 
 .align-right {
-  text-align : right;
+  text-align: right;
 }
+
 .align-left {
-  text-align : left;
+  text-align: left;
 }
 
 .nowrap {
@@ -109,95 +88,58 @@ body {
 }
 
 .b-rub
-	display inline-block
-	padding-left 0.2em
-	font-family 'Rouble'
-	line-height normal
-	font-weight normal
-  line-height .8em
+  display inline-block
+  padding-left 0.2em
+  font-family 'Rouble'
+  line-height normal
+  font-weight normal
+    line-height .8em
 
 .pull-right
-	float right
+  float right
 
 .pull-left
-	float left
+  float left
 
 .main__center {
   margin 0 auto
   width $site-width
 }
 
-
-// Form
-.button
-	position relative
-	border-radius 3px
-	overflow hidden
-
-	&:hover
-		text-decoration none
-
-	input
-		position absolute
-		display block
-		left 0
-		top 0
-		width 300px
-		height 300px
-		cursor pointer
-		border 0
-		opacity 0
-
-.button_inline
-	display inline-block
-	padding 8px 38px
-	line-height 1
-	font-size 18px
-	font-weight bold
-
-.button_small
-	padding 7px 30px
-	font-size 14px
-	font-weight bold
-	border-top 1px solid #bddd90
-	display inline-block
-	margin 0 2px 0 0
-	line-height 1
-
-
 .b-display-table
-	display : table;
-	border-collapse : collapse;
+  display: table;
+  border-collapse: collapse;
 
 .b-display-cell
-	display : table-cell;
-	vertical-align : top;
-
+  display: table-cell;
+  vertical-align: top;
 
 .b-display-inline {
-	display : inline-block;
-	vertical-align : top;
+  display: inline-block;
+  vertical-align: top;
 }
+
 .b-display-block {
-	display : block;
+  display: block;
 }
 
 .color-white {
-	color:#fff;
+  color: #fff;
 }
+
 .color-black {
-	color:#000;
+  color: #000;
 }
 
 .bg-white {
-	background-color : #fff;
+  background-color: #fff;
 }
 
 .bg-black {
-	background-color : #000;
+  background-color: #000;
 }
 
 .like-link {
-  cursor : pointer;
-  color:#1e88c1;
+  cursor: pointer;
+  color: #1e88c1;
 }
