@@ -1,8 +1,8 @@
 [branchname]
-master = production
+master = release_2.0
 develop = default
 feature = feature/
-release = release_2.0/
+release = release/
 hotfix = hotfix/
 support = support/
 
