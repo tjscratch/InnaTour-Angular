@@ -18,8 +18,8 @@ gulp.task('build-concat', [
             conf.build + '/js/app-lib.js',
 
             conf.angular + '/app.js',
-            conf.build + '/js/templates.js',
             conf.build + '/js/angular-parts.js',
+            conf.build + '/js/templates.js',
 
             conf.build + '/js/components.js',
             conf.build + '/js/regions.js',
