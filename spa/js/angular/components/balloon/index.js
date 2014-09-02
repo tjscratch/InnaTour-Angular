@@ -68,6 +68,12 @@ innaAppConponents.
                         this.set('reset', false);
                         this.set('reset', true);
                     })
+
+                    this.observe('isVisible', function (value) {
+                        if(value){
+                            console.log('balloon isVisible');
+                        }
+                    })
                 },
 
                 beforeInit: function(o){
