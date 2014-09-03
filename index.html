@@ -2,7 +2,7 @@
 <html xmlns:ng="https://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl" style="overflow-y:scroll;">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta name='yandex-verification' content='558cdff273336354' />
+    <meta name='yandex-verification' content='40fd92efcc007a47'/>
     <!--<meta name="viewport" content="initial-scale=1, user-scalable=yes">-->
     <meta name="viewport" content="width=980">
     <title ng-bind="title">Инна-Тур - Главная</title>
@@ -23,26 +23,28 @@
     </script>
     <![endif]-->
 
-    
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
+
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css"/>
 
     <!-- build:app-less -->
-    <link rel="stylesheet" href="/build/css/main.less.css" />
+    <link rel="stylesheet" href="/build/css/main.less.css"/>
     <!-- endbuild -->
 
     <!-- build:app-stylus -->
-    <link rel="stylesheet" href="/build/css/common.min.css" />
+    <link rel="stylesheet" href="/build/css/common.min.css"/>
     <!-- endbuild -->
 
     <!--[if lt IE 9]>
-        <link rel="stylesheet" href="/build/css/ie.min.css" />
+    <link rel="stylesheet" href="/build/css/ie.min.css"/>
     <![endif]-->
 
     <!--[if lt IE 10]>
-        <style type="text/css">
-            .spinner * {display: none;}
-        </style>
+    <style type="text/css">
+        .spinner * {
+            display: none;
+        }
+    </style>
     <![endif]-->
 
 
@@ -54,11 +56,11 @@
     <script>
         var old = ifBrowser();
 
-        if(old.bName) {
+        if (old.bName) {
             var oldV = old.bNameV.split('.');
             if (oldV[0] == 'ie' && oldV[1] <= 8) {
                 location.href = '/spa/browser.html'
-            } else if(oldV[0] == 'ie' && oldV[1] <= 9) {
+            } else if (oldV[0] == 'ie' && oldV[1] <= 9) {
                 var style = document.createElement('style');
                 style.innerHTML = '.spinner .rect{display:none !important;} .spinner .gif{display:inline;width:60px;height:60px;}';
                 document.getElementsByTagName('head')[0].appendChild(style);
@@ -67,193 +69,225 @@
         }
     </script>
 
-<style type="text/css">
-    .no-select {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-    .ui-tooltip { background-color: #de0000; z-index: 10; }
-    .ui-tooltip:before { border-color: transparent transparent #de0000 transparent; }
-    .b-wrapp_type_inline .search-date, .b-wrapp_type_inline .search-field { height: 48px; }
-	.datepickerMonths, .datepickerYears{display:none;}
-	.datepickerNotInMonth{height:1px;}
-	.datepickerNotInMonth *{display:none !important;}
-	.calendar{vertical-align:top;}
-	.calendar-0 .datepickerGoNext *, .calendar-1 .datepickerGoPrev *{display:none;}
-	.datepicker-body {left: -18%;top: 48px;}
-    .dp-head-cont {
-        border-top: 1px solid #c0c0c2;
-        background-color: #fff;
-        margin: 0px 0px -1px 0;
-        padding: 10px 0px 0 0;
-        -webkit-box-shadow: 0 5px 10px rgba(50,50,50,.25);
-        box-shadow: 0 5px 10px rgba(50,50,50,.25);
-    }
-</style>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-32173758-1', 'inna.ru');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
 
-  ga('create', 'UA-32173758-1', 'inna.ru');
-  ga('require', 'displayfeatures');
-  ga('send', 'pageview');
-
-</script>
+    </script>
 
 
-<!-- start Mixpanel -->
-<script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
-mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>
-<!-- end Mixpanel -->
+    <!-- start Mixpanel -->
+    <script type="text/javascript">(function (e, b) {
+        if (!b.__SV) {
+            var a, f, i, g;
+            window.mixpanel = b;
+            b._i = [];
+            b.init = function (a, e, d) {
+                function f(b, h) {
+                    var a = h.split(".");
+                    2 == a.length && (b = b[a[0]], h = a[1]);
+                    b[h] = function () {
+                        b.push([h].concat(Array.prototype.slice.call(arguments, 0)))
+                    }
+                }
 
-<!-- Подключение стилей партнеров -->
-<script id="partners-css-inject" src="spa/js/angular/partners/partners.js"></script>
+                var c = b;
+                "undefined" !== typeof d ? c = b[d] = [] : d = "mixpanel";
+                c.people = c.people || [];
+                c.toString = function (b) {
+                    var a = "mixpanel";
+                    "mixpanel" !== d && (a += "." + d);
+                    b || (a += " (stub)");
+                    return a
+                };
+                c.people.toString = function () {
+                    return c.toString(1) + ".people (stub)"
+                };
+                i = "disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+                for (g = 0; g < i.length; g++)f(c, i[g]);
+                b._i.push([a, e, d])
+            };
+            b.__SV = 1.2;
+            a = e.createElement("script");
+            a.type = "text/javascript";
+            a.async = !0;
+            a.src = ("https:" === e.location.protocol ? "https:" : "http:") + '//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';
+            f = e.getElementsByTagName("script")[0];
+            f.parentNode.insertBefore(a, f)
+        }
+    })(document, window.mixpanel || []);
+    mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>
+    <!-- end Mixpanel -->
+
+    <!-- Подключение стилей партнеров -->
+    <script id="partners-css-inject" src="spa/js/angular/partners/partners.js"></script>
 
 </head>
 <body class="light-theme" ng-class="{'body-bg':isBodyBg()}" ng-click="bodyClick()" popup-form>
 
-    <div class="main">
-        <!-- HEADER -->
+<div class="main">
+    <!-- HEADER -->
 
-        <div class="header Header" ng-controller="RegionHeader"> <!--ng-if="isHeadVisible"-->
-            <div class="header-info">
-                <div class="header-info-container row">
+    <div class="header Header" ng-controller="RegionHeader"> <!--ng-if="isHeadVisible"-->
+        <div class="header-info">
+            <div class="header-info-container row">
 
-                    <div class="col-xs-6 col-no-padding">
-                        <a href="/" class="header-info-logo">
-                            <i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
-                            <i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i>
-                        </a>
-                        <span class="header-text"></span>
-                    </div>
-                    <div class="col-xs-6 header-info-container-right col-no-padding">
-                        <ul class="header-info-menu" style="margin-right:0px;">
-                            <li class="header-info-menu-item" ng-switch="!!user.raw.AgencyName">
-                                <a href="http://www.inna.ru/catalog/guide/" style="color: white;" ng-switch-when="false">Агентствам</a>
-                                <a href="http://www.inna.ru/booking/tour/search/" style="color: white;" ng-switch-default>Агентствам</a>
-                            </li>
-                            <li class="header-info-menu-item">
-                                <a href="/#/about/">О компании</a>
-                            </li>
-                            <li class="header-info-menu-item">
-                                <a href="/#/help/">Помощь</a>
-                            </li>
-                            <!-- user comes from $rootScope -->
-                            <li class="header-info-menu-item" ng-if="user.isAgency()">{{user.raw.SupportPhone}}</li>
-                            <li class="header-info-menu-item" ng-if="!user.isAgency()">+7&nbsp;495 742-1212</li>
-                        </ul>
-                    </div>
+                <div class="col-xs-6 col-no-padding">
+                    <a href="/" class="header-info-logo">
+                        <i class="icon icon-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
+                        <i class="icon icon-logo-inna name" alt="ИННА ТУР" title="ИННА ТУР"></i>
+                    </a>
+                    <span class="header-text"></span>
                 </div>
-            </div>
-
-            <div class="header-menu ng-hide" ng-show="isHeaderVisible">
-                <div class="main__center">
-                    <div class="header__container">
-                        <ul class="header__nav">
-                            <li><a href="/#{{urls.URL_ROOT}}"
-                                   ng-class="{active:isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">Перелет&nbsp;+&nbsp;Отель</a>
-                            </li>
-                            <li><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
-                            <li><a href="/#{{urls.URL_TOURS}}" ng-class="{active:isActive(urls.URL_TOURS)}">Туры</a></li>
-                            <li><a href="/#/individualtours/" ng-class="{active:isActive('/individualtours/')}">Программы</a>
-                            </li>
-                            <!--<li><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru"
-                                   target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li>-->
-                            <li><a href="/catalog/guide/" ng-class="{active:isActive('/guide/')}">Каталог стран</a></li>
-                        </ul>
-
-                        <ng:include src="'auth/header.html'"></ng:include>
-                    </div>
-
-                    <ng:include src="getHeadForm()"></ng:include>
+                <div class="col-xs-6 header-info-container-right col-no-padding">
+                    <ul class="header-info-menu">
+                        <li class="header-info-menu-item" ng-switch="!!user.raw.AgencyName">
+                            <a href="http://www.inna.ru/catalog/guide/" style="color: white;" ng-switch-default>Агентствам</a>
+                            <!--<a href="http://www.inna.ru/booking/tour/search/" style="color: white;" ng-switch-default>Агентствам</a>-->
+                        </li>
+                        <li class="header-info-menu-item">
+                            <a href="/#/about/">О компании</a>
+                        </li>
+                        <li class="header-info-menu-item">
+                            <a href="/#/help/">Помощь</a>
+                        </li>
+                        <!-- user comes from $rootScope -->
+                        <li class="header-info-menu-item" ng-if="user.isAgency()" ng-cloak>{{user.raw.SupportPhone}}
+                        </li>
+                        <li class="header-info-menu-item" ng-if="!user.isAgency()">+7&nbsp;495 742-1212</li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <!-- \\ HEADER -->
 
-        <div class="button fixed-request-button ng-hide" ng-click="popupForm_Show()"
-             ng-show="!isActive('/individualtours/category/')
+        <div class="header-menu" ng-if="isHeaderVisible">
+            <div class="main__center">
+                <div class="header__container">
+                    <ul class="header__nav">
+                        <li>
+                            <a href="/#{{urls.URL_ROOT}}"
+                               ng-class="{active:isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">Перелет&nbsp;+&nbsp;Отель</a>
+                        </li>
+                        <li><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
+                        <li><a href="/#{{urls.URL_TOURS}}" ng-class="{active:isActive(urls.URL_TOURS)}">Туры</a></li>
+                        <li><a href="/#/individualtours/"
+                               ng-class="{active:isActive('/individualtours/')}">Программы</a>
+                        </li>
+                        <!--<li><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru"
+                               target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li>-->
+                        <li><a href="/catalog/guide/" ng-class="{active:isActive('/guide/')}">Каталог стран</a></li>
+                    </ul>
+
+                    <ng:include src="'auth/header.html'"></ng:include>
+                </div>
+
+                <ng:include src="getHeadForm()"></ng:include>
+            </div>
+        </div>
+    </div>
+    <!-- \\ HEADER -->
+
+    <div class="button fixed-request-button ng-hide" ng-click="popupForm_Show()"
+         ng-show="!isActive('/individualtours/category/')
              && !isActive('/packages/')
              && !isActive('/packages/search/')
              && !isActive('/avia/')
              && !isActive('/avia/search/')
              && !isActive('/')
              && !isActive('/display-order/')"
-             title="Отправить заявку"></div>
+         title="Отправить заявку"></div>
 
-        <!-- PAGE CONTENT -->
-        <div class="wrpr" ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/')}">
-            <ng:view></ng:view>
-        </div>
-
+    <!-- PAGE CONTENT -->
+    <div class="wrpr" ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/')}">
+        <ng:view></ng:view>
     </div>
 
-    <!-- FOOTER -->
-    <div class="footer" ng-controller="RegionFooter"> <!--ng-if="isFooterVisible"-->
-        <div class="footer-content main__center">
-            <div class="footer-menu">
-                <ul class="footer-menu-links-list">
-                    <li class="footer-menu-links-list-item"><a href="/#/about/">О компании</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/corporate/">Корпоративным клиентам</a></li>
-                    <li class="footer-menu-links-list-item"><a href="/#/contacts/">Контакты</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/agency/">Агентствам</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/catalog/guide/">Каталог стран</a></li>
-                    <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/client/abc/">Полезная информация</a></li>
+</div>
+
+<!-- FOOTER -->
+<div class="footer" ng-controller="RegionFooter"> <!--ng-if="isFooterVisible"-->
+    <div class="footer-content main__center">
+        <div class="footer-menu">
+            <ul class="footer-menu-links-list">
+                <li class="footer-menu-links-list-item"><a href="/#/about/">О компании</a></li>
+                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/corporate/">Корпоративным
+                    клиентам</a></li>
+                <li class="footer-menu-links-list-item"><a href="/#/contacts/">Контакты</a></li>
+                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/agency/">Агентствам</a></li>
+                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/catalog/guide/">Каталог стран</a>
+                </li>
+                <li class="footer-menu-links-list-item"><a href="http://www.inna.ru/client/abc/">Полезная информация</a>
+                </li>
+            </ul>
+            <div class="footer-menu-info">
+                <ul class="social-list">
+                    <li class="social-list-item">
+                        <a href="https://vk.com/innatour_official" target="_blank"><i
+                                class="icon icon-vkontakte"></i></a>
+                    </li>
+                    <li class="social-list-item">
+                        <a href="http://odnoklassniki.ru/innatour" target="_blank"><i
+                                class="icon icon-odnoklassniki"></i></a>
+                    </li>
+                    <li class="social-list-item">
+                        <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i
+                                class="icon icon-facebook"></i></a>
+                    </li>
+                    <li class="social-list-item">
+                        <a href="https://twitter.com/inna_tour" target="_blank"><i class="icon icon-twitter"></i></a>
+                    </li>
+                    <li class="social-list-item">
+                        <a href="http://www.pinterest.com/innatour/" target="_blank"><i class="icon icon-pinterest"></i></a>
+                    </li>
+                    <li class="social-list-item">
+                        <a href="http://www.youtube.com/user/InnaTourMos/featured" target="_blank"><i
+                                class="icon icon-youtube"></i></a>
+                    </li>
                 </ul>
-                <div class="footer-menu-info">
-                    <ul class="social-list">
-                        <li class="social-list-item">
-                            <a href="https://vk.com/innatour_official" target="_blank"><i class="icon icon-vkontakte"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://odnoklassniki.ru/innatour" target="_blank"><i class="icon icon-odnoklassniki"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i class="icon icon-facebook"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="https://twitter.com/inna_tour" target="_blank"><i class="icon icon-twitter"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://www.pinterest.com/innatour/" target="_blank"><i class="icon icon-pinterest"></i></a>
-                        </li>
-                        <li class="social-list-item">
-                            <a href="http://www.youtube.com/user/InnaTourMos/featured" target="_blank"><i class="icon icon-youtube"></i></a>
-                        </li>
-                    </ul>
-                    <p class="phone-info">многоканальный телефон</p>
-                    <p class="phone">+7&nbsp;495 742-1212</p>
-                </div>
-            </div>
-            <div class="footer-copyright">
-                <p class="info info-left">ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс туристических услуг.
-                    Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию, Камбоджу,
-                    Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
-                </p>
-                <p class="info pull-right">
-                    &copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.<br>
-                    <span class="licence">Реестр туроператоров <a href="http://reestr.russiatourism.ru/?ac=view&id_reestr=8893" target="_blank">МТ3 008557</a></span>
-                </p>
-            </div>
-            <div class="footer-tripadvisor">
-                Теперь с отзывами об отелях от <span class="icon-sprite-tripadvisor-white"></span>
+                <p class="phone-info">многоканальный телефон</p>
+
+                <p class="phone">+7&nbsp;495 742-1212</p>
             </div>
         </div>
+        <div class="footer-copyright">
+            <p class="info info-left">ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс
+                туристических услуг.
+                Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию, Камбоджу,
+                Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
+            </p>
+
+            <p class="info pull-right">
+                &copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.<br>
+                <span class="licence">Реестр туроператоров <a
+                        href="http://reestr.russiatourism.ru/?ac=view&id_reestr=8893" target="_blank">МТ3
+                    008557</a></span>
+            </p>
+        </div>
+        <div class="footer-tripadvisor">
+            Теперь с отзывами об отелях от <span class="icon-sprite-tripadvisor-white"></span>
+        </div>
     </div>
-    <!-- \\ FOOTER --
+</div>
+<!-- \\ FOOTER --
 
 <ng:include src="'popup/mainform.html'"></ng:include>
 
 <!-- Baloon -->
-<div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type" close-fn="baloon.closeFn" data="baloon.data"></div>
+<div baloon is-show="baloon.isVisible" caption="baloon.caption" text="baloon.text" type="baloon.type"
+     close-fn="baloon.closeFn" data="baloon.data"></div>
 <!-- /Baloon -->
 
 
@@ -263,22 +297,25 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js"></script>
 
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-route.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-sanitize.min.js"></script>-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-sanitize.min.js"></script>-->
 
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=false"></script>
-<script type="text/javascript" src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=false"></script>
+<script type="text/javascript"
+        src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 
 <!--[if lt IE 10]>
-    <script src="/spa/js/ie.placeholder.js"></script>
+<script src="/spa/js/ie.placeholder.js"></script>
 <![endif]-->
 <!--<script src="/spa/js/search_form.js"></script>-->
 
 
 <!--contacts-->
-<script src="https://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
+<script src="https://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU"
+        type="text/javascript"></script>
 
 <!-- build:app-config-js -->
 <script src="/build/js/config.js"></script>
@@ -301,75 +338,100 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
-(function (d, w, c) {
-    (w[c] = w[c] || []).push(function() {
-	try {
-	w.yaCounter12702715 = new Ya.Metrika({id:12702715,
-	webvisor:true,
-	clickmap:true,
-	trackLinks:true,
-	accurateTrackBounce:true,
-	trackHash:true});
-	} catch(e) { }
-    });
-	
-    var n = d.getElementsByTagName("script")[0],
-	s = d.createElement("script"),
-	f = function () { n.parentNode.insertBefore(s, n); };
-    s.type = "text/javascript";
-    s.async = true;
-    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-	
-    if (w.opera == "[object Opera]") {
-	d.addEventListener("DOMContentLoaded", f, false);
-    } else { f(); }
-	})(document, window, "yandex_metrika_callbacks");
-	</script>
-	<noscript><div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-	<!-- /Yandex.Metrika counter --> 
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function () {
+            try {
+                w.yaCounter12702715 = new Ya.Metrika({id: 12702715,
+                    webvisor: true,
+                    clickmap: true,
+                    trackLinks: true,
+                    accurateTrackBounce: true,
+                    trackHash: true});
+            } catch (e) {
+            }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () {
+                n.parentNode.insertBefore(s, n);
+            };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else {
+            f();
+        }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript>
+    <div><img src="//mc.yandex.ru/watch/12702715" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
 
 <!-- Remarketing Google -->
 <script type="text/javascript">
-/* <![CDATA[ */
-var google_conversion_id = 960692718;
-var google_custom_params = window.google_tag_params;
-var google_remarketing_only = true;
-//var google_conversion_format = 3;
-/* ]]> */
+    /* <![CDATA[ */
+    var google_conversion_id = 960692718;
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = true;
+    //var google_conversion_format = 3;
+    /* ]]> */
 </script>
 <div style="display: none;">
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
 </div>
 
 <noscript>
-<div style="display:inline;">
-<img class="google_conversion__hidden" height="1" width="1" style="border-style:none;" alt=""
-      src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/960692718/?value=0&guid=ON&script=0"/>
-</div>
+    <div style="display:inline;">
+        <img class="google_conversion__hidden" height="1" width="1" style="border-style:none;" alt=""
+             src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/960692718/?value=0&guid=ON&script=0"/>
+    </div>
 </noscript>
 
 <script type="text/javascript">
     if (!partners.isUsingPartners()) {
         var reformalOptions =
-        { project_id: 723309, project_host: "innatour.reformal.ru", tab_orientation: "left", tab_indent: "50%", tab_bg_color: "#89c13a", tab_border_color: "#FFFFFF", tab_image_url: "http://tab.reformal.ru/T9GC0LfRi9Cy0Ysg0Lgg0L%252FRgNC10LTQu9C%252B0LbQtdC90LjRjw==/FFFFFF/4bfb34d91c8d7fb481972ca3c84aec38/left/0/tab.png", tab_border_width: 0 }
-        ;
+            { project_id: 723309, project_host: "innatour.reformal.ru", tab_orientation: "left", tab_indent: "50%", tab_bg_color: "#89c13a", tab_border_color: "#FFFFFF", tab_image_url: "http://tab.reformal.ru/T9GC0LfRi9Cy0Ysg0Lgg0L%252FRgNC10LTQu9C%252B0LbQtdC90LjRjw==/FFFFFF/4bfb34d91c8d7fb481972ca3c84aec38/left/0/tab.png", tab_border_width: 0 }
+                ;
         (function () {
-            var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true; script.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'media.reformal.ru/widgets/v3/reformal.js'; document.getElementsByTagName('head')[0].appendChild(script); }
-        )();
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.async = true;
+            script.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'media.reformal.ru/widgets/v3/reformal.js';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        })();
     }
-</script><noscript><a href="http://reformal.ru"><img src="http://media.reformal.ru/reformal.png" /></a><a href="http://innatour.reformal.ru">Oтзывы и предложения для ИННА ТУР</a></noscript>
-
-<!-- Start Visual Website Optimizer Asynchronous Code -->
-<script type='text/javascript'>
-var _vwo_code=(function(){
-var account_id=88938,
-settings_tolerance=2000,
-library_tolerance=2500,
-use_existing_jquery=false,
-// DO NOT EDIT BELOW THIS LINE
-f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();
 </script>
-<!-- End Visual Website Optimizer Asynchronous Code -->
+<noscript><a href="http://reformal.ru"><img src="http://media.reformal.ru/reformal.png"/></a><a
+        href="http://innatour.reformal.ru">Oтзывы и предложения для ИННА ТУР</a></noscript>
+
+
+
+<!-- Start Visual Website Optimizer Synchronous Code -->
+<script type='text/javascript'>
+    var _vis_opt_account_id = 88938;
+    var _vis_opt_protocol = (('https:' == document.location.protocol) ? 'https://' : 'http://');
+    document.write('<s' + 'cript src="' + _vis_opt_protocol +
+            'dev.visualwebsiteoptimizer.com/deploy/js_visitor_settings.php?v=1&a='+_vis_opt_account_id+'&url='
+            +encodeURIComponent(document.URL)+'&random='+Math.random()+'" type="text/javascript">' + '<\/s' + 'cript>');
+</script>
+
+<script type='text/javascript'>
+    if(typeof(_vis_opt_settings_loaded) == "boolean") { document.write('<s' + 'cript src="' + _vis_opt_protocol +
+            'd5phz18u4wuww.cloudfront.net/vis_opt.js" type="text/javascript">' + '<\/s' + 'cript>'); }
+    // if your site already has jQuery 1.4.2, replace vis_opt.js with vis_opt_no_jquery.js above
+</script>
+
+<script type='text/javascript'>
+    if(typeof(_vis_opt_settings_loaded) == "boolean" && typeof(_vis_opt_top_initialize) == "function") {
+        _vis_opt_top_initialize(); vwo_$(document).ready(function() { _vis_opt_bottom_initialize(); });
+    }
+</script>
+<!-- End Visual Website Optimizer Synchronous Code -->
 
 
 </body>
