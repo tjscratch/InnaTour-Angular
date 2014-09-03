@@ -1,76 +1,76 @@
 {{ (_oneWay = (ticket.getEtaps('Back').length == 0)) ? '' : '' }}
 
-<div style="display:block;" class="overlay js-overlay overlay_ticket-details" ng-if="ticket.data">
-    <div class="balloon balloon_ticket balloon_ticket_ticket-details" ng-class="{'balloon_2ticket': !_oneWay}">
-        <div ng-if="!noClose" title="Закрыть" class="balloon-close" ng-click="closePopup()"></div>
-        <h3 class="b-tickets__title">Подробная информация по перелету</h3>
+<div style="display:block;" class="overlay js-overlay overlay_ticket-details" ng-if="ticket.data"></div>
 
-        <div class="rlf-oneway">
+<div class="balloon balloon_ticket balloon_ticket_ticket-details" ng-class="{'balloon_2ticket': !_oneWay}" ng-if="ticket.data">
+    <div ng-if="!noClose" title="Закрыть" class="balloon-close" ng-click="closePopup()"></div>
+    <h3 class="b-tickets__title">Подробная информация по перелету</h3>
 
-            <div class="b-ticket_2ways">
-                <div class="row-fluid">
-                    <div class="col-xs-5 col-no-padding row-fluid__cell">
-                        <div class="rlf-fly">
-                            <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
-                            <span class="rlf-fly-arrow"></span>
-                            <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
-                            <div class="rlf-full-travel-time">
-                                {{ticket.getEtaps('To').length - 1 |
-                                asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
-                                {{ticket.getDuration('To')}} в пути
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-5 col-no-padding row-fluid__cell" ng-if="!_oneWay">
-                        <div class="rlf-fly rlf-fly_back">
-                            <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.getBackOutCode()}}
-                            <span class="rlf-fly-arrow"></span>
-                            <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.getBackInCode()}}
-                            <div class="rlf-full-travel-time">
-                                {{ticket.getEtaps('Back').length - 1 |
-                                asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
-                                {{ticket.getDuration('Back')}} в пути
-                            </div>
+    <div class="rlf-oneway">
+
+        <div class="b-ticket_2ways">
+            <div class="row-fluid">
+                <div class="col-xs-5 col-no-padding row-fluid__cell">
+                    <div class="rlf-fly">
+                        <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.data.OutCode}}
+                        <span class="rlf-fly-arrow"></span>
+                        <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.data.InCode}}
+                        <div class="rlf-full-travel-time">
+                            {{ticket.getEtaps('To').length - 1 |
+                            asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
+                            {{ticket.getDuration('To')}} в пути
                         </div>
                     </div>
                 </div>
-
-                <div ng-class="{'b-ticket_2ways b-ticket_2ways-sep': !_oneWay, 'b-ticket_1way-cont': _oneWay}">
-                    <div ng-repeat="zip in etapsZipped">
-                        <div class="clearfix">
-                            <div class="b-ticket_2ways-block" ng-repeat="etap in zip">
-                                <ng:include src="'components/ticket-details-etap.inc.html'"
-                                            ng-if="etap"></ng:include>
-                            </div>
+                <div class="col-xs-5 col-no-padding row-fluid__cell" ng-if="!_oneWay">
+                    <div class="rlf-fly rlf-fly_back">
+                        <span class="rlf-city">{{ticket.data.CityTo}}</span> {{ticket.getBackOutCode()}}
+                        <span class="rlf-fly-arrow"></span>
+                        <span class="rlf-city">{{ticket.data.CityFrom}}</span> {{ticket.getBackInCode()}}
+                        <div class="rlf-full-travel-time">
+                            {{ticket.getEtaps('Back').length - 1 |
+                            asQuantity:"пересадка":"пересадки":"пересадок":"Прямой"}},
+                            {{ticket.getDuration('Back')}} в пути
                         </div>
-                        <div class="clearfix" ng-if="!$last">
-                            <div ng-repeat="dir in ['To', 'Back']">
-                                <div class="b-ticket_2ways-block"
-                                     ng-repeat="etap in ({'To': [zip[0]], 'Back': [zip[1]]})[dir]">
-                                    {{ (_nextEtap = ticket.getNextEtap(dir, etap)) ? '' : '' }}
-                                    <div class="rlf-part rlf-part_transfer"
-                                         ng-if="etap && _nextEtap">
-                                        <ng:include
-                                                src="'components/ticket/templ/ticket-details-leg.html'"></ng:include>
-                                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-class="{'b-ticket_2ways b-ticket_2ways-sep': !_oneWay, 'b-ticket_1way-cont': _oneWay}">
+                <div ng-repeat="zip in etapsZipped">
+                    <div class="clearfix">
+                        <div class="b-ticket_2ways-block" ng-repeat="etap in zip">
+                            <ng:include src="'components/ticket-details-etap.inc.html'"
+                                        ng-if="etap"></ng:include>
+                        </div>
+                    </div>
+                    <div class="clearfix" ng-if="!$last">
+                        <div ng-repeat="dir in ['To', 'Back']">
+                            <div class="b-ticket_2ways-block"
+                                 ng-repeat="etap in ({'To': [zip[0]], 'Back': [zip[1]]})[dir]">
+                                {{ (_nextEtap = ticket.getNextEtap(dir, etap)) ? '' : '' }}
+                                <div class="rlf-part rlf-part_transfer"
+                                     ng-if="etap && _nextEtap">
+                                    <ng:include
+                                            src="'components/ticket/templ/ticket-details-leg.html'"></ng:include>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="b-tickets__footer">
-                <ul class="b-tickets__icons">
-                    <li>
-                        <div class="tooltip-widget js-share-component"></div>
-                    </li>
-                </ul>
-                <div class="b-tickets__footer-inner">
-                    <a ng-if="!noChoose" class="rl-buy-button" href="javascript:void(0);" ng-click="setCurrent()">Выбрать</a>
-                </div>
-            </div>
-
         </div>
+
+        <div class="b-tickets__footer">
+            <ul class="b-tickets__icons">
+                <li>
+                    <div class="tooltip-widget js-share-component"></div>
+                </li>
+            </ul>
+            <div class="b-tickets__footer-inner">
+                <a ng-if="!noChoose" class="rl-buy-button" href="javascript:void(0);" ng-click="setCurrent()">Выбрать</a>
+            </div>
+        </div>
+
     </div>
 </div>

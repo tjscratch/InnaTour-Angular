@@ -1,3 +1,5 @@
+
+
 innaAppConponents.
     factory('Balloon', [
         'innaApp.API.events',
@@ -65,6 +67,12 @@ innaAppConponents.
                         this.partials.partialUpdate = value;
                         this.set('reset', false);
                         this.set('reset', true);
+                    })
+
+                    this.observe('isVisible', function (value) {
+                        if(value){
+                            console.log('balloon isVisible');
+                        }
                     })
                 },
 

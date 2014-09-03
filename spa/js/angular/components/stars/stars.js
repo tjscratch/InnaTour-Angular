@@ -15,6 +15,8 @@ angular.module('innaApp.components').
                     this.observe('stars', function (newValue, oldValue, keypath) {
                         if (newValue) {
                             this.set({ starsArr: this.parse(this.get('stars'))})
+                        } else {
+                            this.set({ starsArr: []})
                         }
                     });
                 },
