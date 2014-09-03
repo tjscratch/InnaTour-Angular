@@ -129,8 +129,8 @@ gulp.task('build-angular-parts', [
     'build-ang.helpers'
 ], function () {
     return gulp.src([
-            conf.build + '/js/angular-helpers.js',
 
+            conf.build + '/js/angular-helpers.js',
             conf.angular + '/app.js',
             conf.angular + '/tracking.js',
             conf.angular + '/filters.js',
