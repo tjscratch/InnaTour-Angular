@@ -101,47 +101,44 @@ angular.module('innaApp.components').
                      * Срабатывает один раз
                      * Далее копируем массив Enumerable и работаем с копией
                      */
-                    this.observe('Enumerable', function (newValue, oldValue, keypath) {
-                        if (newValue) {
-                            //console.log(that.get('combinationModel'), "that.get('combinationModel')");
+                    this.observe({
+                        Enumerable: function (newValue, oldValue, keypath) {
+                            if (newValue) {
+                                //console.log(that.get('combinationModel'), "that.get('combinationModel')");
 
-                            this.cloneData();
-                            this.set({waitData: false})
-                        }
-                    });
-                    /*{defer: true, init: false}*/
+                                this.cloneData();
+                                this.set({waitData: false})
+                            }
+                        },
+                        EnumerableList: function (newValue, oldValue, keypath) {
+                            if (newValue) {
 
-                    /**
-                     * Сделим за изменениями массива EnumerableList
-                     * Происходит когда добавляем новую порцию отелей
-                     */
-                    this.observe('EnumerableList', function (newValue, oldValue, keypath) {
-                        if (newValue) {
+                                //console.log(newValue, 'newValue');
 
-                            //console.log(newValue, 'newValue');
+                                /* console.table([
+                                 {
+                                 newValue: newValue.length,
+                                 EnumerableList: this.get('EnumerableList').length,
+                                 Enumerable: this.get('Enumerable').length,
+                                 enumerableClone: this.enumerableClone.length
+                                 }
+                                 ]);*/
 
-                            /* console.table([
-                             {
-                             newValue: newValue.length,
-                             EnumerableList: this.get('EnumerableList').length,
-                             Enumerable: this.get('Enumerable').length,
-                             enumerableClone: this.enumerableClone.length
-                             }
-                             ]);*/
-
-                            // после добавления элементов в EnumerableList
-                            // обновляем координаты
-                            // оборачиваем в setTimeout, так как нужно дождаться вставки элементов в DOM
-                            if (newValue.length) {
-                                if (newValue.length != this.get('Enumerable').length) {
-                                    setTimeout(this.updateCoords.bind(this), 0);
-                                } else {
-                                    this.removeScroll();
+                                // после добавления элементов в EnumerableList
+                                // обновляем координаты
+                                // оборачиваем в setTimeout, так как нужно дождаться вставки элементов в DOM
+                                if (newValue.length) {
+                                    if (newValue.length != this.get('Enumerable').length) {
+                                        setTimeout(this.updateCoords.bind(this), 0);
+                                    } else {
+                                        this.removeScroll();
+                                    }
                                 }
                             }
                         }
-                    });
-                    /*{init: false}*/
+                    })
+
+                    /*{defer: true, init: false}*/
 
 
                     /**
@@ -183,6 +180,7 @@ angular.module('innaApp.components').
                      * используем не стандартный механизм общения компонентов
                      */
                     EventManager.observe('getSortComponent', function (newValue, oldValue, keypath) {
+                        console.log('getSortComponent', newValue);
                         if (newValue) {
                             that.set('sortComponent', newValue);
                             newValue.sortDefault();
@@ -342,14 +340,14 @@ angular.module('innaApp.components').
 
                     if (this.get('iterable_hotels')) {
                         recomented = this.get('combinationModel').hotel.data;
-                        result = collection.filter(function(item){
+                        result = collection.filter(function (item) {
                             return (recomented.HotelId != item.HotelId);
                         })
                     }
 
                     if (this.get('iterable_tickets')) {
                         recomented = this.get('combinationModel').ticket.data;
-                        result = collection.filter(function(item){
+                        result = collection.filter(function (item) {
                             return (recomented.VariantId1 != item.VariantId1);
                         })
                     }
@@ -513,7 +511,7 @@ angular.module('innaApp.components').
                     var list = opt_data || this.get('Enumerable');
 
                     // исключаем рекомендованный вариант
-                    if(!opt_sort || list.length == 1) {
+                    if (!opt_sort || list.length == 1) {
                         list = this.excludeRecommended(list);
                     }
 

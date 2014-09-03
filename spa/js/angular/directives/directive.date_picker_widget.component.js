@@ -308,12 +308,14 @@
 
                 $scope.hidePicker = function (evt) {
                     //console.log('$scope.hidePicker');
-                    setPosition({
-                        picker: $scope.datePicker
-                    });
-                    if ($(window).scrollTop() >= 100) {
-                        $scope.datePicker.hide();
-                        $(document).off('scroll', $scope.hidePicker);
+                    if($scope.datePicker) {
+                        setPosition({
+                            picker: $scope.datePicker
+                        });
+                        if ($(window).scrollTop() >= 100) {
+                            $scope.datePicker.hide();
+                            $(document).off('scroll', $scope.hidePicker);
+                        }
                     }
                 }
 

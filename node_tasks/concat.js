@@ -41,6 +41,7 @@ gulp.task('concat-lib', function () {
             conf.dest + '/lib/moment-ru.js',
             conf.dest + '/lib/underscore.js',
             conf.dest + '/lib/ractive/ractive.js',
+            //conf.dest + '/lib/ractive/ractive.0.6.js',
             conf.dest + '/lib/ractive/ractive-events-hover.js',
             conf.dest + '/lib/polyfill/**/*.js',
             conf.dest + '/lib/jquery.cookie.js',
