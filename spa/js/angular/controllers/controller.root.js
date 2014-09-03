@@ -41,6 +41,11 @@ innaAppControllers.
                 }
             };
 
+
+            $scope.isBodyBg = function () {
+                return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/buy/');
+            }
+
             (function __INITIAL__(){
                 var advParams = {
                     from: $location.search().from || '',
