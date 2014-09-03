@@ -151,7 +151,12 @@ innaAppControllers.
                             }, 1000);
                         },
                         function () {
-                            that._balloon.hide();
+                            that._balloon.updateView({
+                                balloonClose: true,
+                                content : '<span></span>',
+                                title : 'Пакет не найден',
+                                template: 'err.html'
+                            });
                         }
                     );
                 },
