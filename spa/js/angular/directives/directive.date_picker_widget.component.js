@@ -312,7 +312,9 @@
                         picker: $scope.datePicker
                     });
                     if ($(window).scrollTop() >= 100) {
-                        $scope.datePicker.hide();
+                        if($scope.datePicker) {
+                            $scope.datePicker.hide();
+                        }
                         $(document).off('scroll', $scope.hidePicker);
                     }
                 }
