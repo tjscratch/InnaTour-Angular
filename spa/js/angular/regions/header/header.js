@@ -58,11 +58,6 @@ innaAppControllers
                 });
             });
 
-
-            $scope.isBodyBg = function () {
-                return $scope.isActive('/avia/reservation/') || $scope.isActive('/packages/reservation/') || $scope.isActive('/buy/');
-            }
-
             $scope.urls = appUrls;
 
 
