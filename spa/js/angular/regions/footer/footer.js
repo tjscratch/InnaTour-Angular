@@ -1,35 +1,25 @@
 ﻿'use strict';
 
-angular.module('innaApp.directives')
-    .directive('regionFooter', [
+innaAppControllers
+    .controller('RegionFooter', [
         'EventManager',
+        '$scope',
+        '$element',
         '$templateCache',
         'innaApp.API.events',
-        function (EventManager, $templateCache, Events) {
-            return {
-                replace: true,
-                restrict: 'A',
-                template: $templateCache.get('regions/footer/templ/footer.html'),
-                scope: {},
-                controller: function ($scope) {
+        function (EventManager, $scope, $element, $templateCache, Events) {
+            $scope.isFooterVisible = true;
 
-                },
-                link: function ($scope, $element, attrs) {
-
+            EventManager.on(Events.FOOTER_VISIBLE, function () {
+                $scope.$root.safeApply(function () {
                     $scope.isFooterVisible = true;
-
-                    EventManager.on(Events.FOOTER_VISIBLE, function () {
-                        $scope.$root.safeApply(function () {
-                            $scope.isFooterVisible = true;
-                        });
-                    });
+                });
+            });
 
 
-                    EventManager.on(Events.FOOTER_HIDDEN, function () {
-                        $scope.$root.safeApply(function () {
-                            $scope.isFooterVisible = false;
-                        });
-                    });
-                }
-            };
-        }]);
+            EventManager.on(Events.FOOTER_HIDDEN, function () {
+                $scope.$root.safeApply(function () {
+                    $scope.isFooterVisible = false;
+                });
+            });
+        }])

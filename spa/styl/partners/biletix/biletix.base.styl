@@ -1,7 +1,7 @@
 
 @import "avia.styl"
 
-/*чтобы работал ресайз фрейма*/
+/*С‡С‚РѕР±С‹ СЂР°Р±РѕС‚Р°Р» СЂРµСЃР°Р№Р· С„СЂРµР№РјР°*/
 .main{
     min-height: 500px;
 }
@@ -37,6 +37,18 @@
     height 49px
     margin 14px 0 4px
     vertical-align top
+
+    .search-people {
+        background-image:none;
+    }
+    
+    .search__list {
+        margin-top: 2px;
+    }
+    
+    .search-form-dialog-row .button-group .button.active {
+        background: linear-gradient(top, #c1579a, #c15479);
+    }
 
     &__long
       width 399px
@@ -121,6 +133,7 @@
     height 49px
     width 58px
     margin-top 14px
+    cursor: pointer;
 
     &:after
       @extend .icon-sprite-search;
