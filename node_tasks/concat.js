@@ -23,10 +23,7 @@ gulp.task('build-concat', [
 
             conf.build + '/js/components.js',
             conf.build + '/js/regions.js',
-            conf.build + '/js/pages.js',
-
-            // конфиг надо исключить
-            '!' + conf.angular + '/config.js'
+            conf.build + '/js/pages.js'
     ])
 
         .pipe(concat('app-main.js', {insertSourceName: {open: '/*', close: '*/'}}))
