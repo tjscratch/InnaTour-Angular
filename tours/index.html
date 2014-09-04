@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="/build/css/ie.min.css"/>
     <![endif]-->
 
-    <script src="/spa/lib/if-browser.js"></script>
+    <!--<script src="/spa/lib/if-browser.js"></script>
     <script>
         var old = ifBrowser();
 
@@ -48,7 +48,7 @@
                 location.href = '/browser.html'
             }
         }
-    </script>
+    </script>-->
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -68,11 +68,9 @@
     mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>
     <!-- end Mixpanel -->
 
-    <!-- Подключение стилей партнеров -->
-    <script id="partners-css-inject" src="/spa/js/angular/partners/partners.js"></script>
 	
 </head>
-<body id="ng-app" ng-app="innaApp" ng-click="bodyClick()" ng-controller="RootCtrl" popup-form>
+<body>
 <div class="main">
     <div class="header Header">
         <div class="header-info">
@@ -85,43 +83,44 @@
                     <span class="header-text"></span>
                 </div>
                 <div class="col-xs-6 header-info-container-right col-no-padding">
-                    <ul class="header-info-menu" style="margin-right:0px;">
-                        <li class="header-info-menu-item">
-                            <a href="http://www.inna.ru/catalog/guide/" style="color: white;">Агентствам</a>
+                    <ul class="header-info-menu">
+                        <li class="header-info-menu-item" ng-switch="!!user.raw.AgencyName">
+                            <a href="http://www.inna.ru/catalog/guide/" style="color: white;" ng-switch-default>Агентствам</a>
                         </li>
-                        <li class="header-info-menu-item"><a href="/#/about/">О компании</a></li>
-                        <li class="header-info-menu-item">+7&nbsp;495 742-1212</li>
+                        <li class="header-info-menu-item">
+                            <a href="/#/about/">О компании</a>
+                        </li>
+                        <li class="header-info-menu-item">
+                            <a href="/#/help/">Помощь</a>
+                        </li>
+                        <li class="header-info-menu-item" ng-if="!user.isAgency()">+7&nbsp;495 742-1212</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-
         <div class="header-menu">
             <div class="main__center">
-                <ul class="header-menu-container-items">
-
-
-                    <li class="header-menu-item"><a href="/#/packages/">Перелет&nbsp;+&nbsp;Отель</a></li>
-                    <li class="header-menu-item"><a href="/#/avia/">Авиабилеты</a></li>
-                    <li class="header-menu-item"><a href="/#/tours/" class="active">Туры</a></li>
-                    <li class="header-menu-item"><a href="/#/individualtours/">Программы</a></li>
-                    <!--<li class="header-menu-item"><a href="http://www.booking.com/index.html?aid=373638&lang=ru"
-                                                    target="_blank">Отели</a></li>-->
-                    <li class="header-menu-item"><a href="/catalog/guide/">Каталог стран</a></li>
-                </ul>
-                <ng:include src="getHeadForm()"></ng:include>
+                <div class="header__container">
+                    <ul class="header__nav">
+                        <li><a href="/#/">Перелет&nbsp;+&nbsp;Отель</a></li>
+                        <li><a href="/#/avia/">Авиабилеты</a></li>
+                        <li><a href="/#/tours/" class="active">Туры</a></li>
+                        <li><a href="/#/individualtours/">Программы</a></li>
+                        <li><a href="/catalog/guide/">Каталог стран</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="button fixed-request-button" ng-click="popupForm_Show()"
+    <!--<div class="button fixed-request-button" ng-click="popupForm_Show()"
          ng-show="!isActive('/individualtours/category/')
          && !isActive('/packages/search/')
          && !isActive('/avia/')
          && !isActive('/')
          && !isActive('/avia/search/')"
-         title="Отправить заявку"></div>
+         title="Отправить заявку"></div>-->
 
     <div class="wrpr">
         <div class="layout" style="padding-top:105px;">
@@ -219,47 +218,13 @@
     </div>
 </div>
 
-<ng:include src="'popup/mainform.html'"></ng:include>
+<!--<ng:include src="'popup/mainform.html'"></ng:include>-->
 
 
-<!--<script src="//code.jquery.com/jquery-1.8.3.min.js"></script>-->
-<script src="https://yandex.st/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js"></script>
+<!--<script src="https://yandex.st/jquery/2.1.1/jquery.min.js"></script>-->
 
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=false"></script>
-<script type="text/javascript" src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-
-<!--[if lt IE 10]>
-<script src="/spa/js/ie.placeholder.js"></script>
-<![endif]-->
-<!--<script src="/spa/js/search_form.js"></script>-->
-
-
-<!--contacts-->
-<script src="https://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU" type="text/javascript"></script>
-
-<!-- build:app-config-js -->
-<script src="/build/js/config.js"></script>
-<!-- endbuild -->
-
-<!--файлы заменяются при билде на app-main.js-->
-<!-- build:app-main-js -->
-
-<script src="/build/js/app-lib.js"></script>
-<script src="/spa/js/debug.js"></script>
-<script src="/build/js/angular-parts.js"></script>
-<script src="/build/js/templates.js"></script>
-
-<script src="/build/js/pages.js"></script>
-<script src="/build/js/components.js"></script>
-<script src="/build/js/regions.js"></script>
-
-<!-- endbuild -->
-
-<script type="text/javascript">
+<!--<script type="text/javascript">
     //фикс для закрытия выпадалок
     var intervalId = setInterval(function () {
         //console.log('frame setTimeout');
@@ -279,7 +244,7 @@
         }
     }, 100);
 
-</script>
+</script>-->
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
