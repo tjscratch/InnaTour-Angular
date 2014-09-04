@@ -86,7 +86,7 @@ angular.module('innaApp.components').
                     document.addEventListener('click', this.bodyClickHide.bind(this), false);
 
 
-                    this.listenChildren();
+                    //this.listenChildren();
 
                     this.on({
                         goToHotelList: function () {
@@ -95,18 +95,21 @@ angular.module('innaApp.components').
                         change: function (data) {
                         },
                         teardown: function (evt) {
+                            this.reset();
+                            this.off();
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_RESET_ALL);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
                             EventManager.off('IndicatorFiltersItem:remove');
+                            EventManager.off('sort:default');
 
-                            this.findAllComponents().forEach(function (child) {
+                            /*this.findAllComponents().forEach(function (child) {
                                 child.fire('resetFilter');
-                            })
+                            })*/
                         }
                     });
 
-                    EventManager.set('getSortComponent', that.getSortComponent());
+
 
                     EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function () {
                         that.set('asMap', true);
@@ -141,6 +144,11 @@ angular.module('innaApp.components').
                                 component.fire('filtersItemRemove', dataContext, componentName);
                             }
                         })
+                    });
+
+
+                    EventManager.on('sort:default', function(){
+                        that.findComponent('FilterSort').sortDefault();
                     });
 
                     /**
@@ -247,6 +255,11 @@ angular.module('innaApp.components').
                     }
                 },
 
+                /**
+                 * Переключение фильтров
+                 * пока не работает
+                 * @param dataFilters
+                 */
                 toggleFilters: function (dataFilters) {
                     this.setModel(dataFilters);
 
@@ -274,9 +287,6 @@ angular.module('innaApp.components').
 
                 },
 
-                getSortComponent: function () {
-                    return this.findComponent('FilterSort');
-                },
 
                 bodyClickHide: function (evt) {
                     evt.stopPropagation();
