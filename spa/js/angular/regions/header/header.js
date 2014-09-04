@@ -66,6 +66,11 @@ innaAppControllers
              * @returns {string}
              */
             $scope.getHeadForm = function () {
+                //для партнеров - своя форма для поиска
+                if (partners && partners.isUsingPartners()) {
+                    return "";
+                }
+
                 var loc = $location.path();
                 var isDynamic = (
                     loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_RESERVATION) && !loc.startsWith(appUrls.URL_DYNAMIC_PACKAGES_BUY)
