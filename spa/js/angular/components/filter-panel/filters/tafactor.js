@@ -45,7 +45,7 @@ angular.module('innaApp.components').
                                 this.hasSelected();
                             }
                         },
-                        resetFilter: function () {
+                        resetFilter: function (opt) {
                             this.set('TaFactor.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
