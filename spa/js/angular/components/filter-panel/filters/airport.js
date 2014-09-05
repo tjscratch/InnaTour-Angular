@@ -58,6 +58,7 @@ angular.module('innaApp.components').
                             else
                                 this.set('value.val', [])
 
+                            this._parent.fire('changeChildFilter', this.get('value.val'));
                             this.hasSelected();
                         },
 
@@ -115,6 +116,8 @@ angular.module('innaApp.components').
 
                     if (result.length) this.set('value.val', result)
                     else this.set('value.val', [])
+
+                    this._parent.fire('changeChildFilter', this.get('value.val'));
                     this.hasSelected();
                 }
 

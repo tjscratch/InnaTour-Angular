@@ -33,7 +33,8 @@ angular.module('innaApp.directives')
                             template: "index.hbs.html",
                             virtualBundle : $scope.combination,
                             tooltipKlass : 'bundle',
-                            iconWhite : true
+                            iconWhite : true,
+                            type : $scope.tabActive
                         }
                     })
 
