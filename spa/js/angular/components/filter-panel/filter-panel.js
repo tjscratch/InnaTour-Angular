@@ -116,6 +116,7 @@ angular.module('innaApp.components').
                         }
                     });
 
+                    EventManager.set('getSortComponent', that.getSortComponent());
 
                     EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function () {
                         that.set('asMap', true);
@@ -134,10 +135,10 @@ angular.module('innaApp.components').
                     });
 
                     EventManager.on(Events.FILTER_PANEL_RESET_ALL, function () {
-                        EventManager.fire(Events.FILTER_PANEL_RESET);
+                        //EventManager.fire(Events.FILTER_PANEL_RESET);
 
                         that.findAllComponents().forEach(function (item) {
-                            item.fire('resetFilter', { silent : true });
+                            item.fire('resetFilter');
                         });
                     });
 
@@ -192,14 +193,10 @@ angular.module('innaApp.components').
                     childComponents.forEach(function (child) {
 
                         // изменение фильтров
-                        that.observeChildValue = child.observe('value', function (newValue, oldValue, test) {
-
-                            if (newValue && (newValue.val != undefined) && !newValue.silent) {
+                        that.observeChildValue = child.observe('value.val', function (newValue, oldValue, test) {
+                            if (newValue != undefined) {
                                 that.collectChildData();
-                            } else if(newValue && (newValue.val != undefined) && newValue.silent){
-                                child.data.value.silent = false;
                             }
-
                         }, {defer: true, init: false});
 
 
@@ -246,8 +243,8 @@ angular.module('innaApp.components').
 
                     this.merge('filtersCollection', tempArr);
 
-                    if (tempArr.length) {
-                        EventManager.fire(Events.FILTER_PANEL_CHANGE, tempArr);
+                    if (this.get('filtersCollection').length) {
+                        EventManager.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
                     } else {
                         EventManager.fire(Events.FILTER_PANEL_RESET);
                     }
@@ -301,6 +298,9 @@ angular.module('innaApp.components').
 
                 },
 
+                getSortComponent: function () {
+                    return this.findComponent('FilterSort');
+                },
 
                 bodyClickHide: function (evt) {
                     evt.stopPropagation();

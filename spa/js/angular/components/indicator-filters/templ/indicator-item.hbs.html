@@ -57,9 +57,9 @@
 		{{/if}}
 
 
-		{{#if filterItem.name == 'HotelName' && (filterItem.val[0] && filterItem.val[0].length)}}
+		{{#if filterItem.name == 'HotelName'}}
             <li class="b-switch-filters__item">
-                <span>{{filterItem.val[0]}}</span>
+                <span>{{filterItem.val}}</span>
                 <span class="b-switch-filters__item_close icon-sprite-remove"
                       on-click="removeFilter"></span>
             </li>

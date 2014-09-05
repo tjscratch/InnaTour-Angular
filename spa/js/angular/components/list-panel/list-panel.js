@@ -89,10 +89,8 @@ angular.module('innaApp.components').
                         },
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
-                            this.observeEnumerable.cancel();
+                            //this.observeEnumerable.cancel();
                             that.set('sortComponent', null);
-                            this.reset();
-                            this.off();
                             document.removeEventListener('scroll', this.eventListener);
                             clearTimeout(this._filterTimeout);
                             clearTimeout(this._scrollTimeout);
@@ -185,7 +183,6 @@ angular.module('innaApp.components').
                             that.cloneData(that.sorting(), true);
                         }, 0)
                     });
-
                 },
 
                 proxyGoToMap: function (data) {
@@ -375,10 +372,6 @@ angular.module('innaApp.components').
                 doFilter: function (collection, param_filters) {
                     var that = this;
                     var filterEnumerable = [];
-
-                    console.info(collection, 'collectioncollectioncollection');
-
-                    if(angular.isUndefined(collection)) return;
 
                     // проход по коллекции данных
                     for (var j = 0; j < collection.length; j++) {

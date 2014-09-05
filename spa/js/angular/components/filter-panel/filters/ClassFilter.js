@@ -30,20 +30,16 @@ angular.module('innaApp.components').
                         hide: function (opt_child) {
                             this.set({ isOpen: false });
                         },
-                        resetFilter: function (opt_silent) {
-                            // тихий reset
-                            // замем в observe проверяем свойство silent
-                            if ((opt_silent && opt_silent.silent) && this.data.value) {
-                                this.data.value.silent = true;
-                            }
-                            if(this.get('value') && this.get('value.val') && this.get('value.val').length) {
+                        resetFilter: function () {
+                            if(!this.get('sortValue')) {
                                 this.set({
                                     'value.val': [],
+                                    //'isOpen': false,
                                     'hasSelected': false
                                 });
                             }
                         },
-                        onHover: function (evt) {
+                        onHover : function(evt){
                             clearTimeout(this.get('clearTimeHover'));
 
                             if (!evt.hover) {
