@@ -40,6 +40,7 @@ angular.module('innaApp.components').
                                 clearTimeout(this._timeOut);
                                 this._timeOut = setTimeout(function () {
                                     this.set('value.val', data['name']);
+                                    this._parent.fire('changeChildFilter', this.get('value.val'));
                                     this.hasSelected();
                                 }.bind(this), 100);
                             }
@@ -65,6 +66,7 @@ angular.module('innaApp.components').
                 IndicatorFiltersItemRemove : function(data){
                     this._super(data);
                     this.fire('resetFilter');
+                    this._parent.fire('changeChildFilter', this.get('value.val'));
                     this.hasSelected();
                 }
             });

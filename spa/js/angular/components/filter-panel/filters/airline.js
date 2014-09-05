@@ -44,6 +44,8 @@ angular.module('innaApp.components').
                                 } else if (!data.context.isChecked) {
                                     this.splice('value.val', this.get('value.val').indexOf(data.context.Name), 1);
                                 }
+
+                                this._parent.fire('changeChildFilter', this.get('value.val'));
                                 this.hasSelected();
                             }
                         },
@@ -63,8 +65,6 @@ angular.module('innaApp.components').
                     this._super(data);
                     var that = this;
 
-
-
                     this.get('value.val').forEach(function (item, i) {
                         if (data == item) that.splice('value.val', i, 1);
                     })
@@ -73,8 +73,9 @@ angular.module('innaApp.components').
                         if (item.Name == data) {
                             that.set('airlines.List.' + i + '.isChecked', false);
                         }
-                    })
+                    });
 
+                    this._parent.fire('changeChildFilter', this.get('value.val'));
                     this.hasSelected();
                 }
 

@@ -52,8 +52,11 @@ angular.module('innaApp.components').
                                         if (data.context.Value == item.Value) that.splice('value.val', i, 1);
                                     })
                                 }
+
+                                this._parent.fire('changeChildFilter', this.get('value.val'));
+                                this.hasSelected();
                             }
-                            this.hasSelected();
+
                         },
                         resetFilter: function () {
                             this.set('AirLegs.List.*.isChecked', false);
@@ -89,6 +92,7 @@ angular.module('innaApp.components').
                         }
                     })
 
+                    this._parent.fire('changeChildFilter', this.get('value.val'));
                     this.hasSelected();
                 }
 

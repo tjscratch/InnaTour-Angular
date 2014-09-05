@@ -12,7 +12,7 @@
 
             <div class="ra-content">
                 <ul class="ra-fly-type-list">
-					{{#each AirLegs.List.reverse()}}
+					{{#each AirLegs.List}}
                         <li>
                             <label on-change="onChecked">
                                 <input type="checkbox" name="legs" value="{{this.Value}}" checked="{{this.isChecked}}">

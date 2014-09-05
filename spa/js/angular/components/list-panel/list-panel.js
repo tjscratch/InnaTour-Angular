@@ -55,6 +55,7 @@ angular.module('innaApp.components').
                     this.enumerableClone = [];
                     this._filterTimeout = null;
                     this._scrollTimeout = null;
+                    this.observeEnumerable = null;
 
                     EventManager.fire('sort:default');
 
@@ -88,9 +89,8 @@ angular.module('innaApp.components').
                         },
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
+                            this.observeEnumerable.cancel();
                             that.set('sortComponent', null);
-                            this.reset();
-                            this.off();
                             document.removeEventListener('scroll', this.eventListener);
                             clearTimeout(this._filterTimeout);
                             clearTimeout(this._scrollTimeout);
@@ -109,7 +109,7 @@ angular.module('innaApp.components').
                      * Срабатывает один раз
                      * Далее копируем массив Enumerable и работаем с копией
                      */
-                    this.observe({
+                    this.observeEnumerable =  this.observe({
                         Enumerable: function (newValue, oldValue, keypath) {
                             if (newValue) {
                                 //console.log(that.get('combinationModel'), "that.get('combinationModel')");
@@ -177,12 +177,10 @@ angular.module('innaApp.components').
 
                     /** Событие сортировки */
                     EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
-                        console.log(Events.FILTER_PANEL_SORT);
                         $timeout(function () {
                             that.cloneData(that.sorting(), true);
                         }, 0)
                     });
-
                 },
 
                 proxyGoToMap: function (data) {
@@ -372,7 +370,7 @@ angular.module('innaApp.components').
                 doFilter: function (collection, param_filters) {
                     var that = this;
                     var filterEnumerable = [];
-                    if(!collection  || collection.length) return;
+
                     // проход по коллекции данных
                     for (var j = 0; j < collection.length; j++) {
                         var item = collection[j];
@@ -403,12 +401,7 @@ angular.module('innaApp.components').
 
                         if (filterResult.length == param_filters.length)
                             filterEnumerable.push(item)
-
-                        filterResult = null;
                     }
-
-                    param_filters = null;
-
 
                     // подписываемся на событие скролла если еще нет этого события
                     if (!this.get('scroll') && filterEnumerable.length > this.get('countItemsVisible'))
