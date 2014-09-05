@@ -56,7 +56,7 @@ angular.module('innaApp.components').
                     this._filterTimeout = null;
                     this._scrollTimeout = null;
 
-                    console.info('init');
+                    EventManager.fire('sort:default');
 
                     if (this.get('iterable_hotels'))
                         this.parse(this.get('Enumerable'), { hotel: true });
@@ -114,7 +114,7 @@ angular.module('innaApp.components').
                             if (newValue) {
                                 //console.log(that.get('combinationModel'), "that.get('combinationModel')");
 
-                                this.cloneData();
+                                this.cloneData(this.sorting());
                                 this.set({waitData: false})
                             }
                         },
@@ -177,18 +177,12 @@ angular.module('innaApp.components').
 
                     /** Событие сортировки */
                     EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
+                        console.log(Events.FILTER_PANEL_SORT);
                         $timeout(function () {
                             that.cloneData(that.sorting(), true);
                         }, 0)
                     });
 
-
-                    /**  Сортировка подефолту  */
-                    var sort = new FilterSort();
-                    this.set('sortComponent', sort);
-
-                    console.info(this.get('sortComponent'), 'get sortComponent');
-                    //EventManager.fire('sort:default');
                 },
 
                 proxyGoToMap: function (data) {
@@ -378,7 +372,7 @@ angular.module('innaApp.components').
                 doFilter: function (collection, param_filters) {
                     var that = this;
                     var filterEnumerable = [];
-
+                    if(!collection  || collection.length) return;
                     // проход по коллекции данных
                     for (var j = 0; j < collection.length; j++) {
                         var item = collection[j];
@@ -461,6 +455,16 @@ angular.module('innaApp.components').
                 sorting: function (opt_sort_data) {
                     var sortData = null;
 
+                    // определяем компонент сортировки
+                    var sortComponent =  null;
+                    if(!this.get('sortComponent')){
+                        var sort = new FilterSort();
+                        this.set('sortComponent', sort);
+                        sortComponent = sort;
+                    } else {
+                        sortComponent = this.get('sortComponent')
+                    }
+
                     // Если когда то была фильтрация, то берем и сортируем именно отфильтрованный набор
                     if (this.isFiltred())
                         sortData = this.actualData();
@@ -468,8 +472,6 @@ angular.module('innaApp.components').
                         sortData = opt_sort_data || this.actualData();
 
                     // вызываем метод сортировки из компонента sortComponent
-                    var sortComponent = this.get('sortComponent');
-                    console.log(sortComponent, 'sortComponentsortComponent');
                     var sortResult = sortComponent.get('fn')(sortData, sortComponent.get('sortValue'));
 
                     return (sortResult && sortResult.length) ? sortResult : [];

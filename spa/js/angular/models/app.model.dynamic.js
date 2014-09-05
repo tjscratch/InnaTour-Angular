@@ -135,6 +135,15 @@ inna.Models.Dynamic.Combination.prototype.getFullPackagePrice = function(){
     return +this.ticket.data.PackagePrice + +this.hotel.data.PackagePrice;
 }
 
+inna.Models.Dynamic.Combination.prototype.getFullTotalPriceNew = function(param){
+    if(param == 'hotel'){
+        return this.hotel.data.PriceObject;
+    }
+    if(param == 'ticket') {
+        return this.ticket.data.PriceObject;
+    }
+}
+
 inna.Models.Dynamic.Combination.prototype.getFullTotalPrice = function(){
     var tPrice = this.ticket.data.PriceObject
     var hPrice = this.hotel.data.PriceObject;

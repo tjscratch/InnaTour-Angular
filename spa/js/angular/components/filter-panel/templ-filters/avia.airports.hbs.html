@@ -1,11 +1,11 @@
 {{#if airports.length}}
-    <li class="filter">
+    <li class="filter" on-hover="onHover">
         <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
              on-click="toggle">
             Аэропорты
         </div>
 
-        <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}" on-hover="onHover">
+        <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
 			{{#each airports}}
 
                 <!-- Не выводим фильтр аэропорта если он только один  -->

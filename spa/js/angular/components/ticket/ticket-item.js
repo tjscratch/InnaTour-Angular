@@ -18,6 +18,7 @@ angular.module('innaApp.components').
              */
             var TicketItem = DynamicBlock.extend({
                 data: {
+                    type : 'ticket',
                     hidden : false,
                     settings: {
                         height: 200,

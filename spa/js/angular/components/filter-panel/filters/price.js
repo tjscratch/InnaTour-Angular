@@ -55,7 +55,10 @@ angular.module('innaApp.components').
 
                         resetFilter: function () {
                             this.set({'Price.Value': this.get('Price.Max')});
-                            this._slider.slider('value', this.get('Price.Max'));
+
+                            if(this._slider) {
+                                this._slider.slider('value', this.get('Price.Max'));
+                            }
                         },
                         teardown: function (evt) {
                             if(this._slider)
