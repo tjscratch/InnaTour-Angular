@@ -115,7 +115,7 @@ angular.module('innaApp.components').
                             EventManager.off('sort:default');
 
                             this.findAllComponents().forEach(function (child) {
-                                child.fire('resetFilter');
+                                child.fire('resetFilter', {silent : true});
                             })
                         }
                     });
@@ -142,7 +142,7 @@ angular.module('innaApp.components').
                         EventManager.fire(Events.FILTER_PANEL_RESET);
 
                         that.findAllComponents().forEach(function (item) {
-                            item.fire('resetFilter');
+                            item.fire('resetFilter', {silent : true});
                         });
                     });
 
