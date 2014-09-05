@@ -36,9 +36,10 @@ angular.module('innaApp.components').
                                 } else if (!data.context.isChecked) {
                                     this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
                                 }
-                            }
-                            this.hasSelected();
 
+                                this._parent.fire('changeChildFilter', this.get('value.val'));
+                                this.hasSelected();
+                            }
 
                         },
                         resetFilter: function () {
@@ -71,6 +72,7 @@ angular.module('innaApp.components').
                         }
                     })
 
+                    this._parent.fire('changeChildFilter', this.get('value.val'));
                     this.hasSelected();
                 }
             });

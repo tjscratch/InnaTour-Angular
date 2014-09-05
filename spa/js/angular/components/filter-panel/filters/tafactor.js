@@ -40,6 +40,8 @@ angular.module('innaApp.components').
                                     this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
                                 }
 
+                                this._parent.fire('changeChildFilter', this.get('value.val'));
+
                                 this.hasSelected();
                             }
                         },
@@ -70,8 +72,9 @@ angular.module('innaApp.components').
                         if (item.Value == data) {
                             that.set('TaFactor.List.' + i + '.isChecked', false);
                         }
-                    })
+                    });
 
+                    this._parent.fire('changeChildFilter', this.get('value.val'));
                     this.hasSelected();
                 }
             });

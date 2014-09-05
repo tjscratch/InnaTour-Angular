@@ -98,8 +98,12 @@ angular.module('innaApp.components').
                         },
                         change: function (data) {
                         },
+                        changeChildFilter : function(data){
+                            if (data != undefined) {
+                                this.collectChildData();
+                            }
+                        },
                         teardown: function (evt) {
-                            this.observeChildValue.cancel();
                             this.observeFiltersData.cancel();
                             this.observeSortValueVal.cancel();
                             this.observeIsOpen.cancel();
@@ -135,7 +139,7 @@ angular.module('innaApp.components').
                     });
 
                     EventManager.on(Events.FILTER_PANEL_RESET_ALL, function () {
-                        //EventManager.fire(Events.FILTER_PANEL_RESET);
+                        EventManager.fire(Events.FILTER_PANEL_RESET);
 
                         that.findAllComponents().forEach(function (item) {
                             item.fire('resetFilter');
@@ -191,14 +195,6 @@ angular.module('innaApp.components').
 
 
                     childComponents.forEach(function (child) {
-
-                        // изменение фильтров
-                        that.observeChildValue = child.observe('value.val', function (newValue, oldValue, test) {
-                            if (newValue != undefined) {
-                                that.collectChildData();
-                            }
-                        }, {defer: true, init: false});
-
 
                         // сортировка
                         that.observeSortValueVal = child.observe('sortValue.val', function (newValue, oldValue) {

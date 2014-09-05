@@ -39,8 +39,11 @@ angular.module('innaApp.components').
                                 } else if (!data.context.isChecked) {
                                     this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
                                 }
+
+                                this._parent.fire('changeChildFilter', this.get('value.val'));
+                                this.hasSelected();
                             }
-                            this.hasSelected();
+
                         },
                         resetFilter: function () {
                             this.set('HotelType.List.*.isChecked', false);
@@ -65,8 +68,9 @@ angular.module('innaApp.components').
                         if(item.Value == data){
                             that.set('HotelType.List.'+ i +'.isChecked',  false);
                         }
-                    })
+                    });
 
+                    this._parent.fire('changeChildFilter', this.get('value.val'));
                     this.hasSelected();
                 }
             });
