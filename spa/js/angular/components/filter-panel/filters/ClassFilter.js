@@ -38,6 +38,7 @@ angular.module('innaApp.components').
                                     'hasSelected': false
                                 });
                             }
+                            
                         },
                         onHover : function(evt){
                             clearTimeout(this.get('clearTimeHover'));
