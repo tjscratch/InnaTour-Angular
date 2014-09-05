@@ -72,7 +72,8 @@ angular.module('innaApp.components').
                     this.observeVirtualBundle = this.observe('virtualBundle', function (value) {
                         //console.log('value update', value);
                         if (value && this.isPriceObject) {
-                            this.set('PriceObjectCalculate', this.get('virtualBundle').getFullTotalPriceNew(this.get('type')));
+                            //this.set('PriceObjectCalculate', this.get('virtualBundle').getFullTotalPriceNew(this.get('type')));
+                            this.set('PriceObjectCalculate', this.get('virtualBundle').getFullTotalPrice());
                         }
                     })
                 }
