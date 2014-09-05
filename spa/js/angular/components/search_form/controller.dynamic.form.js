@@ -11,7 +11,7 @@ innaAppControllers
         function ($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs, $cookieStore) {
 
             var parseRoute = function (path) {
-
+                //console.log('here');
                 if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) > -1 || path.indexOf(URLs.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
                     var bits = QueryString.getBits(path);
                     return {
@@ -41,6 +41,21 @@ innaAppControllers
                         return {
                             sectionId: bits[0],
                             Adult: bits[1]
+                        };
+                    }
+                    else if (bits.length == 3) {
+                        return {
+                            sectionId: bits[0],
+                            Adult: bits[1],
+                            DepartureId: bits[2]
+                        };
+                    }
+                    else if (bits.length == 4) {
+                        return {
+                            sectionId: bits[0],
+                            Adult: bits[1],
+                            DepartureId: bits[2],
+                            ArrivalId: bits[3]
                         };
                     }
                     else {
