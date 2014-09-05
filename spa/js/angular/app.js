@@ -120,6 +120,8 @@ app.config([
         $routeProvider.
             //Главная
             when(url.URL_ROOT, dynamic()).
+            when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?-:DepartureId-:ArrivalId?', dynamic()).
+            when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?-:DepartureId', dynamic()).
             when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?', dynamic()).
             when(url.URL_PACKAGES_LANDING + ':sectionId', dynamic()).
             when(url.URL_TOURS, {
