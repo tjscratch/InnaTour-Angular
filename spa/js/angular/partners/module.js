@@ -14,13 +14,11 @@
             var fr = document.createElement("IFRAME");
             fr.id = "innaFrame1"
             //fr.onload = frameLoaded();
-            //fr.style.width = "1000px";
             fr.style.width = "100%";
             fr.style.height = "500px";
             fr.style.overflow = 'hidden';
             fr.border = 0;
             fr.frameBorder = 0;
-            //fr.style.display = 'none';
             fr.src = "http://biletix.lh.inna.ru/";
             frameCont.appendChild(fr);
 

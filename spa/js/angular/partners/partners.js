@@ -43,13 +43,7 @@
 
         var lastHeight = 0;
         function sendHeight() {
-            //var body = document.body;
-            //var html = document.documentElement;
-            //var height = Math.max(body.scrollHeight, body.offsetHeight,
-            //                       html.clientHeight, html.scrollHeight, html.offsetHeight);
             var height = $('.main').height();
-            //console.log('inna doc height', height);
-            //console.log('inna body height', bodyHeight);
 
             if (height != lastHeight) {
                 lastHeight = height;
