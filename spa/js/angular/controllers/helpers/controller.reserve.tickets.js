@@ -36,7 +36,7 @@ innaAppControllers.
                     function (data) {
                         //console.log('\npaymentService.getTarifs, data:');
                         //console.log(data);
-                        //$scope.tarifs.tarifsData = data;
+                        $scope.tarifs.tarifsData = data;
                     },
                     function (data, status) {
                         log('paymentService.getTarifs error');
