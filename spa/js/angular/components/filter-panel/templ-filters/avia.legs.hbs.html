@@ -1,10 +1,10 @@
 {{#if AirLegs.List && AirLegs.List.length > 1}}
-    <li class="filter">
+    <li class="filter" on-hover="onHover">
         <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
              on-click="toggle">
             Пересадки
         </div>
-        <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}" on-hover="onHover">
+        <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
             <header class="ra-header">
                 <h4 class="ra-title">Количество пересадок</h4>
                 <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>

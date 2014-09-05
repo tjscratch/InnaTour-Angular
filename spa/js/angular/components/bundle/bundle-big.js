@@ -106,7 +106,8 @@ angular.module('innaApp.directives')
                         data: {
                             template: "index.hbs.html",
                             virtualBundle : $scope.bundle,
-                            tooltipKlass : 'bundle'
+                            tooltipKlass : 'bundle',
+                            state : $scope.tabActive
                         }
                     })
 
@@ -137,7 +138,11 @@ angular.module('innaApp.directives')
 
                     // update components
                     $scope.$watchCollection('bundle', function(value){
-                        _priceGeneric.set('virtualBundle', value);
+                        _priceGeneric.set({
+                            'virtualBundle': value,
+                            state : $scope.tabActive
+                        });
+
                         _tripadvisor.set({
                             TaCommentCount: $scope.bundle.hotel.data.TaCommentCount,
                             TaFactor: $scope.bundle.hotel.data.TaFactor,

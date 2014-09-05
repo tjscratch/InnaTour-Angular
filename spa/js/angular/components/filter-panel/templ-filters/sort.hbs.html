@@ -2,13 +2,13 @@
 <!--
 	Прячем компонент если находимся на карте
 -->
-<li class="filters__sort {{(asMap) ? 'ng-hide' : ''}}">
+<li class="filters__sort {{(asMap) ? 'ng-hide' : ''}}" on-hover="onHover">
     <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
          on-click="toggle">
         Сортировать <span>{{lowercaseFirst(current)}}</span>
     </div>
 
-    <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}" on-hover="onHover">
+    <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
         <ul class="search__list search__list_sort ra-fly-type-list">
 			{{#each sort}}
                 <!--<SortedItem data="{{.}}"/>-->

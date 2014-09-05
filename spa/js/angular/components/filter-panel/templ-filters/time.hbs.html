@@ -1,10 +1,10 @@
-<li class="filter">
+<li class="filter" on-hover="onHover">
     <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
          on-click="toggle">
         Время
     </div>
 
-    <div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}" on-hover="onHover">
+    <div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}">
 		{{#each airTime}}
             <div class="filters__baloon__item">
                 <header class="ra-header">
