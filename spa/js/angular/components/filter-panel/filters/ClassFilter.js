@@ -31,10 +31,17 @@ angular.module('innaApp.components').
                             this.set({ isOpen: false });
                         },
                         resetFilter: function (opt_silent) {
-                            this.set({
-                                'value.val':  [],
-                                'hasSelected': false
-                            });
+                            // тихий reset
+                            // замем в observe проверяем свойство silent
+                            if ((opt_silent && opt_silent.silent) && this.data.value) {
+                                this.data.value.silent = true;
+                            }
+                            if(this.get('value') && this.get('value.val') && this.get('value.val').length) {
+                                this.set({
+                                    'value.val': [],
+                                    'hasSelected': false
+                                });
+                            }
                         },
                         onHover: function (evt) {
                             clearTimeout(this.get('clearTimeHover'));

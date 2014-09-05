@@ -80,6 +80,10 @@ angular.module('innaApp.components').
                 },
                 init: function () {
                     var that = this;
+                    this.observeChildValue = null;
+                    this.observeFiltersData = null;
+                    this.observeSortValueVal = null;
+                    this.observeIsOpen = null;
 
                     this.setModel();
 
@@ -95,8 +99,11 @@ angular.module('innaApp.components').
                         change: function (data) {
                         },
                         teardown: function (evt) {
-                            this.reset();
-                            this.off();
+                            this.observeChildValue.cancel();
+                            this.observeFiltersData.cancel();
+                            this.observeSortValueVal.cancel();
+                            this.observeIsOpen.cancel();
+
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_RESET_ALL);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
@@ -104,7 +111,7 @@ angular.module('innaApp.components').
                             EventManager.off('sort:default');
 
                             this.findAllComponents().forEach(function (child) {
-                                child.fire('resetFilter', {silent: true});
+                                child.fire('resetFilter');
                             })
                         }
                     });
@@ -127,8 +134,10 @@ angular.module('innaApp.components').
                     });
 
                     EventManager.on(Events.FILTER_PANEL_RESET_ALL, function () {
+                        EventManager.fire(Events.FILTER_PANEL_RESET);
+
                         that.findAllComponents().forEach(function (item) {
-                            item.fire('resetFilter');
+                            item.fire('resetFilter', { silent : true });
                         });
                     });
 
@@ -154,11 +163,12 @@ angular.module('innaApp.components').
                      * Слушаем изменение filtersData
                      * Обновление настроек фильтров
                      */
-                    this.observe('filtersData', function (value) {
+                    this.observeFiltersData = this.observe('filtersData', function (value) {
                         if (value) {
                             this.setModel();
                         }
                     }, {init: false})
+
                 },
 
                 /**
@@ -182,15 +192,19 @@ angular.module('innaApp.components').
                     childComponents.forEach(function (child) {
 
                         // изменение фильтров
-                        child.observe('value.val', function (newValue, oldValue) {
-                            if (newValue != undefined) {
+                        that.observeChildValue = child.observe('value', function (newValue, oldValue, test) {
+
+                            if (newValue && (newValue.val != undefined) && !newValue.silent) {
                                 that.collectChildData();
+                            } else if(newValue && (newValue.val != undefined) && newValue.silent){
+                                child.data.value.silent = false;
                             }
+
                         }, {defer: true, init: false});
 
 
                         // сортировка
-                        child.observe('sortValue.val', function (newValue, oldValue) {
+                        that.observeSortValueVal = child.observe('sortValue.val', function (newValue, oldValue) {
                             if (newValue) {
                                 // передаем компонент сортировки - далее из него возьмем функцию сортировки
                                 EventManager.fire(Events.FILTER_PANEL_SORT, child);
@@ -199,7 +213,7 @@ angular.module('innaApp.components').
 
 
                         // открытие закрытие отдельного фильтра
-                        child.observe('isOpen', function (newValue, oldValue) {
+                        that.observeIsOpen = child.observe('isOpen', function (newValue, oldValue) {
                             if (newValue) {
                                 that.fire('hide:child', child);
                             }

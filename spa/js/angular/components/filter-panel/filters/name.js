@@ -15,9 +15,9 @@ angular.module('innaApp.components').
                 data: {
                     value: {
                         name: 'HotelName',
-                        val: '',
+                        val: [],
                         fn: function (data, component_val) {
-                            var reg = new RegExp(component_val.val, 'i');
+                            var reg = new RegExp(component_val.val[0], 'i');
                             if (reg.test(data)) return true;
                         }
                     }
@@ -39,17 +39,13 @@ angular.module('innaApp.components').
 
                                 clearTimeout(this._timeOut);
                                 this._timeOut = setTimeout(function () {
-                                    this.set('value.val', data['name']);
+                                    this.set('value.val', [data['name']]);
                                     this.hasSelected();
                                 }.bind(this), 100);
                             }
                         },
                         resetFilter: function () {
-                            this.set({
-                                'name' : '',
-                                'value.val': ''
-                            });
-
+                            this.set('name' , '');
                         },
                         teardown: function (evt) {
 

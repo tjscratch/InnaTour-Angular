@@ -89,6 +89,7 @@ innaAppControllers
                                 this._balloonLoad.teardown();
                                 this._balloonLoad = null;
                             }
+                            this.loadHotelsDataLoadData.cancel();
                             if (FilterPanelComponent) FilterPanelComponent.teardown();
                             if (ListPanelComponent) ListPanelComponent.teardown();
                             ListPanelComponent = FilterPanelComponent = null;
@@ -188,7 +189,7 @@ innaAppControllers
                      * Слушаем свойства loadHotelsData и loadTicketsData
                      * Устанавливаем их после успешной загрузки отелей или билетов
                      */
-                    this.observe({
+                    this.loadHotelsDataLoadData = this.observe({
                         loadHotelsData: function (value) {
                             if (value) {
 

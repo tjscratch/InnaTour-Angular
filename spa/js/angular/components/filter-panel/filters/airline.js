@@ -63,8 +63,6 @@ angular.module('innaApp.components').
                     this._super(data);
                     var that = this;
 
-
-
                     this.get('value.val').forEach(function (item, i) {
                         if (data == item) that.splice('value.val', i, 1);
                     })
