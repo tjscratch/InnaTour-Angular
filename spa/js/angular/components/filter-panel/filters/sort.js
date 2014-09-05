@@ -49,7 +49,6 @@ angular.module('innaApp.components').
                         else
                             expression = sortType[defaultSort];
 
-
                         return $filter('orderBy')(data, expression);
                     }
 

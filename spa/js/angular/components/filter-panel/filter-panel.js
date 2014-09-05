@@ -80,6 +80,10 @@ angular.module('innaApp.components').
                 },
                 init: function () {
                     var that = this;
+                    this.observeChildValue = null;
+                    this.observeFiltersData = null;
+                    this.observeSortValueVal = null;
+                    this.observeIsOpen = null;
 
                     this.setModel();
 
@@ -94,11 +98,21 @@ angular.module('innaApp.components').
                         },
                         change: function (data) {
                         },
+                        changeChildFilter : function(data){
+                            if (data != undefined) {
+                                this.collectChildData();
+                            }
+                        },
                         teardown: function (evt) {
+                            this.observeFiltersData.cancel();
+                            this.observeSortValueVal.cancel();
+                            this.observeIsOpen.cancel();
+
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_RESET_ALL);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
                             EventManager.off('IndicatorFiltersItem:remove');
+                            EventManager.off('sort:default');
 
                             this.findAllComponents().forEach(function (child) {
                                 child.fire('resetFilter');
@@ -125,6 +139,8 @@ angular.module('innaApp.components').
                     });
 
                     EventManager.on(Events.FILTER_PANEL_RESET_ALL, function () {
+                        EventManager.fire(Events.FILTER_PANEL_RESET);
+
                         that.findAllComponents().forEach(function (item) {
                             item.fire('resetFilter');
                         });
@@ -135,23 +151,29 @@ angular.module('innaApp.components').
                      * Событие сброса фильтра
                      * Получаем его от компонента IndicatorFilters
                      */
-                    EventManager.on('IndicatorFiltersItem:remove', function(dataContext, componentName){
-                        that.findAllComponents().forEach(function(component){
-                            if(component.get('value.name') == componentName){
+                    EventManager.on('IndicatorFiltersItem:remove', function (dataContext, componentName) {
+                        that.findAllComponents().forEach(function (component) {
+                            if (component.get('value.name') == componentName) {
                                 component.fire('filtersItemRemove', dataContext, componentName);
                             }
                         })
+                    });
+
+
+                    EventManager.on('sort:default', function () {
+                        that.findComponent('FilterSort').sortDefault();
                     });
 
                     /**
                      * Слушаем изменение filtersData
                      * Обновление настроек фильтров
                      */
-                    this.observe('filtersData', function (value) {
+                    this.observeFiltersData = this.observe('filtersData', function (value) {
                         if (value) {
                             this.setModel();
                         }
                     }, {init: false})
+
                 },
 
                 /**
@@ -174,15 +196,8 @@ angular.module('innaApp.components').
 
                     childComponents.forEach(function (child) {
 
-                        // изменение фильтров
-                        child.observe('value.val', function (newValue, oldValue) {
-                            if(newValue != undefined) that.collectChildData();
-
-                        }, {defer: true, init: false});
-
-
                         // сортировка
-                        child.observe('sortValue.val', function (newValue, oldValue) {
+                        that.observeSortValueVal = child.observe('sortValue.val', function (newValue, oldValue) {
                             if (newValue) {
                                 // передаем компонент сортировки - далее из него возьмем функцию сортировки
                                 EventManager.fire(Events.FILTER_PANEL_SORT, child);
@@ -191,7 +206,7 @@ angular.module('innaApp.components').
 
 
                         // открытие закрытие отдельного фильтра
-                        child.observe('isOpen', function (newValue, oldValue) {
+                        that.observeIsOpen = child.observe('isOpen', function (newValue, oldValue) {
                             if (newValue) {
                                 that.fire('hide:child', child);
                             }
@@ -236,7 +251,7 @@ angular.module('innaApp.components').
                  * @param dataFilters
                  */
                 setModel: function (opt_data) {
-                    if(opt_data || this.get('filtersData')) {
+                    if (opt_data || this.get('filtersData')) {
                         var modelFilters = new FilterSettings({
                             data: {
                                 model: opt_data || this.get('filtersData')
@@ -247,6 +262,11 @@ angular.module('innaApp.components').
                     }
                 },
 
+                /**
+                 * Переключение фильтров
+                 * пока не работает
+                 * @param dataFilters
+                 */
                 toggleFilters: function (dataFilters) {
                     this.setModel(dataFilters);
 

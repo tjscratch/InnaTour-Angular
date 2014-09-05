@@ -17,6 +17,7 @@ angular.module('innaApp.components').
              */
             var HotelItem = DynamicBlock.extend({
                 data: {
+                    type : 'hotel',
                     hidden : false,
                     settings: {
                         height: 200,

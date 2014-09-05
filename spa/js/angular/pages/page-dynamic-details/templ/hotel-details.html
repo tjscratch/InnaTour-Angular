@@ -49,7 +49,10 @@
                 </div>
                 <ul class="hotel-details-extra" ng-if="hotel.Extra">
                     <li ng-repeat="(key, val) in hotel.Extra"
-                        class="hotel-details-extra__item hotel-details-extra__item_type_{{key | lowercase}}">{{val}}</li>
+                        class="hotel-details-extra__item hotel-details-extra__item_description hotel-details-extra__item_type_{{key | lowercase}}">
+                        <i class="icon-type-extra icon-type-extra-{{key | lowercase}}"></i>
+                        {{val}}
+                    </li>
                 </ul>
             </div>
         </div>

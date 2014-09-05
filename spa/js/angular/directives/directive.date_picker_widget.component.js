@@ -9,24 +9,53 @@
          * Позиционирование календаря
          * @param opt_data
          */
-        var elPositionCache = null;
-
         function setPosition(opt_data) {
-            elPositionCache = opt_data.elemFromPosition || elPositionCache;
             var coords = null;
 
-            if(elPositionCache) {
-                (elPositionCache) ? coords = utils.getCoords(elPositionCache)
-                    : coords = opt_data.coords;
+            var inpFrom = $(".js-field-from-inp");
+            var enpTo = $(".js-field-to-inp");
 
-                if (!opt_data.slide) {
+            var fromWidth = inpFrom.outerWidth();
+            var toWidth = enpTo.outerWidth();
+            var pickerWidth = 0;
+            if (opt_data && opt_data.picker) {
+                if (opt_data.picker.width) {
+                    pickerWidth = opt_data.picker.width();
+                }
+                else {
+                    pickerWidth = $(opt_data.picker).width();
+                }
+            }
+            if (pickerWidth <= 0) {
+                pickerWidth = 570;//ширина по-умолчанию
+            }
+
+            function getLeftFrom() {
+                return (coords.left + fromWidth - (pickerWidth / 2) - (fromWidth / 5));
+            }
+
+            function getLeftTo() {
+                return (coords.left - (pickerWidth / 2) + (toWidth / 5));
+            }
+
+            if (opt_data.from) {
+                coords = utils.getCoords(inpFrom[0]);
+                opt_data.picker.css({
+                    left: getLeftFrom() + 'px',
+                    top: (coords.top + $(inpFrom[0]).height()) + 'px'
+                });
+            }
+            else if (opt_data.to || opt_data.slide) {
+                coords = utils.getCoords(enpTo[0]);
+
+                if (opt_data.slide) {
+                    $(opt_data.picker).animate({ left: getLeftTo() }, 300);
+                }
+                else {
                     opt_data.picker.css({
-                        left: (coords.left - 250) + 'px',
-                        top: (coords.top + $(elPositionCache).height()) + 'px'
+                        left: getLeftTo() + 'px',
+                        top: (coords.top + $(enpTo[0]).height()) + 'px'
                     });
-                } else {
-                    var left = (parseInt($(opt_data.picker).css('left')) + 120) + 'px';
-                    $(opt_data.picker).animate({ left: left }, 300);
                 }
             }
         }
@@ -150,7 +179,8 @@
                     $scope.showPicker();
                     setPosition({
                         elemFromPosition: $event.currentTarget,
-                        picker: $scope.datePicker
+                        picker: $scope.datePicker,
+                        from: true
                     });
                 }
 
@@ -169,7 +199,8 @@
                     $scope.showPicker();
                     setPosition({
                         elemFromPosition: $event.currentTarget,
-                        picker: $scope.datePicker
+                        picker: $scope.datePicker,
+                        to: true
                     });
                 }
 
@@ -251,7 +282,7 @@
                             }
                             else {
 
-                                setPosition({ slide: true, picker: el });
+                                setPosition({ slide: true, picker: $(el) });
 
 
                                 //если выбираем дату туда, и стоит галка в одну сторону

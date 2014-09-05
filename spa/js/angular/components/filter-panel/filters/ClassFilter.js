@@ -9,7 +9,7 @@ angular.module('innaApp.components').
 
             var ClassFilter = Ractive.extend({
                 data: {
-                    clearTimeHover : null,
+                    clearTimeHover: null,
                     isOpen: false,
                     hasSelected: false,
                     value: null
@@ -19,7 +19,7 @@ angular.module('innaApp.components').
 
                     this.on({
                         toggle: function (evt) {
-                            if(evt && evt.original)
+                            if (evt && evt.original)
                                 evt.original.stopPropagation();
 
                             this.toggle('isOpen')
@@ -42,14 +42,14 @@ angular.module('innaApp.components').
                         onHover : function(evt){
                             clearTimeout(this.get('clearTimeHover'));
 
-                            if(!evt.hover) {
-                                var time = setTimeout(function(){
+                            if (!evt.hover) {
+                                var time = setTimeout(function () {
                                     that.fire('hide')
                                 }, 500);
                                 this.set('clearTimeHover', time);
                             }
                         },
-                        filtersItemRemove : this.IndicatorFiltersItemRemove,
+                        filtersItemRemove: this.IndicatorFiltersItemRemove,
                         teardown: function (evt) {
                             //console.log('teardown child');
                         }
@@ -68,7 +68,7 @@ angular.module('innaApp.components').
                  * @param data
                  * @override
                  */
-                IndicatorFiltersItemRemove : function(data){
+                IndicatorFiltersItemRemove: function (data) {
 
                 },
 

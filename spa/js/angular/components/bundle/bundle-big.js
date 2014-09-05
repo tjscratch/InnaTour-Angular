@@ -78,10 +78,6 @@ angular.module('innaApp.directives')
                         }
                     });
 
-                    /*console.log('bundle');
-                    console.log($scope.bundle);
-                    console.log('bundle');*/
-
                     // Tripadvisor
                     var _tripadvisor = new Tripadvisor({
                         el: $element.find('.js-tripadvisor-container'),
@@ -98,15 +94,15 @@ angular.module('innaApp.directives')
                         data: {
                             stars: $scope.bundle.hotel.data.Stars
                         }
-                    })
-
+                    });
 
                     var _priceGeneric = new PriceGeneric({
                         el: $element.find('.js-price-generic-container'),
                         data: {
                             template: "index.hbs.html",
                             virtualBundle : $scope.bundle,
-                            tooltipKlass : 'bundle'
+                            tooltipKlass : 'bundle',
+                            type : $scope.tabActive
                         }
                     })
 
@@ -137,7 +133,11 @@ angular.module('innaApp.directives')
 
                     // update components
                     $scope.$watchCollection('bundle', function(value){
-                        _priceGeneric.set('virtualBundle', value);
+                        _priceGeneric.set({
+                            'virtualBundle': value,
+                            type : $scope.tabActive
+                        });
+
                         _tripadvisor.set({
                             TaCommentCount: $scope.bundle.hotel.data.TaCommentCount,
                             TaFactor: $scope.bundle.hotel.data.TaFactor,

@@ -1,11 +1,11 @@
-<li class="filter filter_price">
+<li class="filter filter_price" on-hover="onHover">
     <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
          on-click="toggle">
         Цена
     </div>
 
 
-    <div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}" on-hover="onHover">
+    <div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}">
         <div class="filter__range-container">
 
 	        <span class="filter__range">до
