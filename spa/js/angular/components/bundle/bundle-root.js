@@ -179,7 +179,6 @@ angular.module('innaApp.directives')
 
                         EventManager.on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function (data) {
                             $scope.safeApply(function () {
-                                //console.log(data, 'data');
                                 $scope.combination.hotel = data;
                                 $scope.isChooseHotel = true;
                                 $scope.display.fullDisplay();

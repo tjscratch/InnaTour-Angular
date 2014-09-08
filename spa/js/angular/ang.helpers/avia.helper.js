@@ -295,7 +295,7 @@
                         DepartureHours: departureDate.getHours(),
                         ArrivalHours: arrivalDate.getHours(),
                         BackDepartureHours: backDepartureDate ? backDepartureDate.getHours() : null,
-                        BackArrivalHours: backArrivalDate ? backArrivalDate.getHours() : null,
+                        BackArrivalHours: backArrivalDate ? backArrivalDate.getHours() : null
                     };
 
                     //console.log(item.DepartureDate + ' hours: ' + item.sort.DepartureHours);
@@ -430,7 +430,8 @@
 
                 baloonType: baloonType,
 
-                // TODO : welcome to hell
+                // TODO : вынести в компонент balloon
+                // точнее там все уже есть, нужно найти время и причесать все :)
                 baloon: {
                     isVisible: false,
                     caption: '',
@@ -601,10 +602,16 @@
                     return parseInt(adultCount) + parseInt(childCount) + parseInt(infantsCount);
                 },
 
+                // TODO : вынести в компонент balloon
+                // сложная логика этого попапа, 3 шаблона с инклюдами
+                // нужно время на переделку
                 popupItemInfo: function (ticketsCount, cabinClass) {
                     var self = this;
                     self.isShow = false;
                     self.item = null;
+                    self.position = {
+                        top : 200
+                    };
 
                     self.ticketsCount = ticketsCount;
                     self.hideBuyButton = false;
@@ -615,7 +622,10 @@
                     self.show = function ($event, item, criteria, searchId, hideBuyButton) {
                         //console.log('popupItemInfo.show');
                         //console.log(item);
-                        eventsHelper.preventBubbling($event);
+                        if($event) {
+                            eventsHelper.preventBubbling($event);
+                        }
+
                         self.isShow = true;
                         self.hideBuyButton = hideBuyButton;
                         item = self.addAggFields(item);
@@ -634,12 +644,8 @@
                         }
 
                         function setPosition() {
-                            var popup = $('.js-ticket-info-baloon');
-                            if (popup) {
-                                var displayHeight = $(window).height();
-                                var popupHeight = popup.height();
-                                popup.css({ top: Math.ceil(displayHeight / 2) - Math.ceil(popupHeight / 2) });
-                            }
+                            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                            self.position.top += scrollTop;
                         }
 
                         setTimeout(function () {
@@ -660,7 +666,9 @@
                         if (item != null) {
                             item.etapsAgg = [];
 
+
                             var maxEtapsLen = item.EtapsTo.length;
+
                             if (item.EtapsBack != null && item.EtapsBack.length > maxEtapsLen) {
                                 maxEtapsLen = item.EtapsBack.length;
                             }
@@ -681,6 +689,7 @@
 
                                 function setAlert(etap, nextEtap) {
                                     if (etap != null) {
+
                                         var alerts = [];
                                         if (etap.InPortId != etap.NextOutPortId) {
                                             alerts.push("Смена аэропорта");
@@ -734,7 +743,7 @@
 
                     self.share = function ($event, item) {
                         eventsHelper.preventBubbling($event);
-                        alert('Не реализовано');
+                        //alert('Не реализовано');
                     }
                 },
 

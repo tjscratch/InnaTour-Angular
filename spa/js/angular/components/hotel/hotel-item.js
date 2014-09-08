@@ -135,6 +135,12 @@ angular.module('innaApp.components').
                     EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));
                 },
 
+                /**
+                 * Выбераем отель
+                 * Передаем в событие данные
+                 * this.get('modelHotel') - модель отеля
+                 * this.get('hotel.HotelId') - id отеля
+                 */
                 setCurrent: function () {
                     this.set('hidden', true);
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, this.get('modelHotel'), this.get('hotel.HotelId'));
