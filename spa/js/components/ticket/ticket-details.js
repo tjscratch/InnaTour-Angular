@@ -28,7 +28,7 @@ angular.module('innaApp.directives')
                         delete $location.$$search.displayTicket;
                         $location.$$compose();
                         $scope.ticket = null;
-                        $scope.popupItemInfo.isShow = false;
+                        $scope.popupItemInfo.hide();
                     };
 
                     $scope.setCurrent = function () {
