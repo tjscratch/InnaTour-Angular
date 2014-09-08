@@ -16,19 +16,19 @@ var optStyl = {
 
 
 gulp.task('styl-components', function () {
-    return gulp.src([conf.angular + '/components/**/*.styl'])
+    return gulp.src([conf.src + '/components/**/*.styl'])
         .pipe(concat('components.styl', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.styl + '/temp'))
 });
 
 gulp.task('styl-pages', function () {
-    return gulp.src([conf.angular + '/pages/**/*.styl'])
+    return gulp.src([conf.src + '/pages/**/*.styl'])
         .pipe(concat('pages.styl', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.styl + '/temp'))
 });
 
 gulp.task('styl-regions', function () {
-    return gulp.src([conf.angular + '/regions/**/*.styl'])
+    return gulp.src([conf.src + '/regions/**/*.styl'])
         .pipe(concat('regions.styl', {insertSourceName:{open:'/*', close: '*/'}}))
         .pipe(gulp.dest(conf.styl + '/temp'))
 });

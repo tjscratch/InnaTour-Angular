@@ -33,7 +33,7 @@ function getConfReplace(){
 
 // Копируем в папку publish
 gulp.task('replace-config', function () {
-    return gulp.src(conf.angular + '/config.js')
+    return gulp.src(conf.src + '/config.js')
         .pipe(htmlreplace(getConfReplace()))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
             mangle: false,
