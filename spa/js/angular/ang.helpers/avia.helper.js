@@ -295,7 +295,7 @@
                         DepartureHours: departureDate.getHours(),
                         ArrivalHours: arrivalDate.getHours(),
                         BackDepartureHours: backDepartureDate ? backDepartureDate.getHours() : null,
-                        BackArrivalHours: backArrivalDate ? backArrivalDate.getHours() : null,
+                        BackArrivalHours: backArrivalDate ? backArrivalDate.getHours() : null
                     };
 
                     //console.log(item.DepartureDate + ' hours: ' + item.sort.DepartureHours);
@@ -660,7 +660,9 @@
                         if (item != null) {
                             item.etapsAgg = [];
 
+
                             var maxEtapsLen = item.EtapsTo.length;
+
                             if (item.EtapsBack != null && item.EtapsBack.length > maxEtapsLen) {
                                 maxEtapsLen = item.EtapsBack.length;
                             }
@@ -681,6 +683,7 @@
 
                                 function setAlert(etap, nextEtap) {
                                     if (etap != null) {
+
                                         var alerts = [];
                                         if (etap.InPortId != etap.NextOutPortId) {
                                             alerts.push("Смена аэропорта");

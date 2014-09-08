@@ -214,10 +214,12 @@ inna.Models.Avia.TicketCollection.prototype.hideBundled = function(bundle){
 
 inna.Models.Avia.Ticket = function () {
     this.data = null;
+    this.raw = null;
     this.hidden = false;
 };
 
 inna.Models.Avia.Ticket.prototype.setData = function (data) {
+    this.raw = angular.copy(data);
     this.data = angular.copy(data);
 
     if (this.data) {

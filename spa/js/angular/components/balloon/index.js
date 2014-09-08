@@ -139,7 +139,14 @@ innaAppConponents.
                 },
 
                 show: function () {
-                    this.set({isVisible: true});
+                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    console.log(scrollTop);
+                    this.set({
+                        isVisible: true,
+                        position : ''
+                    });
+
                 },
 
 

@@ -1192,6 +1192,11 @@ innaAppControllers.
                     $scope._priceGeneric.teardown();
                     $scope._priceGeneric = null;
                 }
+
+                if ($scope.shareLink) {
+                    $scope.shareLink.teardown();
+                    $scope.shareLink = null;
+                }
                 $scope.ractiveControl = null;
 
             });

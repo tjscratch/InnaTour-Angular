@@ -59,8 +59,8 @@ angular.module('innaApp.components').
 
                     this.on({
                         setCurrent: this.setCurrent,
-                        getTicketDetails: function () {
-                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, null, this.get('modelTicket'));
+                        getTicketDetails: function (evt) {
+                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, evt.original, this.get('modelTicket'));
                         },
                         change: function (data) {
 
@@ -89,6 +89,12 @@ angular.module('innaApp.components').
                     }); //this.CHOOSE_TICKET.bind(this)
                 },
 
+                /**
+                 * Выбераем ( бител ) перелет
+                 * Передаем в событие данные
+                 * this.get('modelTicket') - модель билета
+                 * this.get('ticket.VariantId1') - id билета
+                 */
                 setCurrent: function () {
                     this.set('hidden', true);
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_TICKET, this.get('modelTicket'), this.get('ticket.VariantId1'));
