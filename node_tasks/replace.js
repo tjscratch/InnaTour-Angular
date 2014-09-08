@@ -34,13 +34,13 @@ function getConfReplace(){
 
 // Копируем в папку publish
 gulp.task('replace-partners', function () {
-    return gulp.src(conf.angular + '/partners/module.js')
+    return gulp.src(conf.src + '/partners/module.js')
         .pipe(htmlreplace({ 'module-host': 'innaModule.host = \'' + partnersHost + '\';' }))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
         mangle: false,
             outSourceMap: true
             })))
-        .pipe(gulp.dest(conf.publish + '/spa/js/angular/partners/' + conf.partners_version));
+        .pipe(gulp.dest(conf.publish + '/spa/js/partners/' + conf.partners_version));
         });
 
 gulp.task('replace-config', function () {
