@@ -11,6 +11,7 @@ var apiHost = (_ENV_ === 'production') ? conf.hosts.api.prod : ((_ENV_ === 'beta
 var b2bHost = (_ENV_ === 'production') ? conf.hosts.b2b.prod : ((_ENV_ === 'beta') ? conf.hosts.b2b.beta : conf.hosts.b2b.test);
 var apiFrontHost = (_ENV_ === 'production') ? conf.hosts.front.prod : ((_ENV_ === 'beta') ? conf.hosts.front.beta : conf.hosts.front.test);
 var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : ((_ENV_ === 'beta') ? conf.hosts.static.beta : conf.hosts.static.test);
+var partnersHost = (_ENV_ === 'production') ? conf.hosts.partners.prod : ((_ENV_ === 'beta') ? conf.hosts.partners.beta : conf.hosts.partners.test);
 
 var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protocol.http;
 
@@ -32,6 +33,16 @@ function getConfReplace(){
 }
 
 // Копируем в папку publish
+gulp.task('replace-partners', function () {
+    return gulp.src(conf.angular + '/partners/module.js')
+        .pipe(htmlreplace({ 'module-host': 'innaModule.host = \'' + partnersHost + '\';' }))
+        .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
+        mangle: false,
+            outSourceMap: true
+            })))
+        .pipe(gulp.dest(conf.publish + '/spa/js/angular/partners/' + conf.partners_version));
+        });
+
 gulp.task('replace-config', function () {
     return gulp.src(conf.src + '/config.js')
         .pipe(htmlreplace(getConfReplace()))

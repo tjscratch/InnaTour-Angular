@@ -1,12 +1,12 @@
-﻿var innaModule = {
+var innaModule = {
     searchFrom: {
-        init: function () {
+        init: function (partner) {
             setTimeout(function () {
-                innaModule.searchFrom.init_internal();
+                innaModule.searchFrom.init_internal(partner);
             }, 0);
             
         },
-        init_internal: function () {
+        init_internal: function (partner) {
             var frameCont = document.getElementById('inna-frame');
             //скрываем контейнер, пока не загрузили фрейм и не проставили высоту
             frameCont.style.visibility = 'hidden';
@@ -19,7 +19,7 @@
             fr.style.overflow = 'hidden';
             fr.border = 0;
             fr.frameBorder = 0;
-            fr.src = "http://biletix.lh.inna.ru/";
+            fr.src = getFrameUrl(partner);
             frameCont.appendChild(fr);
 
             if (window.addEventListener) {
@@ -29,6 +29,10 @@
             else {
                 console.log('no addEventListener');
                 window.attachEvent("onmessage", receiveMessage);
+            }
+
+            function getFrameUrl(partner) {
+                return innaModule.host.replace("{0}", partner);
             }
 
             function receiveMessage(event) {
@@ -44,7 +48,6 @@
                 //    return;
 
                 if (data.height != null) {
-                    //console.log('receiveMessage from', event.origin);
                     var frame = document.getElementById("innaFrame1");
 
                     console.log('frame set height', data.height);
@@ -59,3 +62,7 @@
         }
     }
 };
+
+//<!-- build:module-host -->
+innaModule.host = 'http://{0}.lh.inna.ru';
+//<!-- endbuild -->
