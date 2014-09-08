@@ -18,7 +18,7 @@ innaAppConponents.
                     balloonContent: null,
                     balloonClose: true,
                     isVisible: false,
-
+                    styleWidth : '',
 
                     /**
                      * Вызвать метод когда будет закрыт попап
@@ -143,7 +143,8 @@ innaAppConponents.
                 show: function () {
                     var that = this;
                     this.set({
-                        isVisible: true
+                        isVisible: true,
+                        styleWidth : document.documentElement.clientWidth
                     });
                 },
 

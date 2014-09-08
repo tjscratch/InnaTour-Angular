@@ -1,36 +1,44 @@
 <!-- Baloon -->
 <div class="overlay js-overlay" ng-if="popupItemInfo.isShow">
-    <div class="balloon balloon_ticket js-ticket-info-baloon"
-         ng-class="{'balloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}"
-         close-popup
-         fn-hide="popupItemInfo.hide()">
+    <div class="scroll-fix" ng-style="popupItemInfo.style">
+        <div class="balloon balloon_ticket js-ticket-info-baloon"
+             ng-class="{'balloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}"
+             close-popup
+             fn-hide="popupItemInfo.hide()">
 
-        <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
-            <div title="Закрыть" class="balloon-close" ng-click="popupItemInfo.isShow = false"></div>
+            <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
+                <div title="Закрыть" class="balloon-close" ng-click="popupItemInfo.hide()"></div>
 
-            <h3 class="b-tickets__title">Подробная информация по перелету</h3>
-            <ng:include ng-if="item.EtapsBack.length > 0" src="'avia/popup_item_info_two_ways.html'"></ng:include>
-            <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null" src="'avia/popup_item_info_one_way.html'"></ng:include>
+                <h3 class="b-tickets__title">Подробная информация по перелету</h3>
+                <ng:include ng-if="item.EtapsBack.length > 0" src="'avia/popup_item_info_two_ways.html'"></ng:include>
+                <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null"
+                            src="'avia/popup_item_info_one_way.html'"></ng:include>
 
-            <div class="b-tickets__footer">
+                <div class="b-tickets__footer">
 
-                <!-- tooltip-widget -->
-                <ul class="b-tickets__icons">
-                    <li>
-                        <div class="tooltip-widget js-share-component"></div>
-                    </li>
-                </ul>
+                    <!-- tooltip-widget -->
+                    <ul class="b-tickets__icons">
+                        <li>
+                            <div class="tooltip-widget js-share-component"></div>
+                        </li>
+                    </ul>
 
-                <div class="b-tickets__footer-inner" ng-if="hotel == null">
-                    <div class="b-tickets__footer-price-block">
-                        <div class="b-tickets__footer-price">{{item.Price| price}}
-                            <ng-include src="'components/ruble.html'" /></div>
-                        <div class="b-tickets__footer-price-info">за {{popupItemInfo.ticketsCount}} {{helper.pluralForm(popupItemInfo.ticketsCount, 'билет', 'билета', 'билетов')}} {{popupItemInfo.ticketsClass}} класса</div>
+                    <div class="b-tickets__footer-inner" ng-if="hotel == null">
+                        <div class="b-tickets__footer-price-block">
+                            <div class="b-tickets__footer-price">{{item.Price| price}}
+                                <ng-include src="'components/ruble.html'"/>
+                            </div>
+                            <div class="b-tickets__footer-price-info">за {{popupItemInfo.ticketsCount}}
+                                {{helper.pluralForm(popupItemInfo.ticketsCount, 'билет', 'билета', 'билетов')}}
+                                {{popupItemInfo.ticketsClass}} класса
+                            </div>
+                        </div>
+                        <span ng-if="!(popupItemInfo.hideBuyButton == true)" class="rl-buy-button button"
+                              href="javascript:void(0)" ng-click="goToPaymentClick($event, item)">Купить</span>
                     </div>
-                    <span ng-if="!(popupItemInfo.hideBuyButton == true)" class="rl-buy-button button" href="javascript:void(0)" ng-click="goToPaymentClick($event, item)">Купить</span>
                 </div>
-            </div>
-        </ng:any>
+            </ng:any>
+        </div>
     </div>
 </div>
 <!-- /Baloon -->

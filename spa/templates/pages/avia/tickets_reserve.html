@@ -234,6 +234,7 @@
 
 <!-- Baloon -->
 <div class="overlay js-overlay" ng-if="tarifs.isOpened">
+    <div class="scroll-fix" ng-style="tarifs.style">
     <div class="balloon balloon_medium js-tarifs">
         <div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>
         <div class="b__rules-container">
@@ -259,6 +260,7 @@
                 <p ng-bind-html="tarifs.tarifItem.Text | breakFilter"></p>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <!-- /Baloon -->
