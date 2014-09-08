@@ -1,39 +1,40 @@
 <!--
     В класс balloon можно передать любые параметры и настройки
 -->
-
-<div class="overlay js-overlay {{isVisible ? 'overlay_show' : ''}}"></div>
-
 {{#isVisible}}
-<div class="b-balloon js-b-balloon balloon {{balloon_class}}" style="top:{{position.top}}px;">
+<div class="overlay js-overlay {{isVisible ? 'overlay_show' : ''}}">
 
-    {{#if balloonClose || callbackClose}}
+    <div class="b-balloon js-b-balloon balloon {{balloon_class}}">
+
+        {{#if balloonClose || callbackClose}}
         <div title="Закрыть" class="balloon-close" on-click="hide"></div>
-    {{/if}}
+        {{/if}}
 
 
-    {{#if title && !loading && !content}}
+        {{#if title && !loading && !content}}
         <h3 class="b-tickets__title">{{title}}</h3>
-    {{/if}}
+        {{/if}}
 
 
-    {{#if loading}}
+        {{#if loading}}
         {{>loading}}
-    {{/if}}
+        {{/if}}
 
-    <div class="b-balloon__content">
+        <div class="b-balloon__content">
 
-        {{#if template}}
+            {{#if template}}
             {{#reset}}
-                {{>partialUpdate}}
+            {{>partialUpdate}}
             {{/}}
-        {{/if}}
+            {{/if}}
 
-        {{#if balloonPart && (!template && !balloonContent)}}
+            {{#if balloonPart && (!template && !balloonContent)}}
             {{>balloonContent}}
-        {{else}}
+            {{else}}
             <p class="balloon-info">{{{balloonContent}}}</p>
-        {{/if}}
+            {{/if}}
+        </div>
     </div>
 </div>
 {{/}}
+

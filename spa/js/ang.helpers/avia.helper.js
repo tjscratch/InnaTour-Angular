@@ -429,6 +429,12 @@
                 },
 
                 baloonType: baloonType,
+                scrollFix : function(value){
+                    document.querySelector('.main').style.width = value || '100%';
+                    document.querySelector('.header').style.width = value || '100%';
+                    document.querySelector('.footer').style.width = value || '100%';
+                    document.querySelector('.recommend-bundle-container').style.width = value || '100%';
+                },
 
                 // TODO : вынести в компонент balloon
                 // точнее там все уже есть, нужно найти время и причесать все :)
@@ -609,9 +615,7 @@
                     var self = this;
                     self.isShow = false;
                     self.item = null;
-                    self.position = {
-                        top : 200
-                    };
+                    self.style = {};
 
                     self.ticketsCount = ticketsCount;
                     self.hideBuyButton = false;
@@ -620,11 +624,15 @@
                     self.ticketsClass = helper.getCabinClassName(cabinClass).toLowerCase();
 
                     self.show = function ($event, item, criteria, searchId, hideBuyButton) {
+
                         //console.log('popupItemInfo.show');
                         //console.log(item);
                         if($event) {
                             eventsHelper.preventBubbling($event);
                         }
+
+                        document.body.classList.add('overflow_hidden');
+                        //helper.scrollFix(window.innerWidth+'px');
 
                         self.isShow = true;
                         self.hideBuyButton = hideBuyButton;
@@ -643,23 +651,24 @@
                             self.link = url;
                         }
 
-                        function setPosition() {
-                            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                            self.position.top += scrollTop;
+                        self.setStyle = function() {
+                            self.style = {
+                                width : (window.innerWidth+'px')
+                            }
                         }
 
                         setTimeout(function () {
-                            setPosition();
-                            $(window).resize(function () {
-                                setPosition();
-                            });
+                            self.setStyle();
+                            $(window).on('resize', self.setStyle);
                         }, 0);
-                        
                     }
 
                     self.hide = function () {
                         //console.log('popupItemInfo.hide');
                         self.isShow = false;
+                        $(window).off('resize', self.setStyle);
+                        //helper.scrollFix();
+                        document.body.classList.remove('overflow_hidden');
                     }
 
                     self.addAggFields = function (item) {
@@ -794,6 +803,10 @@
                     }
                     self.show = function ($event) {
                         if($event) eventsHelper.preventBubbling($event);
+
+                        document.body.classList.add('overflow_hidden');
+                        //helper.scrollFix(window.innerWidth+'px');
+
                         self.selectedIndex = 0;
                         self.setected = self.list[0];
                         if (self.tarifsData != null && self.tarifsData.length > 0) {
@@ -806,7 +819,7 @@
                         self.isOpened = true;
 
                         //ToDo: потом отрефакторить и не потерять эту логику
-                        function setPosition() {
+                        /*function setPosition() {
                             var popup = $('.js-tarifs');
                             if (popup) {
                                 var displayHeight = $(window).height();
@@ -817,23 +830,25 @@
                                     rulesHeight = 200;
                                 }
                                 rules.css({ height: rulesHeight });
-
-                                var popupHeight = popup.height();
-                                popup.css({ top: (displayHeight / 2) - (popupHeight / 2) });
                             }
-                        }
 
-                        setTimeout(function () {
+                            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                            self.position.top += scrollTop;
+                        }*/
+
+                        /*setTimeout(function () {
                             setPosition();
                             $(window).resize(function () {
                                 setPosition();
                             });
-                        }, 0);
-                        //</ToDo>
+                        }, 0);*/
+
                         
                     }
                     self.close = function ($event) {
                         if($event) eventsHelper.preventBubbling($event);
+                        document.body.classList.remove('overflow_hidden');
+                        //helper.scrollFix();
                         self.isOpened = false;
                     }
                 },
