@@ -23,11 +23,11 @@ var innaModule = {
             frameCont.appendChild(fr);
 
             if (window.addEventListener) {
-                console.log('addEventListener');
+                //console.log('addEventListener');
                 window.addEventListener("message", receiveMessage, false);
             }
             else {
-                console.log('no addEventListener');
+                //console.log('no addEventListener');
                 window.attachEvent("onmessage", receiveMessage);
             }
 
