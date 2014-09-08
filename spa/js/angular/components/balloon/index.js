@@ -18,6 +18,9 @@ innaAppConponents.
                     balloonContent: null,
                     balloonClose: true,
                     isVisible: false,
+                    position : {
+                        top : 200
+                    },
 
 
                     /**
@@ -139,7 +142,13 @@ innaAppConponents.
                 },
 
                 show: function () {
-                    this.set({isVisible: true});
+                    var that = this;
+                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    this.set({
+                        isVisible: true,
+                        'position.top' : (scrollTop + 200)
+                    });
                 },
 
 

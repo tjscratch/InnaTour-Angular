@@ -44,7 +44,6 @@ gulp.task('concat-lib', function () {
             //conf.dest + '/lib/ractive/ractive.0.6.js',
             conf.dest + '/lib/ractive/ractive-events-hover.js',
             conf.dest + '/lib/polyfill/**/*.js',
-            conf.dest + '/lib/jquery.cookie.js',
             conf.dest + '/lib/jquery.maskedinput.js',
             conf.dest + '/lib/angular-cookies.min.js',
             conf.dest + '/lib/angular-locale_ru-ru.js',

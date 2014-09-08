@@ -12,7 +12,8 @@ innaAppControllers.
         '$location',
         'dataService',
         'urlHelper',
-        function ToursFormCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, urlHelper) {
+        '$cookieStore',
+        function ToursFormCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, urlHelper, $cookieStore) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -209,11 +210,14 @@ innaAppControllers.
             //куки
             function getParamsFromCookie() {
                 var sta = QueryString.getByName('sta');
+
                 //проверяем, что нужно восстанавливать состояние
                 //из куки восстанавливаем только на главной
                 if ($location.path() == "/" && (sta == null || sta == '')) {
-                    //log('getParamsFromCookie');
-                    var cookVal = $.cookie("form_cook");
+
+
+                    var cookVal = $cookieStore.get('form_cook');
+
                     //log('getParamsFromCookie, cookVal: ' + cookVal);
                     if (cookVal != null) {
                         var formVal = angular.fromJson(cookVal);
@@ -262,10 +266,7 @@ innaAppControllers.
                 var cookVal = angular.toJson(saveObj);
                 //log('saveParamsToCookie, cookVal: ' + cookVal);
                 //сохраняем сессионную куку
-                $.cookie("form_cook", cookVal);
-
-                //var testVal = $.cookie("form_cook");
-                //log('saveParamsToCookie, testVal: ' + testVal);
+                $cookieStore.put("form_cook", cookVal);
             };
 
             function restoreFormParamsFromQueryString() {
