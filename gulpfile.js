@@ -33,6 +33,7 @@ gulp.task('build-project', function (callback) {
         'sprite',
         'styles-app',
         'replace-config',
+        'replace-partners',
         ['styles', 'less', 'build-concat'],
         'version-cache',
         'html-replace',
