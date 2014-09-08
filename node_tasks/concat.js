@@ -17,7 +17,7 @@ gulp.task('build-concat', [
     return gulp.src([
             conf.build + '/js/app-lib.js',
 
-            conf.angular + '/app.js',
+            conf.src + '/app.js',
             conf.build + '/js/angular-parts.js',
             conf.build + '/js/templates.js',
 
@@ -49,8 +49,8 @@ gulp.task('concat-lib', function () {
             conf.dest + '/lib/angular-locale_ru-ru.js',
             conf.dest + '/lib/bindonce.js',
             conf.dest + '/lib/google.maps.clustering.js',
-            conf.dest + '/js/jquery.ui.datepicker-ru.js',
-            conf.dest + '/js/datepicker.js',
+            conf.dest + '/lib/jquery.ui.datepicker-ru.js',
+            conf.dest + '/lib/datepicker/datepicker.js',
             conf.dest + '/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js'
     ])
 
@@ -61,59 +61,59 @@ gulp.task('concat-lib', function () {
 
 /* PARTS */
 gulp.task('concat-components', function () {
-    return gulp.src(conf.dest + '/js/angular/components/**/*.js')
+    return gulp.src(conf.src + '/components/**/*.js')
         .pipe(concat('components.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('concat-regions', function () {
-    return gulp.src(conf.dest + '/js/angular/regions/**/*.js')
+    return gulp.src(conf.src + '/regions/**/*.js')
         .pipe(concat('regions.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('concat-pages', function () {
-    return gulp.src(conf.dest + '/js/angular/pages/**/*.js')
+    return gulp.src(conf.src + '/pages/**/*.js')
         .pipe(concat('pages.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 
 gulp.task('build-controllers', function () {
-    return gulp.src([conf.angular + '/controllers/**/*.js'])
+    return gulp.src([conf.src + '/controllers/**/*.js'])
         .pipe(concat('angular-controllers.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('build-services', function () {
-    return gulp.src([conf.angular + '/services/**/*.js'])
+    return gulp.src([conf.src + '/services/**/*.js'])
         .pipe(concat('angular-services.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('build-directives', function () {
-    return gulp.src([conf.angular + '/directives/**/*.js'])
+    return gulp.src([conf.src + '/directives/**/*.js'])
         .pipe(concat('angular-directives.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('build-models', function () {
     return gulp.src([
-            conf.angular + '/models/app.model.js',
-            conf.angular + '/models/**/*.js'
+            conf.src + '/models/app.model.js',
+            conf.src + '/models/**/*.js'
     ])
         .pipe(concat('angular-models.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('build-helpers', function () {
-    return gulp.src([conf.angular + '/helpers/**/*.js'])
+    return gulp.src([conf.src + '/helpers/**/*.js'])
         .pipe(concat('angular-helpers.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
 gulp.task('build-ang.helpers', function () {
-    return gulp.src([conf.angular + '/ang.helpers/**/*.js'])
+    return gulp.src([conf.src + '/ang.helpers/**/*.js'])
         .pipe(concat('angular-ang.helpers.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
@@ -131,10 +131,10 @@ gulp.task('build-angular-parts', [
     return gulp.src([
 
             conf.build + '/js/angular-helpers.js',
-            conf.angular + '/app.js',
-            conf.angular + '/tracking.js',
-            conf.angular + '/filters.js',
-            conf.angular + '/mediator.js',
+            conf.src + '/app.js',
+            conf.src + '/tracking.js',
+            conf.src + '/filters.js',
+            conf.src + '/mediator.js',
 
             conf.build + '/js/angular-ang.helpers.js',
             conf.build + '/js/angular-services.js',

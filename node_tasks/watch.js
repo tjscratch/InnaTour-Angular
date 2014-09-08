@@ -20,17 +20,17 @@ gulp.task('watch', function () {
             server.changed(file.path);
         });
 
-    gulp.watch(conf.angular + '/components/**/*.styl', ['styl-components'])
+    gulp.watch(conf.src + '/components/**/*.styl', ['styl-components'])
         .on('change', function (file) {
             server.changed(file.path);
         });
 
-    gulp.watch(conf.angular + '/pages/**/*.styl', ['styl-pages'])
+    gulp.watch(conf.src + '/pages/**/*.styl', ['styl-pages'])
         .on('change', function (file) {
             server.changed(file.path);
         });
 
-    gulp.watch(conf.angular + '/regions/**/*.styl', ['styl-regions'])
+    gulp.watch(conf.src + '/regions/**/*.styl', ['styl-regions'])
         .on('change', function (file) {
             server.changed(file.path);
         });
@@ -44,30 +44,30 @@ gulp.task('watch', function () {
 
     // components page regions
     gulp.watch([
-            conf.angular + '/components/**/*.js',
-            conf.angular + '/pages/**/*.js',
-            conf.angular + '/regions/**/*.js'
+            conf.src + '/components/**/*.js',
+            conf.src + '/pages/**/*.js',
+            conf.src + '/regions/**/*.js'
     ], ['concat-comp-page-regions']);
 
     gulp.watch([
             conf.templ + '/**/*.html',
-            conf.dest + '/js/angular/**/*.html'
+            conf.src + '/**/*.html'
     ], ['build-templates']);
 
 
     gulp.watch([
-            conf.angular + '/app.js',
-            conf.angular + '/tracking.js',
-            conf.angular + '/config.js',
-            conf.angular + '/filters.js',
-            conf.angular + '/mediator.js',
+            conf.src + '/app.js',
+            conf.src + '/tracking.js',
+            conf.src + '/config.js',
+            conf.src + '/filters.js',
+            conf.src + '/mediator.js',
 
-            conf.angular + '/controllers/**/*.js',
-            conf.angular + '/services/**/*.js',
-            conf.angular + '/directives/**/*.js',
-            conf.angular + '/models/**/*.js',
-            conf.angular + '/helpers/**/*.js',
-            conf.angular + '/ang.helpers/**/*.js'
+            conf.src + '/controllers/**/*.js',
+            conf.src + '/services/**/*.js',
+            conf.src + '/directives/**/*.js',
+            conf.src + '/models/**/*.js',
+            conf.src + '/helpers/**/*.js',
+            conf.src + '/ang.helpers/**/*.js'
     ], ['build-angular-parts'])
         .on('change', function (file) {
             server.changed(file.path);
