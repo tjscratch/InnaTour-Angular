@@ -15,8 +15,16 @@ var innaModule = {
             fr.id = "innaFrame1"
             //fr.onload = frameLoaded();
             fr.style.width = "100%";
-            fr.style.height = "500px";
-            fr.style.overflow = 'hidden';
+            //fr.style.height = "500px";
+            //fr.style.overflow = 'hidden';
+
+            fr.style.position = 'fixed';
+            fr.style.left = '0';
+            fr.style.right = '0';
+            fr.style.bottom = '0';
+            fr.style.height = '100%';
+            fr.style.top = '200px';
+
             fr.border = 0;
             fr.frameBorder = 0;
             fr.src = getFrameUrl(partner);
@@ -47,9 +55,21 @@ var innaModule = {
                 //if (event.origin !== "http://lh.inna.ru")
                 //    return;
 
-                switch(data.cmd){
-                    case 'setHeight': setHeightCmd(data); break;
-                    case 'setScrollPos': setScrollPos(data); break;
+                if (data) {
+                    switch (data.cmd) {
+                        case 'setVisible': setVisibleCmd(data); break;
+                        case 'setHeight': setHeightCmd(data); break;
+                        case 'setScrollPos': setScrollPos(data); break;
+                    }
+                }
+            }
+
+            function setVisibleCmd(data) {
+                if (data.visible == true) {
+                    console.log('frame setVisible', data.visible);
+                    var frame = document.getElementById("innaFrame1");
+                    frameCont.style.visibility = '';
+                    frame.style.display = 'block';
                 }
             }
 

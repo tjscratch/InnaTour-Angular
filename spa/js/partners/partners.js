@@ -61,16 +61,24 @@
             }
         }
 
+        function sendSetVisible() {
+            var msg = JSON.stringify({ 'cmd': 'setVisible', 'visible': true });
+            window.parent.postMessage(msg, '*');
+        }
+
+        //просто показываем фрейм
+        setTimeout(function () { sendSetVisible(); }, 0);
+
         //ToDo: поменять интервал на событие
-        setInterval(function () {
-            sendHeight();
-        }, 500);
+        //setInterval(function () {
+        //    sendHeight();
+        //}, 500);
     }
 
     var partner = self.getPartner();
     if (partner != null) {
-        widgetCode(partner.name);
         insertCss(partner.src);
+        widgetCode(partner.name);
     }
 
 }(document, window));
