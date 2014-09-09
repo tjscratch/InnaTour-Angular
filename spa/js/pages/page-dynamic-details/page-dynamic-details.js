@@ -251,6 +251,9 @@ innaAppControllers
                     if ($scope.buyAction) {
                         $timeout(function () {
                             window.scrollTo(0, 1050);
+                            if (window.partners) {
+                                window.partners.setScrollTo(1050);
+                            }
                             $scope.dataFullyLoadedGallery = true;
                         }, 1000);
                     } else {

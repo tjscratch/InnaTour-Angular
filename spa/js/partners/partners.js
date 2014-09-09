@@ -25,6 +25,13 @@
         return null;
     }
 
+    self.setScrollTo = function (scrollTo) {
+        if (scrollTo) {
+            var msg = JSON.stringify({ 'cmd': 'setScrollPos', 'scrollTo': scrollTo });
+            window.parent.postMessage(msg, '*');
+        }
+    }
+
     function insertCss(src) {
         var link = d.createElement("link");
         link.type = "text/css";
@@ -39,7 +46,7 @@
     }
 
     function widgetCode() {
-        document.getElementsByTagName('html')[0].style.overflowY = 'hidden';
+        //document.getElementsByTagName('html')[0].style.overflowY = 'hidden';
 
         var lastHeight = 0;
         function sendHeight() {
@@ -47,7 +54,7 @@
 
             if (height != lastHeight) {
                 lastHeight = height;
-                var msg = JSON.stringify({ 'height': height });
+                var msg = JSON.stringify({ 'cmd': 'setHeight', 'height': height });
                 window.parent.postMessage(msg, '*');
             }
         }

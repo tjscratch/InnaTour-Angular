@@ -36,7 +36,7 @@ var utils = {
         return self;
     },
 
-    normalize: function(data){
+    normalize: function (data) {
         var normData = {};
         _.each(_.keys(data), function (key) {
             normData[key] = '' + data[key];
@@ -45,7 +45,7 @@ var utils = {
         return data;
     },
 
-    getScrollTop: function(){
+    getScrollTop: function () {
         var body = document.body;
         var docEl = document.documentElement;
         var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
@@ -84,18 +84,26 @@ var utils = {
      * @return *
      * utils.pluralize(number, ['пересадка', 'пересадки', 'пересадок']);
      */
-    pluralize : function (number, titles) {
+    pluralize: function (number, titles) {
         var cases = [2, 0, 1, 1, 1, 2];
         return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
     },
 
-    isSafari: function(){
+    isSafari: function () {
         var ua = navigator.userAgent.toLowerCase();
 
-        if(ua.indexOf('safari') == -1) return false;
-        if(ua.indexOf('chrome') > -1) return false;
+        if (ua.indexOf('safari') == -1) return false;
+        if (ua.indexOf('chrome') > -1) return false;
 
         return true;
+    },
+
+    inIframe: function () {
+        try {
+            return window.self !== window.top;
+        } catch (e) {
+            return true;
+        }
     },
 
     eof: null
