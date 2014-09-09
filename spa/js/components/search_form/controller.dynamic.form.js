@@ -7,8 +7,7 @@ innaAppControllers
         'Validators',
         '$location',
         'innaApp.Urls',
-        '$cookieStore',
-        function ($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs, $cookieStore) {
+        function ($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs) {
 
             var parseRoute = function (path) {
                 //console.log('here');

@@ -44,7 +44,7 @@ gulp.task('replace-partners', function () {
 
 gulp.task('replace-config', function () {
     return gulp.src(conf.src + '/config.js')
-        .pipe(htmlreplace(getConfReplace()))
+        .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', htmlreplace(getConfReplace())))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
             mangle: false,
             outSourceMap: true
