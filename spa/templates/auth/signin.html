@@ -1,4 +1,4 @@
-<form class="popup-form auth-form" ng-controller="AuthSignInCtrl">
+<form class="popup-form auth-form" ng-submit="signIn()" ng-controller="AuthSignInCtrl">
     <h3 class="popup-form-title">Войти</h3>
     <div class="popup-form-row">
         <label for="" class="popup-form-label">Логин</label>
@@ -18,7 +18,8 @@
             <span class="checkbox {{({'true': 'checked', 'false': ''})[rememberMe]}}" ng-click="switchRememberMe()"></span>
             <label class="checkbox-label" ng-click="switchRememberMe()">Запомнить меня</label>
         </div>
-        <button type="submit" class="button" ng-click="signIn()" tabindex="3">Войти</button>
+        <button type="submit" class="button" tabindex="3">Войти</button>
+        <!--ng-click="signIn()"-->
     </div>
     <div ng-show="requestFailure">
         <span class="message">Неверное имя пользователя или пароль</span>

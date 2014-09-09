@@ -249,6 +249,10 @@ angular.module('innaApp.directives')
                         EventManager.on(Events.FILTER_PANEL_RESET, filtersPanelReset);
 
 
+                        /*$scope.$watchCollection('combination', function(value){
+                            console.log('watch combination', value);
+                        });*/
+
                         /*Events*/
                         $scope.$on('$destroy', function () {
                             console.log('$destroy bundle root');

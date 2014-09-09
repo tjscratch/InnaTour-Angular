@@ -1,6 +1,10 @@
 angular.module('innaApp.controllers')
     .controller('AuthSignInCtrl', [
-        '$scope', 'Validators', 'AuthDataProvider', '$rootScope', 'innaApp.API.events',
+        '$scope',
+        'Validators',
+        'AuthDataProvider',
+        '$rootScope',
+        'innaApp.API.events',
         function($scope, Validators, AuthDataProvider, $rootScope, Events){
             function validate() {
                 Validators.defined($scope.username, 'username');

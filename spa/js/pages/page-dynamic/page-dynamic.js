@@ -196,6 +196,13 @@ innaAppControllers
                                 if (FilterPanelComponent) FilterPanelComponent.teardown();
                                 if (ListPanelComponent) ListPanelComponent.teardown();
 
+
+                                /** перезагружаем рекомендованную пару */
+                                if(value.Ticket) {
+                                    $scope.combination.ticket = new inna.Models.Avia.Ticket();
+                                    $scope.combination.ticket.setData(value.Ticket);
+                                }
+
                                 that.set({
                                     iterable_hotels: true,
                                     iterable_tickets: false,
@@ -229,6 +236,13 @@ innaAppControllers
                                 if ($location.search().displayTicket) {
                                     that.loadTicketDetails($location.search().displayTicket);
                                 }
+
+                                /** перезагружаем рекомендованную пару */
+                                if(value.Hotel) {
+                                    $scope.combination.hotel = new inna.Models.Hotels.Hotel(value.Hotel);
+                                }
+
+
 
                                 if (FilterPanelComponent) FilterPanelComponent.teardown();
                                 if (ListPanelComponent) ListPanelComponent.teardown();
@@ -512,6 +526,7 @@ innaAppControllers
                     if (!ids) return;
 
                     try {
+                        //dfdf;
                         var ticketIds = ids.split('_');
                         var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                         if (ticket) {
@@ -526,7 +541,7 @@ innaAppControllers
                     var that = this;
 
                     $scope.baloon.showErr(
-                        "Запрашиваемая билетная пара не найдена",
+                        "Запрашиваемая билетная пара <br/> не найдена",
                         "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
                         function () {
                             delete $location.$$search.displayTicket
