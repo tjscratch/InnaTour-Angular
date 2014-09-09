@@ -1,101 +1,68 @@
-.overlay {
-    background: rgba(235,238,242,0.8);
-}
-
-.recommend-bundle-container {
-    top: 0px;
-}
-
-.light-theme {
-    background-color: #ebeef2;
-}
-
-.recommend-bundle-background {
-    /*background: url("/spa/html/BiletixSite/photo.jpg") no-repeat 0 0;*/
-    
-    &:after {
-        background: none;
+.partner-biletix {
+    .overlay {
+        background: rgba(235,238,242,0.8);
     }
-}
 
-.recommend-bundle-container.recommend-bundle-container_short {
-    top: 0px;
-}
-
-.results-container {
-    padding: 340px 0 0;
-}
-
-.recommend-bundle-title {
-    background-color: #61a8e1;
-    padding: 10px 15px;
-    width: 300px;
-    margin-bottom: 0px;
-    font-weight: bolder;
-}
-
-.recommend-bundle-wrap {
-    padding: 30px 0 24px;
-}
-
-.recommend-bundle-wrap .w-expand-collapse-link.w-expand-collapse-link_up {
-    top: 12px;
-    background-color: #ffffff;
-    padding: 4px 14px 6px 8px;
-}
-
-.recommend-bundle-wrap .w-expand-collapse-link .expand-collapse-link {
-    color: #4d4d4d;
-    text-decoration: none;
-}
-
-.icon-expand, .icon-collapse {
-    background: url("/spa/img/expand-collapse-gray.png");
-}
-
-.result-buy .button {
-    border-top: 1px solid #f199dc;
-    border-bottom: 1px solid #a60070;
-    padding: 5px 16px;
-    background: linear-gradient(top, #dc00a4, #cf0071);
-    border-radius: 0px;
-    
-    &:hover {
-        background: linear-gradient(top, rgba(220,0,164,0.8), rgba(207,0,113,0.8));
+    .recommend-bundle-container {
+        top: 0px;
     }
-}
 
-.b-list-panel__hotels_list {
-    .button {
-        border: none;
-        border-top: 1px solid #f7dc7f;
-        border-bottom: 1px solid #f3ca3f;
-        padding: 5px 16px;
-        background: linear-gradient(top, #f1c300, #eba200);
+    .light-theme {
+        background-color: #ebeef2;
+    }
+
+    .recommend-bundle-background {
+        /*background: url("/spa/html/BiletixSite/photo.jpg") no-repeat 0 0;*/
     
-        &:hover {
-            background: linear-gradient(top, rgba(241,195,0,0.8), rgba(235,162,0,0.8));
+        &:after {
+            background: none;
         }
     }
-}
 
-.ra-fly-type-list input:checked + .ra-checkbox {
-    background: url("/spa/img/i.png") no-repeat 2px -590px #61a8e1;
-}
+    .recommend-bundle-container.recommend-bundle-container_short {
+        top: 0px;
+    }
 
-.ra-checkbox {
-    border: 2px solid #3fa9f5;
-}
+    .results-container {
+        padding: 340px 0 0;
+    }
 
-.ui-slider-range {
-    background: #61a8e1 !important;
-}
+    .recommend-bundle-title {
+        background-color: #61a8e1;
+        padding: 10px 15px;
+        width: 300px;
+        margin-bottom: 0px;
+        font-weight: bolder;
+    }
 
-.rl-buy-button {
-    background: linear-gradient(top, #f1c300, #eba200);
+    .recommend-bundle-wrap {
+        padding: 30px 0 24px;
+    }
 
-    &:hover {
+    .recommend-bundle-wrap .w-expand-collapse-link.w-expand-collapse-link_up {
+        top: 12px;
+        background-color: #ffffff;
+        padding: 4px 14px 6px 8px;
+    }
+
+    .recommend-bundle-wrap .w-expand-collapse-link .expand-collapse-link {
+        color: #4d4d4d;
         text-decoration: none;
-        background: linear-gradient(top, rgba(241,195,0,0.8), rgba(235,162,0,0.8));
+    }
+
+    .icon-expand, .icon-collapse {
+        background: url("/spa/img/expand-collapse-gray.png");
+    }
+
+    .ra-fly-type-list input:checked + .ra-checkbox {
+        btx-checkbox-bg()
+    }
+
+    .ra-checkbox {
+        btx-checkbox-border()
+    }
+
+    .ui-slider-range {
+        background: #61a8e1 !important;
     }
 }

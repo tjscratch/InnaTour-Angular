@@ -45,8 +45,10 @@
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
 
-    function widgetCode() {
-        //document.getElementsByTagName('html')[0].style.overflowY = 'hidden';
+    function widgetCode(partnerName) {
+        var html = document.getElementsByTagName('html')[0];
+        //html.style.overflowY = 'hidden';
+        html.className = html.className + " partner-" + partnerName;
 
         var lastHeight = 0;
         function sendHeight() {
@@ -67,7 +69,7 @@
 
     var partner = self.getPartner();
     if (partner != null) {
-        widgetCode();
+        widgetCode(partner.name);
         insertCss(partner.src);
     }
 
