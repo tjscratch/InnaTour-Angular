@@ -123,7 +123,7 @@ angular.module('innaApp.controllers')
                     $scope.close();
 
                     if($scope.$root.user && $scope.$root.user.isAgency()) {
-                        window.location = $scope.B2B_HOST;
+                        //window.location = $scope.B2B_HOST;
                     }
                 });
             });

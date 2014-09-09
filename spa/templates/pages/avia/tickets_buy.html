@@ -1,24 +1,11 @@
 <!-- Search Results -->
-<div class="results-body" style="padding-top: 110px;" id="buy-listener">
-<form action="javascript:void(0)" method="post" class="results-body">
-<div class="main__center" ng-if="reservationModel.IsService">
-    <header class="buy__header">
-        <h2 class="buy__title">Оплата сервисного сбора</h2>
-
-        <div class="buy__header-price">Стоимость заказа: <b>{{price| price}}
-            <ng-include src="'components/ruble.html'"/>
-        </b></div>
-    </header>
-</div>
-<div class="main__center" ng-if="!reservationModel.IsService">
-    <ng:include src="objectToReserveTemplate" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
-
-    <div class="buy__warning" ng-if="visaControl.visaNeeded || visaControl.visaRulesNeeded">
-        <div ng-if="visaControl.visaNeeded">Требуется виза.</div>
-        <div ng-if="visaControl.visaRulesNeeded">Обратите внимание на визовые правила
-                    <span ng-if="visaControl.cautionCountries.length > 0"> в странах: <span
-                            ng-repeat="c in visaControl.cautionCountries">{{c}}<span
-                            ng-if="!($last)">,&nbsp;</span></span></span>.
+<div class="results-body buy-form" id="buy-listener">
+    <form action="javascript:void(0)" method="post" class="results-body">
+        <div class="main__center" ng-if="reservationModel.IsService">
+            <header class="buy__header">
+                <h2 class="buy__title">Оплата сервисного сбора</h2>
+                <div class="buy__header-price">Стоимость заказа: <b>{{price| price}} <ng-include src="'components/ruble.html'" /></b></div>
+            </header>
         </div>
     </div>
 

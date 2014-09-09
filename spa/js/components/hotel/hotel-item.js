@@ -34,6 +34,7 @@ angular.module('innaApp.components').
                             return name
                         }
                     },
+                    inIframe: utils.inIframe(),
 
                     /**
                      * Строим URL для страницы подробнее об отеле

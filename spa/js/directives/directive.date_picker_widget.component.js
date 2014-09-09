@@ -233,7 +233,9 @@
                     updateDelayed();
                 }, 100);
                 var updateDelayed = function () {
-                    $scope.datePicker.DatePickerSetDate($scope.getPickerDates(), true);
+                    if ($scope.datePicker) {
+                        $scope.datePicker.DatePickerSetDate($scope.getPickerDates(), true);
+                    }
                 };
             }],
             link: function ($scope, element) {

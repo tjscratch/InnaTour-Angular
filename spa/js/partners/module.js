@@ -47,6 +47,13 @@ var innaModule = {
                 //if (event.origin !== "http://lh.inna.ru")
                 //    return;
 
+                switch(data.cmd){
+                    case 'setHeight': setHeightCmd(data); break;
+                    case 'setScrollPos': setScrollPos(data); break;
+                }
+            }
+
+            function setHeightCmd(data) {
                 if (data.height != null) {
                     var frame = document.getElementById("innaFrame1");
 
@@ -57,6 +64,21 @@ var innaModule = {
 
                     frameCont.style.visibility = '';
                     frame.style.display = 'block';
+                }
+            }
+
+            function getPos(el) {
+                for (var lx = 0, ly = 0;
+                     el != null;
+                     lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+                return { x: lx, y: ly };
+            }
+
+            function setScrollPos(data) {
+                if (data.scrollTo != null) {
+                    var pos = getPos(document.getElementById('inna-frame'));
+                    //console.log('frame top', pos);
+                    window.scrollTo(0, data.scrollTo + pos.y);
                 }
             }
         }
