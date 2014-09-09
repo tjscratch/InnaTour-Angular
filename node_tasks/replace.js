@@ -21,7 +21,6 @@ function getConfReplace(){
 
         'app-config-js': '/'+ conf.version +'/js/config.js',
         'app-main-js': '/'+ conf.version +'/js/app-main.js',
-        'app-less': '/'+ conf.version +'/css/main.less.css',
         'app-stylus': '/'+ conf.version +'/css/common.min.css',
 
         'app-host': 'app_main.host = \'' + apiHost + '\';',

@@ -47,7 +47,6 @@
 	left: 0;
 	position: absolute;
 	opacity: 0;
-	filter:Alpha(Opacity=0);
 }
 
 .ui-front {
@@ -469,7 +468,6 @@ button.ui-button::-moz-focus-inner {
 .ui-progressbar .ui-progressbar-overlay {
 	background: url("images/animated-overlay.gif");
 	height: 100%;
-	filter: alpha(opacity=25);
 	opacity: 0.25;
 }
 .ui-progressbar-indeterminate .ui-progressbar-value {
@@ -493,12 +491,6 @@ button.ui-button::-moz-focus-inner {
 	display: block;
 	border: 0;
 	background-position: 0 0;
-}
-
-/* For IE8 - See #6727 */
-.ui-slider.ui-state-disabled .ui-slider-handle,
-.ui-slider.ui-state-disabled .ui-slider-range {
-	filter: inherit;
 }
 
 .ui-slider-horizontal {

@@ -1,7 +1,10 @@
 // Imports
 @import "vars"
 @import "_normalize"
+@import "mixins"
 @import "_button"
+@import "icons"
+@import "flags"
 @import "sprite"
 @import "forms"
 @import "font"
@@ -9,21 +12,29 @@
 
 // наследование
 @import "layout"
-@import "page"
+@import "layout.less"
 
-@import '/spa/lib/datepicker/datepicker.css'
-@import "datepicker"
-@import "results"
-@import "buy"
-@import "reg/registration"
-@import "listing"
-@import "request"
-@import "report"
-@import "lic"
-@import "faq"
+@import "pages/page"
+@import "pages/about.less"
+@import "pages/contacts.less"
+
+@import "common/datepicker"
+@import "common/results"
+@import "common/buy"
+@import "common/registration"
+@import "common/listing"
+@import "common/request"
+@import "common/report"
+@import "common/lic"
+@import "common/faq"
 
 /* ----- ~COMPONENTS ---- */
 @import "temp/**/*.styl"
 @import "components/**/*.styl"
 
-/*@import "biletix"*/
+
+@import '/spa/styl/components/jquery-ui-1.10.4.custom.css'
+@import '/spa/styl/components/datepicker.css'
+
+
+
