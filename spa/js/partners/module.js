@@ -19,11 +19,37 @@ var innaModule = {
             //fr.style.overflow = 'hidden';
 
             fr.style.position = 'fixed';
-            fr.style.left = '0';
-            fr.style.right = '0';
-            fr.style.bottom = '0';
-            fr.style.height = '100%';
-            fr.style.top = '200px';
+            fr.style.left = 0;
+            fr.style.right = 0;
+            //fr.style.bottom = 0;
+            //fr.style.height = '100%';
+            //fr.style.top = '200px';
+            //fr.style.top = 0;
+
+            setFramePosition();
+
+            function setFramePosition() {
+                var docSize = getDocumentSize();
+                //console.log('docSize');
+                //console.log(docSize);
+
+                var contPos = getPos(frameCont);
+                //console.log('contPos');
+                //console.log(contPos);
+
+                fr.style.height = (docSize.y - contPos.y) + 'px';
+                fr.style.top = contPos.y + 'px';
+            }
+
+            function getDocumentSize() {
+                var w = window,
+                d = document,
+                e = d.documentElement,
+                g = d.getElementsByTagName('body')[0],
+                x = w.innerWidth || e.clientWidth || g.clientWidth,
+                y = w.innerHeight || e.clientHeight || g.clientHeight;
+                return { x: x, y: y };
+            }
 
             fr.border = 0;
             fr.frameBorder = 0;
@@ -59,7 +85,8 @@ var innaModule = {
                     switch (data.cmd) {
                         case 'setVisible': setVisibleCmd(data); break;
                         case 'setHeight': setHeightCmd(data); break;
-                        case 'setScrollPos': setScrollPos(data); break;
+                        case 'setScrollPos': setScrollPosCmd(data); break;
+                        case 'setPosition': setPositionCmd(data); break;
                     }
                 }
             }
@@ -70,6 +97,10 @@ var innaModule = {
                     var frame = document.getElementById("innaFrame1");
                     frameCont.style.visibility = '';
                     frame.style.display = 'block';
+
+
+                    var frameContainer = document.getElementById('inna-frame');
+                    var frameContPos = getPos(frameContainer);
                 }
             }
 
@@ -94,12 +125,20 @@ var innaModule = {
                 return { x: lx, y: ly };
             }
 
-            function setScrollPos(data) {
+            function setScrollPosCmd(data) {
                 if (data.scrollTo != null) {
                     var pos = getPos(document.getElementById('inna-frame'));
                     //console.log('frame top', pos);
                     window.scrollTo(0, data.scrollTo + pos.y);
                 }
+            }
+
+            function setPositionCmd(data) {
+                //console.log('setPositionCmd');
+                //console.log(data);
+                //var frame = document.getElementById("innaFrame1");
+                //frame.style.height = data.height - data.top;
+                //frame.style.top = data.top;
             }
         }
     }

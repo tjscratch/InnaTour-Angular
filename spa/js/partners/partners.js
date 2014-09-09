@@ -66,8 +66,29 @@
             window.parent.postMessage(msg, '*');
         }
 
+        //function getPos(el) {
+        //    for (var lx = 0, ly = 0;
+        //         el != null;
+        //         lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+        //    return { x: lx, y: ly };
+        //}
+
+        //function sendPosition() {
+        //    var w = window,
+        //    d = document,
+        //    e = d.documentElement,
+        //    g = d.getElementsByTagName('body')[0],
+        //    x = w.innerWidth || e.clientWidth || g.clientWidth,
+        //    y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+        //    var msg = JSON.stringify({ 'cmd': 'setPosition', 'height': y, 'top': getPos(document.getElementById('inna-frame')).y });
+        //    window.parent.postMessage(msg, '*');
+        //}
+
         //просто показываем фрейм
         setTimeout(function () { sendSetVisible(); }, 0);
+
+        //setTimeout(function () { sendPosition(); }, 300);
 
         //ToDo: поменять интервал на событие
         //setInterval(function () {
