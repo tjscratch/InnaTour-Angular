@@ -877,6 +877,7 @@
                     var self = this;
                     self.isOpened = false;
                     self.haveData = false;
+                    self.style = {};
 
                     self.checkIn = null;
                     self.checkOut = null;
@@ -895,12 +896,21 @@
                         }
                     }
 
+                    self.setStyle = function () {
+                        self.style = {
+                            width: (document.documentElement.clientWidth + 'px')
+                        }
+                    }
+
                     self.show = function ($event) {
                         eventsHelper.preventBubbling($event);
+                        self.setStyle();
+                        document.body.classList.add('overflow_hidden');
                         self.isOpened = true;
                     }
                     self.close = function ($event) {
                         eventsHelper.preventBubbling($event);
+                        document.body.classList.remove('overflow_hidden');
                         self.isOpened = false;
                     }
                 },
