@@ -198,9 +198,10 @@ innaAppControllers
 
 
                                 /** перезагружаем рекомендованную пару */
-                                if(value.Ticket) {
+                                if(value.Ticket && value.Hotel) {
                                     $scope.combination.ticket = new inna.Models.Avia.Ticket();
                                     $scope.combination.ticket.setData(value.Ticket);
+                                    $scope.combination.hotel = new inna.Models.Hotels.Hotel(value.Hotel);
                                 }
 
                                 that.set({
@@ -238,7 +239,9 @@ innaAppControllers
                                 }
 
                                 /** перезагружаем рекомендованную пару */
-                                if(value.Hotel) {
+                                if(value.Ticket && value.Hotel) {
+                                    $scope.combination.ticket = new inna.Models.Avia.Ticket();
+                                    $scope.combination.ticket.setData(value.Ticket);
                                     $scope.combination.hotel = new inna.Models.Hotels.Hotel(value.Hotel);
                                 }
 
