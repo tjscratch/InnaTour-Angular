@@ -107,4 +107,4 @@ gulp.task('styl-adv', function () {
 
 
 gulp.task('styles-app', ['styl-components', 'styl-pages', 'styl-regions']);
-gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print', 'styl-partners']);
+gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print', 'styl-partners', 'styl-adv']);

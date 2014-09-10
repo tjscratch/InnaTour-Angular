@@ -75,6 +75,13 @@ innaAppConponents.
                 determine : function(){
                     if($location.search().adv){
                         document.body.classList.add('adv-inject');
+
+                        var injectStyle = document.createElement('link');
+                        injectStyle.type = 'text/css';
+                        injectStyle.rel = 'stylesheet';
+                        injectStyle.href = '/spa/js/components/adv/css/adv.base.css';
+                        document.getElementsByTagName('head')[0].appendChild(injectStyle);
+                        console.log(injectStyle);
                     }
                 },
 
