@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     gulpif = require('gulp-if'),
     nib = require('nib'),
-    asix = require('axis-css'),
+    /*asix = require('axis-css'),*/
     conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';
