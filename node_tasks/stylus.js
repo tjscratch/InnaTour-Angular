@@ -5,8 +5,7 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     nib = require('nib'),
     /*asix = require('axis-css'),*/
-    conf = require('./config'),
-    sourcemaps = require('gulp-sourcemaps');
+    conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
