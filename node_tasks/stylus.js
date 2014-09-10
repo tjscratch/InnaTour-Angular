@@ -41,6 +41,7 @@ gulp.task('styl-regions', function () {
 
 gulp.task('styl-common', function () {
     return gulp.src([conf.styl + '/common.styl'])
+
         .pipe(stylus(optStyl))
         .pipe(concat('common.min.css'))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', minifyCSS()))
@@ -93,6 +94,7 @@ gulp.task('styl-partners', function () {
 
 /* ADV */
 gulp.task('styl-adv', function () {
+    optStyl.import = '/spa/styl/base.styl';
     return gulp.src([conf.src + '/components/adv/css/adv.base.styl'])
         .pipe(stylus(optStyl))
         .pipe(gulp.dest(conf.src + '/components/adv/css'));
