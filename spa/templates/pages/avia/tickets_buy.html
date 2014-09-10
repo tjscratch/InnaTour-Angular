@@ -1,11 +1,24 @@
 <!-- Search Results -->
 <div class="results-body buy-form" id="buy-listener">
-    <form action="javascript:void(0)" method="post" class="results-body">
-        <div class="main__center" ng-if="reservationModel.IsService">
-            <header class="buy__header">
-                <h2 class="buy__title">Оплата сервисного сбора</h2>
-                <div class="buy__header-price">Стоимость заказа: <b>{{price| price}} <ng-include src="'components/ruble.html'" /></b></div>
-            </header>
+<form action="javascript:void(0)" method="post" class="results-body">
+<div class="main__center" ng-if="reservationModel.IsService">
+    <header class="buy__header">
+        <h2 class="buy__title">Оплата сервисного сбора</h2>
+
+        <div class="buy__header-price">Стоимость заказа: <b>{{price| price}}
+            <ng-include src="'components/ruble.html'"/>
+        </b></div>
+    </header>
+</div>
+<div class="main__center" ng-if="!reservationModel.IsService">
+    <ng:include src="objectToReserveTemplate" ng-repeat="item in [aviaInfo] track by $index"></ng:include>
+
+    <div class="buy__warning" ng-if="visaControl.visaNeeded || visaControl.visaRulesNeeded">
+        <div ng-if="visaControl.visaNeeded">Требуется виза.</div>
+        <div ng-if="visaControl.visaRulesNeeded">Обратите внимание на визовые правила
+                    <span ng-if="visaControl.cautionCountries.length > 0"> в странах: <span
+                            ng-repeat="c in visaControl.cautionCountries">{{c}}<span
+                            ng-if="!($last)">,&nbsp;</span></span></span>.
         </div>
     </div>
 
@@ -278,10 +291,11 @@
 <!-- /Baloon -->
 
 <!-- Baloon -->
-<div class="overlay js-overlay" ng-if="buyFrame.isOpened">
+<div class="overlay js-overlay" ng-show="buyFrame.isOpened">
     <div class="scroll-fix" ng-style="baloon.styleFix">
-        <div class="balloon balloon_medium" style="padding: 0px; height: 430px; width: 960px; margin-left: -480px;">
+        <div class="balloon balloon_medium" style="height: 430px; width: 960px;">
             <!--<div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>-->
+
             <iframe id="buy_frame_main" ng-src="{{buyFrame.iframeUrl}}" ng-if="buyFrame.iframeUrl != null"
                     style="width:100%; height: 100%;"></iframe>
         </div>

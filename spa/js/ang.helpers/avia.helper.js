@@ -447,7 +447,7 @@
                 // TODO : вынести в компонент balloon
                 // точнее там все уже есть, нужно найти время и причесать все :)
                 baloon: {
-                    styleFix : {},
+                    styleFix: {},
                     isVisible: false,
                     caption: '',
                     text: '',
@@ -508,8 +508,8 @@
                         helper.baloon.data = data;
 
                         /*helper.baloon.styleFix = {
-                            width: (document.documentElement.clientWidth + 'px')
-                        }*/
+                         width: (document.documentElement.clientWidth + 'px')
+                         }*/
 
                         //$rootScope.$broadcast('baloon.show');
                     },

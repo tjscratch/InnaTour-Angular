@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     gulpif = require('gulp-if'),
     nib = require('nib'),
+    asix = require('axis-css'),
     conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';
@@ -11,12 +12,17 @@ var _ENV_ = process.env.NODE_ENV || '';
 var optStyl = {
     use: ['nib'],
     import: ['nib'],
-    "include css": true
+    'include css': true,
+    define: { 'math-random': 123 }
 };
 
 
+/* Исключаем некоторые компоненты из сборки */
 gulp.task('styl-components', function () {
-    return gulp.src([conf.src + '/components/**/*.styl'])
+    return gulp.src([
+            '!'+ conf.src + '/components/adv/**/*.styl',
+            conf.src + '/components/**/*.styl'
+    ])
         .pipe(concat('components.styl'))
         .pipe(gulp.dest(conf.styl + '/temp'))
 });
@@ -82,6 +88,14 @@ gulp.task('styl-partners', function () {
     return gulp.src([conf.styl + '/partners/**/*.base.styl'])
 		.pipe(stylus(optStyl))
         .pipe(gulp.dest(conf.styl + '/partners'));
+});
+
+
+/* ADV */
+gulp.task('styl-adv', function () {
+    return gulp.src([conf.src + '/components/adv/css/adv.base.styl'])
+        .pipe(stylus(optStyl))
+        .pipe(gulp.dest(conf.src + '/components/adv/css'));
 });
 
 

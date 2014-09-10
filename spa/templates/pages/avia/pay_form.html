@@ -43,10 +43,10 @@
     var TermUrl = QueryString.getByName('TermUrl');
     var MD = QueryString.getByName('MD');
     //console.log('buy frame form action url: %s, PaReq: %s, TermUrl: %s, MD: %s', actionUrl, PaReq, TermUrl, MD);
+
     $("form").attr('action', actionUrl);
     $($("input")[0]).val(PaReq);
     $($("input")[1]).val(TermUrl);
     $($("input")[2]).val(MD);
-    $("form").submit();
-
+    //$("form").submit();
 </script>
