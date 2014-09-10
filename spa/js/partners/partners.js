@@ -10,6 +10,12 @@
         'src': '/somepartner/somepartner.base.css'
     }];
 
+    self.commands = {
+        setVisible: 'setVisible',
+        setHeight: 'setHeight',
+        setFrameScrollTo: 'setFrameScrollTo'
+    };
+
     self.isUsingPartners = function () {
         return self.getPartner() != null;
     }
@@ -27,8 +33,7 @@
 
     self.setScrollTo = function (scrollTo) {
         if (scrollTo) {
-            var msg = JSON.stringify({ 'cmd': 'setScrollPos', 'scrollTo': scrollTo });
-            window.parent.postMessage(msg, '*');
+            sendCommandToParent(self.commands.setFrameScrollTo, { 'scrollTo': scrollTo });
         }
     }
 
@@ -56,14 +61,8 @@
 
             if (height != lastHeight) {
                 lastHeight = height;
-                var msg = JSON.stringify({ 'cmd': 'setHeight', 'height': height });
-                window.parent.postMessage(msg, '*');
+                sendCommandToParent(self.commands.setHeight, { 'height': height });
             }
-        }
-
-        function sendSetVisible() {
-            var msg = JSON.stringify({ 'cmd': 'setVisible', 'visible': true });
-            window.parent.postMessage(msg, '*');
         }
 
         //function getPos(el) {
@@ -86,7 +85,7 @@
         //}
 
         //просто показываем фрейм
-        setTimeout(function () { sendSetVisible(); }, 0);
+        setTimeout(function () { sendCommandToParent(self.commands.setVisible, { 'visible': true }); }, 0);
 
         //setTimeout(function () { sendPosition(); }, 300);
 
@@ -96,10 +95,52 @@
         //}, 500);
     }
 
+    function addCommonEventListener(el, event, fn) {
+        if (el.addEventListener) {
+            el.addEventListener(event, fn, false);
+        } else {
+            el.attachEvent('on' + event, fn);
+        }
+    };
+
+    function trackScroll(e) {
+        var doc = document.documentElement, body = document.body;
+        var top = (doc && doc.scrollTop || body && body.scrollTop || 0);
+        sendScrollCommand(top);
+    }
+
+    function sendCommandToParent(cmd, data) {
+        if (arguments && arguments.length > 1) {
+
+            var obj = arguments[1];
+            var keys = [];
+            for (var k in obj) keys.push(k);
+
+            //ставим команду
+            var cmdObj = { 'cmd': arguments[0] };
+            var data = arguments[1];
+
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                //ставим данные
+                cmdObj[key] = data[key];
+            }
+            var msg = JSON.stringify(cmdObj);
+            //console.log('msg', msg);
+            window.parent.postMessage(msg, '*');
+        }
+    }
+
+    function sendScrollCommand(top) {
+        console.log('sendScrollCommand', top);
+    }
+
     var partner = self.getPartner();
     if (partner != null) {
         insertCss(partner.src);
         widgetCode(partner.name);
+
+        addCommonEventListener(window, 'scroll', trackScroll);
     }
 
 }(document, window));

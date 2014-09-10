@@ -14,23 +14,44 @@ var innaModule = {
             var fr = document.createElement("IFRAME");
             fr.id = "innaFrame1"
             //fr.onload = frameLoaded();
-            fr.style.width = "100%";
-            //начальная высота
-            fr.style.height = "600px";
-            //fr.style.overflow = 'hidden';
+            setFrameStyles(fr);
+            setFramePosition(fr);
 
-            fr.style.position = 'fixed';
-            fr.style.left = 0;
-            fr.style.right = 0;
+            var src = getFrameUrl(partner);
+            src = processHashParams(src);
+            fr.src = src;
 
-            //fr.style.bottom = 0;
-            //fr.style.height = '100%';
-            //fr.style.top = '200px';
-            //fr.style.top = 0;
+            frameCont.appendChild(fr);
 
-            setFramePosition();
+            addCommonEventListener(window, 'message', receiveMessage);
 
-            function setFramePosition() {
+            addCommonEventListener(window, 'scroll', trackScroll);
+
+            function trackScroll(e) {
+                console.log('scroll');
+                console.log(e);
+            }
+
+            function setFrameStyles(fr) {
+                fr.style.width = "100%";
+                //начальная высота
+                fr.style.height = "600px";
+                //fr.style.overflow = 'hidden';
+
+                fr.style.position = 'fixed';
+                fr.style.left = 0;
+                fr.style.right = 0;
+
+                //fr.style.bottom = 0;
+                //fr.style.height = '100%';
+                //fr.style.top = '200px';
+                //fr.style.top = 0;
+
+                fr.border = 0;
+                fr.frameBorder = 0;
+            }
+
+            function setFramePosition(fr) {
                 var docSize = getDocumentSize();
                 //console.log('docSize');
                 //console.log(docSize);
@@ -53,31 +74,26 @@ var innaModule = {
                 return { x: x, y: y };
             }
 
-            fr.border = 0;
-            fr.frameBorder = 0;
-            fr.src = getFrameUrl(partner);
-            frameCont.appendChild(fr);
+            function addCommonEventListener(el, event, fn) {
+                if (el.addEventListener) {
+                    el.addEventListener(event, fn, false);
+                } else {
+                    el.attachEvent('on' + event, fn);
+                }
+            };
 
-            if (window.addEventListener) {
-                //console.log('addEventListener');
-                window.addEventListener("message", receiveMessage, false);
-            }
-            else {
-                //console.log('no addEventListener');
-                window.attachEvent("onmessage", receiveMessage);
-            }
-
-            function getFrameUrl(partner) {
-                var url = innaModule.host.replace("{0}", partner);
-
-                //console.log(location.href);
-                //console.log(location.hash);
-
+            function processHashParams(url) {
                 //если передаются урлы типа #/packages/buy/QWA5KX
                 //прокидываем их к нам
                 if (location.hash != null && location.hash.length > 0) {
                     url += location.hash;
                 }
+                return url;
+            }
+
+            function getFrameUrl(partner) {
+                var url = innaModule.host.replace("{0}", partner);
+
                 return url;
             }
 
@@ -97,7 +113,7 @@ var innaModule = {
                     switch (data.cmd) {
                         case 'setVisible': setVisibleCmd(data); break;
                         case 'setHeight': setHeightCmd(data); break;
-                        case 'setScrollPos': setScrollPosCmd(data); break;
+                        case 'setFrameScrollTo': setFrameScrollToCmd(data); break;
                         case 'setPosition': setPositionCmd(data); break;
                     }
                 }
@@ -137,7 +153,7 @@ var innaModule = {
                 return { x: lx, y: ly };
             }
 
-            function setScrollPosCmd(data) {
+            function setFrameScrollToCmd(data) {
                 if (data.scrollTo != null) {
                     var pos = getPos(document.getElementById('inna-frame'));
                     //console.log('frame top', pos);
