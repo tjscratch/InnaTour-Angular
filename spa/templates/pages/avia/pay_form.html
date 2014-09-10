@@ -1,5 +1,7 @@
 <html style="background-color:white;">
 <head>
+    <title>Форма оплаты</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 </head>
 <body>
 <form method="post" action="">
@@ -42,6 +44,7 @@
     var PaReq = QueryString.getByName('PaReq');
     var TermUrl = QueryString.getByName('TermUrl');
     var MD = QueryString.getByName('MD');
+    //console.log('');
     //console.log('buy frame form action url: %s, PaReq: %s, TermUrl: %s, MD: %s', actionUrl, PaReq, TermUrl, MD);
     $("form").attr('action', actionUrl);
     $($("input")[0]).val(PaReq);

@@ -278,12 +278,11 @@
 <!-- /Baloon -->
 
 <!-- Baloon -->
-<div class="overlay js-overlay" ng-if="buyFrame.isOpened">
+<div class="overlay js-overlay" ng-show="buyFrame.isOpened">
     <div class="scroll-fix" ng-style="baloon.styleFix">
-        <div class="balloon balloon_medium" style="padding: 0px; height: 430px; width: 960px; margin-left: -480px;">
+        <div class="balloon balloon_medium buy-popup">
             <!--<div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>-->
-            <iframe id="buy_frame_main" ng-src="{{buyFrame.iframeUrl}}" ng-if="buyFrame.iframeUrl != null"
-                    style="width:100%; height: 100%;"></iframe>
+            <iframe id="buy_frame_main" class="buy-frame" ng-src="{{buyFrame.iframeUrl}}" ng-if="buyFrame.iframeUrl != null"></iframe>
         </div>
     </div>
 </div>
