@@ -291,16 +291,26 @@
 <!-- /Baloon -->
 
 <!-- Baloon -->
-<div class="overlay js-overlay" ng-show="buyFrame.isOpened">
+<!--<div class="overlay js-overlay" ng-show="buyFrame.isOpened">
     <div class="scroll-fix" ng-style="baloon.styleFix">
         <div class="balloon balloon_medium" style="height: 430px; width: 960px;">
-            <!--<div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>-->
+            &lt;!&ndash;<div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>&ndash;&gt;
 
             <iframe id="buy_frame_main" ng-src="{{buyFrame.iframeUrl}}" ng-if="buyFrame.iframeUrl != null"
                     style="width:100%; height: 100%;"></iframe>
         </div>
     </div>
+</div>-->
+<!-- Baloon -->
+<div class="overlay js-overlay" ng-show="buyFrame.isOpened">
+    <div class="scroll-fix" ng-style="baloon.styleFix">
+        <div class="balloon balloon_medium buy-popup">
+            <!--<div title="Закрыть" class="balloon-close" ng-click="tarifs.close($event)"></div>-->
+            <iframe id="buy_frame_main" class="buy-frame" ng-src="{{buyFrame.iframeUrl}}" ng-if="buyFrame.iframeUrl != null"></iframe>
+        </div>
+    </div>
 </div>
+<!-- /Baloon -->
 <!-- /Baloon -->
 
 <!-- Baloon cancel hotel -->
