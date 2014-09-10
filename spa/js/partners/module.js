@@ -15,12 +15,14 @@ var innaModule = {
             fr.id = "innaFrame1"
             //fr.onload = frameLoaded();
             fr.style.width = "100%";
-            //fr.style.height = "500px";
+            //начальная высота
+            fr.style.height = "600px";
             //fr.style.overflow = 'hidden';
 
             fr.style.position = 'fixed';
             fr.style.left = 0;
             fr.style.right = 0;
+
             //fr.style.bottom = 0;
             //fr.style.height = '100%';
             //fr.style.top = '200px';
@@ -38,7 +40,7 @@ var innaModule = {
                 //console.log(contPos);
 
                 fr.style.height = (docSize.y - contPos.y) + 'px';
-                fr.style.top = contPos.y + 'px';
+                //fr.style.top = contPos.y + 'px';
             }
 
             function getDocumentSize() {
@@ -66,7 +68,17 @@ var innaModule = {
             }
 
             function getFrameUrl(partner) {
-                return innaModule.host.replace("{0}", partner);
+                var url = innaModule.host.replace("{0}", partner);
+
+                //console.log(location.href);
+                //console.log(location.hash);
+
+                //если передаются урлы типа #/packages/buy/QWA5KX
+                //прокидываем их к нам
+                if (location.hash != null && location.hash.length > 0) {
+                    url += location.hash;
+                }
+                return url;
             }
 
             function receiveMessage(event) {
