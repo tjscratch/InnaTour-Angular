@@ -5,19 +5,20 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     nib = require('nib'),
     /*asix = require('axis-css'),*/
-    conf = require('./config');
+    conf = require('./config'),
+    sourcemaps = require('gulp-sourcemaps');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
 var optStyl = {
-    use: ['nib'],
-    import: ['nib'],
-    'include css': true,
+    use: [nib()],
     define: { 'math-random': 123 }
 };
 
+var styleBase = process.env.PWD+'/spa/styl/base.styl';
 
-/* Исключаем некоторые компоненты из сборки */
+
+/* простой конкат  */
 gulp.task('styl-components', function () {
     return gulp.src([
             '!'+ conf.src + '/components/adv/**/*.styl',
@@ -39,9 +40,15 @@ gulp.task('styl-regions', function () {
         .pipe(gulp.dest(conf.styl + '/temp'))
 });
 
-gulp.task('styl-common', function () {
-    return gulp.src([conf.styl + '/common.styl'])
+/* \\\ простой конкат  */
 
+// add sourcemap
+gulp.task('styl-common', function () {
+
+    optStyl.sourcemap = {inline: true};
+    optStyl.import = styleBase;
+
+    return gulp.src([conf.styl + '/common.styl'])
         .pipe(stylus(optStyl))
         .pipe(concat('common.min.css'))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', minifyCSS()))
@@ -86,6 +93,7 @@ gulp.task('styl-print', function () {
 
 
 gulp.task('styl-partners', function () {
+    optStyl.import = styleBase;
     return gulp.src([conf.styl + '/partners/**/*.base.styl'])
 		.pipe(stylus(optStyl))
         .pipe(gulp.dest(conf.styl + '/partners'));
@@ -94,7 +102,7 @@ gulp.task('styl-partners', function () {
 
 /* ADV */
 gulp.task('styl-adv', function () {
-    optStyl.import = '/spa/styl/base.styl';
+    optStyl.import = styleBase;
     return gulp.src([conf.src + '/components/adv/css/adv.base.styl'])
         .pipe(stylus(optStyl))
         .pipe(gulp.dest(conf.src + '/components/adv/css'));
