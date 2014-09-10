@@ -4,7 +4,6 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     gulpif = require('gulp-if'),
     nib = require('nib'),
-    /*asix = require('axis-css'),*/
     conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';
@@ -14,7 +13,7 @@ var optStyl = {
     define: { 'math-random': 123 }
 };
 
-var styleBase = process.env.PWD+'/spa/styl/base.styl';
+var styleBase = '../../spa/styl/base.styl';
 
 
 /* простой конкат  */
@@ -38,7 +37,6 @@ gulp.task('styl-regions', function () {
         .pipe(concat('regions.styl'))
         .pipe(gulp.dest(conf.styl + '/temp'))
 });
-
 /* \\\ простой конкат  */
 
 // add sourcemap

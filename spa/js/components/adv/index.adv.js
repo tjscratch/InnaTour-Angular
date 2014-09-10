@@ -6,12 +6,11 @@ innaAppConponents.
         'innaApp.API.events',
         '$templateCache',
         '$routeParams',
-        'Events',
         '$location',
-        function (EventManager, Events, $templateCache, $routeParams, Events, $location) {
+        function (EventManager, Events, $templateCache, $routeParams, $location) {
 
             var ADV = Ractive.extend({
-                el: 'body',
+                el: document.querySelector('.main'),
                 template: $templateCache.get('components/adv/templ/index.adv.hbs.html'),
                 debug: true,
                 append: true,
@@ -38,6 +37,9 @@ innaAppConponents.
 
                 init: function (options) {
                     this._super(options);
+
+                    this.determine();
+
 
                     this.on({
                         change: function (data) {
@@ -67,6 +69,12 @@ innaAppConponents.
                             templ = $templateCache.get('components/adv/templ/' + this.get('advContent'))
 
                         return templ;
+                    }
+                },
+
+                determine : function(){
+                    if($location.search().adv){
+                        document.body.classList.add('adv-inject');
                     }
                 },
 

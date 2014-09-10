@@ -16,7 +16,9 @@ innaAppControllers
         'Balloon',
         'ListPanel',
         'FilterPanel',
-        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel) {
+        'ADVComponent',
+        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel, ADVComponent) {
+
 
             /**
              * Преобразуем даты и собираем данные для запроса
@@ -55,6 +57,9 @@ innaAppControllers
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
             $scope.events = Events;
+
+
+            (new ADVComponent())
 
 
             var Page = Ractive.extend({
