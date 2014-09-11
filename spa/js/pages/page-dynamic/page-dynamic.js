@@ -1,3 +1,4 @@
+'use strict';
 innaAppControllers
     .controller('PageDynamicPackage', [
         'EventManager',
