@@ -318,7 +318,8 @@ innaAppControllers
                         TicketId : $scope.combination.ticket.data.VariantId1
                     };
 
-                    angular.extend(routeParams, param);
+                    param = angular.extend(routeParams, param);
+
 
 
 
@@ -375,7 +376,7 @@ innaAppControllers
 
 
 
-                    angular.extend(routeParams, param);
+                    param = angular.extend(routeParams, param);
 
                     // TODO : заглушка
                     // позже будет прелоадер
