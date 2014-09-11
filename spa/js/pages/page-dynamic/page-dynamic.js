@@ -16,8 +16,7 @@ innaAppControllers
         'Balloon',
         'ListPanel',
         'FilterPanel',
-        'ADVComponent',
-        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel, ADVComponent) {
+        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel) {
 
 
             /**
@@ -57,9 +56,6 @@ innaAppControllers
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
             $scope.events = Events;
-
-
-            (new ADVComponent())
 
 
             var Page = Ractive.extend({
@@ -310,16 +306,27 @@ innaAppControllers
                  */
                 loadHotels: function () {
                     var that = this;
-                    var param = $scope.combination.ticket.data.VariantId1;
+
+                    if (!$scope.combination.ticket.data.VariantId1) return;
+
                     var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
 
-                    if (!param) return;
+                    var param = {
+                        Id : $scope.combination.ticket.data.VariantId1,
+                        HotelId : $scope.combination.hotel.data.HotelId,
+                        TicketId : $scope.combination.ticket.data.VariantId1
+                    };
+
+                    angular.extend(param, routeParams);
+
+
+
 
                     if (ListPanelComponent) ListPanelComponent.wait();
 
                     DynamicPackagesDataProvider
-                        .getHotelsByCombination(param, routeParams, function (data) {
+                        .getHotelsByCombination(param, function (data) {
                             that.set('loadHotelsData', data);
 
                             if(data && data.Hotels) {
@@ -356,18 +363,26 @@ innaAppControllers
                  */
                 loadTickets: function () {
                     var that = this;
-                    var param = $scope.combination.hotel.data.HotelId;
+                    if (!$scope.combination.hotel.data.HotelId) return;
+
+                    var param = {
+                        Id : $scope.combination.hotel.data.HotelId,
+                        HotelId : $scope.combination.hotel.data.HotelId,
+                        TicketId : $scope.combination.ticket.data.VariantId1
+                    }
                     var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
 
-                    if (!param) return;
+
+
+                    angular.extend(param, routeParams);
 
                     // TODO : заглушка
                     // позже будет прелоадер
                     if (ListPanelComponent) ListPanelComponent.wait();
 
                     DynamicPackagesDataProvider
-                        .getTicketsByCombination(param, routeParams, function (data) {
+                        .getTicketsByCombination(param, function (data) {
 
                             that._balloonLoad.dispose();
 

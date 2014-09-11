@@ -1,8 +1,34 @@
+$height_adv = 200px;
+
+$full_padding =  ($full_padding + $height_adv);
+$short_padding = ($short_padding + $height_adv);
+$padding_over_search = ($padding_over_search + $height_adv);
+$padding_over_head = ($padding_over_head + $height_adv);
+$padding-layout-light = ($padding-layout-light + $height_adv);
+
 .adv-inject {
 
+  .header {
+    top : $height_adv;
+  }
+
+  .results-container {
+    padding : $full_padding 0 0;
+  }
+
+  .recommend-bundle-container {
+    top : $padding_over_search;
+
+    &.recommend-bundle-container_short {
+      top : $padding_over_head;
+    }
+  }
 }
 
+
+
+
 .b-adv {
-  height : 200px;
+  height : $height_adv;
   background : green;
 }
