@@ -1,74 +1,80 @@
 'use strict';
-console.info('lksdhjshdgfhjs');
-angular.module('innaApp.directives').directive('AdvComponent', [
-    'EventManager',
-    'innaApp.API.events',
-    '$templateCache',
-    '$routeParams',
-    '$location',
-    function (EventManager, Events, $templateCache, $routeParams, $location) {
-        console.info('slkdfhsjkdfghhjsdgf sjdfgjhsdf sjdhfvhsgdfh');
-        console.info('slkdfhsjkdfghhjsdgf sjdfgjhsdf sjdhfvhsgdfh');
-        console.info('slkdfhsjkdfghhjsdgf sjdfgjhsdf sjdhfvhsgdfh');
-        console.info('slkdfhsjkdfghhjsdgf sjdfgjhsdf sjdhfvhsgdfh');
+angular.module('innaApp.directives')
+    .directive('advComponent', [
+        'EventManager',
+        'innaApp.API.events',
+        '$templateCache',
+        '$routeParams',
+        '$location',
+        '$cookieStore',
+        function (EventManager, Events, $templateCache, $routeParams, $location, $cookieStore) {
 
-        return {
-            restrict: 'A',
-            replace: true,
-            template: $templateCache.get('components/adv/templ/index.adv.hbs.html'),
-            scope: {
-                isVisible: false,
-                styleWidth: ''
-            },
-            controller: [
-                '$element',
-                '$scope',
-                function ($element, $scope) {
+            return {
+                replace: true,
+                template: $templateCache.get('components/adv/templ/index.adv.hbs.html'),
+                scope: {},
+                controller: [
+                    '$element',
+                    '$scope',
+                    function ($element, $scope) {
 
-                    console.info('test adv');
-
-                    function determine() {
-                        if ($location.search().adv) {
-                            document.body.classList.add('adv-inject');
-
-                            var injectStyle = document.createElement('link');
-                            injectStyle.type = 'text/css';
-                            injectStyle.rel = 'stylesheet';
-                            injectStyle.href = '/spa/js/components/adv/css/adv.base.css';
-                            document.getElementsByTagName('head')[0].appendChild(injectStyle);
-
-                            show();
-                        }
-                    }
-
-                    determine();
-
-                    function show() {
-                        $scope.isVisible = true;
-                    }
-
-
-                    function hide(evt) {
+                        $scope.isAdv = null;
                         $scope.isVisible = false;
-                    }
 
-                    function toggleVisible() {
-                        if ($scope.isVisible)
-                            $scope.isVisible = false;
-                        else
-                            $scope.isVisible = true;
-                    }
+                        determine();
 
+                        function determine() {
 
-                    $scope.$watch('isVisible', function (value) {
-                        if (value) {
+                            $scope.isAdv = $cookieStore.get('ADV_VISIBLE') || ($location.search().tourist && $location.search().tourist == 1);
 
-                        } else {
+                            if ($scope.isAdv) {
+                                document.body.classList.add('adv-inject');
 
+                                var injectStyle = document.createElement('link');
+                                injectStyle.type = 'text/css';
+                                injectStyle.setAttribute('id', 'injectStyleAdv');
+                                injectStyle.rel = 'stylesheet';
+                                injectStyle.href = '/spa/js/components/adv/css/adv.base.css?'+ Math.random(1000).toString(16);
+                                document.getElementsByTagName('head')[0].appendChild(injectStyle);
+
+                                show();
+                            }
                         }
-                    })
-                }]
+
+                        function show() {
+                            $scope.isVisible = true;
+                            $cookieStore.put('ADV_VISIBLE', true);
+                        }
+
+
+                        $scope.hide = function ($event) {
+                            $event.stopPropagation();
+                            $scope.isVisible = false;
+                            $scope.isAdv = false;
+                            $('#injectStyleAdv').remove();
+                            $cookieStore.remove('ADV_VISIBLE');
+                        }
+
+                        function toggleVisible() {
+                            if ($scope.isVisible)
+                                $scope.isVisible = false;
+                            else
+                                $scope.isVisible = true;
+                        }
+
+
+                        $scope.$watch('isVisible', function (value) {
+                            if (value) {
+
+                            } else {
+
+                            }
+                        })
+                    }],
+                link: function () {
+
+                }
+            }
         }
-    }
-]);
+    ]);
 
