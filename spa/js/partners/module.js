@@ -1,4 +1,7 @@
 var innaModule = {
+    frame: {
+        lastTop: null
+    },
     searchFrom: {
         init: function (partner) {
             setTimeout(function () {
@@ -24,12 +27,72 @@ var innaModule = {
             frameCont.appendChild(fr);
 
             addCommonEventListener(window, 'message', receiveMessage);
+            addCommonEventListener(window, 'resize', trackResize);
 
-            addCommonEventListener(window, 'scroll', trackScroll);
+            var timeoutId = null;
+            function trackResize() {
+                //console.log('trackResize');
+                repositionFrame();
+            }
 
-            function trackScroll(e) {
-                console.log('scroll');
-                console.log(e);
+            function setFramePosition(fr) {
+                repositionFrame(null, fr);
+            }
+
+            function getNumber(val) {
+                if (val && val.length > 0) {
+                    val = val.replace("px", "");
+                    val = parseInt(val);
+                }
+                return val;
+            }
+
+            function repositionFrame(top, fr) {
+                if (!(fr != null)) {
+                    fr = document.getElementById("innaFrame1");
+                }
+
+                var docSize = getDocumentSize();
+                var contPos = getPos(frameCont);
+                top = getNumber(top);
+
+                var origHeight = docSize.y - contPos.y;
+                var origTop = contPos.y;
+
+                //console.log('');
+                //console.log('top:', top);
+                //console.log('origHeight', origHeight);
+                //console.log('origTop', origTop);
+
+                //var lastTop = getNumber(innaModule.frame.lastTop);
+                //console.log('lastTop', lastTop);
+
+                var newHeight = origHeight;
+                var newTop = origTop;
+                if (top != null) {
+                    newHeight = origHeight + top;
+                    newTop = origTop - top;
+                }
+                else if (innaModule.frame.lastTop != null) {
+                    var lastTop = innaModule.frame.lastTop;
+                    newHeight = docSize.y - lastTop;
+                    newTop = lastTop;
+                }
+
+                if (newHeight > docSize.y) {
+                    newHeight = docSize.y;
+                }
+                if (newTop < 0) {
+                    newTop = 0;
+                }
+
+                //console.log('newHeight', newHeight);
+                //console.log('newTop', newTop);
+
+                fr.style.height = newHeight + 'px';
+                fr.style.top = newTop + 'px';
+
+                innaModule.frame.lastTop = newTop;
             }
 
             function setFrameStyles(fr) {
@@ -49,19 +112,6 @@ var innaModule = {
 
                 fr.border = 0;
                 fr.frameBorder = 0;
-            }
-
-            function setFramePosition(fr) {
-                var docSize = getDocumentSize();
-                //console.log('docSize');
-                //console.log(docSize);
-
-                var contPos = getPos(frameCont);
-                //console.log('contPos');
-                //console.log(contPos);
-
-                fr.style.height = (docSize.y - contPos.y) + 'px';
-                //fr.style.top = contPos.y + 'px';
             }
 
             function getDocumentSize() {
@@ -115,17 +165,24 @@ var innaModule = {
                         case 'setHeight': setHeightCmd(data); break;
                         case 'setFrameScrollTo': setFrameScrollToCmd(data); break;
                         case 'setPosition': setPositionCmd(data); break;
+                        case 'setScrollTop': setScrollTopCmd(data); break;
                     }
+                }
+            }
+
+            function setScrollTopCmd(data) {
+                if (data.top != null) {
+                    //console.log('setScrollTopCmd, top:', data.top);
+                    repositionFrame(data.top);
                 }
             }
 
             function setVisibleCmd(data) {
                 if (data.visible == true) {
-                    console.log('frame setVisible', data.visible);
+                    //console.log('frame setVisible', data.visible);
                     var frame = document.getElementById("innaFrame1");
                     frameCont.style.visibility = '';
                     frame.style.display = 'block';
-
 
                     var frameContainer = document.getElementById('inna-frame');
                     var frameContPos = getPos(frameContainer);

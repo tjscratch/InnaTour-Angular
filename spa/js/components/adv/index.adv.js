@@ -1,5 +1,4 @@
 'use strict';
-console.info('lksdhjshdgfhjs');
 angular.module('innaApp.directives').directive('AdvComponent', [
     'EventManager',
     'innaApp.API.events',
