@@ -171,6 +171,7 @@ var innaModule = {
             }
 
             function setScrollTopCmd(data) {
+                //задает позицию фрейма, чтобы занимал весь экран
                 if (data.top != null) {
                     //console.log('setScrollTopCmd, top:', data.top);
                     repositionFrame(data.top);
@@ -211,10 +212,11 @@ var innaModule = {
             }
 
             function setFrameScrollToCmd(data) {
+                //скролит сайт внутри фрейма
                 if (data.scrollTo != null) {
-                    var pos = getPos(document.getElementById('inna-frame'));
+                    //var pos = getPos(document.getElementById('inna-frame'));
                     //console.log('frame top', pos);
-                    window.scrollTo(0, data.scrollTo + pos.y);
+                    window.scrollTo(0, data.scrollTo);
                 }
             }
 
