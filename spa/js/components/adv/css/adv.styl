@@ -12,6 +12,14 @@ $padding-layout-light = ($padding-layout-light + $height_adv);
     top: $height_adv;
   }
 
+  .layout {
+    padding: $padding_over_search 0 0;
+
+    &-light {
+      padding: $padding-layout-light 0 0;
+    }
+  }
+
   .results-container {
     padding: $full_padding 0 0;
   }
@@ -22,6 +30,18 @@ $padding-layout-light = ($padding-layout-light + $height_adv);
     &.recommend-bundle-container_short {
       top: $padding_over_head;
     }
+  }
+
+  .results__body_mod_avia {
+    padding-top: $padding_over_search;
+
+    .results-container {
+      padding-top : 10px;
+    }
+  }
+
+  .filters__body_position_fixed {
+    top : $padding_over_search;
   }
 }
 
