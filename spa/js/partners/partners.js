@@ -13,7 +13,8 @@
     self.commands = {
         setVisible: 'setVisible',
         setHeight: 'setHeight',
-        setFrameScrollTo: 'setFrameScrollTo'
+        setFrameScrollTo: 'setFrameScrollTo',
+        setScrollTop: 'setScrollTop'
     };
 
     self.isUsingPartners = function () {
@@ -106,7 +107,7 @@
     function trackScroll(e) {
         var doc = document.documentElement, body = document.body;
         var top = (doc && doc.scrollTop || body && body.scrollTop || 0);
-        sendScrollCommand(top);
+        sendCommandToParent(self.commands.setScrollTop, { 'top': top });
     }
 
     function sendCommandToParent(cmd, data) {
@@ -131,11 +132,7 @@
         }
     }
 
-    function sendScrollCommand(top) {
-        console.log('sendScrollCommand', top);
-    }
-
-    var partner = self.getPartner();
+    partner = self.getPartner();
     if (partner != null) {
         insertCss(partner.src);
         widgetCode(partner.name);
