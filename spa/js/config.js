@@ -9,7 +9,7 @@ app_main.b2bHost = 'http://b2b.test.inna.ru';
 //<!-- endbuild -->
 
 //<!-- build:front-host -->
-app_main.frontHost = 'http://test.inna.ru';
+app_main.frontHost = 'https://api.inna.ru'; //'http://test.inna.ru';
 //<!-- endbuild -->
 
 //<!-- build:static-host -->
