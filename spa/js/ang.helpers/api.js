@@ -47,7 +47,7 @@ angular.module('innaApp.API', [])
             AUTH_SIGN_IN: url('/Account/Login/Post'),
             AUTH_RESTORE_A: url('/Account/ForgotPassword/Post'),
             AUTH_RESTORE_B: url('/Account/ResetPassword/Post'),
-            AUTH_SOCIAL_BROKER: app_main.host + '/Account/ExternalLogin',
+            AUTH_SOCIAL_BROKER: app_main.apiHost + '/Account/ExternalLogin',
             AUTH_LOGOUT: url('/Account/Logoff'),
             AUTH_CHANGE_INFO: url('/Account/ChangeInfo/Post'),
             AUTH_RECOGNIZE: url('/Account/Info/Post'),

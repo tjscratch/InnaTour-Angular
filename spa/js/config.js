@@ -1,7 +1,7 @@
 var app_main = {};
 
-//<!-- build:app-host -->
-app_main.host = "http://api.test.inna.ru";
+//<!-- build:api-host -->
+app_main.apiHost = "http://api.test.inna.ru";
 //<!-- endbuild -->
 
 //<!-- build:b2b-host -->
