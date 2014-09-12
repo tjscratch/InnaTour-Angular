@@ -12,7 +12,6 @@
 
     self.commands = {
         setVisible: 'setVisible',
-        setHeight: 'setHeight',
         setFrameScrollTo: 'setFrameScrollTo',
         setScrollTop: 'setScrollTop'
     };
@@ -38,62 +37,22 @@
         }
     }
 
-    function insertCss(src) {
+    function insertCssAndAddParnterClass(partner) {
+        var src = partner.src;
         var link = d.createElement("link");
         link.type = "text/css";
         link.rel = "stylesheet";
         link.href = "/spa/styl/partners" + src;
         insertAfter(link, d.getElementById("partners-css-inject"))
         console.log('partner css loaded', link.href);
+
+        var html = document.getElementsByTagName('html')[0];
+        //навешиваем стиль партнера
+        html.className = html.className + " partner-" + partner.name;
     };
 
     function insertAfter(newNode, referenceNode) {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-    }
-
-    function widgetCode(partnerName) {
-        var html = document.getElementsByTagName('html')[0];
-        //html.style.overflowY = 'hidden';
-        html.className = html.className + " partner-" + partnerName;
-
-        //var lastHeight = 0;
-        //function sendHeight() {
-        //    var height = $('.main').height();
-
-        //    if (height != lastHeight) {
-        //        lastHeight = height;
-        //        sendCommandToParent(self.commands.setHeight, { 'height': height });
-        //    }
-        //}
-
-        //function getPos(el) {
-        //    for (var lx = 0, ly = 0;
-        //         el != null;
-        //         lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
-        //    return { x: lx, y: ly };
-        //}
-
-        //function sendPosition() {
-        //    var w = window,
-        //    d = document,
-        //    e = d.documentElement,
-        //    g = d.getElementsByTagName('body')[0],
-        //    x = w.innerWidth || e.clientWidth || g.clientWidth,
-        //    y = w.innerHeight || e.clientHeight || g.clientHeight;
-
-        //    var msg = JSON.stringify({ 'cmd': 'setPosition', 'height': y, 'top': getPos(document.getElementById('inna-frame')).y });
-        //    window.parent.postMessage(msg, '*');
-        //}
-
-        //просто показываем фрейм
-        setTimeout(function () { sendCommandToParent(self.commands.setVisible, { 'visible': true }); }, 0);
-
-        //setTimeout(function () { sendPosition(); }, 300);
-
-        //ToDo: поменять интервал на событие
-        //setInterval(function () {
-        //    sendHeight();
-        //}, 500);
     }
 
     function addCommonEventListener(el, event, fn) {
@@ -132,11 +91,14 @@
         }
     }
 
-    partner = self.getPartner();
+    var partner = self.getPartner();
     if (partner != null) {
-        insertCss(partner.src);
-        widgetCode(partner.name);
+        insertCssAndAddParnterClass(partner);
+        
+        //просто показываем фрейм
+        setTimeout(function () { sendCommandToParent(self.commands.setVisible, { 'visible': true }); }, 0);
 
+        //слушаем скролл
         addCommonEventListener(window, 'scroll', trackScroll);
     }
 

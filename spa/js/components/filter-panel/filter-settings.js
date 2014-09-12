@@ -9,6 +9,7 @@ angular.module('innaApp.components').factory('FilterSettings',
          * Можно слушать событие change изменение модели
          * FilterSettings.on('change', function(){})
          */
+        var isUsingPartners = window.partners ? window.partners.isUsingPartners() : false;
 
         function Model(data) {
             return {
@@ -96,7 +97,7 @@ angular.module('innaApp.components').factory('FilterSettings',
                             isChecked: true
                         },
                         {
-                            name: 'По рейтингу Инна Тур',
+                            name: isUsingPartners ? 'По рейтингу' : 'По рейтингу Инна Тур',
                             value: 'byRecommendedFactor'
                         },
                         {
