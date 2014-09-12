@@ -12,7 +12,6 @@
 
     self.commands = {
         setVisible: 'setVisible',
-        setHeight: 'setHeight',
         setFrameScrollTo: 'setFrameScrollTo',
         setScrollTop: 'setScrollTop'
     };
@@ -38,25 +37,22 @@
         }
     }
 
-    function insertCss(src) {
+    function insertCssAndAddParnterClass(partner) {
+        var src = partner.src;
         var link = d.createElement("link");
         link.type = "text/css";
         link.rel = "stylesheet";
         link.href = "/spa/styl/partners" + src;
         insertAfter(link, d.getElementById("partners-css-inject"))
         console.log('partner css loaded', link.href);
+
+        var html = document.getElementsByTagName('html')[0];
+        //навешиваем стиль партнера
+        html.className = html.className + " partner-" + partner.name;
     };
 
     function insertAfter(newNode, referenceNode) {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-    }
-
-    function widgetCode(partnerName) {
-        var html = document.getElementsByTagName('html')[0];
-        //html.style.overflowY = 'hidden';
-        html.className = html.className + " partner-" + partnerName;
-        //просто показываем фрейм
-        setTimeout(function () { sendCommandToParent(self.commands.setVisible, { 'visible': true }); }, 0);
     }
 
     function addCommonEventListener(el, event, fn) {
@@ -95,11 +91,14 @@
         }
     }
 
-    partner = self.getPartner();
+    var partner = self.getPartner();
     if (partner != null) {
-        insertCss(partner.src);
-        widgetCode(partner.name);
+        insertCssAndAddParnterClass(partner);
+        
+        //просто показываем фрейм
+        setTimeout(function () { sendCommandToParent(self.commands.setVisible, { 'visible': true }); }, 0);
 
+        //слушаем скролл
         addCommonEventListener(window, 'scroll', trackScroll);
     }
 

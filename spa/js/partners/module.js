@@ -27,24 +27,10 @@ var innaModule = {
             frameCont.appendChild(fr);
 
             addCommonEventListener(window, 'message', receiveMessage);
-            addCommonEventListener(window, 'resize', trackResize);
-
-            var timeoutId = null;
-            function trackResize() {
-                //console.log('trackResize');
-                repositionFrame();
-            }
+            addCommonEventListener(window, 'resize', repositionFrame);
 
             function setFramePosition(fr) {
                 repositionFrame(null, fr);
-            }
-
-            function getNumber(val) {
-                if (val && val.length > 0) {
-                    val = val.replace("px", "");
-                    val = parseInt(val);
-                }
-                return val;
             }
 
             function repositionFrame(top, fr) {
@@ -149,28 +135,39 @@ var innaModule = {
 
             function getFrameUrl(partner) {
                 var url = innaModule.host.replace("{0}", partner);
-
                 return url;
+            }
+
+            function getNumber(val) {
+                if (val && val.length > 0) {
+                    val = val.replace("px", "");
+                    val = parseInt(val);
+                }
+                return val;
+            }
+
+            function getPos(el) {
+                for (var lx = 0, ly = 0;
+                     el != null;
+                     lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+                return { x: lx, y: ly };
             }
 
             function receiveMessage(event) {
                 var data = {};
-                try
-                {
+                try {
                     data = JSON.parse(event.data);
                 }
-                catch(e){
+                catch (e) {
                 }
-                
+
                 //if (event.origin !== "http://lh.inna.ru")
                 //    return;
 
                 if (data) {
                     switch (data.cmd) {
                         case 'setVisible': setVisibleCmd(data); break;
-                        //case 'setHeight': setHeightCmd(data); break;
                         case 'setFrameScrollTo': setFrameScrollToCmd(data); break;
-                        case 'setPosition': setPositionCmd(data); break;
                         case 'setScrollTop': setScrollTopCmd(data); break;
                     }
                 }
@@ -196,42 +193,11 @@ var innaModule = {
                 }
             }
 
-            //function setHeightCmd(data) {
-            //    if (data.height != null) {
-            //        var frame = document.getElementById("innaFrame1");
-
-            //        console.log('frame set height', data.height);
-            //        if (data.height > 0) {
-            //            frame.style.height = data.height + "px";
-            //        }
-
-            //        frameCont.style.visibility = '';
-            //        frame.style.display = 'block';
-            //    }
-            //}
-
-            function getPos(el) {
-                for (var lx = 0, ly = 0;
-                     el != null;
-                     lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
-                return { x: lx, y: ly };
-            }
-
             function setFrameScrollToCmd(data) {
                 //скролит сайт внутри фрейма
                 if (data.scrollTo != null) {
-                    //var pos = getPos(document.getElementById('inna-frame'));
-                    //console.log('frame top', pos);
                     window.scrollTo(0, data.scrollTo);
                 }
-            }
-
-            function setPositionCmd(data) {
-                //console.log('setPositionCmd');
-                //console.log(data);
-                //var frame = document.getElementById("innaFrame1");
-                //frame.style.height = data.height - data.top;
-                //frame.style.top = data.top;
             }
         }
     }
