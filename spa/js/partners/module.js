@@ -90,20 +90,25 @@ var innaModule = {
                 //console.log('newTop', newTop);
 
                 fr.style.width = docSize.x + 'px';
-                fr.style.height = newHeight + 'px';
+                //fr.style.height = newHeight + 'px';
                 fr.style.top = newTop + 'px';
 
                 innaModule.frame.lastTop = newTop;
             }
 
             function setFrameStyles(fr) {
-                fr.style.width = "100%";
+                var docSize = getDocumentSize();
+                fr.style.width = docSize.x + 'px';
+
+                //fr.style.width = "100%";
                 //начальная высота
-                fr.style.height = "600px";
+                //fr.style.height = "600px";
+                fr.style.height = "100%";
                 //fr.style.overflow = 'hidden';
 
-                fr.style.position = 'absolute';
+                fr.style.position = 'fixed';
                 fr.style.left = 0;
+                fr.style.top = 0;
                 //fr.style.right = 0;
 
                 //fr.style.bottom = 0;
@@ -163,7 +168,7 @@ var innaModule = {
                 if (data) {
                     switch (data.cmd) {
                         case 'setVisible': setVisibleCmd(data); break;
-                        case 'setHeight': setHeightCmd(data); break;
+                        //case 'setHeight': setHeightCmd(data); break;
                         case 'setFrameScrollTo': setFrameScrollToCmd(data); break;
                         case 'setPosition': setPositionCmd(data); break;
                         case 'setScrollTop': setScrollTopCmd(data); break;
@@ -184,26 +189,26 @@ var innaModule = {
                     //console.log('frame setVisible', data.visible);
                     var frame = document.getElementById("innaFrame1");
                     frameCont.style.visibility = '';
-                    frame.style.display = 'block';
+                    //frame.style.display = 'block';
 
                     var frameContainer = document.getElementById('inna-frame');
                     var frameContPos = getPos(frameContainer);
                 }
             }
 
-            function setHeightCmd(data) {
-                if (data.height != null) {
-                    var frame = document.getElementById("innaFrame1");
+            //function setHeightCmd(data) {
+            //    if (data.height != null) {
+            //        var frame = document.getElementById("innaFrame1");
 
-                    console.log('frame set height', data.height);
-                    if (data.height > 0) {
-                        frame.style.height = data.height + "px";
-                    }
+            //        console.log('frame set height', data.height);
+            //        if (data.height > 0) {
+            //            frame.style.height = data.height + "px";
+            //        }
 
-                    frameCont.style.visibility = '';
-                    frame.style.display = 'block';
-                }
-            }
+            //        frameCont.style.visibility = '';
+            //        frame.style.display = 'block';
+            //    }
+            //}
 
             function getPos(el) {
                 for (var lx = 0, ly = 0;

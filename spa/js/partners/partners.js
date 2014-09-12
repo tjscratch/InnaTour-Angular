@@ -56,15 +56,15 @@
         //html.style.overflowY = 'hidden';
         html.className = html.className + " partner-" + partnerName;
 
-        var lastHeight = 0;
-        function sendHeight() {
-            var height = $('.main').height();
+        //var lastHeight = 0;
+        //function sendHeight() {
+        //    var height = $('.main').height();
 
-            if (height != lastHeight) {
-                lastHeight = height;
-                sendCommandToParent(self.commands.setHeight, { 'height': height });
-            }
-        }
+        //    if (height != lastHeight) {
+        //        lastHeight = height;
+        //        sendCommandToParent(self.commands.setHeight, { 'height': height });
+        //    }
+        //}
 
         //function getPos(el) {
         //    for (var lx = 0, ly = 0;
