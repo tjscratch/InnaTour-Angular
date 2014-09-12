@@ -2,10 +2,10 @@ var innaModule = {
     frame: {
         lastTop: null
     },
-    searchFrom: {
+    searchForm: {
         init: function (partner) {
             setTimeout(function () {
-                innaModule.searchFrom.init_internal(partner);
+                innaModule.searchForm.init_internal(partner);
             }, 0);
             
         },
@@ -89,6 +89,7 @@ var innaModule = {
                 //console.log('newHeight', newHeight);
                 //console.log('newTop', newTop);
 
+                fr.style.width = docSize.x + 'px';
                 fr.style.height = newHeight + 'px';
                 fr.style.top = newTop + 'px';
 
@@ -101,9 +102,9 @@ var innaModule = {
                 fr.style.height = "600px";
                 //fr.style.overflow = 'hidden';
 
-                fr.style.position = 'fixed';
+                fr.style.position = 'absolute';
                 fr.style.left = 0;
-                fr.style.right = 0;
+                //fr.style.right = 0;
 
                 //fr.style.bottom = 0;
                 //fr.style.height = '100%';
