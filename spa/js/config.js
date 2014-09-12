@@ -1,7 +1,7 @@
 var app_main = {};
 
 //<!-- build:api-host -->
-app_main.apiHost = "http://test.inna.ru";
+app_main.apiHost = "http://test.inna.ru"; //'https://api.inna.ru';
 //<!-- endbuild -->
 
 //<!-- build:b2b-host -->
@@ -9,7 +9,7 @@ app_main.b2bHost = 'http://b2b.test.inna.ru';
 //<!-- endbuild -->
 
 //<!-- build:front-host -->
-app_main.frontHost = 'http://test.inna.ru'; //'https://api.inna.ru';
+app_main.frontHost = 'http://test.inna.ru';
 //<!-- endbuild -->
 
 //<!-- build:static-host -->
