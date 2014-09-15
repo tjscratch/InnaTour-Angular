@@ -146,6 +146,10 @@ angular.module('innaApp.directives')
                             TaFactorCeiled: $scope.bundle.hotel.data.TaFactorCeiled
                         });
                         _stars.set('stars', $scope.bundle.hotel.data.Stars);
+
+                        $timeout(function () {
+                            _shareLink.set('location', window.location);
+                        }, 0)
                     });
 
                     $scope.$watchCollection('stateTicket', function(value){
