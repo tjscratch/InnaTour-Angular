@@ -135,6 +135,7 @@ angular.module('innaApp.directives')
 
                     // update components
                     $scope.$watchCollection('bundle', function(value){
+                        
                         _priceGeneric.set({
                             'virtualBundle': value,
                             type : $scope.tabActive
@@ -156,7 +157,6 @@ angular.module('innaApp.directives')
                         $timeout(function(){
                             _shareLink.set('location', window.location);
                         }, 0)
-
                     });
 
                     //destroy
