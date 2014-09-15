@@ -68,11 +68,9 @@ publish
 spa/img/sprites/*.json
 spa/img/sprites/icon-*.png
 spa/styl/sprite.styl
-
 spa/styl/temp/*.styl
-spa/css
-spa/build
-spa/node_modules
+spa/styl/partners/**/*.css
+spa/js/**/*.css
 
 
 
@@ -85,4 +83,3 @@ Solution.v12.suo
 Inna.Frontend.csproj
 Inna.Frontend.SPA.sln
 start_on_node_server.cmd
-spa/styl/partners/**/*.css

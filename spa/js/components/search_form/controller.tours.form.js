@@ -214,8 +214,6 @@ innaAppControllers.
                 //проверяем, что нужно восстанавливать состояние
                 //из куки восстанавливаем только на главной
                 if ($location.path() == "/" && (sta == null || sta == '')) {
-
-
                     var cookVal = $cookieStore.get('form_cook');
 
                     //log('getParamsFromCookie, cookVal: ' + cookVal);

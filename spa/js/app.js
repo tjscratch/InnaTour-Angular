@@ -161,7 +161,7 @@ app.config([
                 controller: 'AviaSearchMainCtrl'
             }).
             when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
-                templateUrl: 'pages/avia/search_results.html',
+                templateUrl: 'pages/page-avia/templ/search_results.html',
                 controller: 'AviaSearchResultsCtrl'
             }).
             when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +

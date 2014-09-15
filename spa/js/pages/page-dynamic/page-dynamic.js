@@ -1,3 +1,4 @@
+'use strict';
 innaAppControllers
     .controller('PageDynamicPackage', [
         'EventManager',
@@ -17,6 +18,7 @@ innaAppControllers
         'ListPanel',
         'FilterPanel',
         function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel) {
+
 
             /**
              * Преобразуем даты и собираем данные для запроса
@@ -196,6 +198,14 @@ innaAppControllers
                                 if (FilterPanelComponent) FilterPanelComponent.teardown();
                                 if (ListPanelComponent) ListPanelComponent.teardown();
 
+
+                                /** перезагружаем рекомендованную пару */
+                                if(value.Ticket && value.Hotel) {
+                                    $scope.combination.ticket = new inna.Models.Avia.Ticket();
+                                    $scope.combination.ticket.setData(value.Ticket);
+                                    $scope.combination.hotel = new inna.Models.Hotels.Hotel(value.Hotel);
+                                }
+
                                 that.set({
                                     iterable_hotels: true,
                                     iterable_tickets: false,
@@ -229,6 +239,15 @@ innaAppControllers
                                 if ($location.search().displayTicket) {
                                     that.loadTicketDetails($location.search().displayTicket);
                                 }
+
+                                /** перезагружаем рекомендованную пару */
+                                if(value.Ticket && value.Hotel) {
+                                    $scope.combination.ticket = new inna.Models.Avia.Ticket();
+                                    $scope.combination.ticket.setData(value.Ticket);
+                                    $scope.combination.hotel = new inna.Models.Hotels.Hotel(value.Hotel);
+                                }
+
+
 
                                 if (FilterPanelComponent) FilterPanelComponent.teardown();
                                 if (ListPanelComponent) ListPanelComponent.teardown();
@@ -288,16 +307,28 @@ innaAppControllers
                  */
                 loadHotels: function () {
                     var that = this;
-                    var param = $scope.combination.ticket.data.VariantId1;
+
+                    if (!$scope.combination.ticket.data.VariantId1) return;
+
                     var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
 
-                    if (!param) return;
+                    var param = {
+                        Id : $scope.combination.ticket.data.VariantId1,
+                        HotelId : $scope.combination.hotel.data.HotelId,
+                        TicketId : $scope.combination.ticket.data.VariantId1
+                    };
+
+                    param = angular.extend(routeParams, param);
+
+
+
+
 
                     if (ListPanelComponent) ListPanelComponent.wait();
 
                     DynamicPackagesDataProvider
-                        .getHotelsByCombination(param, routeParams, function (data) {
+                        .getHotelsByCombination(param, function (data) {
                             that.set('loadHotelsData', data);
 
                             if(data && data.Hotels) {
@@ -334,18 +365,26 @@ innaAppControllers
                  */
                 loadTickets: function () {
                     var that = this;
-                    var param = $scope.combination.hotel.data.HotelId;
+                    if (!$scope.combination.hotel.data.HotelId) return;
+
+                    var param = {
+                        Id : $scope.combination.hotel.data.HotelId,
+                        HotelId : $scope.combination.hotel.data.HotelId,
+                        TicketId : $scope.combination.ticket.data.VariantId1
+                    }
                     var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
 
-                    if (!param) return;
+
+
+                    param = angular.extend(routeParams, param);
 
                     // TODO : заглушка
                     // позже будет прелоадер
                     if (ListPanelComponent) ListPanelComponent.wait();
 
                     DynamicPackagesDataProvider
-                        .getTicketsByCombination(param, routeParams, function (data) {
+                        .getTicketsByCombination(param, function (data) {
 
                             that._balloonLoad.dispose();
 
@@ -512,6 +551,7 @@ innaAppControllers
                     if (!ids) return;
 
                     try {
+                        //dfdf;
                         var ticketIds = ids.split('_');
                         var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                         if (ticket) {
@@ -526,7 +566,7 @@ innaAppControllers
                     var that = this;
 
                     $scope.baloon.showErr(
-                        "Запрашиваемая билетная пара не найдена",
+                        "Запрашиваемая билетная пара <br/> не найдена",
                         "Вероятно, она уже продана. Однако у нас есть множество других вариантов перелетов! Смотрите сами!",
                         function () {
                             delete $location.$$search.displayTicket

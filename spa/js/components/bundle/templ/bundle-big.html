@@ -111,7 +111,7 @@
 
             <a ng-if="!displayHotel"
                href="{{computedUrlDetails()}}"
-               target="_blank"
+               ng-attr-target="{{isUsingPartners ? '' : '_blank'}}"
                class="bottom-actions__button bottom-actions__button_action_details"
                ng-class="{'active': displayHotel}">Подробнее</a>
         </div>
@@ -149,7 +149,7 @@
 
         <a class="button"
            href="{{computedUrlDetails('buy')}}"
-           target="_blank"
+           ng-attr-target="{{isUsingPartners ? '' : '_blank'}}"
            ng-if="withReservationButton">
             Купить
         </a>

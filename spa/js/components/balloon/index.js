@@ -18,10 +18,7 @@ innaAppConponents.
                     balloonContent: null,
                     balloonClose: true,
                     isVisible: false,
-                    position : {
-                        top : 200
-                    },
-
+                    styleWidth : '',
 
                     /**
                      * Вызвать метод когда будет закрыт попап
@@ -74,9 +71,18 @@ innaAppConponents.
 
                     this.observe('isVisible', function (value) {
                         if(value){
-                            console.log('balloon isVisible');
+                            document.body.classList.add('overflow_hidden');
+                            window.addEventListener('resize', onResize.bind(this));
+                        } else {
+                            document.body.classList.remove('overflow_hidden');
+                            window.removeEventListener('resize', onResize);
                         }
                     })
+
+                    function onResize(){
+                        this.set('styleWidth', document.documentElement.clientWidth);
+                    }
+
                 },
 
                 beforeInit: function(o){
@@ -143,11 +149,9 @@ innaAppConponents.
 
                 show: function () {
                     var that = this;
-                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
                     this.set({
                         isVisible: true,
-                        'position.top' : (scrollTop + 200)
+                        styleWidth : document.documentElement.clientWidth
                     });
                 },
 

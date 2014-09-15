@@ -10,6 +10,12 @@
         'src': '/somepartner/somepartner.base.css'
     }];
 
+    self.commands = {
+        setVisible: 'setVisible',
+        setFrameScrollTo: 'setFrameScrollTo',
+        setScrollTop: 'setScrollTop'
+    };
+
     self.isUsingPartners = function () {
         return self.getPartner() != null;
     }
@@ -25,43 +31,75 @@
         return null;
     }
 
-    function insertCss(src) {
+    self.setScrollTo = function (scrollTo) {
+        if (scrollTo) {
+            sendCommandToParent(self.commands.setFrameScrollTo, { 'scrollTo': scrollTo });
+        }
+    }
+
+    function insertCssAndAddParnterClass(partner) {
+        var src = partner.src;
         var link = d.createElement("link");
         link.type = "text/css";
         link.rel = "stylesheet";
         link.href = "/spa/styl/partners" + src;
         insertAfter(link, d.getElementById("partners-css-inject"))
         console.log('partner css loaded', link.href);
+
+        var html = document.getElementsByTagName('html')[0];
+        //навешиваем стиль партнера
+        html.className = html.className + " partner-" + partner.name;
     };
 
     function insertAfter(newNode, referenceNode) {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
 
-    function widgetCode() {
-        document.getElementsByTagName('html')[0].style.overflowY = 'hidden';
-
-        var lastHeight = 0;
-        function sendHeight() {
-            var height = $('.main').height();
-
-            if (height != lastHeight) {
-                lastHeight = height;
-                var msg = JSON.stringify({ 'height': height });
-                window.parent.postMessage(msg, '*');
-            }
+    function addCommonEventListener(el, event, fn) {
+        if (el.addEventListener) {
+            el.addEventListener(event, fn, false);
+        } else {
+            el.attachEvent('on' + event, fn);
         }
+    };
 
-        //ToDo: поменять интервал на событие
-        setInterval(function () {
-            sendHeight();
-        }, 500);
+    function trackScroll(e) {
+        var doc = document.documentElement, body = document.body;
+        var top = (doc && doc.scrollTop || body && body.scrollTop || 0);
+        sendCommandToParent(self.commands.setScrollTop, { 'top': top });
+    }
+
+    function sendCommandToParent(cmd, data) {
+        if (arguments && arguments.length > 1) {
+
+            var obj = arguments[1];
+            var keys = [];
+            for (var k in obj) keys.push(k);
+
+            //ставим команду
+            var cmdObj = { 'cmd': arguments[0] };
+            var data = arguments[1];
+
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                //ставим данные
+                cmdObj[key] = data[key];
+            }
+            var msg = JSON.stringify(cmdObj);
+            //console.log('msg', msg);
+            window.parent.postMessage(msg, '*');
+        }
     }
 
     var partner = self.getPartner();
     if (partner != null) {
-        widgetCode();
-        insertCss(partner.src);
+        insertCssAndAddParnterClass(partner);
+        
+        //просто показываем фрейм
+        setTimeout(function () { sendCommandToParent(self.commands.setVisible, { 'visible': true }); }, 0);
+
+        //слушаем скролл
+        addCommonEventListener(window, 'scroll', trackScroll);
     }
 
 }(document, window));

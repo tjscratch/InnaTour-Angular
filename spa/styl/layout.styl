@@ -8,8 +8,13 @@ body {
 
   font-family: ProximaNova, Arial, sans-serif;
 
+
   &.scrollVisible {
     overflow-y: visible;
+  }
+
+  &.overflow_hidden {
+    overflow: hidden !important;
   }
 
   &.disable-hover,
@@ -42,6 +47,11 @@ body {
     padding: $padding-layout-light 0 0;
   }
 }
+
+.scroll-fix {
+  position : relative;
+}
+
 
 .center-container {
   margin: 0 auto;

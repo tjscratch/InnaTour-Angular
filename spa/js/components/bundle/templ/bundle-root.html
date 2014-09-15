@@ -5,33 +5,35 @@
 
         <div class="recommend-bundle-background" ng-if="!displayHotel"></div>
 
-        <div class="main__center recommend-bundle-wrap"
-             ng-class="{'recommend-bundle-wrap_small': !isVisible}">
+        <div class="scroll-fix">
+            <div class="main__center recommend-bundle-wrap"
+                 ng-class="{'recommend-bundle-wrap_small': !isVisible}">
 
-            <h3 class="recommend-bundle-title" ng-if="isVisible && isChooseHotel">
-                Выбранный вариант
-            </h3>
+                <h3 class="recommend-bundle-title" ng-if="isVisible && isChooseHotel">
+                    Выбранный вариант
+                </h3>
 
-            <h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
-                Рекомендованный вариант
-            </h3>
+                <h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
+                    Рекомендованный вариант
+                </h3>
 
-            <div class="w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">
-                <a href="javascript:void(0);" ng-click="display.toggle()" class="expand-collapse-link">
-                    <span class="icon-expand"></span> Свернуть
-                </a>
+                <div class="w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">
+                    <a href="javascript:void(0);" ng-click="display.toggle()" class="expand-collapse-link">
+                        <span class="icon-expand"></span> Свернуть
+                    </a>
+                </div>
+
+                <div ng-show="isVisible" inna-dynamic-bundle
+                     inna-dynamic-bundle-bundle="combination"
+                     toggle-tab="toggleTab"
+                     state-ticket="stateTicket"
+                     state-hotel="stateHotel"
+                     tab-active="tabActive"
+                     as-map="asMap"
+                     inna-dynamic-bundle-with-reservation-button="true"></div>
+
+                <div inna-dynamic-bundle-mini ng-if="!isVisible"></div>
             </div>
-
-            <div ng-show="isVisible" inna-dynamic-bundle
-                 inna-dynamic-bundle-bundle="combination"
-                 toggle-tab="toggleTab"
-                 state-ticket="stateTicket"
-                 state-hotel="stateHotel"
-                 tab-active="tabActive"
-                 as-map="asMap"
-                 inna-dynamic-bundle-with-reservation-button="true"></div>
-
-            <div inna-dynamic-bundle-mini ng-if="!isVisible"></div>
         </div>
     </div>
 </div>

@@ -26,7 +26,7 @@ gulp.task('build-concat', [
             conf.build + '/js/pages.js'
     ])
 
-        .pipe(concat('app-main.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(concat('app-main.js'))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
             mangle: false,
             outSourceMap: true
@@ -51,7 +51,7 @@ gulp.task('concat-lib', function () {
             conf.dest + '/lib/google.maps.clustering.js',
             conf.dest + '/lib/jquery.ui.datepicker-ru.js',
             conf.dest + '/lib/datepicker/datepicker.js',
-            conf.dest + '/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js'
+            conf.dest + '/lib/jquery-ui/jquery-ui-1.10.4.custom.min.js'
     ])
 
         .pipe(concat('app-lib.js', {insertSourceName: {open: '/*', close: '*/'}}))

@@ -430,9 +430,24 @@
 
                 baloonType: baloonType,
 
+                scrollFix: function () {
+
+                    function setWidth() {
+                        var w = document.documentElement.clientWidth;
+                        document.querySelectorAll('.scroll-fix').forEach(function (item) {
+                            item.style.width = (w + 'px');
+                        })
+                    }
+
+                    setWidth();
+
+                    $(window).on('resize', setWidth);
+                },
+
                 // TODO : вынести в компонент balloon
                 // точнее там все уже есть, нужно найти время и причесать все :)
                 baloon: {
+                    styleFix: {},
                     isVisible: false,
                     caption: '',
                     text: '',
@@ -492,6 +507,10 @@
                         //data: { buttonCaption: '', successFn: fn }
                         helper.baloon.data = data;
 
+                        /*helper.baloon.styleFix = {
+                         width: (document.documentElement.clientWidth + 'px')
+                         }*/
+
                         //$rootScope.$broadcast('baloon.show');
                     },
                     hide: function () {
@@ -538,53 +557,53 @@
 
                     switch (ticketsCount) {
                         case 1:
-                            {
-                                if (countLeft == 1) {
-                                    return 'Остался последний билет';
-                                }
-                                else if (countLeft <= 3) {
-                                    return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                                }
-                                break;
+                        {
+                            if (countLeft == 1) {
+                                return 'Остался последний билет';
                             }
+                            else if (countLeft <= 3) {
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                            }
+                            break;
+                        }
                         case 2:
-                            {
-                                if (countLeft <= 3) {
-                                    return 'Остались последние билеты';
-                                }
-                                else if (countLeft <= 6) {
-                                    return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                                }
-                                break;
+                        {
+                            if (countLeft <= 3) {
+                                return 'Остались последние билеты';
                             }
+                            else if (countLeft <= 6) {
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                            }
+                            break;
+                        }
                         case 3:
-                            {
-                                if (countLeft <= 5) {
-                                    return 'Остались последние билеты';
-                                }
-                                else if (countLeft <= 9) {
-                                    return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                                }
-                                break;
+                        {
+                            if (countLeft <= 5) {
+                                return 'Остались последние билеты';
                             }
+                            else if (countLeft <= 9) {
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                            }
+                            break;
+                        }
                         case 4:
-                            {
-                                if (countLeft <= 7) {
-                                    return 'Остались последние билеты';
-                                }
-                                else if (countLeft <= 9) {
-                                    return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
-                                }
-                                break;
+                        {
+                            if (countLeft <= 7) {
+                                return 'Остались последние билеты';
                             }
+                            else if (countLeft <= 9) {
+                                return 'Последние ' + countLeft + ' ' + getPluralTickets(countLeft);
+                            }
+                            break;
+                        }
                         case 5:
                         case 6:
-                            {
-                                if (countLeft <= 9) {
-                                    return 'Остались последние билеты';
-                                }
-                                break;
+                        {
+                            if (countLeft <= 9) {
+                                return 'Остались последние билеты';
                             }
+                            break;
+                        }
                     }
 
                     return '';
@@ -609,9 +628,7 @@
                     var self = this;
                     self.isShow = false;
                     self.item = null;
-                    self.position = {
-                        top : 200
-                    };
+                    self.style = {};
 
                     self.ticketsCount = ticketsCount;
                     self.hideBuyButton = false;
@@ -619,12 +636,26 @@
                     var cabinClass = parseInt(cabinClass);
                     self.ticketsClass = helper.getCabinClassName(cabinClass).toLowerCase();
 
+                    self.setStyle = function () {
+                        self.style = {
+                            width: (document.documentElement.clientWidth + 'px')
+                        }
+                    }
+
                     self.show = function ($event, item, criteria, searchId, hideBuyButton) {
+
                         //console.log('popupItemInfo.show');
                         //console.log(item);
-                        if($event) {
+                        if ($event) {
                             eventsHelper.preventBubbling($event);
                         }
+
+                        helper.scrollFix();
+
+                        setTimeout(function () {
+                            document.body.classList.add('overflow_hidden');
+                        }, 150);
+
 
                         self.isShow = true;
                         self.hideBuyButton = hideBuyButton;
@@ -643,23 +674,15 @@
                             self.link = url;
                         }
 
-                        function setPosition() {
-                            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                            self.position.top += scrollTop;
-                        }
-
-                        setTimeout(function () {
-                            setPosition();
-                            $(window).resize(function () {
-                                setPosition();
-                            });
-                        }, 0);
-                        
+                        self.setStyle();
+                        $(window).on('resize', self.setStyle);
                     }
 
                     self.hide = function () {
                         //console.log('popupItemInfo.hide');
                         self.isShow = false;
+                        $(window).off('resize', self.setStyle);
+                        document.body.classList.remove('overflow_hidden');
                     }
 
                     self.addAggFields = function (item) {
@@ -750,6 +773,7 @@
                 tarifs: function () {
                     //log('tarifs');
                     var self = this;
+                    self.style = {};
 
                     self.isOpened = false;
 
@@ -762,7 +786,7 @@
                             self.list.push({
                                 from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
                                 num: etap.TransporterCode + '-' + etap.Number,
-                                rule : etap.Rule
+                                rule: etap.Rule
                             });
                         });
 
@@ -771,7 +795,7 @@
                                 self.list.push({
                                     from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
                                     num: etap.TransporterCode + '-' + etap.Number,
-                                    rule : etap.Rule
+                                    rule: etap.Rule
                                 });
                             });
                         }
@@ -785,55 +809,66 @@
                     self.tarifItem = null;
 
                     self.tarifClick = function ($event, item) {
-                        if($event) eventsHelper.preventBubbling($event);
+                        if ($event) eventsHelper.preventBubbling($event);
                         self.setected = item;
                         var index = self.list.indexOf(item);
                         if (self.tarifsData != null && self.tarifsData.length > 0) {
                             self.tarifItem = self.tarifsData[index];
                         }
                     }
+                    self.setStyle = function () {
+                        self.style = {
+                            width: (document.documentElement.clientWidth + 'px')
+                        }
+                    }
+
                     self.show = function ($event) {
-                        if($event) eventsHelper.preventBubbling($event);
+                        if ($event) eventsHelper.preventBubbling($event);
+
+                        document.body.classList.add('overflow_hidden');
+
                         self.selectedIndex = 0;
                         self.setected = self.list[0];
                         if (self.tarifsData != null && self.tarifsData.length > 0) {
-                            
+
                             self.tarifItem = self.tarifsData[0];
                         }
                         else {
                             self.tarifItem = null;
                         }
                         self.isOpened = true;
+                        self.setStyle();
 
                         //ToDo: потом отрефакторить и не потерять эту логику
-                        function setPosition() {
-                            var popup = $('.js-tarifs');
-                            if (popup) {
-                                var displayHeight = $(window).height();
+                        /*function setPosition() {
+                         var popup = $('.js-tarifs');
+                         if (popup) {
+                         var displayHeight = $(window).height();
 
-                                var rules = $('.b__rules-grey', popup);
-                                var rulesHeight = displayHeight - 350;
-                                if (rulesHeight < 200) {
-                                    rulesHeight = 200;
-                                }
-                                rules.css({ height: rulesHeight });
+                         var rules = $('.b__rules-grey', popup);
+                         var rulesHeight = displayHeight - 350;
+                         if (rulesHeight < 200) {
+                         rulesHeight = 200;
+                         }
+                         rules.css({ height: rulesHeight });
+                         }
 
-                                var popupHeight = popup.height();
-                                popup.css({ top: (displayHeight / 2) - (popupHeight / 2) });
-                            }
-                        }
+                         var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                         self.position.top += scrollTop;
+                         }*/
 
-                        setTimeout(function () {
-                            setPosition();
-                            $(window).resize(function () {
-                                setPosition();
-                            });
-                        }, 0);
-                        //</ToDo>
-                        
+                        /*setTimeout(function () {
+                         setPosition();
+                         $(window).resize(function () {
+                         setPosition();
+                         });
+                         }, 0);*/
+
+
                     }
                     self.close = function ($event) {
-                        if($event) eventsHelper.preventBubbling($event);
+                        if ($event) eventsHelper.preventBubbling($event);
+                        document.body.classList.remove('overflow_hidden');
                         self.isOpened = false;
                     }
                 },
@@ -842,6 +877,7 @@
                     var self = this;
                     self.isOpened = false;
                     self.haveData = false;
+                    self.style = {};
 
                     self.checkIn = null;
                     self.checkOut = null;
@@ -860,12 +896,21 @@
                         }
                     }
 
+                    self.setStyle = function () {
+                        self.style = {
+                            width: (document.documentElement.clientWidth + 'px')
+                        }
+                    }
+
                     self.show = function ($event) {
                         eventsHelper.preventBubbling($event);
+                        self.setStyle();
+                        document.body.classList.add('overflow_hidden');
                         self.isOpened = true;
                     }
                     self.close = function ($event) {
                         eventsHelper.preventBubbling($event);
+                        document.body.classList.remove('overflow_hidden');
                         self.isOpened = false;
                     }
                 },
@@ -887,7 +932,9 @@
 
                         if (passengersCitizenshipIds != null && currentItem != null) {
 
-                            var isAllPassRussia = _.all(passengersCitizenshipIds, function (citId) { return citId == 189; });//189 - Россия
+                            var isAllPassRussia = _.all(passengersCitizenshipIds, function (citId) {
+                                return citId == 189;
+                            });//189 - Россия
 
                             //страна куда
                             var lastItem = _.last(currentItem.EtapsTo);
@@ -952,7 +999,7 @@
                     }
                 },
 
-                getFlightTimeFormatted : getFlightTimeFormatted,
+                getFlightTimeFormatted: getFlightTimeFormatted,
 
                 eof: null
             };

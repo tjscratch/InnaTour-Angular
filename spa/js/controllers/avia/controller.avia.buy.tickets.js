@@ -714,6 +714,15 @@ innaAppControllers.
                         function (data) {
                             log('\npaymentService.pay, data: ' + angular.toJson(data));
                             if (data != null && data.Status == 0) {
+
+                                //ToDo: для теста
+                                if (location.href.indexOf("debug_status=1") > -1) {
+                                    data.PreauthStatus = 1;
+                                }
+                                else if (location.href.indexOf("debug_status=2") > -1) {
+                                    data.PreauthStatus = 2;
+                                }
+                                
                                 //успешно
                                 if (data.PreauthStatus == 1) {
                                     //3dSecure
@@ -793,18 +802,21 @@ innaAppControllers.
             $scope.buyFrame = new buyFrame();
 
             function processPay3d(data) {
-                var jData = angular.fromJson(data);
-                //console.log('jData: ' + angular.toJson(jData));
-                jData.TermUrl = app_main.host + '/api/v1/Psb/PaymentRederect';
-                //console.log('jData: ' + angular.toJson(jData));
                 var params = '';
-                var keys = _.keys(jData);
-                _.each(keys, function (key) {
-                    if (keys.indexOf(key) > 0) {
-                        params += '&';
-                    }
-                    params += key + '=' + encodeURIComponent(jData[key]);
-                });
+                var jData = angular.fromJson(data);
+                if (jData) {
+                    //console.log('jData: ' + angular.toJson(jData));
+                    jData.TermUrl = app_main.apiHost + '/api/v1/Psb/PaymentRederect';
+                    //console.log('jData: ' + angular.toJson(jData));
+
+                    var keys = _.keys(jData);
+                    _.each(keys, function (key) {
+                        if (keys.indexOf(key) > 0) {
+                            params += '&';
+                        }
+                        params += key + '=' + encodeURIComponent(jData[key]);
+                    });
+                }
 
                 //дождемся пока фрейм с формой запостит и сработает load
                 $scope.buyFrame.listenForFrameLoad();

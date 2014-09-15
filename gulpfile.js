@@ -34,7 +34,7 @@ gulp.task('build-project', function (callback) {
         'styles-app',
         'replace-config',
         'replace-partners',
-        ['styles', 'less', 'build-concat'],
+        ['styles', 'build-concat'],
         'version-cache',
         'html-replace',
         'copy-project',
@@ -46,7 +46,7 @@ gulp.task('default', function (callback) {
         'sprite',
         'styles-app',
         'replace-config',
-        ['styles', 'less', 'build-templates', 'concat-lib', 'concat-comp-page-regions'],
+        ['styles', 'build-templates', 'concat-lib', 'concat-comp-page-regions'],
         'build-angular-parts',
         'watch',
         callback);
