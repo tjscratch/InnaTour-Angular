@@ -17,12 +17,12 @@
 
 
                 <div class="b-tickets__footer">
-                    <ul class="b-tickets__icons">
+                    <ul class="b-tickets__icons" ng-hide="displayHotel">
                         <li>
                             <div class="tooltip-widget js-share-component"></div>
                         </li>
                     </ul>
-                    <div class="b-tickets__footer-inner">
+                    <div class="b-tickets__footer-inner" ng-hide="displayHotel">
                         <a ng-if="!noChoose" class="rl-buy-button" href="javascript:void(0);"
                            ng-click="setCurrent()">Выбрать</a>
                     </div>
