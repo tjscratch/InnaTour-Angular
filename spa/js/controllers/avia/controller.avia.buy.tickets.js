@@ -806,7 +806,8 @@ innaAppControllers.
                 var jData = angular.fromJson(data);
                 if (jData) {
                     //console.log('jData: ' + angular.toJson(jData));
-                    jData.TermUrl = app_main.apiHost + '/api/v1/Psb/PaymentRederect';
+                    //jData.TermUrl = app_main.apiHost + '/api/v1/Psb/PaymentRederect';
+                    jData.TermUrl = location.protocol + '//' + location.hostname + '/api/v1/Psb/PaymentRederect';
                     //console.log('jData: ' + angular.toJson(jData));
 
                     var keys = _.keys(jData);
