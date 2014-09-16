@@ -22,6 +22,10 @@
             date: function (s, error) {
                 if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
             },
+            dateEndEmpty: function (s1, s2, error) {
+                var dt = parseInt(Date.fromDDMMYY(s2) - Date.fromDDMMYY(s1));
+                if ( dt < 0) throw error;
+            },
             gtZero: function (s, error) {
                 var val = parseInt(s);
                 if (isNaN(val) || val <= 0) throw error;
