@@ -28,34 +28,27 @@ innaAppConponents.
 
                     this.on({
                         action: this.action,
+                        removeFilter : function(dataEvents, filterItem){
+                            this._parent.fire('IndicatorFiltersItem:remove', dataEvents, filterItem);
+                        },
                         resetAllFilters: function (data) {
-                            EventManager.fire(Events.FILTER_PANEL_RESET_ALL);
+                            this.set('filtersCollection', []);
                         },
                         teardown: function (evt) {
                             //console.log('teardown IndicatorFilters');
-                            EventManager.off(Events.FILTER_PANEL_CHANGE, this.changeFilters);
-                            EventManager.off(Events.FILTER_PANEL_RESET, this.resetFilters);
                             EventManager.off(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad);
                             EventManager.off(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad);
-                            this.reset({filters : {}});
+                            this.set('filters', []);
                         }
                     });
 
-
-                    EventManager.on(Events.FILTER_PANEL_CHANGE, this.changeFilters.bind(this));
-                    /** событие сброса фильтров */
-                    EventManager.on(Events.FILTER_PANEL_RESET, this.resetFilters.bind(this));
-
                     EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad.bind(this));
                     EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad.bind(this));
-                },
 
-                changeFilters: function (data) {
-                    this.set('filters', data);
-                },
 
-                resetFilters : function(){
-                    this.set('filters', {});
+                    this.observe('filtersCollection', function(value){
+                        this.set('filters', value);
+                    })
                 },
 
                 mapLoad : function(){

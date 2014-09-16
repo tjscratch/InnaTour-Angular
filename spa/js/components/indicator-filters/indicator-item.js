@@ -37,7 +37,7 @@ innaAppConponents.
                                 data.context.direction = param;
                             }
 
-                            EventManager.fire('IndicatorFiltersItem:remove', dataEvents, this.get('filterItem.name'));
+                            this._parent.fire('removeFilter', dataEvents, this.get('filterItem.name'));
                         },
                         teardown: function (evt) {
 
