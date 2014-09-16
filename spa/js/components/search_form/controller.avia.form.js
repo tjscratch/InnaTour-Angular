@@ -408,6 +408,7 @@ innaAppControllers.
 
                 if ($scope.criteria.PathType == 0) {//туда обратно
                     Validators.defined($scope.criteria.EndDate, Error('EndDate'));
+                    Validators.dateEndEmpty($scope.criteria.BeginDate, $scope.criteria.EndDate, Error('EndDate'));
                 }
             }
 
