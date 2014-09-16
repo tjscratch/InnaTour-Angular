@@ -52,6 +52,11 @@ angular.module('innaApp.components').
 
                         }
                     });
+
+
+                    /*this.observe('TaFactor', function(value){
+                        console.info('TaFactor observe');
+                    })*/
                 },
 
                 components: {

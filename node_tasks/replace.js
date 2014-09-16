@@ -1,10 +1,12 @@
 var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     htmlreplace = require('gulp-html-replace'),
-	uglify = require('gulp-uglifyjs'),
+    replace = require('gulp-replace-task'),
+    uglify = require('gulp-uglifyjs'),
     conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';
+
 
 // смотрим на окружение и подставляем нужные хосты
 var apiHost = (_ENV_ === 'production') ? conf.hosts.api.prod : ((_ENV_ === 'beta') ? conf.hosts.api.beta : conf.hosts.api.test);
@@ -13,21 +15,21 @@ var frontHost = (_ENV_ === 'production') ? conf.hosts.front.prod : ((_ENV_ === '
 var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : ((_ENV_ === 'beta') ? conf.hosts.static.beta : conf.hosts.static.test);
 var partnersHost = (_ENV_ === 'production') ? conf.hosts.partners.prod : ((_ENV_ === 'beta') ? conf.hosts.partners.beta : conf.hosts.partners.test);
 
+/*console.info(apiHost);
+console.info(b2bHost);
+console.info(frontHost);
+console.info(staticHost);
+console.info(partnersHost);*/
+
 var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protocol.http;
 
-function getConfReplace(){
+function getConfReplace() {
     return {
-        'app-config-debug' : '<script>window.FrontedDebug = false;</script>',
+        'app-config-debug': '<script>window.FrontedDebug = false;</script>',
 
-        'app-config-js': '/'+ conf.version +'/js/config.js',
-        'app-main-js': '/'+ conf.version +'/js/app-main.js',
-        'app-stylus': '/'+ conf.version +'/css/common.min.css',
-
-        'api-host': 'app_main.apiHost = \'' + apiHost + '\';',
-        'b2b-host': 'app_main.b2bHost = \'' + b2bHost + '\';',
-        'front-host': 'app_main.frontHost = \'' + frontHost + '\';',
-        'static-host': 'app_main.staticHost = \'' + staticHost + '\';',
-        'tripadvisor': 'app_main.tripadvisor = \'' + __PROTOCOL__ + conf.tripadvisor + '\';'
+        'app-config-js': '/' + conf.version + '/js/config.js',
+        'app-main-js': '/' + conf.version + '/js/app-main.js',
+        'app-stylus': '/' + conf.version + '/css/common.min.css'
     }
 }
 
@@ -36,18 +38,31 @@ gulp.task('replace-partners', function () {
     return gulp.src(conf.src + '/partners/module.js')
         .pipe(htmlreplace({ 'module-host': 'innaModule.host = \'' + partnersHost + '\';' }))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
-        mangle: false,
-            outSourceMap: true
-            })))
+            mangle: false
+        })))
         .pipe(gulp.dest(conf.publish + '/spa/js/partners/' + conf.partners_version));
-        });
+});
 
 gulp.task('replace-config', function () {
+
+    var r = {
+        patterns: [
+            {
+                json: {
+                    'api_host': apiHost,
+                    'b2b_host': b2bHost,
+                    'front_host': frontHost,
+                    'static_host': staticHost,
+                    'tripadvisor': (__PROTOCOL__ + conf.tripadvisor)
+                }
+            }
+        ]
+    };
+
     return gulp.src(conf.src + '/config.js')
-        .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', htmlreplace(getConfReplace())))
+        .pipe(replace(r))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
-            mangle: false,
-            outSourceMap: true
+            mangle: false
         })))
         .pipe(gulp.dest(conf.build + '/js'));
 });

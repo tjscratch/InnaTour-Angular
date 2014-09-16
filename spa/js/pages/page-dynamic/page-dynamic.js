@@ -101,6 +101,7 @@ innaAppControllers
                     /** Слушаем событие изменения формы поиска */
                     DynamicFormSubmitListener.listen();
 
+
                     //this.stateTab();
                     this.getCombination();
 
@@ -195,12 +196,12 @@ innaAppControllers
                         loadHotelsData: function (value) {
                             if (value) {
 
-                                if (FilterPanelComponent) FilterPanelComponent.teardown();
+                                if (this.FilterPanelComponentTicket) this.FilterPanelComponentTicket.fire('hide');
                                 if (ListPanelComponent) ListPanelComponent.teardown();
 
 
                                 /** перезагружаем рекомендованную пару */
-                                if(value.Ticket && value.Hotel) {
+                                if (value.Ticket && value.Hotel) {
                                     $scope.combination.ticket = new inna.Models.Avia.Ticket();
                                     $scope.combination.ticket.setData(value.Ticket);
                                     $scope.combination.hotel = new inna.Models.Hotels.Hotel(value.Hotel);
@@ -213,14 +214,6 @@ innaAppControllers
                                     combinationModel: $scope.combination
                                 });
 
-                                FilterPanelComponent = new FilterPanel({
-                                    el: document.querySelector('.recommend-bundle-container'),
-                                    data: {
-                                        combinationModel: $scope.combination,
-                                        filtersData: value.Filters
-                                    }
-                                });
-
                                 ListPanelComponent = new ListPanel({
                                     el: that.find('.b-page-dynamic'),
                                     data: {
@@ -229,6 +222,26 @@ innaAppControllers
                                         combinationModel: $scope.combination
                                     }
                                 });
+
+                                /* filter */
+                                if (this.FilterPanelComponentHotel) {
+                                    this.FilterPanelComponentHotel.fireSort();
+                                    /*this.FilterPanelComponentHotel.set({
+                                        combinationModel: $scope.combination,
+                                        filtersData: value.Filters
+                                    })*/
+                                } else {
+                                    this.FilterPanelComponentHotel = new FilterPanel({
+                                        el: document.querySelector('.recommend-bundle-container'),
+                                        data: {
+                                            combinationModel: $scope.combination,
+                                            filtersData: value.Filters
+                                        }
+                                    });
+                                }
+
+
+
                             }
                         },
 
@@ -241,31 +254,19 @@ innaAppControllers
                                 }
 
                                 /** перезагружаем рекомендованную пару */
-                                if(value.Ticket && value.Hotel) {
+                                if (value.Ticket && value.Hotel) {
                                     $scope.combination.ticket = new inna.Models.Avia.Ticket();
                                     $scope.combination.ticket.setData(value.Ticket);
                                     $scope.combination.hotel = new inna.Models.Hotels.Hotel(value.Hotel);
                                 }
 
-
-
-                                if (FilterPanelComponent) FilterPanelComponent.teardown();
+                                if (this.FilterPanelComponentHotel) this.FilterPanelComponentHotel.fire('hide');
                                 if (ListPanelComponent) ListPanelComponent.teardown();
 
                                 that.set({
                                     iterable_tickets: true,
                                     Enumerable: value.AviaInfos,
                                     combinationModel: $scope.combination
-                                })
-
-                                FilterPanelComponent = new FilterPanel({
-                                    el: document.querySelector('.recommend-bundle-container'),
-                                    data: {
-                                        combinationModel: $scope.combination,
-                                        filtersData: value.Filters,
-                                        filter_hotel: false,
-                                        filter_avia: true
-                                    }
                                 })
 
                                 ListPanelComponent = new ListPanel({
@@ -276,6 +277,27 @@ innaAppControllers
                                         combinationModel: $scope.combination
                                     }
                                 });
+
+                                if (this.FilterPanelComponentTicket) {
+                                    this.FilterPanelComponentTicket.fireSort();
+                                    /*this.FilterPanelComponentTicket.set({
+                                        combinationModel: $scope.combination,
+                                        filtersData: value.Filters,
+                                        filter_hotel: false,
+                                        filter_avia: true
+                                    })*/
+
+                                } else {
+                                    this.FilterPanelComponentTicket = new FilterPanel({
+                                        el: document.querySelector('.recommend-bundle-container'),
+                                        data: {
+                                            combinationModel: $scope.combination,
+                                            filtersData: value.Filters,
+                                            filter_hotel: false,
+                                            filter_avia: true
+                                        }
+                                    });
+                                }
                             }
                         }
                     }, {init: false});
@@ -314,15 +336,12 @@ innaAppControllers
                     var deferred = new $.Deferred();
 
                     var param = {
-                        Id : $scope.combination.ticket.data.VariantId1,
-                        HotelId : $scope.combination.hotel.data.HotelId,
-                        TicketId : $scope.combination.ticket.data.VariantId1
+                        Id: $scope.combination.ticket.data.VariantId1,
+                        HotelId: $scope.combination.hotel.data.HotelId,
+                        TicketId: $scope.combination.ticket.data.VariantId1
                     };
 
                     param = angular.extend(routeParams, param);
-
-
-
 
 
                     if (ListPanelComponent) ListPanelComponent.wait();
@@ -331,7 +350,7 @@ innaAppControllers
                         .getHotelsByCombination(param, function (data) {
                             that.set('loadHotelsData', data);
 
-                            if(data && data.Hotels) {
+                            if (data && data.Hotels) {
                                 $scope.hotelsForMap = data.Hotels;
                             }
 
@@ -368,13 +387,12 @@ innaAppControllers
                     if (!$scope.combination.hotel.data.HotelId) return;
 
                     var param = {
-                        Id : $scope.combination.hotel.data.HotelId,
-                        HotelId : $scope.combination.hotel.data.HotelId,
-                        TicketId : $scope.combination.ticket.data.VariantId1
+                        Id: $scope.combination.hotel.data.HotelId,
+                        HotelId: $scope.combination.hotel.data.HotelId,
+                        TicketId: $scope.combination.ticket.data.VariantId1
                     }
                     var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
-
 
 
                     param = angular.extend(routeParams, param);
