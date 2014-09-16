@@ -337,7 +337,7 @@ angular.module('innaApp.components').
                 },
 
                 complete: function (data) {
-                    //console.log('complete');
+                    this.set('styleWidth', document.documentElement.scrollWidth);
                 }
             });
 
