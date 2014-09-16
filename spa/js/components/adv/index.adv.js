@@ -27,6 +27,10 @@ angular.module('innaApp.directives')
 
                             $scope.isAdv = $cookieStore.get('ADV_VISIBLE') || ($location.search().tourist && $location.search().tourist == 1);
 
+                            if($cookieStore.get('ADV_NOT_VISIBLE')) {
+                                $scope.isAdv = false;
+                            }
+
                             if ($scope.isAdv) {
                                 document.body.classList.add('adv-inject');
 
@@ -53,6 +57,7 @@ angular.module('innaApp.directives')
                             $scope.isAdv = false;
                             $('#injectStyleAdv').remove();
                             $cookieStore.remove('ADV_VISIBLE');
+                            $cookieStore.put('ADV_NOT_VISIBLE', true);
                         }
 
                         function toggleVisible() {
