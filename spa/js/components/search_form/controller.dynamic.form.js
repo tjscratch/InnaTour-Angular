@@ -108,6 +108,7 @@ innaAppControllers
 
                 Validators.defined($scope.dateBegin, Error('dateBegin'));
                 Validators.defined($scope.dateEnd, Error('dateEnd'));
+                Validators.dateEndEmpty($scope.dateBegin, $scope.dateEnd, Error('dateEnd'));
             }
 
             $scope.loadObjectById = function (id, callback) {

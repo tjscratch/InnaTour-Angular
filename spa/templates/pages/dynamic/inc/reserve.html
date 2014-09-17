@@ -10,10 +10,11 @@
 
 <p class="buy__price-descr" ng-show="item != null && hotel != null">В цену включен ПЕРЕЛЕТ {{item.CityFrom}} –
     {{item.CityTo}} – {{item.CityFrom}} и ОТЕЛЬ {{hotel.HotelName}}
-    с {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMM', true)}}
-    по {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMM', true)}}, {{hotel.NightCount}}
+    с {{helper.getRuDateFormat(hotel.CheckInDate, 'dd MMMM', true)}}
+    по {{helper.getRuDateFormat(hotel.CheckOutDate, 'dd MMMM', true)}}, {{hotel.NightCount}}
     {{helper.pluralForm(hotel.NightCount, 'ночь', 'ночи', 'ночей')}}. Цена окончательная со
-    всеми налогами и сборами </p>
+    всеми налогами и сборами
+</p>
 
 <div class="main__center">
 
@@ -53,9 +54,12 @@
                         </div>
                     </div>
 
-                    <div class="rlf-full-travel-time-info">в пути: {{item.TimeToFormatted}}, <span
-                            ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{helper.getTransferCountText(item.ToTransferCount)}}</span><span
-                            ng-if="item.ToTransferCount == 0">прямой</span></div>
+                    <div class="rlf-full-travel-time-info">в пути: {{item.TimeToFormatted}},
+	                    <span ng-if="item.ToTransferCount > 0">
+		                    {{item.ToTransferCount}}
+							{{item.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+	                    </span>
+	                    <span ng-if="item.ToTransferCount == 0">прямой</span></div>
                 </div>
                 <div class="rlf-fly rlf-fly_back">
 
@@ -78,9 +82,12 @@
                     </div>
 
 
-                    <div class="rlf-full-travel-time-info">в пути: {{item.TimeBackFormatted}}, <span
-                            ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{helper.getTransferCountText(item.BackTransferCount)}}</span><span
-                            ng-if="item.BackTransferCount == 0">прямой</span></div>
+                    <div class="rlf-full-travel-time-info">в пути: {{item.TimeBackFormatted}},
+	                    <span ng-if="item.BackTransferCount > 0">
+		                    {{item.BackTransferCount}}
+		                    {{item.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+	                    </span>
+	                    <span ng-if="item.BackTransferCount == 0">прямой</span></div>
                 </div>
 
             </div>

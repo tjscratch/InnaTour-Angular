@@ -94,12 +94,11 @@ angular.module('innaApp.components').
                             document.removeEventListener('scroll', this.eventListener);
                             clearTimeout(this._filterTimeout);
                             clearTimeout(this._scrollTimeout);
-                            EventManager.off(Events.DYNAMIC_SERP_BACK_LIST);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
-                            EventManager.off(Events.FILTER_PANEL_CHANGE);
-                            EventManager.off(Events.FILTER_PANEL_RESET);
-                            EventManager.off(Events.FILTER_PANEL_SORT);
+                            EventManager.off(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
+                            EventManager.off(Events.FILTER_PANEL_RESET, this.FILTER_PANEL_RESET);
+                            EventManager.off(Events.FILTER_PANEL_SORT, this.FILTER_PANEL_SORT);
                             EventManager.off(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
                         }
                     })
@@ -157,30 +156,48 @@ angular.module('innaApp.components').
                     EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords.bind(this));
                     EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap.bind(this));
 
-                    // выполняем фильтрацию не чаще 300ms
-                    // защита от слишком частого нажатия на кнопки фильтрации
-                    EventManager.on(Events.FILTER_PANEL_CHANGE, function (data) {
-                        clearTimeout(that._filterTimeout);
-                        that._filterTimeout = $timeout(function () {
-                            that.doFilter(that.get('Enumerable'), data);
-                        }, 100);
-                    });
 
+                    /* событие   */
+                    EventManager.on(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE.bind(this));
                     /** событие сброса фильтров */
-                    EventManager.on(Events.FILTER_PANEL_RESET, function (data) {
-                        clearTimeout(that._filterTimeout);
-                        that._filterTimeout = $timeout(function () {
-                            that.resetFilter();
-                        }, 100);
-                    });
-
-
+                    EventManager.on(Events.FILTER_PANEL_RESET, this.FILTER_PANEL_RESET.bind(this));
                     /** Событие сортировки */
-                    EventManager.on(Events.FILTER_PANEL_SORT, function (sortComponent) {
-                        $timeout(function () {
-                            that.cloneData(that.sorting(), true);
-                        }, 0)
-                    });
+                    EventManager.on(Events.FILTER_PANEL_SORT, this.FILTER_PANEL_SORT.bind(this));
+                },
+
+                /**
+                 * выполняем фильтрацию не чаще 100ms
+                 * защита от слишком частого нажатия на кнопки фильтрации
+                 * @param data
+                 */
+                FILTER_PANEL_CHANGE : function(data){
+                    var that = this;
+                    clearTimeout(that._filterTimeout);
+                    that._filterTimeout = $timeout(function () {
+                        that.doFilter(that.get('Enumerable'), data);
+                    }, 100);
+                },
+
+                /**
+                 *
+                 * @param data
+                 */
+                FILTER_PANEL_RESET : function(data){
+                    var that = this;
+                    clearTimeout(that._filterTimeout);
+                    that._filterTimeout = $timeout(function () {
+                        that.resetFilter();
+                    }, 100);
+                },
+
+                /**
+                 *
+                 */
+                FILTER_PANEL_SORT : function(){
+                    var that = this;
+                    $timeout(function () {
+                        that.cloneData(that.sorting(), true);
+                    }, 0)
                 },
 
                 proxyGoToMap: function (data) {

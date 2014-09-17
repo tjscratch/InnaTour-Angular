@@ -25,7 +25,7 @@ angular.module('innaApp.directives')
 
                         function determine() {
 
-                            $scope.isAdv = $cookieStore.get('ADV_VISIBLE') || ($location.search().tourist && $location.search().tourist == 1);
+                            $scope.isAdv = $cookieStore.get('ADV_VISIBLE') || ($location.search().tourist && $location.search().tourist == 0);
 
                             if($cookieStore.get('ADV_NOT_VISIBLE')) {
                                 $scope.isAdv = false;
