@@ -17,7 +17,8 @@ innaAppControllers
         'Balloon',
         'ListPanel',
         'FilterPanel',
-        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel) {
+        '$filter',
+        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel, $filter) {
 
 
             /**
@@ -58,6 +59,18 @@ innaAppControllers
             $scope.dateHelper = dateHelper;
             $scope.events = Events;
 
+            //кнопка нового поиска для WL
+            function setWlModel(data) {
+                $scope.WlNewSearchModel = new inna.Models.WlNewSearch({
+                    dateFilter: $filter("date"),
+                    from: data.RecommendedPair.AviaInfo.CityFrom,
+                    to: data.RecommendedPair.AviaInfo.CityTo,
+                    start: searchParams.StartVoyageDate,
+                    end: searchParams.EndVoyageDate,
+                    passengerCount: parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0),
+                    ticketClass: searchParams.TicketClass
+                });
+            }
 
             var Page = Ractive.extend({
                 debug: true,
@@ -440,7 +453,6 @@ innaAppControllers
                         return this.combination404();
                     }
 
-
                     //аналитика
                     this.trackAnalyst();
 
@@ -448,6 +460,9 @@ innaAppControllers
                     cacheKey = data.SearchId;
 
                     $scope.$apply(function ($scope) {
+                        //кнопка нового поиска для WL
+                        setWlModel(data);
+
                         $scope.combination.ticket = new inna.Models.Avia.Ticket();
                         $scope.combination.ticket.setData(data.RecommendedPair.AviaInfo);
                         $scope.combination.hotel = new inna.Models.Hotels.Hotel(data.RecommendedPair.Hotel);

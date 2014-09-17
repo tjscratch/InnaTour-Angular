@@ -1,13 +1,6 @@
 <!-- Рекомендованный вариант пакета -->
 
-<div class="wl-new-search-container">
-    <div class="wl-center-cont">
-        <div class="wl-container">
-            <span class="wl-text">Москва - Париж с 7 февраля по 28 февраля, 3 человека, эконом</span>
-            <a href="#" class="js-btn-wl-search button wl-search">Новый поиск</a>
-        </div>
-    </div>
-</div>
+<ng-include src="'components/wl-new-search/templ/index.hbs.html'"></ng-include>
 
 <div dynamic-bundle-root
      ng-if="combination.hotel && combination.ticket && !hotelToShowDetails"></div>
