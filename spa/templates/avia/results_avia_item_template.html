@@ -39,7 +39,8 @@
                     в пути: {{this.TimeToFormatted}}<br>
                     {{#(this.ToTransferCount > 0)}}
                         <span>
-                            {{this.ToTransferCount}} {{helper.getTransferCountText(this.ToTransferCount)}}
+                            {{this.ToTransferCount}}
+	                        {{helper.getTransferCountText(this.ToTransferCount)}}
                         </span>
                     {{/}}
                     {{#(this.ToTransferCount == 0)}}

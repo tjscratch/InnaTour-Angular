@@ -92,7 +92,10 @@ innaAppControllers
                                 this._balloonLoad = null;
                             }
                             this.loadHotelsDataLoadData.cancel();
-                            if (FilterPanelComponent) FilterPanelComponent.teardown();
+
+                            if(this.FilterPanelComponentTicket) this.FilterPanelComponentTicket.teardown();
+                            if(this.FilterPanelComponentHotel) this.FilterPanelComponentHotel.teardown();
+
                             if (ListPanelComponent) ListPanelComponent.teardown();
                             ListPanelComponent = FilterPanelComponent = null;
                         }
@@ -225,11 +228,11 @@ innaAppControllers
 
                                 /* filter */
                                 if (this.FilterPanelComponentHotel) {
-                                    this.FilterPanelComponentHotel.fireSort();
-                                    /*this.FilterPanelComponentHotel.set({
+                                    //this.FilterPanelComponentHotel.fireSort();
+                                    this.FilterPanelComponentHotel.set({
                                         combinationModel: $scope.combination,
                                         filtersData: value.Filters
-                                    })*/
+                                    })
                                 } else {
                                     this.FilterPanelComponentHotel = new FilterPanel({
                                         el: document.querySelector('.recommend-bundle-container'),
@@ -239,7 +242,6 @@ innaAppControllers
                                         }
                                     });
                                 }
-
 
 
                             }
@@ -279,14 +281,13 @@ innaAppControllers
                                 });
 
                                 if (this.FilterPanelComponentTicket) {
-                                    this.FilterPanelComponentTicket.fireSort();
-                                    /*this.FilterPanelComponentTicket.set({
+                                    //this.FilterPanelComponentTicket.fireSort();
+                                    this.FilterPanelComponentTicket.set({
                                         combinationModel: $scope.combination,
                                         filtersData: value.Filters,
                                         filter_hotel: false,
                                         filter_avia: true
-                                    })*/
-
+                                    });
                                 } else {
                                     this.FilterPanelComponentTicket = new FilterPanel({
                                         el: document.querySelector('.recommend-bundle-container'),

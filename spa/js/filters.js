@@ -58,11 +58,28 @@ innaAppFilters.filter('price', function () {
     };
 });
 
+
+/* ================ 3 версии pluralize ========== */
+/* ============================================== */
+/* ============================================== */
 innaAppFilters.filter('asQuantity', ['$filter', function ($filter) {
     return function (n, f1, f2, f5, f0) {
         if (n == 0) return f0;
 
         return [n, $filter('choosePlural')(n, f1, f2, f5)].join(' ');
+    }
+}]);
+
+/**
+ * @param {Number} number, titles
+ * @param {Array} titles
+ * @return *
+ * utils.pluralize(number, ['пересадка', 'пересадки', 'пересадок']);
+ */
+innaAppFilters.filter('pluralize', ['$filter', function ($filter) {
+    return function (number, titles) {
+        var cases = [2, 0, 1, 1, 1, 2];
+        return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
     }
 }]);
 
@@ -90,6 +107,11 @@ innaAppFilters.filter('choosePlural', function () {
         return f5;
     }
 });
+
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+
 
 innaAppFilters.filter('signed', ['$filter', function ($filter) {
     return function (n) {

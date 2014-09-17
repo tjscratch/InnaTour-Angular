@@ -1,40 +1,44 @@
 {{#if TaFactor.List.length > 1}}
-    <li class="filter" on-hover="onHover">
-        <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
-             on-click="toggle">
-            Рейтинг
-        </div>
+	<li class="filter" on-hover="onHover">
+		<div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+		     on-click="toggle">
+			Рейтинг
+		</div>
 
 
-        <div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
-            <header class="ra-header">
-                <h4 class="ra-title">Рейтинг</h4>
-                <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
-            </header>
-            <div class="ra-content">
-                <ul class="ra-fly-type-list">
+		<div class="filters__baloon {{isOpen ? 'filters__baloon_show' : ''}}">
+			<header class="ra-header">
+				<h4 class="ra-title">Рейтинг</h4>
+				<span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
+			</header>
+			<div class="ra-content">
+				<ul class="ra-fly-type-list">
 
 					{{#each TaFactor.List}}
-                        <li>
-                            <label on-change="onChecked">
-                                <input type="checkbox" name="tafactor" value="{{this.Value}}"
-                                       checked="{{this.isChecked}}"/>
-                                <span class="ra-checkbox"></span>
+						<li>
+							<label on-change="onChecked">
+
+								<input type="checkbox"
+								       name="tafactor"
+								       value="{{this.Value}}"
+								       checked="{{this.isChecked}}"/>
+
+								<span class="ra-checkbox"></span>
 
 			                <span class="ra-fly-type">
 		                        <Tripadvisor TaFactor="{{this.Value}}"
-                                             withOutTd="{{true}}"/>
+		                                     withOutTd="{{true}}"/>
 		                    </span>
 
 			                <span class="ra-fly-price">
 		                        <span>{{$filter('price')(Price)}}</span>
 				                {{>ruble}}
 	                        </span>
-                            </label>
-                        </li>
+							</label>
+						</li>
 					{{/each}}
-                </ul>
-            </div>
-        </div>
-    </li>
+				</ul>
+			</div>
+		</div>
+	</li>
 {{/if}}

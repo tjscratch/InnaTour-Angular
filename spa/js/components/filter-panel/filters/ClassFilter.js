@@ -11,6 +11,7 @@ angular.module('innaApp.components').
                 data: {
                     clearTimeHover: null,
                     isOpen: false,
+                    SaveData : [],
                     hasSelected: false,
                     value: null
                 },
