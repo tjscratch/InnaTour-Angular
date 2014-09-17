@@ -39,7 +39,8 @@
                     в пути: {{this.TimeToFormatted}}<br>
                     {{#(this.ToTransferCount > 0)}}
                         <span>
-                            {{this.ToTransferCount}} {{helper.getTransferCountText(this.ToTransferCount)}}
+                            {{this.ToTransferCount}}
+	                        {{this.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
                         </span>
                     {{/}}
                     {{#(this.ToTransferCount == 0)}}
@@ -69,7 +70,8 @@
                     в пути: {{this.TimeBackFormatted}}<br>
                     {{#(this.BackTransferCount > 0)}}
                         <span>
-                            {{this.BackTransferCount}} {{helper.getTransferCountText(this.BackTransferCount)}}
+                            {{this.BackTransferCount}}
+	                        {{this.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
                         </span>
                     {{/}}
                     {{#(this.BackTransferCount == 0)}}
