@@ -30,7 +30,8 @@
                 <div class="rl-travel-time ">
                     в пути: {{item.TimeToFormatted}}<br>
                     <span ng-if="item.ToTransferCount > 0">
-                        {{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}
+                        {{item.ToTransferCount}}
+	                    {{item.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
                     </span>
                     <span ng-if="item.ToTransferCount == 0">прямой</span>
                 </div>
@@ -55,7 +56,8 @@
                 <div class="rl-travel-time ">
                     в пути: {{item.TimeBackFormatted}}<br>
                     <span ng-if="item.BackTransferCount > 0">
-                        {{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}
+                        {{item.BackTransferCount}}
+	                    {{item.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
                     </span>
                     <span ng-if="item.BackTransferCount == 0">прямой</span>
                 </div>

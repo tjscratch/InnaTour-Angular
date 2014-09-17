@@ -75,7 +75,6 @@ innaAppControllers.
             //});
 
             $scope.getSliderTimeFormat = aviaHelper.getSliderTimeFormat;
-            $scope.getTransferCountText = aviaHelper.getTransferCountText;
 
             $scope.helper = aviaHelper;
 

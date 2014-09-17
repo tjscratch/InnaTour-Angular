@@ -36,7 +36,14 @@ function getConfReplace() {
 // Копируем в папку publish
 gulp.task('replace-partners', function () {
     return gulp.src(conf.src + '/partners/module.js')
-        .pipe(htmlreplace({ 'module-host': 'innaModule.host = \'' + partnersHost + '\';' }))
+        .pipe(replace({
+            patterns: [
+                {
+                    match: 'partnersHost',
+                    replacement: partnersHost
+                }
+            ]
+        }))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
             mangle: false
         })))
