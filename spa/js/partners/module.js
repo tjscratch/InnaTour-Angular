@@ -9,11 +9,19 @@ var innaModule = {
         var self = innaModule;
         
         var frameCont = document.getElementById('inna-frame');
+
+        var wrapper = self.frameManager.createWrapper();
         var fr = self.frameManager.createFrame();
+
         var src = getFrameUrl(partner);
         src = processHashParams(src);
         fr.src = src;
-        frameCont.appendChild(fr);
+
+        frameCont.appendChild(wrapper);
+        wrapper.appendChild(fr);
+
+        self.frameManager.setStyles();
+        self.frameManager.repositionFrame();
 
         self.cmdManager.init(innaModule.frameManager);
 
@@ -36,9 +44,10 @@ var innaModule = {
     frameManager: new FrameManager()
 };
 
-//<!-- build:module-host -->
-innaModule.host = 'http://{0}.lh.inna.ru';
-//<!-- endbuild -->
+innaModule.host = '@@partnersHost';
+
+
+//innaModule.host = 'http://192.168.105.54';
 
 function FrameManager() {
     var self = this;
@@ -47,52 +56,49 @@ function FrameManager() {
         lastTop: null
     };
 
-    self.createFrame = function () {
-        var frameCont = document.getElementById('inna-frame');
-        //скрываем контейнер, пока не загрузили фрейм и не проставили высоту
-        frameCont.style.visibility = 'hidden';
+    self.createWrapper = function () {
+        var wrapper = document.createElement("div");
+        wrapper.id = "inna-frame-wrapper";
+        return wrapper;
+    };
 
-        var fr = document.createElement("IFRAME");
+    self.createFrame = function () {
+        var fr = document.createElement("iframe");
         fr.id = "innaFrame1"
         //fr.onload = frameLoaded();
-        self.setFrameStyles(fr);
-        self.setFramePosition(fr);
-
         return fr;
     };
 
-    self.setFrameStyles = function (fr) {
+    self.setStyles = function () {
         var docSize = getDocumentSize();
-        fr.style.width = docSize.x + 'px';
 
-        //fr.style.width = "100%";
-        //начальная высота
-        //fr.style.height = "600px";
-        fr.style.height = "100%";
-        //fr.style.overflow = 'hidden';
+        var wrapper = document.getElementById('inna-frame-wrapper');
+        
+        wrapper.setAttribute("style", "-webkit-overflow-scrolling: touch;");
+        wrapper.style.position = 'fixed';
+        wrapper.style.overflowY = 'auto';
+        wrapper.style.width = docSize.x + 'px';
+        wrapper.style.height = "600px";
+        
+        wrapper.style.right = '0px';
+        wrapper.style.bottom = '0px';
+        wrapper.style.left = '0px';
+        wrapper.style.top = '0px';
+        
+        var frameCont = document.getElementById('inna-frame');
+        frameCont.style.position = 'relative';
+        frameCont.style.visibility = 'hidden';
 
-        fr.style.position = 'fixed';
-        fr.style.left = 0;
-        fr.style.top = 0;
-        //fr.style.right = 0;
-
-        //fr.style.bottom = 0;
-        //fr.style.height = '100%';
-        //fr.style.top = '200px';
-        //fr.style.top = 0;
-
-        fr.border = 0;
-        fr.frameBorder = 0;
+        var frame = document.getElementById('innaFrame1');
+        frame.style.width = "100%";
+        frame.style.height = "99%";
+        frame.style.border = "0";
+        frame.border = 0;
+        frame.frameBorder = 0;
     }
 
-    self.setFramePosition = function (fr) {
-        self.repositionFrame(null, fr);
-    }
-
-    self.repositionFrame = function (top, fr) {
-        if (!(fr != null)) {
-            fr = document.getElementById("innaFrame1");
-        }
+    self.repositionFrame = function (top) {
+        var el = document.getElementById("inna-frame-wrapper");
         var frameCont = document.getElementById('inna-frame');
 
         var docSize = getDocumentSize();
@@ -132,9 +138,9 @@ function FrameManager() {
         //console.log('newHeight', newHeight);
         //console.log('newTop', newTop);
 
-        fr.style.width = docSize.x + 'px';
-        //fr.style.height = newHeight + 'px';
-        fr.style.top = newTop + 'px';
+        el.style.width = docSize.x + 'px';
+        el.style.height = newHeight + 'px';
+        el.style.top = newTop + 'px';
 
         self.frame.lastTop = newTop;
     }
@@ -143,13 +149,6 @@ function FrameManager() {
         if (data.visible == true) {
             var frameCont = document.getElementById('inna-frame');
             frameCont.style.visibility = '';
-            //console.log('frame setVisible', data.visible);
-            //var frame = document.getElementById("innaFrame1");
-            
-            //frame.style.display = 'block';
-
-            //var frameContainer = document.getElementById('inna-frame');
-            //var frameContPos = getPos(frameContainer);
         }
     }
 

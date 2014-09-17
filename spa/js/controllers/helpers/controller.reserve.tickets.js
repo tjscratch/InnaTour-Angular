@@ -817,8 +817,6 @@ innaAppControllers.
                     $scope.afterPayModelInit();
             };
 
-            $scope.getTransferCountText = aviaHelper.getTransferCountText;
-
             $scope.moreClick = function ($event) {
                 eventsHelper.preventBubbling($event);
             };
