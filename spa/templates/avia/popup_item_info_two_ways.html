@@ -11,7 +11,8 @@
 		                    {{item.ToTransferCount}}
 		                    {{item.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
 	                    </span>
-	                    <span ng-if="item.ToTransferCount == 0">прямой</span></div>
+	                    <span ng-if="item.ToTransferCount == 0">прямой</span>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-5 col-no-padding row-fluid__cell">
@@ -24,6 +25,7 @@
 	                    <span ng-if="item.BackTransferCount > 0">
 		                    {{item.BackTransferCount}}
 		                    {{item.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+		                </span>
 	                    <span ng-if="item.BackTransferCount == 0">прямой</span>
                     </div>
                 </div>
