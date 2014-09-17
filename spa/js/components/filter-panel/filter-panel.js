@@ -160,12 +160,7 @@ angular.module('innaApp.components').
                      * Слушаем изменение filtersData
                      * Обновление настроек фильтров
                      */
-                    //var i = 0;
                     this.observe('filtersData', function (value) {
-                        /*i++;
-                        if(i == 2){
-                            delete value.Tickets.AirLegs;
-                        }*/
                         if (value) {
                             this.show();
                             FilterSettings.set({
@@ -186,6 +181,13 @@ angular.module('innaApp.components').
                         }
                     }, {init: false})
 
+
+                    // если это обновление фильтров
+                    this.observe('updateModel', function (value) {
+                        $timeout(function(){
+                            console.error('updateModel success');
+                        }, 1000)
+                    }, {init: false});
                 },
 
                 show: function () {

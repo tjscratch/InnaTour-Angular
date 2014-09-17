@@ -26,6 +26,7 @@ angular.module('innaApp.components').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    this.SaveData = [];
 
 
                     this._timeOut = null;
@@ -39,7 +40,9 @@ angular.module('innaApp.components').
 
                                 clearTimeout(this._timeOut);
                                 this._timeOut = setTimeout(function () {
-                                    this.set('value.val', data['name']);
+                                    this.set('value.val', data['name'].trim());
+                                    this.SaveData = [data['name'].trim()];
+
                                     this._parent.fire('changeChildFilter', this.get('value.val'));
                                     this.hasSelected();
                                 }.bind(this), 100);
@@ -58,6 +61,16 @@ angular.module('innaApp.components').
                     });
                 },
 
+                mergeData : function(){
+                    if(this.SaveData.length) {
+                        this.set('value.val', this.SaveData[0]);
+                    }
+                },
+
+                spliceSaveData : function(context) {
+                    if(this.SaveData.length) this.SaveData = [];
+                },
+
                 /**
                  *
                  * @param data
@@ -66,6 +79,7 @@ angular.module('innaApp.components').
                 IndicatorFiltersItemRemove : function(data){
                     this._super(data);
                     this.fire('resetFilter');
+                    this.spliceSaveData();
                     this._parent.fire('changeChildFilter', this.get('value.val'));
                     this.hasSelected();
                 }

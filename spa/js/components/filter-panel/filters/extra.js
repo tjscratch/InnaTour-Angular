@@ -29,6 +29,7 @@ angular.module('innaApp.components').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    this.SaveData = [];
 
 
                     this.on({
@@ -36,27 +37,22 @@ angular.module('innaApp.components').
 
                         },
 
-                        /**
-                         * nameExtra для вывода названия на русском справа панели
-                         * indicator-filters
-                         * @param data
-                         */
                         onChecked: function (data) {
                             var that = this;
                             if (data && data.context) {
                                 if (data.context.isChecked) {
+                                    this.SaveData.push(data.context);
                                     this.push('value.val', data.context);
                                 } else if (!data.context.isChecked) {
-                                    this.get('value.val').forEach(function (item, i) {
-                                        if (data.context.Value == item.Value) that.splice('value.val', i, 1);
-                                    })
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
+                                    this.spliceSaveData(data.context);
                                 }
                                 this._parent.fire('changeChildFilter', this.get('value.val'));
                                 this.hasSelected();
                             }
                         },
                         resetFilter: function () {
-                            this.set('Extra.List.*.isChecked', false);
+                            this.set('FilterData.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
 
@@ -76,9 +72,10 @@ angular.module('innaApp.components').
                         if (data.Value == item.Value) that.splice('value.val', i, 1);
                     })
 
-                    this.get('Extra.List').forEach(function (item, i) {
+                    this.get('FilterData.List').forEach(function (item, i) {
                         if (item.Value == data.Value) {
-                            that.set('Extra.List.' + i + '.isChecked', false);
+                            that.set('FilterData.List.' + i + '.isChecked', false);
+                            that.SaveData.splice(i, 1);
                         }
                     })
 

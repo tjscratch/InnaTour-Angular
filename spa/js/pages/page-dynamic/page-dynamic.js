@@ -230,6 +230,7 @@ innaAppControllers
                                 if (this.FilterPanelComponentHotel) {
                                     //this.FilterPanelComponentHotel.fireSort();
                                     this.FilterPanelComponentHotel.set({
+                                        updateModel : Math.random(1000).toString(16),
                                         combinationModel: $scope.combination,
                                         filtersData: value.Filters
                                     })
@@ -283,6 +284,7 @@ innaAppControllers
                                 if (this.FilterPanelComponentTicket) {
                                     //this.FilterPanelComponentTicket.fireSort();
                                     this.FilterPanelComponentTicket.set({
+                                        updateModel : Math.random(1000).toString(16),
                                         combinationModel: $scope.combination,
                                         filtersData: value.Filters,
                                         filter_hotel: false,
