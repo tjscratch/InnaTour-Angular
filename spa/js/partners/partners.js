@@ -19,7 +19,9 @@
     self.isUsingPartners = function () {
         return self.getPartner() != null;
     }
-    self.getPartner = function() {
+    self.getPartner = function () {
+        //return self.partnersMap[0];
+
         var host = location.hostname;
         for (var i = 0; i < self.partnersMap.length; i++) {
             var partner = self.partnersMap[i];

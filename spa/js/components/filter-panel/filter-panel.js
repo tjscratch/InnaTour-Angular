@@ -17,6 +17,7 @@ angular.module('innaApp.components').
         '$templateCache',
         '$routeParams',
         'innaApp.API.events',
+        '$timeout',
 
         'IndicatorFilters',
 
@@ -34,7 +35,7 @@ angular.module('innaApp.components').
         'FilterTaFactor',
         'FilterType',
         'FilterSort',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, IndicatorFilters, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterExtra, FilterPrice, FilterName, FilterStars, FilterTaFactor, FilterType, FilterSort) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, $timeout, IndicatorFilters, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterExtra, FilterPrice, FilterName, FilterStars, FilterTaFactor, FilterType, FilterSort) {
 
 
             /**
@@ -45,6 +46,7 @@ angular.module('innaApp.components').
                 template: $templateCache.get('components/filter-panel/templ/panel.hbs.html'),
                 append: true,
                 data: {
+                    isVisible : true,
                     asMap: false,
                     filtersCollection: [],
                     filter_hotel: true,
@@ -103,15 +105,20 @@ angular.module('innaApp.components').
                                 this.collectChildData();
                             }
                         },
+                        hide : function(evt){
+                            this.set('isVisible', false);
+                        },
                         teardown: function (evt) {
                             this.observeFiltersData.cancel();
                             this.observeSortValueVal.cancel();
                             this.observeIsOpen.cancel();
 
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
-                            EventManager.off(Events.FILTER_PANEL_RESET_ALL);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
-                            EventManager.off('IndicatorFiltersItem:remove');
+
+                            this.off(Events.FILTER_PANEL_CHANGE);
+                            this.off(Events.FILTER_PANEL_RESET);
+
                             EventManager.off('sort:default');
 
                             this.findAllComponents().forEach(function (child) {
@@ -120,7 +127,6 @@ angular.module('innaApp.components').
                         }
                     });
 
-                    EventManager.set('getSortComponent', that.getSortComponent());
 
                     EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function () {
                         that.set('asMap', true);
@@ -138,20 +144,11 @@ angular.module('innaApp.components').
                         })
                     });
 
-                    EventManager.on(Events.FILTER_PANEL_RESET_ALL, function () {
-                        EventManager.fire(Events.FILTER_PANEL_RESET);
-
-                        that.findAllComponents().forEach(function (item) {
-                            item.fire('resetFilter', {silent : true});
-                        });
-                    });
-
-
                     /**
                      * Событие сброса фильтра
                      * Получаем его от компонента IndicatorFilters
                      */
-                    EventManager.on('IndicatorFiltersItem:remove', function (dataContext, componentName) {
+                    this.on('IndicatorFiltersItem:remove', function (dataContext, componentName) {
                         that.findAllComponents().forEach(function (component) {
                             if (component.get('value.name') == componentName) {
                                 component.fire('filtersItemRemove', dataContext, componentName);
@@ -170,10 +167,30 @@ angular.module('innaApp.components').
                      */
                     this.observeFiltersData = this.observe('filtersData', function (value) {
                         if (value) {
+                            this.show();
                             this.setModel();
                         }
                     }, {init: false})
 
+                    this.observe('filtersCollection', function(value){
+                        if(!value || !value.length) {
+                            this.findAllComponents().forEach(function (item) {
+                                item.fire('resetFilter', {silent: true});
+                            });
+                            EventManager.fire(Events.FILTER_PANEL_RESET);
+                            this.fire(Events.FILTER_PANEL_RESET);
+                        }
+                    }, {init: false})
+
+                },
+
+                show : function(){
+                    this.set('isVisible', true);
+                },
+
+                fireSort: function(){
+                    this.show();
+                    this.collectChildData();
                 },
 
                 /**
@@ -241,8 +258,10 @@ angular.module('innaApp.components').
 
                     if (this.get('filtersCollection').length) {
                         EventManager.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
+                        this.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
                     } else {
                         EventManager.fire(Events.FILTER_PANEL_RESET);
+                        this.fire(Events.FILTER_PANEL_RESET);
                     }
                 },
 
@@ -294,10 +313,6 @@ angular.module('innaApp.components').
 
                 },
 
-                getSortComponent: function () {
-                    return this.findComponent('FilterSort');
-                },
-
                 bodyClickHide: function (evt) {
                     evt.stopPropagation();
                     var $this = evt.target;
@@ -322,7 +337,7 @@ angular.module('innaApp.components').
                 },
 
                 complete: function (data) {
-                    //console.log('complete');
+                    this.set('styleWidth', document.documentElement.scrollWidth);
                 }
             });
 

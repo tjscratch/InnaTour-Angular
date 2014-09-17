@@ -135,6 +135,7 @@ angular.module('innaApp.directives')
 
                     // update components
                     $scope.$watchCollection('bundle', function(value){
+                        
                         _priceGeneric.set({
                             'virtualBundle': value,
                             type : $scope.tabActive
@@ -146,13 +147,16 @@ angular.module('innaApp.directives')
                             TaFactorCeiled: $scope.bundle.hotel.data.TaFactorCeiled
                         });
                         _stars.set('stars', $scope.bundle.hotel.data.Stars);
+
+                        $timeout(function () {
+                            _shareLink.set('location', window.location);
+                        }, 0)
                     });
 
                     $scope.$watchCollection('stateTicket', function(value){
                         $timeout(function(){
                             _shareLink.set('location', window.location);
                         }, 0)
-
                     });
 
                     //destroy

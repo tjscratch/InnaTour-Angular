@@ -1,13 +1,15 @@
-<div class="filters__body b-filter-panel main__center {{(asMap) ? 'filters__body_dp' : '' }}">
-    <!-- Показываем разные фильтры -->
+<div class="scroll-fix" style="width: {{styleWidth}}px;">
+	<div class="filters__body b-filter-panel main__center {{(asMap) ? 'filters__body_dp' : '' }}">
+		<!-- Показываем разные фильтры -->
 
-	{{#if filter_hotel}}
-		{{>HotelsFilter}}
-        <IndicatorFilters/>
-	{{/if}}
+		{{#if filter_hotel}}
+			{{>HotelsFilter}}
+			<IndicatorFilters/>
+		{{/if}}
 
-	{{#if filter_avia && !asMap}}
-		{{>TicketFilter}}
-         <IndicatorFilters/>
-	{{/if}}
+		{{#if filter_avia && !asMap}}
+			{{>TicketFilter}}
+			<IndicatorFilters/>
+		{{/if}}
+	</div>
 </div>

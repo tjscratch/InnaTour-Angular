@@ -10,7 +10,6 @@ angular.module('innaApp.controllers')
                 Validators.defined($scope.username, 'username');
                 Validators.defined($scope.password, 'password');
             }
-
             function signIn(){
                 AuthDataProvider.signIn({
                     Email: $scope.username,

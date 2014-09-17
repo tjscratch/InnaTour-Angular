@@ -5,45 +5,30 @@
     <meta name="viewport" content="width=980">
     <title ng-bind="title">Biletix - Главная</title>
 
-    <!-- build:app-stylus -->
-    <!-- <link rel="stylesheet" href="http://lh.inna.ru/spa/styl/partners/biletix/biletix.css" /> -->
-    <!-- endbuild -->
-	
-	<link rel="stylesheet" href="http://lh.inna.ru/spa/styl/partners/biletix/biletix.base.css" />
-
     <style type="text/css">
-        body{
+        body {
             margin: 0;
             padding: 0;
         }
+
         .main {
             width: 1023px;
             margin: 0 auto;
-        }
-        .pic-cont {
-            width: 100%;
-            text-align: center;
-        }
-        #inna-frame {
         }
     </style>
 
 </head>
 <body>
-	<div class="main">
+    <div class="main">
         <img src="main.png" />
     </div>
-    <!--<div class="pic-cont">
-        <img src="photo.jpg" />
-    </div>-->
 
-    <!--<iframe src="http://lh.inna.ru"></iframe>-->
-    
-        <script type="text/javascript" src="http://lh.inna.ru/spa/js/partners/module.js"></script>
-        <script type="text/javascript">
-            innaModule.searchForm.init("biletix");
-        </script>
+    //<script type="text/javascript" src="http://192.168.105.54/spa/js/partners/module.js"></script>
+    <script type="text/javascript" src="http://lh.inna.ru/spa/js/partners/module.js"></script>
+    <script type="text/javascript">
+        innaModule.init("biletix");
+    </script>
 
-        <div id="inna-frame"></div>
+    <div id="inna-frame"></div>
 </body>
 </html>
