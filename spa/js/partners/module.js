@@ -44,9 +44,8 @@ var innaModule = {
     frameManager: new FrameManager()
 };
 
-//<!-- build:module-host -->
-innaModule.host = 'http://{0}.lh.inna.ru';
-//<!-- endbuild -->
+innaModule.host = '@@partnersHost';
+
 
 //innaModule.host = 'http://192.168.105.54';
 

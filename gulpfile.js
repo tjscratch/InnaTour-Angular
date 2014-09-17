@@ -33,11 +33,11 @@ gulp.task('build-project', function (callback) {
         'sprite',
         'styles-app',
         'replace-config',
-        'replace-partners',
         ['styles', 'build-concat'],
         'version-cache',
         'html-replace',
         'copy-project',
+        'replace-partners',
         callback);
 });
 
