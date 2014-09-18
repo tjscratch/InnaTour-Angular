@@ -70,7 +70,6 @@ angular.module('innaApp.components').
                             that.SaveData.filter(function (saveItem) {
                                 if (item.Name == saveItem.Name) {
                                     that.set('FilterData.List.'+i, angular.extend(saveItem, item));
-                                    that.set('value.val', saveItem.Name);
                                     return true;
                                 }
                             });

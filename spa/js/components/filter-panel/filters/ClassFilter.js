@@ -78,10 +78,6 @@ angular.module('innaApp.components').
                     }
                 },
 
-                spliceValue : function(){
-                    //this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
-                },
-
                 /**
                  * @param data
                  * @override
@@ -97,13 +93,16 @@ angular.module('innaApp.components').
                     var that = this;
 
                     if (this.SaveData.length && this.get('FilterData.List').length) {
-
+                        this.set({
+                            'value.val': [],
+                            'hasSelected': false
+                        });
                         this.get('FilterData.List').forEach(function (item, i) {
-
                             that.SaveData.filter(function (saveItem) {
                                 if (item.Value == saveItem.Value) {
-                                    that.set('FilterData.List.' + i, angular.extend(saveItem, item));
-                                    that.push('value.val', saveItem.Value);
+                                    var updateItem = angular.extend(saveItem, item);
+                                    that.set('FilterData.List.' + i, updateItem);
+                                    that.push('value.val', updateItem);
                                     return true;
                                 }
                             });

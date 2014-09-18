@@ -110,10 +110,6 @@ angular.module('innaApp.components').
 
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
-
-                            this.off(Events.FILTER_PANEL_CHANGE);
-                            this.off(Events.FILTER_PANEL_RESET);
-
                             EventManager.off('sort:default');
 
                             this.findAllComponents().forEach(function (child) {
@@ -185,8 +181,8 @@ angular.module('innaApp.components').
                     // если это обновление фильтров
                     this.observe('updateModel', function (value) {
                         $timeout(function(){
-                            console.error('updateModel success');
-                        }, 1000)
+                            that.collectChildData();
+                        }, 500);
                     }, {init: false});
                 },
 

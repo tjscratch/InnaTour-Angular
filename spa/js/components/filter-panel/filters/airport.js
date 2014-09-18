@@ -111,8 +111,7 @@ angular.module('innaApp.components').
                                 })
                             }
                         });
-
-                        this.filterAirport();
+                        //this.filterAirport();
                     }
                 },
 
