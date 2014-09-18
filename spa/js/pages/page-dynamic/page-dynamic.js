@@ -364,10 +364,9 @@ innaAppControllers
                         TicketId: $scope.combination.ticket.data.VariantId1
                     };
 
-                    /*if(window.FrontedDebug && $location.search().ticket == 10) {
-                        param.TicketId = $location.search().ticket;
-                        param.Id = $location.search().ticket;
-                    }*/
+                    if(window.FrontedDebug && $location.search().DebugFilter) {
+                        param.DebugFilter = true;
+                    }
 
 
                     param = angular.extend(routeParams, param);
@@ -423,10 +422,9 @@ innaAppControllers
                     var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
 
-                    /*if(window.FrontedDebug && $location.search().hotel == 10) {
-                        param.HotelId = $location.search().hotel;
-                        param.Id = $location.search().hotel;
-                    }*/
+                    if(window.FrontedDebug && $location.search().DebugFilter) {
+                        param.DebugFilter = true;
+                    }
 
 
                     param = angular.extend(routeParams, param);
