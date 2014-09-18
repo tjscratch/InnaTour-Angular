@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:ng="https://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -133,6 +133,11 @@
 
 </head>
 <body class="light-theme" ng-class="{'body-bg':isBodyBg()}" ng-click="bodyClick()" popup-form>
+
+<!-- AB test -->
+<div ng-controller="AbTestCtrl" style="opacity: 0;display: none">
+	<link ng-if="abTestCssSrc" rel="stylesheet" ng-href="{{ abTestCssSrc }}"/>
+</div>
 
 <!-- Компонент рекламы -->
 <div adv-component></div>

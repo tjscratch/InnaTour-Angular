@@ -35,6 +35,9 @@ var innaModule = {
         }
 
         function getFrameUrl(partner) {
+            //if (innaModule.host == '@@partnersHost') {
+            //    innaModule.host = 'http://{0}.lh.inna.ru'
+            //}
             var url = innaModule.host.replace("{0}", partner);
             return url;
         }

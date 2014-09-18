@@ -21,7 +21,8 @@
                     <span class="rlf-fly-arrow"></span>
                     {{ (_lastEtapBack = item.EtapsBack[item.EtapsBack.length - 1]) ? '' : '' }}
                     <span class="rlf-city">{{_lastEtapBack.InCity}}</span> {{item.InCodeBack}}
-                    <div class="rlf-full-travel-time">в пути: {{item.TimeBackFormatted}},
+                    <div class="rlf-full-travel-time">
+	                    в пути: {{item.TimeBackFormatted}},
 	                    <span ng-if="item.BackTransferCount > 0">
 		                    {{item.BackTransferCount}}
 		                    {{item.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
