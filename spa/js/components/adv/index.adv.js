@@ -23,6 +23,10 @@ angular.module('innaApp.directives')
 
                         determine();
 
+                        $scope.$on('$locationChangeSuccess', function () {
+                            determine();
+                        });
+
                         function determine() {
 
                             $scope.isAdv = $cookieStore.get('ADV_VISIBLE') || ($location.search().tourist && $location.search().tourist == 0);
