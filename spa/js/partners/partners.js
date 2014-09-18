@@ -2,12 +2,22 @@
     window.partners = {};
     var self = window.partners;
 
+    self.WLType = {
+        full: 'full',
+        lite: 'lite'
+    }
+
     self.partnersMap = [{
         'name': 'biletix',
-        'src': '/biletix/biletix.base.css'
+        'src': '/biletix/biletix.base.css',
+        'type': self.WLType.full
     }, {
-        'name': 'somepartner',
-        'src': '/somepartner/somepartner.base.css'
+        'name': 'agenda',
+        'src': '/agenda/agenda.base.css',
+        'type': self.WLType.lite,
+        'phone': '+7&nbsp;888 742-1212',
+        'aboutLink': 'https://www.agenda.travel/Other/About#tab=Agenda',
+        'contactsLink': 'http://blog.agenda.travel/'
     }];
 
     self.commands = {
@@ -16,8 +26,9 @@
         setScrollTop: 'setScrollTop'
     };
 
-    self.isUsingPartners = function () {
-        return self.getPartner() != null;
+    self.isFullWL = function () {
+        var partner = self.getPartner();
+        return partner != null && partner.type == self.WLType.full;
     }
     self.getPartner = function () {
         //return self.partnersMap[0];
@@ -38,6 +49,35 @@
             sendCommandToParent(self.commands.setFrameScrollTo, { 'scrollTo': scrollTo });
         }
     }
+
+    function liteWLControl(partner){
+        var self = this;
+        self.changePageData = function () {
+            if (partner && partner.type == window.partners.WLType.lite) {
+                //document.getElementById('').setAttribute('')
+                //logo
+                var logoEl = document.getElementsByClassName('js-company-logo')[0];
+                logoEl.alt = partner.name;
+                logoEl.title = partner.name;
+
+                //телефон в шапке
+                document.getElementsByClassName('js-company-phone-head')[0].innerHTML = partner.phone;
+
+                //телефон в футере
+                var phoneElement = document.getElementsByClassName('js-company-phone')[0];
+                phoneElement.innerHTML = partner.phone;
+                phoneElement.className = phoneElement.className.replace('partners-hide', '');
+
+                //ссылка о компании
+                document.getElementsByClassName('js-company-about')[0].href = partner.aboutLink;
+                document.getElementsByClassName('js-company-about')[1].href = partner.aboutLink;
+                //ссылка контакты
+                document.getElementsByClassName('js-company-contacts')[0].href = partner.contactsLink;
+            }
+        }
+    }
+    //запускается внизу страницы
+    self.liteWLControl = new liteWLControl(self.getPartner());
 
     function insertCssAndAddParnterClass(partner) {
         var src = partner.src;

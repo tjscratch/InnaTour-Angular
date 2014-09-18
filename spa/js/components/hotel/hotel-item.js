@@ -34,7 +34,7 @@ angular.module('innaApp.components').
                             return name
                         }
                     },
-                    isUsingPartners: (window.partners && window.partners.isUsingPartners()),
+                    isFullWL: (window.partners && window.partners.isFullWL()),
 
                     /**
                      * Строим URL для страницы подробнее об отеле

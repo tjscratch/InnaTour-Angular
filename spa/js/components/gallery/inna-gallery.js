@@ -48,7 +48,7 @@ angular.module('innaApp.directives')
                     /*Properties*/
                     $scope.pics = new PicList();
 
-                    $scope.isUsingPartners = window.partners ? window.partners.isUsingPartners() : false;
+                    $scope.isFullWL = window.partners ? window.partners.isFullWL() : false;
 
                     /*Methods*/
                     $scope.getViewportStyle = function(){
