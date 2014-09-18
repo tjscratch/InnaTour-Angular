@@ -20,7 +20,7 @@ gulp.task('watch', function () {
             server.changed(file.path);
         });
 
-    gulp.watch(conf.src + '/components/**/*.styl', ['styl-components', 'styl-adv'])
+    gulp.watch(conf.src + '/components/**/*.styl', ['styl-components', 'styl-adv', 'styl-abtest'])
         .on('change', function (file) {
             server.changed(file.path);
         });

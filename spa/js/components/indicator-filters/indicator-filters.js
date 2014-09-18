@@ -15,6 +15,7 @@ innaAppConponents.
             var IndicatorFilters = Ractive.extend({
                 template: $templateCache.get('components/indicator-filters/templ/indicator-filters.hbs.html'),
                 data: {
+                    filtersCollection : [],
                     asMap : false,
                     filters: [],
                     isArray: angular.isArray,

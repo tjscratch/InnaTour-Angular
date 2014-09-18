@@ -10,6 +10,7 @@
                 <div ng-if="!noClose" title="Закрыть" class="balloon-close" ng-click="closePopup()"></div>
 
                 <h3 class="b-tickets__title">Подробная информация по перелету</h3>
+
                 <ng:include ng-if="item.EtapsBack.length > 0"
                             src="'avia/popup_item_info_two_ways.html'"></ng:include>
                 <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null"

@@ -134,6 +134,11 @@
 </head>
 <body class="light-theme" ng-class="{'body-bg':isBodyBg()}" ng-click="bodyClick()" popup-form>
 
+<!-- AB test -->
+<div ng-controller="AbTestCtrl" style="opacity: 0;display: none">
+	<link ng-if="abTestCssSrc" rel="stylesheet" ng-href="{{ abTestCssSrc }}"/>
+</div>
+
 <!-- Компонент рекламы -->
 <div adv-component></div>
 

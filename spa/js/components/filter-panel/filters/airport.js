@@ -40,23 +40,24 @@ angular.module('innaApp.components').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    this.SaveData = [];
 
                     this._timeOut = null;
                     this._next = 0;
 
                     this.on({
                         onChecked: function (data) {
-                            var result = this.get('airports').filter(function (filter) {
-                                var r = filter.List.filter(function (item) {
-                                    return item.isChecked
-                                })
-                                return r.length;
-                            })
 
-                            if (result.length)
-                                this.set('value.val', result);
-                            else
-                                this.set('value.val', [])
+                            /* сборка для сохранения фильтров */
+                            if (data && data.context) {
+                                if (data.context.isChecked)
+                                    this.SaveData.push(data.context);
+                                else if (!data.context.isChecked)
+                                    this.spliceSaveData(data.context);
+                            }
+
+
+                            this.filterAirport();
 
                             this._parent.fire('changeChildFilter', this.get('value.val'));
                             this.hasSelected();
@@ -66,7 +67,7 @@ angular.module('innaApp.components').
                             if (data && data.context) {
                                 this.set(data.keypath + '.List.*.isChecked', false);
                             } else {
-                                this.set('airports.*.List.*.isChecked', false);
+                                this.set('FilterData.*.List.*.isChecked', false);
                             }
 
                             this.set('value.val', this.filter());
@@ -78,13 +79,62 @@ angular.module('innaApp.components').
                     });
                 },
 
+                filterAirport : function(){
+                    var result = this.get('FilterData').filter(function (filter) {
+                        var r = filter.List.filter(function (item) {
+                            return item.isChecked;
+                        });
+                        return r.length;
+                    })
+
+                    if (result.length) {
+                        this.set('value.val', result);
+                    }
+                    else {
+                        this.set('value.val', []);
+                    }
+                },
+
+                mergeData: function () {
+                    var that = this;
+
+                    if (this.SaveData.length) {
+                        this.get('FilterData').forEach(function (item, i) {
+                            if (item.List.length) {
+                                item.List.forEach(function (itemList, j) {
+                                    that.SaveData.filter(function (saveItem) {
+                                        if (itemList.Code == saveItem.Code) {
+                                            that.set('FilterData.' + i + '.List.' + j, angular.extend(saveItem, itemList));
+                                            return true;
+                                        }
+                                    });
+                                })
+                            }
+                        });
+                        //this.filterAirport();
+                    }
+                },
+
+                spliceSaveData: function (context) {
+                    var that = this;
+
+                    if (this.SaveData.length) {
+                        this.SaveData.forEach(function (item, i) {
+                            if (context.Code == item.Code) {
+                                that.SaveData.splice(i, 1);
+                            }
+                        });
+                    }
+                },
+
+
                 /**
                  * Сбор данных, проходим по airports и
                  * собираем только те данные которые isChecked
                  * @returns {Array}
                  */
                 filter: function () {
-                    var result = this.get('airports').filter(function (item) {
+                    var result = this.get('FilterData').filter(function (item) {
                         var airport = item.List.filter(function (st) {
                             return st.isChecked ? true : false;
                         });
@@ -103,10 +153,11 @@ angular.module('innaApp.components').
                     var that = this;
 
 
-                    var result = this.get('airports').filter(function (filter, i) {
+                    var result = this.get('FilterData').filter(function (filter, i) {
                         var r = filter.List.filter(function (item, j) {
                             if (item.Code == data.Code) {
-                                that.set('airports.' + i + '.List.' + j + '.isChecked', false);
+                                that.set('FilterData.' + i + '.List.' + j + '.isChecked', false);
+                                that.SaveData.splice(j, 1);
                                 item.isChecked = false;
                             }
                             return item.isChecked

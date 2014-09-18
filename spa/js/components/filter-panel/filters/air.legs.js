@@ -39,6 +39,7 @@ angular.module('innaApp.components').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    this.SaveData = [];
 
 
                     this.on({
@@ -46,11 +47,11 @@ angular.module('innaApp.components').
                             if (data && data.context) {
 
                                 if (data.context.isChecked) {
+                                    this.SaveData.push(data.context);
                                     this.push('value.val', data.context)
                                 } else if (!data.context.isChecked) {
-                                    this.get('value.val').forEach(function (item, i) {
-                                        if (data.context.Value == item.Value) that.splice('value.val', i, 1);
-                                    })
+                                    this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
+                                    this.spliceSaveData(data.context);
                                 }
 
                                 this._parent.fire('changeChildFilter', this.get('value.val'));
@@ -59,13 +60,14 @@ angular.module('innaApp.components').
 
                         },
                         resetFilter: function () {
-                            this.set('AirLegs.List.*.isChecked', false);
+                            this.set('FilterData.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
 
                         }
                     });
                 },
+
 
                 /**
                  * @param data
@@ -74,21 +76,15 @@ angular.module('innaApp.components').
                 IndicatorFiltersItemRemove: function (data) {
                     this._super(data);
                     var that = this;
-                    /*this.splice('value.val', this.get('value.val').indexOf(data), 1);
-
-                    this.get('airLegs.List').forEach(function (item, i) {
-                        if (item.Value == data) {
-                            that.set('airLegs.List.' + i + '.isChecked', false);
-                        }
-                    })*/
 
                     this.get('value.val').forEach(function (item, i) {
                         if (data.Value == item.Value) that.splice('value.val', i, 1);
                     })
 
-                    this.get('AirLegs.List').forEach(function (item, i) {
+                    this.get('FilterData.List').forEach(function (item, i) {
                         if (item.Value == data.Value) {
-                            that.set('AirLegs.List.' + i + '.isChecked', false);
+                            that.set('FilterData.List.' + i + '.isChecked', false);
+                            that.SaveData.splice(i, 1);
                         }
                     })
 

@@ -46,7 +46,7 @@ angular.module('innaApp.components').
                 template: $templateCache.get('components/filter-panel/templ/panel.hbs.html'),
                 append: true,
                 data: {
-                    isVisible : true,
+                    isVisible: true,
                     asMap: false,
                     filtersCollection: [],
                     filter_hotel: true,
@@ -82,12 +82,8 @@ angular.module('innaApp.components').
                 },
                 init: function () {
                     var that = this;
-                    this.observeChildValue = null;
-                    this.observeFiltersData = null;
                     this.observeSortValueVal = null;
                     this.observeIsOpen = null;
-
-                    this.setModel();
 
                     document.addEventListener('click', this.bodyClickHide.bind(this), false);
 
@@ -100,29 +96,24 @@ angular.module('innaApp.components').
                         },
                         change: function (data) {
                         },
-                        changeChildFilter : function(data){
+                        changeChildFilter: function (data) {
                             if (data != undefined) {
                                 this.collectChildData();
                             }
                         },
-                        hide : function(evt){
+                        hide: function (evt) {
                             this.set('isVisible', false);
                         },
                         teardown: function (evt) {
-                            this.observeFiltersData.cancel();
                             this.observeSortValueVal.cancel();
                             this.observeIsOpen.cancel();
 
                             document.removeEventListener('click', this.bodyClickHide.bind(this), false);
                             EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
-
-                            this.off(Events.FILTER_PANEL_CHANGE);
-                            this.off(Events.FILTER_PANEL_RESET);
-
                             EventManager.off('sort:default');
 
                             this.findAllComponents().forEach(function (child) {
-                                child.fire('resetFilter', {silent : true});
+                                child.fire('resetFilter', {silent: true});
                             })
                         }
                     });
@@ -165,15 +156,19 @@ angular.module('innaApp.components').
                      * Слушаем изменение filtersData
                      * Обновление настроек фильтров
                      */
-                    this.observeFiltersData = this.observe('filtersData', function (value) {
+                    this.observe('filtersData', function (value) {
                         if (value) {
                             this.show();
-                            this.setModel();
+                            FilterSettings.set({
+                                'settings.Hotels': value.Hotels,
+                                'settings.Tickets': value.Tickets
+                            });
+                            this.set('filtersModel', FilterSettings.get('settings'));
                         }
-                    }, {init: false})
+                    })
 
-                    this.observe('filtersCollection', function(value){
-                        if(!value || !value.length) {
+                    this.observe('filtersCollection', function (value) {
+                        if (!value || !value.length) {
                             this.findAllComponents().forEach(function (item) {
                                 item.fire('resetFilter', {silent: true});
                             });
@@ -182,13 +177,20 @@ angular.module('innaApp.components').
                         }
                     }, {init: false})
 
+
+                    // если это обновление фильтров
+                    this.observe('updateModel', function (value) {
+                        $timeout(function(){
+                            that.collectChildData();
+                        }, 500);
+                    }, {init: false});
                 },
 
-                show : function(){
+                show: function () {
                     this.set('isVisible', true);
                 },
 
-                fireSort: function(){
+                fireSort: function () {
                     this.show();
                     this.collectChildData();
                 },
@@ -263,39 +265,6 @@ angular.module('innaApp.components').
                         EventManager.fire(Events.FILTER_PANEL_RESET);
                         this.fire(Events.FILTER_PANEL_RESET);
                     }
-                },
-
-                /**
-                 * Создаем новую модель фильтров
-                 * @param dataFilters
-                 */
-                setModel: function (opt_data) {
-                    if (opt_data || this.get('filtersData')) {
-                        var modelFilters = new FilterSettings({
-                            data: {
-                                model: opt_data || this.get('filtersData')
-                            }
-                        });
-
-                        this.set('filtersModel', modelFilters.get('settings'));
-                    }
-                },
-
-                /**
-                 * Переключение фильтров
-                 * пока не работает
-                 * @param dataFilters
-                 */
-                toggleFilters: function (dataFilters) {
-                    this.setModel(dataFilters);
-
-                    this.findAllComponents().forEach(function (child) {
-                        child.fire('resetFilter');
-                    });
-
-                    this.toggle('filter_hotel');
-                    this.toggle('filter_avia');
-                    this.listenChildren();
                 },
 
 

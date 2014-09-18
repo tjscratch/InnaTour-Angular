@@ -16,6 +16,7 @@ angular.module('innaApp.components').
                 },
                 init: function () {
                     var that = this;
+                    this.SaveData = [];
 
                     this.on({
                         toggle: function (evt) {
@@ -31,21 +32,23 @@ angular.module('innaApp.components').
                             this.set({ isOpen: false });
                         },
                         resetFilter: function (opt_silent) {
-                            if(!this.get('sortValue')) {
+                            if (!this.get('sortValue')) {
                                 this.set({
                                     'value.val': [],
                                     'hasSelected': false
                                 });
 
-                                if(opt_silent && opt_silent.silent) {
+                                if (opt_silent && opt_silent.silent) {
                                     console.log('silent reset');
                                 } else {
                                     this._parent.fire('changeChildFilter', this.get('value.val'));
                                 }
+
+                                that.SaveData = [];
                             }
 
                         },
-                        onHover : function(evt){
+                        onHover: function (evt) {
                             clearTimeout(this.get('clearTimeHover'));
 
                             if (!evt.hover) {
@@ -60,6 +63,11 @@ angular.module('innaApp.components').
                             //console.log('teardown child');
                         }
                     })
+
+
+                    this.observe('updateModel', function (value) {
+                        this.mergeData();
+                    }, {init: false});
                 },
 
                 hasSelected: function () {
@@ -77,6 +85,42 @@ angular.module('innaApp.components').
                 IndicatorFiltersItemRemove: function (data) {
 
                 },
+
+                /**
+                 * @override
+                 */
+                mergeData: function () {
+                    var that = this;
+
+                    if (this.SaveData.length && this.get('FilterData.List').length) {
+                        this.get('FilterData.List').forEach(function (item, i) {
+                            that.SaveData.filter(function (saveItem) {
+                                if (item.Value == saveItem.Value) {
+                                    var updateItem = angular.extend(saveItem, item);
+                                    that.set('FilterData.List.' + i, updateItem);
+                                    return true;
+                                }
+                            });
+                        });
+                    }
+                },
+
+                /**
+                 * @param context
+                 * @override
+                 */
+                spliceSaveData: function (context) {
+                    var that = this;
+
+                    if (this.SaveData.length) {
+                        this.SaveData.forEach(function (item, i) {
+                            if (context.Value == item.Value) {
+                                that.SaveData.splice(i, 1);
+                            }
+                        });
+                    }
+                },
+
 
                 beforeInit: function (data) {
                     //console.log('beforeInit');
