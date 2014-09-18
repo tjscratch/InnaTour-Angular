@@ -10,6 +10,11 @@ angular.module('innaApp.components').
         'Tripadvisor',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter, Tripadvisor) {
 
+            /**
+             * Свойство SaveData для сохранения состояния фильтра
+             * Не забывать следить за ним и очищать
+             */
+
             var FilterTaFactor = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/tafactor.hbs.html'),
                 data: {
@@ -28,16 +33,21 @@ angular.module('innaApp.components').
                     tafactorValue: []
                 },
                 init: function (options) {
-                    this._super(options);
                     var that = this;
+                    this._super(options);
+                    this.SaveData = [];
 
                     this.on({
                         onChecked: function (data) {
                             if (data && data.context) {
+
                                 if (data.context.isChecked) {
+                                    // отдельно сохраняем весь контекст
+                                    this.SaveData.push(data.context);
                                     this.push('value.val', data.context.Value)
                                 } else if (!data.context.isChecked) {
                                     this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
+                                    this.spliceSaveData(data.context);
                                 }
 
                                 this._parent.fire('changeChildFilter', this.get('value.val'));
@@ -46,22 +56,18 @@ angular.module('innaApp.components').
                             }
                         },
                         resetFilter: function (opt) {
-                            this.set('TaFactor.List.*.isChecked', false);
+                            this.set('FilterData.List.*.isChecked' , false);
                         },
                         teardown: function (evt) {
 
                         }
                     });
-
-
-                    /*this.observe('TaFactor', function(value){
-                        console.info('TaFactor observe');
-                    })*/
                 },
 
                 components: {
                     Tripadvisor: Tripadvisor
                 },
+
 
                 /**
                  *
@@ -73,9 +79,10 @@ angular.module('innaApp.components').
                     var that = this;
                     this.splice('value.val', this.get('value.val').indexOf(data), 1);
 
-                    this.get('TaFactor.List').forEach(function (item, i) {
+                    this.get('FilterData.List').forEach(function (item, i) {
                         if (item.Value == data) {
-                            that.set('TaFactor.List.' + i + '.isChecked', false);
+                            that.set('FilterData.List.' + i + '.isChecked', false);
+                            that.SaveData.splice(i, 1);
                         }
                     });
 

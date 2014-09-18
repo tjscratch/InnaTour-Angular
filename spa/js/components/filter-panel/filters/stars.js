@@ -27,14 +27,17 @@ angular.module('innaApp.components').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    this.SaveData = [];
 
                     this.on({
                         onChecked: function (data) {
                             if (data && data.context) {
                                 if (data.context.isChecked) {
+                                    this.SaveData.push(data.context);
                                     this.push('value.val', data.context.Value)
                                 } else if (!data.context.isChecked) {
                                     this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
+                                    this.spliceSaveData(data.context);
                                 }
 
                                 this._parent.fire('changeChildFilter', this.get('value.val'));
@@ -43,7 +46,7 @@ angular.module('innaApp.components').
 
                         },
                         resetFilter: function () {
-                            this.set('Stars.List.*.isChecked',  false);
+                            this.set('FilterData.List.*.isChecked',  false);
                         },
                         teardown: function (evt) {
                             this.set({value : {}})
@@ -66,9 +69,10 @@ angular.module('innaApp.components').
 
                     this.splice('value.val', this.get('value.val').indexOf(data), 1);
 
-                    this.get('Stars.List').forEach(function(item, i){
+                    this.get('FilterData.List').forEach(function(item, i){
                         if(item.Value == data){
-                            that.set('Stars.List.'+ i +'.isChecked',  false);
+                            that.set('FilterData.List.'+ i +'.isChecked',  false);
+                            that.SaveData.splice(i, 1);
                         }
                     })
 

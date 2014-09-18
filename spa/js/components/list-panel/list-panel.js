@@ -114,7 +114,7 @@ angular.module('innaApp.components').
                                 //console.log(that.get('combinationModel'), "that.get('combinationModel')");
 
                                 this.cloneData(this.sorting());
-                                this.set({waitData: false})
+                                //this.set({waitData: false})
                             }
                         },
                         EnumerableList: function (newValue, oldValue, keypath) {

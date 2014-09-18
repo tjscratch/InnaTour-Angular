@@ -56,6 +56,7 @@ angular.module('innaApp.components').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    this.SaveData = [];
 
                     this.on({
                         onSort: function (data) {

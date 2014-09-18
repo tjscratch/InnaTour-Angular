@@ -128,6 +128,7 @@ angular.module('innaApp.components').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    this.SaveData = [];
 
                     this.on({
                         change: function (data) {
@@ -147,17 +148,17 @@ angular.module('innaApp.components').
                             var that = this;
 
                             if (data && data.context) {
-                                this.get('airTime').forEach(function (item, i) {
+                                this.get('FilterData').forEach(function (item, i) {
                                     if (item.direction == data.context.direction) {
-                                        that.set('airTime.' + i + '.state.0.isActive', true);
-                                        that.set('airTime.' + i + '.state.1.isActive', false);
-                                        that.set('airTime.' + i + '.dayState.*.isChecked', false);
+                                        that.set('FilterData.' + i + '.state.0.isActive', true);
+                                        that.set('FilterData.' + i + '.state.1.isActive', false);
+                                        that.set('FilterData.' + i + '.dayState.*.isChecked', false);
                                     }
                                 });
                             } else {
-                                that.set('airTime.*.state.0.isActive', true);
-                                that.set('airTime.*.state.1.isActive', false);
-                                that.set('airTime.*.dayState.*.isChecked', false);
+                                that.set('FilterData.*.state.0.isActive', true);
+                                that.set('FilterData.*.state.1.isActive', false);
+                                that.set('FilterData.*.dayState.*.isChecked', false);
                             }
 
                             this.set('value.val', this.filter());
@@ -176,14 +177,30 @@ angular.module('innaApp.components').
                  * @returns {Array}
                  */
                 filter: function () {
-                    var result = this.get('airTime').filter(function (item) {
+                    var result = this.get('FilterData').filter(function (item) {
                         var dayStateResult = item.dayState.filter(function (st) {
                             return st.isChecked ? true : false;
                         });
+
                         if (dayStateResult.length) return true;
                     });
 
+                    this.SaveData = result;
                     return result;
+                },
+
+
+                mergeData: function () {
+                    if (this.SaveData.length)
+                        this.set('FilterData', this.SaveData);
+                },
+
+                /**
+                 * @param context
+                 * @override
+                 */
+                spliceSaveData: function () {
+                    this.filter();
                 },
 
 
@@ -197,10 +214,12 @@ angular.module('innaApp.components').
                     this._super(data);
                     var that = this;
 
-                    this.get('airTime').forEach(function (item, i) {
+                    this.spliceSaveData();
+
+                    this.get('FilterData').forEach(function (item, i) {
                         item.dayState.forEach(function (st, j) {
                             if ((item.direction == data.direction) && (st.state == data.state)) {
-                                that.set('airTime.' + i + '.dayState.' + j + '.isChecked', false);
+                                that.set('FilterData.' + i + '.dayState.' + j + '.isChecked', false);
                                 st.isChecked = false;
                             }
                         });
