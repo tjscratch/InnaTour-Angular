@@ -79,7 +79,9 @@ innaAppControllers
                     HOTELS_TAB: true,
                     defaultTab: 'hotel',
                     loadHotelsData: null,
-                    loadTicketsData: null
+                    loadTicketsData: null,
+                    updateHotel : false,
+                    updateTicket : false
                 },
                 init: function () {
                     var that = this;
@@ -220,6 +222,7 @@ innaAppControllers
                                 ListPanelComponent = new ListPanel({
                                     el: that.find('.b-page-dynamic'),
                                     data: {
+                                        updateHotel : this.get('updateHotel'),
                                         iterable_hotels: true,
                                         Enumerable: value.Hotels,
                                         combinationModel: $scope.combination
@@ -245,10 +248,11 @@ innaAppControllers
                                 }
 
 
+                                this.set('updateHotel', true);
                             }
                         },
 
-                        'loadTicketsData': function (value) {
+                        loadTicketsData: function (value) {
                             if (value) {
 
                                 /** Выполняем это условие после того как данные загрузились */
@@ -275,6 +279,7 @@ innaAppControllers
                                 ListPanelComponent = new ListPanel({
                                     el: that.find('.b-page-dynamic'),
                                     data: {
+                                        updateTicket : this.get('updateTicket'),
                                         iterable_tickets: true,
                                         Enumerable: value.AviaInfos,
                                         combinationModel: $scope.combination
@@ -301,6 +306,9 @@ innaAppControllers
                                         }
                                     });
                                 }
+
+
+                                this.set('updateTicket', true);
                             }
                         }
                     }, {init: false});
