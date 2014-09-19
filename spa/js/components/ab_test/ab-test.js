@@ -24,15 +24,14 @@ function AbTestCtrl($scope, $location, $cookies) {
         });
     });
 
-    
-    //AB2
-    var AB2AddClass = function(){
+
+    //BEGIN AB2
+    var AB2AddClass = function () {
         angular.element("body").addClass("ab2");
     }
-    
+
     var AB2 = function () {
-        console.log($location.$$path)
-        switch ($location.$$path){
+        switch ($location.$$path) {
             case '/':
                 AB2AddClass();
                 break;
@@ -49,8 +48,19 @@ function AbTestCtrl($scope, $location, $cookies) {
                 angular.element("body").removeClass("ab2");
                 break;
         }
-        
+
     }
+
+    window.onscroll = function () {
+        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrolled > 25) {
+            angular.element("body").removeClass("ab2");
+        }else{
+            AB2AddClass();
+        }
+    }
+    //END AB2
+
 
 }
 
