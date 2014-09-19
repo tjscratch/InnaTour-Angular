@@ -7,18 +7,31 @@
         lite: 'lite'
     }
 
-    self.partnersMap = [{
-        'name': 'biletix',
-        'src': '/biletix/biletix.base.css',
-        'type': self.WLType.full
-    }, {
-        'name': 'agenda',
-        'src': '/agenda/agenda.base.css',
-        'type': self.WLType.lite,
-        'phone': '+7&nbsp;888 742-1212',
-        'aboutLink': 'https://www.agenda.travel/Other/About#tab=Agenda',
-        'contactsLink': 'http://blog.agenda.travel/'
-    }];
+    self.partnersMap = [
+        //{
+        //    'name': 'biletix',
+        //    'src': '/biletix/biletix.base.css',
+        //    'type': self.WLType.full
+        //},
+        {
+            'name': 'biletix',
+            'src': '/biletix/biletix.base.css',
+            'type': self.WLType.lite,
+            'title': 'Билетикс',
+            'phone': '+7&nbsp;495 741-4672',
+            'aboutLink': 'https://biletix.ru/about_biletix/',
+            'contactsLink': 'https://biletix.ru/contacts/'
+        },
+        {
+            'name': 'agenda',
+            'src': '/agenda/agenda.base.css',
+            'type': self.WLType.lite,
+            'title': 'agenda',
+            'phone': '+7&nbsp;888 742-1212',
+            'aboutLink': 'https://www.agenda.travel/Other/About#tab=Agenda',
+            'contactsLink': 'http://blog.agenda.travel/'
+        }
+    ];
 
     self.commands = {
         setVisible: 'setVisible',
@@ -50,7 +63,7 @@
         }
     }
 
-    function liteWLControl(partner){
+    function liteWLControl(partner) {
         var self = this;
         self.changePageData = function () {
             if (partner && partner.type == window.partners.WLType.lite) {
@@ -84,7 +97,13 @@
         var link = d.createElement("link");
         link.type = "text/css";
         link.rel = "stylesheet";
-        link.href = "/spa/styl/partners" + src;
+
+        if (partner.type == window.partners.WLType.full) {
+            link.href = "/spa/styl/partners" + src;
+        }
+        else if (partner.type == window.partners.WLType.lite) {
+            link.href = "/spa/styl/partners/lite_wl/lite_wl.base.css";
+        }
         insertAfter(link, d.getElementById("partners-css-inject"))
         console.log('partner css loaded', link.href);
 
@@ -136,7 +155,7 @@
     var partner = self.getPartner();
     if (partner != null) {
         insertCssAndAddParnterClass(partner);
-        
+
         //просто показываем фрейм
         setTimeout(function () { sendCommandToParent(self.commands.setVisible, { 'visible': true }); }, 0);
 
