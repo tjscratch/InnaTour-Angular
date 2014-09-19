@@ -378,7 +378,7 @@ angular.module('innaApp.directives')
                             position: position,
                             animation: GM.Animation.DROP,
                             icon: image,
-                            //map: map,
+                            map: map,
                             shape: shape,
                             title: (data.HotelName) ? data.HotelName : ''
                         });
@@ -668,7 +668,9 @@ angular.module('innaApp.directives')
 
                         setDefaultActiveMarker();
 
-                        addCluster();
+                        // отключил кластеризацию, если в будущем будут проблемы с производительностью
+                        // надо будет возвращать обратно и что то придумывать для выделения текущей точки
+                        // addCluster();
                     }
 
                     /**

@@ -59,7 +59,9 @@ innaAppFilters.filter('price', function () {
 });
 
 
-/* ================= 3 реализации метода pluralize ============== */
+/* ================ 3 версии pluralize ========== */
+/* ============================================== */
+/* ============================================== */
 innaAppFilters.filter('asQuantity', ['$filter', function ($filter) {
     return function (n, f1, f2, f5, f0) {
         if (n == 0) return f0;
@@ -106,7 +108,10 @@ innaAppFilters.filter('choosePlural', function () {
     }
 });
 
-/* ================= \\\ 3 реализации метода pluralize ============== */
+/* ============================================== */
+/* ============================================== */
+/* ============================================== */
+
 
 innaAppFilters.filter('signed', ['$filter', function ($filter) {
     return function (n) {

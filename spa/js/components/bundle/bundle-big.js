@@ -71,7 +71,7 @@ angular.module('innaApp.directives')
                         return (opt_param) ? urlDetails + '?action=buy' : urlDetails;
                     }
 
-                    $scope.isUsingPartners = (window.partners && window.partners.isUsingPartners());
+                    $scope.isFullWL = (window.partners && window.partners.isFullWL());
 
                     var _shareLink = new ShareLink({
                         el: $element.find('.js-share-component'),

@@ -28,22 +28,27 @@ angular.module('innaApp.components').
                 init: function (options) {
                     this._super(options);
                     var that = this;
+                    this.SaveData = [];
                     this._timeOut = null;
                     this._slider = null;
 
                     this.on({
                         change: function (data) {
-                            if (data['Price.Value'] && data['setValue']) {
+                            if (data['FilterData.Value'] && data['setValue']) {
 
-                                var priceValue = parseInt(data['Price.Value'], 10);
+                                var priceValue = parseInt(data['FilterData.Value'], 10);
 
                                 clearTimeout(this._timeOut);
                                 this._timeOut = setTimeout(function () {
 
-                                    if (priceValue > 0)
+                                    if (priceValue > 0) {
                                         this.set('value.val', [priceValue])
-                                    else
-                                        this.set('value.val', [])
+                                        this.SaveData = [priceValue];
+                                    }
+                                    else {
+                                        this.set('value.val', []);
+                                        this.spliceSaveData();
+                                    }
 
 
                                     // выставляем значение слайдера
@@ -55,10 +60,10 @@ angular.module('innaApp.components').
                         },
 
                         resetFilter: function () {
-                            this.set({'Price.Value': this.get('Price.Max')});
+                            this.set({'FilterData.Value': this.get('FilterData.Max')});
 
                             if(this._slider) {
-                                this._slider.slider('value', this.get('Price.Max'));
+                                this._slider.slider('value', this.get('FilterData.Max'));
                             }
                         },
                         teardown: function (evt) {
@@ -69,6 +74,22 @@ angular.module('innaApp.components').
                         }
                     });
                 },
+
+
+                mergeData : function(){
+                    var that = this;
+
+                    if(this.SaveData.length && this.get('FilterData').length) {
+                        if(that.SaveData[0] == this.get('FilterData.Value')){
+                            this.slide(that.SaveData[0]);
+                        }
+                    }
+                },
+
+                spliceSaveData : function() {
+                    if(this.SaveData.length) this.SaveData = [];
+                },
+
 
                 /**
                  *
@@ -81,18 +102,15 @@ angular.module('innaApp.components').
 
                     this.set({
                         'value.val': [],
-                        'Price.Value': that.get('Price.Max')
+                        'FilterData.Value': that.get('FilterData.Max')
                     });
-                    this._slider.slider('value', this.get('Price.Max'));
+                    this.spliceSaveData();
+                    this._slider.slider('value', this.get('FilterData.Max'));
 
                     this._parent.fire('changeChildFilter', this.get('value.val'));
                     this.hasSelected();
                 },
 
-
-                parse: function (end) {
-
-                },
 
                 /**
                  * Срабатывает на изменение положени слайдера
@@ -103,7 +121,7 @@ angular.module('innaApp.components').
                 slide: function (val) {
                     this.set({
                         'setValue' : Math.random()*1000,
-                        'Price.Value' : val
+                        'FilterData.Value' : val
                     });
                 },
 
@@ -114,9 +132,9 @@ angular.module('innaApp.components').
                     this._slider = $(slider).slider({
                         range: "min",
                         animate: true,
-                        min: that.get('Price.Min'),
-                        max: that.get('Price.Max'),
-                        value: that.get('Price.Value'),
+                        min: that.get('FilterData.Min'),
+                        max: that.get('FilterData.Max'),
+                        value: that.get('FilterData.Value'),
                         slide: function (event, ui) {
                             that.slide(ui.value)
                         }

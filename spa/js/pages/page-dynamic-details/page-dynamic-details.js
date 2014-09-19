@@ -17,7 +17,8 @@ innaAppControllers
         'Tripadvisor',
         'Stars',
         'Balloon',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars, Balloon) {
+        '$filter',
+        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars, Balloon, $filter) {
 
             DynamicFormSubmitListener.listen();
 
@@ -48,6 +49,19 @@ innaAppControllers
                     searchParams.ChildrenAges = routParam.Children.split('_');
                 }
                 ;
+            }
+
+            //кнопка нового поиска для WL
+            function setWlModel(data) {
+                $scope.WlNewSearchModel = new inna.Models.WlNewSearch({
+                    dateFilter: $filter("date"),
+                    from: data.AviaInfo.CityFrom,
+                    to: data.AviaInfo.CityTo,
+                    start: searchParams.StartVoyageDate,
+                    end: searchParams.EndVoyageDate,
+                    passengerCount: parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0),
+                    ticketClass: searchParams.TicketClass
+                });
             }
 
             /*Private*/
@@ -146,6 +160,8 @@ innaAppControllers
 
                     success: function (data) {
                         _balloonLoad.fire('hide');
+
+                        setWlModel(data);
                         
                         var hotel = new inna.Models.Hotels.Hotel(data.Hotel);
                         var ticket = new inna.Models.Avia.Ticket();

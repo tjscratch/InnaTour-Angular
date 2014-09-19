@@ -9,7 +9,7 @@
         <div class="filter__range-container">
 
 	        <span class="filter__range">до
-		        <input type="text" class="js-range-val" value="{{$filter('price')(Price.Value)}}"/>
+		        <input type="text" class="js-range-val" value="{{$filter('price')(FilterData.Value)}}"/>
 		        {{>ruble}}
 		    </span>
             <a href="javascript:void(0);" class="ra-header-link" on-click="resetFilter">Сбросить</a>
@@ -17,8 +17,8 @@
         </div>
         <div class="js-range filter__range-trackbar">
             <div class="filter_price__range row">
-	            <div class="col-xs-6 align-left col-no-padding">{{$filter('price')(Price.Min)}}</div>
-                <div class="col-xs-6 align-right col-no-padding">{{$filter('price')(Price.Max)}}</div>
+	            <div class="col-xs-6 align-left col-no-padding">{{$filter('price')(FilterData.Min)}}</div>
+                <div class="col-xs-6 align-right col-no-padding">{{$filter('price')(FilterData.Max)}}</div>
             </div>
         </div>
     </div>
