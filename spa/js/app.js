@@ -95,7 +95,7 @@ app.config([
 
         function dynamic() {
             var partner = window.partners.getPartner();
-            if (partner != null && partner.name == "biletix" && partner.type == window.partners.WLType.full) {
+            if (partner != null && partner.name == "biletix" && partner.realType == window.partners.WLType.full) {
                 return {
                     templateUrl: 'pages/partners/page.html',
                     controller: 'BiletixMainCtrl'

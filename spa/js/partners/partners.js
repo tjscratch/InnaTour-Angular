@@ -8,15 +8,10 @@
     }
 
     self.partnersMap = [
-        //{
-        //    'name': 'biletix',
-        //    'src': '/biletix/biletix.base.css',
-        //    'type': self.WLType.full
-        //},
         {
             'name': 'biletix',
             'src': '/biletix/biletix.base.css',
-            'type': self.WLType.lite,
+            'type': self.WLType.full,
             'title': 'Билетикс',
             'phone': '+7&nbsp;495 741-4672',
             'aboutLink': 'https://biletix.ru/about_biletix/',
@@ -33,6 +28,24 @@
         }
     ];
 
+    self.isBookinnaDomain = function () {
+        return (location.hostname.indexOf('bookinna') > -1);
+    };
+    self.getPartnerType = function (partner) {
+        if (self.isBookinnaDomain()) {
+            return window.partners.WLType.lite;
+        }
+        return partner.type;
+    };
+
+    self.extendProp = function() {
+        for (var i = 0; i < self.partnersMap.length; i++) {
+            var par = self.partnersMap[i];
+            par.realType = self.getPartnerType(par);
+        }
+    }
+    self.extendProp();
+
     self.commands = {
         setVisible: 'setVisible',
         setFrameScrollTo: 'setFrameScrollTo',
@@ -41,7 +54,7 @@
 
     self.isFullWL = function () {
         var partner = self.getPartner();
-        return partner != null && partner.type == self.WLType.full;
+        return partner != null && partner.realType == self.WLType.full;
     }
     self.getPartner = function () {
         //return self.partnersMap[0];
@@ -55,7 +68,7 @@
             }
         }
         return null;
-    }
+    };
 
     self.setScrollTo = function (scrollTo) {
         if (scrollTo) {
@@ -66,7 +79,7 @@
     function liteWLControl(partner) {
         var self = this;
         self.changePageData = function () {
-            if (partner && partner.type == window.partners.WLType.lite) {
+            if (partner && partner.realType == window.partners.WLType.lite) {
                 //document.getElementById('').setAttribute('')
                 //logo
                 var logoEl = document.getElementsByClassName('js-company-logo')[0];
@@ -98,10 +111,10 @@
         link.type = "text/css";
         link.rel = "stylesheet";
 
-        if (partner.type == window.partners.WLType.full) {
+        if (partner.realType == window.partners.WLType.full) {
             link.href = "/spa/styl/partners" + src;
         }
-        else if (partner.type == window.partners.WLType.lite) {
+        else if (partner.realType == window.partners.WLType.lite) {
             link.href = "/spa/styl/partners/lite_wl/lite_wl.base.css";
         }
         insertAfter(link, d.getElementById("partners-css-inject"))
