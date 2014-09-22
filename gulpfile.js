@@ -16,14 +16,38 @@ var isWin = /^win/.test(process.platform);
 console.log(isWin);
 console.info('----------------------------');
 
-// Полная сборка проект
-// Сборка в production запускается в окружении - production
-// NODE_ENV=production gulp build-project
-// После сборки проект копируется в папку PUBLISH
+
+
+/**
+ * Полная сборка проект
+ * Сборка в production запускается в окружении - production
+ * NODE_ENV=production gulp build-project
+ * После сборки проект копируется в папку PUBLISH
+ *
+ * Посмотреть основную сборку ( конкатенацию файлов )
+ * можно в файле node_tasks/concat.js
+ */
 gulp.task('build-project', function (callback) {
-    runSequence('sprite', 'styles-app', 'replace-config', ['styles', 'less', 'build-concat'], 'version-cache', 'html-replace', 'copy-project', callback);
+    runSequence(
+        'remove-publish',
+        'sprite',
+        'styles-app',
+        'replace-config',
+        ['styles', 'build-concat'],
+        'version-cache',
+        'html-replace',
+        'copy-project',
+        'replace-partners',
+        callback);
 });
 
-gulp.task('default', function(callback){
-    runSequence('sprite', 'styles-app', 'replace-config', ['styles', 'less', 'build-templates', 'concat-lib', 'concat-comp-page-regions'], 'build-angular-parts', 'watch', 'watch-angular-parts', callback);
+gulp.task('default', function (callback) {
+    runSequence(
+        'sprite',
+        'styles-app',
+        'replace-config',
+        ['styles', 'build-templates', 'concat-lib', 'concat-comp-page-regions'],
+        'build-angular-parts',
+        'watch',
+        callback);
 });

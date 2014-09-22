@@ -1,9 +1,9 @@
-﻿<div class="clearfix">
+<div class="clearfix">
     <div class="b-ticket_2ways-block">
         <div class="rlf-part" ng-if="etapAgg.etapTo != null">
             <div class="rfl-column3">
                 <div class="rlf-aviacompany">
-                    <img ng-src="{{etapAgg.etapTo.TransporterCodeUrl}}" alt="">
+                    <img ng-src="{{etapAgg.etapTo.TransporterCodeUrl}}" alt="" width="42" height="42">
                     {{etapAgg.etapTo.TransporterName}} <br>
                     рейс {{etapAgg.etapTo.Number}} <br>
                     {{etapAgg.etapTo.VehicleName}}
@@ -51,7 +51,7 @@
         <div class="rlf-part" ng-if="etapAgg.etapBack != null">
             <div class="rfl-column3">
                 <div class="rlf-aviacompany">
-                    <img ng-src="{{etapAgg.etapBack.TransporterCodeUrl}}" alt="">
+                    <img ng-src="{{etapAgg.etapBack.TransporterCodeUrl}}" alt="" width="42" height="42">
                     {{etapAgg.etapBack.TransporterName}} <br>
                     рейс {{etapAgg.etapBack.Number}} <br>
                     {{etapAgg.etapBack.VehicleName}}
@@ -107,7 +107,7 @@
             <div class="rlf-colum4">
                 <span ng-if="etapAgg.etapTo.NextOutCity != etapAgg.etapTo.NextOutPort">{{etapAgg.etapTo.NextOutCity}}, {{etapAgg.etapTo.NextOutPort}} ({{etapAgg.etapTo.NextOutCode}}), {{etapAgg.etapTo.NextOutCountryName}}</span>
                 <span ng-if="etapAgg.etapTo.NextOutCity == etapAgg.etapTo.NextOutPort">{{etapAgg.etapTo.NextOutPort}} ({{etapAgg.etapTo.NextOutCode}}), {{etapAgg.etapTo.NextOutCountryName}}</span>
-                <div class="rlf-transfer" ng-if="etapAgg.etapTo.InPortId != etapAgg.etapTo.NextOutPortId">Внимание: смена аэропорта!</div>
+                <div class="rlf-transfer" ng-if="etapAgg.etapTo.alert">{{etapAgg.etapTo.alert}}</div>
             </div>
         </div>
     </div>
@@ -121,7 +121,7 @@
             <div class="rlf-colum4">
                 <span ng-if="etapAgg.etapBack.NextOutCity != etapAgg.etapBack.NextOutPort">{{etapAgg.etapBack.NextOutCity}}, {{etapAgg.etapBack.NextOutPort}} ({{etapAgg.etapBack.NextOutCode}}), {{etapAgg.etapBack.NextOutCountryName}}</span>
                 <span ng-if="etapAgg.etapBack.NextOutCity == etapAgg.etapBack.NextOutPort">{{etapAgg.etapBack.NextOutPort}} ({{etapAgg.etapBack.NextOutCode}}), {{etapAgg.etapBack.NextOutCountryName}}</span>
-                <div class="rlf-transfer" ng-if="etapAgg.etapBack.InPortId != etapAgg.etapBack.NextOutPortId">Внимание: смена аэропорта!</div>
+                <div class="rlf-transfer" ng-if="etapAgg.etapBack.alert">{{etapAgg.etapBack.alert}}</div>
             </div>
         </div>
     </div>

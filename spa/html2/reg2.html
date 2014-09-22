@@ -24,7 +24,7 @@
     <!--<link rel="stylesheet" href="/spa/css/jquery-ui-1.10.4.custom.css" />
     <link rel="stylesheet" type="text/css" href="/spa/css/main.css" />-->
 
-    <link rel="stylesheet" href="/spa/lib/jquery-ui-1.10.4.custom/css/no-theme/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" href="/spa/lib/jquery-ui/css/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="/spa/css/main.css" />
     <link rel="stylesheet" href="/spa/css/common.min.css" />
     <!--[if lt IE 9]>
@@ -145,56 +145,6 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 
 <ng:include src="'/popup/mainform.html'"></ng:include>
 
-
-<script type="text/javascript">
-    var app_main = {};
-    //<!-- build:app-host -->
-    app_main.host = 'http://api.test.inna.ru';
-    //<!-- endbuild -->
-    app_main.version = '12';
-    app_main.constants = {};
-    app_main.constants.offersCategoriesProgramm = '1';
-
-    var addTourUrlEf = app_main.host + '/api/v1/Dictionary';
-
-    var getHotelsUrl = app_main.host + '/api/v1/Dictionary';
-
-    var getCityUrl = app_main.host + '/api/v1/Dictionary/City/Get';
-    var getDirectoryUrl = app_main.host + '/api/v1/Dictionary/Directory/Get';
-    var getRegionUrl = app_main.host + '/api/v1/Dictionary/Region/Get';
-
-    var getSletatUrl = app_main.host + '/api/v1/Dictionary/Sletat/Get';
-    var getSletatCityUrl = app_main.host + '/api/v1/Dictionary/SletatCity/Get';
-    var getSletatByIdUrl = app_main.host + '/api/v1/Dictionary/SletatById/Get';
-
-    var getLocationByUrls = app_main.host + '/Dictionary/LocationByUrl';
-
-    var beginSearchUrl = app_main.host + '/api/v1/Search/BeginSearch/Get';
-    var checkSearchUrl = app_main.host + '/api/v1/Search/CheckSearch/Get';
-
-    var beginAviaSearchUrl = app_main.host + '/api/v1/Avia/Get';
-
-    var hotelDetailUrl = app_main.host + '/HotelDetail/GetPage';
-
-    var tourDetailUrl = app_main.host + '/TourDetail/GetPage';
-
-    var getOrderUrl = app_main.host + '/Order';
-
-    var paymentPageUrl = app_main.host + '/Payment';
-
-    var payUrl = app_main.host + '/Payment/Pay';
-
-    var deleteSearchHistoryUrl = app_main.host + '/api/v1/Search/DeleteHistory/Get';
-
-    var getSectionToursUrl = app_main.host + '/api/v1/Section/Get/1';
-    var getSectionIndividualToursUrl = app_main.host + '/api/v1/Section/Get/2';
-    var getIndividualToursCategoryUrl = app_main.host + '/api/v1/IndividualTourCategory/Get';
-
-    var sendITCategoryRequestUrl = app_main.host + '/api/v1/RequestsTour/Post';
-
-    var paymentCheckAvailabilityUrl = app_main.host + '/api/v1/avia/IsActual';
-</script>
-
     
 <!--<script src="//code.jquery.com/jquery-1.8.3.min.js"></script>-->
 <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"></script>
@@ -205,7 +155,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-sanitize.min.js"></script>
 
-<script src="/spa/lib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="/spa/lib/jquery-ui/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="/spa/js/jquery.ui.datepicker-ru.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js"></script>
@@ -218,7 +168,7 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <!--[if lt IE 10]>
     <script src="/spa/js/ie.placeholder.js"></script>
 <![endif]-->
-<!--<script src="/spa/js/search_form.js"></script>-->
+<!--<script src="/spa/html/js/search_form.js"></script>-->
 
 
 <!--[if lt IE 10]>
@@ -237,88 +187,88 @@ mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>-->
 <!-- build:app-main-js -->  <!--файлы заменяются при билде на app-main.js-->
 <script src="/spa/js/debug.js"></script>
 
-<script src="/spa/js/angular/helpers/urlhelper.js"></script>
-<script src="/spa/js/angular/helpers/date.helper.js"></script>
-<script src="/spa/js/angular/helpers/string.helper.js"></script>
-<script src="/spa/js/angular/helpers/collections.helper.js"></script>
-<script src="/spa/js/angular/helpers/api.stub.js"></script>
-<script src="/spa/js/angular/helpers/cache_keys.js"></script>
+<script src="/spa/js/helpers/urlhelper.js"></script>
+<script src="/spa/js/helpers/date.helper.js"></script>
+<script src="/spa/js/helpers/string.helper.js"></script>
+<script src="/spa/js/helpers/collections.helper.js"></script>
+<script src="/spa/js/helpers/api.stub.js"></script>
+<script src="/spa/js/helpers/cache_keys.js"></script>
 
-<script src="/spa/js/angular/tracking.js"></script>
+<script src="/spa/js/tracking.js"></script>
 <script src="/spa/js/datepicker.js"></script>
-<script src="/spa/js/angular/app.js"></script>
+<script src="/spa/js/app.js"></script>
 
-<script src="/spa/js/angular/helpers/url.helper.js"></script>
-<script src="/spa/js/angular/helpers/api.js"></script>
-<script src="/spa/js/angular/filters.js"></script>
-<script src="/spa/js/angular/services/services.js"></script>
-<script src="/spa/js/angular/services/service.data.js"></script>
-<script src="/spa/js/angular/services/service.page.js"></script>
-<script src="/spa/js/angular/services/service.validator.js"></script>
-<script src="/spa/js/angular/services/service.dynamic.packages.data.provider.js"></script>
-<script src="/spa/js/angular/services/service.dynamic.packages.cache.js"></script>
-<script src="/spa/js/angular/services/service.dynamic.packages.form_submit_listener.listener.js"></script>
-<script src="/spa/js/angular/services/service.auth.data.provider.js"></script>
-<script src="/spa/js/angular/services/service.events.helper.js"></script>
-<script src="/spa/js/angular/services/service.payment.js"></script>
-<script src="/spa/js/angular/services/service.avia.helper.js"></script>
-<script src="/spa/js/angular/controllers/controller.auth/auth.js"></script>
-<script src="/spa/js/angular/controllers/controller.auth/signup.js"></script>
-<script src="/spa/js/angular/controllers/controller.auth/signin.js"></script>
-<script src="/spa/js/angular/controllers/controller.auth/restore.js"></script>
-<script src="/spa/js/angular/controllers/controller.about.js"></script>
-<script src="/spa/js/angular/controllers/avia/controller.avia.reserve.tickets.js"></script>
-<script src="/spa/js/angular/controllers/avia/controller.avia.buy.tickets.js"></script>
-<script src="/spa/js/angular/controllers/avia/controller.avia.form.js"></script>
-<script src="/spa/js/angular/controllers/avia/controller.avia.search.main.js"></script>
-<script src="/spa/js/angular/controllers/avia/controller.avia.search.results.js"></script>
-<script src="/spa/js/angular/controllers/controller.contacts.js"></script>
-<script src="/spa/js/angular/controllers/hotels/controller.hotel.js"></script>
-<script src="/spa/js/angular/controllers/hotels/controller.hotels.js"></script>
-<script src="/spa/js/angular/controllers/hotels/controller.hotel_plus_ticket.js"></script>
-<script src="/spa/js/angular/controllers/controller.individualtours.js"></script>
-<script src="/spa/js/angular/controllers/controller.individualtourscategory.js"></script>
-<script src="/spa/js/angular/controllers/controller.main.js"></script>
-<script src="/spa/js/angular/controllers/controller.navigation.js"></script>
-<script src="/spa/js/angular/controllers/controller.offers.list.js"></script>
-<script src="/spa/js/angular/controllers/search/controller.search.main.js"></script>
-<script src="/spa/js/angular/controllers/search/controller.search.result.js"></script>
-<script src="/spa/js/angular/controllers/controller.slider.js"></script>
-<script src="/spa/js/angular/controllers/tours/controller.tour.js"></script>
-<script src="/spa/js/angular/controllers/tours/controller.tours.form.js"></script>
-<script src="/spa/js/angular/controllers/tours/controller.tours.js"></script>
-<script src="/spa/js/angular/controllers/controller.dynamic/form.js"></script>
-<script src="/spa/js/angular/controllers/controller.dynamic/morda.js"></script>
-<script src="/spa/js/angular/controllers/controller.dynamic/serp.js"></script>
-<script src="/spa/js/angular/controllers/controller.dynamic/serp.filter-indicator.js"></script>
-<script src="/spa/js/angular/controllers/controllers.js"></script>
-<script src="/spa/js/angular/directives/directive.combobox.js"></script>
-<script src="/spa/js/angular/directives/directive.datepicker.2months.js"></script>
-<script src="/spa/js/angular/directives/directive.datepicker.custom.js"></script>
-<script src="/spa/js/angular/directives/directive.jq.ui.slider.js"></script>
-<script src="/spa/js/angular/directives/directive.map.js"></script>
-<script src="/spa/js/angular/directives/directive.popup.form.js"></script>
-<script src="/spa/js/angular/directives/directives.js"></script>
-<script src="/spa/js/angular/directives/directive.select.component.js"></script>
-<script src="/spa/js/angular/directives/directive.autocomplete.component.js"></script>
-<script src="/spa/js/angular/directives/directive.date_picker_widget.component.js"></script>
-<script src="/spa/js/angular/directives/directive.counter_people.component.js"></script>
-<script src="/spa/js/angular/directives/directive.trip_preferences.component.js"></script>
-<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/category.component.js"></script>
-<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/price.component.js"></script>
-<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/name.component.js"></script>
-<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/extra.component.js"></script>
-<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.legs.component.js"></script>
-<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.price.component.js"></script>
-<script src="/spa/js/angular/directives/directive.dynamic.serp.filter/avia.time.component.js"></script>
-<script src="/spa/js/angular/directives/directive.dynamic.serp.map.component.js"></script>
-<script src="/spa/js/angular/directives/directive.partial.select.js"></script>
-<script src="/spa/js/angular/directives/directive.inna-ticket.component.js"></script>
-<script src="/spa/js/angular/models/app.model.avia.js"></script>
-<script src="/spa/js/angular/models/app.model.js"></script>
-<script src="/spa/js/angular/models/app.model.to.api.model.js"></script>
-<script src="/spa/js/angular/models/app.model.tours.js"></script>
-<script src="/spa/js/angular/models/app.model.dynamic.js"></script>
+<script src="/spa/js/helpers/url.helper.js"></script>
+<script src="/spa/js/helpers/api.js"></script>
+<script src="/spa/js/filters.js"></script>
+<script src="/spa/js/services/services.js"></script>
+<script src="/spa/js/services/service.data.js"></script>
+<script src="/spa/js/services/service.page.js"></script>
+<script src="/spa/js/services/service.validator.js"></script>
+<script src="/spa/js/services/service.dynamic.packages.data.provider.js"></script>
+<script src="/spa/js/services/service.dynamic.packages.cache.js"></script>
+<script src="/spa/js/services/service.dynamic.packages.form_submit_listener.listener.js"></script>
+<script src="/spa/js/services/service.auth.data.provider.js"></script>
+<script src="/spa/js/services/service.events.helper.js"></script>
+<script src="/spa/js/services/service.payment.js"></script>
+<script src="/spa/js/services/service.avia.helper.js"></script>
+<script src="/spa/js/controllers/controller.auth/auth.js"></script>
+<script src="/spa/js/controllers/controller.auth/signup.js"></script>
+<script src="/spa/js/controllers/controller.auth/signin.js"></script>
+<script src="/spa/js/controllers/controller.auth/restore.js"></script>
+<script src="/spa/js/controllers/controller.about.js"></script>
+<script src="/spa/js/controllers/avia/controller.avia.reserve.tickets.js"></script>
+<script src="/spa/js/controllers/avia/controller.avia.buy.tickets.js"></script>
+<script src="/spa/js/controllers/avia/controller.avia.form.js"></script>
+<script src="/spa/js/controllers/avia/controller.avia.search.main.js"></script>
+<script src="/spa/js/controllers/avia/controller.avia.search.results.js"></script>
+<script src="/spa/js/controllers/controller.contacts.js"></script>
+<script src="/spa/js/controllers/hotels/controller.hotel.js"></script>
+<script src="/spa/js/controllers/hotels/controller.hotels.js"></script>
+<script src="/spa/js/controllers/hotels/controller.hotel_plus_ticket.js"></script>
+<script src="/spa/js/controllers/controller.individualtours.js"></script>
+<script src="/spa/js/controllers/controller.individualtourscategory.js"></script>
+<script src="/spa/js/controllers/controller.main.js"></script>
+<script src="/spa/js/controllers/controller.navigation.js"></script>
+<script src="/spa/js/controllers/controller.offers.list.js"></script>
+<script src="/spa/js/controllers/search/controller.search.main.js"></script>
+<script src="/spa/js/controllers/search/controller.search.result.js"></script>
+<script src="/spa/js/controllers/controller.slider.js"></script>
+<script src="/spa/js/controllers/tours/controller.tour.js"></script>
+<script src="/spa/js/controllers/tours/controller.tours.form.js"></script>
+<script src="/spa/js/controllers/tours/controller.tours.js"></script>
+<script src="/spa/js/controllers/controller.dynamic/form.js"></script>
+<script src="/spa/js/controllers/controller.dynamic/morda.js"></script>
+<script src="/spa/js/controllers/controller.dynamic/serp.js"></script>
+<script src="/spa/js/controllers/controller.dynamic/serp.filter-indicator.js"></script>
+<script src="/spa/js/controllers/controllers.js"></script>
+<script src="/spa/js/directives/directive.combobox.js"></script>
+<script src="/spa/js/directives/directive.datepicker.2months.js"></script>
+<script src="/spa/js/directives/directive.datepicker.custom.js"></script>
+<script src="/spa/js/directives/directive.jq.ui.slider.js"></script>
+<script src="/spa/js/directives/directive.map.js"></script>
+<script src="/spa/js/directives/directive.popup.form.js"></script>
+<script src="/spa/js/directives/directives.js"></script>
+<script src="/spa/js/directives/directive.select.component.js"></script>
+<script src="/spa/js/directives/directive.autocomplete.component.js"></script>
+<script src="/spa/js/directives/directive.date_picker_widget.component.js"></script>
+<script src="/spa/js/directives/directive.counter_people.component.js"></script>
+<script src="/spa/js/directives/directive.trip_preferences.component.js"></script>
+<script src="/spa/js/directives/directive.dynamic.serp.filter/category.component.js"></script>
+<script src="/spa/js/directives/directive.dynamic.serp.filter/price.component.js"></script>
+<script src="/spa/js/directives/directive.dynamic.serp.filter/name.component.js"></script>
+<script src="/spa/js/directives/directive.dynamic.serp.filter/extra.component.js"></script>
+<script src="/spa/js/directives/directive.dynamic.serp.filter/avia.legs.component.js"></script>
+<script src="/spa/js/directives/directive.dynamic.serp.filter/avia.price.component.js"></script>
+<script src="/spa/js/directives/directive.dynamic.serp.filter/avia.time.component.js"></script>
+<script src="/spa/js/directives/directive.dynamic.serp.map.component.js"></script>
+<script src="/spa/js/directives/directive.partial.select.js"></script>
+<script src="/spa/js/directives/directive.inna-ticket.component.js"></script>
+<script src="/spa/js/models/app.model.avia.js"></script>
+<script src="/spa/js/models/app.model.js"></script>
+<script src="/spa/js/models/app.model.to.api.model.js"></script>
+<script src="/spa/js/models/app.model.tours.js"></script>
+<script src="/spa/js/models/app.model.dynamic.js"></script>
 <!-- endbuild -->
 
 

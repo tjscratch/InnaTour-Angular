@@ -1,0 +1,113 @@
+{{#if airplaneIcon}}
+    <span class="icon-sprite-airplane"></span>
+{{/if}}
+
+
+<!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
+{{#if modelTicket.collectAirlines().size <= 3}}
+
+	{{#each modelTicket.collectAirlines().etap:code}}
+        <span class="result-cell__airlines">
+            <img src="{{airLogo(code)}}" alt="" class="logo">
+	        <span class="rl-airline-text">{{this}}</span>
+		</span>
+	{{/each}}
+{{/if}}
+
+{{#if modelTicket.collectAirlines().size > 3}}
+    <span class="rl-airline">
+        <img src="/spa/img/group.png" alt="">
+        <span class="rl-airline-text">Несколько авиакомпаний</span>
+	</span>
+{{/if}}
+
+
+
+
+
+<!-- To -->
+<div class="flight-info">
+	<span class="date date_w_120">
+        <span>
+            <b>{{moment(ticket.DepartureDate).format('HH:mm')}}</b>
+            <span>{{moment(ticket.DepartureDate).format('D MMM')}},</span>
+            <span>{{moment(ticket.DepartureDate).format('dd')}}</span><br>
+            <span>{{ticket.CityFrom}} {{ticket.OutCode}}</span>
+        </span>
+    </span>
+
+    <p class="arrow">
+        в пути: {{{TimeFormatted(TimeTo)}}}<br>
+
+		{{#if ticket.EtapsTo.length - 1}}
+			{{ticket.EtapsTo.length - 1}}
+			{{pluralize(ticket.EtapsTo.length - 1, ["пересадка","пересадки","пересадок"])}}
+		{{/if}}
+
+		{{#if !(ticket.EtapsTo.length - 1)}}
+            без пересадок
+		{{/if}}
+    </p>
+    <span class="date date_w_120">
+       <span>
+	       <b>{{moment(ticket.ArrivalDate).format('HH:mm')}}</b>
+	        <span>{{moment(ticket.ArrivalDate).format('D MMM')}},</span>
+	        <span>{{moment(ticket.ArrivalDate).format('dd')}}</span><br>
+	        <span>{{ticket.CityTo}} {{ticket.InCode}}</span>
+       </span>
+    </span>
+</div>
+
+<!-- Back -->
+<div class="flight-info">
+    <span class="date date_w_120">
+        <span>
+	        <b>{{moment(ticket.BackDepartureDate).format('HH:mm')}}</b>
+            <span>{{moment(ticket.BackDepartureDate).format('D MMM')}},</span>
+            <span>{{moment(ticket.BackDepartureDate).format('dd')}}</span><br>
+	        <span>{{ticket.CityTo}} {{ticket.OutCodeBack}}</span>
+	    </span>
+    </span>
+
+    <p class="arrow">
+        в пути: {{{TimeFormatted(TimeBack)}}}<br>
+
+		{{#if ticket.EtapsBack.length - 1}}
+			{{ticket.EtapsBack.length - 1}}
+			{{pluralize(ticket.EtapsBack.length, ["пересадка","пересадки","пересадок"])}}
+		{{/if}}
+
+		{{#if (ticket.EtapsBack.length - 1) == 0}}
+            без пересадок
+		{{/if}}
+    </p>
+    <span class="date date_w_120">
+       <span>
+			<b>{{moment(ticket.BackArrivalDate).format('HH:mm')}}</b>
+            <span>{{moment(ticket.BackArrivalDate).format('D MMM')}},</span>
+            <span>{{moment(ticket.BackArrivalDate).format('dd')}}</span><br>
+            <span>{{ticket.CityFrom}} <span>{{ticket.InCodeBack}}</span></span>
+        </span>
+    </span>
+</div>
+
+<div class="bottom-actions">
+
+	{{#if showWarning}}
+        <span class="pull-left warning">
+		    {{pluralize(ticket.NumSeats, ["Последнее","Последние","Последние"])}}
+			{{ticket.NumSeats}}
+			{{pluralize(ticket.NumSeats, ["место","места","мест"])}}
+			{{#if ticket.IsCharter}}<span>, чартер</span>{{/if}}
+	    </span>
+	{{/if}}
+
+	{{#if !showWarning}}
+        <span class="pull-left warning">
+			{{#if ticket.IsCharter}}<span>Чартер</span>{{/if}}
+        </span>
+	{{/if}}
+
+    <span class="bottom-actions__button bottom-actions__button_action_details like-link"
+          on-click="getTicketDetails">Подробнее</span>
+</div>

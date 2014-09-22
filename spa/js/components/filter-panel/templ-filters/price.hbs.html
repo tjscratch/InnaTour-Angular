@@ -1,0 +1,25 @@
+<li class="filter filter_price" on-hover="onHover">
+    <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+         on-click="toggle">
+        Цена
+    </div>
+
+
+    <div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}">
+        <div class="filter__range-container">
+
+	        <span class="filter__range">до
+		        <input type="text" class="js-range-val" value="{{$filter('price')(FilterData.Value)}}"/>
+		        {{>ruble}}
+		    </span>
+            <a href="javascript:void(0);" class="ra-header-link" on-click="resetFilter">Сбросить</a>
+
+        </div>
+        <div class="js-range filter__range-trackbar">
+            <div class="filter_price__range row">
+	            <div class="col-xs-6 align-left col-no-padding">{{$filter('price')(FilterData.Min)}}</div>
+                <div class="col-xs-6 align-right col-no-padding">{{$filter('price')(FilterData.Max)}}</div>
+            </div>
+        </div>
+    </div>
+</li>

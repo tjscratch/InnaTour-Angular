@@ -1,0 +1,127 @@
+.social-buttons-sprite {
+  background-image: url(/spa/img/social-buttons-sprite.png);
+  height: 30px;
+  width: 30px;
+}
+
+.icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+
+  &-logo {
+    background-image: url(/spa/img/logo.png);
+    height: 39px;
+    width: 100px;
+
+  }
+
+  &-logo-inna {
+    background-image: url(/spa/img/innatour.png);
+    height: 19px;
+    width: 135px;
+  }
+
+  &-user {
+    background-image: url(/spa/img/user.png);
+    height: 15px;
+    width: 16px;
+  }
+
+  &-phone {
+    background-image: url(/spa/img/phone.png);
+    height: 16px;
+    width: 9px;
+  }
+
+  &-triangle {
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0 5.5px 6px 5.5px;
+    border-color: transparent transparent #000 transparent;
+
+    &.bottom {
+      border-width: 6px 5.5px 0 5.5px;
+      border-color: #000 transparent transparent transparent;
+    }
+  }
+
+  &-calendar {
+    background-image: url(/spa/img/calendar.png);
+    height: 16px;
+    width: 17px;
+  }
+
+  &-flag {
+    height: 20px;
+    width: 30px;
+
+    &-thailand {
+      background-image: url(/spa/img/country/thailand.png);
+    }
+  }
+
+  &-vkontakte {
+    @extend .social-buttons-sprite;
+
+    &:hover {
+      background-position: 0 -33px;
+    }
+  }
+
+  &-odnoklassniki {
+    @extend .social-buttons-sprite;
+    background-position: -33px 0;
+
+    &:hover {
+      background-position: -33px -33px;
+    }
+  }
+
+  &-facebook {
+    @extend .social-buttons-sprite;
+    background-position: -66px 0;
+
+    &:hover {
+      background-position: -66px -33px;
+    }
+  }
+
+  &-twitter {
+    @extend .social-buttons-sprite;
+    background-position: -99px 0;
+
+    &:hover {
+      background-position: -99px -33px;
+    }
+  }
+
+  &-pinterest {
+    @extend .social-buttons-sprite;
+    background-position: -132px 0;
+
+    &:hover {
+      background-position: -132px -33px;
+    }
+  }
+
+  &-youtube {
+    @extend .social-buttons-sprite;
+    background-position: -165px 0;
+
+    &:hover {
+      background-position: -165px -33px;
+    }
+  }
+
+  &-google {
+    background-image: url(/spa/img/google.png);
+    height: 30px;
+    width: 30px;
+  }
+  &-email {
+    background-image: url(/spa/img/email.png);
+    height: 30px;
+    width: 30px;
+  }
+}

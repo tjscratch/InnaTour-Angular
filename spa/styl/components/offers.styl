@@ -27,6 +27,15 @@
     margin: 5px 0 15px 0;
 }
 
+.landing-cont {
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 100%;
+        clear: both;
+    }
+}
+
 .landing-col {
     float: left;
     width: 470px;
@@ -36,12 +45,13 @@
     }
     &.right {
         margin-left: 10px;
-        &:after {
-            content: '';
-            display: inline-block;
-            width: 100%;
-            clear: left;
-        }
+        
+    }
+}
+
+.landing-area {
+    .offers-description p {
+        margin: 0 0 16px 0;
     }
 }
 
@@ -89,15 +99,6 @@
     color: #b2b2b2;
     font-size: 16px;
     margin: 15px 0 30px;
-
-    /*&-two-cols {
-       -column-count: 2;
-       -column-gap: 20px;
-       -moz-column-count: 2;
-       -moz-column-gap: 20px;
-       -webkit-column-count: 2;
-       -webkit-column-gap: 20px;
-    }*/
   }
 
   &-white &-title,
@@ -142,6 +143,10 @@
     &-banner-container {
       height: 470px;
       position: relative;
+
+      &.programm {
+        height: 300px;
+      }
 
       .banner-dots {
         @extend .main__center;
@@ -310,7 +315,7 @@
       opacity: .7;
     }
     .offer-img {
-      filter: grayscale(100%);
+      //filter: grayscale(100%);
     }
 
     .offer-info {
@@ -467,6 +472,10 @@
       width: 100%;
       z-index: 1;
 
+      &.programm {
+        height: 300px;
+      }
+
       .img {
         background-color: #000;
         background-position: center top;
@@ -490,6 +499,10 @@
       vertical-align: top;
       width: 647px;
 
+      .link {
+        color: $blue;
+      }
+
       .title {
         font-size: 21px;
         font-weight: normal;
@@ -498,7 +511,7 @@
 
       .description {
         color: #474747;
-        font-size: 13px;
+        font-size: 14px;
         line-height: 21px;
         margin: 12px 10px 0 20px;
       }
@@ -516,7 +529,7 @@
         color: #fff;
         font-family: ProximaNova;
         font-weight: bold;
-        font-size: 13px;
+        font-size: 14px;
         margin: 0;
         padding: 12px;
         position: absolute;
@@ -573,5 +586,22 @@
   a {
     color: #000;
     border-bottom: 1px solid #a3a3a3;
+    text-decoration: none;
+  }
+}
+
+@media screen and (orientation:portrait) {
+  .offer {
+    &-small {
+      width 312px;
+    }
+
+    &-middle {
+      width 474px;
+    }
+
+    &-large {
+      width 636px
+    }
   }
 }

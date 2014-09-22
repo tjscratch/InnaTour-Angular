@@ -1,0 +1,56 @@
+{{#if PriceObjectCalculate}}
+    <div class="b-tooltip-price b-tooltip-price_{{tooltipKlass}}">
+        <span class="icon-price-info cursor-pointer
+                {{(!iconWhite) ? 'icon-sprite-price-info' : 'icon-sprite-price-info-white'}}"
+                on-click='toggleShow'></span>
+
+		{{#if isVisible}}
+            <div class="tooltip tooltip-price tooltip-price_at_hotel-card {{PriceObject ? 'tooltip-price_big':''}}">
+
+                <div class="tooltip-price__b2b">
+                    <ul>
+                        <li class="list-price-item">
+                            <div class="row">
+                                <div class="col-xs-6 col-no-padding">
+                                    Сбор агента
+                                </div>
+                                <div class="col-xs-6 col-no-padding list-price-item__right">
+			                        <span class="list-price">
+				                        {{priceFilter(PriceObjectCalculate.TotalAgentRate)}}
+				                        {{>ruble}}
+			                        </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-price-item">
+                            <div class="row">
+                                <div class="col-xs-6 col-no-wrap col-no-padding">
+                                    Агент. вознагр.
+                                </div>
+                                <div class="col-xs-6 col-no-padding list-price-item__right">
+			                        <span class="list-price">
+			                            {{priceFilter(PriceObjectCalculate.TotalInnaAgentRate)}}
+				                        {{>ruble}}
+			                        </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-price-item">
+                            <div class="row">
+                                <div class="col-xs-6 col-no-padding">
+                                    Доход
+                                </div>
+                                <div class="col-xs-6 col-no-padding list-price-item__right">
+			                        <span class="list-price">
+			                            {{priceFilter(PriceObjectCalculate.TotalAgentProfit)}}
+				                        {{>ruble}}
+			                        </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+		{{/if}}
+    </div>
+{{/if}}

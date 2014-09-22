@@ -1,0 +1,44 @@
+
+{{#if virtualBundle.getProfit() > 1000}}
+	<div class="hotel-info__special-mark">
+	    <span class="icon-crown icon-sprite-crown"></span>
+	    Спецпредложение
+	</div>
+{{/if}}
+
+
+<div class="hotel-info" ng-class="{'hotel-info_with_crown': virtualBundle.getProfit() > 1000}">
+    <div class="hotel-info-content">
+        <!-- component Star -->
+        <Stars stars="{{hotel.Stars}}"/>
+
+        <h3 class="hotel-info-name">{{shortName(hotel.HotelName)}}</h3>
+
+        <a href="javascript:void(0);" class="hotel-info-place" on-click="goToMap">
+	        {{hotel.HotelCityName}} {{hotel.Address}}
+        </a>
+
+	    {{#if hotel.RoomCount <= 3}}
+            <div class="warning">
+	            {{pluralize(hotel.RoomCount, ['Остался последний номер!', 'Осталось два номера!', 'Осталось три номера!'])}}
+            </div>
+	    {{/if}}
+    </div>
+</div>
+
+<div class="bottom-actions">
+    <div class="row">
+        <div class="col-xs-9 col-no-padding bottom-actions_left">
+            <!-- component Tripadvisor -->
+            <Tripadvisor
+                    TaCommentCount="{{hotel.TaCommentCount}}"
+                    TaFactor="{{hotel.TaFactor}}"
+                    TaFactorCeiled="{{hotel.TaFactorCeiled}}" />
+
+        </div>
+        <div class="col-xs-3 col-no-padding bottom-actions_right">
+	        <!-- 6733-1735-01.10.2014-16.10.2014-0-2- -->
+            <a href="{{computedUrlDetails()}}" target="{{ isFullWL ? '' : '_blank'}}" class="b-hotel_item__details">Подробнее</a>
+        </div>
+    </div>
+</div>

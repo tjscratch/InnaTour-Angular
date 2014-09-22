@@ -1,0 +1,37 @@
+<!--
+	Настраеваемый блок
+	настройки находятся в data.settings
+-->
+{{#if !hidden}}
+	<div class="row b-result b-result-content b-result_{{settings.height}} {{setClass()}}">
+
+	    <div class="b-result__cell result-cell {{settings.classColl1}}">
+
+			{{>collOneContent}}
+
+		    {{#if !settings.removeOneSeparator}}
+		        <div class="b-result-cell__gap">
+		            <div class="b-result-cell__gap_wrap"></div>
+		        </div>
+		    {{/if}}
+	    </div>
+
+	    <div class="b-result__cell result-cell {{settings.classColl2}}">
+
+			{{>collTwoContent}}
+
+
+			{{#if settings.countColumn > 2}}
+	            <div class="b-result-cell__gap">
+	                <div class="b-result-cell__gap_wrap"></div>
+	            </div>
+			{{/if}}
+	    </div>
+
+		{{#if settings.countColumn == 3}}
+	        <div class="b-result__cell result-cell {{settings.classColl3}}">
+				{{>collThreeContent}}
+	        </div>
+		{{/if}}
+	</div>
+{{/if}}

@@ -1,0 +1,45 @@
+<li class="filter" on-hover="onHover">
+    <div class="filters__link {{ (hasSelected) ? 'filters__link_selected' : ''}}"
+         on-click="toggle">
+        Время
+    </div>
+
+    <div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}">
+		{{#each FilterData}}
+            <div class="filters__baloon__item">
+                <header class="ra-header">
+                    <h4 class="ra-title">{{this.title}}</h4>
+                    <span class="ra-header-link like-link" on-click="resetFilter">Сбросить</span>
+                </header>
+
+                <form>
+                    <div class="filters__baloon-radio">
+                        <div class="btn-group btn-group-justified">
+							{{#each this.state}}
+                                <label on-change="changeState" class="btn btn-{{(this.isActive) ? 'green' : ''}}">
+                                    <input type="radio" name="state" value="{{this.value}}" checked="{{this.isActive}}">
+									{{this.title}}
+                                </label>
+							{{/each}}
+                        </div>
+                    </div>
+
+                    <div class="filters__baloon-days">
+                        <ul class="ra-fly-type-list ra-fly-type-list_style_full-width">
+
+							{{#each this.dayState}}
+                                <li class="ra-fly-type-list__item">
+                                    <label on-change="filterChange">
+                                        <input type="checkbox" name="dayState" value="{{this.state}}" checked="{{this.isChecked}}">
+                                        <span class="ra-checkbox"></span>
+                                        <span class="ra-fly-type">{{this.name}}</span>
+                                    </label>
+                                </li>
+							{{/each}}
+                        </ul>
+                    </div>
+                </form>
+            </div>
+		{{/each}}
+    </div>
+</li>

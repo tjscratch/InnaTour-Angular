@@ -1,0 +1,83 @@
+<div class="results-list b-results-list_dp">
+    <div class="b-list-panel">
+
+		{{#if Enumerable.length}}
+
+			{{#if EnumerableCount}}
+                <div class="b-switch-filters_buttons_right font-medium">
+                    <div class="row">
+                        <div class="col-xs-6 col-no-padding">
+                            <!--Другие <b>{{(EnumerableCount)}}</b>-->
+							{{#if iterable_hotels}}
+								{{{pluralize((EnumerableCount),[
+									"Другой <b>"+ EnumerableCount +"</b> вариант отеля",
+									"Другие <b>"+ EnumerableCount +"</b> варианта отелей",
+									"Другие <b>"+ EnumerableCount +"</b> вариантов отелей"
+								])}}}
+							{{else}}
+								{{{pluralize((EnumerableCount), [
+									"Другой <b>"+ EnumerableCount +"</b> вариант перелета",
+									"Другие <b>"+ EnumerableCount +"</b> варианта перелетов",
+									"Другие <b>"+ EnumerableCount +"</b> вариантов перелетов"
+								])}}}
+							{{/if}}
+                        </div>
+
+						{{#if iterable_hotels && EnumerableCount}}
+                            <div class="col-xs-6 col-no-padding">
+                                <div class="b-switch-dynamic-serp-display__title cursor-pointer pull-right"
+                                     on-click="goToMap">
+                                    <span class="b-switch-dynamic-serp-display__title-icon icon-sprite-switch-map2"></span>
+                                    Посмотреть на карте
+                                </div>
+                            </div>
+						{{/if}}
+                    </div>
+
+                </div>
+			{{/if}}
+
+            <!-- Можно указать любой ( компонент - шаблон ) который будет вставлен на место EnumerableItem  -->
+            <div class="b-list-panel__list b-list-panel__hotels_list {{waitData ? 'b-list-panel__wait' : '' }}">
+
+
+				{{#if iterable_hotels}}
+					{{#each EnumerableList}}
+						{{>EnumerableItemHotels}}
+					{{/each}}
+				{{/if}}
+
+				{{#if iterable_tickets}}
+					{{#each EnumerableList}}
+						{{>EnumerableItemTickets}}
+					{{/each}}
+				{{/if}}
+            </div>
+
+
+            <!-- Если в результате фильтрации не чего не найдено -->
+			{{#if !EnumerableCount }}
+                <div class="b-list-panel__hotels_list">
+                    <div class="results-list__empty
+                    {{ (iterable_hotels) ? 'results-list__empty_type_hotels':'results-list__empty_type_tickets'}}">
+                        <p>Варианты не найдены.</p>
+
+                        <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
+                    </div>
+                </div>
+			{{/if}}
+
+		{{else}}
+            <!-- Если сервис не чего не вернул  -->
+            <div class="b-list-panel__hotels_list">
+                <div class="results-list__empty
+                    {{ (iterable_hotels) ? 'results-list__empty_type_hotels':'results-list__empty_type_tickets'}}">
+                    <p>Варианты не найдены.</p>
+
+                    <p>Попробуйте изменить условия поиска или настройки фильтров.</p>
+                </div>
+            </div>
+		{{/if}}
+    </div>
+
+</div>

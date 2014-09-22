@@ -1,0 +1,381 @@
+.r__header
+    clearfix()
+    position relative
+    margin 0 0 20px
+
+.r__back
+    position absolute
+    left 0
+    top 0
+    color #4d4d4d
+    font-size 14px
+    text-decoration none
+    padding 0 0 0 24px
+    line-height 18px
+
+    &:before
+        content ''
+        width 16px
+        height 11px
+        display block
+        position absolute
+        left 0
+        top 3px
+        background url(/spa/img/arrow_small.png) no-repeat
+
+.r__time
+    font-size 14px
+    line-height 18px
+    color #4d4d4d
+    position absolute
+    right 0
+    top 0
+    text-align right
+
+.r__number
+    font-size 20px
+    width 470px
+    margin 0 auto
+    text-align center
+    min-height 52px
+
+.r__info
+    clearfix()
+    font-size 14px
+    line-height 24px
+
+.r__info-table
+    float left
+    width 235px
+    margin 0 40px 0 0
+
+.r__info-main
+    float left
+    width 300px
+    color #4d4d4d
+
+.r__info-contacts
+    float right
+    text-align right
+
+    a
+        color #1e88c1
+
+.r__info-contacts-client
+    color #4d4d4d
+
+.r__info-tr
+    clearfix()
+    position relative
+
+    &:before
+        position absolute
+        height 1px
+        border-bottom 1px dotted #878787
+        bottom 8px
+        left 0
+        right 0
+        content ''
+        display block
+
+.r__info-th
+    float left
+    background #D4D6DB
+    padding 0 5px 0 0
+    position relative
+    color #4d4d4d
+
+.r__info-td
+    float right
+    background #D4D6DB
+    padding 0 0 0 5px
+    position relative
+    color #000
+
+.r__container
+    clearfix()
+    padding 0 0 10px
+
+.r__chat
+    float left
+    width 470px
+    min-height 400px
+    border-radius 5px
+    background #fff
+    box-shadow 0 2px 3px rgba(0,0,0,.3)
+    box-sizing border-box
+    position relative
+
+.r__requirements
+    float right
+    width 470px
+    min-height 400px
+    border-radius 5px
+    background url(/spa/img/bg.png)
+    box-shadow 0 2px 3px rgba(0,0,0,.3)
+    box-sizing border-box
+    position relative
+    padding 10px 18px 55px
+    font-size 14px
+    color #4d4d4d
+
+.r__tickets
+    width 100%
+    border-collapse collapse
+    overflow hidden
+    margin 0 0 20px
+
+    tr:last-child td:first-child
+        border-radius 0 0 0 5px
+
+    tr:last-child td:last-child
+        border-radius 0 0 5px 0
+
+    th
+        font-size 14px
+        font-weight normal
+        color #fff
+        background #4d4d4d
+        padding 12px 8px
+        text-align left
+
+        &:first-child
+            border-radius 5px 0 0 0
+
+        &:last-child
+            border-radius 0 5px 0 0
+
+    .r__tickets-buttons
+        padding 4px 4px 0
+        text-align right
+
+    td
+        background #fff
+        padding 8px
+        color #4d4d4d
+        font-size 14px
+
+        a
+            color #1e88c1
+
+
+.r__tickets_ext tr:nth-child(2n+1) td
+    background #e6e7e9
+
+.r__tickets_ext td
+    border-left 1px solid #878787
+    padding 12px 8px
+
+    &:first-child
+        border 0
+
+.r__tickets-load
+    padding 0 22px 0 0
+    position relative
+
+    &:after
+        content ''
+        display block
+        position absolute
+        right 0
+        top -1px
+        width 17px
+        height 17px
+        background url(/spa/img/load.png) no-repeat
+
+.r__tickets-reset
+    padding 0 0 0 24px
+    position relative
+    font-weight bold
+    color #878787
+    white-space nowrap
+
+.r__tickets-change
+    padding 0 0 0 24px
+    position relative
+    font-weight bold
+    color #f7931e
+
+    &:before
+        content ''
+        display block
+        position absolute
+        left 0
+        top 0
+        width 20px
+        height 16px
+        background url(/spa/img/ticket_change.png) no-repeat
+
+.r__tickets-return
+    padding 0 0 0 24px
+    position relative
+    font-weight bold
+    color #f7931e
+
+    &:before
+        content ''
+        display block
+        position absolute
+        left 0
+        top 0
+        width 18px
+        height 16px
+        background url(/spa/img/ticket_return.png) no-repeat
+
+.r__download
+    text-align right
+    font-size 14px
+    color #1e88c1
+    margin-top -12px
+    padding 0 0 20px
+
+    a
+        color #1e88c1
+
+.r__message-container
+    overflow auto
+    max-height 335px
+    padding 5px 20px 5px 5px
+    font-size 14px
+
+.r__message
+    padding 0 0 5px
+
+.r__message-text
+    display inline-block
+    font-size 14px
+    background #ededed
+    color #4d4d4d
+    border-radius 3px
+    padding 12px
+
+.r__message-info
+    font-size 12px
+    line-height 18px
+    color #4d4d4d
+    padding 3px 10px
+
+.r__message-author
+    color #878787
+
+.r__message_answer
+    text-align right
+
+    .r__message-text
+        background #e8f3f9
+
+.r__requirements .button
+.r__chat .button
+    position absolute
+    right 4px
+    bottom 6px
+
+.r__info-table .button
+    padding-left 15px
+    padding-right 15px
+
+.r__time-help
+    color #878787
+    font-size 12px
+    text-align right
+    position relative
+    top 7px
+
+.r__booking
+    overflow hidden
+
+.r__booking-block
+    float left
+    color #4d4d4d
+    padding 2px 18px 20px
+    width 475px
+    box-sizing border-box
+
+.r__booking-actions
+    text-align right
+
+    .button
+      margin-right 5px
+
+      &:first-child
+        margin-right 0
+
+
+.r__buy
+    margin-top 10px
+
+    .buy__warning
+        margin-bottom 3px
+
+.r__numbers-container
+    clearfix()
+    margin 20px 0 15px
+
+.r__numbers-block
+    float left
+    font-size 14px
+    margin 0 22px 0 0
+
+    &__right
+        float right
+        margin-right 0
+
+.r__numbers-label
+    margin 0 0 2px
+
+.r__numbers-wrap
+    clearfix()
+
+.r__numbers
+    float left
+    border-radius 5px
+    background #fff
+    padding 12px 15px
+    box-shadow 0 2px 4px rgba(0,0,0,.2)
+    margin 0 8px 0 0
+
+    a
+        font-size 14px
+        color #1e88c1
+
+.r__numbers-inner
+    display inline-block
+
+    span
+        color #878787
+        font-size 12px
+        display block
+
+.r__numbers-arrow
+    margin 0 5px
+
+.r__numbers-amount
+    font-size 22px
+    font-weight bold
+
+.r__message-empty
+    font-size 14px
+    padding 5px 13px
+
+.r__booking-link
+    float right
+    font-size 14px
+    color #1e88c1
+    position relative
+    top 2px
+    right -9px
+
+    &.avia
+        right -20px
+
+.r__hotel-info
+    color #878787 !important
+    line-height 20px !important
+    position relative
+    top 3px
+
+
+
+
+
+

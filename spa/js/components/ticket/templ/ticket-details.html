@@ -1,0 +1,34 @@
+<div class="overlay js-overlay overlay_ticket-details" ng-if="popupItemInfo.isShow">
+
+    <div class="scroll-fix" ng-style="popupItemInfo.style">
+        <div class="balloon balloon_ticket balloon_ticket_ticket-details js-ticket-info-baloon"
+             ng-class="{'balloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}"
+             close-popup
+             fn-hide="popupItemInfo.hide()">
+
+            <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
+                <div ng-if="!noClose" title="Закрыть" class="balloon-close" ng-click="closePopup()"></div>
+
+                <h3 class="b-tickets__title">Подробная информация по перелету</h3>
+
+                <ng:include ng-if="item.EtapsBack.length > 0"
+                            src="'avia/popup_item_info_two_ways.html'"></ng:include>
+                <ng:include ng-if="item.EtapsBack.length == 0 || item.EtapsBack == null"
+                            src="'avia/popup_item_info_one_way.html'"></ng:include>
+
+
+                <div class="b-tickets__footer">
+                    <ul class="b-tickets__icons" ng-hide="displayHotel">
+                        <li>
+                            <div class="tooltip-widget js-share-component"></div>
+                        </li>
+                    </ul>
+                    <div class="b-tickets__footer-inner" ng-hide="displayHotel">
+                        <a ng-if="!noChoose" class="rl-buy-button" href="javascript:void(0);"
+                           ng-click="setCurrent()">Выбрать</a>
+                    </div>
+                </div>
+            </ng:any>
+        </div>
+    </div>
+</div>

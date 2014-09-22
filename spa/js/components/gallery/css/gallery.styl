@@ -1,0 +1,91 @@
+.gallery {
+
+  .image-wait-load {
+    &:after {
+      content: '';
+      display : block;
+      position : absolute;
+      width : 40px;
+      height : 40px;
+      background-image: url("spa/img/preloader/imageloader.gif");
+      left : 50%;
+      top:50%;
+      margin : -20px 0 0 -20px;
+    }
+  }
+
+  &__viewport {
+    box-shadow 1px 1px 2px rgba(50, 50, 50, .6)
+    position relative
+    width 100%
+    background-repeat no-repeat
+    background-position center center
+    background-size cover
+    margin-left auto
+    margin-right auto
+
+    &-wrap {
+      height 500px
+      width $site-width
+      display table-cell
+      text-align center
+      vertical-align middle
+    }
+
+  }
+
+  &__list {
+    font-size 0
+    text-align justify
+    margin-left -4px
+
+    &-item {
+      width 70px
+      height 70px
+      background-size cover
+      margin-left 4px
+      margin-bottom 5px
+      display inline-block
+      cursor pointer
+
+      &_state_current {
+        outline: 2px solid #89c13a
+      }
+    }
+
+  }
+
+  &__active {
+    position absolute
+    top 0
+    bottom 0
+    cursor pointer
+    width 50%
+
+    &_type {
+      &_prev {
+        left 0
+      }
+      &_next {
+        right 0
+      }
+    }
+
+    .b-carousel__control {
+      display none
+    }
+
+    &:hover {
+      .b-carousel__control {
+        display block
+      }
+    }
+
+  }
+
+  &__disclaimer {
+    font-size $small
+    color $gray-l
+    margin 5px 0
+  }
+}

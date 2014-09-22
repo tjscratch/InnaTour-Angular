@@ -1,0 +1,117 @@
+<div class="buy__result">
+
+    <div class="buy__blocks">
+
+        <div class="row buy__result__title">
+            <p class="buy__price-descr">Внимание! К компонентам пакета применяются разные условия отмены бронирования.<br />Пожалуйста, ознакомьтесь с <a href="" on-click="showBalloonTicket">правилами применения тарифа авиабилета</a> и <a href="" on-click="showBalloonHotel">условиями бронирования отеля</a>.</p><br />
+        </div>
+
+        <div class="row">
+            <div class="col-xs-8 col-no-padding">
+
+                <!-- форматирование дат moment  -->
+                <ul class="buy__result-date-container">
+                    <li class="buy__result-list-item">
+                        Заезд {{moment(Hotel.CheckIn).format('ll')}}
+                        (до {{moment(Hotel.CheckIn).format('HH:mm')}}),
+                        {{moment(Hotel.CheckIn).format('ddd')}}
+
+                        <div class="buy__result-translation">
+                            Check-In {{moment(Hotel.CheckIn).lang("en").format('ll')}}
+                            ({{moment(Hotel.CheckIn).lang("en").format('HH:mm')}}),
+                            {{moment(Hotel.CheckIn).lang("en").format('ddd')}}
+                        </div>
+                    </li>
+                    <li class="buy__result-list-item">
+                        Отъезд {{moment(Hotel.CheckOut).format('ll')}} (до {{moment(Hotel.CheckOut).format('HH:mm')}}),
+                        {{moment(Hotel.CheckOut).format('ddd')}}
+
+                        <div class="buy__result-translation">
+                            Check-Out {{moment(Hotel.CheckOut).lang("en").format('ll')}}
+                            ({{moment(Hotel.CheckOut).lang("en").format('HH:mm')}}),
+                            {{moment(Hotel.CheckOut).lang("en").format('ddd')}}
+                        </div>
+                    </li>
+                    <li class="buy__result-list-item">
+                        Продолжительность: {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["ночь", "ночи", "ночей"])}}
+                        <div class="buy__result-translation">Duration: {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["night", "nights", "nights"])}}</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-4 col-no-padding">
+
+                <ul class="buy__result-order-container">
+                    <li class="buy__result-list-item">
+                        Номер заказа: <b>{{Hotel.Room.BookingData.BookNumber}}</b>
+                        <div class="buy__result-translation">Order number</div>
+                    </li>
+                    <li class="buy__result-list-item">
+                        Номер бронирования: <b>{{Hotel.Room.BookingData.Vendor}}</b>
+                        <div class="buy__result-translation">Itenenary number</div>
+                    </li>
+                    <li class="buy__result-list-item">
+                        Номер подтверждения: <b>{{Hotel.Room.BookingData.PinCode}}</b>
+                        <div class="buy__result-translation">Room Confirmation number</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="buy__result-order-terms">
+            {{{Hotel.Room.PolicyDescription}}}
+        </div>
+    </div>
+
+    <div>
+        <h2 class="buy__result-header">{{Hotel.Room.RoomName}}</h2>
+        <div class="buy__result-translation">
+            {{#each Hotel.Room.BedTypeList:i}}
+                <span>
+                    <!-- вывод точки или запятой -->
+                    {{#if Hotel.Room.BedTypeList.length != (i+1)}}
+                       {{Name}}<span>,&nbsp;</span>
+                    {{else}}
+                      {{Name}}.
+                    {{/if}}
+                </span>
+            {{/each}}
+        </div>
+
+        <div class="buy__result-guests">
+            {{#PassengersData.adultCount}}
+                Гости: {{PassengersData.adultCount}} {{pluralize(PassengersData.adultCount, ["взрослый", "взрослых", "взрослых"])}}
+                    {{#PassengersData.childCount}}
+                    и {{PassengersData.childCount}} {{pluralize(PassengersData.childCount, ["ребенок", "детей", "детей"])}}
+                {{/}}
+
+                <div class="buy__result-translation">
+                    Guests: {{PassengersData.adultCount}} {{pluralize(PassengersData.adultCount, ["adult", "adults", "adults"])}}
+                    {{#PassengersData.childCount}}
+                        and {{PassengersData.childCount}} {{pluralize(PassengersData.childCount, ["child", "children", "children"])}}
+                    {{/}}
+                </div>
+            {{/}}
+        </div>
+
+        <div class="buy__result-sum">
+            <h2 class="buy__result-sum-title">Ваш заказ на сумму {{price}}
+                {{pluralize(Price, ["рубль", "рубля","рублей"])}} оплачен.</h2>
+
+            <div class="buy__result-sum-description">Маршрутная квитанция (авиабилет) и подтверждение бронирования
+                отеля, направлены на ваш адрес электронной почты.</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-8 col-no-padding">
+            По любым вопросам, Вы можете связаться с нами по телефону<br/>
+            +7 (495) 742-12-12 или по электронной почте sale@inna.ru
+        </div>
+        <div class="col-xs-4">
+            <h2>Желаем приятного путешествия! <br/>
+                Have a nice trip!</h2>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,7 @@ var _ENV_ = process.env.NODE_ENV;
 gulp.task('build-templates', function () {
     return gulp.src([
         conf.templ + '/**/*.html',
-        conf.dest + '/js/angular/**/*.html'
+        conf.src + '/**/*.html'
     ])
         .pipe(cleanhtml())
         .pipe(templateCache({

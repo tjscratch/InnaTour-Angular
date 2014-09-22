@@ -1,4 +1,4 @@
-﻿<header class="buy__header">
+<header class="buy__header">
     <h2 class="buy__title">Оплата авиабилетов</h2>
     <a ng-if="goBackUrl().length > 0" ng-href="{{goBackUrl()}}" class="buy__title-link">Выбрать другой билет</a>
     <div class="buy__header-price">Стоимость заказа: <b>{{price| price}} <ng-include src="'components/ruble.html'" /></b></div>
@@ -35,7 +35,14 @@
                 </div>
             </div>
 
-            <div class="rlf-full-travel-time-info">в пути: {{item.TimeToFormatted}}, <span ng-if="item.ToTransferCount > 0">{{item.ToTransferCount}} {{helper.getTransferCountText(item.ToTransferCount)}}</span><span ng-if="item.ToTransferCount == 0">прямой</span></div>
+            <div class="rlf-full-travel-time-info">
+	            в пути: {{item.TimeToFormatted}},
+	            <span ng-if="item.ToTransferCount > 0">
+		            {{item.ToTransferCount}}
+		            {{item.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+	            </span>
+	            <span ng-if="item.ToTransferCount == 0">прямой</span>
+            </div>
         </div>
 
         <div class="rlf-fly rlf-fly_back" ng-if="item.EtapsBack.length > 0">
@@ -44,7 +51,7 @@
                 <div class="col-xs-5 col-no-padding row-fluid__cell">
                     <div class="rlf__flight-block">
                         <b>{{item.BackDepartureTimeFormatted}}</b> {{item.BackDepartureDateFormatted}}<br>
-                        <b>{{item.AirportTo}}</b> {{item.InCode}}
+                        <b>{{item.AirportFromBack}}</b> {{item.OutCodeBack}}
 
                     </div>
                 </div>
@@ -54,12 +61,19 @@
                 <div class="col-xs-5 col-no-padding row-fluid__cell">
                     <div class="rlf__flight-block">
                         <b>{{item.BackArrivalTimeFormatted}}</b> {{item.BackArrivalDateFormatted}}<br>
-                        <b>{{item.AirportFrom}}</b> {{item.OutCode}}
+                        <b>{{item.AirportToBack}}</b> {{item.InCodeBack}}
                     </div>
                 </div>
             </div>
 
-            <div class="rlf-full-travel-time-info">в пути: {{item.TimeBackFormatted}}, <span ng-if="item.BackTransferCount > 0">{{item.BackTransferCount}} {{helper.getTransferCountText(item.BackTransferCount)}}</span><span ng-if="item.BackTransferCount == 0">прямой</span></div>
+            <div class="rlf-full-travel-time-info">
+	            в пути: {{item.TimeBackFormatted}},
+	            <span ng-if="item.BackTransferCount > 0">
+		            {{item.BackTransferCount}}
+		            {{item.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
+	            </span>
+	            <span ng-if="item.BackTransferCount == 0">прямой</span>
+            </div>
         </div>
 
         <div class="rlf-fly rlf-fly_back rlf__oneway" ng-if="!(item.EtapsBack.length > 0)">

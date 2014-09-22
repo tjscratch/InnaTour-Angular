@@ -1,0 +1,416 @@
+.ui-icon-circle-triangle-w, .ui-icon-circle-triangle-e
+    background #e6e7e9
+    border-radius(2px)
+    height 35px
+    position relative
+    overflow visible
+    width 35px
+
+    &:hover
+        background #89c13a
+
+    &:before
+        color #fff
+
+    &:before
+      position: absolute
+      left 50%
+      top 50%
+      margin -4px 0 0 -2px
+
+
+
+
+.ui-icon-circle-triangle-w, .ui-icon-circle-triangle-e
+    &:before
+      content ''
+      width 0
+      height 0
+      border-style solid
+
+
+.ui-icon-circle-triangle-w
+  &:before
+    border-width 4.5px 5px 4.5px 0
+    border-color transparent #000 transparent transparent
+
+  &:hover
+    &:before
+      border-color transparent #fff transparent transparent
+
+.ui-icon-circle-triangle-e
+  &:before
+    border-width 4.5px 0 4.5px 5px
+    border-color transparent transparent transparent #000
+
+  &:hover
+    &:before
+      border-color transparent transparent transparent #fff
+
+
+
+.ui-datepicker
+    background #fff
+    box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+    color #292929
+    font-family $ProximaNovaLight
+    padding 10px
+
+    table
+        border-collapse separate
+        border-spacing 3px
+
+.search-ticket-form .ui-datepicker
+    width 650px !important
+    z-index 99 !important
+    left 50% !important
+    margin-left -350px !important
+    top 48px !important
+
+.dtpk-head
+    border-bottom 1px solid #c0c0c2
+    padding 0 0 12px
+    margin 0 0 18px
+    overflow hidden
+
+.dtpk-caption
+    font bold 14px $ProximaNova
+    float left
+
+.dtpk-checkbox-label
+    color #242424
+    font-size 14px
+    line-height 19px
+    float right
+    margin 0 0 0 30px
+
+.dtpk-checkbox
+    border 2px solid #89c13a
+    background #fff
+    display inline-block
+    height 20px
+    margin-right 9px
+    vertical-align top
+    width 20px
+    border-radius 3px
+    box-sizing border-box
+
+.dtpk-checkbox-label input
+    display none
+
+.dtpk-checkbox-label input:checked + .dtpk-checkbox, .dtpk-checked
+    background url(/spa/img/i.png) no-repeat 2px -589px #89c13a
+
+
+.ui-datepicker .ui-datepicker-header
+    margin-top 8px
+
+.ui-datepicker .ui-datepicker-prev
+.ui-datepicker .ui-datepicker-prev-hover
+    left -5px
+    top 0
+
+.ui-datepicker .ui-datepicker-next
+.ui-datepicker .ui-datepicker-next-hover
+    right 15px
+    top 0
+
+.ui-datepicker-title
+    font-size 20px
+    margin 0 0 6px
+
+.ui-datepicker-calendar th
+    color #666
+    font-size 10px
+    text-transform uppercase
+    padding-top 12px
+
+.ui-datepicker-calendar th.ui-datepicker-week-end
+    color #dd3e14
+
+.ui-datepicker-calendar td
+    font-size 20px
+
+.ui-datepicker table
+    margin 0
+    width auto
+
+.ui-datepicker td
+    padding 0
+
+.ui-datepicker td a
+.ui-datepicker td span
+    border 2px solid transparent
+    height 31px
+    line-height 31px
+    display block
+    width 31px
+    display inline-block
+
+.ui-datepicker td.ui-datepicker-week-end span
+    color #ff5c5c
+
+.ui-datepicker td.ui-datepicker-week-end a
+    color #ff5c5c
+
+.ui-datepicker td.ui-datepicker-today a
+.ui-datepicker td.ui-datepicker-today span
+    border-color #ff5c5c
+
+.ui-datepicker td a
+    color #000
+    padding 0
+    text-align center
+
+.ui-datepicker td a.ui-state-active
+.ui-datepicker td a.ui-state-hover
+    background #89c13a
+    color #fff
+
+.ui-datepicker td span
+    padding 0
+    text-align center
+
+.ui-datepicker-unselectable
+    color #acacac
+
+.search-ticket-form .ui-datepicker
+    position absolute !important
+
+
+// New DatePicker
+.datepickerBorderT
+.datepickerBorderB
+.datepickerBorderL
+.datepickerBorderR
+.datepickerBorderTL
+.datepickerBorderTR
+.datepickerBorderBL
+.datepickerBorderBR
+    display none
+
+.datepickerContainer
+    background #fff
+    padding 14px 7px
+    font-family $ProximaNova
+    box-shadow 0 5px 10px rgba(50, 50, 50, 0.25)
+    margin-top 1px
+
+.datepickerDays a
+    border 3px solid transparent
+    height 28px
+    display block
+    width 27px
+    margin 2px
+    font 20px/28px $ProximaNovaLight
+    text-align center
+    color #292929 !important
+
+    &:hover
+        background #89C13A
+        color #fff !important
+        text-decoration none
+
+.datePicker-unavailable a
+    color #ACACAC !important
+
+.datepickerSaturday a
+.datepickerSunday a
+    color #FF5C5C !important
+
+.datepickerDoW span
+    color #666
+    font-size 14px
+    text-transform lowercase
+    text-align center
+    display block
+    padding-bottom 6px
+    padding-top 6px
+    font-weight normal
+
+.datepickerDoW th:nth-child(6) span
+.datepickerDoW th:nth-child(7) span
+    color #dd3e14 !important
+
+.datepickerSelected
+    background none !important
+
+.datepickerSelected a
+    background #e7f3d8
+
+.datepickerMonth span
+    font 20px $ProximaNovaLight
+    color #292929
+    display block
+
+.datepickerMonth a
+    margin 6px 0 15px !important
+
+.datepickerGoPrev a
+.datepickerGoNext a
+    height 35px
+    width 35px
+    display block
+    font-size 0
+    top -3px
+    position relative
+    cursor pointer
+    border-radius 3px
+    background #e6e7e9
+
+    &:hover
+        background #89c13a
+
+.datepickerGoNext__disabled
+.datepickerGoPrev__disabled
+    visibility hidden
+
+.datepickerGoPrev a
+    margin-left 8px
+
+    &:before
+        content ''
+        display block
+        width 5px
+        height 9px
+        position absolute
+        left 14px
+        top 13px
+        background url(/spa/img/i.png) no-repeat 0 -2113px
+
+    &:hover:before
+        background-position 0 -2139px
+
+.datepickerGoNext a
+    margin-right 8px
+
+    &:before
+        content ''
+        display block
+        width 5px
+        height 9px
+        position absolute
+        left 16px
+        top 13px
+        background url(/spa/img/i.png) no-repeat 0 -2126px
+
+    &:hover:before
+        background-position 0 -2155px
+
+.datePicker-today a
+    border-color #89C13A
+
+.datepickerSelected-start a
+.datepickerSelected-end a
+    background #89c13a
+    color #fff !important
+    position relative
+
+.datepickerSelected-start a span
+.datepickerSelected-end a span
+    position absolute
+    font 14px $ProximaNova
+    right 1px
+    top 1px
+    letter-spacing -.025em
+    line-height 1
+
+.datepickerSelected-start a:before
+.datepickerSelected-end a:before
+    display block
+    content ''
+    width 16px
+    height 15px
+    position absolute
+    left 0
+    bottom 0
+    background url(/spa/img/i.png) no-repeat
+
+.datepickerSelected-start a:before
+    background-position 0 -2057px
+
+.datepickerSelected-end a:before
+    background-position 0 -2088px
+
+.datepickerSelected-start.datepickerSelected-end a:before
+    display block
+    content ''
+    width 30px
+    height 13px
+    position absolute
+    left 0
+    bottom 0
+    background url(/spa/img/1day.png) no-repeat
+
+.datepicker-body
+    position absolute
+    z-index 900
+
+.datepickerDisabled a
+    color #ACACAC !important
+
+    &:hover
+        background none !important
+        color #ACACAC !important
+
+.datepickerNotInMonth a
+    opacity 0
+
+.datepickerDisabled.datepickerSaturday a
+.datepickerDisabled.datepickerSunday a
+    color #FFA3A3 !important
+
+.datepickerSpace div
+    width 38px
+
+.datepickerViewDays
+    table-layout: fixed;
+
+    td
+        width 37px
+
+
+
+
+.no-select
+  user-select: none;
+
+.ui-tooltip
+  background-color: #de0000;
+  z-index: 10;
+
+.ui-tooltip:before
+  border-color: transparent transparent #de0000 transparent;
+
+
+.b-wrapp_type_inline .search-date,
+.b-wrapp_type_inline .search-field
+  height: 48px;
+
+
+.datepickerMonths, .datepickerYears
+  display: none;
+
+.datepickerNotInMonth
+  height: 1px;
+
+
+.datepickerNotInMonth *
+  display: none !important;
+
+
+.calendar
+  vertical-align: top;
+
+
+.calendar-0 .datepickerGoNext *,
+.calendar-1 .datepickerGoPrev *
+  display: none;
+
+
+.dp-head-cont
+  border-top: 1px solid #c0c0c2;
+  background-color: #fff;
+  margin: 0px 0px -1px 0;
+  padding: 10px 0px 0 0;
+  box-shadow: 0 5px 10px rgba(50, 50, 50, .25);

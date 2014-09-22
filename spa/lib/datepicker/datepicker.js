@@ -15,18 +15,18 @@
 				days: 'datepickerViewDays'
 			},
 			tpl = {
-				wrapper: '<div class="datepicker"><div class="datepickerBorderT" /><div class="datepickerBorderB" /><div class="datepickerBorderL" /><div class="datepickerBorderR" /><div class="datepickerBorderTL" /><div class="datepickerBorderTR" /><div class="datepickerBorderBL" /><div class="datepickerBorderBR" /><div class="datepickerContainer"><table cellspacing="0" cellpadding="0"><tbody><tr></tr></tbody></table></div></div>',
+				wrapper: '<div class="datepicker"><div class="datepickerContainer"><table cellspacing="0" cellpadding="0"><tbody><tr></tr></tbody></table></div></div>',
 				head: [
-					'<td>',
-					'<table cellspacing="0" cellpadding="0">',
+					'<td class="calendar calendar-<%=calendarNo%>">',
+					'<table cellspacing="0" cellpadding="0" border="0" width="<%=37*7%>">',
+                        '<col width="37"/><col width="37"/><col width="37"/><col width="37"/><col width="37"/><col width="37"/><col width="37"/>',
 						'<thead>',
 							'<tr>',
 								'<th class="datepickerGoPrev"><a href="#"><span><%=prev%></span></a></th>',
-								'<th colspan="6" class="datepickerMonth"><a href="#"><span></span></a></th>',
+								'<th colspan="5" class="datepickerMonth"><span></span></th>',
 								'<th class="datepickerGoNext"><a href="#"><span><%=next%></span></a></th>',
 							'</tr>',
 							'<tr class="datepickerDoW">',
-								'<th><span><%=week%></span></th>',
 								'<th><span><%=day1%></span></th>',
 								'<th><span><%=day2%></span></th>',
 								'<th><span><%=day3%></span></th>',
@@ -41,66 +41,13 @@
 				space : '<td class="datepickerSpace"><div></div></td>',
 				days: [
 					'<tbody class="datepickerDays">',
-						'<tr>',
-							'<th class="datepickerWeek"><a href="#"><span><%=weeks[0].week%></span></a></th>',
-							'<td class="<%=weeks[0].days[0].classname%>"><a href="#"><span><%=weeks[0].days[0].text%></span></a></td>',
-							'<td class="<%=weeks[0].days[1].classname%>"><a href="#"><span><%=weeks[0].days[1].text%></span></a></td>',
-							'<td class="<%=weeks[0].days[2].classname%>"><a href="#"><span><%=weeks[0].days[2].text%></span></a></td>',
-							'<td class="<%=weeks[0].days[3].classname%>"><a href="#"><span><%=weeks[0].days[3].text%></span></a></td>',
-							'<td class="<%=weeks[0].days[4].classname%>"><a href="#"><span><%=weeks[0].days[4].text%></span></a></td>',
-							'<td class="<%=weeks[0].days[5].classname%>"><a href="#"><span><%=weeks[0].days[5].text%></span></a></td>',
-							'<td class="<%=weeks[0].days[6].classname%>"><a href="#"><span><%=weeks[0].days[6].text%></span></a></td>',
-						'</tr>',
-						'<tr>',
-							'<th class="datepickerWeek"><a href="#"><span><%=weeks[1].week%></span></a></th>',
-							'<td class="<%=weeks[1].days[0].classname%>"><a href="#"><span><%=weeks[1].days[0].text%></span></a></td>',
-							'<td class="<%=weeks[1].days[1].classname%>"><a href="#"><span><%=weeks[1].days[1].text%></span></a></td>',
-							'<td class="<%=weeks[1].days[2].classname%>"><a href="#"><span><%=weeks[1].days[2].text%></span></a></td>',
-							'<td class="<%=weeks[1].days[3].classname%>"><a href="#"><span><%=weeks[1].days[3].text%></span></a></td>',
-							'<td class="<%=weeks[1].days[4].classname%>"><a href="#"><span><%=weeks[1].days[4].text%></span></a></td>',
-							'<td class="<%=weeks[1].days[5].classname%>"><a href="#"><span><%=weeks[1].days[5].text%></span></a></td>',
-							'<td class="<%=weeks[1].days[6].classname%>"><a href="#"><span><%=weeks[1].days[6].text%></span></a></td>',
-						'</tr>',
-						'<tr>',
-							'<th class="datepickerWeek"><a href="#"><span><%=weeks[2].week%></span></a></th>',
-							'<td class="<%=weeks[2].days[0].classname%>"><a href="#"><span><%=weeks[2].days[0].text%></span></a></td>',
-							'<td class="<%=weeks[2].days[1].classname%>"><a href="#"><span><%=weeks[2].days[1].text%></span></a></td>',
-							'<td class="<%=weeks[2].days[2].classname%>"><a href="#"><span><%=weeks[2].days[2].text%></span></a></td>',
-							'<td class="<%=weeks[2].days[3].classname%>"><a href="#"><span><%=weeks[2].days[3].text%></span></a></td>',
-							'<td class="<%=weeks[2].days[4].classname%>"><a href="#"><span><%=weeks[2].days[4].text%></span></a></td>',
-							'<td class="<%=weeks[2].days[5].classname%>"><a href="#"><span><%=weeks[2].days[5].text%></span></a></td>',
-							'<td class="<%=weeks[2].days[6].classname%>"><a href="#"><span><%=weeks[2].days[6].text%></span></a></td>',
-						'</tr>',
-						'<tr>',
-							'<th class="datepickerWeek"><a href="#"><span><%=weeks[3].week%></span></a></th>',
-							'<td class="<%=weeks[3].days[0].classname%>"><a href="#"><span><%=weeks[3].days[0].text%></span></a></td>',
-							'<td class="<%=weeks[3].days[1].classname%>"><a href="#"><span><%=weeks[3].days[1].text%></span></a></td>',
-							'<td class="<%=weeks[3].days[2].classname%>"><a href="#"><span><%=weeks[3].days[2].text%></span></a></td>',
-							'<td class="<%=weeks[3].days[3].classname%>"><a href="#"><span><%=weeks[3].days[3].text%></span></a></td>',
-							'<td class="<%=weeks[3].days[4].classname%>"><a href="#"><span><%=weeks[3].days[4].text%></span></a></td>',
-							'<td class="<%=weeks[3].days[5].classname%>"><a href="#"><span><%=weeks[3].days[5].text%></span></a></td>',
-							'<td class="<%=weeks[3].days[6].classname%>"><a href="#"><span><%=weeks[3].days[6].text%></span></a></td>',
-						'</tr>',
-						'<tr>',
-							'<th class="datepickerWeek"><a href="#"><span><%=weeks[4].week%></span></a></th>',
-							'<td class="<%=weeks[4].days[0].classname%>"><a href="#"><span><%=weeks[4].days[0].text%></span></a></td>',
-							'<td class="<%=weeks[4].days[1].classname%>"><a href="#"><span><%=weeks[4].days[1].text%></span></a></td>',
-							'<td class="<%=weeks[4].days[2].classname%>"><a href="#"><span><%=weeks[4].days[2].text%></span></a></td>',
-							'<td class="<%=weeks[4].days[3].classname%>"><a href="#"><span><%=weeks[4].days[3].text%></span></a></td>',
-							'<td class="<%=weeks[4].days[4].classname%>"><a href="#"><span><%=weeks[4].days[4].text%></span></a></td>',
-							'<td class="<%=weeks[4].days[5].classname%>"><a href="#"><span><%=weeks[4].days[5].text%></span></a></td>',
-							'<td class="<%=weeks[4].days[6].classname%>"><a href="#"><span><%=weeks[4].days[6].text%></span></a></td>',
-						'</tr>',
-						'<tr>',
-							'<th class="datepickerWeek"><a href="#"><span><%=weeks[5].week%></span></a></th>',
-							'<td class="<%=weeks[5].days[0].classname%>"><a href="#"><span><%=weeks[5].days[0].text%></span></a></td>',
-							'<td class="<%=weeks[5].days[1].classname%>"><a href="#"><span><%=weeks[5].days[1].text%></span></a></td>',
-							'<td class="<%=weeks[5].days[2].classname%>"><a href="#"><span><%=weeks[5].days[2].text%></span></a></td>',
-							'<td class="<%=weeks[5].days[3].classname%>"><a href="#"><span><%=weeks[5].days[3].text%></span></a></td>',
-							'<td class="<%=weeks[5].days[4].classname%>"><a href="#"><span><%=weeks[5].days[4].text%></span></a></td>',
-							'<td class="<%=weeks[5].days[5].classname%>"><a href="#"><span><%=weeks[5].days[5].text%></span></a></td>',
-							'<td class="<%=weeks[5].days[6].classname%>"><a href="#"><span><%=weeks[5].days[6].text%></span></a></td>',
-						'</tr>',
+                        '<% for(var i = 0, week = null; week = weeks[i++];) { %>',
+                            '<tr>',
+                                '<% for(var j = 0, day = null; day = week.days[j++];) { %>',
+                                    '<td class="<%=day.classname%>"><a href="#"><span><%=day.text%></span></a></td>',
+                                '<% } %>',
+                            '</tr>',
+                        '<% } %>',
 					'</tbody>'
 				],
 				months: [
@@ -144,11 +91,11 @@
 				onBeforeShow: function(){return true;},
 				onHide: function(){return true;},
 				locale: {
-					days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-					daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-					daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-					months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-					monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
+					daysShort: ["вс", "пн", "вт", "ср", "чт", "пт", "сб", "вс"],
+					daysMin: ["вс", "пн", "вт", "ср", "чт", "пт", "сб", "вс"],
+					months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+					monthsShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
 					weekMin: 'wk'
 				}
 			},
@@ -156,14 +103,18 @@
 				var options = $(el).data('datepicker');
 				var cal = $(el);
 				var currentCal = Math.floor(options.calendars/2), date, data, dow, month, cnt = 0, week, days, indic, indic2, html, tblCal;
+
+                var today = new Date();
+                today.setHours(0, 0, 0, 0);
+
 				cal.find('td>table tbody').remove();
 				for (var i = 0; i < options.calendars; i++) {
 					date = new Date(options.current);
-					date.addMonths(-currentCal + i);
+					date.addMonths(i);
 					tblCal = cal.find('table').eq(i+1);
 					switch (tblCal[0].className) {
 						case 'datepickerViewDays':
-							dow = formatDate(date, 'B, Y');
+							dow = formatDate(date, 'B Y');
 							break;
 						case 'datepickerViewMonths':
 							dow = date.getFullYear();
@@ -171,8 +122,27 @@
 						case 'datepickerViewYears':
 							dow = (date.getFullYear()-6) + ' - ' + (date.getFullYear()+5);
 							break;
-					} 
+					}
 					tblCal.find('thead tr:first th:eq(1) span').text(dow);
+
+                    if(options.limits) {
+                        var nextBtn = tblCal.find('.datepickerGoNext');
+                        var prevBtn = tblCal.find('.datepickerGoPrev');
+
+                        if(date <= options.limits[0]) {
+                            prevBtn.addClass('datepickerGoPrev__disabled');
+                        } else {
+                            prevBtn.removeClass('datepickerGoPrev__disabled');
+                        }
+
+                        if(date >= options.limits[1]) {
+                            nextBtn.addClass('datepickerGoNext__disabled');
+                        } else {
+                            nextBtn.removeClass('datepickerGoNext__disabled');
+                        }
+                    }
+
+
 					dow = date.getFullYear()-6;
 					data = {
 						data: [],
@@ -203,6 +173,7 @@
 							text: date.getDate(),
 							classname: []
 						};
+
 						if (month != date.getMonth()) {
 							data.weeks[indic].days[indic2].classname.push('datepickerNotInMonth');
 						}
@@ -217,12 +188,31 @@
 						if (fromUser.selected || options.date == val || $.inArray(val, options.date) > -1 || (options.mode == 'range' && val >= options.date[0] && val <= options.date[1])) {
 							data.weeks[indic].days[indic2].classname.push('datepickerSelected');
 						}
+						if (options.initDateToIsSet && options.mode == 'range' && options.date[0] == val) {
+                            data.weeks[indic].days[indic2].classname.push('datepickerSelected-start');
+                        }
+                        if(options.mode == 'range'){
+                            var endDate = new Date(options.date[1]);
+                            endDate.setHours(0);
+                            endDate.setMinutes(0);
+                            endDate.setSeconds(0);
+                            if (options.initDateFromIsSet && +endDate == val) {
+                                data.weeks[indic].days[indic2].classname.push('datepickerSelected-end');
+                            }
+                        }
 						if (fromUser.disabled) {
 							data.weeks[indic].days[indic2].classname.push('datepickerDisabled');
 						}
 						if (fromUser.className) {
 							data.weeks[indic].days[indic2].classname.push(fromUser.className);
 						}
+                        if(date.getDate() == today.getDate() && date.getMonth() == today.getMonth() && date.getYear() == today.getYear()) {
+                            data.weeks[indic].days[indic2].classname.push('datePicker-today');
+                        }
+                        if(+date < +today || (options.limits && +options.limits[1] <= +date)) {
+                            data.weeks[indic].days[indic2].classname.push('datePicker-unavailable');
+                            data.weeks[indic].days[indic2].classname.push('datepickerDisabled');
+                        }
 						data.weeks[indic].days[indic2].classname = data.weeks[indic].days[indic2].classname.join(' ');
 						cnt++;
 						date.addDays(1);
@@ -442,20 +432,15 @@
 			layout = function (el) {
 				var options = $(el).data('datepicker');
 				var cal = $('#' + options.id);
-				if (!options.extraHeight) {
-					var divs = $(el).find('div');
-					options.extraHeight = divs.get(0).offsetHeight + divs.get(1).offsetHeight;
-					options.extraWidth = divs.get(2).offsetWidth + divs.get(3).offsetWidth;
-				}
 				var tbl = cal.find('table:first').get(0);
 				var width = tbl.offsetWidth;
 				var height = tbl.offsetHeight;
 				cal.css({
 					width: width + options.extraWidth + 'px',
-					height: height + options.extraHeight + 'px'
+					//height: height + options.extraHeight + 'px'
 				}).find('div.datepickerContainer').css({
 					width: width + 'px',
-					height: height + 'px'
+					//height: height + 'px'
 				});
 			},
 			click = function(ev) {
@@ -503,7 +488,7 @@
 									break;
 								case 'datepickerViewYears':
 									tblEl.get(0).className = 'datepickerViewDays';
-									el.find('span').text(formatDate(tmp, 'B, Y'));
+									el.find('span').text(formatDate(tmp, 'B Y'));
 									break;
 							}
 						} else if (parentEl.parent().parent().is('thead')) {
@@ -534,7 +519,7 @@
 								break;
 							default:
 								var val = parseInt(el.text(), 10);
-								tmp.addMonths(tblIndex - Math.floor(options.calendars/2));
+								tmp.addMonths(tblIndex);
 								if (parentEl.hasClass('datepickerNotInMonth')) {
 									tmp.addMonths(val > 15 ? -1 : 1);
 								}
@@ -554,16 +539,28 @@
 										}
 										break;
 									case 'range':
-										if (!options.lastSel) {
-											options.date[0] = (tmp.setHours(0,0,0,0)).valueOf();
-										}
-										val = (tmp.setHours(23,59,59,0)).valueOf();
-										if (val < options.date[0]) {
-											options.date[1] = options.date[0] + 86399000;
-											options.date[0] = val - 86399000;
-										} else {
-											options.date[1] = val;
-										}
+									    if (!options.lastSel) {
+                                            //ставим дату от
+									        options.date[0] = (tmp.setHours(0, 0, 0, 0)).valueOf();
+									        options.initDateToIsSet = true;
+									        //если дата до < даты от - сбрасываем ее
+									        if (options.date[1] < options.date[0]) {
+									            options.date[1] = null;
+									        }
+									    }
+									    else {
+									        options.date[1] = (tmp.setHours(0, 0, 0, 0)).valueOf();
+									        options.initDateToIsSet = true;
+									        options.initDateFromIsSet = true;
+									        //если дата до < даты от
+									        if (options.date[1] < options.date[0]) {
+									            //меняем даты местами
+									            var tValue = options.date[0];
+									            options.date[0] = options.date[1];
+									            options.date[1] = tValue;
+									        }
+									    }
+
 										options.lastSel = !options.lastSel;
 										break;
 									default:
@@ -579,7 +576,7 @@
 						fill(this);
 					}
 					if (changed) {
-						options.onChange.apply(this, prepareDate(options));
+					    options.onChange.apply(this, prepareDate(options));
 					}
 				}
 				return false;
@@ -590,7 +587,9 @@
 					tmp = new Date(options.date);
 					return [formatDate(tmp, options.format), tmp, options.el];
 				} else {
-					tmp = [[],[], options.el];
+				    //!options.lastSel - потому что после клика он инвертируется
+				    //options.lastSel == true - выбрана дата до, false - дата от
+				    tmp = [[], [], options.el, !options.lastSel, options.initDateFromIsSet];
 					$.each(options.date, function(nr, val){
 						var date = new Date(val);
 						tmp[0].push(formatDate(date, options.format));
@@ -690,9 +689,10 @@
 					$(document).unbind('mousedown', hide);
 				}
 			};
+
 		return {
 			init: function(options){
-				options = $.extend({}, defaults, options||{});
+			    options = $.extend({}, defaults, options || {});
 				extendDate(options.locale);
 				options.calendars = Math.max(1, parseInt(options.calendars,10)||1);
 				options.mode = /single|multiple|range/.test(options.mode) ? options.mode : 'single';
@@ -741,6 +741,7 @@
 								html += tpl.space;
 							}
 							html += tmpl(tpl.head.join(''), {
+                                    calendarNo: i,
 									week: options.locale.weekMin,
 									prev: options.prev,
 									next: options.next,
@@ -842,6 +843,15 @@
 						}
 					}
 				});
+			},
+			setLastSel: function (lastSelValue) {
+			    return this.each(function () {
+			        if ($(this).data('datepickerId')) {
+			            var cal = $('#' + $(this).data('datepickerId'));
+			            var options = cal.data('datepicker');
+			            options.lastSel = lastSelValue;
+			        }
+			    });
 			}
 		};
 	}();
@@ -852,7 +862,8 @@
 		DatePickerSetDate: DatePicker.setDate,
 		DatePickerGetDate: DatePicker.getDate,
 		DatePickerClear: DatePicker.clear,
-		DatePickerLayout: DatePicker.fixLayout
+		DatePickerLayout: DatePicker.fixLayout,
+		SetLastSel: DatePicker.setLastSel
 	});
 })(jQuery);
 

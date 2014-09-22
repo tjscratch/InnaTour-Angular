@@ -5,7 +5,7 @@
          ng-click="popupItemInfo_show($event, item, criteria, searchId)">
 
         <span ng-if="item.transportersList.length <= 3" class="result-cell__airlines">
-            <span ng-repeat="tr in item.transportersList">
+            <span ng-repeat="tr in item.transportersList" class="rl-airline__item">
                 <img ng-src="{{tr.logoUrl}}" alt="" class="logo">
                 <span class="rl-airline-text">{{tr.name}}</span>
             </span>
@@ -30,7 +30,8 @@
                 <div class="rl-travel-time ">
                     в пути: {{item.TimeToFormatted}}<br>
                     <span ng-if="item.ToTransferCount > 0">
-                        {{item.ToTransferCount}} {{getTransferCountText(item.ToTransferCount)}}
+                        {{item.ToTransferCount}}
+	                    {{item.ToTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
                     </span>
                     <span ng-if="item.ToTransferCount == 0">прямой</span>
                 </div>
@@ -48,14 +49,15 @@
                 <div class="rl-fly ">
                     <div class="rlf-flight-info">
                         <b>{{item.BackDepartureTimeFormatted}}</b>, {{item.BackDepartureDateFormatted}}<br>
-                        <span title="{{item.AirportTo}}">{{item.AirportTo  | limitFilter:16}} {{item.InCode}}</span>
+                        <span title="{{item.AirportFromBack}}">{{item.AirportFromBack  | limitFilter:16}} {{item.OutCodeBack}}</span>
                     </div>
                 </div>
 
                 <div class="rl-travel-time ">
                     в пути: {{item.TimeBackFormatted}}<br>
                     <span ng-if="item.BackTransferCount > 0">
-                        {{item.BackTransferCount}} {{getTransferCountText(item.BackTransferCount)}}
+                        {{item.BackTransferCount}}
+	                    {{item.BackTransferCount | pluralize: ["пересадка","пересадки","пересадок"]}}
                     </span>
                     <span ng-if="item.BackTransferCount == 0">прямой</span>
                 </div>
@@ -65,7 +67,7 @@
                         <b>{{item.BackArrivalTimeFormatted}}</b>, {{item.BackArrivalDateFormatted}}<br>
                         {{ (_etapsBack = item.EtapsBack) ? "" : "" }}
                         {{ (_lastEtapBack = _etapsBack[_etapsBack.length - 1]) ? "" : "" }}
-                        <span title="{{item.AirportFrom}}">{{[_lastEtapBack.InPort, _lastEtapBack.InCode].join(" ") | limitFilter:14}}</span>
+                        <span title="{{item.AirportToBack}}">{{[_lastEtapBack.InPort, _lastEtapBack.InCode].join(" ") | limitFilter:14}}</span>
                     </div>
                 </div>
 
@@ -99,7 +101,8 @@
         </span>
         
         <!-- tooltip price -->
-        <div tooltip-price-generic items="item.PriceDetailsTooltipData" ng-if="isAgency()"></div>
+
+        <div class="js-price-generic-container" ng-if="isAgency()"></div>
         
         <span class="button" ng-click="goToPaymentClick($event, item)">Купить</span>
     </div>

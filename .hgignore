@@ -37,6 +37,7 @@ bin/*
 *.log
 *.idea
 .git
+.gitignore
 *.DS_Store
 *.nginx_conf
 .project
@@ -51,6 +52,9 @@ spa/html/verstka_Vaneltin/img/individual/.DS_Store
 
 spa/uploads/maket_photos/Thumbs.db
 
+*-stub.json
+koa.js
+
 spa/js/debug.js
 spa/*.sh
 
@@ -64,11 +68,9 @@ publish
 spa/img/sprites/*.json
 spa/img/sprites/icon-*.png
 spa/styl/sprite.styl
-
 spa/styl/temp/*.styl
-spa/css
-spa/build
-spa/node_modules
+spa/styl/partners/**/*.css
+spa/js/**/*.css
 
 
 
