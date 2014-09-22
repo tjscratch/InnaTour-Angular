@@ -61,7 +61,10 @@
 
     <div class="search-form-item search-form-item_last search-form-humans" style="background: #fff;" ng-click="peopleFormClick($event)">
         <div class="search-form-item-current">
-            {{form.people.adultsCount + form.people.childsCount}} человек
+
+	        {{form.people.adultsCount + form.people.childsCount | asQuantity:"человек":"человека":"человек"}}
+	        
+            <!--{{form.people.adultsCount + form.people.childsCount}} человек-->
         </div>
         <i class="icon icon-triangle" ng-class="{bottom:!form.people.isOpen}"></i>
 
