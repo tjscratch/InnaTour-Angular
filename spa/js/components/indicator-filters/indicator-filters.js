@@ -49,7 +49,8 @@ innaAppConponents.
 
                     this.observe('filtersCollection', function(value){
                         this.set('filters', value);
-                    })
+                    });
+                    
                 },
 
                 mapLoad : function(){
