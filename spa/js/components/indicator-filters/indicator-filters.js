@@ -48,7 +48,6 @@ innaAppConponents.
 
 
                     this.observe('filtersCollection', function(value){
-                        console.info('filtersCollection', value);
                         this.set('filters', value);
                     });
                     

@@ -19,52 +19,24 @@ angular.module('innaApp.components').
                         name: 'Sort',
                         val: '',
                         defaultSort: 'byPackagePrice'
-                    },
-                    fn: function (data, component_val) {
-                        if (!data || !data.length) return false;
-
-                        var sortType = {
-                            byAgencyProfit: ['-PriceDetails.Profit'],
-                            byRecommend: ['-IsRecomendation', 'RecommendedFactor', 'DepartureDate', 'ArrivalDate'],
-                            byPrice: ['Price', 'DepartureDate', 'ArrivalDate'],
-                            byTripTime: ['TimeTo', 'Price', 'DepartureDate', 'ArrivalDate'],
-                            byDepartureDate: 'DepartureDate',
-                            byBackDepartureDate: 'BackDepartureDate',
-                            byArrivalDate: 'ArrivalDate',
-                            byBackArrivalDate: 'BackArrivalDate',
-                            byPackagePrice: 'PackagePrice',
-                            byRecommendedFactor: 'RecommendedFactor',
-                            byTaFactor: '-TaFactor',
-                            byName: 'HotelName',
-                            byProfit: '-getProfit'
-                        };
-
-
-                        var val = component_val.val;
-                        var defaultSort = component_val.defaultSort;
-                        var expression = null;
-
-                        if (val != '')
-                            expression = sortType[val];
-                        else
-                            expression = sortType[defaultSort];
-
-                        return $filter('orderBy')(data, expression);
                     }
-
                 },
                 init: function (options) {
                     this._super(options);
                     var that = this;
-                    this.SaveData = [];
+                    this.SaveData = {};
 
                     this.on({
                         onSort: function (data) {
+                            this.SaveData = data.context;
                             this.set({
                                 'current': data.context.name,
                                 'sortValue.val': data.context.value
-                            })
+                            });
+
                             this.fire('toggle');
+
+                            this._parent.fire('sortChild', this.get('sortValue'));
                             this.hasSelected();
                         },
 
@@ -81,6 +53,53 @@ angular.module('innaApp.components').
                     });
                 },
 
+                fnSort: function (data, component_val) {
+                    if (!data || !data.length) return false;
+
+                    var sortType = {
+                        byAgencyProfit: ['-PriceDetails.Profit'],
+                        byRecommend: ['-IsRecomendation', 'RecommendedFactor', 'DepartureDate', 'ArrivalDate'],
+                        byPrice: ['Price', 'DepartureDate', 'ArrivalDate'],
+                        byTripTime: ['TimeTo', 'Price', 'DepartureDate', 'ArrivalDate'],
+                        byDepartureDate: 'DepartureDate',
+                        byBackDepartureDate: 'BackDepartureDate',
+                        byArrivalDate: 'ArrivalDate',
+                        byBackArrivalDate: 'BackArrivalDate',
+                        byPackagePrice: 'PackagePrice',
+                        byRecommendedFactor: 'RecommendedFactor',
+                        byTaFactor: '-TaFactor',
+                        byName: 'HotelName',
+                        byProfit: '-getProfit'
+                    };
+
+
+                    var val = component_val.val;
+                    var defaultSort = component_val.defaultSort;
+                    var expression = null;
+
+                    if (val != '')
+                        expression = sortType[val];
+                    else
+                        expression = sortType[defaultSort];
+
+                    return $filter('orderBy')(data, expression);
+                },
+
+
+                /*mergeData: function () {
+                    var that = this;
+
+                    if (this.SaveData.value) {
+                        this.get('Sort').filter(function (item) {
+
+                            if (item.value == this.SaveData.value) {
+                                item.isChecked = true;
+                                return true;
+                            }
+                        })
+                    }
+                },*/
+
                 /**
                  * Настройка сортировки поумолчанию устанавливается
                  * в filter-settings.js
@@ -88,15 +107,13 @@ angular.module('innaApp.components').
                  */
                 sortDefault: function () {
                     var that = this;
-
-                    this.get('sort').filter(function (item) {
+                    this.get('Sort').filter(function (item) {
                         if (item.isChecked) {
                             that.set({
                                 'current': item.name,
                                 'sortValue.val': 'byPackagePrice'
-                            })
+                            });
                             that.hasSelected();
-
                             return true;
                         }
                     })

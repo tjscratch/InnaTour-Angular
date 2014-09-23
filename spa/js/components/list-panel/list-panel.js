@@ -33,7 +33,7 @@ angular.module('innaApp.components').
                 data: {
                     iterable_hotels: false,
                     iterable_tickets: false,
-                    sortComponent : null,
+
                     /*Enumerable: [],
                      combinationModel: null,*/
                     EnumerableCount: 0,
@@ -53,11 +53,13 @@ angular.module('innaApp.components').
                 init: function () {
                     var that = this;
                     this.enumerableClone = [];
+                    this.sortComponent = null;
                     this._filterTimeout = null;
                     this._scrollTimeout = null;
                     this.observeEnumerable = null;
 
-                    EventManager.fire('sort:default');
+                    this.sortComponent = new FilterSort();
+                    console.info(this.sortComponent, 'this.sortComponent');
 
                     if (this.get('iterable_hotels'))
                         this.parse(this.get('Enumerable'), { hotel: true });
@@ -88,9 +90,10 @@ angular.module('innaApp.components').
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.actualData(), data);
                         },
                         teardown: function (evt) {
-                            //console.log('teardown ListPanel');
+                            console.log('teardown ListPanel');
                             this.observeEnumerable.cancel();
-                            that.set('sortComponent', null);
+                            this.sortComponent.teardown();
+                            this.sortComponent  = null;
                             document.removeEventListener('scroll', this.eventListener);
                             clearTimeout(this._filterTimeout);
                             clearTimeout(this._scrollTimeout);
@@ -143,9 +146,7 @@ angular.module('innaApp.components').
                                 }
                             }
                         }
-                    })
-
-                    /*{defer: true, init: false}*/
+                    });
 
 
                     /**
@@ -193,8 +194,10 @@ angular.module('innaApp.components').
                 /**
                  *
                  */
-                FILTER_PANEL_SORT : function(){
+                FILTER_PANEL_SORT : function(sort_value){
                     var that = this;
+                    console.log(sort_value, "sort_value");
+                    this.set('sort_value', sort_value);
                     $timeout(function () {
                         that.cloneData(that.sorting(), true);
                     }, 0)
@@ -451,6 +454,7 @@ angular.module('innaApp.components').
                     })
 
                     setTimeout(function () {
+                        console.log('df;ghdkjfgjhdfgjkdfhgj');
                         that.cloneData(that.sorting(filteredData));
                     }, 0);
                 },
@@ -465,16 +469,6 @@ angular.module('innaApp.components').
                 sorting: function (opt_sort_data) {
                     var sortData = null;
 
-                    // определяем компонент сортировки
-                    var sortComponent =  null;
-                    if(!this.get('sortComponent')){
-                        var sort = new FilterSort();
-                        this.set('sortComponent', sort);
-                        sortComponent = sort;
-                    } else {
-                        sortComponent = this.get('sortComponent')
-                    }
-
                     // Если когда то была фильтрация, то берем и сортируем именно отфильтрованный набор
                     if (this.isFiltred())
                         sortData = this.actualData();
@@ -482,7 +476,8 @@ angular.module('innaApp.components').
                         sortData = opt_sort_data || this.actualData();
 
                     // вызываем метод сортировки из компонента sortComponent
-                    var sortResult = sortComponent.get('fn')(sortData, sortComponent.get('sortValue'));
+                    console.log(this.sortComponent.get('sortValue'), "sortComponent.get('sortValue')");
+                    var sortResult = this.sortComponent.fnSort(sortData, this.sortComponent.get('sortValue'));
 
                     return (sortResult && sortResult.length) ? sortResult : [];
                 },

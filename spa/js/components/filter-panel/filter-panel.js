@@ -101,6 +101,12 @@ angular.module('innaApp.components').
                                 this.collectChildData();
                             }
                         },
+                        sortChild: function (data) {
+                            if (data != undefined) {
+                                this.set('sortingValue', data);
+                                EventManager.fire(Events.FILTER_PANEL_SORT, data);
+                            }
+                        },
                         hide: function (evt) {
                             this.set('isVisible', false);
                         },
@@ -148,9 +154,12 @@ angular.module('innaApp.components').
                     });
 
 
-                    EventManager.on('sort:default', function () {
+
+
+                    setTimeout(function(){
                         that.findComponent('FilterSort').sortDefault();
-                    });
+                    }, 1000);
+
 
                     /**
                      * Слушаем изменение filtersData
@@ -180,6 +189,7 @@ angular.module('innaApp.components').
 
                     // если это обновление фильтров
                     this.observe('updateModel', function (value) {
+                        //EventManager.fire(Events.FILTER_PANEL_SORT, that.get('sortingValue'));
                         $timeout(function(){
                             that.collectChildData();
                         }, 500);
@@ -204,25 +214,12 @@ angular.module('innaApp.components').
                  * if(childComponent._guid != child._guid) Если событие от другого компонента
                  * то прячем попап
                  *
-                 *
-                 *  Слушаем изменения свойства value
-                 *  В нем содержится название свойства и собственно его значение
                  */
                 listenChildren: function () {
                     var that = this;
                     var childComponents = this.findAllComponents();
 
-
                     childComponents.forEach(function (child) {
-
-                        // сортировка
-                        that.observeSortValueVal = child.observe('sortValue.val', function (newValue, oldValue) {
-                            if (newValue) {
-                                // передаем компонент сортировки - далее из него возьмем функцию сортировки
-                                EventManager.fire(Events.FILTER_PANEL_SORT, child);
-                            }
-                        }, {defer: true, init: false});
-
 
                         // открытие закрытие отдельного фильтра
                         that.observeIsOpen = child.observe('isOpen', function (newValue, oldValue) {
@@ -230,7 +227,6 @@ angular.module('innaApp.components').
                                 that.fire('hide:child', child);
                             }
                         });
-
 
                         that.on('hide:child', function (childComponent) {
                             if (childComponent._guid != child._guid) {
