@@ -103,6 +103,7 @@ angular.module('innaApp.components').
                         },
                         sortChild: function (data) {
                             if (data != undefined) {
+                                console.error('d;fhjsdgfjhsdgfjhdsgf');
                                 this.set('sortingValue', data);
                                 EventManager.fire(Events.FILTER_PANEL_SORT, data);
                             }
@@ -191,7 +192,7 @@ angular.module('innaApp.components').
                     this.observe('updateModel', function (value) {
                         //EventManager.fire(Events.FILTER_PANEL_SORT, that.get('sortingValue'));
                         $timeout(function(){
-                            that.collectChildData();
+                            that.collectChildData(true);
                         }, 500);
                     }, {init: false});
                 },
@@ -241,8 +242,10 @@ angular.module('innaApp.components').
                  * собираем данные для фильтрации
                  * также собираем объекты компонентов которые изменились
                  * обновляем массив filtersCollection
+                 *
+                 * @param {Boolean} opt_param - при сохранении фильтров не нужно делать reset
                  */
-                collectChildData: function () {
+                collectChildData: function (opt_param) {
                     var that = this;
                     var tempArr = [];
 
@@ -254,12 +257,15 @@ angular.module('innaApp.components').
 
                     this.merge('filtersCollection', tempArr);
 
+
                     if (this.get('filtersCollection').length) {
                         EventManager.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
                         this.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
                     } else {
-                        EventManager.fire(Events.FILTER_PANEL_RESET);
-                        this.fire(Events.FILTER_PANEL_RESET);
+                        if(!opt_param) {
+                            EventManager.fire(Events.FILTER_PANEL_RESET);
+                            this.fire(Events.FILTER_PANEL_RESET);
+                        }
                     }
                 },
 

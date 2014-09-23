@@ -59,7 +59,7 @@ angular.module('innaApp.components').
                     this.observeEnumerable = null;
 
                     this.sortComponent = new FilterSort();
-                    console.info(this.sortComponent, 'this.sortComponent');
+                    console.log(this.sortComponent, "this.sortComponent");
 
                     if (this.get('iterable_hotels'))
                         this.parse(this.get('Enumerable'), { hotel: true });
@@ -114,8 +114,7 @@ angular.module('innaApp.components').
                     this.observeEnumerable =  this.observe({
                         Enumerable: function (newValue, oldValue, keypath) {
                             if (newValue) {
-                                //console.log(that.get('combinationModel'), "that.get('combinationModel')");
-
+                                // определяем компонент сортировки
                                 this.cloneData(this.sorting());
                                 //this.set({waitData: false})
                             }
@@ -146,7 +145,7 @@ angular.module('innaApp.components').
                                 }
                             }
                         }
-                    });
+                    }, {defer: true});
 
 
                     /**
@@ -167,16 +166,12 @@ angular.module('innaApp.components').
                 },
 
                 /**
-                 * выполняем фильтрацию не чаще 100ms
-                 * защита от слишком частого нажатия на кнопки фильтрации
+                 * выполняем фильтрацию
                  * @param data
                  */
                 FILTER_PANEL_CHANGE : function(data){
                     var that = this;
-                    clearTimeout(that._filterTimeout);
-                    that._filterTimeout = $timeout(function () {
-                        that.doFilter(that.get('Enumerable'), data);
-                    }, 100);
+                    that.doFilter(that.get('Enumerable'), data);
                 },
 
                 /**
@@ -196,8 +191,7 @@ angular.module('innaApp.components').
                  */
                 FILTER_PANEL_SORT : function(sort_value){
                     var that = this;
-                    console.log(sort_value, "sort_value");
-                    this.set('sort_value', sort_value);
+                    this.sortComponent.set('sortValue', sort_value);
                     $timeout(function () {
                         that.cloneData(that.sorting(), true);
                     }, 0)
@@ -454,7 +448,6 @@ angular.module('innaApp.components').
                     })
 
                     setTimeout(function () {
-                        console.log('df;ghdkjfgjhdfgjkdfhgj');
                         that.cloneData(that.sorting(filteredData));
                     }, 0);
                 },
