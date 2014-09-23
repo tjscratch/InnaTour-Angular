@@ -21,8 +21,6 @@ angular.module('innaApp.directives')
                         $scope.isAdv = null;
                         $scope.isVisible = false;
 
-                        determine();
-
                         $scope.$on('$locationChangeSuccess', function () {
                             determine();
                         });
@@ -59,6 +57,9 @@ angular.module('innaApp.directives')
                             $event.stopPropagation();
                             $scope.isVisible = false;
                             $scope.isAdv = false;
+                            delete $location.$$search.tourist;
+                            $location.$$compose();
+
                             $('#injectStyleAdv').remove();
                             $cookieStore.remove('ADV_VISIBLE');
                             $cookieStore.put('ADV_NOT_VISIBLE', true);
