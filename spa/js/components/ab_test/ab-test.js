@@ -31,9 +31,10 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
         angular.element("body").addClass("ab2");
         window.onscroll = function () {
             var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-            console.log(scrolled)
             if (scrolled > 25) {
                 angular.element("body").removeClass("ab2");
+            }else{
+                angular.element("body").addClass("ab2");
             }
         }
     }
@@ -59,6 +60,9 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
             default:
                 angular.element("body").removeClass("ab2");
                 $rootScope.ABTest2 = false;
+                window.onscroll = function () {
+                    angular.element("body").removeClass("ab2");
+                }
                 break;
         }
 
