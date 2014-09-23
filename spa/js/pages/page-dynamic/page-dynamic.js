@@ -232,15 +232,6 @@ innaAppControllers
                                     combinationModel: $scope.combination
                                 });
 
-                                ListPanelComponent = new ListPanel({
-                                    el: that.find('.b-page-dynamic'),
-                                    data: {
-                                        updateHotel : this.get('updateHotel'),
-                                        iterable_hotels: true,
-                                        Enumerable: value.Hotels,
-                                        combinationModel: $scope.combination
-                                    }
-                                });
 
                                 /* filter */
                                 if (this.FilterPanelComponentHotel) {
@@ -259,6 +250,16 @@ innaAppControllers
                                         }
                                     });
                                 }
+
+                                ListPanelComponent = new ListPanel({
+                                    el: that.find('.b-page-dynamic'),
+                                    data: {
+                                        updateHotel : this.get('updateHotel'),
+                                        iterable_hotels: true,
+                                        Enumerable: value.Hotels,
+                                        combinationModel: $scope.combination
+                                    }
+                                });
 
 
                                 this.set('updateHotel', true);
@@ -288,6 +289,8 @@ innaAppControllers
                                     Enumerable: value.AviaInfos,
                                     combinationModel: $scope.combination
                                 })
+
+
 
                                 ListPanelComponent = new ListPanel({
                                     el: that.find('.b-page-dynamic'),
@@ -319,7 +322,6 @@ innaAppControllers
                                         }
                                     });
                                 }
-
 
                                 this.set('updateTicket', true);
                             }
@@ -361,7 +363,8 @@ innaAppControllers
                     var param = {
                         Id: $scope.combination.ticket.data.VariantId1,
                         HotelId: $scope.combination.hotel.data.HotelId,
-                        TicketId: $scope.combination.ticket.data.VariantId1
+                        TicketId: $scope.combination.ticket.data.VariantId1,
+                        AddFilter : true
                     };
 
                     if(window.FrontedDebug && $location.search().DebugFilter) {
@@ -417,7 +420,8 @@ innaAppControllers
                     var param = {
                         Id: $scope.combination.hotel.data.HotelId,
                         HotelId: $scope.combination.hotel.data.HotelId,
-                        TicketId: $scope.combination.ticket.data.VariantId1
+                        TicketId: $scope.combination.ticket.data.VariantId1,
+                        AddFilter : true
                     }
                     var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
