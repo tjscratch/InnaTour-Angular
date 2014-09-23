@@ -12,6 +12,7 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
             switch ($cookies.ab_test) {
                 case '1':
                     $scope.abTestCssSrc = "/spa/js/components/ab_test/ab-1/ab.base.css";
+                    $rootScope.ABTest2 = false;
                     break;
                 case '2':
                     $scope.abTestCssSrc = "/spa/js/components/ab_test/ab-2/ab.base.css";
@@ -28,6 +29,13 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
     //BEGIN AB2
     var AB2AddClass = function () {
         angular.element("body").addClass("ab2");
+        window.onscroll = function () {
+            var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+            console.log(scrolled)
+            if (scrolled > 25) {
+                angular.element("body").removeClass("ab2");
+            }
+        }
     }
 
     var AB2 = function () {
@@ -53,18 +61,10 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
                 $rootScope.ABTest2 = false;
                 break;
         }
-        
-        
+
+
     }
 
-    window.onscroll = function () {
-        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrolled > 25) {
-            angular.element("body").removeClass("ab2");
-        }else{
-            AB2AddClass();
-        }
-    }
     //END AB2
 
 
