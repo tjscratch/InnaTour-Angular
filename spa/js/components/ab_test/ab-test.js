@@ -1,7 +1,7 @@
 'use strict';
 
 
-function AbTestCtrl($scope, $location, $cookies) {
+function AbTestCtrl($scope, $rootScope, $location, $cookies) {
 
     $scope.$on('$locationChangeSuccess', function () {
         $scope.safeApply(function () {
@@ -34,21 +34,27 @@ function AbTestCtrl($scope, $location, $cookies) {
         switch ($location.$$path) {
             case '/':
                 AB2AddClass();
+                $rootScope.ABTest2 = true;
                 break;
             case '/avia/':
                 AB2AddClass();
+                $rootScope.ABTest2 = true;
                 break;
             case '/tours/':
                 AB2AddClass();
+                $rootScope.ABTest2 = false;
                 break;
             case '/packages/':
                 AB2AddClass();
+                $rootScope.ABTest2 = false;
                 break;
             default:
                 angular.element("body").removeClass("ab2");
+                $rootScope.ABTest2 = false;
                 break;
         }
-
+        
+        
     }
 
     window.onscroll = function () {
