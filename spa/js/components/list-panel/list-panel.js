@@ -59,7 +59,6 @@ angular.module('innaApp.components').
                     this.observeEnumerable = null;
 
                     this.sortComponent = new FilterSort();
-                    console.log(this.sortComponent, "this.sortComponent");
 
                     if (this.get('iterable_hotels'))
                         this.parse(this.get('Enumerable'), { hotel: true });
@@ -90,7 +89,7 @@ angular.module('innaApp.components').
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.actualData(), data);
                         },
                         teardown: function (evt) {
-                            console.log('teardown ListPanel');
+                            //console.log('teardown ListPanel');
                             this.observeEnumerable.cancel();
                             this.sortComponent.teardown();
                             this.sortComponent  = null;
@@ -99,9 +98,9 @@ angular.module('innaApp.components').
                             clearTimeout(this._scrollTimeout);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
-                            EventManager.off(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
-                            EventManager.off(Events.FILTER_PANEL_RESET, this.FILTER_PANEL_RESET);
-                            EventManager.off(Events.FILTER_PANEL_SORT, this.FILTER_PANEL_SORT);
+                            EventManager.off(Events.FILTER_PANEL_CHANGE);
+                            EventManager.off(Events.FILTER_PANEL_RESET);
+                            EventManager.off(Events.FILTER_PANEL_SORT);
                             EventManager.off(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
                         }
                     })
@@ -158,43 +157,22 @@ angular.module('innaApp.components').
 
 
                     /* событие   */
-                    EventManager.on(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE.bind(this));
+                    EventManager.on(Events.FILTER_PANEL_CHANGE, function(data){
+                        that.doFilter(that.get('Enumerable'), data);
+                    });
                     /** событие сброса фильтров */
-                    EventManager.on(Events.FILTER_PANEL_RESET, this.FILTER_PANEL_RESET.bind(this));
+                    EventManager.on(Events.FILTER_PANEL_RESET, function(data){
+                        clearTimeout(that._filterTimeout);
+                        that._filterTimeout = $timeout(function () {
+                            that.resetFilter();
+                        }, 100);
+                    });
                     /** Событие сортировки */
-                    EventManager.on(Events.FILTER_PANEL_SORT, this.FILTER_PANEL_SORT.bind(this));
-                },
-
-                /**
-                 * выполняем фильтрацию
-                 * @param data
-                 */
-                FILTER_PANEL_CHANGE : function(data){
-                    var that = this;
-                    that.doFilter(that.get('Enumerable'), data);
-                },
-
-                /**
-                 *
-                 * @param data
-                 */
-                FILTER_PANEL_RESET : function(data){
-                    var that = this;
-                    clearTimeout(that._filterTimeout);
-                    that._filterTimeout = $timeout(function () {
-                        that.resetFilter();
-                    }, 100);
-                },
-
-                /**
-                 *
-                 */
-                FILTER_PANEL_SORT : function(sort_value){
-                    var that = this;
-                    this.sortComponent.set('sortValue', sort_value);
-                    $timeout(function () {
+                    EventManager.on(Events.FILTER_PANEL_SORT,  function(sort_value){
+                        console.log('that.sortComponent', that.sortComponent);
+                        that.sortComponent.set('sortValue', sort_value);
                         that.cloneData(that.sorting(), true);
-                    }, 0)
+                    });
                 },
 
                 proxyGoToMap: function (data) {
@@ -447,9 +425,7 @@ angular.module('innaApp.components').
                         EnumerableFiltered: filteredData
                     })
 
-                    setTimeout(function () {
-                        that.cloneData(that.sorting(filteredData));
-                    }, 0);
+                    that.cloneData(that.sorting(filteredData));
                 },
 
 
@@ -469,7 +445,6 @@ angular.module('innaApp.components').
                         sortData = opt_sort_data || this.actualData();
 
                     // вызываем метод сортировки из компонента sortComponent
-                    console.log(this.sortComponent.get('sortValue'), "sortComponent.get('sortValue')");
                     var sortResult = this.sortComponent.fnSort(sortData, this.sortComponent.get('sortValue'));
 
                     return (sortResult && sortResult.length) ? sortResult : [];

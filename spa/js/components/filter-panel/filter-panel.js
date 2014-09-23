@@ -103,7 +103,6 @@ angular.module('innaApp.components').
                         },
                         sortChild: function (data) {
                             if (data != undefined) {
-                                console.error('d;fhjsdgfjhsdgfjhdsgf');
                                 this.set('sortingValue', data);
                                 EventManager.fire(Events.FILTER_PANEL_SORT, data);
                             }
@@ -190,7 +189,7 @@ angular.module('innaApp.components').
 
                     // если это обновление фильтров
                     this.observe('updateModel', function (value) {
-                        //EventManager.fire(Events.FILTER_PANEL_SORT, that.get('sortingValue'));
+                        EventManager.fire(Events.FILTER_PANEL_SORT, that.get('sortingValue'));
                         $timeout(function(){
                             that.collectChildData(true);
                         }, 500);

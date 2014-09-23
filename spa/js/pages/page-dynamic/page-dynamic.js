@@ -215,7 +215,10 @@ innaAppControllers
                             if (value) {
 
                                 if (this.FilterPanelComponentTicket) this.FilterPanelComponentTicket.fire('hide');
-                                if (ListPanelComponent) ListPanelComponent.teardown();
+                                if (ListPanelComponent) {
+                                    ListPanelComponent.teardown();
+                                    ListPanelComponent = null;
+                                }
 
 
                                 /** перезагружаем рекомендованную пару */
@@ -282,7 +285,10 @@ innaAppControllers
                                 }
 
                                 if (this.FilterPanelComponentHotel) this.FilterPanelComponentHotel.fire('hide');
-                                if (ListPanelComponent) ListPanelComponent.teardown();
+                                if (ListPanelComponent) {
+                                    ListPanelComponent.teardown();
+                                    ListPanelComponent = null;
+                                }
 
                                 that.set({
                                     iterable_tickets: true,
@@ -368,7 +374,7 @@ innaAppControllers
                     };
 
                     if(window.FrontedDebug && $location.search().DebugFilter) {
-                        param.DebugFilter = true;
+                        //param.DebugFilter = true;
                     }
 
 
@@ -427,7 +433,7 @@ innaAppControllers
                     var deferred = new $.Deferred();
 
                     if(window.FrontedDebug && $location.search().DebugFilter) {
-                        param.DebugFilter = true;
+                        //param.DebugFilter = true;
                     }
 
 

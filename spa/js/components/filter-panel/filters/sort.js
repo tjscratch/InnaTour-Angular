@@ -38,13 +38,6 @@ angular.module('innaApp.components').
 
                             this._parent.fire('sortChild', this.get('sortValue'));
                             this.hasSelected();
-                        },
-
-                        reset: function (data) {
-
-                        },
-                        teardown: function (evt) {
-
                         }
                     });
 
@@ -84,21 +77,6 @@ angular.module('innaApp.components').
 
                     return $filter('orderBy')(data, expression);
                 },
-
-
-                /*mergeData: function () {
-                    var that = this;
-
-                    if (this.SaveData.value) {
-                        this.get('Sort').filter(function (item) {
-
-                            if (item.value == this.SaveData.value) {
-                                item.isChecked = true;
-                                return true;
-                            }
-                        })
-                    }
-                },*/
 
                 /**
                  * Настройка сортировки поумолчанию устанавливается
