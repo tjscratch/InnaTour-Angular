@@ -79,9 +79,14 @@ innaAppControllers
             };
 
             var routeParams = parseRoute($location.path());
-
+            
             function validate() {
                 Validators.defined($scope.fromCurrent, Error('fromCurrent'));
+                Validators.defined('', Error('fromCurrent'), {name: "name", text: "text"});
+
+                $rootScope.$broadcast("dp_form_from_update", Error('fromCurrent'));
+                
+                
                 Validators.defined($scope.toCurrent, Error('toCurrent'));
                 Validators.notEqual($scope.fromCurrent, $scope.toCurrent, Error('toCurrent'));
 
@@ -126,16 +131,29 @@ innaAppControllers
                 })
             }
 
-            $scope.fromCurrent = routeParams.DepartureId || DynamicPackagesCacheWizard.require('fromCurrent', function () {
-                DynamicPackagesDataProvider.getUserLocation(function (data) {
-                    if (data != null) {
-                        $scope.safeApply(function () {
-                            $scope.fromCurrent = data.Id;
-                            $rootScope.$broadcast("dp_form_from_update", data.Id);
-                        });
-                    }
-                });
-            });
+//            $scope.fromCurrent = routeParams.DepartureId || DynamicPackagesCacheWizard.require('fromCurrent', function () {
+//                DynamicPackagesDataProvider.getUserLocation(function (data) {
+//                    if (data != null) {
+//                        $scope.safeApply(function () {
+//                            $scope.fromCurrent = data.Id;
+//                            $rootScope.$broadcast("dp_form_from_update", data.Id);
+//                        });
+//                    }
+//                });
+//            });
+
+//            $scope.fromCurrent = routeParams.DepartureId || DynamicPackagesCacheWizard.require('fromCurrent', function () {
+//                DynamicPackagesDataProvider.getUserLocation(function (data) {
+//                    if (data != null) {
+//                        $scope.safeApply(function () {
+//                            $scope.fromCurrent = data;
+//                            $rootScope.$broadcast("dp_form_from_update", data);
+//                        });
+//                    }
+//                });
+//            });
+
+            $scope.fromCurrent = null;
 
             //обновляем значения в саджесте
             setTimeout(function () {

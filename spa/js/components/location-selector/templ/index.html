@@ -1,6 +1,6 @@
-<div class="b-wrapp_type_inline {{theme}}">
+<div class="b-wrapp_type_inline b-location_selector {{theme}}">
 
-	<input type="text" class="search-field" placeholder="{{placeholder}}" ng-model="fieldValue"/>
+	<input type="text" class="search-field" placeholder="{{placeholder}}" ng-model="currentValue"/>
 
 	<ul class="search-autocomplete" ng-if="isOpened && suggest">
 		<li ng-repeat="item in suggest" ng-click="setCurrent($event, item)">
@@ -18,5 +18,10 @@
 			</ul>
 		</li>
 	</ul>
-
+	
+	<div class="ui-tooltip">
+		<div class="ui-tooltip-content">
+			{{ error }}
+		</div>
+	</div>
 </div>
