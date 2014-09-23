@@ -4,11 +4,11 @@
 
 .header{
 
-  &-info{
+  .header-info{
     @extend .header-bg
     border-bottom-color: #212121;
 
-    &-menu{
+    .header-info-menu{
 
       &:after{
         content ''
@@ -16,7 +16,7 @@
         clear both
       }
 
-      &-item{
+      .header-info-menu-item{
         padding: 0 8px
         font-size: 15px
         border-left: none
@@ -33,10 +33,11 @@
     }
   }
 
-  &-menu{
+  .header-menu{
     @extend .header-bg
     padding-bottom: 1px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
+    transition: padding-top .2s;
   }
 }
 
@@ -139,7 +140,7 @@
   .header__nav{
 
     li{
-      
+
       &.catalog-guide{
         display: none;
       }
@@ -173,3 +174,94 @@
   }
 
 }
+.header__user-nav-reg{
+  position: relative;
+
+  &:after{
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 5px;
+    width: 20px;
+    height: 10px;
+    background: url("key-icon.png") no-repeat 0 0;
+  }
+}
+
+.ab2{
+
+  .layout{
+    padding: 48px 0 0 0;
+  }
+
+  .header{
+
+    .header-menu{
+      padding-top: 150px;
+      background: transparent !important;
+    }
+  }
+
+  .header__container{
+
+    .header__nav{
+
+      li{
+        margin-right: 0;
+
+        a{
+          background-color: rgba(117, 117, 117, .8);
+
+          &.active{
+            background-color: #212121;
+          }
+        }
+
+      }
+    }
+  }
+
+  .b-search-form,
+  .search-form{
+    padding: 7px;
+    background: #212121;
+  }
+
+  .offers-card-banner-container.main{
+
+    .info-container{
+      top: 280px;
+
+      .name{
+        font-size: 32px;
+        line-height: 28px;
+      }
+
+      .description{
+        margin-top: 5px 0;
+        font-size: 20px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+.ABTest2_DP_bg{
+  height 470px;
+  width: 100%;
+  background: url("/spa/img/ab_test/DP2560.jpg") no-repeat top center;
+}
+.ABTest2_AVIA_bg{
+  height 470px;
+  width: 100%;
+  background: url("/spa/img/ab_test/AVIA2560.jpg") no-repeat top center;
+}
+
+.overflow_hidden{
+
+  .header-menu{
+    padding-top: 0px;
+  }
+}
+  
+  
