@@ -71,5 +71,5 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
 }
 
 
-AbTestCtrl.$inject = ['$scope', '$location', '$cookies'];
+AbTestCtrl.$inject = ['$scope', '$rootScope', '$location', '$cookies'];
 innaAppConponents.controller('AbTestCtrl', AbTestCtrl);
