@@ -1,6 +1,9 @@
 <!-- Полная копипста из tour_grid_page -->
 <div class="layout">
-    <div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0" app-slider>
+	
+	<div ng-show="ABTest2" class="ABTest2_DP_bg"></div>
+	
+    <div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0 && ABTest2 === false" app-slider>
         <ul class="offers-card-banner-list Offer-card-banners">
             <li class="offer-card-banner-item" bindonce ng-repeat="slide in slides track by $index">
                 <!--<img class="img" bo-src="slide.Image" />-->
