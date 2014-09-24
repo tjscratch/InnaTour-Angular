@@ -185,18 +185,22 @@
 
       width:39.5%;
       calc('width', s("40% - %s", $separatorBlock/2), "100%");
-
-
-      &:nth-child(even){
-        width:38%;
-        calc('width', s("40% - %s", $separatorBlock), "100%");
-      }
+      
+      /*&:nth-child(even){*/
+        /*width:38%;*/
+        /*calc('width', s("40% - %s", $separatorBlock), "100%");*/
+      /*}*/
 
 			&:last-child {
         width:20%;
         calc('width', s("20% - %s", $separatorBlock/2), "100%");
 			}
 		}
+      
+    .b-result__cell_even{
+      width: 38%;
+      calc('width', s("40% - %s", $separatorBlock), "100%");
+    }
 	}
 
 	 /*три колонки - с фотогалереей 200px*/
