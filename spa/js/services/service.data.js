@@ -15,7 +15,7 @@
             }
 
             return {
-                getAllCountries: function (successCallback, errCallback) {
+                getAllCountries  : function (successCallback, errCallback) {
                     $http.get(apiUrls.DICTIONARY_ALL_COUNTRIES, { cache: true }).success(function (data, status) {
                         successCallback(data);
                     }).
@@ -25,8 +25,8 @@
                 },
                 getDirectoryByUrl: function (term, successCallback, errCallback) {
                     AjaxHelper.get({
-                        url: apiUrls.AVIA_FROM_SUGGEST,
-                        data: { term: term },
+                        url    : apiUrls.AVIA_FROM_SUGGEST,
+                        data   : { term: term },
                         success: function (data) {
                             if (data != null && data.length > 0) {
                                 //ищем запись с кодом IATA
@@ -50,11 +50,11 @@
                                 errCallback(data, status);
                             }
                         },
-                        error: errCallback
+                        error  : errCallback
                     });
                 },
 
-                getSletatDirectoryByTerm: function (term, successCallback, errCallback) {
+                getSletatDirectoryByTerm  : function (term, successCallback, errCallback) {
                     //log('getSletatDirectoryByTerm: ' + term);
                     //принудительно энкодим
                     term = encodeURIComponent(term);
@@ -68,7 +68,7 @@
                             errCallback(data, status);
                         });
                 },
-                getSletatCity: function (successCallback, errCallback) {
+                getSletatCity             : function (successCallback, errCallback) {
                     //log('getSletatCity: ' + term);
                     //запрос по критериям поиска
                     $http.get(apiUrls.GET_SLETAT_CITY, { cache: true }).success(function (data, status) {
@@ -80,7 +80,7 @@
                             errCallback(data, status);
                         });
                 },
-                getSletatById: function (id, successCallback, errCallback) {
+                getSletatById             : function (id, successCallback, errCallback) {
                     //log('getSletatById: ' + term);
                     //запрос по критериям поиска
                     $http.get(apiUrls.GET_SLETAT_BY_ID + '?id=' + id, { cache: true }).success(function (data, status) {
@@ -92,7 +92,7 @@
                             errCallback(data, status);
                         });
                 },
-                startAviaSearch: function (criteria, successCallback, errCallback) {
+                startAviaSearch           : function (criteria, successCallback, errCallback) {
                     //запрос по критериям поиска
                     var apiCriteria = new aviaCriteriaToApiCriteria(criteria);
                     //log('startAviaSearch, apiCriteria: ' + angular.toJson(apiCriteria));
@@ -116,10 +116,10 @@
                         });
                     }
                 },
-                cancelAviaSearch: function () {
+                cancelAviaSearch          : function () {
                     AjaxHelper.cancelRequest(apiUrls.AVIA_BEGIN_SEARCH);
                 },
-                startSearchTours: function (criteria, successCallback, errCallback) {
+                startSearchTours          : function (criteria, successCallback, errCallback) {
                     //запрос по критериям поиска
                     $http.post(apiUrls.BEGIN_SEARCH, angular.toJson(criteria)).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
@@ -130,7 +130,7 @@
                             errCallback(data, status);
                         });
                 },
-                checkSearchTours: function (searchIdObj, successCallback, errCallback) {
+                checkSearchTours          : function (searchIdObj, successCallback, errCallback) {
                     $http.post(apiUrls.CHECK_SEARCH, angular.toJson(searchIdObj)).success(function (data, status) {
                         successCallback(data);
                     }).
@@ -138,7 +138,7 @@
                             errCallback(data, status);
                         });
                 },
-                getLocationsByUrls: function (queryData, successCallback, errCallback) {
+                getLocationsByUrls        : function (queryData, successCallback, errCallback) {
                     $http.post(apiUrls.GET_LOCATION_BY_URLS, angular.toJson(queryData)).success(function (data, status) {
                         successCallback(data);
                     }).
@@ -146,7 +146,7 @@
                             errCallback(data, status);
                         });
                 },
-                getHotelDetail: function (queryData, successCallback, errCallback) {
+                getHotelDetail            : function (queryData, successCallback, errCallback) {
                     $http.post(apiUrls.HOTEL_DETAIL, angular.toJson(queryData)).success(function (data, status) {
                         successCallback(data);
                     }).
@@ -154,7 +154,7 @@
                             errCallback(data, status);
                         });
                 },
-                getTourDetail: function (queryData, successCallback, errCallback) {
+                getTourDetail             : function (queryData, successCallback, errCallback) {
                     $http.post(apiUrls.TOUR_DETAIL, angular.toJson(queryData)).success(function (data, status) {
                         successCallback(data);
                     }).
@@ -162,7 +162,7 @@
                             errCallback(data, status);
                         });
                 },
-                getOrder: function (queryData, successCallback, errCallback) {
+                getOrder                  : function (queryData, successCallback, errCallback) {
                     //запрос по критериям поиска
                     $http.post(apiUrls.GET_ORDER, angular.toJson(queryData)).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
@@ -173,7 +173,7 @@
                             errCallback(data, status);
                         });
                 },
-                getPaymentPage: function (queryData, successCallback, errCallback) {
+                getPaymentPage            : function (queryData, successCallback, errCallback) {
                     //запрос по критериям поиска
                     $http.post(apiUrls.PAYMENT_PAGE, angular.toJson(queryData)).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
@@ -184,7 +184,7 @@
                             errCallback(data, status);
                         });
                 },
-                pay: function (queryData, successCallback, errCallback) {
+                pay                       : function (queryData, successCallback, errCallback) {
                     $http.post(apiUrls.PAY, angular.toJson(queryData)).success(function (data) {
                         successCallback(data);
                     }).
@@ -192,12 +192,12 @@
                             errCallback(data, status);
                         });
                 },
-                getSectionTours: function (params, successCallback, errCallback) {
+                getSectionTours           : function (params, successCallback, errCallback) {
                     $http({
                         method: 'GET',
-                        url: apiUrls.GET_SECTION_TOURS,
+                        url   : apiUrls.GET_SECTION_TOURS,
                         params: params,
-                        cache: true
+                        cache : true
                     }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
@@ -207,7 +207,7 @@
                             errCallback(data, status);
                         });
                 },
-                getSectionIndividualTours: function (params, successCallback, errCallback) {
+                getSectionIndividualTours : function (params, successCallback, errCallback) {
                     $http({ method: 'GET', url: apiUrls.GET_SECTION_INDIVIDUAL_TOURS, params: params, cache: true }).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
@@ -227,7 +227,7 @@
                             errCallback(data, status);
                         });
                 },
-                sendITCategoryRequest: function (queryData, successCallback, errCallback) {
+                sendITCategoryRequest     : function (queryData, successCallback, errCallback) {
                     var apiData = new sendRequestData(queryData);
                     $http.post(apiUrls.SEND_IT_CATEGORY_REQUEST, apiData).success(function (data) {
                         successCallback(data);
@@ -239,12 +239,27 @@
 
                 getPartnershipCookie: function (data) {
                     AjaxHelper.get({
-                        url : apiUrls.PARTNERSHIP_GET_COOKIE,
-                        data : data,
-                        success : angular.noop,
-                        error : angular.noop,
-                        cache : false
+                        url    : apiUrls.PARTNERSHIP_GET_COOKIE,
+                        data   : data,
+                        success: angular.noop,
+                        error  : angular.noop,
+                        cache  : false
+                    });
+                },
+
+                /**
+                 * получение ID текущей локации
+                 * @param callbackSuccess
+                 * @param callbackError
+                 */
+                getCurrentLocation: function (callbackSuccess, callbackError) {
+                    return AjaxHelper.get({
+                        url    : apiUrls.GET_CURRENT_LOCATION_BY_IP,
+                        data   : null,
+                        success: callbackSuccess,
+                        error  : callbackError
                     });
                 }
+
             };
         }]);

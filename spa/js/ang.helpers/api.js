@@ -13,6 +13,7 @@ angular.module('innaApp.API', [])
             GET_SLETAT_BY_ID: url('/Dictionary/SletatById/Get'),
 
             GET_LOCATION_BY_URLS: url('/Dictionary/LocationByUrl'),
+            GET_CURRENT_LOCATION_BY_IP: url('/Dictionary/GetCurrentLocation'),
 
             BEGIN_SEARCH: url('/Search/BeginSearch/Get'),
             CHECK_SEARCH: url('/Search/CheckSearch/Get'),

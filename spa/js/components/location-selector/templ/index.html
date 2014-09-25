@@ -1,15 +1,24 @@
 <div class="b-wrapp_type_inline b-location_selector {{theme}}">
 
-	<input type="text" class="search-field" placeholder="{{placeholder}}" ng-model="currentValue"/>
+	<input type="text" class="search-field"
+	       placeholder="{{placeholder}}"
+	       ng-model="currentCity"
+	       ng-change="currentCityChange($event)"
+	       ng-focus="currentCityChange($event)"
+	       ng-blur="currentCityChange($event)"
+	       ng-keyup="currentCityChange($event)"
+			/>
 
-	<ul class="search-autocomplete" ng-if="isOpened && suggest">
-		<li ng-repeat="item in suggest" ng-click="setCurrent($event, item)">
+	<ul class="search-autocomplete" ng-if="fromList && isOpened">
+		<li ng-repeat="item in fromList" ng-click="setCurrentCity(item)">
             <span class="search-autocomplete-block" ng-class="{selected:selectionControl.isItemSelected(item)}">
-                <span class="search-autocomplete-city">{{item.Name}}, <b>{{item.CountryName}}</b><em ng-show="item.Airport">, (все аэропорты)</em></span>
+                <span class="search-autocomplete-city">
+	                {{item.Name}}, 
+	                <b>{{item.CountryName}}</b><em ng-show="item.Airport">, (все аэропорты)</em></span>
                 <span class="search-autocomplete-abbr">{{item.CodeIata}}</span>
             </span>
 			<ul ng-show="item.Airport">
-				<li ng-repeat="airport in item.Airport" ng-click="setCurrent($event, item, airport)">
+				<li ng-repeat="airport in item.Airport" ng-click="setCurrentCity(item, airport)">
                     <span class="search-autocomplete-block" ng-class="{selected:selectionControl.isItemSelected(airport)}">
                         <span class="search-autocomplete-city">{{airport.Name}}</span>
                         <span class="search-autocomplete-abbr">{{airport.CodeIata}}</span>
@@ -18,10 +27,10 @@
 			</ul>
 		</li>
 	</ul>
-	
-	<div class="ui-tooltip">
+
+	<div ng-show="fieldError" class="ui-tooltip">
 		<div class="ui-tooltip-content">
-			{{ error }}
+			{{ fieldError }}
 		</div>
 	</div>
 </div>

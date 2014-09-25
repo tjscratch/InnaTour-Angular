@@ -3,24 +3,24 @@ innaAppControllers
         '$scope',
         'DynamicPackagesDataProvider',
         '$rootScope',
-        'DynamicPackagesCacheWizard',
+        'serviceCache',
         'Validators',
         '$location',
         'innaApp.Urls',
-        function ($scope, DynamicPackagesDataProvider, $rootScope, DynamicPackagesCacheWizard, Validators, $location, URLs) {
+        function ($scope, DynamicPackagesDataProvider, $rootScope, serviceCache, Validators, $location, URLs) {
 
             var parseRoute = function (path) {
                 //console.log('here');
                 if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) > -1 || path.indexOf(URLs.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
                     var bits = QueryString.getBits(path);
                     return {
-                        DepartureId: bits[0],
-                        ArrivalId: bits[1],
+                        DepartureId    : bits[0],
+                        ArrivalId      : bits[1],
                         StartVoyageDate: bits[2],
-                        EndVoyageDate: bits[3],
-                        TicketClass: bits[4],
-                        Adult: bits[5],
-                        ChildrenAges: (function (ages) {
+                        EndVoyageDate  : bits[3],
+                        TicketClass    : bits[4],
+                        Adult          : bits[5],
+                        ChildrenAges   : (function (ages) {
                             return ages ?
                                 ages.split('_').map(function (age) {
                                     return { value: age };
@@ -39,22 +39,22 @@ innaAppControllers
                     else if (bits.length == 2) {
                         return {
                             sectionId: bits[0],
-                            Adult: bits[1]
+                            Adult    : bits[1]
                         };
                     }
                     else if (bits.length == 3) {
                         return {
-                            sectionId: bits[0],
-                            Adult: bits[1],
+                            sectionId  : bits[0],
+                            Adult      : bits[1],
                             DepartureId: bits[2]
                         };
                     }
                     else if (bits.length == 4) {
                         return {
-                            sectionId: bits[0],
-                            Adult: bits[1],
+                            sectionId  : bits[0],
+                            Adult      : bits[1],
                             DepartureId: bits[2],
-                            ArrivalId: bits[3]
+                            ArrivalId  : bits[3]
                         };
                     }
                     else {
@@ -66,7 +66,7 @@ innaAppControllers
                     if (bits.length == 2) {
                         return {
                             DepartureId: bits[0],
-                            ArrivalId: bits[1]
+                            ArrivalId  : bits[1]
                         };
                     }
                     else {
@@ -79,14 +79,15 @@ innaAppControllers
             };
 
             var routeParams = parseRoute($location.path());
+
+            $scope.fromCurrentCityId = null;
+
             
             function validate() {
-                Validators.defined($scope.fromCurrent, Error('fromCurrent'));
-                Validators.defined('', Error('fromCurrent'), {name: "name", text: "text"});
+//                Validators.defined($scope.fromCurrent, Error('fromCurrent'));
+                Validators.required($scope.fromCurrentCityId, Error('fromCurrentCityId'), "Введите город отправления");
+                Validators.required($scope.toCurrent, Error('toCurrent'), "Введите город или страну, куда планируете поехать");
 
-                $rootScope.$broadcast("dp_form_from_update", Error('fromCurrent'));
-                
-                
                 Validators.defined($scope.toCurrent, Error('toCurrent'));
                 Validators.notEqual($scope.fromCurrent, $scope.toCurrent, Error('toCurrent'));
 
@@ -116,9 +117,9 @@ innaAppControllers
                 Validators.dateEndEmpty($scope.dateBegin, $scope.dateEnd, Error('dateEnd'));
             }
 
-            $scope.loadObjectById = function (id, callback) {
-                DynamicPackagesDataProvider.getObjectById(id, callback);
-            }
+//            $scope.loadObjectById = function (id, callback) {
+//                DynamicPackagesDataProvider.getObjectById(id, callback);
+//            }
 
             /* From field */
             $scope.fromList = [];
@@ -131,7 +132,7 @@ innaAppControllers
                 })
             }
 
-//            $scope.fromCurrent = routeParams.DepartureId || DynamicPackagesCacheWizard.require('fromCurrent', function () {
+//            $scope.fromCurrent = routeParams.DepartureId || serviceCache.require('fromCurrent', function () {
 //                DynamicPackagesDataProvider.getUserLocation(function (data) {
 //                    if (data != null) {
 //                        $scope.safeApply(function () {
@@ -142,7 +143,7 @@ innaAppControllers
 //                });
 //            });
 
-//            $scope.fromCurrent = routeParams.DepartureId || DynamicPackagesCacheWizard.require('fromCurrent', function () {
+//            $scope.fromCurrent = routeParams.DepartureId || serviceCache.require('fromCurrent', function () {
 //                DynamicPackagesDataProvider.getUserLocation(function (data) {
 //                    if (data != null) {
 //                        $scope.safeApply(function () {
@@ -152,8 +153,8 @@ innaAppControllers
 //                    }
 //                });
 //            });
-
-            $scope.fromCurrent = null;
+//
+//            $scope.fromCurrent = null;
 
             //обновляем значения в саджесте
             setTimeout(function () {
@@ -161,7 +162,7 @@ innaAppControllers
             }, 0);
 
             $scope.$watch('fromCurrent', function (newVal) {
-                DynamicPackagesCacheWizard.put('fromCurrent', newVal);
+                serviceCache.put('fromCurrent', newVal);
             });
 
             /* To field */
@@ -175,28 +176,28 @@ innaAppControllers
                 })
             };
 
-            $scope.toCurrent = routeParams.ArrivalId || DynamicPackagesCacheWizard.require('toCurrent');
+            $scope.toCurrent = routeParams.ArrivalId || serviceCache.require('toCurrent');
             //обновляем значения в саджесте
             setTimeout(function () {
                 $rootScope.$broadcast("dp_form_to_update", $scope.toCurrent);
             }, 0);
 
             $scope.$watch('toCurrent', function (newVal) {
-                DynamicPackagesCacheWizard.put('toCurrent', newVal);
+                serviceCache.put('toCurrent', newVal);
             });
 
             /*Begin date*/
-            $scope.dateBegin = routeParams.StartVoyageDate || DynamicPackagesCacheWizard.require('dateBegin');
+            $scope.dateBegin = routeParams.StartVoyageDate || serviceCache.require('dateBegin');
 
             $scope.$watch('dateBegin', function (newVal) {
-                DynamicPackagesCacheWizard.put('dateBegin', newVal);
+                serviceCache.put('dateBegin', newVal);
             });
 
             /*End date*/
-            $scope.dateEnd = routeParams.EndVoyageDate || DynamicPackagesCacheWizard.require('dateEnd');
+            $scope.dateEnd = routeParams.EndVoyageDate || serviceCache.require('dateEnd');
 
             $scope.$watch('dateEnd', function (newVal) {
-                DynamicPackagesCacheWizard.put('dateEnd', newVal);
+                serviceCache.put('dateEnd', newVal);
             });
 
             $scope.maxDateEnd = new Date();
@@ -215,7 +216,7 @@ innaAppControllers
             /*Klass*/
             $scope.klass = _.find(TripKlass.options, function (klass) {
                 var cached = routeParams.TicketClass ||
-                    DynamicPackagesCacheWizard.require('klass', function () {
+                    serviceCache.require('klass', function () {
                         return TripKlass.ECONOM;
                     });
 
@@ -224,7 +225,7 @@ innaAppControllers
 
             $scope.$watchCollection('klass', function (newVal) {
                 newVal = newVal || TripKlass.options[0];
-                DynamicPackagesCacheWizard.put('klass', newVal.value);
+                serviceCache.put('klass', newVal.value);
             });
 
             //запоминаем последние CodeIata для итема и для его города (CityCodeIata)
@@ -294,13 +295,13 @@ innaAppControllers
                     }
 
                     var o = {
-                        ArrivalId: $scope.toCurrent,
-                        DepartureId: $scope.fromCurrent,
+                        ArrivalId      : $scope.toCurrent,
+                        DepartureId    : $scope.fromCurrentCityId,
                         StartVoyageDate: $scope.dateBegin,
-                        EndVoyageDate: $scope.dateEnd,
-                        TicketClass: $scope.klass.value,
-                        Adult: $scope.adultCount,
-                        children: _.map($scope.childrensAge, function (selector, n) {
+                        EndVoyageDate  : $scope.dateEnd,
+                        TicketClass    : $scope.klass.value,
+                        Adult          : $scope.adultCount,
+                        children       : _.map($scope.childrensAge, function (selector, n) {
                             return selector.value;
                         })
                     }
@@ -331,7 +332,7 @@ innaAppControllers
             });
 
             $(window).on('unload beforeunload', function () {
-                DynamicPackagesCacheWizard.clear();
+                serviceCache.clear();
             });
         }
     ]);

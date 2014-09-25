@@ -1,16 +1,16 @@
 <form class="b-search-form search-ticket-form" ng-controller="DynamicFormCtrl" ng-if="!_dynamicSearchFormInvisible">
-	<div style="position: absolute;left: -200px; top: -80px; background: #fff; padding: 15px;width: 120px; height: 100px;font-size: 15px">
-		{{ fromCurrent }}
-		<hr/>
-		{{ currentItem }}
-	</div>
-
 
 	<div location-selector
 	     theme="search-field-block search__city"
 	     placeholder="Откуда"
-	     result="fromCurrent"
-	     event="dp_form_from_update"
+	     current-city-id="fromCurrentCityId"
+	     is-from="true"
+			></div>
+
+	<div location-selector
+	     theme="search-field-block search__city"
+	     placeholder="Куда"
+	     current-city-id="toCurrent"
 			></div>
 
 	<!--
@@ -25,7 +25,7 @@
 			 on-error="Введите город отправления"
 			 with-country="true"
 			 event="dp_form_from_update"></div>
-	-->
+	
 
 	<div dropdown-input
 	     theme="search-field-block search__city"
@@ -38,7 +38,7 @@
 	     on-error="Введите город или страну, куда планируете поехать"
 	     with-country="true"
 	     event="dp_form_to_update"></div>
-
+-->
 
 	<div date-picker-widget
 	     interval="false"

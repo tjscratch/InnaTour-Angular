@@ -1,18 +1,21 @@
 ﻿angular.module('innaApp.services')
     .factory('Validators', [function () {
 
-        Error.prototype.errors = {}
-
         return {
             email        : function (s, error) {
                 if (!/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,63})+$/i.test(s)) throw error;
             },
-            defined      : function (s, error, txt) {
-                if (!s) {
-                    error.errors = txt
+            /**
+             * @param {Object} val - проверка наличия 
+             */
+            required     : function (val, error, errorText) {
+                if (!val) {
+                    error.error = errorText
                     throw error
                 }
-                ;
+            },
+            defined      : function (s, error) {
+                if (!s) throw error;
             },
             phone        : function (s, error) {
                 if (!/^[+]\d{11,}$/.test(s)) throw error;//+79101234567
