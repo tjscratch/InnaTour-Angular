@@ -362,7 +362,7 @@ angular.module('innaApp.directives')
                         },
 
                         complete: function (data) {
-                            this.set('styleWidth', document.documentElement.scrollWidth);
+                            //this.set('styleWidth', document.documentElement.scrollWidth);
                         }
                     });
 
