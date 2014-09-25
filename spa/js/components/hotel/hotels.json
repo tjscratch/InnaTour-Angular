@@ -1,0 +1,40 @@
+{
+    "HotelId" : 1,
+    "Stars" : 5,
+    "HotelName" : "",
+    "HotelCityName" : "",
+
+    "TaCommentCount" : 1,
+    "TaFactor"  : 2,
+    "TaFactorCeiled" : "",
+
+    "Price" : 2342,
+    "PackagePrice" : 348758435,
+    "PriceObject" : {},
+
+    "Address": "Rudower Strasse 90/94 D",
+    "CheckIn": "2014-11-11T00:00:00",
+    "CheckInTime": "00:00",
+    "CheckOut": "2014-11-20T00:00:00",
+    "CheckOutTime": "00:00",
+
+    "NightCount" : "",
+
+    "HotelPhoto70" : "",
+    "Photos" : [{
+        "Small" : ""
+    }],
+
+    "ProviderId" : 3434,
+
+    "Latitude": 52.43687,
+    "LocationId": 0,
+    "Longitude": 13.46462,
+
+    "Extra" : {},
+    "HotelType" : "",
+
+
+    "RecommendedFactor" : 4357894,
+    "ProviderLogoUrl" : ""
+}
