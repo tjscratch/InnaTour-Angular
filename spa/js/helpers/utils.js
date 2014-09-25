@@ -1,4 +1,21 @@
+_.originalBindAll = _.bindAll;
 var utils = {
+
+    bindAll: function (that) {
+        var funcs = Array.prototype.slice.call(arguments, 1),
+            validKeys = [], fn;
+        if (funcs.length == 0) {
+            for (var i in that) {
+                fn = that[i];
+                if (fn && typeof fn == "function" && (!fn.prototype || _.keys(fn.prototype).length == 0))
+                    validKeys.push(i);
+            }
+            _.originalBindAll.apply(_, [that].concat(validKeys));
+        }
+        else
+            _.originalBindAll.apply(_, arguments);
+    },
+
     loader: function () {
         var self = this;
         self = {
@@ -21,7 +38,9 @@ var utils = {
                 });
                 if (fnItem != null) {
                     fnItem.isLoaded = true;
-                    var allLoaded = _.all(self.fnList, function (item) { return item.isLoaded == true; });
+                    var allLoaded = _.all(self.fnList, function (item) {
+                        return item.isLoaded == true;
+                    });
                     if (allLoaded && self.callback != null) {
                         self.callback();
                     }

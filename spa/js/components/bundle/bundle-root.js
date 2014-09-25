@@ -255,7 +255,6 @@ angular.module('innaApp.directives')
 
                         /*Events*/
                         $scope.$on('$destroy', function () {
-                            console.log('$destroy bundle root');
                             EventManager.off(Events.DYNAMIC_SERP_MAP_DESTROY, $scope.display.fullDisplay);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
