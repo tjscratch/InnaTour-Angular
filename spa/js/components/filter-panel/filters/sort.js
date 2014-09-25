@@ -24,18 +24,15 @@ angular.module('innaApp.components').
                 init: function (options) {
                     this._super(options);
                     var that = this;
-                    this.SaveData = {};
 
                     this.on({
                         onSort: function (data) {
-                            this.SaveData = data.context;
                             this.set({
                                 'current': data.context.name,
                                 'sortValue.val': data.context.value
                             });
 
                             this.fire('toggle');
-
                             this._parent.fire('sortChild', this.get('sortValue'));
                             this.hasSelected();
                         }
@@ -44,38 +41,6 @@ angular.module('innaApp.components').
                     EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
                         that.set('asMap', false);
                     });
-                },
-
-                fnSort: function (data, component_val) {
-                    if (!data || !data.length) return false;
-
-                    var sortType = {
-                        byAgencyProfit: ['-PriceDetails.Profit'],
-                        byRecommend: ['-IsRecomendation', 'RecommendedFactor', 'DepartureDate', 'ArrivalDate'],
-                        byPrice: ['Price', 'DepartureDate', 'ArrivalDate'],
-                        byTripTime: ['TimeTo', 'Price', 'DepartureDate', 'ArrivalDate'],
-                        byDepartureDate: 'DepartureDate',
-                        byBackDepartureDate: 'BackDepartureDate',
-                        byArrivalDate: 'ArrivalDate',
-                        byBackArrivalDate: 'BackArrivalDate',
-                        byPackagePrice: 'PackagePrice',
-                        byRecommendedFactor: 'RecommendedFactor',
-                        byTaFactor: '-TaFactor',
-                        byName: 'HotelName',
-                        byProfit: '-getProfit'
-                    };
-
-
-                    var val = component_val.val;
-                    var defaultSort = component_val.defaultSort;
-                    var expression = null;
-
-                    if (val != '')
-                        expression = sortType[val];
-                    else
-                        expression = sortType[defaultSort];
-
-                    return $filter('orderBy')(data, expression);
                 },
 
                 /**
@@ -91,6 +56,7 @@ angular.module('innaApp.components').
                                 'current': item.name,
                                 'sortValue.val': 'byPackagePrice'
                             });
+                            that._parent.fire('sortChild', that.get('sortValue'));
                             that.hasSelected();
                             return true;
                         }

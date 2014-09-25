@@ -16,9 +16,9 @@ innaAppControllers
         '$templateCache',
         'Balloon',
         'ListPanel',
-        'FilterPanel',
+        /*'FilterPanel',*/
         '$filter',
-        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, FilterPanel, $filter) {
+        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
 
 
             /**
@@ -45,7 +45,6 @@ innaAppControllers
             $scope.padding = true;
 
             /*Properties*/
-            var FilterPanelComponent = null;
             var ListPanelComponent = null;
             $scope.hotels = new inna.Models.Hotels.HotelsCollection();
             $scope.tickets = new inna.Models.Avia.TicketCollection();
@@ -58,6 +57,8 @@ innaAppControllers
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
             $scope.dateHelper = dateHelper;
             $scope.events = Events;
+            $scope.filtersSettingsHotels = null;
+            $scope.filtersSettingsTicket = null;
 
             //кнопка нового поиска для WL
             function setWlModel(data) {
@@ -107,12 +108,8 @@ innaAppControllers
                                 this._balloonLoad = null;
                             }
                             this.loadHotelsDataLoadData.cancel();
-
-                            if(this.FilterPanelComponentTicket) this.FilterPanelComponentTicket.teardown();
-                            if(this.FilterPanelComponentHotel) this.FilterPanelComponentHotel.teardown();
-
                             if (ListPanelComponent) ListPanelComponent.teardown();
-                            ListPanelComponent = FilterPanelComponent = null;
+                            ListPanelComponent = null;
                         }
                     })
 
@@ -214,7 +211,6 @@ innaAppControllers
                         loadHotelsData: function (value) {
                             if (value) {
 
-                                if (this.FilterPanelComponentTicket) this.FilterPanelComponentTicket.fire('hide');
                                 if (ListPanelComponent) {
                                     ListPanelComponent.teardown();
                                     ListPanelComponent = null;
@@ -236,23 +232,15 @@ innaAppControllers
                                 });
 
 
-                                /* filter */
-                                if (this.FilterPanelComponentHotel) {
-                                    //this.FilterPanelComponentHotel.fireSort();
-                                    this.FilterPanelComponentHotel.set({
-                                        updateModel : Math.random(1000).toString(16),
-                                        combinationModel: $scope.combination,
-                                        filtersData: value.Filters
-                                    })
-                                } else {
-                                    this.FilterPanelComponentHotel = new FilterPanel({
-                                        el: document.querySelector('.recommend-bundle-container'),
-                                        data: {
-                                            combinationModel: $scope.combination,
-                                            filtersData: value.Filters
-                                        }
-                                    });
-                                }
+                                /* данный для настроек панели фильтров */
+                                $scope.filtersSettingsHotels = {
+                                    combinationModel: $scope.combination,
+                                    filtersData: value.Filters,
+                                    Collection: value.Hotels,
+                                    filter_hotel: true,
+                                    filter_avia: false
+                                };
+
 
                                 ListPanelComponent = new ListPanel({
                                     el: that.find('.b-page-dynamic'),
@@ -284,7 +272,6 @@ innaAppControllers
                                     $scope.combination.hotel = new inna.Models.Hotels.Hotel(value.Hotel);
                                 }
 
-                                if (this.FilterPanelComponentHotel) this.FilterPanelComponentHotel.fire('hide');
                                 if (ListPanelComponent) {
                                     ListPanelComponent.teardown();
                                     ListPanelComponent = null;
@@ -308,26 +295,15 @@ innaAppControllers
                                     }
                                 });
 
-                                if (this.FilterPanelComponentTicket) {
-                                    //this.FilterPanelComponentTicket.fireSort();
-                                    this.FilterPanelComponentTicket.set({
-                                        updateModel : Math.random(1000).toString(16),
-                                        combinationModel: $scope.combination,
-                                        filtersData: value.Filters,
-                                        filter_hotel: false,
-                                        filter_avia: true
-                                    });
-                                } else {
-                                    this.FilterPanelComponentTicket = new FilterPanel({
-                                        el: document.querySelector('.recommend-bundle-container'),
-                                        data: {
-                                            combinationModel: $scope.combination,
-                                            filtersData: value.Filters,
-                                            filter_hotel: false,
-                                            filter_avia: true
-                                        }
-                                    });
-                                }
+
+                                /* данный для настроек панели фильтров */
+                                $scope.filtersSettingsTicket = {
+                                    combinationModel: $scope.combination,
+                                    Collection: value.AviaInfos,
+                                    filtersData: value.Filters,
+                                    filter_hotel: false,
+                                    filter_avia: true
+                                };
 
                                 this.set('updateTicket', true);
                             }
@@ -675,10 +651,6 @@ innaAppControllers
                 PageDynamic.teardown();
                 PageDynamic = null;
 
-                if (FilterPanelComponent) {
-                    FilterPanelComponent.teardown();
-                    FilterPanelComponent = null;
-                }
                 if (ListPanelComponent) {
                     ListPanelComponent.teardown();
                     ListPanelComponent = null;

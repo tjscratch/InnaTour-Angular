@@ -1,26 +1,24 @@
 /**
  * Панель фильтрации для отелей и билетов
- * Вообще сама панель не чего не фильтрует
  *
- * Просто передает массив данных по которым нужно будет фильтровать
- *
- * При выборе любого свойства на панели, собираем новый набор и диспачим событие с этим набором
+ * При выборе любого свойства на панели,
+ * фильтруем, сортируем и диспачим событие с этим набором
  *
  * EventManager.fire('FilterPanel:change', filtersCollection)
- * Логику фильтрации реализуют все компоненты подписчики
+ * Логику фильтрации реализует сама панель и сервис FilterService
  */
 
-angular.module('innaApp.components').
-    factory('FilterPanel', [
+angular.module('innaApp.directives')
+    .directive('filterPanel', [
         'EventManager',
         '$filter',
         '$templateCache',
         '$routeParams',
         'innaApp.API.events',
         '$timeout',
+        'FilterService',
 
         'IndicatorFilters',
-
         'FilterSettings',
 
         'FilterTime',
@@ -35,283 +33,392 @@ angular.module('innaApp.components').
         'FilterTaFactor',
         'FilterType',
         'FilterSort',
-        function (EventManager, $filter, $templateCache, $routeParams, Events, $timeout, IndicatorFilters, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterExtra, FilterPrice, FilterName, FilterStars, FilterTaFactor, FilterType, FilterSort) {
+        function (EventManager, $filter, $templateCache, $routeParams, Events, $timeout, FilterService, IndicatorFilters, FilterSettings, FilterTime, FilterAirline, FilterAirPort, FilterAviaLegs, FilterExtra, FilterPrice, FilterName, FilterStars, FilterTaFactor, FilterType, FilterSort) {
 
-
-            /**
-             * Компонент FilterPanel
-             * @constructor
-             */
-            var FilterPanel = Ractive.extend({
-                template: $templateCache.get('components/filter-panel/templ/panel.hbs.html'),
-                append: true,
-                data: {
-                    isVisible: true,
-                    asMap: false,
-                    filtersCollection: [],
-                    filter_hotel: true,
-                    filter_avia: false,
-
-                    // данные для компонентов фильтров
-                    filtersModel: null
+            return {
+                scope: {
+                    filtersSettings: '=filtersSettings',
+                    typePanel: '@typePanel',
+                    activePanel: '=activePanel'
                 },
-
-                // части шаблонов которые содержат компоненты фильтров
-                partials: {
-                    HotelsFilter: $templateCache.get('components/filter-panel/templ/panel.hotel.filters.hbs.html'),
-                    TicketFilter: $templateCache.get('components/filter-panel/templ/panel.avia.hbs.html'),
-                    MapFilter: '<div>MapFilter</div>',
-
-                    ruble: $templateCache.get('components/ruble.html')
-                },
-                components: {
-                    IndicatorFilters: IndicatorFilters,
-
-                    'FilterTime': FilterTime,
-                    'FilterAirline': FilterAirline,
-                    'FilterAirPort': FilterAirPort,
-                    'FilterAviaLegs': FilterAviaLegs,
-
-                    'FilterExtra': FilterExtra,
-                    'FilterPrice': FilterPrice,
-                    'FilterName': FilterName,
-                    'FilterStars': FilterStars,
-                    'FilterTaFactor': FilterTaFactor,
-                    'FilterType': FilterType,
-                    'FilterSort': FilterSort
-                },
-                init: function () {
-                    var that = this;
-                    this.observeSortValueVal = null;
-                    this.observeIsOpen = null;
-
-                    document.addEventListener('click', this.bodyClickHide.bind(this), false);
-
-
-                    this.listenChildren();
-
-                    this.on({
-                        goToHotelList: function () {
-                            EventManager.fire(Events.DYNAMIC_SERP_BACK_TO_MAP);
-                        },
-                        change: function (data) {
-                        },
-                        changeChildFilter: function (data) {
-                            if (data != undefined) {
-                                this.collectChildData();
-                            }
-                        },
-                        sortChild: function (data) {
-                            console.info('sortChild', data);
-                            if (data != undefined) {
-                                this.set('sortingValue', data);
-                                EventManager.fire(Events.FILTER_PANEL_SORT, data);
-                            }
-                        },
-                        hide: function (evt) {
-                            this.set('isVisible', false);
-                        },
-                        teardown: function (evt) {
-                            this.observeSortValueVal.cancel();
-                            this.observeIsOpen.cancel();
-
-                            document.removeEventListener('click', this.bodyClickHide.bind(this), false);
-                            EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
-                            EventManager.off('sort:default');
-
-                            this.findAllComponents().forEach(function (child) {
-                                child.fire('resetFilter', {silent: true});
-                            })
-                        }
-                    });
-
-
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function () {
-                        that.set('asMap', true);
-                    });
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
-                        that.set('asMap', false);
-                    });
-
-                    /** если нужно закрыть все открытые фильтры */
-                    EventManager.on(Events.FILTER_PANEL_CLOSE_FILTERS, function () {
-                        var childComponents = that.findAllComponents();
-
-                        childComponents.forEach(function (child) {
-                            child.set({isOpen: false});
-                        })
-                    });
-
-                    /**
-                     * Событие сброса фильтра
-                     * Получаем его от компонента IndicatorFilters
-                     */
-                    this.on('IndicatorFiltersItem:remove', function (dataContext, componentName) {
-                        that.findAllComponents().forEach(function (component) {
-                            if (component.get('value.name') == componentName) {
-                                component.fire('filtersItemRemove', dataContext, componentName);
-                            }
-                        })
-                    });
-
-
-
-
-                    setTimeout(function(){
-                        that.findComponent('FilterSort').sortDefault();
-                    }, 1000);
+                link: function link($scope, $element, attrs) {
 
 
                     /**
-                     * Слушаем изменение filtersData
-                     * Обновление настроек фильтров
+                     * Компонент FilterPanel
+                     * @constructor
                      */
-                    this.observe('filtersData', function (value) {
-                        if (value) {
-                            this.show();
-                            FilterSettings.set({
-                                'settings.Hotels': value.Hotels,
-                                'settings.Tickets': value.Tickets
+                    var FilterPanel = Ractive.extend({
+                        el: $element,
+                        template: $templateCache.get('components/filter-panel/templ/panel.hbs.html'),
+                        append: true,
+                        data: {
+                            type: '',
+                            isVisible: true,
+                            asMap: false,
+                            filtersCollection: [],
+                            filter_hotel: true,
+                            filter_avia: false,
+                            Collection: [],
+                            resultFilters: [],
+                            resultSort: [],
+
+                            // данные для компонентов фильтров
+                            filtersModel: null
+                        },
+
+                        // части шаблонов которые содержат компоненты фильтров
+                        partials: {
+                            HotelsFilter: $templateCache.get('components/filter-panel/templ/panel.hotel.filters.hbs.html'),
+                            TicketFilter: $templateCache.get('components/filter-panel/templ/panel.avia.hbs.html'),
+                            MapFilter: '<div>MapFilter</div>',
+
+                            ruble: $templateCache.get('components/ruble.html')
+                        },
+                        components: {
+                            IndicatorFilters: IndicatorFilters,
+
+                            'FilterTime': FilterTime,
+                            'FilterAirline': FilterAirline,
+                            'FilterAirPort': FilterAirPort,
+                            'FilterAviaLegs': FilterAviaLegs,
+
+                            'FilterExtra': FilterExtra,
+                            'FilterPrice': FilterPrice,
+                            'FilterName': FilterName,
+                            'FilterStars': FilterStars,
+                            'FilterTaFactor': FilterTaFactor,
+                            'FilterType': FilterType,
+                            'FilterSort': FilterSort
+                        },
+                        init: function () {
+                            var that = this;
+                            this.observeSortValueVal = null;
+                            this.observeIsOpen = null;
+                            this.sortingValue = null;
+
+                            utils.bindAll(this);
+
+                            document.addEventListener('click', this.bodyClickHide, false);
+
+
+                            this.listenChildren();
+
+                            this.on({
+                                goToHotelList: function () {
+                                    EventManager.fire(Events.DYNAMIC_SERP_BACK_TO_MAP);
+                                },
+                                change: function (data) {
+                                },
+                                changeChildFilter: function (data) {
+                                    if (data != undefined) {
+                                        this.collectChildData();
+                                    }
+                                },
+                                sortChild: function (data) {
+                                    if (data) this.sortingValue = data;
+                                    setTimeout(function () {
+                                        that.doSort(true);
+                                    }, 0);
+                                },
+                                hide: function (evt) {
+                                    this.set('isVisible', false);
+                                },
+                                teardown: function (evt) {
+                                    this.observeSortValueVal.cancel();
+                                    this.observeIsOpen.cancel();
+
+                                    document.removeEventListener('click', this.bodyClickHide, false);
+                                    EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
+                                    EventManager.off('sort:default');
+
+                                    this.findAllComponents().forEach(function (child) {
+                                        child.fire('resetFilter', {silent: true});
+                                    })
+                                }
                             });
-                            this.set('filtersModel', FilterSettings.get('settings'));
-                        }
-                    })
 
-                    this.observe('filtersCollection', function (value) {
-                        if (!value || !value.length) {
+
+                            EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function () {
+                                that.set('asMap', true);
+                            });
+                            EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
+                                that.set('asMap', false);
+                            });
+
+                            /** если нужно закрыть все открытые фильтры */
+                            EventManager.on(Events.FILTER_PANEL_CLOSE_FILTERS, function () {
+                                var childComponents = that.findAllComponents();
+
+                                childComponents.forEach(function (child) {
+                                    child.set({isOpen: false});
+                                })
+                            });
+
+                            /**
+                             * Событие сброса фильтра
+                             * Получаем его от компонента IndicatorFilters
+                             */
+                            this.on('IndicatorFiltersItem:remove', function (dataContext, componentName) {
+                                that.findAllComponents().forEach(function (component) {
+                                    if (component.get('value.name') == componentName) {
+                                        component.fire('filtersItemRemove', dataContext, componentName);
+                                    }
+                                })
+                            });
+
+
+                            setTimeout(function () {
+                                that.findComponent('FilterSort').sortDefault();
+                            }, 500);
+
+
+                            /**
+                             * Слушаем изменение filtersData
+                             * Обновление настроек фильтров
+                             */
+                            this.observe('filtersData', function (value, oldValue) {
+                                if (value) {
+                                    this.show();
+                                    FilterSettings.set({
+                                        'settings.Hotels': value.Hotels,
+                                        'settings.Tickets': value.Tickets
+                                    });
+                                    this.set('filtersModel', FilterSettings.get('settings'));
+                                }
+                            })
+
+
+                            /* фильтрация */
+                            this.observe('filtersCollection', function (value) {
+                                if (!value || !value.length) {
+                                    setTimeout(function () {
+                                        that.resetFilter();
+                                    }, 0);
+                                }
+                                else if (value && value.length) {
+                                    setTimeout(function () {
+                                        that.doFilter();
+                                    }, 0);
+                                }
+                            }, {init: false});
+
+
+                            // если это обновление фильтров
+                            this.observe('updateModel', function (value) {
+                                setTimeout(function () {
+                                    if (that.get('isFiltered')) {
+                                        that.collectChildData(true);
+                                    } else {
+                                        that.doSort(true);
+                                    }
+                                }, 500);
+                            }, {init: false});
+                        },
+
+                        show: function () {
+                            this.set('isVisible', true);
+                        },
+
+                        /**
+                         * resultFilters - отфильтрованный набор
+                         */
+                        doFilter: function () {
+
+                            // фильтруем коллекцию
+                            var resultFilters = FilterService.filterListPanel({
+                                collection: this.get('Collection'),
+                                filterCollection: this.get('filtersCollection')
+                            });
+
+                            this.set({
+                                'isFiltered': true,
+                                'resultFilters': resultFilters
+                            });
+                            var resultSort = this.doSort();
+
+                            // события для наблюдателей
+                            EventManager.fire(Events.LIST_PANEL_FILTES_HOTELS_DONE, resultSort);
+                            EventManager.fire(Events.FILTER_PANEL_CHANGE, resultSort);
+                            this.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
+                        },
+
+                        /**
+                         * resultSort - отсортированный и отфильрованный набор
+                         * @param {Boolean} opt_param
+                         * @returns {*}
+                         */
+                        doSort: function (opt_param) {
+                            var sortCollection = this.get('Collection');
+
+                            console.log(this.sortingValue, "this.get('sortingValue')");
+                            console.log(this);
+
+                            // если коллекция уже фильтровалась
+                            // то сортируем ее
+                            if (this.get('isFiltered')) {
+                                sortCollection = this.get('resultFilters');
+                            }
+
+                            if (!this.sortingValue) {
+                                return sortCollection;
+                            }
+
+                            var resultSort = FilterService.sortListPanel(sortCollection, this.sortingValue);
+                            resultSort = resultSort || [];
+
+                            this.set('resultSort', resultSort);
+
+                            if (opt_param)
+                                EventManager.fire(Events.FILTER_PANEL_CHANGE, resultSort);
+
+                            return resultSort;
+                        },
+
+                        /**
+                         *
+                         * @returns {*}
+                         */
+                        resetFilter: function () {
+                            // втихую сбрасываем все фильтры
                             this.findAllComponents().forEach(function (item) {
                                 item.fire('resetFilter', {silent: true});
                             });
-                            EventManager.fire(Events.FILTER_PANEL_RESET);
+
+                            this.set({
+                                'isFiltered': false,
+                                'resultFilters': []
+                            });
+
+                            // сортируем коллекцию
+                            var resultSort = this.doSort();
+
+                            // событие для наблюдателей
+                            EventManager.fire(Events.FILTER_PANEL_CHANGE, resultSort);
+                            EventManager.fire(Events.LIST_PANEL_FILTES_RESET_DONE, resultSort);
                             this.fire(Events.FILTER_PANEL_RESET);
-                        }
-                    }, {init: false})
+                        },
 
+                        /**
+                         * Слушаем событие изменения дочерних компонентов
+                         * FilterPanel выступает EventManager-ром для своих детей
+                         *
+                         * child._parent - каждый child слушает своего родителя
+                         *
+                         * if(childComponent._guid != child._guid) Если событие от другого компонента
+                         * то прячем попап
+                         */
+                        listenChildren: function () {
+                            var that = this;
+                            var childComponents = this.findAllComponents();
 
-                    // если это обновление фильтров
-                    this.observe('updateModel', function (value) {
-                        $timeout(function(){
-                            console.info(that.get('sortingValue'));
-                            //EventManager.fire(Events.FILTER_PANEL_SORT, that.get('sortingValue'));
-                            that.collectChildData(true);
-                        }, 500);
-                    }, {init: false});
-                },
+                            childComponents.forEach(function (child) {
 
-                show: function () {
-                    this.set('isVisible', true);
-                },
+                                // открытие закрытие отдельного фильтра
+                                that.observeIsOpen = child.observe('isOpen', function (newValue, oldValue) {
+                                    if (newValue) {
+                                        that.fire('hide:child', child);
+                                    }
+                                });
 
-                fireSort: function () {
-                    this.show();
-                    this.collectChildData();
-                },
+                                that.on('hide:child', function (childComponent) {
+                                    if (childComponent._guid != child._guid) {
+                                        child.fire('hide');
+                                    }
+                                })
+                            })
+                        },
 
-                /**
-                 * Слушаем событие изменения дочерних компонентов
-                 * FilterPanel выступает EventManager-ром для своих детей
-                 *
-                 * child._parent - каждый child слушает своего родителя
-                 *
-                 * if(childComponent._guid != child._guid) Если событие от другого компонента
-                 * то прячем попап
-                 *
-                 */
-                listenChildren: function () {
-                    var that = this;
-                    var childComponents = this.findAllComponents();
+                        /**
+                         * Проходим по всем дочерним компонентам и
+                         * собираем данные для фильтрации
+                         * обновляем массив filtersCollection
+                         */
+                        collectChildData: function () {
+                            var tempArr = [];
 
-                    childComponents.forEach(function (child) {
+                            this.findAllComponents().forEach(function (child) {
+                                if (child.get('value') && child.get('value.val') && child.get('value.val').length) {
+                                    tempArr.push(child.get('value'));
+                                }
+                            });
 
-                        // открытие закрытие отдельного фильтра
-                        that.observeIsOpen = child.observe('isOpen', function (newValue, oldValue) {
-                            if (newValue) {
-                                that.fire('hide:child', child);
+                            this.set('filtersCollection', tempArr);
+                        },
+
+                        bodyClickHide: function (evt) {
+                            evt.stopPropagation();
+                            var $this = evt.target;
+
+                            if (!this.find('.' + $this.classList[0]) && !this.closest($this, '.filter')) {
+                                this.findAllComponents().forEach(function (child) {
+                                    child.fire('hide');
+                                })
                             }
-                        });
+                        },
 
-                        that.on('hide:child', function (childComponent) {
-                            if (childComponent._guid != child._guid) {
-                                child.fire('hide');
+                        closest: function (elem, selector) {
+
+                            while (elem) {
+                                if (elem.matches && elem.matches(selector)) {
+                                    return true;
+                                } else {
+                                    elem = elem.parentNode;
+                                }
                             }
-                        })
-                    })
-                },
+                            return false;
+                        },
 
-                /**
-                 * Проходим по всем дочерним компонентам и
-                 * собираем данные для фильтрации
-                 * также собираем объекты компонентов которые изменились
-                 * обновляем массив filtersCollection
-                 *
-                 * @param {Boolean} opt_param - при сохранении фильтров не нужно делать reset
-                 */
-                collectChildData: function (opt_param) {
-                    var that = this;
-                    var tempArr = [];
+                        complete: function (data) {
+                            this.set('styleWidth', document.documentElement.scrollWidth);
+                        }
+                    });
 
-                    this.findAllComponents().forEach(function (child) {
-                        if (child.get('value') && child.get('value.val') && child.get('value.val').length) {
-                            tempArr.push(child.get('value'));
+
+
+
+
+
+
+
+                    /*----------------- INIT ---------------------*/
+                    /*--------------------------------------------*/
+                    /*--------------------------------------------*/
+                    var FilterPanelComponent = null;
+
+                    /**
+                     * Слушаем изменения объекта filtersSettings
+                     */
+                    $scope.$watch('filtersSettings', function (value) {
+                        if (value) {
+                            $scope.activePanel = (value.filter_hotel) ? 'hotels' : 'ticket';
+                            value.type = $scope.activePanel;
+                            if (!FilterPanelComponent) {
+                                FilterPanelComponent = new FilterPanel({ data: value });
+                            } else {
+                                value.updateModel = Math.random(1000).toString(16);
+                                FilterPanelComponent.set(value)
+                            }
+                        }
+                    });
+
+
+                    /* прячем панель */
+                    $scope.$watch('activePanel', function (value) {
+                        if (value) {
+                            if (FilterPanelComponent && (FilterPanelComponent.get('type') != value)) {
+                                FilterPanelComponent.fire('hide');
+                            }
+                        }
+                    });
+
+                    $scope.$on('$destroy', function () {
+                        console.log('FilterPanel $destroy');
+                        if (FilterPanelComponent) {
+                            FilterPanelComponent.teardown();
+                            FilterPanelComponent = null;
                         }
                     })
-
-                    this.merge('filtersCollection', tempArr);
-
-
-                    if (this.get('filtersCollection').length) {
-                        EventManager.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
-                        this.fire(Events.FILTER_PANEL_CHANGE, this.get('filtersCollection'));
-                    } else {
-                        if(!opt_param) {
-                            EventManager.fire(Events.FILTER_PANEL_RESET);
-                            this.fire(Events.FILTER_PANEL_RESET);
-                        }
-                    }
-                },
-
-
-                /**
-                 * @param {Object} data - данные на основе которых собираются фильтры
-                 */
-                prepareHotelsFiltersData: function (data) {
-
-                },
-
-                /**
-                 * @param {Object} data - данные на основе которых собираются фильтры
-                 */
-                prepareAviaFiltersData: function (data) {
-
-                },
-
-                bodyClickHide: function (evt) {
-                    evt.stopPropagation();
-                    var $this = evt.target;
-
-                    if (!this.find('.' + $this.classList[0]) && !this.closest($this, '.filter')) {
-                        this.findAllComponents().forEach(function (child) {
-                            child.fire('hide');
-                        })
-                    }
-                },
-
-                closest: function (elem, selector) {
-
-                    while (elem) {
-                        if (elem.matches && elem.matches(selector)) {
-                            return true;
-                        } else {
-                            elem = elem.parentNode;
-                        }
-                    }
-                    return false;
-                },
-
-                complete: function (data) {
-                    this.set('styleWidth', document.documentElement.scrollWidth);
                 }
-            });
-
-            return FilterPanel;
+            };
         }]);
