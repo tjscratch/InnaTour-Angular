@@ -38,8 +38,8 @@ angular.module('innaApp.directives')
             return {
                 scope: {
                     filtersSettings: '=filtersSettings',
-                    typePanel: '@typePanel',
-                    activePanel: '=activePanel'
+                    activePanel: '=activePanel',
+                    typePanel: '@typePanel'
                 },
                 link: function link($scope, $element, attrs) {
 
@@ -93,8 +93,6 @@ angular.module('innaApp.directives')
                         },
                         init: function () {
                             var that = this;
-                            this.observeSortValueVal = null;
-                            this.observeIsOpen = null;
                             this.sortingValue = null;
 
                             utils.bindAll(this);
@@ -116,7 +114,7 @@ angular.module('innaApp.directives')
                                     }
                                 },
                                 sortChild: function (data) {
-                                    if (data) this.sortingValue = data;
+                                    if (data) this.sortingValue = angular.copy(data);
                                     setTimeout(function () {
                                         that.doSort(true);
                                     }, 0);
@@ -125,9 +123,6 @@ angular.module('innaApp.directives')
                                     this.set('isVisible', false);
                                 },
                                 teardown: function (evt) {
-                                    this.observeSortValueVal.cancel();
-                                    this.observeIsOpen.cancel();
-
                                     document.removeEventListener('click', this.bodyClickHide, false);
                                     EventManager.off(Events.FILTER_PANEL_CLOSE_FILTERS);
                                     EventManager.off('sort:default');
@@ -251,9 +246,6 @@ angular.module('innaApp.directives')
                         doSort: function (opt_param) {
                             var sortCollection = this.get('Collection');
 
-                            console.log(this.sortingValue, "this.get('sortingValue')");
-                            console.log(this);
-
                             // если коллекция уже фильтровалась
                             // то сортируем ее
                             if (this.get('isFiltered')) {
@@ -315,7 +307,7 @@ angular.module('innaApp.directives')
                             childComponents.forEach(function (child) {
 
                                 // открытие закрытие отдельного фильтра
-                                that.observeIsOpen = child.observe('isOpen', function (newValue, oldValue) {
+                                child.observe('isOpen', function (newValue, oldValue) {
                                     if (newValue) {
                                         that.fire('hide:child', child);
                                     }
@@ -375,12 +367,6 @@ angular.module('innaApp.directives')
                     });
 
 
-
-
-
-
-
-
                     /*----------------- INIT ---------------------*/
                     /*--------------------------------------------*/
                     /*--------------------------------------------*/
@@ -413,7 +399,6 @@ angular.module('innaApp.directives')
                     });
 
                     $scope.$on('$destroy', function () {
-                        console.log('FilterPanel $destroy');
                         if (FilterPanelComponent) {
                             FilterPanelComponent.teardown();
                             FilterPanelComponent = null;

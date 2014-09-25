@@ -39,7 +39,7 @@ angular.module('innaApp.components').
                                 });
 
                                 if (opt_silent && opt_silent.silent) {
-                                    console.log('silent reset');
+                                    //console.log('silent reset');
                                 } else {
                                     this._parent.fire('changeChildFilter', this.get('value.val'));
                                 }
