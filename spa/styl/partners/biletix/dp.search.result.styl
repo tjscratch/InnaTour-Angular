@@ -35,9 +35,9 @@
     .recommend-bundle-background {
         /*background: url("/spa/html/BiletixSite/photo.jpg") no-repeat 0 0;*/
     
-        &:after {
+        /*&:after {
             background: none;
-        }
+        }*/
     }
 
     .recommend-bundle-container.recommend-bundle-container_short {
@@ -48,7 +48,7 @@
         padding: 400px 0 0;
 
         &.results-container__short {
-            padding-top: 206px;
+            padding-top: 165px;
         }
     }
 
@@ -62,20 +62,24 @@
 
     .recommend-bundle-wrap {
         padding: 80px 0 24px;
+
+        &.recommend-bundle-wrap_small {
+            padding: 50px 0 10px;
+        }
     }
 
     .recommend-bundle-wrap .w-expand-collapse-link.w-expand-collapse-link_up {
         top: 62px;
         background-color: #ffffff;
         padding: 4px 14px 6px 8px;
-    }
-
-    .recommend-bundle-wrap .w-expand-collapse-link .expand-collapse-link {
-        color: #4d4d4d;
         text-decoration: none;
     }
 
-    .icon-expand, .icon-collapse {
+    .recommend-bundle-wrap .w-expand-collapse-link_up.w-expand-collapse-link .expand-collapse-link {
+        color: #4d4d4d;
+    }
+
+    .icon-expand/*, .icon-collapse*/ {
         background-image: url("/spa/img/expand-collapse-gray.png");
     }
 
