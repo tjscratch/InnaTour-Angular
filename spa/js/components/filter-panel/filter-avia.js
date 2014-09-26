@@ -35,6 +35,11 @@ angular.module('innaApp.directives')
                 link: function ($scope, $element, attrs) {
 
 
+                  /**
+                   * Компонент FilterPanelAvia
+                   * @class
+                   * @inherits FilterPanel
+                   */
                     var FilterPanelAvia = FilterPanel.extend({
                         el : $element,
                         data : {

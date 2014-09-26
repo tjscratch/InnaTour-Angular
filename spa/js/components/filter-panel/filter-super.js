@@ -24,6 +24,10 @@ angular.module('innaApp.components').
         function (EventManager, $filter, $templateCache, $routeParams, Events, $timeout, FilterService, FilterSettings, IndicatorFilters, FilterSort) {
 
 
+          /**
+           * Компонент FilterPanel
+           * @class
+           */
             var FilterPanel = Ractive.extend({
                 template: $templateCache.get('components/filter-panel/templ/panel.hbs.html'),
                 append: true,
@@ -294,7 +298,6 @@ angular.module('innaApp.components').
                             tempArr.push(angular.copy(child.get('value')));
                         }
                     });
-                    console.info([].concat(tempArr));
 
                     this.set('filtersCollection', [].concat(tempArr));
                 },
