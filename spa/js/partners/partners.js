@@ -15,7 +15,8 @@
             'title': 'Билетикс',
             'phone': '+7&nbsp;495 741-4672',
             'aboutLink': 'https://biletix.ru/about_biletix/',
-            'contactsLink': 'https://biletix.ru/contacts/'
+            'contactsLink': 'https://biletix.ru/contacts/',
+            'offertaContractLink': 'http://s.test.inna.ru/files/doc/offer_biletix.pdf'
         },
         {
             'name': 'agenda',
@@ -24,7 +25,8 @@
             'title': 'agenda',
             'phone': '+7&nbsp;888 742-1212',
             'aboutLink': 'https://www.agenda.travel/Other/About#tab=Agenda',
-            'contactsLink': 'http://blog.agenda.travel/'
+            'contactsLink': 'http://blog.agenda.travel/',
+            'offertaContractLink': ''
         }
     ];
 
