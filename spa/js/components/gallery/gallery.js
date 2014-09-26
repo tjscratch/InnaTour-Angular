@@ -104,7 +104,7 @@ angular.module('innaApp.components').
                 },
 
                 onHover : function(){
-                  
+
                    this.set({isHovered : true});
                     // отписываемся от события hover
                     this.off('hover');
