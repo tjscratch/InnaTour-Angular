@@ -59,6 +59,7 @@ innaAppConponents.
                     });
 
                     this.observe('partialUpdate', function () {
+                      console.log('partialUpdate');
                         this.set('reset', false);
                         this.set('reset', true);
                     })
