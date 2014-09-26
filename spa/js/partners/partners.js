@@ -14,6 +14,8 @@
             'type': self.WLType.full,
             'title': 'Билетикс',
             'phone': '+7&nbsp;495 741-4672',
+            'email': 'support@biletix.ru',
+            'skype': '',
             'aboutLink': 'https://biletix.ru/about_biletix/',
             'contactsLink': 'https://biletix.ru/contacts/',
             'offertaContractLink': 'http://s.test.inna.ru/files/doc/offer_biletix.pdf'
@@ -24,6 +26,8 @@
             'type': self.WLType.lite,
             'title': 'agenda',
             'phone': '+7&nbsp;888 742-1212',
+            'email': '',
+            'skype': '',
             'aboutLink': 'https://www.agenda.travel/Other/About#tab=Agenda',
             'contactsLink': 'http://blog.agenda.travel/',
             'offertaContractLink': ''
