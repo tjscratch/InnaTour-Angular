@@ -43,7 +43,7 @@ angular.module('innaApp.components').
                                     this.set('value.val', data['name'].trim());
                                     this.SaveData = [data['name'].trim()];
 
-                                    this._parent.fire('changeChildFilter', this.get('value.val'));
+                                    this.fire('onCheckedFilter', this.get('value.val'));
                                     this.hasSelected();
                                 }.bind(this), 100);
                             }
@@ -80,7 +80,7 @@ angular.module('innaApp.components').
                     this._super(data);
                     this.fire('resetFilter');
                     this.spliceSaveData();
-                    this._parent.fire('changeChildFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', this.get('value.val'));
                     this.hasSelected();
                 }
             });

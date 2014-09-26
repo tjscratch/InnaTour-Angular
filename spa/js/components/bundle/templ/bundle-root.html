@@ -1,11 +1,11 @@
 <div class="recommend-bundle-container"
      ng-class="{'recommend-bundle-container_short':!isVisible}">
-    <ng-include src="'components/wl-new-search/templ/index.hbs.html'"></ng-include>
+	<ng-include src="'components/wl-new-search/templ/index.hbs.html'"></ng-include>
 	<div class="recommend-bundle">
 
 		<div class="recommend-bundle-background" ng-if="!displayHotel"></div>
 
-		<div class="scroll-fix">
+		<div class="scroll-fix ">
 			<div class="main__center recommend-bundle-wrap"
 			     ng-class="{'recommend-bundle-wrap_small': !isVisible}">
 
@@ -36,4 +36,18 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- панель фильтрации отелей -->
+	<ng:any filter-panel-hotel
+	        filters-settings="filtersSettingsHotels"
+	        type-panel="hotels"
+	        active-panel="activePanel"
+	        ng-show="filtersSettingsHotels"></ng:any>
+
+	<!-- панель фильтрации билетов -->
+	<ng:any filter-panel-avia
+	        filters-settings="filtersSettingsTicket"
+	        type-panel="ticket"
+	        active-panel="activePanel"
+	        ng-show="filtersSettingsTicket"></ng:any>
 </div>
