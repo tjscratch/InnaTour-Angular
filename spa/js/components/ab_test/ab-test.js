@@ -39,6 +39,7 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
         }
     }
 
+    $rootScope.ABTest2 = false;
     var AB2 = function () {
         switch ($location.$$path) {
             case '/':
