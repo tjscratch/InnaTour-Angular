@@ -128,6 +128,7 @@ innaAppControllers
                         }
                     },
                     error: function () {
+                      console.log('err');
                         _balloonLoad.updateView({
                             template: "err.html",
                             title: 'Oops...',
