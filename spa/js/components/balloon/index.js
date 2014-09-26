@@ -40,6 +40,8 @@ innaAppConponents.
                 init: function (options) {
                     this._super(options);
 
+                    utils.bindAll(this);
+
                     this.on({
                         change: function (data) {
 
@@ -63,16 +65,10 @@ innaAppConponents.
                         this.set('reset', true);
                     })
 
-                    this.observe('balloonContentPartial', function (value) {
-                        this.partials.partialUpdate = value;
-                        this.set('reset', false);
-                        this.set('reset', true);
-                    })
-
                     this.observe('isVisible', function (value) {
                         if(value){
                             document.body.classList.add('overflow_hidden');
-                            window.addEventListener('resize', onResize.bind(this));
+                            window.addEventListener('resize', onResize);
                         } else {
                             document.body.classList.remove('overflow_hidden');
                             window.removeEventListener('resize', onResize);
@@ -87,7 +83,7 @@ innaAppConponents.
 
                 beforeInit: function(o){
                     if(o && o.data && o.data.template) {
-                        this.data.balloonContentPartial = $templateCache.get('components/balloon/templ/' + o.data.template);
+                        this.data.partialUpdate = $templateCache.get('components/balloon/templ/' + o.data.template);
                     }
                 },
 
@@ -128,10 +124,11 @@ innaAppConponents.
                             this.partials.partialUpdate = partial;
                         }
 
+                      console.log(partial);
                         this.set({
                             partialUpdate: partial,
                             template: data.template,
-                            loading: data.loading,
+                            loading: data.loading || false,
                             balloonClose: data.balloonClose,
                             balloonContent: data.balloonContent,
                             title: data.title,
