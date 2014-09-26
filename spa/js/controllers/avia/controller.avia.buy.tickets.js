@@ -267,7 +267,12 @@ innaAppControllers.
                 var url = app_main.staticHost + '/files/doc/offer.pdf';
 
                 if (isDp) {
-                    url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+                    if (window.partners && window.partners.isFullWL()) {
+                        url = window.partners.getPartner().offertaContractLink;
+                    }
+                    else {
+                        url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+                    }
                 }
 
                 $scope.oferta = {
