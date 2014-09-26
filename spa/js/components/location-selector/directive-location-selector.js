@@ -7,7 +7,7 @@ innaAppDirectives.directive('locationSelector', [
     'serviceCache',
     'dataService',
     'DynamicPackagesDataProvider',
-    function ($templateCache) {
+    function ($templateCache, $timeout) {
         return{
             replace   : true,
             template  : $templateCache.get("components/location-selector/templ/index.html"),
@@ -16,19 +16,20 @@ innaAppDirectives.directive('locationSelector', [
                 placeholder  : '@',
                 currentCityId: '=currentCityId',
                 typeSearch   : '=',
-                isFrom       : '='
+                cacheName    : '@',
+                isFrom       : '@'
             },
             controller: function ($rootScope, $scope, $timeout, $routeParams, eventsHelper, serviceCache, dataService, DynamicPackagesDataProvider) {
 
-
+                console.log('directive start')
                 /**
                  * функция установки локации
                  * $scope.currentCity - название выбранного города
                  * $scope.currentCityId - id выбранного города
                  * @param value - объект с локацией
                  */
-                $scope.setCurrentCity = function (data, airport, doNotUpdateText) {
 
+                $scope.setCurrentCity = function (data, airport, doNotUpdateText) {
                     // если приходит объект аэропорт, то выставляем его
                     var currentData;
                     if (airport) {
@@ -37,8 +38,7 @@ innaAppDirectives.directive('locationSelector', [
                         currentData = data;
                     }
 
-                    // сохраняем текущую локацию в кеше
-                    serviceCache.createObj('currentLocation', currentData);
+                    serviceCache.createObj($scope.cacheName, currentData);
 
                     var name = [currentData.Name];
                     name.push(currentData.CountryName);
@@ -65,11 +65,11 @@ innaAppDirectives.directive('locationSelector', [
                 /**
                  * если локация сохранена в кеше то берем её оттуда
                  */
-                if ($scope.isFrom) {
-                    var getCurrentLocationInCache = serviceCache.getObject('currentLocation')
-                    if (getCurrentLocationInCache) {
-                        $scope.setCurrentCity(getCurrentLocationInCache)
-                    } else {
+                var getCurrentLocationInCache = serviceCache.getObject($scope.cacheName);
+                if (getCurrentLocationInCache) {
+                    $scope.setCurrentCity(getCurrentLocationInCache)
+                } else {
+                    if ($scope.isFrom === '1') {
                         getCurrentLocationInServer().then(function (data) {
                             $scope.$apply(function ($scope) {
                                 $scope.setCurrentCity(data)
@@ -126,7 +126,6 @@ innaAppDirectives.directive('locationSelector', [
                                 }
                             }
                         }
-
                         //проставляем первый выбранный
                         if (self.list.length > 0) {
                             self.list[0].item.isSelected = true;
@@ -185,7 +184,7 @@ innaAppDirectives.directive('locationSelector', [
                     self.updateInputText = function () {
                         self.setSelected(true);
                     }
-                    self.setSelected = function (doNotUpdateText) {
+                    self.setSelected = function (doNotUpdateText, index) {
                         var i = self.list[self.selectedIndex];
                         if (i) {
                             $scope.setCurrentCity(i.option, i.airport, doNotUpdateText);
@@ -213,8 +212,17 @@ innaAppDirectives.directive('locationSelector', [
                 }, 300);
 
 
+                $scope.setCurrentCityClick = function ($event, item, airport) {
+                    $event && eventsHelper.preventBubbling($event);
+                    $scope.setCurrentCity(item, airport);
+                    $scope.isOpened = false;
+                    $scope.$broadcast("currentCityChangeClick");
+                }
+
+
                 //ToDO починить при вводе !Москва, ! выводит пустоту
                 $scope.currentCityChange = function ($event) {
+                    $event && eventsHelper.preventBubbling($event);
                     var eventType = $event ? $event.type : null;
                     switch (eventType) {
                         case 'focus':
@@ -225,12 +233,18 @@ innaAppDirectives.directive('locationSelector', [
                             getAutocompleteList();
                             break;
                         case 'blur':
-                            $scope.timeoutId = $timeout(function () {
-                                $scope.$apply(function ($scope) {
-                                    $scope.selectionControl.setSelected();
-                                    $scope.isOpened = false;
-                                });
-                            }, 300);
+                            $scope.blurBlocked = false;
+                            $scope.$on("currentCityChangeClick", function ($event) {
+                                $scope.blurBlocked = true;
+                            })
+                            if ($scope.blurBlocked = false) {
+                                $scope.timeoutId = $timeout(function () {
+                                    $scope.$apply(function ($scope) {
+                                        $scope.selectionControl.setSelected();
+                                        $scope.isOpened = false;
+                                    });
+                                }, 300);
+                            }
                             break;
                         case 'keyup':
                             var key = $event.keyCode || $event.which
@@ -265,12 +279,26 @@ innaAppDirectives.directive('locationSelector', [
                             break;
                     }
                 }
+
                 /**
                  * END:: Автокомплит
                  */
 
             },
-            link      : function () {
+            link      : function ($scope) {
+
+                function clickHanlder(event) {
+                    $scope.$apply(function ($scope) {
+                        $scope.selectionControl.setSelected();
+                        $scope.isOpened = false;
+                    });
+                }
+
+                $(document).click(clickHanlder);
+                $scope.$on('$destroy', function () {
+                    $(document).off('focus');
+                    $(document).off('click', clickHanlder);
+                });
             }
         }
     }])

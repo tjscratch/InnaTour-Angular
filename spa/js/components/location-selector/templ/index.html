@@ -10,7 +10,7 @@
 			/>
 
 	<ul class="search-autocomplete" ng-if="fromList && isOpened">
-		<li ng-repeat="item in fromList" ng-click="setCurrentCity(item)">
+		<li ng-repeat="item in fromList" ng-click="setCurrentCityClick($event, item)">
             <span class="search-autocomplete-block" ng-class="{selected:selectionControl.isItemSelected(item)}">
                 <span class="search-autocomplete-city">
 	                {{item.Name}}, 
@@ -18,7 +18,7 @@
                 <span class="search-autocomplete-abbr">{{item.CodeIata}}</span>
             </span>
 			<ul ng-show="item.Airport">
-				<li ng-repeat="airport in item.Airport" ng-click="setCurrentCity(item, airport)">
+				<li ng-repeat="airport in item.Airport" ng-click="setCurrentCityClick($event, item, airport)">
                     <span class="search-autocomplete-block" ng-class="{selected:selectionControl.isItemSelected(airport)}">
                         <span class="search-autocomplete-city">{{airport.Name}}</span>
                         <span class="search-autocomplete-abbr">{{airport.CodeIata}}</span>
@@ -28,9 +28,10 @@
 		</li>
 	</ul>
 
-	<div ng-show="fieldError" class="ui-tooltip">
-		<div class="ui-tooltip-content">
-			{{ fieldError }}
-		</div>
-	</div>
+	<div error-tooltip
+	     position-top="70px"
+	     align="width-center"
+	     message="{{fieldError}}"
+			></div>
+
 </div>
