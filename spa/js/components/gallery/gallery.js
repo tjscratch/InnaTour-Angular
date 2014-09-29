@@ -41,7 +41,7 @@ angular.module('innaApp.components').
 
 
                     this.observe('PhotoHotel', function (newValue) {
-                        if (newValue && newValue.SmallPhotos.length) {
+                        if (newValue && (newValue.SmallPhotos && newValue.SmallPhotos.length)) {
                             var baseUrl = newValue.BaseUrl;
                             var photoList = newValue.SmallPhotos;
                             var joinPhoto = [];
