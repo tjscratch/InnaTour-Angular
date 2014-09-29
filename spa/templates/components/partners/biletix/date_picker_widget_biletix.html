@@ -1,5 +1,5 @@
 <ng:any>
-    <div class="b-search-field-hor">
+    <div class="b-search-field-hor datepicker-field">
         <div class="js-field-from-block b-search-field b-search-field__half b-search-field__calendar" ng-click="toggleFrom($event)"
              data-title="Выберите дату отправления туда">
             <input type="text" ng-value="long(date1)" class="js-field-from-inp search-date search-date-arr" placeholder="Туда"
@@ -11,6 +11,9 @@
                    style="visibility: hidden;" />
             <div class="search-date-block__date" ng-class="{'search-date-block__date_display_placeholder': !date2}">{{date2 ? long(date2) : 'Обратно'}}</div>
         </div>
+	    <div class="ui-tooltip" ng-show="Error">
+		    <div class="ui-tooltip-content">{{ Error }}</div>
+	    </div>
     </div>
     <div class="js-datepicker datepicker-body" ng-show="isOpen">
         <div class="dp-head-cont">
