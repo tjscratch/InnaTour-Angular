@@ -88,8 +88,10 @@ angular.module('innaApp.directives')
                     });
 
                     $scope.$on('$destroy', function () {
-                        FilterPanelComponent.teardown();
-                        FilterPanelComponent = null;
+                        if (FilterPanelComponent) {
+                            FilterPanelComponent.teardown();
+                            FilterPanelComponent = null;
+                        }
                     })
                 }
             };

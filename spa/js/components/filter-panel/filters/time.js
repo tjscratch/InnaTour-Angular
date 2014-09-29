@@ -142,6 +142,7 @@ angular.module('innaApp.components').
 
                         changeState: function () {
                             this.set('value.val', this.filter());
+                            this.fire('onCheckedFilter', this.get('value.val'));
                         },
 
                         resetFilter: function (data) {

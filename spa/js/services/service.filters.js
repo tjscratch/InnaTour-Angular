@@ -87,7 +87,6 @@
                 else
                     expression = sortType[defaultSort];
 
-
                 var result = $filter('orderBy')(sortCollection, expression);
 
                 expression = null;
