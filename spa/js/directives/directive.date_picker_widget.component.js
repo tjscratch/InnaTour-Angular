@@ -122,7 +122,7 @@
                     if (newValue instanceof Error) {
                         $scope.date1 = oldValue;
                         if (partner === 'biletix') {
-                            $scope.Error = "Выберите дату отправления туда";
+                            $scope.Error1 = "Выберите дату отправления туда";
                         }else{
                             $scope.input1.tooltip(getPopupOptions($scope.input1)).tooltip('open');
                         }
@@ -138,7 +138,7 @@
                     if (newValue instanceof Error) {
                         $scope.date2 = oldValue;
                         if (partner === 'biletix') {
-                            $scope.Error = "Выберите дату отправления обратно";
+                            $scope.Error2 = "Выберите дату отправления обратно";
                         } else {
                             $scope.input2.tooltip(getPopupOptions($scope.input2)).tooltip('open');
                         }
@@ -315,10 +315,12 @@
 
                         try {
                             $scope.input1.tooltip('destroy');
+                            $scope.Error1 = false;
                         } catch (e) {
                         }
                         try {
                             $scope.input2.tooltip('destroy');
+                            $scope.Error2 = false;
                         } catch (e) {
                         }
                     }
