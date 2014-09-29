@@ -124,7 +124,6 @@ innaAppConponents.
                             this.partials.partialUpdate = partial;
                         }
 
-                      console.log(partial);
                         this.set({
                             partialUpdate: partial,
                             template: data.template,
