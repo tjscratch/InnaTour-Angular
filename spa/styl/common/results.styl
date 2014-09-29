@@ -542,3 +542,46 @@
 
         .rub
             font-size 14px
+          
+ 
+.button{
+  &.button-scroll-to-top{
+    position: fixed;
+    right: 50%;
+    bottom: 0;
+    margin-right: -480px;
+    background: #212121;
+    color: #fff;
+    border-radius: 1px 1px 0 0;
+    box-shadow: 0 0 3px #212121;
+
+    .icon-arrow-top{
+      margin-right: 3px;
+    }
+  }
+}
+  
+.icon-arrow-top{
+  position : relative;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 0 8px 8px 8px;
+  border-bottom-color: #fff;
+  
+  &:after{
+    content: '';
+    position: absolute;
+    left: -6px;
+    bottom: -8px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 0 6px 6px 6px;
+    border-bottom-color: #212121;
+  }
+}
