@@ -74,7 +74,7 @@
 
 		{{#if ticket.EtapsBack.length - 1}}
 			{{ticket.EtapsBack.length - 1}}
-			{{pluralize(ticket.EtapsBack.length, ["пересадка","пересадки","пересадок"])}}
+			{{pluralize(ticket.EtapsBack.length - 1, ["пересадка","пересадки","пересадок"])}}
 		{{/if}}
 
 		{{#if (ticket.EtapsBack.length - 1) == 0}}
