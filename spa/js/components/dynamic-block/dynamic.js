@@ -46,7 +46,7 @@ innaAppConponents.
 
             /**
              * Компонент DynamicBlock
-             * @constructor
+             * @class
              */
             var DynamicBlock = Ractive.extend({
                 append: true,
