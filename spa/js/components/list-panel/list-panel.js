@@ -32,8 +32,6 @@ angular.module('innaApp.components').
                     iterable_hotels: false,
                     iterable_tickets: false,
 
-                    /*Enumerable: [],
-                     combinationModel: null,*/
                     EnumerableCount: 0,
                     EnumerableClone: [],
                     EnumerableList: [],
@@ -86,6 +84,9 @@ angular.module('innaApp.components').
                         goToMap: function (data) {
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('EnumerableList'), data);
                         },
+
+                        '*.setCurrent' : this.setCurrent,
+
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
                             this.observeEnumerable.cancel();
@@ -145,7 +146,6 @@ angular.module('innaApp.components').
                     EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
                     EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
 
-
                     /** Событие изменения фильтров или сортировки */
                     EventManager.on(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
                 },
@@ -160,6 +160,12 @@ angular.module('innaApp.components').
 
                     /* ставим в конец очереди чтоб не блокировать переключение фильтров */
                     this.cloneData(data);
+                },
+
+                setCurrent : function(modelHotel, hotelId){
+                    if(this.get('EnumerableCount') == 1){
+                        this.set('EnumerableCount', 0);
+                    }
                 },
 
                 proxyGoToMap: function (data) {

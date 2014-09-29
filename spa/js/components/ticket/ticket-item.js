@@ -86,7 +86,7 @@ angular.module('innaApp.components').
                         if((ticketId != that.get('ticket.VariantId1')) && that.get('hidden')){
                             that.set('hidden', false);
                         }
-                    }); //this.CHOOSE_TICKET.bind(this)
+                    });
                 },
 
                 /**
