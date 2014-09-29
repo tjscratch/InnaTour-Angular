@@ -2,7 +2,7 @@
 <div class="hotel-details ng-cloak" ng-class="{'hotel-details_display-order' : isDisplayOrder}" ng-if="hotelLoaded">
     <div class="hotel-details__wrap main__center">
         <div class="hotel-details__section hotel-details__section_layout_context">
-            <div class="hotel-details__ta hotel-details-ta-info" ng-if="hotel.TaFactor">
+            <div class="hotel-details__ta hotel-details-ta-info" ng-click="scrollToTripadvisor()" ng-if="hotel.TaFactor">
                 <!-- tripadvisor -->
                 <div class="js-tripadvisor-container"></div>
             </div>
@@ -107,7 +107,7 @@
         </div>
 
 
-        <div class="b-tripadvisor-widget-iframe" ng-if="hotel.TaFactor">
+        <div id="tripadvisor-widget-iframe" class="b-tripadvisor-widget-iframe" ng-if="hotel.TaFactor">
             <iframe
                     class="iframe_widget"
                     name="tripadvisor"

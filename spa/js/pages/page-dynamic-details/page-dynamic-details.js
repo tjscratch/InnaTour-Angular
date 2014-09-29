@@ -3,6 +3,7 @@ innaAppControllers
         'EventManager',
         '$window',
         '$scope',
+        '$anchorScroll',
         '$timeout',
         'aviaHelper',
         'innaApp.Urls',
@@ -18,7 +19,7 @@ innaAppControllers
         'Stars',
         'Balloon',
         '$filter',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars, Balloon, $filter) {
+        function (EventManager, $window, $scope, $anchorScroll, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars, Balloon, $filter) {
 
             DynamicFormSubmitListener.listen();
 
@@ -407,6 +408,15 @@ innaAppControllers
              $scope.back();
              }
              });*/
+
+
+            $scope.scrollToTripadvisor = function () {
+                var body = angular.element('html, body'),
+                    headerHeight = angular.element('.Header').height(),
+                    positionTop = angular.element('#tripadvisor-widget-iframe').position().top;
+                body.animate({ scrollTop: positionTop - headerHeight }, 500)
+            };
+
 
             $scope.$on('$destroy', function () {
                 $('body').removeAttr('style');
