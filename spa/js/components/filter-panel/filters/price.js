@@ -12,15 +12,14 @@ angular.module('innaApp.components').
             var FilterPrice = ClassFilter.extend({
                 template: $templateCache.get('components/filter-panel/templ-filters/price.hbs.html'),
                 data: {
-                    setValue : 0,
+                    setValue: 0,
                     value: {
                         name: 'FullPackagePrice',
                         val: [],
                         fn: function (data, component_val) {
                             return (data <= component_val.val[0]);
                         }
-                    },
-                    priceValue: null
+                    }
                 },
                 components: {
 
@@ -53,7 +52,7 @@ angular.module('innaApp.components').
 
                                     // выставляем значение слайдера
                                     this._slider.slider('value', priceValue);
-                                    this._parent.fire('changeChildFilter', this.get('value.val'));
+                                    this.fire('onCheckedFilter', this.get('value.val'));
                                     this.hasSelected();
                                 }.bind(this), 300);
                             }
@@ -62,12 +61,12 @@ angular.module('innaApp.components').
                         resetFilter: function () {
                             this.set({'FilterData.Value': this.get('FilterData.Max')});
 
-                            if(this._slider) {
+                            if (this._slider) {
                                 this._slider.slider('value', this.get('FilterData.Max'));
                             }
                         },
                         teardown: function (evt) {
-                            if(this._slider)
+                            if (this._slider)
                                 this._slider.slider("destroy");
 
                             this._slider = null;
@@ -76,18 +75,17 @@ angular.module('innaApp.components').
                 },
 
 
-                mergeData : function(){
+                mergeData: function () {
                     var that = this;
 
-                    if(this.SaveData.length && this.get('FilterData').length) {
-                        if(that.SaveData[0] == this.get('FilterData.Value')){
-                            this.slide(that.SaveData[0]);
-                        }
+                    if (this.SaveData.length) {
+                        this.slide(that.SaveData[0]);
+                        this.set('FilterData.Value', that.SaveData[0]);
                     }
                 },
 
-                spliceSaveData : function() {
-                    if(this.SaveData.length) this.SaveData = [];
+                spliceSaveData: function () {
+                    if (this.SaveData.length) this.SaveData = [];
                 },
 
 
@@ -107,7 +105,7 @@ angular.module('innaApp.components').
                     this.spliceSaveData();
                     this._slider.slider('value', this.get('FilterData.Max'));
 
-                    this._parent.fire('changeChildFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', this.get('value.val'));
                     this.hasSelected();
                 },
 
@@ -120,8 +118,8 @@ angular.module('innaApp.components').
                  */
                 slide: function (val) {
                     this.set({
-                        'setValue' : Math.random()*1000,
-                        'FilterData.Value' : val
+                        'setValue': Math.random() * 1000,
+                        'FilterData.Value': val
                     });
                 },
 

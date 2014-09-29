@@ -26,6 +26,7 @@ innaAppConponents.
                 },
                 init: function (options) {
                     var that = this;
+                    utils.bindAll(this);
 
                     this.on({
                         action: this.action,
@@ -43,13 +44,16 @@ innaAppConponents.
                         }
                     });
 
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad.bind(this));
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad.bind(this));
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad);
+                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad);
+
+
 
 
                     this.observe('filtersCollection', function(value){
                         this.set('filters', value);
-                    })
+                    });
+                    
                 },
 
                 mapLoad : function(){

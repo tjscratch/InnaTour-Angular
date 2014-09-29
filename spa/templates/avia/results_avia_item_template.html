@@ -40,7 +40,7 @@
                     {{#(this.ToTransferCount > 0)}}
                         <span>
                             {{this.ToTransferCount}}
-	                        {{pluralize(this.BackTransferCount, ["пересадка","пересадки","пересадок"])}}
+	                        {{pluralize(this.ToTransferCount, ["пересадка","пересадки","пересадок"])}}
                         </span>
                     {{/}}
                     {{#(this.ToTransferCount == 0)}}

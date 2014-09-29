@@ -42,7 +42,7 @@
                 coords = utils.getCoords(inpFrom[0]);
                 opt_data.picker.css({
                     left: getLeftFrom() + 'px',
-                    top: (coords.top + $(inpFrom[0]).height()) + 'px'
+                    top : (coords.top + $(inpFrom[0]).height()) + 'px'
                 });
             }
             else if (opt_data.to || opt_data.slide) {
@@ -54,7 +54,7 @@
                 else {
                     opt_data.picker.css({
                         left: getLeftTo() + 'px',
-                        top: (coords.top + $(enpTo[0]).height()) + 'px'
+                        top : (coords.top + $(enpTo[0]).height()) + 'px'
                     });
                 }
             }
@@ -62,20 +62,20 @@
 
 
         return {
-            replace: true,
-            template: function (el, attr) {
+            replace   : true,
+            template  : function (el, attr) {
                 if (attr.templ) {
                     return $templateCache.get(attr.templ);
                 }
                 return $templateCache.get('components/date_picker_widget.html');
             },
-            scope: {
-                date1: '=',
-                date2: '=',
-                minDate: '=',
+            scope     : {
+                date1     : '=',
+                date2     : '=',
+                minDate   : '=',
                 addButtons: '=',
-                data: '=',
-                maxDate: '='
+                data      : '=',
+                maxDate   : '='
             },
             controller: ['$scope', function ($scope) {
                 /*Properties*/
@@ -83,14 +83,15 @@
                 //флаг - выбираем дату туда, или дату обратно
                 $scope.isFromSelecting = true;//дата туда
 
+
                 function getPopupOptions($element) {
                     var popupOptions = {
                         position: {
                             my: 'center top+22',
                             at: 'center bottom'
                         },
-                        items: "[data-title]",
-                        content: function () {
+                        items   : "[data-title]",
+                        content : function () {
                             return $element.data("title");
                         }
                     };
@@ -109,12 +110,22 @@
                     }
                 }
 
+
+                /**
+                 * кусок говнокода для валидаторов на билетиксе
+                 */
+                if (window.partners && window.partners.getPartner()) {
+                    var partner = window.partners.getPartner().name;
+                }
                 /*Watchers*/
                 $scope.$watch('date1', function (newValue, oldValue) {
                     if (newValue instanceof Error) {
                         $scope.date1 = oldValue;
-
-                        $scope.input1.tooltip(getPopupOptions($scope.input1)).tooltip('open');
+                        if (partner === 'biletix') {
+                            $scope.Error1 = "Выберите дату отправления туда";
+                        }else{
+                            $scope.input1.tooltip(getPopupOptions($scope.input1)).tooltip('open');
+                        }
                     }
                     else {
                         if ($scope.datePicker) {
@@ -126,8 +137,11 @@
                 $scope.$watch('date2', function (newValue, oldValue) {
                     if (newValue instanceof Error) {
                         $scope.date2 = oldValue;
-
-                        $scope.input2.tooltip(getPopupOptions($scope.input2)).tooltip('open');
+                        if (partner === 'biletix') {
+                            $scope.Error2 = "Выберите дату отправления обратно";
+                        } else {
+                            $scope.input2.tooltip(getPopupOptions($scope.input2)).tooltip('open');
+                        }
                     }
                     else {
                         if ($scope.datePicker) {
@@ -179,8 +193,8 @@
                     $scope.showPicker();
                     setPosition({
                         elemFromPosition: $event.currentTarget,
-                        picker: $scope.datePicker,
-                        from: true
+                        picker          : $scope.datePicker,
+                        from            : true
                     });
                 }
 
@@ -199,8 +213,8 @@
                     $scope.showPicker();
                     setPosition({
                         elemFromPosition: $event.currentTarget,
-                        picker: $scope.datePicker,
-                        to: true
+                        picker          : $scope.datePicker,
+                        to              : true
                     });
                 }
 
@@ -238,7 +252,7 @@
                     }
                 };
             }],
-            link: function ($scope, element) {
+            link      : function ($scope, element) {
                 var defaultDates = $scope.getPickerDates();
 
 
@@ -246,24 +260,24 @@
                 $scope.input2 = $('.search-date-block', element).eq(1);
 
                 var options = {
-                    flat: true,
-                    date: defaultDates,
-                    initDateToIsSet: ($scope.date1 != null),
+                    flat             : true,
+                    date             : defaultDates,
+                    initDateToIsSet  : ($scope.date1 != null),
                     initDateFromIsSet: ($scope.date2 != null),
-                    calendars: 2,
-                    mode: 'range',
-                    format: 'd.m.Y',
-                    starts: 1,
-                    onShow: function () {
+                    calendars        : 2,
+                    mode             : 'range',
+                    format           : 'd.m.Y',
+                    starts           : 1,
+                    onShow           : function () {
                         console.log('show  data Picker');
 
                         return true;
                     },
-                    onHide: function () {
+                    onHide           : function () {
                         console.log('hide  data Picker');
                         return true;
                     },
-                    onChange: function (formated, dates, el, lastSel, initDateFromIsSet) {
+                    onChange         : function (formated, dates, el, lastSel, initDateFromIsSet) {
 
                         $scope.$apply(function ($scope) {
                             $scope.date1 = formated[0];
@@ -301,10 +315,12 @@
 
                         try {
                             $scope.input1.tooltip('destroy');
+                            $scope.Error1 = false;
                         } catch (e) {
                         }
                         try {
                             $scope.input2.tooltip('destroy');
+                            $scope.Error2 = false;
                         } catch (e) {
                         }
                     }
@@ -341,7 +357,7 @@
 
                 $scope.hidePicker = function (evt) {
                     //console.log('$scope.hidePicker');
-                    if($scope.datePicker) {
+                    if ($scope.datePicker) {
                         setPosition({
                             picker: $scope.datePicker
                         });

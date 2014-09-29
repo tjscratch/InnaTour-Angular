@@ -166,7 +166,7 @@
     <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
 
 </head>
-<body class="light-theme" ng-class="{'body-bg':isBodyBg()}" ng-click="bodyClick()" popup-form>
+<body class="light-theme {{ PageClass }}" ng-class="{'body-bg':isBodyBg()}" ng-click="bodyClick()" popup-form>
 
 <!-- AB test -->
 <div ng-controller="AbTestCtrl" style="opacity: 0;display: none">
@@ -230,7 +230,7 @@
                             </li>
                             <!--<li><a onclick="track.gotoBooking();" href="http://www.booking.com/index.html?aid=373638&lang=ru"
                                    target="_blank" ng-class="{active:isActive('/hotels/')}">Отели</a></li>-->
-                            <li class="partners-hide"><a href="/catalog/guide/" ng-class="{active:isActive('/guide/')}">Каталог стран</a></li>
+                            <li class="partners-hide catalog-guide"><a href="/catalog/guide/" ng-class="{active:isActive('/guide/')}">Каталог стран</a></li>
                         </ul>
 
                         <ng:include src="'auth/header.html'"></ng:include>
