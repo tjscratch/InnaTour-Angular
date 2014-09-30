@@ -116,29 +116,6 @@ angular.module('innaApp.directives')
                             }
                         }
 
-                        /*function getHotelDetails() {
-                            var deferred = $q.defer();
-
-                            DynamicPackagesDataProvider.hotelDetails({
-                                HotelId: $scope.combination.hotel.data.HotelId,
-                                HotelProviderId: $scope.combination.hotel.data.ProviderId,
-                                TicketToId: $scope.combination.ticket.data.VariantId1,
-                                TicketBackId: $scope.combination.ticket.data.VariantId2,
-                                Filter: routParam,
-
-                                success: function (data) {
-                                    deferred.resolve();
-                                },
-                                error: function () { //error
-                                    deferred.reject();
-                                }
-                            });
-
-                            return deferred.promise;
-                        };*/
-
-
-
                         /**
                          * Управляем состоянием - выбранного варианта
                          * Раскрывает его и скрывает
@@ -195,9 +172,9 @@ angular.module('innaApp.directives')
 
                         var onScroll = function () {
                             scroll = true;
-                            var body = document.body || document.documentElement;
+                            var scrollTop = utils.getScrollTop();
 
-                            if (body.scrollTop >= 200) {
+                            if (scrollTop >= 200) {
                                 $scope.$apply(function ($scope) {
                                     $scope.display.shortDisplay(true);
                                 });
@@ -221,6 +198,7 @@ angular.module('innaApp.directives')
                         }
 
 
+                        
                         EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, $scope.display.fullDisplay);
                         EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, openBundle);
                         EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, closeBundle);
@@ -249,13 +227,8 @@ angular.module('innaApp.directives')
                         EventManager.on(Events.FILTER_PANEL_RESET, filtersPanelReset);
 
 
-                        /*$scope.$watchCollection('combination', function(value){
-                            console.log('watch combination', value);
-                        });*/
-
                         /*Events*/
                         $scope.$on('$destroy', function () {
-                            console.log('$destroy bundle root');
                             EventManager.off(Events.DYNAMIC_SERP_MAP_DESTROY, $scope.display.fullDisplay);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL);
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);

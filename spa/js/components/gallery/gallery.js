@@ -13,7 +13,7 @@ angular.module('innaApp.components').
                 append: true,
                 data: {
                     isHovered : false,
-                    imageSize : 'SmallPhotos',
+                    imageSize : 'LargePhotos',
                     photoList: [],
                     photoCollection : [],
                     width: 200,
@@ -41,9 +41,10 @@ angular.module('innaApp.components').
 
 
                     this.observe('PhotoHotel', function (newValue) {
-                        if (newValue && newValue.SmallPhotos.length) {
+                        var size = this.get('imageSize');
+                        if (newValue && (newValue[size] && newValue[size].length)) {
                             var baseUrl = newValue.BaseUrl;
-                            var photoList = newValue.SmallPhotos;
+                            var photoList = newValue[size];
                             var joinPhoto = [];
 
                           for (var i = 0; i < photoList.length; i++) {

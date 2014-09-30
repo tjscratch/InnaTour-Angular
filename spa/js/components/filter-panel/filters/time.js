@@ -36,26 +36,27 @@ angular.module('innaApp.components').
                         fn: function (data_item, component_val) {
                             var data = angular.copy(data_item);
                             data_item = null;
+
                             var partDaysConf = [
                                 {
                                     value: 'Morning',
                                     start: '6',
-                                    end: '12'
+                                    end: '11:59'
                                 },
                                 {
                                     value: 'Afternoon',
                                     start: '12',
-                                    end: '18'
+                                    end: '17:59'
                                 },
                                 {
                                     value: 'Evening',
                                     start: '18',
-                                    end: '24'
+                                    end: '23:59'
                                 },
                                 {
                                     value: 'Night',
                                     start: '0',
-                                    end: '6'
+                                    end: '5:59'
                                 }
                             ];
 
@@ -75,6 +76,8 @@ angular.module('innaApp.components').
                                 var timeTicket = moment(data[stateResult[0].value]);
                                 var hours = timeTicket.hours();
                                 var minute = timeTicket.minute();
+
+                                //console.log(hours+':'+minute);
 
                                 /** если есть минуты, то к часу прибавляем еще один час */
                                 //if (minute) hours + 1
@@ -101,9 +104,14 @@ angular.module('innaApp.components').
                                      * если время входит в диапазон части дня, то возвращаем true
                                      */
                                     //console.log(hours, partDay.start, partDay.end);
+                                    if (hours >= partDay.start){
+                                      var endTime = partDay.end.split(':'),
+                                          endTimeHours = endTime[0],
+                                          endTimeMinutes = endTime[1];
 
-                                    if ((hours >= partDay.start) && (hours <= partDay.end)) {
+                                      if((hours <= endTimeHours) && (minute <= endTimeMinutes)) {
                                         return true;
+                                      }
                                     }
                                 });
 
@@ -136,7 +144,7 @@ angular.module('innaApp.components').
 
                         filterChange: function (data) {
                             this.set('value.val', this.filter());
-                            this._parent.fire('changeChildFilter', this.get('value.val'));
+                            this.fire('onCheckedFilter', this.get('value.val'));
                             this.hasSelected();
                         },
 
@@ -226,7 +234,7 @@ angular.module('innaApp.components').
                     });
 
                     this.fire('filterChange');
-                    this._parent.fire('changeChildFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', this.get('value.val'));
                     this.hasSelected();
                 }
             });

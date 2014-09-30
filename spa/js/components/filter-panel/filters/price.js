@@ -19,8 +19,7 @@ angular.module('innaApp.components').
                         fn: function (data, component_val) {
                             return (data <= component_val.val[0]);
                         }
-                    },
-                    priceValue: null
+                    }
                 },
                 components: {
 
@@ -53,7 +52,7 @@ angular.module('innaApp.components').
 
                                     // выставляем значение слайдера
                                     this._slider.slider('value', priceValue);
-                                    this._parent.fire('changeChildFilter', this.get('value.val'));
+                                    this.fire('onCheckedFilter', this.get('value.val'));
                                     this.hasSelected();
                                 }.bind(this), 300);
                             }
@@ -106,7 +105,7 @@ angular.module('innaApp.components').
                     this.spliceSaveData();
                     this._slider.slider('value', this.get('FilterData.Max'));
 
-                    this._parent.fire('changeChildFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', this.get('value.val'));
                     this.hasSelected();
                 },
 

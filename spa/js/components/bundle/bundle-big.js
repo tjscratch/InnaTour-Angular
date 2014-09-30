@@ -161,7 +161,6 @@ angular.module('innaApp.directives')
 
                     //destroy
                     $scope.$on('$destroy', function () {
-                        console.log('$destroy bundle big');
                         _shareLink.teardown();
                         _tripadvisor.teardown();
                         _stars.teardown();
