@@ -12,11 +12,11 @@ angular.module('innaApp.components').
                 template: $templateCache.get('components/gallery/templ/gallery.hbs.html'),
                 append: true,
                 data: {
-                    isHovered : false,
-                    imageSize : 'Small',
-                    Photos : [],
+                    isHovered: false,
+                    imageSize: 'Small',
+                    Photos: [],
                     photoList: [],
-                    photoCollection : [],
+                    photoCollection: [],
                     width: 200,
                     height: 190
                 },
@@ -29,9 +29,9 @@ angular.module('innaApp.components').
 
 
                     this.on({
-                        slideNext : this.slideNext,
-                        slidePrev : this.slidePrev,
-                        hover : this.onHover,
+                        slideNext: this.slideNext,
+                        slidePrev: this.slidePrev,
+                        hover: this.onHover,
                         teardown: function (evt) {
                             //console.log('teardown Gallery');
                         },
@@ -43,7 +43,7 @@ angular.module('innaApp.components').
                     this.observe('photoList', function (newValue, oldValue, keypath) {
                         if (newValue) {
                             //клонируем массив - чтоб ractive не наблюдал за ним вверх по дочерним компонентам
-                            this.set({ Photos : [].concat(this.get('photoList')) })
+                            this.set({ Photos: [].concat(this.get('photoList')) })
                         }
                     });
                 },
@@ -61,7 +61,6 @@ angular.module('innaApp.components').
                     $(this._slider).css({
                         left: "-" + (this._sliderIndex * this.get('width')) + "px"
                     });
-
 
                     /*_slider.css({
                      "-webkit-transform": "translate3d(-" + (_sliderIndex * _sliderItemWidth) + "px, 0px, 0px)",
@@ -93,15 +92,15 @@ angular.module('innaApp.components').
                     this.carouselSlide(this._sliderIndex);
                 },
 
-                onHover : function(){
-                   this.set({isHovered : true});
+                onHover: function () {
+                    this.set({isHovered: true});
                     // отписываемся от события hover
                     this.off('hover');
 
                     // создаем новый массив исключая первый элемент
                     var newArrPhoto = this.get('Photos').splice(1, this.get('Photos').length);
 
-                    this.set({photoCollection : newArrPhoto})
+                    this.set({photoCollection: newArrPhoto})
                 },
 
                 parse: function (end) {
