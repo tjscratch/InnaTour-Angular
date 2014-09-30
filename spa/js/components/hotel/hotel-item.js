@@ -75,7 +75,7 @@ angular.module('innaApp.components').
                     }
                 },
                 partials: {
-                    collOneContent: '<HotelGallery photoList="{{Photos}}"/>',
+                    collOneContent: '<HotelGallery PhotoHotel="{{Photos}}"/>',
                     collTwoContent: $templateCache.get('components/hotel/templ/hotel-center.hbs.html'),
                     collThreeContent: $templateCache.get('components/dynamic-block/templ/combination-price.hbs.html')
                 },
