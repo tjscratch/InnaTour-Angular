@@ -1120,10 +1120,19 @@ innaAppControllers.
             });
 
             function fillFromUserProfile(object, user) {
-                object.name = user.FirstName;
-                object.secondName = user.LastName;
-                object.email = user.Email;
+                object.name = setEmptyIfUndefined(user.FirstName);
+                object.secondName = setEmptyIfUndefined(user.LastName);
+                object.email = setEmptyIfUndefined(user.Email);
                 object.phone = correctPhone(user.Phone);
+            }
+
+            function setEmptyIfUndefined(value) {
+                if (value != null) {
+                    if (value.length > 0) {
+                        return value;
+                    }
+                }
+                return '';
             }
 
             function correctPhone(phone) {
@@ -1134,7 +1143,7 @@ innaAppControllers.
                         }
                     }
                 }
-                return phone;
+                return '';
             }
 
             function closeAllTooltips() {
