@@ -77,7 +77,6 @@
                     byProfit: '-getProfit'
                 };
 
-
                 var val = sortData.val;
                 var defaultSort = sortData.defaultSort;
                 var expression = null;
