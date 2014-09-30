@@ -1123,7 +1123,7 @@ innaAppControllers.
                 object.name = setEmptyIfUndefined(user.FirstName);
                 object.secondName = setEmptyIfUndefined(user.LastName);
                 object.email = setEmptyIfUndefined(user.Email);
-                object.phone = correctPhone(user.Phone);
+                object.phone = setEmptyIfUndefined(correctPhone(user.Phone));
             }
 
             function setEmptyIfUndefined(value) {
@@ -1143,7 +1143,7 @@ innaAppControllers.
                         }
                     }
                 }
-                return '';
+                return phone;
             }
 
             function closeAllTooltips() {
