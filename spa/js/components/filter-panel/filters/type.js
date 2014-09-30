@@ -48,7 +48,8 @@ angular.module('innaApp.components').
                             }
 
                         },
-                        resetFilter: function () {
+                        resetFilter: function (data) {
+                            console.log(data);
                             this.set('FilterData.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
