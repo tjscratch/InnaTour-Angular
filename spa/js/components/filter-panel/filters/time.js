@@ -122,7 +122,6 @@ angular.module('innaApp.components').
 
                             // если хоть какой то вернулься результат фильтрации
                             if (resultFilterTimeDate.length) {
-                                // условие AND
                                 if (component_val.val.length == resultFilterTimeDate.length) {
                                     return true;
                                 }
@@ -148,8 +147,11 @@ angular.module('innaApp.components').
                             this.hasSelected();
                         },
 
-                        changeState: function () {
+                        changeState: function (data) {
                             this.set('value.val', this.filter());
+                            if(this.get('value.val') && this.get('value.val').length){
+                                this.fire('onCheckedFilter', this.get('value.val'));
+                            }
                         },
 
                         resetFilter: function (data) {

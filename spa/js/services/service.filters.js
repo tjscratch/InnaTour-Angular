@@ -66,10 +66,10 @@
                     byRecommend: ['-IsRecomendation', 'RecommendedFactor', 'DepartureDate', 'ArrivalDate'],
                     byPrice: ['Price', 'DepartureDate', 'ArrivalDate'],
                     byTripTime: ['TimeTo', 'Price', 'DepartureDate', 'ArrivalDate'],
-                    byDepartureDate: 'DepartureDate',
-                    byBackDepartureDate: 'BackDepartureDate',
-                    byArrivalDate: 'ArrivalDate',
-                    byBackArrivalDate: 'BackArrivalDate',
+                    byDepartureDate: 'DepartureDateSort',
+                    byBackDepartureDate: 'BackDepartureDateSort',
+                    byArrivalDate: 'ArrivalDateSort',
+                    byBackArrivalDate: 'BackArrivalDateSort',
                     byPackagePrice: 'PackagePrice',
                     byRecommendedFactor: 'RecommendedFactor',
                     byTaFactor: '-TaFactor',
@@ -86,7 +86,6 @@
                     expression = sortType[val];
                 else
                     expression = sortType[defaultSort];
-
 
                 var result = $filter('orderBy')(sortCollection, expression);
 
