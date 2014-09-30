@@ -562,6 +562,13 @@ innaAppControllers.
                                         $location.url(Urls.URL_ROOT);
                                     });
                                 }
+                                else if (data.OrderStatus == 2) {//[Description("Аннулирован")]
+                                    //уже оплачен
+                                    $scope.baloon.showAlert('Заказ аннулирован', '', function () {
+                                        $scope.baloon.hide();
+                                        $location.url(Urls.URL_ROOT);
+                                    });
+                                }
                                 else {
                                     $scope.reservationModel = bindApiModelToModel(data);
                                     if ($scope.reservationModel.IsService) {//сервисный сбор
