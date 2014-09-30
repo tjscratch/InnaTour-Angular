@@ -37,7 +37,8 @@ angular.module('innaApp.components').
                         change: function (data) {
 
                         }
-                    })
+                    });
+                    
 
 
                     this.observe('PhotoHotel', function (newValue) {
