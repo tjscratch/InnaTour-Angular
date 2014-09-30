@@ -13,7 +13,7 @@ angular.module('innaApp.components').
                 append: true,
                 data: {
                     isHovered : false,
-                    imageSize : 'LargePhotos',
+                    imageSize : 'MediumPhotos',
                     photoList: [],
                     photoCollection : [],
                     width: 200,
