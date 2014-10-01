@@ -223,8 +223,8 @@ angular.module('innaApp.directives')
 
                         doc.on('scroll', onScroll);
 
-                        EventManager.on(Events.LIST_PANEL_FILTES_HOTELS_DONE, filtersLoadDone);
-                        EventManager.on(Events.FILTER_PANEL_RESET, filtersPanelReset);
+                        //EventManager.on(Events.LIST_PANEL_FILTES_HOTELS_DONE, filtersLoadDone);
+                        //EventManager.on(Events.FILTER_PANEL_RESET, filtersPanelReset);
 
 
                         /*Events*/
