@@ -25,18 +25,19 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
         });
     });
 
+    var onScroll = function () {
+        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrolled > 25) {
+            angular.element("body").removeClass("ab2");
+        }else{
+            angular.element("body").addClass("ab2");
+        }
+    }
 
     //BEGIN AB2
     var AB2AddClass = function () {
         angular.element("body").addClass("ab2");
-        window.onscroll = function () {
-            var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrolled > 25) {
-                angular.element("body").removeClass("ab2");
-            }else{
-                angular.element("body").addClass("ab2");
-            }
-        }
+        document.addEventListener('scroll', onScroll, false);
     }
 
     $rootScope.ABTest2 = false;
@@ -71,7 +72,10 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
     }
 
     //END AB2
-
+    $scope.$on('$destroy', function(){
+        console.log('$destroy AB');
+        document.removeEventListener('scroll', onScroll, false);
+    });
 
 }
 
