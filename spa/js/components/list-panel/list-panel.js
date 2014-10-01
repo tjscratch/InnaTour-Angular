@@ -356,7 +356,11 @@ angular.module('innaApp.components').
                 },
 
                 enumerableCount: function (data) {
-                    this.set('EnumerableCount', data.length);
+                    if(data.length > 1) {
+                        this.set('EnumerableCount', data.length -1);
+                    } else if(data.length == 1) {
+                        this.set('EnumerableCount', data.length);
+                    }
                 },
 
                 wait: function () {
