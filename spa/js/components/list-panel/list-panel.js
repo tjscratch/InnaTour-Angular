@@ -346,7 +346,7 @@ angular.module('innaApp.components').
 
                     // исключаем рекомендованный вариант
                     //if (list.length == 1) {
-                        list = this.excludeRecommended(list);
+                        //list = this.excludeRecommended(list);
                     //}
 
                     this.enumerableCount(list);
@@ -358,6 +358,7 @@ angular.module('innaApp.components').
                 },
 
                 enumerableCount: function (data) {
+
                     this.set('EnumerableCount', data.length);
                 },
 
