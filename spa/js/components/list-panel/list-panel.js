@@ -345,7 +345,7 @@ angular.module('innaApp.components').
                     var list = opt_data || this.set('Enumerable');
 
                     // исключаем рекомендованный вариант
-                    list = this.excludeRecommended(list);
+                    //list = this.excludeRecommended(list);
 
                     this.enumerableCount(list);
                     this.enumerableClone = [].concat(list);
@@ -356,7 +356,7 @@ angular.module('innaApp.components').
                 },
 
                 enumerableCount: function (data) {
-                    this.set('EnumerableCount', data.length);
+                    this.set('EnumerableCount', data.length - 1);
                 },
 
                 wait: function () {
