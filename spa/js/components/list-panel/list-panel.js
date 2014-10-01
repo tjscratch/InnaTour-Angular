@@ -71,10 +71,6 @@ angular.module('innaApp.components').
                     //this.set('Enumerable', this.get('Enumerable').concat(this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable')))
 
 
-                    this.eventListener = function () {
-                        that.onScroll();
-                    };
-
                     this.addScroll();
 
                     this.on({
@@ -90,7 +86,7 @@ angular.module('innaApp.components').
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
                             this.observeEnumerable.cancel();
-                            document.removeEventListener('scroll', this.eventListener);
+                            document.removeEventListener('scroll', this.onScroll, false);
                             clearTimeout(this._filterTimeout);
                             clearTimeout(this._scrollTimeout);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
@@ -111,18 +107,6 @@ angular.module('innaApp.components').
                         },
                         EnumerableList: function (newValue, oldValue, keypath) {
                             if (newValue) {
-
-                                //console.log(newValue, 'newValue');
-
-                                /* console.table([
-                                 {
-                                 newValue: newValue.length,
-                                 EnumerableList: this.get('EnumerableList').length,
-                                 Enumerable: this.get('Enumerable').length,
-                                 enumerableClone: this.enumerableClone.length
-                                 }
-                                 ]);*/
-
                                 // после добавления элементов в EnumerableList
                                 // обновляем координаты
                                 // оборачиваем в setTimeout, так как нужно дождаться вставки элементов в DOM
@@ -151,15 +135,17 @@ angular.module('innaApp.components').
                 },
 
                 FILTER_PANEL_CHANGE : function(data){
-                    // подписываемся на событие скролла если еще нет этого события
-                    if (!this.get('scroll') && data.length > this.get('countItemsVisible'))
-                        this.addScroll();
-
-                    // если список меньше колличества разовой порции, то скролл нам не нужен
-                    if (data.length <= this.get('countItemsVisible')) this.removeScroll();
-
                     /* ставим в конец очереди чтоб не блокировать переключение фильтров */
                     this.cloneData(data);
+
+
+                    // если список меньше колличества разовой порции, то скролл нам не нужен
+                    if (data.length <= this.get('countItemsVisible')) {
+                        this.removeScroll();
+                    }  else {
+                        if(!this.get('scroll'))
+                            this.addScroll();
+                    }
                 },
 
                 setCurrent : function(modelHotel, hotelId){
@@ -207,12 +193,12 @@ angular.module('innaApp.components').
                 },
 
                 addScroll: function () {
-                    document.addEventListener('scroll', this.eventListener);
+                    document.addEventListener('scroll', this.onScroll, false);
                     this.set({scroll: true});
                 },
 
                 removeScroll: function () {
-                    document.removeEventListener('scroll', this.eventListener);
+                    document.removeEventListener('scroll', this.onScroll, false);
                     this.set({scroll: false});
                 },
 
