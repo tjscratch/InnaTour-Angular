@@ -965,6 +965,7 @@ innaAppControllers.
                                         }
                                         else if(data.Result == 3){//ошибка оплаты
                                             $scope.baloon.hide();
+
                                             $scope._baloon = new Balloon({
                                                 data : {
                                                     balloonClose : true,
