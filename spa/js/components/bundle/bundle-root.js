@@ -224,11 +224,6 @@ angular.module('innaApp.directives')
                         doc.on('scroll', onScroll);
 
 
-                        
-                        //EventManager.on(Events.LIST_PANEL_FILTES_HOTELS_DONE, filtersLoadDone);
-                        //EventManager.on(Events.FILTER_PANEL_RESET, filtersPanelReset);
-
-
                         /*Events*/
                         $scope.$on('$destroy', function () {
                             EventManager.off(Events.DYNAMIC_SERP_MAP_DESTROY, $scope.display.fullDisplay);
@@ -236,9 +231,6 @@ angular.module('innaApp.directives')
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, openBundle);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, closeBundle);
-                            EventManager.off(Events.LIST_PANEL_FILTES_HOTELS_DONE, filtersLoadDone);
-                            EventManager.off(Events.FILTER_PANEL_RESET, filtersPanelReset);
-                            //EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL, getHotelDetails);
                             unwatchScroll();
                         });
                     }
