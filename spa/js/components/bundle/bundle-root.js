@@ -209,18 +209,6 @@ angular.module('innaApp.directives')
                             scroll = false;
                         };
 
-                        function filtersLoadDone(data){
-                            if(data.length < 10 && scroll) {
-                                unwatchScroll();
-                            } else if(data.length > 10 && !scroll) {
-                                doc.on('scroll', onScroll);
-                            }
-                        }
-
-                        function filtersPanelReset(){
-                            if(!scroll) doc.on('scroll', onScroll);
-                        }
-
                         doc.on('scroll', onScroll);
 
 
