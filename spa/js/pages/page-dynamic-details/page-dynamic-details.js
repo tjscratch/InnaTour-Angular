@@ -400,13 +400,6 @@ innaAppControllers
                 room.isOpen = !!!room.isOpen;
             };
 
-            //$scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, onload);
-
-            /*$scope.$on('$locationChangeSuccess', function (data, url, datatest) {
-             if (!('displayHotel' in $location.search())) {
-             $scope.back();
-             }
-             });*/
 
             $scope.$on('$destroy', function () {
                 $('body').removeAttr('style');
