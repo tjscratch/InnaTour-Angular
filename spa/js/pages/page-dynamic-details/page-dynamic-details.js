@@ -267,7 +267,7 @@ innaAppControllers
                             /*$location.hash('ScrollRooms');
                             $anchorScroll();*/
 
-                            window.scrollTo(0, 300);
+                            window.scrollTo(0, scrollPosition);
                             if (window.partners) {
                                 window.partners.setScrollTo(scrollPosition);
                             }
