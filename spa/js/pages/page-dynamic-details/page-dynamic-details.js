@@ -259,7 +259,7 @@ innaAppControllers
 
             if (!routParam.OrderId) {
                 getHotelDetails().then(function () {
-                    var scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 1050 : 500;
+                    var scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 980 : 350;
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
@@ -267,7 +267,7 @@ innaAppControllers
                             /*$location.hash('ScrollRooms');
                             $anchorScroll();*/
 
-                            window.scrollTo(0, scrollPosition);
+                            window.scrollTo(0, 300);
                             if (window.partners) {
                                 window.partners.setScrollTo(scrollPosition);
                             }
