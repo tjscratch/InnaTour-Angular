@@ -12,13 +12,14 @@ innaAppControllers
         '$routeParams',
         'DynamicFormSubmitListener',
         '$q',
+        '$anchorScroll',
 
         // components
         'Tripadvisor',
         'Stars',
         'Balloon',
         '$filter',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars, Balloon, $filter) {
+        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter) {
 
             DynamicFormSubmitListener.listen();
 
@@ -266,7 +267,10 @@ innaAppControllers
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
                         $timeout(function () {
-                            window.scrollTo(0, 1050);
+
+                            $location.hash('ScrollRooms');
+                            $anchorScroll();
+
                             if (window.partners) {
                                 window.partners.setScrollTo(1050);
                             }

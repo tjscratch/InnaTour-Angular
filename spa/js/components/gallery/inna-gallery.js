@@ -139,10 +139,6 @@ angular.module('innaApp.directives')
                                 return p1.__order - p2.__order;
                             });
 
-                            // IN-2399 {
-                            $scope.pics.list.splice(13, $scope.pics.list.length - 13);
-                            // } IN-2399
-
                             $scope.$apply(function(){
                                 try{
                                     $scope.pics.setCurrent($scope.pics.list[0]);
