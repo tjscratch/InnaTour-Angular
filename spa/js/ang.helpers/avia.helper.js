@@ -257,6 +257,7 @@
                     var backDepartureDate = dateHelper.apiDateToJsDate(item.BackDepartureDate);
                     var backArrivalDate = dateHelper.apiDateToJsDate(item.BackArrivalDate);
 
+                    // TODO : заменить даты на время
                     item.sort = {
                         DepartureDate: departureDate.getTime(),
                         ArrivalDate: arrivalDate.getTime(),
