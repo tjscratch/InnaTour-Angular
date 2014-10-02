@@ -350,9 +350,8 @@ angular.module('innaApp.components').
 
                 enumerableCount: function (data, opt_exclude) {
                     var ex = this.excludeRecommended(data);
-                    var num = (ex.length) ? ex.length : data.length;
-                    //console.info(ex.length, num);
-                    this.set('EnumerableCount', num);
+                    //console.info(ex.length);
+                    this.set('EnumerableCount', ex.length);
                 },
 
                 wait: function () {
