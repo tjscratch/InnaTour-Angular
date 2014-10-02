@@ -318,6 +318,7 @@ angular.module('innaApp.components').
                     var recomented = null;
                     var result = null;
 
+                    //console.info(collection.length, "collection");
                     if (this.get('iterable_hotels')) {
                         recomented = this.get('combinationModel').hotel.data;
                         result = collection.filter(function (item) {
@@ -332,6 +333,7 @@ angular.module('innaApp.components').
                         })
                     }
 
+                    //console.log(result.length, "result.length");
                     return result;
                 },
 
@@ -345,7 +347,7 @@ angular.module('innaApp.components').
                     var list = opt_data || this.set('Enumerable');
 
                     // исключаем рекомендованный вариант
-                    //list = this.excludeRecommended(list);
+                    list = this.excludeRecommended(list);
 
                     this.enumerableCount(list);
                     this.enumerableClone = [].concat(list);
@@ -356,11 +358,8 @@ angular.module('innaApp.components').
                 },
 
                 enumerableCount: function (data) {
-                    if(data.length > 1) {
-                        this.set('EnumerableCount', data.length -1);
-                    } else if(data.length == 1) {
-                        this.set('EnumerableCount', data.length);
-                    }
+                    //console.log(data.length);
+                    this.set('EnumerableCount', data.length);
                 },
 
                 wait: function () {
