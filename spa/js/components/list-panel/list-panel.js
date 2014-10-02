@@ -162,10 +162,18 @@ angular.module('innaApp.components').
                     this.cloneData(data);
                 },
 
+                /**
+                 * При выборе какогото отеля подписываемся на событие дочернего компонента '*.setCurrent'
+                 * делаем необходимые действия
+                 * исключаем вариант из счетчика ( EnumerableCount ) который выбрали
+                 *
+                 * @param modelHotel
+                 * @param hotelId
+                 */
                 setCurrent : function(modelHotel, hotelId){
-                    if(this.get('EnumerableCount') == 1){
-                        this.set('EnumerableCount', 0);
-                    }
+                    // исключаем вариант
+                    var newResult = this.excludeRecommended(this.get('EnumerableList'));
+                    this.set('EnumerableCount', newResult.length);
                 },
 
                 proxyGoToMap: function (data) {
@@ -358,7 +366,7 @@ angular.module('innaApp.components').
                 },
 
                 enumerableCount: function (data) {
-                    //console.log(data.length);
+                    console.log(data.length);
                     this.set('EnumerableCount', data.length);
                 },
 
