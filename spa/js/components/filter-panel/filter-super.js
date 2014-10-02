@@ -298,7 +298,6 @@ angular.module('innaApp.components').
                             tempArr.push(angular.copy(child.get('value')));
                         }
                     });
-                    console.info([].concat(tempArr));
 
                     this.set('filtersCollection', [].concat(tempArr));
                 },

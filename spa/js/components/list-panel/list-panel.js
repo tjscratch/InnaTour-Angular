@@ -32,8 +32,6 @@ angular.module('innaApp.components').
                     iterable_hotels: false,
                     iterable_tickets: false,
 
-                    /*Enumerable: [],
-                     combinationModel: null,*/
                     EnumerableCount: 0,
                     EnumerableClone: [],
                     EnumerableList: [],
@@ -86,6 +84,9 @@ angular.module('innaApp.components').
                         goToMap: function (data) {
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('EnumerableList'), data);
                         },
+
+                        '*.setCurrent' : this.setCurrent,
+
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
                             this.observeEnumerable.cancel();
@@ -145,7 +146,6 @@ angular.module('innaApp.components').
                     EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
                     EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
 
-
                     /** Событие изменения фильтров или сортировки */
                     EventManager.on(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
                 },
@@ -160,6 +160,20 @@ angular.module('innaApp.components').
 
                     /* ставим в конец очереди чтоб не блокировать переключение фильтров */
                     this.cloneData(data);
+                },
+
+                /**
+                 * При выборе какогото отеля подписываемся на событие дочернего компонента '*.setCurrent'
+                 * делаем необходимые действия
+                 * исключаем вариант из счетчика ( EnumerableCount ) который выбрали
+                 *
+                 * @param modelHotel
+                 * @param hotelId
+                 */
+                setCurrent : function(modelHotel, hotelId){
+                    // исключаем вариант
+                    var newResult = this.excludeRecommended(this.get('EnumerableList'));
+                    this.set('EnumerableCount', newResult.length);
                 },
 
                 proxyGoToMap: function (data) {
@@ -312,6 +326,7 @@ angular.module('innaApp.components').
                     var recomented = null;
                     var result = null;
 
+                    //console.info(collection.length, "collection");
                     if (this.get('iterable_hotels')) {
                         recomented = this.get('combinationModel').hotel.data;
                         result = collection.filter(function (item) {
@@ -326,6 +341,7 @@ angular.module('innaApp.components').
                         })
                     }
 
+                    //console.log(result.length, "result.length");
                     return result;
                 },
 
@@ -339,9 +355,7 @@ angular.module('innaApp.components').
                     var list = opt_data || this.set('Enumerable');
 
                     // исключаем рекомендованный вариант
-                    if (list.length == 1) {
-                        list = this.excludeRecommended(list);
-                    }
+                    list = this.excludeRecommended(list);
 
                     this.enumerableCount(list);
                     this.enumerableClone = [].concat(list);
@@ -352,6 +366,7 @@ angular.module('innaApp.components').
                 },
 
                 enumerableCount: function (data) {
+                    console.log(data.length);
                     this.set('EnumerableCount', data.length);
                 },
 
