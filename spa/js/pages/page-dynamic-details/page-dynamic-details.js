@@ -77,7 +77,6 @@ innaAppControllers
             $scope.buyAction = ($location.search().action == 'buy');
             $scope.dateHelper = dateHelper;
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
-            $scope.dataFullyLoadedGallery = false;
             var _balloonLoad = new Balloon();
 
             var backgrounds = [
@@ -118,8 +117,6 @@ innaAppControllers
                             EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
                             loadMap();
                             onload();
-
-                            $scope.dataFullyLoadedGallery = true;
                         }
 
 
@@ -270,14 +267,9 @@ innaAppControllers
                             if (window.partners) {
                                 window.partners.setScrollTo(1050);
                             }
-                            $scope.dataFullyLoadedGallery = true;
                         }, 1000);
-                    } else {
-                        $scope.dataFullyLoadedGallery = true;
                     }
-
                     getHotelDetailsRooms();
-
                 });
             } else {
                 getDisplayOrder();
@@ -400,13 +392,6 @@ innaAppControllers
                 room.isOpen = !!!room.isOpen;
             };
 
-            //$scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, onload);
-
-            /*$scope.$on('$locationChangeSuccess', function (data, url, datatest) {
-             if (!('displayHotel' in $location.search())) {
-             $scope.back();
-             }
-             });*/
 
             $scope.$on('$destroy', function () {
                 $('body').removeAttr('style');

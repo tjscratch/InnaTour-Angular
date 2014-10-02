@@ -13,6 +13,8 @@ angular.module('innaApp.directives')
                         MIN_WIDTH = 800,
                         MIN_LENGTH = 2;
 
+                    $scope.emptyPhoto = false;
+
                     /*Models*/
                     function PicList(){
                         this.list = [];
@@ -135,6 +137,7 @@ angular.module('innaApp.directives')
                                 loaded.resolveWith(null, [PicList.PLAN_Z]);
                             } else {
                                 $.whenAll(planY()).then(function(){
+                                    $scope.emptyPhoto = true;
                                     loaded.resolveWith(null, [PicList.PLAN_Y]);
                                 });
                             }
