@@ -5,6 +5,7 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
 
     $scope.$on('$locationChangeSuccess', function () {
         $scope.safeApply(function () {
+            $rootScope.ABTest2 = false;
             var testParams = $location.search().ab;
             if (testParams) {
                 $cookies.ab_test = testParams;
@@ -73,7 +74,6 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
 
     //END AB2
     $scope.$on('$destroy', function(){
-        console.log('$destroy AB');
         document.removeEventListener('scroll', onScroll, false);
     });
 
