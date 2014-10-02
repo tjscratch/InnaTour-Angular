@@ -336,14 +336,11 @@ angular.module('innaApp.components').
                  * Клонируем список отелей и далее работает с ним
                  * @param opt_data
                  */
-                cloneData: function (opt_data) {
+                cloneData: function (opt_data, opt_exclude) {
                     if(opt_data) this.set('EnumerableList', []);
                     var list = opt_data || this.set('Enumerable');
 
-                    // исключаем рекомендованный вариант
-                    list = this.excludeRecommended(list);
-
-                    this.enumerableCount(list);
+                    this.enumerableCount(list, opt_exclude);
                     this.enumerableClone = [].concat(list);
 
                     // получаем первую порцию из n item
@@ -351,8 +348,11 @@ angular.module('innaApp.components').
                     this.nextArrayDoseItems();
                 },
 
-                enumerableCount: function (data) {
-                    this.set('EnumerableCount', data.length);
+                enumerableCount: function (data, opt_exclude) {
+                    var ex = this.excludeRecommended(data);
+                    var num = (ex.length) ? ex.length : data.length;
+                    //console.info(ex.length, num);
+                    this.set('EnumerableCount', num);
                 },
 
                 wait: function () {
