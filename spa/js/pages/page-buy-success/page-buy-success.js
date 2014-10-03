@@ -193,6 +193,7 @@ innaAppControllers.
                     data.loadData = true;
                     data.ticket2ways = true;
                     data.partialInfoHotel = true;
+                    data.orderNum = $routeParams.OrderNum;
 
                     if (window.partners && window.partners.isFullWL()) {
                         var partner = window.partners.getPartner();
