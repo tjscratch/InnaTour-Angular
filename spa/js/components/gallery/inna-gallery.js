@@ -98,7 +98,6 @@ angular.module('innaApp.directives')
                                     if(Fn(newPic)) {
                                         $scope.pics.list.push(newPic);
                                     }
-
                                     deferred.resolve();
                                 };
 
@@ -133,7 +132,9 @@ angular.module('innaApp.directives')
                         }
 
                         function fail(){
-                            $scope.emptyPhoto = true;
+                            $scope.$apply(function() {
+                                $scope.emptyPhoto = true;
+                            });
                         }
 
                         $.when.apply($, planZ()).then(function(){
@@ -142,11 +143,15 @@ angular.module('innaApp.directives')
                             } else {
                                 $.when.apply($, planY()).then(function(){
                                     loaded.resolveWith(null, [PicList.PLAN_Y]);
-                                },fail);
+                                });
                             }
-                        },fail);
+                        });
 
                         $.when(loaded).then(function(plan){
+                            if(!$scope.pics.list.length){
+                                fail();
+                                return false;
+                            }
                             $scope.pics.list.sort(function(p1, p2){
                                 return p1.__order - p2.__order;
                             });
