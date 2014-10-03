@@ -217,7 +217,7 @@
         setTimeout(function () {
             sendCommandToParent(self.commands.setVisible, { 'visible': true });
             sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
-        }, 0);
+        }, 500);
 
         setInterval(function () {
             sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
