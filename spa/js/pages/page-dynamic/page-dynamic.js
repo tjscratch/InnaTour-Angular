@@ -91,7 +91,6 @@ innaAppControllers
                     hideGoToTop();
                 }
                 var wr = windowHeight - footerTop;
-                console.log('f', wr);
                 if (wr > 5) {
                     $scope.safeApply(function () {
                         $scope.goToTopStyle = {
