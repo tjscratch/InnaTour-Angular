@@ -9,6 +9,8 @@ innaAppControllers.
             //EventManager.fire(Events.HEAD_HIDDEN);
             //EventManager.fire(Events.FOOTER_HIDDEN);
 
+            $('body').addClass('partner-body-class');
+
             DynamicFormSubmitListener.listen();
 
             //location.href = 'http://192.168.105.54/#/packages/search/6733-6623-09.10.2014-19.10.2014-0-2-';
