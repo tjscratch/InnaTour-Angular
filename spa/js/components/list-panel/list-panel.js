@@ -35,7 +35,8 @@ angular.module('innaApp.components').
                     EnumerableCount: 0,
                     EnumerableClone: [],
                     EnumerableList: [],
-                    countItemsVisible: 10
+                    countItemsVisible: 10,
+                    showButtonMore : true
                 },
                 partials: {
                     EnumerableItemHotels: $templateCache.get('components/list-panel/templ/enumerableItemHotel.hbs.html'),
@@ -80,6 +81,9 @@ angular.module('innaApp.components').
                         goToMap: function (data) {
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('EnumerableList'), data);
                         },
+                        goToMore: function (){
+                            this.debounceDose();
+                        },
 
                         '*.setCurrent' : this.setCurrent,
 
@@ -111,10 +115,11 @@ angular.module('innaApp.components').
                                 // обновляем координаты
                                 // оборачиваем в setTimeout, так как нужно дождаться вставки элементов в DOM
                                 if (newValue.length) {
-                                    if (newValue.length != this.get('Enumerable').length) {
+                                    if (newValue.length != this.get('Enumerable').length - 1) {
                                         setTimeout(this.updateCoords, 0);
                                     } else {
                                         this.removeScroll();
+                                        this.set('showButtonMore', false);
                                     }
                                 }
                             }
@@ -129,7 +134,7 @@ angular.module('innaApp.components').
                     EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
                     EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
                     EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
-
+                    
                     /** Событие изменения фильтров или сортировки */
                     EventManager.on(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
                 },
