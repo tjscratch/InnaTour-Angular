@@ -708,6 +708,7 @@ innaAppControllers
                 }
 
                 $(document).off('scroll');
+                $(document).off('scroll', GoToTopBtn);
             })
         }
     ]);
