@@ -105,8 +105,9 @@ function FrameManager() {
 
         var frame = document.getElementById(innaModule.frameId);
         frame.style.overflowX = 'hidden';
+        //frame.style.overflowY = 'hidden';
         frame.style.width = "100%";
-        frame.style.height = "800px";
+        frame.style.height = "850px";
         //frame.style.height = "99%";
         frame.style.border = "0";
         frame.border = 0;
@@ -184,7 +185,7 @@ function FrameManager() {
     }
 
     self.setHeightCmd = function (data) {
-        if (data.height != null && data.height > 800) {
+        if (data.height != null && data.height > 850) {
             var frame = document.getElementById(innaModule.frameId);
             frame.style.height = data.height + "px";
         }
