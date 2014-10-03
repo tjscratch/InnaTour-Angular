@@ -22,10 +22,14 @@
 	     ng-if="hotels.list.length && asMap"></div>
 
 
-	<a class="button button-scroll-to-top" ng-click="goToTop()" ng-show="goToTopShow && !asMap">
+	<a class="button button-scroll-to-top"
+	   ng-style="goToTopStyle"
+	   ng-click="goToTop()"
+	   ng-show="goToTopShow && !asMap"
+			>
 		<span class="icon-sprite-arrow-top"></span>
 		Наверх
 	</a>
-	
+
 
 </div>

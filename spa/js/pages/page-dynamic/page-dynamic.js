@@ -31,9 +31,9 @@ innaAppControllers
             var routParam = angular.copy($routeParams);
             var searchParams = angular.extend(routParam, {
                 StartVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
-                EndVoyageDate  : dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
-                HotelId        : $location.search().hotel,
-                TicketId       : $location.search().ticket
+                EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
+                HotelId: $location.search().hotel,
+                TicketId: $location.search().ticket
             });
 
             if (routParam.Children && routParam.Children != "0") {
@@ -69,54 +69,87 @@ innaAppControllers
                 $location.hash('top');
                 $anchorScroll();
             };
-            function showGoToTop(){
-                $scope.goToTopShow = true;
-            }
-            function hideGoToTop(){
-                $scope.goToTopShow = false;
-            }
-            EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, showGoToTop);
-            EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, hideGoToTop);
 
+            function showGoToTop() {
+                $scope.safeApply(function () {
+                    $scope.goToTopShow = true;
+                })
+            }
+
+            function hideGoToTop() {
+                $scope.safeApply(function () {
+                    $scope.goToTopShow = false;
+                })
+            }
+
+            function GoToTopBtn() {
+                var footerTop = utils.getCoords(footerEl).top;
+                var windowHeight = utils.getScrollTop() + window.innerHeight;
+                if (windowHeight > 900) {
+                    showGoToTop();
+                } else {
+                    hideGoToTop();
+                }
+                var wr = windowHeight - footerTop;
+                console.log('f', wr);
+                if (wr > 5) {
+                    $scope.safeApply(function () {
+                        $scope.goToTopStyle = {
+                            'bottom': wr + 'px',
+                            'transition': 'bottom 0s'
+                        };
+                    })
+                } else {
+                    $scope.safeApply(function () {
+                        $scope.goToTopStyle = {
+                            'bottom': '0px',
+                            'transition': 'bottom .15s'
+                        };
+                    })
+                }
+            }
+
+            var footerEl = document.querySelector(".footer");
+            document.addEventListener('scroll', GoToTopBtn);
 
             //кнопка нового поиска для WL
             function setWlModel(data) {
                 $scope.WlNewSearchModel = new inna.Models.WlNewSearch({
-                    dateFilter    : $filter("date"),
-                    from          : data.RecommendedPair.AviaInfo.CityFrom,
-                    to            : data.RecommendedPair.AviaInfo.CityTo,
-                    start         : searchParams.StartVoyageDate,
-                    end           : searchParams.EndVoyageDate,
+                    dateFilter: $filter("date"),
+                    from: data.RecommendedPair.AviaInfo.CityFrom,
+                    to: data.RecommendedPair.AviaInfo.CityTo,
+                    start: searchParams.StartVoyageDate,
+                    end: searchParams.EndVoyageDate,
                     passengerCount: parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0),
-                    ticketClass   : searchParams.TicketClass
+                    ticketClass: searchParams.TicketClass
                 });
             }
 
             var Page = Ractive.extend({
-                debug   : true,
-                append  : true,
-                el      : document.querySelector('.results-container_list'), //results-body
+                debug: true,
+                append: true,
+                el: document.querySelector('.results-container_list'), //results-body
                 template: $templateCache.get('pages/page-dynamic/templ/page-dynamic.hbs.html'),
 
-                partials  : {
+                partials: {
 
                 },
                 components: {
                     ListPanel: ListPanel
                 },
-                data      : {
-                    loadData       : false,
-                    TICKETS_TAB    : null,
-                    HOTEL          : 'hotel',
-                    TICKET         : 'ticket',
-                    HOTELS_TAB     : true,
-                    defaultTab     : 'hotel',
-                    loadHotelsData : null,
+                data: {
+                    loadData: false,
+                    TICKETS_TAB: null,
+                    HOTEL: 'hotel',
+                    TICKET: 'ticket',
+                    HOTELS_TAB: true,
+                    defaultTab: 'hotel',
+                    loadHotelsData: null,
                     loadTicketsData: null,
-                    updateHotel    : false,
-                    updateTicket   : false
+                    updateHotel: false,
+                    updateTicket: false
                 },
-                init      : function () {
+                init: function () {
                     var that = this;
                     this._balloonLoad = new Balloon();
 
@@ -244,9 +277,9 @@ innaAppControllers
                                 }
 
                                 that.set({
-                                    iterable_hotels : true,
+                                    iterable_hotels: true,
                                     iterable_tickets: false,
-                                    Enumerable      : value.Hotels,
+                                    Enumerable: value.Hotels,
                                     combinationModel: $scope.combination
                                 });
 
@@ -254,24 +287,24 @@ innaAppControllers
                                 /* данный для настроек панели фильтров */
                                 $scope.filtersSettingsHotels = {
                                     combinationModel: $scope.combination,
-                                    filtersData     : value.Filters,
-                                    Collection      : value.Hotels,
-                                    filter_hotel    : true,
-                                    filter_avia     : false
+                                    filtersData: value.Filters,
+                                    Collection: value.Hotels,
+                                    filter_hotel: true,
+                                    filter_avia: false
                                 };
 
 
                                 ListPanelComponent = new ListPanel({
-                                    el  : that.find('.b-page-dynamic'),
+                                    el: that.find('.b-page-dynamic'),
                                     data: {
-                                        updateHotel     : this.get('updateHotel'),
-                                        iterable_hotels : true,
-                                        Enumerable      : value.Hotels,
+                                        updateHotel: this.get('updateHotel'),
+                                        iterable_hotels: true,
+                                        Enumerable: value.Hotels,
                                         combinationModel: $scope.combination
                                     }
                                 });
 
-
+                                setTimeout(GoToTopBtn, 0);
                                 this.set('updateHotel', true);
                             }
                         },
@@ -298,17 +331,17 @@ innaAppControllers
 
                                 that.set({
                                     iterable_tickets: true,
-                                    Enumerable      : value.AviaInfos,
+                                    Enumerable: value.AviaInfos,
                                     combinationModel: $scope.combination
                                 })
 
 
                                 ListPanelComponent = new ListPanel({
-                                    el  : that.find('.b-page-dynamic'),
+                                    el: that.find('.b-page-dynamic'),
                                     data: {
-                                        updateTicket    : this.get('updateTicket'),
+                                        updateTicket: this.get('updateTicket'),
                                         iterable_tickets: true,
-                                        Enumerable      : value.AviaInfos,
+                                        Enumerable: value.AviaInfos,
                                         combinationModel: $scope.combination
                                     }
                                 });
@@ -317,10 +350,10 @@ innaAppControllers
                                 /* данный для настроек панели фильтров */
                                 $scope.filtersSettingsTicket = {
                                     combinationModel: $scope.combination,
-                                    Collection      : value.AviaInfos,
-                                    filtersData     : value.Filters,
-                                    filter_hotel    : false,
-                                    filter_avia     : true
+                                    Collection: value.AviaInfos,
+                                    filtersData: value.Filters,
+                                    filter_hotel: false,
+                                    filter_avia: true
                                 };
 
                                 this.set('updateTicket', true);
@@ -361,9 +394,9 @@ innaAppControllers
                     var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
                     var param = {
-                        Id       : $scope.combination.ticket.data.VariantId1,
-                        HotelId  : $scope.combination.hotel.data.HotelId,
-                        TicketId : $scope.combination.ticket.data.VariantId1,
+                        Id: $scope.combination.ticket.data.VariantId1,
+                        HotelId: $scope.combination.hotel.data.HotelId,
+                        TicketId: $scope.combination.ticket.data.VariantId1,
                         AddFilter: true
                     };
 
@@ -418,9 +451,9 @@ innaAppControllers
                     if (!$scope.combination.hotel.data.HotelId) return;
 
                     var param = {
-                        Id       : $scope.combination.hotel.data.HotelId,
-                        HotelId  : $scope.combination.hotel.data.HotelId,
-                        TicketId : $scope.combination.ticket.data.VariantId1,
+                        Id: $scope.combination.hotel.data.HotelId,
+                        HotelId: $scope.combination.hotel.data.HotelId,
+                        TicketId: $scope.combination.ticket.data.VariantId1,
                         AddFilter: true
                     }
                     var routeParams = angular.copy(searchParams);
@@ -461,9 +494,9 @@ innaAppControllers
                     var that = this;
                     this.balloonSearch();
                     return DynamicPackagesDataProvider.search({
-                        data   : searchParams,
+                        data: searchParams,
                         success: this.combination200.bind(that),
-                        error  : this.combination500.bind(that)
+                        error: this.combination500.bind(that)
                     });
                 },
 
@@ -514,7 +547,7 @@ innaAppControllers
 
 
                     this._balloonLoad.updateView({
-                        template     : 'not-found.html',
+                        template: 'not-found.html',
                         callbackClose: function () {
                             that.balloonCloser();
                         }
@@ -524,13 +557,13 @@ innaAppControllers
                 combination500: function () {
                     var that = this;
                     this._balloonLoad.updateView({
-                        template     : 'err.html',
-                        title        : 'Что-то пошло не так',
-                        content      : 'Попробуйте начать поиск заново',
+                        template: 'err.html',
+                        title: 'Что-то пошло не так',
+                        content: 'Попробуйте начать поиск заново',
                         callbackClose: function () {
                             that.balloonCloser();
                         },
-                        callback     : function () {
+                        callback: function () {
                             that.balloonCloser();
                         }
                     })
@@ -576,15 +609,15 @@ innaAppControllers
                     $location.path(Urls.URL_DYNAMIC_PACKAGES);
                 },
 
-                balloonSearch   : function () {
+                balloonSearch: function () {
                     var that = this;
 
                     this._balloonLoad.updateView({
-                        template     : 'search.html',
+                        template: 'search.html',
                         callbackClose: function () {
                             that.balloonCloser();
                         },
-                        callback     : function () {
+                        callback: function () {
                             that.balloonCloser();
                         }
                     })
@@ -618,7 +651,7 @@ innaAppControllers
                     }
                 },
 
-                ticket404   : function () {
+                ticket404: function () {
                     var that = this;
 
                     $scope.baloon.showErr(
@@ -649,7 +682,7 @@ innaAppControllers
                         $scope.padding = data;
                     });
                 }
-              
+
 
             });
 
@@ -666,9 +699,6 @@ innaAppControllers
                 EventManager.off(Events.DYNAMIC_SERP_LOAD_TAB);
                 EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, PageDynamic.changePadding);
                 EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, PageDynamic.changePadding);
-
-                EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, showGoToTop);
-                EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, hideGoToTop);
 
                 PageDynamic.teardown();
                 PageDynamic = null;
