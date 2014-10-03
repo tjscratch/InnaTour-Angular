@@ -12,13 +12,14 @@ innaAppControllers
         '$routeParams',
         'DynamicFormSubmitListener',
         '$q',
+        '$anchorScroll',
 
         // components
         'Tripadvisor',
         'Stars',
         'Balloon',
         '$filter',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars, Balloon, $filter) {
+        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter) {
 
             DynamicFormSubmitListener.listen();
 
@@ -258,18 +259,23 @@ innaAppControllers
 
             if (!routParam.OrderId) {
                 getHotelDetails().then(function () {
-
+                    var scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 980 : 350;
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
                         $timeout(function () {
-                            window.scrollTo(0, 1050);
+                            /*$location.hash('ScrollRooms');
+                            $anchorScroll();*/
+
+                            window.scrollTo(0, scrollPosition);
                             if (window.partners) {
-                                window.partners.setScrollTo(1050);
+                                window.partners.setScrollTo(scrollPosition);
                             }
                         }, 1000);
                     }
+
                     getHotelDetailsRooms();
+
                 });
             } else {
                 getDisplayOrder();
