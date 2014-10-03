@@ -179,7 +179,12 @@
 
 .b-tour-form{
   .b-search-field__long{
-    z-index: 2;
+    &.b-search-field__from{
+      z-index: 3;
+    }
+    &.b-search-field__to{
+      z-index: 2;
+    }
     
     .ui-tooltip{
       position absolute;
