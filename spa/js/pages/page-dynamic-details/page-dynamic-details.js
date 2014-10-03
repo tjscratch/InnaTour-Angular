@@ -126,6 +126,7 @@ innaAppControllers
                         }
                     },
                     error: function () {
+                        _balloonLoad.dispose();
                         _balloonLoad.updateView({
                             template: "err.html",
                             title: 'Oops...',

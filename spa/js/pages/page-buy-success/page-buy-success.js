@@ -194,6 +194,16 @@ innaAppControllers.
                     data.ticket2ways = true;
                     data.partialInfoHotel = true;
 
+                    if (window.partners && window.partners.isFullWL()) {
+                        var partner = window.partners.getPartner();
+                        data.phone = partner.phone;
+                        data.email = partner.email;
+                    }
+                    else {
+                        data.phone = '+7 (495) 742-12-12';
+                        data.email = 'sale@inna.ru';
+                    }
+
                     return data;
                 }
             });
