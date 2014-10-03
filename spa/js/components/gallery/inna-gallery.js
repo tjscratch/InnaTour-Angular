@@ -132,16 +132,19 @@ angular.module('innaApp.directives')
                             });
                         }
 
+                        function fail(){
+                            $scope.emptyPhoto = true;
+                        }
+
                         $.when.apply($, planZ()).then(function(){
                             if($scope.pics.list.length >= MIN_LENGTH) {
                                 loaded.resolveWith(null, [PicList.PLAN_Z]);
                             } else {
-                                $.whenAll(planY()).then(function(){
-                                    $scope.emptyPhoto = true;
+                                $.when.apply($, planY()).then(function(){
                                     loaded.resolveWith(null, [PicList.PLAN_Y]);
-                                });
+                                },fail);
                             }
-                        });
+                        },fail);
 
                         $.when(loaded).then(function(plan){
                             $scope.pics.list.sort(function(p1, p2){
@@ -157,7 +160,7 @@ angular.module('innaApp.directives')
                                     $scope.pics.plan = plan;
                                 } catch(e) {}
                             });
-                        });
+                        },fail);
                     });
                 }
             ]

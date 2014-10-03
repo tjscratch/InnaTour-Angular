@@ -24,7 +24,7 @@
       "beta": "http://api.beta.inna.ru"
     },
     "front": {
-      "test": "http://test.inna.ru",
+      "test": "http://beta.inna.ru",
       "prod": "https://inna.ru",
       "beta": "http://beta.inna.ru"
     },
