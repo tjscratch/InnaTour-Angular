@@ -40,6 +40,7 @@ angular.module('innaApp.directives')
                      * :DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:ProviderId?
                      *
                      */
+                    /console.info($scope.bundle.ticket.collectAirlines().etap);
                     $scope.computedUrlDetails = function (opt_param) {
 
                         var DepartureId = searchParams.DepartureId;

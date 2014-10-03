@@ -1,11 +1,10 @@
 <div class="b-result b-result_col_three row b-result-content">
     <div class="b-result__cell" ng-click="toggleTab('ticket')" ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
 
-        <span class="rl-airline" ng-repeat="(code, name) in bundle.ticket.collectAirlines().etap" ng-if="$index < 2">
-            <span ng-switch="code">
-                <img src="/spa/img/no-logo-avia.png" alt="" ng-switch-when="''">
-                <img ng-src="{{airLogo(code)}}" alt="" ng-switch-default>
-            </span>
+
+
+        <span class="rl-airline result-cell__airlines" ng-repeat="(code, name) in bundle.ticket.collectAirlines().etap" ng-if="$index < 2">
+            <img ng-src="{{airLogo(code)}}" alt="">
             <span class="rl-airline-text">{{name}}</span>
         </span>
 
