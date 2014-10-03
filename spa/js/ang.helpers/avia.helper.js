@@ -642,7 +642,7 @@
                             buyCriteria.VariantId1 = item.VariantId1;
                             buyCriteria.VariantId2 = item.VariantId2 != null ? item.VariantId2 : 0;
 
-                            var url = app_main.frontHost + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
+                            var url = $location.host() + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
                             self.link = url;
                         }
 
