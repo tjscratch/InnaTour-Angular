@@ -194,6 +194,10 @@ innaAppControllers.
                     data.ticket2ways = true;
                     data.partialInfoHotel = true;
 
+                    data.orderNum = $routeParams.OrderNum;
+
+                    //console.log(data);
+
                     return data;
                 }
             });
