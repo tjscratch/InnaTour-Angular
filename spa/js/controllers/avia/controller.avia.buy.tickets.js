@@ -933,6 +933,9 @@ innaAppControllers.
                                                         track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
                                                     }
 
+                                                    //останавливаем проверку времени оплаты
+                                                    $scope.paymentDeadline.destroy();
+
                                                     $scope.baloon.show('Заказ выполнен', 'Документы отправлены на электронную почту',
                                                         aviaHelper.baloonType.email,
                                                         function () {
