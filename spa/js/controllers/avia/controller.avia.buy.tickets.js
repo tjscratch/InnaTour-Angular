@@ -267,7 +267,12 @@ innaAppControllers.
                 var url = app_main.staticHost + '/files/doc/offer.pdf';
 
                 if (isDp) {
-                    url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+                    if (window.partners && window.partners.isFullWL()) {
+                        url = window.partners.getPartner().offertaContractLink;
+                    }
+                    else {
+                        url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+                    }
                 }
 
                 $scope.oferta = {
@@ -558,6 +563,13 @@ innaAppControllers.
                                 if (data.IsPayed == true) {
                                     //уже оплачен
                                     $scope.baloon.showAlert('Заказ уже оплачен', '', function () {
+                                        $scope.baloon.hide();
+                                        $location.url(Urls.URL_ROOT);
+                                    });
+                                }
+                                else if (data.OrderStatus == 2) {//[Description("Аннулирован")]
+                                    //уже оплачен
+                                    $scope.baloon.showAlert('Заказ аннулирован', '', function () {
                                         $scope.baloon.hide();
                                         $location.url(Urls.URL_ROOT);
                                     });
@@ -953,6 +965,7 @@ innaAppControllers.
                                         }
                                         else if(data.Result == 3){//ошибка оплаты
                                             $scope.baloon.hide();
+
                                             $scope._baloon = new Balloon({
                                                 data : {
                                                     balloonClose : true,

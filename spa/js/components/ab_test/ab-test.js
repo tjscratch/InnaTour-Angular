@@ -5,6 +5,7 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
 
     $scope.$on('$locationChangeSuccess', function () {
         $scope.safeApply(function () {
+            $rootScope.ABTest2 = false;
             var testParams = $location.search().ab;
             if (testParams) {
                 $cookies.ab_test = testParams;
@@ -25,18 +26,19 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
         });
     });
 
+    var onScroll = function () {
+        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrolled > 25) {
+            angular.element("body").removeClass("ab2");
+        }else{
+            angular.element("body").addClass("ab2");
+        }
+    }
 
     //BEGIN AB2
     var AB2AddClass = function () {
         angular.element("body").addClass("ab2");
-        window.onscroll = function () {
-            var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrolled > 25) {
-                angular.element("body").removeClass("ab2");
-            }else{
-                angular.element("body").addClass("ab2");
-            }
-        }
+        document.addEventListener('scroll', onScroll, false);
     }
 
     $rootScope.ABTest2 = false;
@@ -71,7 +73,9 @@ function AbTestCtrl($scope, $rootScope, $location, $cookies) {
     }
 
     //END AB2
-
+    $scope.$on('$destroy', function(){
+        document.removeEventListener('scroll', onScroll, false);
+    });
 
 }
 
