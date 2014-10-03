@@ -101,7 +101,7 @@ function FrameManager() {
         
         var frameCont = document.getElementById('inna-frame');
         //frameCont.style.position = 'relative';
-        //frameCont.style.visibility = 'hidden';
+        frameCont.style.visibility = 'hidden';
 
         var frame = document.getElementById(innaModule.frameId);
         frame.style.overflowX = 'hidden';
