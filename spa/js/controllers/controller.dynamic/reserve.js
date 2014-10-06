@@ -16,8 +16,7 @@
         '$templateCache',
         //components
         'Balloon',
-        function ($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper,
-            paymentService, Urls, storageService, urlHelper, $timeout, $templateCache, Balloon) {
+        function ($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, $templateCache, Balloon) {
 
             $scope.baloon.showExpireCheck();
 
@@ -28,8 +27,13 @@
             /*------------------------------------------*/
             /*------------------------------------------*/
             var children = $routeParams.Children ?
-                _.partition($routeParams.Children.split('_'), function(age){ return age > 2; }) :
-                [[], []];
+                _.partition($routeParams.Children.split('_'), function (age) {
+                    return age > 2;
+                }) :
+                [
+                    [],
+                    []
+                ];
 
             var searchParams = angular.copy($routeParams);
             var cacheKey = '';
@@ -47,18 +51,18 @@
             $scope.combination = {};
 
             DynamicPackagesDataProvider.search({
-                data : searchParams,
-                success : successSearch,
-                error : errorSearch
+                data: searchParams,
+                success: successSearch,
+                error: errorSearch
             });
 
             /*------------- INIT -----------------------*/
 
 
-            function successSearch(data){
+            function successSearch(data) {
                 cacheKey = data.SearchId;
 
-                $scope.$apply(function($scope){
+                $scope.$apply(function ($scope) {
                     $controller('ReserveTicketsCtrl', { $scope: $scope });
                     $scope.fromDate = $routeParams.StartVoyageDate;
                     $scope.AdultCount = parseInt($routeParams.Adult);
@@ -93,7 +97,7 @@
                                 $routeParams.EndVoyageDate,
                                 $routeParams.TicketClass,
                                 $routeParams.Adult,
-                                $routeParams.Children > 0 ? $routeParams.Children : '',
+                                    $routeParams.Children > 0 ? $routeParams.Children : '',
                                 hotelId,
                                 ticketId,
                                 ticketBackId,
@@ -109,6 +113,7 @@
                         this.isNeededTransfer = false;
                         this.isNeededMedicalInsurance = false;
                     }
+
                     $scope.addition = new addition();
 
                     //console.log('data:');
@@ -226,7 +231,7 @@
                 });
             }
 
-            function errorSearch(data, status){
+            function errorSearch(data, status) {
                 function goMain() {
                     $location.url(Urls.URL_DYNAMIC_PACKAGES);
                 }
@@ -247,8 +252,6 @@
                     goMain();
                 }, 3000);
             }
-
-
 
 
             DynamicFormSubmitListener.listen();
@@ -287,26 +290,26 @@
                 }
 
                 m.IsNeededVisa = $scope.addition.isNeededVisa,
-                m.IsNeededTransfer = $scope.addition.isNeededTransfer,
-                m.IsNeededMedicalInsurance = $scope.addition.isNeededMedicalInsurance,
+                    m.IsNeededTransfer = $scope.addition.isNeededTransfer,
+                    m.IsNeededMedicalInsurance = $scope.addition.isNeededMedicalInsurance,
 
-                m.SearchParams = {
-                    HotelId: $scope.hotel.HotelId,
-                    HotelProviderId: $scope.hotel.ProviderId,
-                    TicketToId: $scope.item.VariantId1,
-                    TicketBackId: $scope.item.VariantId2,
-                    RoomId: $scope.roomId,
-                    Filter: {
-                        DepartureId: $routeParams.DepartureId,
-                        ArrivalId: $routeParams.ArrivalId,
-                        StartVoyageDate: $scope.searchParams.StartVoyageDate,
-                        EndVoyageDate: $scope.searchParams.EndVoyageDate,
-                        TicketClass: $routeParams.TicketClass,
-                        Adult: $routeParams.Adult,
-                        ChildrenAges: childAgers
-                    },
-                    CustomerWishlist: $scope.addition.customerWishlist
-                };
+                    m.SearchParams = {
+                        HotelId: $scope.hotel.HotelId,
+                        HotelProviderId: $scope.hotel.ProviderId,
+                        TicketToId: $scope.item.VariantId1,
+                        TicketBackId: $scope.item.VariantId2,
+                        RoomId: $scope.roomId,
+                        Filter: {
+                            DepartureId: $routeParams.DepartureId,
+                            ArrivalId: $routeParams.ArrivalId,
+                            StartVoyageDate: $scope.searchParams.StartVoyageDate,
+                            EndVoyageDate: $scope.searchParams.EndVoyageDate,
+                            TicketClass: $routeParams.TicketClass,
+                            Adult: $routeParams.Adult,
+                            ChildrenAges: childAgers
+                        },
+                        CustomerWishlist: $scope.addition.customerWishlist
+                    };
                 return m;
             }
 
@@ -361,16 +364,15 @@
             $scope.showReserveError = function () {
                 $scope.baloon.hide();
 
-                new Balloon({
-                    data : {
-                        template : 'server-error.html',
-                        callbackClose : function(){
-                            //отправляем на пакеты
-                            $location.search({});
-                            $location.path(Urls.URL_DYNAMIC_PACKAGES);
-                        }
+
+                new Balloon().updateView({
+                    template: 'server-error.html',
+                    callbackClose: function () {
+                        //отправляем на пакеты
+                        $location.search({});
+                        $location.path(Urls.URL_DYNAMIC_PACKAGES);
                     }
-                }).show();
+                });
             }
 
             $scope.$on('$destroy', function () {

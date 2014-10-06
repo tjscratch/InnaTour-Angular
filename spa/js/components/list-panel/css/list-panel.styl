@@ -1,9 +1,8 @@
-.b-list-panel {
+.b-list-panel{
   position: relative;
 
-
-  &__wait {
-    &:after {
+  &__wait{
+    &:after{
       content: '';
       position: absolute;
       top: 0;
@@ -17,37 +16,73 @@
   }
 }
 
-.b-results-list_dp {
+.b-results-list_dp{
   width: auto;
   position: relative;
   padding-right: 25%;
 }
 
-.results-list {
+.results-list{
 
-  &.results-list-clear {
+  &.results-list-clear{
     width auto
   }
 
-  &__empty {
+  &__empty{
     padding 100px 0 300px
     background-repeat no-repeat
     background-position center 50px
 
-    &_type {
-      &_hotels {
+    &_type{
+      &_hotels{
         background-image: url(/spa/img/empty-list__hotels.png)
       }
-      &_tickets {
+      &_tickets{
         background-image: url(/spa/img/empty-list__tickets.png)
       }
     }
 
-    p {
+    p{
       font-size 18px
       line-height 24px
       text-align center
       margin 0
     }
   }
+}
+
+.button.button-scroll-to-more{
+  display: block;
+  width: 130px;
+  margin: 25px auto;
+  background: none repeat scroll 0 0 #212121;
+  border-radius: 1px 1px 0 0;
+  box-shadow: 0 0 3px #212121;
+  color: #fff;
+
+  .icon-arrow-bottom{
+    margin-right: 5px;
+  }
+}
+
+.icon-arrow-bottom:after{
+  border-color: #212121 transparent transparent;
+  border-style: solid;
+  border-width: 6px 6px 0;
+  top: -8px;
+  content: "";
+  display: inline-block;
+  height: 0;
+  left: -6px;
+  position: absolute;
+  width: 0;
+}
+.icon-arrow-bottom{
+  border-color: #fff transparent transparent;
+  border-style: solid;
+  border-width: 8px 8px 0;
+  display: inline-block;
+  height: 0;
+  position: relative;
+  width: 0;
 }

@@ -25,16 +25,16 @@
     margin 14px 0 4px
     vertical-align top
 
-    .search-people {
-        background-image:none;
+    .search-people{
+      background-image: none;
     }
-    
-    .search__list {
-        margin-top: 2px;
+
+    .search__list{
+      margin-top: 2px;
     }
-    
-    .search-form-dialog-row .button-group .button.active {
-        background: linear-gradient(top, #c1579a, #c15479);
+
+    .search-form-dialog-row .button-group .button.active{
+      background: linear-gradient(top, #c1579a, #c15479);
     }
 
     &__long
@@ -67,7 +67,6 @@
         height 6px
         margin-top -3px
 
-
     &__calendar
       &:after
         background-position -39px -1830px
@@ -75,10 +74,7 @@
         height 16px
         margin-top -8px
 
-
-
       background-position 0 -171px
-
 
     &-hor
       text-align justify
@@ -99,7 +95,6 @@
       padding 0 10px
       font-size 14px
 
-
     &-value
       line-height 49px
 
@@ -110,9 +105,6 @@
         position absolute
         color #868685
         right 30px
-
-
-
 
   .b-search-button
     background linear-gradient(top, #c1579a, #c15479)
@@ -134,11 +126,6 @@
       margin-top: 12px;
       z-index: 1;
 
-
-
-
-
-
 .dtpk-checkbox
   border-color #3fa9f5
   border-radius 0
@@ -146,42 +133,84 @@
 .dtpk-checkbox-label input:checked + .dtpk-checkbox
   background-color #3fa9f5
 
-
 .ui-datepicker td a.ui-state-active,
 .ui-datepicker td a.ui-state-hover
   background-color #3fa9f5
 
-.search-form-human-dialog {
-    width: 100%;
+.search-form-human-dialog{
+  width: 100%;
 }
 
-.search-date-block__date {
-    font-size: 16px;
+.search-date-block__date{
+  font-size: 16px;
 }
 
 .datepickerSelected-start a
 .datepickerSelected-end a
-    background linear-gradient(top, #c1579a, #c15479)
-    
-.datepickerSelected a {
-    background: #e3bcd5;
+  background linear-gradient(top, #c1579a, #c15479)
+
+.datepickerSelected a{
+  background: #e3bcd5;
 }
 
-.datePicker-today a {
-    border-color: #c1579a
+.datePicker-today a{
+  border-color: #c1579a
 }
 
 .datepickerDays a
-    &:hover
-        background linear-gradient(top, #c1579a, #c15479)
-        
+  &:hover
+    background linear-gradient(top, #c1579a, #c15479)
+
 .datepickerGoPrev a
 .datepickerGoNext a
-    &:hover
-        background linear-gradient(top, #c1579a, #c15479)
+  &:hover
+    background linear-gradient(top, #c1579a, #c15479)
 
-.search-autocomplete {
-    width: 401px;
-    padding: 0;
-    margin-left: -1px;
+.search-autocomplete{
+  width: 401px;
+  padding: 0;
+  margin-left: -1px;
+}
+
+.b-tour-form{
+  .b-search-field__long{
+    &.b-search-field__from{
+      z-index: 3;
+    }
+    &.b-search-field__to{
+      z-index: 2;
+    }
+    
+    .ui-tooltip{
+      position absolute;
+      left 410px
+      top 5px
+
+      &:before{
+        display none
+      }
+
+      .ui-tooltip-content{
+        white-space nowrap;
+      }
+    }
+  }
+}
+
+.datepicker-field{
+  position: relative;
+  
+  .ui-tooltip{
+    position absolute;
+    left 410px
+    bottom 10px
+
+    &:before{
+      display none
+    }
+
+    .ui-tooltip-content{
+      white-space nowrap;
+    }
+  }
 }

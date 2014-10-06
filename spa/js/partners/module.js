@@ -50,7 +50,7 @@ var innaModule = {
 innaModule.host = '@@partnersHost';
 
 
-//innaModule.host = 'http://192.168.105.54';
+//innaModule.host = 'http://192.168.105.46';
 
 function FrameManager() {
     var self = this;
@@ -208,7 +208,7 @@ function CommandManager() {
 
     self.initEvents = function () {
         self.addCommonEventListener(window, 'message', self.receiveMessage);
-        self.addCommonEventListener(window, 'resize', self.repositionFrame);
+        self.addCommonEventListener(window, 'resize', self.frameManager.repositionFrame);
     };
 
     self.receiveMessage = function (event) {
