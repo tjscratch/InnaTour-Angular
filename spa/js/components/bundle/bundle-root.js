@@ -197,6 +197,7 @@ angular.module('innaApp.directives')
                             });
                         }
 
+
                         
                         EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, $scope.display.fullDisplay);
                         EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, openBundle);
