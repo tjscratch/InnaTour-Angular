@@ -109,15 +109,15 @@ angular.module('innaApp.components').
                      * Срабатывает один раз
                      * Далее копируем массив Enumerable и работаем с копией
                      */
-                    this.observeEnumerable =  this.observe({
+                    this.observeEnumerable = this.observe({
                         Enumerable: function (newValue, oldValue, keypath) {
                             if (newValue) this.cloneData(newValue);
                         },
                         EnumerableList: function (newValue, oldValue, keypath) {
                             if (newValue) {
 
-                                console.log(newValue.length, 'newValue');
-                                    console.log(this.get('Enumerable').length, 'oldValue');
+//                                console.log(newValue.length, 'newValue');
+//                                    console.log(this.get('Enumerable').length, 'oldValue');
 
                                 /* console.table([
                                  {
@@ -136,7 +136,6 @@ angular.module('innaApp.components').
                                         setTimeout(this.updateCoords, 0);
                                     } else {
                                         this.removeScroll();
-                                        this.set('showButtonMore', false);
                                     }
                                 }
                             }
@@ -220,6 +219,7 @@ angular.module('innaApp.components').
                 removeScroll: function () {
                     document.removeEventListener('scroll', this.eventListener);
                     this.set({scroll: false});
+                    this.set('showButtonMore', false);
                 },
 
                 toggleScroll: function () {
