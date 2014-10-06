@@ -36,7 +36,7 @@ angular.module('innaApp.components').
                     EnumerableClone: [],
                     EnumerableList: [],
                     countItemsVisible: 10,
-                    showButtonMore : true
+                    showButtonMore : false
                 },
                 partials: {
                     EnumerableItemHotels: $templateCache.get('components/list-panel/templ/enumerableItemHotel.hbs.html'),
@@ -61,6 +61,13 @@ angular.module('innaApp.components').
                         this.parse(this.get('Enumerable'), { hotel: true });
                     else
                         this.parse(this.get('Enumerable'), { ticket: true });
+
+                    /**
+                     * показываем кнопку "показать ещё" только в режиме FullWl
+                     */
+                    if (window.partners.isFullWL() === true){
+                        this.set('showButtonMore', true);
+                    }
 
                     /**
                      * Вызов метода не чаще 300
