@@ -285,20 +285,20 @@ inna.Models.Avia.Ticket.prototype.collectAirlines = function () {
 
     this.everyEtap(function(etap){
         airlines.push([etap.data.TransporterCode, etap.data.TransporterName]);
-        transportersList.push({
+        /*transportersList.push({
             code : etap.data.TransporterCode,
             name : etap.data.TransporterName
-        });
+        });*/
     });
 
     var collected = _.object(airlines);
 
-    var transportersListUniq = _.uniq(angular.copy(transportersList), false, function (tr) {
+    /*var transportersListUniq = _.uniq(angular.copy(transportersList), false, function (tr) {
         return tr.code
-    });
+    });*/
 
     return {
-        airlines : transportersListUniq,
+        airlines : [],
         etap: collected,
         size: Object.keys(collected).length
     }

@@ -19,6 +19,7 @@ angular.module('innaApp.components').
                             if (data.length) {
                                 var resultFilter = data.filter(function (airline) {
                                     var result = component_val.val.filter(function (airline_local) {
+                                        console.log(airline_local, airline);
                                         return airline_local == airline;
                                     })
                                     return (result.length) ? true : false;
