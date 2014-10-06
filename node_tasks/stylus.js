@@ -50,7 +50,7 @@ gulp.task('styl-common', function () {
         .pipe(stylus(optStyl))
         .pipe(concat('common.min.css'))
         .pipe(gulp.dest(conf.build + '/css'))
-        .pipe(livereload());
+        //.pipe(gulpif(_ENV_ != 'production' && _ENV_ != 'beta', livereload()))
 });
 
 gulp.task('styl-ticket', function () {
@@ -82,7 +82,7 @@ gulp.task('styl-partners', function () {
     return gulp.src([conf.styl + '/partners/**/*.base.styl'])
 		.pipe(stylus(optStyl))
         .pipe(gulp.dest(conf.styl + '/partners'))
-        .pipe(livereload());
+        //.pipe(gulpif(_ENV_ != 'production' && _ENV_ != 'beta', livereload()))
 });
 
 
@@ -92,7 +92,7 @@ gulp.task('styl-adv', function () {
     return gulp.src([conf.src + '/components/adv/css/adv.base.styl'])
         .pipe(stylus(optStyl))
         .pipe(gulp.dest(conf.src + '/components/adv/css'))
-        .pipe(livereload());
+        //.pipe(gulpif(_ENV_ != 'production' && _ENV_ != 'beta', livereload()))
 });
 
 /* AB Test*/
@@ -101,7 +101,7 @@ gulp.task('styl-abtest', function () {
     return gulp.src([conf.src + '/components/ab_test/**/*.base.styl'])
         .pipe(stylus(optStyl))
         .pipe(gulp.dest(conf.src + '/components/ab_test/'))
-        .pipe(livereload());
+        //.pipe(gulpif(_ENV_ != 'production' && _ENV_ != 'beta', livereload()))
 });
 
 
