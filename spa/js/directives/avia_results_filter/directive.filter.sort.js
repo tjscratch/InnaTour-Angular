@@ -1,5 +1,3 @@
-
-
 innaAppDirectives.
     directive('filterSort', ['$templateCache', 'eventsHelper', function ($templateCache, eventsHelper) {
         return {
@@ -14,8 +12,6 @@ innaAppDirectives.
 
                 $scope.resetFilter = function ($event) {
                     eventsHelper.preventBubbling($event);
-
-                    //_.each($scope.list, function (item) { item.checked = false });
                 }
 
                 $scope.headClicked = false;
@@ -27,15 +23,15 @@ innaAppDirectives.
 
                 $scope.anyChecked = function () {
                     if ($scope.sort.list != null) {
-                        return _.any($scope.list, function (item) { return item.checked; });
+                        return _.any($scope.list, function (item) {
+                            return item.checked;
+                        });
                     }
                     return false;
                 }
 
                 $scope.applySort = function ($event, type) {
                     $scope.isOpen = false;
-                    //eventsHelper.preventBubbling($event);
-                    //log('applySort: ' + type + ', $scope.sort:' + $scope.sort + ', $scope.reverse:' + $scope.reverse);
 
                     var reverse = false;
                     if ($scope.sort.sortType == type)
@@ -48,7 +44,9 @@ innaAppDirectives.
                 };
 
                 $scope.getCurrentSortName = function () {
-                    return _.find($scope.sort.list, function (item) { return item.sort == $scope.sort.sortType }).name;
+                    return _.find($scope.sort.list, function (item) {
+                        return item.sort == $scope.sort.sortType
+                    }).name;
                 };
             }],
             link: function ($scope, element, attrs) {

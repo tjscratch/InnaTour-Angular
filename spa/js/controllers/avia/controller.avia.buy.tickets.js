@@ -567,6 +567,13 @@ innaAppControllers.
                                         $location.url(Urls.URL_ROOT);
                                     });
                                 }
+                                else if (data.OrderStatus == 2) {//[Description("Аннулирован")]
+                                    //уже оплачен
+                                    $scope.baloon.showAlert('Заказ аннулирован', '', function () {
+                                        $scope.baloon.hide();
+                                        $location.url(Urls.URL_ROOT);
+                                    });
+                                }
                                 else {
                                     $scope.reservationModel = bindApiModelToModel(data);
                                     if ($scope.reservationModel.IsService) {//сервисный сбор
@@ -926,6 +933,9 @@ innaAppControllers.
                                                         track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
                                                     }
 
+                                                    //останавливаем проверку времени оплаты
+                                                    $scope.paymentDeadline.destroy();
+
                                                     $scope.baloon.show('Заказ выполнен', 'Документы отправлены на электронную почту',
                                                         aviaHelper.baloonType.email,
                                                         function () {
@@ -958,6 +968,7 @@ innaAppControllers.
                                         }
                                         else if(data.Result == 3){//ошибка оплаты
                                             $scope.baloon.hide();
+
                                             $scope._baloon = new Balloon({
                                                 data : {
                                                     balloonClose : true,

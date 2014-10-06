@@ -45,7 +45,7 @@ angular.module('innaApp.components').
 
                                     this.fire('onCheckedFilter', this.get('value.val'));
                                     this.hasSelected();
-                                }.bind(this), 100);
+                                }.bind(this), 300);
                             }
                         },
                         resetFilter: function () {
