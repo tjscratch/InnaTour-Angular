@@ -61,56 +61,6 @@ innaAppControllers
             $scope.filtersSettingsHotels = null;
             $scope.filtersSettingsTicket = null;
 
-
-            /**
-             * кнопка прокрутки страницы наверх
-             */
-            $scope.goToTop = function () {
-                $location.hash('top');
-                $anchorScroll();
-            };
-
-            function showGoToTop() {
-                $scope.safeApply(function () {
-                    $scope.goToTopShow = true;
-                })
-            }
-
-            function hideGoToTop() {
-                $scope.safeApply(function () {
-                    $scope.goToTopShow = false;
-                })
-            }
-
-            function GoToTopBtn() {
-                var footerTop = utils.getCoords(footerEl).top;
-                var windowHeight = utils.getScrollTop() + window.innerHeight;
-                if (windowHeight > 900) {
-                    showGoToTop();
-                } else {
-                    hideGoToTop();
-                }
-                var wr = windowHeight - footerTop;
-                if (wr > 5) {
-                    $scope.safeApply(function () {
-                        $scope.goToTopStyle = {
-                            'bottom': wr + 'px',
-                            'transition': 'bottom 0s'
-                        };
-                    })
-                } else {
-                    $scope.safeApply(function () {
-                        $scope.goToTopStyle = {
-                            'bottom': '0px',
-                            'transition': 'bottom .15s'
-                        };
-                    })
-                }
-            }
-
-            var footerEl = document.querySelector(".footer");
-            document.addEventListener('scroll', GoToTopBtn);
-
             //кнопка нового поиска для WL
             function setWlModel(data) {
                 $scope.WlNewSearchModel = new inna.Models.WlNewSearch({
@@ -709,7 +659,6 @@ innaAppControllers
                 }
 
                 $(document).off('scroll');
-                $(document).off('scroll', GoToTopBtn);
             })
         }
     ]);
