@@ -174,9 +174,6 @@ innaAppControllers
 
                     $scope.passengerCount = parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0);
 
-                    // прямая ссылка на карту
-                    this.setAsMap(($location.$$search.map) ? 1 : 0);
-
                     // переход с карты на список по кнопке НАЗАД в браузере
                     // работает тольео в одну сторону - назад
                     this.backFromMap = $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
@@ -207,7 +204,7 @@ innaAppControllers
                         $scope.safeApply(function () {
                             that.setAsMap((that.getAsMap()) ? 0 : 1);
                             that.locatioAsMap();
-                            $scope.hotelsForMap = data;
+                            $scope.hotelsForMap = data;                            
 
                             if (single_hotel) {
                                 setTimeout(function () {
@@ -293,6 +290,9 @@ innaAppControllers
                                     filter_avia: false
                                 };
 
+                                // прямая ссылка на карту
+                                // показываем только после загрузки данных для отелей и фильтров
+                                that.setAsMap(($location.$$search.map) ? 1 : 0);
 
                                 ListPanelComponent = new ListPanel({
                                     el: that.find('.b-page-dynamic'),
@@ -415,7 +415,9 @@ innaAppControllers
                             that.set('loadHotelsData', data);
 
                             if (data && data.Hotels) {
-                                $scope.hotelsForMap = data.Hotels;
+                                $scope.safeApply(function () {
+                                    $scope.hotelsForMap = data.Hotels;
+                                });
                             }
 
                             that._balloonLoad.dispose();
