@@ -1,4 +1,5 @@
 var innaModule = {
+    frameId: 'innaFrame1',
     init: function (partner) {
         setTimeout(function () {
             innaModule.init_internal(partner);
@@ -21,9 +22,12 @@ var innaModule = {
         wrapper.appendChild(fr);
 
         self.frameManager.setStyles();
-        self.frameManager.repositionFrame();
+        //self.frameManager.repositionFrame();
 
         self.cmdManager.init(innaModule.frameManager);
+
+        //слушаем скролл
+        self.cmdManager.addCommonEventListener(window, 'scroll', trackScroll);
 
         function processHashParams(url) {
             //если передаются урлы типа #/packages/buy/QWA5KX
@@ -40,6 +44,13 @@ var innaModule = {
             }
             var url = innaModule.host.replace("{0}", partner);
             return url;
+        }
+
+        function trackScroll(e) {
+            //console.log('trackScroll');
+            var doc = document.documentElement, body = document.body;
+            var top = (doc && doc.scrollTop || body && body.scrollTop || 0);
+            self.cmdManager.sendCommandToInnaFrame('processScrollTop', { 'top': top });
         }
     },
 
@@ -67,7 +78,7 @@ function FrameManager() {
 
     self.createFrame = function () {
         var fr = document.createElement("iframe");
-        fr.id = "innaFrame1"
+        fr.id = innaModule.frameId;
         //fr.onload = frameLoaded();
         return fr;
     };
@@ -76,25 +87,28 @@ function FrameManager() {
         var docSize = getDocumentSize();
 
         var wrapper = document.getElementById('inna-frame-wrapper');
+
+        //wrapper.setAttribute("style", "-webkit-overflow-scrolling: touch;");
+        //wrapper.style.position = 'fixed';
+        //wrapper.style.overflowY = 'auto';
+        //wrapper.style.width = docSize.x + 'px';
+        //wrapper.style.height = "600px";
         
-        wrapper.setAttribute("style", "-webkit-overflow-scrolling: touch;");
-        wrapper.style.position = 'fixed';
-        wrapper.style.overflowY = 'auto';
-        wrapper.style.width = docSize.x + 'px';
-        wrapper.style.height = "600px";
-        
-        wrapper.style.right = '0px';
-        wrapper.style.bottom = '0px';
-        wrapper.style.left = '0px';
-        wrapper.style.top = '0px';
+        //wrapper.style.right = '0px';
+        //wrapper.style.bottom = '0px';
+        //wrapper.style.left = '0px';
+        //wrapper.style.top = '0px';
         
         var frameCont = document.getElementById('inna-frame');
-        frameCont.style.position = 'relative';
+        //frameCont.style.position = 'relative';
         frameCont.style.visibility = 'hidden';
 
-        var frame = document.getElementById('innaFrame1');
+        var frame = document.getElementById(innaModule.frameId);
+        frame.style.overflowX = 'hidden';
+        //frame.style.overflowY = 'hidden';
         frame.style.width = "100%";
-        frame.style.height = "99%";
+        frame.style.height = "850px";
+        //frame.style.height = "99%";
         frame.style.border = "0";
         frame.border = 0;
         frame.frameBorder = 0;
@@ -166,7 +180,14 @@ function FrameManager() {
         //задает позицию фрейма, чтобы занимал весь экран
         if (data.top != null) {
             //console.log('setScrollTopCmd, top:', data.top);
-            self.repositionFrame(data.top);
+            //self.repositionFrame(data.top);
+        }
+    }
+
+    self.setHeightCmd = function (data) {
+        if (data.height != null && data.height > 850) {
+            var frame = document.getElementById(innaModule.frameId);
+            frame.style.height = data.height + "px";
         }
     }
 
@@ -203,12 +224,12 @@ function CommandManager() {
 
     self.init = function (frameManager) {
         self.frameManager = frameManager;
-        self.initEvents();
+        self.initEventListeners();
     }
 
-    self.initEvents = function () {
+    self.initEventListeners = function () {
         self.addCommonEventListener(window, 'message', self.receiveMessage);
-        self.addCommonEventListener(window, 'resize', self.frameManager.repositionFrame);
+        //self.addCommonEventListener(window, 'resize', self.frameManager.repositionFrame);
     };
 
     self.receiveMessage = function (event) {
@@ -224,6 +245,7 @@ function CommandManager() {
 
         if (data) {
             switch (data.cmd) {
+                case 'setHeight': self.frameManager.setHeightCmd(data); break;
                 case 'setVisible': self.frameManager.setVisibleCmd(data); break;
                 case 'setFrameScrollTo': self.frameManager.setFrameScrollToCmd(data); break;
                 case 'setScrollTop': self.frameManager.setScrollTopCmd(data); break;
@@ -238,4 +260,27 @@ function CommandManager() {
             el.attachEvent('on' + event, fn);
         }
     };
+
+    self.sendCommandToInnaFrame = function (cmd, data) {
+        if (arguments && arguments.length > 1) {
+
+            var obj = arguments[1];
+            var keys = [];
+            for (var k in obj) keys.push(k);
+
+            //ставим команду
+            var cmdObj = { 'cmd': arguments[0] };
+            var data = arguments[1];
+
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                //ставим данные
+                cmdObj[key] = data[key];
+            }
+            var msg = JSON.stringify(cmdObj);
+            //console.log('sendCommandToInnaFrame, msg:', msg);
+            var frame = document.getElementById(innaModule.frameId);
+            frame.contentWindow.postMessage(msg, '*');
+        }
+    }
 }

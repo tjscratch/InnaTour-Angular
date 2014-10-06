@@ -2,6 +2,8 @@
     window.partners = {};
     var self = window.partners;
 
+    self.parentScrollTop = null;
+
     self.WLType = {
         full: 'full',
         lite: 'lite'
@@ -53,6 +55,7 @@
     self.extendProp();
 
     self.commands = {
+        setHeight: 'setHeight',
         setVisible: 'setVisible',
         setFrameScrollTo: 'setFrameScrollTo',
         setScrollTop: 'setScrollTop'
@@ -171,15 +174,60 @@
         }
     }
 
+    function getDocumentSize() {
+        var w = window,
+        d = document,
+        e = d.documentElement,
+        g = d.getElementsByTagName('body')[0],
+        x = w.innerWidth || e.clientWidth || g.clientWidth,
+        y = w.innerHeight || e.clientHeight || g.clientHeight;
+        return { x: x, y: y };
+    }
+
+    function getContentHeight() {
+        var height = document.getElementById('main-content-div').offsetHeight;
+        return height;
+    }
+
+    function receiveMessage(event) {
+        var data = {};
+        try {
+            data = JSON.parse(event.data);
+        }
+        catch (e) {
+        }
+
+        if (data) {
+            switch (data.cmd) {
+                case 'processScrollTop': processScrollTop(data); break;
+            }
+        }
+    }
+
+    function processScrollTop(data) {
+        console.log('processScrollTop: ', data.top);
+        self.parentScrollTop = data.top;
+    }
+
     var partner = self.getPartner();
     if (partner != null) {
         insertCssAndAddParnterClass(partner);
 
         //просто показываем фрейм
-        setTimeout(function () { sendCommandToParent(self.commands.setVisible, { 'visible': true }); }, 0);
+        setTimeout(function () {
+            sendCommandToParent(self.commands.setVisible, { 'visible': true });
+            sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
+        }, 500);
+
+        setInterval(function () {
+            sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
+        }, 100);
 
         //слушаем скролл
         addCommonEventListener(window, 'scroll', trackScroll);
+
+        //слушаем события из window.parent
+        addCommonEventListener(window, 'message', receiveMessage);
     }
 
 }(document, window));

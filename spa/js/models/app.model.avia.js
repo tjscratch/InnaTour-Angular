@@ -285,22 +285,25 @@ inna.Models.Avia.Ticket.prototype.collectAirlines = function () {
 
     this.everyEtap(function(etap){
         airlines.push([etap.data.TransporterCode, etap.data.TransporterName]);
-        /*transportersList.push({
+        transportersList.push({
             code : etap.data.TransporterCode,
             name : etap.data.TransporterName
-        });*/
+        });
     });
 
+    // TODO: deprecated
     var collected = _.object(airlines);
 
-    /*var transportersListUniq = _.uniq(angular.copy(transportersList), false, function (tr) {
+    var transportersListUniq = _.uniq(angular.copy(transportersList), false, function (tr) {
         return tr.code
-    });*/
+    });
 
     return {
-        airlines : [],
-        etap: collected,
-        size: Object.keys(collected).length
+        airlines : transportersListUniq,
+        size: transportersListUniq.length,
+
+        // TODO: deprecated
+        etap: collected
     }
 };
 
