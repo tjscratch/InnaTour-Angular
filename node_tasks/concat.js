@@ -144,7 +144,8 @@ gulp.task('build-angular-parts', [
     ])
         .pipe(concat('angular-parts.js'))
         .pipe(gulp.dest(conf.build + '/js'))
-        .pipe(livereload());
+        //.pipe(gulpif(_ENV_ != 'production' && _ENV_ != 'beta', livereload()))
+
 });
 
 
@@ -152,7 +153,4 @@ gulp.task('concat-comp-page-regions', [
     'concat-pages',
     'concat-regions',
     'concat-components'
-], function(){
-    return gulp.src(conf.src + '/mediator.js', { read: false })
-        .pipe(livereload());
-});
+]);
