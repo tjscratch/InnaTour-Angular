@@ -104,14 +104,14 @@ angular.module('innaApp.components').
                                      * если время входит в диапазон части дня, то возвращаем true
                                      */
                                     //console.log(hours, partDay.start, partDay.end);
-                                    if (hours >= partDay.start){
-                                      var endTime = partDay.end.split(':'),
-                                          endTimeHours = endTime[0],
-                                          endTimeMinutes = endTime[1];
+                                    if (hours >= partDay.start) {
+                                        var endTime = partDay.end.split(':'),
+                                            endTimeHours = endTime[0],
+                                            endTimeMinutes = endTime[1];
 
-                                      if((hours <= endTimeHours) && (minute <= endTimeMinutes)) {
-                                        return true;
-                                      }
+                                        if ((hours <= endTimeHours) && (minute <= endTimeMinutes)) {
+                                            return true;
+                                        }
                                     }
                                 });
 
@@ -122,7 +122,6 @@ angular.module('innaApp.components').
 
                             // если хоть какой то вернулься результат фильтрации
                             if (resultFilterTimeDate.length) {
-                                // условие AND
                                 if (component_val.val.length == resultFilterTimeDate.length) {
                                     return true;
                                 }
@@ -148,11 +147,14 @@ angular.module('innaApp.components').
                             this.hasSelected();
                         },
 
-                        changeState: function () {
+                        changeState: function (data) {
                             this.set('value.val', this.filter());
+                            if(this.get('value.val') && this.get('value.val').length){
+                                this.fire('onCheckedFilter', this.get('value.val'));
+                            }
                         },
 
-                        resetFilter: function (data) {
+                        resetItem: function (data) {
                             var that = this;
 
                             if (data && data.context) {
@@ -163,14 +165,17 @@ angular.module('innaApp.components').
                                         that.set('FilterData.' + i + '.dayState.*.isChecked', false);
                                     }
                                 });
-                            } else {
-                                that.set('FilterData.*.state.0.isActive', true);
-                                that.set('FilterData.*.state.1.isActive', false);
-                                that.set('FilterData.*.dayState.*.isChecked', false);
                             }
 
                             this.set('value.val', this.filter());
+                            this.fire('onCheckedFilter', this.get('value.val'));
                             this.hasSelected();
+                        },
+
+                        resetFilter: function (data) {
+                            this.set('FilterData.*.state.0.isActive', true);
+                            this.set('FilterData.*.state.1.isActive', false);
+                            this.set('FilterData.*.dayState.*.isChecked', false);
                         },
 
                         teardown: function (evt) {

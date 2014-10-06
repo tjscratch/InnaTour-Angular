@@ -63,15 +63,17 @@ angular.module('innaApp.components').
                             this.hasSelected();
                         },
 
-                        resetFilter: function (data) {
+                        resetItem: function (data) {
                             if (data && data.context) {
                                 this.set(data.keypath + '.List.*.isChecked', false);
-                            } else {
-                                this.set('FilterData.*.List.*.isChecked', false);
+                                this.set('value.val', this.filter());
+                                this.fire('onCheckedFilter', this.get('value.val'));
+                                this.hasSelected();
                             }
+                        },
 
-                            this.set('value.val', this.filter());
-                            this.hasSelected();
+                        resetFilter: function (data) {
+                           this.set('FilterData.*.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
 

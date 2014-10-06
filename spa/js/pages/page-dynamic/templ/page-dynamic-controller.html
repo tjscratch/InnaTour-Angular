@@ -5,17 +5,33 @@
 
 
 <!-- List Panel hotels and tickets -->
-<div class="results-body">
-    <div class="results-container results-container_list"
-         ng-class="{'results-container__short':!padding}"
-         ng-show="(!showLanding && !hotelToShowDetails && !asMap)"></div>
+<div class="results-body" id="top">
 
 
-    <div dynamic-serp-map
-         dynamic-serp-map-hotels="hotels"
-         map-hotels="hotelsForMap"
-         as-map="asMap"
-         dynamic-serp-map-combination="combination"
-         dynamic-serp-map-airports="airports"
-         ng-if="hotels.list.length && asMap"></div>
+	<div class="results-container results-container_list"
+	     ng-class="{'results-container__short':!padding}"
+	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)"></div>
+
+
+	<div dynamic-serp-map
+	     dynamic-serp-map-hotels="hotels"
+	     map-hotels="hotelsForMap"
+	     as-map="asMap"
+	     dynamic-serp-map-combination="combination"
+	     dynamic-serp-map-airports="airports"
+	     ng-if="hotels.list.length && asMap"></div>
+
+
+	<!--
+	<a class="button button-scroll-to-top"
+	   ng-style="goToTopStyle"
+	   ng-click="goToTop()"
+	   ng-show="goToTopShow && !asMap"
+			>
+		<span class="icon-sprite-arrow-top"></span>
+		Наверх
+	</a>
+	-->
+
+
 </div>

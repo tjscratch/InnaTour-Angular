@@ -271,6 +271,7 @@ inna.Models.Avia.Ticket.prototype.everyEtap = function (cb) {
     }
 }
 
+
 inna.Models.Avia.Ticket.prototype.getNextEtap = function (dir, current) {
     var etaps = this.getEtaps(dir);
     var i = etaps.indexOf(current);
@@ -280,22 +281,29 @@ inna.Models.Avia.Ticket.prototype.getNextEtap = function (dir, current) {
 
 inna.Models.Avia.Ticket.prototype.collectAirlines = function () {
     var airlines = [];
-    var airlinesArr = [];
+    var transportersList = [];
 
     this.everyEtap(function(etap){
         airlines.push([etap.data.TransporterCode, etap.data.TransporterName]);
-        airlinesArr.push({
+        transportersList.push({
             code : etap.data.TransporterCode,
             name : etap.data.TransporterName
         });
     });
 
+    // TODO: deprecated
     var collected = _.object(airlines);
 
+    var transportersListUniq = _.uniq(angular.copy(transportersList), false, function (tr) {
+        return tr.code
+    });
+
     return {
-        airlines : _.pluck(airlinesArr, 'name'),
-        etap: collected,
-        size: Object.keys(collected).length
+        airlines : transportersListUniq,
+        size: transportersListUniq.length,
+
+        // TODO: deprecated
+        etap: collected
     }
 };
 
