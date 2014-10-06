@@ -13,7 +13,7 @@ var optStyl = {
     define: { 'math-random': 123 }
 };
 
-var styleBase = '../../spa/styl/base.styl';
+var styleBase = '../../../spa/styl/base.styl';
 
 
 /* простой конкат  */
