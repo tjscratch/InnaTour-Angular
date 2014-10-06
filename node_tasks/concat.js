@@ -3,6 +3,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglifyjs');
 var gulpif = require('gulp-if');
 var conf = require('./config');
+var livereload = require('gulp-livereload');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -142,7 +143,8 @@ gulp.task('build-angular-parts', [
             conf.build + '/js/angular-models.js'
     ])
         .pipe(concat('angular-parts.js'))
-        .pipe(gulp.dest(conf.build + '/js'));
+        .pipe(gulp.dest(conf.build + '/js'))
+        .pipe(livereload());
 });
 
 
@@ -150,4 +152,7 @@ gulp.task('concat-comp-page-regions', [
     'concat-pages',
     'concat-regions',
     'concat-components'
-]);
+], function(){
+    return gulp.src(conf.src + '/mediator.js', { read: false })
+        .pipe(livereload());
+});

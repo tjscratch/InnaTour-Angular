@@ -17,7 +17,6 @@ console.log(isWin);
 console.info('----------------------------');
 
 
-
 /**
  * Полная сборка проект
  * Сборка в production запускается в окружении - production
@@ -27,6 +26,8 @@ console.info('----------------------------');
  * Посмотреть основную сборку ( конкатенацию файлов )
  * можно в файле node_tasks/concat.js
  */
+
+
 gulp.task('build-project', function (callback) {
     runSequence(
         'remove-publish',
@@ -40,6 +41,7 @@ gulp.task('build-project', function (callback) {
         'replace-partners',
         callback);
 });
+
 
 gulp.task('default', function (callback) {
     runSequence(
