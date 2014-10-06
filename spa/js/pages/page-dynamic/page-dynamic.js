@@ -124,6 +124,7 @@ innaAppControllers
                 });
             }
 
+
             var Page = Ractive.extend({
                 debug: true,
                 append: true,

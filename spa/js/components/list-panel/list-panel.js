@@ -309,7 +309,7 @@ angular.module('innaApp.components').
                             //item.etap
 
                             // авиалинии этого билета
-                            var airline = _.union(modelTicket.collectAirlines().airlines);
+                            var airline = _.pluck(modelTicket.collectAirlines().airlines, 'name');
                             var legsTo = modelTicket.getEtaps('To').length;
                             var legsBack = modelTicket.getEtaps('Back').length;
 

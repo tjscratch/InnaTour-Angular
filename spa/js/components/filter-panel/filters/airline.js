@@ -61,15 +61,15 @@ angular.module('innaApp.components').
                 },
 
 
-                mergeData : function(){
+                mergeData: function () {
                     var that = this;
 
-                    if(this.SaveData.length && this.get('FilterData.List').length) {
-                        this.get('FilterData.List').forEach(function(item, i){
+                    if (this.SaveData.length && this.get('FilterData.List').length) {
+                        this.get('FilterData.List').forEach(function (item, i) {
 
                             that.SaveData.filter(function (saveItem) {
                                 if (item.Name == saveItem.Name) {
-                                    that.set('FilterData.List.'+i, angular.extend(saveItem, item));
+                                    that.set('FilterData.List.' + i, angular.extend(saveItem, item));
                                     return true;
                                 }
                             });
@@ -77,10 +77,10 @@ angular.module('innaApp.components').
                     }
                 },
 
-                spliceSaveData : function(context) {
+                spliceSaveData: function (context) {
                     var that = this;
 
-                    if(this.SaveData.length) {
+                    if (this.SaveData.length) {
                         this.SaveData.forEach(function (item, i) {
                             if (context.Name == item.Name) {
                                 that.SaveData.splice(i, 1);
