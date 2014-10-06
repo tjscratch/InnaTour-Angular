@@ -1,15 +1,15 @@
 <div class="b-result b-result_col_three row b-result-content">
     <div class="b-result__cell" ng-click="toggleTab('ticket')" ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
 
-        <span class="rl-airline" ng-repeat="tr in transportersList" ng-if="$index < 2">
+        <span class="rl-airline" ng-repeat="tr in transportersList" ng-if="transportersList.length <= 2">
             <img ng-src="{{airLogo(tr.code)}}" alt="">
             <span class="rl-airline-text">{{tr.name}}</span>
         </span>
-	    
-	    <!--<span class="rl-airline" ng-if="transportersList.length > 2">
+
+	    <span class="rl-airline" ng-if="transportersList.length > 2">
 	        <img src="/spa/img/group.png" alt="">
 	        <span class="rl-airline-text">Несколько авиакомпаний</span>
-		</span>-->
+		</span>
 
 
         <div class="flight-info">
