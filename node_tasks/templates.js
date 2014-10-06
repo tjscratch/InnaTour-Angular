@@ -3,7 +3,6 @@ var gulp = require('gulp'),
     templateCache = require('gulp-angular-templatecache'),
     gulpif = require('gulp-if'),
     cleanhtml = require('gulp-cleanhtml'),
-    minifyHTML = require('gulp-minify-html'),
     conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV;
