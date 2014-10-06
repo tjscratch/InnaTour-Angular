@@ -40,8 +40,7 @@
             <!-- Можно указать любой ( компонент - шаблон ) который будет вставлен на место EnumerableItem  -->
             <div class="b-list-panel__list b-list-panel__hotels_list {{waitData ? 'b-list-panel__wait' : '' }}">
 
-
-				{{#if iterable_hotels}}
+	            {{#if iterable_hotels}}
 					{{#each EnumerableList}}
 						{{>EnumerableItemHotels}}
 					{{/each}}
@@ -52,7 +51,15 @@
 						{{>EnumerableItemTickets}}
 					{{/each}}
 				{{/if}}
+	            
             </div>
+
+            {{#if showButtonMore & EnumerableCount > 10}}
+			    <div class="button button-scroll-to-more" on-click="goToMore">
+				    <span class="icon-arrow-bottom"></span>
+				    Показать ещё
+	            </div>
+            {{/if}}
 
 
             <!-- Если в результате фильтрации не чего не найдено -->
@@ -78,6 +85,7 @@
                 </div>
             </div>
 		{{/if}}
+	    	    
     </div>
 
 </div>

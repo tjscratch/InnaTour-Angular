@@ -1,7 +1,11 @@
-<li class="filters__sort" style="width: 290px; text-align: right;">
+<li class="filters__sort">
     <a href="javascript:void(0)" class="filters__link avia" ng-click="toggle($event)">{{getCurrentSortName()}}</a>
-    <ul class="search__list" ng-show="isOpen" style="width: 290px; margin-top: 0px; z-index: 101; position:absolute;">
-        <li style="text-align:left;" ng-class="{current:item.sort == sort.sortType}" ng-repeat="item in sort.list" ng-click="applySort($event, item.sort)">{{item.name}}</li>
+
+    <ul class="search__list filters__baloon filters__baloon_avia-baloon" ng-show="isOpen">
+        <li class="align-left"
+            ng-class="{current:item.sort == sort.sortType}"
+            ng-click="applySort($event, item.sort)"
+            ng-repeat="item in sort.list">{{item.name}}</li>
     </ul>
 <!--
 <div class="rl-filter">

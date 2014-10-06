@@ -35,7 +35,8 @@ angular.module('innaApp.components').
                     EnumerableCount: 0,
                     EnumerableClone: [],
                     EnumerableList: [],
-                    countItemsVisible: 10
+                    countItemsVisible: 10,
+                    showButtonMore : false
                 },
                 partials: {
                     EnumerableItemHotels: $templateCache.get('components/list-panel/templ/enumerableItemHotel.hbs.html'),
@@ -62,6 +63,13 @@ angular.module('innaApp.components').
                         this.parse(this.get('Enumerable'), { ticket: true });
 
                     /**
+                     * показываем кнопку "показать ещё" только в режиме FullWl
+                     */
+                    if (window.partners.isFullWL() === true){
+                        this.set('showButtonMore', true);
+                    }
+
+                    /**
                      * Вызов метода не чаще 300
                      * так как срабатывает по скроллингу
                      * {@link http://underscorejs.org/}
@@ -84,6 +92,9 @@ angular.module('innaApp.components').
                         goToMap: function (data) {
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('EnumerableList'), data);
                         },
+                        goToMore: function (){
+                            this.debounceDose();
+                        },
 
                         '*.setCurrent' : this.setCurrent,
 
@@ -105,14 +116,15 @@ angular.module('innaApp.components').
                      * Срабатывает один раз
                      * Далее копируем массив Enumerable и работаем с копией
                      */
-                    this.observeEnumerable =  this.observe({
+                    this.observeEnumerable = this.observe({
                         Enumerable: function (newValue, oldValue, keypath) {
                             if (newValue) this.cloneData(newValue);
                         },
                         EnumerableList: function (newValue, oldValue, keypath) {
                             if (newValue) {
 
-                                //console.log(newValue, 'newValue');
+//                              //console.log(newValue.length, 'newValue');
+                                //    console.log(this.get('Enumerable').length, 'oldValue');
 
                                 /* console.table([
                                  {
@@ -127,7 +139,7 @@ angular.module('innaApp.components').
                                 // обновляем координаты
                                 // оборачиваем в setTimeout, так как нужно дождаться вставки элементов в DOM
                                 if (newValue.length) {
-                                    if (newValue.length != this.get('Enumerable').length) {
+                                    if (newValue.length != this.get('Enumerable').length - 1) {
                                         setTimeout(this.updateCoords, 0);
                                     } else {
                                         this.removeScroll();
@@ -145,7 +157,7 @@ angular.module('innaApp.components').
                     EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
                     EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
                     EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
-
+                    
                     /** Событие изменения фильтров или сортировки */
                     EventManager.on(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
                 },
@@ -183,7 +195,7 @@ angular.module('innaApp.components').
                         elHeight = this.get('elHeight');
 
 
-                    //console.log((elHeight), (scrollTop + (viewportHeight + 100)));
+//                    console.log((elHeight), (scrollTop + (viewportHeight + 100)));
 
 
                     /**
@@ -214,6 +226,7 @@ angular.module('innaApp.components').
                 removeScroll: function () {
                     document.removeEventListener('scroll', this.eventListener);
                     this.set({scroll: false});
+                    this.set('showButtonMore', false);
                 },
 
                 toggleScroll: function () {
@@ -296,7 +309,7 @@ angular.module('innaApp.components').
                             //item.etap
 
                             // авиалинии этого билета
-                            var airline = _.union(modelTicket.collectAirlines().airlines);
+                            var airline = _.pluck(modelTicket.collectAirlines().airlines, 'name');
                             var legsTo = modelTicket.getEtaps('To').length;
                             var legsBack = modelTicket.getEtaps('Back').length;
 
