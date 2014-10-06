@@ -5,7 +5,7 @@
 
 
 <!-- List Panel hotels and tickets -->
-<div class="results-body" id="top">
+<div class="results-body">
 
 
 	<div class="results-container results-container_list"
@@ -22,16 +22,8 @@
 	     ng-if="hotels.list.length && asMap"></div>
 
 
-	<!--
-	<a class="button button-scroll-to-top"
-	   ng-style="goToTopStyle"
-	   ng-click="goToTop()"
-	   ng-show="goToTopShow && !asMap"
-			>
-		<span class="icon-sprite-arrow-top"></span>
-		Наверх
-	</a>
-	-->
+	<btn-top ng-show="goToTopShow && !asMap"></btn-top>
+	<!--<span class='button button-scroll-to-top'><span class='icon-sprite-arrow-top'></span>Наверх</span>-->
 
 
 </div>
