@@ -116,8 +116,8 @@ angular.module('innaApp.components').
                         EnumerableList: function (newValue, oldValue, keypath) {
                             if (newValue) {
 
-//                                console.log(newValue.length, 'newValue');
-//                                    console.log(this.get('Enumerable').length, 'oldValue');
+//                              //console.log(newValue.length, 'newValue');
+                                //    console.log(this.get('Enumerable').length, 'oldValue');
 
                                 /* console.table([
                                  {
