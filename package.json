@@ -12,44 +12,36 @@
     }
   ],
   "scripts": {
-    "start": "node server.js"
+    "start": "node"
   },
   "dependencies": {
-    "axis-css": "^0.1.8",
     "connect": "2.14.4",
-    "gulp": "^3.8.7",
-    "gulp-angular-templatecache": "^1.1.3",
+    "gulp": "3.8.8",
+    "gulp-angular-templatecache": "1.4.2",
     "gulp-cleanhtml": "0.0.2",
-    "gulp-concat": "~2.3.4",
-    "gulp-csscomb": "~0.1.0",
+    "gulp-concat": "2.4.1",
     "gulp-gzip": "0.0.5",
-    "gulp-html-replace": "^1.1.0",
-    "gulp-htmlmin": "^0.1.2",
-    "gulp-if": "^1.2.1",
+    "gulp-html-replace": "1.3.0",
+    "gulp-if": "1.2.5",
     "gulp-jshint": "~1.5.0",
-    "gulp-json-editor": "^2.0.2",
-    "gulp-livereload": "~1.2.0",
-    "gulp-minify-css": "~0.3.0",
-    "gulp-minify-html": "^0.1.3",
+    "gulp-json-editor": "2.0.3",
+    "gulp-livereload": "2.1.1",
     "gulp-replace-task": "0.0.6",
-    "gulp-rimraf": "^0.1.0",
-    "gulp-stylus": "1.3.0",
+    "gulp-rimraf": "0.1.1",
+    "gulp-stylus": "1.3.3",
     "gulp-template": "^0.1.1",
-    "gulp-uglify": "~0.2.1",
-    "gulp-uglifyjs": "^0.3.0",
-    "gulp-util": "^2.2.16",
-    "nib": "^1.0.2",
+    "gulp-uglifyjs": "0.4.3",
+    "gulp-util": "3.0.1",
+    "nib": "1.0.4",
     "node-sprite": "0.1.2",
-    "q": "^1.0.1",
-    "require-dir": "^0.1.0",
-    "run-sequence": "0.3.6",
-    "underscore": "^1.6.0"
+    "q": "1.0.1",
+    "require-dir": "0.1.0",
+    "run-sequence": "1.0.1",
+    "underscore": "1.6.0"
   },
   "subdomain": "inna.ru",
   "engines": {},
   "analyze": false,
   "license": "Commercial",
-  "devDependencies": {
-
-  }
+  "devDependencies": {}
 }

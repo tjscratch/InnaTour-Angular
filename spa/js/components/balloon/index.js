@@ -68,17 +68,19 @@ innaAppConponents.
                     this.observe('isVisible', function (value) {
                         if(value){
                             document.body.classList.add('overflow_hidden');
-                            window.addEventListener('resize', onResize);
+                            window.addEventListener('resize', this.onResize);
                         } else {
                             document.body.classList.remove('overflow_hidden');
-                            window.removeEventListener('resize', onResize);
+                            window.removeEventListener('resize', this.onResize);
                         }
                     })
 
-                    function onResize(){
-                        this.set('styleWidth', document.documentElement.clientWidth);
-                    }
 
+
+                },
+
+                onResize : function(){
+                    this.set('styleWidth', document.documentElement.clientWidth);
                 },
 
                 beforeInit: function(o){
