@@ -3,6 +3,7 @@ var dir = requireDir('./node_tasks');
 
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
+    connect = require('gulp-connect'),
     gulpif = require('gulp-if'),
     runSequence = require('run-sequence'),
     conf = require('./node_tasks/config');
@@ -17,7 +18,6 @@ console.log(isWin);
 console.info('----------------------------');
 
 
-
 /**
  * Полная сборка проект
  * Сборка в production запускается в окружении - production
@@ -27,6 +27,16 @@ console.info('----------------------------');
  * Посмотреть основную сборку ( конкатенацию файлов )
  * можно в файле node_tasks/concat.js
  */
+
+gulp.task('connect', function() {
+    connect.server({
+        root: './',
+        livereload: true,
+        port: 8077
+    })
+})
+
+
 gulp.task('build-project', function (callback) {
     runSequence(
         'remove-publish',
@@ -41,6 +51,7 @@ gulp.task('build-project', function (callback) {
         callback);
 });
 
+
 gulp.task('default', function (callback) {
     runSequence(
         'sprite',
@@ -49,5 +60,6 @@ gulp.task('default', function (callback) {
         ['styles', 'build-templates', 'concat-lib', 'concat-comp-page-regions'],
         'build-angular-parts',
         'watch',
+        'connect',
         callback);
 });
