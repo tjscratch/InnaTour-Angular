@@ -40,7 +40,7 @@ angular.module('innaApp.directives')
                      * :DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:ProviderId?
                      *
                      */
-                    /console.info($scope.bundle.ticket.collectAirlines().etap);
+
                     $scope.computedUrlDetails = function (opt_param) {
 
                         var DepartureId = searchParams.DepartureId;
@@ -136,7 +136,10 @@ angular.module('innaApp.directives')
 
                     // update components
                     $scope.$watchCollection('bundle', function(value){
-                        
+
+                        //  обновляем transportersList
+                        $scope.transportersList = $scope.bundle.ticket.collectAirlines().airlines;
+
                         _priceGeneric.set({
                             'virtualBundle': value,
                             type : $scope.tabActive
