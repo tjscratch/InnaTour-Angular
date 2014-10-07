@@ -115,51 +115,51 @@ function FrameManager() {
     }
 
     self.repositionFrame = function (top) {
-        var el = document.getElementById("inna-frame-wrapper");
-        var frameCont = document.getElementById('inna-frame');
+        //var el = document.getElementById("inna-frame-wrapper");
+        //var frameCont = document.getElementById('inna-frame');
 
-        var docSize = getDocumentSize();
-        var contPos = getPos(frameCont);
-        top = getNumber(top);
+        //var docSize = getDocumentSize();
+        //var contPos = getPos(frameCont);
+        //top = getNumber(top);
 
-        var origHeight = docSize.y - contPos.y;
-        var origTop = contPos.y;
+        //var origHeight = docSize.y - contPos.y;
+        //var origTop = contPos.y;
 
-        //console.log('');
-        //console.log('top:', top);
-        //console.log('origHeight', origHeight);
-        //console.log('origTop', origTop);
+        ////console.log('');
+        ////console.log('top:', top);
+        ////console.log('origHeight', origHeight);
+        ////console.log('origTop', origTop);
 
-        //var lastTop = gietNumber(innaModule.frame.lastTop);
-        //console.log('lastTop', lastTop);
+        ////var lastTop = gietNumber(innaModule.frame.lastTop);
+        ////console.log('lastTop', lastTop);
 
-        var newHeight = origHeight;
-        var newTop = origTop;
-        if (top != null) {
-            newHeight = origHeight + top;
-            newTop = origTop - top;
-        }
-        else if (self.frame.lastTop != null) {
-            var lastTop = self.frame.lastTop;
-            newHeight = docSize.y - lastTop;
-            newTop = lastTop;
-        }
+        //var newHeight = origHeight;
+        //var newTop = origTop;
+        //if (top != null) {
+        //    newHeight = origHeight + top;
+        //    newTop = origTop - top;
+        //}
+        //else if (self.frame.lastTop != null) {
+        //    var lastTop = self.frame.lastTop;
+        //    newHeight = docSize.y - lastTop;
+        //    newTop = lastTop;
+        //}
 
-        if (newHeight > docSize.y) {
-            newHeight = docSize.y;
-        }
-        if (newTop < 0) {
-            newTop = 0;
-        }
+        //if (newHeight > docSize.y) {
+        //    newHeight = docSize.y;
+        //}
+        //if (newTop < 0) {
+        //    newTop = 0;
+        //}
 
-        //console.log('newHeight', newHeight);
-        //console.log('newTop', newTop);
+        ////console.log('newHeight', newHeight);
+        ////console.log('newTop', newTop);
 
-        el.style.width = docSize.x + 'px';
-        el.style.height = newHeight + 'px';
-        el.style.top = newTop + 'px';
+        //el.style.width = docSize.x + 'px';
+        //el.style.height = newHeight + 'px';
+        //el.style.top = newTop + 'px';
 
-        self.frame.lastTop = newTop;
+        //self.frame.lastTop = newTop;
     }
 
     self.setVisibleCmd = function (data) {
@@ -185,7 +185,9 @@ function FrameManager() {
     }
 
     self.setHeightCmd = function (data) {
-        if (data.height != null && data.height > 850) {
+        //console.log('setHeightCmd, height:', data.height);
+        if (data.height != null/* && data.height > 850*/) {
+            //console.log('setHeightCmd, height:', data.height);
             var frame = document.getElementById(innaModule.frameId);
             frame.style.height = data.height + "px";
         }

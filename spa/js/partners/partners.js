@@ -9,6 +9,9 @@
         lite: 'lite'
     }
 
+    self.lastHeight = null;
+    self.frameShowed = false;
+
     self.partnersMap = [
         {
             'name': 'biletix',
@@ -83,6 +86,29 @@
         if (scrollTo) {
             sendCommandToParent(self.commands.setFrameScrollTo, { 'scrollTo': scrollTo });
         }
+    }
+
+    self.showFrame = function () {
+        if (!self.frameShowed) {
+            //console.log('self.showFrame');
+            sendCommandToParent(self.commands.setVisible, { 'visible': true });
+            sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
+            self.frameShowed = true;
+        }
+    }
+
+    self.afterBodyLoad = function () {
+        if (self.isFullWL()) {
+            addCssToBody();
+        }
+
+        self.liteWLControl.changePageData();
+    }
+
+    function addCssToBody() {
+        var cn = document.body.className;
+        cn += ' partner-body-noscroll';
+        document.body.className = cn;
     }
 
     function liteWLControl(partner) {
@@ -209,18 +235,29 @@
         self.parentScrollTop = data.top;
     }
 
+    function updateHeight() {
+        //self.lastHeight
+        var height = getContentHeight();
+        //if (self.lastHeight != height) {
+        //    self.lastHeight = height;
+        //    sendCommandToParent(self.commands.setHeight, { 'height': height });
+        //}
+        sendCommandToParent(self.commands.setHeight, { 'height': height });
+    }
+
     var partner = self.getPartner();
     if (partner != null) {
         insertCssAndAddParnterClass(partner);
 
-        //просто показываем фрейм
+        //просто показываем фрейм (если он не показался до этого)
         setTimeout(function () {
-            sendCommandToParent(self.commands.setVisible, { 'visible': true });
-            sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
+            //console.log('self.showFrame timeout');
+            self.showFrame();
         }, 500);
 
+        //отслеживание изменения высоты контента
         setInterval(function () {
-            sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
+            updateHeight();
         }, 100);
 
         //слушаем скролл

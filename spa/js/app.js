@@ -78,6 +78,11 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
         if ($window.ga != null)
             $window.ga('send', 'pageview', $location.path());
 
+        //WL показываем фрейм, когда приложение заинитилось
+        if (window.partners) {
+            window.partners.showFrame();
+        }
+
         //console.log('$routeChangeSuccess');
         //скролим наверх
         document.body.scrollTop = document.documentElement.scrollTop = 0;
