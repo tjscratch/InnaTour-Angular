@@ -7,12 +7,13 @@ var innaModule = {
             
     },
     commands: {
-        processScrollTop: 'processScrollTop'
+        processScrollTop: 'processScrollTop',
+        clientSizeChange: 'clientSizeChange'
     },
     containerTopPosition: null,
     init_internal: function (partner) {
         var self = innaModule;
-        
+
         var frameCont = document.getElementById('inna-frame');
 
         var wrapper = self.frameManager.createWrapper();
@@ -210,6 +211,10 @@ function FrameManager() {
         return getPos(el);
     }
 
+    self.getDocumentSize = function () {
+        return getDocumentSize();
+    }
+
     function getPos(el) {
         for (var lx = 0, ly = 0;
              el != null;
@@ -265,7 +270,13 @@ function CommandManager() {
         if (data) {
             switch (data.cmd) {
                 case 'setHeight': self.frameManager.setHeightCmd(data); break;
-                case 'setVisible': self.frameManager.setVisibleCmd(data); break;
+                case 'setVisible':
+                    {
+                        self.frameManager.setVisibleCmd(data);
+                        //отправляем размер клиентской области
+                        self.sendCommandToInnaFrame(innaModule.commands.clientSizeChange, { 'doc': self.frameManager.getDocumentSize() });
+                        break;
+                    }
                 case 'setFrameScrollTo': self.frameManager.setFrameScrollToCmd(data); break;
                 case 'setScrollTop': self.frameManager.setScrollTopCmd(data); break;
             }

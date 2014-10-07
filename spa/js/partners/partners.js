@@ -111,6 +111,8 @@
         //});
     }
 
+    self.clientSize = null;
+
     function addCssToBody() {
         var cn = document.body.className;
         cn += ' partner-body-noscroll';
@@ -232,6 +234,7 @@
         if (data) {
             switch (data.cmd) {
                 case 'processScrollTop': processScrollTop(data); break;
+                case 'clientSizeChange': processClientSizeChange(data); break;
             }
         }
     }
@@ -239,6 +242,13 @@
     function processScrollTop(data) {
         //console.log('processScrollTop: ', data.top);
         self.parentScrollTop = data.top;
+    }
+
+    function processClientSizeChange(data) {
+        if (data && data.doc) {
+            self.clientSize = data.doc;
+            console.log('self.clientSize: ', self.clientSize);
+        }
     }
 
     function updateHeight() {
