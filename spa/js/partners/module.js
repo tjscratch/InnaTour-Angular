@@ -7,12 +7,13 @@ var innaModule = {
             
     },
     commands: {
-        processScrollTop: 'processScrollTop'
+        processScrollTop: 'processScrollTop',
+        clientSizeChange: 'clientSizeChange'
     },
     containerTopPosition: null,
     init_internal: function (partner) {
         var self = innaModule;
-        
+
         var frameCont = document.getElementById('inna-frame');
 
         var wrapper = self.frameManager.createWrapper();
@@ -210,6 +211,32 @@ function FrameManager() {
         return getPos(el);
     }
 
+    self.getDocumentSize = function () {
+        return getDocumentSize();
+    }
+
+    self.saveUrlCmd = function (data) {
+        if (data && data.url) {
+            setHashUrl(data.url);
+        }
+    }
+
+    function setHashUrl(url) {
+        //console.log('self.saveUrlCmd', url);
+        var curUrl = location.href;
+        var indexOfHash = curUrl.indexOf("#");
+        var newUrl;
+        if (indexOfHash > -1) {
+            newUrl = curUrl.substring(0, indexOfHash);
+            newUrl = newUrl + url;
+        }
+        else {
+            newUrl = curUrl + url;
+        }
+        //console.log('self.saveUrlCmd, newUrl:', newUrl);
+        location.href = newUrl;
+    }
+
     function getPos(el) {
         for (var lx = 0, ly = 0;
              el != null;
@@ -265,9 +292,16 @@ function CommandManager() {
         if (data) {
             switch (data.cmd) {
                 case 'setHeight': self.frameManager.setHeightCmd(data); break;
-                case 'setVisible': self.frameManager.setVisibleCmd(data); break;
+                case 'setVisible':
+                    {
+                        self.frameManager.setVisibleCmd(data);
+                        //отправляем размер клиентской области
+                        self.sendCommandToInnaFrame(innaModule.commands.clientSizeChange, { 'doc': self.frameManager.getDocumentSize() });
+                        break;
+                    }
                 case 'setFrameScrollTo': self.frameManager.setFrameScrollToCmd(data); break;
                 case 'setScrollTop': self.frameManager.setScrollTopCmd(data); break;
+                case 'saveUrlToParent': self.frameManager.saveUrlCmd(data); break;
             }
         }
     };
@@ -299,7 +333,9 @@ function CommandManager() {
             var msg = JSON.stringify(cmdObj);
             //console.log('sendCommandToInnaFrame, msg:', msg);
             var frame = document.getElementById(innaModule.frameId);
-            frame.contentWindow.postMessage(msg, '*');
+            if (frame && frame.contentWindow) {
+                frame.contentWindow.postMessage(msg, '*');
+            }
         }
     }
 }
