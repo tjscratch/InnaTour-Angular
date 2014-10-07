@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 innaAppConponents.directive('btnTop', [function () {
@@ -37,14 +35,19 @@ innaAppConponents.directive('btnTop', [function () {
             var footerEl = document.querySelector(".footer");
 
             function GoToTopBtn() {
-                var footerTop = utils.getCoords(footerEl).top;
-                var windowHeight = utils.getScrollTop() + window.innerHeight;
-                if (windowHeight > 900) {
+
+                var windowHeight = window.innerHeight,
+                    footerTop = utils.getCoords(footerEl).top,
+                    scrollTop = utils.getScrollTop(),
+                    bodyHeight = scrollTop + windowHeight;
+
+                if (scrollTop >= windowHeight) {
                     showGoToTop();
                 } else {
                     hideGoToTop();
                 }
-                var wr = windowHeight - footerTop;
+
+                var wr = bodyHeight - footerTop;
                 if (wr > 5) {
                     $scope.safeApply(function () {
                         $scope.goToTopStyle = {
@@ -64,14 +67,15 @@ innaAppConponents.directive('btnTop', [function () {
 
 
             document.addEventListener('scroll', GoToTopBtn);
-            document.addEventListener('resize', function(){
-                console.log('adxasdxasx sacdscx')
-            });
+            window.addEventListener('resize', GoToTopBtn);
+
 
             setTimeout(GoToTopBtn, 0);
 
 
             $scope.$on('$destroy', function () {
+                document.removeEventListener('scroll', GoToTopBtn, false);
+                window.removeEventListener('resize', GoToTopBtn, false);
             });
         }
     };

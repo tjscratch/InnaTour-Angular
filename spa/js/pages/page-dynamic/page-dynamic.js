@@ -254,7 +254,6 @@ innaAppControllers
                                     }
                                 });
 
-                                setTimeout(GoToTopBtn, 0);
                                 this.set('updateHotel', true);
                             }
                         },
