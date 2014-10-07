@@ -3,7 +3,7 @@
 	<ng-include src="'components/wl-new-search/templ/index.hbs.html'"></ng-include>
 	<div class="recommend-bundle">
 
-		<div class="recommend-bundle-background" ng-if="!displayHotel"></div>
+		<div class="recommend-bundle-background"></div>
 
 		<div class="scroll-fix ">
 			<div class="main__center recommend-bundle-wrap"
@@ -40,6 +40,7 @@
 	<!-- панель фильтрации отелей -->
 	<ng:any filter-panel-hotel
 	        filters-settings="filtersSettingsHotels"
+            as-map="asMap"
 	        type-panel="hotels"
 	        active-panel="activePanel"
 	        ng-show="filtersSettingsHotels"></ng:any>
