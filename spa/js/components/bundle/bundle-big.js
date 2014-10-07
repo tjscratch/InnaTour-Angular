@@ -77,7 +77,7 @@ angular.module('innaApp.directives')
                     var _shareLink = new ShareLink({
                         el: $element.find('.js-share-component'),
                         data : {
-                            location : document.location
+                            location : angular.copy(document.location.href)
                         }
                     });
 
