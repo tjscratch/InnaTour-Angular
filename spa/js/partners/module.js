@@ -296,7 +296,11 @@ function CommandManager() {
                     {
                         self.frameManager.setVisibleCmd(data);
                         //отправляем размер клиентской области
-                        self.sendCommandToInnaFrame(innaModule.commands.clientSizeChange, { 'doc': self.frameManager.getDocumentSize() });
+                        var frameCont = document.getElementById('inna-frame');
+                        self.sendCommandToInnaFrame(innaModule.commands.clientSizeChange, {
+                            'doc': self.frameManager.getDocumentSize(),
+                            'top': self.frameManager.getElementPosition(frameCont).y
+                        });
                         break;
                     }
                 case 'setFrameScrollTo': self.frameManager.setFrameScrollToCmd(data); break;
