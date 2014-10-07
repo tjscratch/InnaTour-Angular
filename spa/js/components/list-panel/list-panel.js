@@ -6,11 +6,10 @@
  * По скроллингу добавляем новые елементы
  * Количество элемментов порции задается в параметре - {Number} countItemsVisible
  *
- * Панель подписывается на фильтры и фильтрует свой набор
+ * Панель подписывается на изменения панели фильтров
  * Можно указать свои ( компоненты - шаблоны ) для EnumerableItemHotels или EnumerableItemTickets, так же можно расширить
  * и добавить новые части, нужно будет поменять и шаблон @link list.hbs.html где нужно добавить условие
  */
-
 
 angular.module('innaApp.components').
     factory('ListPanel', [
@@ -25,21 +24,19 @@ angular.module('innaApp.components').
         'IndicatorFilters',
         'HotelItem',
         'TicketItem',
-        'FilterSort',
-        function (EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem, FilterSort) {
+        function (EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem) {
 
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
                 data: {
                     iterable_hotels: false,
                     iterable_tickets: false,
-                    sortComponent : null,
-                    /*Enumerable: [],
-                     combinationModel: null,*/
+
                     EnumerableCount: 0,
-                    EnumerableClone: [],
+                    AllFilteredData: {},
                     EnumerableList: [],
-                    countItemsVisible: 10
+                    countItemsVisible: 10,
+                    showButtonMore : false
                 },
                 partials: {
                     EnumerableItemHotels: $templateCache.get('components/list-panel/templ/enumerableItemHotel.hbs.html'),
@@ -52,12 +49,13 @@ angular.module('innaApp.components').
                 },
                 init: function () {
                     var that = this;
+
+                    utils.bindAll(this);
+
                     this.enumerableClone = [];
                     this._filterTimeout = null;
                     this._scrollTimeout = null;
                     this.observeEnumerable = null;
-
-                    EventManager.fire('sort:default');
 
                     if (this.get('iterable_hotels'))
                         this.parse(this.get('Enumerable'), { hotel: true });
@@ -65,18 +63,21 @@ angular.module('innaApp.components').
                         this.parse(this.get('Enumerable'), { ticket: true });
 
                     /**
+                     * показываем кнопку "показать ещё" только в режиме FullWl
+                     */
+                    if (window.partners.isFullWL() === true){
+                        this.set('showButtonMore', true);
+                    }
+
+                    /**
                      * Вызов метода не чаще 300
                      * так как срабатывает по скроллингу
                      * {@link http://underscorejs.org/}
                      */
-                    this.debounceDose = _.throttle(this.nextArrayDoseItems.bind(this), 300);
+                    this.debounceDose = _.throttle(this.nextArrayDoseItems, 300);
 
                     //this.set('Enumerable', this.get('Enumerable').concat(this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable')))
 
-
-                    this.eventListener = function () {
-                        that.onScroll();
-                    };
 
                     this.addScroll();
 
@@ -85,20 +86,23 @@ angular.module('innaApp.components').
 
                         },
                         goToMap: function (data) {
-                            EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.actualData(), data);
+                            EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('AllFilteredData'), data);
                         },
+                        goToMore: function (){
+                            this.debounceDose();
+                        },
+
+                        '*.setCurrent' : this.setCurrent,
+
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
                             this.observeEnumerable.cancel();
-                            that.set('sortComponent', null);
-                            document.removeEventListener('scroll', this.eventListener);
+                            document.removeEventListener('scroll', this.onScroll, false);
                             clearTimeout(this._filterTimeout);
                             clearTimeout(this._scrollTimeout);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
                             EventManager.off(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
-                            EventManager.off(Events.FILTER_PANEL_RESET, this.FILTER_PANEL_RESET);
-                            EventManager.off(Events.FILTER_PANEL_SORT, this.FILTER_PANEL_SORT);
                             EventManager.off(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
                         }
                     })
@@ -108,96 +112,67 @@ angular.module('innaApp.components').
                      * Срабатывает один раз
                      * Далее копируем массив Enumerable и работаем с копией
                      */
-                    this.observeEnumerable =  this.observe({
+                    this.observeEnumerable = this.observe({
                         Enumerable: function (newValue, oldValue, keypath) {
-                            if (newValue) {
-                                //console.log(that.get('combinationModel'), "that.get('combinationModel')");
-
-                                this.cloneData(this.sorting());
-                                //this.set({waitData: false})
-                            }
+                            if (newValue) this.cloneData(newValue);
                         },
                         EnumerableList: function (newValue, oldValue, keypath) {
                             if (newValue) {
-
-                                //console.log(newValue, 'newValue');
-
-                                /* console.table([
-                                 {
-                                 newValue: newValue.length,
-                                 EnumerableList: this.get('EnumerableList').length,
-                                 Enumerable: this.get('Enumerable').length,
-                                 enumerableClone: this.enumerableClone.length
-                                 }
-                                 ]);*/
-
                                 // после добавления элементов в EnumerableList
                                 // обновляем координаты
                                 // оборачиваем в setTimeout, так как нужно дождаться вставки элементов в DOM
                                 if (newValue.length) {
-                                    if (newValue.length != this.get('Enumerable').length) {
-                                        setTimeout(this.updateCoords.bind(this), 0);
+                                    if (newValue.length != this.get('Enumerable').length - 1) {
+                                        setTimeout(this.updateCoords, 0);
                                     } else {
                                         this.removeScroll();
                                     }
                                 }
                             }
                         }
-                    })
-
-                    /*{defer: true, init: false}*/
+                    }, {defer: true});
 
 
                     /**
                      * Слушаем события от бандла
                      * Обновляем координаты
                      */
-                    EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords.bind(this));
-                    EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords.bind(this));
-                    EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap.bind(this));
-
-
-                    /* событие   */
-                    EventManager.on(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE.bind(this));
-                    /** событие сброса фильтров */
-                    EventManager.on(Events.FILTER_PANEL_RESET, this.FILTER_PANEL_RESET.bind(this));
-                    /** Событие сортировки */
-                    EventManager.on(Events.FILTER_PANEL_SORT, this.FILTER_PANEL_SORT.bind(this));
+                    EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
+                    EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
+                    EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
+                    
+                    /** Событие изменения фильтров или сортировки */
+                    EventManager.on(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
                 },
 
-                /**
-                 * выполняем фильтрацию не чаще 100ms
-                 * защита от слишком частого нажатия на кнопки фильтрации
-                 * @param data
-                 */
                 FILTER_PANEL_CHANGE : function(data){
-                    var that = this;
-                    clearTimeout(that._filterTimeout);
-                    that._filterTimeout = $timeout(function () {
-                        that.doFilter(that.get('Enumerable'), data);
-                    }, 100);
+                    this.merge('AllFilteredData', data);
+
+                    /* ставим в конец очереди чтоб не блокировать переключение фильтров */
+                    this.cloneData(data);
+
+
+                    // если список меньше колличества разовой порции, то скролл нам не нужен
+                    if (data.length <= this.get('countItemsVisible')) {
+                        this.removeScroll();
+                    }  else {
+                        if(!this.get('scroll'))
+                            this.addScroll();
+                    }
                 },
 
                 /**
+                 * При выборе какогото отеля подписываемся на событие дочернего компонента '*.setCurrent'
+                 * делаем необходимые действия
+                 * исключаем вариант из счетчика ( EnumerableCount ) который выбрали
                  *
-                 * @param data
+                 * @param modelHotel
+                 * @param hotelId
                  */
-                FILTER_PANEL_RESET : function(data){
-                    var that = this;
-                    clearTimeout(that._filterTimeout);
-                    that._filterTimeout = $timeout(function () {
-                        that.resetFilter();
-                    }, 100);
-                },
-
-                /**
-                 *
-                 */
-                FILTER_PANEL_SORT : function(){
-                    var that = this;
-                    $timeout(function () {
-                        that.cloneData(that.sorting(), true);
-                    }, 0)
+                setCurrent : function(modelHotel, hotelId){
+                    // исключаем вариант
+                    var newResult = this.excludeRecommended(this.get('EnumerableList'));
+                    this.set('EnumerableCount', newResult.length);
                 },
 
                 proxyGoToMap: function (data) {
@@ -215,7 +190,7 @@ angular.module('innaApp.components').
                         elHeight = this.get('elHeight');
 
 
-                    //console.log((elHeight), (scrollTop + (viewportHeight + 100)));
+//                    console.log((elHeight), (scrollTop + (viewportHeight + 100)));
 
 
                     /**
@@ -239,13 +214,14 @@ angular.module('innaApp.components').
                 },
 
                 addScroll: function () {
-                    document.addEventListener('scroll', this.eventListener);
+                    document.addEventListener('scroll', this.onScroll, false);
                     this.set({scroll: true});
                 },
 
                 removeScroll: function () {
-                    document.removeEventListener('scroll', this.eventListener);
+                    document.removeEventListener('scroll', this.onScroll, false);
                     this.set({scroll: false});
+                    this.set('showButtonMore', false);
                 },
 
                 toggleScroll: function () {
@@ -328,7 +304,7 @@ angular.module('innaApp.components').
                             //item.etap
 
                             // авиалинии этого билета
-                            var airline = _.union(modelTicket.collectAirlines().airlines);
+                            var airline = _.pluck(modelTicket.collectAirlines().airlines, 'name');
                             var legsTo = modelTicket.getEtaps('To').length;
                             var legsBack = modelTicket.getEtaps('Back').length;
 
@@ -350,6 +326,7 @@ angular.module('innaApp.components').
                     var recomented = null;
                     var result = null;
 
+                    //console.info(collection.length, "collection");
                     if (this.get('iterable_hotels')) {
                         recomented = this.get('combinationModel').hotel.data;
                         result = collection.filter(function (item) {
@@ -364,178 +341,20 @@ angular.module('innaApp.components').
                         })
                     }
 
+                    //console.log(result.length, "result.length");
                     return result;
                 },
 
-                /**
-                 * Метод фильтрации списка
-                 * Вызываем по событию от панели набора фильтров
-                 *
-                 * Фильтруем исходный массив Enumerable
-                 * Выставляем новый набор для EnumerableList
-                 * И для this.enumerableClone
-                 *
-                 * Каждый фильтр должен иметь функцию фильтрации - fn
-                 * filters.fn();
-                 * в качестве параметра примемает значение свойства item[filters.name]
-                 *
-                 * @param {Array} collection - коллекция для фильтрации
-                 * @param {Array} param_filters - набор фильров
-                 * @return {Array} новый набор
-                 */
-
-                doFilter: function (collection, param_filters) {
-                    var that = this;
-                    var filterEnumerable = [];
-
-                    // проход по коллекции данных
-                    for (var j = 0; j < collection.length; j++) {
-                        var item = collection[j];
-
-                        // проход по фильтрам
-                        var filterResult = param_filters.filter(function (filters) {
-                            if (item[filters.name] == undefined) return false;
-
-                            // для некоторых компонентов нужно передать не просто поле
-                            // по которому фильтруем, а весь item, так как более сложному фильтру нужно несколько полей
-                            if (filters.fn != undefined) {
-                                var paramForFn = item[filters.name];
-
-                                switch (filters.name) {
-                                    case 'DepartureDate':
-                                        paramForFn = item;
-                                    case 'AirportFrom':
-                                        paramForFn = item;
-                                    case 'AirLegs':
-                                        paramForFn = item;
-                                }
-
-                                //console.log(filters.fn(paramForFn), 'filters.fn(paramForFn)');
-                                return filters.fn(paramForFn, filters);
-                            }
-                        });
-
-
-                        if (filterResult.length == param_filters.length)
-                            filterEnumerable.push(item)
-                    }
-
-                    // подписываемся на событие скролла если еще нет этого события
-                    if (!this.get('scroll') && filterEnumerable.length > this.get('countItemsVisible'))
-                        this.addScroll();
-
-
-                    // если список меньше колличества разовой порции, то скролл нам не нужен
-                    if (filterEnumerable.length <= this.get('countItemsVisible')) this.removeScroll();
-
-                    EventManager.fire(Events.LIST_PANEL_FILTES_HOTELS_DONE, [].concat(filterEnumerable));
-
-                    this.insertAfterFiltered(filterEnumerable);
-
-
-                    //console.log(filterEnumerable, filterEnumerable.length, 'filterEnumerable');
-                },
-
-
-                /**
-                 * ставим фильтр в конец очереди чтоб не блокировать
-                 * например переключение самих фильтров
-                 * если есть свойство sortValue, то сортируем после фильтрации
-                 */
-                insertAfterFiltered: function (filteredData) {
-                    var that = this;
-
-                    this.set({
-                        filtered: true,
-                        EnumerableFiltered: filteredData
-                    })
-
-                    setTimeout(function () {
-                        that.cloneData(that.sorting(filteredData));
-                    }, 0);
-                },
-
-
-                /**
-                 * Сортируем список
-                 * Используем $filter('orderBy') из angular
-                 * @param {String} sortValue
-                 * @param {List<>} opt_sort_data
-                 */
-                sorting: function (opt_sort_data) {
-                    var sortData = null;
-
-                    // определяем компонент сортировки
-                    var sortComponent =  null;
-                    if(!this.get('sortComponent')){
-                        var sort = new FilterSort();
-                        this.set('sortComponent', sort);
-                        sortComponent = sort;
-                    } else {
-                        sortComponent = this.get('sortComponent')
-                    }
-
-                    // Если когда то была фильтрация, то берем и сортируем именно отфильтрованный набор
-                    if (this.isFiltred())
-                        sortData = this.actualData();
-                    else
-                        sortData = opt_sort_data || this.actualData();
-
-                    // вызываем метод сортировки из компонента sortComponent
-                    var sortResult = sortComponent.get('fn')(sortData, sortComponent.get('sortValue'));
-
-                    return (sortResult && sortResult.length) ? sortResult : [];
-                },
-
-                isFiltred: function () {
-                    return (this.get('filtered') && this.get('EnumerableFiltered').length);
-                },
-
-                actualData: function () {
-                    var actual = null;
-                    if (this.isFiltred()) {
-                        actual = this.get('EnumerableFiltered');
-                    } else {
-                        actual = this.get('Enumerable')
-                    }
-                    return actual;
-                },
-
-                /**
-                 * Сбрасываем список до начального состояния без фильтров
-                 * Если установлено свойство sortValue, то сортируем набор
-                 */
-                resetFilter: function () {
-                    //console.log('resetFilter -- resetFilter');
-                    this.set({
-                        filtered: false,
-                        EnumerableFiltered: []
-                    })
-
-                    if (!this.get('scroll')) this.addScroll();
-
-                    var sortResult = this.sorting();
-
-                    EventManager.fire(Events.LIST_PANEL_FILTES_RESET_DONE, [].concat(sortResult));
-
-                    this.cloneData(sortResult);
-                },
 
                 /**
                  * Клонируем список отелей и далее работает с ним
                  * @param opt_data
                  */
-                cloneData: function (opt_data, opt_sort) {
-                    if (opt_data) this.set('EnumerableList', []);
+                cloneData: function (opt_data, opt_exclude) {
+                    if(opt_data) this.set('EnumerableList', []);
+                    var list = opt_data || this.set('Enumerable');
 
-                    var list = opt_data || this.get('Enumerable');
-
-                    // исключаем рекомендованный вариант
-                    if (!opt_sort || list.length == 1) {
-                        list = this.excludeRecommended(list);
-                    }
-
-                    this.enumerableCount(list);
+                    this.enumerableCount(list, opt_exclude);
                     this.enumerableClone = [].concat(list);
 
                     // получаем первую порцию из n item
@@ -543,8 +362,10 @@ angular.module('innaApp.components').
                     this.nextArrayDoseItems();
                 },
 
-                enumerableCount: function (data) {
-                    this.set('EnumerableCount', data.length);
+                enumerableCount: function (data, opt_exclude) {
+                    var ex = this.excludeRecommended(data);
+                    //console.info(ex.length);
+                    this.set('EnumerableCount', ex.length);
                 },
 
                 wait: function () {

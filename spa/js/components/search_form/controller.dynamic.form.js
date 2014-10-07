@@ -203,15 +203,31 @@ innaAppControllers
             $scope.maxDateEnd = new Date();
             $scope.maxDateEnd.setMonth($scope.maxDateEnd.getMonth() + 6);
 
-            /*Adult count*/
-            $scope.adultCount = routeParams.Adult || 2;
-
-            /*Children count*/
-            $scope.childrenCount = (routeParams.ChildrenAges && routeParams.ChildrenAges.length) || 0;
-
-            /*Children ages*/
             //TODO fix English
-            $scope.childrensAge = routeParams.ChildrenAges || [];
+            if (window.partners && window.partners.isFullWL()) {
+                var storageAges = JSON.parse(DynamicPackagesCacheWizard.require('childrensAge'));
+                $scope.childrensAge = routeParams.ChildrenAges || storageAges || [];
+                $scope.childrenCount = (routeParams.ChildrenAges && routeParams.ChildrenAges.length) || DynamicPackagesCacheWizard.require('childrenCount') || 0;
+                $scope.adultCount = routeParams.Adult || DynamicPackagesCacheWizard.require('adultCount') || 2;
+            }
+            else {
+                /*Children ages*/
+                $scope.childrensAge = routeParams.ChildrenAges || [];
+                /*Children count*/
+                $scope.childrenCount = (routeParams.ChildrenAges && routeParams.ChildrenAges.length) || 0;
+                /*Adult count*/
+                $scope.adultCount = routeParams.Adult || 2;
+            }
+            
+            $scope.$watch('adultCount', function (newVal) {
+                DynamicPackagesCacheWizard.put('adultCount', newVal);
+            });
+            $scope.$watch('childrenCount', function (newVal) {
+                DynamicPackagesCacheWizard.put('childrenCount', newVal);
+            });
+            $scope.$watch('childrensAge', function (newVal) {
+                DynamicPackagesCacheWizard.put('childrensAge', JSON.stringify(newVal));
+            }, true);
 
             /*Klass*/
             $scope.klass = _.find(TripKlass.options, function (klass) {

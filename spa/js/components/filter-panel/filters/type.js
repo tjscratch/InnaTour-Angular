@@ -43,12 +43,12 @@ angular.module('innaApp.components').
                                     this.spliceSaveData(data.context);
                                 }
 
-                                this._parent.fire('changeChildFilter', this.get('value.val'));
+                                this.fire('onCheckedFilter', this.get('value.val'));
                                 this.hasSelected();
                             }
 
                         },
-                        resetFilter: function () {
+                        resetFilter: function (data) {
                             this.set('FilterData.List.*.isChecked', false);
                         },
                         teardown: function (evt) {
@@ -74,7 +74,7 @@ angular.module('innaApp.components').
                         }
                     });
 
-                    this._parent.fire('changeChildFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', this.get('value.val'));
                     this.hasSelected();
                 }
             });

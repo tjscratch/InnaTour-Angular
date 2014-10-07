@@ -59,7 +59,7 @@ angular.module('innaApp.directives')
                         EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, mapSizeMini);
 
                         EventManager.fire(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
-                        EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD);
+                        EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD, true);
 
 
                         $scope.hotelDetails = function (currentHotel) {
@@ -189,7 +189,7 @@ angular.module('innaApp.directives')
                             template: $templateCache.get('components/gallery/templ/gallery.map.hbs.html'),
                             data: {
                                 map: true,
-                                photoList: scope.currentHotel.Photos,
+                                PhotoHotel: scope.currentHotel.Photos,
                                 width: 360,
                                 height: 240
                             }

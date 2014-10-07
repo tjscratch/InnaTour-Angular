@@ -7,11 +7,32 @@
 @import "dp.buy.styl"
 @import "map.styl"
 
-/*чтобы работал ресайз фрейма*/
-.main {
-    /*min-height: 500px;*/
-}
+
 
 .header, .footer {
     display: none;
+}
+
+.partners-hide {
+    display: none!important;
+}
+
+.partner-biletix {
+/*чтобы работал ресайз фрейма*/
+    .main {
+        min-height: 500px;
+    }
+    
+    .light-theme {
+        background-color: #eff2f5;
+        
+        &.partner-body-class {
+            background-color: transparent;
+            overflow: hidden;
+        }
+    }
+
+    .main .wrpr {
+        padding-bottom: 50px;
+    }
 }

@@ -86,7 +86,7 @@ angular.module('innaApp.components').
                         if((ticketId != that.get('ticket.VariantId1')) && that.get('hidden')){
                             that.set('hidden', false);
                         }
-                    }); //this.CHOOSE_TICKET.bind(this)
+                    });
                 },
 
                 /**
@@ -101,11 +101,9 @@ angular.module('innaApp.components').
                 },
 
                 airLogo: function (logo) {
-                    if (logo == 'many')
-                        return "/spa/img/group.png";
-                    else
-                        return app_main.staticHost + "/Files/logo/" + logo + ".png";
-
+                    var groupLogo = "/spa/img/group.png";
+                    var statickLogo = app_main.staticHost + "/Files/logo/" + logo + ".png";
+                    return  (logo == 'many') ? groupLogo : statickLogo;
                 },
 
                 CHOOSE_TICKET : function(modelTicket, ticketId){

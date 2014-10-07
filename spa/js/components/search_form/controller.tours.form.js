@@ -814,10 +814,14 @@ innaAppControllers.
                 kids_ages = "" + $scope.form.people.childAge1 + "," + $scope.form.people.childAge2 + "," + $scope.form.people.childAge3;
 
                 var url = '';
-                if (!isDateIntervalChecked)
-                    url = urlHelper.UrlToSletatTours(city, country, resort, hotel, encodeURIComponent(date), nightsMin, nightsMax, adults, kids, kids_ages);
-                else
-                    url = urlHelper.UrlToSletatToursDatesInterval(city, country, resort, hotel, encodeURIComponent(dateFrom), encodeURIComponent(dateTo), nightsMin, nightsMax, adults, kids, kids_ages);
+                if (!isDateIntervalChecked) {
+                    //url = urlHelper.UrlToSletatTours(city, country, resort, hotel, encodeURIComponent(date), nightsMin, nightsMax, adults, kids, kids_ages);
+                    url = urlHelper.UrlToSletatToursDatesInterval(city, country, resort, hotel, encodeURIComponent(date), encodeURIComponent(date), nightsMin, nightsMax, adults, kids, $scope.form.people.childAge1, $scope.form.people.childAge2, $scope.form.people.childAge3);
+                }
+                else {
+                    url = urlHelper.UrlToSletatToursDatesInterval(city, country, resort, hotel, encodeURIComponent(dateFrom), encodeURIComponent(dateTo), nightsMin, nightsMax, adults, kids, $scope.form.people.childAge1, $scope.form.people.childAge2, $scope.form.people.childAge3);
+                }
+                
 
                 //search_depth - как далеко вперед дата поиска в днях (дата отправления минус текущая дата)
                 var departure_date = dateHelper.dateToJsDate($scope.form.beginDate);

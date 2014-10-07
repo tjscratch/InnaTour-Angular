@@ -8,7 +8,7 @@
             <span class="white">{{combination.ticket.data.OutCode}} – {{combination.ticket.data.InCode}}, {{combination.ticket.data.DepartureDate | date: 'd MMM'}},</span>
 
             в пути: {{combination.ticket.getDuration('To')}}, {{combination.ticket.getEtaps('To').length - 1 |
-            asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
+            asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
         </p>
 
         <p class="flight">
@@ -16,7 +16,7 @@
                  ng-src="{{airLogo( combination.ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28 alt="">
             <span class="white">{{combination.ticket.data.OutCodeBack}} – {{combination.ticket.data.InCodeBack}}, {{combination.ticket.data.BackDepartureDate | date: 'd MMM'}},</span>
             в пути: {{combination.ticket.getDuration('Back')}}, {{combination.ticket.getEtaps('Back').length - 1 |
-            asQuantity:"пересадка":"пересадки":"пересадок":"прямой"}}
+            asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
         </p>
     </div>
     <div class="result-small__cell col-xs-4">
