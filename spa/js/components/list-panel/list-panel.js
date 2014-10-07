@@ -146,6 +146,8 @@ angular.module('innaApp.components').
                 },
 
                 FILTER_PANEL_CHANGE : function(data){
+                    this.merge('AllFilteredData', data);
+
                     /* ставим в конец очереди чтоб не блокировать переключение фильтров */
                     this.cloneData(data);
 
