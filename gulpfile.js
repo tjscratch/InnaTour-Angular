@@ -17,16 +17,18 @@ console.log(isWin);
 console.info('----------------------------');
 
 
-
 /**
  * Полная сборка проект
  * Сборка в production запускается в окружении - production
  * NODE_ENV=production gulp build-project
  * После сборки проект копируется в папку PUBLISH
  *
+ *
  * Посмотреть основную сборку ( конкатенацию файлов )
  * можно в файле node_tasks/concat.js
  */
+
+
 gulp.task('build-project', function (callback) {
     runSequence(
         'remove-publish',
@@ -41,6 +43,11 @@ gulp.task('build-project', function (callback) {
         callback);
 });
 
+
+/**
+ * сборка в режиме разработки - gulp
+ * или с сервером livereload NODE_ENV=DEV gulp
+ */
 gulp.task('default', function (callback) {
     runSequence(
         'sprite',
