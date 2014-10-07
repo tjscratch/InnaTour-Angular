@@ -24,5 +24,5 @@ gulp.task('build-templates', function () {
             }
         }))
         .pipe(gulp.dest(conf.build+'/js'))
-        //.pipe(gulpif(_ENV_ != 'production' && _ENV_ != 'beta', livereload()))
+        .pipe(gulpif(_ENV_ != 'production' && _ENV_ != 'beta', livereload()))
 });
