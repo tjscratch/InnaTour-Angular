@@ -59,7 +59,7 @@ angular.module('innaApp.directives')
                         EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, mapSizeMini);
 
                         EventManager.fire(Events.DYNAMIC_SERP_CLOSE_BUNDLE);
-                        EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD);
+                        EventManager.fire(Events.DYNAMIC_SERP_MAP_LOAD, true);
 
 
                         $scope.hotelDetails = function (currentHotel) {

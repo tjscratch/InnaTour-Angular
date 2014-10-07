@@ -33,7 +33,7 @@ angular.module('innaApp.components').
                     iterable_tickets: false,
 
                     EnumerableCount: 0,
-                    EnumerableClone: [],
+                    AllFilteredData: {},
                     EnumerableList: [],
                     countItemsVisible: 10,
                     showButtonMore : false
@@ -90,7 +90,7 @@ angular.module('innaApp.components').
 
                         },
                         goToMap: function (data) {
-                            EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('EnumerableList'), data);
+                            EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('AllFilteredData'), data);
                         },
                         goToMore: function (){
                             this.debounceDose();
@@ -163,6 +163,7 @@ angular.module('innaApp.components').
                 },
 
                 FILTER_PANEL_CHANGE : function(data){
+                    this.merge('AllFilteredData', data);
                     // подписываемся на событие скролла если еще нет этого события
                     if (!this.get('scroll') && data.length > this.get('countItemsVisible'))
                         this.addScroll();
