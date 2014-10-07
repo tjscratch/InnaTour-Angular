@@ -6,6 +6,10 @@ var innaModule = {
         }, 0);
             
     },
+    commands: {
+        processScrollTop: 'processScrollTop'
+    },
+    containerTopPosition: null,
     init_internal: function (partner) {
         var self = innaModule;
         
@@ -47,10 +51,19 @@ var innaModule = {
         }
 
         function trackScroll(e) {
-            //console.log('trackScroll');
+            if (!self.containerTopPosition) {
+                self.containerTopPosition = self.frameManager.getElementPosition(frameCont).y;
+            }
+
             var doc = document.documentElement, body = document.body;
             var top = (doc && doc.scrollTop || body && body.scrollTop || 0);
-            self.cmdManager.sendCommandToInnaFrame('processScrollTop', { 'top': top });
+            
+            var scrollTop = top - self.containerTopPosition;
+            if (scrollTop < 0) {
+                scrollTop = 0;
+            }
+            //console.log('trackScroll, scrollTop: ', scrollTop);
+            self.cmdManager.sendCommandToInnaFrame(self.commands.processScrollTop, { 'top': scrollTop });
         }
     },
 
@@ -186,11 +199,15 @@ function FrameManager() {
 
     self.setHeightCmd = function (data) {
         //console.log('setHeightCmd, height:', data.height);
-        if (data.height != null/* && data.height > 850*/) {
+        if (data.height != null) {
             //console.log('setHeightCmd, height:', data.height);
             var frame = document.getElementById(innaModule.frameId);
             frame.style.height = data.height + "px";
         }
+    }
+
+    self.getElementPosition = function (el) {
+        return getPos(el);
     }
 
     function getPos(el) {
