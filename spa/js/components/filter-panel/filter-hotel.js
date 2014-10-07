@@ -31,18 +31,19 @@ angular.module('innaApp.directives')
                 scope: {
                     filtersSettings: '=filtersSettings',
                     activePanel: '=activePanel',
+                    asMap: '=asMap',
                     typePanel: '@typePanel'
                 },
                 link: function ($scope, $element, attrs) {
 
-                  /**
-                   * Компонент FilterPanelHotel
-                   * @class
-                   * @inherits FilterPanel
-                   */
+                    /**
+                     * Компонент FilterPanelHotel
+                     * @class
+                     * @inherits FilterPanel
+                     */
                     var FilterPanelHotel = FilterPanel.extend({
-                        el : $element,
-                        data : {
+                        el: $element,
+                        data: {
                             filtersCollection: []
                         },
                         components: {
@@ -52,6 +53,13 @@ angular.module('innaApp.directives')
                             'FilterStars': FilterStars,
                             'FilterTaFactor': FilterTaFactor,
                             'FilterType': FilterType
+                        },
+                        asMap: function (param) {
+                            if (param) {
+                                this.set('asMap', true);
+                            } else {
+                                this.set('asMap', false);
+                            }
                         }
                     });
 
@@ -84,6 +92,13 @@ angular.module('innaApp.directives')
                             if (FilterPanelComponent && (FilterPanelComponent.get('type') != value)) {
                                 FilterPanelComponent.fire('hide');
                             }
+                        }
+                    });
+
+                    /* прячем панель */
+                    $scope.$watch('asMap', function (value) {
+                        if (value) {
+                            FilterPanelComponent.asMap(value);
                         }
                     });
 
