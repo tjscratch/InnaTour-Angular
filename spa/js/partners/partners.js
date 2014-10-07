@@ -11,6 +11,7 @@
 
     self.lastHeight = null;
     self.frameShowed = false;
+    self.lastUrl = null;
 
     self.partnersMap = [
         {
@@ -61,7 +62,8 @@
         setHeight: 'setHeight',
         setVisible: 'setVisible',
         setFrameScrollTo: 'setFrameScrollTo',
-        setScrollTop: 'setScrollTop'
+        setScrollTop: 'setScrollTop',
+        saveUrlToParent: 'saveUrlToParent'
     };
 
     self.isFullWL = function () {
@@ -112,6 +114,18 @@
     }
 
     self.clientSize = null;
+
+    self.saveUrlToParent = function () {
+        var url = location.href;
+        if (self.lastUrl != url) {
+            self.lastUrl = url;
+            var hashIndex = url.indexOf('#');
+            if (hashIndex > -1) {
+                url = url.substring(hashIndex);
+                sendCommandToParent(self.commands.saveUrlToParent, { 'url': url });
+            }
+        }
+    }
 
     function addCssToBody() {
         var cn = document.body.className;
@@ -204,7 +218,9 @@
             }
             var msg = JSON.stringify(cmdObj);
             //console.log('msg', msg);
-            window.parent.postMessage(msg, '*');
+            if (window.parent) {
+                window.parent.postMessage(msg, '*');
+            }
         }
     }
 
@@ -247,7 +263,7 @@
     function processClientSizeChange(data) {
         if (data && data.doc) {
             self.clientSize = data.doc;
-            console.log('self.clientSize: ', self.clientSize);
+            //console.log('self.clientSize: ', self.clientSize);
         }
     }
 

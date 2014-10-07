@@ -215,6 +215,28 @@ function FrameManager() {
         return getDocumentSize();
     }
 
+    self.saveUrlCmd = function (data) {
+        if (data && data.url) {
+            setHashUrl(data.url);
+        }
+    }
+
+    function setHashUrl(url) {
+        //console.log('self.saveUrlCmd', url);
+        var curUrl = location.href;
+        var indexOfHash = curUrl.indexOf("#");
+        var newUrl;
+        if (indexOfHash > -1) {
+            newUrl = curUrl.substring(0, indexOfHash);
+            newUrl = newUrl + url;
+        }
+        else {
+            newUrl = curUrl + url;
+        }
+        //console.log('self.saveUrlCmd, newUrl:', newUrl);
+        location.href = newUrl;
+    }
+
     function getPos(el) {
         for (var lx = 0, ly = 0;
              el != null;
@@ -279,6 +301,7 @@ function CommandManager() {
                     }
                 case 'setFrameScrollTo': self.frameManager.setFrameScrollToCmd(data); break;
                 case 'setScrollTop': self.frameManager.setScrollTopCmd(data); break;
+                case 'saveUrlToParent': self.frameManager.saveUrlCmd(data); break;
             }
         }
     };
@@ -310,7 +333,9 @@ function CommandManager() {
             var msg = JSON.stringify(cmdObj);
             //console.log('sendCommandToInnaFrame, msg:', msg);
             var frame = document.getElementById(innaModule.frameId);
-            frame.contentWindow.postMessage(msg, '*');
+            if (frame && frame.contentWindow) {
+                frame.contentWindow.postMessage(msg, '*');
+            }
         }
     }
 }

@@ -78,14 +78,23 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
         if ($window.ga != null)
             $window.ga('send', 'pageview', $location.path());
 
-        //WL показываем фрейм, когда приложение заинитилось
         if (window.partners) {
+            //WL показываем фрейм, когда приложение заинитилось
             window.partners.showFrame();
+
+            //window.partners.saveUrlToParent();
         }
 
         //console.log('$routeChangeSuccess');
         //скролим наверх
         document.body.scrollTop = document.documentElement.scrollTop = 0;
+    });
+
+    $rootScope.$on('$locationChangeSuccess', function () {
+        if (window.partners) {
+            window.partners.saveUrlToParent();
+        }
+        //console.log('$locationChangeSuccess');
     });
 }]);
 
