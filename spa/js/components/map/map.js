@@ -36,6 +36,9 @@ angular.module('innaApp.directives')
                     'innaApp.API.events',
 
                     function (EventManager, $scope, $element, Events) {
+                        if (window.partners) {
+                            window.partners.setFixedContentHeight();
+                        }
 
                         /* прячем кнопку - отзывы и предложения */
                         $('#reformal_tab').hide();
@@ -67,6 +70,10 @@ angular.module('innaApp.directives')
                         }
 
                         $scope.$on('$destroy', function () {
+                            if (window.partners) {
+                                window.partners.setAutoContentHeight();
+                            }
+
                             $('#reformal_tab').show();
                             document.documentElement.style.overflow = 'auto';
                             EventManager.fire(Events.DYNAMIC_SERP_MAP_DESTROY);

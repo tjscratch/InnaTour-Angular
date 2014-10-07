@@ -81,8 +81,6 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
         if (window.partners) {
             //WL показываем фрейм, когда приложение заинитилось
             window.partners.showFrame();
-
-            //window.partners.saveUrlToParent();
         }
 
         //console.log('$routeChangeSuccess');
@@ -91,6 +89,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     });
 
     $rootScope.$on('$locationChangeSuccess', function () {
+        //мониторим и проставляем url на странице, где размещен наш фрейм
         if (window.partners) {
             window.partners.saveUrlToParent();
         }

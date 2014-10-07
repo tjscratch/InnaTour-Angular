@@ -12,6 +12,8 @@
     self.lastHeight = null;
     self.frameShowed = false;
     self.lastUrl = null;
+    self.clientSize = null;
+    self.autoHeightTimerId = null;
 
     self.partnersMap = [
         {
@@ -113,8 +115,6 @@
         //});
     }
 
-    self.clientSize = null;
-
     self.saveUrlToParent = function () {
         var url = location.href;
         if (self.lastUrl != url) {
@@ -125,6 +125,22 @@
                 sendCommandToParent(self.commands.saveUrlToParent, { 'url': url });
             }
         }
+    }
+
+    self.setFixedContentHeight = function () {
+        if (self.clientSize) {
+            stopAutoHeightUpdateTimer();
+
+            var height = self.clientSize.height - self.clientSize.top - 4;//высота экрана минус 4px
+            //console.log('setFixedContentHeight', height);
+            updateHeight(height);
+        }
+    }
+
+    self.setAutoContentHeight = function () {
+        setAutoHeightUpdateTimer();
+
+        updateHeight();
     }
 
     function addCssToBody() {
@@ -262,14 +278,23 @@
 
     function processClientSizeChange(data) {
         if (data && data.doc) {
-            self.clientSize = data.doc;
+            self.clientSize = {
+                width: data.doc.x,
+                height: data.doc.y,
+                top: data.top
+            };
             //console.log('self.clientSize: ', self.clientSize);
         }
     }
 
-    function updateHeight() {
-        self.lastHeight
-        var height = getContentHeight();
+    function updateHeight(contentHeight) {
+        var height;
+        if (contentHeight != null) {
+            height = contentHeight;
+        }
+        else {
+            height = getContentHeight();
+        }
         if (self.lastHeight != height) {
             self.lastHeight = height;
             sendCommandToParent(self.commands.setHeight, { 'height': height });
@@ -304,6 +329,18 @@
     //    }
     //}
 
+    function setAutoHeightUpdateTimer() {
+        self.autoHeightTimerId = setInterval(function () {
+            updateHeight();
+        }, 100);
+    }
+
+    function stopAutoHeightUpdateTimer() {
+        if (self.autoHeightTimerId) {
+            clearInterval(self.autoHeightTimerId);
+        }
+    }
+
     var partner = self.getPartner();
     if (partner != null) {
         insertCssAndAddParnterClass(partner);
@@ -315,9 +352,7 @@
         }, 500);
 
         //отслеживание изменения высоты контента
-        setInterval(function () {
-            updateHeight();
-        }, 100);
+        setAutoHeightUpdateTimer();
 
         //слушаем скролл
         addCommonEventListener(window, 'scroll', trackScroll);
