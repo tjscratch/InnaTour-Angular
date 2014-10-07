@@ -1049,7 +1049,7 @@ innaAppControllers.
                     el: $('.js-share-component'),
                     data: {
                         right: true,
-                        location : window.location
+                        location : angular.copy(document.location.href)
                     }
                 })
             }
@@ -1098,7 +1098,7 @@ innaAppControllers.
                             el: $('.js-share-component'),
                             data: {
                                 right: true,
-                                location : window.location
+                                location : angular.copy(document.location.href)
                             }
                         })
                     },

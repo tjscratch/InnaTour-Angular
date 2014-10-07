@@ -17,7 +17,7 @@ angular.module('innaApp.controllers')
                 data : {
                     visible : false,
                     openIf: null,
-                    location : window.location,
+                    location : angular.copy(document.location.href),
                     right : true
                 },
                 components : {
