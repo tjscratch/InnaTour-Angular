@@ -9,6 +9,9 @@
         lite: 'lite'
     }
 
+    self.lastHeight = null;
+    self.frameShowed = false;
+
     self.partnersMap = [
         {
             'name': 'biletix',
@@ -83,6 +86,35 @@
         if (scrollTo) {
             sendCommandToParent(self.commands.setFrameScrollTo, { 'scrollTo': scrollTo });
         }
+    }
+
+    self.showFrame = function () {
+        if (!self.frameShowed) {
+            //console.log('self.showFrame');
+            sendCommandToParent(self.commands.setVisible, { 'visible': true });
+            sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
+            self.frameShowed = true;
+        }
+    }
+
+    self.afterBodyLoad = function () {
+        if (self.isFullWL()) {
+            addCssToBody();
+        }
+
+        self.liteWLControl.changePageData();
+
+        //отслеживание изменения высоты контента
+        //self.contentSizeWatcher = new contentSizeWatcher();
+        //self.contentSizeWatcher.init(function (height) {
+        //    sendCommandToParent(self.commands.setHeight, { 'height': height });
+        //});
+    }
+
+    function addCssToBody() {
+        var cn = document.body.className;
+        cn += ' partner-body-noscroll';
+        document.body.className = cn;
     }
 
     function liteWLControl(partner) {
@@ -205,26 +237,67 @@
     }
 
     function processScrollTop(data) {
-        console.log('processScrollTop: ', data.top);
+        //console.log('processScrollTop: ', data.top);
         self.parentScrollTop = data.top;
     }
+
+    function updateHeight() {
+        self.lastHeight
+        var height = getContentHeight();
+        if (self.lastHeight != height) {
+            self.lastHeight = height;
+            sendCommandToParent(self.commands.setHeight, { 'height': height });
+        }
+    }
+
+    //function trackWindowResize(e) {
+    //    console.log('trackWindowResize');
+    //    //нам нужно отслеживать изменение размера контента
+    //    if (self.contentSizeWatcher) {
+    //        self.contentSizeWatcher.onResize();
+    //    }
+    //}
+
+    //function contentSizeWatcher() {
+    //    var csw = this;
+    //    csw.element = document.getElementById('main-content-div');
+    //    csw.lastHeight = null;
+    //    csw.callbackFn = null;
+    //    csw.init = function (fn) {
+    //        csw.callbackFn = fn;
+    //    }
+
+    //    csw.onResize = function () {
+    //        console.log('onResize');
+    //        if (csw.lastHeight != csw.element.offsetHeight) {
+    //            csw.lastHeight = csw.element.offsetHeight;
+    //            if (csw.callbackFn) {
+    //                csw.callbackFn(csw.lastHeight);
+    //            }
+    //        }
+    //    }
+    //}
 
     var partner = self.getPartner();
     if (partner != null) {
         insertCssAndAddParnterClass(partner);
 
-        //просто показываем фрейм
+        //просто показываем фрейм (если он не показался до этого)
         setTimeout(function () {
-            sendCommandToParent(self.commands.setVisible, { 'visible': true });
-            sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
+            //console.log('self.showFrame timeout');
+            self.showFrame();
         }, 500);
 
+        //отслеживание изменения высоты контента
         setInterval(function () {
-            sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
+            updateHeight();
         }, 100);
 
         //слушаем скролл
         addCommonEventListener(window, 'scroll', trackScroll);
+
+        //слушаем ресайз
+        //addCommonEventListener(window, 'resize', trackWindowResize);
 
         //слушаем события из window.parent
         addCommonEventListener(window, 'message', receiveMessage);

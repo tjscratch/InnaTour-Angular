@@ -53,6 +53,14 @@ angular.module('innaApp.directives')
                     })
 
                     function showDetails(evt, ticket, opt_data) {
+                        //фикс позиции для списка, когда показывается во фрейме
+                        if (window.partners && window.partners.parentScrollTop > 0) {
+                            $scope.popupStyles = { 'top': window.partners.parentScrollTop + 100 + 'px' };//100px сверху
+                        }
+                        else {
+                            $scope.popupStyles = null;
+                        }
+
                         var ticketRaw = ticket;
 
                         if (ticket && ticket.raw) {

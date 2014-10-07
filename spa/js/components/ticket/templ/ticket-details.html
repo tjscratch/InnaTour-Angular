@@ -1,7 +1,7 @@
 <div class="overlay js-overlay overlay_ticket-details" ng-if="popupItemInfo.isShow">
 
     <div class="scroll-fix" ng-style="popupItemInfo.style">
-        <div class="balloon balloon_ticket balloon_ticket_ticket-details js-ticket-info-baloon"
+        <div class="balloon balloon_ticket balloon_ticket_ticket-details js-ticket-info-baloon" ng-style="popupStyles"
              ng-class="{'balloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}"
              close-popup
              fn-hide="popupItemInfo.hide()">
