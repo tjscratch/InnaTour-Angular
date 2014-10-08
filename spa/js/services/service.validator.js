@@ -2,45 +2,62 @@
     .factory('Validators', [function () {
 
         return {
-            email        : function (s, error) {
+            email: function (s, error) {
                 if (!/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,63})+$/i.test(s)) throw error;
             },
             /**
-             * @param {Object} val - проверка наличия 
+             * проверка значения val
+             * если пусто выкидавыем ошибку errorText
+             * @param val
+             * @param error
+             * @param errorText
              */
-            required     : function (val, error, errorText) {
+            required: function (val, error, errorText) {
                 if (!val) {
                     error.error = errorText
                     throw error
                 }
             },
-            defined      : function (s, error) {
+            /**
+             * Сравнение равенства v1 и v2
+             * @param v1
+             * @param v2
+             * @param error
+             * @param errorText
+             */
+            noEqual: function (v1, v2, error, errorText) {
+                if (v1 == v2) {
+                    error.error = errorText
+                    throw error
+                }
+            },
+            defined: function (s, error) {
                 if (!s) throw error;
             },
-            phone        : function (s, error) {
+            phone: function (s, error) {
                 if (!/^[+]\d{11,}$/.test(s)) throw error;//+79101234567
             },
-            equals       : function (s1, s2, error) {
+            equals: function (s1, s2, error) {
                 if (s1 != s2) throw error;
             },
-            notEqual     : function (s1, s2, error) {
+            notEqual: function (s1, s2, error) {
                 if (s1 == s2) throw error;
             },
-            minLength    : function (s, len, error) {
+            minLength: function (s, len, error) {
                 if (!s.length || s.length < len) throw error;
             },
-            date         : function (s, error) {
+            date: function (s, error) {
                 if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
             },
-            dateEndEmpty : function (s1, s2, error) {
+            dateEndEmpty: function (s1, s2, error) {
                 var dt = parseInt(Date.fromDDMMYY(s2) - Date.fromDDMMYY(s1));
                 if (dt < 0) throw error;
             },
-            gtZero       : function (s, error) {
+            gtZero: function (s, error) {
                 var val = parseInt(s);
                 if (isNaN(val) || val <= 0) throw error;
             },
-            birthdate    : function (s, error) {
+            birthdate: function (s, error) {
                 if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
 
                 //от 01.01.1900 до текущей даты
@@ -61,7 +78,7 @@
                         throw error;
                 }
             },
-            expire       : function (s, error) {
+            expire: function (s, error) {
                 if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
 
                 //Дата должна быть в диапазоне от текущей даты + 100 лет
@@ -82,11 +99,11 @@
                         throw error;
                 }
             },
-            ruPassport   : function (s, error) {
+            ruPassport: function (s, error) {
                 //10 цифр - российский паспорт
                 if (!/^(\d{10})+$/.test(s)) throw error;
             },
-            enPassport   : function (s, error) {
+            enPassport: function (s, error) {
                 //9 цифр - загранпаспорт
                 if (!/^(\d{9})+$/.test(s)) throw error;
             },

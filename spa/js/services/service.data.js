@@ -259,7 +259,47 @@
                         success: callbackSuccess,
                         error  : callbackError
                     });
+                },
+
+                /**
+                 * автокомплит
+                 * получение списка локация отправления для ДП
+                 * @param term
+                 * @param callback
+                 * @returns {*}
+                 */
+                getDPFromListByTerm: function (term, callback) {
+                    return AjaxHelper.getDebounced({
+                        url: apiUrls.DYNAMIC_FROM_SUGGEST,
+                        data: {term: term},
+                        success: callback
+                    });
+                },
+
+                /**
+                 * автокомплит
+                 * получение списка локация прибытия для ДП
+                 * @param term
+                 * @param callback
+                 * @returns {*}
+                 */
+                getDPToListByTerm: function (term, callback) {
+                    return AjaxHelper.getDebounced({
+                        url: apiUrls.DYNAMIC_TO_SUGGEST,
+                        data: {term: term},
+                        success: callback
+                    });
+                },
+
+
+                getDPLocationById: function (id, callback) {
+                    return AjaxHelper.get({
+                        url: apiUrls.DYNAMIC_GET_OBJECT_BY_ID,
+                        data: {id: id},
+                        success: callback
+                    });
                 }
+                    
 
             };
         }]);

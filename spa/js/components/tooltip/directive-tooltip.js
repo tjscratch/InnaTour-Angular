@@ -26,12 +26,8 @@ innaAppDirectives.directive('errorTooltip', [
                                 marginLeft: -width / 2
                             });
                         }
-                        $timeout(function () {
-                            $scope.message = ''
-                        }, 1000)
                     }
                 });
-
             }
         }
     }])

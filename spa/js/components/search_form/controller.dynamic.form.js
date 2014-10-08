@@ -14,13 +14,13 @@ innaAppControllers
                 if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) > -1 || path.indexOf(URLs.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
                     var bits = QueryString.getBits(path);
                     return {
-                        DepartureId    : bits[0],
-                        ArrivalId      : bits[1],
+                        DepartureId: bits[0],
+                        ArrivalId: bits[1],
                         StartVoyageDate: bits[2],
-                        EndVoyageDate  : bits[3],
-                        TicketClass    : bits[4],
-                        Adult          : bits[5],
-                        ChildrenAges   : (function (ages) {
+                        EndVoyageDate: bits[3],
+                        TicketClass: bits[4],
+                        Adult: bits[5],
+                        ChildrenAges: (function (ages) {
                             return ages ?
                                 ages.split('_').map(function (age) {
                                     return { value: age };
@@ -39,22 +39,22 @@ innaAppControllers
                     else if (bits.length == 2) {
                         return {
                             sectionId: bits[0],
-                            Adult    : bits[1]
+                            Adult: bits[1]
                         };
                     }
                     else if (bits.length == 3) {
                         return {
-                            sectionId  : bits[0],
-                            Adult      : bits[1],
+                            sectionId: bits[0],
+                            Adult: bits[1],
                             DepartureId: bits[2]
                         };
                     }
                     else if (bits.length == 4) {
                         return {
-                            sectionId  : bits[0],
-                            Adult      : bits[1],
+                            sectionId: bits[0],
+                            Adult: bits[1],
                             DepartureId: bits[2],
-                            ArrivalId  : bits[3]
+                            ArrivalId: bits[3]
                         };
                     }
                     else {
@@ -66,7 +66,7 @@ innaAppControllers
                     if (bits.length == 2) {
                         return {
                             DepartureId: bits[0],
-                            ArrivalId  : bits[1]
+                            ArrivalId: bits[1]
                         };
                     }
                     else {
@@ -80,27 +80,22 @@ innaAppControllers
 
             var routeParams = parseRoute($location.path());
 
-            $scope.fromCurrentCityId = null;
+            /**
+             * устанавливаем значение города вылета и города назначения
+             */
+            $scope.$watch('fromCity', function (data) {
+                $scope.fromCity = data;
+            })
 
+            $scope.$watch('toCity', function (data) {
+                $scope.toCity = data;
+            })
             
+
             function validate() {
-//                Validators.defined($scope.fromCurrent, Error('fromCurrent'));
-                Validators.required($scope.fromCurrentCityId, Error('fromCurrentCityId'), "Введите город отправления");
-                Validators.required($scope.toCurrent, Error('toCurrent'), "Введите город или страну, куда планируете поехать");
-
-                Validators.defined($scope.toCurrent, Error('toCurrent'));
-                Validators.notEqual($scope.fromCurrent, $scope.toCurrent, Error('toCurrent'));
-
-                //если запомнили город - то проверяем и его
-                if ($scope.lastCityFromCode != null && $scope.lastCityToCode != null) {
-                    Validators.notEqual($scope.lastCityFromCode, $scope.lastCityToCode, Error('toCurrent'));
-                }
-                else if ($scope.lastCityFromCode != null && $scope.lastCityToCode == null) {
-                    Validators.notEqual($scope.lastCityFromCode, $scope.lastToCode, Error('toCurrent'));
-                }
-                else if ($scope.lastCityFromCode == null && $scope.lastCityToCode != null) {
-                    Validators.notEqual($scope.lastFromCode, $scope.lastCityToCode, Error('toCurrent'));
-                }
+                Validators.required($scope.fromCity, Error('fromCity'), "Введите город отправления");
+                Validators.required($scope.toCity, Error('toCity'), "Введите город или страну, куда планируете поехать");
+                Validators.noEqual($scope.fromCity.Id, $scope.toCity.Id, Error('toCity'), "Города отправления и назначения должны отличаться");
 
                 var children = _.partition($scope.childrensAge, function (ageSelector) {
                     return ageSelector.value < 2;
@@ -117,75 +112,42 @@ innaAppControllers
                 Validators.dateEndEmpty($scope.dateBegin, $scope.dateEnd, Error('dateEnd'));
             }
 
-//            $scope.loadObjectById = function (id, callback) {
-//                DynamicPackagesDataProvider.getObjectById(id, callback);
-//            }
+            /*
+             function validate() {
+             Validators.required($scope.fromCurrentCityId, Error('fromCurrentCityId'), "Введите город отправления");
+             Validators.required($scope.toCurrent, Error('toCurrent'), "Введите город или страну, куда планируете поехать");
 
-            /* From field */
-            $scope.fromList = [];
+             Validators.defined($scope.toCurrent, Error('toCurrent'));
+             Validators.notEqual($scope.fromCurrent, $scope.toCurrent, Error('toCurrent'));
 
-            $scope.provideSuggestToFromList = function (preparedText, rawText) {
-                DynamicPackagesDataProvider.getFromListByTerm(preparedText, function (data) {
-                    $scope.$apply(function ($scope) {
-                        $scope.fromList = data;
-                    });
-                })
-            }
+             //если запомнили город - то проверяем и его
+             if ($scope.lastCityFromCode != null && $scope.lastCityToCode != null) {
+             Validators.notEqual($scope.lastCityFromCode, $scope.lastCityToCode, Error('toCurrent'));
+             }
+             else if ($scope.lastCityFromCode != null && $scope.lastCityToCode == null) {
+             Validators.notEqual($scope.lastCityFromCode, $scope.lastToCode, Error('toCurrent'));
+             }
+             else if ($scope.lastCityFromCode == null && $scope.lastCityToCode != null) {
+             Validators.notEqual($scope.lastFromCode, $scope.lastCityToCode, Error('toCurrent'));
+             }
 
-//            $scope.fromCurrent = routeParams.DepartureId || serviceCache.require('fromCurrent', function () {
-//                DynamicPackagesDataProvider.getUserLocation(function (data) {
-//                    if (data != null) {
-//                        $scope.safeApply(function () {
-//                            $scope.fromCurrent = data.Id;
-//                            $rootScope.$broadcast("dp_form_from_update", data.Id);
-//                        });
-//                    }
-//                });
-//            });
+             var children = _.partition($scope.childrensAge, function (ageSelector) {
+             return ageSelector.value < 2;
+             });
+             var infants = children[0].length;
+             children = children[1].length;
+             var separatedInfants = infants - $scope.adultCount;
+             if (separatedInfants < 0) separatedInfants = 0;
 
-//            $scope.fromCurrent = routeParams.DepartureId || serviceCache.require('fromCurrent', function () {
-//                DynamicPackagesDataProvider.getUserLocation(function (data) {
-//                    if (data != null) {
-//                        $scope.safeApply(function () {
-//                            $scope.fromCurrent = data;
-//                            $rootScope.$broadcast("dp_form_from_update", data);
-//                        });
-//                    }
-//                });
-//            });
-//
-//            $scope.fromCurrent = null;
+             if (+$scope.adultCount + children + separatedInfants > 6) throw Error('adultCount');
 
-            //обновляем значения в саджесте
-            setTimeout(function () {
-                $rootScope.$broadcast("dp_form_from_update", $scope.fromCurrent);
-            }, 0);
+             Validators.defined($scope.dateBegin, Error('dateBegin'));
+             Validators.defined($scope.dateEnd, Error('dateEnd'));
+             Validators.dateEndEmpty($scope.dateBegin, $scope.dateEnd, Error('dateEnd'));
+             }
+             */
 
-            $scope.$watch('fromCurrent', function (newVal) {
-                serviceCache.put('fromCurrent', newVal);
-            });
-
-            /* To field */
-            $scope.toList = [];
-
-            $scope.provideSuggestToToField = function (preparedText, rawText) {
-                DynamicPackagesDataProvider.getToListByTerm(preparedText, function (data) {
-                    $scope.$apply(function ($scope) {
-                        $scope.toList = data;
-                    });
-                })
-            };
-
-            $scope.toCurrent = routeParams.ArrivalId || serviceCache.require('toCurrent');
-            //обновляем значения в саджесте
-            setTimeout(function () {
-                $rootScope.$broadcast("dp_form_to_update", $scope.toCurrent);
-            }, 0);
-
-            $scope.$watch('toCurrent', function (newVal) {
-                serviceCache.put('toCurrent', newVal);
-            });
-
+            
             /*Begin date*/
             $scope.dateBegin = routeParams.StartVoyageDate || serviceCache.require('dateBegin');
 
@@ -201,14 +163,16 @@ innaAppControllers
             });
 
             $scope.maxDateEnd = new Date();
+
+
             $scope.maxDateEnd.setMonth($scope.maxDateEnd.getMonth() + 6);
 
             //TODO fix English
             if (window.partners && window.partners.isFullWL()) {
-                var storageAges = JSON.parse(DynamicPackagesCacheWizard.require('childrensAge'));
+                var storageAges = JSON.parse(serviceCache.require('childrensAge'));
                 $scope.childrensAge = routeParams.ChildrenAges || storageAges || [];
-                $scope.childrenCount = (routeParams.ChildrenAges && routeParams.ChildrenAges.length) || DynamicPackagesCacheWizard.require('childrenCount') || 0;
-                $scope.adultCount = routeParams.Adult || DynamicPackagesCacheWizard.require('adultCount') || 2;
+                $scope.childrenCount = (routeParams.ChildrenAges && routeParams.ChildrenAges.length) || serviceCache.require('childrenCount') || 0;
+                $scope.adultCount = routeParams.Adult || serviceCache.require('adultCount') || 2;
             }
             else {
                 /*Children ages*/
@@ -218,15 +182,15 @@ innaAppControllers
                 /*Adult count*/
                 $scope.adultCount = routeParams.Adult || 2;
             }
-            
+
             $scope.$watch('adultCount', function (newVal) {
-                DynamicPackagesCacheWizard.put('adultCount', newVal);
+                serviceCache.put('adultCount', newVal);
             });
             $scope.$watch('childrenCount', function (newVal) {
-                DynamicPackagesCacheWizard.put('childrenCount', newVal);
+                serviceCache.put('childrenCount', newVal);
             });
             $scope.$watch('childrensAge', function (newVal) {
-                DynamicPackagesCacheWizard.put('childrensAge', JSON.stringify(newVal));
+                serviceCache.put('childrensAge', JSON.stringify(newVal));
             }, true);
 
             /*Klass*/
@@ -289,7 +253,6 @@ innaAppControllers
                     delete $location.$$search.map;
                     $location.$$compose();
                 }
-
                 try {
                     validate();
                     //if ok
@@ -311,13 +274,13 @@ innaAppControllers
                     }
 
                     var o = {
-                        ArrivalId      : $scope.toCurrent,
-                        DepartureId    : $scope.fromCurrentCityId,
+                        ArrivalId: $scope.toCity.Id,
+                        DepartureId: $scope.fromCity.Id,
                         StartVoyageDate: $scope.dateBegin,
-                        EndVoyageDate  : $scope.dateEnd,
-                        TicketClass    : $scope.klass.value,
-                        Adult          : $scope.adultCount,
-                        children       : _.map($scope.childrensAge, function (selector, n) {
+                        EndVoyageDate: $scope.dateEnd,
+                        TicketClass: $scope.klass.value,
+                        Adult: $scope.adultCount,
+                        children: _.map($scope.childrensAge, function (selector, n) {
                             return selector.value;
                         })
                     }

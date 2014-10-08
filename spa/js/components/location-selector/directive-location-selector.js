@@ -9,26 +9,32 @@ innaAppDirectives.directive('locationSelector', [
     'DynamicPackagesDataProvider',
     function ($templateCache, $timeout) {
         return{
-            replace   : true,
-            template  : $templateCache.get("components/location-selector/templ/index.html"),
-            scope     : {
-                theme        : '@',
-                placeholder  : '@',
-                currentCityId: '=currentCityId',
-                typeSearch   : '=',
-                cacheName    : '@',
-                isFrom       : '@'
+            replace: true,
+            template: $templateCache.get("components/location-selector/templ/index.html"),
+            /**
+             * typeSearch может принимать следующие значения
+             * c другими сломается нафик
+             * typeSearch === DP_from
+             * typeSearch === DP_to
+             * typeSearch === AVIA_from
+             * typeSearch === AVIA_to
+             */
+            scope: {
+                theme: '@',
+                placeholder: '@',
+                selectedValue: '=selectedValue',
+                typeSearch: '@'
             },
             controller: function ($rootScope, $scope, $timeout, $routeParams, eventsHelper, serviceCache, dataService, DynamicPackagesDataProvider) {
 
-                console.log('directive start')
+//                console.log('directive location-selector start')
+
                 /**
                  * функция установки локации
                  * $scope.currentCity - название выбранного города
-                 * $scope.currentCityId - id выбранного города
+                 * $scope.selectedValue - id выбранного города
                  * @param value - объект с локацией
                  */
-
                 $scope.setCurrentCity = function (data, airport, doNotUpdateText) {
                     // если приходит объект аэропорт, то выставляем его
                     var currentData;
@@ -38,7 +44,7 @@ innaAppDirectives.directive('locationSelector', [
                         currentData = data;
                     }
 
-                    serviceCache.createObj($scope.cacheName, currentData);
+                    serviceCache.createObj($scope.typeSearch, currentData);
 
                     var name = [currentData.Name];
                     name.push(currentData.CountryName);
@@ -46,47 +52,83 @@ innaAppDirectives.directive('locationSelector', [
                     if (!doNotUpdateText) {
                         $scope.currentCity = name.join(', ');
                     }
-                    $scope.currentCityId = currentData.Id;
-                }
-
-
-                /**
-                 * получаем текущую локацию с сервера
-                 * ворвращается promise объект
-                 */
-                var getCurrentLocationInServer = function () {
-                    return dataService.getCurrentLocation()
-                        .then(function (res) {
-                            return res
-                        })
+                    $scope.selectedValue = currentData;
                 }
 
 
                 /**
                  * если локация сохранена в кеше то берем её оттуда
                  */
-                var getCurrentLocationInCache = serviceCache.getObject($scope.cacheName);
-                if (getCurrentLocationInCache) {
-                    $scope.setCurrentCity(getCurrentLocationInCache)
-                } else {
-                    if ($scope.isFrom === '1') {
-                        getCurrentLocationInServer().then(function (data) {
-                            $scope.$apply(function ($scope) {
-                                $scope.setCurrentCity(data)
-                            })
+                var cacheLocation = serviceCache.getObject($scope.typeSearch);
+                var cacheLocationId = cacheLocation ? cacheLocation.Id : undefined;
+
+                /**
+                 * установка локации для ДП
+                 * проверятся id локации из url и localstorage
+                 * @param route_id
+                 */
+                var setLocationDP = function (id) {
+                    if (!cacheLocationId && !id && $scope.typeSearch == 'DP_from') {
+                        dataService.getCurrentLocation().then(function (data) {
+                            $scope.setCurrentCity(data)
                         })
+                    }
+                    if (id && cacheLocationId) {
+                        if (id == cacheLocationId) {
+                            $scope.setCurrentCity(cacheLocation);
+                        } else {
+                            dataService.getDPLocationById(id).then(function (data) {
+                                $scope.setCurrentCity(data);
+                            })
+                        }
+                    }
+                    if (!id && cacheLocationId) {
+                        $scope.setCurrentCity(cacheLocation);
+                    }
+                    if (id && !cacheLocationId) {
+                        dataService.getDPLocationById(id).then(function (data) {
+                            $scope.setCurrentCity(data);
+                        })
+                    }
+                }
+
+                if ($scope.typeSearch == 'DP_from') {
+                    setLocationDP($routeParams.DepartureId);
+                }
+                if ($scope.typeSearch == 'DP_to') {
+                    setLocationDP($routeParams.ArrivalId);
+                }
+
+
+                /**
+                 * получение списка локация для автокомплита
+                 * @param txt
+                 * @returns {*}
+                 * $scope.typeSearch === DP_from
+                 * $scope.typeSearch === DP_to
+                 * $scope.typeSearch === AVIA_from
+                 * $scope.typeSearch === AVIA_to
+                 */
+                //                console.log($scope.typeSearch)
+                var getLocation = function (txt) {
+                    switch ($scope.typeSearch) {
+                        case 'DP_from':
+                            return dataService.getDPFromListByTerm(txt);
+                        case 'DP_to':
+                            return dataService.getDPToListByTerm(txt);
                     }
                 }
 
 
                 /**
                  * Валидация
-                 * отслеживаем изменения занчения $scope.currentCityId
+                 * отслеживаем изменения занчения $scope.selectedValue
                  * если тип значения Error, показываем ошибку
                  */
-                $scope.$watch('currentCityId', function (value) {
+                $scope.$watch('selectedValue', function (value) {
                     if (value instanceof Error) {
                         $scope.fieldError = value.error;
+                        $scope.selectedValue = undefined;
                     }
                 })
 
@@ -100,8 +142,8 @@ innaAppDirectives.directive('locationSelector', [
                     self.list = [];
                     self.item = function (item, option, airport) {
                         var res = {
-                            item   : item,
-                            option : option,
+                            item: item,
+                            option: option,
                             airport: airport
                         }
                         return res;
@@ -197,16 +239,19 @@ innaAppDirectives.directive('locationSelector', [
 
                 /**
                  * получение от сервера объекта для автокомплита
+                 * получаем промис объект из функции getLocation
                  */
                 var getAutocompleteList = _.debounce(function () {
                     if ($scope.currentCity) {
                         var preparedText = $scope.currentCity.split(',')[0].trim();
-                        DynamicPackagesDataProvider.getFromListByTerm(preparedText, function (data) {
-                            $scope.$apply(function ($scope) {
-                                $scope.fromList = data;
-                                $scope.selectionControl.init();
-                                $scope.isOpened = true;
-                            });
+                        getLocation(preparedText).then(function (data) {
+                            if (data.length > 0) {
+                                $scope.$apply(function ($scope) {
+                                    $scope.fromList = data;
+                                    $scope.selectionControl.init();
+                                    $scope.isOpened = true;
+                                });
+                            }
                         })
                     }
                 }, 300);
@@ -285,7 +330,7 @@ innaAppDirectives.directive('locationSelector', [
                  */
 
             },
-            link      : function ($scope) {
+            link: function ($scope) {
 
                 function clickHanlder(event) {
                     $scope.$apply(function ($scope) {
@@ -295,6 +340,8 @@ innaAppDirectives.directive('locationSelector', [
                 }
 
                 $(document).click(clickHanlder);
+
+
                 $scope.$on('$destroy', function () {
                     $(document).off('focus');
                     $(document).off('click', clickHanlder);
