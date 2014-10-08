@@ -248,15 +248,29 @@ innaAppControllers
 
                             onload();
                         } else {
-                            $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
+                            showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
                         }
                     },
                     error: function () {
-                        console.log('no rooms');
-                        $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
+                        showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
                     }
                 });
             };
+
+            function showErrNotFound(msg) {
+                $scope.baloon.showNotFound(msg, "Пожалуйста, выполните новый поиск.", function () {
+                    var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                        $routeParams.DepartureId,
+                        $routeParams.ArrivalId,
+                        $routeParams.StartVoyageDate,
+                        $routeParams.EndVoyageDate,
+                        $routeParams.TicketClass,
+                        $routeParams.Adult,
+                        $routeParams.Children
+                    ].join('-');
+                    $location.url(url);
+                });
+            }
 
             if (!routParam.OrderId) {
                 getHotelDetails().then(function () {
