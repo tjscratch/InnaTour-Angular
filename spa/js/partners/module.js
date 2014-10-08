@@ -8,7 +8,8 @@ var innaModule = {
     },
     commands: {
         processScrollTop: 'processScrollTop',
-        clientSizeChange: 'clientSizeChange'
+        clientSizeChange: 'clientSizeChange',
+        frameSetLocationUrl: 'frameSetLocationUrl'
     },
     containerTopPosition: null,
     init_internal: function (partner) {
@@ -33,6 +34,22 @@ var innaModule = {
 
         //слушаем скролл
         self.cmdManager.addCommonEventListener(window, 'scroll', trackScroll);
+
+        //слушаем hashchange
+        self.urlManager.listenLocationChangeEvents(function () {
+            //смена урла
+            if (location.hash != null && location.hash.length > 0) {
+                //
+                if (location.href != self.urlManager.lastSettedFromFrameUrl) {
+                    //console.log('listenLocationChangeEvents');
+                    self.cmdManager.sendCommandToInnaFrame(self.commands.frameSetLocationUrl, { 'urlHash': location.hash });
+                }
+                else {//если url тот же, что проставляли из фрейма
+                    //то просто не шлем его обратно во фрейм, и сбрасываем
+                    self.urlManager.lastSettedFromFrameUrl = null;
+                }
+            }
+        });
 
         function processHashParams(url) {
             //если передаются урлы типа #/packages/buy/QWA5KX
@@ -329,13 +346,47 @@ function CommandManager() {
 function UrlManager() {
     var self = this;
 
+    self.lastSettedFromFrameUrl = null;
+
+    self.addCommonEventListener = function (el, event, fn) {
+        if (el.addEventListener) {
+            el.addEventListener(event, fn, false);
+        } else {
+            el.attachEvent('on' + event, fn);
+        }
+    };
+
+    self.lastHref = null;
+    self.listenLocationChangeEvents = function(fn){
+        //self.addCommonEventListener(window, 'hashchange', function () {
+        //    if (fn) {
+        //        fn();
+        //    }
+        //    //console.log('listenLocationChangeEvents, location.href:', location.href);
+        //});
+        setInterval(function () {
+            if (location.href != self.lastHref) {
+                self.lastHref = location.href;
+                if (fn) {
+                    fn();
+                }
+            }
+        }, 100);
+    }
+
     self.saveUrlCmd = function (data) {
         if (data && data.url) {
-            setHashUrl(data.url);
+            var newUrl = getNewHashUrl(data.url);
+
+            if (location.href != newUrl) {
+                //запоминаем последний проставленный url
+                self.lastSettedFromFrameUrl = newUrl;
+                location.href = newUrl;
+            }
         }
     }
 
-    function setHashUrl(url) {
+    function getNewHashUrl(url) {
         //console.log('self.saveUrlCmd', url);
         var curUrl = location.href;
         var indexOfHash = curUrl.indexOf("#");
@@ -348,8 +399,6 @@ function UrlManager() {
             newUrl = curUrl + url;
         }
         //console.log('self.saveUrlCmd, newUrl:', newUrl);
-        if (location.href != newUrl) {
-            location.href = newUrl;
-        }
+        return newUrl;
     }
 }
