@@ -1,13 +1,12 @@
 innaAppControllers
     .controller('DynamicFormCtrl', [
         '$scope',
-        'DynamicPackagesDataProvider',
         '$rootScope',
         'serviceCache',
         'Validators',
         '$location',
         'innaApp.Urls',
-        function ($scope, DynamicPackagesDataProvider, $rootScope, serviceCache, Validators, $location, URLs) {
+        function ($scope, $rootScope, serviceCache, Validators, $location, URLs) {
 
             var parseRoute = function (path) {
                 //console.log('here');
@@ -90,7 +89,7 @@ innaAppControllers
             $scope.$watch('toCity', function (data) {
                 $scope.toCity = data;
             })
-            
+
 
             function validate() {
                 Validators.required($scope.fromCity, Error('fromCity'), "Введите город отправления");
@@ -112,42 +111,7 @@ innaAppControllers
                 Validators.dateEndEmpty($scope.dateBegin, $scope.dateEnd, Error('dateEnd'));
             }
 
-            /*
-             function validate() {
-             Validators.required($scope.fromCurrentCityId, Error('fromCurrentCityId'), "Введите город отправления");
-             Validators.required($scope.toCurrent, Error('toCurrent'), "Введите город или страну, куда планируете поехать");
 
-             Validators.defined($scope.toCurrent, Error('toCurrent'));
-             Validators.notEqual($scope.fromCurrent, $scope.toCurrent, Error('toCurrent'));
-
-             //если запомнили город - то проверяем и его
-             if ($scope.lastCityFromCode != null && $scope.lastCityToCode != null) {
-             Validators.notEqual($scope.lastCityFromCode, $scope.lastCityToCode, Error('toCurrent'));
-             }
-             else if ($scope.lastCityFromCode != null && $scope.lastCityToCode == null) {
-             Validators.notEqual($scope.lastCityFromCode, $scope.lastToCode, Error('toCurrent'));
-             }
-             else if ($scope.lastCityFromCode == null && $scope.lastCityToCode != null) {
-             Validators.notEqual($scope.lastFromCode, $scope.lastCityToCode, Error('toCurrent'));
-             }
-
-             var children = _.partition($scope.childrensAge, function (ageSelector) {
-             return ageSelector.value < 2;
-             });
-             var infants = children[0].length;
-             children = children[1].length;
-             var separatedInfants = infants - $scope.adultCount;
-             if (separatedInfants < 0) separatedInfants = 0;
-
-             if (+$scope.adultCount + children + separatedInfants > 6) throw Error('adultCount');
-
-             Validators.defined($scope.dateBegin, Error('dateBegin'));
-             Validators.defined($scope.dateEnd, Error('dateEnd'));
-             Validators.dateEndEmpty($scope.dateBegin, $scope.dateEnd, Error('dateEnd'));
-             }
-             */
-
-            
             /*Begin date*/
             $scope.dateBegin = routeParams.StartVoyageDate || serviceCache.require('dateBegin');
 
@@ -166,6 +130,7 @@ innaAppControllers
 
 
             $scope.maxDateEnd.setMonth($scope.maxDateEnd.getMonth() + 6);
+
 
             //TODO fix English
             if (window.partners && window.partners.isFullWL()) {
@@ -193,6 +158,7 @@ innaAppControllers
                 serviceCache.put('childrensAge', JSON.stringify(newVal));
             }, true);
 
+
             /*Klass*/
             $scope.klass = _.find(TripKlass.options, function (klass) {
                 var cached = routeParams.TicketClass ||
@@ -203,47 +169,11 @@ innaAppControllers
                 return (klass.value == cached);
             });
 
+
             $scope.$watchCollection('klass', function (newVal) {
                 newVal = newVal || TripKlass.options[0];
                 serviceCache.put('klass', newVal.value);
             });
-
-            //запоминаем последние CodeIata для итема и для его города (CityCodeIata)
-            //потом в методе validate они участвуют в проверке, что аэропорты не в одном городе
-            $scope.lastFromCode = null;
-            $scope.lastToCode = null;
-            $scope.lastCityFromCode = null;
-            $scope.lastCityToCode = null;
-
-            $scope.setResultCallbackFrom = function (item) {
-                if (item != null) {
-                    $scope.lastFromCode = item.CodeIata;
-                }
-                else {
-                    $scope.lastFromCode = null;
-                }
-                if (item != null && item.CityCodeIata != null) {
-                    $scope.lastCityFromCode = item.CityCodeIata;
-                }
-                else {
-                    $scope.lastCityFromCode = null;
-                }
-            }
-
-            $scope.setResultCallbackTo = function (item) {
-                if (item != null) {
-                    $scope.lastToCode = item.CodeIata;
-                }
-                else {
-                    $scope.lastToCode = null;
-                }
-                if (item != null && item.CityCodeIata != null) {
-                    $scope.lastCityToCode = item.CityCodeIata;
-                }
-                else {
-                    $scope.lastCityToCode = null;
-                }
-            }
 
 
             /*Methods*/
