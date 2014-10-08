@@ -267,7 +267,18 @@
             switch (data.cmd) {
                 case 'processScrollTop': processScrollTop(data); break;
                 case 'clientSizeChange': processClientSizeChange(data); break;
+                case 'frameSetLocationUrl': processFrameSetLocationUrl(data); break;
             }
+        }
+    }
+
+    function processFrameSetLocationUrl(data) {
+        //пришло событие, что поменялся location.href в родительском окне
+        //меняем location в нашем фрейме
+        if (data.urlHash != null && data.urlHash.length > 0) {
+            var url = location.protocol + '//' + location.hostname + '/' + data.urlHash;
+            //console.log('processFrameSetLocationUrl', url);
+            location.href = url;
         }
     }
 
