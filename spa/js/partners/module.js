@@ -29,7 +29,7 @@ var innaModule = {
         self.frameManager.setStyles();
         //self.frameManager.repositionFrame();
 
-        self.cmdManager.init(innaModule.frameManager);
+        self.cmdManager.init(self.frameManager, self.urlManager);
 
         //слушаем скролл
         self.cmdManager.addCommonEventListener(window, 'scroll', trackScroll);
@@ -69,7 +69,8 @@ var innaModule = {
     },
 
     cmdManager: new CommandManager(),
-    frameManager: new FrameManager()
+    frameManager: new FrameManager(),
+    urlManager: new UrlManager()
 };
 
 innaModule.host = '@@partnersHost';
@@ -215,28 +216,6 @@ function FrameManager() {
         return getDocumentSize();
     }
 
-    self.saveUrlCmd = function (data) {
-        if (data && data.url) {
-            setHashUrl(data.url);
-        }
-    }
-
-    function setHashUrl(url) {
-        //console.log('self.saveUrlCmd', url);
-        var curUrl = location.href;
-        var indexOfHash = curUrl.indexOf("#");
-        var newUrl;
-        if (indexOfHash > -1) {
-            newUrl = curUrl.substring(0, indexOfHash);
-            newUrl = newUrl + url;
-        }
-        else {
-            newUrl = curUrl + url;
-        }
-        //console.log('self.saveUrlCmd, newUrl:', newUrl);
-        location.href = newUrl;
-    }
-
     function getPos(el) {
         for (var lx = 0, ly = 0;
              el != null;
@@ -267,9 +246,11 @@ function CommandManager() {
     var self = this;
 
     self.frameManager = null;
+    self.urlManager = null;
 
-    self.init = function (frameManager) {
+    self.init = function (frameManager, urlManager) {
         self.frameManager = frameManager;
+        self.urlManager = urlManager;
         self.initEventListeners();
     }
 
@@ -305,7 +286,8 @@ function CommandManager() {
                     }
                 case 'setFrameScrollTo': self.frameManager.setFrameScrollToCmd(data); break;
                 case 'setScrollTop': self.frameManager.setScrollTopCmd(data); break;
-                case 'saveUrlToParent': self.frameManager.saveUrlCmd(data); break;
+
+                case 'saveUrlToParent': self.urlManager.saveUrlCmd(data); break;
             }
         }
     };
@@ -340,6 +322,34 @@ function CommandManager() {
             if (frame && frame.contentWindow) {
                 frame.contentWindow.postMessage(msg, '*');
             }
+        }
+    }
+}
+
+function UrlManager() {
+    var self = this;
+
+    self.saveUrlCmd = function (data) {
+        if (data && data.url) {
+            setHashUrl(data.url);
+        }
+    }
+
+    function setHashUrl(url) {
+        //console.log('self.saveUrlCmd', url);
+        var curUrl = location.href;
+        var indexOfHash = curUrl.indexOf("#");
+        var newUrl;
+        if (indexOfHash > -1) {
+            newUrl = curUrl.substring(0, indexOfHash);
+            newUrl = newUrl + url;
+        }
+        else {
+            newUrl = curUrl + url;
+        }
+        //console.log('self.saveUrlCmd, newUrl:', newUrl);
+        if (location.href != newUrl) {
+            location.href = newUrl;
         }
     }
 }
