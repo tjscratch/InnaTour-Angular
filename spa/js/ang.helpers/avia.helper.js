@@ -460,8 +460,8 @@
                     showExpireCheck: function () {
                         helper.baloon.show(null, null, baloonType.expireCheck);
                     },
-                    showNotFound: function (closeFn) {
-                        helper.baloon.show(null, null, baloonType.notFound, closeFn);
+                    showNotFound: function (caption, text, closeFn) {
+                        helper.baloon.show(caption, text, baloonType.notFound, closeFn);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);
