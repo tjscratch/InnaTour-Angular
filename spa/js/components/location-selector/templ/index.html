@@ -18,7 +18,7 @@
                 <span class="search-autocomplete-abbr">{{item.CodeIata}}</span>
             </span>
 			<ul ng-show="item.Airport">
-				<li ng-repeat="airport in item.Airport" ng-click="setCurrentCityClick($event, item, airport)">
+				<li ng-repeat="airport in item.Airport" ng-click="setCurrentCityClick($event, airport)">
                     <span class="search-autocomplete-block" ng-class="{selected:selectionControl.isItemSelected(airport)}">
                         <span class="search-autocomplete-city">{{airport.Name}}</span>
                         <span class="search-autocomplete-abbr">{{airport.CodeIata}}</span>

@@ -27,7 +27,6 @@ innaAppDirectives.directive('locationSelector', [
             },
             controller: function ($rootScope, $scope, $timeout, $routeParams, eventsHelper, serviceCache, dataService, DynamicPackagesDataProvider) {
 
-//                console.log('directive location-selector start')
 
                 /**
                  * функция установки локации
@@ -35,14 +34,16 @@ innaAppDirectives.directive('locationSelector', [
                  * $scope.selectedValue - id выбранного города
                  * @param value - объект с локацией
                  */
-                $scope.setCurrentCity = function (data, airport, doNotUpdateText) {
+                $scope.setCurrentCity = function (data, doNotUpdateText) {
+//                    console.log('$scope.setCurrentCity city - ', data)
+//                    console.log('$scope.setCurrentCity airport - ', airport)
                     // если приходит объект аэропорт, то выставляем его
-                    var currentData;
-                    if (airport) {
-                        currentData = airport;
-                    } else if (data) {
-                        currentData = data;
-                    }
+                    var currentData = data;
+//                    if (airport) {
+//                        currentData = airport;
+//                    } else if (data) {
+//                        currentData = data;
+//                    }
 
                     serviceCache.createObj($scope.typeSearch, currentData);
 
@@ -92,6 +93,7 @@ innaAppDirectives.directive('locationSelector', [
                     }
                 }
 
+
                 if ($scope.typeSearch == 'DP_from') {
                     setLocationDP($routeParams.DepartureId);
                 }
@@ -140,14 +142,6 @@ innaAppDirectives.directive('locationSelector', [
                     var self = this;
                     self.selectedIndex = 0;
                     self.list = [];
-                    self.item = function (item, option, airport) {
-                        var res = {
-                            item: item,
-                            option: option,
-                            airport: airport
-                        }
-                        return res;
-                    }
                     self.init = function () {
                         self.list = [];
                         self.selectedIndex = 0;
@@ -156,21 +150,19 @@ innaAppDirectives.directive('locationSelector', [
                             //items
                             for (var i = 0; i < $scope.fromList.length; i++) {
                                 var item = $scope.fromList[i];
-                                //self.list.push(item);
-                                self.list.push(new self.item(item, item, null));
+                                self.list.push(item);
                                 if (item.Airport != null) {
                                     //airports
                                     for (var j = 0; j < item.Airport.length; j++) {
                                         var airPort = item.Airport[j];
-                                        //self.list.push(airPort);
-                                        self.list.push(new self.item(airPort, item, airPort));
+                                        self.list.push(airPort);
                                     }
                                 }
                             }
                         }
                         //проставляем первый выбранный
                         if (self.list.length > 0) {
-                            self.list[0].item.isSelected = true;
+                            self.list[0].isSelected = true;
                             self.scrollToFirstItem();
                             self.updateInputText();
                         }
@@ -181,9 +173,9 @@ innaAppDirectives.directive('locationSelector', [
                     self.selectNext = function () {
                         if (self.list.length > 0) {
                             if ((self.selectedIndex + 1) < self.list.length) {
-                                self.list[self.selectedIndex].item.isSelected = false;
+                                self.list[self.selectedIndex].isSelected = false;
                                 self.selectedIndex++;
-                                self.list[self.selectedIndex].item.isSelected = true;
+                                self.list[self.selectedIndex].isSelected = true;
                                 self.scrollToItem();
                                 self.updateInputText();
                             }
@@ -192,9 +184,9 @@ innaAppDirectives.directive('locationSelector', [
                     self.selectPrev = function () {
                         if (self.list.length > 0) {
                             if ((self.selectedIndex - 1) >= 0) {
-                                self.list[self.selectedIndex].item.isSelected = false;
+                                self.list[self.selectedIndex].isSelected = false;
                                 self.selectedIndex--;
-                                self.list[self.selectedIndex].item.isSelected = true;
+                                self.list[self.selectedIndex].isSelected = true;
                                 self.scrollToItem();
                                 self.updateInputText();
                             }
@@ -214,7 +206,6 @@ innaAppDirectives.directive('locationSelector', [
                                     scrollTop: scrollToVal
                                 }, 50);
                             }
-                            //log('scrollToItem: ' + ind);
                         }
                     };
                     self.scrollToFirstItem = function () {
@@ -226,10 +217,13 @@ innaAppDirectives.directive('locationSelector', [
                     self.updateInputText = function () {
                         self.setSelected(true);
                     }
-                    self.setSelected = function (doNotUpdateText, index) {
+                    self.setSelected = function (doNotUpdateText, item) {
+                        if (item){
+                            self.selectedIndex = _.indexOf(self.list, item)
+                        }
                         var i = self.list[self.selectedIndex];
                         if (i) {
-                            $scope.setCurrentCity(i.option, i.airport, doNotUpdateText);
+                            $scope.setCurrentCity(i, doNotUpdateText);
                         }
                     }
                 }
@@ -257,9 +251,9 @@ innaAppDirectives.directive('locationSelector', [
                 }, 300);
 
 
-                $scope.setCurrentCityClick = function ($event, item, airport) {
+                $scope.setCurrentCityClick = function ($event, item) {
                     $event && eventsHelper.preventBubbling($event);
-                    $scope.setCurrentCity(item, airport);
+                    $scope.selectionControl.setSelected(false, item);
                     $scope.isOpened = false;
                     $scope.$broadcast("currentCityChangeClick");
                 }
@@ -329,9 +323,6 @@ innaAppDirectives.directive('locationSelector', [
                  * END:: Автокомплит
                  */
 
-            },
-            link: function ($scope) {
-
                 function clickHanlder(event) {
                     $scope.$apply(function ($scope) {
                         $scope.selectionControl.setSelected();
@@ -346,6 +337,10 @@ innaAppDirectives.directive('locationSelector', [
                     $(document).off('focus');
                     $(document).off('click', clickHanlder);
                 });
+
+            },
+            link: function ($scope) {
+
             }
         }
     }])
