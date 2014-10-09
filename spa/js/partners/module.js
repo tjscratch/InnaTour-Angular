@@ -59,7 +59,7 @@ var innaModule = {
         });
 
         (function documentWidthFixForBiletix() {
-            var el = document.querySelector("#content > container");
+            var el = document.querySelector("#content > .container");
             if (el) {
                 el.style.padding = '0';
                 el.style.width = '100%';
