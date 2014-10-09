@@ -58,6 +58,14 @@ var innaModule = {
             //}
         });
 
+        (function documentWidthFixForBiletix() {
+            var el = document.querySelector("#content > container");
+            if (el) {
+                el.style.padding = '0';
+                el.style.width = '100%';
+            }
+        })();
+
         function processHashParams(url) {
             //если передаются урлы типа #/packages/buy/QWA5KX
             //прокидываем их к нам
