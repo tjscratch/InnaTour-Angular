@@ -15,6 +15,7 @@
     self.lastUrl = null;
     self.clientSize = null;
     self.autoHeightTimerId = null;
+    self.parentLocation = null;
 
     self.partnersMap = [
         {
@@ -269,7 +270,15 @@
                 case 'processScrollTop': processScrollTop(data); break;
                 case 'clientSizeChange': processClientSizeChange(data); break;
                 case 'frameSetLocationUrl': processFrameSetLocationUrl(data); break;
+                case 'frameSaveLocationUrl': processFrameSaveLocationUrl(data); break;
             }
+        }
+    }
+
+    function processFrameSaveLocationUrl(data) {
+        //пришло событие, что поменялся location.href в родительском окне
+        if (data.href != null && data.href.length > 0) {
+            self.parentLocation = data.href;
         }
     }
 

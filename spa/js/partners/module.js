@@ -9,6 +9,7 @@ var innaModule = {
     commands: {
         processScrollTop: 'processScrollTop',
         clientSizeChange: 'clientSizeChange',
+        frameSaveLocationUrl: 'frameSaveLocationUrl',
         frameSetLocationUrl: 'frameSetLocationUrl'
     },
     containerTopPosition: null,
@@ -35,21 +36,27 @@ var innaModule = {
         //слушаем скролл
         self.cmdManager.addCommonEventListener(window, 'scroll', trackScroll);
 
+        //save location
+        self.cmdManager.sendCommandToInnaFrame(self.commands.frameSaveLocationUrl, { 'href': location.href });
+
         //слушаем hashchange
-        //self.urlManager.listenLocationChangeEvents(function () {
-        //    //смена урла
-        //    if (location.hash != null && location.hash.length > 0) {
-        //        //
-        //        if (location.href != self.urlManager.lastSettedFromFrameUrl) {
-        //            //console.log('listenLocationChangeEvents');
-        //            self.cmdManager.sendCommandToInnaFrame(self.commands.frameSetLocationUrl, { 'urlHash': location.hash });
-        //        }
-        //        else {//если url тот же, что проставляли из фрейма
-        //            //то просто не шлем его обратно во фрейм, и сбрасываем
-        //            self.urlManager.lastSettedFromFrameUrl = null;
-        //        }
-        //    }
-        //});
+        self.urlManager.listenLocationChangeEvents(function () {
+            //прокидываем location.href во фрейм
+            self.cmdManager.sendCommandToInnaFrame(self.commands.frameSaveLocationUrl, { 'href': location.href });
+            
+            //смена урла
+            //if (location.hash != null && location.hash.length > 0) {
+            //    //
+            //    if (location.href != self.urlManager.lastSettedFromFrameUrl) {
+            //        //console.log('listenLocationChangeEvents');
+            //        self.cmdManager.sendCommandToInnaFrame(self.commands.frameSetLocationUrl, { 'urlHash': location.hash });
+            //    }
+            //    else {//если url тот же, что проставляли из фрейма
+            //        //то просто не шлем его обратно во фрейм, и сбрасываем
+            //        self.urlManager.lastSettedFromFrameUrl = null;
+            //    }
+            //}
+        });
 
         function processHashParams(url) {
             //если передаются урлы типа #/packages/buy/QWA5KX
