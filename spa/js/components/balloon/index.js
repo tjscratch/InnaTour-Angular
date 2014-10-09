@@ -18,7 +18,8 @@ innaAppConponents.
                     balloonContent: null,
                     balloonClose: true,
                     isVisible: false,
-                    styleWidth : '',
+                    styleWidth: '',
+                    styleTopInFrame: '',
 
                     /**
                      * Вызвать метод когда будет закрыт попап
@@ -147,10 +148,18 @@ innaAppConponents.
                 },
 
                 show: function () {
+                    var baloonStyleTopInFrame = '';
+                    if (window.partners && window.partners.parentScrollTop > 0) {
+                        var top = 0 + window.partners.parentScrollTop + 100;
+                        baloonStyleTopInFrame = 'top: ' + top + 'px;';//100px сверху
+                    }
+                    //console.log('baloonStyleTopInFrame', baloonStyleTopInFrame);
+
                     var that = this;
                     this.set({
                         isVisible: true,
-                        styleWidth : document.documentElement.clientWidth
+                        styleWidth: document.documentElement.clientWidth,
+                        styleTopInFrame: baloonStyleTopInFrame
                     });
                 },
 

@@ -11,6 +11,8 @@ innaAppControllers.
                 $log.log(msg);
             }
 
+            $scope.isFullWL = (window.partners && window.partners.isFullWL());
+
             $scope.peopleCount = 0;
             $scope.AdultCount = 0;
             $scope.ChildCount = 0;

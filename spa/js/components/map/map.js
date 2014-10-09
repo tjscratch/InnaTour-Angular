@@ -40,6 +40,8 @@ angular.module('innaApp.directives')
                             window.partners.setFixedContentHeight();
                         }
 
+                        $scope.isFullWL = (window.partners && window.partners.isFullWL());
+
                         /* прячем кнопку - отзывы и предложения */
                         $('#reformal_tab').hide();
 

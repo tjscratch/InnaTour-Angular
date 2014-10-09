@@ -2,6 +2,7 @@
     window.partners = {};
     var self = window.partners;
 
+    //нужно, чтобы правильно позиционаровать попапы во фрейме
     self.parentScrollTop = null;
 
     self.WLType = {
