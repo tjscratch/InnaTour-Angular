@@ -402,11 +402,11 @@ innaAppControllers
                 backgrounds[parseInt(Math.random() * 100) % backgrounds.length]
             );
 
-            //if (!(window.partners && window.partners.isFullWL())) {
+            if (!(window.partners && window.partners.isFullWL())) {
                 $('body').css({
                     "background": "#000 " + $scope.background + "repeat fixed"
                 });
-            //}
+            }
 
             /*Methods*/
             $scope.toggleDescription = function () {
