@@ -345,6 +345,11 @@ innaAppControllers
                 //аналитика
                 track.dpGoReserve();
 
+                //чтобы на брони попапы были наверху страницы
+                if (window.partners && window.partners.isFullWL()) {
+                    window.partners.resetParentScrollTop();
+                }
+
                 $location.path(url);
             };
 
