@@ -937,31 +937,35 @@ innaAppControllers.
                 }
             }
 
-            $scope.getDocType = function (doc_num) {
+            $scope.getDocType = function (citizenshipId, doc_num) {
                 //var doc_num = number.replace(/\s+/g, '');
 
-                if ($scope.isCaseValid(function () {
-                    Validators.ruPassport(doc_num, 'err');
-                })) {
-                    return 0;//паспорт
-                }
+                if (citizenshipId == 189)//если гражданин РФ
+                {
+                    if ($scope.isCaseValid(function () {
+                        Validators.ruPassport(doc_num, 'err');
+                    })) {
+                        return 0;//паспорт
+                    }
 
-                if ($scope.isCaseValid(function () {
-                    Validators.enPassport(doc_num, 'err');
-                })) {
-                    return 1;//загран
-                }
+                    if ($scope.isCaseValid(function () {
+                        Validators.enPassport(doc_num, 'err');
+                    })) {
+                        return 1;//загран
+                    }
 
-                if ($scope.isCaseValid(function () {
-                    Validators.birthPassport(doc_num, 'err');
-                })) {
-                    return 2;//свидетельство о рождении
+                    if ($scope.isCaseValid(function () {
+                        Validators.birthPassport(doc_num, 'err');
+                    })) {
+                        return 2;//свидетельство о рождении
+                    }
                 }
-
-                if ($scope.isCaseValid(function () {
-                    Validators.defined(doc_num, 'err');
-                })) {
-                    return 3;//Иностранный документ
+                else {//гражданин другого гос-ва
+                    if ($scope.isCaseValid(function () {
+                        Validators.defined(doc_num, 'err');
+                    })) {
+                        return 3;//Иностранный документ
+                    }
                 }
 
                 return null;
@@ -975,7 +979,7 @@ innaAppControllers.
                 m.I = data.name;
                 m.F = data.secondName;
                 m.Birthday = data.birthday;
-                m.DocumentId = $scope.getDocType(doc_num);
+                m.DocumentId = $scope.getDocType(data.citizenship.id, doc_num);
                 m.Number = doc_num;
                 m.ExpirationDate = data.doc_expirationDate;
                 m.Citizen = data.citizenship.id;
@@ -985,6 +989,9 @@ innaAppControllers.
                     m.TransporterId = data.bonuscard.airCompany.id;
                     m.TransporterName = data.bonuscard.airCompany.name;
                 }
+
+                //console.log('getPassenger:');
+                //console.log(m);
                 return m;
             }
 
