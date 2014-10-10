@@ -238,13 +238,15 @@
                 },
 
                 getPartnershipCookie: function (data) {
-                    AjaxHelper.get({
-                        url : apiUrls.PARTNERSHIP_GET_COOKIE,
-                        data : data,
-                        success : angular.noop,
-                        error : angular.noop,
-                        cache : false
-                    });
+                    console.log(data)
+                    $http.get(apiUrls.PARTNERSHIP_GET_COOKIE, data);
+//                    AjaxHelper.get({
+//                        url : apiUrls.PARTNERSHIP_GET_COOKIE,
+//                        data : data,
+//                        success : angular.noop,
+//                        error : angular.noop,
+//                        cache : false
+//                    });
                 }
             };
         }]);
