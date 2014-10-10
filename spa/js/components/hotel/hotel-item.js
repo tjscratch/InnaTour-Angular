@@ -34,7 +34,6 @@ angular.module('innaApp.components').
                             return name
                         }
                     },
-                    isFullWL: (window.partners && window.partners.isFullWL()),
 
                     /**
                      * Строим URL для страницы подробнее об отеле
@@ -70,6 +69,10 @@ angular.module('innaApp.components').
                             ticketBackId,
                             providerId
                         ].join('-');
+
+                        if (window.partners && window.partners.isFullWL()) {
+                            urlDetails = window.partners.getParentLocationWithUrl(urlDetails);
+                        }
 
                         return urlDetails;
                     }
