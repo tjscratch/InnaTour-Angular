@@ -69,10 +69,12 @@ angular.module('innaApp.directives')
                             providerId
                         ].join('-');
 
+                        if (window.partners && window.partners.isFullWL()) {
+                            urlDetails = window.partners.getParentLocationWithUrl(urlDetails);
+                        }
+
                         return (opt_param) ? urlDetails + '?action=buy' : urlDetails;
                     }
-
-                    $scope.isFullWL = (window.partners && window.partners.isFullWL());
 
                     var _shareLink = new ShareLink({
                         el: $element.find('.js-share-component'),

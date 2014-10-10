@@ -40,8 +40,6 @@ angular.module('innaApp.directives')
                             window.partners.setFixedContentHeight();
                         }
 
-                        $scope.isFullWL = (window.partners && window.partners.isFullWL());
-
                         /* прячем кнопку - отзывы и предложения */
                         $('#reformal_tab').hide();
 
@@ -245,6 +243,10 @@ angular.module('innaApp.directives')
                                     ticketBackId,
                                     data.activeMarker.$inna__hotel.ProviderId
                                 ].join('-');
+
+                                if (window.partners && window.partners.isFullWL()) {
+                                    urlDetails = window.partners.getParentLocationWithUrl(urlDetails);
+                                }
 
                                 return urlDetails;
                             }

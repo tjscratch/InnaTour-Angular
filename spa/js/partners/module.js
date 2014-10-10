@@ -40,23 +40,23 @@ var innaModule = {
         self.cmdManager.sendCommandToInnaFrame(self.commands.frameSaveLocationUrl, { 'href': location.href });
 
         //слушаем hashchange
-        self.urlManager.listenLocationChangeEvents(function () {
-            //прокидываем location.href во фрейм
-            self.cmdManager.sendCommandToInnaFrame(self.commands.frameSaveLocationUrl, { 'href': location.href });
+        //self.urlManager.listenLocationChangeEvents(function () {
+        //    //прокидываем location.href во фрейм
+        //    self.cmdManager.sendCommandToInnaFrame(self.commands.frameSaveLocationUrl, { 'href': location.href });
             
-            //смена урла
-            //if (location.hash != null && location.hash.length > 0) {
-            //    //
-            //    if (location.href != self.urlManager.lastSettedFromFrameUrl) {
-            //        //console.log('listenLocationChangeEvents');
-            //        self.cmdManager.sendCommandToInnaFrame(self.commands.frameSetLocationUrl, { 'urlHash': location.hash });
-            //    }
-            //    else {//если url тот же, что проставляли из фрейма
-            //        //то просто не шлем его обратно во фрейм, и сбрасываем
-            //        self.urlManager.lastSettedFromFrameUrl = null;
-            //    }
-            //}
-        });
+        //    //смена урла
+        //    //if (location.hash != null && location.hash.length > 0) {
+        //    //    //
+        //    //    if (location.href != self.urlManager.lastSettedFromFrameUrl) {
+        //    //        //console.log('listenLocationChangeEvents');
+        //    //        self.cmdManager.sendCommandToInnaFrame(self.commands.frameSetLocationUrl, { 'urlHash': location.hash });
+        //    //    }
+        //    //    else {//если url тот же, что проставляли из фрейма
+        //    //        //то просто не шлем его обратно во фрейм, и сбрасываем
+        //    //        self.urlManager.lastSettedFromFrameUrl = null;
+        //    //    }
+        //    //}
+        //});
 
         (function documentWidthFixForBiletix() {
             var el = document.querySelector("#content > .container");

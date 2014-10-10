@@ -103,6 +103,11 @@
                                 ticketBackId,
                                 providerId
                             ].join('-');
+
+                        if (window.partners && window.partners.isFullWL()) {
+                            url = window.partners.getParentLocationWithUrl(url);
+                        }
+
                         return url;
                     }
 
