@@ -44,6 +44,12 @@
         }
     ];
 
+    self.getParentLocationWithHash = function () {
+        var url = document.referrer + location.hash;
+        //console.log('getParentLocationWithHash', url);
+        return url;
+    }
+
     self.isBookinnaDomain = function () {
         return (location.hostname.indexOf('bookinna') > -1);
     };
