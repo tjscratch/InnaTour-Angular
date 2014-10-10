@@ -35,25 +35,16 @@ innaAppDirectives.directive('locationSelector', [
                  * @param value - объект с локацией
                  */
                 $scope.setCurrentCity = function (data, doNotUpdateText) {
-//                    console.log('$scope.setCurrentCity city - ', data)
-//                    console.log('$scope.setCurrentCity airport - ', airport)
-                    // если приходит объект аэропорт, то выставляем его
-                    var currentData = data;
-//                    if (airport) {
-//                        currentData = airport;
-//                    } else if (data) {
-//                        currentData = data;
-//                    }
+                    serviceCache.createObj($scope.typeSearch, data);
+                    var name = [data.Name];
 
-                    serviceCache.createObj($scope.typeSearch, currentData);
-
-                    var name = [currentData.Name];
-                    name.push(currentData.CountryName);
+                    name.push(data.CountryName);
 
                     if (!doNotUpdateText) {
                         $scope.currentCity = name.join(', ');
                     }
-                    $scope.selectedValue = currentData;
+
+                    $scope.selectedValue = data;
                 }
 
 
@@ -71,7 +62,9 @@ innaAppDirectives.directive('locationSelector', [
                 var setLocationDP = function (id) {
                     if (!cacheLocationId && !id && $scope.typeSearch == 'DP_from') {
                         dataService.getCurrentLocation().then(function (data) {
-                            $scope.setCurrentCity(data)
+                            $scope.$apply(function ($scope) {
+                                $scope.setCurrentCity(data)
+                            })
                         })
                     }
                     if (id && cacheLocationId) {
@@ -218,7 +211,7 @@ innaAppDirectives.directive('locationSelector', [
                         self.setSelected(true);
                     }
                     self.setSelected = function (doNotUpdateText, item) {
-                        if (item){
+                        if (item) {
                             self.selectedIndex = _.indexOf(self.list, item)
                         }
                         var i = self.list[self.selectedIndex];
