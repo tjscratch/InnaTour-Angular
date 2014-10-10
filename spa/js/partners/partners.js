@@ -44,6 +44,10 @@
         }
     ];
 
+    self.resetParentScrollTop = function () {
+        self.parentScrollTop = 0;
+    }
+
     self.getParentLocationWithHash = function () {
         var url = document.referrer + location.hash;
         //console.log('getParentLocationWithHash', url);
