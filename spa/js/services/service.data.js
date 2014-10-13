@@ -238,7 +238,11 @@
                 },
 
                 getPartnershipCookie: function (data) {
-                    $http.get(apiUrls.PARTNERSHIP_GET_COOKIE, data);
+                    $http({
+                        url: apiUrls.PARTNERSHIP_GET_COOKIE,
+                        method: "GET",
+                        params: data
+                    });
 //                    AjaxHelper.get({
 //                        url    : apiUrls.PARTNERSHIP_GET_COOKIE,
 //                        data   : data,
