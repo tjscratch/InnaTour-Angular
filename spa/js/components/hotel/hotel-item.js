@@ -27,13 +27,6 @@ angular.module('innaApp.components').
                         classColl1: 'col-no-padding',
                         classColl3: 'col-xs-3 result-choice'
                     },
-                    shortName: function (name) {
-                        if (name.length > 27) {
-                            return name.substr(0, 27) + '...';
-                        } else {
-                            return name
-                        }
-                    },
                     isFullWL: (window.partners && window.partners.isFullWL()),
 
                     /**
