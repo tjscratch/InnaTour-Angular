@@ -1,0 +1,36 @@
+<div class="b-wrapp_type_inline b-location_selector {{theme}}" ng-class="{'error': fieldError}">
+
+	<input type="text" class="search-field"
+	       placeholder="{{placeholder}}"
+	       ng-model="currentCity"
+	       ng-change="currentCityChange($event)"
+	       ng-focus="currentCityChange($event)"
+	       ng-blur="currentCityChange($event)"
+	       ng-keyup="currentCityChange($event)"
+			/>
+
+	<ul class="search-autocomplete" ng-if="fromList && isOpened">
+		<li ng-repeat="item in fromList" ng-click="setCurrentCityClick($event, item)">
+            <span class="search-autocomplete-block" ng-class="{selected:selectionControl.isItemSelected(item)}">
+                <span class="search-autocomplete-city">
+	                {{item.Name}}, 
+	                <b>{{item.CountryName}}</b><em ng-show="item.Airport">, (все аэропорты)</em></span>
+                <span class="search-autocomplete-abbr">{{item.CodeIata}}</span>
+            </span>
+			<ul ng-show="item.Airport">
+				<li ng-repeat="airport in item.Airport" ng-click="setCurrentCityClick($event, airport)">
+                    <span class="search-autocomplete-block" ng-class="{selected:selectionControl.isItemSelected(airport)}">
+                        <span class="search-autocomplete-city">{{airport.Name}}</span>
+                        <span class="search-autocomplete-abbr">{{airport.CodeIata}}</span>
+                    </span>
+				</li>
+			</ul>
+		</li>
+	</ul>
+
+	<div error-tooltip
+	     position-top="63px"
+	     align="width-center"
+	     message="{{fieldError}}"
+			></div>
+</div>
