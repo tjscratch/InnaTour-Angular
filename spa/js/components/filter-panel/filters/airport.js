@@ -59,7 +59,10 @@ angular.module('innaApp.components').
 
                             this.filterAirport();
 
-                            this.fire('onCheckedFilter', this.get('value.val'));
+                            this.fire('onCheckedFilter', {
+                                name : this.get('value.name'),
+                                value : this.get('value')
+                            });
                             this.hasSelected();
                         },
 
@@ -67,7 +70,10 @@ angular.module('innaApp.components').
                             if (data && data.context) {
                                 this.set(data.keypath + '.List.*.isChecked', false);
                                 this.set('value.val', this.filter());
-                                this.fire('onCheckedFilter', this.get('value.val'));
+                                this.fire('onCheckedFilter', {
+                                    name : this.get('value.name'),
+                                    value : this.get('value')
+                                });
                                 this.hasSelected();
                             }
                         },
@@ -170,7 +176,10 @@ angular.module('innaApp.components').
                     if (result.length) this.set('value.val', result)
                     else this.set('value.val', [])
 
-                    this.fire('onCheckedFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', {
+                        name : this.get('value.name'),
+                        value : this.get('value')
+                    });
                     this.hasSelected();
                 }
 

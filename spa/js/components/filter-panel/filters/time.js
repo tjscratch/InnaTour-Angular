@@ -143,14 +143,20 @@ angular.module('innaApp.components').
 
                         filterChange: function (data) {
                             this.set('value.val', this.filter());
-                            this.fire('onCheckedFilter', this.get('value.val'));
+                            this.fire('onCheckedFilter', {
+                                name : this.get('value.name'),
+                                value : this.get('value')
+                            });
                             this.hasSelected();
                         },
 
                         changeState: function (data) {
                             this.set('value.val', this.filter());
                             if(this.get('value.val') && this.get('value.val').length){
-                                this.fire('onCheckedFilter', this.get('value.val'));
+                                this.fire('onCheckedFilter', {
+                                    name : this.get('value.name'),
+                                    value : this.get('value')
+                                });
                             }
                         },
 
@@ -168,7 +174,10 @@ angular.module('innaApp.components').
                             }
 
                             this.set('value.val', this.filter());
-                            this.fire('onCheckedFilter', this.get('value.val'));
+                            this.fire('onCheckedFilter', {
+                                name : this.get('value.name'),
+                                value : this.get('value')
+                            });
                             this.hasSelected();
                         },
 
@@ -239,7 +248,10 @@ angular.module('innaApp.components').
                     });
 
                     this.fire('filterChange');
-                    this.fire('onCheckedFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', {
+                        name : this.get('value.name'),
+                        value : this.get('value')
+                    });
                     this.hasSelected();
                 }
             });

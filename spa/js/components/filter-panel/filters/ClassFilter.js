@@ -41,7 +41,10 @@ angular.module('innaApp.components').
                                 if (opt_silent && opt_silent.silent) {
                                     //console.log('silent reset');
                                 } else {
-                                    this.fire('onCheckedFilter', this.get('value.val'));
+                                    this.fire('onCheckedFilter', {
+                                        name : this.get('value.name'),
+                                        value : this.get('value')
+                                    });
                                 }
 
                                 that.SaveData = [];
