@@ -44,7 +44,10 @@ angular.module('innaApp.components').
                                     this.spliceSaveData(data.context);
                                 }
 
-                                this.fire('onCheckedFilter', this.get('value.val'));
+                                this.fire('onCheckedFilter', {
+                                    name : this.get('value.name'),
+                                    value : this.get('value')
+                                });
                                 this.hasSelected();
                             }
 
@@ -80,7 +83,10 @@ angular.module('innaApp.components').
                         }
                     })
 
-                    this.fire('onCheckedFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', {
+                        name : this.get('value.name'),
+                        value : this.get('value')
+                    });
                     this.hasSelected();
                 }
             });
