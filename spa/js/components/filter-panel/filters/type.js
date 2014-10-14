@@ -18,13 +18,10 @@ angular.module('innaApp.components').
                         val : [],
                         fn : function(data, component_val){
                             var result = component_val.val.filter(function(item){
-                                if (data == item) {
-                                    return true;
-                                } else if(data == 0 && item ==1) {
-                                    return true;
-                                }
-                            })
-                            return result.length;
+                                if (data == item) return true;
+                            });
+
+                            return (result.length) ? true : false;
                         }
                     }
                 },
