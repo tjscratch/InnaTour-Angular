@@ -1,4 +1,4 @@
-<div class="overlay js-overlay overlay_ticket-details" ng-if="popupItemInfo.isShow">
+<div class="overlay js-overlay overlay_ticket-details" ng-show="popupItemInfo.isShow">
 
     <div class="scroll-fix" ng-style="popupItemInfo.style">
         <div class="balloon balloon_ticket balloon_ticket_ticket-details js-ticket-info-baloon"
@@ -18,15 +18,17 @@
 
 
                 <div class="b-tickets__footer">
-                    <ul class="b-tickets__icons" ng-hide="displayHotel">
+	                <div ng-hide="displayHotel || closeFooter">
+                    <ul class="b-tickets__icons">
                         <li>
                             <div class="tooltip-widget js-share-component"></div>
                         </li>
                     </ul>
-                    <div class="b-tickets__footer-inner" ng-hide="displayHotel">
+                    <div class="b-tickets__footer-inner">
                         <a ng-if="!noChoose" class="rl-buy-button" href="javascript:void(0);"
                            ng-click="setCurrent()">Выбрать</a>
                     </div>
+	                </div>
                 </div>
             </ng:any>
         </div>
