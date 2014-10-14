@@ -545,7 +545,7 @@ innaAppControllers.
                     log('updateModel - nothing to update, data is empty');
                     //аналитика
                     track.noResultsAvia();
-                    $scope.baloon.showNotFound(function () {
+                    $scope.baloon.showNotFound(null, null, function () {
                         $location.path(Urls.URL_AVIA);
                     });
                     $scope.isDataLoading = false;
@@ -1049,7 +1049,7 @@ innaAppControllers.
                     el: $('.js-share-component'),
                     data: {
                         right: true,
-                        location : window.location
+                        location : angular.copy(document.location.href)
                     }
                 })
             }
@@ -1098,7 +1098,7 @@ innaAppControllers.
                             el: $('.js-share-component'),
                             data: {
                                 right: true,
-                                location : window.location
+                                location : angular.copy(document.location.href)
                             }
                         })
                     },
