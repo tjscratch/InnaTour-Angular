@@ -28,7 +28,7 @@
             'skype': '',
             'aboutLink': 'https://biletix.ru/about_biletix/',
             'contactsLink': 'https://biletix.ru/contacts/',
-            'offertaContractLink': 'http://s.test.inna.ru/files/doc/offer_biletix.pdf'
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf'
         },
         {
             'name': 'agenda',
@@ -97,7 +97,7 @@
         return partner != null && partner.realType == self.WLType.full;
     }
     self.getPartner = function () {
-        //return self.partnersMap[0];
+//        return self.partnersMap[0];
 
         var host = location.hostname;
         for (var i = 0; i < self.partnersMap.length; i++) {

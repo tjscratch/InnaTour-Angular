@@ -227,7 +227,7 @@
                             errCallback(data, status);
                         });
                 },
-                sendITCategoryRequest: function (queryData, successCallback, errCallback) {
+                sendITCategoryRequest     : function (queryData, successCallback, errCallback) {
                     var apiData = new sendRequestData(queryData);
                     $http.post(apiUrls.SEND_IT_CATEGORY_REQUEST, apiData).success(function (data) {
                         successCallback(data);
@@ -304,5 +304,7 @@
                         success: callback
                     });
                 }
+                    
+
             };
         }]);

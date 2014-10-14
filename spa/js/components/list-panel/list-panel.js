@@ -65,8 +65,10 @@ angular.module('innaApp.components').
                     /**
                      * показываем кнопку "показать ещё" только в режиме FullWl
                      */
-                    if (window.partners.isFullWL() === true){
-                        this.set('showButtonMore', true);
+                    if (window.partners) {
+                        if (window.partners.isFullWL() === true) {
+                            this.set('showButtonMore', true);
+                        }
                     }
 
                     /**
@@ -173,6 +175,11 @@ angular.module('innaApp.components').
                     // исключаем вариант
                     var newResult = this.excludeRecommended(this.get('AllFilteredData'));
                     this.set('EnumerableCount', newResult.length);
+                    if (window.partners) {
+                        if (window.partners.isFullWL() === true) {
+                            window.partners.setScrollTo(90);
+                        }
+                    }
                 },
 
                 proxyGoToMap: function (data) {
