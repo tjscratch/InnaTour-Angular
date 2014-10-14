@@ -97,7 +97,7 @@
         return partner != null && partner.realType == self.WLType.full;
     }
     self.getPartner = function () {
-        return self.partnersMap[0];
+//        return self.partnersMap[0];
 
         var host = location.hostname;
         for (var i = 0; i < self.partnersMap.length; i++) {
