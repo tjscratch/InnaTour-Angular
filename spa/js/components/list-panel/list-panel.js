@@ -171,7 +171,7 @@ angular.module('innaApp.components').
                  */
                 setCurrent : function(modelHotel, hotelId){
                     // исключаем вариант
-                    var newResult = this.excludeRecommended(this.get('EnumerableList'));
+                    var newResult = this.excludeRecommended(this.get('AllFilteredData'));
                     this.set('EnumerableCount', newResult.length);
                 },
 
