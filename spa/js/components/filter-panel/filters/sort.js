@@ -33,7 +33,7 @@ angular.module('innaApp.components').
                             });
 
                             this.fire('toggle');
-                            this._parent.fire('sortChild', this.get('sortValue'));
+                            this.fire('onSorting', this.get('sortValue'));
                             this.hasSelected();
                         }
                     });
@@ -56,7 +56,7 @@ angular.module('innaApp.components').
                                 'current': item.name,
                                 'sortValue.val': 'byPackagePrice'
                             });
-                            that._parent.fire('sortChild', that.get('sortValue'));
+                            that.fire('onSorting', that.get('sortValue'));
                             that.hasSelected();
                             return true;
                         }
