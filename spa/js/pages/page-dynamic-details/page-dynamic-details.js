@@ -276,7 +276,7 @@ innaAppControllers
                 getHotelDetails().then(function () {
                     var scrollPosition = 0;
                     if($scope.hotel && $scope.hotel.Photos) {
-                        scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 1300 : 600;
+                        scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 980 : 350;
                     }
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
