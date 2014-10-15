@@ -89,6 +89,7 @@
         setVisible: 'setVisible',
         setFrameScrollTo: 'setFrameScrollTo',
         setScrollTop: 'setScrollTop',
+        setScrollPage: 'setScrollPage',
         saveUrlToParent: 'saveUrlToParent'
     };
 
@@ -113,6 +114,12 @@
     self.setScrollTo = function (scrollTo) {
         if (scrollTo) {
             sendCommandToParent(self.commands.setFrameScrollTo, { 'scrollTo': scrollTo });
+        }
+    }
+
+    self.setScrollPage = function (data) {
+        if (data) {
+            sendCommandToParent(self.commands.setScrollPage, { 'scrollPage': data });
         }
     }
 

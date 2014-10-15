@@ -223,6 +223,16 @@ function FrameManager() {
         }
     }
 
+    self.setFrameScrollPage = function (data) {
+        var headerHeight = document.querySelector("#inna-frame")
+        var iframeTop = utils.getCoords(headerHeight).top;
+        var scrollTop = data.scrollPage + iframeTop;
+        //скролит сайт внутри фрейма
+        if (data.scrollPage != null) {
+            window.scrollTo(0, scrollTop);
+        }
+    }
+
     self.setScrollTopCmd = function (data) {
         //задает позицию фрейма, чтобы занимал весь экран
         if (data.top != null) {
@@ -317,6 +327,7 @@ function CommandManager() {
                         break;
                     }
                 case 'setFrameScrollTo': self.frameManager.setFrameScrollToCmd(data); break;
+                case 'setScrollPage': self.frameManager.setFrameScrollPage(data); break;
                 case 'setScrollTop': self.frameManager.setScrollTopCmd(data); break;
 
                 case 'saveUrlToParent': self.urlManager.saveUrlCmd(data); break;
@@ -415,5 +426,35 @@ function UrlManager() {
         }
         //console.log('self.saveUrlCmd, newUrl:', newUrl);
         return newUrl;
+    }
+}
+
+
+var utils = {
+    getCoords: function (elem) {
+        // (1)
+        var box = elem.getBoundingClientRect();
+        var body = document.body;
+        var docEl = document.documentElement;
+
+        // (2)
+        var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+        var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+        // (3)
+        var clientTop = docEl.clientTop || body.clientTop || 0;
+        var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+        // (4)
+        var top = box.top + scrollTop - clientTop;
+        var left = box.left + scrollLeft - clientLeft;
+        var bottom = box.bottom;
+
+        // (5)
+        return {
+            top: Math.round(top),
+            left: Math.round(left),
+            bottom: Math.round(bottom)
+        };
     }
 }
