@@ -278,6 +278,7 @@ innaAppControllers
                     if($scope.hotel && $scope.hotel.Photos) {
                         scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 1300 : 600;
                     }
+                    
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
