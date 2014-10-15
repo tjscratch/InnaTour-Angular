@@ -476,10 +476,11 @@ innaAppControllers.
             var getCountryThrottled = _.debounce(function ($scope) {
                 getCountryDelayed($scope);
             }, 300);
+
             var getCountryDelayed = function ($scope) {
-                $scope.$apply(function () {
+                //$scope.safeApply(function () {
                     getCountry($scope);
-                });
+                //});
             };
 
             //откуда
