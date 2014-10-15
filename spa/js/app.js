@@ -11,8 +11,7 @@ var app = angular.module('innaApp', [
   'innaApp.components',
   'innaApp.Url',
   'innaApp.API',
-  'ngSanitize',
-  'pasvaz.bindonce'
+  'ngSanitize'
 ]);
 
 /* локализация дат moment */

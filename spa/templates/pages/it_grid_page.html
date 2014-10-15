@@ -1,7 +1,7 @@
 <div class="layout-light">
     <div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0" app-slider>
         <ul class="offers-card-banner-list Offer-card-banners">
-            <li class="offer-card-banner-item" bindonce ng-repeat="slide in slides track by $index">
+            <li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
                 <!--<img class="img" bo-src="slide.Image" />-->
                 <div class="img" style="background-image: url('{{slide.Image}}')"></div>
                 <div class="darken-container" bo-if="slide.NeedFilterBrightness" ng-click="offerClickSlider(slide, $event, $index)"></div>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="offers-white" ng-class="{'Offers-anchor':($index == 0)}" bindonce ng-repeat="section in sections track by $index">
+    <div class="offers-white" ng-class="{'Offers-anchor':($index == 0)}" ng-repeat="section in sections track by $index">
         <!--<ul class="breadcrumbs" ng-if="$index == 0">
             <li class="crumb"><a href="#/">Главная</a></li>
             <li class="crumb"><a href="#/individualtours/">Индивидуальные программы</a></li>
@@ -33,7 +33,7 @@
             <h2 class="offers-title" bo-bind="section.Name"></h2>
             <p class="offers-description" bo-bind="section.Description"></p>
             <div class="offers-list" ng-controller="OffersListCtrl">
-                <ng:any bindonce ng-repeat="block in section.OfferLayouts track by $index">
+                <ng:any ng-repeat="block in section.OfferLayouts track by $index">
                     <ng:include src="getTemplateUrlByBlockType(block.OfferLayoutType)">
                     </ng:include>
                 </ng:any>

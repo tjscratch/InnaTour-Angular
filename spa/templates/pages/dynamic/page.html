@@ -5,7 +5,7 @@
 	
     <div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0 && ABTest2 === false" app-slider>
         <ul class="offers-card-banner-list Offer-card-banners">
-            <li class="offer-card-banner-item" bindonce ng-repeat="slide in slides track by $index">
+            <li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
                 <!--<img class="img" bo-src="slide.Image" />-->
                 <div class="img" style="background-image: url('{{slide.Image}}')"></div>
                 <div class="darken-container" bo-if="slide.NeedFilterBrightness" ng-click="offerClickSlider(slide, $event, $index)"></div>
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}" bindonce ng-repeat="section in sections">
+    <div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}" ng-repeat="section in sections">
         <div class="offers-container">
 
             <div bo-if="landing.canDisplayDataForLandingPages && $index == 0">
@@ -54,7 +54,7 @@
             <h2 class="landing-title" bo-bind="section.Name" bo-if="!landing.canDisplayDataForLandingPages"></h2>
             <p class="offers-description" bo-bind="section.Description" bo-if="!landing.canDisplayDataForLandingPages"></p>
             <div class="offers-list" ng-controller="OffersListCtrl">
-                <ng:any bindonce ng-repeat="block in section.OfferLayouts track by $index">
+                <ng:any ng-repeat="block in section.OfferLayouts track by $index">
                     <ng:include src="getTemplateUrlByBlockType(block.OfferLayoutType)">
                     </ng:include>
                 </ng:any>
