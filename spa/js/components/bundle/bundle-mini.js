@@ -38,7 +38,7 @@ angular.module('innaApp.directives')
                         }
                     })
 
-                    //destroy
+                                       
                     $scope.$on('$destroy', function () {
                         _stars.teardown();
                         _priceGeneric.teardown();

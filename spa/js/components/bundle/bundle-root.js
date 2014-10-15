@@ -209,22 +209,7 @@ angular.module('innaApp.directives')
                             scroll = false;
                         };
 
-                        function filtersLoadDone(data){
-                            if(data.length < 10 && scroll) {
-                                unwatchScroll();
-                            } else if(data.length > 10 && !scroll) {
-                                doc.on('scroll', onScroll);
-                            }
-                        }
-
-                        function filtersPanelReset(){
-                            if(!scroll) doc.on('scroll', onScroll);
-                        }
-
                         doc.on('scroll', onScroll);
-
-                        EventManager.on(Events.LIST_PANEL_FILTES_HOTELS_DONE, filtersLoadDone);
-                        EventManager.on(Events.FILTER_PANEL_RESET, filtersPanelReset);
 
 
                         /*Events*/
@@ -234,9 +219,6 @@ angular.module('innaApp.directives')
                             EventManager.off(Events.DYNAMIC_SERP_CHOOSE_TICKET);
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, openBundle);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, closeBundle);
-                            EventManager.off(Events.LIST_PANEL_FILTES_HOTELS_DONE, filtersLoadDone);
-                            EventManager.off(Events.FILTER_PANEL_RESET, filtersPanelReset);
-                            //EventManager.off(Events.DYNAMIC_SERP_CHOOSE_HOTEL, getHotelDetails);
                             unwatchScroll();
                         });
                     }

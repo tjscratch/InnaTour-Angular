@@ -58,7 +58,11 @@
 	    <ul class="mini-gallery" ng-if="room.Photos && (room.Photos.LargePhotos && room.Photos.LargePhotos.length)">
 		    <li ng-repeat="pic in room.Photos.LargePhotos"
                 class="mini-gallery__mini"
-                style="background-image:url({{room.Photos.BaseUrl + pic}});"></li>
+                style="background-image:url({{room.Photos.BaseUrl + pic}});">
+			    <div class="mini-gallery__big">
+	                <img class="mini-gallery__big-img" ng-src="{{room.Photos.BaseUrl + pic}}" alt=""/>
+                </div>
+                </li>
         </ul>
 
         <div class="hotel-details-rooms__room-long-text">

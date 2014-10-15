@@ -33,9 +33,10 @@ angular.module('innaApp.components').
                     iterable_tickets: false,
 
                     EnumerableCount: 0,
-                    EnumerableClone: [],
+                    AllFilteredData: {},
                     EnumerableList: [],
-                    countItemsVisible: 10
+                    countItemsVisible: 10,
+                    showButtonMore : false
                 },
                 partials: {
                     EnumerableItemHotels: $templateCache.get('components/list-panel/templ/enumerableItemHotel.hbs.html'),
@@ -62,6 +63,13 @@ angular.module('innaApp.components').
                         this.parse(this.get('Enumerable'), { ticket: true });
 
                     /**
+                     * показываем кнопку "показать ещё" только в режиме FullWl
+                     */
+                    if (window.partners.isFullWL() === true){
+                        this.set('showButtonMore', true);
+                    }
+
+                    /**
                      * Вызов метода не чаще 300
                      * так как срабатывает по скроллингу
                      * {@link http://underscorejs.org/}
@@ -71,10 +79,6 @@ angular.module('innaApp.components').
                     //this.set('Enumerable', this.get('Enumerable').concat(this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable'), this.get('Enumerable')))
 
 
-                    this.eventListener = function () {
-                        that.onScroll();
-                    };
-
                     this.addScroll();
 
                     this.on({
@@ -82,7 +86,10 @@ angular.module('innaApp.components').
 
                         },
                         goToMap: function (data) {
-                            EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('EnumerableList'), data);
+                            EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('AllFilteredData'), data);
+                        },
+                        goToMore: function (){
+                            this.debounceDose();
                         },
 
                         '*.setCurrent' : this.setCurrent,
@@ -90,7 +97,7 @@ angular.module('innaApp.components').
                         teardown: function (evt) {
                             //console.log('teardown ListPanel');
                             this.observeEnumerable.cancel();
-                            document.removeEventListener('scroll', this.eventListener);
+                            document.removeEventListener('scroll', this.onScroll, false);
                             clearTimeout(this._filterTimeout);
                             clearTimeout(this._scrollTimeout);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
@@ -105,29 +112,17 @@ angular.module('innaApp.components').
                      * Срабатывает один раз
                      * Далее копируем массив Enumerable и работаем с копией
                      */
-                    this.observeEnumerable =  this.observe({
+                    this.observeEnumerable = this.observe({
                         Enumerable: function (newValue, oldValue, keypath) {
                             if (newValue) this.cloneData(newValue);
                         },
                         EnumerableList: function (newValue, oldValue, keypath) {
                             if (newValue) {
-
-                                //console.log(newValue, 'newValue');
-
-                                /* console.table([
-                                 {
-                                 newValue: newValue.length,
-                                 EnumerableList: this.get('EnumerableList').length,
-                                 Enumerable: this.get('Enumerable').length,
-                                 enumerableClone: this.enumerableClone.length
-                                 }
-                                 ]);*/
-
                                 // после добавления элементов в EnumerableList
                                 // обновляем координаты
                                 // оборачиваем в setTimeout, так как нужно дождаться вставки элементов в DOM
                                 if (newValue.length) {
-                                    if (newValue.length != this.get('Enumerable').length) {
+                                    if (newValue.length != this.get('Enumerable').length - 1) {
                                         setTimeout(this.updateCoords, 0);
                                     } else {
                                         this.removeScroll();
@@ -145,27 +140,39 @@ angular.module('innaApp.components').
                     EventManager.on(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
                     EventManager.on(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
                     EventManager.on(Events.DYNAMIC_SERP_GO_TO_MAP, this.proxyGoToMap);
-
+                    
                     /** Событие изменения фильтров или сортировки */
                     EventManager.on(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
                 },
 
                 FILTER_PANEL_CHANGE : function(data){
-                    // подписываемся на событие скролла если еще нет этого события
-                    if (!this.get('scroll') && data.length > this.get('countItemsVisible'))
-                        this.addScroll();
-
-                    // если список меньше колличества разовой порции, то скролл нам не нужен
-                    if (data.length <= this.get('countItemsVisible')) this.removeScroll();
+                    this.merge('AllFilteredData', data);
 
                     /* ставим в конец очереди чтоб не блокировать переключение фильтров */
                     this.cloneData(data);
+
+
+                    // если список меньше колличества разовой порции, то скролл нам не нужен
+                    if (data.length <= this.get('countItemsVisible')) {
+                        this.removeScroll();
+                    }  else {
+                        if(!this.get('scroll'))
+                            this.addScroll();
+                    }
                 },
 
+                /**
+                 * При выборе какогото отеля подписываемся на событие дочернего компонента '*.setCurrent'
+                 * делаем необходимые действия
+                 * исключаем вариант из счетчика ( EnumerableCount ) который выбрали
+                 *
+                 * @param modelHotel
+                 * @param hotelId
+                 */
                 setCurrent : function(modelHotel, hotelId){
-                    if(this.get('EnumerableCount') == 1){
-                        this.set('EnumerableCount', 0);
-                    }
+                    // исключаем вариант
+                    var newResult = this.excludeRecommended(this.get('EnumerableList'));
+                    this.set('EnumerableCount', newResult.length);
                 },
 
                 proxyGoToMap: function (data) {
@@ -183,7 +190,7 @@ angular.module('innaApp.components').
                         elHeight = this.get('elHeight');
 
 
-                    //console.log((elHeight), (scrollTop + (viewportHeight + 100)));
+//                    console.log((elHeight), (scrollTop + (viewportHeight + 100)));
 
 
                     /**
@@ -207,13 +214,14 @@ angular.module('innaApp.components').
                 },
 
                 addScroll: function () {
-                    document.addEventListener('scroll', this.eventListener);
+                    document.addEventListener('scroll', this.onScroll, false);
                     this.set({scroll: true});
                 },
 
                 removeScroll: function () {
-                    document.removeEventListener('scroll', this.eventListener);
+                    document.removeEventListener('scroll', this.onScroll, false);
                     this.set({scroll: false});
+                    this.set('showButtonMore', false);
                 },
 
                 toggleScroll: function () {
@@ -296,7 +304,7 @@ angular.module('innaApp.components').
                             //item.etap
 
                             // авиалинии этого билета
-                            var airline = _.union(modelTicket.collectAirlines().airlines);
+                            var airline = _.pluck(modelTicket.collectAirlines().airlines, 'name');
                             var legsTo = modelTicket.getEtaps('To').length;
                             var legsBack = modelTicket.getEtaps('Back').length;
 
@@ -318,6 +326,7 @@ angular.module('innaApp.components').
                     var recomented = null;
                     var result = null;
 
+                    //console.info(collection.length, "collection");
                     if (this.get('iterable_hotels')) {
                         recomented = this.get('combinationModel').hotel.data;
                         result = collection.filter(function (item) {
@@ -332,6 +341,7 @@ angular.module('innaApp.components').
                         })
                     }
 
+                    //console.log(result.length, "result.length");
                     return result;
                 },
 
@@ -340,16 +350,11 @@ angular.module('innaApp.components').
                  * Клонируем список отелей и далее работает с ним
                  * @param opt_data
                  */
-                cloneData: function (opt_data) {
+                cloneData: function (opt_data, opt_exclude) {
                     if(opt_data) this.set('EnumerableList', []);
                     var list = opt_data || this.set('Enumerable');
 
-                    // исключаем рекомендованный вариант
-                    //if (list.length == 1) {
-                        list = this.excludeRecommended(list);
-                    //}
-
-                    this.enumerableCount(list);
+                    this.enumerableCount(list, opt_exclude);
                     this.enumerableClone = [].concat(list);
 
                     // получаем первую порцию из n item
@@ -357,8 +362,10 @@ angular.module('innaApp.components').
                     this.nextArrayDoseItems();
                 },
 
-                enumerableCount: function (data) {
-                    this.set('EnumerableCount', data.length);
+                enumerableCount: function (data, opt_exclude) {
+                    var ex = this.excludeRecommended(data);
+                    //console.info(ex.length);
+                    this.set('EnumerableCount', ex.length);
                 },
 
                 wait: function () {

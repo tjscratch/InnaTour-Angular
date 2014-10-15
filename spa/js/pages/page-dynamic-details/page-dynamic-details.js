@@ -126,6 +126,7 @@ innaAppControllers
                         }
                     },
                     error: function () {
+                        _balloonLoad.dispose();
                         _balloonLoad.updateView({
                             template: "err.html",
                             title: 'Oops...',
@@ -247,19 +248,36 @@ innaAppControllers
 
                             onload();
                         } else {
-                            $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
+                            showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
                         }
                     },
                     error: function () {
-                        console.log('no rooms');
-                        $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
+                        showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
                     }
                 });
             };
 
+            function showErrNotFound(msg) {
+                $scope.baloon.showNotFound(msg, "Пожалуйста, выполните новый поиск.", function () {
+                    var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                        $routeParams.DepartureId,
+                        $routeParams.ArrivalId,
+                        $routeParams.StartVoyageDate,
+                        $routeParams.EndVoyageDate,
+                        $routeParams.TicketClass,
+                        $routeParams.Adult,
+                        $routeParams.Children
+                    ].join('-');
+                    $location.url(url);
+                });
+            }
+
             if (!routParam.OrderId) {
                 getHotelDetails().then(function () {
-                    var scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 980 : 350;
+                    var scrollPosition = 0;
+                    if($scope.hotel && $scope.hotel.Photos) {
+                        scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 1300 : 600;
+                    }
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
@@ -398,13 +416,6 @@ innaAppControllers
                 room.isOpen = !!!room.isOpen;
             };
 
-            //$scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, onload);
-
-            /*$scope.$on('$locationChangeSuccess', function (data, url, datatest) {
-             if (!('displayHotel' in $location.search())) {
-             $scope.back();
-             }
-             });*/
 
             $scope.$on('$destroy', function () {
                 $('body').removeAttr('style');

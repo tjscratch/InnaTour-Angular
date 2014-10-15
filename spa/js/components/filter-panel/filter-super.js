@@ -24,10 +24,10 @@ angular.module('innaApp.components').
         function (EventManager, $filter, $templateCache, $routeParams, Events, $timeout, FilterService, FilterSettings, IndicatorFilters, FilterSort) {
 
 
-          /**
-           * Компонент FilterPanel
-           * @class
-           */
+            /**
+             * Компонент FilterPanel
+             * @class
+             */
             var FilterPanel = Ractive.extend({
                 template: $templateCache.get('components/filter-panel/templ/panel.hbs.html'),
                 append: true,
@@ -98,12 +98,7 @@ angular.module('innaApp.components').
                     });
 
 
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function () {
-                        that.set('asMap', true);
-                    });
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
-                        that.set('asMap', false);
-                    });
+
 
                     /** если нужно закрыть все открытые фильтры */
                     EventManager.on(Events.FILTER_PANEL_CLOSE_FILTERS, function () {

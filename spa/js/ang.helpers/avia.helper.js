@@ -257,6 +257,7 @@
                     var backDepartureDate = dateHelper.apiDateToJsDate(item.BackDepartureDate);
                     var backArrivalDate = dateHelper.apiDateToJsDate(item.BackArrivalDate);
 
+                    // TODO : заменить даты на время
                     item.sort = {
                         DepartureDate: departureDate.getTime(),
                         ArrivalDate: arrivalDate.getTime(),
@@ -459,8 +460,8 @@
                     showExpireCheck: function () {
                         helper.baloon.show(null, null, baloonType.expireCheck);
                     },
-                    showNotFound: function (closeFn) {
-                        helper.baloon.show(null, null, baloonType.notFound, closeFn);
+                    showNotFound: function (caption, text, closeFn) {
+                        helper.baloon.show(caption, text, baloonType.notFound, closeFn);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);
@@ -641,7 +642,7 @@
                             buyCriteria.VariantId1 = item.VariantId1;
                             buyCriteria.VariantId2 = item.VariantId2 != null ? item.VariantId2 : 0;
 
-                            var url = app_main.frontHost + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
+                            var url = $location.host() + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
                             self.link = url;
                         }
 

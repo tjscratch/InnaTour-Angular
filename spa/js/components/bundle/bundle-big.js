@@ -40,6 +40,7 @@ angular.module('innaApp.directives')
                      * :DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children-:HotelId-:TicketId-:ProviderId?
                      *
                      */
+
                     $scope.computedUrlDetails = function (opt_param) {
 
                         var DepartureId = searchParams.DepartureId;
@@ -76,7 +77,7 @@ angular.module('innaApp.directives')
                     var _shareLink = new ShareLink({
                         el: $element.find('.js-share-component'),
                         data : {
-                            location : document.location
+                            location : angular.copy(document.location.href)
                         }
                     });
 
@@ -135,7 +136,10 @@ angular.module('innaApp.directives')
 
                     // update components
                     $scope.$watchCollection('bundle', function(value){
-                        
+
+                        //  обновляем transportersList
+                        $scope.transportersList = $scope.bundle.ticket.collectAirlines().airlines;
+
                         _priceGeneric.set({
                             'virtualBundle': value,
                             type : $scope.tabActive
