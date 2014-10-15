@@ -422,6 +422,14 @@ innaAppControllers.
                 self.init = function () {
                     self.navCurrent = self.navList[0];
                     self.navCurrent.item.focus();
+                    $timeout(function () {
+                        var elem = document.querySelector(".b-tickets-info-container")
+                        if (window.partners) {
+                            if (window.partners.isFullWL() === true) {
+                                window.partners.setScrollPage(utils.getCoords(elem).top);
+                            }
+                        }
+                    }, 300)
                 }
                 self.next = function (key) {
                     //console.log('goNext, key: %s', key);
@@ -437,7 +445,7 @@ innaAppControllers.
                             self.navCurrent.item.focus();
                         }
                     }
-                }
+                }                
             }
 
             $scope.focusControl = new focusControl();
