@@ -1,3 +1,5 @@
-<div class="offer-extra-large" bo-class="{'offer-animation':!showImgOnly(block.Offer1)}" ng-click="offerClick(block.Offer1, $event, $index, block, section)">
+<div class="offer-extra-large"
+     ng-class="{'offer-animation':!showImgOnly(block.Offer1)}"
+     ng-click="offerClick(block.Offer1, $event, $index, block, section)">
     <ng:include src="'grid/_item_inner.html'" ng-repeat="item in [block.Offer1] track by $index"></ng:include>
 </div>

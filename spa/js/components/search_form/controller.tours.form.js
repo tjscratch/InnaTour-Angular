@@ -184,7 +184,9 @@ innaAppControllers.
 
                 if (skipClose != skipCloseType.date) {
                     $(".Calendar-input").datepicker("hide");
-                    $(".Calendar-input").blur();
+
+                    // вызывает ошибку $rootScope:inprog
+                    //$(".Calendar-input").blur();
                 }
 
                 if (skipClose != skipCloseType.nights)
@@ -478,9 +480,9 @@ innaAppControllers.
             }, 300);
 
             var getCountryDelayed = function ($scope) {
-                //$scope.safeApply(function () {
+                $scope.safeApply(function () {
                     getCountry($scope);
-                //});
+                });
             };
 
             //откуда
@@ -545,12 +547,13 @@ innaAppControllers.
             };
             $scope.toFocus = function ($event) {
                 //выключаем тултип
+                //console.info('focus');
                 $scope.form.toTooltip.hide();
                 preventBubbling($event);
             };
 
             $scope.toBlur = function ($event) {
-                //log('toBlur');
+                //console.info('toBlur');
                 //logState();
 
                 //если ничего не ввели - по ставим дефолтный текст
@@ -647,9 +650,11 @@ innaAppControllers.
             };
 
             $scope.toChange = function () {
+                //console.info('toChange');
                 //console.log('toChange:' + $scope.form.toText);
                 getCountryThrottled($scope);
             };
+
             $scope.toClick = function ($event) {
                 //log('toClick');
                 closeAllPopups(skipCloseType.to);
