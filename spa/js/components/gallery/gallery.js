@@ -6,15 +6,14 @@ angular.module('innaApp.components').
 
             /**
              * Компонент HotelGallery
-             * @constructor
+             * @class
              */
             var HotelGallery = Ractive.extend({
                 template: $templateCache.get('components/gallery/templ/gallery.hbs.html'),
                 append: true,
                 data: {
                     isHovered : false,
-                    imageSize : 'Small',
-                    Photos : [],
+                    imageSize : 'MediumPhotos',
                     photoList: [],
                     photoCollection : [],
                     width: 200,
@@ -23,9 +22,9 @@ angular.module('innaApp.components').
 
                 init: function () {
                     var that = this;
-                    that._sliderItemTotal = null;
+                    this._sliderItemTotal = null;
                     this._slider = null;
-                    that._sliderIndex = 0;
+                    this._sliderIndex = 0;
 
 
                     this.on({
@@ -38,12 +37,25 @@ angular.module('innaApp.components').
                         change: function (data) {
 
                         }
-                    })
+                    });
+                    
 
-                    this.observe('photoList', function (newValue, oldValue, keypath) {
-                        if (newValue) {
+
+                    this.observe('PhotoHotel', function (newValue) {
+                        var size = this.get('imageSize');
+                        if (newValue && (newValue[size] && newValue[size].length)) {
+                            var baseUrl = newValue.BaseUrl;
+                            var photoList = newValue[size];
+                            var joinPhoto = [];
+
+                          for (var i = 0; i < photoList.length; i++) {
+                            var img = photoList[i];
+                            joinPhoto.push(baseUrl+img);
+                          }
+
+
                             //клонируем массив - чтоб ractive не наблюдал за ним вверх по дочерним компонентам
-                            this.set({ Photos : [].concat(this.get('photoList')) })
+                            this.set({ photoList : [].concat(joinPhoto)})
                         }
                     });
                 },
@@ -94,12 +106,13 @@ angular.module('innaApp.components').
                 },
 
                 onHover : function(){
+
                    this.set({isHovered : true});
                     // отписываемся от события hover
                     this.off('hover');
 
                     // создаем новый массив исключая первый элемент
-                    var newArrPhoto = this.get('Photos').splice(1, this.get('Photos').length);
+                    var newArrPhoto = this.get('photoList').splice(1, this.get('photoList').length);
 
                     this.set({photoCollection : newArrPhoto})
                 },

@@ -36,6 +36,7 @@ bin/*
 *.dbmdl
 *.log
 *.idea
+*.*(!)
 .git
 .gitignore
 *.DS_Store

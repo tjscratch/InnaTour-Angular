@@ -4,20 +4,20 @@
     '$timeout',
     function ($templateCache, eventsHelper, $timeout) {
         return {
-            replace: true,
-            template: $templateCache.get('components/dropdown_input.html'),
-            scope: {
+            replace   : true,
+            template  : $templateCache.get('components/dropdown_input.html'),
+            scope     : {
                 provideSuggestCallback: '=', //callback for ngChange
-                suggest: '=', //list of suggested objects
-                result: '=',
-                setResultCallback: '&',
-                setResultItem: '=',
-                theme: '@',
-                askForData: '=',
-                placeholder: '@',
-                onError: '@',
-                withCountry: '=',
-                event: '@'
+                suggest               : '=', //list of suggested objects
+                result                : '=',
+                setResultCallback     : '&',
+                setResultItem         : '=',
+                theme                 : '@',
+                askForData            : '=',
+                placeholder           : '@',
+                onError               : '@',
+                withCountry           : '=',
+                event                 : '@'
             },
             controller: ['$scope', '$timeout', function ($scope, $timeout) {
                 /*Properties*/
@@ -55,8 +55,8 @@
                                         my: 'center top+22',
                                         at: 'center bottom'
                                     },
-                                    items: "[data-title]",
-                                    content: function () {
+                                    items   : "[data-title]",
+                                    content : function () {
                                         return $scope.input.data("title");
                                     }
                                 }).tooltip('open');
@@ -86,16 +86,16 @@
                             if (!doNotUpdateInputText) {
                                 $scope.input.val(airport.Name);
                             }
-                            
+
                             $scope.result = airport.Id;
                             $scope.doResultCallback(airport);
                         }
                         else {
                             var valueBits = [option.Name];
-                            if($scope.withCountry) {
+                            if ($scope.withCountry) {
                                 valueBits.push(option.CountryName);
                             }
-                            
+
                             if (!doNotUpdateInputText) {
                                 $scope.input.val(valueBits.join(', '));
                             }
@@ -116,21 +116,28 @@
                     });
                 }
 
+
+                if (window.partners && window.partners.getPartner()) {
+                    var partner = window.partners.getPartner().name;
+                }
                 /*Watchers*/
                 $scope.$watch('result', function (newValue, oldValue) {
                     if (newValue instanceof Error) {
                         $scope.result = oldValue;
-
-                        $scope.input.tooltip({
-                            position: {
-                                my: 'center top+22',
-                                at: 'center bottom'
-                            },
-                            items: "[data-title]",
-                            content: function () {
-                                return $scope.input.data("title");
-                            }
-                        }).tooltip('open');
+                        if (partner === 'biletix') {
+                            $scope.Error = $scope.input.data("title");
+                        } else {
+                            $scope.input.tooltip({
+                                position: {
+                                    my: 'center top+22',
+                                    at: 'center bottom'
+                                },
+                                items   : "[data-title]",
+                                content : function () {
+                                    return $scope.input.data("title");
+                                }
+                            }).tooltip('open');
+                        }
                     } else if (!$scope.input.val()) {
                         if (newValue != null && newValue != 'null' && $scope.askForData) {
                             //console.log('askForDataByID', newValue);
@@ -139,10 +146,10 @@
                     }
                 });
 
-                $scope.$on('DYNAMIC.locationChange', function(event, routeParams){
+                $scope.$on('DYNAMIC.locationChange', function (event, routeParams) {
                     $scope.$root._dynamicSearchFormInvisible = true;
 
-                    $timeout(function(){
+                    $timeout(function () {
                         $scope.$root._dynamicSearchFormInvisible = false;
                     }, 1);
                 });
@@ -157,8 +164,8 @@
                     self.list = [];
                     self.item = function (item, option, airport) {
                         var res = {
-                            item: item,
-                            option: option,
+                            item   : item,
+                            option : option,
                             airport: airport
                         }
                         return res;
@@ -280,7 +287,7 @@
                 };
 
                 /*Events*/
-                function select(){
+                function select() {
                     //console.log('SELECT');
                     $scope.$apply(function ($scope) {
                         if ($scope.isOpened) {
@@ -292,13 +299,20 @@
                     });
                 }
 
+                if (window.partners && window.partners.getPartner()) {
+                    var partner = window.partners.getPartner().name;
+                }
                 $scope.input.on('focus', function () {
                     //$scope.$apply(function ($scope) {
                     //    $scope.isOpened = true;
                     //});
 
                     try {
-                        $scope.input.tooltip('destroy');
+                        if (partner === 'biletix') {
+                            $scope.Error = false;
+                        } else {
+                            $scope.input.tooltip('destroy');
+                        }
                     } catch (e) {
                     }
 
@@ -318,15 +332,16 @@
                     var key = theEvent.keyCode || theEvent.which;
                     //console.log('key: %d', key);
                     switch (key) {
-                        case 13: {
+                        case 13:
+                        {
                             select();
                             //return false;
                             break;
                         }
                         case 9://tab
-                            {
-                                break;
-                            }
+                        {
+                            break;
+                        }
                         case 16:
                         case 17:
                         case 18:
@@ -336,16 +351,17 @@
                         case 36:
                         case 45:
                         case 46://del
-                            {
-                                break;
-                            }
+                        {
+                            break;
+                        }
                         case 37://left
                         case 39://right
-                            {
-                                //return false;
-                                break;
-                            }
-                        case 38: {//up
+                        {
+                            //return false;
+                            break;
+                        }
+                        case 38:
+                        {//up
                             $scope.$apply(function ($scope) {
                                 if ($scope.isOpened) {
                                     $scope.selectionControl.selectPrev();
@@ -356,7 +372,8 @@
                             });
                             break;
                         }
-                        case 40: {//down
+                        case 40:
+                        {//down
                             $scope.$apply(function ($scope) {
                                 if ($scope.isOpened) {
                                     $scope.selectionControl.selectNext();
@@ -367,7 +384,8 @@
                             });
                             break;
                         }
-                        default: {
+                        default:
+                        {
                             goSearch();
                             break;
                         }
@@ -388,7 +406,7 @@
                 }
 
                 function clickHanlder(event) {
-                    
+
                     var isInsideComponent = !!$(event.target).closest(elem).length;
 
                     if (!isInsideComponent) {
@@ -403,6 +421,7 @@
                         $(event.target).select();
                     }
                 }
+
                 $(document).click(clickHanlder);
 
                 $scope.$on('$destroy', function () {

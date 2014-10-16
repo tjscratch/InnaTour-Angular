@@ -75,7 +75,7 @@ angular.module('innaApp.directives')
                                 el: $element.find('.js-share-component'),
                                 data: {
                                     right: true,
-                                    location: window.location
+                                    location: angular.copy(document.location.href)
                                 }
                             })
                         }, 100)

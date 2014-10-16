@@ -1,4 +1,4 @@
-<div class="b-wrapp_type_inline {{theme}}">
+<div class="b-wrapp_type_inline {{theme}}" ng-class="{'error': Error}">
     <input type="text" data-title="{{onError || 'Поле заполнено некорректно' }}" class="search-field" placeholder="{{getPlaceholder()}}"/>
     <input type="hidden" ng-model="result"/>
     <ul class="search-autocomplete" ng-if="isOpened && suggest">
@@ -17,4 +17,8 @@
             </ul>
         </li>
     </ul>
+
+	<div class="ui-tooltip" ng-show="Error">
+		<div class="ui-tooltip-content">{{ Error }} {{ Errorsd }}</div>
+	</div>
 </div>

@@ -3,7 +3,6 @@ innaAppControllers
         'EventManager',
         '$window',
         '$scope',
-        '$anchorScroll',
         '$timeout',
         'aviaHelper',
         'innaApp.Urls',
@@ -13,13 +12,14 @@ innaAppControllers
         '$routeParams',
         'DynamicFormSubmitListener',
         '$q',
+        '$anchorScroll',
 
         // components
         'Tripadvisor',
         'Stars',
         'Balloon',
         '$filter',
-        function (EventManager, $window, $scope, $anchorScroll, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, Tripadvisor, Stars, Balloon, $filter) {
+        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter) {
 
             DynamicFormSubmitListener.listen();
 
@@ -78,7 +78,6 @@ innaAppControllers
             $scope.buyAction = ($location.search().action == 'buy');
             $scope.dateHelper = dateHelper;
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
-            $scope.dataFullyLoadedGallery = false;
             var _balloonLoad = new Balloon();
 
             var backgrounds = [
@@ -119,8 +118,6 @@ innaAppControllers
                             EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
                             loadMap();
                             onload();
-
-                            $scope.dataFullyLoadedGallery = true;
                         }
 
 
@@ -129,6 +126,7 @@ innaAppControllers
                         }
                     },
                     error: function () {
+                        _balloonLoad.dispose();
                         _balloonLoad.updateView({
                             template: "err.html",
                             title: 'Oops...',
@@ -250,31 +248,48 @@ innaAppControllers
 
                             onload();
                         } else {
-                            $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
+                            showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
                         }
                     },
                     error: function () {
-                        console.log('no rooms');
-                        $scope.baloon.showErr("К сожалению, свободных номеров в данный момент нет");
+                        showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
                     }
                 });
             };
 
+            function showErrNotFound(msg) {
+                $scope.baloon.showNotFound(msg, "Пожалуйста, выполните новый поиск.", function () {
+                    var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                        $routeParams.DepartureId,
+                        $routeParams.ArrivalId,
+                        $routeParams.StartVoyageDate,
+                        $routeParams.EndVoyageDate,
+                        $routeParams.TicketClass,
+                        $routeParams.Adult,
+                        $routeParams.Children
+                    ].join('-');
+                    $location.url(url);
+                });
+            }
+
             if (!routParam.OrderId) {
                 getHotelDetails().then(function () {
-
+                    var scrollPosition = 0;
+                    if($scope.hotel && $scope.hotel.Photos) {
+                        scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 980 : 350;
+                    }
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
                         $timeout(function () {
-                            window.scrollTo(0, 1050);
+                            /*$location.hash('ScrollRooms');
+                            $anchorScroll();*/
+
+                            window.scrollTo(0, scrollPosition);
                             if (window.partners) {
-                                window.partners.setScrollTo(1050);
+                                window.partners.setScrollTo(scrollPosition);
                             }
-                            $scope.dataFullyLoadedGallery = true;
                         }, 1000);
-                    } else {
-                        $scope.dataFullyLoadedGallery = true;
                     }
 
                     getHotelDetailsRooms();

@@ -13,7 +13,8 @@
             </div>
         </div>
 
-        <div class="hotel-details__section hotel-details__section_gallery" ng-if="hotel.Photos.length">
+        <div class="hotel-details__section hotel-details__section_gallery"
+             ng-if="(hotel.Photos && (hotel.Photos.LargePhotos.length || hotel.Photos.MediumPhotos.length))">
             <div inna-gallery inna-gallery-pic-list="hotel.Photos"></div>
         </div>
 
@@ -57,7 +58,7 @@
             </div>
         </div>
 
-        <div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom && dataFullyLoaded">
+        <div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom">
 
             <h2 class="hotel-details__section-title">
                 <span ng-if="!buyAction">Пакет с этим отелем</span>
@@ -68,6 +69,9 @@
                  inna-dynamic-bundle-bundle="bundle"
                  inna-dynamic-bundle-ticket-details="getTicketDetails"></div>
         </div>
+
+	    <!--<div class="$anchorScroll" id="ScrollRooms"
+	         style="display: block; position: relative; top: -150px; visibility: hidden;"></div>-->
 
         <div class="hotel-details__section">
             <h2 class="hotel-details__section-title" ng-if="!hotelOnly">Выбор номера</h2>

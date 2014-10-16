@@ -24,10 +24,10 @@ angular.module('innaApp.components').
         function (EventManager, $filter, $templateCache, $routeParams, Events, $timeout, FilterService, FilterSettings, IndicatorFilters, FilterSort) {
 
 
-          /**
-           * Компонент FilterPanel
-           * @class
-           */
+            /**
+             * Компонент FilterPanel
+             * @class
+             */
             var FilterPanel = Ractive.extend({
                 template: $templateCache.get('components/filter-panel/templ/panel.hbs.html'),
                 append: true,
@@ -60,6 +60,7 @@ angular.module('innaApp.components').
                 init: function () {
                     var that = this;
                     this.sortingValue = null;
+                    this.filtersCollectionTempl = {};
 
                     utils.bindAll(this);
 
@@ -74,10 +75,10 @@ angular.module('innaApp.components').
                         },
                         '*.onCheckedFilter': function (data) {
                             if (data != undefined) {
-                                this.collectChildData();
+                                this.collectChildData(data);
                             }
                         },
-                        sortChild: function (data) {
+                        '*.onSorting': function (data) {
                             if (data) this.sortingValue = angular.copy(data);
                             setTimeout(function () {
                                 that.doSort(true);
@@ -98,12 +99,7 @@ angular.module('innaApp.components').
                     });
 
 
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_LOAD, function () {
-                        that.set('asMap', true);
-                    });
-                    EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
-                        that.set('asMap', false);
-                    });
+
 
                     /** если нужно закрыть все открытые фильтры */
                     EventManager.on(Events.FILTER_PANEL_CLOSE_FILTERS, function () {
@@ -167,7 +163,7 @@ angular.module('innaApp.components').
                     this.observe('updateModel', function (value) {
                         setTimeout(function () {
                             if (that.get('isFiltered')) {
-                                that.collectChildData(true);
+                                that.collectChildData();
                             } else {
                                 that.doSort(true);
                             }
@@ -241,6 +237,8 @@ angular.module('innaApp.components').
                         item.fire('resetFilter', {silent: true});
                     });
 
+                    this.filtersCollectionTempl = {};
+
                     this.set({
                         'isFiltered': false,
                         'resultFilters': []
@@ -290,14 +288,20 @@ angular.module('innaApp.components').
                  * собираем данные для фильтрации
                  * обновляем массив filtersCollection
                  */
-                collectChildData: function () {
+                collectChildData: function (data) {
                     var tempArr = [];
 
-                    this.findAllComponents().forEach(function (child) {
-                        if (child.get('value') && child.get('value.val') && child.get('value.val').length) {
-                            tempArr.push(angular.copy(child.get('value')));
+                    if(data && data.name){
+                        if(data.value.val.length) {
+                            this.filtersCollectionTempl[data.name] = angular.copy(data.value);
+                        } else {
+                            delete this.filtersCollectionTempl[data.name];
                         }
-                    });
+                    }
+
+                    for(var key in this.filtersCollectionTempl) {
+                        tempArr.push(angular.copy(this.filtersCollectionTempl[key]));
+                    }
 
                     this.set('filtersCollection', [].concat(tempArr));
                 },

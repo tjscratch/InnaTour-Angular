@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     gulpif = require('gulp-if'),
     nib = require('nib'),
+    livereload = require('gulp-livereload'),
     conf = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';
@@ -13,7 +14,7 @@ var optStyl = {
     define: { 'math-random': 123 }
 };
 
-var styleBase = '../../spa/styl/base.styl';
+var styleBase = '../../../spa/styl/base.styl';
 
 
 /* простой конкат  */
@@ -49,16 +50,7 @@ gulp.task('styl-common', function () {
         .pipe(stylus(optStyl))
         .pipe(concat('common.min.css'))
         .pipe(gulp.dest(conf.build + '/css'))
-
-        .on('end', function() {
-
-        })
-
-        .on('error', function(err) {
-            if (!/tests? failed/.test(err.stack)) {
-                console.log(err.stack);
-            }
-        });
+        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 
 gulp.task('styl-ticket', function () {
@@ -89,7 +81,8 @@ gulp.task('styl-partners', function () {
     optStyl.import = styleBase;
     return gulp.src([conf.styl + '/partners/**/*.base.styl'])
 		.pipe(stylus(optStyl))
-        .pipe(gulp.dest(conf.styl + '/partners'));
+        .pipe(gulp.dest(conf.styl + '/partners'))
+        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 
 
@@ -98,7 +91,8 @@ gulp.task('styl-adv', function () {
     optStyl.import = styleBase;
     return gulp.src([conf.src + '/components/adv/css/adv.base.styl'])
         .pipe(stylus(optStyl))
-        .pipe(gulp.dest(conf.src + '/components/adv/css'));
+        .pipe(gulp.dest(conf.src + '/components/adv/css'))
+        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 
 /* AB Test*/
@@ -106,7 +100,8 @@ gulp.task('styl-abtest', function () {
     optStyl.import = styleBase;
     return gulp.src([conf.src + '/components/ab_test/**/*.base.styl'])
         .pipe(stylus(optStyl))
-        .pipe(gulp.dest(conf.src + '/components/ab_test/'));
+        .pipe(gulp.dest(conf.src + '/components/ab_test/'))
+        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 
 
