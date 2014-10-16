@@ -21,8 +21,7 @@ innaAppControllers.
         // components
         '$templateCache',
         'Balloon',
-        function AviaBuyTicketsCtrl($log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls
-            , $templateCache, Balloon) {
+        function AviaBuyTicketsCtrl($log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls, $templateCache, Balloon) {
 
             var self = this;
 
@@ -281,7 +280,7 @@ innaAppControllers.
                     }
                 }
             }
-            
+
             $scope.TKP = {
                 url: function () {
                     return app_main.staticHost + '/files/doc/TCH.pdf';
@@ -433,6 +432,8 @@ innaAppControllers.
                         index++;
                         self.navCurrent = self.navList[index];
                         if (self.navCurrent != null) {
+
+                            // TODO : тут ошибка в angular 1.3.0
                             self.navCurrent.item.select();
                             self.navCurrent.item.focus();
                         }
@@ -606,6 +607,7 @@ innaAppControllers.
                                             }
                                             return res;
                                         }
+
                                         //коды аэропортов
                                         $scope.ports = getIATACodes(data.AviaInfo);
 
@@ -707,19 +709,19 @@ innaAppControllers.
                     var pageType = getActionType();
                     switch (pageType) {
                         case actionTypeEnum.service:
-                            {
-                                break;
-                            }
+                        {
+                            break;
+                        }
                         case actionTypeEnum.dp:
-                            {
-                                track.dpPayBtnSubmit();
-                                break;
-                            }
+                        {
+                            track.dpPayBtnSubmit();
+                            break;
+                        }
                         case actionTypeEnum.avia:
-                            {
-                                track.aviaPayBtnSubmit();
-                                break;
-                            }
+                        {
+                            track.aviaPayBtnSubmit();
+                            break;
+                        }
                     }
 
                     paymentService.pay(apiPayModel,
@@ -734,7 +736,7 @@ innaAppControllers.
                                 else if (location.href.indexOf("debug_status=2") > -1) {
                                     data.PreauthStatus = 2;
                                 }
-                                
+
                                 //успешно
                                 if (data.PreauthStatus == 1) {
                                     //3dSecure
@@ -948,9 +950,9 @@ innaAppControllers.
                                                             //    alert('Не реализовано');
                                                             //}
                                                             buttonCaption: 'Ok', successFn: function () {
-                                                                $scope.baloon.hide();
-                                                                $location.path(Urls.URL_AVIA);
-                                                            },
+                                                            $scope.baloon.hide();
+                                                            $location.path(Urls.URL_AVIA);
+                                                        },
                                                             email: $scope.reservationModel.Email
                                                         });
                                                 } else if ($scope.hotel != null) {
@@ -966,12 +968,12 @@ innaAppControllers.
                                         else if (data.Result == 2) {//ошибка при бронировании
                                             $scope.baloon.showGlobalAviaErr();
                                         }
-                                        else if(data.Result == 3){//ошибка оплаты
+                                        else if (data.Result == 3) {//ошибка оплаты
                                             $scope.baloon.hide();
 
                                             $scope._baloon = new Balloon({
-                                                data : {
-                                                    balloonClose : true,
+                                                data: {
+                                                    balloonClose: true,
                                                     balloonPart: 'pay-error.html'
                                                 }
                                             }).show();
@@ -983,7 +985,7 @@ innaAppControllers.
                                 }
                             }
                             catch (e) {
-                            //    console.error(e);
+                                //    console.error(e);
                             }
                             finally {
                                 $scope.isCkeckProcessing = false;
@@ -1137,7 +1139,7 @@ innaAppControllers.
 
             $scope.$on('$destroy', function () {
                 $scope.baloon.hide();
-                if($scope._baloon) {
+                if ($scope._baloon) {
                     $scope._baloon.teardown();
                     $scope._baloon = null;
                 }
