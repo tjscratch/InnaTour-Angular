@@ -6,10 +6,9 @@ innaAppConponents.directive('btnTop', [function () {
         replace: true,
         template: "<span " +
             "ng-click='goToTop()' " +
-            "ng-style='goToTopStyle' " +
             "class='button button-scroll-to-top'>" +
             "<span class='icon-sprite-arrow-top'></span>Наверх</span>",
-        link: function ($scope, $element, attrs) {
+        link: function ($scope) {
 
             /**
              * листаем страницу наверх
@@ -32,36 +31,14 @@ innaAppConponents.directive('btnTop', [function () {
                 })
             }
 
-            var footerEl = document.querySelector(".footer");
 
             function GoToTopBtn() {
-
                 var windowHeight = window.innerHeight,
-                    footerTop = utils.getCoords(footerEl).top,
-                    scrollTop = utils.getScrollTop(),
-                    bodyHeight = scrollTop + windowHeight;
-
+                    scrollTop = utils.getScrollTop();
                 if (scrollTop >= windowHeight) {
                     showGoToTop();
                 } else {
                     hideGoToTop();
-                }
-
-                var wr = bodyHeight - footerTop;
-                if (wr > 5) {
-                    $scope.safeApply(function () {
-                        $scope.goToTopStyle = {
-                            'bottom': wr + 'px',
-                            'transition': 'bottom 0s'
-                        };
-                    })
-                } else {
-                    $scope.safeApply(function () {
-                        $scope.goToTopStyle = {
-                            'bottom': '0px',
-                            'transition': 'bottom .1s'
-                        };
-                    })
                 }
             }
 
