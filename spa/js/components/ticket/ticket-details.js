@@ -23,7 +23,6 @@ angular.module('innaApp.directives')
                     $scope.ticket = null;
                     $scope.link = '';
 
-
                     $scope.closePopup = function () {
                         delete $location.$$search.displayTicket;
                         $location.$$compose();
@@ -62,9 +61,14 @@ angular.module('innaApp.directives')
                         }
 
                         var ticketRaw = ticket;
-
                         if (ticket && ticket.raw) {
                             ticketRaw = ticket.raw;
+                        }
+
+                        if(opt_data){
+                            $scope.closeFooter = true;
+                        } else {
+                            $scope.closeFooter = false;
                         }
 
 
@@ -78,16 +82,25 @@ angular.module('innaApp.directives')
                         $scope.ticket = ticket;
                         $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
 
+
+                        //  TODO : магия , но без этого не работает
                         $timeout(function () {
+
+                        }, 100)
+                    }
+
+                    $scope.$watch('popupItemInfo.isShow', function (value) {
+                        if(value) {
                             new ShareLink({
                                 el: $element.find('.js-share-component'),
                                 data: {
                                     right: true,
                                     location: angular.copy(document.location.href)
+
                                 }
                             })
-                        }, 100)
-                    }
+                        }
+                    })
 
 
                     $scope.$on('$destroy', function () {
