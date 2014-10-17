@@ -347,14 +347,8 @@
                 new Balloon().updateView({
                     template: 'server-error.html',
                     callbackClose: function () {
-                        //отправляем на пакеты
-                        $location.search({});
-                        if(window.history) {
-                            console.info('window.history');
-                            window.history.go(-3);
-                        } else {
-                            //$location.path(Urls.URL_DYNAMIC_PACKAGES);
-                        }
+                        //отправляем на поиск пакетов
+                        goToSearch();
                     }
                 });
             }
