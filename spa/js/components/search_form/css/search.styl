@@ -135,15 +135,13 @@
   background-color: #89c13a;
   cursor pointer;
 
-  &:after
-    @extend .icon-sprite-search;
-    content: '';
-    display: block;
+  .search-button__icon {
     position: absolute;
+    transform: translate(-50%, -50%)
     top: 50%;
-    right: 14px;
-    margin-top: -15px;
+    left : 50%;
     z-index: 1;
+  }
 
 
 
