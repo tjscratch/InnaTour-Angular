@@ -21,6 +21,7 @@ innaAppControllers
         '$filter',
         function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
 
+            //hotel=274091&display=tickets&ticket=891487471
 
             /**
              * Преобразуем даты и собираем данные для запроса
@@ -520,6 +521,9 @@ innaAppControllers
                     $scope.$apply(function ($scope) {
                         //кнопка нового поиска для WL
                         setWlModel(data);
+
+                        $location.search('hotel', data.RecommendedPair.Hotel.HotelId);
+                        $location.search('ticket', data.RecommendedPair.AviaInfo.VariantId1);
 
                         $scope.combination.ticket = new inna.Models.Avia.Ticket();
                         $scope.combination.ticket.setData(data.RecommendedPair.AviaInfo);
