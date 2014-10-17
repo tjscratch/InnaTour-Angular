@@ -349,7 +349,12 @@
                     callbackClose: function () {
                         //отправляем на пакеты
                         $location.search({});
-                        $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                        if(window.history) {
+                            console.info('window.history');
+                            window.history.go(-3);
+                        } else {
+                            //$location.path(Urls.URL_DYNAMIC_PACKAGES);
+                        }
                     }
                 });
             }
