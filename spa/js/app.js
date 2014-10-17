@@ -179,7 +179,7 @@ app.config([
             }).
             when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
                 ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
-                    templateUrl: 'pages/avia/tickets_reserve.html',
+                    templateUrl: 'pages/page-reservation/templ/reserve.html',
                     controller: 'AviaReserveTicketsCtrl'
                 }).
             //when(url.URL_AVIA_BUY + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
@@ -224,7 +224,7 @@ app.config([
                 reloadOnSearch: false
             }).
             when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
-                templateUrl: 'pages/avia/tickets_reserve.html',
+                templateUrl: 'pages/page-reservation/templ/reserve.html',
                 controller: 'DynamicReserveTicketsCtrl'
             }).
             when(url.B2B_DISPLAY_ORDER + ':OrderId', {

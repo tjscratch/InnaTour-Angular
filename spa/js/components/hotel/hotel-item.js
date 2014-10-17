@@ -2,13 +2,14 @@ angular.module('innaApp.components').
     factory('HotelItem', [
         'EventManager',
         'innaApp.API.events',
+        'innaApp.Urls',
         '$filter',
         '$routeParams',
         '$location',
         '$templateCache',
         'DynamicBlock',
         'HotelGallery',
-        function (EventManager, Events, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery) {
+        function (EventManager, Events, Urls, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery) {
 
             /**
              * Компонент HotelItem
@@ -56,7 +57,7 @@ angular.module('innaApp.components').
                         var ticketBackId = this.get('virtualBundle.ticket.data.VariantId2');
                         var providerId = this.get('hotel.ProviderId');
 
-                        var urlDetails = '/#/packages/details/' + [
+                        var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                             DepartureId,
                             ArrivalId,
                             StartVoyageDate,
