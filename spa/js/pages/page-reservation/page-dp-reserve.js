@@ -107,6 +107,11 @@
                                 ticketBackId,
                                 providerId
                             ].join('-');
+
+                        if (window.partners && window.partners.isFullWL()) {
+                            url = window.partners.getParentLocationWithUrl(url);
+                        }
+
                         return url;
                     }
 
@@ -347,9 +352,8 @@
                 new Balloon().updateView({
                     template: 'server-error.html',
                     callbackClose: function () {
-                        //отправляем на пакеты
-                        $location.search({});
-                        $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                        //отправляем на поиск пакетов
+                        goToSearch();
                     }
                 });
             }

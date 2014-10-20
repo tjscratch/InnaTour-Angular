@@ -25,28 +25,24 @@ angular.module('innaApp.directives')
                     PicList.PLAN_Z = 'Z';
                     PicList.PLAN_Y = 'Y';
 
-                    PicList.prototype.setCurrent = function(pic){
-                        this.current = pic;
+                    PicList.prototype.setCurrent = function($index){
+                        this.current = this.list[$index];
                     };
 
-                    PicList.prototype.isCurrent = function(pic) {
-                        return this.current == pic;
+                    PicList.prototype.isCurrent = function($index) {
+                        return (this.current == this.list[$index]);
                     };
 
                     PicList.prototype.next = function(){
                         var index = this.list.indexOf(this.current) + 1;
-
                         if(index >= this.list.length) index = 0;
-
-                        this.setCurrent(this.list[index]);
+                        this.setCurrent(index);
                     };
 
                     PicList.prototype.prev = function(){
                         var index = this.list.indexOf(this.current) - 1;
-
                         if(index < 0) index = this.list.length - 1;
-
-                        this.setCurrent(this.list[index]);
+                        this.setCurrent(index);
                     };
 
                     $scope.pics = new PicList();
@@ -62,7 +58,7 @@ angular.module('innaApp.directives')
 
                         var style = {
                             backgroundImage: 'url(~)'.split('~').join($scope.pics.current.src)
-                        }
+                        };
 
                         if($scope.pics.plan == PicList.PLAN_Z) {
                             style.width = MAX_WIDTH;
@@ -161,7 +157,7 @@ angular.module('innaApp.directives')
 
                             $scope.$apply(function(){
                                 try{
-                                    $scope.pics.setCurrent($scope.pics.list[0]);
+                                    $scope.pics.setCurrent(0);
                                     $scope.pics.plan = plan;
                                 } catch(e) {}
                             });

@@ -792,6 +792,12 @@
                         self.style = {
                             width: (document.documentElement.clientWidth + 'px')
                         }
+                        if (window.partners && window.partners.parentScrollTop > 0) {
+                            self.popupStyles = { 'top': window.partners.parentScrollTop + 20 + 'px' };//100px сверху
+                        }
+                        else {
+                            self.popupStyles = null;
+                        }
                     }
 
                     self.show = function ($event) {

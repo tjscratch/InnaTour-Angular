@@ -10,7 +10,7 @@ innaAppControllers.
         '$routeParams',
         'dataService',
         'sharedProperties',
-        function ToursCtrl($log, $scope, $rootScope, $routeParams, dataService, sharedProperties) {
+        function ($log, $scope, $rootScope, $routeParams, dataService, sharedProperties) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -20,7 +20,7 @@ innaAppControllers.
 
             $scope.hellomsg = "Привет из ToursCtrl";
 
-            
+
             //log('$scope.getSectionTours');
             var params = {
                 sectionLayoutId: QueryString.getFromUrlByName(location.href, 'sectionLayoutId'),

@@ -227,7 +227,7 @@
                             errCallback(data, status);
                         });
                 },
-                sendITCategoryRequest: function (queryData, successCallback, errCallback) {
+                sendITCategoryRequest     : function (queryData, successCallback, errCallback) {
                     var apiData = new sendRequestData(queryData);
                     $http.post(apiUrls.SEND_IT_CATEGORY_REQUEST, apiData).success(function (data) {
                         successCallback(data);
@@ -244,12 +244,67 @@
                         params: data
                     });
 //                    AjaxHelper.get({
-//                        url : apiUrls.PARTNERSHIP_GET_COOKIE,
-//                        data : data,
-//                        success : angular.noop,
-//                        error : angular.noop,
-//                        cache : false
+//                        url    : apiUrls.PARTNERSHIP_GET_COOKIE,
+//                        data   : data,
+//                        success: angular.noop,
+//                        error  : angular.noop,
+//                        cache  : false
 //                    });
+                },
+
+                /**
+                 * получение ID текущей локации
+                 * @param callbackSuccess
+                 * @param callbackError
+                 */
+                getCurrentLocation: function (callbackSuccess, callbackError) {
+                    return AjaxHelper.get({
+                        url    : apiUrls.GET_CURRENT_LOCATION_BY_IP,
+                        data   : null,
+                        success: callbackSuccess,
+                        error  : callbackError
+                    });
+                },
+
+                /**
+                 * автокомплит
+                 * получение списка локация отправления для ДП
+                 * @param term
+                 * @param callback
+                 * @returns {*}
+                 */
+                getDPFromListByTerm: function (term, callback) {
+                    return AjaxHelper.getDebounced({
+                        url: apiUrls.DYNAMIC_FROM_SUGGEST,
+                        data: {term: term},
+                        success: callback
+                    });
+                },
+
+                /**
+                 * автокомплит
+                 * получение списка локация прибытия для ДП
+                 * @param term
+                 * @param callback
+                 * @returns {*}
+                 */
+                getDPToListByTerm: function (term, callback) {
+                    return AjaxHelper.getDebounced({
+                        url: apiUrls.DYNAMIC_TO_SUGGEST,
+                        data: {term: term},
+                        success: callback
+                    });
+                },
+
+
+                getDPLocationById: function (id, callback) {
+                    return AjaxHelper.get({
+                        url: apiUrls.DYNAMIC_GET_OBJECT_BY_ID,
+                        data: {id: id},
+                        success: callback
+                    });
                 }
+                    
+
             };
         }]);
