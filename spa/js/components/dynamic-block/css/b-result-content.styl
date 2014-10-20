@@ -180,7 +180,7 @@
 
 
 .hotel-info-content
-  display inline-block
+  display block
   vertical-align top
 
   .warning
@@ -193,7 +193,9 @@
 
 .hotel-info-name
   font-size 18px
-  //margin 6px 0 0
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
   line-height 1em
 
 .hotel-info-date

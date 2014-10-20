@@ -11,6 +11,7 @@
         on-error="Введите город отправления"
         with-country="true"
         event="avia_form_from_update"></div>
+
     <div dropdown-input
         theme="search-field-block search__city"
         provide-suggest-callback="provideSuggestToToField"
@@ -23,6 +24,7 @@
         on-error="Введите город или страну, куда планируете поехать"
         with-country="true"
         event="avia_form_to_update"></div>
+
     <span date-picker-widget 
         interval="false"
         date1="criteria.BeginDate"
@@ -31,8 +33,10 @@
         data="datepickerButtons"
         max-date="maxDate"
         class="b-wrapp_type_inline date-picker-widget"></span>
+
     <div people-component adult-count="criteria.AdultCount" child-count="criteria.ChildCount" infants-count="criteria.InfantsCount"></div>
-    <div trip-preferences
+
+	<div trip-preferences
         show-back-trip-options="false"
         klass-model="klass"></div>
     <div class="search-form__submit search-button-block_small" ng-click="searchStart()">

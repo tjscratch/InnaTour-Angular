@@ -26,6 +26,14 @@ innaAppDirectives.
                     function updateDisplay() {
                         //console.log('updateDisplay, isVisible: ' + $scope.isVisible);
 
+                        //позиционирование во фрейме
+                        if (window.partners && window.partners.parentScrollTop > 0) {
+                            $scope.popupStyles = { 'top': window.partners.parentScrollTop + 100 + 'px' };//100px сверху
+                        }
+                        else {
+                            $scope.popupStyles = null;
+                        }
+
                         if ($scope.isShow) {
                             $scope.display = 'block';
                         }

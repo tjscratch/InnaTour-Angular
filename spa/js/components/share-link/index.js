@@ -30,7 +30,7 @@ innaAppConponents.
 
                     this.observe('isVisible', function (newValue, oldValue) {
                         if (newValue) {
-                            this.set('locationHref', this.get('location'));
+                            this.set('locationHref', window.partners && window.partners.isFullWL() ? window.partners.getParentLocationWithHash() : this.get('location'));
                             $(this._input).select();
                         }
                     }, {defer: true});
@@ -40,4 +40,5 @@ innaAppConponents.
             return ShareLink;
         }
     ]);
+
 
