@@ -111,19 +111,7 @@
             </div>
         </div>
 
-        <div class="hotel-details__section">
-            <div class="hotel-details-resume">
-                <div class="hotel-details-resume__section hotel-details-resume__section_{{key}}" ng-repeat="(key, cat) in hotel.Amenities">
-                    <h4 class="hotel-details-resume__section-title">{{cat.CategoryName}}</h4>
-                    <ul class="hotel-details-resume__list">
-                        <li class="hotel-details-resume__item" ng-repeat="item in cat.List track by $index">{{item}}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-
-        <div id="tripadvisor-widget-iframe" class="b-tripadvisor-widget-iframe" ng-if="hotel.TaFactor">
+        <div class="b-tripadvisor-widget-iframe" ng-if="hotel.TaFactor">
             <iframe
                     class="iframe_widget"
                     name="tripadvisor"
