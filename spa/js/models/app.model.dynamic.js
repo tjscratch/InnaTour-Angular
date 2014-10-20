@@ -144,6 +144,7 @@ inna.Models.Dynamic.Combination.prototype.getFullTotalPriceNew = function(param)
     }
 }
 
+
 inna.Models.Dynamic.Combination.prototype.getFullTotalPrice = function(){
     var tPrice = this.ticket.data.PriceObject
     var hPrice = this.hotel.data.PriceObject;
