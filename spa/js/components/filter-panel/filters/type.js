@@ -19,7 +19,7 @@ angular.module('innaApp.components').
                         fn : function(data, component_val){
                             var result = component_val.val.filter(function(item){
                                 if (data == item) return true;
-                            })
+                            });
 
                             return (result.length) ? true : false;
                         }

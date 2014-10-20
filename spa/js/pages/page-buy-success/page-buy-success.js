@@ -155,7 +155,10 @@ innaAppControllers.
                                 balloonClose: true,
                                 content : '<span></span>',
                                 title : 'Пакет не найден',
-                                template: 'err.html'
+                                template: 'err.html',
+                                callbackClose: function () {
+                                    location.href= '/'
+                                }
                             });
                         }
                     );

@@ -6,9 +6,16 @@ var innaModule = {
         }, 0);
             
     },
+    commands: {
+        processScrollTop: 'processScrollTop',
+        clientSizeChange: 'clientSizeChange',
+        frameSaveLocationUrl: 'frameSaveLocationUrl',
+        frameSetLocationUrl: 'frameSetLocationUrl'
+    },
+    containerTopPosition: null,
     init_internal: function (partner) {
         var self = innaModule;
-        
+
         var frameCont = document.getElementById('inna-frame');
 
         var wrapper = self.frameManager.createWrapper();
@@ -24,10 +31,40 @@ var innaModule = {
         self.frameManager.setStyles();
         //self.frameManager.repositionFrame();
 
-        self.cmdManager.init(innaModule.frameManager);
+        self.cmdManager.init(self.frameManager, self.urlManager);
 
         //слушаем скролл
         self.cmdManager.addCommonEventListener(window, 'scroll', trackScroll);
+
+        //save location
+        self.cmdManager.sendCommandToInnaFrame(self.commands.frameSaveLocationUrl, { 'href': location.href });
+
+        //слушаем hashchange
+        //self.urlManager.listenLocationChangeEvents(function () {
+        //    //прокидываем location.href во фрейм
+        //    self.cmdManager.sendCommandToInnaFrame(self.commands.frameSaveLocationUrl, { 'href': location.href });
+            
+        //    //смена урла
+        //    //if (location.hash != null && location.hash.length > 0) {
+        //    //    //
+        //    //    if (location.href != self.urlManager.lastSettedFromFrameUrl) {
+        //    //        //console.log('listenLocationChangeEvents');
+        //    //        self.cmdManager.sendCommandToInnaFrame(self.commands.frameSetLocationUrl, { 'urlHash': location.hash });
+        //    //    }
+        //    //    else {//если url тот же, что проставляли из фрейма
+        //    //        //то просто не шлем его обратно во фрейм, и сбрасываем
+        //    //        self.urlManager.lastSettedFromFrameUrl = null;
+        //    //    }
+        //    //}
+        //});
+
+        (function documentWidthFixForBiletix() {
+            var el = document.querySelector("#content > .container");
+            if (el) {
+                el.style.padding = '0';
+                el.style.width = '100%';
+            }
+        })();
 
         function processHashParams(url) {
             //если передаются урлы типа #/packages/buy/QWA5KX
@@ -47,15 +84,25 @@ var innaModule = {
         }
 
         function trackScroll(e) {
-            //console.log('trackScroll');
+            if (!self.containerTopPosition) {
+                self.containerTopPosition = self.frameManager.getElementPosition(frameCont).y;
+            }
+
             var doc = document.documentElement, body = document.body;
             var top = (doc && doc.scrollTop || body && body.scrollTop || 0);
-            self.cmdManager.sendCommandToInnaFrame('processScrollTop', { 'top': top });
+            
+            var scrollTop = top - self.containerTopPosition;
+            if (scrollTop < 0) {
+                scrollTop = 0;
+            }
+            //console.log('trackScroll, scrollTop: ', scrollTop);
+            self.cmdManager.sendCommandToInnaFrame(self.commands.processScrollTop, { 'top': scrollTop });
         }
     },
 
     cmdManager: new CommandManager(),
-    frameManager: new FrameManager()
+    frameManager: new FrameManager(),
+    urlManager: new UrlManager()
 };
 
 innaModule.host = '@@partnersHost';
@@ -115,51 +162,51 @@ function FrameManager() {
     }
 
     self.repositionFrame = function (top) {
-        var el = document.getElementById("inna-frame-wrapper");
-        var frameCont = document.getElementById('inna-frame');
+        //var el = document.getElementById("inna-frame-wrapper");
+        //var frameCont = document.getElementById('inna-frame');
 
-        var docSize = getDocumentSize();
-        var contPos = getPos(frameCont);
-        top = getNumber(top);
+        //var docSize = getDocumentSize();
+        //var contPos = getPos(frameCont);
+        //top = getNumber(top);
 
-        var origHeight = docSize.y - contPos.y;
-        var origTop = contPos.y;
+        //var origHeight = docSize.y - contPos.y;
+        //var origTop = contPos.y;
 
-        //console.log('');
-        //console.log('top:', top);
-        //console.log('origHeight', origHeight);
-        //console.log('origTop', origTop);
+        ////console.log('');
+        ////console.log('top:', top);
+        ////console.log('origHeight', origHeight);
+        ////console.log('origTop', origTop);
 
-        //var lastTop = gietNumber(innaModule.frame.lastTop);
-        //console.log('lastTop', lastTop);
+        ////var lastTop = gietNumber(innaModule.frame.lastTop);
+        ////console.log('lastTop', lastTop);
 
-        var newHeight = origHeight;
-        var newTop = origTop;
-        if (top != null) {
-            newHeight = origHeight + top;
-            newTop = origTop - top;
-        }
-        else if (self.frame.lastTop != null) {
-            var lastTop = self.frame.lastTop;
-            newHeight = docSize.y - lastTop;
-            newTop = lastTop;
-        }
+        //var newHeight = origHeight;
+        //var newTop = origTop;
+        //if (top != null) {
+        //    newHeight = origHeight + top;
+        //    newTop = origTop - top;
+        //}
+        //else if (self.frame.lastTop != null) {
+        //    var lastTop = self.frame.lastTop;
+        //    newHeight = docSize.y - lastTop;
+        //    newTop = lastTop;
+        //}
 
-        if (newHeight > docSize.y) {
-            newHeight = docSize.y;
-        }
-        if (newTop < 0) {
-            newTop = 0;
-        }
+        //if (newHeight > docSize.y) {
+        //    newHeight = docSize.y;
+        //}
+        //if (newTop < 0) {
+        //    newTop = 0;
+        //}
 
-        //console.log('newHeight', newHeight);
-        //console.log('newTop', newTop);
+        ////console.log('newHeight', newHeight);
+        ////console.log('newTop', newTop);
 
-        el.style.width = docSize.x + 'px';
-        el.style.height = newHeight + 'px';
-        el.style.top = newTop + 'px';
+        //el.style.width = docSize.x + 'px';
+        //el.style.height = newHeight + 'px';
+        //el.style.top = newTop + 'px';
 
-        self.frame.lastTop = newTop;
+        //self.frame.lastTop = newTop;
     }
 
     self.setVisibleCmd = function (data) {
@@ -176,6 +223,16 @@ function FrameManager() {
         }
     }
 
+    self.setFrameScrollPage = function (data) {
+        var headerHeight = document.querySelector("#inna-frame")
+        var iframeTop = utils.getCoords(headerHeight).top;
+        var scrollTop = data.scrollPage + iframeTop;
+        //скролит сайт внутри фрейма
+        if (data.scrollPage != null) {
+            window.scrollTo(0, scrollTop);
+        }
+    }
+
     self.setScrollTopCmd = function (data) {
         //задает позицию фрейма, чтобы занимал весь экран
         if (data.top != null) {
@@ -185,10 +242,20 @@ function FrameManager() {
     }
 
     self.setHeightCmd = function (data) {
-        if (data.height != null && data.height > 850) {
+        //console.log('setHeightCmd, height:', data.height);
+        if (data.height != null) {
+            //console.log('setHeightCmd, height:', data.height);
             var frame = document.getElementById(innaModule.frameId);
             frame.style.height = data.height + "px";
         }
+    }
+
+    self.getElementPosition = function (el) {
+        return getPos(el);
+    }
+
+    self.getDocumentSize = function () {
+        return getDocumentSize();
     }
 
     function getPos(el) {
@@ -221,9 +288,11 @@ function CommandManager() {
     var self = this;
 
     self.frameManager = null;
+    self.urlManager = null;
 
-    self.init = function (frameManager) {
+    self.init = function (frameManager, urlManager) {
         self.frameManager = frameManager;
+        self.urlManager = urlManager;
         self.initEventListeners();
     }
 
@@ -246,9 +315,22 @@ function CommandManager() {
         if (data) {
             switch (data.cmd) {
                 case 'setHeight': self.frameManager.setHeightCmd(data); break;
-                case 'setVisible': self.frameManager.setVisibleCmd(data); break;
+                case 'setVisible':
+                    {
+                        self.frameManager.setVisibleCmd(data);
+                        //отправляем размер клиентской области
+                        var frameCont = document.getElementById('inna-frame');
+                        self.sendCommandToInnaFrame(innaModule.commands.clientSizeChange, {
+                            'doc': self.frameManager.getDocumentSize(),
+                            'top': self.frameManager.getElementPosition(frameCont).y
+                        });
+                        break;
+                    }
                 case 'setFrameScrollTo': self.frameManager.setFrameScrollToCmd(data); break;
+                case 'setScrollPage': self.frameManager.setFrameScrollPage(data); break;
                 case 'setScrollTop': self.frameManager.setScrollTopCmd(data); break;
+
+                case 'saveUrlToParent': self.urlManager.saveUrlCmd(data); break;
             }
         }
     };
@@ -280,7 +362,99 @@ function CommandManager() {
             var msg = JSON.stringify(cmdObj);
             //console.log('sendCommandToInnaFrame, msg:', msg);
             var frame = document.getElementById(innaModule.frameId);
-            frame.contentWindow.postMessage(msg, '*');
+            if (frame && frame.contentWindow) {
+                frame.contentWindow.postMessage(msg, '*');
+            }
         }
+    }
+}
+
+function UrlManager() {
+    var self = this;
+
+    self.lastSettedFromFrameUrl = null;
+
+    self.addCommonEventListener = function (el, event, fn) {
+        if (el.addEventListener) {
+            el.addEventListener(event, fn, false);
+        } else {
+            el.attachEvent('on' + event, fn);
+        }
+    };
+
+    self.lastHref = null;
+    self.listenLocationChangeEvents = function(fn){
+        //self.addCommonEventListener(window, 'hashchange', function () {
+        //    if (fn) {
+        //        fn();
+        //    }
+        //    //console.log('listenLocationChangeEvents, location.href:', location.href);
+        //});
+        setInterval(function () {
+            if (location.href != self.lastHref) {
+                self.lastHref = location.href;
+                if (fn) {
+                    fn();
+                }
+            }
+        }, 100);
+    }
+
+    self.saveUrlCmd = function (data) {
+        if (data && data.url) {
+            var newUrl = getNewHashUrl(data.url);
+
+            if (location.href != newUrl) {
+                //запоминаем последний проставленный url
+                self.lastSettedFromFrameUrl = newUrl;
+                location.href = newUrl;
+            }
+        }
+    }
+
+    function getNewHashUrl(url) {
+        //console.log('self.saveUrlCmd', url);
+        var curUrl = location.href;
+        var indexOfHash = curUrl.indexOf("#");
+        var newUrl;
+        if (indexOfHash > -1) {
+            newUrl = curUrl.substring(0, indexOfHash);
+            newUrl = newUrl + url;
+        }
+        else {
+            newUrl = curUrl + url;
+        }
+        //console.log('self.saveUrlCmd, newUrl:', newUrl);
+        return newUrl;
+    }
+}
+
+
+var utils = {
+    getCoords: function (elem) {
+        // (1)
+        var box = elem.getBoundingClientRect();
+        var body = document.body;
+        var docEl = document.documentElement;
+
+        // (2)
+        var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+        var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+        // (3)
+        var clientTop = docEl.clientTop || body.clientTop || 0;
+        var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+        // (4)
+        var top = box.top + scrollTop - clientTop;
+        var left = box.left + scrollLeft - clientLeft;
+        var bottom = box.bottom;
+
+        // (5)
+        return {
+            top: Math.round(top),
+            left: Math.round(left),
+            bottom: Math.round(bottom)
+        };
     }
 }

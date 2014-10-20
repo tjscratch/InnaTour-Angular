@@ -2,13 +2,14 @@ angular.module('innaApp.components').
     factory('HotelItem', [
         'EventManager',
         'innaApp.API.events',
+        'innaApp.Urls',
         '$filter',
         '$routeParams',
         '$location',
         '$templateCache',
         'DynamicBlock',
         'HotelGallery',
-        function (EventManager, Events, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery) {
+        function (EventManager, Events, Urls, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery) {
 
             /**
              * Компонент HotelItem
@@ -26,13 +27,6 @@ angular.module('innaApp.components').
                         classBlock: 'b-result_col_three_galary b-result_middle',
                         classColl1: 'col-no-padding',
                         classColl3: 'col-xs-3 result-choice'
-                    },
-                    shortName: function (name) {
-                        if (name.length > 27) {
-                            return name.substr(0, 27) + '...';
-                        } else {
-                            return name
-                        }
                     },
                     isFullWL: (window.partners && window.partners.isFullWL()),
 
@@ -57,7 +51,7 @@ angular.module('innaApp.components').
                         var ticketBackId = this.get('virtualBundle.ticket.data.VariantId2');
                         var providerId = this.get('hotel.ProviderId');
 
-                        var urlDetails = '/#/packages/details/' + [
+                        var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                             DepartureId,
                             ArrivalId,
                             StartVoyageDate,
@@ -70,6 +64,10 @@ angular.module('innaApp.components').
                             ticketBackId,
                             providerId
                         ].join('-');
+
+                        if (window.partners && window.partners.isFullWL()) {
+                            urlDetails = window.partners.getParentLocationWithUrl(urlDetails);
+                        }
 
                         return urlDetails;
                     }

@@ -10,6 +10,8 @@ innaAppControllers.
             //EventManager.fire(Events.FOOTER_HIDDEN);
 
             $('body').addClass('partner-body-class');
+            //чтобы влезали все формы
+            $('#main-content-div').css("min-height", "850px");
 
             DynamicFormSubmitListener.listen();
 
@@ -21,6 +23,7 @@ innaAppControllers.
 
             $scope.$on('$destroy', function () {
                 $('body').removeClass('partner-body-class');
+                $('#main-content-div').css("min-height", "");
             });
         }
     ]);

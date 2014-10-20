@@ -3,23 +3,25 @@
 innaAppControllers
     .controller('RegionFooter', [
         'EventManager',
+        '$rootScope',
         '$scope',
-        '$element',
-        '$templateCache',
         'innaApp.API.events',
-        function (EventManager, $scope, $element, $templateCache, Events) {
+        function (EventManager, $rootScope, $scope, Events) {
             $scope.isFooterVisible = true;
+            $rootScope.isFooterHiddenWrprStyle = {'padding-bottom': '300px'};
 
             EventManager.on(Events.FOOTER_VISIBLE, function () {
-                $scope.$root.safeApply(function () {
+                $scope.safeApply(function () {
                     $scope.isFooterVisible = true;
+                    $rootScope.isFooterHiddenWrprStyle = {'padding-bottom': '300px'};
                 });
             });
-
 
             EventManager.on(Events.FOOTER_HIDDEN, function () {
-                $scope.$root.safeApply(function () {
+                $scope.safeApply(function () {
                     $scope.isFooterVisible = false;
+                    $rootScope.isFooterHiddenWrprStyle = {'padding-bottom': '10px'};
                 });
             });
+
         }])
