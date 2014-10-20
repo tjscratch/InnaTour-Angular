@@ -47,7 +47,10 @@ angular.module('innaApp.components').
                                     this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
                                     this.spliceSaveData(data.context);
                                 }
-                                this.fire('onCheckedFilter', this.get('value.val'));
+                                this.fire('onCheckedFilter', {
+                                    name : this.get('value.name'),
+                                    value : this.get('value')
+                                });
                                 this.hasSelected();
                             }
                         },
@@ -100,7 +103,10 @@ angular.module('innaApp.components').
                         }
                     })
 
-                    this.fire('onCheckedFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', {
+                        name : this.get('value.name'),
+                        value : this.get('value')
+                    });
                     this.hasSelected();
                 }
             });
