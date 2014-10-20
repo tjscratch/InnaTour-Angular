@@ -258,14 +258,17 @@
          title="Отправить заявку"></div>
 
     <!-- PAGE CONTENT -->
-    <div class="wrpr" ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/')}">
+    <div class="wrpr" 
+         ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/')}"
+         ng-style="isFooterHiddenWrprStyle"
+		    >
         <ng:view></ng:view>
     </div>
 
 </div>
 
 <!-- FOOTER -->
-<div class="footer" ng-controller="RegionFooter"> <!--ng-if="isFooterVisible"-->
+<div class="footer" ng-controller="RegionFooter" ng-show="isFooterVisible">
     <div class="scroll-fix">
         <div class="footer-content main__center">
             <div class="footer-menu">

@@ -50,6 +50,8 @@ angular.module('innaApp.components').
                 init: function () {
                     var that = this;
 
+                    EventManager.fire(Events.FOOTER_HIDDEN);
+
                     utils.bindAll(this);
 
                     this.enumerableClone = [];
@@ -102,6 +104,7 @@ angular.module('innaApp.components').
                             document.removeEventListener('scroll', this.onScroll, false);
                             clearTimeout(this._filterTimeout);
                             clearTimeout(this._scrollTimeout);
+                            EventManager.fire(Events.FOOTER_VISIBLE);
                             EventManager.off(Events.DYNAMIC_SERP_CLOSE_BUNDLE, this.updateCoords);
                             EventManager.off(Events.DYNAMIC_SERP_OPEN_BUNDLE, this.updateCoords);
                             EventManager.off(Events.FILTER_PANEL_CHANGE, this.FILTER_PANEL_CHANGE);
