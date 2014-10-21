@@ -57,6 +57,7 @@ angular.module('innaApp.directives')
 
 
                         $scope.hide = function ($event) {
+                            console.log($event);
                             $event.stopPropagation();
                             $scope.isVisible = false;
                             $scope.isAdv = false;
