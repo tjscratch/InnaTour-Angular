@@ -24,7 +24,10 @@ angular.module('innaApp.components').
         'IndicatorFilters',
         'HotelItem',
         'TicketItem',
-        function (EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem) {
+        'modelRecommendedPair',
+        'modelTickets',
+        'modelHotels',
+        function (EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem, modelRecommendedPair, modelTickets, modelHotels) {
 
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
@@ -290,12 +293,13 @@ angular.module('innaApp.components').
 
 
                         data.forEach(function (item) {
-                            var modelHotel = new inna.Models.Hotels.Hotel(item)
-                            var virtualBundle = new inna.Models.Dynamic.Combination();
-                            virtualBundle.hotel = modelHotel;
-                            virtualBundle.ticket = that.get('combinationModel').ticket;
+
+                            var virtualBundle = new modelRecommendedPair({
+                                ticket : that.get('combinationModel').ticket,
+                                hotel : new modelHotels(item)
+                            });
+
                             item.getProfit = virtualBundle.getProfit();
-                            item.FullPackagePrice = virtualBundle.getFullPackagePrice();
                             item.searchParams = searchParams;
                         })
                     }
@@ -304,14 +308,13 @@ angular.module('innaApp.components').
                     if (opt_param.ticket) {
                         data.forEach(function (item) {
 
-                            var modelTicket = new inna.Models.Avia.Ticket();
-                            modelTicket.setData(item);
-                            var virtualBundle = new inna.Models.Dynamic.Combination();
-                            virtualBundle.ticket = modelTicket;
-                            virtualBundle.hotel = that.get('combinationModel').hotel;
+                            var modelTicket = new modelTickets(item);
+                            var virtualBundle = new modelRecommendedPair({
+                                ticket : modelTicket,
+                                hotel :that.get('combinationModel').hotel
+                            });
+
                             item.getProfit = virtualBundle.getProfit();
-                            item.FullPackagePrice = virtualBundle.getFullPackagePrice();
-                            //item.etap
 
                             // авиалинии этого билета
                             var airline = _.pluck(modelTicket.collectAirlines().airlines, 'name');
