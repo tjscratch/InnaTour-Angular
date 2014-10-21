@@ -11,8 +11,7 @@ angular.module('innaApp.directives')
 
             return {
                 replace: true,
-                template: $templateCache.get('components/adv/templ/index.adv.hbs.html'),
-                scope: {},
+                template: $templateCache.get('components/adv/templ/index.adv.html'),
                 controller: [
                     '$element',
                     '$scope',
@@ -56,8 +55,7 @@ angular.module('innaApp.directives')
                         }
 
 
-                        $scope.hide = function ($event) {
-                            console.log($event);
+                        $scope.hideAdv = function ($event) {
                             $event.stopPropagation();
                             $scope.isVisible = false;
                             $scope.isAdv = false;
