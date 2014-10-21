@@ -1,5 +1,6 @@
 .hotel-details {
-  padding: 155px 0 0px
+
+  padding: $short_padding 0 0px
 
   &.hotel-details_display-order {
     padding: 110px 0 0px;
@@ -104,16 +105,23 @@
 
 .hotel-details-name {
   font-size 24px
-  line-height 46px
+  line-height 30px
   color #fff
   font-weight bold
   text-align left
 
+  &__title {
+    display : inline-block;
+    position : relative;
+    padding-right : 10px;
+  }
+
   .hotel-details-stars {
-    white-space nowrap
-    position relative
-    left 8px
-    line-height: 1.7em;
+    white-space: nowrap
+    position: absolute;
+    right :0;
+    top: 50%;
+    transform : translate(100%, -60%);
   }
 }
 
