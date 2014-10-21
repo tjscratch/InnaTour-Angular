@@ -46,6 +46,41 @@ innaAppControllers.
             };
 
 
+            /**
+             * Анимация формы поиска при скролле
+             */
+            $scope.FormExpand = "";
+            $scope.$on('$routeChangeStart', function (next, current) {
+                switch ($location.$$path) {
+                    case '/':
+                    case '/avia/':
+                    case '/tours/':
+                        $scope.FormExpand = "search-form-expanded";
+                        document.addEventListener('scroll', onScroll, false);
+                        break;
+                    case '/packages/':
+                        $scope.FormExpand = "";
+                        break;
+                    default:
+                        $scope.FormExpand = "";
+                        break;
+                }
+            });
+
+            var onScroll = function () {
+                var scroll = utils.getScrollTop();
+                if (scroll > 100) {
+                    $scope.$apply(function ($scope) {
+                        $scope.FormExpand = "";
+                    });
+                } else {
+                    $scope.$apply(function ($scope) {
+                        $scope.FormExpand = "search-form-expanded";
+                    });
+                }
+            };
+
+
             (function __INITIAL__() {
                 var advParams = {
                     from: $location.search().from || '',
