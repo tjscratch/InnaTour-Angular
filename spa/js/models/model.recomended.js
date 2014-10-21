@@ -75,7 +75,7 @@ innaAppServices.factory('modelRecommendedPair', [
         }
 
         Combination.prototype.getProfit = function(){
-            return (this.getFullPackagePrice() - this.getFullPrice());
+            return (this.getFullPrice() - this.getFullPackagePrice());
         }
 
         return Combination;

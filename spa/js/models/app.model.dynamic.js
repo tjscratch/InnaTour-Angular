@@ -185,7 +185,7 @@ inna.Models.Dynamic.Combination.prototype.getFullPrice = function(){
 }
 
 inna.Models.Dynamic.Combination.prototype.getProfit = function(){
-    return (this.getFullPackagePrice() - this.getFullPrice());
+    return (this.getFullPrice() - this.getFullPackagePrice());
 }
 
 inna.Models.WlNewSearch = function (data) {
