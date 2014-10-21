@@ -47,7 +47,7 @@
                 </div>
                 <div class="hotel-details-rooms__room-price-full" ng-if="!hotelOnly">
 	                К оплате:
-                    {{bundle.ticket.data.PackagePrice + room.PackagePrice | price}}
+                    {{room.PackagePrice | price}}
                     <ng-include src="'components/ruble.html'"></ng-include>
                 </div>
             </div>
