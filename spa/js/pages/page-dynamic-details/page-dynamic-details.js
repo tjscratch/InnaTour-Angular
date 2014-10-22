@@ -349,6 +349,7 @@ innaAppControllers
                 //чтобы на брони попапы были наверху страницы
                 if (window.partners && window.partners.isFullWL()) {
                     window.partners.resetParentScrollTop();
+                    window.partners.setScrollPage(20);
                 }
 
                 $location.path(url);
