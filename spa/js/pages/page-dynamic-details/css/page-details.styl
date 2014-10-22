@@ -1,5 +1,6 @@
 .hotel-details {
-  padding: 155px 0 0px
+
+  padding: $short_padding 0 0px
 
   &.hotel-details_display-order {
     padding: 110px 0 0px;
@@ -87,6 +88,7 @@
   background #ded9d8
   padding 6px 20px 4px
   font-size 0
+  cursor pointer
 
   &__comments {
     font-size 12px
@@ -103,16 +105,23 @@
 
 .hotel-details-name {
   font-size 24px
-  line-height 46px
+  line-height 30px
   color #fff
   font-weight bold
   text-align left
 
+  &__title {
+    display : inline-block;
+    position : relative;
+    padding-right : 10px;
+  }
+
   .hotel-details-stars {
-    white-space nowrap
-    position relative
-    left 8px
-    line-height: 1.7em;
+    white-space: nowrap
+    position: absolute;
+    right :0;
+    top: 50%;
+    transform : translate(100%, -60%);
   }
 }
 
@@ -237,16 +246,20 @@
     &-short {
       padding 10px
     }
+
     &-title {
       color #1e88c1
       font-size 14px
       font-weight normal
+      margin-bottom : 5px;
       cursor pointer
       position relative
 
-      span:hover {
-        text-decoration underline
+      .like-link {
+        border-bottom : 1px solid;
+        line-height: 0.9em;
       }
+
 
       b {
         font-size .8em

@@ -21,6 +21,7 @@ innaAppControllers
         '$filter',
         function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
 
+            //hotel=274091&display=tickets&ticket=891487471
 
             /**
              * Преобразуем даты и собираем данные для запроса
@@ -60,56 +61,6 @@ innaAppControllers
             $scope.events = Events;
             $scope.filtersSettingsHotels = null;
             $scope.filtersSettingsTicket = null;
-
-
-            /**
-             * кнопка прокрутки страницы наверх
-             */
-            $scope.goToTop = function () {
-                $location.hash('top');
-                $anchorScroll();
-            };
-
-            function showGoToTop() {
-                $scope.safeApply(function () {
-                    $scope.goToTopShow = true;
-                })
-            }
-
-            function hideGoToTop() {
-                $scope.safeApply(function () {
-                    $scope.goToTopShow = false;
-                })
-            }
-
-            function GoToTopBtn() {
-                var footerTop = utils.getCoords(footerEl).top;
-                var windowHeight = utils.getScrollTop() + window.innerHeight;
-                if (windowHeight > 900) {
-                    showGoToTop();
-                } else {
-                    hideGoToTop();
-                }
-                var wr = windowHeight - footerTop;
-                if (wr > 5) {
-                    $scope.safeApply(function () {
-                        $scope.goToTopStyle = {
-                            'bottom': wr + 'px',
-                            'transition': 'bottom 0s'
-                        };
-                    })
-                } else {
-                    $scope.safeApply(function () {
-                        $scope.goToTopStyle = {
-                            'bottom': '0px',
-                            'transition': 'bottom .15s'
-                        };
-                    })
-                }
-            }
-
-            var footerEl = document.querySelector(".footer");
-            document.addEventListener('scroll', GoToTopBtn);
 
             //кнопка нового поиска для WL
             function setWlModel(data) {
@@ -304,7 +255,6 @@ innaAppControllers
                                     }
                                 });
 
-                                setTimeout(GoToTopBtn, 0);
                                 this.set('updateHotel', true);
                             }
                         },
@@ -521,6 +471,9 @@ innaAppControllers
                         //кнопка нового поиска для WL
                         setWlModel(data);
 
+                        $location.search('hotel', data.RecommendedPair.Hotel.HotelId);
+                        $location.search('ticket', data.RecommendedPair.AviaInfo.VariantId1);
+
                         $scope.combination.ticket = new inna.Models.Avia.Ticket();
                         $scope.combination.ticket.setData(data.RecommendedPair.AviaInfo);
                         $scope.combination.hotel = new inna.Models.Hotels.Hotel(data.RecommendedPair.Hotel);
@@ -711,7 +664,6 @@ innaAppControllers
                 }
 
                 $(document).off('scroll');
-                $(document).off('scroll', GoToTopBtn);
             })
         }
     ]);

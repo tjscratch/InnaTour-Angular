@@ -18,6 +18,7 @@ angular.module('innaApp.directives')
                 'EventManager',
                 '$scope',
                 'aviaHelper',
+                'innaApp.Urls',
                 '$location',
                 '$element',
                 '$timeout',
@@ -29,7 +30,7 @@ angular.module('innaApp.directives')
                 'Tripadvisor',
                 'Stars',
                 'PriceGeneric',
-                function (EventManager, $scope, aviaHelper, $location, $element, $timeout, Events, $routeParams, ShareLink, Tripadvisor, Stars, PriceGeneric) {
+                function (EventManager, $scope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams, ShareLink, Tripadvisor, Stars, PriceGeneric) {
 
                     //console.profile('Draw');
 
@@ -55,7 +56,7 @@ angular.module('innaApp.directives')
                         var ticketBackId = $scope.bundle.ticket.data.VariantId2;
                         var providerId = $scope.bundle.hotel.data.ProviderId;
 
-                        var urlDetails = '/#/packages/details/' + [
+                        var urlDetails = '/#'+ Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                             DepartureId,
                             ArrivalId,
                             StartVoyageDate,
@@ -128,7 +129,7 @@ angular.module('innaApp.directives')
 
                     $scope.bundleTicketDetails = function ($event, ticket) {
                         $event.stopPropagation();
-                        EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $event, ticket);
+                        EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $event, ticket, true);
                     };
 
                     $scope.bundleHotelDetails = function ($event, hotel, isBuyAction) {

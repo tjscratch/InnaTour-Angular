@@ -7,7 +7,7 @@ innaAppDirectives.directive('locationSelector', [
     'serviceCache',
     'dataService',
     'DynamicPackagesDataProvider',
-    function ($templateCache, $timeout) {
+    function ($templateCache) {
         return{
             replace: true,
             template: $templateCache.get("components/location-selector/templ/index.html"),
@@ -27,7 +27,7 @@ innaAppDirectives.directive('locationSelector', [
             },
             controller: function ($rootScope, $scope, $timeout, $routeParams, eventsHelper, serviceCache, dataService, DynamicPackagesDataProvider) {
 
-
+                
                 /**
                  * функция установки локации
                  * $scope.currentCity - название выбранного города
@@ -85,6 +85,15 @@ innaAppDirectives.directive('locationSelector', [
                         })
                     }
                 }
+
+                $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
+                    if ($scope.typeSearch == 'DP_from') {
+                        setLocationDP($routeParams.DepartureId);
+                    }
+                    if ($scope.typeSearch == 'DP_to') {
+                        setLocationDP($routeParams.ArrivalId);
+                    }
+                });
 
 
                 if ($scope.typeSearch == 'DP_from') {

@@ -244,11 +244,11 @@
                         params: data
                     });
 //                    AjaxHelper.get({
-//                        url : apiUrls.PARTNERSHIP_GET_COOKIE,
-//                        data : data,
-//                        success : angular.noop,
-//                        error : angular.noop,
-//                        cache : false
+//                        url    : apiUrls.PARTNERSHIP_GET_COOKIE,
+//                        data   : data,
+//                        success: angular.noop,
+//                        error  : angular.noop,
+//                        cache  : false
 //                    });
                 },
 

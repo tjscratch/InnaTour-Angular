@@ -24,10 +24,14 @@ angular.module('innaApp.components').
                         fn: function (data, component_val) {
 
                             var result = component_val.val.filter(function (item) {
-                                if (Math.floor(data) == item) return true;
+                                if (Math.ceil(data) == item) {
+                                    return true;
+                                } else if(Math.ceil(data) == 0 && item == 1) {
+                                    return true;
+                                }
                             });
 
-                            return (result.length) ? true : false;
+                            return (result.length);
                         }
                     },
                     tafactorValue: []
@@ -50,7 +54,10 @@ angular.module('innaApp.components').
                                     this.spliceSaveData(data.context);
                                 }
 
-                                this.fire('onCheckedFilter', this.get('value.val'));
+                                this.fire('onCheckedFilter', {
+                                    name : this.get('value.name'),
+                                    value : this.get('value')
+                                });
 
                                 this.hasSelected();
                             }
@@ -86,7 +93,10 @@ angular.module('innaApp.components').
                         }
                     });
 
-                    this.fire('onCheckedFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', {
+                        name : this.get('value.name'),
+                        value : this.get('value')
+                    });
                     this.hasSelected();
                 }
             });

@@ -64,7 +64,9 @@ innaAppControllers.
 
 
             $scope.$watch('datepickerButtons', function (newVal) {
-                $scope.datepickerButtons.updateScopeValues();
+                if(newVal) {
+                    $scope.datepickerButtons.updateScopeValues();
+                }
             }, true);
 
             function loadParamsFromRouteOrDefault(routeParams, validateDate) {
@@ -118,7 +120,7 @@ innaAppControllers.
                     //console.log('setFromAndToFieldsFromUrl, routeCriteria.FromUrl: %s', routeCriteria.FromUrl);
 
                     dataService.getDirectoryByUrl(routeCriteria.FromUrl, function (data) {
-                        $scope.$apply(function ($scope) {
+                        $scope.safeApply(function () {
                             //обновляем данные
                             if (data != null) {
                                 //$scope.fromInit = { Id: data.id, Name: data.name, Url: data.url };
@@ -141,7 +143,7 @@ innaAppControllers.
                 if (routeCriteria.ToUrl != null && routeCriteria.ToUrl.length > 0) {
                     //$scope.criteria.To = 'загружается...';
                     dataService.getDirectoryByUrl(routeCriteria.ToUrl, function (data) {
-                        $scope.$apply(function ($scope) {
+                        $scope.safeApply(function () {
                             //обновляем данные
                             if (data != null) {
                                 //$scope.toInit = { Id: data.id, Name: data.name, Url: data.url };
@@ -417,7 +419,7 @@ innaAppControllers.
 
             $scope.provideSuggestToFromList = function (preparedText, rawText) {
                 aviaService.getDirectoryByUrl(preparedText, function (data) {
-                    $scope.$apply(function ($scope) {
+                    $scope.safeApply(function () {
                         $scope.fromList = data;
                     });
                 })
@@ -433,7 +435,7 @@ innaAppControllers.
 
             $scope.provideSuggestToToField = function (preparedText, rawText) {
                 aviaService.getDirectoryByUrl(preparedText, function (data) {
-                    $scope.$apply(function ($scope) {
+                    $scope.safeApply(function () {
                         $scope.toList = data;
                     });
                 })

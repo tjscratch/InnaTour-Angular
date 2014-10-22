@@ -446,6 +446,14 @@ angular.module('innaApp.directives')
                          })*/
                     }
 
+                    var clearSelection = function () {
+                        if (window.getSelection) {
+                            window.getSelection().removeAllRanges();
+                        } else { // старый IE
+                            document.selection.empty();
+                        }
+                    }
+
 
                     /**
                      * События маркера на карте
@@ -455,6 +463,8 @@ angular.module('innaApp.directives')
 
                         var marker = data.marker;
                         var pos = data.pos;
+
+                        GM.event.addListener(marker, 'dblclick', clearSelection);
 
                         GM.event.addListener(marker, 'click', function () {
                             var marker = this;
@@ -491,6 +501,7 @@ angular.module('innaApp.directives')
 
                         GM.event.addListener(marker, 'mouseover', function () {
                             var marker = this;
+                            clearSelection();
 
                             if (!marker.infoBoxVisible) {
                                 scope.$apply(function ($scope) {

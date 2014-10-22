@@ -276,8 +276,9 @@ innaAppControllers
                 getHotelDetails().then(function () {
                     var scrollPosition = 0;
                     if($scope.hotel && $scope.hotel.Photos) {
-                        scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 980 : 350;
+                        scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 1300 : 600;
                     }
+                    
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
@@ -421,6 +422,22 @@ innaAppControllers
             $scope.toggleRoom = function (room) {
                 //converts undefined into boolean on the fly
                 room.isOpen = !!!room.isOpen;
+            };
+
+            //$scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, onload);
+
+            /*$scope.$on('$locationChangeSuccess', function (data, url, datatest) {
+             if (!('displayHotel' in $location.search())) {
+             $scope.back();
+             }
+             });*/
+
+
+            $scope.scrollToTripadvisor = function () {
+                var body = angular.element('html, body'),
+                    headerHeight = angular.element('.Header').height(),
+                    positionTop = angular.element('#tripadvisor-widget-iframe').position().top;
+                body.animate({ scrollTop: positionTop - headerHeight }, 500)
             };
 
 

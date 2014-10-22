@@ -15,10 +15,10 @@
 		</div>
 		<ul class="gallery__list" ng-if="pics.list.length > 1">
 			<li ng-repeat="pic in pics.list"
+			    ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"
 			    class="gallery__list-item"
-			    ng-class="{'gallery__list-item_state_current': pics.isCurrent(pic)}"
 			    style="background-image:url({{pic.src}});"
-			    ng-click="pics.setCurrent(pic)"></li>
+			    ng-click="pics.setCurrent($index)"></li>
 		</ul>
 
 		<div class="gallery__disclaimer">Фотографии предоставлены отелем. <span ng-if="!isFullWL">Компания ИННА ТУР не несет ответвенности за

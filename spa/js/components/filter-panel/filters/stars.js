@@ -18,7 +18,11 @@ angular.module('innaApp.components').
                         val: [],
                         fn : function(data, component_val){
                             var result = component_val.val.filter(function(item){
-                                if (data == item) return true;
+                                if (data == item) {
+                                    return true;
+                                } else if(data == 0 && item ==1) {
+                                    return true;
+                                }
                             })
                             return result.length;
                         }
@@ -40,7 +44,10 @@ angular.module('innaApp.components').
                                     this.spliceSaveData(data.context);
                                 }
 
-                                this.fire('onCheckedFilter', this.get('value.val'));
+                                this.fire('onCheckedFilter', {
+                                    name : this.get('value.name'),
+                                    value : this.get('value')
+                                });
                                 this.hasSelected();
                             }
 
@@ -76,7 +83,10 @@ angular.module('innaApp.components').
                         }
                     })
 
-                    this.fire('onCheckedFilter', this.get('value.val'));
+                    this.fire('onCheckedFilter', {
+                        name : this.get('value.name'),
+                        value : this.get('value')
+                    });
                     this.hasSelected();
                 }
             });

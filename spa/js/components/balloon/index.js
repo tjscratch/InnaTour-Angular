@@ -42,6 +42,7 @@ innaAppConponents.
                     this._super(options);
 
                     utils.bindAll(this);
+                    var that = this;
 
                     this.on({
                         change: function (data) {
@@ -54,12 +55,14 @@ innaAppConponents.
                                 this.get('callback')();
                             }
 
-                            this.dispose();
+                            that.dispose();
                         },
                         teardown: function () {
 
                         }
                     });
+
+
 
                     this.observe('partialUpdate', function () {
                         this.set('reset', false);
@@ -74,7 +77,7 @@ innaAppConponents.
                             document.body.classList.remove('overflow_hidden');
                             window.removeEventListener('resize', this.onResize);
                         }
-                    })
+                    }, {init : false});
 
 
 
@@ -202,6 +205,8 @@ innaAppConponents.
 
                 dispose: function () {
                     this.set({isVisible: false});
+                    document.body.classList.remove('overflow_hidden');
+                    window.removeEventListener('resize', this.onResize);
                 }
             });
 
