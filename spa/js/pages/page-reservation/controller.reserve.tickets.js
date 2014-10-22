@@ -1,9 +1,23 @@
 ﻿/* Controllers */
 
 innaAppControllers.
-    controller('ReserveTicketsCtrl', ['$log', '$timeout', '$scope', '$rootScope', '$routeParams', '$filter', '$location',
-        'dataService', 'paymentService', 'storageService', 'aviaHelper', 'eventsHelper', 'urlHelper', 'Validators', 'innaApp.API.events',
-        function ReserveTicketsCtrl($log, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Events) {
+    controller('ReserveTicketsCtrl', [
+        '$log',
+        '$timeout',
+        '$scope',
+        '$rootScope',
+        '$routeParams',
+        '$filter',
+        '$location',
+        'dataService',
+        'paymentService',
+        'storageService',
+        'aviaHelper',
+        'eventsHelper',
+        'urlHelper',
+        'Validators',
+        'innaApp.API.events',
+        function ($log, $timeout, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Validators, Events) {
 
             var self = this;
 
@@ -15,6 +29,7 @@ innaAppControllers.
             $scope.AdultCount = 0;
             $scope.ChildCount = 0;
             $scope.InfantsCount = 0;
+            $scope.Child = [];
             $scope.fromDate = null;
 
             $scope.item = null;
@@ -79,37 +94,69 @@ innaAppControllers.
 
             $scope.lastPeopleValidation = null;
 
+            function getPeopleType(birthdate) {
+
+                var peopleType = {
+                    adult: 'adult',
+                    child: 'child',
+                    infant: 'infant'
+                };
+
+
+                var fromDate = dateHelper.dateToJsDate($scope.fromDate);
+                var bdate = dateHelper.dateToJsDate(birthdate);
+                var age = dateHelper.calculateAge(bdate, fromDate);
+
+                /**
+                 * TODO : на странице бронирования ДП
+                 * в отеле дели считаются до 16 лет
+                 * в авиа до 11
+                 * @type {number}
+                 */
+
+
+                var infant = 2;
+                var child = (!$scope.isAviaPage) ? 17 : 11;
+                var adult = (!$scope.isAviaPage) ? 17 : 12;
+
+
+
+                if (age < infant) {
+                    return peopleType.infant;
+                }
+                else if (age >= 2 && age <= child) {
+                    return peopleType.child;
+                }
+                else if (age >= adult) {
+                    return peopleType.adult;
+                }
+            };
+
             $scope.validatePeopleCount = function () {
                 closeAllTooltips();
+
+                var availableAdultCount = $scope.AdultCount;
+                var availableChildCount = $scope.ChildCount;
+                var availableInfantsCount = $scope.InfantsCount;
+
+                var adultsFound = false;
+                var childsFound = false;
+                var infantsFound = false;
+
+                var peopleFound = {
+                    adultsFoundCount: 0,
+                    childsFoundCount: 0,
+                    infantsFoundCount: 0
+                };
+
+                var peopleType = {
+                    adult: 'adult',
+                    child: 'child',
+                    infant: 'infant'
+                };
+
                 if ($scope.validationModel != null && $scope.validationModel.passengers != null && $scope.validationModel.passengers.length > 0) {
-                    var availableAdultCount = $scope.AdultCount;
-                    var availableChildCount = $scope.ChildCount;
-                    var availableInfantsCount = $scope.InfantsCount;
 
-                    var adultsFound = false;
-                    var childsFound = false;
-                    var infantsFound = false;
-
-                    var peopleType = {
-                        adult: 'adult',
-                        child: 'child',
-                        infant: 'infant'
-                    };
-
-                    var peopleFound = { adultsFoundCount: 0, childsFoundCount: 0, infantsFoundCount: 0 };
-
-                    function getPeopleType(birthdate) {
-                        var fromDate = dateHelper.dateToJsDate($scope.fromDate);
-                        var bdate = dateHelper.dateToJsDate(birthdate);
-                        var age = dateHelper.calculateAge(bdate, fromDate);
-                        //console.log('age: %d', age);
-                        if (age < 2)
-                            return peopleType.infant;
-                        else if (age >= 2 && age <= 11)
-                            return peopleType.child;
-                        else if (age >= 12)
-                            return peopleType.adult;
-                    };
 
                     function setNotValid(item) {
                         item.isValid = false;
@@ -120,7 +167,8 @@ innaAppControllers.
                         var pas = $scope.validationModel.passengers[i];
 
                         if (pas.birthday.value != null && pas.birthday.value.length > 0) {
-                            //определяем тип человек (взрослый, ребенок, младенец)
+
+                            // TODO : определяем тип человек (взрослый, ребенок, младенец)
                             var type = getPeopleType(pas.birthday.value);
                             switch (type) {
                                 case peopleType.adult:
@@ -172,18 +220,30 @@ innaAppControllers.
                     //console.log('a: %d, c: %d, i: %d', availableAdultCount, availableChildCount, availableInfantsCount);
                     if (availableAdultCount < 0 || availableChildCount < 0 || availableInfantsCount < 0) {
                         setNotValid(pas.birthday);
-                        updateBirthTooltip({ adultsCount: availableAdultCount, childsCount: availableChildCount, infantsCount: availableInfantsCount });
+                        updateBirthTooltip({
+                            adultsCount: availableAdultCount,
+                            childsCount: availableChildCount,
+                            infantsCount: availableInfantsCount
+                        });
                         return false;
                     }
                 }
-                updateBirthTooltip({ adultsCount: availableAdultCount, childsCount: availableChildCount, infantsCount: availableInfantsCount });
+                updateBirthTooltip({
+                    adultsCount: availableAdultCount,
+                    childsCount: availableChildCount,
+                    infantsCount: availableInfantsCount
+                });
                 return true;
             };
 
             function getBirthTitle(lastPeopleValidation) {
+
+                // TODO: адский костыль
+                var sex = ($scope.isAviaPage) ? '(от 2 до 12 лет)' : '(от 2 до 17 лет)';
+
                 var res = 'Проверьте даты рождения, \nвы делали поиск на ' + $scope.AdultCount + ' ' + $scope.helper.pluralForm($scope.AdultCount, 'взрослого', 'взрослых', 'взрослых');
                 if (parseInt($scope.ChildCount) > 0) {
-                    res += ', \n' + $scope.ChildCount + ' ' + $scope.helper.pluralForm($scope.ChildCount, 'ребенка', 'детей', 'детей') + ' (от 2 до 12 лет)';
+                    res += ', \n' + $scope.ChildCount + ' ' + $scope.helper.pluralForm($scope.ChildCount, 'ребенка', 'детей', 'детей') + ' ' + sex;
                 }
                 if (parseInt($scope.InfantsCount) > 0) {
                     res += ', \n' + $scope.InfantsCount + ' ' + $scope.helper.pluralForm($scope.InfantsCount, 'младенца', 'младенцев', 'младенцев') + ' (до 2-х лет)';
@@ -319,10 +379,29 @@ innaAppControllers.
                                 });
                                 break;
                             }
+
+                            // TODO : валидация дня рождения
                             case validateType.birthdate:
                             {
                                 tryValidate(item, function () {
+
                                     Validators.birthdate(item.value, 'err');
+
+                                    var peopleType = getPeopleType(item.value);
+                                    var fromDate = dateHelper.dateToJsDate($scope.fromDate);
+                                    var bdate = dateHelper.dateToJsDate(item.value);
+                                    var age = dateHelper.calculateAge(bdate, fromDate);
+
+                                    if(peopleType == 'child' && ($scope.Child && $scope.Child.length)) {
+                                        var result = $scope.Child.filter(function(child){
+                                            return (child == age);
+                                        });
+
+                                        if(!result.length) {
+                                            throw new Error('err');
+                                        }
+                                    }
+
                                     //if (!$scope.validatePeopleCount())
                                     //    throw 'err';
                                 });
@@ -915,7 +994,7 @@ innaAppControllers.
                 
             };
 
-            
+
 
             $scope.goToB2bCabinet = function () {
                 location.href = app_main.b2bHost;
