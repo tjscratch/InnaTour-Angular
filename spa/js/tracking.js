@@ -3,6 +3,7 @@
     aviaKey: 'avia_',
     dpKey: 'dp_',
     writeAnalitics: function (gaGoal, yaGoal) {
+//        console.log('writeAnalitics', gaGoal, yaGoal)
         if (gaGoal != null && window.ga != null) {
             ga('send', 'pageview', gaGoal);
         }
@@ -115,6 +116,9 @@
     },
     dpGoBuy: function () {//Факт нажатия кнопки "перейти к оплате" после заполнения формы данных пассажира
         track.writeAnalitics('/virtual/payment', 'payment');
+    },
+    dpPayBtnSubmitStart: function () {//Факт нажатия кнопки "перейти к оплате" после заполнения формы данных пассажира
+        track.writeAnalitics('/packages/buy', 'buy');
     },
     dpPayBtnSubmit: function () {
         track.writeAnalitics('/virtual/aviahotel_pay$', 'aviahotel_pay$');
