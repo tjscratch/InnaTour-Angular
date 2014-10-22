@@ -1,6 +1,4 @@
-﻿
-
-var track = {
+﻿var track = {
     PREFIX: 'track_results_',
     aviaKey: 'avia_',
     dpKey: 'dp_',
@@ -51,8 +49,7 @@ var track = {
         //position - порядковый номер в секции оферов
         if (window.mixpanel != null)
             mixpanel.track("offer.click", { "section": sectionName, "type": type, "name": name, "position": position }, fn);
-        else
-            if (fn != null) fn();
+        else if (fn != null) fn();
     },
     formSearch: function (departure_city_name, country_name, departure_date, flex_date, search_depth, duration, adt_count, chd_count, source, fn) {
         //departure_city_name - город вылета
@@ -73,11 +70,9 @@ var track = {
                 "flex_date": flex_date, "search_depth": search_depth, "duration": duration, "adt_count": adt_count,
                 "chd_count": chd_count, "source": source
             }, fn);
-        else
-            if (fn != null) fn();
+        else if (fn != null) fn();
     },
-    programDownload: function (name, program_country, category, fn)
-    {
+    programDownload: function (name, program_country, category, fn) {
         //name - название программы
         //program_country - страна программы
         //category - категория
@@ -86,8 +81,7 @@ var track = {
         category = category == null ? "" : category;
         if (window.mixpanel != null)
             mixpanel.track("program.download", { "name": name, "program_country": program_country, "category": category }, fn);
-        else
-            if (fn != null) fn();
+        else if (fn != null) fn();
     },
     requestOpened: function (type, url) {
         //type - откуда кликали на форму из заявки или из блока сбоку (side/program)
@@ -123,7 +117,7 @@ var track = {
         track.writeAnalitics('/virtual/payment', 'payment');
     },
     dpPayBtnSubmit: function () {
-        track.writeAnalitics('/virtual/aviahotel_pay', 'aviahotel_pay');
+        track.writeAnalitics('/virtual/aviahotel_pay$', 'aviahotel_pay$');
     },
     dpPaymentSubmit: function (orderNum, revenue, IATA1, IATA2, hotelName) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
         if (window.ga != null) {
@@ -133,16 +127,16 @@ var track = {
 
             ga('ecommerce:addTransaction', {
                 'id': '' + orderNum,                     // номер заказа.
-                'affiliation': 'Inna.ru',   // адрес сайта (наш, всегда один и тот-же).
-                'revenue': '' + revenue,               // общая стоимость заказа.
-                'shipping': '0',                  // всегда ноль.
-                'tax': '0'                     // всегда ноль.
+                'affiliation': 'inna.ru',   // адрес сайта (наш, всегда один и тот-же).
+                'revenue': '' + revenue               // общая стоимость заказа.
+//                'shipping': '0',                  // всегда ноль.
+//                'tax': '0'                     // всегда ноль.
             });
 
-            ga('ecommerce:addItem', { 
+            ga('ecommerce:addItem', {
                 'id': '' + orderNum, // номер заказа. (тот-же, который в указан в первой части)
                 'name': IATA1 + '_' + IATA2 + ' ' + hotelName, //название товара в виде [аэропорт-откуда]_[аэропорт_[куда] [название отеля]
-                'sku': 0,   
+                'sku': 0,
                 'category': 'dp', // динамическое пакетирование
                 'price': '' + revenue, // сумма заказа
                 'quantity': '1' //всегда 1
@@ -178,10 +172,10 @@ var track = {
                 'tax': '0'                     // всегда ноль.
             });
 
-            ga('ecommerce:addItem', { 
+            ga('ecommerce:addItem', {
                 'id': '' + orderNum,  //номер заказа (билета)   
                 'name': IATA1 + '_' + IATA2, // [аэропорт "откуда"]_[аэропорт_"куда"]
-                'sku': 0,  
+                'sku': 0,
                 'category': 'avia', // авиабилет
                 'price': '' + revenue, // сумма заказа
                 'quantity': '1' //всегда 1
