@@ -168,6 +168,15 @@ angular.module('innaApp.directives')
                                 // так как при выборе другого авиа билета может измениться дата прилета
                                 $scope.combination.hotel.data.CheckIn = $scope.combination.ticket.data.ArrivalDate;
 
+
+                                // пересчитываем количество ночей
+                                var start = moment($scope.combination.hotel.data.CheckIn);
+                                var end   = moment($scope.combination.hotel.data.CheckOut);
+                                $scope.combination.hotel.data.NightCount = Math.ceil(end.diff(start,  'days', true));
+
+                                //console.info(Math.ceil(end.diff(start,  'days', true)));
+
+
                                 $scope.isChooseHotel = true;
                                 $scope.display.fullDisplay();
                             });
