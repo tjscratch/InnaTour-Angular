@@ -343,6 +343,9 @@ innaAppControllers
                     var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
                     var param = {
+                        Id: ($scope.combination.ticket) ? $scope.combination.ticket.data.VariantId1 : null,
+                        HotelId: ($scope.combination.hotel) ? $scope.combination.hotel.data.HotelId : null,
+                        TicketId: ($scope.combination.ticket) ? $scope.combination.ticket.data.VariantId1 : null,
                         AddFilter: true
                     };
 
@@ -400,6 +403,9 @@ innaAppControllers
                     var that = this;
 
                     var param = {
+                        Id: ($scope.combination.hotel) ? $scope.combination.hotel.data.HotelId : null,
+                        HotelId: ($scope.combination.hotel) ? $scope.combination.hotel.data.HotelId : null,
+                        TicketId: ($scope.combination.ticket) ? $scope.combination.ticket.data.VariantId1 : null,
                         AddFilter: true
                     }
                     var routeParams = angular.copy(searchParams);
