@@ -120,7 +120,6 @@ innaAppControllers.
                 var adult = (!$scope.isAviaPage) ? 17 : 12;
 
 
-
                 if (age < infant) {
                     return peopleType.infant;
                 }
@@ -330,7 +329,8 @@ innaAppControllers.
                     }
                 }
 
-                $scope.validate = function (item, type) {
+                $scope.validate = function (item, type, $index) {
+
                     if (item != null) {
                         //dirty hack
                         //из-за валидаторов дат, не проверяем, если пришло типа '__.__.____'
@@ -384,26 +384,43 @@ innaAppControllers.
                             case validateType.birthdate:
                             {
                                 tryValidate(item, function () {
+                                    item.$index = $index;
 
                                     Validators.birthdate(item.value, 'err');
+
+                                    item.isChildAgeFind = false;
+
 
                                     var peopleType = getPeopleType(item.value);
                                     var fromDate = dateHelper.dateToJsDate($scope.fromDate);
                                     var bdate = dateHelper.dateToJsDate(item.value);
-                                    var age = dateHelper.calculateAge(bdate, fromDate);
+                                    var age = parseInt(dateHelper.calculateAge(bdate, fromDate));
 
-                                    if(peopleType == 'child' && ($scope.Child && $scope.Child.length)) {
-                                        var result = $scope.Child.filter(function(child){
-                                            return (child == age);
-                                        });
 
-                                        if(!result.length) {
-                                            throw new Error('err');
-                                        }
+                                    function childAgeFind(){
+                                        var result = $scope.validationModel.passengers.filter(function(passenger, i){
+                                            if(i != item.$index) {
+                                                return passenger['birthday'] && (passenger['birthday'].isChildAgeFind == age);
+                                            }
+                                        })
+                                        return result;
                                     }
 
-                                    //if (!$scope.validatePeopleCount())
-                                    //    throw 'err';
+
+                                    if (peopleType == 'child' && ($scope.Child && $scope.Child.length)) {
+
+                                        var result = $scope.Child.filter(function (child) {
+                                            return (parseInt(child) == age);
+                                        });
+
+
+                                        if (!result.length || childAgeFind().length) {
+                                            throw new Error('err');
+                                        } else {
+                                            item.isChildAgeFind = parseInt(result[0]);
+                                        }
+
+                                    }
                                 });
                                 break;
                             }
@@ -425,14 +442,13 @@ innaAppControllers.
                                         $scope.setAlwaysValid(item, true);
                                     }
                                 }
-                                else
-                                {
+                                else {
                                     $scope.setAlwaysValid(item, false);
                                     tryValidate(item, function () {
                                         Validators.expire(item.value, 'err');
                                     });
                                 }
-                                
+
                                 break;
                             }
                             case validateType.document:
@@ -517,7 +533,7 @@ innaAppControllers.
                                             }) ||
                                                 isCaseValid(function () {
                                                     Validators.birthPassport(doc_num, 'err');
-                                            })) {
+                                                })) {
                                                 item.isRuPassportOrBirthAndInsideRF = true;
                                             }
                                             else {
@@ -954,13 +970,16 @@ innaAppControllers.
                 var invalidItem = $scope.validationModel.getFirstInvalidItem(function (item) {
                     //алерт будет показываться даже при пустом значении
                     switch (item.key) {
-                        case 'sex': {
+                        case 'sex':
+                        {
                             return (!_.isString(item.value) || item.value.length > 0 || (item.value == null && item.key == 'sex'));
                         }
-                        case 'phone': {
+                        case 'phone':
+                        {
                             return true;// item.value != null && (!_.isString(item.value) || item.value.length > 0) && item.value != '+7';
                         }
-                        default: {
+                        default:
+                        {
                             return true;// item.value != null && (!_.isString(item.value) || item.value.length > 0)
                         }
                     }
@@ -970,7 +989,7 @@ innaAppControllers.
 
                     // скроллим страницу вверх
                     // показываем тултип
-                    $("body, html").animate({"scrollTop":400},function(){
+                    $("body, html").animate({"scrollTop": 400}, function () {
                         var $to = $("#" + invalidItem.id);
                         $scope.tooltipControl.init($to);
                         $scope.tooltipControl.open($to);
@@ -991,9 +1010,8 @@ innaAppControllers.
                     $scope.reserve();
                 }
 
-                
-            };
 
+            };
 
 
             $scope.goToB2bCabinet = function () {

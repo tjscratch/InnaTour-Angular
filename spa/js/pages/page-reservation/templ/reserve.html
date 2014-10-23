@@ -65,100 +65,107 @@
 </header>
 
 	<fieldset class="buy__blocks" ng-repeat="passenger in validationModel.passengers">
-	<div class="b-field-group b-field-group-passport">
-		<div class="b-field-block"
-		     validate-events-dir ng-model="passenger.sex.value" ng-validation-model="passenger.sex"
-		     validate-type="validateType.sex" validate="validate(item, type)" data-title="Укажите пол пассажира">
+		<div class="b-field-group b-field-group-passport">
+			<div class="b-field-block"
+			     validate-events-dir ng-model="passenger.sex.value" ng-validation-model="passenger.sex"
+			     validate-type="validateType.sex" validate="validate(item, type)" data-title="Укажите пол пассажира">
 
-			<label class="b-field-label">Пол</label>
-			<ul class="radio-list" ng-class="{error:passenger.sex.isInvalid && !validationModel.formPure }"
-			    ng-init="setValid(passenger.sex, passenger.sex.value != null)">
-				<li>
-					<label>
-						<input type="checkbox" name="male3" ng-model="passenger.sex.value"
-						       ng-change="setValid(passenger.sex, passenger.sex.value != null)"
-						       ng-checked="passenger.sex.value == sexType.man"
-						       ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}">
-						<ins class="radio">М</ins>
-					</label>
-				</li>
-				<li>
-					<label>
-						<input type="checkbox" name="male3" ng-model="passenger.sex.value"
-						       ng-change="setValid(passenger.sex, passenger.sex.value != null)"
-						       ng-checked="passenger.sex.value == sexType.woman"
-						       ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}">
-						<ins class="radio">Ж</ins>
-					</label>
-				</li>
-			</ul>
-		</div>
-		<div class="b-field-block" style="width: 160px;">
-			<label class="b-field-label">Фамилия</label>
-			<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.secondName.value"
-			       ng-validation-model="passenger.secondName" validate="validate(item, type)"
-			       data-title="Укажите фамилию пассажира"
-			       validate-type="validateType.required"
-			       ng-class="{error:isFieldInvalid(passenger.secondName)}"
-			       type="text" placeholder="IVANOV" class="b-field-text">
-		</div>
-		<div class="b-field-block b-field-block-surname" style="width: 150px;">
-			<label class="b-field-label">Имя</label>
-			<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.name.value"
-			       data-title="Укажите имя пассажира"
-			       ng-validation-model="passenger.name" validate="validate(item, type)"
-			       validate-type="validateType.required"
-			       ng-class="{error:isFieldInvalid(passenger.name)}"
-			       type="text" placeholder="IVAN" class="b-field-text">
-		</div>
-		<div class="b-field-block" style="width: 110px;">
-			<label class="b-field-label">Дата рождения</label>
-			<input autocomplete="off" validate-events-dir ng-model="passenger.birthday.value"
-			       ng-validation-model="passenger.birthday" validate="validate(item, type)"
-			       validate-type="validateType.birthdate"
-			       ng-class="{error:isFieldInvalid(passenger.birthday)}"
-			       ng-attr-data-title="{{birthTitle | breakFilter }}"
-			       masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг"
-			       class="b-field-text">
-		</div>
-		<div class="b-field-block" style="width: 180px;">
-			<label class="b-field-label">Гражданство</label>
+				<label class="b-field-label">Пол</label>
+				<ul class="radio-list" ng-class="{error:passenger.sex.isInvalid && !validationModel.formPure }"
+				    ng-init="setValid(passenger.sex, passenger.sex.value != null)">
+					<li>
+						<label>
+							<input type="checkbox" name="male3" ng-model="passenger.sex.value"
+							       ng-change="setValid(passenger.sex, passenger.sex.value != null)"
+							       ng-checked="passenger.sex.value == sexType.man"
+							       ng-true-value="{{sexType.man}}" ng-false-value="{{sexType.woman}}">
+							<ins class="radio">М</ins>
+						</label>
+					</li>
+					<li>
+						<label>
+							<input type="checkbox" name="male3" ng-model="passenger.sex.value"
+							       ng-change="setValid(passenger.sex, passenger.sex.value != null)"
+							       ng-checked="passenger.sex.value == sexType.woman"
+							       ng-true-value="{{sexType.woman}}" ng-false-value="{{sexType.man}}">
+							<ins class="radio">Ж</ins>
+						</label>
+					</li>
+				</ul>
+			</div>
+			<div class="b-field-block" style="width: 160px;">
+				<label class="b-field-label">Фамилия</label>
+				<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.secondName.value"
+				       ng-validation-model="passenger.secondName" validate="validate(item, type)"
+				       data-title="Укажите фамилию пассажира"
+				       validate-type="validateType.required"
+				       ng-class="{error:isFieldInvalid(passenger.secondName)}"
+				       type="text" placeholder="IVANOV" class="b-field-text">
+			</div>
+			<div class="b-field-block b-field-block-surname" style="width: 150px;">
+				<label class="b-field-label">Имя</label>
+				<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.name.value"
+				       data-title="Укажите имя пассажира"
+				       ng-validation-model="passenger.name" validate="validate(item, type)"
+				       validate-type="validateType.required"
+				       ng-class="{error:isFieldInvalid(passenger.name)}"
+				       type="text" placeholder="IVAN" class="b-field-text">
+			</div>
+			<div class="b-field-block" style="width: 110px;">
+				<label class="b-field-label">Дата рождения</label>
 
-			<div class="cit">
-				<input autocomplete="off" validate-events-dir ng-model="passenger.citizenship.value.name"
-				       ng-validation-model="passenger.citizenship" validate="validate(item, type)"
-				       validate-type="validateType.cit_required"
-				       ng-class="{error:isFieldInvalid(passenger.citizenship)}"
-				       ng-click="passenger.showCitListClick($event)" type="text"
-				       value="{{passenger.citizenship.value.name}}" placeholder="Выберите"
-				       class="b-field-text b-field-select">
+				<input autocomplete="off"
+				       validate-events-dir
+				       ng-model="passenger.birthday.value"
+				       ng-validation-model="passenger.birthday"
+				       validate="validate(item, type, $index)"
+				       validate-type="validateType.birthdate"
+				       ng-class="{error:isFieldInvalid(passenger.birthday)}"
+				       ng-attr-data-title="{{birthTitle | breakFilter }}"
+				       masked-input
+				       mask="99.99.9999"
+				       type="text"
+				       placeholder="дд.мм.гггг"
+				       class="b-field-text">
+			</div>
+			<div class="b-field-block" style="width: 180px;">
+				<label class="b-field-label">Гражданство</label>
 
-				<div partial-select list="citizenshipList" result-set="passenger.citizenship.setValue(item)"
-				     is-open="passenger.dir.cit.isOpen">
+				<div class="cit">
+					<input autocomplete="off" validate-events-dir ng-model="passenger.citizenship.value.name"
+					       ng-validation-model="passenger.citizenship" validate="validate(item, type)"
+					       validate-type="validateType.cit_required"
+					       ng-class="{error:isFieldInvalid(passenger.citizenship)}"
+					       ng-click="passenger.showCitListClick($event)" type="text"
+					       value="{{passenger.citizenship.value.name}}" placeholder="Выберите"
+					       class="b-field-text b-field-select">
+
+					<div partial-select list="citizenshipList" result-set="passenger.citizenship.setValue(item)"
+					     is-open="passenger.dir.cit.isOpen">
+					</div>
 				</div>
 			</div>
+			<div class="b-field-block" style="width: 110px;">
+				<label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>
+				<input autocomplete="off" validate-events-dir ng-model="passenger.doc_series_and_number.value"
+				       depends-on="passenger.citizenship"
+				       ng-validation-model="passenger.doc_series_and_number" validate="validate(item, type)"
+				       validate-type="validateType.document"
+				       ng-class="{error:isFieldInvalid(passenger.doc_series_and_number)}"
+				       data-title="Неправильный номер документа"
+				       type="text" class="b-field-text">
+			</div>
+			<div class="b-field-block" style="width: 110px;">
+				<label class="b-field-label b-field-label-docs">Действителен до</label>
+				<input validate-events-dir ng-model="passenger.doc_expirationDate.value"
+				       depends-on="passenger.doc_series_and_number"
+				       ng-validation-model="passenger.doc_expirationDate" validate="validate(item, type)"
+				       validate-type="validateType.expire"
+				       ng-class="{error:isFieldInvalid(passenger.doc_expirationDate)}"
+				       data-title="Неправильно введена дата"
+				       masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг" class="b-field-text">
+			</div>
 		</div>
-		<div class="b-field-block" style="width: 110px;">
-			<label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>
-			<input autocomplete="off" validate-events-dir ng-model="passenger.doc_series_and_number.value"
-			       depends-on="passenger.citizenship"
-			       ng-validation-model="passenger.doc_series_and_number" validate="validate(item, type)"
-			       validate-type="validateType.document"
-			       ng-class="{error:isFieldInvalid(passenger.doc_series_and_number)}"
-			       data-title="Неправильный номер документа"
-			       type="text" class="b-field-text">
-		</div>
-		<div class="b-field-block" style="width: 110px;">
-			<label class="b-field-label b-field-label-docs">Действителен до</label>
-			<input validate-events-dir ng-model="passenger.doc_expirationDate.value"
-			       depends-on="passenger.doc_series_and_number"
-			       ng-validation-model="passenger.doc_expirationDate" validate="validate(item, type)"
-			       validate-type="validateType.expire"
-			       ng-class="{error:isFieldInvalid(passenger.doc_expirationDate)}"
-			       data-title="Неправильно введена дата"
-			       masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг" class="b-field-text">
-		</div>
-	</div>
 	<div class="b-field-group b-field-group-passport">
 		<div class="b-field-group b-field-group-passport">
 			<div class="b-field-block" style="width: 220px;">
