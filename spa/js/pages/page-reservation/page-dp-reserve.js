@@ -20,6 +20,7 @@
 
             $scope.baloon.showExpireCheck();
 
+            $scope.isAviaPage = false;
 
             /*------------------------------------------*/
             /*------------------------------------------*/
@@ -81,10 +82,14 @@
                 cacheKey = data.SearchId;
 
                 $scope.$apply(function ($scope) {
+
+                    // TODO : наследование контроллера
                     $controller('ReserveTicketsCtrl', { $scope: $scope });
+
                     $scope.fromDate = $routeParams.StartVoyageDate;
                     $scope.AdultCount = parseInt($routeParams.Adult);
                     $scope.ChildCount = children[0].length;
+                    $scope.Child = children[0];
                     $scope.InfantsCount = children[1].length;
                     $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
 
@@ -357,6 +362,8 @@
                     }
                 });
             }
+
+
 
             $scope.$on('$destroy', function () {
                 $scope.baloon.hide();
