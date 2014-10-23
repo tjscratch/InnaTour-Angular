@@ -267,9 +267,11 @@
                 $scope.selectionControl = new selectionControl();
 
                 $scope.$watch('suggest', function (newValue, oldValue) {
-                    if (newValue != null && newValue !== oldValue) {
+                    if (newValue.length > 0 && newValue !== oldValue) {
                         $scope.selectionControl.init();
                         $scope.isOpened = true;
+                    }else{
+                        $scope.isOpened = false;
                     }
                 }, false);
 
