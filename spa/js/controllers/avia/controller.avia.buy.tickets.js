@@ -722,7 +722,7 @@ innaAppControllers.
                         }
                         case actionTypeEnum.dp:
                         {
-                            track.dpPayBtnSubmit();
+                            track.dpPayBtnSubmitStart();
                             break;
                         }
                         case actionTypeEnum.avia:
@@ -997,6 +997,7 @@ innaAppControllers.
                             }
                             finally {
                                 $scope.isCkeckProcessing = false;
+                                track.dpPayBtnSubmit();
                             }
                         }, function (data, status) {
                             $scope.isCkeckProcessing = false;
