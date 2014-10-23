@@ -60,9 +60,11 @@ innaAppControllers.
                         break;
                     case '/packages/':
                         $scope.FormExpand = "";
+                        document.removeEventListener('scroll', onScroll, false);
                         break;
                     default:
                         $scope.FormExpand = "";
+                        document.removeEventListener('scroll', onScroll, false);
                         break;
                 }
             });
