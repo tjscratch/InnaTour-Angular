@@ -62,20 +62,41 @@
 
                 //от 01.01.1900 до текущей даты
                 var dParts = s.split('.');
+                var isDayTrue;
+                var isMonthTrue;
+                var isYearTrue;
+
                 if (dParts.length == 3) {
+
                     var y = parseInt(dParts[2], 10);
-
                     var day = parseInt(dParts[0], 10);
-                    if (!(day >= 1 && day <= 31))
-                        throw error;
                     var month = parseInt(dParts[1], 10);
-                    if (!(month >= 1 && month <= 12))
-                        throw error;
-
                     var today = new Date();
                     var yyyy = today.getFullYear();
-                    if (!(y >= 1900 && y <= yyyy))
+
+                    if (!(day >= 1 && day <= 31)) {
                         throw error;
+                    } else {
+                        isDayTrue = true;
+                    }
+
+                    if (!(month >= 1 && month <= 12)) {
+                        throw error;
+                    } else {
+                        isMonthTrue = true;
+                    }
+
+                    if (!(y >= 1900 && y <= yyyy)) {
+                        throw error;
+                    } else {
+                        isYearTrue = true;
+                    }
+
+                    if(isDayTrue && isMonthTrue && isYearTrue) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             },
             expire: function (s, error) {
