@@ -163,6 +163,11 @@ angular.module('innaApp.directives')
 
                         EventManager.on(Events.DYNAMIC_SERP_CHOOSE_TICKET, function (data) {
                             $scope.safeApply(function () {
+
+                                // TODO : заменяем дату заезда  в отель
+                                // так как при выборе другого авиа билета может измениться дата прилета
+                                $scope.combination.hotel.data.CheckIn = $scope.combination.ticket.data.ArrivalDate;
+
                                 $scope.isChooseHotel = true;
                                 $scope.display.fullDisplay();
                             });
