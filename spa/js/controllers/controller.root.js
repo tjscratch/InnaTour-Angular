@@ -49,21 +49,21 @@ innaAppControllers.
             /**
              * Анимация формы поиска при скролле
              */
-            $scope.FormExpand = "";
+            $scope.FormExpand = false;
             $scope.$on('$routeChangeStart', function (next, current) {
                 switch ($location.$$path) {
                     case '/':
                     case '/avia/':
                     case '/tours/':
-                        $scope.FormExpand = "search-form-expanded";
+                        $scope.FormExpand = true;
                         document.addEventListener('scroll', onScroll, false);
                         break;
                     case '/packages/':
-                        $scope.FormExpand = "";
+                        $scope.FormExpand = false;
                         document.removeEventListener('scroll', onScroll, false);
                         break;
                     default:
-                        $scope.FormExpand = "";
+                        $scope.FormExpand = false;
                         document.removeEventListener('scroll', onScroll, false);
                         break;
                 }
@@ -73,11 +73,11 @@ innaAppControllers.
                 var scroll = utils.getScrollTop();
                 if (scroll > 100) {
                     $scope.$apply(function ($scope) {
-                        $scope.FormExpand = "";
+                        $scope.FormExpand = false;
                     });
                 } else {
                     $scope.$apply(function ($scope) {
-                        $scope.FormExpand = "search-form-expanded";
+                        $scope.FormExpand = true;
                     });
                 }
             };
