@@ -1004,7 +1004,7 @@ innaAppControllers.
                     $scope.baloon.show("Бронирование авиабилетов", "Это займет не более 30 секунд");
 
                     //аналитика
-                    track.dpGoBuy();
+//                    track.dpGoBuy();
 
                     //бронируем
                     $scope.reserve();
