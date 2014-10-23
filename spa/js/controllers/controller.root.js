@@ -49,6 +49,7 @@ innaAppControllers.
             (function __INITIAL__() {
                 var advParams = {
                     from: $location.search().from || '',
+                    tourist: $location.search().tourist || '',
                     from_param: $location.search().from_param || '',
                     PartnerMarker: $location.search().PartnerMarker || '',
                     id_partner: $location.search().id_partner || '',
@@ -56,12 +57,12 @@ innaAppControllers.
                 };
 
                 delete $location.$$search.from
+                delete $location.search().tourist
                 delete $location.$$search.from_param
                 delete $location.$$search.PartnerMarker
                 delete $location.$$search.id_partner
                 delete $location.$$search.data
                 $location.$$compose();
-
                 dataService.getPartnershipCookie(advParams);
             })();
 
