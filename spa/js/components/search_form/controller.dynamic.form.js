@@ -129,7 +129,7 @@ innaAppControllers
             $scope.maxDateEnd = new Date();
 
 
-            $scope.maxDateEnd.setMonth($scope.maxDateEnd.getMonth() + 6);
+            $scope.maxDateEnd.setMonth($scope.maxDateEnd.getMonth() + 12);
 
 
             //TODO fix English
@@ -191,17 +191,18 @@ innaAppControllers
                     var begin = Date.fromDDMMYY($scope.dateBegin);
                     var end = Date.fromDDMMYY($scope.dateEnd);
 
-                    var beforeStart = parseInt((begin - today) / 86400000); //days
                     var duration = parseInt((end - begin) / 86400000); //days
+                    var startLessThanAYear = moment(begin).isBefore(moment(today).add(1, 'y'));
 
                     //half of a year
                     //or
                     //longer then 28 days
-                    if (beforeStart >= 30 * 6 || duration > 28) {
-                        $scope.baloon.showErr('Ограничения бронирования', 'Бронирование возможно не ранее, чем за 6 месяцев до планируемого путешествия и продолжительность путешествия не более 30 дней.');
+                    if (!startLessThanAYear || duration > 28) {
+                        $scope.baloon.showErr('Ограничения бронирования', 'Бронирование возможно не ранее, чем за 12 месяцев до планируемого путешествия и продолжительность путешествия не более 28 дней.');
 
                         throw 1;
                     }
+                    return;
 
                     var o = {
                         ArrivalId: $scope.toCity.Id,
