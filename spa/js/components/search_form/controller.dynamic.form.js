@@ -202,7 +202,6 @@ innaAppControllers
 
                         throw 1;
                     }
-                    return;
 
                     var o = {
                         ArrivalId: $scope.toCity.Id,
