@@ -55,15 +55,14 @@ innaAppControllers.
                     case '/':
                     case '/avia/':
                     case '/tours/':
-                        $scope.FormExpand = true;
-                        document.addEventListener('scroll', onScroll, false);
-                        break;
                     case '/packages/':
-                        $scope.FormExpand = false;
-                        document.removeEventListener('scroll', onScroll, false);
+                        $scope.FormExpand = true;
+                        $scope.SearchFormExpandPadding = {'padding-top': 150}
+                        document.addEventListener('scroll', onScroll, false);
                         break;
                     default:
                         $scope.FormExpand = false;
+                        $scope.SearchFormExpandPadding = {'padding-top': 0}
                         document.removeEventListener('scroll', onScroll, false);
                         break;
                 }
@@ -71,13 +70,15 @@ innaAppControllers.
 
             var onScroll = function () {
                 var scroll = utils.getScrollTop();
-                if (scroll > 100) {
+                if (scroll > 150) {
                     $scope.$apply(function ($scope) {
                         $scope.FormExpand = false;
+                        $scope.SearchFormExpandPadding = {'padding-top': 0}
                     });
                 } else {
                     $scope.$apply(function ($scope) {
                         $scope.FormExpand = true;
+                        $scope.SearchFormExpandPadding = {'padding-top': 150 - scroll}
                     });
                 }
             };
