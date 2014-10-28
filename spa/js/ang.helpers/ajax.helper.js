@@ -84,6 +84,18 @@ angular.module('innaApp.services')
                         if (params.error && (typeof params.error == 'function')) {
                             params.error(data);
                         }
+
+                        // отсылаем ошибки в sentry
+
+                        if(data.statusText == 'Unauthorized') {
+                            if (Raven) {
+                                Raven.captureMessage(new Error('HTTP response error'), {
+                                    extra: {
+                                        dataError: data
+                                    }
+                                });
+                            }
+                        }
                     }
                 });
 
