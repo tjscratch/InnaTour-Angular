@@ -17,7 +17,7 @@ gulp.task('watch', function () {
 
         });
 
-    gulp.watch(conf.src + '/components/**/*.styl', ['styl-components', 'styl-adv', 'styl-abtest'])
+    gulp.watch(conf.src + '/components/**/*.styl', ['styl-components', 'styl-adv'])
         .on('change', function (file) {
 
         });

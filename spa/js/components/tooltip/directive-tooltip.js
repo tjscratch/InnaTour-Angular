@@ -4,14 +4,14 @@ innaAppDirectives.directive('errorTooltip', [
     'EventManager',
     function ($templateCache, $timeout, EventManager) {
         return{
-            replace : true,
+            replace: true,
             template: $templateCache.get("components/tooltip/templ/error-tooltip.html"),
-            scope   : {
+            scope: {
                 positionTop: '@',
-                align      : '@',
-                message    : '@'
+                align: '@',
+                message: '@'
             },
-            link    : function ($scope, element, attrs) {
+            link: function ($scope, element, attrs) {
 
                 element.css({
                     top: $scope.positionTop
@@ -19,13 +19,15 @@ innaAppDirectives.directive('errorTooltip', [
 
                 $scope.$watch('message', function (newValue) {
                     if (newValue != '') {
-                        var width = element.width();
-                        if ($scope.align == 'width-center') {
-                            element.css({
-                                left      : '50%',
-                                marginLeft: -width / 2
-                            });
-                        }
+                        $timeout(function () {
+                            var width = element.width();
+                            if ($scope.align == 'width-center') {
+                                element.css({
+                                    left: '50%',
+                                    marginLeft: -width / 2
+                                });
+                            }
+                        }, 0)
                     }
                 });
             }
