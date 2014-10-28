@@ -143,6 +143,16 @@ innaAppControllers
             }
 
 
+            function parseAmenities (hotel){
+                hotel.AmenitiesArray = [];
+                if(hotel && Object.keys(hotel.Amenities).length) {
+                    for(var key in hotel.Amenities) {
+                        hotel.AmenitiesArray.push(hotel.Amenities[key]);
+                    }
+                }
+            }
+
+
             /**
              * Получаем данные по отелю
              */
@@ -161,6 +171,8 @@ innaAppControllers
                         _balloonLoad.fire('hide');
 
                         setWlModel(data);
+
+                        parseAmenities(data.Hotel);
                         
                         var hotel = new inna.Models.Hotels.Hotel(data.Hotel);
                         var ticket = new inna.Models.Avia.Ticket();

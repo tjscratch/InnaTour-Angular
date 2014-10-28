@@ -410,8 +410,8 @@
 
   &__section {
     padding 15px
+    position : relative;
     border-bottom 1px solid #878787
-    overflow hidden
 
     &:last-child {
       border-bottom 0
@@ -419,32 +419,46 @@
       &-long {
         display none
       }
+    }
 
-      &-title {
-        font-size 16px
-        font-weight bold
-        float left
-        width 200px
-      }
+    &:after {
+      content: '';
+      display : block;
+      clear: both;
     }
   }
 
+
+  &__section-title {
+    font-size 16px
+    font-weight normal;
+    position : absolute;
+    top: 15px;
+    left: 0;
+    padding-left : 15px;
+  }
+
+  &__wrapper {
+    margin-left: 240px;
+  }
+
   &__list {
-
-    &:first-child {
-      margin-left: 240px;
-    }
-
     float: left;
     padding-left: 15px;
     overflow: hidden;
+    width : 45%;
+
+    &:first-child {
+      /*padding-left: 0px;*/
+    }
   }
 
   &__item {
     list-style: disc;
     /*float left*/
-    /*width 40%*/
-    margin-right: 9%;
+    /*width 40%;*/
+    margin-right: 8%;
+    padding-bottom : 3px;
   }
 }
         
