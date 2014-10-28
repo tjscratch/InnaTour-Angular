@@ -18,7 +18,7 @@ $padding-layout-light = ($padding-layout-light + $height_adv);
   }
 
   .layout {
-    padding: $padding_over_search 0 0;
+    padding: $padding_over_head 0 0;
 
     &-light {
       padding: $padding-layout-light 0 0;
@@ -27,8 +27,12 @@ $padding-layout-light = ($padding-layout-light + $height_adv);
 
   .results-container {
     padding: $full_padding 0 0;
-  }
-
+    
+    &.results-container__short{
+      padding: $short_padding 0 0;
+    }
+  }  
+  
   .recommend-bundle-container {
     top: $padding_over_search;
 
