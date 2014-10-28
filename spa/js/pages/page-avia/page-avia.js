@@ -512,7 +512,6 @@ innaAppControllers.
                         }
                     });
 
-
                     //ToDo: debug
                     //размножаем данные для теста
                     //for (var i = 0; i < 10; i++) {
@@ -526,7 +525,6 @@ innaAppControllers.
                     $scope.ticketsList = list;
                     $scope.recomendedItem = recomendedItem;
 
-
                     /* PriceGeneric */
                     $timeout(function () {
                         $scope._priceGeneric = new PriceGeneric({
@@ -537,8 +535,9 @@ innaAppControllers.
                         })
                     }, 0)
 
-
                     updateFilter(data.Items);
+
+                    processSelectedVariant(data.Items);
                 }
                 else {
                     $scope.ticketsList = [];
@@ -551,6 +550,23 @@ innaAppControllers.
                     $scope.isDataLoading = false;
                 }
             };
+
+            function processSelectedVariant(items) {
+                //Debug
+                //items[0].isSelectedVariant = true;
+                if ($scope.criteria && $scope.criteria.VariantId1 != null || $scope.criteria.VariantId2 != null) {
+                    var selectedItem = _.find(items, function (item) {
+                        //флаг, отдается с сервера - выбранный вариант
+                        if (item.isSelectedVariant == true) {
+                            return true;
+                        }
+                    });
+
+                    if (selectedItem) {
+                        $scope.popupItemInfo_show(null, selectedItem, $scope.criteria, $scope.searchId);
+                    }
+                }
+            }
 
             function updateFilter(items) {
                 var filter = {};
@@ -1042,17 +1058,32 @@ innaAppControllers.
 
             $scope.popupItemInfo_show = function ($event, item, criteria, searchId) {
                 $scope.popupItemInfo.show($event, item, criteria, searchId);
-                console.log(item);
+                //console.log('item', item.VariantId1, item.VariantId2);
+                
+                updateShareLink(item);
+            }
 
-                //https://innatec.atlassian.net/browse/IN-2309
-                //Авиа. В детализации рекомендованного варианта пропала ссылка для копирования
-                var shareLink = new ShareLink({
-                    el: $('.js-share-component'),
-                    data: {
-                        right: true,
-                        location : angular.copy(document.location.href)
-                    }
-                })
+            function updateShareLink(item) {
+                setTimeout(function () {
+                    //console.log($('.js-share-component').length);
+                    //https://innatec.atlassian.net/browse/IN-2309
+                    //Авиа. В детализации рекомендованного варианта пропала ссылка для копирования
+                    var shareLink = new ShareLink({
+                        el: $('.js-share-component'),
+                        data: {
+                            right: true,
+                            location: getPopupItemUrl(item)
+                        }
+                    })
+                }, 0);
+            }
+
+            function getPopupItemUrl(item) {
+                var url = location.protocol + '//' + location.host + '/#' + urlHelper.UrlToAviaSearch($scope.criteria);
+                if (item) {
+                    url += '-' + item.VariantId1 + '-' + item.VariantId2;
+                }
+                return url;
             }
 
             function ractiveControl() {
@@ -1090,18 +1121,13 @@ innaAppControllers.
 
                 self.ractive.on({
                     popupItemInfo_show: function (event, item) {
-                        console.log(item);
+                        //console.log('item', item.VariantId1, item.VariantId2);
+
                         $scope.safeApply(function () {
                             $scope.popupItemInfo.show(event.original, item, $scope.criteria, $scope.searchId);
                         });
 
-                        var shareLink = new ShareLink({
-                            el: $('.js-share-component'),
-                            data: {
-                                right: true,
-                                location : angular.copy(document.location.href)
-                            }
-                        })
+                        updateShareLink(item);
                     },
                     goToPaymentClick: function (event, item) {
                         $scope.safeApply(function () {
@@ -1117,6 +1143,8 @@ innaAppControllers.
                 self.reset = function () {
                     self.ractive.reset('items', $scope.visibleFilteredTicketsList);
                 }
+
+                //console.log('ractiveControl initted');
             }
 
             $scope.ractiveControl = new ractiveControl();
