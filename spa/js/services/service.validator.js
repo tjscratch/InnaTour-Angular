@@ -1,30 +1,57 @@
 ﻿angular.module('innaApp.services')
-    .factory('Validators', [function(){
+    .factory('Validators', [function () {
+
         return {
-            email: function(s, error){
+            email: function (s, error) {
                 if (!/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,63})+$/i.test(s)) throw error;
             },
-            defined: function(s, error){
-                if(!s) throw error;
+            /**
+             * проверка значения val
+             * если пусто выкидавыем ошибку errorText
+             * @param val
+             * @param error
+             * @param errorText
+             */
+            required: function (val, error, errorText) {
+                if (!val) {
+                    error.error = errorText
+                    throw error
+                }
             },
-            phone: function(s, error){
-                if(!/^[+]\d{11,}$/.test(s)) throw error;//+79101234567
+            /**
+             * Сравнение равенства v1 и v2
+             * @param v1
+             * @param v2
+             * @param error
+             * @param errorText
+             */
+            noEqual: function (v1, v2, error, errorText) {
+                if (v1 == v2) {
+                    error.error = errorText
+                    throw error
+                }
             },
-            equals: function(s1, s2, error){
-                if(s1 != s2) throw error;
+            defined: function (s, error) {
+                if (!s) throw error;
             },
-            notEqual: function(s1, s2, error){
-                if(s1 == s2) throw error;
+            phone: function (s, error) {
+                if (!/^[+]\d{11,}$/.test(s)) throw error;//+79101234567
             },
-            minLength: function(s, len, error){
-                if(!s.length || s.length < len) throw error;
+            equals: function (s1, s2, error) {
+                if (s1 != s2) throw error;
+            },
+            notEqual: function (s1, s2, error) {
+                if (s1 == s2) throw error;
+            },
+            minLength: function (s, len, error) {
+                if (!s.length || s.length < len) throw error;
             },
             date: function (s, error) {
                 if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
             },
             dateEndEmpty: function (s1, s2, error) {
                 var dt = parseInt(Date.fromDDMMYY(s2) - Date.fromDDMMYY(s1));
-                if ( dt < 0) throw error;
+                if (dt < 0) throw error;
             },
             gtZero: function (s, error) {
                 var val = parseInt(s);
@@ -35,20 +62,41 @@
 
                 //от 01.01.1900 до текущей даты
                 var dParts = s.split('.');
+                var isDayTrue;
+                var isMonthTrue;
+                var isYearTrue;
+
                 if (dParts.length == 3) {
+
                     var y = parseInt(dParts[2], 10);
-
                     var day = parseInt(dParts[0], 10);
-                    if (!(day >= 1 && day <= 31))
-                        throw error;
                     var month = parseInt(dParts[1], 10);
-                    if (!(month >= 1 && month <= 12))
-                        throw error;
-
                     var today = new Date();
                     var yyyy = today.getFullYear();
-                    if (!(y >= 1900 && y <= yyyy))
+
+                    if (!(day >= 1 && day <= 31)) {
                         throw error;
+                    } else {
+                        isDayTrue = true;
+                    }
+
+                    if (!(month >= 1 && month <= 12)) {
+                        throw error;
+                    } else {
+                        isMonthTrue = true;
+                    }
+
+                    if (!(y >= 1900 && y <= yyyy)) {
+                        throw error;
+                    } else {
+                        isYearTrue = true;
+                    }
+
+                    if(isDayTrue && isMonthTrue && isYearTrue) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             },
             expire: function (s, error) {

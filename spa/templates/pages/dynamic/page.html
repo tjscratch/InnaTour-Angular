@@ -5,17 +5,28 @@
 	
     <div class="offers-card-banner-container main" ng-controller="SliderCtrl" ng-show="slides.length > 0 && ABTest2 === false" app-slider>
         <ul class="offers-card-banner-list Offer-card-banners">
-            <li class="offer-card-banner-item" bindonce ng-repeat="slide in slides track by $index">
-                <!--<img class="img" bo-src="slide.Image" />-->
+            <li class="offer-card-banner-item" ng-repeat="slide in slides track by $index">
+                <!--<img class="img" ng-src="slide.Image" />-->
                 <div class="img" style="background-image: url('{{slide.Image}}')"></div>
-                <div class="darken-container" bo-if="slide.NeedFilterBrightness" ng-click="offerClickSlider(slide, $event, $index)"></div>
+                <div class="darken-container" ng-if="slide.NeedFilterBrightness" ng-click="offerClickSlider(slide, $event, $index)"></div>
                 <div class="info-container" ng-click="offerClickSlider(slide, $event, $index)">
                     <div class="info">
-                        <h3 class="name" bo-if="!isNullOrEmpty(slide.FrontTitleRow1)" bo-bind="slide.FrontTitleRow1"></h3>
-                        <h3 class="name" bo-if="!isNullOrEmpty(slide.FrontTitleRow2)" bo-bind="slide.FrontTitleRow2"></h3>
-                        <p class="description" bo-if="!isNullOrEmpty(slide.FrontSubTitleRow1)" bo-bind="slide.FrontSubTitleRow1"></p>
-                        <p class="description" bo-if="!isNullOrEmpty(slide.FrontSubTitleRow2)" bo-bind="slide.FrontSubTitleRow2"></p>
-                        <p class="description" bo-if="!isNullOrEmpty(slide.FrontPrice)" bo-bind="slide.FrontPrice"><span class="price"></span></p>
+                        <h3 class="name" ng-if="!isNullOrEmpty(slide.FrontTitleRow1)">
+	                        {{::slide.FrontTitleRow1}}
+                        </h3>
+                        <h3 class="name" ng-if="!isNullOrEmpty(slide.FrontTitleRow2)">
+	                        {{::slide.FrontTitleRow2}}
+                        </h3>
+                        <p class="description" ng-if="!isNullOrEmpty(slide.FrontSubTitleRow1)">
+	                        {{::slide.FrontSubTitleRow1}}
+                        </p>
+                        <p class="description" ng-if="!isNullOrEmpty(slide.FrontSubTitleRow2)">
+	                        {{::slide.FrontSubTitleRow2}}
+                        </p>
+                        <p class="description" ng-if="!isNullOrEmpty(slide.FrontPrice)">
+	                        {{::slide.FrontPrice}}
+	                        <span class="price"></span>
+                        </p>
                     </div>
                 </div>
             </li>
@@ -33,28 +44,36 @@
         </div>
     </div>
 
-    <div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}" bindonce ng-repeat="section in sections">
+    <div ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}" ng-repeat="section in sections">
         <div class="offers-container">
 
-            <div bo-if="landing.canDisplayDataForLandingPages && $index == 0">
-                <h2 class="landing-title" bo-if="!isNullOrEmpty(landing.SectionTitle)" bo-bind="landing.SectionTitle"></h2>
-                <p class="landing-title-sub" bo-if="!isNullOrEmpty(landing.SubSectionTitle)" bo-bind="landing.SubSectionTitle"></p>
+            <div ng-if="landing.canDisplayDataForLandingPages && $index == 0">
+                <h2 class="landing-title" ng-if="!isNullOrEmpty(landing.SectionTitle)">
+	                {{::landing.SectionTitle}}
+                </h2>
+                <p class="landing-title-sub" ng-if="!isNullOrEmpty(landing.SubSectionTitle)">
+	                {{::landing.SubSectionTitle}}
+                </p>
 
                 <div class="landing-area">
-                    <p class="offers-description" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 1" bo-html="landing.TextIntro"></p>
+                    <p class="offers-description" ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 1" ng-bind-html="landing.TextIntro"></p>
                     <div class="landing-cont">
-                        <div class="landing-col left offers-description" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2" bo-html="landing.columsTextIntro[0]">
+                        <div class="landing-col left offers-description" ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2" ng-bind-html="landing.columsTextIntro[0]">
                         </div>
-                        <div class="landing-col right offers-description" bo-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2" bo-html="landing.columsTextIntro[1]">
+                        <div class="landing-col right offers-description" ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2" ng-bind-html="landing.columsTextIntro[1]">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <h2 class="landing-title" bo-bind="section.Name" bo-if="!landing.canDisplayDataForLandingPages"></h2>
-            <p class="offers-description" bo-bind="section.Description" bo-if="!landing.canDisplayDataForLandingPages"></p>
+            <h2 class="landing-title" ng-if="!landing.canDisplayDataForLandingPages">
+	            {{::section.Name}}
+            </h2>
+            <p class="offers-description" ng-if="!landing.canDisplayDataForLandingPages">
+	            {{::section.Description}}
+            </p>
             <div class="offers-list" ng-controller="OffersListCtrl">
-                <ng:any bindonce ng-repeat="block in section.OfferLayouts track by $index">
+                <ng:any ng-repeat="block in section.OfferLayouts track by $index">
                     <ng:include src="getTemplateUrlByBlockType(block.OfferLayoutType)">
                     </ng:include>
                 </ng:any>

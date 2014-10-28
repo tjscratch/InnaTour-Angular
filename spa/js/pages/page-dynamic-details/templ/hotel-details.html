@@ -2,14 +2,17 @@
 <div class="hotel-details ng-cloak" ng-class="{'hotel-details_display-order' : isDisplayOrder}" ng-if="hotelLoaded">
     <div class="hotel-details__wrap main__center">
         <div class="hotel-details__section hotel-details__section_layout_context">
-            <div class="hotel-details__ta hotel-details-ta-info" ng-if="hotel.TaFactor">
+            <div class="hotel-details__ta hotel-details-ta-info" ng-click="scrollToTripadvisor()" ng-if="hotel.TaFactor">
                 <!-- tripadvisor -->
                 <div class="js-tripadvisor-container"></div>
             </div>
             <div class="hotel-details-name">
-                <span class="b-display-inline">{{hotel.HotelName}}</span>
-                <!-- Stars -->
-                <span class="hotel-details-stars js-hotel-details-stars"></span>
+                <span class="hotel-details-name__title">
+	                {{hotel.HotelName}}
+
+	                <!-- Stars -->
+                    <span class="hotel-details-stars js-hotel-details-stars"></span>
+                </span>
             </div>
         </div>
 
@@ -92,25 +95,22 @@
             </ul>
         </div>
 
-        <div class="hotel-details__section">
+	    <div class="hotel-details__section">
+		    <div class="hotel-details-resume">
+			    <div class="hotel-details-resume__section hotel-details-resume__section_{{key}}" ng-repeat="(key, cat) in hotel.Amenities">
+				    <h4 class="hotel-details-resume__section-title">{{cat.CategoryName}}</h4>
+				    <ul class="hotel-details-resume__list">
+					    <li class="hotel-details-resume__item" ng-repeat="item in cat.List track by $index">{{item}}</li>
+				    </ul>
+			    </div>
+		    </div>
+	    </div>
+
+
+	    <div class="hotel-details__section">
             <h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
             <div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
                 <div id="hotel-details-map"></div>
-            </div>
-        </div>
-
-        <div class="hotel-details__section">
-            <div class="hotel-details-resume">
-                <div class="hotel-details-resume__section hotel-details-resume__section_{{key}}" ng-repeat="(key, cat) in hotel.Amenities">
-                    <h4 class="hotel-details-resume__section-title">{{cat.CategoryName}}</h4>
-
-
-	                <ul class="hotel-details-resume__list" ng-repeat="rows in cat.List | partition:9">
-		                <li class="hotel-details-resume__item" ng-repeat="item in rows">
-			                <div class="span4">{{item}}</div>
-		                </li>
-	                </ul>
-                </div>
             </div>
         </div>
 

@@ -47,11 +47,10 @@ gulp.task('concat-lib', function () {
             conf.dest + '/lib/jquery.maskedinput.js',
             conf.dest + '/lib/angular-cookies.min.js',
             conf.dest + '/lib/angular-locale_ru-ru.js',
-            conf.dest + '/lib/bindonce.js',
             conf.dest + '/lib/google.maps.clustering.js',
             conf.dest + '/lib/jquery.ui.datepicker-ru.js',
             conf.dest + '/lib/datepicker/datepicker.js',
-            conf.dest + '/lib/jquery-ui/jquery-ui-1.10.4.custom.min.js'
+            conf.dest + '/lib/jquery-ui/jquery-ui.1.11.2.min.js'
     ])
 
         .pipe(concat('app-lib.js', {insertSourceName: {open: '/*', close: '*/'}}))

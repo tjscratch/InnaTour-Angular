@@ -80,7 +80,7 @@
                     <div class="js-stars-container"></div>
 
                     <h3 class="hotel-info-name">
-                        {{bundle.hotel.data.HotelName | textOverflow:50}}
+                        {{bundle.hotel.data.HotelName}}
                     </h3>
 
                     <div class="hotel-info-date">
@@ -114,7 +114,7 @@
 
             <a ng-if="!displayHotel"
                href="{{computedUrlDetails()}}"
-               ng-attr-target="{{isFullWL ? '' : '_blank'}}"
+               target="_blank"
                class="bottom-actions__button bottom-actions__button_action_details"
                ng-class="{'active': displayHotel}">Подробнее</a>
         </div>
@@ -152,7 +152,7 @@
 
         <a class="button"
            href="{{computedUrlDetails('buy')}}"
-           ng-attr-target="{{isFullWL ? '' : '_blank'}}"
+           target="_blank"
            ng-if="withReservationButton">
             Купить
         </a>

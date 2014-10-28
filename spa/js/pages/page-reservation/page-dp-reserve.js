@@ -20,6 +20,7 @@
 
             $scope.baloon.showExpireCheck();
 
+            $scope.isAviaPage = false;
 
             /*------------------------------------------*/
             /*------------------------------------------*/
@@ -81,10 +82,14 @@
                 cacheKey = data.SearchId;
 
                 $scope.$apply(function ($scope) {
+
+                    // TODO : наследование контроллера
                     $controller('ReserveTicketsCtrl', { $scope: $scope });
+
                     $scope.fromDate = $routeParams.StartVoyageDate;
                     $scope.AdultCount = parseInt($routeParams.Adult);
                     $scope.ChildCount = children[0].length;
+                    $scope.Child = children[0];
                     $scope.InfantsCount = children[1].length;
                     $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
 
@@ -107,6 +112,11 @@
                                 ticketBackId,
                                 providerId
                             ].join('-');
+
+                        if (window.partners && window.partners.isFullWL()) {
+                            url = window.partners.getParentLocationWithUrl(url);
+                        }
+
                         return url;
                     }
 
@@ -347,12 +357,13 @@
                 new Balloon().updateView({
                     template: 'server-error.html',
                     callbackClose: function () {
-                        //отправляем на пакеты
-                        $location.search({});
-                        $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                        //отправляем на поиск пакетов
+                        goToSearch();
                     }
                 });
             }
+
+
 
             $scope.$on('$destroy', function () {
                 $scope.baloon.hide();

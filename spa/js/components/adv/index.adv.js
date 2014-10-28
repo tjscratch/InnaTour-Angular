@@ -11,8 +11,7 @@ angular.module('innaApp.directives')
 
             return {
                 replace: true,
-                template: $templateCache.get('components/adv/templ/index.adv.hbs.html'),
-                scope: {},
+                template: $templateCache.get('components/adv/templ/index.adv.html'),
                 controller: [
                     '$element',
                     '$scope',
@@ -27,7 +26,10 @@ angular.module('innaApp.directives')
 
                         function determine() {
 
-                            $scope.isAdv = $cookieStore.get('ADV_VISIBLE') || ($location.search().tourist && $location.search().tourist == 0);
+                            // проверяем куки и параметры в url
+                            $scope.isAdv = $cookieStore.get('ADV_VISIBLE') ||
+                                (($location.search().utm_source && $location.search().utm_source == 'sletat') &&
+                                    (angular.isUndefined($location.search().tourist) || $location.search().tourist == 0));
 
                             if($cookieStore.get('ADV_NOT_VISIBLE')) {
                                 $scope.isAdv = false;
@@ -53,7 +55,7 @@ angular.module('innaApp.directives')
                         }
 
 
-                        $scope.hide = function ($event) {
+                        $scope.hideAdv = function ($event) {
                             $event.stopPropagation();
                             $scope.isVisible = false;
                             $scope.isAdv = false;

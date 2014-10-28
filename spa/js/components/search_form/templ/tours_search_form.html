@@ -14,10 +14,15 @@
 
 
     <div class="search-form-item search-form-to">
-        <input title="Вы не заполнили это поле" type="text" class="search-form-item-current SearchTo"
+
+	    <input title="Вы не заполнили это поле" type="text" class="search-form-item-current SearchTo"
                ng-class="{empty:toIsEmpty()}" ng-model="form.toText"
-               ng-keydown="toKeyDown($event)" ng-change="toChange()" ng-focus="toFocus($event)" ng-blur="toBlur($event)"
+               ng-keydown="toKeyDown($event)"
+               ng-change="toChange()"
+               ng-focus="toFocus($event)"
+               ng-blur="toBlur($event)"
                ng-click="toClick($event)"/>
+
         <ul class="search-form-list search-form-list-to" ng-show="form.toListIsNotEmpty()">
             <ng:any ng-repeat="item in form.toList">
                 <li class="search-form-list-item-separator" ng-show="isNeedInsertDelimiter(item, $index)"></li>
@@ -124,5 +129,7 @@
             </div>
         </div>
     </div>
-    <span class="search-form__submit search-button-block_small search-form-submit" ng-click="goFindTours()"></span>
+    <span class="search-form__submit search-button-block_small search-form-submit" ng-click="goFindTours()">
+	    <i class="icon-sprite-search search-button__icon"></i>
+    </span>
 </form>

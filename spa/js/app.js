@@ -1,18 +1,17 @@
 ﻿'use strict';
 
 var app = angular.module('innaApp', [
-  'ngRoute',
-  'innaApp.Cookie',
-  'innaApp.templates',
-  'innaApp.filters',
-  'innaApp.services',
-  'innaApp.directives',
-  'innaApp.controllers',
-  'innaApp.components',
-  'innaApp.Url',
-  'innaApp.API',
-  'ngSanitize',
-  'pasvaz.bindonce'
+    'ngRoute',
+    'innaApp.Cookie',
+    'innaApp.templates',
+    'innaApp.filters',
+    'innaApp.services',
+    'innaApp.directives',
+    'innaApp.controllers',
+    'innaApp.components',
+    'innaApp.Url',
+    'innaApp.API',
+    'ngSanitize'
 ]);
 
 /* локализация дат moment */
@@ -30,7 +29,7 @@ app.constant('innaApp.Urls', {
     URL_DYNAMIC_PACKAGES_BUY: '/packages/buy/',
     URL_DYNAMIC_PACKAGES: '/packages/',
     URL_DYNAMIC_PACKAGES_SEARCH: '/packages/search/',
-    URL_DYNAMIC_HOTEL_DETAILS : '/packages/details/',
+    URL_DYNAMIC_HOTEL_DETAILS: '/packages/details/',
     URL_DYNAMIC_PACKAGES_RESERVATION: '/packages/reservation/',
     URL_PROGRAMMS: '/individualtours/',
     URL_ABOUT: '/about/',
@@ -78,9 +77,22 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
         if ($window.ga != null)
             $window.ga('send', 'pageview', $location.path());
 
+        if (window.partners) {
+            //WL показываем фрейм, когда приложение заинитилось
+            window.partners.showFrame();
+        }
+
         //console.log('$routeChangeSuccess');
         //скролим наверх
         document.body.scrollTop = document.documentElement.scrollTop = 0;
+    });
+
+    $rootScope.$on('$locationChangeSuccess', function () {
+        //мониторим и проставляем url на странице, где размещен наш фрейм
+        if (window.partners) {
+            window.partners.saveUrlToParent();
+        }
+        //console.log('$locationChangeSuccess');
     });
 }]);
 
@@ -125,7 +137,7 @@ app.config([
             when(url.URL_PACKAGES_LANDING + ':sectionId-:Adult?', dynamic()).
             when(url.URL_PACKAGES_LANDING + ':sectionId', dynamic()).
             when(url.URL_TOURS, {
-                templateUrl: 'pages/tours_grid_page.html',
+                templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
                 controller: 'ToursCtrl'
             }).
             when(url.URL_PROGRAMMS + 'category/:id', {
@@ -153,11 +165,11 @@ app.config([
                 controller: 'AviaSearchMainCtrl'
             }).
             when(url.URL_AVIA + ':FromUrl-:ToUrl', {
-                templateUrl: 'pages/tours_grid_page.html',
+                templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
                 controller: 'AviaSearchMainCtrl'
             }).
             when(url.URL_AVIA, {
-                templateUrl: 'pages/tours_grid_page.html',
+                templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
                 controller: 'AviaSearchMainCtrl'
             }).
             when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
@@ -166,9 +178,9 @@ app.config([
             }).
             when(url.URL_AVIA_RESERVATION + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
                 ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2', {
-                    templateUrl: 'pages/avia/tickets_reserve.html',
-                    controller: 'AviaReserveTicketsCtrl'
-                }).
+                templateUrl: 'pages/page-reservation/templ/reserve.html',
+                controller: 'AviaReserveTicketsCtrl'
+            }).
             //when(url.URL_AVIA_BUY + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-' +
             //    ':IsToFlexible-:IsBackFlexible-:PathType-:QueryId-:VariantId1-:VariantId2-:OrderNum', {
             //        templateUrl: 'pages/avia/tickets_buy.html',
@@ -211,7 +223,7 @@ app.config([
                 reloadOnSearch: false
             }).
             when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
-                templateUrl: 'pages/avia/tickets_reserve.html',
+                templateUrl: 'pages/page-reservation/templ/reserve.html',
                 controller: 'DynamicReserveTicketsCtrl'
             }).
             when(url.B2B_DISPLAY_ORDER + ':OrderId', {
@@ -219,7 +231,7 @@ app.config([
                 controller: 'PageHotelDetails',
                 reloadOnSearch: false
                 /*templateUrl: 'pages/page-display-order/templ/display-order.html',
-                controller: 'B2B_DisplayOrder'*/
+                 controller: 'B2B_DisplayOrder'*/
             }).
             when(url.URL_AUTH_RESTORE, dynamic()).
             when(url.URL_AUTH_SIGNUP, dynamic()).
@@ -236,24 +248,39 @@ app.config([
     }
 ]);
 
-app.config([
-  '$provide', function ($provide) {
-      return $provide.decorator('$rootScope', [
-        '$delegate', function ($delegate) {
-            $delegate.safeApply = function (fn) {
-                var phase = $delegate.$$phase;
-                if (phase === "$apply" || phase === "$digest") {
-                    if (fn && typeof fn === 'function') {
-                        fn();
-                    }
-                } else {
-                    $delegate.$apply(fn);
+app.config(['$provide', function ($provide) {
+
+
+    $provide.decorator('$rootScope', ['$delegate', function ($delegate) {
+        $delegate.safeApply = function (fn) {
+            var phase = $delegate.$$phase;
+            if (phase === "$apply" || phase === "$digest") {
+                if (fn && typeof fn === 'function') {
+                    fn();
                 }
-            };
-            return $delegate;
-        }
-      ]);
-  }
+            } else {
+                $delegate.$apply(fn);
+            }
+        };
+        return $delegate;
+    }
+    ]);
+
+    $provide.decorator("$exceptionHandler", ["$delegate", function (del) {
+        return function (ex, cause) {
+            if (Raven) {
+                Raven.captureException(new Error(ex), {
+                    dataError : ex,
+                    cause : cause
+                });
+            }
+            del(ex, cause);
+
+        };
+    }]);
+
+    return $provide;
+}
 ]);
 
 var innaAppCookie = angular.module('innaApp.Cookie', ['ngCookies']);
@@ -265,7 +292,7 @@ var innaAppTemlates = angular.module('innaApp.templates', []);
 
 var innaAppDirectives = angular.module('innaApp.directives', []);
 
-innaAppDirectives.config(['$sceProvider', function($sceProvider) {
+innaAppDirectives.config(['$sceProvider', function ($sceProvider) {
     $sceProvider.enabled(false);
 }]);
 
@@ -273,7 +300,7 @@ var innaAppServices = angular.module('innaApp.services', []);
 
 var innaAppFilters = angular.module('innaApp.filters', []);
 
-app.factory('cache',['$cacheFactory', function ($cacheFactory) {
+app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
     var cache = $cacheFactory('myCache');
     return cache;
 }]);
