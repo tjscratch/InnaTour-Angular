@@ -388,7 +388,11 @@ innaAppControllers
                                     $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
                                     deferred.resolve();
                                 })
+                            },
+                            error : function(data){
+                                that.serverError500();
                             }
+
                         });
 
                     return deferred;
@@ -439,7 +443,11 @@ innaAppControllers
                                     that.set('loadTicketsData', data);
                                     deferred.resolve();
                                 });
+                            },
+                            error : function(data){
+                                that.serverError500();
                             }
+
                         });
 
                     return deferred;
@@ -491,7 +499,7 @@ innaAppControllers
                     });
                 },
 
-                combination500: function () {
+                serverError500: function () {
                     var that = this;
                     this._balloonLoad.updateView({
                         template: 'err.html',

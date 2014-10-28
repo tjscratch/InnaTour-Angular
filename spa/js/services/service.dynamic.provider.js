@@ -42,14 +42,16 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                 AjaxHelper.getDebounced({
                     url : api.DYNAMIC_SEARCH_HOTELS,
                     data : params.data,
-                    success : params.success
+                    success : params.success,
+                    error : params.error,
                 });
             },
             getTicketsByCombination: function (params) {
                 AjaxHelper.getDebounced({
                     url : api.DYNAMIC_SEARCH_TICKETS,
                     data : params.data,
-                    success : params.success
+                    success : params.success,
+                    error : params.error,
                 });
             },
 
