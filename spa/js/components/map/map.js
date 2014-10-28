@@ -285,7 +285,8 @@ angular.module('innaApp.directives')
                             activeMarker.infoBoxVisible = false;
                         }
                     }
-
+                    // прокидываем метод в scope для закрытия infoBox
+                    scope.activeMarkerReset = activeMarkerReset;
 
                     /**
                      * Анимация
