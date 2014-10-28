@@ -1042,6 +1042,7 @@ innaAppControllers.
 
             $scope.popupItemInfo_show = function ($event, item, criteria, searchId) {
                 $scope.popupItemInfo.show($event, item, criteria, searchId);
+                console.log(item);
 
                 //https://innatec.atlassian.net/browse/IN-2309
                 //Авиа. В детализации рекомендованного варианта пропала ссылка для копирования
@@ -1089,7 +1090,7 @@ innaAppControllers.
 
                 self.ractive.on({
                     popupItemInfo_show: function (event, item) {
-                        //console.log('popupItemInfo_show:');
+                        console.log(item);
                         $scope.safeApply(function () {
                             $scope.popupItemInfo.show(event.original, item, $scope.criteria, $scope.searchId);
                         });

@@ -172,6 +172,10 @@ app.config([
                 templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
                 controller: 'AviaSearchMainCtrl'
             }).
+            when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType-:VariantId1-:VariantId2', {
+                templateUrl: 'pages/page-avia/templ/search_results.html',
+                controller: 'AviaSearchResultsCtrl'
+            }).
             when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
                 templateUrl: 'pages/page-avia/templ/search_results.html',
                 controller: 'AviaSearchResultsCtrl'

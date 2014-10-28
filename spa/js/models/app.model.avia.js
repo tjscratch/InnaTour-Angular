@@ -21,6 +21,7 @@ function aviaCriteria(data) {
 
     //для покупки
     self.QueryId = data.QueryId;
+    //для выбранного варианта
     self.VariantId1 = data.VariantId1;
     self.VariantId2 = data.VariantId2;
     self.OrderNum = data.OrderNum;
