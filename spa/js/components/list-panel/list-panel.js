@@ -127,6 +127,9 @@ angular.module('innaApp.components').
                                 if (newValue.length) {
                                     if (newValue.length != this.get('Enumerable').length) {
                                         setTimeout(this.updateCoords, 0);
+                                        if (window.partners && window.partners.isFullWL() === true) {
+                                            this.set('showButtonMore', true);
+                                        }
                                     } else {
                                         this.removeScroll();
                                     }
