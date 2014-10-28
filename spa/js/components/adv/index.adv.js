@@ -20,9 +20,7 @@ angular.module('innaApp.directives')
                         $scope.isAdv = null;
                         $scope.isVisible = false;
 
-                        $scope.$on('$locationChangeSuccess', function () {
-                            determine();
-                        });
+
 
                         function determine() {
 
@@ -48,6 +46,7 @@ angular.module('innaApp.directives')
                                 show();
                             }
                         }
+                        determine();
 
                         function show() {
                             $scope.isVisible = true;
