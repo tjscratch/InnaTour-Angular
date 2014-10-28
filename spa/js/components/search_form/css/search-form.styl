@@ -8,13 +8,15 @@ $count-list = 10;
 
 .search-form {
   position: relative;
+  padding 7px
+  background-color: rgba(117, 117, 117, .8);
+  border-radius 0 2px 2px 2px
 
   &-item {
     background: #fff;
-    border-right: 1px solid #9f9f9f;
     cursor: pointer;
     display: inline-block;
-    height: 48px;
+    height: 36px;
     position: relative;
     vertical-align: top;
 
@@ -40,9 +42,9 @@ $count-list = 10;
       font-family: 'ProximaNova';
       font-weight: normal;
       font-size: 14px;
-      height: 48px;
+      height: 36px;
       overflow: hidden;
-      line-height: 49px;
+      line-height: 36px;
       margin: 0 0 0 10px;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -56,7 +58,7 @@ $count-list = 10;
     .icon-triangle {
       position: absolute;
       right: 12px;
-      top: 22px;
+      top: 17px;
     }
 
     &__last {
@@ -212,6 +214,7 @@ $count-list = 10;
   /* from */
   &-from {
     width: 180px;
+    margin-right: 3px;
 
     .search-form-item-current {
       width: 122px;
@@ -221,7 +224,8 @@ $count-list = 10;
 
   /* to */
   &-to {
-    width: 359px;
+    width: 353px;
+    margin-right: 3px;
 
     .search-form-list {
       width: 360px;
@@ -234,11 +238,6 @@ $count-list = 10;
         position: absolute;
         right: 7px;
         top: 5px
-      }
-
-      .search-form-to {
-
-
       }
     }
 
@@ -289,6 +288,7 @@ $count-list = 10;
   /* nights */
   &-nights {
     width: 119px;
+    margin-right: 3px;
   }
 
   &-nights &-item-current {
@@ -298,9 +298,9 @@ $count-list = 10;
   /* humans */
   &-humans {
     width: 119px;
-    border-right: 1px solid #9f9f9f;
+    margin-right 3px
     background: url("/spa/img/i.png") no-repeat #fff;
-    background-position right 7px top -1875px
+    background-position right 7px top -1879px
 
     .search-form-item-current {
       font-size 14px;
