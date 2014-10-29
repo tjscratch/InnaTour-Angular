@@ -332,6 +332,32 @@ innaAppControllers
                     }
                 },
 
+                getIdCombination: function () {
+
+
+                    var routeParams = angular.copy(searchParams);
+                    var HotelId = ($scope.combination.hotel) ? $scope.combination.hotel.data.HotelId : null;
+                    var TicketId = ($scope.combination.ticket) ? $scope.combination.ticket.data.VariantId1 : null;
+                    var params = {};
+
+                    if (!HotelId) HotelId = routeParams.hotel;
+                    if (!TicketId) TicketId = routeParams.ticket;
+
+
+                    params = {
+                        HotelId: HotelId || null,
+                        TicketId: TicketId || null,
+                        AddFilter: true
+                    };
+                    params = angular.extend(routeParams, params);
+
+                    return {
+                        HotelId: HotelId || null,
+                        TicketId: TicketId || null,
+                        params : params
+                    }
+                },
+
                 /**
                  * Загрузка списка отелей
                  * Инициализирует компонент @link ListPanelComponent
@@ -340,27 +366,14 @@ innaAppControllers
                 loadHotels: function () {
                     var that = this;
 
-                    var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
-                    var param = {
-                        Id: ($scope.combination.ticket) ? $scope.combination.ticket.data.VariantId1 : null,
-                        HotelId: ($scope.combination.hotel) ? $scope.combination.hotel.data.HotelId : null,
-                        TicketId: ($scope.combination.ticket) ? $scope.combination.ticket.data.VariantId1 : null,
-                        AddFilter: true
-                    };
-
-                    if (window.FrontedDebug && $location.search().DebugFilter) {
-                        //param.DebugFilter = true;
-                    }
-
-                    param = angular.extend(routeParams, param);
-
 
                     if (ListPanelComponent) ListPanelComponent.wait();
 
                     DynamicPackagesDataProvider
                         .getHotelsByCombination({
-                            data: param,
+                            // параметры
+                            data: this.getIdCombination().params,
                             success: function (data) {
                                 that.set('loadHotelsData', data);
 
@@ -389,7 +402,7 @@ innaAppControllers
                                     deferred.resolve();
                                 })
                             },
-                            error : function(data){
+                            error: function (data) {
                                 that.serverError500();
                             }
 
@@ -405,22 +418,8 @@ innaAppControllers
                  */
                 loadTickets: function () {
                     var that = this;
-
-                    var param = {
-                        Id: ($scope.combination.hotel) ? $scope.combination.hotel.data.HotelId : null,
-                        HotelId: ($scope.combination.hotel) ? $scope.combination.hotel.data.HotelId : null,
-                        TicketId: ($scope.combination.ticket) ? $scope.combination.ticket.data.VariantId1 : null,
-                        AddFilter: true
-                    }
-                    var routeParams = angular.copy(searchParams);
                     var deferred = new $.Deferred();
 
-                    if (window.FrontedDebug && $location.search().DebugFilter) {
-                        //param.DebugFilter = true;
-                    }
-
-
-                    param = angular.extend(routeParams, param);
 
                     // TODO : заглушка
                     // позже будет прелоадер
@@ -428,7 +427,8 @@ innaAppControllers
 
                     DynamicPackagesDataProvider
                         .getTicketsByCombination({
-                            data: param,
+                            // параметры
+                            data: this.getIdCombination().params,
                             success: function (data) {
 
                                 that._balloonLoad.dispose();
@@ -444,7 +444,7 @@ innaAppControllers
                                     deferred.resolve();
                                 });
                             },
-                            error : function(data){
+                            error: function (data) {
                                 that.serverError500();
                             }
 
