@@ -157,6 +157,7 @@ function FrameManager() {
         frame.style.height = "850px";
         //frame.style.height = "99%";
         frame.style.border = "0";
+        frame.style.verticalAlign = "top";
         frame.border = 0;
         frame.frameBorder = 0;
     }
