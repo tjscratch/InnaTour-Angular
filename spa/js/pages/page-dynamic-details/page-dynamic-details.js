@@ -439,6 +439,7 @@ innaAppControllers
                     headerHeight = angular.element('.Header').height(),
                     positionTop = angular.element('#tripadvisor-widget-iframe').position().top;
                 body.animate({ scrollTop: positionTop - headerHeight }, 500)
+                window.partners.setScrollPage(positionTop)
             };
 
 
