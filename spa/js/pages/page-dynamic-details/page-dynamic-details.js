@@ -287,8 +287,10 @@ innaAppControllers
                             $anchorScroll();*/
 
                             window.scrollTo(0, scrollPosition);
-                            if (window.partners) {
-                                window.partners.setScrollTo(scrollPosition);
+                            if (window.partners && window.partners.isFullWL()) {
+                                var elementHotelDetails = document.querySelector('.hotel-details-rooms');
+                                var positionTop = utils.getCoords(elementHotelDetails).top;
+                                window.partners.setScrollTo(positionTop);
                             }
                         }, 1000);
                     }
