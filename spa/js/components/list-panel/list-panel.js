@@ -67,10 +67,8 @@ angular.module('innaApp.components').
                     /**
                      * показываем кнопку "показать ещё" только в режиме FullWl
                      */
-                    if (window.partners) {
-                        if (window.partners.isFullWL() === true) {
-                            this.set('showButtonMore', true);
-                        }
+                    if (window.partners && window.partners.isFullWL() === true) {
+                        this.set('showButtonMore', true);
                     }
 
                     /**
@@ -127,8 +125,11 @@ angular.module('innaApp.components').
                                 // обновляем координаты
                                 // оборачиваем в setTimeout, так как нужно дождаться вставки элементов в DOM
                                 if (newValue.length) {
-                                    if (newValue.length != this.get('Enumerable').length - 1) {
+                                    if (newValue.length != this.get('Enumerable').length) {
                                         setTimeout(this.updateCoords, 0);
+                                        if (window.partners && window.partners.isFullWL() === true) {
+                                            this.set('showButtonMore', true);
+                                        }
                                     } else {
                                         this.removeScroll();
                                     }
@@ -231,7 +232,9 @@ angular.module('innaApp.components').
                 removeScroll: function () {
                     document.removeEventListener('scroll', this.onScroll, false);
                     this.set({scroll: false});
-                    this.set('showButtonMore', false);
+                    if (window.partners && window.partners.isFullWL() === true) {
+                        this.set('showButtonMore', false);
+                    }
                 },
 
                 toggleScroll: function () {
