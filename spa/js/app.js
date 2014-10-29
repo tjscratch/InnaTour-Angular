@@ -57,6 +57,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     Ractive.defaults.data.moment = moment || null;
     Ractive.defaults.debug = true;
     Ractive.defaults.data.$filter = $filter;
+    Ractive.defaults.data.$rootScope = $rootScope;
 
     $rootScope.bodyClickListeners = [];
 

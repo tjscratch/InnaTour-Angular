@@ -24,6 +24,7 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             var routParam = angular.copy($routeParams);
+            $scope.userIsAgency = null;
 
             /**
              * Смотрим на условие - переход из B2B
@@ -142,7 +143,6 @@ innaAppControllers
                 });
             }
 
-
             /**
              * Получаем данные по отелю
              */
@@ -247,6 +247,7 @@ innaAppControllers
                             }
 
                             onload();
+
                         } else {
                             showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
                         }
@@ -439,6 +440,12 @@ innaAppControllers
                     positionTop = angular.element('#tripadvisor-widget-iframe').position().top;
                 body.animate({ scrollTop: positionTop - headerHeight }, 500)
             };
+
+            $scope.$watch('user', function(User){
+                if(User){
+                    $scope.userIsAgency = User.isAgency();
+                }
+            });
 
 
             $scope.$on('$destroy', function () {
