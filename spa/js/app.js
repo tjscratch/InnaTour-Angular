@@ -214,6 +214,7 @@ app.config([
                 templateUrl: 'pages/hotels_page.html',
                 controller: 'HotelsCtrl'
             }).
+            
             when(url.URL_DYNAMIC_PACKAGES + ':DepartureId-:ArrivalId', dynamic()).//URL для контекста по ДП
             when(url.URL_DYNAMIC_PACKAGES, dynamic()).
             when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
