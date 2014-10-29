@@ -14,7 +14,7 @@ angular.module('innaApp.components').
                 data: {
                     setValue: 0,
                     value: {
-                        name: 'FullPackagePrice',
+                        name: 'PackagePrice',
                         val: [],
                         fn: function (data, component_val) {
                             return (data <= component_val.val[0]);

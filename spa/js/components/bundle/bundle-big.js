@@ -10,7 +10,7 @@ angular.module('innaApp.directives')
                 stateTicket: "=stateTicket",
                 stateHotel: "=stateHotel",
                 tabActive: "=tabActive",
-                asMap : "=asMap",
+                asMap: "=asMap",
                 withReservationButton: '@innaDynamicBundleWithReservationButton',
                 close: '=innaDynamicBundleClose'
             },
@@ -56,7 +56,7 @@ angular.module('innaApp.directives')
                         var ticketBackId = $scope.bundle.ticket.data.VariantId2;
                         var providerId = $scope.bundle.hotel.data.ProviderId;
 
-                        var urlDetails = '/#'+ Urls.URL_DYNAMIC_HOTEL_DETAILS + [
+                        var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                             DepartureId,
                             ArrivalId,
                             StartVoyageDate,
@@ -77,10 +77,12 @@ angular.module('innaApp.directives')
                         return (opt_param) ? urlDetails + '?action=buy' : urlDetails;
                     }
 
+
+                    // ShareLink
                     var _shareLink = new ShareLink({
                         el: $element.find('.js-share-component'),
-                        data : {
-                            location : angular.copy(document.location.href)
+                        data: {
+                            location: angular.copy(document.location.href)
                         }
                     });
 
@@ -102,16 +104,16 @@ angular.module('innaApp.directives')
                         }
                     });
 
+                    // PriceGeneric
                     var _priceGeneric = new PriceGeneric({
                         el: $element.find('.js-price-generic-container'),
                         data: {
                             template: "index.hbs.html",
-                            virtualBundle : $scope.bundle,
-                            tooltipKlass : 'bundle',
-                            type : $scope.tabActive
+                            virtualBundle: $scope.bundle,
+                            tooltipKlass: 'bundle',
+                            type: $scope.tabActive
                         }
                     })
-
 
 
                     if ($location.search().displayHotel) {
@@ -138,14 +140,14 @@ angular.module('innaApp.directives')
                     };
 
                     // update components
-                    $scope.$watchCollection('bundle', function(value){
+                    $scope.$watchCollection('bundle', function (value) {
 
                         //  обновляем transportersList
                         $scope.transportersList = $scope.bundle.ticket.collectAirlines().airlines;
 
                         _priceGeneric.set({
                             'virtualBundle': value,
-                            type : $scope.tabActive
+                            type: $scope.tabActive
                         });
 
                         _tripadvisor.set({
@@ -160,18 +162,18 @@ angular.module('innaApp.directives')
                         }, 0)
                     });
 
-                    $scope.$watchCollection('stateTicket', function(value){
-                        $timeout(function(){
+                    $scope.$watchCollection('stateTicket', function (value) {
+                        $timeout(function () {
                             _shareLink.set('location', window.location);
                         }, 0)
                     });
 
                     //destroy
                     $scope.$on('$destroy', function () {
-                        _shareLink.teardown();
-                        _tripadvisor.teardown();
-                        _stars.teardown();
-                        _priceGeneric.teardown();
+                        if (_shareLink) _shareLink.teardown();
+                        if (_tripadvisor) _tripadvisor.teardown();
+                        if (_stars) _stars.teardown();
+                        if (_priceGeneric) _priceGeneric.teardown();
                         _stars = null;
                         _shareLink = null;
                         _tripadvisor = null;
