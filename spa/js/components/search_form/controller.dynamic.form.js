@@ -77,7 +77,8 @@ innaAppControllers
                 }
             };
 
-            var routeParams = parseRoute($location.path());
+            $scope.routeParams = parseRoute($location.path());
+
 
             /**
              * устанавливаем значение города вылета и города назначения
@@ -113,14 +114,26 @@ innaAppControllers
 
 
             /*Begin date*/
-            $scope.dateBegin = routeParams.StartVoyageDate || serviceCache.require('dateBegin');
+            if (serviceCache.require('dateBegin')) {
+                $scope.dateBegin = $scope.routeParams.StartVoyageDate || serviceCache.require('dateBegin');
+            }else{
+                $scope.$watch('routeParams', function (data) {
+                    $scope.dateBegin = $scope.routeParams.StartVoyageDate;
+                })
+            }
 
             $scope.$watch('dateBegin', function (newVal) {
                 serviceCache.put('dateBegin', newVal);
             });
 
             /*End date*/
-            $scope.dateEnd = routeParams.EndVoyageDate || serviceCache.require('dateEnd');
+            if (serviceCache.require('dateEnd')) {
+                $scope.dateEnd = $scope.routeParams.EndVoyageDate || serviceCache.require('dateEnd');
+            } else {
+                $scope.$watch('routeParams', function (data) {
+                    $scope.dateEnd = $scope.routeParams.EndVoyageDate;
+                })
+            }
 
             $scope.$watch('dateEnd', function (newVal) {
                 serviceCache.put('dateEnd', newVal);
@@ -135,17 +148,17 @@ innaAppControllers
             //TODO fix English
             if (window.partners && window.partners.isFullWL()) {
                 var storageAges = JSON.parse(serviceCache.require('childrensAge'));
-                $scope.childrensAge = routeParams.ChildrenAges || storageAges || [];
-                $scope.childrenCount = (routeParams.ChildrenAges && routeParams.ChildrenAges.length) || serviceCache.require('childrenCount') || 0;
-                $scope.adultCount = routeParams.Adult || serviceCache.require('adultCount') || 2;
+                $scope.childrensAge = $scope.routeParams.ChildrenAges || storageAges || [];
+                $scope.childrenCount = ($scope.routeParams.ChildrenAges && $scope.routeParams.ChildrenAges.length) || serviceCache.require('childrenCount') || 0;
+                $scope.adultCount = $scope.routeParams.Adult || serviceCache.require('adultCount') || 2;
             }
             else {
                 /*Children ages*/
-                $scope.childrensAge = routeParams.ChildrenAges || [];
+                $scope.childrensAge = $scope.routeParams.ChildrenAges || [];
                 /*Children count*/
-                $scope.childrenCount = (routeParams.ChildrenAges && routeParams.ChildrenAges.length) || 0;
+                $scope.childrenCount = ($scope.routeParams.ChildrenAges && $scope.routeParams.ChildrenAges.length) || 0;
                 /*Adult count*/
-                $scope.adultCount = routeParams.Adult || 2;
+                $scope.adultCount = $scope.routeParams.Adult || 2;
             }
 
             $scope.$watch('adultCount', function (newVal) {
@@ -161,7 +174,7 @@ innaAppControllers
 
             /*Klass*/
             $scope.klass = _.find(TripKlass.options, function (klass) {
-                var cached = routeParams.TicketClass ||
+                var cached = $scope.routeParams.TicketClass ||
                     serviceCache.require('klass', function () {
                         return TripKlass.ECONOM;
                     });
@@ -231,12 +244,12 @@ innaAppControllers
             }
 
             $scope.$on('$locationChangeSuccess', function (data, url, datatest) {
-                var oldRouteParams = routeParams;
+                var oldRouteParams = $scope.routeParams;
 
-                routeParams = parseRoute(url);
+                $scope.routeParams = parseRoute(url);
 
-                if (!angular.equals(oldRouteParams, routeParams)) {
-                    $scope.$broadcast('DYNAMIC.locationChange', routeParams);
+                if (!angular.equals(oldRouteParams, $scope.routeParams)) {
+                    $scope.$broadcast('DYNAMIC.locationChange', $scope.routeParams);
                 }
             });
 
