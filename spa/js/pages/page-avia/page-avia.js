@@ -1081,7 +1081,10 @@ innaAppControllers.
             function getPopupItemUrl(item) {
                 var url = location.protocol + '//' + location.host + '/#' + urlHelper.UrlToAviaSearch($scope.criteria);
                 if (item) {
-                    url += '-' + item.VariantId1 + '-' + item.VariantId2;
+                    url += '-' + item.VariantId1 + '-';
+                    if (item.VariantId2) {
+                        url += item.VariantId2;
+                    }
                 }
                 return url;
             }
