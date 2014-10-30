@@ -120,8 +120,14 @@
     dpPayBtnSubmitStart: function () {//Факт нажатия кнопки "перейти к оплате" после заполнения формы данных пассажира
         track.writeAnalitics('/packages/buy', 'buy');
     },
+    dpPayBtnSubmitContinue: function () {//Факт получения ответа от сервера о начале оплаты
+        track.writeAnalitics('/packages/buy_continue', 'buy_continue');
+    },
+    dpPayBtnSubmitContinueErr: function () {//Факт получения ответа от сервера о начале оплаты
+        track.writeAnalitics('/packages/buy_continue_err', 'buy_continue_err');
+    },
     dpPayBtnSubmit: function () {
-        track.writeAnalitics('/virtual/aviahotel_pay$', 'aviahotel_pay$');
+        track.writeAnalitics('/virtual/aviahotel_pay', 'aviahotel_pay');
     },
     dpPaymentSubmit: function (orderNum, revenue, IATA1, IATA2, hotelName) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
         if (window.ga != null) {
@@ -159,8 +165,14 @@
     aviaGoBuy: function () { //Нажатие кнопки «Перейти к оплате» (Переход к оплате) 
         track.writeAnalitics('/virtual/avia_payment', 'avia_payment');
     },
-    aviaPayBtnSubmit: function () { //Нажатие кнопки «Оплатить» (Оплата авиабилета) 
+    aviaPayBtnSubmitStart: function () { //Нажатие кнопки «Оплатить» (Оплата авиабилета) 
         track.writeAnalitics('/virtual/avia_pay', 'avia_pay');
+    },
+    aviaPayBtnSubmitContinue: function () { //Факт получения ответа от сервера о начале оплаты
+        track.writeAnalitics('/virtual/avia_pay_continue', 'avia_pay_continue');
+    },
+    aviaPayBtnSubmitContinueErr: function () { //Факт получения ответа от сервера о начале оплаты
+        track.writeAnalitics('/virtual/avia_pay_continue_err', 'avia_pay_continue_err');
     },
     aivaPaymentSubmit: function (orderNum, revenue, IATA1, IATA2) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
         if (window.ga != null) {
