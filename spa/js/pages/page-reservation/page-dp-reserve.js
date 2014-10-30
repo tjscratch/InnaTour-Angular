@@ -86,6 +86,8 @@
                     // TODO : наследование контроллера
                     $controller('ReserveTicketsCtrl', { $scope: $scope });
 
+                    $scope.Is_it_tarif = data.Is_it_tarif;
+
                     $scope.fromDate = $routeParams.StartVoyageDate;
                     $scope.AdultCount = parseInt($routeParams.Adult);
                     $scope.ChildCount = children[0].length;

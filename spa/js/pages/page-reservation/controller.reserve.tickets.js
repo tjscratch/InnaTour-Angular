@@ -773,6 +773,33 @@ innaAppControllers.
                 updateValidationModel();
             }, true);
 
+            //удаляем из списка гражданств страну назначения
+            function filterCitizenshipList(data) {
+                //console.log('data.length:', data.length);
+                if ($scope.Is_it_tarif == true) {
+                    //находим страну назначения
+                    //AviaInfo
+                    if ($scope.item && $scope.item.EtapsTo && $scope.item.EtapsTo.length > 0) {
+                        //берем последний
+                        var lastEtap = $scope.item.EtapsTo[$scope.item.EtapsTo.length - 1];
+                        var countryId = lastEtap.InCountryId;
+
+                        if (countryId) {
+                            //фильтруем
+                            data = _.filter(data, function (cit) {
+                                if (cit.Id == countryId) {
+                                    console.log('removed Id: ' + cit.Id + ' name: ' + cit.Name);
+                                }
+                                return cit.Id != countryId;
+                            });
+                        }
+                    }
+                }
+
+                //console.log('data.length:', data.length);
+                return data;
+            }
+
             function loadHelpersDataAndInitModel() {
                 var loader = new utils.loader();
 
@@ -780,7 +807,7 @@ innaAppControllers.
                     var self = this;
                     dataService.getAllCountries(function (data) {
                         if (data != null) {
-                            $scope.citizenshipList = data;
+                            $scope.citizenshipList = filterCitizenshipList(data);
                             loader.complete(self);
                         }
                     }, function (data, status) {
