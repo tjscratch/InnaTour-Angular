@@ -123,8 +123,8 @@
     dpPayBtnSubmitContinue: function () {//Факт получения ответа от сервера о начале оплаты
         track.writeAnalitics('/packages/buy_continue', 'buy_continue');
     },
-    dpPayBtnSubmitContinueErr: function () {//Факт получения ответа от сервера о начале оплаты
-        track.writeAnalitics('/packages/buy_continue_err', 'buy_continue_err');
+    dpPayBtnSubmitContinueErr: function (err_code) {//Факт получения ответа от сервера о начале оплаты
+        track.writeAnalitics('/packages/buy_continue_' + err_code, 'buy_continue_' + err_code);
     },
     dpPayBtnSubmit: function () {
         track.writeAnalitics('/virtual/aviahotel_pay', 'aviahotel_pay');
@@ -171,8 +171,8 @@
     aviaPayBtnSubmitContinue: function () { //Факт получения ответа от сервера о начале оплаты
         track.writeAnalitics('/virtual/avia_pay_continue', 'avia_pay_continue');
     },
-    aviaPayBtnSubmitContinueErr: function () { //Факт получения ответа от сервера о начале оплаты
-        track.writeAnalitics('/virtual/avia_pay_continue_err', 'avia_pay_continue_err');
+    aviaPayBtnSubmitContinueErr: function (err_code) { //Факт получения ответа от сервера о начале оплаты
+        track.writeAnalitics('/virtual/avia_pay_continue_' + err_code, 'avia_pay_continue_' + err_code);
     },
     aivaPaymentSubmit: function (orderNum, revenue, IATA1, IATA2) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
         if (window.ga != null) {
