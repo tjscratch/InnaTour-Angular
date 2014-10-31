@@ -15,7 +15,7 @@
 
 
 	            <span class="hotel-details-rooms__room-rules-warning"
-	                  ng-if="room.IsRefundable && userIsAgency && (!room.IsRefundable || (room.IsRefundable && room.IsReturnsWithFine))">
+	                  ng-if="userIsAgency && (!room.IsRefundable || (room.IsRefundable && room.IsReturnsWithFine))">
 	                <i class="icon-sprite-b2b-error-hotel css-sprite-b2b-error-hotel"></i>
 	                бронирование возможно после оплаты
                 </span>
