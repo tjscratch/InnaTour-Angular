@@ -727,51 +727,102 @@ innaAppControllers.
                         }
                         case actionTypeEnum.avia:
                         {
-                            track.aviaPayBtnSubmit();
+                            track.aviaPayBtnSubmitStart();
                             break;
                         }
                     }
 
-                    paymentService.pay(apiPayModel,
-                        function (data) {
-                            log('\npaymentService.pay, data: ' + angular.toJson(data));
-                            if (data != null && data.Status == 0) {
+                    function trackError(pageType, err_code) {
+                        if (!err_code) {
+                            err_code = 'err';
+                        }
+                        switch (pageType) {
+                            case actionTypeEnum.dp:
+                                {
+                                    track.dpPayBtnSubmitContinueErr(err_code);
+                                    break;
+                                }
+                            case actionTypeEnum.avia:
+                                {
+                                    track.aviaPayBtnSubmitContinueErr(err_code);
+                                    break;
+                                }
+                        }
+                    }
 
-                                //ToDo: для теста
-                                if (location.href.indexOf("debug_status=1") > -1) {
-                                    data.PreauthStatus = 1;
+                    function trackContinueSuccess(pageType) {
+                        switch (pageType) {
+                            case actionTypeEnum.dp:
+                                {
+                                    track.dpPayBtnSubmitContinue();
+                                    break;
                                 }
-                                else if (location.href.indexOf("debug_status=2") > -1) {
-                                    data.PreauthStatus = 2;
+                            case actionTypeEnum.avia:
+                                {
+                                    track.aviaPayBtnSubmitContinue();
+                                    break;
                                 }
+                        }
+                    }
 
-                                //успешно
-                                if (data.PreauthStatus == 1) {
-                                    //3dSecure
-                                    processPay3d(data.Data);
-                                }
-                                else if (data.PreauthStatus == 2) {
-                                    $scope.is3dscheck = false;
-                                    //без 3dSecure
-                                    checkPayment();
-                                    //testPayComplete();
+                    try
+                    {
+                        paymentService.pay(apiPayModel,
+                            function (data) {
+
+                                log('\npaymentService.pay, data: ' + angular.toJson(data));
+                                if (data != null && data.Status == 0) {
+
+                                    //ToDo: для теста
+                                    if (location.href.indexOf("debug_status=1") > -1) {
+                                        data.PreauthStatus = 1;
+                                    }
+                                    else if (location.href.indexOf("debug_status=2") > -1) {
+                                        data.PreauthStatus = 2;
+                                    }
+
+                                    //успешно
+                                    if (data.PreauthStatus == 1) {
+                                        trackContinueSuccess(pageType);
+
+                                        //3dSecure
+                                        processPay3d(data.Data);
+                                    }
+                                    else if (data.PreauthStatus == 2) {
+                                        trackContinueSuccess(pageType);
+
+                                        $scope.is3dscheck = false;
+                                        //без 3dSecure
+                                        checkPayment();
+                                        //testPayComplete();
+                                    }
+                                    else {
+                                        trackError(pageType);
+
+                                        //ошибка
+                                        log('paymentService.pay error, data.PreauthStatus: ' + data.PreauthStatus);
+                                        $scope.baloon.showGlobalAviaErr();
+                                    }
                                 }
                                 else {
-                                    //ошибка
-                                    log('paymentService.pay error, data.PreauthStatus: ' + data.PreauthStatus);
+                                    trackError(pageType);
+
+                                    log('paymentService.pay error, data is null');
                                     $scope.baloon.showGlobalAviaErr();
                                 }
-                            }
-                            else {
-                                log('paymentService.pay error, data is null');
+                            },
+                            function (data, status) {
+                                trackError(pageType);
+
+                                //ошибка
+                                log('paymentService.pay error, data: ' + angular.toJson(data));
                                 $scope.baloon.showGlobalAviaErr();
-                            }
-                        },
-                        function (data, status) {
-                            //ошибка
-                            log('paymentService.pay error, data: ' + angular.toJson(data));
-                            $scope.baloon.showGlobalAviaErr();
-                        });
+                            });
+                    }
+                    catch(e){
+                        trackError(pageType, 'js_err');
+                        throw e;
+                    }
                 }
             };
 
@@ -941,6 +992,7 @@ innaAppControllers.
                                                     //аналитика - авиа - заказ выполнен
                                                     if (pageType == actionTypeEnum.avia) {
                                                         track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
+                                                        track.aviaPayBtnSubmit();
                                                     }
 
                                                     //останавливаем проверку времени оплаты
@@ -967,6 +1019,7 @@ innaAppControllers.
                                                     //аналитика - ДП - заказ выполнен
                                                     if (pageType == actionTypeEnum.dp) {
                                                         track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
+                                                        track.dpPayBtnSubmit();
                                                     }
 
                                                     redirectSuccessBuyPackage();
@@ -997,7 +1050,6 @@ innaAppControllers.
                             }
                             finally {
                                 $scope.isCkeckProcessing = false;
-                                track.dpPayBtnSubmit();
                             }
                         }, function (data, status) {
                             $scope.isCkeckProcessing = false;
