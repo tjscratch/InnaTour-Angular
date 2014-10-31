@@ -204,9 +204,15 @@ innaAppConponents.
 
 
                 dispose: function () {
+                    var that = this;
                     this.set({isVisible: false});
-                    document.body.classList.remove('overflow_hidden');
-                    window.removeEventListener('resize', this.onResize);
+
+
+                    setTimeout(function(){
+                        document.body.classList.remove('overflow_hidden');
+                        window.removeEventListener('resize', that.onResize);
+                    }, 0)
+
                 }
             });
 
