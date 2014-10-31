@@ -992,6 +992,7 @@ innaAppControllers.
                                                     //аналитика - авиа - заказ выполнен
                                                     if (pageType == actionTypeEnum.avia) {
                                                         track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
+                                                        track.aviaPayBtnSubmit();
                                                     }
 
                                                     //останавливаем проверку времени оплаты
@@ -1018,6 +1019,7 @@ innaAppControllers.
                                                     //аналитика - ДП - заказ выполнен
                                                     if (pageType == actionTypeEnum.dp) {
                                                         track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
+                                                        track.dpPayBtnSubmit();
                                                     }
 
                                                     redirectSuccessBuyPackage();
@@ -1048,7 +1050,6 @@ innaAppControllers.
                             }
                             finally {
                                 $scope.isCkeckProcessing = false;
-                                track.dpPayBtnSubmit();
                             }
                         }, function (data, status) {
                             $scope.isCkeckProcessing = false;

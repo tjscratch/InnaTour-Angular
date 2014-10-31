@@ -106,28 +106,34 @@
     //ДП. Построение воронок продаж
     //https://innatec.atlassian.net/wiki/pages/viewpage.action?pageId=10518564
     dpSearch: function () {//Клик по кнопке искать формы поиска (форма поиска динамическая)
-        track.writeAnalitics('/virtual/main_search', 'main_search');
+        track.writeAnalitics('/virtual/packages/search', 'packages_search');
+    },
+    successResultsDp: function () { //коды для фиксации успешной выдачи результатов поиска ДП
+        track.writeAnalitics('/virtual/packages/search_success', 'packages_search_success');
+    },
+    noResultsDp: function () { //нет результатов для поиска ДП (появление меню "мы ничего не нашли")
+        track.writeAnalitics('/virtual/packages/search_no_results', 'packages_search_no_results');
     },
     dpBuyPackage: function () {//нажатие кнопки "купить" на форме поиска пакета
-        track.writeAnalitics('/virtual/recommended_variant', 'recommended_variant');
+        track.writeAnalitics('/virtual/packages/buy_variant', 'packages_buy_variant');
     },
     dpGoReserve: function () {//нажатие кнопки "купить" на форме выбора категории номера на странице отеля
-        track.writeAnalitics('/virtual/buy_suite', 'buy_suite');
+        track.writeAnalitics('/virtual/packages/buy_suite', 'packages_buy_suite');
     },
-    dpGoBuy: function () {//Факт нажатия кнопки "перейти к оплате" после заполнения формы данных пассажира
-        track.writeAnalitics('/virtual/payment', 'payment');
+    dpGoBuy: function () {//Факт нажатия кнопки "перейти к оплате" после заполнения формы данных пассажира и успешного бронирования
+        track.writeAnalitics('/virtual/packages/reservation_success', 'packages_reservation_success');
     },
-    dpPayBtnSubmitStart: function () {//Факт нажатия кнопки "перейти к оплате" после заполнения формы данных пассажира
-        track.writeAnalitics('/packages/buy', 'buy');
+    dpPayBtnSubmitStart: function () {//Факт нажатия кнопки "оплатить" после заполнения формы данных пассажира
+        track.writeAnalitics('/virtual/packages/payment_start', 'packages_payment_start');
     },
     dpPayBtnSubmitContinue: function () {//Факт получения ответа от сервера о начале оплаты
-        track.writeAnalitics('/packages/buy_continue', 'buy_continue');
+        track.writeAnalitics('/virtual/packages/payment_continue', 'packages_payment_continue');
     },
     dpPayBtnSubmitContinueErr: function (err_code) {//Факт получения ответа от сервера о начале оплаты
-        track.writeAnalitics('/packages/buy_continue_' + err_code, 'buy_continue_' + err_code);
+        track.writeAnalitics('/virtual/packages/payment_continue_' + err_code, 'packages_payment_continue_' + err_code);
     },
     dpPayBtnSubmit: function () {
-        track.writeAnalitics('/virtual/aviahotel_pay', 'aviahotel_pay');
+        track.writeAnalitics('/virtual/packages/order_success', 'packages_order_success');
     },
     dpPaymentSubmit: function (orderNum, revenue, IATA1, IATA2, hotelName) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
         if (window.ga != null) {
@@ -157,22 +163,31 @@
     },
     //Воронка "Авиабилеты"
     aviaSearch: function () { //Нажатие кнопки «Поиск» (Поиск авиабилетов) 
-        track.writeAnalitics('/virtual/avia_search', 'avia_search');
+        track.writeAnalitics('/virtual/avia/search', 'avia_search');
+    },
+    successResultsAvia: function () { //коды для фиксации успешной выдачи результатов поиска авиа
+        track.writeAnalitics('/virtual/avia/search_success', 'avia_search_success');
+    },
+    noResultsAvia: function () { //нет результатов для поиска авиабилетов (появление меню "мы ничего не нашли")
+        track.writeAnalitics('/virtual/avia/search_no_results', 'avia_search_no_results');
     },
     aviaChooseVariant: function () { //Нажатие кнопки «Купить» (Выбор авиабилета)
-        track.writeAnalitics('/virtual/avia_variant', 'avia_variant');
+        track.writeAnalitics('/virtual/avia/buy_variant', 'avia_buy_variant');
     },
-    aviaGoBuy: function () { //Нажатие кнопки «Перейти к оплате» (Переход к оплате) 
-        track.writeAnalitics('/virtual/avia_payment', 'avia_payment');
+    aviaGoBuy: function () { //Нажатие кнопки «Перейти к оплате» (Переход к оплате) и успешное бронирование
+        track.writeAnalitics('/virtual/avia/reservation_success', 'avia_reservation_success');
     },
     aviaPayBtnSubmitStart: function () { //Нажатие кнопки «Оплатить» (Оплата авиабилета) 
-        track.writeAnalitics('/virtual/avia_pay', 'avia_pay');
+        track.writeAnalitics('/virtual/avia/payment_start', 'avia_payment_start');
     },
     aviaPayBtnSubmitContinue: function () { //Факт получения ответа от сервера о начале оплаты
-        track.writeAnalitics('/virtual/avia_pay_continue', 'avia_pay_continue');
+        track.writeAnalitics('/virtual/avia/payment_continue', 'avia_payment_continue');
     },
     aviaPayBtnSubmitContinueErr: function (err_code) { //Факт получения ответа от сервера о начале оплаты
-        track.writeAnalitics('/virtual/avia_pay_continue_' + err_code, 'avia_pay_continue_' + err_code);
+        track.writeAnalitics('/virtual/avia/payment_continue_' + err_code, 'avia_payment_continue_' + err_code);
+    },
+    aviaPayBtnSubmit: function () {
+        track.writeAnalitics('/virtual/avia/order_success', 'avia_order_success');
     },
     aivaPaymentSubmit: function (orderNum, revenue, IATA1, IATA2) {//Страница подтверждения бронирования - фиксация в модуле екомерс ГА факта покупки и суммы
         if (window.ga != null) {
@@ -200,23 +215,12 @@
             ga('ecommerce:send');
         }
     },
+    //остальные
     toursSearch: function () { //поиск туров
         track.writeAnalitics('/virtual/tour_search', 'tour_search');
     },
     programmSend: function () { //Нажатие кнопки «Отправить» (Отправка заявки на программу)
         track.writeAnalitics('/virtual/prog_request', 'prog_request');
-    },
-    noResultsDp: function () { //нет результатов для поиска ДП (появление меню "мы ничего не нашли")
-        track.writeAnalitics('/virtual/search_noresults', 'search_noresults');
-    },
-    noResultsAvia: function () { //нет результатов для поиска авиабилетов (появление меню "мы ничего не нашли")
-        track.writeAnalitics('/virtual/search_avianoresults', 'search_avianoresults');
-    },
-    successResultsDp: function () { //коды для фиксации успешной выдачи результатов поиска ДП
-        track.writeAnalitics('/virtual/search_yesresults', 'search_yesresults');
-    },
-    successResultsAvia: function () { //коды для фиксации успешной выдачи результатов поиска авиа
-        track.writeAnalitics('/virtual/search_aviayesresults', 'search_aviayesresults');
     }
 };
 
