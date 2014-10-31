@@ -981,6 +981,21 @@ innaAppControllers.
                                         if (data.Result == 1) {
                                             var pageType = getActionType();
 
+                                            if (!$scope.hotel) {
+                                                //аналитика - авиа - заказ выполнен
+                                                if (pageType == actionTypeEnum.avia) {
+                                                    track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
+                                                    track.aviaPayBtnSubmit();
+                                                }
+                                            }
+                                            else if ($scope.hotel != null) {
+                                                //аналитика - ДП - заказ выполнен
+                                                if (pageType == actionTypeEnum.dp) {
+                                                    track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
+                                                    track.dpPayBtnSubmit();
+                                                }
+                                            }
+
                                             //если агентство - отправляем обратно в b2b интерфейс
                                             if ($scope.isAgency) {
                                                 var b2bOrder = $scope.B2B_HOST_Order + $scope.orderId;
@@ -989,11 +1004,11 @@ innaAppControllers.
                                             }
                                             else {
                                                 if (!$scope.hotel) {
-                                                    //аналитика - авиа - заказ выполнен
-                                                    if (pageType == actionTypeEnum.avia) {
-                                                        track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
-                                                        track.aviaPayBtnSubmit();
-                                                    }
+                                                    ////аналитика - авиа - заказ выполнен
+                                                    //if (pageType == actionTypeEnum.avia) {
+                                                    //    track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
+                                                    //    track.aviaPayBtnSubmit();
+                                                    //}
 
                                                     //останавливаем проверку времени оплаты
                                                     $scope.paymentDeadline.destroy();
@@ -1017,10 +1032,10 @@ innaAppControllers.
                                                         });
                                                 } else if ($scope.hotel != null) {
                                                     //аналитика - ДП - заказ выполнен
-                                                    if (pageType == actionTypeEnum.dp) {
-                                                        track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
-                                                        track.dpPayBtnSubmit();
-                                                    }
+                                                    //if (pageType == actionTypeEnum.dp) {
+                                                    //    track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
+                                                    //    track.dpPayBtnSubmit();
+                                                    //}
 
                                                     redirectSuccessBuyPackage();
                                                 }
