@@ -173,13 +173,13 @@ innaAppConponents.
 
                     if (this.get('wait')) {
                         setTimeout(function () {
-                            that.set({isVisible: false});
+                            that.dispose();
                             if (typeof that.get('callbackClose') == 'function') {
                                 that.get('callbackClose')();
                             }
                         }, this.get('wait'))
                     } else {
-                        that.set({isVisible: false});
+                        that.dispose();
                         if (typeof that.get('callbackClose') == 'function') {
                             that.get('callbackClose')();
                         }
