@@ -129,7 +129,6 @@
   font-size 0
   margin-top 10px
 
-
   &__item {
     background-position 7px center
     background-repeat no-repeat
@@ -149,7 +148,6 @@
       transform translateY(-50%)
       left 7px
     }
-
 
     .icon-type-extra-internet {
       @extend .icon-sprite-extra-internet;
@@ -174,7 +172,7 @@
 
     .icon-type-extra-breakfast,
     .icon-type-extra-meal {
-        @extend .icon-sprite-extra-food;
+      @extend .icon-sprite-extra-food;
     }
 
     .icon-type-extra-fitness {
@@ -284,7 +282,7 @@
 
     &-desc {
       width 98%
-      padding-right : 15px;
+      padding-right: 15px;
     }
 
     &-cancel-rules {
@@ -412,8 +410,8 @@
 
   &__section {
     padding 15px
+    position : relative;
     border-bottom 1px solid #878787
-    overflow hidden
 
     &:last-child {
       border-bottom 0
@@ -421,27 +419,46 @@
       &-long {
         display none
       }
+    }
 
-      &-title {
-        font-size 16px
-        font-weight bold
-        float left
-        width 200px
-      }
+    &:after {
+      content: '';
+      display : block;
+      clear: both;
     }
   }
 
+
+  &__section-title {
+    font-size 16px
+    font-weight normal;
+    position : absolute;
+    top: 15px;
+    left: 0;
+    padding-left : 15px;
+  }
+
+  &__wrapper {
+    margin-left: 240px;
+  }
+
   &__list {
-    margin-left 240px
-    padding-left 15px
-    overflow hidden
+    float: left;
+    padding-left: 15px;
+    overflow: hidden;
+    width : 45%;
+
+    &:first-child {
+      /*padding-left: 0px;*/
+    }
   }
 
   &__item {
-    list-style disc
-    float left
-    width 40%
-    margin-right 9%
+    list-style: disc;
+    /*float left*/
+    /*width 40%;*/
+    margin-right: 8%;
+    padding-bottom : 3px;
   }
 }
         

@@ -143,6 +143,28 @@ innaAppControllers
             }
 
 
+            function parseAmenities (hotel){
+                hotel.AmenitiesArray = [];
+
+                if(hotel && Object.keys(hotel.Amenities).length) {
+
+                    for(var key in hotel.Amenities) {
+                        var countPart = Math.ceil(hotel.Amenities[key].List.length / 2);
+                        var ListOrigin = [].concat(hotel.Amenities[key].List);
+                        var ListPart1 = [].concat(ListOrigin.splice(countPart, ListOrigin.length));
+                        var ListPart2 = [].concat(ListOrigin);
+
+                        hotel.Amenities[key].part = {
+                            part1 : ListPart1,
+                            part2 : ListPart2
+                        }
+
+                        hotel.AmenitiesArray.push(hotel.Amenities[key]);
+                    }
+                }
+            }
+
+
             /**
              * Получаем данные по отелю
              */
@@ -161,7 +183,9 @@ innaAppControllers
                         _balloonLoad.fire('hide');
 
                         setWlModel(data);
-                        
+
+                        parseAmenities(data.Hotel);
+
                         var hotel = new inna.Models.Hotels.Hotel(data.Hotel);
                         var ticket = new inna.Models.Avia.Ticket();
                         ticket.setData(data.AviaInfo);
@@ -278,7 +302,7 @@ innaAppControllers
                     if($scope.hotel && $scope.hotel.Photos) {
                         scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 1300 : 600;
                     }
-                    
+
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
