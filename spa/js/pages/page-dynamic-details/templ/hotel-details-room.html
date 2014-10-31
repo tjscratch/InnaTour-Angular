@@ -1,6 +1,7 @@
 <li class="hotel-details-rooms__room"
     ng-class="{'hotel-details-rooms__room_state_open': room.isOpen, 'hotel-details-rooms__room_position_last': $last}">
-    <div class="hotel-details-rooms__room-short" ng-click="toggleRoom(room)">
+
+	<div class="hotel-details-rooms__room-short" ng-click="toggleRoom(room)">
         <div class="hotel-details-rooms__room-short-info">
             <div class="hotel-details-rooms__room-desc">
                 <h3 class="hotel-details-rooms__room-title">
@@ -12,6 +13,12 @@
                     </span>
                 </div>
 
+
+	            <span class="hotel-details-rooms__room-rules-warning"
+	                  ng-if="userIsAgency && (!room.IsRefundable || (room.IsRefundable && room.IsReturnsWithFine))">
+	                <i class="icon-sprite-b2b-error-hotel css-sprite-b2b-error-hotel"></i>
+	                бронирование возможно после оплаты
+                </span>
 
                 <ul class="hotel-details-extra">
                     <li ng-repeat="(name, caption) in room.Extra"
@@ -28,6 +35,11 @@
                 </span>
                 <span ng-if="!room.IsRefundable">Без возможности возврата</span>
 
+
+
+
+
+
                 <div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 1">Остался последний номер!
                 </div>
                 <div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 2">Осталось два номера!</div>
@@ -36,11 +48,9 @@
 
             <div class="hotel-details-rooms__room-price">
                 <div class="hotel-details-rooms__room-price-diff" ng-if="!hotelOnly">
-                    <span ng-if="$first">
-	                    Включен в цену
-                    </span>
+                    <span ng-if="$first">Включен в цену</span>
                     <span ng-if="!$first">
-	                    {{room.PackagePrice - bundle.getFullPackagePrice() | signed}}
+	                    {{bundle.ticket.data.PackagePrice + room.PackagePrice - bundle.getFullPackagePrice() | signed}}
 	                    <ng-include src="'components/ruble.html'"></ng-include>
                     </span>
                     <span class="icon-crown icon-sprite-crown" ng-if="room.IsPackage"></span>

@@ -24,6 +24,7 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             var routParam = angular.copy($routeParams);
+            $scope.userIsAgency = null;
 
             /**
              * Смотрим на условие - переход из B2B
@@ -271,6 +272,7 @@ innaAppControllers
                             }
 
                             onload();
+
                         } else {
                             showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
                         }
@@ -467,6 +469,12 @@ innaAppControllers
                 body.animate({ scrollTop: positionTop - headerHeight }, 500)
                 window.partners.setScrollPage(positionTop)
             };
+
+            $scope.$watch('user', function(User){
+                if(User){
+                    $scope.userIsAgency = User.isAgency();
+                }
+            });
 
 
             $scope.$on('$destroy', function () {
