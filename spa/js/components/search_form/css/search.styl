@@ -4,7 +4,9 @@
 .b-search-form
   font-size 0
   line-height 0
-  padding 0
+  padding 7px
+  background-color: rgba(117, 117, 117, .8);
+  border-radius 0 2px 2px 2px
   color #242424
   position relative
   font-family $ProximaNova
@@ -14,12 +16,12 @@
 .search-button-block
 .search-people-block
 .search-button-block_small
+  margin 0 3px 0 0
   font-size 14px
   line-height normal
   letter-spacing normal
   display inline-block
   vertical-align top
-  border-right 1px solid #9f9f9f
   position relative
 
 .b-wrapp_type_inline
@@ -39,7 +41,7 @@
   border 0
   font 14px $ProximaNova
   box-sizing border-box
-  height 48px
+  height 36px
   color #000
   -webkit-appearance none;
   border-radius 0
@@ -76,14 +78,14 @@
   padding 0 10px
 
 .search-date-block
-  width 179px
+  width 118px !important
   position : relative;
 
   &__date {
     background : #fff;
     padding-left: 10px;
-    height: 48px;
-    line-height : 48px;
+    height: 36px;
+    line-height : 36px;
     position:absolute;
     top:0;
     left:0;
@@ -126,18 +128,20 @@
 .search-form__submit
   border 0
   position absolute
-  top: 0;
-  right: 0;
+  top: 7px;
+  right: 7px;
   overflow hidden
-  height 48px
-  width 62px !important
+  height 36px
+  width 42px !important
+  margin 0
+  border-radius 2px
   transition background-color 0.3s linear
   background-color: #89c13a;
   cursor pointer;
 
   .search-button__icon {
     position: absolute;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%) scale(0.6);
     top: 50%;
     left : 50%;
     z-index: 1;
@@ -166,17 +170,17 @@
 
 .search-people-block
   width 138px
-  height 48px
+  height 36px
   z-index 2
 
 .search-people
   background #fff
-  height 48px
+  height 36px
   padding 0 10px
-  font 14px / 48px $ProximaNova
+  font 14px / 36px $ProximaNova
   cursor pointer
   background url(/spa/img/i.png) no-repeat #fff
-  background-position right 7px top -1875px
+  background-position right 7px top -1879px
 
 .search-pref-block
   position absolute
@@ -393,7 +397,7 @@
 
 
 .search__city
-  width 207px
+  width 205px
 
 .search__120
   width 120px

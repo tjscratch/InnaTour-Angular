@@ -21,7 +21,6 @@ var styleBase = '../../../spa/styl/base.styl';
 gulp.task('styl-components', function () {
     return gulp.src([
             '!'+ conf.src + '/components/adv/**/*.styl',
-            '!'+ conf.src + '/components/ab_test/**/*.styl',
             conf.src + '/components/**/*.styl'
     ])
         .pipe(concat('components.styl'))
@@ -95,15 +94,6 @@ gulp.task('styl-adv', function () {
         .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 
-/* AB Test*/
-gulp.task('styl-abtest', function () {
-    optStyl.import = styleBase;
-    return gulp.src([conf.src + '/components/ab_test/**/*.base.styl'])
-        .pipe(stylus(optStyl))
-        .pipe(gulp.dest(conf.src + '/components/ab_test/'))
-        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
-});
-
 
 gulp.task('styles-app', ['styl-components', 'styl-pages', 'styl-regions']);
-gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print', 'styl-partners', 'styl-adv', 'styl-abtest']);
+gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print', 'styl-partners', 'styl-adv']);

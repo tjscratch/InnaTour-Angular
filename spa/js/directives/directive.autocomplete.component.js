@@ -426,6 +426,7 @@
                 $(document).click(clickHanlder);
 
                 $scope.$on('$destroy', function () {
+                    $(".ui-tooltip").remove();
                     $scope.input.off();
                     $(document).off('focus');
                     $(document).off('click', clickHanlder);
