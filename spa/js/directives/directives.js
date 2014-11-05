@@ -9,10 +9,13 @@ innaAppDirectives.
         };
     }]);
 
-innaAppDirectives.directive('closePopup', [function () {
+innaAppDirectives.directive('closePopup', ["aviaHelper", function (aviaHelper) {
     return {
         scope: {
             fnHide: '&'
+        },
+        controller: function(){
+
         },
         link: function ($scope, element, attrs) {
             function bodyClick(event) {
@@ -30,7 +33,6 @@ innaAppDirectives.directive('closePopup', [function () {
             $(document).on('click', bodyClick);
 
             $scope.$on('$destroy', function () {
-                element.off();
                 $(document).off('click', bodyClick);
             });
         }

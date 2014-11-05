@@ -1,7 +1,12 @@
 angular.module('innaApp.controllers')
     .controller('AuthCtrl', [
-        '$scope', '$location', 'innaApp.API.events', 'AuthDataProvider', 'innaApp.Urls',
-        function($scope, $location, Events, AuthDataProvider, app){
+        '$scope',
+        '$location',
+        'aviaHelper',
+        'innaApp.API.events',
+        'AuthDataProvider',
+        'innaApp.Urls',
+        function($scope, $location, aviaHelper, Events, AuthDataProvider, app){
             /*Private*/
             var setUserInfo = function(data){
                 $scope.safeApply(function(){
@@ -13,10 +18,20 @@ angular.module('innaApp.controllers')
                 });
             }
 
+            $scope.style = {};
+
+            $scope.setStyle = function () {
+                $scope.style = {
+                    width: (document.documentElement.clientWidth + 'px')
+                }
+            }
+
             /*Methods*/
             $scope.close = function(){
+                aviaHelper.scrollFix(true)
                 $scope.isLoginPopupOpened = false;
                 $scope.display = $scope.DISPLAY_SIGNIN;
+                document.body.classList.remove('overflow_hidden');
             };
 
             $scope.logout = function () {
@@ -32,6 +47,12 @@ angular.module('innaApp.controllers')
             };
 
             $scope.open = function(){
+                aviaHelper.scrollFix()
+                setTimeout(function () {
+                    document.body.classList.add('overflow_hidden');
+                }, 150)
+                $scope.setStyle();
+
                 $scope.isLoginPopupOpened = true;
             };
 
@@ -46,7 +67,7 @@ angular.module('innaApp.controllers')
                 var interval = setInterval(function(){
                     var cookieCloser = localStorage.getItem('closeSocialBroker');
 
-                    console.log('cookieCloser', cookieCloser);
+                    //console.log('cookieCloser', cookieCloser);
 
                     if(cookieCloser) {
                         localStorage.setItem('closeSocialBroker', 0);

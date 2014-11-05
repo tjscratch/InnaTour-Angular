@@ -402,16 +402,27 @@
 
                 baloonType: baloonType,
 
-                scrollFix: function () {
+                scrollFix: function (opt_param) {
 
                     function setWidth() {
-                        var w = document.documentElement.clientWidth;
+                        var fullWidth = window.innerWidth;;
+                        var clientWidth = document.documentElement.clientWidth;
+                        fullWidth = Math.max(fullWidth, clientWidth);
                         document.querySelectorAll('.scroll-fix').forEach(function (item) {
-                            item.style.width = (w + 'px');
+                            item.style.width = (fullWidth + 'px');
                         })
                     }
 
-                    setWidth();
+                    function resetWidth() {
+                        document.querySelectorAll('.scroll-fix').forEach(function (item) {
+                            item.style.width = "auto";
+                        })
+                    }
+
+                    if(!opt_param)
+                        setWidth();
+                    else
+                        resetWidth()
 
                     $(window).on('resize', setWidth);
                 },
@@ -652,6 +663,7 @@
 
                     self.hide = function () {
                         //console.log('popupItemInfo.hide');
+                        helper.scrollFix(true)
                         self.isShow = false;
                         $(window).off('resize', self.setStyle);
                         document.body.classList.remove('overflow_hidden');

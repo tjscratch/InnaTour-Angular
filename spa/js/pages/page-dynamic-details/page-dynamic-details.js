@@ -158,7 +158,7 @@ innaAppControllers
                     Filter: searchParams,
 
                     success: function (data) {
-                        _balloonLoad.fire('hide');
+                       _balloonLoad.fire('hide');
 
                         setWlModel(data);
                         
