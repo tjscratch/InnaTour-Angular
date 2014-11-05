@@ -144,7 +144,7 @@
         </div>
 
         <span class="price-description" ng-if="bundle.getProfit() > 1000">
-            экономия: {{bundle.getFullPrice() - bundle.getFullPackagePrice() | price}}
+            экономия: {{bundle.getProfit() | price}}
             <ng-include src="'components/ruble.html'"></ng-include>
         </span>
 

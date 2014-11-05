@@ -1,8 +1,13 @@
 angular.module('innaApp.controllers')
     .controller('AuthCtrl', [
-        '$scope', '$location', 'innaApp.API.events', 'AuthDataProvider', 'innaApp.Urls',
+        '$scope',
+        '$location',
+        'innaApp.API.events',
+        'AuthDataProvider',
+        'innaApp.Urls',
         function($scope, $location, Events, AuthDataProvider, app){
-            /*Private*/
+
+
             var setUserInfo = function(data){
                 $scope.safeApply(function(){
                     $scope.$root.user = new inna.Models.Auth.User(data);
@@ -13,7 +18,7 @@ angular.module('innaApp.controllers')
                 });
             }
 
-            /*Methods*/
+
             $scope.close = function(){
                 $scope.isLoginPopupOpened = false;
                 $scope.display = $scope.DISPLAY_SIGNIN;
@@ -34,6 +39,7 @@ angular.module('innaApp.controllers')
             $scope.open = function(){
                 $scope.isLoginPopupOpened = true;
             };
+
 
             $scope.signInWith = function(method){
 

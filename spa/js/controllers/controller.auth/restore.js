@@ -1,6 +1,8 @@
 angular.module('innaApp.controllers')
     .controller('AuthPwdRerstoreCtrl_A', [
-        '$scope', 'Validators', 'AuthDataProvider',
+        '$scope',
+        'Validators',
+        'AuthDataProvider',
         function($scope, Validators, AuthDataProvider) {
             function validate() {
                 Validators.email($scope.email, 'email');
@@ -48,7 +50,11 @@ angular.module('innaApp.controllers')
         }
     ])
     .controller('AuthPwdRerstoreCtrl_B', [
-        '$scope', 'Validators', 'AuthDataProvider', '$timeout', '$location',
+        '$scope',
+        'Validators',
+        'AuthDataProvider',
+        '$timeout',
+        '$location',
         function($scope, Validators, AuthDataProvider, $timeout, $location){
             function validate() {
                 Validators.defined($scope.password, 'password');
