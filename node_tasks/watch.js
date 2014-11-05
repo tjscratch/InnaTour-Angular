@@ -22,6 +22,11 @@ gulp.task('watch', function () {
 
         });
 
+    gulp.watch(conf.src + '/widgets/**/*.styl', ['styl-widget-search'])
+        .on('change', function (file) {
+
+        });
+
     gulp.watch(conf.src + '/pages/**/*.styl', ['styl-pages'])
         .on('change', function (file) {
 

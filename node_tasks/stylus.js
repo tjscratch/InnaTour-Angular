@@ -8,6 +8,12 @@ var gulp = require('gulp'),
 
 var _ENV_ = process.env.NODE_ENV || '';
 
+var optStylBase = {
+    use: [nib()],
+    compress: true,
+    define: { 'math-random': 123 }
+};
+
 var optStyl = {
     use: [nib()],
     compress: (_ENV_ === 'production' || _ENV_ === 'beta') ? true : false,
@@ -95,5 +101,28 @@ gulp.task('styl-adv', function () {
 });
 
 
+/* search-form widget */
+gulp.task('styl-widget-search', function () {
+    return gulp.src([conf.src + '/widgets/search/css/style.styl'])
+        .pipe(stylus(optStylBase))
+        .pipe(gulp.dest(conf.src + '/widgets/search/css'))
+        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
+});
+
+//gulp.task('styl-pages', function () {
+//    return gulp.src([conf.src + '/pages/**/*.styl'])
+//        .pipe(concat('pages.styl'))
+//        .pipe(gulp.dest(conf.styl + '/temp'))
+//});
+
+
 gulp.task('styles-app', ['styl-components', 'styl-pages', 'styl-regions']);
-gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print', 'styl-partners', 'styl-adv']);
+gulp.task('styles', [
+    'styl-common', 
+    'styl-ticket', 
+    'styl-ie', 
+    'styl-print', 
+    'styl-partners', 
+    'styl-adv', 
+    'styl-widget-search'
+]);
