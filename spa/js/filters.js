@@ -158,19 +158,38 @@ innaAppFilters.filter('stripTags', function () {
 });
 
 innaAppFilters.filter('textOverflow', ['$filter', function ($filter) {
-    return  function(text, limit){
+    return  function (text, limit) {
 
-        if(text && (text.length > limit))
+        if (text && (text.length > limit))
             return $filter('limitTo')(text, limit) + '...';
         else
             return text;
     };
 }]);
 
-innaAppFilters.filter('console', function(){
-    return  function(input){
+innaAppFilters.filter('console', function () {
+    return  function (input) {
         console.log(input);
 
         return '';
+    };
+});
+
+
+innaAppFilters.filter('partition', function ($cacheFactory) {
+    var arrayCache = $cacheFactory('partition')
+    return function(arr, size) {
+        var parts = [], cachedParts,
+            jsonArr = JSON.stringify(arr);
+        for (var i=0; i < arr.length; i += size) {
+            parts.push(arr.slice(i, i + size));
+        }
+        cachedParts = arrayCache.get(jsonArr);
+        if (JSON.stringify(cachedParts) === JSON.stringify(parts)) {
+            return cachedParts;
+        }
+        arrayCache.put(jsonArr, parts);
+
+        return parts;
     };
 });

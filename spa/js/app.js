@@ -57,6 +57,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     Ractive.defaults.data.moment = moment || null;
     Ractive.defaults.debug = true;
     Ractive.defaults.data.$filter = $filter;
+    Ractive.defaults.data.$rootScope = $rootScope;
 
     $rootScope.bodyClickListeners = [];
 
@@ -172,6 +173,10 @@ app.config([
                 templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
                 controller: 'AviaSearchMainCtrl'
             }).
+            when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType-:VariantId1-:VariantId2?', {
+                templateUrl: 'pages/page-avia/templ/search_results.html',
+                controller: 'AviaSearchResultsCtrl'
+            }).
             when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType', {
                 templateUrl: 'pages/page-avia/templ/search_results.html',
                 controller: 'AviaSearchResultsCtrl'
@@ -210,6 +215,7 @@ app.config([
                 templateUrl: 'pages/hotels_page.html',
                 controller: 'HotelsCtrl'
             }).
+            
             when(url.URL_DYNAMIC_PACKAGES + ':DepartureId-:ArrivalId', dynamic()).//URL для контекста по ДП
             when(url.URL_DYNAMIC_PACKAGES, dynamic()).
             when(url.URL_DYNAMIC_PACKAGES_SEARCH + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
@@ -346,68 +352,6 @@ app.factory('cache', ['$cacheFactory', function ($cacheFactory) {
     }
 
 }());
-
-
-/**
- * Переопределяем console.log
- * На продакштне можно ввести у url ?DEBUG=TRUE
- * все console.log станут активными
- */
-//window.console = (function (origConsole) {
-
-//    if (origConsole == undefined || origConsole.error == undefined || origConsole.error.apply == undefined) {
-//        return;
-//    }
-
-//    try {
-//        var locationSearch = location.hash.split('?')[1].split('&');
-
-//        locationSearch.filter(function (item) {
-//            var d = item.split('=');
-//            if (d[0].toLowerCase() == 'debug' && d[1].toLowerCase() == 'true') {
-//                window.FrontedDebug = true;
-//                return true;
-//            }
-//        })
-//    } catch(e){}
-
-//    if (!window.console)
-//        console = {};
-
-//    var isDebug = window.FrontedDebug || false,
-//        logArray = {
-//            logs: [],
-//            errors: [],
-//            warns: [],
-//            infos: []
-//        }
-
-//    return {
-//        log: function () {
-//            logArray.logs.push(arguments)
-//            isDebug && origConsole.log && origConsole.log.apply(origConsole, arguments);
-//        },
-//        warn: function () {
-//            logArray.warns.push(arguments)
-//            isDebug && origConsole.warn && origConsole.warn.apply(origConsole, arguments);
-//        },
-//        error: function () {
-//            logArray.errors.push(arguments)
-//            isDebug && origConsole.error && origConsole.error.apply(origConsole, arguments);
-//        },
-//        info: function (v) {
-//            logArray.infos.push(arguments)
-//            isDebug && origConsole.info && origConsole.info.apply(origConsole, arguments);
-//        },
-//        debug: function (bool) {
-//            isDebug = bool;
-//        },
-//        logArray: function () {
-//            return logArray;
-//        }
-//    };
-
-//}(window.console));
 
 
 (function ($) {

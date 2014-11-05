@@ -24,6 +24,7 @@ innaAppControllers
             DynamicFormSubmitListener.listen();
 
             var routParam = angular.copy($routeParams);
+            $scope.userIsAgency = null;
 
             /**
              * Смотрим на условие - переход из B2B
@@ -143,6 +144,28 @@ innaAppControllers
             }
 
 
+            function parseAmenities (hotel){
+                hotel.AmenitiesArray = [];
+
+                if(hotel && Object.keys(hotel.Amenities).length) {
+
+                    for(var key in hotel.Amenities) {
+                        var countPart = Math.ceil(hotel.Amenities[key].List.length / 2);
+                        var ListOrigin = [].concat(hotel.Amenities[key].List);
+                        var ListPart1 = [].concat(ListOrigin.splice(countPart, ListOrigin.length));
+                        var ListPart2 = [].concat(ListOrigin);
+
+                        hotel.Amenities[key].part = {
+                            part1 : ListPart1,
+                            part2 : ListPart2
+                        }
+
+                        hotel.AmenitiesArray.push(hotel.Amenities[key]);
+                    }
+                }
+            }
+
+
             /**
              * Получаем данные по отелю
              */
@@ -161,7 +184,9 @@ innaAppControllers
                        _balloonLoad.fire('hide');
 
                         setWlModel(data);
-                        
+
+                        parseAmenities(data.Hotel);
+
                         var hotel = new inna.Models.Hotels.Hotel(data.Hotel);
                         var ticket = new inna.Models.Avia.Ticket();
                         ticket.setData(data.AviaInfo);
@@ -247,6 +272,7 @@ innaAppControllers
                             }
 
                             onload();
+
                         } else {
                             showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
                         }
@@ -278,7 +304,7 @@ innaAppControllers
                     if($scope.hotel && $scope.hotel.Photos) {
                         scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 1300 : 600;
                     }
-                    
+
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
@@ -287,8 +313,10 @@ innaAppControllers
                             $anchorScroll();*/
 
                             window.scrollTo(0, scrollPosition);
-                            if (window.partners) {
-                                window.partners.setScrollTo(scrollPosition);
+                            if (window.partners && window.partners.isFullWL()) {
+                                var elementHotelDetails = document.querySelector('.hotel-details-rooms');
+                                var positionTop = utils.getCoords(elementHotelDetails).top;
+                                window.partners.setScrollTo(positionTop);
                             }
                         }, 1000);
                     }
@@ -439,7 +467,14 @@ innaAppControllers
                     headerHeight = angular.element('.Header').height(),
                     positionTop = angular.element('#tripadvisor-widget-iframe').position().top;
                 body.animate({ scrollTop: positionTop - headerHeight }, 500)
+                window.partners.setScrollPage(positionTop)
             };
+
+            $scope.$watch('user', function(User){
+                if(User){
+                    $scope.userIsAgency = User.isAgency();
+                }
+            });
 
 
             $scope.$on('$destroy', function () {

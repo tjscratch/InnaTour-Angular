@@ -1,7 +1,7 @@
 {{#if virtualBundle.getProfit() > 1000}}
 	<div class="price">
 	    <span class="cross">
-		    {{priceFilter(virtualBundle.getFullPrice())}}
+		    {{priceFilter(Price)}}
 		    {{>ruble}}
 	    </span>
 	    <div class="price-description">по отдельности</div>
@@ -14,7 +14,7 @@
 
 <div class="corner-price">
     <div>
-	    {{priceFilter(virtualBundle.getFullPackagePrice())}}
+	    {{priceFilter(PackagePrice)}}
 	    {{>ruble}}
     </div>
 

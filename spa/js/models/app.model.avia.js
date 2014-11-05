@@ -21,6 +21,7 @@ function aviaCriteria(data) {
 
     //для покупки
     self.QueryId = data.QueryId;
+    //для выбранного варианта
     self.VariantId1 = data.VariantId1;
     self.VariantId2 = data.VariantId2;
     self.OrderNum = data.OrderNum;
@@ -212,10 +213,14 @@ inna.Models.Avia.TicketCollection.prototype.hideBundled = function(bundle){
     ticket && (ticket.hidden = true);
 }
 
-inna.Models.Avia.Ticket = function () {
+inna.Models.Avia.Ticket = function (opt_data) {
     this.data = null;
     this.raw = null;
     this.hidden = false;
+
+    if(opt_data){
+        this.setData(opt_data);
+    }
 };
 
 inna.Models.Avia.Ticket.prototype.setData = function (data) {

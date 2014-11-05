@@ -101,7 +101,7 @@ angular.module('innaApp.controllers')
             		window.location = $scope.B2B_HOST;
             		return;
             	}
-            	
+
                 $scope.open();
                 $scope.display = $scope.DISPLAY_PROFILE;
             };

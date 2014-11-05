@@ -38,18 +38,39 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
                 params.url = api.DYNAMIC_SEARCH;
                 AjaxHelper.getDebounced(params);
             },
-            getHotelsByCombination: function (params, callback) {
+
+            /**
+             * @param {params.data}
+             *        HotelId: int
+             *        TicketId: int
+             *        AddFilter: boolean
+             *
+             * @param {Object} params
+             */
+            getHotelsByCombination: function (params) {
                 AjaxHelper.getDebounced({
                     url : api.DYNAMIC_SEARCH_HOTELS,
-                    data : params,
-                    success : callback
+                    data : params.data,
+                    success : params.success,
+                    error : params.error
                 });
             },
-            getTicketsByCombination: function (params, callback) {
+
+            /**
+             *
+             * @param {params.data}
+             *        HotelId: int
+             *        TicketId: int
+             *        AddFilter: boolean
+             *
+             * @param {Object} params
+             */
+            getTicketsByCombination: function (params) {
                 AjaxHelper.getDebounced({
                     url : api.DYNAMIC_SEARCH_TICKETS,
-                    data : params,
-                    success : callback
+                    data : params.data,
+                    success : params.success,
+                    error : params.error
                 });
             },
 

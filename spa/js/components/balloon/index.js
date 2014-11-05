@@ -173,13 +173,13 @@ innaAppConponents.
 
                     if (this.get('wait')) {
                         setTimeout(function () {
-                            that.set({isVisible: false});
+                            that.dispose();
                             if (typeof that.get('callbackClose') == 'function') {
                                 that.get('callbackClose')();
                             }
                         }, this.get('wait'))
                     } else {
-                        that.set({isVisible: false});
+                        that.dispose();
                         if (typeof that.get('callbackClose') == 'function') {
                             that.get('callbackClose')();
                         }
@@ -204,9 +204,15 @@ innaAppConponents.
 
 
                 dispose: function () {
+                    var that = this;
                     this.set({isVisible: false});
-                    document.body.classList.remove('overflow_hidden');
-                    window.removeEventListener('resize', this.onResize);
+
+
+                    setTimeout(function(){
+                        document.body.classList.remove('overflow_hidden');
+                        window.removeEventListener('resize', that.onResize);
+                    }, 0)
+
                 }
             });
 
