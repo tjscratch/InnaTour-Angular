@@ -98,9 +98,6 @@ inna.Models.Hotels.Hotel = function(raw) {
 
     if(this.data) {
         if(this.data.TaFactor) this.data.TaFactorCeiled = Math.ceil(this.data.TaFactor);
-        /*if(this.data.CheckIn) this.data.CheckIn = dateHelper.apiDateToJsDate(this.data.CheckIn);
-        if(this.data.CheckOut) this.data.CheckOut = dateHelper.apiDateToJsDate(this.data.CheckOut);
-        if(this.data.TaFactor) this.data.TaFactorCeiled = Math.ceil(this.data.TaFactor);*/
     }
 };
 
@@ -114,25 +111,44 @@ inna.Models.Hotels.Hotel.prototype.toJSON = function(){
 
 _.provide('inna.Models.Dynamic');
 
-inna.Models.Dynamic.Combination = function(){
+/**
+ * Класс рекомендованного варианта
+ * Может принемать обекты ticket и hotel
+ * @param {Object} opt_param
+ * @constructor
+ */
+inna.Models.Dynamic.Combination = function(opt_param){
     this.ticket = null;
     this.hotel = null;
+
+    if(opt_param && (opt_param.ticket && opt_param.hotel)) {
+        this.setTicket(opt_param.ticket);
+        this.setHotel(opt_param.hotel);
+    }
 }
 
 inna.Models.Dynamic.Combination.prototype.setTicket = function(ticket){
     this.ticket = ticket;
+    this.setFullPackagePrice(this.ticket.data);
+    this.setFullPrice(this.ticket.data);
 }
 
 inna.Models.Dynamic.Combination.prototype.setHotel = function(hotel) {
     this.hotel = hotel;
+    this.setFullPackagePrice(this.hotel.data);
+    this.setFullPrice(this.hotel.data);
 }
 
 inna.Models.Dynamic.Combination.prototype.parse = function(data){
     
 }
 
+inna.Models.Dynamic.Combination.prototype.setFullPackagePrice = function(data){
+    this.FullPackagePrice = data.PackagePrice;
+}
+
 inna.Models.Dynamic.Combination.prototype.getFullPackagePrice = function(){
-    return +this.ticket.data.PackagePrice + +this.hotel.data.PackagePrice;
+    return this.FullPackagePrice;
 }
 
 inna.Models.Dynamic.Combination.prototype.getFullTotalPriceNew = function(param){
@@ -144,8 +160,9 @@ inna.Models.Dynamic.Combination.prototype.getFullTotalPriceNew = function(param)
     }
 }
 
+
 inna.Models.Dynamic.Combination.prototype.getFullTotalPrice = function(){
-    var tPrice = this.ticket.data.PriceObject
+    var tPrice = this.ticket.data.PriceObject;
     var hPrice = this.hotel.data.PriceObject;
 
     return {
@@ -158,12 +175,17 @@ inna.Models.Dynamic.Combination.prototype.getFullTotalPrice = function(){
     }
 }
 
+
+inna.Models.Dynamic.Combination.prototype.setFullPrice = function(data){
+    this.FullPrice = data.Price;
+}
+
 inna.Models.Dynamic.Combination.prototype.getFullPrice = function(){
-    return +this.ticket.data.Price + +this.hotel.data.Price;
+    return this.FullPrice;
 }
 
 inna.Models.Dynamic.Combination.prototype.getProfit = function(){
-    return this.getFullPrice() - this.getFullPackagePrice();
+    return (this.getFullPrice() - this.getFullPackagePrice());
 }
 
 inna.Models.WlNewSearch = function (data) {
