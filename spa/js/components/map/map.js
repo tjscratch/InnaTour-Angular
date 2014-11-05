@@ -285,7 +285,8 @@ angular.module('innaApp.directives')
                             activeMarker.infoBoxVisible = false;
                         }
                     }
-
+                    // прокидываем метод в scope для закрытия infoBox
+                    scope.activeMarkerReset = activeMarkerReset;
 
                     /**
                      * Анимация
@@ -662,9 +663,6 @@ angular.module('innaApp.directives')
                             var markerData = addMarker(angular.extend(hotelRaw, { type: 'hotel' }));
                             var marker = markerData.marker;
 
-                            //getFullPackagePrice
-                            var fullPackage = (+scope.combination.ticket.data.PackagePrice + +hotelRaw.PackagePrice);
-                            hotelRaw.PackagePrice = fullPackage;
                             marker.$inna__hotel = hotelRaw;
                             marker._idHotel = hotelRaw.HotelId;
 

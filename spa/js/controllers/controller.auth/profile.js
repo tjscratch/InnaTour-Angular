@@ -1,6 +1,8 @@
 angular.module('innaApp.controllers')
     .controller('AuthProfileCtrl', [
-        '$scope', 'AuthDataProvider', 'Validators',
+        '$scope',
+        'AuthDataProvider',
+        'Validators',
         function($scope, AuthDataProvider, Validators){
             /*Private*/
             function validate(){

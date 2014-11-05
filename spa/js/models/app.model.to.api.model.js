@@ -22,4 +22,10 @@ function aviaCriteriaToApiCriteria(data) {
     self.BeginDate = dateHelper.dateToApiDate(data.BeginDate);
     self.ReturnDate = dateHelper.dateToApiDate(data.EndDate);
 
+    if (data.VariantId1) {
+        self.VariantId1 = data.VariantId1;
+    }
+    if (data.VariantId2) {
+        self.VariantId2 = data.VariantId2;
+    }
 };

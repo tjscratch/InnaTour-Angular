@@ -115,17 +115,13 @@
       position: relative;
     }
 
-    &-name:before,
-    &-nav-reg:before{
-      content ''
-      display block
-      position absolute
-      left 0
-      top 0
-      width 15px
-      height 14px
-      background url('/spa/img/header-user.png') no-repeat
+    &-name__icon {
+      position : absolute;
+      top:50%;
+      left: 0;
+      transform: translateY(-50%)
     }
+
 
     &-reg{
       padding-left 10px

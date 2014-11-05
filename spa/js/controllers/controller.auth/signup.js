@@ -1,6 +1,8 @@
 angular.module('innaApp.controllers')
     .controller('AuthRegistrationCtrl', [
-        '$scope', 'AuthDataProvider', 'Validators',
+        '$scope',
+        'AuthDataProvider',
+        'Validators',
         function($scope, AuthDataProvider, Validators){
             function validate(){
                 Validators.email($scope.email, 'email');
@@ -76,7 +78,8 @@ angular.module('innaApp.controllers')
         }
     ])
     .controller('AuthRegistrationCtrl_Step2', [
-        '$scope', 'AuthDataProvider',
+        '$scope',
+        'AuthDataProvider',
         function($scope, AuthDataProvider) {
             //console.log('AuthRegistrationCtrl_Step2', $scope);
 
