@@ -560,9 +560,15 @@ innaAppControllers
                     this._balloonLoad.updateView({
                         template: 'search.html',
                         callbackClose: function () {
+                            //аналитика
+                            track.dpSearchInterrupted();
+
                             that.balloonCloser();
                         },
                         callback: function () {
+                            //аналитика
+                            track.dpSearchInterrupted();
+
                             that.balloonCloser();
                         }
                     })
