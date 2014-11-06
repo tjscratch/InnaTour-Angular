@@ -5,10 +5,19 @@
 	<title>Search Widget</title>
 </head>
 <body>
+<style>
+	.wrap{
+		width: 1000px;
+		margin: 50px auto;
+	}
+</style>
 
+<div class="wrap">
 
-<div ng-app="innaSearchForm" class="b-inna-search-form">
-	<search-form></search-form>
+	<div ng-app="innaSearchForm" class="b-inna-search-form">
+		<search-form></search-form>
+	</div>
+	
 </div>
 
 <link rel="stylesheet" href="/inna-frontend/spa/js/widgets/search/css/style.css"/>
@@ -19,6 +28,7 @@
 <!--app-->
 <script src="js/inna_search_app.js"></script>
 <script src="js/inna_search_directives.js"></script>
+<script src="js/inna_search_services.js"></script>
 <script src="../../../lib/ui-bootstrap/ui-bootstrap-custom-0.10.0.min.js"></script>
 <script src="../../../lib/ui-bootstrap/ui-bootstrap-custom-tpls-0.10.0.min.js"></script>
 

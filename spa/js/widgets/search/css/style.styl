@@ -1,18 +1,82 @@
+$control-height = 36px;
+
 .b-inna-search-form{
 	width 960px
-	height: 40px;
-	background: #212121;
-	border-radius: 2px;
+	color #333
+	font-family 'ProximaNova,Arial,sans-serif'
+	font-size 14px
+	line-height 20px
+
+	*{
+		box-sizing: border-box;
+	}
 }
 
 .b-inna-search-form-fields{
-
+	padding 7px
+	background #212121
+	border-radius 2px
 }
 
 .b-inna-search-form-control{
+	position relative
 
-	
+	&._location{
+		width 205px
+	}
+
 	.b-inna-search-form-control__input{
+		width 100%
+		height $control-height
+		line-height $control-height
+		padding 0 10px
+		vertical-align top
+		color #000
+		font-size 14px
+		border none
+	}
+}
+
+.b-inna-search-form-control-typeahead{
+	.dropdown-menu{
+		position absolute
+		left 0
+		top $control-height
+		margin 5px 0 0 0
+		padding 0
+		background #fff
+		box-shadow 0 0 3px #333
+		list-style none;
+
+		li{
+			&.active{
+				background #e6e7e9
+			}
+		}
+	}
+}
+
+.b-location-item{
+	position relative
+	padding 6px 10px 6px 15px
+	white-space nowrap
+	
+	.b-location-item-name{
+		letter-spacing -0.025em
+		padding-right 40px
 		
+		.i-country{
+			margin 0 0 0 3px
+			color #878787
+		}
+	}
+	
+	.b-location-item-iata{
+		position absolute
+		top 7px
+		right 10px
+		color: #878787;
+		text-transform: uppercase;
+		font-size 12px
 	}
 }

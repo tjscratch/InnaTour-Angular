@@ -1,19 +1,24 @@
+<div>
+	поиск
+	<div>{{customSelected | json}}</div>
+</div>
 <div class="b-inna-search-form-fields">
-	<div class="b-inna-search-form-control">
+	<div class="b-inna-search-form-control b-inna-search-form-control-typeahead _location">
 		<input class="b-inna-search-form-control__input"
 		       type="text"
-		       placeholder="Custom template"
+		       placeholder="Откуда"
 		       ng-model="customSelected"
-		       typeahead="address for address in getLocation($viewValue)"
+		       typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
 		       typeahead-template-url="typeaheadTemplateCustom.html"
+		       typeahead-wait-ms="300"
 				>
 	</div>
 </div>
 
 
 <script type="text/ng-template" id="typeaheadTemplateCustom.html">
-	<a>
-		<img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
-		<span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
-	</a>
+	<div class="b-location-item">
+		<span class="b-location-item-name" bind-html-unsafe="match.model.nameHtml"></span>
+		<span class="b-location-item-iata" bind-html-unsafe="match.model.iata"></span>
+	</div>
 </script>
