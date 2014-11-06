@@ -87,15 +87,15 @@ angular.module('innaApp.services')
 
                         // отсылаем ошибки в sentry
 
-                        if(data.statusText == 'Unauthorized') {
+                        /*if(data.statusText == 'Unauthorized') {
                             if (Raven) {
-                                Raven.captureMessage(new Error('HTTP response error'), {
+                                Raven.captureMessage('HTTP response error', {
                                     extra: {
                                         dataError: data
                                     }
                                 });
                             }
-                        }
+                        }*/
                     }
                 });
 

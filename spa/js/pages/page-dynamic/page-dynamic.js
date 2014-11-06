@@ -22,7 +22,7 @@ innaAppControllers
         '$filter',
         function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, modelRecommendedPair, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
 
-            //hotel=274091&display=tickets&ticket=891487471
+            Raven.setExtraContext({context: "__SEARCH_DP_CONTEXT__"})
 
             /**
              * Преобразуем даты и собираем данные для запроса
@@ -381,6 +381,15 @@ innaAppControllers
                                     $scope.safeApply(function () {
                                         $scope.hotelsForMap = data.Hotels;
                                     });
+                                } else {
+                                    Raven.captureMessage('SEARCH PACKAGES: ERROR - [Hotels empty]', {
+                                        extra: {
+                                            data: {
+                                                dataResponse: data,
+                                                dataRequest: this.getIdCombination().params
+                                            }
+                                        }
+                                    });
                                 }
 
                                 that._balloonLoad.dispose();
@@ -403,7 +412,7 @@ innaAppControllers
                                 })
                             },
                             error: function (data) {
-                                that.serverError500();
+                                that.serverError500(data);
                             }
 
                         });
@@ -445,7 +454,7 @@ innaAppControllers
                                 });
                             },
                             error: function (data) {
-                                that.serverError500();
+                                that.serverError500(data);
                             }
 
                         });
@@ -499,7 +508,16 @@ innaAppControllers
                     });
                 },
 
-                serverError500: function () {
+                serverError500: function (data) {
+                    Raven.captureMessage('SEARCH PACKAGES: SERVER ERROR', {
+                        extra: {
+                            data: {
+                                dataResponse: data.responseJSON,
+                                dataRequest: this.getIdCombination().params
+                            }
+                        }
+                    });
+
                     var that = this;
                     this._balloonLoad.updateView({
                         template: 'err.html',

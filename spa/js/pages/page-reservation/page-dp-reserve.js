@@ -22,6 +22,8 @@
 
             $scope.isAviaPage = false;
 
+            Raven.setExtraContext({context: "__RESERVATION_CONTEXT__"})
+
             /*------------------------------------------*/
             /*------------------------------------------*/
             /*----------------- INIT -------------------*/
@@ -84,7 +86,7 @@
                 $scope.$apply(function ($scope) {
 
                     // TODO : наследование контроллера
-                    $controller('ReserveTicketsCtrl', { $scope: $scope });
+                    $controller('ReserveTicketsCtrl', {$scope: $scope});
 
                     $scope.fromDate = $routeParams.StartVoyageDate;
                     $scope.AdultCount = parseInt($routeParams.Adult);
@@ -106,7 +108,7 @@
                                 $routeParams.EndVoyageDate,
                                 $routeParams.TicketClass,
                                 $routeParams.Adult,
-                                    $routeParams.Children > 0 ? $routeParams.Children : '',
+                                $routeParams.Children > 0 ? $routeParams.Children : '',
                                 hotelId,
                                 ticketId,
                                 ticketBackId,
@@ -169,8 +171,10 @@
                     //грузим тарифы
                     $scope.loadTarifs($scope.item.VariantId1, $scope.item.VariantId2, data.RecommendedPair.AviaInfo);
 
+
                     //проверяем, что остались билеты для покупки
-                    paymentService.packageCheckAvailability(getCheckParams(),
+                    var getCheckParamsRaven = getCheckParams()
+                    paymentService.packageCheckAvailability(getCheckParamsRaven,
                         function (data) {
                             if ((data != null && data.IsTicketAvailable == true) &&
                                 (data.Rooms != null && data.Rooms.length) &&
@@ -191,6 +195,14 @@
                                 //}, 1000);
                             }
                             else {
+                                Raven.captureMessage('CHECK AVAILABILITY ROOMS: ERROR', {
+                                    extra: {
+                                        data: {
+                                            dataResponse: data,
+                                            dataRequest: getCheckParamsRaven
+                                        }
+                                    }
+                                });
                                 //log('checkAvailability, false');
                                 //$timeout.cancel(availableChecktimeout);
 
@@ -198,6 +210,17 @@
                             }
                         },
                         function (data, status) {
+
+                            Raven.captureMessage('CHECK AVAILABILITY ROOMS: SERVER ERROR', {
+                                extra: {
+                                    data: {
+                                        dataResponse: data.responseJSON,
+                                        dataRequest: getCheckParamsRaven,
+                                        status : status
+                                    }
+                                }
+                            });
+
                             //error
                             //$timeout.cancel(availableChecktimeout);
                             $scope.safeApply(function () {
@@ -304,16 +327,28 @@
 
             //бронируем
             $scope.reserve = function () {
-                //console.log('$scope.reserve');
+                console.log('$scope.reserve');
                 var m = $scope.getApiModelForReserve();
                 var model = m.model;
                 var apiModel = angular.copy(m.apiModel);
+
+
+                Raven.captureMessage('START RESERVE PACKAGES', {
+                    tags: {
+                        level: 3
+                    },
+                    extra: {
+                        data: apiModel
+                    }
+                });
+
 
                 //apiModel.CustomerWishlist = apiModel.searchParams.CustomerWishlist;
                 //delete apiModel.searchParams.CustomerWishlist;
 
                 paymentService.packageReserve(apiModel,
                     function (data) {
+
                         $scope.safeApply(function () {
                             //console.log('order: ' + angular.toJson(data));
                             if (data != null && data.OrderNum != null && data.OrderNum.length > 0 && data.Status != null && data.Status == 1 && data.OrderNum.length > 0) {
@@ -336,6 +371,17 @@
                                 }
                             }
                             else {
+                                Raven.captureMessage('RESERVE PACKAGES: ERROR', {
+                                    tags: {
+                                        level: 2
+                                    },
+                                    extra: {
+                                        data: {
+                                            dataResponse: data,
+                                            dataRequest: apiModel
+                                        }
+                                    }
+                                });
                                 //аналитика
                                 track.dpReservationError();
 
@@ -345,6 +391,18 @@
                         });
                     },
                     function (data, status) {
+                        Raven.captureMessage('RESERVE PACKAGES: SERVER ERROR', {
+                            tags: {
+                                level: 6
+                            },
+                            extra: {
+                                data: {
+                                    dataResponse: data.responseJSON,
+                                    dataRequest: apiModel,
+                                    status: status
+                                }
+                            }
+                        });
                         //аналитика
                         track.dpReservationError();
 
@@ -368,7 +426,6 @@
                     }
                 });
             }
-
 
 
             $scope.$on('$destroy', function () {
