@@ -336,12 +336,18 @@
                                 }
                             }
                             else {
+                                //аналитика
+                                track.dpReservationError();
+
                                 console.error('packageReserve: %s', angular.toJson(data));
                                 $scope.showReserveError();
                             }
                         });
                     },
                     function (data, status) {
+                        //аналитика
+                        track.dpReservationError();
+
                         $scope.safeApply(function () {
                             //ошибка
                             console.error('paymentService.reserve error');
