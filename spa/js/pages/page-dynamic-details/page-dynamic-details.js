@@ -229,7 +229,16 @@ innaAppControllers
 
                         deferred.resolve();
                     },
-                    error: function () {
+                    error: function (data) {
+                        Raven.captureMessage('PACKAGE DETAILS: SERVER ERROR', {
+                            extra: {
+                                data: {
+                                    dataResponse: data.responseJSON,
+                                    dataRequest: searchParams
+                                }
+                            }
+                        });
+
                         _balloonLoad.updateView({
                             template: 'err.html',
                             title: "Запрашиваемый отель не найден",
@@ -274,10 +283,26 @@ innaAppControllers
                             onload();
 
                         } else {
+                            Raven.captureMessage('PACKAGE DETAILS ROOMS NOT FOUND', {
+                                extra: {
+                                    data: {
+                                        dataResponse: data,
+                                        dataRequest: searchParams
+                                    }
+                                }
+                            });
                             showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
                         }
                     },
-                    error: function () {
+                    error: function (data) {
+                        Raven.captureMessage('PACKAGE DETAILS ROOMS NOT FOUND: SERVER ERROR', {
+                            extra: {
+                                data: {
+                                    dataResponse: data.responseJSON,
+                                    dataRequest: searchParams
+                                }
+                            }
+                        });
                         showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
                     }
                 });
