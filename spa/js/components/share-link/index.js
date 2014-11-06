@@ -17,7 +17,7 @@ innaAppConponents.
                     locationHref : '',
                     location : null
                 },
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
                     this.set('locationHref', this.get('location'));
 

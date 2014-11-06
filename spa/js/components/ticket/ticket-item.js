@@ -43,7 +43,7 @@ angular.module('innaApp.components').
                 },
 
 
-                init: function () {
+                onrender: function () {
                     var that = this;
 
                     var modelTicket = new modelTickets(this.get('ticket'));

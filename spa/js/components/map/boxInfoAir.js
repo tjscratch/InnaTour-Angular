@@ -16,7 +16,7 @@ innaAppConponents.
                 data: {
 
                 },
-                init: function (options) {
+                onrender: function (options) {
                     var that = this;
 
                     this.on({

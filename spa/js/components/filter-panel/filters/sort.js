@@ -21,7 +21,7 @@ angular.module('innaApp.components').
                         defaultSort: 'byPackagePrice'
                     }
                 },
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
                     var that = this;
 

@@ -24,7 +24,7 @@ innaAppConponents.
                 components: {
                     IndicatorFiltersItem: IndicatorFiltersItem
                 },
-                init: function (options) {
+                onrender: function (options) {
                     var that = this;
                     utils.bindAll(this);
 

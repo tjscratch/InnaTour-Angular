@@ -33,7 +33,7 @@ innaAppConponents.
                     Stars: Stars,
                     HotelGallery: HotelGallery
                 },
-                init: function (options) {
+                onrender: function (options) {
                     var that = this;
 
                     this.on({

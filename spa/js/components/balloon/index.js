@@ -38,7 +38,7 @@ innaAppConponents.
                     }
                 },
 
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
 
                     utils.bindAll(this);
@@ -87,7 +87,7 @@ innaAppConponents.
                     this.set('styleWidth', document.documentElement.clientWidth);
                 },
 
-                beforeInit: function(o){
+                onconstruct: function(o){
                     if(o && o.data && o.data.template) {
                         this.data.partialUpdate = $templateCache.get('components/balloon/templ/' + o.data.template);
                     }

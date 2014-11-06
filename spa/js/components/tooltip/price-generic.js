@@ -39,7 +39,7 @@ angular.module('innaApp.components').
                     options.partials.element = templ;
                 },
 
-                beforeInit: function (options) {
+                onconstruct: function (options) {
                     if (options.partials) {
                         this.setTemplate(options)
                     }
@@ -59,7 +59,7 @@ angular.module('innaApp.components').
                     ruble: $templateCache.get('components/ruble.html')
                 },
 
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
 
                     this.isPriceObject = false;
