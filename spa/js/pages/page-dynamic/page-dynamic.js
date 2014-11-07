@@ -378,40 +378,44 @@ innaAppControllers
                             success: function (data) {
                                 that.set('loadHotelsData', data);
 
-                                if (data && data.Hotels) {
+                                if (data && !angular.isUndefined(data.Hotels)) {
                                     $scope.safeApply(function () {
                                         $scope.hotelsForMap = data.Hotels;
                                     });
+
+
+
+                                    $scope.safeApply(function () {
+                                        $scope.hotels.flush();
+                                        $scope.hotelsRaw = data;
+
+                                        for (var i = 0, raw = null; raw = data.Hotels[i++];) {
+                                            if (!raw.HotelName) continue;
+                                            var hotel = new inna.Models.Hotels.Hotel(raw);
+                                            hotel.hidden = false;
+                                            hotel.data.hidden = false;
+                                            hotel.currentlyInvisible = false;
+                                            $scope.hotels.push(hotel);
+                                        }
+
+                                        $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
+                                        deferred.resolve();
+                                    })
+
                                 } else {
+                                    deferred.reject();
                                     RavenWrapper.raven({
                                         captureMessage : 'SEARCH PACKAGES: ERROR - [Hotels empty]',
                                         dataResponse: data,
                                         dataRequest: that.getIdCombination().params
                                     });
-
                                 }
 
                                 that._balloonLoad.dispose();
-
-                                $scope.safeApply(function () {
-                                    $scope.hotels.flush();
-                                    $scope.hotelsRaw = data;
-
-                                    for (var i = 0, raw = null; raw = data.Hotels[i++];) {
-                                        if (!raw.HotelName) continue;
-                                        var hotel = new inna.Models.Hotels.Hotel(raw);
-                                        hotel.hidden = false;
-                                        hotel.data.hidden = false;
-                                        hotel.currentlyInvisible = false;
-                                        $scope.hotels.push(hotel);
-                                    }
-
-                                    $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
-                                    deferred.resolve();
-                                })
                             },
                             error: function (data) {
                                 that.serverError500(data);
+                                deferred.reject();
                             }
 
                         });
