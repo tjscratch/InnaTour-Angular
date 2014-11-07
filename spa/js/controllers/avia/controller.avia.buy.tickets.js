@@ -1089,7 +1089,6 @@ innaAppControllers.
                                     }
                                 }
                                 catch (e) {
-                                    $interval.cancel(intCheck);
                                     RavenWrapper.raven({
                                         captureMessage : 'BUY TICKET PayCheck : ERROR',
                                         dataResponse: angular.toJson(data),
