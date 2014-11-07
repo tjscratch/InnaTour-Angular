@@ -9,22 +9,26 @@ angular.module('innaApp.services').service('RavenWrapper', [
        }
 
         RavenWrapper.prototype.raven = function(data){
-            if(data && Object.keys(data).length) {
-                var dataRaven = {
-                    extra: {
-                        data: {
-                            siteUrl: location.href,
-                            dataResponse: data.dataResponse || null,
-                            dataRequest: data.dataRequest || null
+            try {
+                if (data && Object.keys(data).length) {
+                    var dataRaven = {
+                        extra: {
+                            data: {
+                                siteUrl: location.href,
+                                dataResponse: data.dataResponse || null,
+                                dataRequest: data.dataRequest || null
+                            }
+                        }
+                    };
+                    if (data.level) {
+                        dataRaven.tags = {
+                            level: data.level
                         }
                     }
-                };
-                if (data.level) {
-                    dataRaven.tags = {
-                        level: data.level
-                    }
+                    Raven.captureMessage(data.captureMessage.toUpperCase(), dataRaven);
                 }
-                Raven.captureMessage(data.captureMessage.toUpperCase(), dataRaven);
+            } catch (e){
+                Raven.captureException(e);
             }
         }
 

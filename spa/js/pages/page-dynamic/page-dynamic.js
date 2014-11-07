@@ -378,11 +378,6 @@ innaAppControllers
                             success: function (data) {
                                 that.set('loadHotelsData', data);
 
-                                RavenWrapper.raven({
-                                    captureMessage : 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
-                                    dataResponse: data
-                                });
-
                                 if (data && data.Hotels) {
                                     $scope.safeApply(function () {
                                         $scope.hotelsForMap = data.Hotels;
