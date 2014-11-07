@@ -400,7 +400,7 @@ innaAppControllers
                                         $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
                                         deferred.resolve();
                                     })
-
+                                    that._balloonLoad.dispose();
                                 } else {
                                     that.combination404()
                                     deferred.reject();
@@ -410,8 +410,6 @@ innaAppControllers
                                         dataRequest: that.getIdCombination().params
                                     });
                                 }
-
-                                that._balloonLoad.dispose();
                             },
                             error: function (data) {
                                 that.serverError500(data);
@@ -443,8 +441,6 @@ innaAppControllers
                             data: this.getIdCombination().params,
                             success: function (data) {
 
-                                that._balloonLoad.dispose();
-
                                 if(!data || angular.isUndefined(data.AviaInfos) || !data.AviaInfos.length) {
                                     RavenWrapper.raven({
                                         captureMessage : 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
@@ -454,7 +450,7 @@ innaAppControllers
                                     that.combination404()
                                     deferred.reject();
                                 } else {
-
+                                    that._balloonLoad.dispose();
                                     $scope.safeApply(function () {
                                         $scope.tickets.flush();
                                         for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
