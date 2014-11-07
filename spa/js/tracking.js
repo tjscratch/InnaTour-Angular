@@ -144,8 +144,13 @@
     dpReservationError: function () {//Ошибка бронирования пакета
         track.writeAnalitics('/virtual/packages/reservation_error', 'packages_reservation_error');
     },
-    dpPaymentError: function () {//Ошибка оплаты
-        track.writeAnalitics('/virtual/packages/payment_error', 'packages_payment_error');
+    dpPaymentError: function (code) {//Ошибка оплаты
+        if (code) {
+            track.writeAnalitics('/virtual/packages/payment_error_' + code, 'packages_payment_error_' + code);
+        }
+        else {
+            track.writeAnalitics('/virtual/packages/payment_error', 'packages_payment_error');
+        }
     },
     dpIssueError: function () {//Ошибка выписки
         track.writeAnalitics('/virtual/packages/issue_error', 'packages_issue_error');
@@ -213,8 +218,13 @@
     aviaReservationError: function () {//Ошибка бронирования авиабилета
         track.writeAnalitics('/virtual/avia/reservation_error', 'avia_reservation_error');
     },
-    aviaPaymentError: function () {//Ошибка оплаты
-        track.writeAnalitics('/virtual/avia/payment_error', 'avia_payment_error');
+    aviaPaymentError: function (code) {//Ошибка оплаты
+        if (code) {
+            track.writeAnalitics('/virtual/avia/payment_error_' + code, 'avia_payment_error_' + code);
+        }
+        else {
+            track.writeAnalitics('/virtual/avia/payment_error', 'avia_payment_error');
+        }
     },
     aviaIssueError: function () {//Ошибка выписки
         track.writeAnalitics('/virtual/avia/issue_error', 'avia_issue_error');

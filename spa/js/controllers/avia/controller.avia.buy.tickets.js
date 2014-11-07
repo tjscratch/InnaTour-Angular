@@ -950,6 +950,18 @@ innaAppControllers.
                     check();
                 }, 5000);
 
+                function writeAnalyticsError(code) {
+                    var pageType = getActionType();
+
+                    //аналитика
+                    if (pageType == actionTypeEnum.avia) {
+                        track.aviaPaymentError(code);
+                    }
+                    else if (pageType == actionTypeEnum.dp) {
+                        track.dpPaymentError(code);
+                    }
+                }
+
                 function check() {
                     if (!$scope.isCkeckProcessing) {
                         $scope.isCkeckProcessing = true;
@@ -1042,9 +1054,15 @@ innaAppControllers.
                                             }
                                         }
                                         else if (data.Result == 2) {//ошибка при бронировании
+                                            //аналитика
+                                            writeAnalyticsError(2);
+
                                             $scope.baloon.showGlobalAviaErr();
                                         }
                                         else if (data.Result == 3) {//ошибка оплаты
+                                            //аналитика
+                                            writeAnalyticsError(3);
+
                                             $scope.baloon.hide();
 
                                             $scope._baloon = new Balloon({
@@ -1055,6 +1073,9 @@ innaAppControllers.
                                             }).show();
                                         }
                                         else if (data.Result == 4) {//заказ оплачен, но не прошла выписка
+                                            //аналитика
+                                            writeAnalyticsError(4);
+
                                             $scope.baloon.show('Оформляем заказ', 'Пожалуйста, не закрывайте браузер');
                                         }
                                     }
@@ -1062,11 +1083,16 @@ innaAppControllers.
                             }
                             catch (e) {
                                 //    console.error(e);
+                                //аналитика
+                                writeAnalyticsError(0);
                             }
                             finally {
                                 $scope.isCkeckProcessing = false;
                             }
                         }, function (data, status) {
+                            //аналитика
+                            writeAnalyticsError();
+
                             $scope.isCkeckProcessing = false;
                             log('paymentService.payCheck error, data: ' + angular.toJson(data));
                         });
