@@ -1,6 +1,7 @@
 'use strict';
 innaAppControllers
     .controller('PageDynamicPackage', [
+        'RavenWrapper',
         'EventManager',
         '$scope',
         'DynamicFormSubmitListener',
@@ -20,9 +21,9 @@ innaAppControllers
         'ListPanel',
         /*'FilterPanel',*/
         '$filter',
-        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, modelRecommendedPair, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
+        function (RavenWrapper, EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, modelRecommendedPair, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
 
-            //hotel=274091&display=tickets&ticket=891487471
+            Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"})
 
             /**
              * Преобразуем даты и собираем данные для запроса
@@ -377,10 +378,22 @@ innaAppControllers
                             success: function (data) {
                                 that.set('loadHotelsData', data);
 
+                                RavenWrapper.raven({
+                                    captureMessage : 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
+                                    dataResponse: data
+                                });
+
                                 if (data && data.Hotels) {
                                     $scope.safeApply(function () {
                                         $scope.hotelsForMap = data.Hotels;
                                     });
+                                } else {
+                                    RavenWrapper.raven({
+                                        captureMessage : 'SEARCH PACKAGES: ERROR - [Hotels empty]',
+                                        dataResponse: data,
+                                        dataRequest: this.getIdCombination().params
+                                    });
+
                                 }
 
                                 that._balloonLoad.dispose();
@@ -403,7 +416,7 @@ innaAppControllers
                                 })
                             },
                             error: function (data) {
-                                that.serverError500();
+                                that.serverError500(data);
                             }
 
                         });
@@ -433,6 +446,14 @@ innaAppControllers
 
                                 that._balloonLoad.dispose();
 
+                                if(!data || angular.isUndefined(data.AviaInfos) || !data.AviaInfos.length) {
+                                    RavenWrapper.raven({
+                                        captureMessage : 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
+                                        dataResponse: data,
+                                        dataRequest: this.getIdCombination().params
+                                    });
+                                }
+
                                 $scope.safeApply(function () {
                                     $scope.tickets.flush();
                                     for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
@@ -445,7 +466,7 @@ innaAppControllers
                                 });
                             },
                             error: function (data) {
-                                that.serverError500();
+                                that.serverError500(data);
                             }
 
                         });
@@ -499,7 +520,13 @@ innaAppControllers
                     });
                 },
 
-                serverError500: function () {
+                serverError500: function (data) {
+                    RavenWrapper.raven({
+                        captureMessage : 'SEARCH PACKAGES: SERVER ERROR',
+                        dataResponse: data.responseJSON,
+                        dataRequest: this.getIdCombination().params
+                    });
+
                     var that = this;
                     this._balloonLoad.updateView({
                         template: 'err.html',

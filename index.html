@@ -326,16 +326,16 @@
     }
 </script>
 
-<script src="//cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js"></script>
+<script src="//cdn.ravenjs.com/1.1.16/angular,jquery,native/raven.min.js"></script>
 <script>
-	Raven.config('http://50606b96e7d64a4bb5283323ce4bde74@sentry.test.test/2', {
-		whitelistUrls: [/\.inna\.ru/],
-		logger: 'javascript'
-		/*, dataCallback: function(data) {
-			console.info(data, "raven data");
-			return data;
-		}*/
-	}).install();
+    Raven.config('https://5423ebfb08194592901a70946621e5b4@sentry.inna.ru:9000/2', {
+        whitelistUrls: [/\.inna\.ru/],
+        logger: 'javascript'
+        /*, dataCallback: function(data) {
+         console.info(data, "raven data");
+         return data;
+         }*/
+    }).install();
 </script>
 
 
