@@ -3,8 +3,7 @@
  * Обертка над Raven
  */
 angular.module('innaApp.services').service('RavenWrapper', [
-    '$location',
-    function ($location) {
+    function () {
 
        function RavenWrapper(){
        }
@@ -14,7 +13,7 @@ angular.module('innaApp.services').service('RavenWrapper', [
                 var dataRaven = {
                     extra: {
                         data: {
-                            siteUrl: $location.href,
+                            siteUrl: location.href,
                             dataResponse: data.dataResponse || null,
                             dataRequest: data.dataRequest || null
                         }
