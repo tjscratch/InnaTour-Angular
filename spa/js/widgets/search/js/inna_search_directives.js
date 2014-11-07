@@ -4,7 +4,7 @@
     angular.module('innaSearchForm.directives', [])
 
 
-    function searchForm() {
+    function innaForm() {
         return{
             restrict: 'E',
             templateUrl: '/inna-frontend/spa/js/widgets/search/templ/form.html',
@@ -44,33 +44,20 @@
                 /**
                  * BEGIN datapicker
                  */
-                // Disable weekend selection
-                $scope.disabled = function (date, mode) {
-                    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-                };
-
-                $scope.toggleMin = function () {
-                    $scope.minDate = $scope.minDate ? null : new Date();
-                };
-                $scope.toggleMin();
-
-                $scope.open = function ($event) {
-                    $event.preventDefault();
-                    $event.stopPropagation();
-
-                    $scope.opened = true;
-                };
-
-                $scope.dateOptions = {
-                    formatYear: 'yy',
-                    startingDay: 1
-                };
-
-                $scope.format = 'dd-MMMM'
-
+                $('.input-daterange').datepicker({
+                    format: "dd.mm.yyyy",
+                    startDate: "-Infinity",
+                    language: "ru",
+                    keyboardNavigation: false,
+                    autoclose: true,
+                    todayHighlight: true
+                });
                 /**
                  * END datapicker
                  */
+
+
+
                 $scope.$watch('locationFrom', function (data) {
                     if (data && data.id) {
                         $scope.fromId = data.id;
@@ -81,10 +68,29 @@
                         $scope.toId = data.id
                     }
                 });
-                
+                $scope.$watch('startDate', function (data) {
+                    if (data) {
+                        $scope.startDate = data
+                        $scope.setStartDate = data;
+                    } else {
+                        $scope.setStartDate = new Date();
+                    }
+                });
+                $scope.$watch('endDate', function (data) {
+                    $scope.endDate = data
+                });
+
 
                 $scope.innaStartSearch = function () {
-                    $scope.innaSearchUrl = "https://inna.ru/#/packages/search/" + $scope.fromId + "-" + $scope.toId + "-15.12.2014-21.12.2014-0-2-"
+                    $scope.innaSearchUrl = "https://inna.ru/#/packages/search/" +
+                        $scope.fromId +
+                        "-" +
+                        $scope.toId +
+                        "-" +
+                        $scope.startDate +
+                        "-" +
+                        $scope.endDate +
+                        "-0-2-"
                     window.open($scope.innaSearchUrl, '_blank')
                 }
 
@@ -93,10 +99,9 @@
     }
 
 
-
     angular
         .module('innaSearchForm.directives')
-        .directive('searchForm', searchForm)
+        .directive('innaForm', innaForm)
 
 
 })()
