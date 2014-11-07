@@ -386,7 +386,7 @@ innaAppControllers
                                     RavenWrapper.raven({
                                         captureMessage : 'SEARCH PACKAGES: ERROR - [Hotels empty]',
                                         dataResponse: data,
-                                        dataRequest: this.getIdCombination().params
+                                        dataRequest: that.getIdCombination().params
                                     });
 
                                 }
@@ -445,7 +445,7 @@ innaAppControllers
                                     RavenWrapper.raven({
                                         captureMessage : 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
                                         dataResponse: data,
-                                        dataRequest: this.getIdCombination().params
+                                        dataRequest: that.getIdCombination().params
                                     });
                                 }
 
