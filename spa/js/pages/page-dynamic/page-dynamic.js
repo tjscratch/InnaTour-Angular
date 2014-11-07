@@ -379,11 +379,10 @@ innaAppControllers
                                 that.set('loadHotelsData', data);
 
                                 if (data && !angular.isUndefined(data.Hotels)) {
+
                                     $scope.safeApply(function () {
                                         $scope.hotelsForMap = data.Hotels;
                                     });
-
-
 
                                     $scope.safeApply(function () {
                                         $scope.hotels.flush();
@@ -403,6 +402,7 @@ innaAppControllers
                                     })
 
                                 } else {
+                                    that.combination404()
                                     deferred.reject();
                                     RavenWrapper.raven({
                                         captureMessage : 'SEARCH PACKAGES: ERROR - [Hotels empty]',
@@ -451,18 +451,21 @@ innaAppControllers
                                         dataResponse: data,
                                         dataRequest: that.getIdCombination().params
                                     });
-                                }
+                                    that.combination404()
+                                    deferred.reject();
+                                } else {
 
-                                $scope.safeApply(function () {
-                                    $scope.tickets.flush();
-                                    for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
-                                        var ticket = new inna.Models.Avia.Ticket();
-                                        ticket.setData(raw);
-                                        $scope.tickets.push(ticket);
-                                    }
-                                    that.set('loadTicketsData', data);
-                                    deferred.resolve();
-                                });
+                                    $scope.safeApply(function () {
+                                        $scope.tickets.flush();
+                                        for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
+                                            var ticket = new inna.Models.Avia.Ticket();
+                                            ticket.setData(raw);
+                                            $scope.tickets.push(ticket);
+                                        }
+                                        that.set('loadTicketsData', data);
+                                        deferred.resolve();
+                                    });
+                                }
                             },
                             error: function (data) {
                                 that.serverError500(data);
