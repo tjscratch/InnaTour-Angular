@@ -1099,10 +1099,12 @@ innaAppControllers.
                                     writeAnalyticsError(0);
                                 }
                                 finally {
+                                    $interval.cancel(intCheck);
                                     $scope.isCkeckProcessing = false;
                                 }
                             },
                             error : function(data){
+                                $interval.cancel(intCheck);
                                 RavenWrapper.raven({
                                     captureMessage : 'BUY TICKET : SERVER ERROR',
                                     dataResponse: data.responseJSON,
