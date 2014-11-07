@@ -1,5 +1,6 @@
 innaAppControllers
     .controller('PageHotelDetails', [
+        'RavenWrapper',
         'EventManager',
         '$window',
         '$scope',
@@ -19,9 +20,11 @@ innaAppControllers
         'Stars',
         'Balloon',
         '$filter',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter) {
+        function (RavenWrapper, EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter) {
 
             DynamicFormSubmitListener.listen();
+
+            Raven.setExtraContext({key: "__DETAILS_DP_CONTEXT__"})
 
             var routParam = angular.copy($routeParams);
             $scope.userIsAgency = null;
@@ -229,7 +232,13 @@ innaAppControllers
 
                         deferred.resolve();
                     },
-                    error: function () {
+                    error: function (data) {
+                        RavenWrapper.raven({
+                            captureMessage : 'PACKAGE DETAILS: SERVER ERROR',
+                            dataResponse: data.responseJSON,
+                            dataRequest: searchParams
+                        });
+
                         _balloonLoad.updateView({
                             template: 'err.html',
                             title: "Запрашиваемый отель не найден",
@@ -274,10 +283,22 @@ innaAppControllers
                             onload();
 
                         } else {
+                            RavenWrapper.raven({
+                                captureMessage : 'PACKAGE DETAILS ROOMS NOT FOUND',
+                                dataResponse: data,
+                                dataRequest: searchParams
+                            });
+
                             showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
                         }
                     },
-                    error: function () {
+                    error: function (data) {
+                        RavenWrapper.raven({
+                            captureMessage : 'PACKAGE DETAILS ROOMS NOT FOUND: SERVER ERROR',
+                            dataResponse: data.responseJSON,
+                            dataRequest: searchParams
+                        });
+
                         showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
                     }
                 });

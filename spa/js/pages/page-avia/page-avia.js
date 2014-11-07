@@ -132,6 +132,10 @@ innaAppControllers.
                 //console.log('startLoadAndInit');
                 $scope.baloon.showWithCancel('Ищем варианты', 'Поиск займет не более 30 секунд', function () {
                     dataService.cancelAviaSearch();
+
+                    //аналитика - прерывание поиска
+                    track.aviaSearchInterrupted();
+
                     $location.path(Urls.URL_AVIA);
                 });
 
@@ -356,6 +360,9 @@ innaAppControllers.
                                         $scope.filteredTicketsList = _.without($scope.filteredTicketsList, item);
                                     }
 
+                                    //аналитика - Ошибка проверки доступности
+                                    track.aviaIsAvailableError();
+
                                     $scope.baloon.showErr('К сожалению, билеты не доступны', 'Попробуйте выбрать другие', function () {
                                         noVariant();
                                         $timeout.cancel(popupTimeout);
@@ -367,6 +374,9 @@ innaAppControllers.
                             });
                         },
                         function (data, status) {
+                            //аналитика - Ошибка проверки доступности
+                            track.aviaIsAvailableError();
+
                             $scope.safeApply(function () {
                                 //error
                                 $scope.baloon.showGlobalAviaErr();
