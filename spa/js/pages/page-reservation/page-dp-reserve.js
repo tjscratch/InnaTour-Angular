@@ -1,5 +1,6 @@
 ﻿angular.module('innaApp.controllers')
     .controller('DynamicReserveTicketsCtrl', [
+        'RavenWrapper',
         '$scope',
         '$controller',
         '$routeParams',
@@ -16,13 +17,13 @@
         '$templateCache',
         //components
         'Balloon',
-        function ($scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, $templateCache, Balloon) {
+        function (RavenWrapper, $scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, $templateCache, Balloon) {
 
             $scope.baloon.showExpireCheck();
 
             $scope.isAviaPage = false;
 
-            Raven.setExtraContext({context: "__RESERVATION_CONTEXT__"})
+            Raven.setExtraContext({key: "__RESERVATION_CONTEXT__"})
 
             /*------------------------------------------*/
             /*------------------------------------------*/
@@ -195,13 +196,10 @@
                                 //}, 1000);
                             }
                             else {
-                                Raven.captureMessage('CHECK AVAILABILITY ROOMS: ERROR', {
-                                    extra: {
-                                        data: {
-                                            dataResponse: data,
-                                            dataRequest: getCheckParamsRaven
-                                        }
-                                    }
+                                RavenWrapper.raven({
+                                    captureMessage : 'CHECK AVAILABILITY ROOMS: ERROR',
+                                    dataResponse: data,
+                                    dataRequest: getCheckParamsRaven
                                 });
                                 //log('checkAvailability, false');
                                 //$timeout.cancel(availableChecktimeout);
@@ -210,15 +208,10 @@
                             }
                         },
                         function (data, status) {
-
-                            Raven.captureMessage('CHECK AVAILABILITY ROOMS: SERVER ERROR', {
-                                extra: {
-                                    data: {
-                                        dataResponse: data.responseJSON,
-                                        dataRequest: getCheckParamsRaven,
-                                        status : status
-                                    }
-                                }
+                            RavenWrapper.raven({
+                                captureMessage : 'CHECK AVAILABILITY ROOMS: SERVER ERROR',
+                                dataResponse: data.responseJSON,
+                                dataRequest: getCheckParamsRaven
                             });
 
                             //error
@@ -333,14 +326,13 @@
                 var apiModel = angular.copy(m.apiModel);
 
 
-                Raven.captureMessage('START RESERVE PACKAGES', {
-                    tags: {
-                        level: 3
-                    },
-                    extra: {
-                        data: apiModel
-                    }
+                RavenWrapper.raven({
+                    level: 3,
+                    captureMessage : 'START RESERVE PACKAGES',
+                    dataRequest: apiModel
                 });
+
+
 
 
                 //apiModel.CustomerWishlist = apiModel.searchParams.CustomerWishlist;
@@ -371,16 +363,11 @@
                                 }
                             }
                             else {
-                                Raven.captureMessage('RESERVE PACKAGES: ERROR', {
-                                    tags: {
-                                        level: 2
-                                    },
-                                    extra: {
-                                        data: {
-                                            dataResponse: data,
-                                            dataRequest: apiModel
-                                        }
-                                    }
+                                RavenWrapper.raven({
+                                    level: 2,
+                                    captureMessage : 'RESERVE PACKAGES: ERROR',
+                                    dataResponse: data,
+                                    dataRequest: apiModel
                                 });
                                 //аналитика
                                 track.dpReservationError();
@@ -391,17 +378,12 @@
                         });
                     },
                     function (data, status) {
-                        Raven.captureMessage('RESERVE PACKAGES: SERVER ERROR', {
-                            tags: {
-                                level: 6
-                            },
-                            extra: {
-                                data: {
-                                    dataResponse: data.responseJSON,
-                                    dataRequest: apiModel,
-                                    status: status
-                                }
-                            }
+
+                        RavenWrapper.raven({
+                            level: 6,
+                            captureMessage : 'RESERVE PACKAGES: SERVER ERROR',
+                            dataResponse: data.responseJSON,
+                            dataRequest: apiModel
                         });
                         //аналитика
                         track.dpReservationError();

@@ -1,6 +1,7 @@
 'use strict';
 innaAppControllers
     .controller('PageDynamicPackage', [
+        'RavenWrapper',
         'EventManager',
         '$scope',
         'DynamicFormSubmitListener',
@@ -20,9 +21,9 @@ innaAppControllers
         'ListPanel',
         /*'FilterPanel',*/
         '$filter',
-        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, modelRecommendedPair, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
+        function (RavenWrapper, EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, modelRecommendedPair, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
 
-            Raven.setExtraContext({context: "__SEARCH_DP_CONTEXT__"})
+            Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"})
 
             /**
              * Преобразуем даты и собираем данные для запроса
@@ -382,14 +383,12 @@ innaAppControllers
                                         $scope.hotelsForMap = data.Hotels;
                                     });
                                 } else {
-                                    Raven.captureMessage('SEARCH PACKAGES: ERROR - [Hotels empty]', {
-                                        extra: {
-                                            data: {
-                                                dataResponse: data,
-                                                dataRequest: this.getIdCombination().params
-                                            }
-                                        }
+                                    RavenWrapper.raven({
+                                        captureMessage : 'SEARCH PACKAGES: ERROR - [Hotels empty]',
+                                        dataResponse: data,
+                                        dataRequest: this.getIdCombination().params
                                     });
+
                                 }
 
                                 that._balloonLoad.dispose();
@@ -441,6 +440,14 @@ innaAppControllers
                             success: function (data) {
 
                                 that._balloonLoad.dispose();
+
+                                if(!data || angular.isUndefined(data.AviaInfos) || !data.AviaInfos.length) {
+                                    RavenWrapper.raven({
+                                        captureMessage : 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
+                                        dataResponse: data,
+                                        dataRequest: this.getIdCombination().params
+                                    });
+                                }
 
                                 $scope.safeApply(function () {
                                     $scope.tickets.flush();
@@ -509,13 +516,10 @@ innaAppControllers
                 },
 
                 serverError500: function (data) {
-                    Raven.captureMessage('SEARCH PACKAGES: SERVER ERROR', {
-                        extra: {
-                            data: {
-                                dataResponse: data.responseJSON,
-                                dataRequest: this.getIdCombination().params
-                            }
-                        }
+                    RavenWrapper.raven({
+                        captureMessage : 'SEARCH PACKAGES: SERVER ERROR',
+                        dataResponse: data.responseJSON,
+                        dataRequest: this.getIdCombination().params
                     });
 
                     var that = this;
