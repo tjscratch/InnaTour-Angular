@@ -196,7 +196,7 @@ innaAppControllers.
                                 //console.log($scope.item);
                                 //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
 
-                                $scope.Is_it_tarif = data.Is_it_tarif;
+                                $scope.Is_it_tarif = data.ItTariff;
 
                                 //тарифы
                                 $scope.loadTarifs($scope.criteria.VariantId1, $scope.criteria.VariantId2, $scope.item);
