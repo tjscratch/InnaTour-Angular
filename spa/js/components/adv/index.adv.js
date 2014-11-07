@@ -20,13 +20,26 @@ angular.module('innaApp.directives')
                         $scope.isAdv = null;
                         $scope.isVisible = false;
 
+                        function getPartner(){
+                            var enumPartners = [
+                                "sletat",
+                                "ruspo",
+                                "tourindex"
+                            ]
 
+                            if($location.search().utm_source && enumPartners.indexOf($location.search().utm_source) != -1){
+                                return true;
+                            }
+                        }
 
                         function determine() {
 
+
+
+
+
                             // проверяем куки и параметры в url
-                            $scope.isAdv = $cookieStore.get('ADV_VISIBLE') ||
-                                (($location.search().utm_source && $location.search().utm_source == 'sletat') &&
+                            $scope.isAdv = $cookieStore.get('ADV_VISIBLE') || (getPartner() &&
                                     (angular.isUndefined($location.search().tourist) || $location.search().tourist == 0));
 
                             if($cookieStore.get('ADV_NOT_VISIBLE')) {
