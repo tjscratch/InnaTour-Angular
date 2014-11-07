@@ -378,45 +378,42 @@ innaAppControllers
                             success: function (data) {
                                 that.set('loadHotelsData', data);
 
-                                RavenWrapper.raven({
-                                    captureMessage : 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
-                                    dataResponse: data
-                                });
+                                if (data && !angular.isUndefined(data.Hotels)) {
 
-                                if (data && data.Hotels) {
                                     $scope.safeApply(function () {
                                         $scope.hotelsForMap = data.Hotels;
                                     });
+
+                                    $scope.safeApply(function () {
+                                        $scope.hotels.flush();
+                                        $scope.hotelsRaw = data;
+
+                                        for (var i = 0, raw = null; raw = data.Hotels[i++];) {
+                                            if (!raw.HotelName) continue;
+                                            var hotel = new inna.Models.Hotels.Hotel(raw);
+                                            hotel.hidden = false;
+                                            hotel.data.hidden = false;
+                                            hotel.currentlyInvisible = false;
+                                            $scope.hotels.push(hotel);
+                                        }
+
+                                        $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
+                                        deferred.resolve();
+                                    })
+                                    that._balloonLoad.dispose();
                                 } else {
+                                    that.combination404()
+                                    deferred.reject();
                                     RavenWrapper.raven({
                                         captureMessage : 'SEARCH PACKAGES: ERROR - [Hotels empty]',
                                         dataResponse: data,
-                                        dataRequest: this.getIdCombination().params
+                                        dataRequest: that.getIdCombination().params
                                     });
-
                                 }
-
-                                that._balloonLoad.dispose();
-
-                                $scope.safeApply(function () {
-                                    $scope.hotels.flush();
-                                    $scope.hotelsRaw = data;
-
-                                    for (var i = 0, raw = null; raw = data.Hotels[i++];) {
-                                        if (!raw.HotelName) continue;
-                                        var hotel = new inna.Models.Hotels.Hotel(raw);
-                                        hotel.hidden = false;
-                                        hotel.data.hidden = false;
-                                        hotel.currentlyInvisible = false;
-                                        $scope.hotels.push(hotel);
-                                    }
-
-                                    $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
-                                    deferred.resolve();
-                                })
                             },
                             error: function (data) {
                                 that.serverError500(data);
+                                deferred.reject();
                             }
 
                         });
@@ -444,26 +441,27 @@ innaAppControllers
                             data: this.getIdCombination().params,
                             success: function (data) {
 
-                                that._balloonLoad.dispose();
-
                                 if(!data || angular.isUndefined(data.AviaInfos) || !data.AviaInfos.length) {
                                     RavenWrapper.raven({
                                         captureMessage : 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
                                         dataResponse: data,
-                                        dataRequest: this.getIdCombination().params
+                                        dataRequest: that.getIdCombination().params
+                                    });
+                                    that.combination404()
+                                    deferred.reject();
+                                } else {
+                                    that._balloonLoad.dispose();
+                                    $scope.safeApply(function () {
+                                        $scope.tickets.flush();
+                                        for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
+                                            var ticket = new inna.Models.Avia.Ticket();
+                                            ticket.setData(raw);
+                                            $scope.tickets.push(ticket);
+                                        }
+                                        that.set('loadTicketsData', data);
+                                        deferred.resolve();
                                     });
                                 }
-
-                                $scope.safeApply(function () {
-                                    $scope.tickets.flush();
-                                    for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
-                                        var ticket = new inna.Models.Avia.Ticket();
-                                        ticket.setData(raw);
-                                        $scope.tickets.push(ticket);
-                                    }
-                                    that.set('loadTicketsData', data);
-                                    deferred.resolve();
-                                });
                             },
                             error: function (data) {
                                 that.serverError500(data);
