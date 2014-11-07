@@ -39,7 +39,7 @@ innaAppControllers
                 TicketId: $location.search().ticket
             });
 
-            if (routParam.Children && routParam.Children != "0") {
+            if (routParam.Children) {
                 searchParams.ChildrenAges = routParam.Children.split('_');
             }
 
