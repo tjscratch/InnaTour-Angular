@@ -953,7 +953,7 @@ innaAppControllers.
                 check();
 
                 var intCheck = $interval(function () {
-                    check();
+                    check($scope);
                 }, 5000);
 
                 function writeAnalyticsError(code) {
@@ -968,7 +968,7 @@ innaAppControllers.
                     }
                 }
 
-                function check() {
+                function check($scope) {
                     if (!$scope.isCkeckProcessing) {
                         $scope.isCkeckProcessing = true;
 
@@ -1103,6 +1103,7 @@ innaAppControllers.
                                 }
                             },
                             error : function(data){
+                                $interval.cancel(intCheck);
                                 RavenWrapper.raven({
                                     captureMessage : 'BUY TICKET : SERVER ERROR',
                                     dataResponse: data.responseJSON,
