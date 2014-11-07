@@ -32,5 +32,9 @@ angular.module('innaApp.services').service('RavenWrapper', [
             }
         }
 
+        RavenWrapper.prototype.captureException = function(e){
+            Raven.captureException(e);
+        }
+
         return new RavenWrapper();
     }]);
