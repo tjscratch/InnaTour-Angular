@@ -48,7 +48,7 @@
                     format: "dd.mm.yyyy",
                     startDate: "-Infinity",
                     language: "ru",
-                    keyboardNavigation: false,
+                    keyboardNavigation: true,
                     autoclose: true,
                     todayHighlight: true
                 });
