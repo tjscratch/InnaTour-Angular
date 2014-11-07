@@ -16,28 +16,76 @@ $control-height = 36px;
 	padding 7px
 	background #212121
 	border-radius 2px
+
+	&:after{
+		content ''
+		display table
+		clear both
+	}
 }
 
 .b-inna-search-form-control{
 	position relative
+	float left
+	margin 0 3px 0 0
+}
 
-	&._location{
-		width 205px
+.b-inna-search-form-control__input{
+	width 100%
+	height $control-height
+	line-height $control-height
+	padding 0 10px
+	vertical-align top
+	color #000
+	font-size 14px
+	border none
+	background #fff
+}
+
+.b-inna-search-form-control_datapicker{
+	position relative
+	background #fff
+
+	.i-inna-calendar{
+		position absolute
+		right 5px
+		top 50%
+		margin-top -8px
 	}
 
-	.b-inna-search-form-control__input{
-		width 100%
-		height $control-height
-		line-height $control-height
-		padding 0 10px
-		vertical-align top
-		color #000
-		font-size 14px
-		border none
+	.dropdown-menu{
+		position absolute
+		top 40px
+		right 0
+		margin 0
+		padding 0
+		list-style none
 	}
 }
 
-.b-inna-search-form-control-typeahead{
+.b-inna-btn{
+	width 42px
+	height $control-height
+	line-height $control-height
+	border none
+	border-radius 2px
+	background-color #89c13a
+	background-image url(../images/search.png)
+	background-repeat no-repeat
+	background-position 50% 50%
+	background-size 50%
+	transition: background-color 0.3s linear 0s;
+	cursor pointer
+
+	&:active,
+	&:hover{
+		background-color #95cd47
+	}
+}
+
+.b-inna-search-form-control._typeahead{
+	width 205px
+
 	.dropdown-menu{
 		position absolute
 		left 0
@@ -60,17 +108,17 @@ $control-height = 36px;
 	position relative
 	padding 6px 10px 6px 15px
 	white-space nowrap
-	
+
 	.b-location-item-name{
 		letter-spacing -0.025em
 		padding-right 40px
-		
+
 		.i-country{
 			margin 0 0 0 3px
 			color #878787
 		}
 	}
-	
+
 	.b-location-item-iata{
 		position absolute
 		top 7px
@@ -79,4 +127,12 @@ $control-height = 36px;
 		text-transform: uppercase;
 		font-size 12px
 	}
+}
+
+// i
+.i-inna-calendar{
+	display block
+	width 17px
+	height 16px
+	background url("../images/calendar-active.png") no-repeat 0 0
 }

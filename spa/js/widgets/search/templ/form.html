@@ -1,20 +1,55 @@
-<div>
-	поиск
-	<div>{{customSelected | json}}</div>
+<div xmlns="http://www.w3.org/1999/html">
+	<div>locationFrom - {{locationFrom}}</div>
+	<div>locationTo - {{locationTo}}</div>
+	<div>url - {{ innaSearchUrl }}</div>
 </div>
+<br/>
+<br/>
 <div class="b-inna-search-form-fields">
-	<div class="b-inna-search-form-control b-inna-search-form-control-typeahead _location">
+
+	<div class="b-inna-search-form-control _typeahead">
 		<input class="b-inna-search-form-control__input"
 		       type="text"
 		       placeholder="Откуда"
-		       ng-model="customSelected"
+		       ng-model="locationFrom"
 		       typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
 		       typeahead-template-url="typeaheadTemplateCustom.html"
 		       typeahead-wait-ms="300"
 				>
 	</div>
-</div>
 
+	<div class="b-inna-search-form-control _typeahead">
+		<input class="b-inna-search-form-control__input"
+		       type="text"
+		       placeholder="Куда"
+		       ng-model="locationTo"
+		       typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
+		       typeahead-template-url="typeaheadTemplateCustom.html"
+		       typeahead-wait-ms="300"
+				>
+	</div>
+
+	<div class="b-inna-search-form-control">
+		<div class="b-inna-search-form-control_datapicker">
+			<input type="text" class="b-inna-search-form-control__input"
+			       datepicker-popup="{{format}}"
+			       show-button-bar="false"
+			       ng-model="startData"
+			       is-open="opened"
+			       min-date="minDate"
+			       max-date="'2015-06-22'"
+			       datepicker-options="dateOptions"
+			       date-disabled="disabled(date, mode)"
+			       close-text="Close"/>
+			<i class="i-inna-calendar" ng-click="open($event)"></i>
+		</div>
+	</div>
+
+	<div class="b-inna-search-form-control _action">
+		<button class="b-inna-btn" ng-click="innaStartSearch()"></button>
+	</div>
+
+</div>
 
 <script type="text/ng-template" id="typeaheadTemplateCustom.html">
 	<div class="b-location-item">

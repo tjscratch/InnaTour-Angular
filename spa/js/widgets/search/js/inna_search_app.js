@@ -4,7 +4,6 @@
     angular.module("innaSearchForm", [
         "ngResource",
         "ui.bootstrap",
-        "innaSearchForm.services",
         "innaSearchForm.directives"
     ])
 
