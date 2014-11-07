@@ -476,10 +476,41 @@ innaAppControllers.
                     $scope.baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
 
                     paymentService.getRepricing($scope.orderNum, function (data) {
-
-                        console.log(data);
-                        //все норм
-                        getPaymenyData();
+                        //console.log(data);
+                        switch (data.Type) {
+                            case 1:
+                                {
+                                    //все норм - получаем данные и продолжаем заполнять
+                                    getPaymenyData();
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    //цена изменилась
+                                    var oldPrice = data.OldPrice;
+                                    var newPrice = data.NewPrice;
+                                    var msg = 'Изменилась стоимость заказа c <b>' + $filter('price')(oldPrice) + '<span class="b-rub">q</span></b> на <b>' + $filter('price')(newPrice) + '<span class="b-rub">q</span></b>';
+                                    $scope.baloon.showPriceChanged("Изменилась цена", msg, function () {
+                                        //уведомили - дальше грузим
+                                        $scope.baloon.show('Подождите', 'Это может занять несколько секунд');
+                                        //все норм - получаем данные и продолжаем заполнять
+                                        getPaymenyData();
+                                    });
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    //вариант перелета больше недоступен (например бронь была снята а/к)
+                                    $scope.baloon.showGlobalAviaErr();
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    //вариант проживания больше недоступен (например уже нет выбранного номера)
+                                    $scope.baloon.showGlobalAviaErr();
+                                    break;
+                                }
+                        }
                     },
                     function (data, status) {
                         log('paymentService.getRepricing error');

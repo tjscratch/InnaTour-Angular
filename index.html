@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:ng="https://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -329,7 +329,7 @@
 <script src="//cdn.ravenjs.com/1.1.16/angular,jquery,native/raven.min.js"></script>
 <script>
     Raven.config('https://5423ebfb08194592901a70946621e5b4@sentry.inna.ru:9000/2', {
-        whitelistUrls: [/\.inna\.ru/],
+        whitelistUrls: [/\www\.inna\.ru/],
         logger: 'javascript'
         /*, dataCallback: function(data) {
          console.info(data, "raven data");
