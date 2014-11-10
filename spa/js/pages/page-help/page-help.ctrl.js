@@ -5,7 +5,8 @@ angular.module('innaApp.controllers')
         'HelpDataService',
         'ShareLink',
         '$location',
-        function($scope, $templateCache, HelpDataService, ShareLink, $location){
+        'innaApp.Urls',
+        function($scope, $templateCache, HelpDataService, ShareLink, $location, Urls){
             var EVENT_OPEN = 'OPEN';
             var hash = $location.hash();
 
@@ -17,17 +18,19 @@ angular.module('innaApp.controllers')
                 data : {
                     visible : false,
                     openIf: null,
-                    location : angular.copy(document.location.href),
-                    right : true
+                    location : location.host+'/#'+Urls.URL_HELP,
+                    right : true,
+                    class: "b-tooltip-share__button-default"
                 },
                 components : {
-                  share : ShareLink
+                    ShareLink : ShareLink
                 },
                 onrender: function(){
                     this.on({
                         open: this.open,
                         close: this.close
                     });
+
                 },
 
                 open: function(event){
@@ -46,7 +49,7 @@ angular.module('innaApp.controllers')
                 }
             });
 
-            new (Ractive.extend({
+            var Page = Ractive.extend({
                 debug: true,
                 el: document.querySelector('.page-help'),
                 template: $templateCache.get('pages/page-help/templ/page-help.hbs.html'),
@@ -57,7 +60,7 @@ angular.module('innaApp.controllers')
                 components : {
                     Toggle : toggler
                 },
-                init: function(){
+                onrender: function(){
                     var self = this;
 
                     HelpDataService.fetchAll(function(data){
@@ -65,11 +68,13 @@ angular.module('innaApp.controllers')
                             topics: data
                         });
 
-                        var offsetTop = parseInt(
-                            $(  self.find('[data-link="' + hash + '"]')  )
-                                .offset().top
-                        );
+                        var offsetTop = 0;
+                        var dataLink  = self.find('[data-link="' + hash + '"]');
 
+                        if(dataLink) {
+                            var el = $(dataLink);
+                            offsetTop = parseInt(el.offset().top);
+                        }
                         document.documentElement.scrollTop = document.body.scrollTop = offsetTop - 120;
                     });
 
@@ -79,6 +84,8 @@ angular.module('innaApp.controllers')
                         });
                     });
                 }
-            }));
+            });
+
+            new Page()
         }
     ]);
