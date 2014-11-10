@@ -496,6 +496,7 @@ innaAppControllers
                 }
             });
 
+            
 
             $scope.$on('$destroy', function () {
                 $('body').removeAttr('style');
