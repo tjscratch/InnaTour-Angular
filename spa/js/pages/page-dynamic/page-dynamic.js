@@ -607,7 +607,8 @@ innaAppControllers
                  * @param ticket
                  */
                 getTicketDetails: function (ticket) {
-                    EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, null, ticket);
+                    //EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, null, ticket);
+                    $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket)
                 },
 
                 loadTicketDetails: function (ids) {
@@ -616,7 +617,6 @@ innaAppControllers
                     if (!ids) return;
 
                     try {
-                        //dfdf;
                         var ticketIds = ids.split('_');
                         var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                         if (ticket) {
