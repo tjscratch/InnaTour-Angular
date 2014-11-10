@@ -483,11 +483,13 @@ innaAppControllers
 
 
             $scope.scrollToTripadvisor = function () {
-                var body = angular.element('html, body'),
-                    headerHeight = angular.element('.Header').height(),
-                    positionTop = angular.element('#tripadvisor-widget-iframe').position().top;
-                body.animate({ scrollTop: positionTop - headerHeight }, 500)
-                window.partners.setScrollPage(positionTop)
+                var body = angular.element('html, body');
+                    var headerHeight = angular.element('.Header').height();
+                    var elToScroll = document.querySelector('.b-tripadvisor-widget-iframe');
+                    var positionTop = utils.getCoords(elToScroll).top
+
+                body.animate({ scrollTop: positionTop - headerHeight }, 500);
+                window.partners.setScrollPage(positionTop);
             };
 
             $scope.$watch('user', function(User){
