@@ -1,7 +1,10 @@
+$offset = 3px;
+$offset-row = -3px;
+
 .b-inna-row{
 	position relative
-	margin-right -2px
-	margin-left -2px
+	margin-right $offset-row;
+	margin-left $offset-row;
 }
 
 for key in (1..12){
@@ -12,7 +15,7 @@ for key in (1..12){
 		width: (100 / $cols) %;
 		min-height: 1px;
 		box-sizing: border-box;
-		padding-left: 2px;
-		padding-right: 2px;
+		padding-left: $offset;
+		padding-right: $offset;
 	}
 }

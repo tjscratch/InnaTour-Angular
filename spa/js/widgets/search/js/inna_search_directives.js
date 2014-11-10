@@ -51,7 +51,13 @@
                     keyboardNavigation: true,
                     autoclose: true,
                     todayHighlight: true
-                });
+                })
+
+//                $('.to_data').on('changeDate', function (selected) {
+//                    var startDate = new Date();
+//                    $('.from_data').datepicker('setDate', startDate);
+//                });
+
                 /**
                  * END datapicker
                  */
@@ -65,19 +71,14 @@
                 });
                 $scope.$watch('locationTo', function (data) {
                     if (data && data.id) {
-                        $scope.toId = data.id
+                        $scope.toId = data.id;
                     }
                 });
                 $scope.$watch('startDate', function (data) {
-                    if (data) {
-                        $scope.startDate = data
-                        $scope.setStartDate = data;
-                    } else {
-                        $scope.setStartDate = new Date();
-                    }
+                    $scope.startDate = data;
                 });
                 $scope.$watch('endDate', function (data) {
-                    $scope.endDate = data
+                    $scope.endDate = data;
                 });
 
 

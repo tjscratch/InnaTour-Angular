@@ -1,7 +1,7 @@
 @import "grid"
 @import "datepicker"
 
-$control-height = 36px;
+$control-height = 30px;
 
 //mixin
 .cfx{
@@ -32,18 +32,6 @@ $control-height = 36px;
 	border-radius 2px
 }
 
-.b-inna-search-form-field-input{
-	width 100%
-	height $control-height
-	line-height $control-height
-	padding 0 10px
-	vertical-align top
-	color #000
-	font-size 14px
-	border none
-	background #fff
-}
-
 .b-inna-btn{
 	width 100%
 	height $control-height
@@ -62,7 +50,6 @@ $control-height = 36px;
 	}
 }
 
-	
 .b-inna-search-form-field{
 
 	//BEGIN typeahead
@@ -109,10 +96,24 @@ $control-height = 36px;
 	//END typeahead
 }
 
-// icons
-.i-inna-calendar{
-	display block
-	width 17px
-	height 16px
-	background url("../images/calendar-active.png") no-repeat 0 0
+.b-inna-search-form-field-input{
+	width 100%
+	height $control-height
+	line-height $control-height
+	padding 0 10px
+	vertical-align top
+	color #000
+	font-size 14px
+	border none
+	background-color #fff
 }
+
+//BEGIN datepicker
+.b-inna-datapicker{
+	position relative
+
+	background-image url("../images/calendar-active.png")
+	background-repeat no-repeat
+	background-position 96% 50%
+}
+//END datepicker
