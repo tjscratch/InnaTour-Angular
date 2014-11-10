@@ -1,13 +1,16 @@
 <div class="overlay js-overlay overlay_ticket-details" ng-show="popupItemInfo.isShow">
 
     <div class="scroll-fix" ng-style="popupItemInfo.style">
-        <div class="balloon balloon_ticket balloon_ticket_ticket-details js-ticket-info-baloon" ng-style="popupStyles"
+        <div class="balloon balloon_ticket balloon_ticket_ticket-details js-ticket-info-baloon"
              ng-class="{'balloon_2ticket':popupItemInfo.item.EtapsBack.length > 0}"
+             ng-style="popupStyles"
              close-popup
              fn-hide="popupItemInfo.hide()">
 
             <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
-                <div ng-if="!noClose" title="Закрыть" class="balloon-close" ng-click="closePopup()"></div>
+                <span class="balloon-close" ng-click="closePopup()" ng-if="!noClose" title="Закрыть" >
+					<i class="icon-sprite-remove-big"></i>
+                </span>
 
                 <h3 class="b-tickets__title">Подробная информация по перелету</h3>
 

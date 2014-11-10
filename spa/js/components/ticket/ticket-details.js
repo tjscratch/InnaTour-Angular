@@ -24,6 +24,7 @@ angular.module('innaApp.directives')
                     $scope.link = '';
 
                     $scope.closePopup = function () {
+                        aviaHelper.scrollFix(true)
                         delete $location.$$search.displayTicket;
                         $location.$$compose();
                         $scope.ticket = null;
@@ -52,9 +53,9 @@ angular.module('innaApp.directives')
                     })
 
                     function showDetails(evt, ticket, opt_data) {
-                        //фикс позиции для списка, когда показывается во фрейме
+
                         if (window.partners && window.partners.parentScrollTop > 0) {
-                            $scope.popupStyles = { 'top': window.partners.parentScrollTop + 100 + 'px' };//100px сверху
+                            $scope.popupStyles = { 'top': window.partners.parentScrollTop + 100 + 'px' };//100px пїЅпїЅпїЅпїЅпїЅпїЅ
                         }
                         else {
                             $scope.popupStyles = null;

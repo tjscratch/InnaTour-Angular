@@ -37,7 +37,9 @@
             </div>
         </div>
         <div class="balloon popup" ng-if="(type == baloonType.msgClose)" ng-style="popupStyles">
-            <div class="balloon-close" title="Закрыть" ng-click="close($event)"></div>
+            <div class="balloon-close" title="Закрыть" ng-click="close($event)">
+	            <i class="icon-sprite-remove-big"></i>
+            </div>
             <div class="balloon-loading">
                 <div class="balloon-loading">
                     <div class="spinner in-balloon">
@@ -54,7 +56,9 @@
             <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
         </div>
         <div class="balloon popup" ng-if="(type == baloonType.payExpires)" ng-style="popupStyles">
-            <div class="balloon-close" title="Закрыть" ng-click="close($event)"></div>
+            <div class="balloon-close" title="Закрыть" ng-click="close($event)">
+	            <i class="icon-sprite-remove-big"></i>
+            </div>
             <div class="balloon-canceled"></div>
             <div class="balloon-title balloon-error" ng-bind-html="caption | breakFilter" ng-if="(caption != null && caption.length > 0)"></div>
             <div class="balloon-title balloon-error" ng-if="!(caption != null && caption.length > 0)">Бронь аннулирована</div>
@@ -81,20 +85,26 @@
             <p class="balloon-info">Это займет не более 30 секунд</p>
         </div>
         <div class="balloon popup" ng-if="(type == baloonType.success)" ng-style="popupStyles">
-            <div class="balloon-close" title="Закрыть" ng-click="close($event)"></div>
+            <div class="balloon-close" title="Закрыть" ng-click="close($event)">
+	            <i class="icon-sprite-remove-big"></i>
+            </div>
             <div class="balloon-mail"></div>
             <div class="balloon-title" ng-bind-html="caption | breakFilter"></div>
             <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
         </div>
         <div class="balloon popup" ng-if="(type == baloonType.email)" ng-style="popupStyles">
-            <div class="balloon-close" title="Закрыть" ng-click="close($event)"></div>
+            <div class="balloon-close" title="Закрыть" ng-click="close($event)">
+	            <i class="icon-sprite-remove-big"></i>
+            </div>
             <div class="balloon-mail"></div>
             <div class="balloon-title" ng-bind-html="caption | breakFilter"></div>
             <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
             <p class="balloon-info-email" ng-bind-html="email"></p>
         </div>
         <div class="balloon popup" ng-if="(type == baloonType.err)" ng-style="popupStyles">
-            <div class="balloon-close" title="Закрыть" ng-click="close($event)"></div>
+            <div class="balloon-close" title="Закрыть" ng-click="close($event)">
+	            <i class="icon-sprite-remove-big"></i>
+            </div>
             <div class="balloon-problem"></div>
 
             <div class="balloon-title balloon-error" ng-bind-html="caption | breakFilter" ng-if="caption != null && caption.length > 0"></div>
@@ -111,7 +121,9 @@
             </div>
         </div>
         <div class="balloon popup" ng-if="(type == baloonType.alert)" ng-style="popupStyles">
-            <div class="balloon-close" title="Закрыть" ng-click="close($event)"></div>
+            <div class="balloon-close" title="Закрыть" ng-click="close($event)">
+	            <i class="icon-sprite-remove-big"></i>
+            </div>
             <div class="balloon-problem"></div>
             <div class="balloon-title" ng-bind-html="caption | breakFilter"></div>
             <p class="balloon-info" ng-bind-html="text | breakFilter"></p>

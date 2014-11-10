@@ -135,7 +135,7 @@ innaAppConponents.
                             partialUpdate: partial,
                             template: data.template,
                             loading: data.loading || false,
-                            balloonClose: data.balloonClose,
+                            balloonClose: data.balloonClose || false,
                             balloonContent: data.balloonContent,
                             title: data.title,
                             content: data.content,
