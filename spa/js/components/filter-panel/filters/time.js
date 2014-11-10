@@ -132,7 +132,7 @@ angular.module('innaApp.components').
                     }
                 },
 
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
                     var that = this;
                     this.SaveData = [];

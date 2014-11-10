@@ -11,7 +11,7 @@ angular.module('innaApp.components').
                     withOutTd: false,
                     starsArr : []
                 },
-                init: function () {
+                onrender: function () {
                     this.observe('stars', function (newValue, oldValue, keypath) {
                         if (newValue) {
                             this.set({ starsArr: this.parse(this.get('stars'))})

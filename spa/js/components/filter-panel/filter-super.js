@@ -57,7 +57,7 @@ angular.module('innaApp.components').
                     TicketFilter: $templateCache.get('components/filter-panel/templ/panel.avia.hbs.html'),
                     ruble: $templateCache.get('components/ruble.html')
                 },
-                init: function () {
+                onrender: function () {
                     var that = this;
                     this.sortingValue = null;
                     this.filtersCollectionTempl = {};
@@ -327,10 +327,6 @@ angular.module('innaApp.components').
                         }
                     }
                     return false;
-                },
-
-                complete: function (data) {
-                    //this.set('styleWidth', document.documentElement.scrollWidth);
                 }
             });
 

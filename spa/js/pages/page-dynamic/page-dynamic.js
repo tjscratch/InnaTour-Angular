@@ -102,7 +102,7 @@ innaAppControllers
                     updateHotel: false,
                     updateTicket: false
                 },
-                init: function () {
+                onrender: function () {
                     var that = this;
                     this._balloonLoad = new Balloon();
 

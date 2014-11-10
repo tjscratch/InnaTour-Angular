@@ -24,7 +24,7 @@ angular.module('innaApp.components').
                 components: {
 
                 },
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
                     var that = this;
                     this.SaveData = [];
@@ -129,7 +129,7 @@ angular.module('innaApp.components').
                     });
                 },
 
-                complete: function (data) {
+                oncomplete: function (data) {
                     var that = this;
                     var slider = this.find('.js-range');
 

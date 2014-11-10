@@ -23,7 +23,7 @@ angular.module('innaApp.controllers')
                 components : {
                   share : ShareLink
                 },
-                init: function(){
+                onrender: function(){
                     this.on({
                         open: this.open,
                         close: this.close

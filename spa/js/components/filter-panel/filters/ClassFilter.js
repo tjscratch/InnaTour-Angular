@@ -14,7 +14,7 @@ angular.module('innaApp.components').
                     hasSelected: false,
                     value: null
                 },
-                init: function () {
+                onrender: function () {
                     var that = this;
                     this.SaveData = [];
 
@@ -122,15 +122,6 @@ angular.module('innaApp.components').
                             }
                         });
                     }
-                },
-
-
-                beforeInit: function (data) {
-                    //console.log('beforeInit');
-                },
-
-                complete: function (data) {
-                    //console.log('complete');
                 }
             });
 

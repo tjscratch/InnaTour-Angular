@@ -35,7 +35,7 @@ angular.module('innaApp.directives')
                     MapInfoBoxAir : MapInfoBox,
                     MapInfoBoxHover : MapInfoBoxHover
                 },
-                init: function (options) {
+                onrender: function (options) {
                     var that = this;
 
 

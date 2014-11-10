@@ -40,7 +40,7 @@ innaAppControllers.
                     collOneContent: $templateCache.get('components/dynamic-block/templ/ticket2ways.hbs.html'),
                     collTwoContent: $templateCache.get('components/dynamic-block/templ/hotel-info-bed-type.hbs.html')
                 },
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
 
                     this.on({
