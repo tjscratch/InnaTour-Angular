@@ -388,9 +388,9 @@ angular.module('innaApp.directives')
 
                         var marker = new GM.Marker({
                             position: position,
-                            animation: GM.Animation.DROP,
+                            //animation: GM.Animation.DROP,
                             icon: image,
-                            map: map,
+                            //map: map,
                             shape: shape,
                             title: (data.HotelName) ? data.HotelName : ''
                         });
@@ -421,6 +421,8 @@ angular.module('innaApp.directives')
                      */
                     var addCluster = function () {
                         _markerCluster = new MarkerClusterer(map, markers, {
+                            zoom : 5,
+                            maxZoom : 14,
                             gridSize: 20,
                             //clusterClass : 'big-map__cluster',
                             styles: [
@@ -639,7 +641,7 @@ angular.module('innaApp.directives')
                     }
 
                     function updateMap(data) {
-                        if (boxInfo) {
+                       if (boxInfo) {
                             boxInfo.setVisible(false);
                             //map.setZoom(zoomMapDefault);
                         }
@@ -650,13 +652,12 @@ angular.module('innaApp.directives')
                         var hotels = (data.hotels) ? data.hotels : data;
                         var airports = (data.airports) ? data.airports : [];
 
-                        tempArrHotels = (hotels.toJSON) ? hotels.toJSON() : hotels;
-                        rawHotels = [].concat(angular.copy(tempArrHotels));
+                        rawHotels = (hotels.toJSON) ? hotels.toJSON() : hotels;
                         removeMarkers();
 
                         rawHotels.forEach(function (hotel) {
 
-                            var hotelRaw = angular.copy(hotel);
+                            var hotelRaw = hotel;
 
                             if (!hotelRaw.Latitude || !hotelRaw.Longitude) return;
 
@@ -674,7 +675,7 @@ angular.module('innaApp.directives')
                         });
 
                         airports.forEach(function (airport) {
-                            airport.data = angular.copy(airport);
+                            airport.data = airport;
                             angular.extend(airport, { type: 'airport' });
 
                             if (!airport.Latitude || !airport.Longitude) return;
@@ -687,10 +688,7 @@ angular.module('innaApp.directives')
                         });
 
                         setDefaultActiveMarker();
-
-                        // отключил кластеризацию, если в будущем будут проблемы с производительностью
-                        // надо будет возвращать обратно и что то придумывать для выделения текущей точки
-                        //addCluster();
+                        addCluster();
                     }
 
                     /**
@@ -717,6 +715,7 @@ angular.module('innaApp.directives')
                      */
                     var stopWatchHotels = scope.$watchCollection('hotelsForMap', function (newValue, oldValue) {
                         if (newValue != undefined && newValue.length) {
+                            console.log('map get data');
                             updateMap({
                                 hotels: newValue,
                                 airports: scope.airports
