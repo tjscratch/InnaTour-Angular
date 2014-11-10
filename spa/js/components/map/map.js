@@ -237,7 +237,7 @@ angular.module('innaApp.directives')
                                     routParam.EndVoyageDate,
                                     routParam.TicketClass,
                                         routParam.Adult || 0,
-                                        routParam.Children || 0,
+                                        routParam.Children || '',
                                     data.activeMarker.$inna__hotel.HotelId,
                                     ticketId,
                                     ticketBackId,
@@ -388,9 +388,9 @@ angular.module('innaApp.directives')
 
                         var marker = new GM.Marker({
                             position: position,
-                            animation: GM.Animation.DROP,
+                            //animation: GM.Animation.DROP,
                             icon: image,
-                            map: map,
+                            //map: map,
                             shape: shape,
                             title: (data.HotelName) ? data.HotelName : ''
                         });
@@ -690,7 +690,7 @@ angular.module('innaApp.directives')
 
                         // отключил кластеризацию, если в будущем будут проблемы с производительностью
                         // надо будет возвращать обратно и что то придумывать для выделения текущей точки
-                        //addCluster();
+                        addCluster();
                     }
 
                     /**
