@@ -50,10 +50,9 @@ innaAppControllers
                     EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
                 });
 
-                if (routParam.Children && routParam.Children != "0") {
+                if (routParam.Children) {
                     searchParams.ChildrenAges = routParam.Children.split('_');
                 }
-                ;
             }
 
             //кнопка нового поиска для WL
