@@ -11,7 +11,7 @@ angular.module('innaApp.components').
                     withOutTd : false,
                     TaFactorArr : []
                 },
-                init: function () {
+                onrender: function () {
                     var that = this;
 
                     this.on({

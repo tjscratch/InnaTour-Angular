@@ -11,7 +11,7 @@ angular.module('innaApp.components').
                 data: {
                     isVisible: false
                 },
-                init: function () {
+                onrender: function () {
                     var that = this;
 
                     function bodyClickShareLink(evt) {

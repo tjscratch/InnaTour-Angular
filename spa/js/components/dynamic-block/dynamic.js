@@ -82,7 +82,7 @@ innaAppConponents.
                     PriceGeneric: PriceGeneric
                 },
 
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
 
                     this.on({
@@ -90,14 +90,6 @@ innaAppConponents.
                             this.reset();
                         }
                     })
-                },
-
-                beforeInit: function (options) {
-                    //console.log('beforeInit');
-                },
-
-                complete: function (data) {
-                    //console.log('complete');
                 }
             });
 

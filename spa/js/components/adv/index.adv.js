@@ -20,14 +20,14 @@ angular.module('innaApp.directives')
                         $scope.isAdv = null;
                         $scope.isVisible = false;
 
-                        function getPartner(){
+                        function getPartner() {
                             var enumPartners = [
                                 "sletat",
                                 "ruspo",
                                 "tourindex"
                             ]
 
-                            if($location.search().utm_source && enumPartners.indexOf($location.search().utm_source) != -1){
+                            if ($location.search().utm_source && enumPartners.indexOf($location.search().utm_source) != -1) {
                                 return true;
                             }
                         }
@@ -40,9 +40,9 @@ angular.module('innaApp.directives')
 
                             // проверяем куки и параметры в url
                             $scope.isAdv = $cookieStore.get('ADV_VISIBLE') || (getPartner() &&
-                                    (angular.isUndefined($location.search().tourist) || $location.search().tourist == 0));
+                            (angular.isUndefined($location.search().tourist) || $location.search().tourist == 0));
 
-                            if($cookieStore.get('ADV_NOT_VISIBLE')) {
+                            if ($cookieStore.get('ADV_NOT_VISIBLE')) {
                                 $scope.isAdv = false;
                             }
 
@@ -53,12 +53,13 @@ angular.module('innaApp.directives')
                                 injectStyle.type = 'text/css';
                                 injectStyle.setAttribute('id', 'injectStyleAdv');
                                 injectStyle.rel = 'stylesheet';
-                                injectStyle.href = '/spa/js/components/adv/css/adv.base.css?'+ Math.random(1000).toString(16);
+                                injectStyle.href = '/spa/js/components/adv/css/adv.base.css?' + Math.random(1000).toString(16);
                                 document.getElementsByTagName('head')[0].appendChild(injectStyle);
 
                                 show();
                             }
                         }
+
                         determine();
 
                         function show() {
