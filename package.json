@@ -38,6 +38,7 @@
     "require-dir": "0.1.0",
     "run-sequence": "1.0.1",
     "underscore": "1.6.0"
+    
   },
   "subdomain": "inna.ru",
   "engines": {},
