@@ -176,13 +176,13 @@
                         });
                 });
 
-                /*$scope.tmId = $timeout(function () {
-                 //очищаем хранилище для нового поиска
-                 //storageService.clearAviaSearchResults();
-                 $scope.baloon.hide();
-                 //билеты не доступны - отправляем на поиск
-                 goToSearch();
-                 }, 3000);*/
+                $scope.tmId = $timeout(function () {
+                    //очищаем хранилище для нового поиска
+                    //storageService.clearAviaSearchResults();
+                    $scope.baloon.hide();
+                    //билеты не доступны - отправляем на поиск
+                    goToSearch();
+                }, 3000);
             }
 
 
