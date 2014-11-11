@@ -250,10 +250,10 @@ app.config([
                 redirectTo: url.URL_ROOT
             });
 
-        $locationProvider.html5Mode({
+        /*$locationProvider.html5Mode({
             enabled: true
             //requireBase: false
-        });
+        });*/
     }
 ]);
 
