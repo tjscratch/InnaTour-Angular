@@ -152,7 +152,7 @@ angular.module('innaApp.services')
                     model : null
                 },
 
-                init: function () {
+                onrender: function () {
 
 
                 }

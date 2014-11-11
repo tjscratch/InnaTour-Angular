@@ -19,7 +19,7 @@ innaAppConponents.
                     Tripadvisor: Tripadvisor,
                     Stars: Stars
                 },
-                init: function (options) {
+                onrender: function (options) {
                     var that = this;
 
                     this.parse();

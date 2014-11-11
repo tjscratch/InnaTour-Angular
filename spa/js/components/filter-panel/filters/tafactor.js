@@ -36,7 +36,7 @@ angular.module('innaApp.components').
                     },
                     tafactorValue: []
                 },
-                init: function (options) {
+                onrender: function (options) {
                     var that = this;
                     this._super(options);
                     this.SaveData = [];

@@ -11,7 +11,7 @@ innaAppConponents.
                 data: {
                     visaControl: new aviaHelper.visaControl()
                 },
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
 
                     var self = this;

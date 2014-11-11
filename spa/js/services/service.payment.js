@@ -103,13 +103,10 @@
                         });
                 },
 
-                payCheck: function (orderNum, successCallback, errCallback) {
-                    $http.post(apiUrls.AVIA_PAY_CHECK, { value: orderNum }).success(function (data, status) {
-                        successCallback(data);
-                    }).
-                        error(function (data, status) {
-                            errCallback(data, status);
-                        });
+                payCheck: function (payParam) {
+                    $http.post(apiUrls.AVIA_PAY_CHECK, { value: payParam.orderNum })
+                        .success(payParam.success)
+                        .error(payParam.error);
                 },
 
                 getTarifs: function (queryData, successCallback, errCallback) {

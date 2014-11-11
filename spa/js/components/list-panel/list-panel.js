@@ -50,7 +50,7 @@ angular.module('innaApp.components').
                     HotelItem: HotelItem,
                     TicketItem: TicketItem
                 },
-                init: function () {
+                onrender: function () {
                     var that = this;
 
                     EventManager.fire(Events.FOOTER_HIDDEN);

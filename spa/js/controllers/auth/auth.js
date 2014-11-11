@@ -9,6 +9,13 @@ angular.module('innaApp.controllers')
         function($scope, $location, aviaHelper, Events, AuthDataProvider, app){
             /*Private*/
             var setUserInfo = function(data){
+                if(data && data["Email"]) {
+                    Raven.setUserContext({
+                        email: data["Email"],
+                        id: data["Email"],
+                        data : data
+                    });
+                }
                 $scope.safeApply(function(){
                     $scope.$root.user = new inna.Models.Auth.User(data);
 

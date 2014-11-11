@@ -23,6 +23,8 @@ angular.module('innaApp.directives')
                     $scope.ticket = null;
                     $scope.link = '';
 
+                    var shareLink = null;
+
                     $scope.closePopup = function () {
                         aviaHelper.scrollFix(true)
                         delete $location.$$search.displayTicket;
@@ -44,13 +46,17 @@ angular.module('innaApp.directives')
                     });
 
 
-                    EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetails);
-
+                    // TODO: deprecated^ use instead $emit or $broadcast
+                    EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetailsWrap);
                     $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (evt, ticket, opt_data) {
-                        $scope.$apply(function () {
+                        showDetails(evt, ticket, opt_data);
+                    })
+
+                    function showDetailsWrap(evt, ticket, opt_data){
+                        $scope.$apply(function(){
                             showDetails(evt, ticket, opt_data);
                         })
-                    })
+                    }
 
                     function showDetails(evt, ticket, opt_data) {
 
@@ -82,30 +88,25 @@ angular.module('innaApp.directives')
 
                         $scope.ticket = ticket;
                         $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
-
-
-                        //  TODO : магия , но без этого не работает
-                        $timeout(function () {
-
-                        }, 100)
                     }
 
                     $scope.$watch('popupItemInfo.isShow', function (value) {
                         if(value) {
-                            new ShareLink({
-                                el: $element.find('.js-share-component'),
-                                data: {
-                                    right: true,
-                                    location: angular.copy(document.location.href)
-
-                                }
-                            })
+                            setTimeout(function(){
+                                shareLink = new ShareLink({
+                                    el: $element.find('.js-share-component'),
+                                    data: {
+                                        right: true,
+                                        location: document.location.href
+                                    }
+                                })
+                            }, 300)
                         }
                     })
 
 
                     $scope.$on('$destroy', function () {
-                        EventManager.off(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetails);
+                        EventManager.off(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetailsWrap);
                     })
                 }
             ]

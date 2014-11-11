@@ -1,6 +1,7 @@
 'use strict';
 innaAppControllers
     .controller('PageDynamicPackage', [
+        'RavenWrapper',
         'EventManager',
         '$scope',
         'DynamicFormSubmitListener',
@@ -20,9 +21,9 @@ innaAppControllers
         'ListPanel',
         /*'FilterPanel',*/
         '$filter',
-        function (EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, modelRecommendedPair, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
+        function (RavenWrapper, EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, modelRecommendedPair, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
 
-            //hotel=274091&display=tickets&ticket=891487471
+            Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"})
 
             /**
              * Преобразуем даты и собираем данные для запроса
@@ -38,7 +39,7 @@ innaAppControllers
                 TicketId: $location.search().ticket
             });
 
-            if (routParam.Children && routParam.Children != "0") {
+            if (routParam.Children) {
                 searchParams.ChildrenAges = routParam.Children.split('_');
             }
 
@@ -101,7 +102,7 @@ innaAppControllers
                     updateHotel: false,
                     updateTicket: false
                 },
-                init: function () {
+                onrender: function () {
                     var that = this;
                     this._balloonLoad = new Balloon();
 
@@ -377,33 +378,42 @@ innaAppControllers
                             success: function (data) {
                                 that.set('loadHotelsData', data);
 
-                                if (data && data.Hotels) {
+                                if (data && !angular.isUndefined(data.Hotels)) {
+
                                     $scope.safeApply(function () {
                                         $scope.hotelsForMap = data.Hotels;
                                     });
+
+                                    $scope.safeApply(function () {
+                                        $scope.hotels.flush();
+                                        $scope.hotelsRaw = data;
+
+                                        for (var i = 0, raw = null; raw = data.Hotels[i++];) {
+                                            if (!raw.HotelName) continue;
+                                            var hotel = new inna.Models.Hotels.Hotel(raw);
+                                            hotel.hidden = false;
+                                            hotel.data.hidden = false;
+                                            hotel.currentlyInvisible = false;
+                                            $scope.hotels.push(hotel);
+                                        }
+
+                                        $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
+                                        deferred.resolve();
+                                    })
+                                    that._balloonLoad.dispose();
+                                } else {
+                                    that.combination404()
+                                    deferred.reject();
+                                    RavenWrapper.raven({
+                                        captureMessage : 'SEARCH PACKAGES: ERROR - [Hotels empty]',
+                                        dataResponse: data,
+                                        dataRequest: that.getIdCombination().params
+                                    });
                                 }
-
-                                that._balloonLoad.dispose();
-
-                                $scope.safeApply(function () {
-                                    $scope.hotels.flush();
-                                    $scope.hotelsRaw = data;
-
-                                    for (var i = 0, raw = null; raw = data.Hotels[i++];) {
-                                        if (!raw.HotelName) continue;
-                                        var hotel = new inna.Models.Hotels.Hotel(raw);
-                                        hotel.hidden = false;
-                                        hotel.data.hidden = false;
-                                        hotel.currentlyInvisible = false;
-                                        $scope.hotels.push(hotel);
-                                    }
-
-                                    $scope.$broadcast('Dynamic.SERP.Tab.Loaded');
-                                    deferred.resolve();
-                                })
                             },
                             error: function (data) {
-                                that.serverError500();
+                                that.serverError500(data);
+                                deferred.reject();
                             }
 
                         });
@@ -431,21 +441,30 @@ innaAppControllers
                             data: this.getIdCombination().params,
                             success: function (data) {
 
-                                that._balloonLoad.dispose();
-
-                                $scope.safeApply(function () {
-                                    $scope.tickets.flush();
-                                    for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
-                                        var ticket = new inna.Models.Avia.Ticket();
-                                        ticket.setData(raw);
-                                        $scope.tickets.push(ticket);
-                                    }
-                                    that.set('loadTicketsData', data);
-                                    deferred.resolve();
-                                });
+                                if(!data || angular.isUndefined(data.AviaInfos) || !data.AviaInfos.length) {
+                                    RavenWrapper.raven({
+                                        captureMessage : 'SEARCH PACKAGES AVIA: ERROR - AviaInfos',
+                                        dataResponse: data,
+                                        dataRequest: that.getIdCombination().params
+                                    });
+                                    that.combination404()
+                                    deferred.reject();
+                                } else {
+                                    that._balloonLoad.dispose();
+                                    $scope.safeApply(function () {
+                                        $scope.tickets.flush();
+                                        for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
+                                            var ticket = new inna.Models.Avia.Ticket();
+                                            ticket.setData(raw);
+                                            $scope.tickets.push(ticket);
+                                        }
+                                        that.set('loadTicketsData', data);
+                                        deferred.resolve();
+                                    });
+                                }
                             },
                             error: function (data) {
-                                that.serverError500();
+                                that.serverError500(data);
                             }
 
                         });
@@ -499,7 +518,13 @@ innaAppControllers
                     });
                 },
 
-                serverError500: function () {
+                serverError500: function (data) {
+                    RavenWrapper.raven({
+                        captureMessage : 'SEARCH PACKAGES: SERVER ERROR',
+                        dataResponse: data.responseJSON,
+                        dataRequest: this.getIdCombination().params
+                    });
+
                     var that = this;
                     this._balloonLoad.updateView({
                         template: 'err.html',
@@ -560,9 +585,15 @@ innaAppControllers
                     this._balloonLoad.updateView({
                         template: 'search.html',
                         callbackClose: function () {
+                            //аналитика
+                            track.dpSearchInterrupted();
+
                             that.balloonCloser();
                         },
                         callback: function () {
+                            //аналитика
+                            track.dpSearchInterrupted();
+
                             that.balloonCloser();
                         }
                     })
@@ -576,7 +607,8 @@ innaAppControllers
                  * @param ticket
                  */
                 getTicketDetails: function (ticket) {
-                    EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, null, ticket);
+                    //EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, null, ticket);
+                    $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket)
                 },
 
                 loadTicketDetails: function (ids) {
@@ -585,7 +617,6 @@ innaAppControllers
                     if (!ids) return;
 
                     try {
-                        //dfdf;
                         var ticketIds = ids.split('_');
                         var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                         if (ticket) {

@@ -41,6 +41,18 @@
             'aboutLink': 'https://www.agenda.travel/Other/About#tab=Agenda',
             'contactsLink': 'http://blog.agenda.travel/',
             'offertaContractLink': ''
+        },
+        {
+            'name': 'sample',
+            'src': '/sample/sample.base.css',
+            'type': self.WLType.lite,
+            'title': 'sample',
+            'phone': '+7&nbsp;800 000-1111',
+            'email': '',
+            'skype': '',
+            'aboutLink': 'https://sample.ru/about',
+            'contactsLink': 'https://sample.ru/contacts',
+            'offertaContractLink': ''
         }
     ];
 

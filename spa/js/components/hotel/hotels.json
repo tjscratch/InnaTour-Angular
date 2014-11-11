@@ -1,40 +1,31 @@
 {
-    "HotelId" : 1,
-    "Stars" : 5,
-    "HotelName" : "",
-    "HotelCityName" : "",
-
-    "TaCommentCount" : 1,
-    "TaFactor"  : 2,
-    "TaFactorCeiled" : "",
-
-    "Price" : 2342,
-    "PackagePrice" : 348758435,
-    "PriceObject" : {},
-
-    "Address": "Rudower Strasse 90/94 D",
-    "CheckIn": "2014-11-11T00:00:00",
-    "CheckInTime": "00:00",
-    "CheckOut": "2014-11-20T00:00:00",
-    "CheckOutTime": "00:00",
-
-    "NightCount" : "",
-
-    "HotelPhoto70" : "",
-    "Photos" : [{
-        "Small" : ""
-    }],
-
-    "ProviderId" : 3434,
-
-    "Latitude": 52.43687,
-    "LocationId": 0,
-    "Longitude": 13.46462,
-
-    "Extra" : {},
-    "HotelType" : "",
-
-
-    "RecommendedFactor" : 4357894,
-    "ProviderLogoUrl" : ""
+  "project": "2",
+  "logger": "javascript",
+  "platform": "javascript",
+  "request": {
+    "url": "https://inna.ru/#/packages/details/2874-4261-31.10.2014-07.11.2014-0-2--436419-914532715-914532765-4?action=buy&displayHotel=436419",
+    "headers": {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36"}
+  },
+  "message": "PACKAGE DETAILS: SERVER ERROR",
+  "extra": {
+    "key": "__DETAILS_DP_CONTEXT__",
+    "data": {
+      "dataResponse": {"Message": "An error has occurred."},
+      "dataRequest": {
+        "action": "buy",
+        "displayHotel": "436419",
+        "DepartureId": "2874",
+        "ArrivalId": "4261",
+        "StartVoyageDate": "2014-10-31",
+        "EndVoyageDate": "2014-11-07",
+        "TicketClass": "0",
+        "Adult": "2",
+        "HotelId": "436419",
+        "TicketId": "914532715",
+        "TicketBackId": "914532765",
+        "ProviderId": "4"
+      }
+    }
+  },
+  "event_id": "e75568ca9f774326a9b8e55582df5b76"
 }

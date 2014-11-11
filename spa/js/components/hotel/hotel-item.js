@@ -84,7 +84,7 @@ angular.module('innaApp.components').
                     HotelGallery: HotelGallery
                 },
 
-                init: function (options) {
+                onrender: function (options) {
                     var that = this;
                     this._super(options);
 
@@ -152,16 +152,7 @@ angular.module('innaApp.components').
 
                 parse: function (end) {
 
-                },
-
-                beforeInit: function (options) {
-                    //console.log('beforeInit');
-                },
-
-                complete: function (data) {
-                    //console.log('complete');
                 }
-
             });
 
             return HotelItem;

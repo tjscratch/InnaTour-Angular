@@ -275,9 +275,12 @@ app.config(['$provide', function ($provide) {
     $provide.decorator("$exceptionHandler", ["$delegate", function (del) {
         return function (ex, cause) {
             if (Raven) {
+                Raven.setExtraContext({context: "__$ExceptionHandler_CONTEXT__"})
                 Raven.captureException(new Error(ex), {
-                    dataError : ex,
-                    cause : cause
+                    extra: {
+                        dataError : ex,
+                        cause : cause
+                    }
                 });
             }
             del(ex, cause);
