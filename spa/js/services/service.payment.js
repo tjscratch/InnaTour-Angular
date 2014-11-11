@@ -86,7 +86,7 @@
                 },
 
                 getRepricing: function (orderNumber, successCallback, errCallback) {
-                    $http.get(apiUrls.BUY_REPRICING, { cache: false, params: { OrderNumber: orderNumber, ReturnType : 2 } }).success(function (data, status) {
+                    $http.get(apiUrls.BUY_REPRICING, { cache: false, params: { OrderNumber: orderNumber, ReturnType : 1 } }).success(function (data, status) {
                         successCallback(data);
                     }).
                         error(function (data, status) {
