@@ -176,12 +176,13 @@ innaAppControllers
                 track.dpBuyPackage();
 
                 DynamicPackagesDataProvider.hotelDetails({
-                    HotelId: searchParams.HotelId,
-                    HotelProviderId: searchParams.ProviderId,
-                    TicketToId: searchParams.TicketId,
-                    TicketBackId: searchParams.TicketBackId,
-                    Filter: searchParams,
-
+                    data : {
+                        HotelId: searchParams.HotelId,
+                        HotelProviderId: searchParams.ProviderId,
+                        TicketToId: searchParams.TicketId,
+                        TicketBackId: searchParams.TicketBackId,
+                        Filter: searchParams
+                    },
                     success: function (data) {
                        _balloonLoad.fire('hide');
 
@@ -260,13 +261,14 @@ innaAppControllers
             function getHotelDetailsRooms() {
 
                 DynamicPackagesDataProvider.hotelDetails({
-                    HotelId: searchParams.HotelId,
-                    HotelProviderId: searchParams.ProviderId,
-                    TicketToId: searchParams.TicketId,
-                    TicketBackId: searchParams.TicketBackId,
-                    Filter: searchParams,
-                    Rooms: true,
-
+                    data: {
+                        HotelId: searchParams.HotelId,
+                        HotelProviderId: searchParams.ProviderId,
+                        TicketToId: searchParams.TicketId,
+                        TicketBackId: searchParams.TicketBackId,
+                        Filter: searchParams,
+                        Rooms: true
+                    },
                     success: function (data) {
                         if (data.Rooms.length) {
                             $scope.hotelRooms = data.Rooms;
@@ -381,7 +383,11 @@ innaAppControllers
                     $routeParams.EndVoyageDate,
                     $routeParams.TicketClass,
                     $routeParams.Adult,
-                    $routeParams.Children
+                    $routeParams.Children,
+                    $routeParams.HotelId,
+                    $routeParams.TicketId,
+                    $routeParams.TicketBackId,
+                    $routeParams.ProviderId
                 ].join('-');
 
 

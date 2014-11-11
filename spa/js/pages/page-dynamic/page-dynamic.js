@@ -43,7 +43,6 @@ innaAppControllers
                 searchParams.ChildrenAges = routParam.Children.split('_');
             }
 
-            var cacheKey = '';
             $scope.hotelsRaw = null;
             $scope.hotelsForMap = null;
             $scope.padding = true;
@@ -489,7 +488,6 @@ innaAppControllers
                     this.trackAnalyst();
 
                     $scope.airports = data.Airports || [];
-                    cacheKey = data.SearchId;
 
                     $scope.safeApply(function () {
                         //кнопка нового поиска для WL

@@ -44,5 +44,14 @@
   "engines": {},
   "analyze": false,
   "license": "Commercial",
-  "devDependencies": {}
+  "devDependencies": {
+    "express": "^4.10.2",
+    "cookie-parser": "1.3.3",
+    "cookie-session": "1.1.0",
+    "express-session": "1.9.1",
+    "body-parser": "^1.9.2",
+    "method-override": "2.3.0",
+    "ejs": "1.0.0",
+    "async": "0.9.0"
+  }
 }
