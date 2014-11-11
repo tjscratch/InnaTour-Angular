@@ -9,7 +9,7 @@
  */
 .datepicker {
   padding: 4px;
-  border-radius: 4px;
+  border-radius: 2px;
   direction: ltr;
   /*.dow {
 		border-top: 1px solid #ddd !important;
@@ -101,7 +101,7 @@
   text-align: center;
   width: 30px;
   height: 30px;
-  border-radius: 4px;
+  border-radius: 2px;
   border: none;
 }
 .table-striped .datepicker table tr td,
@@ -127,9 +127,10 @@
 .datepicker table tr td.today:hover,
 .datepicker table tr td.today.disabled,
 .datepicker table tr td.today.disabled:hover {
-  color: #000000;
-  background-color: #ffdb99;
-  border-color: #ffb733;
+  color: #77b237;
+	font-weight: bold;
+  background-color: transparent;
+	border: 1px solid #c5c5c5;
 }
 .datepicker table tr td.today:hover,
 .datepicker table tr td.today:hover:hover,
@@ -151,9 +152,9 @@
 .open .dropdown-toggle.datepicker table tr td.today:hover,
 .open .dropdown-toggle.datepicker table tr td.today.disabled,
 .open .dropdown-toggle.datepicker table tr td.today.disabled:hover {
-  color: #000000;
-  background-color: #ffcd70;
-  border-color: #f59e00;
+  /*color: #000000;*/
+  background-color: #e0e0e0;
+  /*border-color: #f59e00;*/
 }
 .datepicker table tr td.today:active,
 .datepicker table tr td.today:hover:active,
@@ -495,7 +496,7 @@ fieldset[disabled] .datepicker table tr td.selected.disabled:hover.active {
 .open .dropdown-toggle.datepicker table tr td.active.disabled,
 .open .dropdown-toggle.datepicker table tr td.active.disabled:hover {
   color: #ffffff;
-  background-color: #3276b1;
+  background-color: #77b237;
   border-color: #285e8e;
 }
 .datepicker table tr td.active:active,
@@ -737,14 +738,15 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   float: left;
   display: none;
   min-width: 160px;
+	margin-top: 20px;
   list-style: none;
   background-color: #ffffff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  /*border: 1px solid #ccc;*/
+  /*border: 1px solid rgba(0, 0, 0, 0.2);*/
+  border-radius: 2px;
+  -webkit-box-shadow: 0 0 10px rgba(50, 50, 50, 0.25);
+  -moz-box-shadow: 0 0 10px rgba(50, 50, 50, 0.25);
+  box-shadow: 0 0 10px rgba(50, 50, 50, 0.25);
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -752,7 +754,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   *border-bottom-width: 2px;
   color: #333333;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.428571429;
 }
 .datepicker.dropdown-menu th,

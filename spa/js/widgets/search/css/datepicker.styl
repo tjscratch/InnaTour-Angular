@@ -1,20 +1,88 @@
-.ui-datepicker{
+$border-radius = 2px;
+//color
+$color-base = #212121;
+$color-green = #77b237;
+$color-red = #d74116;
+$color-white = #fff;
+//bgr
+$base-bg = #fff;
+$bg-green = #77b237;
+$bg-green-light = #bbd89b;
+$bg-transparent = transparent;
+//border
+$border-color-base = transparent;
+$border-color-gray = #bdbdbd;
+//shadow
+$base-shadow-color = rgba(50, 50, 50, 0.25);
+
+.datepicker{
 	display none
-	padding 10px
-	background #fff
-	box-shadow 0 0 3px #333
+	position absolute
+	top 100%
+	left 0
+	z-index 1000
+	margin-top 20px
+	list-style none
+	background-color $base-bg
+	border-radius 2px
+	box-shadow 0 0 10px $base-shadow-color
+	font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+	font-size 15px
+	line-height 1.428571429
+	color $color-base
 }
 
-.ui-datepicker-calendar{
+.datepicker table td{
+	width 30px
+	height 30px
+	line-height 30px
+	padding 0
+	text-align center
+	border-radius $border-radius
 
-	.ui-state-disabled{
-		.ui-state-default{
-			color #bdbdbd
-		}
+	&.day{
+		cursor pointer
+		border 1px solid $border-color-base
 	}
-	
-	.ui-state-default{
-		color #212121
-		text-decoration none
+
+	&:nth-of-type(6),
+	&:nth-of-type(7){
+		color $color-red
+	}
+
+	&.today{
+		border 1px solid $border-color-gray
+		color $color-green
+		font-weight bold
+	}
+
+	&.range{
+		background-color $bg-green-light
+		color $color-white
+	}
+
+	&.active,
+	&:hover{
+		background-color $bg-green
+		color $color-white
+		border-color $border-color-base
+	}
+
+	&.selected{
+		background-color $bg-green
+		color $color-white
+		border-color $border-color-base
+	}
+
+	&.disabled{
+		opacity .5
+		background-color $bg-transparent !important
+		color $color-base
+	}
+}
+
+.datepicker table{
+	td.selected:last-of-type{
+		background-color red
 	}
 }

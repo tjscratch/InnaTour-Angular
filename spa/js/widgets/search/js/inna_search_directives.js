@@ -50,7 +50,19 @@
                     language: "ru",
                     keyboardNavigation: true,
                     autoclose: true,
-                    todayHighlight: true
+                    todayHighlight: true,
+                    beforeShowDay: function (date) {
+                        console.log(date)
+                        switch (date.getDate()) {
+                            case 12:
+                                return {
+                                    tooltip: 'Example tooltip',
+                                    classes: 'active'
+                                };
+                            case 8:
+                                return false;
+                        }
+                    }
                 })
 
 //                $('.to_data').on('changeDate', function (selected) {
