@@ -22,14 +22,11 @@ app.engine('html', require('ejs').renderFile);*/
 app.route('*/?')
     .get(function (req, res, next) {
         if (req.xhr) {
-            console.log('xhr');
             next();
         }
         else {
-            console.log('not xhr');
             res.sendFile(__dirname + '/index.html');
         }
     })
-
 
 var server = app.listen(app.get('port'));
