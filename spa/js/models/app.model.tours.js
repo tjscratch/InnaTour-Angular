@@ -142,7 +142,12 @@ function sendRequestData(data) {
     if (data.offer != null)
         self.LinkProduct = data.offer.Id;
     self.OffersCategoriesId = data.offersCategoriesId;
-    self.IsSubscribe = data.isSubscribe;
+    if (data.isSubscribe) {
+        self.IsSubscribe = data.isSubscribe;
+    }
+    else {
+        self.IsSubscribe = false;
+    }
 }
 
 //function gridItem(htype, vtype, tourDesc, name, price, imgUrl) {

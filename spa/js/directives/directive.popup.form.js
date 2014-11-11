@@ -79,7 +79,7 @@ innaAppDirectives.directive('popupForm', [
                     $scope.request.phone = "";
                     $scope.request.email = "";
                     $scope.request.comments = "";
-                    $scope.request.isSubscribe = null;
+                    $scope.request.isSubscribe = false;
                     $scope.request.isValid = true;
                     $scope.isOpened = true;
                 };
