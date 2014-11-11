@@ -55,7 +55,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     // Ractive.defaults
     Ractive.defaults.data.pluralize = utils.pluralize || null;
     Ractive.defaults.data.moment = moment || null;
-    Ractive.defaults.debug = true;
+    //Ractive.defaults.debug = true;
     Ractive.defaults.data.$filter = $filter;
     Ractive.defaults.data.$rootScope = $rootScope;
 

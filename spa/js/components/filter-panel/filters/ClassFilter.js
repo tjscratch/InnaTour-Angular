@@ -122,6 +122,18 @@ angular.module('innaApp.components').
                             }
                         });
                     }
+                },
+
+                spliceValItem : function(data, param_compare){
+                    var that = this;
+                    var val = this.get('value.val');
+
+                    if(val.length) {
+                        val.forEach(function (item, i) {
+                            if (data == item[param_compare])
+                                that.splice('value.val', i, 1);
+                        })
+                    }
                 }
             });
 
