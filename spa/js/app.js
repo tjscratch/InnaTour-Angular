@@ -55,7 +55,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
     // Ractive.defaults
     Ractive.defaults.data.pluralize = utils.pluralize || null;
     Ractive.defaults.data.moment = moment || null;
-    Ractive.defaults.debug = true;
+    //Ractive.defaults.debug = true;
     Ractive.defaults.data.$filter = $filter;
     Ractive.defaults.data.$rootScope = $rootScope;
 
@@ -228,7 +228,7 @@ app.config([
                 controller: 'PageHotelDetails',
                 reloadOnSearch: false
             }).
-            when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?', {
+            when(url.URL_DYNAMIC_PACKAGES_RESERVATION + ':DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId', {
                 templateUrl: 'pages/page-reservation/templ/reserve.html',
                 controller: 'DynamicReserveTicketsCtrl'
             }).
@@ -250,7 +250,10 @@ app.config([
                 redirectTo: url.URL_ROOT
             });
 
-        //$locationProvider.html5Mode(true);
+        /*$locationProvider.html5Mode({
+            enabled: true
+            //requireBase: false
+        });*/
     }
 ]);
 

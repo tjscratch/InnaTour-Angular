@@ -125,5 +125,43 @@ var utils = {
         }
     },
 
+    /**
+     * Проходим по всем блокам с классом .scroll-fix
+     * и выставляем фиксированную ширину overflow_hidden - убираем скроллинг с страницы
+     * Выставляем на body класс
+     * @param opt_param
+     */
+    scrollFix: function (opt_param) {
+
+        function setWidth() {
+            var fullWidth = window.innerWidth;
+            var clientWidth = document.documentElement.clientWidth;
+            fullWidth = Math.max(fullWidth, clientWidth);
+
+            document.querySelectorAll('.scroll-fix').forEach(function (item) {
+                item.style.width = (fullWidth + 'px');
+            })
+            
+            document.body.classList.add('overflow_hidden');
+        }
+
+        function resetWidth() {
+            document.querySelectorAll('.scroll-fix').forEach(function (item) {
+                item.style.width = "auto";
+            })
+
+            document.body.classList.remove('overflow_hidden');
+        }
+
+        if(!opt_param) {
+            setWidth();
+            $(window).on('resize', setWidth);
+        }
+        else {
+            resetWidth()
+            $(window).off('resize');
+        }
+    },
+
     eof: null
 };

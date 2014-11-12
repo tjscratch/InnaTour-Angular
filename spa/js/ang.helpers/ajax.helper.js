@@ -102,6 +102,7 @@ angular.module('innaApp.services')
                 ajaxCollection.push(async);
                 //console.log(ajaxCollection, 'ajaxCollection');
 
+
                 return async;
             }
 

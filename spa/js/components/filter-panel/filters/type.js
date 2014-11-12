@@ -39,7 +39,7 @@ angular.module('innaApp.components').
                                     this.SaveData.push(data.context);
                                     this.push('value.val', data.context.Value) // data.context.value
                                 } else if (!data.context.isChecked) {
-                                    this.splice('value.val', this.get('value.val').indexOf(data.context.Value), 1);
+                                    this.spliceValItem(data.context.Value, 'Value');
                                     this.spliceSaveData(data.context);
                                 }
 
@@ -82,6 +82,18 @@ angular.module('innaApp.components').
                         value : this.get('value')
                     });
                     this.hasSelected();
+                },
+
+                spliceValItem : function(data){
+                    var that = this;
+                    var val = this.get('value.val');
+
+                    if(val.length) {
+                        val.forEach(function (item, i) {
+                            if (data == item)
+                                that.splice('value.val', i, 1);
+                        })
+                    }
                 }
             });
 

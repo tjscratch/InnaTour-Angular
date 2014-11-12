@@ -176,14 +176,15 @@ innaAppControllers
                 track.dpBuyPackage();
 
                 DynamicPackagesDataProvider.hotelDetails({
-                    HotelId: searchParams.HotelId,
-                    HotelProviderId: searchParams.ProviderId,
-                    TicketToId: searchParams.TicketId,
-                    TicketBackId: searchParams.TicketBackId,
-                    Filter: searchParams,
-
+                    data : {
+                        HotelId: searchParams.HotelId,
+                        HotelProviderId: searchParams.ProviderId,
+                        TicketToId: searchParams.TicketId,
+                        TicketBackId: searchParams.TicketBackId,
+                        Filter: searchParams
+                    },
                     success: function (data) {
-                        _balloonLoad.fire('hide');
+                       _balloonLoad.fire('hide');
 
                         setWlModel(data);
 
@@ -260,13 +261,14 @@ innaAppControllers
             function getHotelDetailsRooms() {
 
                 DynamicPackagesDataProvider.hotelDetails({
-                    HotelId: searchParams.HotelId,
-                    HotelProviderId: searchParams.ProviderId,
-                    TicketToId: searchParams.TicketId,
-                    TicketBackId: searchParams.TicketBackId,
-                    Filter: searchParams,
-                    Rooms: true,
-
+                    data: {
+                        HotelId: searchParams.HotelId,
+                        HotelProviderId: searchParams.ProviderId,
+                        TicketToId: searchParams.TicketId,
+                        TicketBackId: searchParams.TicketBackId,
+                        Filter: searchParams,
+                        Rooms: true
+                    },
                     success: function (data) {
                         if (data.Rooms.length) {
                             $scope.hotelRooms = data.Rooms;
@@ -381,7 +383,11 @@ innaAppControllers
                     $routeParams.EndVoyageDate,
                     $routeParams.TicketClass,
                     $routeParams.Adult,
-                    $routeParams.Children
+                    $routeParams.Children,
+                    $routeParams.HotelId,
+                    $routeParams.TicketId,
+                    $routeParams.TicketBackId,
+                    $routeParams.ProviderId
                 ].join('-');
 
 
@@ -483,11 +489,13 @@ innaAppControllers
 
 
             $scope.scrollToTripadvisor = function () {
-                var body = angular.element('html, body'),
-                    headerHeight = angular.element('.Header').height(),
-                    positionTop = angular.element('#tripadvisor-widget-iframe').position().top;
-                body.animate({ scrollTop: positionTop - headerHeight }, 500)
-                window.partners.setScrollPage(positionTop)
+                var body = angular.element('html, body');
+                    var headerHeight = angular.element('.Header').height();
+                    var elToScroll = document.querySelector('.b-tripadvisor-widget-iframe');
+                    var positionTop = utils.getCoords(elToScroll).top
+
+                body.animate({ scrollTop: positionTop - headerHeight }, 500);
+                window.partners.setScrollPage(positionTop);
             };
 
             $scope.$watch('user', function(User){

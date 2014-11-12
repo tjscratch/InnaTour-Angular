@@ -9,7 +9,7 @@ innaAppConponents.
             var Balloon = Ractive.extend({
                 el: 'body',
                 template: $templateCache.get('components/balloon/templ/index.html'),
-                debug: true,
+                //debug: true,
                 append: true,
                 data: {
                     // show close button
@@ -18,7 +18,6 @@ innaAppConponents.
                     balloonContent: null,
                     balloonClose: true,
                     isVisible: false,
-                    styleWidth: '',
                     styleTopInFrame: '',
 
                     /**
@@ -71,11 +70,9 @@ innaAppConponents.
 
                     this.observe('isVisible', function (value) {
                         if(value){
-                            document.body.classList.add('overflow_hidden');
-                            window.addEventListener('resize', this.onResize);
+                            utils.scrollFix()
                         } else {
-                            document.body.classList.remove('overflow_hidden');
-                            window.removeEventListener('resize', this.onResize);
+                            utils.scrollFix(true)
                         }
                     }, {init : false});
 
@@ -135,7 +132,7 @@ innaAppConponents.
                             partialUpdate: partial,
                             template: data.template,
                             loading: data.loading || false,
-                            balloonClose: data.balloonClose,
+                            balloonClose: data.balloonClose || false,
                             balloonContent: data.balloonContent,
                             title: data.title,
                             content: data.content,
@@ -209,8 +206,7 @@ innaAppConponents.
 
 
                     setTimeout(function(){
-                        document.body.classList.remove('overflow_hidden');
-                        window.removeEventListener('resize', that.onResize);
+                        utils.scrollFix(true)
                     }, 0)
 
                 }

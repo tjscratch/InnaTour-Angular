@@ -1,13 +1,13 @@
 <a href="javascript:void(0)" on-click="open" class="question-item-link" data-link="{{ID}}">{{Title}}</a>
 
-{{#visible || ID == openIf}}
+{{#if (visible || ID == openIf)}}
 <div class="question-answer-container">
     <div class="question-answer">
         <div>{{{Content}}}</div>
         <div class="question-button">
-            <share />
+            <ShareLink location="{{location}}#{{ID}}" />
         </div>
         <span on-click="close" class="question-button">Свернуть</span>
     </div>
 </div>
-{{/}}
+{{/if}}
