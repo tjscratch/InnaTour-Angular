@@ -20,16 +20,15 @@
         function (RavenWrapper, $scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, $templateCache, Balloon) {
 
             $scope.baloon.showExpireCheck();
-
             $scope.isAviaPage = false;
-
             Raven.setExtraContext({key: "__RESERVATION_CONTEXT__"})
 
-            /*------------------------------------------*/
-            /*------------------------------------------*/
+            // TODO : наследование контроллера
+            $controller('ReserveTicketsCtrl', {$scope: $scope});
+
+
             /*----------------- INIT -------------------*/
-            /*------------------------------------------*/
-            /*------------------------------------------*/
+
             var children = $routeParams.Children ?
                 _.partition($routeParams.Children.split('_'), function (age) {
                     return age > 2;
@@ -40,7 +39,6 @@
                 ];
 
             var searchParams = angular.copy($routeParams);
-            var cacheKey = '';
 
             searchParams.StartVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.StartVoyageDate);
             searchParams.EndVoyageDate = dateHelper.ddmmyyyy2yyyymmdd(searchParams.EndVoyageDate);
@@ -51,19 +49,52 @@
             if ($location.search().room) searchParams['RoomId'] = $location.search().room;
 
             $scope.searchParams = searchParams;
-
             $scope.combination = {};
+            $scope.fromDate = $routeParams.StartVoyageDate;
+            $scope.AdultCount = parseInt($routeParams.Adult);
+            $scope.ChildCount = children[0].length;
+            $scope.Child = children[0];
+            $scope.InfantsCount = children[1].length;
+            $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
 
-            DynamicPackagesDataProvider.search({
-                data: searchParams,
-                success: successSearch,
-                error: errorSearch
-            });
+            $scope.ticketsCount = aviaHelper.getTicketsCount($scope.AdultCount, $scope.ChildCount, $scope.InfantsCount);
+            $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $routeParams.TicketClass);
 
-            /*------------- INIT -----------------------*/
+            //:DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId
+            $scope.getHotelInfoLink = function (ticketId, ticketBackId, hotelId, providerId) {
+                var url = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS +
+                    [
+                        $routeParams.DepartureId,
+                        $routeParams.ArrivalId,
+                        $routeParams.StartVoyageDate,
+                        $routeParams.EndVoyageDate,
+                        $routeParams.TicketClass,
+                        $routeParams.Adult,
+                        $routeParams.Children > 0 ? $routeParams.Children : '',
+                        hotelId,
+                        ticketId,
+                        ticketBackId,
+                        providerId
+                    ].join('-');
+
+                if (window.partners && window.partners.isFullWL()) {
+                    url = window.partners.getParentLocationWithUrl(url);
+                }
+
+                return url;
+            }
+
+            function addition() {
+                var self = this;
+                this.customerWishlist = '';
+                this.isNeededVisa = false;
+                this.isNeededTransfer = false;
+                this.isNeededMedicalInsurance = false;
+            }
+
+
             function goToSearch() {
                 var url = $scope.goBackUrl().replace('/#', '');
-                //console.log('redirect to url: ' + url);
                 $location.url(url);
             }
 
@@ -81,162 +112,58 @@
                 return url;
             };
 
+
+            function getCheckParams() {
+                var qData = {
+                    HotelId: $scope.hotel.HotelId,
+                    HoteProviderId: $scope.hotel.ProviderId,
+                    Rooms: $location.search().room,
+                    TicketToId: $scope.item.VariantId1,
+                    TicketBackId: $scope.item.VariantId2,
+                    TicketClass: $routeParams.TicketClass,
+                    'Filter[DepartureId]': $routeParams.DepartureId,
+                    'Filter[ArrivalId]': $routeParams.ArrivalId,
+                    'Filter[StartVoyageDate]': searchParams.StartVoyageDate,
+                    'Filter[EndVoyageDate]': searchParams.EndVoyageDate,
+                    'Filter[TicketClass]': $routeParams.TicketClass,
+                    'Filter[Adult]': $routeParams.Adult
+                };
+                if ($routeParams.Children) {
+                    var childs = $routeParams.Children.split('_');
+                    qData['Filter[ChildrenAges]'] = [];
+                    _.each(childs, function (age) {
+                        qData['Filter[ChildrenAges]'].push(age);
+                    });
+                }
+                return qData;
+            }
+
             function successSearch(data) {
-                cacheKey = data.SearchId;
-
                 $scope.$apply(function ($scope) {
-
-                    // TODO : наследование контроллера
-                    $controller('ReserveTicketsCtrl', {$scope: $scope});
-
-                    $scope.fromDate = $routeParams.StartVoyageDate;
-                    $scope.AdultCount = parseInt($routeParams.Adult);
-                    $scope.ChildCount = children[0].length;
-                    $scope.Child = children[0];
-                    $scope.InfantsCount = children[1].length;
-                    $scope.peopleCount = $scope.AdultCount + $scope.ChildCount + $scope.InfantsCount;
-
-                    $scope.ticketsCount = aviaHelper.getTicketsCount($scope.AdultCount, $scope.ChildCount, $scope.InfantsCount);
-                    $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $routeParams.TicketClass);
-
-                    //:DepartureId-:ArrivalId-:StartVoyageDate-:EndVoyageDate-:TicketClass-:Adult-:Children?-:HotelId-:TicketId-:TicketBackId-:ProviderId
-                    $scope.getHotelInfoLink = function (ticketId, ticketBackId, hotelId, providerId) {
-                        var url = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS +
-                            [
-                                $routeParams.DepartureId,
-                                $routeParams.ArrivalId,
-                                $routeParams.StartVoyageDate,
-                                $routeParams.EndVoyageDate,
-                                $routeParams.TicketClass,
-                                $routeParams.Adult,
-                                $routeParams.Children > 0 ? $routeParams.Children : '',
-                                hotelId,
-                                ticketId,
-                                ticketBackId,
-                                providerId
-                            ].join('-');
-
-                        if (window.partners && window.partners.isFullWL()) {
-                            url = window.partners.getParentLocationWithUrl(url);
-                        }
-
-                        return url;
-                    }
-
-                    function addition() {
-                        var self = this;
-                        this.customerWishlist = '';
-                        this.isNeededVisa = false;
-                        this.isNeededTransfer = false;
-                        this.isNeededMedicalInsurance = false;
-                    }
 
                     $scope.addition = new addition();
 
                     //console.log('data:');
                     //console.log(data);
                     //дополняем полями
-                    aviaHelper.addCustomFields(data.RecommendedPair.AviaInfo);
-                    $scope.item = data.RecommendedPair.AviaInfo;
+                    aviaHelper.addCustomFields(data.AviaInfo);
+                    aviaHelper.addAggInfoFields(data.Hotel);
 
-                    aviaHelper.addAggInfoFields(data.RecommendedPair.Hotel);
-                    $scope.hotel = data.RecommendedPair.Hotel;
-                    $scope.room = data.RecommendedPair.Room;
-                    $scope.price = data.RecommendedPair.Price;
-
-                    function getCheckParams() {
-                        var qData = {
-                            HotelId: $scope.hotel.HotelId,
-                            HoteProviderId: $scope.hotel.ProviderId,
-                            Rooms: $location.search().room,
-                            TicketToId: $scope.item.VariantId1,
-                            TicketBackId: $scope.item.VariantId2,
-                            TicketClass: $routeParams.TicketClass,
-                            'Filter[DepartureId]': $routeParams.DepartureId,
-                            'Filter[ArrivalId]': $routeParams.ArrivalId,
-                            'Filter[StartVoyageDate]': searchParams.StartVoyageDate,
-                            'Filter[EndVoyageDate]': searchParams.EndVoyageDate,
-                            'Filter[TicketClass]': $routeParams.TicketClass,
-                            'Filter[Adult]': $routeParams.Adult
-                        };
-                        if ($routeParams.Children) {
-                            var childs = $routeParams.Children.split('_');
-                            qData['Filter[ChildrenAges]'] = [];
-                            _.each(childs, function (age) {
-                                qData['Filter[ChildrenAges]'].push(age);
-                            });
-                        }
-                        return qData;
-                    }
+                    $scope.item = data.AviaInfo;
+                    $scope.hotel = data.Hotel;
+                    $scope.room = data.Room;
+                    $scope.price = data.Price;
 
                     //грузим тарифы
-                    $scope.loadTarifs($scope.item.VariantId1, $scope.item.VariantId2, data.RecommendedPair.AviaInfo);
+                    $scope.loadTarifs($scope.item.VariantId1, $scope.item.VariantId2, data.AviaInfo);
 
-
-                    //проверяем, что остались билеты для покупки
-                    var getCheckParamsRaven = getCheckParams()
-                    paymentService.packageCheckAvailability(getCheckParamsRaven,
-                        function (data) {
-                            if ((data != null && data.IsTicketAvailable == true) &&
-                                (data.Rooms != null && data.Rooms.length) &&
-                                (data.Rooms[0].IsAvailable == true && data.Rooms[0].RoomId.length)) {
-                                //если проверка из кэша - то отменяем попап
-                                //$timeout.cancel(availableChecktimeout);
-                                $scope.roomId = data.Rooms[0].RoomId;
-
-                                //правила отмены отеля
-                                $scope.hotelRules.fillData($scope.hotel);
-
-                                //загружаем все
-                                loadDataAndInit();
-
-                                //ToDo: debug
-                                //$timeout(function () {
-                                //    loadDataAndInit();
-                                //}, 1000);
-                            }
-                            else {
-                                RavenWrapper.raven({
-                                    captureMessage : 'CHECK AVAILABILITY ROOMS: ERROR',
-                                    dataResponse: data,
-                                    dataRequest: getCheckParamsRaven
-                                });
-                                //log('checkAvailability, false');
-                                //$timeout.cancel(availableChecktimeout);
-
-                                errorSearch();
-                            }
-                        },
-                        function (data, status) {
-                            RavenWrapper.raven({
-                                captureMessage : 'CHECK AVAILABILITY ROOMS: SERVER ERROR',
-                                dataResponse: data.responseJSON,
-                                dataRequest: getCheckParamsRaven
-                            });
-
-                            //error
-                            //$timeout.cancel(availableChecktimeout);
-                            $scope.safeApply(function () {
-                                $scope.showReserveError();
-                            });
-                        });
-
-                    function loadDataAndInit() {
-                        $scope.initPayModel();
-                    }
 
                     $scope.afterPayModelInit = function () {
-                        //log('$scope.afterPayModelInit');
                         $scope.baloon.hide();
-                        //$scope.fillDefaultModelDelay();
                     };
 
-                    $scope.combination.Hotel = data.RecommendedPair.Hotel;
-                    $scope.combination.Ticket = data.RecommendedPair.AviaInfo;
-
-                    //$scope.initPayModel();
-
-                    //console.log($scope.combination);
+                    $scope.combination.Hotel = data.Hotel;
+                    $scope.combination.Ticket = data.AviaInfo;
                 });
             }
 
@@ -259,16 +186,83 @@
             }
 
 
+            /**
+             * проверяем, что остались билеты для покупки
+             */
+            function packageCheckAvailability() {
+                var getCheckParamsRaven = getCheckParams()
+                paymentService.packageCheckAvailability({
+                    data: getCheckParamsRaven,
+                    success: function (data) {
+                        if ((data != null && data.IsTicketAvailable == true) &&
+                            (data.Rooms != null && data.Rooms.length) &&
+                            (data.Rooms[0].IsAvailable == true && data.Rooms[0].RoomId.length)) {
+                            //если проверка из кэша - то отменяем попап
+                            //$timeout.cancel(availableChecktimeout);
+                            $scope.roomId = data.Rooms[0].RoomId;
+
+                            //правила отмены отеля
+                            $scope.hotelRules.fillData($scope.hotel);
+
+                            //загружаем все
+                            $scope.initPayModel();
+                        }
+                        else {
+                            RavenWrapper.raven({
+                                captureMessage: 'CHECK AVAILABILITY ROOMS: ERROR',
+                                dataResponse: data,
+                                dataRequest: getCheckParamsRaven
+                            });
+
+                            errorSearch();
+                        }
+                    },
+                    error: function (data) {
+                        RavenWrapper.raven({
+                            captureMessage: 'CHECK AVAILABILITY ROOMS: SERVER ERROR',
+                            dataResponse: data.responseJSON,
+                            dataRequest: getCheckParamsRaven
+                        });
+
+                        $scope.safeApply(function () {
+                            $scope.showReserveError();
+                        });
+                    }
+                });
+            }
+
+
+            /**
+             * ----- INIT -------
+             * Получаем данные об отеле
+             */
+
+
+
+
+            DynamicPackagesDataProvider.hotelDetails({
+                data: {
+                    HotelId: searchParams.HotelId,
+                    HotelProviderId: searchParams.ProviderId,
+                    TicketToId: searchParams.TicketId,
+                    TicketBackId: searchParams.TicketBackId,
+                    Filter: searchParams,
+                    Rooms: true
+                },
+                success: successSearch,
+                error: errorSearch
+            }).done(function (data) {
+                packageCheckAvailability()
+            });
+
+
             DynamicFormSubmitListener.listen();
 
             $scope.objectToReserveTemplate = 'pages/dynamic/inc/reserve.html';
 
-            //console.log('hi from DynamicReserveTicketsCtrl', $routeParams, $scope);
-
             $scope.afterCompleteCallback = function () {
                 //переходим на страницу оплаты
                 var url = Urls.URL_DYNAMIC_PACKAGES_BUY + $scope.OrderNum;
-                //console.log('processToPayment, url: ' + url);
                 $location.url(url);
             }
 
@@ -320,7 +314,7 @@
 
             //бронируем
             $scope.reserve = function () {
-                console.log('$scope.reserve');
+                //console.log('$scope.reserve');
                 var m = $scope.getApiModelForReserve();
                 var model = m.model;
                 var apiModel = angular.copy(m.apiModel);
@@ -328,15 +322,10 @@
 
                 RavenWrapper.raven({
                     level: 3,
-                    captureMessage : 'START RESERVE PACKAGES',
+                    captureMessage: 'START RESERVE PACKAGES',
                     dataRequest: apiModel
                 });
 
-
-
-
-                //apiModel.CustomerWishlist = apiModel.searchParams.CustomerWishlist;
-                //delete apiModel.searchParams.CustomerWishlist;
 
                 paymentService.packageReserve(apiModel,
                     function (data) {
@@ -365,7 +354,7 @@
                             else {
                                 RavenWrapper.raven({
                                     level: 2,
-                                    captureMessage : 'RESERVE PACKAGES: ERROR',
+                                    captureMessage: 'RESERVE PACKAGES: ERROR',
                                     dataResponse: data,
                                     dataRequest: apiModel
                                 });
@@ -377,11 +366,11 @@
                             }
                         });
                     },
-                    function (data, status) {
+                    function (data) {
 
                         RavenWrapper.raven({
                             level: 6,
-                            captureMessage : 'RESERVE PACKAGES: SERVER ERROR',
+                            captureMessage: 'RESERVE PACKAGES: SERVER ERROR',
                             dataResponse: data.responseJSON,
                             dataRequest: apiModel
                         });

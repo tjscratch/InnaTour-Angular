@@ -31,12 +31,13 @@
                     }
                 },
 
-                packageCheckAvailability: function (queryData, successCallback, errCallback) {
-                    AjaxHelper.getNoCache(apiUrls.PACKAGE_CHECK_AVAILABILITY, queryData, function (data) {
-                        successCallback(data);
-                    }, function (data, status) {
-                        errCallback(data, status);
-                    });
+                packageCheckAvailability: function (params) {
+                    return AjaxHelper.getNoCache(
+                        apiUrls.PACKAGE_CHECK_AVAILABILITY,
+                        params.data,
+                        params.success,
+                        params.error
+                    );
                 },
 
                 getTransportersInAlliances: function (queryData, successCallback, errCallback) {
