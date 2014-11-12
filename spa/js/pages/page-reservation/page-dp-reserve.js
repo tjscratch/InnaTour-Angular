@@ -152,7 +152,7 @@
 
                     $scope.item = data.AviaInfo;
                     $scope.hotel = data.Hotel;
-                    $scope.room = data.Room;
+                    $scope.room = data.Hotel.Room;
                     $scope.price = data.Price;
 
                     //грузим тарифы
@@ -249,6 +249,9 @@
                 success: successSearch,
                 error: errorSearch
             }).done(function (data) {
+                if(data && !$scope.hotel){
+                    $scope.hotel = data.Hotel;
+                }
                 packageCheckAvailability()
             });
 
