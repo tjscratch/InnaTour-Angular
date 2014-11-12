@@ -1,30 +1,33 @@
 <!-- Buy ticket -->
 <form ng-submit="processToPayment($event)" method="post" class="results-body reserve-form">
 <div class="main__center">
-
 	<ng:include src="objectToReserveTemplate"></ng:include>
 
-<div class="buy__warning" ng-if="visaControl.visaNeeded || visaControl.visaRulesNeeded">
-	<div ng-if="visaControl.visaNeeded">Требуется виза.</div>
-	<div ng-if="visaControl.visaRulesNeeded">Обратите внимание на визовые правила
-	                <span ng-if="visaControl.cautionCountries.length > 0"> в странах: <span
-			                ng-repeat="c in visaControl.cautionCountries">{{c}}<span
-			                ng-if="!($last)">,&nbsp;</span></span></span>.
+	<div class="buy__warning" ng-if="visaControl.visaNeeded || visaControl.visaRulesNeeded">
+		<div ng-if="visaControl.visaNeeded">Требуется виза.</div>
+		<div ng-if="visaControl.visaRulesNeeded">
+			Обратите внимание на визовые правила
+	        <span ng-if="visaControl.cautionCountries.length > 0"> в странах:
+	            <span ng-repeat="c in visaControl.cautionCountries">{{c}}
+	                <span ng-if="!($last)">,&nbsp;</span>
+	            </span>
+	        </span>.
+		</div>
 	</div>
-</div>
 
-	<p class="buy__price-descr buy__alert" ng-if="(hotel != null)">Внимание! К компонентам пакета применяются разные условия
-	отмены
-	бронирования.<br/>Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами применения тарифа
-		авиабилета</a> и <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a>.</p><br/>
+	<p class="buy__price-descr buy__alert" ng-if="(hotel != null)">
+		Внимание! К компонентам пакета применяются разные условия отмены
+		бронирования.<br/>Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами применения тарифа
+		авиабилета</a> и <a href="" ng-click="hotelRules.show($event)">условиями бронирования отеля</a>.
+	</p><br/>
 
-	<p class="buy__price-descr" ng-if="!(hotel != null)">Пожалуйста, ознакомьтесь с <a href=""
-                                                                                   ng-click="tarifs.show($event)">правилами
-	применения тарифа авиабилета</a>.</p><br/>
-
+	<p class="buy__price-descr" ng-if="!(hotel != null)">
+		Пожалуйста, ознакомьтесь с <a href="" ng-click="tarifs.show($event)">правилами
+		применения тарифа авиабилета</a>.
+	</p><br/>
 	<header class="buy__header">
-	<h2 class="buy__title">Информация о покупателе</h2>
-</header>
+		<h2 class="buy__title">Информация о покупателе</h2>
+	</header>
 
 	<div>
 		<div class="b-field-group">
@@ -61,8 +64,8 @@
 	</div>
 
 	<header class="buy__header">
-	<h2 class="buy__title">Пассажиры</h2>
-</header>
+		<h2 class="buy__title">Пассажиры</h2>
+	</header>
 
 	<fieldset class="buy__blocks" ng-repeat="passenger in validationModel.passengers">
 		<div class="b-field-group b-field-group-passport">
@@ -166,7 +169,7 @@
 				       masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг" class="b-field-text">
 			</div>
 		</div>
-	<div class="b-field-group b-field-group-passport">
+		<div class="b-field-group b-field-group-passport">
 		<div class="b-field-group b-field-group-passport">
 			<div class="b-field-block" style="width: 220px;">
 				<label class="b-agreement"><input type="checkbox"
@@ -197,40 +200,41 @@
 			</div>
 		</div>
 	</div>
-</fieldset>
+	</fieldset>
 
 	<ng:any ng-if="addition != null">
-	<header class="buy__header">
-		<h2 class="buy__title">Пожелание к номеру</h2>
-	</header>
-	<div class="buy__comments-container">
-		<textarea cols="30" rows="10" class="buy__comments-field" ng-model="addition.customerWishlist">{{addition.customerWishlist
-			| breakFilter}}</textarea>
+		<header class="buy__header">
+			<h2 class="buy__title">Пожелание к номеру</h2>
+		</header>
+		<div class="buy__comments-container">
+			<textarea cols="30" rows="10" class="buy__comments-field" ng-model="addition.customerWishlist">{{addition.customerWishlist
+				| breakFilter}}</textarea>
 
-		<p class="buy__comments-help">Ваши пожелания мы передадим в отель, но не можем гарантировать их
-			исполнение. Пожалуйста, пишите ваши пожелания на английском языке.</p>
-	</div>
-	<header class="buy__header">
-		<h2 class="buy__title">Дополнительные услуги</h2>
-	</header>
-	<div class="buy__more-container">
-		<div class="buy__more-help">Данные услуги не включены в стоимость заказа, после оплаты заказа наш
-			менеджер свяжется c Вами и предложит разные варианты.
+			<p class="buy__comments-help">Ваши пожелания мы передадим в отель, но не можем гарантировать их
+				исполнение. Пожалуйста, пишите ваши пожелания на английском языке.</p>
 		</div>
-		<ul class="buy__more-options">
-			<!--<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededVisa">
-				<ins class="b-checkbox"></ins>
-				Виза</label></li>-->
-			<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededMedicalInsurance">
-				<ins class="b-checkbox"></ins>
-				Страховки</label></li>
-			<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededTransfer">
-				<ins class="b-checkbox"></ins>
-				Трансфер</label></li>
-		</ul>
-	</div>
-</ng:any>
+		<header class="buy__header">
+			<h2 class="buy__title">Дополнительные услуги</h2>
+		</header>
+		<div class="buy__more-container">
+			<div class="buy__more-help">Данные услуги не включены в стоимость заказа, после оплаты заказа наш
+				менеджер свяжется c Вами и предложит разные варианты.
+			</div>
+			<ul class="buy__more-options">
+				<!--<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededVisa">
+					<ins class="b-checkbox"></ins>
+					Виза</label></li>-->
+				<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededMedicalInsurance">
+					<ins class="b-checkbox"></ins>
+					Страховки</label></li>
+				<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededTransfer">
+					<ins class="b-checkbox"></ins>
+					Трансфер</label></li>
+			</ul>
+		</div>
+	</ng:any>
 </div>
+
 <div class="b-sum-container">
 	<!--<a ng-href="#" ng-click="fillDefaultModel($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
 	<span class="b-sum" style="">Сумма к оплате:&nbsp;</span>
