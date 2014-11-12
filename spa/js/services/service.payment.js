@@ -64,17 +64,14 @@
                     });
                 },
 
-                packageReserve: function (queryData, successCallback, errCallback) {
-                    var qData = angular.toParam(queryData);
+                packageReserve: function (params) {
+                    //queryData, successCallback, errCallback
+                    var qData = angular.toParam(params.data);
                     AjaxHelper.post({
                         url: apiUrls.PACKAGE_RESERVATION,
                         data: qData,
-                        success: function (data) {
-                            successCallback(data);
-                        },
-                        error: function (data, status) {
-                            errCallback(data, status);
-                        }
+                        success: params.success,
+                        error: params.error
                     });
                 },
 

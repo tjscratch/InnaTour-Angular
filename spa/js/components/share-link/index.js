@@ -12,7 +12,6 @@ innaAppConponents.
              */
             var ShareLink = TooltipBase.extend({
                 template: $templateCache.get('components/share-link/templ/index.html'),
-                debug: true,
                 data : {
                     locationHref : '',
                     location : null

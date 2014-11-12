@@ -402,41 +402,15 @@
 
                 baloonType: baloonType,
 
-                scrollFix: function (opt_param) {
-
-                    function setWidth() {
-                        var fullWidth = window.innerWidth;;
-                        var clientWidth = document.documentElement.clientWidth;
-                        fullWidth = Math.max(fullWidth, clientWidth);
-                        document.querySelectorAll('.scroll-fix').forEach(function (item) {
-                            item.style.width = (fullWidth + 'px');
-                        })
-                    }
-
-                    function resetWidth() {
-                        document.querySelectorAll('.scroll-fix').forEach(function (item) {
-                            item.style.width = "auto";
-                        })
-                    }
-
-                    if(!opt_param)
-                        setWidth();
-                    else
-                        resetWidth()
-
-                    $(window).on('resize', setWidth);
-                },
-
                 // TODO : вынести в компонент balloon
                 // точнее там все уже есть, нужно найти время и причесать все :)
                 baloon: {
-                    styleFix: {},
                     isVisible: false,
                     caption: '',
                     text: '',
                     data: null,
                     type: baloonType.msg,
-                    closeFn: null,
+                    closeFn: {},
                     showGlobalAviaErr: function () {
                         helper.baloon.show(null, null,
                             baloonType.err, function () {
@@ -485,21 +459,18 @@
 
                         helper.baloon.caption = caption;
                         helper.baloon.text = text;
-                        helper.baloon.closeFn = closeFn;
+                        helper.baloon.closeFn = function(){
+                            utils.scrollFix(true);
+                            closeFn()
+                        };
                         helper.baloon.isVisible = true;
-                        //data: { buttonCaption: '', successFn: fn }
                         helper.baloon.data = data;
 
-                        /*helper.baloon.styleFix = {
-                         width: (document.documentElement.clientWidth + 'px')
-                         }*/
-
-                        //$rootScope.$broadcast('baloon.show');
+                        utils.scrollFix();
                     },
                     hide: function () {
-                        //console.log('baloon hide');
+                        utils.scrollFix(true);
                         helper.baloon.isVisible = false;
-                        //$rootScope.$broadcast('baloon.hide');
                     }
                 },
 
@@ -611,7 +582,6 @@
                     var self = this;
                     self.isShow = false;
                     self.item = null;
-                    self.style = {};
 
                     self.ticketsCount = ticketsCount;
                     self.hideBuyButton = false;
@@ -619,33 +589,19 @@
                     var cabinClass = parseInt(cabinClass);
                     self.ticketsClass = helper.getCabinClassName(cabinClass).toLowerCase();
 
-                    self.setStyle = function () {
-                        self.style = {
-                            width: (document.documentElement.clientWidth + 'px')
-                        }
-                    }
 
                     self.show = function ($event, item, criteria, searchId, hideBuyButton) {
 
-                        //console.log('popupItemInfo.show');
-                        //console.log(item);
                         if ($event) {
                             eventsHelper.preventBubbling($event);
                         }
 
-                        helper.scrollFix();
-
-                        setTimeout(function () {
-                            document.body.classList.add('overflow_hidden');
-                        }, 150);
-
+                        utils.scrollFix();
 
                         self.isShow = true;
                         self.hideBuyButton = hideBuyButton;
                         item = self.addAggFields(item);
                         self.item = item;
-                        //console.log(item);
-                        //console.log('item.IsCharter: ' + item.IsCharter);
 
                         if (criteria != null && searchId != null) {
                             var buyCriteria = angular.copy(criteria);
@@ -656,17 +612,11 @@
                             var url = $location.host() + '/#' + urlHelper.UrlToAviaTicketsReservation(buyCriteria);
                             self.link = url;
                         }
-
-                        self.setStyle();
-                        $(window).on('resize', self.setStyle);
                     }
 
                     self.hide = function () {
-                        //console.log('popupItemInfo.hide');
-                        helper.scrollFix(true)
+                        utils.scrollFix(true)
                         self.isShow = false;
-                        $(window).off('resize', self.setStyle);
-                        document.body.classList.remove('overflow_hidden');
                     }
 
                     self.addAggFields = function (item) {
@@ -755,14 +705,9 @@
                 },
 
                 tarifs: function () {
-                    //log('tarifs');
                     var self = this;
-                    self.style = {};
-
                     self.isOpened = false;
-
                     self.list = [];
-
                     self.fillInfo = function (aviaInfo) {
                         self.class = aviaInfo.CabineClass == 0 ? 'Эконом' : 'Бизнес';
 
@@ -801,9 +746,6 @@
                         }
                     }
                     self.setStyle = function () {
-                        self.style = {
-                            width: (document.documentElement.clientWidth + 'px')
-                        }
                         if (window.partners && window.partners.parentScrollTop > 0) {
                             self.popupStyles = { 'top': window.partners.parentScrollTop + 20 + 'px' };//100px сверху
                         }
@@ -815,7 +757,7 @@
                     self.show = function ($event) {
                         if ($event) eventsHelper.preventBubbling($event);
 
-                        document.body.classList.add('overflow_hidden');
+                        utils.scrollFix();
 
                         self.selectedIndex = 0;
                         self.setected = self.list[0];
@@ -828,37 +770,10 @@
                         }
                         self.isOpened = true;
                         self.setStyle();
-
-                        //ToDo: потом отрефакторить и не потерять эту логику
-                        /*function setPosition() {
-                         var popup = $('.js-tarifs');
-                         if (popup) {
-                         var displayHeight = $(window).height();
-
-                         var rules = $('.b__rules-grey', popup);
-                         var rulesHeight = displayHeight - 350;
-                         if (rulesHeight < 200) {
-                         rulesHeight = 200;
-                         }
-                         rules.css({ height: rulesHeight });
-                         }
-
-                         var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                         self.position.top += scrollTop;
-                         }*/
-
-                        /*setTimeout(function () {
-                         setPosition();
-                         $(window).resize(function () {
-                         setPosition();
-                         });
-                         }, 0);*/
-
-
                     }
                     self.close = function ($event) {
                         if ($event) eventsHelper.preventBubbling($event);
-                        document.body.classList.remove('overflow_hidden');
+                        utils.scrollFix(true);
                         self.isOpened = false;
                     }
                 },
@@ -867,7 +782,6 @@
                     var self = this;
                     self.isOpened = false;
                     self.haveData = false;
-                    self.style = {};
 
                     self.checkIn = null;
                     self.checkOut = null;
@@ -886,21 +800,16 @@
                         }
                     }
 
-                    self.setStyle = function () {
-                        self.style = {
-                            width: (document.documentElement.clientWidth + 'px')
-                        }
-                    }
+
 
                     self.show = function ($event) {
                         eventsHelper.preventBubbling($event);
-                        self.setStyle();
-                        document.body.classList.add('overflow_hidden');
+                        utils.scrollFix();
                         self.isOpened = true;
                     }
                     self.close = function ($event) {
                         eventsHelper.preventBubbling($event);
-                        document.body.classList.remove('overflow_hidden');
+                        utils.scrollFix(true);
                         self.isOpened = false;
                     }
                 },

@@ -13,7 +13,6 @@ angular.module('innaApp.controllers')
             var mediator = new Ractive();
 
             var toggler = Ractive.extend({
-                debug: true,
                 template: $templateCache.get('pages/page-help/templ/page-help-toggle.hbs.html'),
                 data : {
                     visible : false,
@@ -50,7 +49,6 @@ angular.module('innaApp.controllers')
             });
 
             var Page = Ractive.extend({
-                debug: true,
                 el: document.querySelector('.page-help'),
                 template: $templateCache.get('pages/page-help/templ/page-help.hbs.html'),
                 data: {

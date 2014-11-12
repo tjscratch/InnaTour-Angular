@@ -3,7 +3,7 @@
 -->
 {{#isVisible}}
 <div class="overlay js-overlay {{isVisible ? 'overlay_show' : ''}}">
-    <div class="scroll-fix" style="width:{{styleWidth}}px; {{styleTopInFrame}}">
+    <div class="scroll-fix" style="{{styleTopInFrame}}">
         <div class="b-balloon js-b-balloon balloon {{balloon_class}}">
 
             {{#if balloonClose || callbackClose}}
