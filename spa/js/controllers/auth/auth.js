@@ -25,20 +25,11 @@ angular.module('innaApp.controllers')
                 });
             }
 
-            $scope.style = {};
-
-            $scope.setStyle = function () {
-                $scope.style = {
-                    width: (document.documentElement.clientWidth + 'px')
-                }
-            }
-
             /*Methods*/
             $scope.close = function(){
-                aviaHelper.scrollFix(true)
+                utils.scrollFix(true)
                 $scope.isLoginPopupOpened = false;
                 $scope.display = $scope.DISPLAY_SIGNIN;
-                document.body.classList.remove('overflow_hidden');
             };
 
             $scope.logout = function () {
@@ -54,12 +45,7 @@ angular.module('innaApp.controllers')
             };
 
             $scope.open = function(){
-                aviaHelper.scrollFix()
-                setTimeout(function () {
-                    document.body.classList.add('overflow_hidden');
-                }, 150)
-                $scope.setStyle();
-
+                utils.scrollFix()
                 $scope.isLoginPopupOpened = true;
             };
 

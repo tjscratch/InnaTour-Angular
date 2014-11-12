@@ -55,7 +55,6 @@ innaAppControllers.
              * @constructor
              */
             var Page = Ractive.extend({
-                debug: true,
                 el: document.querySelector('.page-root'),
                 template: $templateCache.get('pages/page-buy-success/templ/index.html'),
 

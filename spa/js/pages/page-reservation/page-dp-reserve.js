@@ -20,6 +20,7 @@
         function (RavenWrapper, $scope, $controller, $routeParams, $location, DynamicFormSubmitListener, DynamicPackagesDataProvider, aviaHelper, paymentService, Urls, storageService, urlHelper, $timeout, $templateCache, Balloon) {
 
             $scope.baloon.showExpireCheck();
+
             $scope.isAviaPage = false;
             Raven.setExtraContext({key: "__RESERVATION_CONTEXT__"})
 
@@ -236,10 +237,6 @@
              * ----- INIT -------
              * Получаем данные об отеле
              */
-
-
-
-
             DynamicPackagesDataProvider.hotelDetails({
                 data: {
                     HotelId: searchParams.HotelId,
@@ -327,8 +324,9 @@
                 });
 
 
-                paymentService.packageReserve(apiModel,
-                    function (data) {
+                paymentService.packageReserve({
+                    data: apiModel,
+                    success: function (data) {
 
                         $scope.safeApply(function () {
                             //console.log('order: ' + angular.toJson(data));
@@ -366,7 +364,7 @@
                             }
                         });
                     },
-                    function (data) {
+                    error: function (data) {
 
                         RavenWrapper.raven({
                             level: 6,
@@ -382,7 +380,8 @@
                             console.error('paymentService.reserve error');
                             $scope.showReserveError();
                         });
-                    });
+                    }
+                });
             };
 
             $scope.showReserveError = function () {

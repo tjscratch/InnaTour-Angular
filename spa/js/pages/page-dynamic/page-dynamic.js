@@ -78,7 +78,6 @@ innaAppControllers
 
 
             var Page = Ractive.extend({
-                debug: true,
                 append: true,
                 el: document.querySelector('.results-container_list'), //results-body
                 template: $templateCache.get('pages/page-dynamic/templ/page-dynamic.hbs.html'),

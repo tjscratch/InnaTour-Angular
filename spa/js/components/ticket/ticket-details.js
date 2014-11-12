@@ -26,7 +26,7 @@ angular.module('innaApp.directives')
                     var shareLink = null;
 
                     $scope.closePopup = function () {
-                        aviaHelper.scrollFix(true)
+                        utils.scrollFix(true)
                         delete $location.$$search.displayTicket;
                         $location.$$compose();
                         $scope.ticket = null;
