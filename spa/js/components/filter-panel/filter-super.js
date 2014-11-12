@@ -99,8 +99,6 @@ angular.module('innaApp.components').
                     });
 
 
-
-
                     /** если нужно закрыть все открытые фильтры */
                     EventManager.on(Events.FILTER_PANEL_CLOSE_FILTERS, function () {
                         var childComponents = that.findAllComponents();
@@ -291,15 +289,15 @@ angular.module('innaApp.components').
                 collectChildData: function (data) {
                     var tempArr = [];
 
-                    if(data && data.name){
-                        if(data.value.val.length) {
+                    if (data && data.name) {
+                        if (data.value.val.length) {
                             this.filtersCollectionTempl[data.name] = angular.copy(data.value);
                         } else {
                             delete this.filtersCollectionTempl[data.name];
                         }
                     }
 
-                    for(var key in this.filtersCollectionTempl) {
+                    for (var key in this.filtersCollectionTempl) {
                         tempArr.push(angular.copy(this.filtersCollectionTempl[key]));
                     }
 
@@ -310,10 +308,12 @@ angular.module('innaApp.components').
                     evt.stopPropagation();
                     var $this = evt.target;
 
-                    if (!this.find('.' + $this.classList[0]) && !this.closest($this, '.filter')) {
-                        this.findAllComponents().forEach(function (child) {
-                            child.fire('hide');
-                        })
+                    if($this.classList) {
+                        if (!this.find('.' + $this.classList[0]) && !this.closest($this, '.filter')) {
+                            this.findAllComponents().forEach(function (child) {
+                                child.fire('hide');
+                            })
+                        }
                     }
                 },
 
