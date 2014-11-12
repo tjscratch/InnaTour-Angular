@@ -16,8 +16,11 @@ angular.module('innaApp.components').
 
                     function bodyClickShareLink(evt) {
                         var $this = evt.target;
-                        if (!that.find('.' + $this.classList[0])) {
-                            that.hide();
+
+                        if($this.classList) {
+                            if (!that.find('.' + $this.classList[0])) {
+                                that.hide();
+                            }
                         }
                     };
 
