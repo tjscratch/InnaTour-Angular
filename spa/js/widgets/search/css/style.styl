@@ -1,7 +1,7 @@
+@import "vars"
 @import "grid"
 @import "datepicker"
-
-$control-height = 30px;
+@import "dropdown"
 
 //mixin
 .cfx{
@@ -14,7 +14,7 @@ $control-height = 30px;
 
 .b-inna-search-widget{
 	width 100%
-	color #333
+	color $base-color
 	font-family 'ProximaNova,Arial,sans-serif'
 	font-size 14px
 	line-height 20px
@@ -28,7 +28,7 @@ $control-height = 30px;
 	@extend .cfx;
 	margin 30px 0
 	padding 7px
-	background #212121
+	background $bg-black
 	border-radius 2px
 }
 
@@ -102,7 +102,7 @@ $control-height = 30px;
 	line-height $control-height
 	padding 0 10px
 	vertical-align top
-	color #000
+	color $base-color
 	font-size 14px
 	border none
 	background-color #fff

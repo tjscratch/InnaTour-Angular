@@ -115,9 +115,37 @@
     }
 
 
+    function innaDropdown() {
+        return{
+            restrict: 'E',
+            templateUrl: '/inna-frontend/spa/js/widgets/search/templ/dropdown.html',
+            link: function ($scope, element, attrs) {
+                $scope.peoples = 2
+                $scope.children = 1
+                $scope.personCount = $scope.peoples + $scope.children
+                
+                $scope.selectedPeoples = function(count){
+                    $scope.peoples = count
+                    $scope.personCount = $scope.children + count
+                }
+                $scope.selectedChildren = function(count){
+                    $scope.children = count
+                    $scope.personCount = $scope.peoples + count
+                }
+
+                $scope.status = {
+                    isopen: false
+                };
+                
+            }
+        }
+    }
+
+
     angular
         .module('innaSearchForm.directives')
         .directive('innaForm', innaForm)
+        .directive('innaDropdown', innaDropdown)
 
 
 })()

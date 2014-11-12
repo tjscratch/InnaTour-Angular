@@ -64,17 +64,7 @@
 		<div class="b-inna-col-xs-3">
 			<div class="b-inna-row">
 				<div class="b-inna-col-xs-6">
-					<div class="b-inna-search-form-field __typeahead">
-						<input
-								class="b-inna-search-form-field-input"
-								type="text"
-								placeholder="Куда"
-								ng-model="locationTo"
-								typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
-								typeahead-template-url="typeaheadTemplateCustom.html"
-								typeahead-wait-ms="300"
-								>
-					</div>
+					<inna-dropdown></inna-dropdown>
 				</div>
 
 				<div class="b-inna-col-xs-6">
