@@ -44,32 +44,35 @@
                 /**
                  * BEGIN datapicker
                  */
+                $scope.setStartDate = new Date();
+                $('.from_date').on('changeDate', function (selected) {
+                    $scope.setStartDate = selected.date;
+                });
+
                 $('.input-daterange').datepicker({
                     format: "dd.mm.yyyy",
-                    startDate: "-Infinity",
+                    startDate: $scope.setStartDate,
                     language: "ru",
                     keyboardNavigation: true,
                     autoclose: true,
                     todayHighlight: true,
                     beforeShowDay: function (date) {
-                        console.log(date)
-                        switch (date.getDate()) {
-                            case 12:
+                        var month = date.getMonth() + 1;
+                        var dates = date.getDate() + "." + month + "." + date.getFullYear()
+                        switch (dates) {
+                            case $scope.startDate:
                                 return {
-                                    tooltip: 'Example tooltip',
-                                    classes: 'active'
+                                    tooltip: '',
+                                    classes: 'from_date'
                                 };
-                            case 8:
-                                return false;
+                            case $scope.endDate:
+                                return {
+                                    tooltip: '',
+                                    classes: 'to_date'
+                                };
                         }
                     }
                 })
-
-//                $('.to_data').on('changeDate', function (selected) {
-//                    var startDate = new Date();
-//                    $('.from_data').datepicker('setDate', startDate);
-//                });
-
                 /**
                  * END datapicker
                  */
