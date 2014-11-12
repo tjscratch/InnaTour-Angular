@@ -461,7 +461,7 @@
                         helper.baloon.text = text;
                         helper.baloon.closeFn = function(){
                             utils.scrollFix(true);
-                            closeFn()
+                            if(closeFn && (typeof closeFn == 'function')) closeFn()
                         };
                         helper.baloon.isVisible = true;
                         helper.baloon.data = data;
