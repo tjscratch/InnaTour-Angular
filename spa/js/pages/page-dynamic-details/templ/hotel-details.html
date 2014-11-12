@@ -35,7 +35,7 @@
                     </div>
                     <div class="hotel-details__section-text-viewport"
                          ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
-                        <div ng-repeat="section in hotel.Description">
+                        <div ng-repeat="section in hotel.Description track by $index">
                             <!--<h4>{{section.Title}}</h4>-->
                             <div ng-bind-html="section.Content"></div>
                         </div>
@@ -52,7 +52,7 @@
                     </p>
                 </div>
                 <ul class="hotel-details-extra" ng-if="hotel.Extra">
-                    <li ng-repeat="(key, val) in hotel.Extra"
+                    <li ng-repeat="(key, val) in hotel.Extra track by $index"
                         class="hotel-details-extra__item hotel-details-extra__item_description hotel-details-extra__item_type_{{key | lowercase}}">
                         <i class="icon-type-extra icon-type-extra-{{key | lowercase}}"></i>
                         {{val}}
@@ -91,7 +91,7 @@
             </div>
 
             <ul class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
-                <ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'" ng-repeat="room in (onlyRoom || hotelRooms)"></ng:include>
+                <ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'" ng-repeat="room in (onlyRoom || hotelRooms) track by $index"></ng:include>
             </ul>
         </div>
 
@@ -104,13 +104,13 @@
 				    <!-- сделано в тупую : руками разбил массив на две части в методе parseAmenities -->
 				    <div class="hotel-details-resume__wrapper">
 					    <ul class="hotel-details-resume__list" ng-if="Amenities.part.part1.length">
-						    <li class="hotel-details-resume__item" ng-repeat="item in Amenities.part.part1" >
+						    <li class="hotel-details-resume__item" ng-repeat="item in Amenities.part.part1 track by $index" >
 							    {{item}}
 						    </li>
 					    </ul>
 
 					    <ul class="hotel-details-resume__list"  ng-if="Amenities.part.part2.length">
-						    <li class="hotel-details-resume__item" ng-repeat="item in Amenities.part.part2">
+						    <li class="hotel-details-resume__item" ng-repeat="item in Amenities.part.part2 track by $index">
 							    {{item}}
 						    </li>
 					    </ul>
