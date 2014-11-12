@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=980">
     <title ng-bind="title">Инна-Тур - Главная</title>
 
+    <base href="/" />
+
     <!--[if lt IE 9]>
     <script>
         document.createElement('ng-include');
@@ -230,7 +232,7 @@
          title="Отправить заявку"></div>
 
     <!-- PAGE CONTENT -->
-    <div class="wrpr" 
+    <div class="wrpr"
          ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/')}"
          ng-style="isFooterHiddenWrprStyle"
 		    >
@@ -338,12 +340,10 @@
     }).install();
 </script>
 
-
 <script src="https://yandex.st/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-route.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-sanitize.min.js"></script>
-
 
 <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=true"></script>

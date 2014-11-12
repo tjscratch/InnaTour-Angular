@@ -445,12 +445,13 @@ innaAppControllers.
                         index++;
                         self.navCurrent = self.navList[index];
                         if (self.navCurrent != null) {
-
-                            // TODO : тут ошибка в angular 1.3.0
-                            self.navCurrent.item.select();
-                            self.navCurrent.item.focus();
+                            setTimeout(function () {
+                                self.navCurrent.item.select();
+                                self.navCurrent.item.focus();
+                            }, 0);
                         }
                     }
+                    //console.log('goNext, end');
                 }
             }
 
@@ -953,7 +954,7 @@ innaAppControllers.
                 check();
 
                 var intCheck = $interval(function () {
-                    check($scope);
+                    check();
                 }, 5000);
 
                 function writeAnalyticsError(code) {
@@ -968,7 +969,7 @@ innaAppControllers.
                     }
                 }
 
-                function check($scope) {
+                function check() {
                     if (!$scope.isCkeckProcessing) {
                         $scope.isCkeckProcessing = true;
 

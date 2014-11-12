@@ -86,22 +86,15 @@ innaAppServices.factory('DynamicPackagesDataProvider', [
              * error =
              */
             hotelDetails: function (params) {
-                AjaxHelper.get({
+                return AjaxHelper.get({
                     url: api.DYNAMIC_HOTEL_DETAILS,
-                    data: {
-                        HotelId: params.HotelId,
-                        HotelProviderId: params.HotelProviderId,
-                        TicketToId: params.TicketToId,
-                        TicketBackId: params.TicketBackId,
-                        Filter: params.Filter,
-                        Rooms: params.Rooms
-                    },
+                    data: params.data,
                     success: params.success,
                     error: params.error
                 });
             },
             displayOrder: function (params) {
-                AjaxHelper.get({
+                return AjaxHelper.get({
                     url: api.B2B_DISPLAY_ORDER,
                     data: {
                         orderNum: params.orderId

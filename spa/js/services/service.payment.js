@@ -31,12 +31,13 @@
                     }
                 },
 
-                packageCheckAvailability: function (queryData, successCallback, errCallback) {
-                    AjaxHelper.getNoCache(apiUrls.PACKAGE_CHECK_AVAILABILITY, queryData, function (data) {
-                        successCallback(data);
-                    }, function (data, status) {
-                        errCallback(data, status);
-                    });
+                packageCheckAvailability: function (params) {
+                    return AjaxHelper.getNoCache(
+                        apiUrls.PACKAGE_CHECK_AVAILABILITY,
+                        params.data,
+                        params.success,
+                        params.error
+                    );
                 },
 
                 getTransportersInAlliances: function (queryData, successCallback, errCallback) {
@@ -63,17 +64,14 @@
                     });
                 },
 
-                packageReserve: function (queryData, successCallback, errCallback) {
-                    var qData = angular.toParam(queryData);
+                packageReserve: function (params) {
+                    //queryData, successCallback, errCallback
+                    var qData = angular.toParam(params.data);
                     AjaxHelper.post({
                         url: apiUrls.PACKAGE_RESERVATION,
                         data: qData,
-                        success: function (data) {
-                            successCallback(data);
-                        },
-                        error: function (data, status) {
-                            errCallback(data, status);
-                        }
+                        success: params.success,
+                        error: params.error
                     });
                 },
 

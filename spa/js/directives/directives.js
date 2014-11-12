@@ -9,10 +9,13 @@ innaAppDirectives.
         };
     }]);
 
-innaAppDirectives.directive('closePopup', [function () {
+innaAppDirectives.directive('closePopup', ["aviaHelper", function (aviaHelper) {
     return {
         scope: {
             fnHide: '&'
+        },
+        controller: function(){
+
         },
         link: function ($scope, element, attrs) {
             function bodyClick(event) {
@@ -30,7 +33,6 @@ innaAppDirectives.directive('closePopup', [function () {
             $(document).on('click', bodyClick);
 
             $scope.$on('$destroy', function () {
-                element.off();
                 $(document).off('click', bodyClick);
             });
         }
@@ -572,27 +574,38 @@ innaAppDirectives.directive('validateSimple', [function () {
         },
         link: function ($scope, element, attrs, ngModel) {
             function validate(isUserAction) {
+                //console.log('validate');
                 var type = null;
                 if (isUserAction)
                     type = 'userAction';
 
                 $scope.validate({ key: $scope.key, value: ngModel.$modelValue });
+                //console.log('validate end');
             };
 
-            element.on('blur', function () {
+            function safeApply(fn) {
+                //console.log(arguments);
                 if (!$scope.$$phase) {
-                    validate(true);
+                    fn();
                 }
                 else {
                     $scope.$apply(function () {
-                        validate(true);
+                        fn();
                     });
                 }
+            }
+
+            element.on('blur', function () {
+                //console.log('blur');
+                safeApply(function () {
+                    validate(true);
+                });
             }).on('keypress', function (event) {
+                //console.log('keypress');
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
                 if (key == 13) {//enter
-                    $scope.$apply(function () {
+                    safeApply(function () {
                         validate(true);
                     });
                 }
@@ -607,6 +620,7 @@ innaAppDirectives.directive('validateSimple', [function () {
             if ($scope.len != null) {
                 $scope.$watch(function () { return ngModel.$modelValue; }, function (newVal, oldVal) {
                     if (newVal != null && newVal.length == $scope.len) {
+                        //console.log('goNext');
                         $scope.goNext({ key: $scope.key });
                     }
                 })
