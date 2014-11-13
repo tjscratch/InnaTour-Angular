@@ -5,7 +5,7 @@
 
 
     function innaForm() {
-        return{
+        return {
             restrict: 'E',
             templateUrl: '/inna-frontend/spa/js/widgets/search/templ/form.html',
             controller: ['$scope', '$http', function ($scope, $http) {
@@ -106,6 +106,17 @@
 
 
                 $scope.innaStartSearch = function () {
+                    "6733-6623-13.11.2014-19.11.2014-1-2-5_0_11"
+
+                    $scope.$watch('childrensAge', function (data) {
+                        if (data) {
+                            $scope.childrens = [];
+                            for (var i = 0; i < data.length; i++) {
+                                $scope.childrens.push(data[i].value)
+                            }
+                        }
+                    })
+                    
                     $scope.innaSearchUrl = "https://inna.ru/#/packages/search/" +
                     $scope.fromId +
                     "-" +
@@ -114,8 +125,11 @@
                     $scope.startDate +
                     "-" +
                     $scope.endDate +
-                    "-0-2-"
-                    window.open($scope.innaSearchUrl, '_blank')
+                    "-0-" +
+                    $scope.adultCount +
+                    "-" +
+                    $scope.childrens.join('_')
+                    //window.open($scope.innaSearchUrl, '_blank')
                 }
 
             }]
@@ -144,7 +158,7 @@
                         }
                     }
                 }
-                
+
                 $scope.onAgeSelectorClick = function (num) {
                     var selector = $scope.childrensAge[num];
                     selector.isOpen = !selector.isOpen;
@@ -153,13 +167,6 @@
                 $scope.sum = function (a, b) {
                     return +a + +b;
                 }
-                
-                $scope.$watch('isOpen', function (newValue) {
-                    if (newValue === true) try {
-                        $scope.rootElement.tooltip('destroy');
-                    } catch (e) {
-                    }
-                });
             }],
             link: function (scope, element, attrs) {
                 scope.rootElement = $('.search-form-item-current', element);
