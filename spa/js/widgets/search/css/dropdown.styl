@@ -76,20 +76,36 @@
     }
   }
 }
+.inna-dropdown-age-row{
+  position: relative
+  display block
+  width 120px
+  margin 0 -5px
+  white-space nowrap
+}
+  
 .inna-dropdown-age{
   position relative
+  display inline-block
+  width 38px
   height $control-height
   line-height $control-height - 2
-  padding 0 5px
+  margin-right 3px
+  padding 0 4px
   border 1px solid $border-color-gray
   border-radius $border-radius
   font-size 15px
 
+  &:last-child{
+    margin-right 0
+  }
+  
   .inna-dropdown-age-toggle{
     cursor pointer
+    white-space nowrap
 
     .inna-arrow-bottom{
-      right 5px
+      right 3px
     }
   }
 
@@ -97,8 +113,8 @@
     display none
     position absolute
     z-index 10
-    right 0
-    top 0
+    left -1px
+    top -1px
     width $dropdown-width - 12
     max-height 150px
     margin 0
@@ -110,8 +126,9 @@
     border-radius $border-radius
 
     li{
-      line-height 20px
-      padding 4px 10px
+      height: 30px
+      line-height 30px
+      padding 0 5px
       cursor pointer
 
       &:hover{
@@ -135,16 +152,16 @@
   height 0px
   margin-top -2px
   border-style solid
-  border-width 6px
-  border-color #d8d8d8 transparent transparent transparent
+  border-width 5px
+  border-color #5d5d5d transparent transparent transparent
 
   &:after{
     position absolute
     content ''
-    left -6px
-    top -8px
+    left -5px
+    top -7px
     border-style solid
-    border-width 6px
+    border-width 5px
     border-color #fff transparent transparent transparent
   }
 }

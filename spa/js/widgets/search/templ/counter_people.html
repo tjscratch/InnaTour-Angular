@@ -1,6 +1,6 @@
 <div class="inna-dropdown">
 	<div class="inna-dropdown-action">
-		{{ adultCount | asQuantity:"человек":"человека":"человек"}}
+		{{ adultCount + childrenCount| asQuantity:"человек":"человека":"человек"}}
 		<i class="inna-arrow-bottom"></i>
 	</div>
 	<div class="inna-dropdown-dialog" ng-show="isOpen">
@@ -32,9 +32,12 @@
 			</li>
 		</ul>
 
-		<div class="search-form-dialog-row" ng-show="childrenCount > 0">
-			<span class="label">Возраст детей</span>
+		<div class="inna-dropdown-dialog_label" ng-show="childrenCount > 0">
+			<ng-pluralize count="childrenCount" when="{'0': '','one': 'Возраст ребенка','other': 'Возраст детей'}"></ng-pluralize>
+			<!--{{ childrenCount | asQuantity:"человек":"человека":"человек"}}-->
+		</div>
 
+		<div class="inna-dropdown-age-row">
 			<div counter-people-child-age-selector
 			     ng-repeat="selector in childrensAge"
 			     selector="selector"

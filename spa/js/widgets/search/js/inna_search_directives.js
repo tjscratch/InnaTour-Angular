@@ -78,6 +78,14 @@
                  */
 
 
+                /**
+                 * BEGIN PEOPLE_COUNTER
+                 */
+                $scope.adultCount = 2;
+                /**
+                 * END PEOPLE_COUNTER
+                 */
+
 
                 $scope.$watch('locationFrom', function (data) {
                     if (data && data.id) {
