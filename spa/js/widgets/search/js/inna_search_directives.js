@@ -8,7 +8,7 @@
         return{
             restrict: 'E',
             templateUrl: '/inna-frontend/spa/js/widgets/search/templ/form.html',
-            controller: function ($scope, $http) {
+            controller: ['$scope', '$http', function ($scope, $http) {
 
                 /**
                  * установка текущей локали
@@ -99,53 +99,100 @@
 
                 $scope.innaStartSearch = function () {
                     $scope.innaSearchUrl = "https://inna.ru/#/packages/search/" +
-                        $scope.fromId +
-                        "-" +
-                        $scope.toId +
-                        "-" +
-                        $scope.startDate +
-                        "-" +
-                        $scope.endDate +
-                        "-0-2-"
+                    $scope.fromId +
+                    "-" +
+                    $scope.toId +
+                    "-" +
+                    $scope.startDate +
+                    "-" +
+                    $scope.endDate +
+                    "-0-2-"
                     window.open($scope.innaSearchUrl, '_blank')
                 }
 
+            }]
+        }
+    }
+
+    function counterPeople() {
+        return {
+            templateUrl: '/inna-frontend/spa/js/widgets/search/templ/counter_people.html',
+            scope: {
+                adultCount: '=',
+                childrenCount: '=',
+                childrensAge: '='
+            },
+            controller: ['$scope', function ($scope) {
+                /*Properties*/
+                $scope.isOpen = false;
+
+                /*Events*/
+                $scope.onCounterClick = function (model, count) {
+                    $scope[model] = count;
+                    if (model == 'childrenCount') {
+                        $scope.childrensAge = [];
+                        for (var i = 0; i < $scope.childrenCount; i++) {
+                            $scope.childrensAge.push({value: 0});
+                        }
+                    }
+                }
+                
+                $scope.onAgeSelectorClick = function (num) {
+                    var selector = $scope.childrensAge[num];
+                    selector.isOpen = !selector.isOpen;
+                }
+
+                $scope.sum = function (a, b) {
+                    return +a + +b;
+                }
+                
+                $scope.$watch('isOpen', function (newValue) {
+                    if (newValue === true) try {
+                        $scope.rootElement.tooltip('destroy');
+                    } catch (e) {
+                    }
+                });
+            }],
+            link: function (scope, element, attrs) {
+                scope.rootElement = $('.search-form-item-current', element);
+
+                $(document).click(function bodyClick(event) {
+                    var isInsideComponent = !!$(event.target).closest(element).length;
+                    var isOnComponentTitle = event.target == element || event.target == scope.rootElement[0];
+
+                    scope.$apply(function ($scope) {
+                        if (isOnComponentTitle) {
+                            $scope.isOpen = !$scope.isOpen;
+                        } else {
+                            $scope.isOpen = isInsideComponent;
+                        }
+                    });
+                });
             }
         }
     }
 
-
-    function innaDropdown() {
-        return{
-            restrict: 'E',
-            templateUrl: '/inna-frontend/spa/js/widgets/search/templ/dropdown.html',
-            link: function ($scope, element, attrs) {
-                $scope.peoples = 2
-                $scope.children = 1
-                $scope.personCount = $scope.peoples + $scope.children
-                
-                $scope.selectedPeoples = function(count){
-                    $scope.peoples = count
-                    $scope.personCount = $scope.children + count
+    function counterPeopleChildAgeSelector() {
+        return {
+            templateUrl: '/inna-frontend/spa/js/widgets/search/templ/counter_people.subcomponent.html',
+            replace: true,
+            scope: {
+                'selector': '='
+            },
+            controller: ['$scope', function ($scope) {
+                $scope.onChoose = function (age) {
+                    $scope.selector.value = age;
                 }
-                $scope.selectedChildren = function(count){
-                    $scope.children = count
-                    $scope.personCount = $scope.peoples + count
-                }
-
-                $scope.status = {
-                    isopen: false
-                };
-                
-            }
+            }],
+            requires: '^counterPeople'
         }
     }
-
 
     angular
         .module('innaSearchForm.directives')
         .directive('innaForm', innaForm)
-        .directive('innaDropdown', innaDropdown)
+        .directive('counterPeople', counterPeople)
+        .directive('counterPeopleChildAgeSelector', counterPeopleChildAgeSelector)
 
 
 })()

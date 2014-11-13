@@ -17,7 +17,7 @@
         })
         .filter('asQuantity', ['$filter', function ($filter) {
             return function (n, f1, f2, f5, f0) {
-                if (n == 0) return f0;
+//                if (n == 0) return f0;
 
                 return [n, $filter('choosePlural')(n, f1, f2, f5)].join(' ');
             }
