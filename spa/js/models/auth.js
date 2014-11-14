@@ -2,6 +2,7 @@ _.provide('inna.Models.Auth');
 
 inna.Models.Auth.User = function(data){
     this.raw = {
+        AgencyId : data.AgencyId,
         Email: data.Email,
         LastName: data.LastName,
         FirstName: data.FirstName,
