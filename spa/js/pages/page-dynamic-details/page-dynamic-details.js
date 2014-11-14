@@ -433,6 +433,7 @@ innaAppControllers
             };
 
             var onload = function () {
+
                 $scope.dataFullyLoaded = true;
 
                 if ($scope.displayRoom) {
@@ -454,6 +455,7 @@ innaAppControllers
 
                 try {
                     $scope.$digest();
+
                 } catch (e) {
                 }
             }
@@ -501,6 +503,10 @@ innaAppControllers
             $scope.$watch('user', function(User){
                 if(User){
                     $scope.userIsAgency = User.isAgency();
+                    $scope.AgencyId = parseInt(User.getAgencyId());
+                    $scope.onCondition = function () {
+                        return true;
+                    }
                 }
             });
 

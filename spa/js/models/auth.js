@@ -31,3 +31,12 @@ inna.Models.Auth.User.prototype.displayName = function(){
 inna.Models.Auth.User.prototype.isAgency = function () {
     return this.raw.AgencyName.length > 0;
 };
+
+inna.Models.Auth.User.prototype.getName = function () {
+    return this.raw.AgencyName;
+};
+
+inna.Models.Auth.User.prototype.getAgencyId = function () {
+    return this.raw.AgencyId;
+};
+
