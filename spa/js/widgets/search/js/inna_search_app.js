@@ -4,7 +4,8 @@
     angular.module("innaSearchForm", [
         "ngResource",
         "ui.bootstrap",
-        "innaSearchForm.directives"
+        "innaDirectives",
+        "innaTemplates"
     ])
 
         .filter('range', function () {
@@ -17,8 +18,6 @@
         })
         .filter('asQuantity', ['$filter', function ($filter) {
             return function (n, f1, f2, f5, f0) {
-//                if (n == 0) return f0;
-
                 return [n, $filter('choosePlural')(n, f1, f2, f5)].join(' ');
             }
         }])
@@ -30,14 +29,10 @@
                     f2 = bits[1];
                     f5 = bits[2];
                 }
-
-                //only 2 last digits
                 n = n % 100;
 
-                //11, 12, ..., 19
                 if (n % 10 + 10 == n) return f5;
 
-                //only one last digit
                 n = n % 10;
 
                 if (n == 1) return f1;
@@ -45,6 +40,9 @@
 
                 return f5;
             }
-        })
+        });
 
+    
+    var innaTemplates = angular.module('innaTemplates', []);
+    
 }());
