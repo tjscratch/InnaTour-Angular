@@ -1,75 +1,85 @@
 <div class="b-inna-search-form">
 	<div class="b-inna-row">
+		<form name="innaSearchForm">
 
-		<div class="b-inna-col-xs-3">
-			<div class="b-inna-search-form-field __typeahead">
-				<input
-						class="b-inna-search-form-field-input"
-						type="text"
-						placeholder="Откуда"
-						ng-model="locationFrom"
-						typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
-						typeahead-template-url="typeaheadTemplateCustom.html"
-						typeahead-wait-ms="300"
-						>
-			</div>
-		</div>
-
-		<div class="b-inna-col-xs-3">
-			<div class="b-inna-search-form-field __typeahead">
-				<input
-						class="b-inna-search-form-field-input"
-						type="text"
-						placeholder="Куда"
-						ng-model="locationTo"
-						typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
-						typeahead-template-url="typeaheadTemplateCustom.html"
-						typeahead-wait-ms="300"
-						>
-			</div>
-		</div>
-
-		<div class="b-inna-col-xs-3">
-			<div class="b-inna-search-form-field b-inna-row input-daterange">
-				<div class="b-inna-col-xs-6">
+			<div class="b-inna-col-xs-3">
+				<div class="b-inna-search-form-field __typeahead">
 					<input
-							class="b-inna-search-form-field-input b-inna-datapicker from_date"
+							class="b-inna-search-form-field-input"
 							type="text"
-							name="startDate"
-							ng-model="startDate"
-							placeholder="Туда"
-							/>
-				</div>
-				<div class="b-inna-col-xs-6">
-					<input
-							class="b-inna-search-form-field-input  b-inna-datapicker to_date"
-							type="text"
-							name="endDate"
-							ng-model="endDate"
-							placeholder="Обратно"
-							/>
+							placeholder="Откуда"
+							ng-model="locationFrom"
+							typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
+							typeahead-template-url="typeaheadTemplateCustom.html"
+							typeahead-wait-ms="300"
+							required="true"
+							>
 				</div>
 			</div>
-		</div>
 
-		<div class="b-inna-col-xs-3">
-			<div class="b-inna-row">
-				<div class="b-inna-col-xs-6">
-					<div counter-people
-					     adult-count="adultCount"
-					     children-count="childrenCount"
-					     childrens-age="childrensAge"
-					     class="b-wrapp_type_inline"></div>
-				</div>
-
-				<div class="b-inna-col-xs-6">
-					<div class="b-inna-search-form-field __action">
-						<button class="b-inna-btn" ng-click="innaStartSearch()">Найти</button>
+			<div class="b-inna-col-xs-3">
+				<div class="b-inna-search-form-field __typeahead">
+					<input
+							class="b-inna-search-form-field-input"
+							type="text"
+							placeholder="Куда"
+							ng-model="locationTo"
+							typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
+							typeahead-template-url="typeaheadTemplateCustom.html"
+							typeahead-wait-ms="300"
+							required="true"
+					        ng-change="fromToEqual = false"
+							>
+					<div class="inna-tooltip" ng-show="fromToEqual">
+						Города отправления и назначения должны отличаться
 					</div>
 				</div>
 			</div>
-		</div>
 
+			<div class="b-inna-col-xs-3">
+				<div class="b-inna-search-form-field b-inna-row input-daterange">
+					<div class="b-inna-col-xs-6">
+						<input
+								class="b-inna-search-form-field-input b-inna-datapicker from_date"
+								type="text"
+								name="startDate"
+								ng-model="startDate"
+								placeholder="Туда"
+								required="true"
+								/>
+					</div>
+					<div class="b-inna-col-xs-6">
+						<input
+								class="b-inna-search-form-field-input  b-inna-datapicker to_date"
+								type="text"
+								name="endDate"
+								ng-model="endDate"
+								placeholder="Обратно"
+								required="true"
+								/>
+					</div>
+				</div>
+			</div>
+
+			<div class="b-inna-col-xs-3">
+				<div class="b-inna-row">
+					<div class="b-inna-col-xs-6">
+						<div counter-people
+						     adult-count="adultCount"
+						     children-count="childrenCount"
+						     childrens-age="childrensAge"
+						     class="b-wrapp_type_inline"></div>
+					</div>
+
+					<div class="b-inna-col-xs-6">
+						<div class="b-inna-search-form-field __action">
+							<button class="b-inna-btn" ng-click="innaStartSearch(innaSearchForm)">Найти</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
 	</div>
 </div>
 <div>

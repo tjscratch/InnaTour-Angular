@@ -33,7 +33,6 @@ $base-shadow-color = rgba(50, 50, 50, 0.25);
   line-height 1.428571429
   color $color-base
 }
-
 .datepicker table td{
   width 30px
   height 30px
@@ -64,6 +63,7 @@ $base-shadow-color = rgba(50, 50, 50, 0.25);
   }
 
   &.active,
+  &.focused,
   &:hover{
     background-color $bg-green
     color $color-white
@@ -96,7 +96,6 @@ $base-shadow-color = rgba(50, 50, 50, 0.25);
     color $color-base
   }
 }
-
 $btn-hover = #e0e0e0;
 $btn-active = #77b237;
 $arrow-base = #212121;
@@ -133,7 +132,7 @@ $arrow-left = 12px;
       z-index 2
       border-width 5px
     }
-      
+
     &:hover{
       border 1px solid $btn-hover
       background $btn-hover
@@ -146,12 +145,12 @@ $arrow-left = 12px;
 
   &.prev{
     &:after{
-      right  $arrow-left + 1
+      right $arrow-left + 1
       top $arrow-top - 1
       border-color transparent $arrow-base transparent transparent
     }
     &:before{
-      right  $arrow-left
+      right $arrow-left
       top $arrow-top
       border-color transparent $arrow-bg transparent transparent
     }
@@ -202,7 +201,6 @@ $arrow-left = 12px;
     color $color-gray
   }
 }
-
 .datepicker table tfoot{
   display none
 }

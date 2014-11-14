@@ -45,13 +45,18 @@
                  * BEGIN datapicker
                  */
                 $scope.setStartDate = new Date();
+
                 $('.from_date').on('changeDate', function (selected) {
                     $scope.setStartDate = selected.date;
+                    $('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
+                    $('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28));
+                    //$('.to_date').datepicker('setEndDate', new Date(2014,10,25));
                 });
 
                 $('.input-daterange').datepicker({
                     format: "dd.mm.yyyy",
                     startDate: $scope.setStartDate,
+                    endDate: false,
                     language: "ru",
                     keyboardNavigation: true,
                     autoclose: true,
@@ -105,31 +110,40 @@
                 });
 
 
-                $scope.innaStartSearch = function () {
-                    "6733-6623-13.11.2014-19.11.2014-1-2-5_0_11"
+                /**
+                 * Старт поиска
+                 * "6733-6623-13.11.2014-19.11.2014-1-2-5_0_11"
+                 * @param innaSearchForm
+                 */
+                $scope.innaStartSearch = function (innaSearchForm) {
 
-                    $scope.$watch('childrensAge', function (data) {
-                        if (data) {
-                            $scope.childrens = [];
-                            for (var i = 0; i < data.length; i++) {
-                                $scope.childrens.push(data[i].value)
-                            }
+                    var params = [];
+                    params.push($scope.fromId)
+                    params.push($scope.toId)
+                    params.push($scope.startDate)
+                    params.push($scope.endDate)
+                    params.push(0)
+                    params.push($scope.adultCount)
+
+                    if ($scope.childrensAge && $scope.childrensAge.length > 0) {
+                        $scope.childrens = [];
+                        for (var i = 0; i < $scope.childrensAge.length; i++) {
+                            $scope.childrens.push(data[i].value)
                         }
-                    })
-                    
-                    $scope.innaSearchUrl = "https://inna.ru/#/packages/search/" +
-                    $scope.fromId +
-                    "-" +
-                    $scope.toId +
-                    "-" +
-                    $scope.startDate +
-                    "-" +
-                    $scope.endDate +
-                    "-0-" +
-                    $scope.adultCount +
-                    "-" +
-                    $scope.childrens.join('_')
-                    //window.open($scope.innaSearchUrl, '_blank')
+                        params.push($scope.childrens.join('_'))
+                    } else {
+                        params.push('')
+                    }
+
+                    if ($scope.toId && $scope.fromId) {
+                        $scope.fromToEqual = $scope.fromId == $scope.toId;
+                    }
+
+                    if ($scope.fromToEqual && innaSearchForm.$valid == true) {
+                        console.log(params.join('-'))
+                        //window.open("https://inna.ru/#/packages/search/6733-6623-01.12.2014-07.12.2014-0-2", '_blank')
+                        window.open("https://inna.ru/#/packages/search/" + params.join('-'), '_blank')
+                    }
                 }
 
             }]
@@ -202,7 +216,7 @@
             requires: '^counterPeople'
         }
     }
-
+    
     angular
         .module('innaSearchForm.directives')
         .directive('innaForm', innaForm)
