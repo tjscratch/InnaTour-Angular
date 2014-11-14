@@ -4,6 +4,22 @@
   width 32px
 }
 
+
+.tooltip_right {
+  &:before {
+    top: -10px;
+    right: auto;
+    left: 12px;
+  }
+
+  &:after {
+    top: -12px;
+    left: 4px;
+    right: auto;
+  }
+
+}
+
 .b-tooltip-share {
 
   &__button {
@@ -56,23 +72,7 @@
   }
 
   .tooltip_right {
-    right: -230px;
-    bottom: -45px;
-    width: 230px;
     left: auto;
-
-    &:before {
-      top: -10px;
-      right: auto;
-      left: 12px;
-    }
-
-    &:after {
-      top: -12px;
-      left: 4px;
-      right: auto;
-    }
-
   }
 
   .share-link-input {

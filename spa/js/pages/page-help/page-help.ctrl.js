@@ -18,7 +18,7 @@ angular.module('innaApp.controllers')
                     visible : false,
                     openIf: null,
                     location : location.host+'/#'+Urls.URL_HELP,
-                    right : true,
+                    position : 'right',
                     class: "b-tooltip-share__button-default"
                 },
                 components : {
