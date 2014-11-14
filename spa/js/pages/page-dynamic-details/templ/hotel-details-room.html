@@ -7,9 +7,9 @@
                 <h3 class="hotel-details-rooms__room-title">
                     <span class="like-link">{{room.RoomName}}</span>
 
-                    <!--ng-if="userIsAgency && (AgencyId == 20005)"-->
-                    <span tooltip-directive-base
 
+                    <span tooltip-directive-base
+                          ng-if="userIsAgency && (AgencyId == 20005)"
                           tooltip-klass="agency-inna"
                           position="right"
                           content-html="Комнат <b>{{room.RoomCount}}</b>. Цена <b>{{room.PackagePriceService}}</b> р"
