@@ -6,6 +6,8 @@ angular.module('innaApp.directives')
             template: $templateCache.get('components/bundle/templ/bundle-big.html'),
             scope: {
                 bundle: '=innaDynamicBundleBundle',
+                isVisible: '=',
+                isClosed: '=',
                 toggleTab: '=toggleTab',
                 stateTicket: "=stateTicket",
                 stateHotel: "=stateHotel",

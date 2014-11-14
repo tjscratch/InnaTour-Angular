@@ -11,6 +11,29 @@
 
 				<h3 class="recommend-bundle-title" ng-if="isVisible && isChooseHotel">
 					Выбранный вариант
+
+					<div ng-if="!isClosed"
+					     tooltip-directive-base
+					     tooltip-klass="nocorner"
+					     close="true"
+					     position="right_right"
+					     is-visible="isVisible"
+					     width="300"
+					     templ="popover.hbs.html" class="b-display-inline">
+
+						<div class="b-tooltip__header">
+							<h3>Перелет был изменен</h3>
+						</div>
+
+						<div class="b-tooltip__body">
+				            <span class="b-tooltip__body__text">
+				                К сожалению, выбранный вариант перелета уже
+				            недоступен, в пакет будет включен рекомендован-
+				            ный перелет.
+				            </span>
+						</div>
+
+					</div>
 				</h3>
 
 				<h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
@@ -25,6 +48,8 @@
 
 				<div ng-show="isVisible" inna-dynamic-bundle
 				     inna-dynamic-bundle-bundle="combination"
+				     is-closed="isClosed"
+				     is-visible="isVisible"
 				     toggle-tab="toggleTab"
 				     state-ticket="stateTicket"
 				     state-hotel="stateHotel"
@@ -40,7 +65,7 @@
 	<!-- панель фильтрации отелей -->
 	<ng:any filter-panel-hotel
 	        filters-settings="filtersSettingsHotels"
-            as-map="asMap"
+	        as-map="asMap"
 	        type-panel="hotels"
 	        active-panel="activePanel"
 	        ng-show="filtersSettingsHotels"></ng:any>

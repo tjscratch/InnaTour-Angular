@@ -20,6 +20,7 @@ angular.module('innaApp.directives')
 
                         $scope.isChooseHotel = null;
                         $scope.isVisible = true;
+                        $scope.isClosed = false;
                         $scope.displayHotel = false;
                         $scope.displayTicket = false;
                         var scroll = false;
@@ -206,6 +207,7 @@ angular.module('innaApp.directives')
                         function closeBundle(){
                             $scope.safeApply(function () {
                                 $scope.isVisible = false;
+                                $scope.isClosed = true;
                             });
                         }
 
