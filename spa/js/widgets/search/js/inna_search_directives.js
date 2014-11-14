@@ -124,22 +124,23 @@
                     params.push($scope.endDate)
                     params.push(0)
                     params.push($scope.adultCount)
+                    params[6] = ''
 
-                    if ($scope.childrensAge && $scope.childrensAge.length > 0) {
-                        $scope.childrens = [];
+                    $scope.fromToEqual = false;
+                    $scope.$watch('toId', function(data){
+                        $scope.fromToEqual = $scope.fromId == data;
+                    })
+                    
+                    if ($scope.childrensAge) {
+                        var childs = [];
                         for (var i = 0; i < $scope.childrensAge.length; i++) {
-                            $scope.childrens.push(data[i].value)
+                            childs.push($scope.childrensAge[i].value)
                         }
-                        params.push($scope.childrens.join('_'))
-                    } else {
-                        params.push('')
+                        params[6] = childs.join('_')
                     }
-
-                    if ($scope.toId && $scope.fromId) {
-                        $scope.fromToEqual = $scope.fromId == $scope.toId;
-                    }
-
-                    if ($scope.fromToEqual && innaSearchForm.$valid == true) {
+                    
+                    console.log($scope.fromToEqual)
+                    if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
                         console.log(params.join('-'))
                         //window.open("https://inna.ru/#/packages/search/6733-6623-01.12.2014-07.12.2014-0-2", '_blank')
                         window.open("https://inna.ru/#/packages/search/" + params.join('-'), '_blank')
