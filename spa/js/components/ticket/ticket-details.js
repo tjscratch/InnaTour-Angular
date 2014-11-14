@@ -14,16 +14,13 @@ angular.module('innaApp.directives')
                 '$timeout',
                 'urlHelper',
                 'innaApp.API.events',
-
-                'ShareLink',
-                function (EventManager, $scope, $element, $routeParams, $location, aviaHelper, $timeout, urlHelper, Events, ShareLink) {
+                function (EventManager, $scope, $element, $routeParams, $location, aviaHelper, $timeout, urlHelper, Events) {
 
                     $('body').append($element);
 
                     $scope.ticket = null;
                     $scope.link = '';
-
-                    var shareLink = null;
+                    $scope.location = window.location.href;
 
                     $scope.closePopup = function () {
                         utils.scrollFix(true)
@@ -91,17 +88,7 @@ angular.module('innaApp.directives')
                     }
 
                     $scope.$watch('popupItemInfo.isShow', function (value) {
-                        if(value) {
-                            setTimeout(function(){
-                                shareLink = new ShareLink({
-                                    el: $element.find('.js-share-component'),
-                                    data: {
-                                        right: true,
-                                        location: document.location.href
-                                    }
-                                })
-                            }, 300)
-                        }
+                        if(value) $scope.location = window.location.href;
                     })
 
 

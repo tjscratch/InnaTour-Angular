@@ -77,14 +77,7 @@ angular.module('innaApp.directives')
                         return (opt_param) ? urlDetails + '?action=buy' : urlDetails;
                     }
 
-
-                    // ShareLink
-                    var _shareLink = new ShareLink({
-                        el: $element.find('.js-share-component'),
-                        data: {
-                            location: angular.copy(document.location.href)
-                        }
-                    });
+                    $scope.location = angular.copy(document.location.href);
 
                     // Tripadvisor
                     var _tripadvisor = new Tripadvisor({
@@ -158,25 +151,24 @@ angular.module('innaApp.directives')
                         });
                         _stars.set('stars', $scope.bundle.hotel.data.Stars);
 
+
                         $timeout(function () {
-                            _shareLink.set('location', window.location);
+                            $scope.location = window.location.href
                         }, 0)
                     });
 
                     $scope.$watchCollection('stateTicket', function (value) {
                         $timeout(function () {
-                            _shareLink.set('location', window.location);
+                            $scope.location = window.location.href
                         }, 0)
                     });
 
                     //destroy
                     $scope.$on('$destroy', function () {
-                        if (_shareLink) _shareLink.teardown();
                         if (_tripadvisor) _tripadvisor.teardown();
                         if (_stars) _stars.teardown();
                         if (_priceGeneric) _priceGeneric.teardown();
                         _stars = null;
-                        _shareLink = null;
                         _tripadvisor = null;
                         _priceGeneric = null;
                     })

@@ -1,0 +1,13 @@
+<div class="b-tooltip b-tooltip_base b-tooltip_{{tooltipKlass}}">
+	        <span class="icon-price-info cursor-pointer
+	                {{(!iconWhite) ? 'icon-sprite-price-info' : 'icon-sprite-price-info-white'}}"
+	              on-click='toggleShow'></span>
+
+	<div class="tooltip tooltip_{{position}}
+		{{isVisible ? 'tooltip_show' : 'tooltip_hide' }}"
+	     style="{{stylePosition}}">
+
+		{{{contentHTML}}}
+	</div>
+</div>
+
