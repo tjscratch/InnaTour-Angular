@@ -1,4 +1,4 @@
-innaAppServices.factory('modelRecommendedPair', [
+innaAppServices.factory('ModelRecommendedPair', [
     '$timeout',
     function ($timeout) {
         /**

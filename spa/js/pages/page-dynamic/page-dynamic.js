@@ -12,7 +12,7 @@ innaAppControllers
         '$location',
         'innaApp.Urls',
         'aviaHelper',
-        'modelRecommendedPair',
+
 
         // components
 
@@ -21,7 +21,14 @@ innaAppControllers
         'ListPanel',
         /*'FilterPanel',*/
         '$filter',
-        function (RavenWrapper, EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, modelRecommendedPair, $templateCache, Balloon, ListPanel, /*FilterPanel,*/ $filter) {
+
+        'ModelRecommendedPair',
+        'ModelHotelsCollection',
+        'ModelTicketsCollection',
+        'ModelTicket',
+        'ModelHotel',
+        function (RavenWrapper, EventManager, $scope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, $filter,
+                  ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
             Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"})
 
@@ -49,9 +56,9 @@ innaAppControllers
 
             /*Properties*/
             var ListPanelComponent = null;
-            $scope.hotels = new inna.Models.Hotels.HotelsCollection();
-            $scope.tickets = new inna.Models.Avia.TicketCollection();
-            $scope.recommendedPair = new modelRecommendedPair();
+            $scope.hotels = new ModelHotelsCollection();
+            $scope.tickets = new ModelTicketsCollection();
+            $scope.recommendedPair = new ModelRecommendedPair();
             $scope.airports = null;
             $scope.showLanding = true;
             $scope.passengerCount = 0;
@@ -389,7 +396,7 @@ innaAppControllers
 
                                         for (var i = 0, raw = null; raw = data.Hotels[i++];) {
                                             if (!raw.HotelName) continue;
-                                            var hotel = new inna.Models.Hotels.Hotel(raw);
+                                            var hotel = new ModelHotel(raw);
                                             hotel.hidden = false;
                                             hotel.data.hidden = false;
                                             hotel.currentlyInvisible = false;
@@ -453,7 +460,7 @@ innaAppControllers
                                     $scope.safeApply(function () {
                                         $scope.tickets.flush();
                                         for (var i = 0, raw = null; raw = data.AviaInfos[i++];) {
-                                            var ticket = new inna.Models.Avia.Ticket();
+                                            var ticket = new ModelTicket();
                                             ticket.setData(raw);
                                             $scope.tickets.push(ticket);
                                         }
@@ -497,8 +504,8 @@ innaAppControllers
                         $location.search('hotel', RecommendedPair.Hotel.HotelId);
                         $location.search('ticket', RecommendedPair.AviaInfo.VariantId1);
 
-                        $scope.recommendedPair.setTicket(new inna.Models.Avia.Ticket(RecommendedPair.AviaInfo));
-                        $scope.recommendedPair.setHotel(new inna.Models.Hotels.Hotel(RecommendedPair.Hotel));
+                        $scope.recommendedPair.setTicket(new ModelTicket(RecommendedPair.AviaInfo));
+                        $scope.recommendedPair.setHotel(new ModelHotel(RecommendedPair.Hotel));
                         $scope.showLanding = false;
                     });
 

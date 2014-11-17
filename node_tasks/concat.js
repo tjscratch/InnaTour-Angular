@@ -98,7 +98,7 @@ gulp.task('build-directives', function () {
 
 gulp.task('build-models', function () {
     return gulp.src([
-            conf.src + '/models/app.model.js',
+            conf.src + '/models/model.js',
             conf.src + '/models/**/*.js'
     ])
         .pipe(concat('angular-models.js', {insertSourceName: {open: '/*', close: '*/'}}))

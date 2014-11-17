@@ -20,7 +20,14 @@ innaAppControllers
         'Stars',
         'Balloon',
         '$filter',
-        function (RavenWrapper, EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter) {
+
+        'ModelRecommendedPair',
+        'ModelHotelsCollection',
+        'ModelTicketsCollection',
+        'ModelTicket',
+        'ModelHotel',
+        function (RavenWrapper, EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter,
+                  ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
             DynamicFormSubmitListener.listen();
 
@@ -105,12 +112,12 @@ innaAppControllers
                     success: function (resp) {
                         _balloonLoad.fire('hide');
 
-                        $scope.recommendedPair = new inna.Models.Dynamic.Combination();
-                        $scope.recommendedPair.ticket = new inna.Models.Avia.Ticket();
+                        $scope.recommendedPair = new ModelRecommendedPair();
+                        $scope.recommendedPair.ticket = new ModelTicket();
                         $scope.recommendedPair.ticket.setData(resp.AviaInfo);
 
                         if (resp.Hotel) {
-                            var hotel = new inna.Models.Hotels.Hotel(resp.Hotel);
+                            var hotel = new ModelHotel(resp.Hotel);
                             $scope.recommendedPair.setHotel(hotel);
                             $scope.hotel = resp.Hotel;
                             $scope.hotelRooms = [$scope.hotel.Room];
@@ -122,7 +129,6 @@ innaAppControllers
                             loadMap();
                             onload();
                         }
-
 
                         if (('displayTicket' in $location.search())) {
                            $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.recommendedPair.ticket, {noClose: true, noChoose: true})
@@ -190,15 +196,15 @@ innaAppControllers
 
                         parseAmenities(data.Hotel);
 
-                        var hotel = new inna.Models.Hotels.Hotel(data.Hotel);
-                        var ticket = new inna.Models.Avia.Ticket();
+                        var hotel = new ModelHotel(data.Hotel);
+                        var ticket = new ModelTicket();
                         ticket.setData(data.AviaInfo);
 
                         $location.search('displayHotel', hotel.data.HotelId);
 
                         $scope.hotel = data.Hotel;
                         $scope.hotelRooms = data.Rooms;
-                        $scope.recommendedPair = new inna.Models.Dynamic.Combination();
+                        $scope.recommendedPair = new ModelRecommendedPair();
                         $scope.recommendedPair.setTicket(ticket);
                         $scope.recommendedPair.setHotel(hotel);
                         $scope.$digest();
