@@ -6,7 +6,6 @@ innaAppConponents.
         function (Events, $templateCache, aviaHelper) {
             var NeedVisa = Ractive.extend({
                 template: $templateCache.get('components/need-visa/templ/index.html'),
-                debug: true,
                 append: true,
                 data: {
                     visaControl: new aviaHelper.visaControl()

@@ -127,7 +127,11 @@
     </div>
 
     <div class="b-result__cell result-buy">
-        <div class="js-share-component"></div>
+
+
+        <div share-link-directive
+             location="{{location}}"
+             position="left"></div>
 
         <p class="corner-price" ng-if="bundle.getProfit() > 1000">
             <span class="cross">{{bundle.getFullPrice() | price}} <span class="b-rub">q</span></span>
@@ -158,8 +162,3 @@
         </a>
     </div>
 </div>
-
-
-
-<!-- Попап - подробнее о авиа-билете -->
-<div ticket-details></div>

@@ -7,7 +7,9 @@
              fn-hide="popupItemInfo.hide()">
 
             <ng:any ng-repeat="item in [popupItemInfo.item] track by $index">
-                <div title="Закрыть" class="balloon-close" ng-click="popupItemInfo.hide()"></div>
+                <div title="Закрыть" class="balloon-close" ng-click="popupItemInfo.hide()">
+	                <i class="icon-sprite-remove-big"></i>
+                </div>
 
                 <h3 class="b-tickets__title">Подробная информация по перелету</h3>
                 <ng:include ng-if="item.EtapsBack.length > 0" src="'avia/popup_item_info_two_ways.html'"></ng:include>
@@ -19,7 +21,9 @@
                     <!-- tooltip-widget -->
                     <ul class="b-tickets__icons">
                         <li>
-                            <div class="tooltip-widget js-share-component"></div>
+                            <div share-link-directive
+                                 location="{{location}}"
+                                 position="right" class="tooltip-widget"></div>
                         </li>
                     </ul>
 

@@ -43,7 +43,6 @@ innaAppControllers
                 searchParams.ChildrenAges = routParam.Children.split('_');
             }
 
-            var cacheKey = '';
             $scope.hotelsRaw = null;
             $scope.hotelsForMap = null;
             $scope.padding = true;
@@ -79,7 +78,6 @@ innaAppControllers
 
 
             var Page = Ractive.extend({
-                debug: true,
                 append: true,
                 el: document.querySelector('.results-container_list'), //results-body
                 template: $templateCache.get('pages/page-dynamic/templ/page-dynamic.hbs.html'),
@@ -489,7 +487,6 @@ innaAppControllers
                     this.trackAnalyst();
 
                     $scope.airports = data.Airports || [];
-                    cacheKey = data.SearchId;
 
                     $scope.safeApply(function () {
                         //кнопка нового поиска для WL
@@ -607,7 +604,8 @@ innaAppControllers
                  * @param ticket
                  */
                 getTicketDetails: function (ticket) {
-                    EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, null, ticket);
+                    //EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, null, ticket);
+                    $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket)
                 },
 
                 loadTicketDetails: function (ids) {
@@ -616,7 +614,6 @@ innaAppControllers
                     if (!ids) return;
 
                     try {
-                        //dfdf;
                         var ticketIds = ids.split('_');
                         var ticket = $scope.tickets.search(ticketIds[0], ticketIds[1]);
                         if (ticket) {

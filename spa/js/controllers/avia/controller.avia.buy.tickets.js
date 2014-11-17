@@ -445,12 +445,13 @@ innaAppControllers.
                         index++;
                         self.navCurrent = self.navList[index];
                         if (self.navCurrent != null) {
-
-                            // TODO : тут ошибка в angular 1.3.0
-                            self.navCurrent.item.select();
-                            self.navCurrent.item.focus();
+                            setTimeout(function () {
+                                self.navCurrent.item.select();
+                                self.navCurrent.item.focus();
+                            }, 0);
                         }
                     }
+                    //console.log('goNext, end');
                 }
             }
 
@@ -953,7 +954,7 @@ innaAppControllers.
                 check();
 
                 var intCheck = $interval(function () {
-                    check($scope);
+                    check();
                 }, 5000);
 
                 function writeAnalyticsError(code) {
@@ -968,7 +969,7 @@ innaAppControllers.
                     }
                 }
 
-                function check($scope) {
+                function check() {
                     if (!$scope.isCkeckProcessing) {
                         $scope.isCkeckProcessing = true;
 
@@ -1000,19 +1001,14 @@ innaAppControllers.
                                             if (data.Result == 1) {
                                                 var pageType = getActionType();
 
-                                                if (!$scope.hotel) {
-                                                    //аналитика - авиа - заказ выполнен
-                                                    if (pageType == actionTypeEnum.avia) {
-                                                        track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
-                                                        track.aviaPayBtnSubmit();
-                                                    }
+                                                //аналитика - авиа - заказ выполнен
+                                                if (pageType == actionTypeEnum.avia) {
+                                                    track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
+                                                    track.aviaPayBtnSubmit();
                                                 }
-                                                else if ($scope.hotel != null) {
-                                                    //аналитика - ДП - заказ выполнен
-                                                    if (pageType == actionTypeEnum.dp) {
-                                                        track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
-                                                        track.dpPayBtnSubmit();
-                                                    }
+                                                else if (pageType == actionTypeEnum.dp) {//аналитика - ДП - заказ выполнен
+                                                    track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
+                                                    track.dpPayBtnSubmit();
                                                 }
 
                                                 //если агентство - отправляем обратно в b2b интерфейс

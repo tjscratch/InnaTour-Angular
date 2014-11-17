@@ -1,7 +1,9 @@
 ﻿<div class="popup-fade" ng-show="isOpened"></div>
 <div class="popup-container" ng-show="isOpened">
     <div class="popup">
-        <div class="popup-close-button" ng-click="popupForm_Close()"></div>
+        <div class="balloon-close" ng-click="popupForm_Close()" title="Закрыть">
+            <i class="icon-sprite-remove-big"></i>
+        </div>
         <form class="offer-order-form">
             <legend class="form-header">Оставьте вашу заявку</legend>
             <div class="field-row">

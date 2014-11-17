@@ -4,6 +4,22 @@
   width 32px
 }
 
+
+.tooltip_right {
+  &:before {
+    top: -10px;
+    right: auto;
+    left: 12px;
+  }
+
+  &:after {
+    top: -12px;
+    left: 4px;
+    right: auto;
+  }
+
+}
+
 .b-tooltip-share {
 
   &__button {
@@ -25,14 +41,24 @@
       margin : -8px 0 0 -8px;
     }
 
-    //background url(/spa/img/ticket/clip.png)
-
     &:hover {
       background: #e6e7e9;
     }
 
     &.active {
       background: #89c13a;
+    }
+  }
+
+  &__button-default {
+    right: 4px;
+    top: 0px;
+
+    &:hover {
+      background : none;
+    }
+    &.active {
+      background: none;
     }
   }
 
@@ -46,23 +72,7 @@
   }
 
   .tooltip_right {
-    right: -230px;
-    bottom: -45px;
-    width: 230px;
     left: auto;
-
-    &:before {
-      top: -10px;
-      right: auto;
-      left: 12px;
-    }
-
-    &:after {
-      top: -12px;
-      left: 4px;
-      right: auto;
-    }
-
   }
 
   .share-link-input {
