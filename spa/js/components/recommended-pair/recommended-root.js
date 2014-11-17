@@ -2,7 +2,7 @@
 
 // old name dynamicBundleRoot
 angular.module('innaApp.directives')
-    .directive('recommendedPair', [
+    .directive('recommendedPairComponent', [
         '$templateCache',
         'DynamicPackagesDataProvider',
         '$routeParams',

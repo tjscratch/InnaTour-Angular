@@ -2,13 +2,13 @@
 
 //innaDynamicBundle
 angular.module('innaApp.directives')
-    .directive('recommendedPairBig', [
+    .directive('recommendedPairComponentBig', [
         '$templateCache',
         function ($templateCache) {
             return {
                 template: $templateCache.get('components/recommended-pair/templ/recommended-big.html'),
                 scope: {
-                    combinationModel: '=combinationModel',
+                    recommendedPair: '=recommendedPair',
                     toggleTab: '=toggleTab',
                     stateTicket: "=stateTicket",
                     stateHotel: "=stateHotel",
@@ -29,11 +29,10 @@ angular.module('innaApp.directives')
                     '$routeParams',
 
                     // components
-                    'ShareLink',
                     'Tripadvisor',
                     'Stars',
                     'PriceGeneric',
-                    function (EventManager, $scope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams, ShareLink, Tripadvisor, Stars, PriceGeneric) {
+                    function (EventManager, $scope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams, Tripadvisor, Stars, PriceGeneric) {
 
                         //console.profile('Draw');
 
@@ -54,10 +53,10 @@ angular.module('innaApp.directives')
                             var TicketClass = searchParams.TicketClass;
                             var Adult = searchParams.Adult || 0;
                             var Children = searchParams.Children || '';
-                            var hotelID = $scope.combinationModel.hotel.data.HotelId;
-                            var ticketId = $scope.combinationModel.ticket.data.VariantId1;
-                            var ticketBackId = $scope.combinationModel.ticket.data.VariantId2;
-                            var providerId = $scope.combinationModel.hotel.data.ProviderId;
+                            var hotelID = $scope.recommendedPair.hotel.data.HotelId;
+                            var ticketId = $scope.recommendedPair.ticket.data.VariantId1;
+                            var ticketBackId = $scope.recommendedPair.ticket.data.VariantId2;
+                            var providerId = $scope.recommendedPair.hotel.data.ProviderId;
 
                             var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
                                     DepartureId,
@@ -86,9 +85,9 @@ angular.module('innaApp.directives')
                         var _tripadvisor = new Tripadvisor({
                             el: $element.find('.js-tripadvisor-container'),
                             data: {
-                                TaCommentCount: $scope.combinationModel.hotel.data.TaCommentCount,
-                                TaFactor: $scope.combinationModel.hotel.data.TaFactor,
-                                TaFactorCeiled: $scope.combinationModel.hotel.data.TaFactorCeiled
+                                TaCommentCount: $scope.recommendedPair.hotel.data.TaCommentCount,
+                                TaFactor: $scope.recommendedPair.hotel.data.TaFactor,
+                                TaFactorCeiled: $scope.recommendedPair.hotel.data.TaFactorCeiled
                             }
                         })
 
@@ -96,7 +95,7 @@ angular.module('innaApp.directives')
                         var _stars = new Stars({
                             el: $element.find('.js-stars-container'),
                             data: {
-                                stars: $scope.combinationModel.hotel.data.Stars
+                                stars: $scope.recommendedPair.hotel.data.Stars
                             }
                         });
 
@@ -105,7 +104,7 @@ angular.module('innaApp.directives')
                             el: $element.find('.js-price-generic-container'),
                             data: {
                                 template: "index.hbs.html",
-                                virtualBundle: $scope.combinationModel,
+                                virtualBundle: $scope.recommendedPair,
                                 tooltipKlass: 'bundle',
                                 type: $scope.tabActive
                             }
@@ -137,10 +136,10 @@ angular.module('innaApp.directives')
                         };
 
                         // update components
-                        $scope.$watchCollection('combinationModel', function (value) {
+                        $scope.$watchCollection('recommendedPair', function (value) {
 
                             //  обновляем transportersList
-                            $scope.transportersList = $scope.combinationModel.ticket.collectAirlines().airlines;
+                            $scope.transportersList = $scope.recommendedPair.ticket.collectAirlines().airlines;
 
                             _priceGeneric.set({
                                 'virtualBundle': value,
@@ -148,11 +147,11 @@ angular.module('innaApp.directives')
                             });
 
                             _tripadvisor.set({
-                                TaCommentCount: $scope.combinationModel.hotel.data.TaCommentCount,
-                                TaFactor: $scope.combinationModel.hotel.data.TaFactor,
-                                TaFactorCeiled: $scope.combinationModel.hotel.data.TaFactorCeiled
+                                TaCommentCount: $scope.recommendedPair.hotel.data.TaCommentCount,
+                                TaFactor: $scope.recommendedPair.hotel.data.TaFactor,
+                                TaFactorCeiled: $scope.recommendedPair.hotel.data.TaFactorCeiled
                             });
-                            _stars.set('stars', $scope.combinationModel.hotel.data.Stars);
+                            _stars.set('stars', $scope.recommendedPair.hotel.data.Stars);
 
 
                             $timeout(function () {

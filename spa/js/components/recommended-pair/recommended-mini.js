@@ -2,7 +2,7 @@
 
 //innaDynamicBundleMini
 angular.module('innaApp.directives')
-    .directive('recommendedPairMini', [
+    .directive('recommendedPairComponentMini', [
         '$templateCache',
         function ($templateCache) {
             return {
@@ -26,7 +26,7 @@ angular.module('innaApp.directives')
                         var _stars = new Stars({
                             el: $element.find('.js-stars-container'),
                             data: {
-                                stars: $scope.combination.hotel.data.Stars
+                                stars: $scope.recommendedPair.hotel.data.Stars
                             }
                         })
 
@@ -34,7 +34,7 @@ angular.module('innaApp.directives')
                             el: $element.find('.js-price-generic-container'),
                             data: {
                                 template: "index.hbs.html",
-                                virtualBundle: $scope.combination,
+                                virtualBundle: $scope.recommendedPair,
                                 tooltipKlass: 'bundle',
                                 iconWhite: true,
                                 type: $scope.tabActive
