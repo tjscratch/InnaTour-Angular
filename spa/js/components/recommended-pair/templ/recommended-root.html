@@ -23,8 +23,9 @@
 					</a>
 				</div>
 
-				<div ng-show="isVisible" inna-dynamic-bundle
-				     inna-dynamic-bundle-bundle="combination"
+				<div recommended-pair-big
+				     ng-show="isVisible"
+				     combination-model="recommendedPair"
 				     toggle-tab="toggleTab"
 				     state-ticket="stateTicket"
 				     state-hotel="stateHotel"
@@ -32,7 +33,9 @@
 				     as-map="asMap"
 				     inna-dynamic-bundle-with-reservation-button="true"></div>
 
-				<div inna-dynamic-bundle-mini ng-if="!isVisible"></div>
+				<div recommended-pair-mini ng-if="!isVisible"></div>
+
+
 			</div>
 		</div>
 	</div>

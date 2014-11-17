@@ -51,7 +51,7 @@ innaAppControllers
             var ListPanelComponent = null;
             $scope.hotels = new inna.Models.Hotels.HotelsCollection();
             $scope.tickets = new inna.Models.Avia.TicketCollection();
-            $scope.combination = new modelRecommendedPair();
+            $scope.recommendedPair = new modelRecommendedPair();
             $scope.airports = null;
             $scope.showLanding = true;
             $scope.passengerCount = 0;
@@ -140,14 +140,14 @@ innaAppControllers
 
                     EventManager.on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function (data) {
                         $scope.safeApply(function () {
-                            $scope.combination.setHotel(data);
+                            $scope.recommendedPair.setHotel(data);
                             $location.search('hotel', data.data.HotelId);
                         });
                     });
 
                     EventManager.on(Events.DYNAMIC_SERP_CHOOSE_TICKET, function (data) {
                         $scope.safeApply(function () {
-                            $scope.combination.setTicket(data);
+                            $scope.recommendedPair.setTicket(data);
                             $location.search('ticket', data.data.VariantId1);
                         });
                     });
@@ -232,13 +232,13 @@ innaAppControllers
                                     iterable_hotels: true,
                                     iterable_tickets: false,
                                     Enumerable: value.Hotels,
-                                    combinationModel: $scope.combination
+                                    combinationModel: $scope.recommendedPair
                                 });
 
 
                                 /* данный для настроек панели фильтров */
                                 $scope.filtersSettingsHotels = {
-                                    combinationModel: $scope.combination,
+                                    combinationModel: $scope.recommendedPair,
                                     filtersData: value.Filters,
                                     Collection: value.Hotels,
                                     filter_hotel: true,
@@ -255,7 +255,7 @@ innaAppControllers
                                         updateHotel: this.get('updateHotel'),
                                         iterable_hotels: true,
                                         Enumerable: value.Hotels,
-                                        combinationModel: $scope.combination
+                                        combinationModel: $scope.recommendedPair
                                     }
                                 });
 
@@ -282,7 +282,7 @@ innaAppControllers
                                 that.set({
                                     iterable_tickets: true,
                                     Enumerable: value.AviaInfos,
-                                    combinationModel: $scope.combination
+                                    combinationModel: $scope.recommendedPair
                                 })
 
 
@@ -292,14 +292,14 @@ innaAppControllers
                                         updateTicket: this.get('updateTicket'),
                                         iterable_tickets: true,
                                         Enumerable: value.AviaInfos,
-                                        combinationModel: $scope.combination
+                                        combinationModel: $scope.recommendedPair
                                     }
                                 });
 
 
                                 /* данный для настроек панели фильтров */
                                 $scope.filtersSettingsTicket = {
-                                    combinationModel: $scope.combination,
+                                    combinationModel: $scope.recommendedPair,
                                     Collection: value.AviaInfos,
                                     filtersData: value.Filters,
                                     filter_hotel: false,
@@ -335,8 +335,8 @@ innaAppControllers
 
 
                     var routeParams = angular.copy(searchParams);
-                    var HotelId = ($scope.combination.hotel) ? $scope.combination.hotel.data.HotelId : null;
-                    var TicketId = ($scope.combination.ticket) ? $scope.combination.ticket.data.VariantId1 : null;
+                    var HotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.HotelId : null;
+                    var TicketId = ($scope.recommendedPair.ticket) ? $scope.recommendedPair.ticket.data.VariantId1 : null;
                     var params = {};
 
                     if (!HotelId) HotelId = routeParams.hotel;
@@ -495,8 +495,8 @@ innaAppControllers
                         $location.search('hotel', RecommendedPair.Hotel.HotelId);
                         $location.search('ticket', RecommendedPair.AviaInfo.VariantId1);
 
-                        $scope.combination.setTicket(new inna.Models.Avia.Ticket(RecommendedPair.AviaInfo));
-                        $scope.combination.setHotel(new inna.Models.Hotels.Hotel(RecommendedPair.Hotel));
+                        $scope.recommendedPair.setTicket(new inna.Models.Avia.Ticket(RecommendedPair.AviaInfo));
+                        $scope.recommendedPair.setHotel(new inna.Models.Hotels.Hotel(RecommendedPair.Hotel));
                         $scope.showLanding = false;
                     });
 

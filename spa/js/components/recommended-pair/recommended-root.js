@@ -1,14 +1,15 @@
 'use strict';
 
+// old name dynamicBundleRoot
 angular.module('innaApp.directives')
-    .directive('dynamicBundleRoot', [
+    .directive('recommendedPair', [
         '$templateCache',
         'DynamicPackagesDataProvider',
         '$routeParams',
         '$q',
         function ($templateCache, DynamicPackagesDataProvider, $routeParams, $q) {
             return {
-                template: $templateCache.get('components/bundle/templ/bundle-root.html'),
+                template: $templateCache.get('components/recommended-pair/templ/recommended-root.html'),
                 controller: [
                     'EventManager',
                     '$scope',
@@ -166,13 +167,13 @@ angular.module('innaApp.directives')
 
                                 // TODO : заменяем дату заезда  в отель
                                 // так как при выборе другого авиа билета может измениться дата прилета
-                                $scope.combination.hotel.data.CheckIn = $scope.combination.ticket.data.ArrivalDate;
+                                $scope.recommendedPair.hotel.data.CheckIn = $scope.recommendedPair.ticket.data.ArrivalDate;
 
 
                                 // пересчитываем количество ночей
-                                var start = moment($scope.combination.hotel.data.CheckIn);
-                                var end   = moment($scope.combination.hotel.data.CheckOut);
-                                $scope.combination.hotel.data.NightCount = Math.ceil(end.diff(start,  'days', true));
+                                var start = moment($scope.recommendedPair.hotel.data.CheckIn);
+                                var end   = moment($scope.recommendedPair.hotel.data.CheckOut);
+                                $scope.recommendedPair.hotel.data.NightCount = Math.ceil(end.diff(start,  'days', true));
 
                                 //console.info(Math.ceil(end.diff(start,  'days', true)));
 
