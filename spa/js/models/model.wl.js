@@ -2,7 +2,7 @@ inna.Models.WlNewSearch = function (data) {
     var self = this;
 
     self.btnClick = function () {
-        location.href = '/';
+        location.href = 'http://biletix.ru/packages/';
     }
 
     self.from = '';
