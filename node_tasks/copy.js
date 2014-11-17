@@ -20,15 +20,15 @@ gulp.task('copy-project', function () {
 
 
     gulp.src([
-            '!' + conf.dest + '/browser.html',
-            '!' + conf.dest + '/html/**',
-            '!' + conf.dest + '/html2/**',
-            conf.dest + '/**'])
+        '!' + conf.dest + '/browser.html',
+        '!' + conf.dest + '/html/**',
+        '!' + conf.dest + '/html2/**',
+        conf.dest + '/**'])
         .pipe(gulp.dest(conf.publish + '/spa'));
 
     //gulp.src([conf.publish + '/browser.html']).pipe(gulp.dest(conf.publish + '/spa'));
 
     gulp.src('./tours/web.config').pipe(gulp.dest(conf.publish + '/tours'));
-    gulp.src(conf.build + '/widgets/**').pipe(gulp.dest(conf.publish+'/widgets'));
-    
+    gulp.src(conf.build + '/widgets/**').pipe(gulp.dest(conf.publish + '/spa/widgets'));
+
 });
