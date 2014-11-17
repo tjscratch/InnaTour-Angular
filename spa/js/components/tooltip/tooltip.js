@@ -204,7 +204,8 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
                 templ: '@',
                 isVisible: '=',
                 width: '@',
-                close: '@'
+                close: '@',
+                el: '@'
             },
             link: function ($scope, $element, $attr) {
 
@@ -216,7 +217,7 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
 
 
                 var _tooltipBase = new TooltipBase({
-                    el: document.body,
+                    el: ($scope.el) ? $element[0] : document.body,
                     data: {
                         tooltipKlass: $scope.tooltipKlass,
                         contentHTML: html,
