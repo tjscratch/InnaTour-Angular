@@ -103,9 +103,9 @@ gulp.task('styl-adv', function () {
 
 /* search-form widget */
 gulp.task('styl-widget-search', function () {
-    return gulp.src([conf.src + '/widgets/search/css/style.styl'])
+    return gulp.src([conf.src + '/widgets/search/css/inna-search-widget.styl'])
         .pipe(stylus(optStylBase))
-        .pipe(gulp.dest(conf.src + '/widgets/search/css'))
+        .pipe(gulp.dest(conf.build + '/widgets'))
         .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 
