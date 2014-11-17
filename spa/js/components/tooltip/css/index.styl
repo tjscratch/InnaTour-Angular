@@ -4,7 +4,7 @@
   background: #fff;
   padding: 13px 30px 13px 13px;
   position: absolute;
-  z-index: 2;
+  z-index: 400;
   right -4px
   top 30px
   min-width: 170px;
@@ -77,11 +77,121 @@
       }
     }
 
-
-
     .tooltip_right {
       left: -13px;
     }
+  }
+
+    
+  &_popover {
+    position: absolute;
+    z-index 400;
+  }
+
+  &_nocorner {
+
+    position: fixed;
+
+    .tooltip {
+      box-shadow : 0 0 8px rgba(0,0,0, 0.5);
+      border-radius :0;
+      border:1px solid #bdbdbd;
+      background-color : #fff8eb;
+
+      padding : 10px 27px 8px 10px;
+
+      &:before {
+        border-color transparent transparent #fff8eb transparent
+      }
+    }
+  }
+
+  &__header {
+    font-size: 18px;
+    margin-bottom : 5px;
+
+  }
+
+  &__body {
+    &__text {
+      color:#666666;
+      font-size: 12px;
+    }
+  }
+}
+
+
+// позиция tooltip
+.tooltip {
+
+  &_top_right {
+    transform: translate(100%, -130%)
+
+    &:after,
+    &:before {
+      transform: rotate(180deg);
+      top: auto;
+      right: auto;
+    }
+
+    &:before {
+      bottom: -10px;
+      left: 12px;
+    }
+
+    &:after {
+      bottom: -12px;
+      left: 4px;
+    }
+  }
+
+  &_top_left {
+    transform: translate(0, -100%)
+  }
+
+  &_top {
+    transform: translateY(-100%)
+  }
+
+  &_bottom {
+    transform: translateY(100%)
+  }
+
+  &_right {
+    transform: translateX(80%)
+
+    &:before {
+      right: auto;
+      left: 12px;
+    }
+
+    &:after {
+      right: auto;
+      left: 4px;
+    }
+  }
+
+  &_right_right {
+    transform: translate(105%, -72%);
+
+    &:after,
+    &:before {
+      transform: rotate(-90deg);
+      right: auto;
+      top:50%;
+    }
+
+    &:before {
+      left: -15px;
+    }
+
+    &:after {
+      left: -27px;
+    }
+  }
+
+  &_left {
+    transform: translateX(0)
   }
 }
 

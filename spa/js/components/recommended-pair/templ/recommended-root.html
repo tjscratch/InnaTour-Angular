@@ -11,6 +11,29 @@
 
 				<h3 class="recommend-bundle-title" ng-if="isVisible && isChooseHotel">
 					Выбранный вариант
+
+					<div ng-if="!isClosed && recommendedPairStatus == 6"
+					     tooltip-directive-base
+					     tooltip-klass="nocorner"
+					     close="true"
+					     position="right_right"
+					     is-visible="isVisible"
+					     width="300"
+					     templ="popover.hbs.html" class="b-display-inline">
+
+						<div class="b-tooltip__header">
+							<h3>Пакет был изменен</h3>
+						</div>
+
+						<div class="b-tooltip__body">
+				            <span class="b-tooltip__body__text">
+				              К сожалению, выбранный пакет Перелет+Отель
+					            уже недоступен, будет предложен рекомендован-
+								ный вариант.
+				            </span>
+						</div>
+
+					</div>
 				</h3>
 
 				<h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
@@ -26,6 +49,9 @@
 				<div recommended-pair-component-big
 				     ng-show="isVisible"
 				     recommended-pair="recommendedPair"
+				     recommended-pair-status="recommendedPairStatus"
+				     is-closed="isClosed"
+				     is-visible="isVisible"
 				     toggle-tab="toggleTab"
 				     state-ticket="stateTicket"
 				     state-hotel="stateHotel"

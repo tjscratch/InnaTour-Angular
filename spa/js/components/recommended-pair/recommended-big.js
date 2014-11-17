@@ -9,6 +9,9 @@ angular.module('innaApp.directives')
                 template: $templateCache.get('components/recommended-pair/templ/recommended-big.html'),
                 scope: {
                     recommendedPair: '=recommendedPair',
+                    recommendedPairStatus: '=',
+                    isVisible: '=',
+                    isClosed: '=',
                     toggleTab: '=toggleTab',
                     stateTicket: "=stateTicket",
                     stateHotel: "=stateHotel",

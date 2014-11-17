@@ -77,7 +77,7 @@ innaAppServices.factory('modelRecommendedPair', [
         Combination.prototype.getProfit = function(){
             var profit = (this.getFullPrice() - this.getFullPackagePrice());
             //console.info(profit);
-            console.info(this.ticket.data.VariantId1);
+            //console.info(this.ticket.data.VariantId1);
             return profit;
         }
 
