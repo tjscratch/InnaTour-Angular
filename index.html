@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=980">
     <title ng-bind="title">Инна-Тур - Главная</title>
 
+    <base href="/" />
+
     <!--[if lt IE 9]>
     <script>
         document.createElement('ng-include');
@@ -230,7 +232,7 @@
          title="Отправить заявку"></div>
 
     <!-- PAGE CONTENT -->
-    <div class="wrpr" 
+    <div class="wrpr"
          ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/')}"
          ng-style="isFooterHiddenWrprStyle"
 		    >
@@ -326,31 +328,25 @@
     }
 </script>
 
-<script src="//cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js"></script>
+<script src="//cdn.ravenjs.com/1.1.16/angular,jquery,native/raven.min.js"></script>
 <script>
-	Raven.config('http://50606b96e7d64a4bb5283323ce4bde74@sentry.test.test/2', {
-		whitelistUrls: [/\.inna\.ru/],
-		logger: 'javascript'
-		/*, dataCallback: function(data) {
-			console.info(data, "raven data");
-			return data;
-		}*/
-	}).install();
+    Raven.config('https://5423ebfb08194592901a70946621e5b4@sentry.inna.ru:9000/2', {
+        whitelistUrls: [/\.inna\.ru/],
+        logger: 'javascript'
+        /*, dataCallback: function(data) {
+         console.info(data, "raven data");
+         return data;
+         }*/
+    }).install();
 </script>
 
-
 <script src="https://yandex.st/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-route.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-sanitize.min.js"></script>
-
-<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.min.js"></script>-->
-
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-sanitize.min.js"></script>
 
 <script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=false"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=true"></script>
 <script type="text/javascript"
         src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 

@@ -10,6 +10,17 @@
         if (yaGoal != null && window.yaCounter12702715 != null) {
             yaCounter12702715.reachGoal(yaGoal);
         }
+
+       /* if (Raven) {
+            var dataRaven = {
+                extra: {
+                    data: {
+                        goal: gaGoal
+                    }
+                }
+            };
+            Raven.captureMessage('ANALYTICS', dataRaven);
+        }*/
     },
     denyTrackSuccessResult: function (page, key) {
         localStorage.setItem(track.PREFIX + page + key, 1);
@@ -108,6 +119,9 @@
     dpSearch: function () {//Клик по кнопке искать формы поиска (форма поиска динамическая)
         track.writeAnalitics('/virtual/packages/search', 'packages_search');
     },
+    dpSearchInterrupted: function () {//Нажатие на ссылку "Прервать поиск" во время поиска
+        track.writeAnalitics('/virtual/packages/search_interrupted', 'packages_search_interrupted');
+    },
     successResultsDp: function () { //коды для фиксации успешной выдачи результатов поиска ДП
         track.writeAnalitics('/virtual/packages/search_success', 'packages_search_success');
     },
@@ -131,6 +145,26 @@
     },
     dpPayBtnSubmitContinueErr: function (err_code) {//Факт получения ответа от сервера о начале оплаты
         track.writeAnalitics('/virtual/packages/payment_continue_' + err_code, 'packages_payment_continue_' + err_code);
+    },
+    dpSuiteNotAvailableError: function () {//Ошибка номер недоступен
+        track.writeAnalitics('/virtual/packages/suite_not_avialable', 'packages_suite_not_avialable');
+    },
+    dpFlightNotAvailableError: function () {//Ошибка проверки доступности авиабилета
+        track.writeAnalitics('/virtual/packages/flight_not_avialable', 'packages_flight_not_avialable');
+    },
+    dpReservationError: function () {//Ошибка бронирования пакета
+        track.writeAnalitics('/virtual/packages/reservation_error', 'packages_reservation_error');
+    },
+    dpPaymentError: function (code) {//Ошибка оплаты
+        if (code) {
+            track.writeAnalitics('/virtual/packages/payment_error_' + code, 'packages_payment_error_' + code);
+        }
+        else {
+            track.writeAnalitics('/virtual/packages/payment_error', 'packages_payment_error');
+        }
+    },
+    dpIssueError: function () {//Ошибка выписки
+        track.writeAnalitics('/virtual/packages/issue_error', 'packages_issue_error');
     },
     dpPayBtnSubmit: function () {
         track.writeAnalitics('/virtual/packages/order_success', 'packages_order_success');
@@ -160,10 +194,28 @@
 
             ga('ecommerce:send');
         }
+
+       /* if (Raven) {
+            var dataRaven = {
+                extra: {
+                    data: {
+                        orderNum: orderNum,
+                        revenue: revenue,
+                        IATA1: IATA1,
+                        IATA2: IATA2,
+                        hotelName: hotelName
+                    }
+                }
+            };
+            Raven.captureMessage('ANALYTICS', dataRaven);
+        }*/
     },
     //Воронка "Авиабилеты"
     aviaSearch: function () { //Нажатие кнопки «Поиск» (Поиск авиабилетов) 
         track.writeAnalitics('/virtual/avia/search', 'avia_search');
+    },
+    aviaSearchInterrupted: function () {//Нажатие на ссылку "Прервать поиск" во время поиска
+        track.writeAnalitics('/virtual/avia/search_interrupted', 'avia_search_interrupted');
     },
     successResultsAvia: function () { //коды для фиксации успешной выдачи результатов поиска авиа
         track.writeAnalitics('/virtual/avia/search_success', 'avia_search_success');
@@ -185,6 +237,23 @@
     },
     aviaPayBtnSubmitContinueErr: function (err_code) { //Факт получения ответа от сервера о начале оплаты
         track.writeAnalitics('/virtual/avia/payment_continue_' + err_code, 'avia_payment_continue_' + err_code);
+    },
+    aviaIsAvailableError: function () {//Ошибка проверки доступности
+        track.writeAnalitics('/virtual/avia/flight_not_avialable', 'avia_flight_not_avialable');
+    },
+    aviaReservationError: function () {//Ошибка бронирования авиабилета
+        track.writeAnalitics('/virtual/avia/reservation_error', 'avia_reservation_error');
+    },
+    aviaPaymentError: function (code) {//Ошибка оплаты
+        if (code) {
+            track.writeAnalitics('/virtual/avia/payment_error_' + code, 'avia_payment_error_' + code);
+        }
+        else {
+            track.writeAnalitics('/virtual/avia/payment_error', 'avia_payment_error');
+        }
+    },
+    aviaIssueError: function () {//Ошибка выписки
+        track.writeAnalitics('/virtual/avia/issue_error', 'avia_issue_error');
     },
     aviaPayBtnSubmit: function () {
         track.writeAnalitics('/virtual/avia/order_success', 'avia_order_success');
@@ -214,6 +283,20 @@
 
             ga('ecommerce:send');
         }
+
+       /* if (Raven) {
+            var dataRaven = {
+                extra: {
+                    data: {
+                        orderNum: orderNum,
+                        revenue: revenue,
+                        IATA1: IATA1,
+                        IATA2: IATA2
+                    }
+                }
+            };
+            Raven.captureMessage('ANALYTICS', dataRaven);
+        }*/
     },
     //остальные
     toursSearch: function () { //поиск туров

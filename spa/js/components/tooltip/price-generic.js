@@ -39,7 +39,7 @@ angular.module('innaApp.components').
                     options.partials.element = templ;
                 },
 
-                beforeInit: function (options) {
+                onconstruct: function (options) {
                     if (options.partials) {
                         this.setTemplate(options)
                     }
@@ -59,7 +59,7 @@ angular.module('innaApp.components').
                     ruble: $templateCache.get('components/ruble.html')
                 },
 
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
 
                     this.isPriceObject = false;
@@ -69,11 +69,9 @@ angular.module('innaApp.components').
                     }
 
 
-                    this.observeVirtualBundle = this.observe('virtualBundle', function (value) {
-                        //console.log('value update', value);
+                    this.observe('virtualBundle', function (value) {
                         if (value && this.isPriceObject) {
                             this.set('PriceObjectCalculate', this.get('virtualBundle').getFullTotalPriceNew(this.get('type')));
-                            //this.set('PriceObjectCalculate', this.get('virtualBundle').getFullTotalPrice());
                         }
                     })
                 }

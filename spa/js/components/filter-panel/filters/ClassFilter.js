@@ -14,7 +14,7 @@ angular.module('innaApp.components').
                     hasSelected: false,
                     value: null
                 },
-                init: function () {
+                onrender: function () {
                     var that = this;
                     this.SaveData = [];
 
@@ -124,13 +124,16 @@ angular.module('innaApp.components').
                     }
                 },
 
+                spliceValItem : function(data, param_compare){
+                    var that = this;
+                    var val = this.get('value.val');
 
-                beforeInit: function (data) {
-                    //console.log('beforeInit');
-                },
-
-                complete: function (data) {
-                    //console.log('complete');
+                    if(val.length) {
+                        val.forEach(function (item, i) {
+                            if (data == item[param_compare])
+                                that.splice('value.val', i, 1);
+                        })
+                    }
                 }
             });
 

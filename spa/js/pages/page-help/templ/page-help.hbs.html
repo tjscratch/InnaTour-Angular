@@ -6,15 +6,15 @@
             <span class="contacts-phone">+7 495 742-1212</span> <a href="skype:inna.tour?call" class="contacts-skype">Inna tour</a>
         </p>
 
-        {{#topics.Items}}
+        {{#each topics.Items}}
             <h3>{{Category}}</h3>
             <ul class="question">
-                {{#Items}}
+                {{#each Items}}
                     <li class="question-item">
                         <Toggle openIf="{{link}}"/>
                     </li>
-                {{/Items}}
+                {{/each}}
             </ul>
-        {{/topics.Items}}
+        {{/each}}
     </div>
 </div>

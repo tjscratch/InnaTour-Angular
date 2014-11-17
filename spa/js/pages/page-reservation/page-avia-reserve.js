@@ -92,6 +92,9 @@ innaAppControllers.
                             //log('checkAvailability, false');
                             //$timeout.cancel(availableChecktimeout);
 
+                            //аналитика - Ошибка проверки доступности
+                            track.aviaIsAvailableError();
+
                             function goToSearch() {
                                 var url = urlHelper.UrlToAviaSearch(angular.copy($scope.criteria));
                                 //log('redirect to url: ' + url);
@@ -116,6 +119,9 @@ innaAppControllers.
                     });
                 },
                 function (data, status) {
+                    //аналитика - Ошибка проверки доступности
+                    track.aviaIsAvailableError();
+
                     //error
                     //$timeout.cancel(availableChecktimeout);
                     $scope.safeApply(function () {
@@ -195,6 +201,8 @@ innaAppControllers.
                                 //console.log('data:');
                                 //console.log($scope.item);
                                 //плюс нужна обработка, чтобы в item были доп. поля с форматами дат и прочее
+
+                                $scope.Is_it_tarif = data.ItTariff;
 
                                 //тарифы
                                 $scope.loadTarifs($scope.criteria.VariantId1, $scope.criteria.VariantId2, $scope.item);
@@ -288,11 +296,17 @@ innaAppControllers.
                                 }
                             }
                             else {
+                                //аналитика
+                                track.aviaReservationError();
+
                                 $scope.showReserveError();
                             }
                         });
                     },
                     function (data, status) {
+                        //аналитика
+                        track.aviaReservationError();
+
                         $scope.$apply(function ($scope) {
                             //ошибка
                             log('paymentService.reserve error');

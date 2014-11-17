@@ -41,6 +41,18 @@
             'aboutLink': 'https://www.agenda.travel/Other/About#tab=Agenda',
             'contactsLink': 'http://blog.agenda.travel/',
             'offertaContractLink': ''
+        },
+        {
+            'name': 'sample',
+            'src': '/sample/sample.base.css',
+            'type': self.WLType.lite,
+            'title': 'sample',
+            'phone': '+7&nbsp;800 000-1111',
+            'email': '',
+            'skype': '',
+            'aboutLink': 'https://sample.ru/about',
+            'contactsLink': 'https://sample.ru/contacts',
+            'offertaContractLink': ''
         }
     ];
 
@@ -215,11 +227,13 @@
         link.type = "text/css";
         link.rel = "stylesheet";
 
+        var uniqKey = Math.random(1000).toString(16);
+
         if (partner.realType == window.partners.WLType.full) {
-            link.href = "/spa/styl/partners" + src;
+            link.href = "/spa/styl/partners" + src + '?' + uniqKey;
         }
         else if (partner.realType == window.partners.WLType.lite) {
-            link.href = "/spa/styl/partners/lite_wl/lite_wl.base.css";
+            link.href = "/spa/styl/partners/lite_wl/lite_wl.base.css" + '?' + uniqKey;
         }
         insertAfter(link, d.getElementById("partners-css-inject"))
         console.log('partner css loaded', link.href);

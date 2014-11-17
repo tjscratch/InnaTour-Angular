@@ -20,7 +20,8 @@ angular.module('innaApp.components').
                     height: 190
                 },
 
-                init: function () {
+
+                onrender: function () {
                     var that = this;
                     this._sliderItemTotal = null;
                     this._slider = null;
@@ -38,8 +39,6 @@ angular.module('innaApp.components').
 
                         }
                     });
-                    
-
 
                     this.observe('PhotoHotel', function (newValue) {
                         var size = this.get('imageSize');
@@ -60,7 +59,7 @@ angular.module('innaApp.components').
                     });
                 },
 
-                complete: function (data) {
+                oncomplete: function (data) {
                     this._slider = this.find('.b-carousel__slider');
                     this._sliderItemTotal = this.get('photoList').length;
                 },

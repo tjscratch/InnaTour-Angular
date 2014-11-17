@@ -29,7 +29,7 @@ angular.module('innaApp.components').
                     }
                 },
 
-                init: function (options) {
+                onrender: function (options) {
                     this._super(options);
                     var that = this;
                     this.SaveData = [];
@@ -44,7 +44,7 @@ angular.module('innaApp.components').
                                     this.SaveData.push(data.context);
                                     this.push('value.val', data.context.Name)
                                 } else if (!data.context.isChecked) {
-                                    this.splice('value.val', this.get('value.val').indexOf(data.context.Name), 1);
+                                    this.spliceValItem(data.context.Name);
                                     this.spliceSaveData(data.context);
                                 }
 
@@ -89,6 +89,19 @@ angular.module('innaApp.components').
                                 that.SaveData.splice(i, 1);
                             }
                         });
+                    }
+                },
+
+
+                spliceValItem : function(data){
+                    var that = this;
+                    var val = this.get('value.val');
+
+                    if(val.length) {
+                        val.forEach(function (item, i) {
+                            if (data == item)
+                                that.splice('value.val', i, 1);
+                        })
                     }
                 },
 

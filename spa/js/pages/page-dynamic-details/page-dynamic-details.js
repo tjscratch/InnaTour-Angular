@@ -1,5 +1,6 @@
 innaAppControllers
     .controller('PageHotelDetails', [
+        'RavenWrapper',
         'EventManager',
         '$window',
         '$scope',
@@ -19,9 +20,11 @@ innaAppControllers
         'Stars',
         'Balloon',
         '$filter',
-        function (EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter) {
+        function (RavenWrapper, EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter) {
 
             DynamicFormSubmitListener.listen();
+
+            Raven.setExtraContext({key: "__DETAILS_DP_CONTEXT__"})
 
             var routParam = angular.copy($routeParams);
             $scope.userIsAgency = null;
@@ -47,10 +50,9 @@ innaAppControllers
                     EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
                 });
 
-                if (routParam.Children && routParam.Children != "0") {
+                if (routParam.Children) {
                     searchParams.ChildrenAges = routParam.Children.split('_');
                 }
-                ;
             }
 
             //кнопка нового поиска для WL
@@ -174,14 +176,15 @@ innaAppControllers
                 track.dpBuyPackage();
 
                 DynamicPackagesDataProvider.hotelDetails({
-                    HotelId: searchParams.HotelId,
-                    HotelProviderId: searchParams.ProviderId,
-                    TicketToId: searchParams.TicketId,
-                    TicketBackId: searchParams.TicketBackId,
-                    Filter: searchParams,
-
+                    data : {
+                        HotelId: searchParams.HotelId,
+                        HotelProviderId: searchParams.ProviderId,
+                        TicketToId: searchParams.TicketId,
+                        TicketBackId: searchParams.TicketBackId,
+                        Filter: searchParams
+                    },
                     success: function (data) {
-                        _balloonLoad.fire('hide');
+                       _balloonLoad.fire('hide');
 
                         setWlModel(data);
 
@@ -229,7 +232,13 @@ innaAppControllers
 
                         deferred.resolve();
                     },
-                    error: function () {
+                    error: function (data) {
+                        RavenWrapper.raven({
+                            captureMessage : 'PACKAGE DETAILS: SERVER ERROR',
+                            dataResponse: data.responseJSON,
+                            dataRequest: searchParams
+                        });
+
                         _balloonLoad.updateView({
                             template: 'err.html',
                             title: "Запрашиваемый отель не найден",
@@ -252,13 +261,14 @@ innaAppControllers
             function getHotelDetailsRooms() {
 
                 DynamicPackagesDataProvider.hotelDetails({
-                    HotelId: searchParams.HotelId,
-                    HotelProviderId: searchParams.ProviderId,
-                    TicketToId: searchParams.TicketId,
-                    TicketBackId: searchParams.TicketBackId,
-                    Filter: searchParams,
-                    Rooms: true,
-
+                    data: {
+                        HotelId: searchParams.HotelId,
+                        HotelProviderId: searchParams.ProviderId,
+                        TicketToId: searchParams.TicketId,
+                        TicketBackId: searchParams.TicketBackId,
+                        Filter: searchParams,
+                        Rooms: true
+                    },
                     success: function (data) {
                         if (data.Rooms.length) {
                             $scope.hotelRooms = data.Rooms;
@@ -274,10 +284,22 @@ innaAppControllers
                             onload();
 
                         } else {
+                            RavenWrapper.raven({
+                                captureMessage : 'PACKAGE DETAILS ROOMS NOT FOUND',
+                                dataResponse: data,
+                                dataRequest: searchParams
+                            });
+
                             showErrNotFound("К сожалению, свободных номеров в данный момент нет.");
                         }
                     },
-                    error: function () {
+                    error: function (data) {
+                        RavenWrapper.raven({
+                            captureMessage : 'PACKAGE DETAILS ROOMS NOT FOUND: SERVER ERROR',
+                            dataResponse: data.responseJSON,
+                            dataRequest: searchParams
+                        });
+
                         showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
                     }
                 });
@@ -361,7 +383,11 @@ innaAppControllers
                     $routeParams.EndVoyageDate,
                     $routeParams.TicketClass,
                     $routeParams.Adult,
-                    $routeParams.Children
+                    $routeParams.Children,
+                    $routeParams.HotelId,
+                    $routeParams.TicketId,
+                    $routeParams.TicketBackId,
+                    $routeParams.ProviderId
                 ].join('-');
 
 
@@ -407,6 +433,7 @@ innaAppControllers
             };
 
             var onload = function () {
+
                 $scope.dataFullyLoaded = true;
 
                 if ($scope.displayRoom) {
@@ -428,6 +455,7 @@ innaAppControllers
 
                 try {
                     $scope.$digest();
+
                 } catch (e) {
                 }
             }
@@ -463,16 +491,22 @@ innaAppControllers
 
 
             $scope.scrollToTripadvisor = function () {
-                var body = angular.element('html, body'),
-                    headerHeight = angular.element('.Header').height(),
-                    positionTop = angular.element('#tripadvisor-widget-iframe').position().top;
-                body.animate({ scrollTop: positionTop - headerHeight }, 500)
-                window.partners.setScrollPage(positionTop)
+                var body = angular.element('html, body');
+                    var headerHeight = angular.element('.Header').height();
+                    var elToScroll = document.querySelector('.b-tripadvisor-widget-iframe');
+                    var positionTop = utils.getCoords(elToScroll).top
+
+                body.animate({ scrollTop: positionTop - headerHeight }, 500);
+                window.partners.setScrollPage(positionTop);
             };
 
             $scope.$watch('user', function(User){
                 if(User){
                     $scope.userIsAgency = User.isAgency();
+                    $scope.AgencyId = parseInt(User.getAgencyId());
+                    $scope.onCondition = function () {
+                        return true;
+                    }
                 }
             });
 

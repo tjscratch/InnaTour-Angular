@@ -2,6 +2,7 @@ _.provide('inna.Models.Auth');
 
 inna.Models.Auth.User = function(data){
     this.raw = {
+        AgencyId : data.AgencyId,
         Email: data.Email,
         LastName: data.LastName,
         FirstName: data.FirstName,
@@ -31,3 +32,12 @@ inna.Models.Auth.User.prototype.displayName = function(){
 inna.Models.Auth.User.prototype.isAgency = function () {
     return this.raw.AgencyName.length > 0;
 };
+
+inna.Models.Auth.User.prototype.getName = function () {
+    return this.raw.AgencyName;
+};
+
+inna.Models.Auth.User.prototype.getAgencyId = function () {
+    return this.raw.AgencyId;
+};
+

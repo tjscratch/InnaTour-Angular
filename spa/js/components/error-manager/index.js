@@ -24,7 +24,7 @@ angular.module('innaApp.services').service('ErrorManager', [
                     500 : 'Ошибка сервера : ('
                 }
             },
-            init: function (options) {
+            onrender: function (options) {
                 this._super(options);
                 var that = this;
 

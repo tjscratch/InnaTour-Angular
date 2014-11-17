@@ -2,13 +2,20 @@ angular.module('innaApp.controllers')
     .controller('AuthCtrl', [
         '$scope',
         '$location',
+        'aviaHelper',
         'innaApp.API.events',
         'AuthDataProvider',
         'innaApp.Urls',
-        function($scope, $location, Events, AuthDataProvider, app){
-
-
+        function($scope, $location, aviaHelper, Events, AuthDataProvider, app){
+            /*Private*/
             var setUserInfo = function(data){
+                if(data && data["Email"]) {
+                    Raven.setUserContext({
+                        email: data["Email"],
+                        id: data["Email"],
+                        data : data
+                    });
+                }
                 $scope.safeApply(function(){
                     $scope.$root.user = new inna.Models.Auth.User(data);
 
@@ -18,8 +25,9 @@ angular.module('innaApp.controllers')
                 });
             }
 
-
+            /*Methods*/
             $scope.close = function(){
+                utils.scrollFix(true)
                 $scope.isLoginPopupOpened = false;
                 $scope.display = $scope.DISPLAY_SIGNIN;
             };
@@ -37,9 +45,9 @@ angular.module('innaApp.controllers')
             };
 
             $scope.open = function(){
+                utils.scrollFix()
                 $scope.isLoginPopupOpened = true;
             };
-
 
             $scope.signInWith = function(method){
 
@@ -52,7 +60,7 @@ angular.module('innaApp.controllers')
                 var interval = setInterval(function(){
                     var cookieCloser = localStorage.getItem('closeSocialBroker');
 
-                    console.log('cookieCloser', cookieCloser);
+                    //console.log('cookieCloser', cookieCloser);
 
                     if(cookieCloser) {
                         localStorage.setItem('closeSocialBroker', 0);
@@ -86,7 +94,7 @@ angular.module('innaApp.controllers')
             		window.location = $scope.B2B_HOST;
             		return;
             	}
-            	
+
                 $scope.open();
                 $scope.display = $scope.DISPLAY_PROFILE;
             };
