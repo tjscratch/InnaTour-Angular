@@ -14,7 +14,8 @@ angular.module('innaApp.directives')
                 tabActive: "=tabActive",
                 asMap: "=asMap",
                 withReservationButton: '@innaDynamicBundleWithReservationButton',
-                close: '=innaDynamicBundleClose'
+                close: '=innaDynamicBundleClose',
+                RecommendedPair: '=recommendedPair'
             },
             controller: [
                 'EventManager',

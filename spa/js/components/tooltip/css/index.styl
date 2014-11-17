@@ -82,7 +82,16 @@
     }
   }
 
+    
+  &_popover {
+    position: absolute;
+    z-index 400;
+  }
+
   &_nocorner {
+
+    position: fixed;
+
     .tooltip {
       box-shadow : 0 0 8px rgba(0,0,0, 0.5);
       border-radius :0;
@@ -95,11 +104,6 @@
         border-color transparent transparent #fff8eb transparent
       }
     }
-  }
-    
-  &_popover {
-    position: absolute;
-    z-index 400;
   }
 
   &__header {

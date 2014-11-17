@@ -23,6 +23,7 @@ angular.module('innaApp.directives')
                         $scope.isClosed = false;
                         $scope.displayHotel = false;
                         $scope.displayTicket = false;
+
                         var scroll = false;
                         var doc = $(document);
                         var timeOutCloseBundle = null;

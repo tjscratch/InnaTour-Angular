@@ -76,6 +76,9 @@ innaAppControllers
                 });
             }
 
+            $scope.RecommendedPair = {
+                Status : 1
+            };
 
             var Page = Ractive.extend({
                 append: true,
@@ -483,6 +486,7 @@ innaAppControllers
                         return this.combination404();
 
 
+                    $scope.RecommendedPair.Status = RecommendedPair.Status;
                     //аналитика
                     this.trackAnalyst();
 
