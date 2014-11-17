@@ -26,14 +26,14 @@
   @extend .cfx;
   padding 7px
   background $bg-black
-  border-radius 2px
+  border-radius 0 $border-radius $border-radius
 }
 .b-inna-btn{
   width 100%
   height $control-height
   line-height $control-height
   border none
-  border-radius 2px
+  border-radius $border-radius
   background-color $bg-green-2
   transition: background-color 0.3s linear 0s;
   font-size 15px
@@ -163,3 +163,23 @@
   background-position 96% 50%
 }
 //END datepicker
+
+.b-inna-search__nav{
+  display: block
+  margin 0
+  padding 0
+  list-style none
+  font-size 0
+  line-height 0
+  
+  li{
+    display inline-block
+    height $control-height
+    line-height $control-height
+    padding 0 15px
+    background $bg-black
+    color $color-white
+    font-size 17px
+    border-radius $border-radius $border-radius 0 0
+  }
+}
