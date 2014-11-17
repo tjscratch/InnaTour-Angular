@@ -141,10 +141,7 @@
                             params[6] = childs.join('_')
                         }
 
-                        console.log($scope.fromToEqual)
                         if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
-                            console.log(params.join('-'))
-                            //window.open("https://inna.ru/#/packages/search/6733-6623-01.12.2014-07.12.2014-0-2", '_blank')
                             window.open("https://inna.ru/#/packages/search/" + params.join('-'), '_blank')
                         }
                     }
