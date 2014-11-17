@@ -143,7 +143,8 @@ gulp.task('build-angular-parts', [
     'build-directives',
     'build-models',
     'build-helpers',
-    'build-ang.helpers'
+    'build-ang.helpers',
+    'build-widget-search'
 ], function () {
     return gulp.src([
 

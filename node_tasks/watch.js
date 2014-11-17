@@ -49,6 +49,12 @@ gulp.task('watch', function () {
             conf.src + '/regions/**/*.js'
     ], ['concat-comp-page-regions']);
 
+    // watch widget js
+    gulp.watch([
+            conf.src + '/widgets/search/js/*.js',
+            conf.src + '/widgets/search/templ/*.html'
+    ], ['build-widget-search']);
+
     gulp.watch([
             conf.templ + '/**/*.html',
             conf.src + '/**/*.html'
