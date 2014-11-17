@@ -55,7 +55,7 @@
 	                    Включен в цену
                     </span>
                     <span ng-if="!$first">
-	                    {{room.PackagePrice - bundle.getFullPackagePrice() | signed}}
+	                    {{room.PackagePrice - recommendedPair.getFullPackagePrice() | signed}}
 	                    <ng-include src="'components/ruble.html'"></ng-include>
                     </span>
                     <span class="icon-crown icon-sprite-crown" ng-if="room.IsPackage"></span>

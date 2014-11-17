@@ -1,7 +1,7 @@
 <!-- Рекомендованный вариант пакета -->
 
-<div dynamic-bundle-root
-     ng-if="combination.hotel && combination.ticket && !hotelToShowDetails"></div>
+<div recommended-pair-component
+     ng-if="recommendedPair.hotel && recommendedPair.ticket && !hotelToShowDetails"></div>
 
 
 <!-- List Panel hotels and tickets -->
@@ -13,12 +13,12 @@
 	     ng-show="(!showLanding && !hotelToShowDetails && !asMap)"></div>
 
 
-	<div dynamic-serp-map
-	     dynamic-serp-map-hotels="hotels"
+	<div hotels-map
+	     hotels="hotels"
 	     map-hotels="hotelsForMap"
 	     as-map="asMap"
-	     dynamic-serp-map-combination="combination"
-	     dynamic-serp-map-airports="airports"
+	     recommended-pair="recommendedPair"
+	     airports="airports"
 	     ng-if="hotels.list.length && asMap"></div>
 
 

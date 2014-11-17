@@ -1,11 +1,11 @@
-innaAppServices.factory('modelHotels', [
+innaAppServices.factory('ModelHotelsCollection', [
     '$timeout',
-    'modelCollection',
-    'modelRecommendedPair',
-    function ($timeout, modelCollection, modelRecommendedPair) {
+    'ModelCollection',
+    'ModelRecommendedPair',
+    function ($timeout, ModelCollection, ModelRecommendedPair) {
 
         var Hotels = {};
-        Hotels.HotelsCollection = modelCollection();
+        Hotels.HotelsCollection = ModelCollection();
 
         Hotels.HotelsCollection.prototype.getMinPrice = function (bundle) {
             var min = Number.MAX_VALUE;
@@ -97,23 +97,6 @@ innaAppServices.factory('modelHotels', [
             hotel && (hotel.hidden = true) && (hotel.data.hidden = true);
         }
 
-        Hotels.Hotel = function (raw) {
-            this.data = raw;
-            this.data.hidden = false;
-
-            if (this.data) {
-                if (this.data.TaFactor) this.data.TaFactorCeiled = Math.ceil(this.data.TaFactor);
-            }
-        };
-
-        Hotels.Hotel.prototype.setData = function (data) {
-            this.data = angular.copy(data);
-        };
-
-        Hotels.Hotel.prototype.toJSON = function () {
-            return this.data;
-        }
-
-        return Hotels.Hotel;
+        return Hotels.HotelsCollection;
     }
 ]);

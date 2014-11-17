@@ -3,8 +3,17 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('OffersListCtrl', ['$log', '$scope', '$rootScope', '$routeParams', '$filter', '$location', 'dataService', 'sharedProperties', 'urlHelper',
-        function OffersListCtrl($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, sharedProperties, urlHelper) {
+    controller('OffersListCtrl', [
+        '$log',
+        '$scope',
+        '$rootScope',
+        '$routeParams',
+        '$filter',
+        '$location',
+        'dataService',
+        'sharedProperties',
+        'urlHelper',
+        function ($log, $scope, $rootScope, $routeParams, $filter, $location, dataService, sharedProperties, urlHelper) {
             function log(msg) {
                 $log.log(msg);
             }
@@ -26,12 +35,12 @@ innaAppControllers.
 
             $scope.showImgOnly = function (item) {
                 if (
-                //!$scope.isNullOrEmpty(item.FrontPrice) ||
+                    //!$scope.isNullOrEmpty(item.FrontPrice) ||
                 //!$scope.isNullOrEmpty(item.FrontTitleRow1) ||
                 //!$scope.isNullOrEmpty(item.FrontTitleRow2) ||
                 //!$scope.isNullOrEmpty(item.FrontSubTitleRow1) ||
                 //!$scope.isNullOrEmpty(item.FrontSubTitleRow2) ||
-                    !$scope.isNullOrEmpty(item.BackTitleRow1) || !$scope.isNullOrEmpty(item.BackTitleRow2) || !$scope.isNullOrEmpty(item.BackSubTitleRow1) || !$scope.isNullOrEmpty(item.BackSubTitleRow2) || !$scope.isNullOrEmpty(item.BackPrice))
+                !$scope.isNullOrEmpty(item.BackTitleRow1) || !$scope.isNullOrEmpty(item.BackTitleRow2) || !$scope.isNullOrEmpty(item.BackSubTitleRow1) || !$scope.isNullOrEmpty(item.BackSubTitleRow2) || !$scope.isNullOrEmpty(item.BackPrice))
                     return false;
                 else
                     return true;
@@ -73,7 +82,7 @@ innaAppControllers.
                 $scope.offerClickInternal(item, $event, position, block.OfferLayoutType, section.Name);
             };
 
-            $scope.clickOnShadow = function(item, $event, position, blockType, sectionName){
+            $scope.clickOnShadow = function (item, $event, position, blockType, sectionName) {
                 $event && preventBubbling($event);
 
                 track.offerClick(sectionName, blockType, item.Name, position, function () {
@@ -85,7 +94,7 @@ innaAppControllers.
             $scope.offerClickInternal = function (item, $event, position, blockType, sectionName) {
                 preventBubbling($event);
 
-                //если без хувера, просто картинка - то сразу кликаем
+                //если без ховера, просто картинка - то сразу кликаем
                 var showImgOnly = $scope.showImgOnly(item);
 
                 if (!showImgOnly && !!('ontouchstart' in window)) {//check for touch device
