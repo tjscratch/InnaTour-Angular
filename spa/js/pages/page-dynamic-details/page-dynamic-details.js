@@ -4,6 +4,7 @@ innaAppControllers
         'EventManager',
         '$window',
         '$scope',
+        '$rootScope',
         '$timeout',
         'aviaHelper',
         'innaApp.Urls',
@@ -26,7 +27,7 @@ innaAppControllers
         'ModelTicketsCollection',
         'ModelTicket',
         'ModelHotel',
-        function (RavenWrapper, EventManager, $window, $scope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter,
+        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter,
                   ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
             DynamicFormSubmitListener.listen();
@@ -508,6 +509,7 @@ innaAppControllers
 
             $scope.$watch('user', function(User){
                 if(User){
+
                     $scope.userIsAgency = User.isAgency();
                     $scope.AgencyId = parseInt(User.getAgencyId());
                     $scope.onCondition = function () {
