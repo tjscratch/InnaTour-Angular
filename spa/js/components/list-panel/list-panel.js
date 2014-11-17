@@ -24,10 +24,11 @@ angular.module('innaApp.components').
         'IndicatorFilters',
         'HotelItem',
         'TicketItem',
-        'modelRecommendedPair',
-        'modelTickets',
-        'modelHotels',
-        function (EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem, modelRecommendedPair, modelTickets, modelHotels) {
+
+        'ModelRecommendedPair',
+        'ModelTicket',
+        'ModelHotel',
+        function (EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem, ModelRecommendedPair, ModelTicket, ModelHotel) {
 
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
@@ -297,9 +298,9 @@ angular.module('innaApp.components').
 
                         data.forEach(function (item) {
 
-                            var virtualBundle = new modelRecommendedPair({
+                            var virtualBundle = new ModelRecommendedPair({
                                 ticket : that.get('combinationModel').ticket,
-                                hotel : new modelHotels(item)
+                                hotel : new ModelHotel(item)
                             });
 
                             item.getProfit = virtualBundle.getProfit();
@@ -311,8 +312,8 @@ angular.module('innaApp.components').
                     if (opt_param.ticket) {
                         data.forEach(function (item) {
 
-                            var modelTicket = new modelTickets(item);
-                            var virtualBundle = new modelRecommendedPair({
+                            var modelTicket = new ModelTicket(item);
+                            var virtualBundle = new ModelRecommendedPair({
                                 ticket : modelTicket,
                                 hotel :that.get('combinationModel').hotel
                             });

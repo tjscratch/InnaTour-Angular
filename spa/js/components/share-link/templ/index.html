@@ -1,10 +1,11 @@
 <div class="b-tooltip-share">
+
     <span class="b-tooltip-share__button {{isVisible ? 'active' : '' }} {{class}}" on-click="toggleShow">
         <i class="b-tooltip-share__button__icon {{ isVisible ? 'icon-sprite-chain-white' : 'icon-sprite-chain-black' }}"></i>
     </span>
 
     <div class="tooltip b-tooltip-share__link tooltip-share-link tooltip_{{position}}
-        {{isVisible ? 'tooltip_show' : 'tooltip_hide' }}" style="{{stylePosition}}">
+        {{isVisible ? 'tooltip_show' : 'tooltip_hide' }}">
 
         <div class="b-tooltip-share__input_wrapper">
             <input type="text" class="b-tooltip-share__input" value="{{locationHref}}"/>
