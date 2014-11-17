@@ -13,8 +13,9 @@
 
 .landing-title {
     font-family: ProximaNova;
-    font-size: 30px;
-    text-transform:uppercase;
+    font-weight : normal;
+    font-size: 25px;
+    /*text-transform:uppercase;*/
     text-align: center;
     /*font-weight: lighter;*/
 }
@@ -128,6 +129,38 @@
       height: 0;
       line-height: 0;
       width: 100%;
+    }
+  }
+
+  &-list__new-landing {
+    position: relative;
+    overflow: hidden;
+    padding-top: 44px;
+    margin-bottom : 60px;
+    line-height: normal;
+
+    &__item {
+      position: relative;
+      vertical-align: middle;
+      padding: 8px 45px 13px 66px
+      height: 55px;
+      margin-bottom: 35px;
+      overflow: hidden;
+      &:nth-child(even){
+        padding-right: 0px;
+      }
+    }
+
+    &__img {
+      box-sizing : border-box;
+      width: 54px;
+      height: 54px;
+      line-height :0;
+      font-size :0;
+      overflow : hidden;
+      position : absolute;
+      top: 0;
+      left: 0;
     }
   }
 
