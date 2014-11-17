@@ -23,7 +23,7 @@ $base-shadow-color = rgba(50, 50, 50, 0.25);
   left 0
   z-index 1000
   padding 4px
-  margin-top 20px
+  margin-top 8px
   list-style none
   background-color $base-bg
   border-radius 2px
@@ -32,6 +32,28 @@ $base-shadow-color = rgba(50, 50, 50, 0.25);
   font-size 15px
   line-height 1.428571429
   color $color-base
+  
+  &:before{
+    position absolute
+    z-index 1
+    content ''
+    left 24px
+    top -16px
+    border-style solid
+    border-width 8px
+    border-color transparent transparent #ececec transparent
+  }
+  &:after{
+    position absolute
+    z-index 2
+    content ''
+    left 25px
+    top -14px
+    border-style solid
+    border-width 7px
+    border-color transparent transparent #fff transparent
+  }
+  
 }
 .datepicker table td{
   width 30px
