@@ -9,9 +9,10 @@ angular.module('innaApp.components').
         'aviaHelper',
         '$templateCache',
         'DynamicBlock',
-        'modelRecommendedPair',
-        'modelTickets',
-        function (EventManager, Events, $filter, $routeParams, aviaHelper, $templateCache, DynamicBlock, modelRecommendedPair, modelTickets) {
+
+        'ModelRecommendedPair',
+        'ModelTicket',
+        function (EventManager, Events, $filter, $routeParams, aviaHelper, $templateCache, DynamicBlock, ModelRecommendedPair, ModelTicket) {
 
             /**
              * Компонент TicketItem
@@ -46,8 +47,8 @@ angular.module('innaApp.components').
                 onrender: function () {
                     var that = this;
 
-                    var modelTicket = new modelTickets(this.get('ticket'));
-                    var virtualBundle = new modelRecommendedPair({
+                    var modelTicket = new ModelTicket(this.get('ticket'));
+                    var virtualBundle = new ModelRecommendedPair({
                         ticket : modelTicket,
                         hotel : this.get('combinationModel').hotel
                     });

@@ -258,7 +258,7 @@
 
             DynamicFormSubmitListener.listen();
 
-            $scope.objectToReserveTemplate = 'pages/dynamic/inc/reserve.html';
+            $scope.objectToReserveTemplate = 'pages/page-reservation/templ/reserve-include.html';
 
             $scope.afterCompleteCallback = function () {
                 //переходим на страницу оплаты

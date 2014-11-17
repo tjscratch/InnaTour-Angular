@@ -6,7 +6,9 @@ angular.module('innaApp.controllers')
         'innaApp.API.events',
         'AuthDataProvider',
         'innaApp.Urls',
-        function($scope, $location, aviaHelper, Events, AuthDataProvider, app){
+
+        'modelAuth',
+        function($scope, $location, aviaHelper, Events, AuthDataProvider, app, modelAuth){
             /*Private*/
             var setUserInfo = function(data){
                 if(data && data["Email"]) {
@@ -16,8 +18,9 @@ angular.module('innaApp.controllers')
                         data : data
                     });
                 }
+
                 $scope.safeApply(function(){
-                    $scope.$root.user = new inna.Models.Auth.User(data);
+                    $scope.$root.user = new modelAuth(data);
 
                     if($scope.$root.user.isAgency() && !$scope.user.raw.AgencyActive) {
                         $scope.logout();
@@ -143,7 +146,7 @@ angular.module('innaApp.controllers')
             });
 
             $scope.$on(Events.AUTH_SIGN_OUT, function(event, userRaw){
-                var user = new inna.Models.Auth.User(userRaw.raw);
+                var user = new modelAuth(userRaw.raw);
 
                 if(user.isAgency() && !user.raw.AgencyActive) {
                     $scope.baloon.showErr('Агентство неактивно', 'Вход не возможен', function(){

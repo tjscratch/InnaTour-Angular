@@ -1,4 +1,4 @@
-innaAppServices.factory('modelRecommendedPair', [
+innaAppServices.factory('ModelRecommendedPair', [
     '$timeout',
     function ($timeout) {
         /**
@@ -75,7 +75,10 @@ innaAppServices.factory('modelRecommendedPair', [
         }
 
         Combination.prototype.getProfit = function(){
-            return (this.getFullPrice() - this.getFullPackagePrice());
+            var profit = (this.getFullPrice() - this.getFullPackagePrice());
+            //console.info(profit);
+            //console.info(this.ticket.data.VariantId1);
+            return profit;
         }
 
         return Combination;
