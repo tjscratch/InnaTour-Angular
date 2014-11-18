@@ -10,9 +10,9 @@ angular.module('innaApp.components').
         'DynamicBlock',
         'HotelGallery',
 
-        'ModelRecommendedPair',
         'ModelHotel',
-        function (EventManager, Events, Urls, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery, ModelRecommendedPair, ModelHotel) {
+        'ModelPrice',
+        function (EventManager, Events, Urls, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery, ModelHotel, ModelPrice) {
 
             /**
              * Компонент HotelItem
@@ -90,15 +90,11 @@ angular.module('innaApp.components').
                     this._super(options);
 
                     var modelHotel = new ModelHotel(this.get('hotel'));
-                    var virtualBundle = new ModelRecommendedPair({
-                        ticket : this.get('combinationModel').ticket,
-                        hotel : modelHotel
-                    });
-
+                    var modelPrice = new ModelPrice({data : this.get('hotel')});
 
                     this.set({
-                        virtualBundle: virtualBundle,
-                        modelHotel: modelHotel
+                        modelHotel: modelHotel,
+                        modelPrice : modelPrice
                     });
 
                     this.on({

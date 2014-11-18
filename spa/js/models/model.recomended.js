@@ -10,6 +10,8 @@ innaAppServices.factory('ModelRecommendedPair', [
         function Combination(opt_param){
             this.ticket = null;
             this.hotel = null;
+            this.FullPackagePrice = 0;
+            this.FullPrice = 0;
 
             if(opt_param && (opt_param.ticket && opt_param.hotel)) {
                 this.setTicket(opt_param.ticket);
@@ -41,16 +43,6 @@ innaAppServices.factory('ModelRecommendedPair', [
             return this.FullPackagePrice;
         }
 
-        Combination.prototype.getFullTotalPriceNew = function(param){
-            if(param == 'hotel'){
-                return this.hotel.data.PriceObject;
-            }
-            if(param == 'ticket') {
-                return this.ticket.data.PriceObject;
-            }
-        }
-
-
         Combination.prototype.getFullTotalPrice = function(){
             var tPrice = this.ticket.data.PriceObject;
             var hPrice = this.hotel.data.PriceObject;
@@ -76,8 +68,6 @@ innaAppServices.factory('ModelRecommendedPair', [
 
         Combination.prototype.getProfit = function(){
             var profit = (this.getFullPrice() - this.getFullPackagePrice());
-            //console.info(profit);
-            //console.info(this.ticket.data.VariantId1);
             return profit;
         }
 

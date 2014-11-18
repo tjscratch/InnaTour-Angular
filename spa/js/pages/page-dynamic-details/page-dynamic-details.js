@@ -46,7 +46,7 @@ innaAppControllers
 
                 /*Methods*/
                 $scope.getTicketDetails = function () {
-                    $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.recommendedPair.ticket);
+                    $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, {noChoose: true, ticket: $scope.recommendedPair.ticket});
                 };
 
             } else {
@@ -132,7 +132,7 @@ innaAppControllers
                         }
 
                         if (('displayTicket' in $location.search())) {
-                           $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $scope.recommendedPair.ticket, {noClose: true, noChoose: true})
+                           $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, {noClose: true, noChoose: true, ticket : $scope.recommendedPair.ticket})
                         }
                     },
                     error: function () {
@@ -487,14 +487,6 @@ innaAppControllers
                 //converts undefined into boolean on the fly
                 room.isOpen = !!!room.isOpen;
             };
-
-            //$scope.$on(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED, onload);
-
-            /*$scope.$on('$locationChangeSuccess', function (data, url, datatest) {
-             if (!('displayHotel' in $location.search())) {
-             $scope.back();
-             }
-             });*/
 
 
             $scope.scrollToTripadvisor = function () {

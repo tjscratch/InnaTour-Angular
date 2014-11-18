@@ -30,22 +30,8 @@ angular.module('innaApp.directives')
                             }
                         })
 
-                        var _priceGeneric = new PriceGeneric({
-                            el: $element.find('.js-price-generic-container'),
-                            data: {
-                                template: "index.hbs.html",
-                                virtualBundle: $scope.recommendedPair,
-                                tooltipKlass: 'bundle',
-                                iconWhite: true,
-                                type: $scope.tabActive
-                            }
-                        })
-
-
                         $scope.$on('$destroy', function () {
                             _stars.teardown();
-                            _priceGeneric.teardown();
-                            _priceGeneric = null;
                             _stars = null;
                         })
                     }

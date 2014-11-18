@@ -42,7 +42,7 @@ innaAppServices.factory('ModelTicketsCollection', [
                 var price;
 
                 if(bundle) {
-                    var vBundle = new modelRecommendedPair();
+                    var vBundle = new ModelRecommendedPair();
                     vBundle.hotel = bundle.hotel;
                     vBundle.ticket = ticket;
 

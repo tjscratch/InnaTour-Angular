@@ -190,7 +190,11 @@
             <ng-include src="'components/ruble.html'"></ng-include>
 
             <!-- tooltip price -->
-            <any class="js-price-generic-container"></any>
+
+            <div ng-if="recommendedPair.hotel.data.PriceObject"
+                 price-generic-directive
+                 price-object="recommendedPair.hotel.data.PriceObject"
+                 tooltip-klass="bundle"></div>
         </div>
 
         <span class="price-description" ng-if="recommendedPair.getProfit() > 1000">
