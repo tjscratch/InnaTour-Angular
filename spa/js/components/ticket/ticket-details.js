@@ -45,34 +45,28 @@ angular.module('innaApp.directives')
 
                     // TODO: deprecated^ use instead $emit or $broadcast
                     EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetailsWrap);
-                    $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, function (evt, ticket, opt_data) {
-                        showDetails(evt, ticket, opt_data);
-                    })
+                    $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetails)
 
-                    function showDetailsWrap(evt, ticket, opt_data){
-                        $scope.$apply(function(){
-                            showDetails(evt, ticket, opt_data);
+                    function showDetailsWrap(evt, data) {
+                        $scope.$apply(function () {
+                            showDetails(evt, data);
                         })
                     }
 
-                    function showDetails(evt, ticket, opt_data) {
+                    function showDetails(evt, data) {
+
+                        $scope.closeFooter = data.noChoose;
+
+                        var ticketRaw = data.ticket;
+                        if (data.ticket && data.ticket.raw) {
+                            ticketRaw = data.ticket.raw;
+                        }
 
                         if (window.partners && window.partners.parentScrollTop > 0) {
-                            $scope.popupStyles = { 'top': window.partners.parentScrollTop + 100 + 'px' };//100px ������
+                            $scope.popupStyles = {'top': window.partners.parentScrollTop + 100 + 'px'};
                         }
                         else {
                             $scope.popupStyles = null;
-                        }
-
-                        var ticketRaw = ticket;
-                        if (ticket && ticket.raw) {
-                            ticketRaw = ticket.raw;
-                        }
-
-                        if(opt_data){
-                            $scope.closeFooter = true;
-                        } else {
-                            $scope.closeFooter = false;
                         }
 
 
@@ -83,12 +77,12 @@ angular.module('innaApp.directives')
                         $scope.popupItemInfo.show(evt, ticketRaw, $scope.criteria, $scope.searchId);
 
 
-                        $scope.ticket = ticket;
+                        $scope.ticket = data.ticket;
                         $location.search('displayTicket', [$scope.ticket.data.VariantId1, $scope.ticket.data.VariantId2].join('_'));
                     }
 
                     $scope.$watch('popupItemInfo.isShow', function (value) {
-                        if(value) $scope.location = window.location.href;
+                        if (value) $scope.location = window.location.href;
                     })
 
 

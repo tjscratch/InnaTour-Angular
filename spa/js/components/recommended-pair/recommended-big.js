@@ -23,6 +23,7 @@ angular.module('innaApp.directives')
                 controller: [
                     'EventManager',
                     '$scope',
+                    '$rootScope',
                     'aviaHelper',
                     'innaApp.Urls',
                     '$location',
@@ -35,7 +36,7 @@ angular.module('innaApp.directives')
                     'Tripadvisor',
                     'Stars',
                     'PriceGeneric',
-                    function (EventManager, $scope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams, Tripadvisor, Stars, PriceGeneric) {
+                    function (EventManager, $scope, $rootScope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams, Tripadvisor, Stars, PriceGeneric) {
 
                         //console.profile('Draw');
 
@@ -102,17 +103,6 @@ angular.module('innaApp.directives')
                             }
                         });
 
-                        // PriceGeneric
-                        var _priceGeneric = new PriceGeneric({
-                            el: $element.find('.js-price-generic-container'),
-                            data: {
-                                template: "index.hbs.html",
-                                virtualBundle: $scope.recommendedPair,
-                                tooltipKlass: 'bundle',
-                                type: $scope.tabActive
-                            }
-                        })
-
 
                         if ($location.search().displayHotel) {
                             $scope.displayHotel = true;
@@ -129,8 +119,7 @@ angular.module('innaApp.directives')
 
                         $scope.bundleTicketDetails = function ($event, ticket) {
                             $event.stopPropagation();
-                            $scope.$emit(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, ticket)
-                            //EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, $event, ticket, true);
+                            $scope.$emit(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, {ticket: ticket, noChoose: $location.search().displayHotel})
                         };
 
                         $scope.bundleHotelDetails = function ($event, hotel, isBuyAction) {
@@ -143,11 +132,6 @@ angular.module('innaApp.directives')
 
                             //  обновляем transportersList
                             $scope.transportersList = $scope.recommendedPair.ticket.collectAirlines().airlines;
-
-                            _priceGeneric.set({
-                                'virtualBundle': value,
-                                type: $scope.tabActive
-                            });
 
                             _tripadvisor.set({
                                 TaCommentCount: $scope.recommendedPair.hotel.data.TaCommentCount,
@@ -172,10 +156,9 @@ angular.module('innaApp.directives')
                         $scope.$on('$destroy', function () {
                             if (_tripadvisor) _tripadvisor.teardown();
                             if (_stars) _stars.teardown();
-                            if (_priceGeneric) _priceGeneric.teardown();
+
                             _stars = null;
                             _tripadvisor = null;
-                            _priceGeneric = null;
                         })
 
                         //console.profileEnd('Draw');

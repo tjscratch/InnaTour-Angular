@@ -1,5 +1,5 @@
 
-{{#if virtualBundle.getProfit() > 1000}}
+{{#if modelPrice.getProfit() > 1000}}
 	<div class="hotel-info__special-mark">
 	    <span class="icon-crown icon-sprite-crown"></span>
 	    Спецпредложение
@@ -7,7 +7,7 @@
 {{/if}}
 
 
-<div class="hotel-info" ng-class="{'hotel-info_with_crown': virtualBundle.getProfit() > 1000}">
+<div class="hotel-info {{(modelPrice.getProfit() > 1000) ? 'hotel-info_with_crown' : '' }}">
     <div class="hotel-info-content">
         <!-- component Star -->
         <Stars stars="{{hotel.Stars}}"/>
