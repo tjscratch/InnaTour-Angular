@@ -110,12 +110,12 @@ angular.module('innaApp.directives')
                     var HotelGalleryComponent = null;
                     var _bounds = new GM.LatLngBounds();
                     var dataInfoBox = {
+                        //visible: false,
                         disableAutoPan: false,
                         closeBoxURL: "",
-                        pixelOffset: new google.maps.Size(-10, 0),
+                        //pixelOffset: new google.maps.Size(-10, 0),
                         zIndex: 2000,
                         infoBoxClearance: new google.maps.Size(1, 1),
-                        isHidden: false,
                         pane: "floatPane",
                         enableEventPropagation: false
                     };
@@ -333,6 +333,7 @@ angular.module('innaApp.directives')
                                 boxInfoHover.setVisible(true);
                             }
 
+
                             // инфобокс для аэропорта
                         } else if (dataMarker.air) {
                             if (!boxInfoAir) {
@@ -350,8 +351,8 @@ angular.module('innaApp.directives')
                                 boxInfoHover.setVisible(false);
                             }
                             if (!boxInfo) {
-                                dataInfoBox.pixelOffset = new google.maps.Size(10, -20),
-                                    boxInfo = new InfoBox(dataInfoBox);
+                                //dataInfoBox.pixelOffset = new google.maps.Size(10, -20);
+                                boxInfo = new InfoBox(dataInfoBox);
                                 boxInfo.open(map);
                                 boxInfo.setZIndex(3000);
                                 reDraw(boxInfo);
@@ -375,9 +376,9 @@ angular.module('innaApp.directives')
                         var position = new GM.LatLng(data.Latitude, data.Longitude);
 
                         var image = new GM.MarkerImage(
-                            (data.type == 'hotel') ? iconDefault : iconAirDefault,
-                            new google.maps.Size(55, 46),
-                            new google.maps.Point(0, 0)
+                            (data.type == 'hotel') ? iconDefault : iconAirDefault
+                            //new google.maps.Size(55, 46),
+                            //new google.maps.Point(0, 0)
                             //new google.maps.Point(0, 46)
                         );
 
@@ -390,8 +391,8 @@ angular.module('innaApp.directives')
                             position: position,
                             //animation: GM.Animation.DROP,
                             icon: image,
-                            //map: map,
-                            shape: shape,
+                            map: map,
+                            //shape: shape,
                             title: (data.HotelName) ? data.HotelName : ''
                         });
                         return  {
@@ -512,6 +513,7 @@ angular.module('innaApp.directives')
                                 });
 
                                 marker.setIcon(iconHover);
+
                                 addInfoBox({
                                     elem: boxPreview,
                                     pos: pos,
@@ -521,8 +523,6 @@ angular.module('innaApp.directives')
                                         hover: true
                                     }
                                 });
-                            } else {
-
                             }
                         });
 
@@ -674,6 +674,8 @@ angular.module('innaApp.directives')
                             markers.push(marker);
                         });
 
+
+                        // TODO: сейчас не приходят аэропорта
                         airports.forEach(function (airport) {
                             airport.data = airport;
                             angular.extend(airport, { type: 'airport' });
@@ -691,7 +693,7 @@ angular.module('innaApp.directives')
 
                         // отключил кластеризацию, если в будущем будут проблемы с производительностью
                         // надо будет возвращать обратно и что то придумывать для выделения текущей точки
-                        addCluster();
+                        //addCluster();
                     }
 
                     /**
