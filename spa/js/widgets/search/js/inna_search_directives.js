@@ -10,6 +10,10 @@
             return {
                 restrict: 'E',
                 template: $templateCache.get('form.html'),
+                scope: {
+                    partnerSite: "@",
+                    partnerName: "@"
+                },
                 controller: ['$scope', '$http', function ($scope, $http) {
 
                     /**
@@ -141,8 +145,11 @@
                             params[6] = childs.join('_')
                         }
 
+                        var partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId
+
                         if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
-                            window.open("https://inna.ru/#/packages/search/" + params.join('-'), '_blank')
+                            //?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
+                            window.open($scope.partnerSite + "/#/packages/search/" + params.join('-') + partner, '_blank')
                         }
                     }
 
