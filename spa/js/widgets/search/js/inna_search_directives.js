@@ -30,15 +30,16 @@
                     $scope.getLocationFrom = function (val) {
                         return $http.get('https://inna.ru/api/v1/Dictionary/Directory', {
                             params: {
-                                term: val.split(',')[0].trim()
+                                term: val.split(', ')[0].trim()
                             }
                         }).then(function (response) {
                             var data = []
                             angular.forEach(response.data, function (item) {
                                 var fullName = item.Name + ", " + item.CountryName;
-                                var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + "</span>";
+                                var allArport = item.Airport ? " (все аэропорты)" : ""
+                                var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + allArport + "</span>";
                                 data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
-                                if(item.Airport){
+                                if (item.Airport) {
                                     angular.forEach(item.Airport, function (item) {
                                         var fullName = item.Name + ", " + item.CountryName;
                                         var fullNameHtml = "<span class='i-name i-name-airport'>" + item.Name + "</span>";
@@ -49,7 +50,7 @@
                             return data;
                         });
                     };
-                    
+
 
                     /**
                      * автокомплит выбора локации
@@ -59,7 +60,7 @@
                     $scope.getLocation = function (val) {
                         return $http.get('https://inna.ru/api/v1/Dictionary/Hotel', {
                             params: {
-                                term: val.split(',')[0].trim()
+                                term: val.split(', ')[0].trim()
                             }
                         }).then(function (response) {
                             var data = []
@@ -171,12 +172,12 @@
                             params[6] = childs.join('_')
                         }
 
-                        if ($scope.partnerName){
+                        if ($scope.partnerName) {
                             var partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId
-                        }else{
+                        } else {
                             var partner = ''
                         }
-                        
+
 
                         if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
                             //?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
