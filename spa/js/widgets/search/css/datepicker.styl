@@ -32,7 +32,7 @@ $base-shadow-color = rgba(50, 50, 50, 0.25);
   font-size 15px
   line-height 1.428571429
   color $color-base
-  
+
   &:before{
     position absolute
     z-index 1
@@ -53,7 +53,7 @@ $base-shadow-color = rgba(50, 50, 50, 0.25);
     border-width 7px
     border-color transparent transparent #fff transparent
   }
-  
+
 }
 .datepicker table td{
   width 30px
@@ -116,6 +116,14 @@ $base-shadow-color = rgba(50, 50, 50, 0.25);
     opacity .5
     background-color $bg-transparent !important
     color $color-base
+  }
+
+  &.new,
+  &.old{
+    height: 0
+    line-height 0
+    border none
+    visibility hidden
   }
 }
 $btn-hover = #e0e0e0;
