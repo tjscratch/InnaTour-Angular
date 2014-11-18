@@ -50,8 +50,8 @@ angular.module('innaApp.components').
                         var Adult = searchParams.Adult || 0;
                         var Children = searchParams.Children || '';
                         var hotelID = this.get('hotel.HotelId');
-                        var ticketId = this.get('virtualBundle.ticket.data.VariantId1');
-                        var ticketBackId = this.get('virtualBundle.ticket.data.VariantId2');
+                        var ticketId = this.get('combinationModel').ticket.data.VariantId1;
+                        var ticketBackId = this.get('combinationModel').ticket.data.VariantId2;
                         var providerId = this.get('hotel.ProviderId');
 
                         var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
