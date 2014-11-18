@@ -14,7 +14,7 @@
 							type="text"
 							placeholder="Откуда"
 							ng-model="locationFrom"
-							typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
+							typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
 							typeahead-template-url="typeaheadTemplateCustom.html"
 							typeahead-wait-ms="300"
 							required="true"
