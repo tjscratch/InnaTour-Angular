@@ -14,7 +14,7 @@ innaAppServices.factory('ModelHotelsCollection', [
                 var price = hotel.data.PackagePrice;
 
                 if (bundle) {
-                    var vBundle = new modelRecommendedPair();
+                    var vBundle = new ModelRecommendedPair();
                     vBundle.ticket = bundle.ticket;
                     vBundle.hotel = hotel;
 

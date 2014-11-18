@@ -1,4 +1,4 @@
-{{#if virtualBundle.getProfit() > 1000}}
+{{#if modelPrice.getProfit() > 1000}}
 	<div class="price">
 	    <span class="cross">
 		    {{priceFilter(Price)}}
@@ -8,7 +8,7 @@
 	</div>
 {{/if}}
 
-<div class="price-description" style="{{(virtualBundle.getProfit() <= 1000) ? 'margin-top:50px;' : '' }}">
+<div class="price-description" style="{{(modelPrice.getProfit() <= 1000) ? 'margin-top:50px;' : '' }}">
     Перелет + Отель
 </div>
 
@@ -19,11 +19,13 @@
     </div>
 
 	<!-- Показываем только для авторизованного пользователя b2b -->
-	<PriceGeneric template="index.hbs.html" virtualBundle="{{virtualBundle}}" type="{{type}}" />
+	{{#if PriceObject}}
+		<PriceGeneric template="index.hbs.html" PriceObject="{{PriceObject}}" />
+	{{/if}}
 
-	{{#if virtualBundle.getProfit() > 1000}}
+	{{#if modelPrice.getProfit() > 1000}}
 	    <div class="price-description">
-	        Скидка: {{priceFilter(virtualBundle.getProfit())}}
+	        Скидка: {{priceFilter(modelPrice.getProfit())}}
 		    {{>ruble}}
 	    </div>
 	{{/if}}
