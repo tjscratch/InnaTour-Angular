@@ -190,13 +190,9 @@ angular.module('innaApp.directives')
                             var scrollTop = utils.getScrollTop();
 
                             if (scrollTop >= 200) {
-                                $scope.$apply(function ($scope) {
-                                    $scope.display.shortDisplay(true);
-                                });
+                                $scope.display.shortDisplay(true);
                             } else {
-                                $scope.$apply(function ($scope) {
-                                    $scope.display.fullDisplay(true);
-                                });
+                                $scope.display.fullDisplay(true);
                             }
                         };
 
