@@ -145,7 +145,12 @@
                             params[6] = childs.join('_')
                         }
 
-                        var partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId
+                        if ($scope.partnerName){
+                            var partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId
+                        }else{
+                            var partner = ''
+                        }
+                        
 
                         if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
                             //?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
