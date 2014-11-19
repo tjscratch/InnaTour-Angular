@@ -775,7 +775,7 @@ innaAppControllers.
 
             //удаляем из списка гражданств страну назначения
             function filterCitizenshipList(data) {
-                //console.log('data.length:', data.length);
+                console.log('filterCitizenshipList Is_it_tarif:', $scope.Is_it_tarif);
                 if ($scope.Is_it_tarif == true) {
                     //находим страну назначения
                     //AviaInfo
