@@ -78,20 +78,24 @@
                      * BEGIN datapicker
                      */
                     $scope.setStartDate = new Date();
-
                     $('.from_date').on('changeDate', function (selected) {
                         $scope.setStartDate = selected.date;
-                        $('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
-                        $('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28));
-                        //$('.to_date').datepicker('setEndDate', new Date(2014,10,25));
+                        $('.to_date').datepicker({
+                            setStartDate: new Date(selected.date.valueOf()),
+                            setEndDate: new Date(selected.date.valueOf() + 86400000 * 28)
+                        });
+                        $('.to_date').focus();
                     });
+
+                    $('.to_date').on('changeDate', function (selected) {
+                        $('.to_date').datepicker('hide');
+                    });
+
 
                     $('.input-daterange').datepicker({
                         format: "dd.mm.yyyy",
                         startDate: $scope.setStartDate,
-                        endDate: false,
                         language: "ru",
-                        keyboardNavigation: true,
                         autoclose: true,
                         todayHighlight: true,
                         beforeShowDay: function (date) {
@@ -110,7 +114,7 @@
                                     };
                             }
                         }
-                    })
+                    });
                     /**
                      * END datapicker
                      */
