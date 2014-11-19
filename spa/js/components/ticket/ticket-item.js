@@ -10,9 +10,9 @@ angular.module('innaApp.components').
         '$templateCache',
         'DynamicBlock',
 
-        'ModelRecommendedPair',
         'ModelTicket',
-        function (EventManager, Events, $filter, $routeParams, aviaHelper, $templateCache, DynamicBlock, ModelRecommendedPair, ModelTicket) {
+        'ModelPrice',
+        function (EventManager, Events, $filter, $routeParams, aviaHelper, $templateCache, DynamicBlock, ModelTicket, ModelPrice) {
 
             /**
              * Компонент TicketItem
@@ -48,22 +48,18 @@ angular.module('innaApp.components').
                     var that = this;
 
                     var modelTicket = new ModelTicket(this.get('ticket'));
-                    var virtualBundle = new ModelRecommendedPair({
-                        ticket : modelTicket,
-                        hotel : this.get('combinationModel').hotel
-                    });
+                    var modelPrice = new ModelPrice({data : this.get('ticket')});
 
                     this.set({
-                        virtualBundle: virtualBundle,
-                        modelTicket: modelTicket
+                        modelTicket: modelTicket,
+                        modelPrice : modelPrice
                     });
 
-                    //console.log(this.get('ticket'));
 
                     this.on({
                         setCurrent: this.setCurrent,
                         getTicketDetails: function (evt) {
-                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, evt.original, this.get('modelTicket'));
+                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, evt.original, {ticket: this.get('modelTicket')});
                         },
                         change: function (data) {
 
