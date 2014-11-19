@@ -116,7 +116,7 @@ app.config([
             }
             else {
                 return {
-                    templateUrl: 'pages/dynamic/page.html',
+                    templateUrl: 'pages/page-index/templ/page.html',
                     controller: 'DynamicPackageMordaCtrl'
                 }
             }

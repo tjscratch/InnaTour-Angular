@@ -24,10 +24,11 @@ angular.module('innaApp.components').
         'IndicatorFilters',
         'HotelItem',
         'TicketItem',
-        'modelRecommendedPair',
-        'modelTickets',
-        'modelHotels',
-        function (EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem, modelRecommendedPair, modelTickets, modelHotels) {
+
+        'ModelPrice',
+        'ModelTicket',
+        'ModelHotel',
+        function (EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem, ModelPrice, ModelTicket, ModelHotel) {
 
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
@@ -294,15 +295,11 @@ angular.module('innaApp.components').
                             searchParams.ChildrenAges = routParam.Children.split('_');
                         }
 
-
                         data.forEach(function (item) {
+                            var modelPrice = new ModelPrice({data : item});
 
-                            var virtualBundle = new modelRecommendedPair({
-                                ticket : that.get('combinationModel').ticket,
-                                hotel : new modelHotels(item)
-                            });
-
-                            item.getProfit = virtualBundle.getProfit();
+                            // нужно свойство
+                            item.getProfit = modelPrice.getProfit();
                             item.searchParams = searchParams;
                         })
                     }
@@ -311,13 +308,10 @@ angular.module('innaApp.components').
                     if (opt_param.ticket) {
                         data.forEach(function (item) {
 
-                            var modelTicket = new modelTickets(item);
-                            var virtualBundle = new modelRecommendedPair({
-                                ticket : modelTicket,
-                                hotel :that.get('combinationModel').hotel
-                            });
+                            var modelTicket = new ModelTicket(item);
+                            var modelPrice = new ModelPrice({data : item});
 
-                            item.getProfit = virtualBundle.getProfit();
+                            item.getProfit = modelPrice.getProfit();
 
                             // авиалинии этого билета
                             var airline = _.pluck(modelTicket.collectAirlines().airlines, 'name');

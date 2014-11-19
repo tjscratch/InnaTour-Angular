@@ -9,9 +9,10 @@ angular.module('innaApp.components').
         '$templateCache',
         'DynamicBlock',
         'HotelGallery',
-        'modelRecommendedPair',
-        'modelHotels',
-        function (EventManager, Events, Urls, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery, modelRecommendedPair, modelHotels) {
+
+        'ModelHotel',
+        'ModelPrice',
+        function (EventManager, Events, Urls, $filter, $routeParams, $location, $templateCache, DynamicBlock, HotelGallery, ModelHotel, ModelPrice) {
 
             /**
              * Компонент HotelItem
@@ -49,8 +50,8 @@ angular.module('innaApp.components').
                         var Adult = searchParams.Adult || 0;
                         var Children = searchParams.Children || '';
                         var hotelID = this.get('hotel.HotelId');
-                        var ticketId = this.get('virtualBundle.ticket.data.VariantId1');
-                        var ticketBackId = this.get('virtualBundle.ticket.data.VariantId2');
+                        var ticketId = this.get('combinationModel').ticket.data.VariantId1;
+                        var ticketBackId = this.get('combinationModel').ticket.data.VariantId2;
                         var providerId = this.get('hotel.ProviderId');
 
                         var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
@@ -88,16 +89,12 @@ angular.module('innaApp.components').
                     var that = this;
                     this._super(options);
 
-                    var modelHotel = new modelHotels(this.get('hotel'));
-                    var virtualBundle = new modelRecommendedPair({
-                        ticket : this.get('combinationModel').ticket,
-                        hotel : modelHotel
-                    });
-
+                    var modelHotel = new ModelHotel(this.get('hotel'));
+                    var modelPrice = new ModelPrice({data : this.get('hotel')});
 
                     this.set({
-                        virtualBundle: virtualBundle,
-                        modelHotel: modelHotel
+                        modelHotel: modelHotel,
+                        modelPrice : modelPrice
                     });
 
                     this.on({

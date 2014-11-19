@@ -9,9 +9,10 @@ angular.module('innaApp.components').
         'aviaHelper',
         '$templateCache',
         'DynamicBlock',
-        'modelRecommendedPair',
-        'modelTickets',
-        function (EventManager, Events, $filter, $routeParams, aviaHelper, $templateCache, DynamicBlock, modelRecommendedPair, modelTickets) {
+
+        'ModelTicket',
+        'ModelPrice',
+        function (EventManager, Events, $filter, $routeParams, aviaHelper, $templateCache, DynamicBlock, ModelTicket, ModelPrice) {
 
             /**
              * Компонент TicketItem
@@ -46,23 +47,19 @@ angular.module('innaApp.components').
                 onrender: function () {
                     var that = this;
 
-                    var modelTicket = new modelTickets(this.get('ticket'));
-                    var virtualBundle = new modelRecommendedPair({
-                        ticket : modelTicket,
-                        hotel : this.get('combinationModel').hotel
-                    });
+                    var modelTicket = new ModelTicket(this.get('ticket'));
+                    var modelPrice = new ModelPrice({data : this.get('ticket')});
 
                     this.set({
-                        virtualBundle: virtualBundle,
-                        modelTicket: modelTicket
+                        modelTicket: modelTicket,
+                        modelPrice : modelPrice
                     });
 
-                    //console.log(this.get('ticket'));
 
                     this.on({
                         setCurrent: this.setCurrent,
                         getTicketDetails: function (evt) {
-                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, evt.original, this.get('modelTicket'));
+                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, evt.original, {ticket: this.get('modelTicket')});
                         },
                         change: function (data) {
 
