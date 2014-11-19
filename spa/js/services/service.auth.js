@@ -29,8 +29,8 @@ angular.module('innaApp.services')
                 changeInfo: function(data){
                     return AjaxHelper.postDebaunced(urls.AUTH_CHANGE_INFO, data);
                 },
-                recognize: function(success){
-                    AjaxHelper.postDebaunced(urls.AUTH_RECOGNIZE, {}, success);
+                recognize: function(success, err){
+                    AjaxHelper.postDebaunced(urls.AUTH_RECOGNIZE, {}, success, err);
                 },
                 changePassword: function(data){
                     return AjaxHelper.postDebaunced(urls.AUTH_CHANGE_PASSWORD, data);
