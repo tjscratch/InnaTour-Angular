@@ -7,7 +7,7 @@
  */
 
 angular.module('innaApp.directives')
-    .directive('dynamicSerpMap', [
+    .directive('hotelsMap', [
         'EventManager',
         '$templateCache',
         'innaApp.API.events',
@@ -24,10 +24,10 @@ angular.module('innaApp.directives')
                 template: $templateCache.get('components/map/templ/index.html'),
                 replace: true,
                 scope: {
-                    hotels: '=dynamicSerpMapHotels',
+                    hotels: '=hotels',
                     hotelsForMap: '=mapHotels',
-                    airports: '=dynamicSerpMapAirports',
-                    combination: '=dynamicSerpMapCombination'
+                    airports: '=',
+                    recommendedPair: '=recommendedPair'
                 },
                 controller: [
                     'EventManager',
@@ -226,8 +226,8 @@ angular.module('innaApp.directives')
                             scope.computedUrlDetails = function () {
                                 var routParam = angular.copy($routeParams);
 
-                                var ticketId = scope.combination.ticket.data.VariantId1;
-                                var ticketBackId = scope.combination.ticket.data.VariantId2;
+                                var ticketId = scope.recommendedPair.ticket.data.VariantId1;
+                                var ticketBackId = scope.recommendedPair.ticket.data.VariantId2;
 
 
                                 var urlDetails = '/#' + Urls.URL_DYNAMIC_HOTEL_DETAILS + [
@@ -631,7 +631,7 @@ angular.module('innaApp.directives')
 
                     function setDefaultActiveMarker() {
                         markers.forEach(function (marker) {
-                            if (scope.combination.hotel.data.HotelId == marker._idHotel) {
+                            if (scope.recommendedPair.hotel.data.HotelId == marker._idHotel) {
                                 scope.chosenHotel = marker;
                                 scope.chosenHotelActive = marker;
                                 scope.chosenHotelActive.setIcon(iconClick);

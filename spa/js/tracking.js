@@ -10,6 +10,17 @@
         if (yaGoal != null && window.yaCounter12702715 != null) {
             yaCounter12702715.reachGoal(yaGoal);
         }
+
+       /* if (Raven) {
+            var dataRaven = {
+                extra: {
+                    data: {
+                        goal: gaGoal
+                    }
+                }
+            };
+            Raven.captureMessage('ANALYTICS', dataRaven);
+        }*/
     },
     denyTrackSuccessResult: function (page, key) {
         localStorage.setItem(track.PREFIX + page + key, 1);
@@ -183,6 +194,21 @@
 
             ga('ecommerce:send');
         }
+
+       /* if (Raven) {
+            var dataRaven = {
+                extra: {
+                    data: {
+                        orderNum: orderNum,
+                        revenue: revenue,
+                        IATA1: IATA1,
+                        IATA2: IATA2,
+                        hotelName: hotelName
+                    }
+                }
+            };
+            Raven.captureMessage('ANALYTICS', dataRaven);
+        }*/
     },
     //Воронка "Авиабилеты"
     aviaSearch: function () { //Нажатие кнопки «Поиск» (Поиск авиабилетов) 
@@ -257,6 +283,20 @@
 
             ga('ecommerce:send');
         }
+
+       /* if (Raven) {
+            var dataRaven = {
+                extra: {
+                    data: {
+                        orderNum: orderNum,
+                        revenue: revenue,
+                        IATA1: IATA1,
+                        IATA2: IATA2
+                    }
+                }
+            };
+            Raven.captureMessage('ANALYTICS', dataRaven);
+        }*/
     },
     //остальные
     toursSearch: function () { //поиск туров

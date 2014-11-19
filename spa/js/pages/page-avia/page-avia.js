@@ -20,13 +20,14 @@ innaAppControllers.
 
         // components
         'PriceGeneric',
-        'ShareLink',
-        function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, PriceGeneric, ShareLink) {
+        function ($log, $scope, $rootScope, $templateCache, $timeout, $routeParams, $filter, $location, dataService, paymentService, storageService, eventsHelper, aviaHelper, urlHelper, Urls, Events, PriceGeneric) {
 
             var self = this;
             var header = document.querySelector('.header');
             var headerHeight = header.clientHeight;
             var filters__body = document.querySelector('.js-filter-scroll');
+            $scope.location = document.location.href
+
 
             function log(msg) {
                 $log.log(msg);
@@ -1074,18 +1075,7 @@ innaAppControllers.
             }
 
             function updateShareLink(item) {
-                setTimeout(function () {
-                    //console.log($('.js-share-component').length);
-                    //https://innatec.atlassian.net/browse/IN-2309
-                    //Авиа. В детализации рекомендованного варианта пропала ссылка для копирования
-                    var shareLink = new ShareLink({
-                        el: $('.js-share-component'),
-                        data: {
-                            right: true,
-                            location: getPopupItemUrl(item)
-                        }
-                    })
-                }, 0);
+                $scope.location = getPopupItemUrl(item);
             }
 
             function getPopupItemUrl(item) {
@@ -1232,11 +1222,6 @@ innaAppControllers.
                 if ($scope._priceGeneric) {
                     $scope._priceGeneric.teardown();
                     $scope._priceGeneric = null;
-                }
-
-                if ($scope.shareLink) {
-                    $scope.shareLink.teardown();
-                    $scope.shareLink = null;
                 }
                 $scope.ractiveControl = null;
 

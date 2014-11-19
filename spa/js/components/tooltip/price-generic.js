@@ -17,7 +17,6 @@ angular.module('innaApp.components').
                 append: true,
                 data: {
                     isVisible: false,
-                    //virtualBundle : null,
                     PriceObject: null,
                     tooltipKlass : '',
                     FullTotalPrice: null,
@@ -62,18 +61,9 @@ angular.module('innaApp.components').
                 onrender: function (options) {
                     this._super(options);
 
-                    this.isPriceObject = false;
-
-                    if (this.get('virtualBundle') && !angular.isUndefined(this.get('virtualBundle').hotel.data.PriceObject)) {
-                        this.isPriceObject = true;
-                    }
-
-
-                    this.observeVirtualBundle = this.observe('virtualBundle', function (value) {
-                        //console.log('value update', value);
-                        if (value && this.isPriceObject) {
-                            this.set('PriceObjectCalculate', this.get('virtualBundle').getFullTotalPriceNew(this.get('type')));
-                            //this.set('PriceObjectCalculate', this.get('virtualBundle').getFullTotalPrice());
+                    this.observe('PriceObject', function (value) {
+                        if (value) {
+                            this.set('PriceObjectCalculate', value);
                         }
                     })
                 }
@@ -81,3 +71,45 @@ angular.module('innaApp.components').
 
             return priceGeneric;
         }]);
+
+
+/**
+ * Директива PriceGenericDirective
+ */
+innaAppDirectives.directive('priceGenericDirective', [
+    'PriceGeneric',
+    function (PriceGeneric) {
+        return {
+            replace: true,
+            template: '',
+            scope: {
+                PriceObject: "=priceObject",
+                tooltipKlass: "@",
+                iconWhite: "@",
+                type: "@",
+                el: '@'
+            },
+            link: function ($scope, $element, $attr) {
+
+                var _PriceGeneric = new PriceGeneric({
+                    el: $element[0],
+                    data: {
+                        template: "index.hbs.html",
+                        PriceObject: $scope.PriceObject,
+                        iconWhite : $scope.iconWhite,
+                        tooltipKlass: $scope.tooltipKlass
+                    }
+                });
+
+                $scope.$watch('PriceObject', function(value){
+                    _PriceGeneric.set('PriceObject', value);
+                })
+
+
+                $scope.$on('$destroy', function () {
+                    _PriceGeneric.teardown();
+                    _PriceGeneric = null;
+                })
+            }
+        }
+    }])

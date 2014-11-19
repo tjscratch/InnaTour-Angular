@@ -1,4 +1,4 @@
-innaAppServices.factory('modelCollection', [
+innaAppServices.factory('ModelCollection', [
     '$timeout',
     function ($timeout) {
 
@@ -72,8 +72,6 @@ innaAppServices.factory('modelCollection', [
 
             return Collection;
         }
-
         return CollectionFactory;
-
     }
 ]);

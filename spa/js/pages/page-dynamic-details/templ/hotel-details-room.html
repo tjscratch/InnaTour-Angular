@@ -5,7 +5,17 @@
         <div class="hotel-details-rooms__room-short-info">
             <div class="hotel-details-rooms__room-desc">
                 <h3 class="hotel-details-rooms__room-title">
-                    <span class="like-link">{{room.RoomName}}</span> <!--<b>▼</b>-->
+                    <span class="like-link">{{room.RoomName}}</span>
+
+
+                    <span tooltip-directive-base
+                          ng-if="userIsAgency && (AgencyId == 20005)"
+                          templ="empty.hbs.html"
+                          el="true"
+                          tooltip-klass="agency-inna"
+                          position="right"
+                          content-html="Комнат <b>{{room.RoomCount}}</b>. Цена <b>{{room.PackagePriceService}}</b> р"
+                          class="b-display-inline"></span>
                 </h3>
                 <div>
                     <span class="" ng-repeat="bed in room.BedTypeList">
@@ -35,11 +45,6 @@
                 </span>
                 <span ng-if="!room.IsRefundable">Без возможности возврата</span>
 
-
-
-
-
-
                 <div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 1">Остался последний номер!
                 </div>
                 <div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 2">Осталось два номера!</div>
@@ -52,7 +57,7 @@
 	                    Включен в цену
                     </span>
                     <span ng-if="!$first">
-	                    {{room.PackagePrice - bundle.getFullPackagePrice() | signed}}
+	                    {{room.PackagePrice - recommendedPair.getFullPackagePrice() | signed}}
 	                    <ng-include src="'components/ruble.html'"></ng-include>
                     </span>
                     <span class="icon-crown icon-sprite-crown" ng-if="room.IsPackage"></span>

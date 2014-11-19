@@ -1,10 +1,11 @@
-innaAppServices.factory('modelHotels', [
+innaAppServices.factory('modelAuth', [
     function () {
 
         var Auth = {};
 
         Auth.User = function (data) {
             this.raw = {
+                AgencyId: data.AgencyId,
                 Email: data.Email,
                 LastName: data.LastName,
                 FirstName: data.FirstName,
@@ -34,4 +35,15 @@ innaAppServices.factory('modelHotels', [
         Auth.User.prototype.isAgency = function () {
             return this.raw.AgencyName.length > 0;
         };
+
+        Auth.User.prototype.getName = function () {
+            return this.raw.AgencyName;
+        };
+
+        Auth.User.prototype.getAgencyId = function () {
+            return this.raw.AgencyId;
+        };
+
+
+        return Auth.User;
     }]);
