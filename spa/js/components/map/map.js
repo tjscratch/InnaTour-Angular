@@ -652,6 +652,8 @@ angular.module('innaApp.directives')
                         var hotels = (data.hotels) ? data.hotels : data;
                         var airports = (data.airports) ? data.airports : [];
 
+                        console.info(airports, "airports");
+
                         rawHotels = (hotels.toJSON) ? hotels.toJSON() : hotels;
                         removeMarkers();
 
