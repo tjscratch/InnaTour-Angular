@@ -59,6 +59,8 @@ koa.js
 spa/js/debug.js
 spa/*.sh
 
+brunch-config.js
+
 build
 build_and_publish
 nginx.nginx_conf
