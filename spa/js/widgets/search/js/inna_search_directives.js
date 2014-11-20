@@ -81,8 +81,8 @@
                     $('.from_date').on('changeDate', function (selected) {
                         $scope.setStartDate = selected.date;
                         $('.to_date').datepicker({
-                            setStartDate: new Date(selected.date.valueOf()),
-                            setEndDate: new Date(selected.date.valueOf() + 86400000 * 28)
+                            setStartDate: new Date(selected.date.valueOf())
+                            //setEndDate: new Date(selected.date.valueOf() + 86400000 * 28)
                         });
                         $('.to_date').focus();
                     });
