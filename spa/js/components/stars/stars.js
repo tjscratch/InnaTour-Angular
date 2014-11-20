@@ -43,3 +43,36 @@ angular.module('innaApp.components').
             return Stars;
         }]);
 
+
+
+/**
+ * Директива starsDirective
+ */
+innaAppDirectives.directive('starsDirective', [
+    '$timeout',
+    'EventManager',
+    '$filter',
+    'Stars',
+    function ($timeout, EventManager, $filter, Stars) {
+        return {
+            replace: true,
+            template: '',
+            scope: {
+                hotelData : '='
+            },
+            link: function ($scope, $element, $attr) {
+
+                /* Stars */
+                var _stars = new Stars({ el: $element[0]});
+
+                $scope.$watch('hotelData', function (value) {
+                    _stars.set('stars', value);
+                })
+
+                $scope.$on('$destroy', function () {
+                    _stars.teardown();
+                    _stars = null;
+                })
+            }
+        }
+    }])
