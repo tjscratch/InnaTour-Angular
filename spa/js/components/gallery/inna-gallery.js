@@ -153,7 +153,7 @@ angular.module('innaApp.directives')
                             });
 
                             // TODO : what is the fuck ?
-                            $scope.pics.list.splice(13, $scope.pics.list.length - 13);
+                            //$scope.pics.list.splice(13, $scope.pics.list.length - 13);
 
                             $scope.$apply(function(){
                                 try{

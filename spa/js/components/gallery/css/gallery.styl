@@ -11,6 +11,22 @@
 }
 
 .gallery {
+
+  &__list__container,
+  &__list__wrapper {
+    width: 100%;
+    overflow: hidden;
+    border:1px solid red;
+    box-sizing: border-box;
+  }
+
+  &__list__scroll {
+    height : 15px;
+    margin-top: 20px;
+    overflow : hidden;
+    border : 1px solid green;
+  }
+
   .image-wait-load {
     &:after {
       content: '';
