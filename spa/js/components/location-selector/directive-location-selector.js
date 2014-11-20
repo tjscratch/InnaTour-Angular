@@ -239,7 +239,7 @@ innaAppDirectives.directive('locationSelector', [
                  */
                 var getAutocompleteList = _.debounce(function () {
                     if ($scope.currentCity) {
-                        var preparedText = $scope.currentCity.split(',')[0].trim();
+                        var preparedText = $scope.currentCity.split(', ')[0].trim();
                         getLocation(preparedText).then(function (data) {
                             if (data.length > 0) {
                                 $scope.$apply(function ($scope) {
