@@ -78,47 +78,42 @@
                      * BEGIN datapicker
                      */
                     $scope.setStartDate = new Date();
+
+                    var highlightDates = function (date) {
+                        var month = date.getMonth() + 1;
+                        var dates = date.getDate() + "." + month + "." + date.getFullYear()
+                        switch (dates) {
+                            case $scope.startDate:
+                                return {
+                                    classes: 'from_date'
+                                };
+                            case $scope.endDate:
+                                return {
+                                    classes: 'to_date'
+                                };
+                        }
+                    };
+
                     $('.from_date').on('changeDate', function (selected) {
                         $scope.setStartDate = selected.date;
-                        $('.to_date').datepicker({
-                            setStartDate: new Date(selected.date.valueOf()),
-                            setEndDate: new Date(selected.date.valueOf() + 86400000 * 28)
-                        });
+                        $('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
+                        $('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28));
                         $('.to_date').focus();
                     });
 
-                    $('.to_date').on('changeDate', function (selected) {
-                        $('.to_date').datepicker('hide');
-                    });
-
-
                     $('.input-daterange').datepicker({
-                        format: "dd.mm.yyyy",
+                        format: "d.mm.yyyy",
                         startDate: $scope.setStartDate,
+                        endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
                         language: "ru",
                         autoclose: true,
                         todayHighlight: true,
-                        beforeShowDay: function (date) {
-                            var month = date.getMonth() + 1;
-                            var dates = date.getDate() + "." + month + "." + date.getFullYear()
-                            switch (dates) {
-                                case $scope.startDate:
-                                    return {
-                                        tooltip: '',
-                                        classes: 'from_date'
-                                    };
-                                case $scope.endDate:
-                                    return {
-                                        tooltip: '',
-                                        classes: 'to_date'
-                                    };
-                            }
-                        }
+                        beforeShowDay: highlightDates
                     });
                     /**
                      * END datapicker
                      */
-
+                    
 
                     /**
                      * BEGIN PEOPLE_COUNTER
