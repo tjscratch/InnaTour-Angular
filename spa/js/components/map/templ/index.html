@@ -10,16 +10,18 @@
 
 
 			<!-- компонент карусели -->
-			<div class="js-b-carousel"></div>
+			<div hotel-gallery-directive
+			     is-map="true",
+			     photo-hotel="currentHotel.Photos",
+			     width="360",
+			     height="240"></div>
+
 
 			<div class="pin-balloon-info">
-				<div>
-					<span class="icon icon-star" ng-if="currentHotel.Stars > 0"></span>
-					<span class="icon icon-star" ng-if="currentHotel.Stars > 1"></span>
-					<span class="icon icon-star" ng-if="currentHotel.Stars > 2"></span>
-					<span class="icon icon-star" ng-if="currentHotel.Stars > 3"></span>
-					<span class="icon icon-star" ng-if="currentHotel.Stars > 4"></span>
-				</div>
+				<!-- Stars -->
+                <span stars-directive
+                      hotel-data="currentHotel.Stars"></span>
+
 				<h3 class="hotel-name">{{currentHotel.HotelName}}</h3>
 
 				<!-- ROW -->
@@ -27,14 +29,9 @@
 					<div class="col-xs-7 col-no-padding">
 
 						<!-- tripadvisor -->
-						<!-- ToDo:: закомментировал ractive компонент, из-за бага https://innatec.atlassian.net/browse/IN-3105
-						---- оставил пока ангуляр
-						---- отрефакторить и избавиться от ангуляр компонента
-						<div class="js-tripadvisor-container"></div>
-						-->
+						<div trip-advisor-directive hotel-data="currentHotel"></div>
 						
-						<ng:include src="'components/tripadvisor/index.html'"
-									ng-repeat="data in [currentHotel]"></ng:include>
+
 						
 
 						<div>
@@ -67,20 +64,19 @@
 	<div class="pin big-map__balloon_preview ng-hide" ng-show="currentHotelPreview">
 		<div class="pin-balloon">
 			<div class="pin-balloon-info">
-				<div>
-					<span class="icon icon-star" ng-if="currentHotelPreview.Stars > 0"></span>
-					<span class="icon icon-star" ng-if="currentHotelPreview.Stars > 1"></span>
-					<span class="icon icon-star" ng-if="currentHotelPreview.Stars > 2"></span>
-					<span class="icon icon-star" ng-if="currentHotelPreview.Stars > 3"></span>
-					<span class="icon icon-star" ng-if="currentHotelPreview.Stars > 4"></span>
-				</div>
+
+				<!-- Stars -->
+                <span stars-directive
+                      hotel-data="currentHotelPreview.Stars"></span>
+
 				<h3 class="hotel-name">{{currentHotelPreview.HotelName}}</h3>
 
 				<!-- ROW -->
 				<div class="row">
 					<div class="col-xs-7 col-no-padding">
+
 						<!-- tripadvisor -->
-						<div class="js-tripadvisor-container"></div>
+						<div trip-advisor-directive hotel-data="currentHotelPreview"></div>
 
 					</div>
 

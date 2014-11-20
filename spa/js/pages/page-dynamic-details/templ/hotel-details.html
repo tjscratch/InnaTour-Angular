@@ -4,14 +4,16 @@
         <div class="hotel-details__section hotel-details__section_layout_context">
             <div class="hotel-details__ta hotel-details-ta-info" ng-click="scrollToTripadvisor()" ng-if="hotel.TaFactor">
                 <!-- tripadvisor -->
-                <div class="js-tripadvisor-container"></div>
+                <div trip-advisor-directive hotel-data="hotel"></div>
             </div>
             <div class="hotel-details-name">
                 <span class="hotel-details-name__title">
 	                {{hotel.HotelName}}
 
 	                <!-- Stars -->
-                    <span class="hotel-details-stars js-hotel-details-stars"></span>
+                    <span stars-directive
+                          hotel-data="hotel.Stars"
+                          class="hotel-details-stars"></span>
                 </span>
             </div>
         </div>

@@ -14,11 +14,7 @@ angular.module('innaApp.directives')
         '$routeParams',
         '$location',
         'innaApp.Urls',
-
-        // components
-        'Tripadvisor',
-        'HotelGallery',
-        function (EventManager, $templateCache, Events, $routeParams, $location, Urls, Tripadvisor, HotelGallery) {
+        function (EventManager, $templateCache, Events, $routeParams, $location, Urls) {
 
             return {
                 template: $templateCache.get('components/map/templ/index.html'),
@@ -86,7 +82,6 @@ angular.module('innaApp.directives')
 
                     scope.chosenHotel = null;
                     scope.chosenHotelActive = null;
-                    var _tripadvisor = null;
                     var $thisEl = elem[0];
                     var mapContainer = $thisEl.querySelector('#big-map-canvas');
                     var boxPreview = $thisEl.querySelector('.big-map__balloon_preview');
@@ -98,7 +93,7 @@ angular.module('innaApp.directives')
                     var carouselInit = false;
                     var _markerCluster = null;
                     var iconAirDefault = 'spa/img/map/marker-black-air.png?' + Math.random().toString(16);
-                    var iconAirClick = 'spa/img/map/marker-green-air.png?' + Math.random().toString(16);
+                    var iconAirClick = 'spa/img/map/marker-black-air.png?' + Math.random().toString(16);
                     var iconDefault = 'spa/img/map/pin-grey.png?' + Math.random().toString(16);
                     var iconHover = 'spa/img/map/pin-black.png?' + Math.random().toString(16);
                     var iconCluster = 'spa/img/map/pin-circle.png?' + Math.random().toString(16);
@@ -186,22 +181,6 @@ angular.module('innaApp.directives')
                         EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_HOTEL, scope.hotels.search(currentHotel.HotelId));
                     }
 
-                    function initCarousel() {
-                        if (HotelGalleryComponent) {
-                            HotelGalleryComponent.teardown();
-                            HotelGalleryComponent = null;
-                        }
-                        HotelGalleryComponent = new HotelGallery({
-                            el: boxPhoto.querySelector('.js-b-carousel'),
-                            template: $templateCache.get('components/gallery/templ/gallery.map.hbs.html'),
-                            data: {
-                                map: true,
-                                PhotoHotel: scope.currentHotel.Photos,
-                                width: 360,
-                                height: 240
-                            }
-                        });
-                    }
 
                     function setActiveMarker(data_marker) {
                         var data = data_marker.marker;
@@ -251,23 +230,6 @@ angular.module('innaApp.directives')
                                 return urlDetails;
                             }
                         }
-
-                        if (_tripadvisor) {
-                            _tripadvisor.teardown();
-                            _tripadvisor = null;
-                        }
-
-                        if (data.activeMarker.$inna__hotel && data.activeMarker.$inna__hotel.TaCommentCount) {
-                            _tripadvisor = new Tripadvisor({
-                                el: $(data_marker.elem).find('.js-tripadvisor-container'),
-                                data: {
-                                    TaCommentCount: data.activeMarker.$inna__hotel.TaCommentCount,
-                                    TaFactor: data.activeMarker.$inna__hotel.TaFactor,
-                                    TaFactorCeiled: data.activeMarker.$inna__hotel.TaFactorCeiled
-                                }
-                            });
-                        }
-
                     }
 
                     function activeMarkerReset() {
@@ -498,9 +460,6 @@ angular.module('innaApp.directives')
                                     hover: false
                                 }
                             });
-
-                            initCarousel();
-
                         });
 
                         GM.event.addListener(marker, 'mouseover', function () {
@@ -584,7 +543,7 @@ angular.module('innaApp.directives')
                     function showOneHotel(data_hotel) {
 
                         // проходм по всем маркерам
-                        var mark = markers.filter(function (marker) {
+                        markers.filter(function (marker) {
 
                             // сравниваем и находим нужный
                             if ((marker.$inna__hotel && marker.$inna__hotel.Latitude) &&
@@ -594,6 +553,9 @@ angular.module('innaApp.directives')
                                 scope.$apply(function ($scope) {
                                     $scope.currentHotel = marker.$inna__hotel;
                                 });
+
+                                // меняем иконку
+                                marker.setIcon(iconClick);
 
                                 // инициализируем infoBox
                                 addInfoBox({
@@ -606,13 +568,6 @@ angular.module('innaApp.directives')
                                     }
                                 });
 
-                                // меняем иконку
-                                marker.setIcon(iconClick);
-
-                                // показываем
-                                boxInfo.setVisible(true);
-
-
                                 var bounds = new GM.LatLngBounds();
                                 var position = new GM.LatLng(data_hotel.Latitude, data_hotel.Longitude);
 
@@ -622,8 +577,7 @@ angular.module('innaApp.directives')
                                 map.setZoom(15);
 
                                 map.panTo(marker.getPosition());
-                                // инициализация карусели
-                                initCarousel();
+
                                 return marker;
                             }
                         });
@@ -646,15 +600,10 @@ angular.module('innaApp.directives')
                             //map.setZoom(zoomMapDefault);
                         }
 
-                        var tempArrHotels = null;
-                        var rawHotels = null;
-
                         var hotels = (data.hotels) ? data.hotels : data;
                         var airports = (data.airports) ? data.airports : [];
 
-                        console.info(airports, "airports");
-
-                        rawHotels = (hotels.toJSON) ? hotels.toJSON() : hotels;
+                        var rawHotels = (hotels.toJSON) ? hotels.toJSON() : hotels;
                         removeMarkers();
 
                         rawHotels.forEach(function (hotel) {
@@ -743,15 +692,6 @@ angular.module('innaApp.directives')
                         EventManager.off(Events.DYNAMIC_SERP_GO_TO_MAP, showOneHotel);
 
                         removeMarkers();
-
-                        if (_tripadvisor) {
-                            _tripadvisor.teardown();
-                            _tripadvisor = null;
-                        }
-                        if (HotelGalleryComponent) {
-                            HotelGalleryComponent.teardown();
-                            HotelGalleryComponent = null;
-                        }
 
                         GM.event.addListener(map);
                         GM = null;
