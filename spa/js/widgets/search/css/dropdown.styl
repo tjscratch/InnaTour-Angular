@@ -82,6 +82,7 @@
   width 120px
   margin 0 -5px
   white-space nowrap
+  text-align justify
 }
   
 .inna-dropdown-age{
@@ -95,6 +96,15 @@
   border 1px solid $border-color-gray
   border-radius $border-radius
   font-size 15px
+  
+  &.inna-dropdown-age-col-1{
+    width 100%
+  }
+
+  &.inna-dropdown-age-col-2{
+    width 58px
+    margin-right 4px
+  }
 
   &:last-child{
     margin-right 0
@@ -115,7 +125,7 @@
     z-index 10
     left -1px
     top -1px
-    width $dropdown-width - 12
+    width $dropdown-width - 10
     max-height 150px
     margin 0
     padding 0

@@ -41,6 +41,7 @@
 			<div counter-people-child-age-selector
 			     ng-repeat="selector in childrensAge"
 			     selector="selector"
+			     ng-class="{'inna-dropdown-age-col-2': childrensAge.length == 2, 'inna-dropdown-age-col-1': childrensAge.length == 1}"
 					></div>
 		</div>
 	</div>
