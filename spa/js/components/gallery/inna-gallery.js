@@ -143,17 +143,19 @@ angular.module('innaApp.directives')
                             }
                         });
 
+                        $scope.callBackScroll = function(data){
+                            console.info(data, 'callBackScroll');
+                        }
+
                         $.when(loaded).then(function(plan){
                             if(!$scope.pics.list.length){
                                 fail();
                                 return false;
                             }
+
                             $scope.pics.list.sort(function(p1, p2){
                                 return p1.__order - p2.__order;
                             });
-
-                            // TODO : what is the fuck ?
-                            //$scope.pics.list.splice(13, $scope.pics.list.length - 13);
 
                             $scope.$apply(function(){
                                 try{

@@ -67,46 +67,41 @@ angular.module('innaApp.components').
             });
 
             return Tripadvisor;
-        }]);
+        }])
+    .directive('tripAdvisorDirective', [
+        '$timeout',
+        'EventManager',
+        '$filter',
+        'Tripadvisor',
+        function ($timeout, EventManager, $filter, Tripadvisor) {
+            return {
+                replace: true,
+                template: '',
+                scope: {
+                    hotelData: '='
+                },
+                link: function ($scope, $element, $attr) {
+
+                    var _tripadvisor = new Tripadvisor({
+                        el: $element[0]
+                    })
 
 
-/**
- * Директива tripAdvisorDirective
- */
-innaAppDirectives.directive('tripAdvisorDirective', [
-    '$timeout',
-    'EventManager',
-    '$filter',
-    'Tripadvisor',
-    function ($timeout, EventManager, $filter, Tripadvisor) {
-        return {
-            replace: true,
-            template: '',
-            scope: {
-                hotelData: '='
-            },
-            link: function ($scope, $element, $attr) {
-
-                var _tripadvisor = new Tripadvisor({
-                    el: $element[0]
-                })
+                    $scope.$watch('hotelData', function (value) {
+                        if (value) {
+                            _tripadvisor.set({
+                                TaCommentCount: $scope.hotelData.TaCommentCount,
+                                TaFactor: $scope.hotelData.TaFactor,
+                                TaFactorCeiled: $scope.hotelData.TaFactorCeiled
+                            });
+                        }
+                    })
 
 
-                $scope.$watch('hotelData', function (value) {
-                    if(value) {
-                        _tripadvisor.set({
-                            TaCommentCount: $scope.hotelData.TaCommentCount,
-                            TaFactor: $scope.hotelData.TaFactor,
-                            TaFactorCeiled: $scope.hotelData.TaFactorCeiled
-                        });
-                    }
-                })
-
-
-                $scope.$on('$destroy', function () {
-                    _tripadvisor.teardown();
-                    _tripadvisor = null;
-                })
+                    $scope.$on('$destroy', function () {
+                        _tripadvisor.teardown();
+                        _tripadvisor = null;
+                    })
+                }
             }
-        }
-    }])
+        }])
