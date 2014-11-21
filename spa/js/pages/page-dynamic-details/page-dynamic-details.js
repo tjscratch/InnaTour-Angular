@@ -84,6 +84,10 @@ innaAppControllers
             $scope.buyAction = ($location.search().action == 'buy');
             $scope.dateHelper = dateHelper;
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+            $scope.recommendedPair = new ModelRecommendedPair();
+            $scope.NewPrice = null;
+            $scope.OldPrice = null;
+            $scope.NewPricePackage = null;
             var _balloonLoad = new Balloon();
 
             var backgrounds = [
@@ -108,13 +112,11 @@ innaAppControllers
                     success: function (resp) {
                         _balloonLoad.fire('hide');
 
-                        $scope.recommendedPair = new ModelRecommendedPair();
-                        $scope.recommendedPair.ticket = new ModelTicket();
-                        $scope.recommendedPair.ticket.setData(resp.AviaInfo);
+                        $scope.recommendedPair.setTicket(new ModelTicket(resp.AviaInfo))
+
 
                         if (resp.Hotel) {
-                            var hotel = new ModelHotel(resp.Hotel);
-                            $scope.recommendedPair.setHotel(hotel);
+                            $scope.recommendedPair.setHotel(new ModelHotel(resp.Hotel));
                             $scope.hotel = resp.Hotel;
                             $scope.hotelRooms = [$scope.hotel.Room];
                             $scope.hotelRooms[0].isOpen = true;
@@ -191,22 +193,22 @@ innaAppControllers
                         parseAmenities(data.Hotel);
 
                         var hotel = new ModelHotel(data.Hotel);
-                        var ticket = new ModelTicket();
-                        ticket.setData(data.AviaInfo);
+                        var ticket = new ModelTicket(data.AviaInfo);
+                        $scope.recommendedPair.setTicket(ticket);
+                        $scope.recommendedPair.setHotel(hotel);
 
                         $location.search('displayHotel', hotel.data.HotelId);
 
                         $scope.hotel = data.Hotel;
                         $scope.hotelRooms = data.Rooms;
-                        $scope.recommendedPair = new ModelRecommendedPair();
-                        $scope.recommendedPair.setTicket(ticket);
-                        $scope.recommendedPair.setHotel(hotel);
-                        $scope.$digest();
+
                         $scope.hotelLoaded = true;
                         EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
 
                         $scope.dataFullyLoaded = false;
                         $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
+
+                        $scope.$digest();
 
                         $timeout(function () {
                             loadMap();
@@ -261,6 +263,14 @@ innaAppControllers
 
                             if ($scope.hotel.CheckOutTime == '00:00' && data.Hotel.CheckOutTime) {
                                 $scope.hotel.CheckOutTime = data.Hotel.CheckOutTime
+                            }
+
+                            if(data.NewPrice) {
+                                $scope.OldPrice = $scope.recommendedPair.getFullPackagePrice();
+                                $scope.NewPrice = data.NewPrice;
+                                $scope.NewPricePackage = ($scope.NewPrice - $scope.OldPrice);
+                                data.PackagePrice = data.NewPrice;
+                                $scope.recommendedPair.setFullPackagePrice(data);
                             }
 
                             onload();
@@ -485,6 +495,7 @@ innaAppControllers
                 }
             });
 
+            
 
             $scope.$on('$destroy', function () {
                 $('body').removeAttr('style');
