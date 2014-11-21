@@ -9,18 +9,88 @@ angular.module('innaApp.components').
                 //template: $templateCache.get('components/slider/templ/index.hbs.html'),
                 append: true,
                 data: {
-                    sliderData: null
+                    sliderData: null,
+                    scrollPane: null,
+                    scrollContent: null,
+                    scrollBar: false
                 },
                 onrender: function () {
 
                     this.observe('sliderData', function (newValue, oldValue, keypath) {
 
                     });
+
+                    this.scrollPane = this.get("scrollPane");
+                    this.scrollContent = this.get("scrollContent");
+                    this.scrollbar = null;
+
+                    //build slider
+
+
+                    //append icon to handle
+                    var handleHelper = this.scrollbar.find(".ui-slider-handle")
+                        .mousedown(function () {
+                            this.scrollbar.width(handleHelper.width());
+                        })
+                        .mouseup(function () {
+                            this.scrollbar.width("100%");
+                        })
+                        .append("<span class='ui-icon ui-icon-grip-dotted-vertical'></span>")
+                        .wrap("<div class='ui-handle-helper-parent'></div>").parent();
+
+                    //change overflow to hidden now that slider handles the scrolling
+                    this.scrollbar.css("overflow", "hidden");
+
+                    //size scrollbar and handle proportionally to scroll distance
+                },
+
+                sizeScrollbar: function () {
+                    var remainder = this.scrollContent.width() - this.scrollPane.width();
+                    var proportion = remainder / this.scrollContent.width();
+                    var handleSize = this.scrollPane.width() - ( proportion * this.scrollPane.width() );
+                    this.scrollbar.find(".ui-slider-handle").css({
+                        width: handleSize,
+                        "margin-left": -handleSize / 2
+                    });
+                    this.handleHelper.width("").width(this.scrollbar.width() - handleSize);
+                },
+
+                //reset slider value based on scroll content position
+                resetValue: function () {
+                    var remainder = this.scrollPane.width() - this.scrollContent.width();
+                    var leftVal = this.scrollContent.css("margin-left") === "auto" ? 0 :
+                        parseInt(this.scrollContent.css("margin-left"));
+                    var percentage = Math.round(leftVal / remainder * 100);
+                    this.scrollbar.slider("value", percentage);
+                },
+
+                //if the slider is 100% and window gets larger, reveal content
+                reflowContent: function () {
+                    var showing = this.scrollContent.width() + parseInt(this.scrollContent.css("margin-left"), 10);
+                    var gap = this.scrollPane.width() - showing;
+                    if (gap > 0) {
+                        this.scrollContent.css("margin-left", parseInt(this.scrollContent.css("margin-left"), 10) + gap);
+                    }
+                },
+
+                scrollBar: function () {
+                    this.scrollbar = this.el.find(".scroll-bar").slider({
+                        slide: function (event, ui) {
+                            if (this.scrollContent.width() > this.scrollPane.width()) {
+                                this.scrollContent.css("margin-left", Math.round(
+                                    ui.value / 100 * ( this.scrollPane.width() - this.scrollContent.width() )
+                                ) + "px");
+                            } else {
+                                this.scrollContent.css("margin-left", 0);
+                            }
+                        }
+                    });
                 },
 
                 slide: function (value) {
-                    console.info(value);
-                    console.log(this.get('scope'));
+                    if (typeof this.get('callbackSlider') == 'function') {
+                        this.get('callbackSlider')(value);
+                    }
                 },
 
                 oncomplete: function (data) {
@@ -48,15 +118,15 @@ angular.module('innaApp.components').
                 replace: true,
                 template: '',
                 scope: {
-                    scope: '&',
+                    callbackSlider: '=',
                     sliderData: '='
                 },
                 link: function ($scope, $element, $attr) {
 
                     var _slider = new Slider({
                         el: $element[0],
-                        data : {
-                            scope : $scope.scope
+                        data: {
+                            callbackSlider: $scope.callbackSlider
                         }
                     });
 

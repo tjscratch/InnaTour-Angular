@@ -13,10 +13,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="gallery__list__wrapper">
+
+		<!-- jQuery Slider scrollBar -->
+		<div scroll-bar
+
+		     ng-if="pics.list.length > 1"
+		     class="scroll-pane gallery__list__wrapper">
 
 			<div class="gallery__list__container">
-				<ul class="gallery__list" ng-if="pics.list.length > 1">
+				<ul class="scroll-content gallery__list">
 					<li ng-repeat="pic in pics.list"
 					    ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"
 					    class="gallery__list-item"
@@ -25,12 +30,9 @@
 				</ul>
 			</div>
 
-			<div class="gallery__list__scroll">
-				<div slider-directive
-				     scope="this"
-				     class="filter__range-trackbar">
-
-				</div>
+			<div ng-show="hideBar"
+			     class="scroll-bar-wrap gallery__list__scroll b-slider">
+				<div class="scroll-bar"></div>
 			</div>
 		</div>
 
