@@ -31,12 +31,7 @@ angular.module('innaApp.directives')
                     '$timeout',
                     'innaApp.API.events',
                     '$routeParams',
-
-                    // components
-                    'Tripadvisor',
-                    'Stars',
-                    'PriceGeneric',
-                    function (EventManager, $scope, $rootScope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams, Tripadvisor, Stars, PriceGeneric) {
+                    function (EventManager, $scope, $rootScope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams) {
 
                         //console.profile('Draw');
 
@@ -85,24 +80,6 @@ angular.module('innaApp.directives')
 
                         $scope.location = angular.copy(document.location.href);
 
-                        // Tripadvisor
-                        var _tripadvisor = new Tripadvisor({
-                            el: $element.find('.js-tripadvisor-container'),
-                            data: {
-                                TaCommentCount: $scope.recommendedPair.hotel.data.TaCommentCount,
-                                TaFactor: $scope.recommendedPair.hotel.data.TaFactor,
-                                TaFactorCeiled: $scope.recommendedPair.hotel.data.TaFactorCeiled
-                            }
-                        })
-
-                        /* Stars */
-                        var _stars = new Stars({
-                            el: $element.find('.js-stars-container'),
-                            data: {
-                                stars: $scope.recommendedPair.hotel.data.Stars
-                            }
-                        });
-
 
                         if ($location.search().displayHotel) {
                             $scope.displayHotel = true;
@@ -133,14 +110,6 @@ angular.module('innaApp.directives')
                             //  обновляем transportersList
                             $scope.transportersList = $scope.recommendedPair.ticket.collectAirlines().airlines;
 
-                            _tripadvisor.set({
-                                TaCommentCount: $scope.recommendedPair.hotel.data.TaCommentCount,
-                                TaFactor: $scope.recommendedPair.hotel.data.TaFactor,
-                                TaFactorCeiled: $scope.recommendedPair.hotel.data.TaFactorCeiled
-                            });
-                            _stars.set('stars', $scope.recommendedPair.hotel.data.Stars);
-
-
                             $timeout(function () {
                                 $scope.location = window.location.href
                             }, 0)
@@ -154,11 +123,7 @@ angular.module('innaApp.directives')
 
                         //destroy
                         $scope.$on('$destroy', function () {
-                            if (_tripadvisor) _tripadvisor.teardown();
-                            if (_stars) _stars.teardown();
 
-                            _stars = null;
-                            _tripadvisor = null;
                         })
 
                         //console.profileEnd('Draw');
