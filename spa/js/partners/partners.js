@@ -53,6 +53,18 @@
             'aboutLink': 'https://sample.ru/about',
             'contactsLink': 'https://sample.ru/contacts',
             'offertaContractLink': ''
+        },
+        {
+            'name': 'ulixes',
+            'src': '/ulixes/ulixes.base.css',
+            'type': self.WLType.full,
+            'title': 'Ulixes',
+            'phone': '+7&nbsp;(495) 215 08 09',
+            'email': 'ta@ulixes.ru',
+            'skype': '',
+            'aboutLink': 'http://www.ulixes.ru/o_kompanii/',
+            'contactsLink': 'http://www.ulixes.ru/contacti/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ulixes.pdf'
         }
     ];
 
