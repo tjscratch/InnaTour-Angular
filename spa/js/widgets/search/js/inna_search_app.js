@@ -4,8 +4,10 @@
     angular.module("innaSearchForm", [
         "ngResource",
         "ui.bootstrap",
+        "searchForm",
         "innaDirectives",
-        "innaTemplates"
+        "innaTemplates",
+        "innaValidation"
     ])
 
         .filter('range', function () {
@@ -41,7 +43,6 @@
                 return f5;
             }
         });
-
     
     var innaTemplates = angular.module('innaTemplates', []);
     

@@ -17,8 +17,9 @@
 							typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
 							typeahead-template-url="typeaheadTemplateCustom.html"
 							typeahead-wait-ms="300"
-							required="true"
+							ng-change="fromIdError = null"
 							>
+					<div error-tooltip error="{{fromIdError}}"></div>
 				</div>
 			</div>
 
@@ -32,12 +33,9 @@
 							typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
 							typeahead-template-url="typeaheadTemplateCustom.html"
 							typeahead-wait-ms="300"
-							required="true"
-					        ng-change="fromToEqual = false"
+					        ng-change="toIdError = null"
 							>
-					<div class="inna-tooltip" ng-show="fromToEqual">
-						Города отправления и назначения должны отличаться
-					</div>
+					<div error-tooltip error="{{toIdError}}"></div>
 				</div>
 			</div>
 
@@ -50,8 +48,10 @@
 								name="startDate"
 								ng-model="startDate"
 								placeholder="Туда"
-								required="true"
+						        ng-focus="startDateError = null"
 								/>
+
+						<div error-tooltip error="{{startDateError}}"></div>
 					</div>
 					<div class="b-inna-col-xs-6">
 						<input
@@ -60,8 +60,10 @@
 								name="endDate"
 								ng-model="endDate"
 								placeholder="Обратно"
-								required="true"
+						        ng-focus="endDateError = null"
 								/>
+
+						<div error-tooltip error="{{endDateError}}"></div>
 					</div>
 				</div>
 			</div>

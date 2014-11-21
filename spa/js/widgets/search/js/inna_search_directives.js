@@ -4,190 +4,6 @@
 
     var directives = angular.module('innaDirectives', []);
 
-    directives.directive('innaForm', [
-        '$templateCache',
-        function ($templateCache) {
-            return {
-                restrict: 'E',
-                template: $templateCache.get('form.html'),
-                scope: {
-                    partnerSite: "@",
-                    partnerName: "@"
-                },
-                controller: ['$scope', '$http', function ($scope, $http) {
-
-                    /**
-                     * установка текущей локали
-                     */
-                    $http.get('https://inna.ru/api/v1/Dictionary/GetCurrentLocation').success(function (response) {
-                        var fullName = response.Name + ", " + response.CountryName
-                        $scope.locationFrom = {id: response.Id, name: fullName, iata: response.CodeIata};
-                    });
-
-                    /**
-                     * https://inna.ru/api/v1/Dictionary/Directory
-                     */
-                    $scope.getLocationFrom = function (val) {
-                        return $http.get('https://inna.ru/api/v1/Dictionary/Directory', {
-                            params: {
-                                term: val.split(', ')[0].trim()
-                            }
-                        }).then(function (response) {
-                            var data = []
-                            angular.forEach(response.data, function (item) {
-                                var fullName = item.Name + ", " + item.CountryName;
-                                var allArport = item.Airport ? " (все аэропорты)" : ""
-                                var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + allArport + "</span>";
-                                data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
-                                if (item.Airport) {
-                                    angular.forEach(item.Airport, function (item) {
-                                        var fullName = item.Name + ", " + item.CountryName;
-                                        var fullNameHtml = "<span class='i-name i-name-airport'>" + item.Name + "</span>";
-                                        data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
-                                    });
-                                }
-                            });
-                            return data;
-                        });
-                    };
-
-
-                    /**
-                     * автокомплит выбора локации
-                     * @param val
-                     * @returns {*}
-                     */
-                    $scope.getLocation = function (val) {
-                        return $http.get('https://inna.ru/api/v1/Dictionary/Hotel', {
-                            params: {
-                                term: val.split(', ')[0].trim()
-                            }
-                        }).then(function (response) {
-                            var data = []
-                            angular.forEach(response.data, function (item) {
-                                var fullName = item.Name + ", " + item.CountryName
-                                var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + "</span>"
-                                data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
-                            });
-                            return data;
-                        });
-                    };
-
-
-                    /**
-                     * BEGIN datapicker
-                     */
-                    $scope.setStartDate = new Date();
-
-                    var highlightDates = function (date) {
-                        var month = date.getMonth() + 1;
-                        var dates = date.getDate() + "." + month + "." + date.getFullYear()
-                        switch (dates) {
-                            case $scope.startDate:
-                                return {
-                                    classes: 'from_date'
-                                };
-                            case $scope.endDate:
-                                return {
-                                    classes: 'to_date'
-                                };
-                        }
-                    };
-
-                    $('.from_date').on('changeDate', function (selected) {
-                        $scope.setStartDate = selected.date;
-                        $('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
-                        $('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28));
-                        $('.to_date').focus();
-                    });
-
-                    $('.input-daterange').datepicker({
-                        format: "d.mm.yyyy",
-                        startDate: $scope.setStartDate,
-                        endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
-                        language: "ru",
-                        autoclose: true,
-                        todayHighlight: true,
-                        beforeShowDay: highlightDates
-                    });
-                    /**
-                     * END datapicker
-                     */
-                    
-
-                    /**
-                     * BEGIN PEOPLE_COUNTER
-                     */
-                    $scope.adultCount = 2;
-                    /**
-                     * END PEOPLE_COUNTER
-                     */
-
-
-                    $scope.$watch('locationFrom', function (data) {
-                        if (data && data.id) {
-                            $scope.fromId = data.id;
-                        }
-                    });
-                    $scope.$watch('locationTo', function (data) {
-                        if (data && data.id) {
-                            $scope.toId = data.id;
-                        }
-                    });
-                    $scope.$watch('startDate', function (data) {
-                        $scope.startDate = data;
-                    });
-                    $scope.$watch('endDate', function (data) {
-                        $scope.endDate = data;
-                    });
-
-
-                    /**
-                     * Старт поиска
-                     * "6733-6623-13.11.2014-19.11.2014-1-2-5_0_11"
-                     * @param innaSearchForm
-                     */
-                    $scope.innaStartSearch = function (innaSearchForm) {
-
-                        var params = [];
-                        params.push($scope.fromId)
-                        params.push($scope.toId)
-                        params.push($scope.startDate)
-                        params.push($scope.endDate)
-                        params.push(0)
-                        params.push($scope.adultCount)
-                        params[6] = ''
-
-                        $scope.fromToEqual = false;
-                        $scope.$watch('toId', function (data) {
-                            $scope.fromToEqual = $scope.fromId == data;
-                        })
-
-                        if ($scope.childrensAge) {
-                            var childs = [];
-                            for (var i = 0; i < $scope.childrensAge.length; i++) {
-                                childs.push($scope.childrensAge[i].value)
-                            }
-                            params[6] = childs.join('_')
-                        }
-
-                        if ($scope.partnerName) {
-                            var partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId
-                        } else {
-                            var partner = ''
-                        }
-
-
-                        if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
-                            //?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
-                            window.open($scope.partnerSite + "/#/packages/search/" + params.join('-') + partner, '_blank')
-                        }
-                    }
-
-                }]
-            }
-        }])
-
     directives.directive('counterPeople', [
         '$templateCache',
         function ($templateCache) {
@@ -239,7 +55,7 @@
                     });
                 }
             }
-        }])
+        }]);
 
     directives.directive('counterPeopleChildAgeSelector', [
         '$templateCache',
@@ -258,5 +74,31 @@
                 requires: '^counterPeople'
             }
         }]);
+
+    directives.directive('errorTooltip', [
+        '$templateCache',
+        '$timeout',
+        function ($templateCache, $timeout) {
+            return {
+                replace: true,
+                template: $templateCache.get("error-tooltip.html"),
+                scope: {
+                    error: '@'
+                },
+                link: function ($scope, element) {
+
+                    $scope.$watch('error', function (newValue) {
+                        if (newValue != '') {
+                            $timeout(function () {
+                                var width = element.width();
+                                element.css({
+                                    marginLeft: -width / 2 -10
+                                });
+                            }, 0)
+                        }
+                    });
+                }
+            }
+        }])
 
 }());
