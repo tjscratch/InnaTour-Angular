@@ -290,7 +290,6 @@ innaAppControllers
                                 $scope.hotel.CheckOutTime = data.Hotel.CheckOutTime
                             }
 
-
                             if(data.NewPrice) {
                                 $scope.OldPrice = $scope.recommendedPair.getFullPackagePrice();
                                 $scope.NewPrice = data.NewPrice;
