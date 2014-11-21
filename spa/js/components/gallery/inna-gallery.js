@@ -36,7 +36,12 @@ angular.module('innaApp.directives')
                         PicList.PLAN_Z = 'Z';
                         PicList.PLAN_Y = 'Y';
 
-                        PicList.prototype.setCurrent = function ($index) {
+                        PicList.prototype.setCurrent = function ($index, $event) {
+
+                            if($event) {
+                                $event.stopPropagation();
+                            }
+
                             this.current = this.list[$index];
                         };
 
@@ -44,16 +49,20 @@ angular.module('innaApp.directives')
                             return (this.current == this.list[$index]);
                         };
 
-                        PicList.prototype.next = function () {
+                        PicList.prototype.next = function ($event) {
+                            $event.stopPropagation();
+
                             var index = this.list.indexOf(this.current) + 1;
                             if (index >= this.list.length) index = 0;
-                            this.setCurrent(index);
+                            this.setCurrent(index, null);
                         };
 
-                        PicList.prototype.prev = function () {
+                        PicList.prototype.prev = function ($event) {
+                            $event.stopPropagation();
+
                             var index = this.list.indexOf(this.current) - 1;
                             if (index < 0) index = this.list.length - 1;
-                            this.setCurrent(index);
+                            this.setCurrent(index, null);
                         };
 
                         $scope.pics = new PicList();
@@ -83,6 +92,16 @@ angular.module('innaApp.directives')
 
                             return style;
                         };
+
+                        $scope.showFullGallery = function(){
+                            $scope.showGallery = true;
+                            document.body.classList.add('overflow_hidden')
+                        }
+
+                        $scope.closeGallery = function($event){
+                            $scope.showGallery = false;
+                            document.body.classList.remove('overflow_hidden')
+                        }
 
                         /*Watchers*/
                         $scope.$watch('urls', function (val) {
@@ -170,12 +189,13 @@ angular.module('innaApp.directives')
 
                                 $scope.$apply(function () {
                                     try {
-                                        $scope.pics.setCurrent(0);
+                                        $scope.pics.setCurrent(0, null);
                                         $scope.pics.plan = plan;
                                     } catch (e) {
                                     }
                                 });
                             }, fail);
+
                         });
                     }
                 ]

@@ -21,10 +21,12 @@ angular.module('innaApp.components')
 
 
                         var handleHelper = scrollBarElement.find(".ui-slider-handle")
-                            .mousedown(function () {
+                            .mousedown(function (evt) {
+
                                 scrollBarElement.width(handleHelper.width());
                             })
-                            .mouseup(function () {
+                            .mouseup(function (evt) {
+
                                 scrollBarElement.width("100%");
                             })
                             .wrap("<div class='ui-handle-helper-parent'></div>").parent();
@@ -79,6 +81,8 @@ angular.module('innaApp.components')
                             scrollBarElement.slider({
                                 step: 0.1,
                                 slide: function (event, ui) {
+                                    event.stopPropagation();
+
                                     if (scrollContent.width() > scrollPane.width()) {
                                         scrollContent.css("left", Math.round(
                                             ui.value / 100 * ( scrollPane.width() - scrollContent.width() )
@@ -88,6 +92,10 @@ angular.module('innaApp.components')
                                     }
                                 }
                             });
+                        }
+
+                        $scope.slideBar = function($event){
+                            if($event) $event.stopPropagation();
                         }
 
                         function onResize() {
