@@ -10,7 +10,9 @@
 			     class="scroll-pane gallery__list__wrapper">
 
 				<div class="gallery__list__container">
-					<ul class="scroll-content gallery__list">
+					<ul class="scroll-content gallery__list"
+						ng-class="{'gallery__list_center' : !hideBar}">
+
 						<li ng-repeat="pic in pics.list"
 						    ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"
 						    class="gallery__list-item"
@@ -19,7 +21,7 @@
 					</ul>
 				</div>
 
-				<div class="scroll-bar-wrap gallery__list__scroll b-slider">
+				<div ng-show="hideBar" class="scroll-bar-wrap gallery__list__scroll b-slider">
 					<div class="scroll-bar"></div>
 				</div>
 			</div>

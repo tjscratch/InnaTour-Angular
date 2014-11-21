@@ -37,9 +37,10 @@ angular.module('innaApp.components')
 
 
                         function sizeScrollbar() {
-
                             if (scrollContent.width() < $element.width()) {
-                                $scope.hideBar = false;
+                                $scope.$apply(function($scope){
+                                    $scope.hideBar = false;
+                                })
                             }
 
                             var remainder = scrollContent.width() - scrollPane.width();
