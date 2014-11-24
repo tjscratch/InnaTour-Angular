@@ -224,13 +224,48 @@ function FrameManager() {
         }
     }
 
+    self.smoothScroll = function (from, to) {
+        var smooth = 2;
+        var speed = 2;
+        var fromSteps = Math.round(from / smooth);
+        var maxSteps = Math.round(to / smooth);
+        var t = 0;
+        for (var i = fromSteps; i < maxSteps; i++) {
+            var scroll = i * smooth;
+            var time = t * speed;
+            t++;
+            setTimeout(
+                (function (scroll, time) {
+                    return function () {
+                        window.scrollTo(0, scroll);
+                    }
+                })(scroll, time),
+                time);
+        }
+    }
+
     self.setFrameScrollPage = function (data) {
         var headerHeight = document.querySelector("#inna-frame")
         var iframeTop = utils.getCoords(headerHeight).top;
         var scrollTop = data.scrollPage + iframeTop;
+        //плавный скролл
+        var smooth = data.smooth;
+        var maxHeight = data.maxHeight + iframeTop;
+        var docHeight = getDocumentSize().y;
         //скролит сайт внутри фрейма
         if (data.scrollPage != null) {
-            window.scrollTo(0, scrollTop);
+            if (smooth) {
+                var doc = document.documentElement;
+                //текущее положение скролла
+                var curScrollTop = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+                //если высоты документа не хватает
+                if (docHeight < maxHeight && curScrollTop + 2 < scrollTop) {
+                    self.smoothScroll(curScrollTop, scrollTop);
+                }
+            }
+            else {
+                window.scrollTo(0, scrollTop);
+            }
         }
     }
 
