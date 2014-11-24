@@ -28,7 +28,8 @@
             'skype': '',
             'aboutLink': 'https://biletix.ru/about_biletix/',
             'contactsLink': 'https://biletix.ru/contacts/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf'
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf',
+            'showOffers' : true
         },
         {
             'name': 'agenda',
