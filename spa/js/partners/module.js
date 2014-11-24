@@ -71,7 +71,7 @@ var innaModule = {
             (function documentWidthFixForUlixes() {
                 var el = document.querySelector(".page");
                 if (el) {
-                    el.style.width = '945px';
+                    el.style.width = '955px';
                 }
 
                 el = document.querySelector(".h-card");
