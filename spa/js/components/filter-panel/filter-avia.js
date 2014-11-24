@@ -88,6 +88,7 @@ angular.module('innaApp.directives')
                     $scope.$on('$destroy', function () {
                         if (FilterPanelComponent) {
                             FilterPanelComponent.teardown();
+                            FilterPanelAvia = null;
                             FilterPanelComponent = null;
                         }
                     })

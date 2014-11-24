@@ -37,7 +37,6 @@ innaAppConponents.
                             this.set('filtersCollection', []);
                         },
                         teardown: function (evt) {
-                            //console.log('teardown IndicatorFilters');
                             EventManager.off(Events.DYNAMIC_SERP_MAP_LOAD, this.mapLoad);
                             EventManager.off(Events.DYNAMIC_SERP_MAP_DESTROY, this.mapLoad);
                             this.set('filters', []);
@@ -52,7 +51,7 @@ innaAppConponents.
 
                     this.observe('filtersCollection', function(value){
                         this.set('filters', value);
-                    });
+                    }, {init : false});
                     
                 },
 

@@ -165,6 +165,8 @@
 
                     $scope.combination.Hotel = data.Hotel;
                     $scope.combination.Ticket = data.AviaInfo;
+
+                    $scope.Is_it_tarif = data.AviaInfo.ItTariff;
                 });
             }
 
@@ -252,6 +254,7 @@
                 if(data && !$scope.hotel){
                     $scope.hotel = data.Hotel;
                 }
+                console.log('done');
                 packageCheckAvailability()
             });
 

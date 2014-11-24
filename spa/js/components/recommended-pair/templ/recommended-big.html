@@ -122,8 +122,10 @@
                 <img src="/spa/img/hotels/no_photo70x70.png" ng-if="!recommendedPair.hotel.data.HotelPhoto70" alt="">
 
                 <div class="hotel-info-content">
+
                     <!-- Stars -->
-                    <div class="js-stars-container"></div>
+                    <span stars-directive
+                          hotel-data="recommendedPair.hotel.data.Stars"></span>
 
                     <h3 class="hotel-info-name">
                         {{recommendedPair.hotel.data.HotelName}}
@@ -140,7 +142,7 @@
 
             <!-- tripadvisor -->
             <div class="hotel-info__tripadvisor">
-                <div class="js-tripadvisor-container"></div>
+                <div trip-advisor-directive hotel-data="recommendedPair.hotel.data"></div>
             </div>
         </div>
         <span class="icon-sprite-hotel"></span>
@@ -191,10 +193,10 @@
 
             <!-- tooltip price -->
 
-            <div ng-if="recommendedPair.hotel.data.PriceObject"
+            <ng:any ng-if="recommendedPair.hotel.data.PriceObject"
                  price-generic-directive
                  price-object="recommendedPair.hotel.data.PriceObject"
-                 tooltip-klass="bundle"></div>
+                 tooltip-klass="bundle"></ng:any>
         </div>
 
         <span class="price-description" ng-if="recommendedPair.getProfit() > 1000">

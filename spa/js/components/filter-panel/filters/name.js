@@ -56,10 +56,6 @@ angular.module('innaApp.components').
                                 'name' : '',
                                 'value.val': ''
                             });
-
-                        },
-                        teardown: function (evt) {
-
                         }
                     });
                 },

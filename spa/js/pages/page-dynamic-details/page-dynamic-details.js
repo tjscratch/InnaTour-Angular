@@ -16,9 +16,6 @@ innaAppControllers
         '$q',
         '$anchorScroll',
 
-        // components
-        'Tripadvisor',
-        'Stars',
         'Balloon',
         '$filter',
 
@@ -27,7 +24,7 @@ innaAppControllers
         'ModelTicketsCollection',
         'ModelTicket',
         'ModelHotel',
-        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter,
+        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Balloon, $filter,
                   ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
             DynamicFormSubmitListener.listen();
@@ -77,8 +74,6 @@ innaAppControllers
             }
 
             /*Private*/
-            var _tripadvisor = null;
-            var _stars = null;
             var map = null;
             $scope.hotelLoaded = false;
             $scope.showFullDescription = false;
@@ -89,6 +84,10 @@ innaAppControllers
             $scope.buyAction = ($location.search().action == 'buy');
             $scope.dateHelper = dateHelper;
             $scope.airLogo = aviaHelper.setEtapsTransporterCodeUrl;
+            $scope.recommendedPair = new ModelRecommendedPair();
+            $scope.NewPrice = null;
+            $scope.OldPrice = null;
+            $scope.NewPricePackage = null;
             var _balloonLoad = new Balloon();
 
             var backgrounds = [
@@ -113,13 +112,11 @@ innaAppControllers
                     success: function (resp) {
                         _balloonLoad.fire('hide');
 
-                        $scope.recommendedPair = new ModelRecommendedPair();
-                        $scope.recommendedPair.ticket = new ModelTicket();
-                        $scope.recommendedPair.ticket.setData(resp.AviaInfo);
+                        $scope.recommendedPair.setTicket(new ModelTicket(resp.AviaInfo))
+
 
                         if (resp.Hotel) {
-                            var hotel = new ModelHotel(resp.Hotel);
-                            $scope.recommendedPair.setHotel(hotel);
+                            $scope.recommendedPair.setHotel(new ModelHotel(resp.Hotel));
                             $scope.hotel = resp.Hotel;
                             $scope.hotelRooms = [$scope.hotel.Room];
                             $scope.hotelRooms[0].isOpen = true;
@@ -175,9 +172,7 @@ innaAppControllers
             }
 
 
-            /**
-             * Получаем данные по отелю
-             */
+            /** Получаем данные по отелю */
             function getHotelDetails() {
                 var deferred = $q.defer();
                 track.dpBuyPackage();
@@ -198,43 +193,25 @@ innaAppControllers
                         parseAmenities(data.Hotel);
 
                         var hotel = new ModelHotel(data.Hotel);
-                        var ticket = new ModelTicket();
-                        ticket.setData(data.AviaInfo);
+                        var ticket = new ModelTicket(data.AviaInfo);
+                        $scope.recommendedPair.setTicket(ticket);
+                        $scope.recommendedPair.setHotel(hotel);
 
                         $location.search('displayHotel', hotel.data.HotelId);
 
                         $scope.hotel = data.Hotel;
                         $scope.hotelRooms = data.Rooms;
-                        $scope.recommendedPair = new ModelRecommendedPair();
-                        $scope.recommendedPair.setTicket(ticket);
-                        $scope.recommendedPair.setHotel(hotel);
-                        $scope.$digest();
+
                         $scope.hotelLoaded = true;
                         EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
 
                         $scope.dataFullyLoaded = false;
                         $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
 
+                        $scope.$digest();
+
                         $timeout(function () {
                             loadMap();
-
-                            /* Tripadvisor */
-                            _tripadvisor = new Tripadvisor({
-                                el: document.querySelector('.js-tripadvisor-container'),
-                                data: {
-                                    TaCommentCount: $scope.hotel.TaCommentCount,
-                                    TaFactor: $scope.hotel.TaFactor,
-                                    TaFactorCeiled: $scope.hotel.TaFactorCeiled
-                                }
-                            })
-
-                            /* Stars */
-                            _stars = new Stars({
-                                el: document.querySelector('.js-hotel-details-stars'),
-                                data: {
-                                    stars: $scope.hotel.Stars
-                                }
-                            })
                         }, 50);
 
                         deferred.resolve();
@@ -286,6 +263,14 @@ innaAppControllers
 
                             if ($scope.hotel.CheckOutTime == '00:00' && data.Hotel.CheckOutTime) {
                                 $scope.hotel.CheckOutTime = data.Hotel.CheckOutTime
+                            }
+
+                            if(data.NewPrice) {
+                                $scope.OldPrice = $scope.recommendedPair.getFullPackagePrice();
+                                $scope.NewPrice = data.NewPrice;
+                                $scope.NewPricePackage = ($scope.NewPrice - $scope.OldPrice);
+                                data.PackagePrice = data.NewPrice;
+                                $scope.recommendedPair.setFullPackagePrice(data);
                             }
 
                             onload();
@@ -510,18 +495,10 @@ innaAppControllers
                 }
             });
 
+            
 
             $scope.$on('$destroy', function () {
                 $('body').removeAttr('style');
-
-                if (_tripadvisor) {
-                    _tripadvisor.teardown();
-                    _tripadvisor = null;
-                }
-                if (_stars) {
-                    _stars.teardown();
-                    _stars = null;
-                }
 
                 if(_balloonLoad){
                     _balloonLoad.teardown();

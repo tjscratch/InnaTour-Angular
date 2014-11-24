@@ -272,6 +272,11 @@ angular.module('innaApp.components').
                     if (newDose.length) {
                         this.set({EnumerableList: this.get('EnumerableList').concat(newDose)});
                     }
+                    if(newDose.length < 10){
+                        if (window.partners && window.partners.isFullWL() === true) {
+                            this.set('showButtonMore', false);
+                        }
+                    }
                     //console.timeEnd("Execution time render");
                 },
 
