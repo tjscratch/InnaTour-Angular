@@ -253,7 +253,7 @@
 
         var html = document.getElementsByTagName('html')[0];
         //навешиваем стиль партнера
-        html.className = html.className + " partner-" + partner.name;
+        html.className = html.className + " partner-wl partner-" + partner.name;
     };
 
     function insertAfter(newNode, referenceNode) {
