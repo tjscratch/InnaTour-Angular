@@ -6,7 +6,23 @@ angular.module('innaApp.controllers')
         'ShareLink',
         '$location',
         'innaApp.Urls',
-        function($scope, $templateCache, HelpDataService, ShareLink, $location, Urls){
+        function ($scope, $templateCache, HelpDataService, ShareLink, $location, Urls) {
+            if (typeof (Zenbox) !== "undefined") {
+                Zenbox.init({
+                    dropboxID: "20176365",
+                    url: "https://innatour.zendesk.com",
+                    tabTooltip: "Поддержка",
+                    tabImageURL: "https://p4.zdassets.com/external/zenbox/images/tab_ru_support_right.png",
+                    tabColor: "#89c13a",
+                    tabPosition: "Right"
+                });
+            }
+
+            if ($('#zenbox_tab').length > 0) {
+                //console.log('btn show');
+                $('#zenbox_tab').show();
+            }
+
             var EVENT_OPEN = 'OPEN';
             var hash = $location.hash();
 
@@ -84,6 +100,11 @@ angular.module('innaApp.controllers')
                 }
             });
 
-            new Page()
+            new Page();
+
+            $scope.$on('$destroy', function () {
+                //console.log('btn hide');
+                $('#zenbox_tab').hide();
+            });
         }
     ]);

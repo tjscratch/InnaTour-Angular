@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:ng="https://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -228,7 +228,8 @@
              && !isActive('/avia/')
              && !isActive('/avia/search/')
              && !isActive('/')
-             && !isActive('/display-order/')"
+             && !isActive('/display-order/')
+             && !isActive('/help/')"
          title="Отправить заявку"></div>
 
     <!-- PAGE CONTENT -->
@@ -481,6 +482,22 @@
 </script>
 <!-- End Visual Website Optimizer Synchronous Code -->
 
+<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.6/zenbox.js"></script>
+<style type="text/css" media="screen, projection">
+  @import url(//assets.zendesk.com/external/zenbox/v2.6/zenbox.css);
+</style>
+<!--<script type="text/javascript">
+  if (typeof(Zenbox) !== "undefined") {
+    Zenbox.init({
+      dropboxID:   "20176365",
+      url:         "https://innatour.zendesk.com",
+      tabTooltip:  "Поддержка",
+      tabImageURL: "https://p4.zdassets.com/external/zenbox/images/tab_ru_support_right.png",
+      tabColor:    "#89c13a",
+      tabPosition: "Right"
+    });
+  }
+</script>-->
 
 </body>
 </html>
