@@ -58,13 +58,29 @@ var innaModule = {
         //    //}
         //});
 
-        (function documentWidthFixForBiletix() {
-            var el = document.querySelector("#content > .container");
-            if (el) {
-                el.style.padding = '0';
-                el.style.width = '100%';
-            }
-        })();
+        if (partner == 'biletix') {
+            (function documentWidthFixForBiletix() {
+                var el = document.querySelector("#content > .container");
+                if (el) {
+                    el.style.padding = '0';
+                    el.style.width = '100%';
+                }
+            })();
+        }
+        else if (partner == 'ulixes') {
+            (function documentWidthFixForUlixes() {
+                var el = document.querySelector(".page");
+                if (el) {
+                    el.style.width = '945px';
+                }
+
+                el = document.querySelector(".h-card");
+                if (el) {
+                    el.style.paddingLeft = '0px';
+                    el.style.paddingRight = '0px';
+                }
+            })();
+        }
 
         function processHashParams(url) {
             //если передаются урлы типа #/packages/buy/QWA5KX
