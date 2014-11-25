@@ -32,43 +32,79 @@ for key in (1..12){
 .text-right{
   text-align right
 }
+.text-center{
+  text-align center
+}
 .data-row{
   @extend .clearFix;
 }
-.data-title{
-  .data-item{
-    height 38px
-  }
-}
 .data-item{
   float left
-  padding 2px 6px
   border-style dotted
   border-color #bdbdbd
   border-width 1px 0 0 1px
+
+  &:first-child{
+    border-width 1px 0 0 0
+  }
 }
 .data-col-1{
-  width 110px
+  width 120px
 }
 .data-col-2{
-  width 200px
+  width 205px
 }
 .data-col-3{
-  width 220px
+  width 210px
 }
 .data-col-4{
-  width 100px
+  width 115px
 }
 .data-col-5{
   width 38px
 }
 .data-col-6{
-  width 90px
+  width 80px
 }
 .data-col-7{
   width 90px
 }
 .data-col-8{
-  width 110px
+  width 100px
 }
-  
+.data-title{
+  .data-item{
+    padding 2px 6px
+    height 38px
+  }
+}
+.data-body{
+  margin 5px 0
+  background-color #fff
+  border-radius $border-radius
+  font-size 12px
+
+  .data-item{
+    height 50px
+    padding 9px 6px
+    border-width 0 0 0 1px
+    white-space nowrap
+
+    div{
+      overflow hidden
+      text-overflow ellipsis
+    }
+
+    &:first-child{
+      border-width 0
+    }
+    .icon{
+      margin-top 7px
+    }
+  }
+
+  &.disabled{
+    background-color #f0f0f0
+    color $color-gray
+  }
+}
