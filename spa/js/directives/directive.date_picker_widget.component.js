@@ -369,6 +369,12 @@
                 }
 
                 $scope.showPicker = function () {
+                    //фикс выбора даты - для WL-full скролим страницу вниз
+                    //при открытии
+                    if ($scope.isOpen && window.partners && window.partners.isFullWL()) {
+                        window.partners.scrollToChildSelector();
+                    }
+
                     $scope.datePicker.show();
                     $(document).on('scroll', $scope.hidePicker);
                 }
