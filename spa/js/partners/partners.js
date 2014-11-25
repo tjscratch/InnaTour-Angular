@@ -69,6 +69,17 @@
         }
     ];
 
+    var maxClientHeight = 730;
+    self.scrollToChildSelector = function () {
+        //скроллим родителя фрейма до выбора кол-ва детей
+        self.setScrollPage(120, true, maxClientHeight);
+    };
+
+    self.scrollToChildSelectorItem = function () {
+        //скроллим родителя фрейма до выбора кол-ва детей
+        self.setScrollPage(200, true, maxClientHeight);
+    };
+
     self.resetParentScrollTop = function () {
         self.parentScrollTop = 0;
     }
@@ -142,9 +153,9 @@
         }
     }
 
-    self.setScrollPage = function (data) {
+    self.setScrollPage = function (data, smooth, maxHeight) {
         if (data) {
-            sendCommandToParent(self.commands.setScrollPage, { 'scrollPage': data });
+            sendCommandToParent(self.commands.setScrollPage, { 'scrollPage': data, 'smooth': smooth, 'maxHeight': maxHeight });
         }
     }
 

@@ -72,7 +72,13 @@ innaAppDirectives.directive('counterPeople', ['$templateCache', function($templa
                 var isOnComponentTitle = event.target == element || event.target == scope.rootElement[0];
 
                 scope.$apply(function($scope){
-                    if(isOnComponentTitle) {
+                    if (isOnComponentTitle) {
+                        //фикс выбора детей - для WL-full скролим страницу вниз
+                        //при открытии
+                        if (!scope.isOpen && window.partners && window.partners.isFullWL()) {
+                            window.partners.scrollToChildSelector();
+                        }
+
                         $scope.isOpen = !$scope.isOpen;
                     } else {
                         $scope.isOpen = isInsideComponent;
@@ -106,8 +112,14 @@ innaAppDirectives.directive('counterPeopleChildAgeSelector', ['$templateCache', 
             $(document).click(function(event){
                 var isInsideComponent = !!$(event.target).closest(element).length;
 
-                if(isInsideComponent) {
-                    scope.$apply(function($scope){
+                if (isInsideComponent) {
+                    scope.$apply(function ($scope) {
+                        //фикс выбора детей - для WL-full скролим страницу вниз
+                        //при открытии
+                        if (!scope.isOpen && window.partners && window.partners.isFullWL()) {
+                            window.partners.scrollToChildSelectorItem();
+                        }
+
                         $scope.isOpen = !$scope.isOpen;
                     });
                 } else {
