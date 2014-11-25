@@ -96,8 +96,8 @@
         <span class="pull-left warning">
 		    {{pluralize(ticket.NumSeats, ["Последнее","Последние","Последние"])}}
 			{{ticket.NumSeats}}
-			{{pluralize(ticket.NumSeats, ["место","места","мест"])}}
-			{{#if ticket.IsCharter}}<span>, чартер</span>{{/if}}
+			{{pluralize(ticket.NumSeats, ["место","места","мест"])}}<!--
+			-->{{#if ticket.IsCharter}}<span>, чартер</span>{{/if}}
 	    </span>
 	{{/if}}
 

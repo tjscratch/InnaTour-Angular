@@ -390,8 +390,8 @@
 
                     addAirPortFromToFields(item);
 
-                    //проверка на разные аэропорты отлета и прилета
-                    item.alertDifferentPorts = (item.OutCode != item.InCodeBack);
+                    //проверка на разные аэропорты отлета и прилета, в одну сторону не учитываем
+                    item.alertDifferentPorts = (item.OutCode != item.InCodeBack) && item.EtapsBack.length > 0;
                 },
 
                 addAggInfoFields: function (item) {
