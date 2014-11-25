@@ -1,62 +1,22 @@
-@import "controls.styl"
-@import "buttons.styl"
-@import "form.styl"
-@import "avia.styl"
-@import "dp.search.result.styl"
-@import "dp.hotel.details.styl"
-@import "dp.buy.styl"
-@import "map.styl"
-
-
-
-.header, .footer {
-    display: none;
-}
-
-.wrpr{
-  padding-bottom: 1px !important;
-}
-  
-.page-buy-success{
-  padding-top 20px;
-}
-  
-.partners-hide {
-    display: none!important;
-}
+@import "../full_wl/index.styl"
+@import "../full_wl/controls.styl"
+@import "../full_wl/buttons.styl"
+@import "../full_wl/form.styl"
+@import "../full_wl/avia.styl"
+@import "../full_wl/dp.search.result.styl"
+@import "../full_wl/dp.hotel.details.styl"
+@import "../full_wl/dp.buy.styl"
+@import "../full_wl/map.styl"
 
 .partner-ulixes {
-/*чтобы работал ресайз фрейма*/
-    .main {
-        min-height: 500px;
-    }
-
-    .partner-body-noscroll {
-        overflow: hidden;
-    }
-    
-    .light-theme {
-        background-color: #eaeff3;
-        
-        &.partner-body-class {
-            background-color: transparent;
-        }
-        .offers-black {
-            background-color: transparent;
-        }
-        .offers-dark-grey {
-            background-color: transparent;
-        }
-    }
-
-    .main .wrpr {
-        padding-bottom: 50px;
-    }
-
     .pic-cont {
         height: 470px;
         width: 100%;
         text-align: center;
         background: url("/spa/img/partners-form-back.jpg") no-repeat top center;
+    }
+
+    .b-tour-form {
+        padding-left 120px/*отступ*/
     }
 }

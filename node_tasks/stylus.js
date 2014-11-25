@@ -95,5 +95,15 @@ gulp.task('styl-adv', function () {
 });
 
 
+/* LK */
+gulp.task('styl-lk', function () {
+    return gulp.src([conf.dest + '/html/LK/css/lk.styl'])
+        .pipe(stylus())
+        .pipe(concat('lk.css'))
+        .pipe(gulp.dest(conf.dest + '/html/LK/css'))
+        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
+});
+
+
 gulp.task('styles-app', ['styl-components', 'styl-pages', 'styl-regions']);
-gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print', 'styl-partners', 'styl-adv']);
+gulp.task('styles', ['styl-common', 'styl-ticket', 'styl-ie', 'styl-print', 'styl-partners', 'styl-adv', 'styl-lk']);

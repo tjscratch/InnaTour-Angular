@@ -37,6 +37,11 @@ gulp.task('watch', function () {
 
         });
 
+    gulp.watch(conf.dest + '/html/LK/css/*.styl', ['styl-lk'])
+        .on('change', function (file) {
+
+        });
+
     // components page regions
     gulp.watch([
             conf.src + '/components/**/*.js',
