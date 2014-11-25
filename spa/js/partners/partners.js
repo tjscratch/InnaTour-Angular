@@ -28,7 +28,8 @@
             'skype': '',
             'aboutLink': 'https://biletix.ru/about_biletix/',
             'contactsLink': 'https://biletix.ru/contacts/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf'
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf',
+            'showOffers' : true
         },
         {
             'name': 'agenda',
@@ -252,7 +253,7 @@
 
         var html = document.getElementsByTagName('html')[0];
         //навешиваем стиль партнера
-        html.className = html.className + " partner-" + partner.name;
+        html.className = html.className + " partner-wl partner-" + partner.name;
     };
 
     function insertAfter(newNode, referenceNode) {
