@@ -1,0 +1,57 @@
+/* font-family: "ProximaNovaRegular"; */
+@font-face{
+  font-family: "ProximaNovaRegular";
+  src: url("../fonts/ProximaNovaRegular/ProximaNovaRegular.eot");
+  src: url("../fonts/ProximaNovaRegular/ProximaNovaRegular.eot?#iefix") format("embedded-opentype"),
+  url("../fonts/ProximaNovaRegular/ProximaNovaRegular.woff") format("woff"),
+  url("../fonts/ProximaNovaRegular/ProximaNovaRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* font-family: "ProximaNovaBold"; */
+@font-face{
+  font-family: "ProximaNovaBold";
+  src: url("../fonts/ProximaNovaBold/ProximaNovaBold.eot");
+  src: url("../fonts/ProximaNovaBold/ProximaNovaBold.eot?#iefix") format("embedded-opentype"),
+  url("../fonts/ProximaNovaBold/ProximaNovaBold.woff") format("woff"),
+  url("../fonts/ProximaNovaBold/ProximaNovaBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+body{
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  font-smoothing: subpixel-antialiased !important;
+  font-family: ProximaNovaRegular, Arial, sans-serif;
+  font-size 13px
+  line-height 130%
+  color $color-black
+}
+*{
+  box-sizing border-box
+}
+a{
+  color $link-color
+  text-decoration underline
+}
+.breadcrumbs{
+  @extend .clearFix;
+  display block
+  margin 12px 0
+  font-size 15px
+
+  li{
+    float left
+    margin-left 20px
+    list-style-position outside
+    list-style-type disc
+    white-space nowrap
+
+    &:first-child{
+      margin-left 0
+      list-style none
+    }
+  }
+}

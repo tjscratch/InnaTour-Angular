@@ -1,0 +1,97 @@
+.header{
+  position fixed
+  z-index 2
+  width 100%
+  height $header-height
+  padding $header-vertical-padding 0
+  background-color $color-black
+  box-shadow 0 3px 5px rgba(0, 0, 0, .6)
+  font-size 15px
+  color $color-gray
+
+  a{
+    color #fff
+  }
+}
+.header-logo{
+  position relative
+  display inline-block
+  text-decoration none !important
+
+  .icon-logo,
+  .icon-logo-inna{
+    vertical-align middle
+  }
+  .icon-logo-inna{
+    margin-left 10px
+  }
+}
+.header-menu{
+  @extend .clearFix;
+  margin 0
+  padding 12px 0 0 0
+  list-style none
+
+  .header-menu-item{
+    float left
+    padding-left $col-padding * 4
+  }
+}
+.dropdown{
+  position relative
+
+  .dropdown-toggle{
+    position relative
+    display block
+    padding 0 20px 0 0
+    color #fff
+    cursor pointer
+
+    .icon{
+      position absolute
+      right 4px
+      top 7px
+    }
+  }
+  .dropdown-menu{
+    position absolute
+    right 0
+    top 33px
+    display none
+    background-color $color-black
+
+    .dropdown-menu-item{
+      display block
+      padding 5px 10px 5px 15px
+      cursor: pointer
+      text-align right
+      text-decoration none
+
+      &:hover{
+        background-color $color-black2
+      }
+    }
+    a.dropdown-menu-item{
+      &:hover{
+        color $color-green
+      }
+    }
+  }
+
+  &.open{
+    .dropdown-toggle{
+      color $color-green
+    }
+    .dropdown-menu{
+      display block
+    }
+  }
+}
+.header-info{
+  position fixed
+  z-index 1
+  top $header-height
+  width 100%
+  background-color #fff
+  box-shadow 0 3px 5px rgba(0, 0, 0, .6)
+}
