@@ -22,6 +22,9 @@ angular.module('innaApp.components').
                 template: '{{>element}}',
                 append: true,
                 data: {
+                    positionStyle: '',
+                    coords: null,
+                    close: false,
                     width: '',
                     tooltipKlass: '',
                     contentHTML: '',
@@ -31,44 +34,18 @@ angular.module('innaApp.components').
                     style: ''
                 },
 
-                /**
-                 * Вычесляемые свойства
-                 */
-                computed: {
-                    stylePosition: {
-                        get: function () {
-                            var style = '';
-                            var pos = '';
-                            var position = this.get('position').split('_')
-                            var W = this.get('width');
-                            var H = this.get('height');
+                computed : {
+                    tooltipKlassComputed : function(){
+                        var splitKlass = this.get('tooltipKlass').split(':');
+                        var klass = '';
+                        var prifex = 'b-tooltip';
 
-
-                            position.forEach(function (itemPos) {
-                                switch (itemPos) {
-                                    case 'right':
-                                        pos += itemPos + ":-" + W + "px;";
-                                        break;
-                                    case 'left':
-                                        pos += ''
-                                        break;
-                                    case 'top':
-                                        pos += ''
-                                        break;
-                                    case 'bottom':
-                                        pos += ''
-                                        break;
-                                }
-                            })
-
-
-                            style = "width:" + this.get('width') + "px;" + pos;
-
-                            return style;
-                        },
-                        set: function (params) {
-                            this.set('width', params.width);
+                        for (var i = 0; i < splitKlass.length; i++) {
+                            var str = splitKlass[i];
+                            klass += prifex+"_"+str+" ";
                         }
+
+                        return klass;
                     }
                 },
 
@@ -128,7 +105,9 @@ angular.module('innaApp.components').
                             templ = $templateCache.get('components/tooltip/templ/empty.hbs.html');
                         }
                         return templ;
-                    }
+                    },
+
+                    ruble: $templateCache.get('components/ruble.html')
                 },
 
                 computedStyle: function () {
@@ -195,13 +174,17 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
     function ($templateCache, $timeout, EventManager, $filter, TooltipBase) {
         return {
             replace: true,
+            transclude: false,
             template: '',
             scope: {
+                propertyWatch : '=',
                 tooltipKlass: '@',
                 contentHtml: '@',
                 condition: '&',
                 position: '@',
+                positionStyle : '@',
                 templ: '@',
+                pin: '@',
                 isVisible: '=',
                 width: '@',
                 close: '@',
@@ -209,12 +192,15 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
             },
             link: function ($scope, $element, $attr) {
 
+
                 var el = $element[0];
                 var html = el.innerHTML.length ? el.innerHTML : $scope.contentHtml;
-                el.innerHTML = '';
+
+                if(!$scope.propertyWatch) {
+                    el.innerHTML = '';
+                }
 
                 var coords = utils.getCoords(el);
-
 
                 var _tooltipBase = new TooltipBase({
                     el: ($scope.el) ? $element[0] : document.body,
@@ -223,7 +209,9 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
                         contentHTML: html,
                         condition: $scope.condition,
                         position: $scope.position,
+                        positionStyle: $scope.positionStyle,
                         coords: coords,
+                        pin : $scope.pin,
                         template: $scope.templ || '',
                         isVisible: $scope.isVisible || false,
                         width: $scope.width,
@@ -231,6 +219,11 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
                     }
                 });
 
+                $scope.$watch('propertyWatch', function(value){
+                    if(value) {
+                        _tooltipBase.set('NewPricePackage', value);
+                    }
+                })
 
                 $scope.$watch('isVisible', function (value) {
                     _tooltipBase.set('isVisible', value);

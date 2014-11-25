@@ -1,0 +1,27 @@
+<div class="b-tooltip b-tooltip_popover {{tooltipKlassComputed}}"
+     style="top:{{coords.top}}px; left:{{coords.left - 4}}px; position:{{positionStyle}};">
+
+
+	<div class="tooltip tooltip_{{position}} tooltip_pin_{{pin}}
+		{{isVisible ? 'tooltip_show' : 'tooltip_hide' }}"
+	     style="width:{{width}}px;">
+
+		<div class="balloon-close" on-click="hide" title="Закрыть">
+			<i class="icon-sprite-remove-big"></i>
+		</div>
+
+
+		<div class="b-tooltip__header">
+			<h3>{{$filter('negativeNumbers')(NewPricePackage)}} {{>ruble}}</h3>
+		</div>
+
+		<div class="b-tooltip__body">
+            <span class="b-tooltip__body__text">
+              Номер был изменен, стоимость пакета изменилась
+            </span>
+		</div>
+
+	</div>
+</div>
+
+

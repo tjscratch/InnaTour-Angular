@@ -88,6 +88,20 @@
     z-index 400;
   }
 
+
+  &__header {
+    font-size: 18px;
+    margin-bottom : 5px;
+
+  }
+
+  &__body {
+    &__text {
+      color:#666666;
+      font-size: 12px;
+    }
+  }
+
   &_nocorner {
 
     position: fixed;
@@ -106,16 +120,21 @@
     }
   }
 
-  &__header {
-    font-size: 18px;
-    margin-bottom : 5px;
+  &_tooltip-price {
+    z-index : 200;
 
-  }
+    .balloon-close {
+      padding : 5px;
+      top: 2px;
+      right: 2px;
+    }
 
-  &__body {
-    &__text {
-      color:#666666;
-      font-size: 12px;
+    .tooltip {
+      padding: 10px 10px 8px;
+    }
+
+    .b-tooltip__body__text {
+      font-size :12px;
     }
   }
 }
@@ -150,7 +169,28 @@
   }
 
   &_top {
-    transform: translateY(-100%)
+    transform: translateY(-130%);
+    right:auto;
+    top:auto;
+    bottom:auto;
+
+    &:after,
+    &:before {
+      transform: rotate(180deg);
+      top: auto;
+      right: auto;
+    }
+
+    &:before {
+      bottom: -10px;
+      left: 12px;
+    }
+
+    &:after {
+      bottom: -12px;
+      left: 4px;
+    }
+
   }
 
   &_bottom {
@@ -192,6 +232,55 @@
 
   &_left {
     transform: translateX(0)
+  }
+
+
+
+}
+
+
+// стрелка на тултипе
+.tooltip {
+  &_pin_right_bottom {
+    &:after,
+    &:before {
+      transform: rotate(180deg);
+      top: auto;
+      left: auto;
+    }
+
+    &:before {
+      bottom: -10px;
+      right: 12px;
+    }
+
+    &:after {
+      bottom: -12px;
+      right: 4px;
+    }
+  }
+
+  &_pin_center {
+
+    &:after,
+    &:before {
+      transform: rotate(180deg);
+      top: auto;
+      left: auto;
+    }
+
+    &:before {
+      bottom: -10px;
+      right: 50%;
+      margin-right : -10px;
+    }
+
+    &:after {
+      bottom: -12px;
+      right: 50%;
+      margin-right : -20px;
+    }
+
   }
 }
 

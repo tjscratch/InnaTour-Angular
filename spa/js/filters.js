@@ -157,6 +157,20 @@ innaAppFilters.filter('stripTags', function () {
     }
 });
 
+
+innaAppFilters.filter('negativeNumbers',['$filter', function ($filter) {
+    return function (negative) {
+        var str = negative.toString();
+        var validRegExp = /^-\d/
+        if(validRegExp.test(str)) {
+            var withOutMinus = str.substr(1, str.length);
+            return '- ' + $filter('price')(Number(withOutMinus));
+        } else {
+            return '+ '+ $filter('price')(negative);
+        }
+    }
+}]);
+
 innaAppFilters.filter('textOverflow', ['$filter', function ($filter) {
     return  function (text, limit) {
 
