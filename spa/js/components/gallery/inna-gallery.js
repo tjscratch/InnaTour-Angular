@@ -3,7 +3,7 @@ angular.module('innaApp.directives')
         return {
             template: $templateCache.get('components/gallery/templ/gallery.html'),
             scope: {
-                urls: '=innaGalleryPicList'
+                urls: '=photos'
             },
             controller: [
                 '$scope',

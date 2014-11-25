@@ -1,147 +1,163 @@
 <ng-include src="'components/wl-new-search/templ/index.hbs.html'"></ng-include>
 <div class="hotel-details ng-cloak" ng-class="{'hotel-details_display-order' : isDisplayOrder}" ng-if="hotelLoaded">
-    <div class="hotel-details__wrap main__center">
-        <div class="hotel-details__section hotel-details__section_layout_context">
-            <div class="hotel-details__ta hotel-details-ta-info" ng-click="scrollToTripadvisor()" ng-if="hotel.TaFactor">
 
-                <!-- tripadvisor -->
-                <div trip-advisor-directive hotel-data="hotel"></div>
+	<div class="hotel-details__wrap main__center">
 
-            </div>
-            <div class="hotel-details-name">
+		<div class="hotel-details__section hotel-details__section_layout_context">
+
+			<div class="hotel-details__ta hotel-details-ta-info" ng-click="scrollToTripadvisor()"
+			     ng-if="hotel.TaFactor">
+
+				<!-- tripadvisor -->
+				<div trip-advisor-directive hotel-data="hotel"></div>
+
+			</div>
+
+			<div class="hotel-details-name">
+				<!-- Stars -->
+                <span stars-directive
+                      hotel-data="hotel.Stars"
+                      class="hotel-details-stars"></span>
+
                 <span class="hotel-details-name__title">
 	                {{hotel.HotelName}}
-
-	                <!-- Stars -->
-                    <span stars-directive
-                          hotel-data="hotel.Stars"
-                          class="hotel-details-stars"></span>
                 </span>
-            </div>
-        </div>
+			</div>
+		</div>
 
-        <div class="hotel-details__section hotel-details__section_gallery"
-             ng-if="(hotel.Photos && (hotel.Photos.LargePhotos.length || hotel.Photos.MediumPhotos.length))">
-            <div inna-gallery inna-gallery-pic-list="hotel.Photos"></div>
-        </div>
+		<div class="hotel-details__section hotel-details__section_gallery">
+			<div inna-gallery
+			     ng-if="(hotel.Photos && (hotel.Photos.LargePhotos.length || hotel.Photos.MediumPhotos.length))"
+			     photos="hotel.Photos"></div>
+		</div>
 
-        <div class="hotel-details__section" ng-if="hotel.Description">
-            <div class="hotel-details__section-box">
-                <h2 class="hotel-details__section-title">Об отеле</h2>
-                <div class="hotel-details__section-text">
-                    <div class="spinner" ng-if="!hotelLoaded">
-                        <div class="rect rect1"></div>
-                        <div class="rect rect2"></div>
-                        <div class="rect rect3"></div>
-                        <div class="rect rect4"></div>
-                        <div class="rect rect5"></div>
-                        <img class="gif" src="/spa/img/spinner.gif">
-                    </div>
-                    <div class="hotel-details__section-text-viewport"
-                         ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
-                        <div ng-repeat="section in hotel.Description track by $index">
-                            <!--<h4>{{section.Title}}</h4>-->
-                            <div ng-bind-html="section.Content"></div>
-                        </div>
-                        <p>
-                            <b>Подробные сведения</b><br/><br/>
-                            <b>Время прибытия:</b>&nbsp;{{hotel.CheckInTime}}
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <b>Выезд:</b>&nbsp;{{hotel.CheckOutTime}}
-                        </p>
-                    </div>
-                    <p>
-                        <span class="hotel-details__section-text-more" ng-if="showFullDescription" ng-click="toggleDescription()">Свернуть</span>
-                        <span class="hotel-details__section-text-more" ng-if="!showFullDescription" ng-click="toggleDescription()">Развернуть</span>
-                    </p>
-                </div>
-                <ul class="hotel-details-extra" ng-if="hotel.Extra">
-                    <li ng-repeat="(key, val) in hotel.Extra track by $index"
-                        class="hotel-details-extra__item hotel-details-extra__item_description hotel-details-extra__item_type_{{key | lowercase}}">
-                        <i class="icon-type-extra icon-type-extra-{{key | lowercase}}"></i>
-                        {{val}}
-                    </li>
-                </ul>
-            </div>
-        </div>
+		<div class="hotel-details__section" ng-if="hotel.Description">
+			<div class="hotel-details__section-box">
+				<h2 class="hotel-details__section-title">Об отеле</h2>
 
-        <div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom">
+				<div class="hotel-details__section-text">
+					<div class="spinner" ng-if="!hotelLoaded">
+						<div class="rect rect1"></div>
+						<div class="rect rect2"></div>
+						<div class="rect rect3"></div>
+						<div class="rect rect4"></div>
+						<div class="rect rect5"></div>
+						<img class="gif" src="/spa/img/spinner.gif">
+					</div>
+					<div class="hotel-details__section-text-viewport"
+					     ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
+						<div ng-repeat="section in hotel.Description track by $index">
+							<!--<h4>{{section.Title}}</h4>-->
+							<div ng-bind-html="section.Content"></div>
+						</div>
+						<p>
+							<b>Подробные сведения</b><br/><br/>
+							<b>Время прибытия:</b>&nbsp;{{hotel.CheckInTime}}
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<b>Выезд:</b>&nbsp;{{hotel.CheckOutTime}}
+						</p>
+					</div>
+					<p>
+						<span class="hotel-details__section-text-more" ng-if="showFullDescription"
+						      ng-click="toggleDescription()">Свернуть</span>
+						<span class="hotel-details__section-text-more" ng-if="!showFullDescription"
+						      ng-click="toggleDescription()">Развернуть</span>
+					</p>
+				</div>
+				<ul class="hotel-details-extra" ng-if="hotel.Extra">
+					<li ng-repeat="(key, val) in hotel.Extra track by $index"
+					    class="hotel-details-extra__item hotel-details-extra__item_description hotel-details-extra__item_type_{{key | lowercase}}">
+						<i class="icon-type-extra icon-type-extra-{{key | lowercase}}"></i>
+						{{val}}
+					</li>
+				</ul>
+			</div>
+		</div>
 
-            <h2 class="hotel-details__section-title">
-                <span ng-if="!buyAction">Пакет с этим отелем</span>
-                <span ng-if="buyAction">Выбранный пакет</span>
-            </h2>
+		<div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom">
 
-            <div recommended-pair-component-big
-                 recommended-pair="recommendedPair"
-                 inna-dynamic-bundle-ticket-details="getTicketDetails"></div>
-        </div>
+			<h2 class="hotel-details__section-title">
+				<span ng-if="!buyAction">Пакет с этим отелем</span>
+				<span ng-if="buyAction">Выбранный пакет</span>
+			</h2>
 
-	    <!--<div class="$anchorScroll" id="ScrollRooms"
-	         style="display: block; position: relative; top: -150px; visibility: hidden;"></div>-->
+			<div recommended-pair-component-big
+			     recommended-pair="recommendedPair"
+			     inna-dynamic-bundle-ticket-details="getTicketDetails"></div>
+		</div>
 
-        <div class="hotel-details__section">
-            <h2 class="hotel-details__section-title" ng-if="!hotelOnly">Выбор номера</h2>
-            <h2 class="hotel-details__section-title" ng-if="hotelOnly">Номер</h2>
+		<!--<div class="$anchorScroll" id="ScrollRooms"
+			 style="display: block; position: relative; top: -150px; visibility: hidden;"></div>-->
 
-            <div class="spinner" ng-if="!dataFullyLoaded">
-                <div class="rect rect1"></div>
-                <div class="rect rect2"></div>
-                <div class="rect rect3"></div>
-                <div class="rect rect4"></div>
-                <div class="rect rect5"></div>
-                <img class="gif" src="/spa/img/spinner.gif">
-                <div class="spinner__text">Секундочку, загружаем список номеров</div>
-            </div>
+		<div class="hotel-details__section">
+			<h2 class="hotel-details__section-title" ng-if="!hotelOnly">Выбор номера</h2>
 
-            <ul class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
-                <ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'" ng-repeat="room in (onlyRoom || hotelRooms) track by $index"></ng:include>
-            </ul>
-        </div>
+			<h2 class="hotel-details__section-title" ng-if="hotelOnly">Номер</h2>
 
-	    <div class="hotel-details__section">
-		    <div class="hotel-details-resume">
-			    <div class="hotel-details-resume__section hotel-details-resume__section_{{key}}" ng-repeat="Amenities in hotel.AmenitiesArray track by $index">
-				    <h4 class="hotel-details-resume__section-title">{{Amenities.CategoryName}}</h4>
+			<div class="spinner" ng-if="!dataFullyLoaded">
+				<div class="rect rect1"></div>
+				<div class="rect rect2"></div>
+				<div class="rect rect3"></div>
+				<div class="rect rect4"></div>
+				<div class="rect rect5"></div>
+				<img class="gif" src="/spa/img/spinner.gif">
 
+				<div class="spinner__text">Секундочку, загружаем список номеров</div>
+			</div>
 
-				    <!-- сделано в тупую : руками разбил массив на две части в методе parseAmenities -->
-				    <div class="hotel-details-resume__wrapper">
-					    <ul class="hotel-details-resume__list" ng-if="Amenities.part.part1.length">
-						    <li class="hotel-details-resume__item" ng-repeat="item in Amenities.part.part1 track by $index" >
-							    {{item}}
-						    </li>
-					    </ul>
+			<ul class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
+				<ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'"
+				            ng-repeat="room in (onlyRoom || hotelRooms) track by $index"></ng:include>
+			</ul>
+		</div>
 
-					    <ul class="hotel-details-resume__list"  ng-if="Amenities.part.part2.length">
-						    <li class="hotel-details-resume__item" ng-repeat="item in Amenities.part.part2 track by $index">
-							    {{item}}
-						    </li>
-					    </ul>
-				    </div>
-			    </div>
-		    </div>
-	    </div>
+		<div class="hotel-details__section">
+			<div class="hotel-details-resume">
+				<div class="hotel-details-resume__section hotel-details-resume__section_{{key}}"
+				     ng-repeat="Amenities in hotel.AmenitiesArray track by $index">
+					<h4 class="hotel-details-resume__section-title">{{Amenities.CategoryName}}</h4>
 
 
-	    <div class="hotel-details__section">
-            <h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
-            <div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
-                <div id="hotel-details-map"></div>
-            </div>
-        </div>
+					<!-- сделано в тупую : руками разбил массив на две части в методе parseAmenities -->
+					<div class="hotel-details-resume__wrapper">
+						<ul class="hotel-details-resume__list" ng-if="Amenities.part.part1.length">
+							<li class="hotel-details-resume__item"
+							    ng-repeat="item in Amenities.part.part1 track by $index">
+								{{item}}
+							</li>
+						</ul>
+
+						<ul class="hotel-details-resume__list" ng-if="Amenities.part.part2.length">
+							<li class="hotel-details-resume__item"
+							    ng-repeat="item in Amenities.part.part2 track by $index">
+								{{item}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
-        <div class="b-tripadvisor-widget-iframe" ng-if="hotel.TaFactor">
-            <iframe
-                    class="iframe_widget"
-                    name="tripadvisor"
-                    ng-src="{{TAWidget}}"
-                    height="500"
-                    width="100%"
-                    frameborder="0"></iframe>
-        </div>
-    </div>
+		<div class="hotel-details__section">
+			<h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
+
+			<div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
+				<div id="hotel-details-map"></div>
+			</div>
+		</div>
+
+
+		<div class="b-tripadvisor-widget-iframe" ng-if="hotel.TaFactor">
+			<iframe
+					class="iframe_widget"
+					name="tripadvisor"
+					ng-src="{{TAWidget}}"
+					height="500"
+					width="100%"
+					frameborder="0"></iframe>
+		</div>
+	</div>
 </div>
 
 <!-- Попап - подробнее о авиа-билете -->
