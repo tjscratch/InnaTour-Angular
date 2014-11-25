@@ -132,7 +132,7 @@ h1 {
   font-size: 20px;
 }
 h2 {
-  margin: 20px;
+  margin: 20px 0;
   font-size: 18px;
 }
 .breadcrumbs {
@@ -161,6 +161,58 @@ h2 {
   min-height: 100%;
   padding: 190px 0 20px;
   background-color: #e0e0e0;
+}
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  width: 330px;
+  background: #fff;
+  border: 1px solid #bdbdbd;
+  border-radius: 2px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+}
+.tooltip:after,
+.tooltip:before {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 10px;
+}
+.tooltip:before {
+  left: 30px;
+  top: -20px;
+  border-color: transparent transparent #bdbdbd transparent;
+}
+.tooltip:after {
+  left: 30px;
+  top: -19px;
+  border-color: transparent transparent #fff transparent;
+}
+.tooltip .tooltip-close {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.tooltip .tooltip-close:hover {
+  color: #77b237;
+}
+.tooltip .tooltip-body {
+  padding: 10px;
+  color: #666;
+}
+.tooltip .tooltip-body h2 {
+  margin: 0 0 10px;
+  padding-right: 20px;
+  font-size: 20px;
+  color: #212121;
+}
+.tooltip-danger {
+  background-color: #fff8eb;
+}
+.tooltip-danger:after {
+  border-color: transparent transparent #fff8eb transparent;
 }
 .row {
   position: relative;
@@ -483,6 +535,16 @@ h2 {
 .filter .form-active {
   padding-top: 17px;
 }
+.form-item {
+  position: relative;
+}
+.form-item .tooltip {
+  left: 5px;
+  top: 57px;
+}
+.form-item-error .form-input {
+  background-color: #fbece7;
+}
 .form-label {
   display: block;
   height: 17px;
@@ -523,6 +585,7 @@ select {
   box-shadow: 0 2px 2px rgba(0,0,0,0.5);
   text-decoration: none !important;
   cursor: pointer;
+  transition: all 0.3s;
 }
 .btn:hover,
 .btn:focus {

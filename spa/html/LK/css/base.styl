@@ -31,7 +31,7 @@ h1{
   font-size 20px
 }
 h2{
-  margin 20px
+  margin 20px 0
   font-size 18px
 }
 .breadcrumbs{
@@ -63,4 +63,61 @@ h2{
   min-height 100%
   padding 190px 0 20px
   background-color $color-gray-light2
+}
+.tooltip{
+  position absolute
+  z-index 10
+  width 330px
+  background #fff
+  border 1px solid $color-gray-light
+  border-radius $border-radius
+  box-shadow 0 3px 8px rgba(0, 0, 0, .4)
+
+  &:after,
+  &:before{
+    content ''
+    position absolute
+    border-style solid
+    border-width 10px
+  }
+  &:before{
+    left 30px
+    top -20px
+    border-color transparent transparent $color-gray-light transparent
+  }
+  &:after{
+    left 30px
+    top -19px
+    border-color transparent transparent #fff transparent
+  }
+
+  .tooltip-close{
+    position absolute
+    top 6px
+    right: 10px
+    font-size 20px
+    cursor pointer
+
+    &:hover{
+      color $color-green
+    }
+  }
+  .tooltip-body{
+    padding 10px
+    color #666
+
+    h2{
+      margin 0 0 10px
+      padding-right 20px
+      font-size 20px
+      color $color-black
+    }
+  }
+}
+.tooltip-danger{
+  background-color #fff8eb
+
+  &:after{
+    border-color transparent transparent #fff8eb transparent
+  }
 }
