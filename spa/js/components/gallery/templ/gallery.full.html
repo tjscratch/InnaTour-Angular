@@ -9,9 +9,10 @@
 			     ng-if="pics.list.length > 1"
 			     class="scroll-pane gallery__list__wrapper">
 
-				<div class="gallery__list__container">
+				<div class="gallery__list__container" ng-style="pics.setHeight(true)">
 					<ul class="scroll-content gallery__list"
-						ng-class="{'gallery__list_center' : !hideBar}">
+						ng-class="{'gallery__list_center' : !hideBar}"
+						ng-style="pics.setHeight(true)">
 
 						<li ng-repeat="pic in pics.list"
 						    ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"

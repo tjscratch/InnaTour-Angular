@@ -7,11 +7,11 @@ angular.module('innaApp.directives')
                 scope: {
                     urls: '=photos'
                 },
-                link : function($scope, $element, $attr){
+                link: function ($scope, $element, $attr) {
 
                     $scope.callBackSlider = function (data) {
                         $element.find('.gallery__list').css({
-                            left : data + 'px'
+                            left: data + 'px'
                         });
                     }
                 },
@@ -21,7 +21,9 @@ angular.module('innaApp.directives')
                         var MAX_WIDTH = 960,
                             MAX_HEIGHT = 480,
                             MIN_WIDTH = 800,
-                            MIN_LENGTH = 2;
+                            MIN_LENGTH = 2,
+                            previewWidth = 180,
+                            previewHeight = 180;
 
                         $scope.picsListLoaded = false;
                         $scope.emptyPhoto = false;
@@ -38,7 +40,7 @@ angular.module('innaApp.directives')
 
                         PicList.prototype.setCurrent = function ($index, $event) {
 
-                            if($event) {
+                            if ($event) {
                                 $event.stopPropagation();
                             }
 
@@ -63,6 +65,20 @@ angular.module('innaApp.directives')
                             var index = this.list.indexOf(this.current) - 1;
                             if (index < 0) index = this.list.length - 1;
                             this.setCurrent(index, null);
+                        };
+
+                        PicList.prototype.setStylePreview = function (src) {
+                            return {
+                                "background-image": "url(" + src + ")",
+                                "width": previewWidth,
+                                "height": previewHeight
+                            }
+                        };
+
+                        PicList.prototype.setHeight = function (is_full) {
+                            return {
+                                "height": is_full ? 70 : previewHeight
+                            }
                         };
 
                         $scope.pics = new PicList();
@@ -93,12 +109,12 @@ angular.module('innaApp.directives')
                             return style;
                         };
 
-                        $scope.showFullGallery = function(){
+                        $scope.showFullGallery = function () {
                             $scope.showGallery = true;
                             document.body.classList.add('overflow_hidden')
                         }
 
-                        $scope.closeGallery = function($event){
+                        $scope.closeGallery = function ($event) {
                             $scope.showGallery = false;
                             document.body.classList.remove('overflow_hidden')
                         }

@@ -33,7 +33,7 @@
 
 		<div class="hotel-details__section" ng-if="hotel.Description">
 			<div class="hotel-details__section-box">
-				<h2 class="hotel-details__section-title">Об отеле</h2>
+				<h2 class="hotel-details__section-title">Описание отеля</h2>
 
 				<div class="hotel-details__section-text">
 					<div class="spinner" ng-if="!hotelLoaded">
@@ -47,7 +47,6 @@
 					<div class="hotel-details__section-text-viewport"
 					     ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
 						<div ng-repeat="section in hotel.Description track by $index">
-							<!--<h4>{{section.Title}}</h4>-->
 							<div ng-bind-html="section.Content"></div>
 						</div>
 						<p>
@@ -76,10 +75,19 @@
 
 		<div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom">
 
-			<h2 class="hotel-details__section-title">
-				<span ng-if="!buyAction">Пакет с этим отелем</span>
-				<span ng-if="buyAction">Выбранный пакет</span>
-			</h2>
+			<div class="hotel-details__section__header">
+				<h2 class="hotel-details__section-title">
+					<span ng-if="!buyAction">Пакет с этим отелем</span>
+					<span ng-if="buyAction">Выбранный пакет</span>
+				</h2>
+
+				<span>
+					Стоимость пакета, включая налоги и сборы:
+					<b>{{OldPrice}}
+						<ng-include src="'components/ruble.html'"></ng-include>
+					</b>
+				</span>
+			</div>
 
 			<div recommended-pair-component-big
 			     recommended-pair="recommendedPair"
@@ -112,6 +120,8 @@
 		</div>
 
 		<div class="hotel-details__section">
+			<h2 class="hotel-details__section-title">Сервисы</h2>
+
 			<div class="hotel-details-resume">
 				<div class="hotel-details-resume__section hotel-details-resume__section_{{key}}"
 				     ng-repeat="Amenities in hotel.AmenitiesArray track by $index">
@@ -139,7 +149,7 @@
 		</div>
 
 
-		<div class="hotel-details__section">
+		<div class="hotel-details__section hotel-details__section_map">
 			<h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
 
 			<div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">

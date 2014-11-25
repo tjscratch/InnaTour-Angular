@@ -1,21 +1,20 @@
 <div class="gallery_wrapper" ng-class="{'gallery_wrapper_empty': emptyPhoto}">
-	<div class="gallery gallery_len_{{pics.list.length}} gallery_plan_{{pics.plan}}" ng-if="pics.list.length != 0">
-		<div class="gallery__viewport-wrap">
-			<div class="gallery__viewport" ng-style="getViewportStyle()" ng-click="showFullGallery($event)"></div>
-		</div>
+	<div class="gallery gallery_plan_{{pics.plan}}">
+
 
 		<!-- jQuery Slider scrollBar -->
 		<div scroll-bar
 		     ng-if="pics.list.length > 1"
 		     class="scroll-pane gallery__list__wrapper">
 
-			<div class="gallery__list__container">
-				<ul class="scroll-content gallery__list">
+			<div class="gallery__list__container"
+			     ng-style="pics.setHeight()">
+				<ul class="scroll-content gallery__list" ng-style="pics.setHeight()">
+					<!--ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"-->
 					<li ng-repeat="pic in pics.list"
-					    ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"
-					    class="gallery__list-item"
-					    style="background-image:url({{pic.src}});"
-					    ng-click="pics.setCurrent($index, $event)"></li>
+					    ng-style="pics.setStylePreview(pic.src)"
+					    ng-click="showFullGallery($event)"
+					    class="gallery__list-item"></li>
 				</ul>
 			</div>
 
@@ -35,4 +34,5 @@
 	</div>
 </div>
 
-<ng-include ng-if="showGallery" src="'components/gallery/templ/gallery.full.html'"></ng-include>
+<ng-include ng-if="showGallery"
+            src="'components/gallery/templ/gallery.full.html'"></ng-include>

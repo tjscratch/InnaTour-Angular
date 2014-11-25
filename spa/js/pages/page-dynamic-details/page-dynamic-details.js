@@ -34,6 +34,9 @@ innaAppControllers
             var routParam = angular.copy($routeParams);
             $scope.userIsAgency = null;
 
+            document.body.classList.add('bg_white');
+            document.body.classList.remove('light-theme');
+
             /**
              * Смотрим на условие - переход из B2B
              */
@@ -452,7 +455,7 @@ innaAppControllers
                 }
             }
 
-            /*Properties*/
+            /*Properties*//*
             $scope.background = 'url($)'.split('$').join(
                 backgrounds[parseInt(Math.random() * 100) % backgrounds.length]
             );
@@ -461,7 +464,7 @@ innaAppControllers
                 $('body').css({
                     "background": "#000 " + $scope.background + "repeat fixed"
                 });
-            }
+            }*/
 
             /*Methods*/
             $scope.toggleDescription = function () {
@@ -498,6 +501,8 @@ innaAppControllers
             
 
             $scope.$on('$destroy', function () {
+                document.body.classList.remove('bg_white');
+                document.body.classList.add('light-theme');
                 $('body').removeAttr('style');
 
                 if(_balloonLoad){
