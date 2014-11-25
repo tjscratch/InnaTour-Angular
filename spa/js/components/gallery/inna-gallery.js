@@ -1,5 +1,5 @@
 angular.module('innaApp.directives')
-    .directive('innaGallery', ['$templateCache', function($templateCache){
+    .directive('innaGallery', ['$templateCache', function ($templateCache) {
         return {
             template: $templateCache.get('components/gallery/templ/gallery.html'),
             scope: {
@@ -13,170 +13,162 @@ angular.module('innaApp.directives')
                         MIN_WIDTH = 800,
                         MIN_LENGTH = 2;
 
+
+                    $scope.picsListLoaded = false;
                     $scope.emptyPhoto = false;
 
                     /*Models*/
-                    function PicList(){
+                    function PicList() {
                         this.list = [];
                         this.current = null;
                         this.plan = null;
                     }
 
-                        $scope.picsListLoaded = false;
-                        $scope.emptyPhoto = false;
+                    PicList.PLAN_Z = 'Z';
+                    PicList.PLAN_Y = 'Y';
 
-                        /*Models*/
-                        function PicList() {
-                            this.list = [];
-                            this.current = null;
-                            this.plan = null;
+                    PicList.prototype.setCurrent = function ($index) {
+                        this.current = this.list[$index];
+                    };
+
+                    PicList.prototype.isCurrent = function ($index) {
+                        return (this.current == this.list[$index]);
+                    };
+
+                    PicList.prototype.next = function () {
+                        var index = this.list.indexOf(this.current) + 1;
+                        if (index >= this.list.length) index = 0;
+                        this.setCurrent(index);
+                    };
+
+                    PicList.prototype.prev = function () {
+                        var index = this.list.indexOf(this.current) - 1;
+                        if (index < 0) index = this.list.length - 1;
+                        this.setCurrent(index);
+                    };
+
+                    $scope.pics = new PicList();
+
+                    $scope.isFullWL = window.partners ? window.partners.isFullWL() : false;
+
+                    /**
+                     *
+                     * @returns {*}
+                     */
+                    $scope.getViewportStyle = function () {
+                        if (!$scope.pics.current) return {};
+
+                        var style = {
+                            backgroundImage: 'url(~)'.split('~').join($scope.pics.current.src)
+                        };
+
+                        if ($scope.pics.plan == PicList.PLAN_Z) {
+                            style.width = MAX_WIDTH;
+                            style.height = MAX_HEIGHT;
+                        } else if ($scope.pics.plan == PicList.PLAN_Y) {
+                            style.width = $scope.pics.current.width;
+                            style.height = $scope.pics.current.height;
+                        } else {
+                            return {};
                         }
 
-                        PicList.PLAN_Z = 'Z';
-                        PicList.PLAN_Y = 'Y';
+                        return style;
+                    };
 
-                        PicList.prototype.setCurrent = function ($index) {
-                            this.current = this.list[$index];
-                        };
+                    /*Watchers*/
+                    $scope.$watch('urls', function (val) {
+                        var loaded = new $.Deferred();
+                        var BaseUrl = val.BaseUrl;
 
-                        PicList.prototype.isCurrent = function ($index) {
-                            return (this.current == this.list[$index]);
-                        };
+                        function buildPicList(sizeName, Fn) {
+                            var deffereds = [];
 
-                        PicList.prototype.next = function () {
-                            var index = this.list.indexOf(this.current) + 1;
-                            if (index >= this.list.length) index = 0;
-                            this.setCurrent(index);
-                        };
+                            $scope.pics.list = [];
 
-                        PicList.prototype.prev = function () {
-                            var index = this.list.indexOf(this.current) - 1;
-                            if (index < 0) index = this.list.length - 1;
-                            this.setCurrent(index);
-                        };
+                            $scope.urls[sizeName].forEach(function (pic, _index) {
+                                var deferred = new $.Deferred();
 
-                        $scope.pics = new PicList();
+                                deffereds.push(deferred.promise());
 
-                        $scope.isFullWL = window.partners ? window.partners.isFullWL() : false;
+                                var newPic = new Image();
 
-                        /**
-                         *
-                         * @returns {*}
-                         */
-                        $scope.getViewportStyle = function () {
-                            if (!$scope.pics.current) return {};
+                                newPic.onload = function () {
+                                    if (Fn(newPic)) {
+                                        $scope.pics.list.push(newPic);
+                                    }
+                                    deferred.resolve();
+                                };
 
-                            var style = {
-                                backgroundImage: 'url(~)'.split('~').join($scope.pics.current.src)
-                            };
+                                newPic.onerror = function () {
+                                    deferred.resolve();
+                                };
 
-                            if ($scope.pics.plan == PicList.PLAN_Z) {
-                                style.width = MAX_WIDTH;
-                                style.height = MAX_HEIGHT;
-                            } else if ($scope.pics.plan == PicList.PLAN_Y) {
-                                style.width = $scope.pics.current.width;
-                                style.height = $scope.pics.current.height;
-                            } else {
-                                return {};
-                            }
+                                newPic.src = (BaseUrl + pic);
 
-                            return style;
-                        };
-
-                        /*Watchers*/
-                        $scope.$watch('urls', function (val) {
-                            var loaded = new $.Deferred();
-                            var BaseUrl = val.BaseUrl;
-
-                            function buildPicList(sizeName, Fn) {
-                                var deffereds = [];
-
-                                $scope.pics.list = [];
-
-                                $scope.urls[sizeName].forEach(function (pic, _index) {
-                                    var deferred = new $.Deferred();
-
-                                    deffereds.push(deferred.promise());
-
-                                    var newPic = new Image();
-
-                                    newPic.onload = function () {
-                                        if (Fn(newPic)) {
-                                            $scope.pics.list.push(newPic);
-                                        }
-                                        deferred.resolve();
-                                    };
-
-                                    newPic.onerror = function () {
-                                        deferred.resolve();
-                                    };
-
-                                    newPic.src = (BaseUrl + pic);
-
-                                    newPic.__order = _index;
-                                });
-
-                                return deffereds;
-                            }
-
-                            function planZ() {
-                                return buildPicList('LargePhotos', function (pic) {
-                                    var isHorizontal = (pic.width >= pic.height);
-                                    var largeEnough = (pic.width > MIN_WIDTH);
-
-                                    return isHorizontal && largeEnough;
-                                });
-                            }
-
-                            function planY() {
-                                return buildPicList('MediumPhotos', function (pic) {
-                                    var isHorizontal = (pic.width > pic.height); // exactly GT, not GE
-                                    var smallEnough = pic.height < MAX_HEIGHT;
-
-                                    return isHorizontal && smallEnough;
-                                });
-                            }
-
-                            function fail() {
-                                $scope.$apply(function () {
-                                    $scope.emptyPhoto = true;
-                                });
-                            }
-
-                            $.when.apply($, planZ()).then(function () {
-                                if ($scope.pics.list.length >= MIN_LENGTH) {
-                                    loaded.resolveWith(null, [PicList.PLAN_Z]);
-                                } else {
-                                    $.when.apply($, planY()).then(function () {
-                                        loaded.resolveWith(null, [PicList.PLAN_Y]);
-                                    });
-                                }
+                                newPic.__order = _index;
                             });
 
-                            $.when(loaded).then(function (plan) {
-                                if (!$scope.pics.list.length) {
-                                    fail();
-                                    return false;
-                                }
+                            return deffereds;
+                        }
 
-                                $scope.picsListLoaded = true;
+                        function planZ() {
+                            return buildPicList('LargePhotos', function (pic) {
+                                var isHorizontal = (pic.width >= pic.height);
+                                var largeEnough = (pic.width > MIN_WIDTH);
 
+                                return isHorizontal && largeEnough;
+                            });
+                        }
 
-                                $scope.pics.list.sort(function (p1, p2) {
-                                    return p1.__order - p2.__order;
+                        function planY() {
+                            return buildPicList('MediumPhotos', function (pic) {
+                                var isHorizontal = (pic.width > pic.height); // exactly GT, not GE
+                                var smallEnough = pic.height < MAX_HEIGHT;
+
+                                return isHorizontal && smallEnough;
+                            });
+                        }
+
+                        function fail() {
+                            $scope.$apply(function () {
+                                $scope.emptyPhoto = true;
+                            });
+                        }
+
+                        $.when.apply($, planZ()).then(function () {
+                            if ($scope.pics.list.length >= MIN_LENGTH) {
+                                loaded.resolveWith(null, [PicList.PLAN_Z]);
+                            } else {
+                                $.when.apply($, planY()).then(function () {
+                                    loaded.resolveWith(null, [PicList.PLAN_Y]);
                                 });
-
-
-                                $scope.$apply(function () {
-                                    try {
-                                        $scope.pics.setCurrent(0);
-                                        $scope.pics.plan = plan;
-                                    } catch (e) {
-                                    }
-                                });
-                            }, fail);
+                            }
                         });
-                    }
-                ]
-            }
-        }]);
+
+                        $.when(loaded).then(function (plan) {
+                            if (!$scope.pics.list.length) {
+                                fail();
+                                return false;
+                            }
+
+                            $scope.picsListLoaded = true;
+
+
+                            $scope.pics.list.sort(function (p1, p2) {
+                                return p1.__order - p2.__order;
+                            });
+
+
+                            $scope.$apply(function () {
+                                try {
+                                    $scope.pics.setCurrent(0);
+                                    $scope.pics.plan = plan;
+                                } catch (e) {
+                                }
+                            });
+                        }, fail);
+                    });
+                }
+            ]
+        }
+    }]);
