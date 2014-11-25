@@ -16,9 +16,6 @@ innaAppControllers
         '$q',
         '$anchorScroll',
 
-        // components
-        'Tripadvisor',
-        'Stars',
         'Balloon',
         '$filter',
 
@@ -27,7 +24,7 @@ innaAppControllers
         'ModelTicketsCollection',
         'ModelTicket',
         'ModelHotel',
-        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Tripadvisor, Stars, Balloon, $filter,
+        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Balloon, $filter,
                   ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
             DynamicFormSubmitListener.listen();
@@ -77,8 +74,6 @@ innaAppControllers
             }
 
             /*Private*/
-            var _tripadvisor = null;
-            var _stars = null;
             var map = null;
             $scope.hotelLoaded = false;
             $scope.showFullDescription = false;
@@ -177,9 +172,7 @@ innaAppControllers
             }
 
 
-            /**
-             * Получаем данные по отелю
-             */
+            /** Получаем данные по отелю */
             function getHotelDetails() {
                 var deferred = $q.defer();
                 track.dpBuyPackage();
@@ -219,24 +212,6 @@ innaAppControllers
 
                         $timeout(function () {
                             loadMap();
-
-                            /* Tripadvisor */
-                            _tripadvisor = new Tripadvisor({
-                                el: document.querySelector('.js-tripadvisor-container'),
-                                data: {
-                                    TaCommentCount: $scope.hotel.TaCommentCount,
-                                    TaFactor: $scope.hotel.TaFactor,
-                                    TaFactorCeiled: $scope.hotel.TaFactorCeiled
-                                }
-                            })
-
-                            /* Stars */
-                            _stars = new Stars({
-                                el: document.querySelector('.js-hotel-details-stars'),
-                                data: {
-                                    stars: $scope.hotel.Stars
-                                }
-                            })
                         }, 50);
 
                         deferred.resolve();
@@ -524,15 +499,6 @@ innaAppControllers
 
             $scope.$on('$destroy', function () {
                 $('body').removeAttr('style');
-
-                if (_tripadvisor) {
-                    _tripadvisor.teardown();
-                    _tripadvisor = null;
-                }
-                if (_stars) {
-                    _stars.teardown();
-                    _stars = null;
-                }
 
                 if(_balloonLoad){
                     _balloonLoad.teardown();

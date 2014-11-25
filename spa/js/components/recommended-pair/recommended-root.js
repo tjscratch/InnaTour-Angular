@@ -6,8 +6,7 @@ angular.module('innaApp.directives')
         '$templateCache',
         'DynamicPackagesDataProvider',
         '$routeParams',
-        '$q',
-        function ($templateCache, DynamicPackagesDataProvider, $routeParams, $q) {
+        function ($templateCache, DynamicPackagesDataProvider, $routeParams) {
             return {
                 template: $templateCache.get('components/recommended-pair/templ/recommended-root.html'),
                 controller: [
