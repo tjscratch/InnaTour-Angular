@@ -484,11 +484,19 @@ innaAppControllers
                 room.isOpen = !!!room.isOpen;
             };
 
-            $scope.goToScroll = function(ID){
+            $scope.goToScroll = function(ID, $event){
                 var element = document.querySelector('#'+ID);
                 var coords = utils.getCoords(element);
                 var headerHeight = angular.element('.Header').height();
                 var body = angular.element('html, body');
+
+                if($event) {
+                    var $el = $($event.currentTarget);
+                    $el.addClass('btn-active btn-green');
+                    $el.siblings('.btn')
+                        .removeClass('btn-active')
+                        .removeClass('btn-green');
+                }
 
                 body.animate({scrollTop:(coords.top - headerHeight) - 40}, 300);
             };
