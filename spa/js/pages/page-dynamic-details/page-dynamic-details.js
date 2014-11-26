@@ -498,7 +498,7 @@ innaAppControllers
                         .removeClass('btn-green');
                 }
 
-                body.animate({scrollTop:(coords.top - headerHeight) - 40}, 300);
+                body.animate({scrollTop:(coords.top - headerHeight) - 30}, 300);
             };
 
             $scope.$watch('user', function(User){
