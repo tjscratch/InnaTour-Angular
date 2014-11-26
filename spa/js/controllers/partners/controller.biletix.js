@@ -11,7 +11,7 @@ innaAppControllers.
 
             $('body').addClass('partner-body-class');
             //чтобы влезали все формы
-            $('#main-content-div').css("min-height", "850px");
+            $('#main-content-div').css("min-height", "730px");
 
             if (window.partners && window.partners.isFullWL() && window.partners.getPartner().showOffers) {
                 $scope.showOffers = true;
