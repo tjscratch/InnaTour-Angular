@@ -49,8 +49,8 @@
             'type': self.WLType.lite,
             'title': 'sample',
             'phone': '+7&nbsp;800 000-1111',
-            'email': '',
-            'skype': '',
+            'email': 'sample@sample.ru',
+            'skype': 'sample',
             'aboutLink': 'https://sample.ru/about',
             'contactsLink': 'https://sample.ru/contacts',
             'offertaContractLink': ''
@@ -132,6 +132,13 @@
     self.isFullWL = function () {
         var partner = self.getPartner();
         return partner != null && partner.realType == self.WLType.full;
+    }
+    self.isLiteWL = function () {
+        var partner = self.getPartner();
+        return partner != null && partner.realType == self.WLType.lite;
+    }
+    self.isWL = function () {
+        return (self.isFullWL() || self.isLiteWL());
     }
     self.getPartner = function () {
 //        return self.partnersMap[0];

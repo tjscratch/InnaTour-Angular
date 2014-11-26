@@ -67,7 +67,7 @@ angular.module('innaApp.directives')
 
                         $scope.pics = new PicList();
 
-                        $scope.isFullWL = window.partners ? window.partners.isFullWL() : false;
+                    $scope.isWL = window.partners ? window.partners.isWL() : false;
 
                         /**
                          *
