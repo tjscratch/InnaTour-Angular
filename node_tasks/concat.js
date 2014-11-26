@@ -38,12 +38,6 @@ gulp.task('build-concat', [
 
 gulp.task('concat-lib', function () {
     return gulp.src([
-            conf.dest + '/lib/angular/1.3.4/angular.min.js',
-            conf.dest + '/lib/angular/1.3.4/angular-route.min.js',
-            conf.dest + '/lib/angular/1.3.4/angular-sanitize.min.js',
-            conf.dest + '/lib/angular/angular-cookies.min.js',
-            conf.dest + '/lib/angular/angular-locale_ru-ru.js',
-        
             conf.dest + '/lib/moment.js',
             conf.dest + '/lib/moment-ru.js',
             conf.dest + '/lib/underscore.js',
@@ -52,6 +46,8 @@ gulp.task('concat-lib', function () {
             conf.dest + '/lib/polyfill/**/*.js',
             conf.dest + '/lib/jquery/jquery-2.1.1.min.js',
             conf.dest + '/lib/jquery.maskedinput.js',
+            conf.dest + '/lib/angular/angular-cookies.min.js',
+            conf.dest + '/lib/angular/angular-locale_ru-ru.js',
             conf.dest + '/lib/google.maps.clustering.js',
             conf.dest + '/lib/jquery.ui.datepicker-ru.js',
             conf.dest + '/lib/datepicker/datepicker.js',
