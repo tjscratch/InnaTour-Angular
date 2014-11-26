@@ -475,6 +475,66 @@ innaAppControllers.
                 else {
                     $scope.baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
 
+                    $scope.newSearchUrl = null;
+
+                    //нужны данные для нового поиска
+                    function getOrderDataForUrls() {
+                        //если данные не загрузятся
+                        if ($location.url().indexOf('packages') > -1) {//ДП
+                            $scope.newSearchUrl = Urls.URL_DYNAMIC_PACKAGES_SEARCH;
+                        }
+                        else {//Авиа
+                            $scope.newSearchUrl = Urls.URL_AVIA_SEARCH;
+                        }
+                        
+                        //запрос в api
+                        paymentService.getPaymentData({
+                            orderNum: $scope.orderNum
+                        },
+                        function (data) {
+                            //console.log('order data:', data);
+                            if (data != null) {
+                                try{
+                                    var filter = angular.fromJson(data.Filter);
+                                    console.log('order data.filter:', filter);
+
+                                    if (data.Hotel) {
+                                        $scope.newSearchUrl = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                                            filter.DepartureId,
+                                            filter.ArrivalId,
+                                            filter.StartVoyageDate,
+                                            filter.EndVoyageDate,
+                                            filter.TicketClass,
+                                            filter.Adult,
+                                            filter.Children
+                                        ].join('-');
+                                    }
+                                    else {
+                                        $scope.newSearchUrl = Urls.URL_AVIA_SEARCH + [
+                                            filter.FromUrl,
+                                            filter.ToUrl,
+                                            filter.BeginDate,
+                                            filter.EndDate,
+                                            filter.AdultCount,
+                                            filter.ChildCount,
+                                            filter.InfantsCount,
+                                            filter.CabinClass,
+                                            filter.IsToFlexible,
+                                            filter.IsBackFlexible,
+                                            filter.PathType
+                                        ].join('-');
+                                    }
+                                }
+                                catch (e) {
+                                    console.error('order data parse filter error', e);
+                                }
+                            }
+                        },
+                        function (data, status) {
+                            log('paymentService.getPaymentData error');
+                        });
+                    };
+
                     paymentService.getRepricing($scope.orderNum, function (data) {
                         //console.log(data);
                         switch (data.Type) {
@@ -500,14 +560,26 @@ innaAppControllers.
                                 }
                             case 3:
                                 {
+                                    //данные для нового поиска
+                                    getOrderDataForUrls();
                                     //вариант перелета больше недоступен (например бронь была снята а/к)
-                                    $scope.baloon.showGlobalAviaErr();
+                                    $scope.baloon.showNotFound("Перелет недоступен", "К сожалению, вариант перелета больше недоступен",
+                                        function () {
+                                            //если есть данные
+                                            $location.url($scope.newSearchUrl);
+                                        });
                                     break;
                                 }
                             case 4:
                                 {
+                                    //данные для нового поиска
+                                    getOrderDataForUrls();
                                     //вариант проживания больше недоступен (например уже нет выбранного номера)
-                                    $scope.baloon.showGlobalAviaErr();
+                                    $scope.baloon.showNotFound("Отель недоступен", "К сожалению, вариант проживания больше недоступен",
+                                        function () {
+                                            //если есть данные
+                                            $location.url($scope.newSearchUrl);
+                                        });
                                     break;
                                 }
                         }
