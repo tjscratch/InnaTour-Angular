@@ -85,7 +85,6 @@ angular.module('innaApp.components').
                     function getTempl(){
                         var t = 'ta.hbs.html'
                         if($scope.templ) t = $scope.templ;
-                        console.log(t);
                         return $templateCache.get('components/tripadvisor/templ/'+t);
                     }
 
