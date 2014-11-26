@@ -17,20 +17,24 @@
     </div>
 
     <!-- component Tripadvisor -->
-    <Tripadvisor
+	{{#if tripadvisor}}
+        <Tripadvisor
             TaCommentCount="{{hotel.TaCommentCount}}"
             TaFactor="{{hotel.TaFactor}}"
             TaFactorCeiled="{{hotel.TaFactorCeiled}}" />
+	{{/if}}
 
-    <h3 class="hotel-info-name">{{hotel.Room.RoomName}}</h3>
+	<div class="hotel-info__room">
+        <h3 class="hotel-info-name">{{hotel.Room.RoomName}}</h3>
 
-    <div class="hotel-info-date r__hotel-info">
-        {{#hotel.Room.BedTypeList:i}}
-        <span>
-            {{Name}}
-            {{#(i+1) != hotel.Room.BedTypeList.length}},&nbsp;{{/}}
-        </span>
-        {{/hotel.Room.BedTypeList}}
+	    <div class="hotel-info-date r__hotel-info">
+	        {{#hotel.Room.BedTypeList:i}}
+	        <span>
+	            {{Name}}
+	            {{#(i+1) != hotel.Room.BedTypeList.length}},&nbsp;{{/}}
+	        </span>
+	        {{/hotel.Room.BedTypeList}}
+	    </div>
     </div>
 
 </div>

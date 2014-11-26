@@ -174,6 +174,19 @@ innaAppControllers
                 }
             }
 
+            /**
+             * Добавляем в отель комнату
+             * Нужно для отрисовки блока пары билет и отель
+             * @param rooms
+             */
+            function parseRooms(rooms){
+                rooms.find(function(room){
+                    if(room.Default) {
+                        $scope.recommendedPair.setRoom(room);
+                        return true;
+                    }
+                })
+            }
 
             /** Получаем данные по отелю */
             function getHotelDetails() {
@@ -197,6 +210,7 @@ innaAppControllers
 
                         var hotel = new ModelHotel(data.Hotel);
                         var ticket = new ModelTicket(data.AviaInfo);
+                        //ticket.modelTicket = ticket;
                         $scope.recommendedPair.setTicket(ticket);
                         $scope.recommendedPair.setHotel(hotel);
 
@@ -258,7 +272,10 @@ innaAppControllers
                     },
                     success: function (data) {
                         if (data.Rooms.length) {
+
                             $scope.hotelRooms = data.Rooms;
+
+                            parseRooms(data.Rooms);
 
                             if ($scope.hotel.CheckInTime == '00:00' && data.Hotel.CheckInTime) {
                                 $scope.hotel.CheckInTime = data.Hotel.CheckInTime
@@ -268,8 +285,12 @@ innaAppControllers
                                 $scope.hotel.CheckOutTime = data.Hotel.CheckOutTime
                             }
 
+                            $scope.OldPrice = $scope.recommendedPair.getFullPackagePrice();
+
+                            // для теста новой цены
+                            //data.NewPrice = 70000;
+
                             if(data.NewPrice) {
-                                $scope.OldPrice = $scope.recommendedPair.getFullPackagePrice();
                                 $scope.NewPrice = data.NewPrice;
                                 $scope.NewPricePackage = ($scope.NewPrice - $scope.OldPrice);
                                 data.PackagePrice = data.NewPrice;
@@ -295,7 +316,10 @@ innaAppControllers
                             dataRequest: searchParams
                         });
 
-                        showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
+                        $scope.$apply(function(){
+                            showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
+                        })
+
                     }
                 });
             };
@@ -317,25 +341,19 @@ innaAppControllers
 
             if (!routParam.OrderId) {
                 getHotelDetails().then(function () {
-                    var scrollPosition = 0;
-                    if($scope.hotel && $scope.hotel.Photos) {
-                        scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 1300 : 600;
-                    }
 
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
                         $timeout(function () {
-                            /*$location.hash('ScrollRooms');
-                            $anchorScroll();*/
-
-                            window.scrollTo(0, scrollPosition);
                             if (window.partners && window.partners.isFullWL()) {
                                 var elementHotelDetails = document.querySelector('.hotel-details-rooms');
                                 var positionTop = utils.getCoords(elementHotelDetails).top;
                                 window.partners.setScrollTo(positionTop);
+                            } else {
+                                $scope.goToScroll('SectionRoom');
                             }
-                        }, 1000);
+                        }, 0);
                     }
 
                     getHotelDetailsRooms();
@@ -455,16 +473,6 @@ innaAppControllers
                 }
             }
 
-            /*Properties*//*
-            $scope.background = 'url($)'.split('$').join(
-                backgrounds[parseInt(Math.random() * 100) % backgrounds.length]
-            );
-
-            if (!(window.partners && window.partners.isFullWL())) {
-                $('body').css({
-                    "background": "#000 " + $scope.background + "repeat fixed"
-                });
-            }*/
 
             /*Methods*/
             $scope.toggleDescription = function () {
@@ -476,15 +484,13 @@ innaAppControllers
                 room.isOpen = !!!room.isOpen;
             };
 
-
-            $scope.scrollToTripadvisor = function () {
+            $scope.goToScroll = function(ID){
+                var element = document.querySelector('#'+ID);
+                var coords = utils.getCoords(element);
+                var headerHeight = angular.element('.Header').height();
                 var body = angular.element('html, body');
-                    var headerHeight = angular.element('.Header').height();
-                    var elToScroll = document.querySelector('.b-tripadvisor-widget-iframe');
-                    var positionTop = utils.getCoords(elToScroll).top
 
-                body.animate({ scrollTop: positionTop - headerHeight }, 500);
-                window.partners.setScrollPage(positionTop);
+                body.animate({scrollTop:(coords.top - headerHeight) - 40}, 300);
             };
 
             $scope.$watch('user', function(User){

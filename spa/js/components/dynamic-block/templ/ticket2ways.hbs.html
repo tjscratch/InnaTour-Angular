@@ -1,20 +1,9 @@
 <span class="icon-sprite-airplane"></span>
 
-{{#if !(AviaInfo.transportersList.length > 3)}}
-	{{#each AviaInfo.transportersList}}
-		<span class="rl-airline">
-	        <img src="{{logoUrl}}" alt="">
-	        <span class="rl-airline-text">{{name}}</span>
-	    </span>
-	{{/each}}
-{{/if}}
-
-{{#if AviaInfo.transportersList.length > 3}}
-	<span class="rl-airline">
-	    <img src="/spa/img/group.png" alt="">
-	    <span class="rl-airline-text">Несколько авиакомпаний</span>
-	</span>
-{{/if}}
+<!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
+<DatePartialsCollection
+		partialName="logoAvia"
+		ticketModel="{{recommendedPair.ticket}}" />
 
 
 <div class="b-ticket_2ways buy__tickets">
@@ -24,7 +13,11 @@
         <div class="row-fluid">
             <div class="col-xs-5 col-no-padding row-fluid__cell">
                 <div class="rlf__flight-block">
-                    <b>{{AviaInfo.DepartureTimeFormatted}}</b> {{AviaInfo.DepartureDateFormatted}}<br>
+                    <DatePartialsCollection
+                            partialName="weekDateTime"
+                            date="{{AviaInfo.DepartureDate}}" />
+
+                    <br>
                     <b>{{AviaInfo.AirportFrom}}</b> {{AviaInfo.OutCode}}
                 </div>
             </div>
@@ -33,25 +26,20 @@
             </div>
             <div class="col-xs-5 col-no-padding row-fluid__cell">
                 <div class="rlf__flight-block">
-                    <b>{{AviaInfo.ArrivalTimeFormatted}}</b> {{AviaInfo.ArrivalDateFormatted}}<br>
+	                <DatePartialsCollection
+			                partialName="weekDateTime"
+			                date="{{AviaInfo.ArrivalDate}}" />
+                    <br>
                     <b>{{AviaInfo.AirportTo}}</b> {{AviaInfo.InCode}}
                 </div>
             </div>
         </div>
 
         <div class="rlf-full-travel-time-info">
-            в пути: {{AviaInfo.TimeToFormatted}},
-
-            {{#if AviaInfo.ToTransferCount > 0}}
-                <span>
-                    {{AviaInfo.ToTransferCount}}
-                    {{pluralize(AviaInfo.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}}
-                </span>
-            {{/if}}
-
-            {{#if AviaInfo.ToTransferCount == 0}}
-            <span>без пересадок</span>
-            {{/if}}
+	        <DatePartialsCollection
+			        partialName="flightTime"
+			        direction="To"
+			        AviaInfo="{{AviaInfo}}" />
         </div>
     </div>
 
@@ -61,7 +49,10 @@
         <div class="row-fluid">
             <div class="col-xs-5 col-no-padding row-fluid__cell">
                 <div class="rlf__flight-block">
-                    <b>{{AviaInfo.BackDepartureTimeFormatted}}</b> {{AviaInfo.BackDepartureDateFormatted}}<br>
+	                <DatePartialsCollection
+			                partialName="weekDateTime"
+			                date="{{AviaInfo.BackDepartureDate}}" />
+                    <br>
                     <b>{{AviaInfo.AirportTo}}</b> {{AviaInfo.InCode}}
                 </div>
             </div>
@@ -70,7 +61,10 @@
             </div>
             <div class="col-xs-5 col-no-padding row-fluid__cell">
                 <div class="rlf__flight-block">
-                    <b>{{AviaInfo.BackArrivalTimeFormatted}}</b> {{AviaInfo.BackArrivalDateFormatted}}<br>
+	                <DatePartialsCollection
+			                partialName="weekDateTime"
+			                date="{{AviaInfo.BackArrivalDate}}" />
+                    <br>
                     <b>{{AviaInfo.AirportFrom}}</b> {{AviaInfo.OutCode}}
                 </div>
             </div>
@@ -78,28 +72,10 @@
 
 
         <div class="rlf-full-travel-time-info">
-            в пути: {{AviaInfo.TimeBackFormatted}},
-
-            {{#if AviaInfo.BackTransferCount > 0}}
-                <span>
-                    {{AviaInfo.BackTransferCount}}
-                    {{pluralize(AviaInfo.BackTransferCount, ['пересадка', 'пересадки', 'пересадок'])}}
-                </span>
-            {{/if}}
-
-            {{#if AviaInfo.BackTransferCount == 0}}
-                <span>без пересадок</span>
-            {{/if}}
+	        <DatePartialsCollection
+			        partialName="flightTime"
+			        direction="Back"
+			        AviaInfo="{{AviaInfo}}" />
         </div>
     </div>
-
 </div>
-
-<!--
-<div class="bottom-actions">
-    {{#!isBuyPage}}
-    <a href="javascript:void(0)" class="pull-right" on-click="popupItemInfo.show($event, item, null, null, true)">
-        Подробнее
-    </a>
-    {{/}}
-</div>-->

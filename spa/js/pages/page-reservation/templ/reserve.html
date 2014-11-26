@@ -1,6 +1,7 @@
 <!-- Buy ticket -->
 <form ng-submit="processToPayment($event)" method="post" class="results-body reserve-form">
 <div class="main__center">
+
 	<ng:include src="objectToReserveTemplate"></ng:include>
 
 	<div class="buy__warning" ng-if="visaControl.visaNeeded || visaControl.visaRulesNeeded">

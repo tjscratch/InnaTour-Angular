@@ -2,12 +2,13 @@
     <div class="b-tripadvisor hotel-info-tripadvisor {{withOutTd ? 'b-tripadvisor_short' : ''}}"
          title="Рейтинг TripAdvisor">
 
-        <div class="b-tripadvisor__owl">
-            <span class="icon-sprite-tripadvisor"></span>
-        </div>
-
-
         <div class="b-display-table">
+	        <div class="b-tripadvisor__owl b-display-cell">
+                <div class="b-tripadvisor__owl_icon">
+		            <span class="icon-sprite-tripadvisor"></span>
+                </div>
+	        </div>
+
 			{{#each TaFactorArr}}
 				{{#if active}}
                     <div class="b-display-cell">

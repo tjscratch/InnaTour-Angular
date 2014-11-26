@@ -5,7 +5,7 @@ angular.module('innaApp.components').
         function ($filter, $templateCache) {
 
             var Tripadvisor = Ractive.extend({
-                template: $templateCache.get('components/tripadvisor/templ/index.hbs.html'),
+                template: $templateCache.get('components/tripadvisor/templ/ta.hbs.html'),
                 append: true,
                 data: {
                     withOutTd: false,
@@ -69,23 +69,30 @@ angular.module('innaApp.components').
             return Tripadvisor;
         }])
     .directive('tripAdvisorDirective', [
-        '$timeout',
-        'EventManager',
+        '$templateCache',
         '$filter',
         'Tripadvisor',
-        function ($timeout, EventManager, $filter, Tripadvisor) {
+        function ($templateCache, $filter, Tripadvisor) {
             return {
                 replace: true,
                 template: '',
                 scope: {
-                    hotelData: '='
+                    hotelData: '=',
+                    templ: "@"
                 },
                 link: function ($scope, $element, $attr) {
 
-                    var _tripadvisor = new Tripadvisor({
-                        el: $element[0]
-                    })
+                    function getTempl(){
+                        var t = 'ta.hbs.html'
+                        if($scope.templ) t = $scope.templ;
+                        console.log(t);
+                        return $templateCache.get('components/tripadvisor/templ/'+t);
+                    }
 
+                    var _tripadvisor = new Tripadvisor({
+                        el: $element[0],
+                        template: getTempl()
+                    });
 
                     $scope.$watch('hotelData', function (value) {
                         if (value) {

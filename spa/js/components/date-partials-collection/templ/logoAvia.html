@@ -1,0 +1,16 @@
+<!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
+{{#if ticketModel.collectAirlines().size <= 3}}
+	{{#each ticketModel.collectAirlines().airlines}}
+		<span class="result-cell__airlines">
+            <img src="{{ticketModel.airLogo(this.code)}}" alt="" class="logo">
+	        <span class="rl-airline-text">{{this.name}}</span>
+		</span>
+	{{/each}}
+{{/if}}
+
+{{#if ticketModel.collectAirlines().size > 3}}
+	<span class="rl-airline">
+        <img src="/spa/img/group.png" alt="">
+        <span class="rl-airline-text">Несколько авиакомпаний</span>
+	</span>
+{{/if}}

@@ -1,6 +1,5 @@
 .b-tripadvisor {
 	position : relative;
-	padding-left : 29px;
 	font-size: 12px;
 	padding-top : 2px;
 	line-height: 15px
@@ -13,18 +12,29 @@
     .b-tripadvisor__owl {
       display : none;
     }
+
+
 	}
 
 	&__owl {
-		position : absolute;
-		left :0;
-		top:0;
+		vertical-align : middle;
+		padding-right:2px;
+	}
+
+	&__owl_icon {
+		transform : translateY(-7%);
 	}
 
 	&__reviews {
 		padding-left: 7px;
 		color :#878787;
 		//padding-top :3px;
+	}
+
+	&_detail {
+		.b-tripadvisor__reviews {
+			padding-left: 0px;
+		}
 	}
 
 }

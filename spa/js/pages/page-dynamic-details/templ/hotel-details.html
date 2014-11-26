@@ -5,23 +5,52 @@
 
 		<div class="hotel-details__section hotel-details__section_layout_context">
 
-			<div class="hotel-details__ta hotel-details-ta-info" ng-click="scrollToTripadvisor()"
-			     ng-if="hotel.TaFactor">
+			<div class="hotel-details__ta hotel-details-ta-info"
+			     ng-click="goToScroll('SectionReviews')" ng-if="hotel.TaFactor">
 
 				<!-- tripadvisor -->
-				<div trip-advisor-directive hotel-data="hotel"></div>
+				<div trip-advisor-directive
+				     hotel-data="hotel"
+				     templ="ta.detail.html"></div>
 
 			</div>
 
 			<div class="hotel-details-name">
 				<!-- Stars -->
                 <span stars-directive
-                      hotel-data="hotel.Stars"
-                      class="hotel-details-stars"></span>
+                  hotel-data="hotel.Stars"
+                  class="hotel-details-stars"></span>
 
                 <span class="hotel-details-name__title">
 	                {{hotel.HotelName}}
                 </span>
+			</div>
+
+
+		</div>
+
+		<div class="hotel-details__section_menu">
+			<div class="btn-group btn-group-justified">
+				<div ng-click="goToScroll('SectionDetail')"  class="btn">
+					<i class=""></i>
+					<span>Описание отеля</span>
+				</div>
+				<div ng-click="goToScroll('SectionRoom')" class="btn">
+					<i class=""></i>
+					<span>Выбор номера</span>
+				</div>
+				<div ng-click="goToScroll('SectionServices')" class="btn">
+					<i class=""></i>
+					<span>Сервисы</span>
+				</div>
+				<div ng-click="goToScroll('SectionMap')" class="btn">
+					<i class=""></i>
+					<span>Отель на карте</span>
+				</div>
+				<div ng-click="goToScroll('SectionReviews')" class="btn">
+					<i class=""></i>
+					<span>Отзывы</span>
+				</div>
 			</div>
 		</div>
 
@@ -31,7 +60,7 @@
 			     photos="hotel.Photos"></div>
 		</div>
 
-		<div class="hotel-details__section" ng-if="hotel.Description">
+		<div class="hotel-details__section" id="SectionDetail" ng-if="hotel.Description">
 			<div class="hotel-details__section-box">
 				<h2 class="hotel-details__section-title">Описание отеля</h2>
 
@@ -76,28 +105,32 @@
 		<div class="hotel-details__section" ng-if="!hotelOnly && !displayRoom">
 
 			<div class="hotel-details__section__header">
+				<span class="hotel-details__price">
+					Стоимость пакета, включая налоги и сборы:
+					<b>
+						{{recommendedPair.getFullPackagePrice() | price}}
+						<ng-include src="'components/ruble.html'"></ng-include>
+					</b>
+				</span>
+
 				<h2 class="hotel-details__section-title">
 					<span ng-if="!buyAction">Пакет с этим отелем</span>
 					<span ng-if="buyAction">Выбранный пакет</span>
 				</h2>
-
-				<span>
-					Стоимость пакета, включая налоги и сборы:
-					<b>{{OldPrice}}
-						<ng-include src="'components/ruble.html'"></ng-include>
-					</b>
-				</span>
 			</div>
 
-			<div recommended-pair-component-big
+			<!-- Динамический блок -->
+			<div dynamic-block-directive
 			     recommended-pair="recommendedPair"
-			     inna-dynamic-bundle-ticket-details="getTicketDetails"></div>
+			     settings='{
+					     "height": 220,
+					     "countColumn": 2,
+					     "classBlock": "buy__fly b-result_col_two b-result_middle"
+				 }'
+			     tripadvisor="false"></div>
 		</div>
 
-		<!--<div class="$anchorScroll" id="ScrollRooms"
-			 style="display: block; position: relative; top: -150px; visibility: hidden;"></div>-->
-
-		<div class="hotel-details__section">
+		<div class="hotel-details__section" id="SectionRoom">
 			<h2 class="hotel-details__section-title" ng-if="!hotelOnly">Выбор номера</h2>
 
 			<h2 class="hotel-details__section-title" ng-if="hotelOnly">Номер</h2>
@@ -119,7 +152,7 @@
 			</ul>
 		</div>
 
-		<div class="hotel-details__section">
+		<div class="hotel-details__section" id="SectionServices">
 			<h2 class="hotel-details__section-title">Сервисы</h2>
 
 			<div class="hotel-details-resume">
@@ -149,7 +182,7 @@
 		</div>
 
 
-		<div class="hotel-details__section hotel-details__section_map">
+		<div class="hotel-details__section hotel-details__section_map" id="SectionMap">
 			<h2 class="hotel-details__section-title">{{hotel.HotelCityName}}, {{hotel.Address}}</h2>
 
 			<div class="hotel-details-map" ng-class="{'hotel-details-map_display_fullscreen': showMapFullScreen}">
@@ -158,7 +191,7 @@
 		</div>
 
 
-		<div class="b-tripadvisor-widget-iframe" ng-if="hotel.TaFactor">
+		<div class="b-tripadvisor-widget-iframe" id="SectionReviews" ng-if="hotel.TaFactor">
 			<iframe
 					class="iframe_widget"
 					name="tripadvisor"
