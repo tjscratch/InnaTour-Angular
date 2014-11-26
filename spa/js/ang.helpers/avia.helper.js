@@ -149,7 +149,8 @@
                 email: 'email',
                 expireCheck: 'expireCheck',
                 payExpires: 'payExpires',
-                notFound: 'notFound'
+                notFound: 'notFound',
+                priceChanged: 'priceChanged'
             };
 
             var helper = {
@@ -447,6 +448,9 @@
                     },
                     showNotFound: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.notFound, closeFn);
+                    },
+                    showPriceChanged: function (caption, text, closeFn) {
+                        helper.baloon.show(caption, text, baloonType.priceChanged, closeFn);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);
