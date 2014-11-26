@@ -551,8 +551,14 @@ innaAppControllers.
                                     var newPrice = data.NewPrice;
                                     var msg = 'Изменилась стоимость заказа c <b>' + $filter('price')(oldPrice) + '<span class="b-rub">q</span></b> на <b>' + $filter('price')(newPrice) + '<span class="b-rub">q</span></b>';
                                     $scope.baloon.showPriceChanged("Изменилась цена", msg, function () {
+
+                                        setTimeout(function () {
+                                            $scope.safeApply(function () {
                                         //уведомили - дальше грузим
                                         $scope.baloon.show('Подождите', 'Это может занять несколько секунд');
+                                            });
+                                        }, 0);
+
                                         //все норм - получаем данные и продолжаем заполнять
                                         getPaymenyData();
                                     });

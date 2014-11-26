@@ -133,7 +133,7 @@
             </div>
         </div>
         <div class="balloon popup" ng-if="(type == baloonType.priceChanged)" ng-style="popupStyles">
-            <div class="balloon-canceled"></div>
+            <div class="balloon-time icon-sprite-baloon-time"></div>
             <div class="balloon-title" ng-bind-html="caption | breakFilter" ng-if="caption != null && caption.length > 0"></div>
             <div class="balloon-title" ng-if="!(caption != null && caption.length > 0)">Изменилась цена</div>
             <p class="balloon-info" ng-bind-html="text | breakFilter" ng-if="text != null && text.length > 0"></p>
