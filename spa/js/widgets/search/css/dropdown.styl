@@ -1,0 +1,177 @@
+.inna-dropdown{
+  position relative
+  display block
+  width 100%
+  border none
+  background-color $bg-white
+  color $base-color
+  font-size 14px
+}
+.inna-dropdown-action{
+  position relative
+  height $control-height
+  line-height $control-height
+  padding 0 10px
+  cursor pointer
+}
+.inna-dropdown-dialog{
+  position absolute
+  left 0
+  top $control-height + 1
+  width $dropdown-width
+  padding 10px
+  background-color $bg-white
+  box-shadow 0 5px 10px $base-shadow-color
+  font-size 12px
+  line-height 14px
+
+  .inna-dropdown-dialog_title{
+    margin 0 0 10px 0
+    font-weight bold
+  }
+
+  .inna-dropdown-dialog_label{
+    margin 0 0 2px 0
+  }
+}
+.inna-dropdown-dialog-selects,
+.inna-dropdown-dialog-btns{
+  position relative
+  display block
+  margin 0 -5px 10px
+  padding 0
+  list-style none
+  font-size 0
+  white-space nowrap
+}
+.inna-dropdown-dialog-btns_btn{
+  display inline-block
+  width 30px
+  height 30px
+  line-height 29px
+  background $bg-white
+  border-style solid
+  border-color $border-color-gray
+  border-width 1px 0 1px 1px
+  font-size 15px
+  text-align center
+  cursor pointer
+  transition background .15s
+
+  &:first-child{
+    border-radius $border-radius 0 0 $border-radius
+  }
+  &:last-child{
+    border-width 1px
+    border-radius 0 $border-radius $border-radius 0
+  }
+
+  &.selected{
+    background-color $bg-green
+    color $color-white
+    border-color $bg-green
+
+    & + .inna-dropdown-dialog-btns_btn{
+      border-left-color $bg-green
+    }
+  }
+}
+.inna-dropdown-age-row{
+  position: relative
+  display block
+  width 120px
+  margin 0 -5px
+  white-space nowrap
+  text-align justify
+}
+  
+.inna-dropdown-age{
+  position relative
+  display inline-block
+  width 38px
+  height $control-height
+  line-height $control-height - 2
+  margin-right 3px
+  padding 0 4px
+  border 1px solid $border-color-gray
+  border-radius $border-radius
+  font-size 15px
+  
+  &.inna-dropdown-age-col-1{
+    width 100%
+  }
+
+  &.inna-dropdown-age-col-2{
+    width 58px
+    margin-right 4px
+  }
+
+  &:last-child{
+    margin-right 0
+  }
+  
+  .inna-dropdown-age-toggle{
+    cursor pointer
+    white-space nowrap
+
+    .inna-arrow-bottom{
+      right 3px
+    }
+  }
+
+  .inna-dropdown-age-dialog{
+    display none
+    position absolute
+    z-index 10
+    left -1px
+    top -1px
+    width $dropdown-width - 10
+    max-height 150px
+    margin 0
+    padding 0
+    list-style none
+    background-color $bg-white
+    box-shadow 0 0 4px 1px $base-shadow-color
+    overflow-y auto
+    border-radius $border-radius
+
+    li{
+      height: 30px
+      line-height 30px
+      padding 0 5px
+      cursor pointer
+
+      &:hover{
+        background-color $bg-gray
+      }
+    }
+  }
+
+  &.open{
+    .inna-dropdown-age-dialog{
+      display block
+    }
+  }
+}
+.inna-arrow-bottom{
+  position absolute
+  z-index 1
+  top 50%
+  right 10px
+  width 0px
+  height 0px
+  margin-top -2px
+  border-style solid
+  border-width 5px
+  border-color #5d5d5d transparent transparent transparent
+
+  &:after{
+    position absolute
+    content ''
+    left -5px
+    top -7px
+    border-style solid
+    border-width 5px
+    border-color #fff transparent transparent transparent
+  }
+}
