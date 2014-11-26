@@ -1370,6 +1370,5 @@ innaAppControllers.
                 $scope.paymentDeadline.destroy();
                 destroyPopups();
                 $('#buy-listener').off();
-                $scope = null;
             });
         }]);
