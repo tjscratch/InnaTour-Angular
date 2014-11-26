@@ -10,6 +10,8 @@
 
                     <span tooltip-directive-base
                           ng-if="userIsAgency && (AgencyId == 20005)"
+                          templ="empty.hbs.html"
+                          el="true"
                           tooltip-klass="agency-inna"
                           position="right"
                           content-html="Комнат <b>{{room.RoomCount}}</b>. Цена <b>{{room.PackagePriceService}}</b> р"
@@ -55,7 +57,7 @@
 	                    Включен в цену
                     </span>
                     <span ng-if="!$first">
-	                    {{room.PackagePrice - bundle.getFullPackagePrice() | signed}}
+	                    {{room.PackagePrice - recommendedPair.getFullPackagePrice() | signed}}
 	                    <ng-include src="'components/ruble.html'"></ng-include>
                     </span>
                     <span class="icon-crown icon-sprite-crown" ng-if="room.IsPackage"></span>

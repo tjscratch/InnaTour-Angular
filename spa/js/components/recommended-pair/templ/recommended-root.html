@@ -1,0 +1,83 @@
+<div class="recommend-bundle-container"
+     ng-class="{'recommend-bundle-container_short':!isVisible}">
+	<ng-include src="'components/wl-new-search/templ/index.hbs.html'"></ng-include>
+	<div class="recommend-bundle">
+
+		<div class="recommend-bundle-background"></div>
+
+		<div class="scroll-fix ">
+			<div class="main__center recommend-bundle-wrap"
+			     ng-class="{'recommend-bundle-wrap_small': !isVisible}">
+
+				<h3 class="recommend-bundle-title" ng-if="isVisible && isChooseHotel">
+					Выбранный вариант
+
+					<div ng-if="!isClosed && recommendedPairStatus == 6"
+					     tooltip-directive-base
+					     tooltip-klass="nocorner"
+					     close="true"
+					     position="right_right"
+					     is-visible="isVisible"
+					     width="300"
+					     templ="popover.hbs.html" class="b-display-inline">
+
+						<div class="b-tooltip__header">
+							<h3>Пакет был изменен</h3>
+						</div>
+
+						<div class="b-tooltip__body">
+				            <span class="b-tooltip__body__text">
+				              К сожалению, выбранный пакет Перелет+Отель
+					            уже недоступен, будет предложен рекомендован-
+								ный вариант.
+				            </span>
+						</div>
+
+					</div>
+				</h3>
+
+				<h3 class="recommend-bundle-title" ng-if="isVisible && !isChooseHotel">
+					Рекомендованный вариант
+				</h3>
+
+				<div class="w-expand-collapse-link_up w-expand-collapse-link" ng-if="isVisible">
+					<a href="javascript:void(0);" ng-click="display.toggle()" class="expand-collapse-link">
+						<span class="icon-expand"></span> Свернуть
+					</a>
+				</div>
+
+				<div recommended-pair-component-big
+				     ng-show="isVisible"
+				     recommended-pair="recommendedPair"
+				     recommended-pair-status="recommendedPairStatus"
+				     is-closed="isClosed"
+				     is-visible="isVisible"
+				     toggle-tab="toggleTab"
+				     state-ticket="stateTicket"
+				     state-hotel="stateHotel"
+				     tab-active="tabActive"
+				     as-map="asMap"
+				     inna-dynamic-bundle-with-reservation-button="true"></div>
+
+				<div recommended-pair-component-mini ng-if="!isVisible"></div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<!-- панель фильтрации отелей -->
+	<ng:any filter-panel-hotel
+	        filters-settings="filtersSettingsHotels"
+            as-map="asMap"
+	        type-panel="hotels"
+	        active-panel="activePanel"
+	        ng-show="filtersSettingsHotels"></ng:any>
+
+	<!-- панель фильтрации билетов -->
+	<ng:any filter-panel-avia
+	        filters-settings="filtersSettingsTicket"
+	        type-panel="ticket"
+	        active-panel="activePanel"
+	        ng-show="filtersSettingsTicket"></ng:any>
+</div>

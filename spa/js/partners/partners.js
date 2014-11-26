@@ -28,7 +28,8 @@
             'skype': '',
             'aboutLink': 'https://biletix.ru/about_biletix/',
             'contactsLink': 'https://biletix.ru/contacts/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf'
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf',
+            'showOffers' : true
         },
         {
             'name': 'agenda',
@@ -53,8 +54,31 @@
             'aboutLink': 'https://sample.ru/about',
             'contactsLink': 'https://sample.ru/contacts',
             'offertaContractLink': ''
+        },
+        {
+            'name': 'ulixes',
+            'src': '/ulixes/ulixes.base.css',
+            'type': self.WLType.full,
+            'title': 'Ulixes',
+            'phone': '+7&nbsp;(495) 215 08 09',
+            'email': 'ta@ulixes.ru',
+            'skype': '',
+            'aboutLink': 'http://www.ulixes.ru/o_kompanii/',
+            'contactsLink': 'http://www.ulixes.ru/contacti/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ulixes.pdf'
         }
     ];
+
+    var maxClientHeight = 730;
+    self.scrollToChildSelector = function () {
+        //скроллим родителя фрейма до выбора кол-ва детей
+        self.setScrollPage(120, true, maxClientHeight);
+    };
+
+    self.scrollToChildSelectorItem = function () {
+        //скроллим родителя фрейма до выбора кол-ва детей
+        self.setScrollPage(200, true, maxClientHeight);
+    };
 
     self.resetParentScrollTop = function () {
         self.parentScrollTop = 0;
@@ -129,9 +153,9 @@
         }
     }
 
-    self.setScrollPage = function (data) {
+    self.setScrollPage = function (data, smooth, maxHeight) {
         if (data) {
-            sendCommandToParent(self.commands.setScrollPage, { 'scrollPage': data });
+            sendCommandToParent(self.commands.setScrollPage, { 'scrollPage': data, 'smooth': smooth, 'maxHeight': maxHeight });
         }
     }
 
@@ -240,7 +264,7 @@
 
         var html = document.getElementsByTagName('html')[0];
         //навешиваем стиль партнера
-        html.className = html.className + " partner-" + partner.name;
+        html.className = html.className + " partner-wl partner-" + partner.name;
     };
 
     function insertAfter(newNode, referenceNode) {

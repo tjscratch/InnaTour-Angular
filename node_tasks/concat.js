@@ -45,8 +45,8 @@ gulp.task('concat-lib', function () {
             conf.dest + '/lib/ractive/ractive-events-hover.js',
             conf.dest + '/lib/polyfill/**/*.js',
             conf.dest + '/lib/jquery.maskedinput.js',
-            conf.dest + '/lib/angular-cookies.min.js',
-            conf.dest + '/lib/angular-locale_ru-ru.js',
+            conf.dest + '/lib/angular/angular-cookies.min.js',
+            conf.dest + '/lib/angular/angular-locale_ru-ru.js',
             conf.dest + '/lib/google.maps.clustering.js',
             conf.dest + '/lib/jquery.ui.datepicker-ru.js',
             conf.dest + '/lib/datepicker/datepicker.js',
@@ -98,7 +98,7 @@ gulp.task('build-directives', function () {
 
 gulp.task('build-models', function () {
     return gulp.src([
-            conf.src + '/models/app.model.js',
+            conf.src + '/models/model.js',
             conf.src + '/models/**/*.js'
     ])
         .pipe(concat('angular-models.js', {insertSourceName: {open: '/*', close: '*/'}}))

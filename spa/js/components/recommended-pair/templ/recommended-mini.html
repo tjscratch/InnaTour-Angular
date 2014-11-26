@@ -1,0 +1,55 @@
+<div class="row result-small" ng-click="display.fullDisplay()" style="cursor:pointer;">
+
+    <div class="result-small__cell col-xs-5 col-no-padding">
+        <p class="flight">
+            <img class="flight__image" ng-src="{{airLogo( recommendedPair.ticket.getEtaps('To')[0].data.TransporterCode )}}"
+                 height=28
+                 alt="">
+            <span class="white">{{recommendedPair.ticket.data.OutCode}} – {{recommendedPair.ticket.data.InCode}}, {{recommendedPair.ticket.data.DepartureDate | date: 'd MMM'}},</span>
+
+            в пути: {{recommendedPair.ticket.getDuration('To')}}, {{recommendedPair.ticket.getEtaps('To').length - 1 |
+            asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+        </p>
+
+        <p class="flight">
+            <img class="flight__image"
+                 ng-src="{{airLogo( recommendedPair.ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28 alt="">
+            <span class="white">{{recommendedPair.ticket.data.OutCodeBack}} – {{recommendedPair.ticket.data.InCodeBack}}, {{recommendedPair.ticket.data.BackDepartureDate | date: 'd MMM'}},</span>
+            в пути: {{recommendedPair.ticket.getDuration('Back')}}, {{recommendedPair.ticket.getEtaps('Back').length - 1 |
+            asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+        </p>
+    </div>
+    <div class="result-small__cell col-xs-4">
+        <h3 class="hotel-info-name">
+            <div class="js-stars-container b-display-inline"></div>
+	        {{recommendedPair.hotel.data.HotelName}}
+        </h3>
+
+        <div class="hotel-info-date">
+            с {{recommendedPair.hotel.data.CheckIn | date: 'd MMM'}}
+            по {{recommendedPair.hotel.data.CheckOut | date: 'd MMM'}},
+            {{recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+        </div>
+    </div>
+    <div class="result-small__cell col-xs-3 col-no-padding">
+
+        <div class="corner-price">
+            {{recommendedPair.getFullPackagePrice() | price}}
+            <ng-include src="'components/ruble.html'"></ng-include>
+        </div>
+
+        <div class="w-expand-collapse-link_down w-expand-collapse-link pull-right">
+            <a href="javascript:void(0);" class="expand-collapse-link" ng-if="!isVisible">
+                <span class="icon-collapse"></span> Развернуть
+            </a>
+
+            <!-- tooltip price -->
+            <div ng-if="recommendedPair.hotel.data.PriceObject"
+                 class="price-generic-container"
+                 price-generic-directive
+                 icon-white="true"
+                 price-object="recommendedPair.hotel.data.PriceObject"
+                 tooltip-klass="bundle"></div>
+        </div>
+    </div>
+</div>

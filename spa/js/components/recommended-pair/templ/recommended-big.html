@@ -1,0 +1,214 @@
+<div class="b-result b-result_col_three row b-result-content">
+    <div class="b-result__cell" ng-click="toggleTab('ticket')" ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
+
+        <div ng-if="!isClosed && recommendedPairStatus == 5"
+             tooltip-directive-base
+             tooltip-klass="nocorner"
+             close="true"
+             position="top_right"
+             is-visible="isVisible"
+             width="300"
+             templ="popover.hbs.html">
+
+            <div class="b-tooltip__header">
+                <h3>Перелет был изменен</h3>
+            </div>
+
+            <div class="b-tooltip__body">
+                <span class="b-tooltip__body__text">
+                    К сожалению, выбранный вариант перелета уже
+                недоступен, в пакет будет включен рекомендован-
+                ный перелет.
+                </span>
+            </div>
+        </div>
+
+        <span class="rl-airline" ng-repeat="tr in transportersList" ng-if="transportersList.length <= 2">
+            <img ng-src="{{airLogo(tr.code)}}" alt="">
+            <span class="rl-airline-text">{{tr.name}}</span>
+        </span>
+
+	    <span class="rl-airline" ng-if="transportersList.length > 2">
+	        <img src="/spa/img/group.png" alt="">
+	        <span class="rl-airline-text">Несколько авиакомпаний</span>
+		</span>
+
+
+        <div class="flight-info">
+            <span class="date">
+                <b>
+                    {{dateHelper.getTime(recommendedPair.ticket.data.DepartureDate)}} {{recommendedPair.ticket.data.OutCode}}
+                </b>
+                {{recommendedPair.ticket.data.DepartureDate | date: 'd MMM'}}, {{recommendedPair.ticket.data.DepartureDate | date: 'EEE'}}
+            </span>
+
+            <p class="arrow">
+                в пути: {{recommendedPair.ticket.getDuration('To')}}<br>
+                {{recommendedPair.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+            </p>
+            <span class="date">
+                <b>{{dateHelper.getTime(recommendedPair.ticket.data.ArrivalDate)}} {{recommendedPair.ticket.data.InCode}}</b>
+                {{recommendedPair.ticket.data.ArrivalDate | date: 'd MMM'}}, {{recommendedPair.ticket.data.ArrivalDate | date: 'EEE'}}
+            </span>
+        </div>
+
+        <div class="flight-info">
+                <span class="date">
+                    <b>{{dateHelper.getTime(recommendedPair.ticket.data.BackDepartureDate)}} {{recommendedPair.ticket.data.OutCodeBack}}</b>
+                    {{recommendedPair.ticket.data.BackDepartureDate | date: 'd MMM'}}, {{recommendedPair.ticket.data.BackDepartureDate | date: 'EEE'}}
+                </span>
+
+            <p class="arrow">
+                в пути: {{recommendedPair.ticket.getDuration('Back')}}<br>
+                {{recommendedPair.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+            </p>
+                <span class="date">
+                    <b>{{dateHelper.getTime(recommendedPair.ticket.data.BackArrivalDate)}} {{recommendedPair.ticket.data.InCodeBack}}</b>
+                    {{recommendedPair.ticket.data.BackArrivalDate | date: 'd MMM'}}, {{recommendedPair.ticket.data.BackArrivalDate | date: 'EEE'}}
+                </span>
+        </div>
+        <span class="icon-sprite-airplane"></span>
+
+        <div class="bottom-actions">
+            <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_replace"
+               ng-if="!displayHotel"
+               ng-class="{active: stateTicket}">
+                Заменить перелет
+            </a>
+            <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_details"
+               ng-click="bundleTicketDetails($event, recommendedPair.ticket)">Подробнее</a>
+        </div>
+
+        <!-- separator -->
+        <div class="b-result-cell__gap">
+            <div class="b-result-cell__gap_wrap"></div>
+        </div>
+    </div>
+
+    <div class="b-result__cell b-result__cell_even" ng-click="toggleTab('hotel')" ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}">
+        <div class="hotel-info__special-mark" ng-if="recommendedPair.getProfit() > 1000">
+
+        <div ng-if="!isClosed && recommendedPairStatus == 3"
+             tooltip-directive-base
+             tooltip-klass="nocorner"
+             close="true"
+             position="top_right"
+             is-visible="isVisible"
+             width="300"
+             templ="popover.hbs.html">
+
+            <div class="b-tooltip__header">
+                <h3>Отель был изменен</h3>
+            </div>
+
+            <div class="b-tooltip__body">
+                <span class="b-tooltip__body__text">
+                   К сожалению, выбранный вариант проживания уже
+                    недоступен, в пакет будет включен рекомендован-
+                    ный отель.
+                </span>
+            </div>
+
+        </div>
+
+            <span class="icon-crown icon-sprite-crown"></span>
+            Спецпредложение
+        </div>
+
+        <div class="hotel-info">
+            <div class="hotel-info__wrapper">
+                <!--{{bundle | console}}-->
+                <img ng-src="{{recommendedPair.hotel.data.HotelPhoto70}}" ng-if="recommendedPair.hotel.data.HotelPhoto70" alt="">
+                <img src="/spa/img/hotels/no_photo70x70.png" ng-if="!recommendedPair.hotel.data.HotelPhoto70" alt="">
+
+                <div class="hotel-info-content">
+                    <!-- Stars -->
+                    <div class="js-stars-container"></div>
+
+                    <h3 class="hotel-info-name">
+                        {{recommendedPair.hotel.data.HotelName}}
+                    </h3>
+
+                    <div class="hotel-info-date">
+                        с {{recommendedPair.hotel.data.CheckIn | date: 'd MMM'}}
+                        по {{recommendedPair.hotel.data.CheckOut | date: 'd MMM'}},
+
+                        {{recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- tripadvisor -->
+            <div class="hotel-info__tripadvisor">
+                <div class="js-tripadvisor-container"></div>
+            </div>
+        </div>
+        <span class="icon-sprite-hotel"></span>
+
+        <div class="bottom-actions">
+            <a href="javascript:void(0);"
+               ng-class="{'active': (stateHotel && !asMap)}"
+               ng-if="!displayHotel"
+               class="bottom-actions__button bottom-actions__button_action_replace">
+                Заменить отель
+            </a>
+
+            <a ng-if="displayHotel"
+               class="active bottom-actions__button bottom-actions__button_action_details">
+                Подробнее
+            </a>
+
+            <a ng-if="!displayHotel"
+               href="{{computedUrlDetails()}}"
+               target="_blank"
+               class="bottom-actions__button bottom-actions__button_action_details"
+               ng-class="{'active': displayHotel}">Подробнее</a>
+        </div>
+
+
+        <!-- separator -->
+        <div class="b-result-cell__gap">
+            <div class="b-result-cell__gap_wrap"></div>
+        </div>
+    </div>
+
+    <div class="b-result__cell result-buy">
+
+
+        <div share-link-directive
+             location="{{location}}"
+             position="left"></div>
+
+        <p class="corner-price" ng-if="recommendedPair.getProfit() > 1000">
+            <span class="cross">{{recommendedPair.getFullPrice() | price}} <span class="b-rub">q</span></span>
+            <span class="price-description">по отдельности</span>
+        </p>
+
+        <div class="price">
+            <div class="price-description" style="font-weight:normal;">Перелет + Отель</div>
+            {{recommendedPair.getFullPackagePrice() | price}}
+            <ng-include src="'components/ruble.html'"></ng-include>
+
+            <!-- tooltip price -->
+
+            <div ng-if="recommendedPair.hotel.data.PriceObject"
+                 price-generic-directive
+                 price-object="recommendedPair.hotel.data.PriceObject"
+                 tooltip-klass="bundle"></div>
+        </div>
+
+        <span class="price-description" ng-if="recommendedPair.getProfit() > 1000">
+            экономия: {{recommendedPair.getProfit() | price}}
+            <ng-include src="'components/ruble.html'"></ng-include>
+        </span>
+
+        <p></p>
+
+        <a class="button"
+           href="{{computedUrlDetails('buy')}}"
+           target="_blank"
+           ng-if="withReservationButton">
+            Купить
+        </a>
+    </div>
+</div>

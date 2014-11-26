@@ -7,8 +7,7 @@ innaAppControllers.
         'innaApp.services.PageContentLoader',
         'innaApp.API.pageContent.DYNAMIC',
         function ($scope, $location, URLs, DynamicFormSubmitListener, PageContentLoader, sectionID) {
-            /*EventListeners*/
-            //$('body').addClass('scrollVisible');
+
             DynamicFormSubmitListener.listen();
 
             function getSectionId (path) {
@@ -27,10 +26,11 @@ innaAppControllers.
             if (routeSectionID != null) {
                 sectionID = routeSectionID;
             }
-            //console.log('sectionID:', sectionID);
 
-            /*Data fetching*/
+
+
             PageContentLoader.getSectionById(sectionID, function (data) {
+
                 //обновляем данные
                 if (data != null) {
                     $scope.$apply(function ($scope) {
@@ -55,9 +55,5 @@ innaAppControllers.
                     });
                 }
             });
-
-            /*$scope.$on('$destroy', function(){
-                $('body').removeClass('scrollVisible');
-            })*/
         }
     ]);
