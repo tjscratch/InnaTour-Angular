@@ -390,6 +390,9 @@
                     }
 
                     addAirPortFromToFields(item);
+
+                    //проверка на разные аэропорты отлета и прилета
+                    item.alertDifferentPorts = (item.OutCode != item.InCodeBack);
                 },
 
                 addAggInfoFields: function (item) {
@@ -486,7 +489,7 @@
                     return pluralForm(i, str1, str2, str3);
                 },
 
-                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter) {
+                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter, isDifferentPorts) {
                     //console.log('getCharterAndNumSeatsText: countLeft: %d, ticketsCount: %d, isCharter: %s', countLeft, ticketsCount, isCharter);
                     var sList = [];
                     var seatsText = helper.getNumSeatsText(countLeft, ticketsCount);
@@ -499,6 +502,17 @@
                         }
                         else {
                             sList.push('чартер');
+                        }
+                    }
+                    if (isDifferentPorts) {
+                        if (sList.length == 0) {
+                            sList.push('Разные аэропорты отлета и прилета');
+                        }
+                        else if (sList.length == 2) {//сокращенная запись, когда не хватает места в строчке
+                            sList.push('разные аэропорты');
+                        }
+                        else {
+                            sList.push('разные аэропорты отлета и прилета');
                         }
                     }
                     return sList.join(', ');
