@@ -560,8 +560,8 @@ innaAppControllers.
 
                                         setTimeout(function () {
                                             $scope.safeApply(function () {
-                                        //уведомили - дальше грузим
-                                        $scope.baloon.show('Подождите', 'Это может занять несколько секунд');
+                                                //уведомили - дальше грузим
+                                                $scope.baloon.show('Подождите', 'Это может занять несколько секунд');
                                             });
                                         }, 0);
 
