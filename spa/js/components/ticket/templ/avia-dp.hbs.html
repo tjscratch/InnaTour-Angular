@@ -91,7 +91,7 @@
 </div>
 
 <div class="bottom-actions">
-	{{#if showWarning}}
+	{{#if showWarning() }}
         <span class="pull-left warning">
 		    {{pluralize(ticket.NumSeats, ["Последнее","Последние","Последние"])}}
 			{{ticket.NumSeats}}
@@ -105,7 +105,7 @@
 	    </span>
 	{{/if}}
 
-	{{#if !showWarning}}
+	{{#if !showWarning() }}
         <span class="pull-left warning">
 			{{#if ticket.IsCharter}}<span>Чартер</span><!--
                 -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}
