@@ -496,14 +496,14 @@ innaAppControllers.
                             if (data != null) {
                                 try{
                                     var filter = angular.fromJson(data.Filter);
-                                    console.log('order data.filter:', filter);
+                                    //console.log('order data.filter:', filter);
 
                                     if (data.Hotel) {
                                         $scope.newSearchUrl = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
                                             filter.DepartureId,
                                             filter.ArrivalId,
-                                            filter.StartVoyageDate,
-                                            filter.EndVoyageDate,
+                                            filter.StartVoyageDateString,
+                                            filter.EndVoyageDateString,
                                             filter.TicketClass,
                                             filter.Adult,
                                             filter.Children
