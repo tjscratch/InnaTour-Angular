@@ -128,12 +128,12 @@ innaAppControllers
                 },
             ];
 
-
+/*
             var backgrounds = [
                 '/spa/img/hotels/back-0.jpg',
                 '/spa/img/hotels/back-1.jpg',
                 '/spa/img/hotels/back-2.jpg'
-            ];
+            ];*/
 
             _balloonLoad.updateView({
                 loading: true,
