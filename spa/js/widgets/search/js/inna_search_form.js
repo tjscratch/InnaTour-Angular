@@ -80,15 +80,29 @@
                     var highlightDates = function (date) {
                         var month = date.getMonth() + 1;
                         var dates = date.getDate() + "." + month + "." + date.getFullYear()
-                        switch (dates) {
-                            case $scope.startDate:
+                        var oneDay;
+                        console.log(dates)
+                        console.log($scope.startDate)
+
+                        if ($scope.startDate == $scope.endDate) {
+                            oneDay = $scope.startDate;
+                        }
+
+                        if (dates == oneDay) {
+                            return {
+                                classes: 'one_date'
+                            };
+                        } else {
+                            if (dates == $scope.startDate) {
                                 return {
                                     classes: 'from_date'
                                 };
-                            case $scope.endDate:
+                            }
+                            if (dates == $scope.endDate) {
                                 return {
                                     classes: 'to_date'
                                 };
+                            }
                         }
                     };
 
@@ -100,7 +114,7 @@
                     });
 
                     $('.input-daterange').datepicker({
-                        format: "d.mm.yyyy",
+                        format: "d.m.yyyy",
                         startDate: $scope.setStartDate,
                         endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
                         language: "ru",
