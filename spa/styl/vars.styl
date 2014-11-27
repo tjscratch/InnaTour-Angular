@@ -72,15 +72,15 @@ color-button(name, color1, color2) {
 		gradient(top, rgba(color1, .9), rgba(color2, .9));
 
 		&:hover {
-			background-color: color1 + 10%;
+			/*background-color: color1 + 10%;
 			border-color: t (t/2 + b/2) b;
-			gradient(top, (color1 + 10%), (color2 + 10%));
+			gradient(top, (color1 + 10%), (color2 + 10%));*/
 		}
 
 		&:active{
-			background-color: color1 - 5%;
+			/*background-color: color1 - 5%;
 			gradient(top, (color1 - 5%), color2);
-			box-shadow: inset 0px 2px 1px rgba(77, 53, 3, 0.15);
+			box-shadow: inset 0px 2px 1px rgba(77, 53, 3, 0.15);*/
 		}
 
 
@@ -96,8 +96,8 @@ color-button(name, color1, color2) {
 		}
 
 		&.pressed {
-			background: bg;
-			box-shadow: inset 0 -.5em .5em .1em (color2 + 23%)
+			//background: bg;
+			//box-shadow: inset 0 -.5em .5em .1em (color2 + 23%)
 
 			.btn__text {
 				color: $black;
@@ -106,13 +106,6 @@ color-button(name, color1, color2) {
 
 		.btn__text {
 			color: $white;
-		}
-
-		&.btn-without_bg {
-			border-radius : 0;
-			background : none;
-			color:color1;
-			text-shadow : none;
 		}
 	}
 }

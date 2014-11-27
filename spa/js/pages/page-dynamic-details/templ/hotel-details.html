@@ -30,27 +30,18 @@
 
 		</div>
 
+		<!-- Меню с якорями -->
 		<div class="hotel-details__section_menu">
 			<div class="btn-group btn-group-justified">
-				<div ng-click="goToScroll('SectionDetail', $event)"  class="btn btn-active btn-green">
-					<i class=""></i>
-					<span>Описание отеля</span>
-				</div>
-				<div ng-click="goToScroll('SectionRoom', $event)" class="btn">
-					<i class=""></i>
-					<span>Выбор номера</span>
-				</div>
-				<div ng-click="goToScroll('SectionServices', $event)" class="btn">
-					<i class=""></i>
-					<span>Сервисы</span>
-				</div>
-				<div ng-click="goToScroll('SectionMap', $event)" class="btn">
-					<i class=""></i>
-					<span>Отель на карте</span>
-				</div>
-				<div ng-click="goToScroll('SectionReviews', $event)" class="btn">
-					<i class=""></i>
-					<span>Отзывы</span>
+
+				<div ng-repeat="menu in Menu"
+				     ng-click="goToScroll(menu, $event)"
+				     class="btn hotel-details__section_menu__item"
+				     ng-class="{'btn-active btn-green' : menu.active }">
+
+					<i class="{{menu.klass}} hotel-details__section_menu__icon" ng-if="!menu.active"></i>
+					<i class="{{menu.klass}}-active hotel-details__section_menu__icon" ng-if="menu.active"></i>
+					<span>{{menu.name}}</span>
 				</div>
 			</div>
 		</div>

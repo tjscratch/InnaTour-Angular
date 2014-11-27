@@ -93,6 +93,42 @@ innaAppControllers
             $scope.NewPricePackage = null;
             var _balloonLoad = new Balloon();
 
+
+            <!-- Меню с якорями -->
+            $scope.Menu = [
+                {
+                    id : 'SectionDetail',
+                    name : 'Описание отеля',
+                    active : false,
+                    klass: 'icon-sprite-description'
+                },
+                {
+                    id : 'SectionRoom',
+                    name : 'Выбор номера',
+                    active : false,
+                    klass: 'icon-sprite-room'
+                },
+                {
+                    id : 'SectionServices',
+                    name : 'Сервисы',
+                    active : false,
+                    klass: 'icon-sprite-services'
+                },
+                {
+                    id : 'SectionMap',
+                    name : 'Отель на карте',
+                    active : false,
+                    klass: 'icon-sprite-map'
+                },
+                {
+                    id : 'SectionReviews',
+                    name : 'Отзывы',
+                    active : false,
+                    klass: 'icon-sprite-reviews'
+                },
+            ];
+
+
             var backgrounds = [
                 '/spa/img/hotels/back-0.jpg',
                 '/spa/img/hotels/back-1.jpg',
@@ -484,20 +520,19 @@ innaAppControllers
                 room.isOpen = !!!room.isOpen;
             };
 
-            $scope.goToScroll = function(ID, $event){
-                var element = document.querySelector('#'+ID);
+            $scope.goToScroll = function(menu_item, $event){
+                var element = document.querySelector('#'+ menu_item.id);
                 var coords = utils.getCoords(element);
                 var headerHeight = angular.element('.Header').height();
                 var body = angular.element('html, body');
 
-                if($event) {
-                    var $el = $($event.currentTarget);
-                    $el.addClass('btn-active btn-green');
-                    $el.siblings('.btn')
-                        .removeClass('btn-active')
-                        .removeClass('btn-green');
-                }
+                $scope.Menu.forEach(function(item){
+                    if(item.id != menu_item.id){
+                        item.active = false;
+                    }
+                });
 
+                menu_item.active = true;
                 body.animate({scrollTop:(coords.top - headerHeight) - 30}, 300);
             };
 
