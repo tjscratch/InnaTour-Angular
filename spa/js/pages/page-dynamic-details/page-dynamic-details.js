@@ -520,20 +520,36 @@ innaAppControllers
                 room.isOpen = !!!room.isOpen;
             };
 
-            $scope.goToScroll = function(menu_item, $event){
-                var element = document.querySelector('#'+ menu_item.id);
-                var coords = utils.getCoords(element);
-                var headerHeight = angular.element('.Header').height();
-                var body = angular.element('html, body');
 
-                $scope.Menu.forEach(function(item){
-                    if(item.id != menu_item.id){
-                        item.active = false;
-                    }
-                });
+            $scope.goToScroll = function(menu_item){
 
-                menu_item.active = true;
-                body.animate({scrollTop:(coords.top - headerHeight) - 30}, 300);
+                var ID = '';
+
+                if(menu_item.id){
+                    ID = menu_item.id;
+                } else {
+                    ID = menu_item;
+                }
+
+                var element = document.querySelector('#'+ ID);
+
+                if(element) {
+                    var coords = utils.getCoords(element);
+                    var headerHeight = angular.element('.Header').height();
+                    var body = angular.element('html, body');
+                    body.animate({scrollTop:(coords.top - headerHeight) - 30}, 300);
+                }
+
+
+                if(menu_item.id) {
+                    $scope.Menu.forEach(function (item) {
+                        if (item.id != menu_item.id) {
+                            item.active = false;
+                        }
+                    });
+                    menu_item.active = true;
+                }
+
             };
 
             $scope.$watch('user', function(User){
