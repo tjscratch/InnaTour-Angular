@@ -10,7 +10,7 @@ angular.module('innaApp.controllers')
         '$route',
         function($scope, $location, aviaHelper, Events, AuthDataProvider, app, modelAuth, $route){
             /*Private*/
-            var setUserInfo = function(data){
+            var setUserInfo = function (data, needInitLastUserAfterLoginCheck) {
                 if(data && data["Email"]) {
                     Raven.setUserContext({
                         email: data["Email"],
@@ -28,6 +28,9 @@ angular.module('innaApp.controllers')
 
                     //проверяем, нужно ли перезагрузить страницу
                     if ($scope.reloadChecker) {
+                        if (needInitLastUserAfterLoginCheck) {//флаг, говорит, что нужно проинициализировать последнего пользователя
+                            $scope.reloadChecker.saveLastUser();
+                        }
                         $scope.reloadChecker.checkReloadPage();
                     }
                 });
@@ -132,8 +135,10 @@ angular.module('innaApp.controllers')
                 $scope.open();
             }
 
-            $scope.recognize = function(){
-                AuthDataProvider.recognize(setUserInfo,
+            $scope.recognize = function(needInitLastUserAfterLoginCheck){
+                AuthDataProvider.recognize(function (data) {
+                    setUserInfo(data, needInitLastUserAfterLoginCheck);
+                },
                     function (err) {
                         $scope.safeApply(function () {
                             //выходим "по-тихому", без запросов на сервер и генерации события логаута
@@ -141,7 +146,7 @@ angular.module('innaApp.controllers')
 
                             //проверяем, нужно ли перезагрузить страницу
                             if ($scope.reloadChecker) {
-                                $scope.reloadChecker.checkReloadPage('no user');
+                                $scope.reloadChecker.checkReloadPage();
                             }
                         });
                     });
@@ -177,7 +182,7 @@ angular.module('innaApp.controllers')
             });
 
             /*Initial*/
-            $scope.recognize();
+            $scope.recognize(true);
 
             //поддержка залогиненности из нескольких вкладок
             function reloadChecker() {
@@ -192,12 +197,15 @@ angular.module('innaApp.controllers')
                         //и если она изменилась - то перезагружаем страницу
                         $scope.recognize();
                     });
-
                 };
+
+                self.getCurrentUser = function () {
+                    return ($scope.$root.user && $scope.$root.user.raw) ? $scope.$root.user.raw.Email : null;
+                }
 
                 self.saveLastUser = function (curUser) {
                     if (curUser == null) {
-                        curUser = ($scope.$root.user && $scope.$root.user.raw) ? $scope.$root.user.raw.Email : null;
+                        curUser = self.getCurrentUser();
                     }
                     self.lastLoginUser = curUser;
                 };
@@ -206,10 +214,9 @@ angular.module('innaApp.controllers')
                     $(window).off('focus');
                 }
 
-                self.checkReloadPage = function (curUser) {
-                    if (curUser == null) {
-                        curUser = ($scope.$root.user && $scope.$root.user.raw) ? $scope.$root.user.raw.Email : null;
-                    }
+                self.checkReloadPage = function () {
+                    var curUser = self.getCurrentUser();
+                    //console.log('checkReloadPage, curUser: ' + curUser + ' lastLoginUser: ' + self.lastLoginUser);
                     //состояние залогиненности изменилось - тригерим событие
                     if (self.lastLoginUser != curUser) {
                         //решрешим страницу
