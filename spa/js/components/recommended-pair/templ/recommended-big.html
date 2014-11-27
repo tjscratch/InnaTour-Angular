@@ -200,8 +200,8 @@
         </div>
 
         <span class="price-description" ng-if="recommendedPair.getProfit() > 1000">
-            экономия: {{recommendedPair.getProfit() | price}}
-            <ng-include src="'components/ruble.html'"></ng-include>
+            экономия: {{recommendedPair.getProfit() | price}}<!--
+            --><ng-include src="'components/ruble.html'"></ng-include>
         </span>
 
         <p></p>

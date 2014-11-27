@@ -391,8 +391,8 @@
 
                     addAirPortFromToFields(item);
 
-                    //проверка на разные аэропорты отлета и прилета
-                    item.alertDifferentPorts = (item.OutCode != item.InCodeBack);
+                    //проверка на разные аэропорты отлета и прилета, в одну сторону не учитываем
+                    item.alertDifferentPorts = (item.OutCode != item.InCodeBack) && item.EtapsBack.length > 0;
                 },
 
                 addAggInfoFields: function (item) {
@@ -508,8 +508,8 @@
                         if (sList.length == 0) {
                             sList.push('Разные аэропорты отлета и прилета');
                         }
-                        else if (sList.length == 2) {//сокращенная запись, когда не хватает места в строчке
-                            sList.push('разные аэропорты');
+                        else if (sList.length == 2 || seatsText.length > 0) {//сокращенная запись, когда не хватает места в строчке
+                            sList.push('разные а/п отлета и прилета');
                         }
                         else {
                             sList.push('разные аэропорты отлета и прилета');
