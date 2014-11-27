@@ -254,7 +254,7 @@
                 if(data && !$scope.hotel){
                     $scope.hotel = data.Hotel;
                 }
-                console.log('done');
+                //console.log('done');
                 packageCheckAvailability()
             });
 

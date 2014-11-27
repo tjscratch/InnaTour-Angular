@@ -67,7 +67,7 @@ innaAppControllers
              */
             $scope.getHeadForm = function () {
                 //для партнеров - своя форма для поиска
-                if (partners && partners.isFullWL()) {
+                if (window.partners && window.partners.isFullWL()) {
                     return "";
                 }
 

@@ -66,19 +66,28 @@
 </div>
 
 <div class="bottom-actions">
-
-	{{#if showWarning}}
+	{{#if showWarning() }}
         <span class="pull-left warning">
 		    {{pluralize(ticket.NumSeats, ["Последнее","Последние","Последние"])}}
 			{{ticket.NumSeats}}
-			{{pluralize(ticket.NumSeats, ["место","места","мест"])}}
-			{{#if ticket.IsCharter}}<span>, чартер</span>{{/if}}
+			{{pluralize(ticket.NumSeats, ["место","места","мест"])}}<!--
+            -->{{#if ticket.IsCharter}}<span>, чартер</span><!--
+            -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные а/п отлета и прилета</span>{{/if}}
+            {{/if}}<!--
+            -->{{#if !ticket.IsCharter}}<!--
+                -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}
+            {{/if}}
 	    </span>
 	{{/if}}
 
-	{{#if !showWarning}}
+	{{#if !showWarning() }}
         <span class="pull-left warning">
-			{{#if ticket.IsCharter}}<span>Чартер</span>{{/if}}
+			{{#if ticket.IsCharter}}<span>Чартер</span><!--
+                -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}
+            {{/if}}<!--
+            -->{{#if !ticket.IsCharter}}<!--
+                -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>Разные аэропорты отлета и прилета</span>{{/if}}
+            {{/if}}
         </span>
 	{{/if}}
 

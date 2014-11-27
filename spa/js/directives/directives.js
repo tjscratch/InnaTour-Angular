@@ -401,6 +401,10 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
             $elem.on('keypress', function (event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
+                var shiftKey = theEvent.shiftKey;
+
+                //console.log('key:' + key + ' shiftKey:' + shiftKey);
+
                 var val = $elem.val();
                 var selStart = $elem.get(0).selectionStart;
                 var selEnd = $elem.get(0).selectionEnd;
@@ -429,6 +433,14 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
                     else {
                         return false;
                     }
+                }
+
+                function isShiftPressed(key) {
+                    //если нажат shift (shift + =) = (+) не считается
+                    if (shiftKey == true && key != 43) {
+                        return true
+                    }
+                    return false;
                 }
 
                 function setEndSelection() {
@@ -465,9 +477,10 @@ innaAppDirectives.directive('phoneInput', ['$parse', function ($parse) {
                     setEndSelection();
                 }
 
-                
+                //console.log('isShiftPressed(key): ', isShiftPressed(key));
                 //даем вводить только цифры
-                if (!isKeyInNumKeys(key) && !isKeyInControlAndNavKeys(key)) {
+                if (isShiftPressed(key) || !isKeyInNumKeys(key) && !isKeyInControlAndNavKeys(key)) {
+                    //console.log('preventDefault');
                     event.preventDefault();
                     return false;
                 }
@@ -668,6 +681,7 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
             }).on('keypress', function (event) {
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
+                //console.log('key:', key);
                 if (key == 13) {//enter
                     $scope.$apply(function () {
                         validate(true);

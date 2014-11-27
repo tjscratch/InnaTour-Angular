@@ -1,0 +1,21 @@
+$offset = 3px;
+$offset-row = -3px;
+
+.b-inna-row{
+	position relative
+	margin-right $offset-row;
+	margin-left $offset-row;
+}
+
+for key in (1..12){
+	$cols = 12 / key
+	.b-inna-col-xs-{key}{
+		position: relative;
+		float: left;
+		width: (100 / $cols) %;
+		min-height: 1px;
+		box-sizing: border-box;
+		padding-left: $offset;
+		padding-right: $offset;
+	}
+}
