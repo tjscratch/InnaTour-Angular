@@ -66,6 +66,18 @@
             'aboutLink': 'http://www.ulixes.ru/o_kompanii/',
             'contactsLink': 'http://www.ulixes.ru/contacti/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ulixes.pdf'
+        },
+        {
+            'name': 'skycassa',
+            'src': '/skycassa/skycassa.base.css',
+            'type': self.WLType.full,
+            'title': 'SKYcassa',
+            'phone': '+7&nbsp;(495) 287 46 26',
+            'email': 'info@skycassa.com',
+            'skype': '',
+            'aboutLink': 'http://www.skycassa.com/about/',
+            'contactsLink': 'http://www.skycassa.com/contacts/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_skycassa.pdf'
         }
     ];
 
