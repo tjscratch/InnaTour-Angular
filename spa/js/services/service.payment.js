@@ -83,6 +83,15 @@
                     });
                 },
 
+                getRepricing: function (orderNumber, successCallback, errCallback) {
+                    $http.get(apiUrls.BUY_REPRICING, { cache: false, params: { OrderNumber: orderNumber, ReturnType : 1 } }).success(function (data, status) {
+                        successCallback(data);
+                    }).
+                        error(function (data, status) {
+                            errCallback(data, status);
+                        });
+                },
+
                 getPaymentData: function (queryData, successCallback, errCallback) {
                     $http.get(apiUrls.AVIA_RESERVATION_GET_PAY_DATA, { cache: false, params: queryData }).success(function (data, status) {
                         successCallback(data);

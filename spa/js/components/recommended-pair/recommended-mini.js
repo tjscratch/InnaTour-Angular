@@ -15,24 +15,10 @@ angular.module('innaApp.directives')
                     '$element',
                     'innaApp.API.events',
                     '$routeParams',
-
-                    // components
-                    'ShareLink',
-                    'Tripadvisor',
-                    'Stars',
-                    'PriceGeneric',
-                    function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams, ShareLink, Tripadvisor, Stars, PriceGeneric) {
-
-                        var _stars = new Stars({
-                            el: $element.find('.js-stars-container'),
-                            data: {
-                                stars: $scope.recommendedPair.hotel.data.Stars
-                            }
-                        })
+                    function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams) {
 
                         $scope.$on('$destroy', function () {
-                            _stars.teardown();
-                            _stars = null;
+
                         })
                     }
                 ]

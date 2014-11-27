@@ -1,7 +1,5 @@
 ﻿'use strict';
 
-/* Directives */
-
 innaAppDirectives.
     directive('jqUiSliderRange', [
         '$templateCache',

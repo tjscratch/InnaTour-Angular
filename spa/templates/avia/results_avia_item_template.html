@@ -92,10 +92,10 @@
         </div>
 
         <div class="bottom-actions row">
-            <div class="col-xs-6 col-no-padding">
-                <span class="warning">{{helper.getCharterAndNumSeatsText(this.NumSeats, ticketsCount, this.IsCharter)}}</span>
+            <div class="col-xs-10 col-no-padding">
+                <span class="warning">{{helper.getCharterAndNumSeatsText(this.NumSeats, ticketsCount, this.IsCharter, this.alertDifferentPorts)}}</span>
             </div>
-            <div class="col-xs-6 col-no-padding align-right">
+            <div class="col-xs-2 col-no-padding align-right">
                 <a href="#" on-click='popupItemInfo_show:{{this}}'>Подробнее</a>
             </div>
         </div>
@@ -112,8 +112,8 @@
             <span class="rl-rec">мы рекомендуем</span>
         {{/}}
         <span class="rl-price {{this.EtapsBack.length == 0 ? 'rl-price_1way' : ''}}">
-            <span class="rl-price-item">{{priceFilter(this.Price)}}</span>
-            {{>ruble}}
+            <span class="rl-price-item">{{priceFilter(this.Price)}}</span><!--
+            -->{{>ruble}}
         </span>
 
         <!-- tooltip price -->

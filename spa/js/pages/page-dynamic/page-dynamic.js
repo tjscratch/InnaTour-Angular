@@ -20,7 +20,6 @@ innaAppControllers
         '$templateCache',
         'Balloon',
         'ListPanel',
-        /*'FilterPanel',*/
         '$filter',
 
         'ModelRecommendedPair',

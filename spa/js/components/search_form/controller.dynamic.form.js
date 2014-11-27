@@ -8,6 +8,57 @@ innaAppControllers
         'innaApp.Urls',
         function ($scope, $rootScope, serviceCache, Validators, $location, URLs) {
 
+            function wlDataControl() {
+                var self = this;
+
+                self.WL_TODAY_KEY = 'WL_TODAY_KEY';
+
+                self.getToday = function () {
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth() + 1; //January is 0!
+                    var yyyy = today.getFullYear();
+
+                    if (dd < 10) {
+                        dd = '0' + dd
+                    }
+
+                    if (mm < 10) {
+                        mm = '0' + mm
+                    }
+
+                    today = dd + '/' + mm + '/' + yyyy;
+                    return today;
+                };
+
+                self.saveTodayForWl = function () {
+                    localStorage.setItem(self.WL_TODAY_KEY, self.getToday());
+                };
+
+                self.checkResetCache = function () {
+                    if (window.partners && window.partners.isFullWL()) {
+                        //дата последнего захода на wl
+                        var wlLastDate = localStorage.getItem(self.WL_TODAY_KEY) || null;
+                        var today = self.getToday();
+                        //console.log('wlLastDate: ' + wlLastDate + ' today: ' + today);
+                        //если дата изменилась - то сбрасываем ключи в local.storage
+                        if (wlLastDate != today) {
+                            serviceCache.clear();
+                        }
+                    }
+                };
+
+                self.checkSaveTodayForWl = function () {
+                    //сохраняем дату захода на WL
+                    if (window.partners && window.partners.isFullWL()) {
+                        self.saveTodayForWl();
+                    }
+                };
+            }
+
+            $scope.wlDataControl = new wlDataControl();
+            $scope.wlDataControl.checkResetCache();
+
             var parseRoute = function (path) {
                 //console.log('here');
                 if (path.indexOf(URLs.URL_DYNAMIC_PACKAGES_SEARCH) > -1 || path.indexOf(URLs.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
@@ -253,8 +304,16 @@ innaAppControllers
                 }
             });
 
+            //сохраняем дату захода на WL
+            $scope.wlDataControl.checkSaveTodayForWl();
+
             $(window).on('unload beforeunload', function () {
-                serviceCache.clear();
+                if (window.partners && window.partners.isFullWL()) {
+                    //ничего не делаем
+                }
+                else {
+                    serviceCache.clear();
+                }
             });
         }
     ]);

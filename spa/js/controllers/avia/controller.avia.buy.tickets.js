@@ -404,16 +404,16 @@ innaAppControllers.
                 self.navCurrent = null;
 
                 self.cardNumCont = $('.js-cardnum-block');
-                self.num1 = {item: $('input:eq(0)', self.cardNumCont), key: 'num1'};
-                self.num2 = {item: $('input:eq(1)', self.cardNumCont), key: 'num2'};
-                self.num3 = {item: $('input:eq(2)', self.cardNumCont), key: 'num3'};
-                self.num4 = {item: $('input:eq(3)', self.cardNumCont), key: 'num4'};
+                self.num1 = { item: $('input:eq(0)', self.cardNumCont), key: 'num1' };
+                self.num2 = { item: $('input:eq(1)', self.cardNumCont), key: 'num2' };
+                self.num3 = { item: $('input:eq(2)', self.cardNumCont), key: 'num3' };
+                self.num4 = { item: $('input:eq(3)', self.cardNumCont), key: 'num4' };
 
                 self.validCont = $('.js-card-valid');
-                self.month = {item: $('input:eq(0)', self.validCont), key: 'cardMonth'};
-                self.year = {item: $('input:eq(1)', self.validCont), key: 'cardYear'};
+                self.month = { item: $('input:eq(0)', self.validCont), key: 'cardMonth' };
+                self.year = { item: $('input:eq(1)', self.validCont), key: 'cardYear' };
 
-                self.holder = {item: $('input.js-card-holder:eq(0)'), key: 'cardHolder'};
+                self.holder = { item: $('input.js-card-holder:eq(0)'), key: 'cardHolder' };
 
                 self.navList.push(self.num1);
                 self.navList.push(self.num2);
@@ -446,13 +446,13 @@ innaAppControllers.
                         self.navCurrent = self.navList[index];
                         if (self.navCurrent != null) {
                             setTimeout(function () {
-                                self.navCurrent.item.select();
-                                self.navCurrent.item.focus();
+                            self.navCurrent.item.select();
+                            self.navCurrent.item.focus();
                             }, 0);
                         }
                     }
                     //console.log('goNext, end');
-                }
+                }                
             }
 
             $scope.focusControl = new focusControl();
@@ -479,184 +479,306 @@ innaAppControllers.
                     init();
                 }
                 else {
-                    $scope.baloon.show('Подождите пожалуйста', 'Это может занять несколько секунд');
+                    $scope.baloon.show('Подготовка к оплате', 'Это может занять несколько секунд');
 
-                    //запрос в api
-                    paymentService.getPaymentData({
+                    $scope.newSearchUrl = null;
+
+                    //нужны данные для нового поиска
+                    function getOrderDataForUrls() {
+                        //если данные не загрузятся
+                        if ($location.url().indexOf('packages') > -1) {//ДП
+                            $scope.newSearchUrl = Urls.URL_DYNAMIC_PACKAGES_SEARCH;
+                        }
+                        else {//Авиа
+                            $scope.newSearchUrl = Urls.URL_AVIA_SEARCH;
+                        }
+                        
+                        //запрос в api
+                        paymentService.getPaymentData({
                             orderNum: $scope.orderNum
                         },
                         function (data) {
+                            //console.log('order data:', data);
                             if (data != null) {
+                                try{
+                                    var filter = angular.fromJson(data.Filter);
+                                    //console.log('order data.filter:', filter);
 
-                                //log('\ngetPaymentData data: ' + angular.toJson(data));
-                                //console.log('getPaymentData:');
-                                //console.log(data);
-
-                                function cutZero(val) {
-                                    return val.replace(' 0:00:00', '');
-                                }
-
-                                function getPassenger(data) {
-                                    var m = {};
-                                    m.sex = data.Sex;
-                                    m.name = data.I;
-                                    m.secondName = data.F;
-                                    m.birthday = cutZero(data.Birthday);
-                                    m.doc_series_and_number = data.Number;
-                                    m.doc_expirationDate = cutZero(data.ExpirationDate);
-                                    m.citizenship = {};
-                                    m.citizenship.id = data.Citizen;
-                                    m.citizenship.name = data.CitizenName;
-                                    m.index = data.Index;
-
-                                    m.bonuscard = {};
-                                    m.bonuscard.airCompany = {};
-                                    m.bonuscard.haveBonusCard = false;
-                                    if (data.BonusCard != null && data.BonusCard.length > 0 &&
-                                        data.TransporterName != null && data.TransporterName.length > 0) {
-                                        m.bonuscard.haveBonusCard = true;
-                                        m.bonuscard.number = data.BonusCard;
-                                        m.bonuscard.airCompany.id = data.TransporterId;
-                                        m.bonuscard.airCompany.name = data.TransporterName;
-                                    }
-
-                                    return m;
-                                }
-
-                                $scope.getExpTimeSecFormatted = function (time) {
-                                    if (time != null) {
-                                        //вычисляем сколько полных часов
-                                        var h = Math.floor(time / 3600);
-                                        time %= 3600;
-                                        var m = Math.floor(time / 60);
-                                        var s = time % 60;
-
-                                        var hPlural = aviaHelper.pluralForm(h, 'час', 'часа', 'часов');
-                                        var mPlural = 'мин'; //aviaHelper.pluralForm(addMins, 'минута', 'минуты', 'минут');
-                                        var sPlural = 'сек';
-
-                                        var res = [];
-                                        if (h > 0) {
-                                            res.push(h + " " + hPlural);
-                                        }
-                                        if (m > 0) {
-                                            res.push(m + " " + mPlural);
-                                        }
-                                        if (s > 0) {
-                                            res.push(s + " " + sPlural);
-                                        }
-                                        return res.join(': ');
-                                    }
-                                    return "";
-                                }
-
-                                function bindApiModelToModel(data) {
-                                    var m = {};
-                                    var pasList = [];
-                                    _.each(data.Passengers, function (item) {
-                                        pasList.push(getPassenger(item));
-                                    });
-                                    m.passengers = pasList;
-                                    m.price = data.Price;
-                                    m.expirationDate = dateHelper.apiDateToJsDate(data.ExperationDate);
-                                    m.expirationDateFormatted = aviaHelper.getDateFormat(m.expirationDate, 'dd MMM yyyy');
-                                    m.experationMinute = data.ExperationMinute;
-                                    m.experationSeconds = data.ExperationMinute * 60 - 1; // делаем в секундах
-                                    m.experationSecondsFormatted = $scope.getExpTimeSecFormatted(Math.abs(m.experationSeconds));
-                                    m.filter = data.Filter;
-                                    m.Name = data.Name;
-                                    m.LastName = data.LastName;
-                                    m.Email = data.Email;
-                                    m.Phone = data.Phone;
-                                    m.IsSubscribe = data.IsSubscribe;
-
-                                    m.IsService = data.IsService;
-                                    return m;
-                                }
-
-                                //проверяем не оплачен ли уже заказ
-                                if (data.IsPayed == true) {
-                                    //уже оплачен
-                                    $scope.baloon.showAlert('Заказ уже оплачен', '', function () {
-                                        $scope.baloon.hide();
-                                        $location.url(Urls.URL_ROOT);
-                                    });
-                                }
-                                else if (data.OrderStatus == 2) {//[Description("Аннулирован")]
-                                    //уже оплачен
-                                    $scope.baloon.showAlert('Заказ аннулирован', '', function () {
-                                        $scope.baloon.hide();
-                                        $location.url(Urls.URL_ROOT);
-                                    });
-                                }
-                                else {
-                                    $scope.reservationModel = bindApiModelToModel(data);
-                                    if ($scope.reservationModel.IsService) {//сервисный сбор
-
+                                    if (data.Hotel) {
+                                        $scope.newSearchUrl = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                                            filter.DepartureId,
+                                            filter.ArrivalId,
+                                            filter.StartVoyageDateString,
+                                            filter.EndVoyageDateString,
+                                            filter.TicketClass,
+                                            filter.Adult,
+                                            filter.Children
+                                        ].join('-');
                                     }
                                     else {
-                                        if (data.Hotel != null) {
-                                            setPackageTemplate();
-                                            aviaHelper.addAggInfoFields(data.Hotel);
-                                            $scope.hotel = data.Hotel;
-                                            $scope.room = data.Hotel.Room;
-                                            $scope.isBuyPage = true;
-
-                                            //правила отмены отеля
-                                            $scope.hotelRules.fillData(data.Hotel);
-                                        }
-
-                                        var isDp = (data.Hotel != null);
-                                        $scope.setOferta(isDp);
-
-                                        aviaHelper.addCustomFields(data.AviaInfo);
-                                        $scope.aviaInfo = data.AviaInfo;
-                                        $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
-
-                                        function getIATACodes(info) {
-                                            var res = {codeFrom: '', codeTo: ''};
-                                            if (info.EtapsTo != null && info.EtapsTo.length > 0) {
-                                                res.codeFrom = info.EtapsTo[0].OutCode;//первый
-                                                res.codeTo = info.EtapsTo[info.EtapsTo.length - 1].InCode;//последний
-                                            }
-                                            return res;
-                                        }
-
-                                        //коды аэропортов
-                                        $scope.ports = getIATACodes(data.AviaInfo);
-
-                                        //нужна ли виза
-                                        visaNeededCheck();
+                                        $scope.newSearchUrl = Urls.URL_AVIA_SEARCH + [
+                                            filter.FromUrl,
+                                            filter.ToUrl,
+                                            filter.BeginDate,
+                                            filter.EndDate,
+                                            filter.AdultCount,
+                                            filter.ChildCount,
+                                            filter.InfantsCount,
+                                            filter.CabinClass,
+                                            filter.IsToFlexible,
+                                            filter.IsBackFlexible,
+                                            filter.PathType
+                                        ].join('-');
                                     }
-
-                                    $scope.price = $scope.reservationModel.price;
-                                    //признак, что b2b заказ
-                                    $scope.isAgency = data.IsAgency;
-                                    $scope.orderId = data.OrderId;
-
-                                    //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
-                                    //console.log('reservationModel:');
-                                    //console.log($scope.reservationModel);
-
-                                    $scope.baloon.hide();
-
-                                    //aviaHelper.addCustomFields(data);
-                                    //$scope.item = data;
-
-                                    init();
                                 }
-                            }
-                            else {
-                                log('paymentService.getPaymentData error, data is null');
-                                $scope.baloon.showGlobalAviaErr();
+                                catch (e) {
+                                    console.error('order data parse filter error', e);
+                                }
                             }
                         },
                         function (data, status) {
                             log('paymentService.getPaymentData error');
-                            $scope.baloon.showGlobalAviaErr();
                         });
+                    };
+
+                    paymentService.getRepricing($scope.orderNum, function (data) {
+                        //console.log(data);
+                        switch (data.Type) {
+                            case 1:
+                                {
+                                    //все норм - получаем данные и продолжаем заполнять
+                                    getPaymenyData();
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    //цена изменилась
+                                    var oldPrice = data.OldPrice;
+                                    var newPrice = data.NewPrice;
+                                    var msg = 'Изменилась стоимость заказа c <b>' + $filter('price')(oldPrice) + '<span class="b-rub">q</span></b> на <b>' + $filter('price')(newPrice) + '<span class="b-rub">q</span></b>';
+                                    $scope.baloon.showPriceChanged("Изменилась цена", msg, function () {
+
+                                        setTimeout(function () {
+                                            $scope.safeApply(function () {
+                                                //уведомили - дальше грузим
+                                                $scope.baloon.show('Подождите', 'Это может занять несколько секунд');
+                                            });
+                                        }, 0);
+
+                                        //все норм - получаем данные и продолжаем заполнять
+                                        getPaymenyData();
+                                    });
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    //данные для нового поиска
+                                    getOrderDataForUrls();
+                                    //вариант перелета больше недоступен (например бронь была снята а/к)
+                                    $scope.baloon.showNotFound("Перелет недоступен", "К сожалению, вариант перелета больше недоступен",
+                                        function () {
+                                            //если есть данные
+                                            $location.url($scope.newSearchUrl);
+                                        });
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    //данные для нового поиска
+                                    getOrderDataForUrls();
+                                    //вариант проживания больше недоступен (например уже нет выбранного номера)
+                                    $scope.baloon.showNotFound("Отель недоступен", "К сожалению, вариант проживания больше недоступен",
+                                        function () {
+                                            //если есть данные
+                                            $location.url($scope.newSearchUrl);
+                                        });
+                                    break;
+                                }
+                        }
+                    },
+                    function (data, status) {
+                        log('paymentService.getRepricing error');
+                        $scope.baloon.showGlobalAviaErr();
+                    });
                 }
             };
+
+            function getPaymenyData() {
+                //запрос в api
+                paymentService.getPaymentData({
+                    orderNum: $scope.orderNum
+                },
+                    function (data) {
+                        if (data != null) {
+
+                            //log('\ngetPaymentData data: ' + angular.toJson(data));
+                            //console.log('getPaymentData:');
+                            //console.log(data);
+
+                            function cutZero(val) {
+                                return val.replace(' 0:00:00', '');
+                            }
+
+                            function getPassenger(data) {
+                                var m = {};
+                                m.sex = data.Sex;
+                                m.name = data.I;
+                                m.secondName = data.F;
+                                m.birthday = cutZero(data.Birthday);
+                                m.doc_series_and_number = data.Number;
+                                m.doc_expirationDate = cutZero(data.ExpirationDate);
+                                m.citizenship = {};
+                                m.citizenship.id = data.Citizen;
+                                m.citizenship.name = data.CitizenName;
+                                m.index = data.Index;
+
+                                m.bonuscard = {};
+                                m.bonuscard.airCompany = {};
+                                m.bonuscard.haveBonusCard = false;
+                                if (data.BonusCard != null && data.BonusCard.length > 0 &&
+                                    data.TransporterName != null && data.TransporterName.length > 0) {
+                                    m.bonuscard.haveBonusCard = true;
+                                    m.bonuscard.number = data.BonusCard;
+                                    m.bonuscard.airCompany.id = data.TransporterId;
+                                    m.bonuscard.airCompany.name = data.TransporterName;
+                                }
+
+                                return m;
+                            }
+
+                            $scope.getExpTimeSecFormatted = function (time) {
+                                if (time != null) {
+                                    //вычисляем сколько полных часов
+                                    var h = Math.floor(time / 3600);
+                                    time %= 3600;
+                                    var m = Math.floor(time / 60);
+                                    var s = time % 60;
+
+                                    var hPlural = aviaHelper.pluralForm(h, 'час', 'часа', 'часов');
+                                    var mPlural = 'мин'; //aviaHelper.pluralForm(addMins, 'минута', 'минуты', 'минут');
+                                    var sPlural = 'сек';
+
+                                    var res = [];
+                                    if (h > 0) {
+                                        res.push(h + " " + hPlural);
+                                    }
+                                    if (m > 0) {
+                                        res.push(m + " " + mPlural);
+                                    }
+                                    if (s > 0) {
+                                        res.push(s + " " + sPlural);
+                                    }
+                                    return res.join(': ');
+                                }
+                                return "";
+                            }
+
+                            function bindApiModelToModel(data) {
+                                var m = {};
+                                var pasList = [];
+                                _.each(data.Passengers, function (item) {
+                                    pasList.push(getPassenger(item));
+                                });
+                                m.passengers = pasList;
+                                m.price = data.Price;
+                                m.expirationDate = dateHelper.apiDateToJsDate(data.ExperationDate);
+                                m.expirationDateFormatted = aviaHelper.getDateFormat(m.expirationDate, 'dd MMM yyyy');
+                                m.experationMinute = data.ExperationMinute;
+                                m.experationSeconds = data.ExperationMinute * 60 - 1; // делаем в секундах
+                                m.experationSecondsFormatted = $scope.getExpTimeSecFormatted(Math.abs(m.experationSeconds));
+                                m.filter = data.Filter;
+                                m.Name = data.Name;
+                                m.LastName = data.LastName;
+                                m.Email = data.Email;
+                                m.Phone = data.Phone;
+                                m.IsSubscribe = data.IsSubscribe;
+
+                                m.IsService = data.IsService;
+                                return m;
+                            }
+
+                            //проверяем не оплачен ли уже заказ
+                            if (data.IsPayed == true) {
+                                //уже оплачен
+                                $scope.baloon.showAlert('Заказ уже оплачен', '', function () {
+                                    $scope.baloon.hide();
+                                    $location.url(Urls.URL_ROOT);
+                                });
+                            }
+                            else if (data.OrderStatus == 2) {//[Description("Аннулирован")]
+                                //уже оплачен
+                                $scope.baloon.showAlert('Заказ аннулирован', '', function () {
+                                    $scope.baloon.hide();
+                                    $location.url(Urls.URL_ROOT);
+                                });
+                            }
+                            else {
+                                $scope.reservationModel = bindApiModelToModel(data);
+                                if ($scope.reservationModel.IsService) {//сервисный сбор
+
+                                }
+                                else {
+                                    if (data.Hotel != null) {
+                                        setPackageTemplate();
+                                        aviaHelper.addAggInfoFields(data.Hotel);
+                                        $scope.hotel = data.Hotel;
+                                        $scope.room = data.Hotel.Room;
+                                        $scope.isBuyPage = true;
+
+                                        //правила отмены отеля
+                                        $scope.hotelRules.fillData(data.Hotel);
+                                    }
+
+                                    var isDp = (data.Hotel != null);
+                                    $scope.setOferta(isDp);
+
+                                    aviaHelper.addCustomFields(data.AviaInfo);
+                                    $scope.aviaInfo = data.AviaInfo;
+                                    $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
+
+                                    function getIATACodes(info) {
+                                        var res = { codeFrom: '', codeTo: '' };
+                                        if (info.EtapsTo != null && info.EtapsTo.length > 0) {
+                                            res.codeFrom = info.EtapsTo[0].OutCode;//первый
+                                            res.codeTo = info.EtapsTo[info.EtapsTo.length - 1].InCode;//последний
+                                        }
+                                        return res;
+                                    }
+
+                                    //коды аэропортов
+                                    $scope.ports = getIATACodes(data.AviaInfo);
+
+                                    //нужна ли виза
+                                    visaNeededCheck();
+                                }
+
+                                $scope.price = $scope.reservationModel.price;
+                                //признак, что b2b заказ
+                                $scope.isAgency = data.IsAgency;
+                                $scope.orderId = data.OrderId;
+
+                                //log('\nreservationModel: ' + angular.toJson($scope.reservationModel));
+                                //console.log('reservationModel:');
+                                //console.log($scope.reservationModel);
+
+                                $scope.baloon.hide();
+
+                                //aviaHelper.addCustomFields(data);
+                                //$scope.item = data;
+
+                                init();
+                            }
+                        }
+                        else {
+                            log('paymentService.getPaymentData error, data is null');
+                            $scope.baloon.showGlobalAviaErr();
+                        }
+                    },
+                    function (data, status) {
+                        log('paymentService.getPaymentData error');
+                        $scope.baloon.showGlobalAviaErr();
+                    });
+            }
 
             initPayModel();
 
@@ -747,30 +869,30 @@ innaAppControllers.
                         }
                         switch (pageType) {
                             case actionTypeEnum.dp:
-                            {
-                                track.dpPayBtnSubmitContinueErr(err_code);
-                                break;
-                            }
+                                {
+                                    track.dpPayBtnSubmitContinueErr(err_code);
+                                    break;
+                                }
                             case actionTypeEnum.avia:
-                            {
-                                track.aviaPayBtnSubmitContinueErr(err_code);
-                                break;
-                            }
+                                {
+                                    track.aviaPayBtnSubmitContinueErr(err_code);
+                                    break;
+                                }
                         }
                     }
 
                     function trackContinueSuccess(pageType) {
                         switch (pageType) {
                             case actionTypeEnum.dp:
-                            {
-                                track.dpPayBtnSubmitContinue();
-                                break;
-                            }
+                                {
+                                    track.dpPayBtnSubmitContinue();
+                                    break;
+                                }
                             case actionTypeEnum.avia:
-                            {
-                                track.aviaPayBtnSubmitContinue();
-                                break;
-                            }
+                                {
+                                    track.aviaPayBtnSubmitContinue();
+                                    break;
+                                }
                         }
                     }
 
@@ -827,7 +949,7 @@ innaAppControllers.
                                 $scope.baloon.showGlobalAviaErr();
                             });
                     }
-                    catch (e) {
+                    catch(e){
                         trackError(pageType, 'js_err');
                         throw e;
                     }
@@ -976,30 +1098,30 @@ innaAppControllers.
                         paymentService.payCheck({
                             orderNum : $scope.orderNum,
                             success: function(data){
-                                try {
-                                    log('paymentService.payCheck, data: ' + angular.toJson(data));
-                                    //data = { Result: 1 };
-                                    if (data != null) {
+                            try {
+                                log('paymentService.payCheck, data: ' + angular.toJson(data));
+                                //data = { Result: 1 };
+                                if (data != null) {
 
-                                        /*------------*/
-                                        //data.Result = 1;
-                                        /*------------*/
-                                        if (data.Result > 0) {
-                                            //пришел ответ - или оплачено или ошибка
-                                            $scope.isOrderPaid = true;
+                                    /*------------*/
+                                    //data.Result = 1;
+                                    /*------------*/
+                                    if (data.Result > 0) {
+                                        //пришел ответ - или оплачено или ошибка
+                                        $scope.isOrderPaid = true;
 
-                                            //прекращаем дергать
-                                            if (data.Result != 4) {
-                                                $interval.cancel(intCheck);
-                                            }
+                                        //прекращаем дергать
+                                        if (data.Result != 4) {
+                                            $interval.cancel(intCheck);
+                                        }
 
-                                            //скрываем попап с фреймом 3ds
-                                            if ($scope.is3dscheck) {
-                                                $scope.buyFrame.hide();
-                                            }
+                                        //скрываем попап с фреймом 3ds
+                                        if ($scope.is3dscheck) {
+                                            $scope.buyFrame.hide();
+                                        }
 
-                                            if (data.Result == 1) {
-                                                var pageType = getActionType();
+                                        if (data.Result == 1) {
+                                            var pageType = getActionType();
 
                                                 //аналитика - авиа - заказ выполнен
                                                 if (pageType == actionTypeEnum.avia) {
@@ -1011,92 +1133,92 @@ innaAppControllers.
                                                     track.dpPayBtnSubmit();
                                                 }
 
-                                                //если агентство - отправляем обратно в b2b интерфейс
-                                                if ($scope.isAgency) {
-                                                    var b2bOrder = $scope.B2B_HOST_Order + $scope.orderId;
-                                                    console.log('redirecting to: ' + b2bOrder);
-                                                    window.location = b2bOrder;
+                                            //если агентство - отправляем обратно в b2b интерфейс
+                                            if ($scope.isAgency) {
+                                                var b2bOrder = $scope.B2B_HOST_Order + $scope.orderId;
+                                                console.log('redirecting to: ' + b2bOrder);
+                                                window.location = b2bOrder;
+                                            }
+                                            else {
+                                                if (!$scope.hotel) {
+                                                    ////аналитика - авиа - заказ выполнен
+                                                    //if (pageType == actionTypeEnum.avia) {
+                                                    //    track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
+                                                    //    track.aviaPayBtnSubmit();
+                                                    //}
+
+                                                    //останавливаем проверку времени оплаты
+                                                    $scope.paymentDeadline.destroy();
+
+                                                    $scope.baloon.show('Заказ выполнен', 'Документы отправлены на электронную почту',
+                                                        aviaHelper.baloonType.email,
+                                                        function () {
+                                                            $location.path(Urls.URL_AVIA);
+                                                        },
+                                                        {
+                                                            //buttonCaption: 'Распечатать билеты', successFn: function () {
+                                                            //    //print
+                                                            //    log('print tickets');
+                                                            //    alert('Не реализовано');
+                                                            //}
+                                                            buttonCaption: 'Ok', successFn: function () {
+                                                            $scope.baloon.hide();
+                                                            $location.path(Urls.URL_AVIA);
+                                                        },
+                                                            email: $scope.reservationModel.Email
+                                                        });
+                                                } else if ($scope.hotel != null) {
+                                                    //аналитика - ДП - заказ выполнен
+                                                    //if (pageType == actionTypeEnum.dp) {
+                                                    //    track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
+                                                    //    track.dpPayBtnSubmit();
+                                                    //}
+
+                                                    redirectSuccessBuyPackage();
                                                 }
-                                                else {
-                                                    if (!$scope.hotel) {
-                                                        ////аналитика - авиа - заказ выполнен
-                                                        //if (pageType == actionTypeEnum.avia) {
-                                                        //    track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
-                                                        //    track.aviaPayBtnSubmit();
-                                                        //}
+                                            }
+                                        }
+                                        else if (data.Result == 2) {//ошибка при бронировании
+                                            //аналитика
+                                            writeAnalyticsError(2);
 
-                                                        //останавливаем проверку времени оплаты
-                                                        $scope.paymentDeadline.destroy();
+                                            $scope.baloon.showGlobalAviaErr();
+                                        }
+                                        else if (data.Result == 3) {//ошибка оплаты
+                                            //аналитика
+                                            writeAnalyticsError(3);
 
-                                                        $scope.baloon.show('Заказ выполнен', 'Документы отправлены на электронную почту',
-                                                            aviaHelper.baloonType.email,
-                                                            function () {
-                                                                $location.path(Urls.URL_AVIA);
-                                                            },
-                                                            {
-                                                                //buttonCaption: 'Распечатать билеты', successFn: function () {
-                                                                //    //print
-                                                                //    log('print tickets');
-                                                                //    alert('Не реализовано');
-                                                                //}
-                                                                buttonCaption: 'Ok', successFn: function () {
-                                                                $scope.baloon.hide();
-                                                                $location.path(Urls.URL_AVIA);
-                                                            },
-                                                                email: $scope.reservationModel.Email
-                                                            });
-                                                    } else if ($scope.hotel != null) {
-                                                        //аналитика - ДП - заказ выполнен
-                                                        //if (pageType == actionTypeEnum.dp) {
-                                                        //    track.dpPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo, $scope.hotel.HotelName);
-                                                        //    track.dpPayBtnSubmit();
-                                                        //}
+                                            $scope.baloon.hide();
 
-                                                        redirectSuccessBuyPackage();
-                                                    }
+                                            $scope._baloon = new Balloon({
+                                                data: {
+                                                    balloonClose: true,
+                                                    balloonPart: 'pay-error.html'
                                                 }
-                                            }
-                                            else if (data.Result == 2) {//ошибка при бронировании
-                                                //аналитика
-                                                writeAnalyticsError(2);
+                                            }).show();
+                                        }
+                                        else if (data.Result == 4) {//заказ оплачен, но не прошла выписка
+                                            //аналитика
+                                            writeAnalyticsError(4);
 
-                                                $scope.baloon.showGlobalAviaErr();
-                                            }
-                                            else if (data.Result == 3) {//ошибка оплаты
-                                                //аналитика
-                                                writeAnalyticsError(3);
-
-                                                $scope.baloon.hide();
-
-                                                $scope._baloon = new Balloon({
-                                                    data: {
-                                                        balloonClose: true,
-                                                        balloonPart: 'pay-error.html'
-                                                    }
-                                                }).show();
-                                            }
-                                            else if (data.Result == 4) {//заказ оплачен, но не прошла выписка
-                                                //аналитика
-                                                writeAnalyticsError(4);
-
-                                                $scope.baloon.show('Оформляем заказ', 'Пожалуйста, не закрывайте браузер');
-                                            }
+                                            $scope.baloon.show('Оформляем заказ', 'Пожалуйста, не закрывайте браузер');
                                         }
                                     }
                                 }
-                                catch (e) {
+                            }
+                            catch (e) {
                                     RavenWrapper.raven({
                                         captureMessage : 'BUY TICKET PayCheck : ERROR',
                                         dataResponse: angular.toJson(data),
                                         dataRequest: $scope.orderNum
                                     });
                                     RavenWrapper.captureException(e)
-                                    //аналитика
-                                    writeAnalyticsError(0);
-                                }
-                                finally {
-                                    $scope.isCkeckProcessing = false;
-                                }
+                                //аналитика
+                                writeAnalyticsError(0);
+                            }
+                            finally {
+                                $scope.isCkeckProcessing = false;
+                            }
                             },
                             error : function(data){
                                 $interval.cancel(intCheck);
@@ -1105,11 +1227,11 @@ innaAppControllers.
                                     dataResponse: data.responseJSON,
                                     dataRequest: $scope.orderNum
                                 });
-                                //аналитика
-                                writeAnalyticsError();
+                            //аналитика
+                            writeAnalyticsError();
 
-                                $scope.isCkeckProcessing = false;
-                                log('paymentService.payCheck error, data: ' + angular.toJson(data));
+                            $scope.isCkeckProcessing = false;
+                            log('paymentService.payCheck error, data: ' + angular.toJson(data));
                             }
                         })
                     }
@@ -1117,7 +1239,7 @@ innaAppControllers.
                 }
             }
 
-            var actionTypeEnum = {avia: 'avia', dp: 'dp', service: 'service'};
+            var actionTypeEnum = { avia: 'avia', dp: 'dp', service: 'service' };
 
             function getActionType() {
                 //сервисный сбор
@@ -1264,6 +1386,5 @@ innaAppControllers.
                 $scope.paymentDeadline.destroy();
                 destroyPopups();
                 $('#buy-listener').off();
-                $scope = null;
             });
         }]);

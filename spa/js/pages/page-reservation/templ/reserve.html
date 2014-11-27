@@ -134,19 +134,13 @@
 			<div class="b-field-block" style="width: 180px;">
 				<label class="b-field-label">Гражданство</label>
 
-				<div class="cit">
-					<input autocomplete="off" validate-events-dir ng-model="passenger.citizenship.value.name"
-					       ng-validation-model="passenger.citizenship" validate="validate(item, type)"
-					       validate-type="validateType.cit_required"
-					       ng-class="{error:isFieldInvalid(passenger.citizenship)}"
-					       ng-click="passenger.showCitListClick($event)" type="text"
-					       value="{{passenger.citizenship.value.name}}" placeholder="Выберите"
-					       class="b-field-text b-field-select">
-
-					<div partial-select list="citizenshipList" result-set="passenger.citizenship.setValue(item)"
-					     is-open="passenger.dir.cit.isOpen">
-					</div>
-				</div>
+                <div citizenship-select
+					    ng-validation-model="passenger.citizenship"
+                        value="passenger.citizenship.value.id"
+                        validate="validate(item, type)"
+                        validate-type="validateType.cit_required"
+                        list="citizenshipList" result-set="passenger.citizenship.setValue(item)"
+                     ></div>
 			</div>
 			<div class="b-field-block" style="width: 110px;">
 				<label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>

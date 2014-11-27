@@ -49,8 +49,8 @@
             'type': self.WLType.lite,
             'title': 'sample',
             'phone': '+7&nbsp;800 000-1111',
-            'email': '',
-            'skype': '',
+            'email': 'sample@sample.ru',
+            'skype': 'sample',
             'aboutLink': 'https://sample.ru/about',
             'contactsLink': 'https://sample.ru/contacts',
             'offertaContractLink': ''
@@ -66,6 +66,18 @@
             'aboutLink': 'http://www.ulixes.ru/o_kompanii/',
             'contactsLink': 'http://www.ulixes.ru/contacti/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ulixes.pdf'
+        },
+        {
+            'name': 'skycassa',
+            'src': '/skycassa/skycassa.base.css',
+            'type': self.WLType.full,
+            'title': 'SKYcassa',
+            'phone': '+7&nbsp;(495) 287 46 26',
+            'email': 'info@skycassa.com',
+            'skype': '',
+            'aboutLink': 'http://www.skycassa.com/about/',
+            'contactsLink': 'http://www.skycassa.com/contacts/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_skycassa.pdf'
         }
     ];
 
@@ -132,6 +144,13 @@
     self.isFullWL = function () {
         var partner = self.getPartner();
         return partner != null && partner.realType == self.WLType.full;
+    }
+    self.isLiteWL = function () {
+        var partner = self.getPartner();
+        return partner != null && partner.realType == self.WLType.lite;
+    }
+    self.isWL = function () {
+        return (self.isFullWL() || self.isLiteWL());
     }
     self.getPartner = function () {
 //        return self.partnersMap[0];

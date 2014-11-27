@@ -22,6 +22,11 @@ gulp.task('watch', function () {
 
         });
 
+    gulp.watch(conf.src + '/widgets/**/*.styl', ['styl-widget-search'])
+        .on('change', function (file) {
+
+        });
+
     gulp.watch(conf.src + '/pages/**/*.styl', ['styl-pages'])
         .on('change', function (file) {
 
@@ -48,6 +53,12 @@ gulp.task('watch', function () {
             conf.src + '/pages/**/*.js',
             conf.src + '/regions/**/*.js'
     ], ['concat-comp-page-regions']);
+
+    // watch widget js
+    gulp.watch([
+            conf.src + '/widgets/search/js/*.js',
+            conf.src + '/widgets/search/templ/*.html'
+    ], ['build-widget-search']);
 
     gulp.watch([
             conf.templ + '/**/*.html',

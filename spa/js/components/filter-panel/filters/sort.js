@@ -35,6 +35,10 @@ angular.module('innaApp.components').
                             this.fire('toggle');
                             this.fire('onSorting', this.get('sortValue'));
                             this.hasSelected();
+                        },
+                        teardown: function (evt) {
+                            this.set('Sort.*.isChecked', false);
+                            this.set('Sort.0.isChecked', true)
                         }
                     });
 
@@ -50,7 +54,7 @@ angular.module('innaApp.components').
                  */
                 sortDefault: function () {
                     var that = this;
-                    this.get('Sort').filter(function (item) {
+                    this.get('Sort').find(function (item) {
                         if (item.isChecked) {
                             that.set({
                                 'current': item.name,
