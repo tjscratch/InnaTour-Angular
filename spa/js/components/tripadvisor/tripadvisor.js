@@ -8,14 +8,14 @@ angular.module('innaApp.components').
                 template: $templateCache.get('components/tripadvisor/templ/index.hbs.html'),
                 append: true,
                 data: {
-                    withOutTd : false,
-                    TaFactorArr : []
+                    withOutTd: false,
+                    TaFactorArr: []
                 },
                 onrender: function () {
                     var that = this;
 
                     this.on({
-                        change : function(data){
+                        change: function (data) {
 
                         },
                         teardown: function (evt) {
@@ -23,9 +23,9 @@ angular.module('innaApp.components').
                         }
                     })
 
-                    this.observe('TaFactor', function(newValue, oldValue, keypath) {
+                    this.observe('TaFactor', function (newValue, oldValue, keypath) {
                         if (newValue) {
-                            this.set({ TaFactorArr: this.parse(this.get('TaFactor'))})
+                            this.set({TaFactorArr: this.parse(this.get('TaFactor'))})
                         }
                     });
                 },
@@ -53,7 +53,7 @@ angular.module('innaApp.components').
                             item.active = true;
                             item.value = end;
                         } else {
-                            if(isFloat){
+                            if (isFloat) {
                                 item.isFloat = true;
                             }
                             return false;
@@ -67,5 +67,41 @@ angular.module('innaApp.components').
             });
 
             return Tripadvisor;
-        }]);
+        }])
+    .directive('tripAdvisorDirective', [
+        '$timeout',
+        'EventManager',
+        '$filter',
+        'Tripadvisor',
+        function ($timeout, EventManager, $filter, Tripadvisor) {
+            return {
+                replace: true,
+                template: '',
+                scope: {
+                    hotelData: '='
+                },
+                link: function ($scope, $element, $attr) {
 
+                    var _tripadvisor = new Tripadvisor({
+                        el: $element[0]
+                    })
+
+
+                    $scope.$watch('hotelData', function (value) {
+                        if (value) {
+                            _tripadvisor.set({
+                                TaCommentCount: $scope.hotelData.TaCommentCount,
+                                TaFactor: $scope.hotelData.TaFactor,
+                                TaFactorCeiled: $scope.hotelData.TaFactorCeiled
+                            });
+                        }
+                    })
+
+
+                    $scope.$on('$destroy', function () {
+                        _tripadvisor.teardown();
+                        _tripadvisor = null;
+                    })
+                }
+            }
+        }])

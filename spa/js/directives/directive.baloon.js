@@ -24,7 +24,7 @@ innaAppDirectives.
                     //updateDisplay();
 
                     function updateDisplay() {
-                        //console.log('updateDisplay, isVisible: ' + $scope.isVisible);
+                        //console.log('updateDisplay, $scope.isShow: ' + $scope.isShow);
 
                         //позиционирование во фрейме
                         if (window.partners && window.partners.parentScrollTop > 0) {

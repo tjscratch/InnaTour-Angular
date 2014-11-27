@@ -775,7 +775,7 @@ innaAppControllers.
 
             //удаляем из списка гражданств страну назначения
             function filterCitizenshipList(data) {
-                //console.log('data.length:', data.length);
+                console.log('filterCitizenshipList Is_it_tarif:', $scope.Is_it_tarif);
                 if ($scope.Is_it_tarif == true) {
                     //находим страну назначения
                     //AviaInfo
@@ -904,9 +904,32 @@ innaAppControllers.
                     return model;
                 }
 
+                function checkForExistingCitizenship(pas) {
+                    var citExists = _.find($scope.citizenshipList, function (item) {
+                        return item.Id == pas.citizenship.id;
+                    });
+                    //если не нашли такое гражданство - то ставим по-умолчанию - страну вылета
+                    if (!citExists) {
+                        var outCountryId = $scope.item.EtapsTo[0].OutCountryId;
+                        var outCountryExists = _.find($scope.citizenshipList, function (item) {
+                            return item.Id == outCountryId;
+                        });
+                        if (outCountryExists) {
+                            pas.citizenship.id = outCountryExists.Id;
+                            pas.citizenship.name = outCountryExists.Name;
+                        }
+                        else {//если не нашли - то первое в списке
+                            pas.citizenship.id = $scope.citizenshipList[0].Id;
+                            pas.citizenship.name = $scope.citizenshipList[0].Name;
+                        }
+                    }
+                    //console.log('pas:', pas);
+                }
+
                 var passengers = [];
                 for (var i = 0; i < $scope.peopleCount; i++) {
                     var item = new passengerModel(i);
+                    checkForExistingCitizenship(item);
                     passengers.push(item);
                 }
 

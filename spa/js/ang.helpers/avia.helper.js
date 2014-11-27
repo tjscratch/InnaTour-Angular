@@ -149,7 +149,8 @@
                 email: 'email',
                 expireCheck: 'expireCheck',
                 payExpires: 'payExpires',
-                notFound: 'notFound'
+                notFound: 'notFound',
+                priceChanged: 'priceChanged'
             };
 
             var helper = {
@@ -389,6 +390,9 @@
                     }
 
                     addAirPortFromToFields(item);
+
+                    //проверка на разные аэропорты отлета и прилета, в одну сторону не учитываем
+                    item.alertDifferentPorts = (item.OutCode != item.InCodeBack) && item.EtapsBack.length > 0;
                 },
 
                 addAggInfoFields: function (item) {
@@ -448,6 +452,9 @@
                     showNotFound: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.notFound, closeFn);
                     },
+                    showPriceChanged: function (caption, text, closeFn) {
+                        helper.baloon.show(caption, text, baloonType.priceChanged, closeFn);
+                    },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);
                         if (type == null) {
@@ -482,7 +489,7 @@
                     return pluralForm(i, str1, str2, str3);
                 },
 
-                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter) {
+                getCharterAndNumSeatsText: function (countLeft, ticketsCount, isCharter, isDifferentPorts) {
                     //console.log('getCharterAndNumSeatsText: countLeft: %d, ticketsCount: %d, isCharter: %s', countLeft, ticketsCount, isCharter);
                     var sList = [];
                     var seatsText = helper.getNumSeatsText(countLeft, ticketsCount);
@@ -495,6 +502,17 @@
                         }
                         else {
                             sList.push('чартер');
+                        }
+                    }
+                    if (isDifferentPorts) {
+                        if (sList.length == 0) {
+                            sList.push('Разные аэропорты отлета и прилета');
+                        }
+                        else if (sList.length == 2 || seatsText.length > 0) {//сокращенная запись, когда не хватает места в строчке
+                            sList.push('разные а/п отлета и прилета');
+                        }
+                        else {
+                            sList.push('разные аэропорты отлета и прилета');
                         }
                     }
                     return sList.join(', ');
