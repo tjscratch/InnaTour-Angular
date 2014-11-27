@@ -213,7 +213,7 @@ angular.module('innaApp.controllers')
                     //состояние залогиненности изменилось - тригерим событие
                     if (self.lastLoginUser != curUser) {
                         //решрешим страницу
-                        $route.reload();
+                        //$route.reload();
                     }
                     self.saveLastUser(curUser);
                 };

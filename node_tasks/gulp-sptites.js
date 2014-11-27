@@ -63,7 +63,7 @@ gulp.task('sprite', function (cb) {
     sprites({
         src: conf.img + '/sprites',
         imgPathSparite : '/spa/img/sprites/',
-        dest: conf.styl + '/sprite.styl',
+        dest: conf.styl + '/sprites/sprite.styl',
         done: cb
     });
 });

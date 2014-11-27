@@ -55,7 +55,7 @@ innaAppControllers
 
                 var searchParams = angular.extend(routParam, {
                     StartVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
-                    EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
+                    EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate)
                 });
 
                 if (routParam.Children) {
@@ -515,6 +515,7 @@ innaAppControllers
             
 
             $scope.$on('$destroy', function () {
+
                 document.body.classList.remove('bg_white');
                 document.body.classList.add('light-theme');
                 $('body').removeAttr('style');
