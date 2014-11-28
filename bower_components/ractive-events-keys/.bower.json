@@ -1,0 +1,35 @@
+{
+  "name": "ractive-events-keys",
+  "version": "0.1.2",
+  "author": "Rich Harris",
+  "main": "ractive-events-keys.js",
+  "ignore": [
+    "**/.*",
+    "*.json",
+    "demo",
+    "grunt",
+    "node_modules",
+    "src",
+    "test",
+    "tmp",
+    "vendor",
+    "index.html",
+    "LICENSE-MIT",
+    "Gruntfile.js",
+    "README.md"
+  ],
+  "devDependencies": {
+    "ractive": "^0.5.8"
+  },
+  "homepage": "https://github.com/ractivejs/ractive-events-keys",
+  "_release": "0.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.2",
+    "commit": "621d735180bf2f40dd2ba427d3fb5a9cfb39caf4"
+  },
+  "_source": "git://github.com/ractivejs/ractive-events-keys.git",
+  "_target": "~0.1.2",
+  "_originalSource": "ractive-events-keys",
+  "_direct": true
+}

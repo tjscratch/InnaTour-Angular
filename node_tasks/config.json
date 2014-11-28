@@ -1,5 +1,6 @@
 {
   "build": "./build",
+  "bower": "./bower_components",
   "dest": "./spa",
   "src": "./spa/js",
   "styl": "./spa/styl",
@@ -7,6 +8,7 @@
   "img": "./spa/img",
   "publish": "./publish",
   "config_path": "./node_tasks/config.json",
+  "node_path": "./node_tasks",
   "protocol": {
     "http": "http://",
     "https": "https://"
@@ -40,5 +42,5 @@
     }
   },
   "tripadvisor": "www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=",
-  "version": "build-0.bf62b6f9-0.0qeda4g"
+  "version": "build-0.8ad53ad9-0.np9l75g"
 }

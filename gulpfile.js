@@ -17,7 +17,6 @@ console.log(isWin);
 console.info('----------------------------');
 
 
-
 /**
  * Полная сборка проект
  * Сборка в production запускается в окружении - production
@@ -36,7 +35,7 @@ gulp.task('build-project', function (callback) {
         'sprite',
         'styles-app',
         'replace-config',
-        ['styles', 'build-concat', 'build-widget-search'],
+        ['styles', 'concat-bower-components', 'build-concat', 'build-widget-search'],
         'version-cache',
         'html-replace',
         'copy-project',
@@ -54,7 +53,7 @@ gulp.task('default', function (callback) {
         'sprite',
         'styles-app',
         'replace-config',
-        ['styles', 'build-templates', 'concat-lib', 'concat-comp-page-regions'],
+        ['styles', 'build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
         'build-angular-parts',
         'watch',
         callback);
