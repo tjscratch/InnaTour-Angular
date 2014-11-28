@@ -80,8 +80,8 @@
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_skycassa.pdf'
         },
         {
-            'name': 'atlantis',
-            'src': '/atlantis/atlantis.base.css',
+            'name': 'atlantravel',
+            'src': '/atlantravel/atlantravel.base.css',
             'type': self.WLType.full,
             'title': 'Атлантис',
             'phone': '+7&nbsp;(495) 730 21 44',
