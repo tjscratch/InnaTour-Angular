@@ -59,10 +59,12 @@ spa/*.sh
 
 brunch-config.js
 .nginx_conf
+nginx.nginx_conf
+.hgignore
+.hgflow
 
 build
 build_and_publish
-nginx.nginx_conf
 npm-debug.log
 publish
 
