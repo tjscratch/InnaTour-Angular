@@ -90,6 +90,18 @@
             'aboutLink': 'http://www.atlantravel.ru/o-kompanii/',
             'contactsLink': 'http://www.atlantravel.ru/kontakty.html',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_atlantis.pdf'
+        },
+        {
+            'name': 'ekaterinatours',
+            'src': '/ekaterinatours/ekaterinatours.base.css',
+            'type': self.WLType.lite,
+            'title': 'Екатерина Турс',
+            'phone': '+7&nbsp;(963) 778 61 40',
+            'email': 'support@ekaterinatours.ru',
+            'skype': 'katerina4753',
+            'aboutLink': 'http://ekaterinatours.ru/kontakty/',
+            'contactsLink': 'http://ekaterinatours.ru/kontakty/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ekaterinatours.pdf'
         }
     ];
 
