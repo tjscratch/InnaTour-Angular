@@ -102,6 +102,18 @@
             'aboutLink': 'http://ekaterinatours.ru/kontakty/',
             'contactsLink': 'http://ekaterinatours.ru/kontakty/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ekaterinatours.pdf'
+        },
+        {
+            'name': 'yourway',
+            'src': '/yourway/yourway.base.css',
+            'type': self.WLType.full,
+            'title': 'Travel company  YOUR WAY',
+            'phone': '+7&nbsp;(812) 441 33 65',
+            'email': 'zakaz@yourway.spb.ru',
+            'skype': 'vashput',
+            'aboutLink': 'http://www.yourway.spb.ru/pages/533/',
+            'contactsLink': 'http://www.yourway.spb.ru/pages/533/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_yourway.pdf'
         }
     ];
 
