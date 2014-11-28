@@ -37,8 +37,6 @@ bin/*
 *.log
 *.idea
 *.*(!)
-.git
-.gitignore
 *.DS_Store
 *.nginx_conf
 .project
@@ -71,10 +69,13 @@ publish
 # игнорируем собранный файл спрайтов
 spa/img/sprites/*.json
 spa/img/sprites/icon-*.png
-spa/styl/sprite.styl
+spa/styl/sprites/sprite.styl
 spa/styl/temp/*.styl
 spa/styl/partners/**/*.css
 spa/js/**/*.css
+
+bower_components/bower-components.js
+bower_components/bower-components.*.js
 
 
 
