@@ -78,6 +78,18 @@
             'aboutLink': 'http://www.skycassa.com/about/',
             'contactsLink': 'http://www.skycassa.com/contacts/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_skycassa.pdf'
+        },
+        {
+            'name': 'atlantis',
+            'src': '/atlantis/atlantis.base.css',
+            'type': self.WLType.full,
+            'title': 'Атлантис',
+            'phone': '+7&nbsp;(495) 730 21 44',
+            'email': 'info@atlantravel.ru',
+            'skype': 'Atlantis2073',
+            'aboutLink': 'http://www.atlantravel.ru/o-kompanii/',
+            'contactsLink': 'http://www.atlantravel.ru/kontakty.html',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_atlantis.pdf'
         }
     ];
 
