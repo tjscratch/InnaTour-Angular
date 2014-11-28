@@ -59,12 +59,15 @@ spa/*.sh
 
 brunch-config.js
 .nginx_conf
+nginx.nginx_conf
+.hgignore
+.hgflow
 
 build
 build_and_publish
-nginx.nginx_conf
 npm-debug.log
 publish
+
 
 # игнорируем собранный файл спрайтов
 spa/img/sprites/*.json
