@@ -140,12 +140,18 @@
 
     self.getParentLocationWithUrl = function (url) {
         //убирает // в урлах типа biletixsite//#/packages
-        var suffix = '\/';
+        //var suffix = '\/';
+        //var parent = document.referrer;
+        //if (url != null && url.length > 0 && url.indexOf(suffix) == 0) {//начинается с '/'
+        //    if (parent != null && parent.length > 0 && parent.indexOf(suffix, parent.length - suffix.length) !== -1) {//заканчивается на '/'
+        //        parent = parent.substring(0, parent.length - 1);
+        //    }
+        //}
+
+        var suffix = '\/#\/';
         var parent = document.referrer;
-        if (url != null && url.length > 0 && url.indexOf(suffix) == 0) {//начинается с '/'
-            if (parent != null && parent.length > 0 && parent.indexOf(suffix, parent.length - suffix.length) !== -1) {//заканчивается на '/'
-                parent = parent.substring(0, parent.length - 1);
-            }
+        if (url != null && url.length > 0 && url.indexOf(suffix) == 0) {//начинается с '/#/'
+            url = url.replace('/#/', '#/');
         }
         return parent + url;
     }
