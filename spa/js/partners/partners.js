@@ -80,8 +80,8 @@
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_skycassa.pdf'
         },
         {
-            'name': 'atlantis',
-            'src': '/atlantis/atlantis.base.css',
+            'name': 'atlantravel',
+            'src': '/atlantravel/atlantravel.base.css',
             'type': self.WLType.full,
             'title': 'Атлантис',
             'phone': '+7&nbsp;(495) 730 21 44',
@@ -90,6 +90,30 @@
             'aboutLink': 'http://www.atlantravel.ru/o-kompanii/',
             'contactsLink': 'http://www.atlantravel.ru/kontakty.html',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_atlantis.pdf'
+        },
+        {
+            'name': 'ekaterinatours',
+            'src': '/ekaterinatours/ekaterinatours.base.css',
+            'type': self.WLType.lite,
+            'title': 'Екатерина Турс',
+            'phone': '+7&nbsp;(963) 778 61 40',
+            'email': 'support@ekaterinatours.ru',
+            'skype': 'katerina4753',
+            'aboutLink': 'http://ekaterinatours.ru/kontakty/',
+            'contactsLink': 'http://ekaterinatours.ru/kontakty/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ekaterinatours.pdf'
+        },
+        {
+            'name': 'yourway',
+            'src': '/yourway/yourway.base.css',
+            'type': self.WLType.full,
+            'title': 'Travel company  YOUR WAY',
+            'phone': '+7&nbsp;(812) 441 33 65',
+            'email': 'zakaz@yourway.spb.ru',
+            'skype': 'vashput',
+            'aboutLink': 'http://www.yourway.spb.ru/pages/533/',
+            'contactsLink': 'http://www.yourway.spb.ru/pages/533/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_yourway.pdf'
         }
     ];
 
