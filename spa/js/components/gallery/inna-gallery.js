@@ -22,7 +22,7 @@ angular.module('innaApp.directives')
                         $scope.hoverImageObject = {
                             timeOutHover : null,
                             hoverImageShow : false,
-                            hoverImage : {}
+                            hoverImageStyle : {}
                         };
 
                         /*Models*/

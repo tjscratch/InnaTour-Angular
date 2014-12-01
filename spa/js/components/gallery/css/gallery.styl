@@ -131,22 +131,28 @@
 
       &_fade {
         position : absolute;
-        background-color: rgba(255,255,255, 0.3);
+        background-color: rgba(255,255,255, 0.4);
         top: 0;
         bottom:0;
         left: 0;
         right:0;
         z-index: 10;
+
+        .search-button__icon {
+          transform : translate(-50%, -50%);
+          position: absolute;
+          left: 50%;
+          top: 50%;
+        }
       }
     }
 
     &-item_hover {
+      transform-style: preserve-3d;
       border-radius: 1px;
       position: absolute;
       box-sizing : border-box;
       border: 3px solid #373124;
-      width: 500px;
-      height : 374px;
       background-size : cover;
       z-index : 200;
     }

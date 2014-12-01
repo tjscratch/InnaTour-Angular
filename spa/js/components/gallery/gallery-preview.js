@@ -7,8 +7,8 @@
  * @param {Object} hoverImageObject
  *
  * <div class="gallery__list-item_hover"
-        ng-style="hoverImageObject.hoverImage"
-        ng-if="hoverImageObject.hoverImageShow"></div>
+ ng-style="hoverImageObject.hoverImage"
+ ng-if="hoverImageObject.hoverImageShow"></div>
 
  */
 
@@ -23,16 +23,22 @@ angular.module('innaApp.directives')
                     photo: '=',
                     width: '@',
                     height: '@',
-                    sizePreview: '@',
-                    hover : '=hoverImageObject',
+                    widthPreview: '@',
+                    heightPreview: '@',
+                    hover: '=hoverImageObject',
                     full: '@'
                 },
                 controller: ['$scope', function ($scope) {
 
                     $scope.picsListLoaded = false;
                     $scope.emptyPhoto = false;
+                    $scope.isHover = false;
 
-                    var sizePreview = parseInt($scope.sizePreview, 10) || 400;
+                    var widthPreview = parseInt($scope.widthPreview, 10) || 500;
+                    var heightPreview = parseInt($scope.heightPreview, 10) || 373;
+
+                    $scope.hover.hoverImageStyle["width"] = widthPreview;
+                    $scope.hover.hoverImageStyle["height"] = heightPreview;
 
                     $scope.setStylePreview = function () {
                         return {
@@ -49,28 +55,39 @@ angular.module('innaApp.directives')
                             }
 
                             $scope.hover.hoverImageShow = true;
-                            $scope.hover.hoverImage = {
-                                "background-image": "url(" + $scope.photo + ")"
-                            };
+                            $scope.isHover = true;
+                            $scope.hover.hoverImageStyle["background-image"] = "url(" + $scope.photo + ")";
                         }
                     };
 
                     $scope.imageMouseMove = function ($event) {
                         var scrollTop = utils.getScrollTop();
-                        if ($event) {
-                            var clientX = parseInt($event.clientX, 10);
+                        var windowHeight = (window.innerHeight + scrollTop);
 
+                        if ($event) {
+
+                            var clientX = parseInt($event.clientX, 10);
                             if (clientX > 600) {
-                                $scope.hover.hoverImage["margin-left"] = -(sizePreview + 30);
+                                $scope.hover.hoverImageStyle["margin-left"] = -(widthPreview + 30);
                             } else {
-                                $scope.hover.hoverImage["margin-left"] = 0;
+                                $scope.hover.hoverImageStyle["margin-left"] = 0;
                             }
-                            $scope.hover.hoverImage["top"] = parseInt(($event.clientY + scrollTop) + 20, 10);
-                            $scope.hover.hoverImage["left"] = parseInt(($event.clientX) + 20, 10);
+
+
+                            if (($event.pageY + heightPreview) >= windowHeight) {
+                                $scope.hover.hoverImageStyle["margin-top"] = -(heightPreview + 30);
+                            } else {
+                                $scope.hover.hoverImageStyle["margin-top"] = 0;
+                            }
+
+
+                            $scope.hover.hoverImageStyle["top"] = parseInt(($event.clientY + scrollTop) + 20, 10);
+                            $scope.hover.hoverImageStyle["left"] = parseInt(($event.clientX) + 20, 10);
                         }
                     };
 
                     $scope.imageMouseLeave = function () {
+                        $scope.isHover = false;
                         $scope.hover.timeOutHover = $timeout(function () {
                             $scope.hover.hoverImageShow = false;
                         }, 200);

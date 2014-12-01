@@ -95,7 +95,7 @@ innaAppControllers
             $scope.hoverImageObject = {
                 timeOutHover : null,
                 hoverImageShow : false,
-                hoverImage : {}
+                hoverImageStyle : {}
             };
 
 
