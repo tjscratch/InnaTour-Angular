@@ -12,7 +12,11 @@
 				    width="80"
 				    height="80"
 				    hover-image-object="hoverImageObject"
-				    class="hotel-details-rooms__room_pic"></div>
+				    class="hotel-details-rooms__room_pic"
+					ng-if="room.Photos"></div>
+
+				<div class="hotel-details-rooms__room_pic"
+				     ng-if="!room.Photos"></div>
 
 				<h3 class="hotel-details-rooms__room-title">
 					<span class="like-link">{{room.RoomName}}</span>
