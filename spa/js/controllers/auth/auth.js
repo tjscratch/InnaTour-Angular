@@ -153,6 +153,7 @@ angular.module('innaApp.controllers')
             }
 
             $scope.B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
+            $scope.b2bPartnerHost = app_main.b2bPartnerHost;
 
             /*EventListeners*/
             $scope.$on(Events.AUTH_SIGN_IN, function (event, data) {
@@ -162,8 +163,19 @@ angular.module('innaApp.controllers')
 
                     $scope.reloadChecker.saveLastUser();
 
-                    if($scope.$root.user && $scope.$root.user.isAgency()) {
-                        window.location = $scope.B2B_HOST;
+                    if ($scope.$root.user) {
+                        //console.log('user.Type:', $scope.$root.user.getType());
+                        switch ($scope.$root.user.getType()) {
+                            case 2: {//B2B = 2, b2b.inna.ru
+                                window.location = $scope.B2B_HOST;
+                                break;
+                            }
+                            case 4: {//Partner = 4, partner.inna.ru
+                                window.location = $scope.b2bPartnerHost;
+                                break;
+                            }
+                        }
+                        
                     }
                 });
             });
