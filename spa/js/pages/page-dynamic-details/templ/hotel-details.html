@@ -19,8 +19,8 @@
 			<div class="hotel-details-name">
 				<!-- Stars -->
                 <span stars-directive
-                  hotel-data="hotel.Stars"
-                  class="hotel-details-stars"></span>
+                      hotel-data="hotel.Stars"
+                      class="hotel-details-stars"></span>
 
                 <span class="hotel-details-name__title">
 	                {{hotel.HotelName}}
@@ -137,10 +137,10 @@
 				<div class="spinner__text">Секундочку, загружаем список номеров</div>
 			</div>
 
-			<ul class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
+			<div class="hotel-details-rooms hotel-details-room_show_{{displayRoom || 'NONE'}}">
 				<ng:include src="'pages/page-dynamic-details/templ/hotel-details-room.html'"
 				            ng-repeat="room in (onlyRoom || hotelRooms) track by $index"></ng:include>
-			</ul>
+			</div>
 		</div>
 
 		<div class="hotel-details__section" id="SectionServices">
@@ -192,6 +192,10 @@
 	</div>
 </div>
 
+<div class="gallery__list-item_hover"
+     ng-style="hoverImageObject.hoverImage"
+     ng-if="hoverImageObject.hoverImageShow">
+</div>
 <!-- Попап - подробнее о авиа-билете -->
 <!--ng-if="isDisplayOrder && displayTicket"-->
 <div ticket-details></div>

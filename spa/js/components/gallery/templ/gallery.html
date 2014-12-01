@@ -7,20 +7,22 @@
 		     ng-if="pics.list.length > 1"
 		     class="scroll-pane gallery__list__wrapper">
 
+			<!--ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"-->
 			<div class="gallery__list__container"
 			     ng-style="pics.setHeight()">
+
 				<ul class="scroll-content gallery__list" ng-style="pics.setHeight()">
-					<!--ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"-->
-					<li ng-repeat="pic in pics.list" ng-init="src = pic.src"
-					    ng-style="pics.setStylePreview(pic.src)"
+					<li gallery-preview
+						ng-repeat="pic in pics.list"
 					    ng-click="showFullGallery($event)"
-					    ng-mouseover="pics.imageMouseOver($event, src)"
-						ng-mouseleave="pics.imageMouseLeave()"
-						ng-mousemove="pics.imageMouseMove($event)"
+					    photo="pic.src"
+					    width="180"
+					    height="180"
+					    size-preview="500"
+					    hover-image-object="hoverImageObject"
 					    class="gallery__list-item"></li>
-
-
 				</ul>
+
 			</div>
 
 			<div ng-show="hideBar"
@@ -40,8 +42,8 @@
 </div>
 
 <div class="gallery__list-item_hover"
-     ng-style="hoverImage"
-     ng-if="hoverImageShow">
+     ng-style="hoverImageObject.hoverImage"
+     ng-if="hoverImageObject.hoverImageShow">
 </div>
 
 

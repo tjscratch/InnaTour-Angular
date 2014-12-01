@@ -15,14 +15,15 @@ angular.module('innaApp.directives')
                             MAX_HEIGHT = 480,
                             MIN_WIDTH = 800,
                             MIN_LENGTH = 2,
-                            previewWidth = 180,
-                            previewHeight = 180,
-                            timeOutHover = null;
+                            previewHeight = 180;
 
                         $scope.picsListLoaded = false;
                         $scope.emptyPhoto = false;
-                        $scope.hoverImage = {};
-                        $scope.hoverImageShow = false;
+                        $scope.hoverImageObject = {
+                            timeOutHover : null,
+                            hoverImageShow : false,
+                            hoverImage : {}
+                        };
 
                         /*Models*/
                         function PicList() {
@@ -62,43 +63,6 @@ angular.module('innaApp.directives')
                             if (index < 0) index = this.list.length - 1;
                             this.setCurrent(index, null);
                         };
-
-                        PicList.prototype.setStylePreview = function (src) {
-                            return {
-                                "background-image": "url(" + src + ")",
-                                "width": previewWidth,
-                                "height": previewHeight
-                            }
-                        };
-
-                        PicList.prototype.imageMouseOver = function ($event, src) {
-                            if ($event) {
-                                if (timeOutHover) $timeout.cancel(timeOutHover);
-                                $scope.hoverImageShow = true;
-                                $scope.hoverImage = {
-                                    "background-image": "url(" + src + ")"
-                                };
-                            }
-                        };
-
-                        PicList.prototype.imageMouseMove = function ($event) {
-                            if ($event) {
-                                var clientX = parseInt($event.clientX, 10);
-                                if (clientX > 600) {
-                                    $scope.hoverImage["margin-left"] = -400;
-                                } else {
-                                    $scope.hoverImage["margin-left"] = 0;
-                                }
-                                $scope.hoverImage["top"] = parseInt($event.clientY + 20, 10);
-                                $scope.hoverImage["left"] = parseInt($event.clientX + 20, 10);
-                            }
-                        }
-
-                        PicList.prototype.imageMouseLeave = function () {
-                            timeOutHover = $timeout(function () {
-                                $scope.hoverImageShow = false;
-                            }, 200);
-                        }
 
                         PicList.prototype.setHeight = function (is_full) {
                             return {

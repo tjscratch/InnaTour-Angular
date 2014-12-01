@@ -92,6 +92,11 @@ innaAppControllers
             $scope.OldPrice = null;
             $scope.NewPricePackage = null;
             var _balloonLoad = new Balloon();
+            $scope.hoverImageObject = {
+                timeOutHover : null,
+                hoverImageShow : false,
+                hoverImage : {}
+            };
 
 
             <!-- Меню с якорями -->
