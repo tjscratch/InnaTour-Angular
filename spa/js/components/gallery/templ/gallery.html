@@ -11,10 +11,15 @@
 			     ng-style="pics.setHeight()">
 				<ul class="scroll-content gallery__list" ng-style="pics.setHeight()">
 					<!--ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"-->
-					<li ng-repeat="pic in pics.list"
+					<li ng-repeat="pic in pics.list" ng-init="src = pic.src"
 					    ng-style="pics.setStylePreview(pic.src)"
 					    ng-click="showFullGallery($event)"
+					    ng-mouseover="pics.imageMouseOver($event, src)"
+						ng-mouseleave="pics.imageMouseLeave()"
+						ng-mousemove="pics.imageMouseMove($event)"
 					    class="gallery__list-item"></li>
+
+
 				</ul>
 			</div>
 
@@ -33,6 +38,13 @@
 		</div>
 	</div>
 </div>
+
+<div class="gallery__list-item_hover"
+     ng-style="hoverImage"
+     ng-if="hoverImageShow">
+</div>
+
+
 
 <ng-include ng-if="showGallery"
             src="'components/gallery/templ/gallery.full.html'"></ng-include>

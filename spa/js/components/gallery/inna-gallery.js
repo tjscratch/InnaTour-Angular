@@ -1,19 +1,12 @@
 angular.module('innaApp.directives')
     .directive('innaGallery', [
         '$templateCache',
-        function ($templateCache) {
+        '$timeout',
+        function ($templateCache, $timeout) {
             return {
                 template: $templateCache.get('components/gallery/templ/gallery.html'),
                 scope: {
                     urls: '=photos'
-                },
-                link: function ($scope, $element, $attr) {
-
-                    $scope.callBackSlider = function (data) {
-                        $element.find('.gallery__list').css({
-                            left: data + 'px'
-                        });
-                    }
                 },
                 controller: [
                     '$scope',
@@ -23,10 +16,13 @@ angular.module('innaApp.directives')
                             MIN_WIDTH = 800,
                             MIN_LENGTH = 2,
                             previewWidth = 180,
-                            previewHeight = 180;
+                            previewHeight = 180,
+                            timeOutHover = null;
 
                         $scope.picsListLoaded = false;
                         $scope.emptyPhoto = false;
+                        $scope.hoverImage = {};
+                        $scope.hoverImageShow = false;
 
                         /*Models*/
                         function PicList() {
@@ -75,6 +71,35 @@ angular.module('innaApp.directives')
                             }
                         };
 
+                        PicList.prototype.imageMouseOver = function ($event, src) {
+                            if ($event) {
+                                if (timeOutHover) $timeout.cancel(timeOutHover);
+                                $scope.hoverImageShow = true;
+                                $scope.hoverImage = {
+                                    "background-image": "url(" + src + ")"
+                                };
+                            }
+                        };
+
+                        PicList.prototype.imageMouseMove = function ($event) {
+                            if ($event) {
+                                var clientX = parseInt($event.clientX, 10);
+                                if (clientX > 600) {
+                                    $scope.hoverImage["margin-left"] = -400;
+                                } else {
+                                    $scope.hoverImage["margin-left"] = 0;
+                                }
+                                $scope.hoverImage["top"] = parseInt($event.clientY + 20, 10);
+                                $scope.hoverImage["left"] = parseInt($event.clientX + 20, 10);
+                            }
+                        }
+
+                        PicList.prototype.imageMouseLeave = function () {
+                            timeOutHover = $timeout(function () {
+                                $scope.hoverImageShow = false;
+                            }, 200);
+                        }
+
                         PicList.prototype.setHeight = function (is_full) {
                             return {
                                 "height": is_full ? 70 : previewHeight
@@ -83,7 +108,7 @@ angular.module('innaApp.directives')
 
                         $scope.pics = new PicList();
 
-                    $scope.isWL = window.partners ? window.partners.isWL() : false;
+                        $scope.isWL = window.partners ? window.partners.isWL() : false;
 
                         /**
                          *
