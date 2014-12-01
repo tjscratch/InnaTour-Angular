@@ -127,6 +127,17 @@
 
     &-item__preview {
       background-size: cover;
+      position : relative;
+
+      &_fade {
+        position : absolute;
+        background-color: rgba(255,255,255, 0.3);
+        top: 0;
+        bottom:0;
+        left: 0;
+        right:0;
+        z-index: 10;
+      }
     }
 
     &-item_hover {

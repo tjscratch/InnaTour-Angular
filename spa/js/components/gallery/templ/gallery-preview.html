@@ -2,4 +2,7 @@
      ng-mouseover="imageMouseOver($event)"
      ng-mouseleave="imageMouseLeave()"
      ng-mousemove="imageMouseMove($event)"
-     class="gallery__list-item__preview"></div>
+     class="gallery__list-item__preview">
+          <span class="gallery__list-item__preview_fade"
+                ng-if="full"></span>
+     </div>

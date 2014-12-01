@@ -24,7 +24,8 @@ angular.module('innaApp.directives')
                     width: '@',
                     height: '@',
                     sizePreview: '@',
-                    hover : '=hoverImageObject'
+                    hover : '=hoverImageObject',
+                    full: '@'
                 },
                 controller: ['$scope', function ($scope) {
 
