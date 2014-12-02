@@ -96,7 +96,7 @@
             'src': '/ekaterinatours/ekaterinatours.base.css',
             'type': self.WLType.lite,
             'title': 'Екатерина Турс',
-            'phone': '+7&nbsp;(963) 778 61 40',
+            'phone': '+7&nbsp;(985) 427 70 42',
             'email': 'support@ekaterinatours.ru',
             'skype': 'katerina4753',
             'aboutLink': 'http://ekaterinatours.ru/kontakty/',
