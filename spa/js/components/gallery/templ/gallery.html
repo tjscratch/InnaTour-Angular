@@ -9,7 +9,11 @@
 
 			<!--ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"-->
 			<div class="gallery__list__container"
-			     ng-style="pics.setHeight()">
+			     ng-style="pics.setHeight()"
+			     ng-mouseover="sliderMouseOver($event)"
+			     ng-mouseleave="sliderMouseLeave()">
+
+
 
 				<ul class="scroll-content gallery__list" ng-style="pics.setHeight()">
 					<li gallery-preview
