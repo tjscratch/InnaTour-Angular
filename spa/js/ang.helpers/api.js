@@ -131,6 +131,10 @@ angular.module('innaApp.API', [])
             AUTH_SIGN_IN: 'inna.Auth.SignIn',
             AUTH_SIGN_OUT: 'inna.Auth.SignOut',
 
+
+            NotificationScrollBar : "NotificationScrollBar",
+
+
             eol: null
         }
     })

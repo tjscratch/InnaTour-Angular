@@ -5,11 +5,15 @@
 angular.module('innaApp.components')
     .directive('scrollBar', [
         '$timeout',
-        function ($timeout) {
+        'innaApp.API.events',
+        function ($timeout, Events) {
             return {
                 replace: true,
                 link: function ($scope, $element, $attr) {
-                    $scope.hideBar = true;
+
+                    $scope.hideBar.visible = true;
+
+
                     function initialize() {
 
 
@@ -40,8 +44,8 @@ angular.module('innaApp.components')
 
                         function sizeScrollbar() {
                             if (scrollContent.width() < $element.width()) {
-                                $scope.$apply(function($scope){
-                                    $scope.hideBar = false;
+                                $scope.$apply(function ($scope) {
+                                    $scope.hideBar.visible = false;
                                 })
                             }
 
@@ -80,7 +84,7 @@ angular.module('innaApp.components')
                             }
                         }
 
-                        function scrollContentPosition(value){
+                        function scrollContentPosition(value) {
                             if (scrollContent.width() > scrollPane.width()) {
                                 scrollContent.css("left", Math.round(
                                     value / 100 * ( scrollPane.width() - scrollContent.width() )
@@ -91,8 +95,8 @@ angular.module('innaApp.components')
                         }
 
 
-                        function setPosition(position){
-                            scrollBarWidget.slider( "value", position);
+                        function setPosition(position) {
+                            scrollBarWidget.slider("value", position);
                             scrollContentPosition(position);
                         }
 
@@ -107,8 +111,8 @@ angular.module('innaApp.components')
                             });
                         }
 
-                        $scope.slideBar = function($event){
-                            if($event) $event.stopPropagation();
+                        $scope.slideBar = function ($event) {
+                            if ($event) $event.stopPropagation();
                         }
 
                         function onResize() {
@@ -118,7 +122,7 @@ angular.module('innaApp.components')
                         }
 
 
-                        $scope.$on('scrollBarNatification', function(evt, $index){
+                        $scope.$on(Events.NotificationScrollBar, function (evt, $index) {
                             var per = ($index * 100) / ($scope.pics.list.length - 1);
                             setPosition(parseFloat(per));
                         });

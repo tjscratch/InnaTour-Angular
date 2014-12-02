@@ -1,8 +1,12 @@
 <div class="hotel-gallery b-carousel" on-hover="hover">
 
 	{{#if photoList.length}}
-        <div class="b-carousel__prev" on-click="slidePrev"></div>
-        <div class="b-carousel__next" on-click="slideNext"></div>
+        <div class="b-carousel__prev" on-click="slidePrev">
+		        <i class="icon-sprite-arrow-bottom b-carousel__prev__arrow"></i>
+        </div>
+        <div class="b-carousel__next" on-click="slideNext">
+		        <i class="icon-sprite-arrow-bottom b-carousel__next__arrow"></i>
+        </div>
 	{{/if}}
 
 	{{#if countPhoto}}

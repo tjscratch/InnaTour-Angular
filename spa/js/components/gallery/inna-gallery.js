@@ -2,7 +2,8 @@ angular.module('innaApp.directives')
     .directive('innaGallery', [
         '$templateCache',
         '$timeout',
-        function ($templateCache, $timeout) {
+        'innaApp.API.events',
+        function ($templateCache, $timeout, Events) {
             return {
                 template: $templateCache.get('components/gallery/templ/gallery.html'),
                 scope: {
@@ -24,6 +25,9 @@ angular.module('innaApp.directives')
                             hoverImageShow: false,
                             hoverImageStyle: {}
                         };
+                        $scope.hideBar = {
+                            visible : true
+                        };
 
                         /*Models*/
                         function PicList() {
@@ -41,7 +45,9 @@ angular.module('innaApp.directives')
 
                             this.current = this.list[$index];
 
-                            $scope.$broadcast('scrollBarNatification', $index);
+                            if($scope.hideBar.visible) {
+                                $scope.$broadcast(Events.NotificationScrollBar, $index);
+                            }
                         };
 
                         PicList.prototype.isCurrent = function ($index) {

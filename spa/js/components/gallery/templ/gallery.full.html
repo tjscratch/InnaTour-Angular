@@ -11,7 +11,7 @@
 
 				<div class="gallery__list__container" ng-style="pics.setHeight(true)">
 					<ul class="scroll-content gallery__list"
-						ng-class="{'gallery__list_center' : !hideBar}"
+						ng-class="{'gallery__list_center' : !hideBar.visible}"
 						ng-style="pics.setHeight(true)">
 
 						<li ng-repeat="pic in pics.list"
@@ -22,7 +22,7 @@
 					</ul>
 				</div>
 
-				<div ng-show="hideBar" class="scroll-bar-wrap gallery__list__scroll b-slider">
+				<div ng-show="hideBar.visible" class="scroll-bar-wrap gallery__list__scroll b-slider">
 					<div class="scroll-bar"></div>
 				</div>
 			</div>
