@@ -11,7 +11,9 @@ angular.module('innaApp.components')
                 replace: true,
                 link: function ($scope, $element, $attr) {
 
-                    $scope.hideBar.visible = true;
+                    $scope.hideBar = {
+                        visible : false
+                    };
 
 
                     function initialize() {
@@ -43,22 +45,28 @@ angular.module('innaApp.components')
 
 
                         function sizeScrollbar() {
+
                             if (scrollContent.width() < $element.width()) {
-                                $scope.$apply(function ($scope) {
+                                $scope.$apply(function(){
                                     $scope.hideBar.visible = false;
                                 })
+                            } else {
+
+                                $scope.$apply(function(){
+                                    $scope.hideBar.visible = true;
+                                })
+
+                                var remainder = scrollContent.width() - scrollPane.width();
+                                var proportion = remainder / scrollContent.width();
+                                var handleSize = scrollPane.width() - ( proportion * scrollPane.width() );
+
+                                scrollBarElement.find(".ui-slider-handle").css({
+                                    width: handleSize,
+                                    "margin-left": -handleSize / 2
+                                });
+
+                                handleHelper.width("").width(scrollBarElement.width() - handleSize);
                             }
-
-                            var remainder = scrollContent.width() - scrollPane.width();
-                            var proportion = remainder / scrollContent.width();
-                            var handleSize = scrollPane.width() - ( proportion * scrollPane.width() );
-
-                            scrollBarElement.find(".ui-slider-handle").css({
-                                width: handleSize,
-                                "margin-left": -handleSize / 2
-                            });
-
-                            handleHelper.width("").width(scrollBarElement.width() - handleSize);
                         }
 
                         //reset slider value based on scroll content position
@@ -123,8 +131,14 @@ angular.module('innaApp.components')
 
 
                         $scope.$on(Events.NotificationScrollBar, function (evt, $index) {
-                            var per = ($index * 100) / ($scope.pics.list.length - 1);
-                            setPosition(parseFloat(per));
+                            if($scope.hideBar.visible) {
+                                var per = ($index * 100) / ($scope.pics.list.length - 1);
+                                setPosition(parseFloat(per));
+                            }
+                        });
+
+                        $scope.$on(Events.NotificationGalleryClose, function () {
+                            //sizeScrollbar();
                         });
 
 

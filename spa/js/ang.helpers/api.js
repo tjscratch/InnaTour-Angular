@@ -133,6 +133,7 @@ angular.module('innaApp.API', [])
 
 
             NotificationScrollBar : "NotificationScrollBar",
+            NotificationGalleryClose : "NotificationGalleryClose",
 
 
             eol: null
