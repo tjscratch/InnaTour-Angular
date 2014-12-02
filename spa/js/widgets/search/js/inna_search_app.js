@@ -47,3 +47,11 @@
     var innaTemplates = angular.module('innaTemplates', []);
     
 }());
+
+$(document).ready(function () {
+
+    var appContainer = $(".b-inna-search-widget");
+    
+    angular.bootstrap(appContainer, ['innaSearchForm']);
+    
+});

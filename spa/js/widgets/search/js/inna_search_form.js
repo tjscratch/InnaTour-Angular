@@ -81,9 +81,6 @@
                         var month = date.getMonth() + 1;
                         var dates = date.getDate() + "." + month + "." + date.getFullYear()
                         var oneDay;
-                        console.log(dates)
-                        console.log($scope.startDate)
-
                         if ($scope.startDate == $scope.endDate) {
                             oneDay = $scope.startDate;
                         }
