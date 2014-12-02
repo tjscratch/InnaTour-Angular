@@ -30,7 +30,7 @@ function getConfReplace() {
 
         'app-config-js': '/' + conf.version + '/js/config.js',
         'app-main-js': '/' + conf.version + '/js/app-main.js',
-        'bower_components': conf.bower + manifest["/bower-components.js"],
+        'bower_components': '/bower_components' + manifest["/bower-components.js"],
         'app-stylus': '/' + conf.version + '/css/common.min.css'
     }
 }

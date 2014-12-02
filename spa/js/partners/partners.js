@@ -78,6 +78,42 @@
             'aboutLink': 'http://www.skycassa.com/about/',
             'contactsLink': 'http://www.skycassa.com/contacts/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_skycassa.pdf'
+        },
+        {
+            'name': 'atlantravel',
+            'src': '/atlantravel/atlantravel.base.css',
+            'type': self.WLType.full,
+            'title': 'Атлантис',
+            'phone': '+7&nbsp;(495) 730 21 44',
+            'email': 'info@atlantravel.ru',
+            'skype': 'Atlantis2073',
+            'aboutLink': 'http://www.atlantravel.ru/o-kompanii/',
+            'contactsLink': 'http://www.atlantravel.ru/kontakty.html',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_atlantis.pdf'
+        },
+        {
+            'name': 'ekaterinatours',
+            'src': '/ekaterinatours/ekaterinatours.base.css',
+            'type': self.WLType.lite,
+            'title': 'Екатерина Турс',
+            'phone': '+7&nbsp;(963) 778 61 40',
+            'email': 'support@ekaterinatours.ru',
+            'skype': 'katerina4753',
+            'aboutLink': 'http://ekaterinatours.ru/kontakty/',
+            'contactsLink': 'http://ekaterinatours.ru/kontakty/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ekaterinatours.pdf'
+        },
+        {
+            'name': 'yourway',
+            'src': '/yourway/yourway.base.css',
+            'type': self.WLType.full,
+            'title': 'Travel company  YOUR WAY',
+            'phone': '+7&nbsp;(812) 441 33 65',
+            'email': 'zakaz@yourway.spb.ru',
+            'skype': 'vashput',
+            'aboutLink': 'http://www.yourway.spb.ru/pages/533/',
+            'contactsLink': 'http://www.yourway.spb.ru/pages/533/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_yourway.pdf'
         }
     ];
 
@@ -104,12 +140,18 @@
 
     self.getParentLocationWithUrl = function (url) {
         //убирает // в урлах типа biletixsite//#/packages
-        var suffix = '\/';
+        //var suffix = '\/';
+        //var parent = document.referrer;
+        //if (url != null && url.length > 0 && url.indexOf(suffix) == 0) {//начинается с '/'
+        //    if (parent != null && parent.length > 0 && parent.indexOf(suffix, parent.length - suffix.length) !== -1) {//заканчивается на '/'
+        //        parent = parent.substring(0, parent.length - 1);
+        //    }
+        //}
+
+        var suffix = '\/#\/';
         var parent = document.referrer;
-        if (url != null && url.length > 0 && url.indexOf(suffix) == 0) {//начинается с '/'
-            if (parent != null && parent.length > 0 && parent.indexOf(suffix, parent.length - suffix.length) !== -1) {//заканчивается на '/'
-                parent = parent.substring(0, parent.length - 1);
-            }
+        if (url != null && url.length > 0 && url.indexOf(suffix) == 0) {//начинается с '/#/'
+            url = url.replace('/#/', '#/');
         }
         return parent + url;
     }
