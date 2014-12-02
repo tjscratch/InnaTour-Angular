@@ -7,18 +7,30 @@
 		     ng-if="pics.list.length > 1"
 		     class="scroll-pane gallery__list__wrapper">
 
-			<!--ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"-->
 			<div class="gallery__list__container"
-			     ng-style="pics.setHeight()"
-			     ng-mouseover="sliderMouseOver($event)"
-			     ng-mouseleave="sliderMouseLeave()">
+			     ng-style="pics.setHeight()">
 
+				<div class="gallery__active gallery__active_type_prev"
+				     ng-if="pics.list.length > 5"
+				     ng-click="pics.prev($event)">
+					<div class="b-carousel__control b-carousel__prev">
+						<i class="icon-sprite-arrow-bottom b-carousel__prev__arrow"></i>
+					</div>
+				</div>
+
+				<div class="gallery__active gallery__active_type_next"
+				     ng-if="pics.list.length > 5"
+				     ng-click="pics.next($event)">
+					<div class="b-carousel__control b-carousel__next">
+						<i class="icon-sprite-arrow-bottom b-carousel__next__arrow"></i>
+					</div>
+				</div>
 
 
 				<ul class="scroll-content gallery__list" ng-style="pics.setHeight()">
 					<li gallery-preview
 						ng-repeat="pic in pics.list"
-					    ng-click="showFullGallery($event)"
+					    ng-click="showFullGallery($event, $index)"
 					    photo="pic.src"
 					    width="180"
 					    height="180"
@@ -26,7 +38,8 @@
 						height-preview="373"
 					    hover-image-object="hoverImageObject"
 					    full="true"
-					    class="gallery__list-item"></li>
+					    class="gallery__list-item"
+					    ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"></li>
 				</ul>
 
 			</div>

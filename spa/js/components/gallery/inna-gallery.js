@@ -20,9 +20,9 @@ angular.module('innaApp.directives')
                         $scope.picsListLoaded = false;
                         $scope.emptyPhoto = false;
                         $scope.hoverImageObject = {
-                            timeOutHover : null,
-                            hoverImageShow : false,
-                            hoverImageStyle : {}
+                            timeOutHover: null,
+                            hoverImageShow: false,
+                            hoverImageStyle: {}
                         };
 
                         /*Models*/
@@ -37,11 +37,11 @@ angular.module('innaApp.directives')
 
                         PicList.prototype.setCurrent = function ($index, $event) {
 
-                            if ($event) {
-                                $event.stopPropagation();
-                            }
+                            if ($event) $event.stopPropagation();
 
                             this.current = this.list[$index];
+
+                            $scope.$broadcast('scrollBarNatification', $index);
                         };
 
                         PicList.prototype.isCurrent = function ($index) {
@@ -98,7 +98,8 @@ angular.module('innaApp.directives')
                             return style;
                         };
 
-                        $scope.showFullGallery = function () {
+                        $scope.showFullGallery = function ($event, $index) {
+                            $scope.pics.setCurrent($index);
                             $scope.showGallery = true;
                             document.body.classList.add('overflow_hidden')
                         }

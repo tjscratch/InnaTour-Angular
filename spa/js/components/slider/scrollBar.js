@@ -4,7 +4,8 @@
  */
 angular.module('innaApp.components')
     .directive('scrollBar', [
-        function () {
+        '$timeout',
+        function ($timeout) {
             return {
                 replace: true,
                 link: function ($scope, $element, $attr) {
@@ -14,7 +15,8 @@ angular.module('innaApp.components')
 
                         var scrollPane = $element,
                             scrollContent = $element.find(".scroll-content"),
-                            scrollBarElement = $element.find(".scroll-bar");
+                            scrollBarElement = $element.find(".scroll-bar"),
+                            scrollBarWidget = null;
 
                         // init scrollBar
                         scrollBar();
@@ -78,19 +80,29 @@ angular.module('innaApp.components')
                             }
                         }
 
+                        function scrollContentPosition(value){
+                            if (scrollContent.width() > scrollPane.width()) {
+                                scrollContent.css("left", Math.round(
+                                    value / 100 * ( scrollPane.width() - scrollContent.width() )
+                                ) + "px");
+                            } else {
+                                scrollContent.css("left", 0);
+                            }
+                        }
+
+
+                        function setPosition(position){
+                            scrollBarWidget.slider( "value", position);
+                            scrollContentPosition(position);
+                        }
+
+
                         function scrollBar() {
-                            scrollBarElement.slider({
+                            scrollBarWidget = scrollBarElement.slider({
                                 step: 0.1,
                                 slide: function (event, ui) {
                                     event.stopPropagation();
-
-                                    if (scrollContent.width() > scrollPane.width()) {
-                                        scrollContent.css("left", Math.round(
-                                            ui.value / 100 * ( scrollPane.width() - scrollContent.width() )
-                                        ) + "px");
-                                    } else {
-                                        scrollContent.css("left", 0);
-                                    }
+                                    scrollContentPosition(ui.value);
                                 }
                             });
                         }
@@ -104,6 +116,12 @@ angular.module('innaApp.components')
                             sizeScrollbar();
                             reflowContent();
                         }
+
+
+                        $scope.$on('scrollBarNatification', function(evt, $index){
+                            var per = ($index * 100) / ($scope.pics.list.length - 1);
+                            setPosition(parseFloat(per));
+                        });
 
 
                         $(window).on('resize', onResize);
