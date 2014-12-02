@@ -118,6 +118,14 @@
     ];
 
     var maxClientHeight = 730;
+
+    //скролим страницу обратно вверх, при нажатии на кнопку поиска
+    self.scrollToTop = function () {
+        self.parentScrollTop = 0;
+        //скроллим родителя фрейма до выбора кол-ва детей
+        self.setScrollPage(0, false, maxClientHeight);
+    };
+
     self.scrollToChildSelector = function () {
         //скроллим родителя фрейма до выбора кол-ва детей
         self.setScrollPage(120, true, maxClientHeight);
@@ -215,7 +223,7 @@
     }
 
     self.setScrollPage = function (data, smooth, maxHeight) {
-        if (data) {
+        if (data != null) {
             sendCommandToParent(self.commands.setScrollPage, { 'scrollPage': data, 'smooth': smooth, 'maxHeight': maxHeight });
         }
     }
