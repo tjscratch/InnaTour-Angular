@@ -242,6 +242,10 @@ innaAppControllers
 
             /*Methods*/
             $scope.searchStart = function () {
+                if (window.partners && window.partners.isFullWL()) {
+                    window.partners.scrollToTop();
+                }
+
                 // если есть get параметр map=show, удалаяем его
                 if ($location.search().map) {
                     delete $location.$$search.map;
