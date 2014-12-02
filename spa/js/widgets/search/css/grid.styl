@@ -19,3 +19,14 @@ for key in (1..12){
 		padding-right: $offset;
 	}
 }
+
+.b-inna-search-widget-row-2{
+
+	for key in (1..12){
+		$cols = 12 / key
+		.b-inna-col-lg-{key}{
+			width: (100 / $cols) %;
+		}
+	}
+	
+}
