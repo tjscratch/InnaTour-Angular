@@ -63,11 +63,15 @@ angular.module('innaApp.directives')
                     $scope.imageMouseMove = function ($event) {
                         var scrollTop = utils.getScrollTop();
                         var windowHeight = (window.innerHeight + scrollTop);
+                        var windowWidth = (window.innerWidth / 2);
 
                         if ($event) {
 
                             var clientX = parseInt($event.clientX, 10);
-                            if (clientX > 600) {
+
+                            //console.log(clientX, $event.pageX, windowWidth);
+
+                            if (clientX > windowWidth) {
                                 $scope.hover.hoverImageStyle["margin-left"] = -(widthPreview + 30);
                             } else {
                                 $scope.hover.hoverImageStyle["margin-left"] = 0;
