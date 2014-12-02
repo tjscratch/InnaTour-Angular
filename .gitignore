@@ -72,11 +72,7 @@ publish
 # игнорируем собранный файл спрайтов
 spa/img/sprites/*.json
 spa/img/sprites/icon-*.png
-<<<<<<< HEAD
 spa/styl/sprites/sprite.styl
-=======
-spa/styl/sprite.styl
->>>>>>> 6b94d61... remove sptites folder
 spa/styl/temp/*.styl
 spa/styl/partners/**/*.css
 spa/js/**/*.css
@@ -95,4 +91,3 @@ Solution.v12.suo
 Inna.Frontend.csproj
 Inna.Frontend.SPA.sln
 start_on_node_server.cmd
-spa/styl/sprite.styl
