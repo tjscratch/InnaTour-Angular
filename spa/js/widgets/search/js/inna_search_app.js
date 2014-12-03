@@ -2,7 +2,6 @@
     "use strict"
 
     angular.module("innaSearchForm", [
-        "ngResource",
         "ui.bootstrap",
         "searchForm",
         "innaDirectives",
