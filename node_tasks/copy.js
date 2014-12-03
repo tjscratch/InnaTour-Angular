@@ -32,4 +32,11 @@ gulp.task('copy-project', function () {
     gulp.src('./tours/web.config').pipe(gulp.dest(conf.publish + '/tours'));
     gulp.src(conf.build + '/widgets/**').pipe(gulp.dest(conf.publish + '/spa/widgets'));
 
+    gulp.src('./backend/**').pipe(gulp.dest(conf.publish + '/backend'));
+});
+
+
+// Копируем в папаку publish
+gulp.task('copy-backend', function () {
+    gulp.src('./backend/**').pipe(gulp.dest(conf.publish + '/backend'));
 });

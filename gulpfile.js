@@ -38,8 +38,10 @@ gulp.task('build-project', function (callback) {
         ['styles', 'concat-bower-components', 'build-concat', 'build-widget-search'],
         'version-cache',
         'html-replace',
-        'copy-project',
+        ['copy-project', 'copy-backend'],
         'replace-partners',
+
+        'replace-backend',
         callback);
 });
 

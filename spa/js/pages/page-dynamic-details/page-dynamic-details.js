@@ -15,6 +15,7 @@ innaAppControllers
         'DynamicFormSubmitListener',
         '$q',
         '$anchorScroll',
+        '$templateRequest',
 
         'Balloon',
         '$filter',
@@ -24,7 +25,7 @@ innaAppControllers
         'ModelTicketsCollection',
         'ModelTicket',
         'ModelHotel',
-        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Balloon, $filter,
+        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, $templateRequest, Balloon, $filter,
                   ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
             DynamicFormSubmitListener.listen();
@@ -97,6 +98,9 @@ innaAppControllers
                 hoverImageShow : false,
                 hoverImageStyle : {}
             };
+
+            // есть ли хоть в одной из комнат фотографии
+            $scope.RoomsPhotosIsEmpty = true;
 
 
             <!-- Меню с якорями -->
@@ -221,6 +225,16 @@ innaAppControllers
              * @param rooms
              */
             function parseRooms(rooms){
+
+                $templateRequest('components/stars/templ/index.hbs.html');
+
+                rooms.find(function(room){
+                    if(room.Photos) {
+                        $scope.RoomsPhotosIsEmpty = false;
+                        return true;
+                    }
+                })
+
                 rooms.find(function(room){
                     if(room.Default) {
                         $scope.recommendedPair.setRoom(room);
