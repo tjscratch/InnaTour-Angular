@@ -12,7 +12,7 @@
                     partnerSite: "@",
                     partnerName: "@"
                 },
-                controller: ['$scope', '$http', 'Validators', function ($scope, $http, Validators) {
+                controller: ['$element', '$scope', '$http', 'Validators', function ($element, $scope, $http, Validators) {
 
                     /**
                      * установка текущей локали
@@ -103,14 +103,14 @@
                         }
                     };
 
-                    $('.from_date').on('changeDate', function (selected) {
+                    $element.find('.from_date').on('changeDate', function (selected) {
                         $scope.setStartDate = selected.date;
-                        $('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
-                        $('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28));
-                        $('.to_date').focus();
+                        $element.find('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
+                        $element.find('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28));
+                        $element.find('.to_date').focus();
                     });
 
-                    $('.input-daterange').datepicker({
+                    $element.find('.input-daterange').datepicker({
                         format: "d.m.yyyy",
                         startDate: $scope.setStartDate,
                         endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
