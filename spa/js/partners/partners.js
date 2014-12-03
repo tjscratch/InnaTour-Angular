@@ -188,7 +188,9 @@
         setFrameScrollTo: 'setFrameScrollTo',
         setScrollTop: 'setScrollTop',
         setScrollPage: 'setScrollPage',
-        saveUrlToParent: 'saveUrlToParent'
+        saveUrlToParent: 'saveUrlToParent',
+        setCustomCss: 'setCustomCss',
+        loaded: 'loaded'
     };
 
     self.isFullWL = function () {
@@ -394,20 +396,38 @@
     }
 
     function receiveMessage(event) {
+        //console.log('receiveMessage, event:', event);
         var data = {};
         try {
             data = JSON.parse(event.data);
         }
         catch (e) {
         }
-
+        //console.log('receiveMessage, data:', data);
         if (data) {
             switch (data.cmd) {
                 case 'processScrollTop': processScrollTop(data); break;
                 case 'clientSizeChange': processClientSizeChange(data); break;
                 case 'frameSetLocationUrl': processFrameSetLocationUrl(data); break;
                 case 'frameSaveLocationUrl': processFrameSaveLocationUrl(data); break;
+                case 'setCustomCss': processSetCustomCss(data); break;
             }
+        }
+    }
+
+    function processSetCustomCss(data) {
+        //console.log('processSetCustomCss, data:', data);
+        //пришло событие, что поменялся location.href в родительском окне
+        if (data.href != null && data.href.length > 0) {
+            var link = d.createElement("link");
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            link.href = data.href;
+
+            //var uniqKey = Math.random(1000).toString(16);
+
+            insertAfter(link, d.getElementById("partners-css-inject"))
+            console.log('custom partner css loaded', link.href);
         }
     }
 
@@ -519,6 +539,9 @@
 
         //слушаем события из window.parent
         addCommonEventListener(window, 'message', receiveMessage);
+
+        //отправляем событие, что фрейм загрузился, и можно ему что-то слать
+        sendCommandToParent(self.commands.loaded, { });
     }
 
 }(document, window));

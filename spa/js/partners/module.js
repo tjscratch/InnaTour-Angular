@@ -1,8 +1,8 @@
 var innaModule = {
     frameId: 'innaFrame1',
-    init: function (partner) {
+    init: function (partner, options) {
         setTimeout(function () {
-            innaModule.init_internal(partner);
+            innaModule.init_internal(partner, options);
         }, 0);
             
     },
@@ -10,10 +10,12 @@ var innaModule = {
         processScrollTop: 'processScrollTop',
         clientSizeChange: 'clientSizeChange',
         frameSaveLocationUrl: 'frameSaveLocationUrl',
-        frameSetLocationUrl: 'frameSetLocationUrl'
+        frameSetLocationUrl: 'frameSetLocationUrl',
+        setCustomCss: 'setCustomCss',
+        loaded: 'loaded'
     },
     containerTopPosition: null,
-    init_internal: function (partner) {
+    init_internal: function (partner, options) {
         var self = innaModule;
 
         var frameCont = document.getElementById('inna-frame');
@@ -32,6 +34,7 @@ var innaModule = {
         //self.frameManager.repositionFrame();
 
         self.cmdManager.init(self.frameManager, self.urlManager);
+        self.cmdManager.options = options;
 
         //слушаем скролл
         self.cmdManager.addCommonEventListener(window, 'scroll', trackScroll);
@@ -366,6 +369,14 @@ function CommandManager() {
 
         if (data) {
             switch (data.cmd) {
+                case 'loaded': {
+                    //console.log('options', self.options);
+                    if (self.options && self.options.css && self.options.css.length > 0) {
+                        //set custom partner css
+                        self.sendCommandToInnaFrame(innaModule.commands.setCustomCss, { 'href': self.options.css });
+                    }
+                    break;
+                }
                 case 'setHeight': self.frameManager.setHeightCmd(data); break;
                 case 'setVisible':
                     {
@@ -376,6 +387,7 @@ function CommandManager() {
                             'doc': self.frameManager.getDocumentSize(),
                             'top': self.frameManager.getElementPosition(frameCont).y
                         });
+
                         break;
                     }
                 case 'setFrameScrollTo': self.frameManager.setFrameScrollToCmd(data); break;
