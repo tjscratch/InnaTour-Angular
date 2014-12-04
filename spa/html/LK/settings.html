@@ -24,7 +24,9 @@
 
 				<ul class="header-menu pull-right">
 					<li class="header-menu-item">+7&nbsp;495 742-1212</li>
-					<li class="header-menu-item"><a href="http://www.inna.ru/agency/">Помощь</a></li>
+					<li class="header-menu-item">
+						<a href="#" class="fa fa-question-circle" title="Помощь"></a>
+					</li>
 					<li class="header-menu-item dropdown">
 						<span class="dropdown-toggle" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
 							Biletix
@@ -107,7 +109,10 @@
 							</div>
 							<div class="col-xs-4 form-item">
 								<label class="form-label" for="id3">Новый пароль еще раз</label>
-								<input id="id3" class="form-input" type="password" disabled/>
+								<input id="id3" class="form-input input-validation-error" type="password" disabled/>
+								<span class="field-validation-error" data-valmsg-for="OldPassword" data-valmsg-replace="true">
+									<span id="OldPassword-error" class="">Укажите старый пароль</span>
+								</span>
 							</div>
 						</div>
 					</div>

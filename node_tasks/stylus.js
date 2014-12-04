@@ -111,6 +111,16 @@ gulp.task('styl-widget-search', function () {
 
 //gulp.task('styl-pages', function () {
 //    return gulp.src([conf.src + '/pages/**/*.styl'])
+/* LK */
+gulp.task('styl-lk', function () {
+    return gulp.src([conf.dest + '/html/LK/css/lk.styl'])
+        .pipe(stylus())
+        .pipe(concat('lk.css'))
+        .pipe(gulp.dest(conf.dest + '/html/LK/css'))
+        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
+});
+
+
 //        .pipe(concat('pages.styl'))
 //        .pipe(gulp.dest(conf.styl + '/temp'))
 //});
@@ -124,5 +134,6 @@ gulp.task('styles', [
     'styl-print', 
     'styl-partners', 
     'styl-adv', 
-    'styl-widget-search'
+    'styl-widget-search',
+    'styl-lk'
 ]);

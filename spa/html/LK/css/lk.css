@@ -162,6 +162,7 @@ h2 {
   padding: 190px 0 20px;
   background-color: #e0e0e0;
 }
+.field-validation-error,
 .tooltip {
   position: absolute;
   z-index: 10;
@@ -171,23 +172,28 @@ h2 {
   border-radius: 2px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.4);
 }
+.field-validation-error:after,
 .tooltip:after,
+.field-validation-error:before,
 .tooltip:before {
   content: '';
   position: absolute;
   border-style: solid;
   border-width: 10px;
 }
+.field-validation-error:before,
 .tooltip:before {
   left: 30px;
   top: -20px;
   border-color: transparent transparent #bdbdbd transparent;
 }
+.field-validation-error:after,
 .tooltip:after {
   left: 30px;
   top: -19px;
   border-color: transparent transparent #fff transparent;
 }
+.field-validation-error .tooltip-close,
 .tooltip .tooltip-close {
   position: absolute;
   top: 6px;
@@ -195,22 +201,32 @@ h2 {
   font-size: 20px;
   cursor: pointer;
 }
+.field-validation-error .tooltip-close:hover,
 .tooltip .tooltip-close:hover {
   color: #77b237;
 }
+.field-validation-error > span,
+.tooltip > span,
+.field-validation-error .tooltip-body,
 .tooltip .tooltip-body {
+  display: block;
   padding: 10px;
   color: #666;
 }
+.field-validation-error > span h2,
+.tooltip > span h2,
+.field-validation-error .tooltip-body h2,
 .tooltip .tooltip-body h2 {
   margin: 0 0 10px;
   padding-right: 20px;
   font-size: 20px;
   color: #212121;
 }
+.field-validation-error,
 .tooltip-danger {
   background-color: #fff8eb;
 }
+.field-validation-error:after,
 .tooltip-danger:after {
   border-color: transparent transparent #fff8eb transparent;
 }
@@ -446,6 +462,16 @@ h2 {
 .header a {
   color: #fff;
 }
+.header .fa-question-circle {
+  position: relative;
+  margin-top: -3px;
+  line-height: 22px;
+  font-size: 22px;
+  text-decoration: none;
+}
+.header .fa-question-circle:hover {
+  color: #808080;
+}
 .header-logo {
   position: relative;
   display: inline-block;
@@ -538,11 +564,15 @@ h2 {
 .form-item {
   position: relative;
 }
+.form-item .field-validation-error,
 .form-item .tooltip {
   left: 5px;
   top: 57px;
 }
 .form-item-error .form-input {
+  background-color: #fbece7;
+}
+.input-validation-error {
   background-color: #fbece7;
 }
 .form-label {
