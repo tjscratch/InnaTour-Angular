@@ -17,6 +17,9 @@
     self.autoHeightTimerId = null;
     self.parentLocation = null;
 
+    //если задан - то при клике на поиск - должен переходить на этот урл + результаты поиска
+    self.jumptoUrl = null;
+
     self.partnersMap = [
         {
             'name': 'biletix',
@@ -189,7 +192,8 @@
         setScrollTop: 'setScrollTop',
         setScrollPage: 'setScrollPage',
         saveUrlToParent: 'saveUrlToParent',
-        setCustomCss: 'setCustomCss',
+        setParentLocationHref: 'setParentLocationHref',
+        setOptions: 'setOptions',
         loaded: 'loaded'
     };
 
@@ -279,6 +283,12 @@
         setAutoHeightUpdateTimer();
 
         updateHeight();
+    }
+
+    self.setParentLocationHref = function (url) {
+        if (url && url.length > 0) {
+            sendCommandToParent(self.commands.setParentLocationHref, { 'url': url });
+        }
     }
 
     function addCssToBody() {
@@ -391,8 +401,11 @@
     }
 
     function getContentHeight() {
-        var height = document.getElementById('main-content-div').offsetHeight;
-        return height;
+        var el = document.getElementById('main-content-div');
+        if (el) {
+            var height = el.offsetHeight;
+            return height;
+        }
     }
 
     function receiveMessage(event) {
@@ -410,28 +423,34 @@
                 case 'clientSizeChange': processClientSizeChange(data); break;
                 case 'frameSetLocationUrl': processFrameSetLocationUrl(data); break;
                 case 'frameSaveLocationUrl': processFrameSaveLocationUrl(data); break;
-                case 'setCustomCss': processSetCustomCss(data); break;
+                case 'setOptions': processSetOptions(data); break;
             }
         }
     }
 
-    function processSetCustomCss(data) {
+    function processSetOptions(data) {
         //console.log('processSetCustomCss, data:', data);
-        //пришло событие, что поменялся location.href в родительском окне
-        if (data.href != null && data.href.length > 0) {
-            var link = d.createElement("link");
-            link.type = "text/css";
-            link.rel = "stylesheet";
-            link.href = data.href;
+        if (data.options) {
+            //пришло событие, что поменялся location.href в родительском окне
+            if (data.options.css != null && data.options.css.length > 0) {
+                var link = d.createElement("link");
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.href = data.options.css;
+                //var uniqKey = Math.random(1000).toString(16);
+                insertAfter(link, d.getElementById("partners-css-inject"))
+                console.log('custom partner css loaded', link.href);
+            }
 
-            //var uniqKey = Math.random(1000).toString(16);
-
-            insertAfter(link, d.getElementById("partners-css-inject"))
-            console.log('custom partner css loaded', link.href);
+            if (data.options.jumpto != null && data.options.jumpto.length > 0) {
+                self.jumptoUrl = data.options.jumpto;
+                console.log('jumptoUrl set:', self.jumptoUrl);
+            }
         }
     }
 
     function processFrameSaveLocationUrl(data) {
+        //console.log('processFrameSaveLocationUrl, data:', data);
         //пришло событие, что поменялся location.href в родительском окне
         if (data.href != null && data.href.length > 0) {
             self.parentLocation = data.href;

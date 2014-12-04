@@ -11,7 +11,8 @@ var innaModule = {
         clientSizeChange: 'clientSizeChange',
         frameSaveLocationUrl: 'frameSaveLocationUrl',
         frameSetLocationUrl: 'frameSetLocationUrl',
-        setCustomCss: 'setCustomCss',
+        setParentLocationHref: 'setParentLocationHref',
+        setOptions: 'setOptions',
         loaded: 'loaded'
     },
     containerTopPosition: null,
@@ -38,9 +39,6 @@ var innaModule = {
 
         //слушаем скролл
         self.cmdManager.addCommonEventListener(window, 'scroll', trackScroll);
-
-        //save location
-        self.cmdManager.sendCommandToInnaFrame(self.commands.frameSaveLocationUrl, { 'href': location.href });
 
         //слушаем hashchange
         //self.urlManager.listenLocationChangeEvents(function () {
@@ -370,10 +368,13 @@ function CommandManager() {
         if (data) {
             switch (data.cmd) {
                 case 'loaded': {
+                    //save location
+                    self.sendCommandToInnaFrame(innaModule.commands.frameSaveLocationUrl, { 'href': location.href });
+
                     //console.log('options', self.options);
-                    if (self.options && self.options.css && self.options.css.length > 0) {
+                    if (self.options) {
                         //set custom partner css
-                        self.sendCommandToInnaFrame(innaModule.commands.setCustomCss, { 'href': self.options.css });
+                        self.sendCommandToInnaFrame(innaModule.commands.setOptions, { 'options': self.options });
                     }
                     break;
                 }
@@ -395,9 +396,26 @@ function CommandManager() {
                 case 'setScrollTop': self.frameManager.setScrollTopCmd(data); break;
 
                 case 'saveUrlToParent': self.urlManager.saveUrlCmd(data); break;
+
+                case 'setParentLocationHref': self.processSetParentLocationHref(data); break;
             }
         }
     };
+
+    self.processSetParentLocationHref = function (data) {
+        if (data.url && data.url.length > 0) {
+            var url = data.url;
+            var host = location.host;
+            location.href = url;
+
+            console.log('location.host: ' + host + ' data.url: ' + data.url);
+            //если урл, по которому нужно перейти на том же домене - рефрешим, чтобы ангулар перезагрузил страницу
+            if (host && host.length > 0 && url.indexOf(host) > -1 || (url.indexOf('file://') == 0)) {
+                console.log('reload');
+                window.location.reload();
+            }
+        }
+    }
 
     self.addCommonEventListener = function (el, event, fn) {
         if (el.addEventListener) {

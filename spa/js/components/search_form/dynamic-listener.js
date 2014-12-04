@@ -27,8 +27,16 @@ angular.module('innaApp.services')
 
                             $route.reload();
                         }
-                         else {
-                            $location.path(searchUrl)
+                        else {
+
+                            if (window.partners && window.partners.isFullWL() && window.partners.jumptoUrl && window.partners.jumptoUrl.length > 0) {
+                                var url = window.partners.jumptoUrl + '#' + searchUrl;
+                                //console.log('setNewUrl:', url);
+                                window.partners.setParentLocationHref(url);
+                            }
+                            else {
+                                $location.path(searchUrl);
+                            }
                         }
 
                     });
