@@ -1,6 +1,6 @@
 {
   "port": 8077,
-  "serverApiUrl" : "/api/v1",
+  "serverApiUrl" : "api/v1",
   "cookie": {
     "secret": "secretCookie"
   },

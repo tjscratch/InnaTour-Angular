@@ -39,4 +39,5 @@ gulp.task('copy-project', function () {
 // Копируем в папаку publish
 gulp.task('copy-backend', function () {
     gulp.src('./backend/**').pipe(gulp.dest(conf.publish + '/backend'));
+    gulp.src('./package.json').pipe(gulp.dest(conf.publish));
 });

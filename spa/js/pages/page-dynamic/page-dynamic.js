@@ -30,9 +30,8 @@ innaAppControllers
         function (RavenWrapper, EventManager, $scope, $rootScope, DynamicFormSubmitListener, DynamicPackagesDataProvider, $routeParams, $anchorScroll, Events, $location, Urls, aviaHelper, $templateCache, Balloon, ListPanel, $filter,
                   ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
-            Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"})
+            Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"});
 
-            console.log(userData);
             /**
              * Преобразуем даты и собираем данные для запроса
              * StartVoyageDate и EndVoyageDate

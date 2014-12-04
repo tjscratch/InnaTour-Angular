@@ -1,13 +1,16 @@
 var request = require('request');
 var jar = request.jar();
+var urlsHelpers = require('../helpers/urls');
 var Q = require('q');
 
 module.exports = function (req, res, next) {
 
+    var href = "http://" + req.headers.host + req.url;
 
-    function AuthUser() {}
+    function AuthUser() {
+    }
 
-    AuthUser.prototype.getAuthInfo = function(){
+    AuthUser.prototype.getAuthInfo = function () {
         var def = Q.defer();
 
         var objCookie = Object.keys(req.cookies);
@@ -16,7 +19,7 @@ module.exports = function (req, res, next) {
 
             request({
                     method: 'POST',
-                    url: 'https://inna.ru/api/v1/Account/Info/Post',
+                    url: href + urlsHelpers.AUTH,
                     json: true,
                     headers: {
                         'Cookie': '.ASPXAUTH=' + req.cookies['.ASPXAUTH']
