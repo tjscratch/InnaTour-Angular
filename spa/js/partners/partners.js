@@ -28,7 +28,8 @@
             'skype': '',
             'aboutLink': 'https://biletix.ru/about_biletix/',
             'contactsLink': 'https://biletix.ru/contacts/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf'
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf',
+            'showOffers' : true
         },
         {
             'name': 'agenda',
@@ -48,8 +49,8 @@
             'type': self.WLType.lite,
             'title': 'sample',
             'phone': '+7&nbsp;800 000-1111',
-            'email': '',
-            'skype': '',
+            'email': 'sample@sample.ru',
+            'skype': 'sample',
             'aboutLink': 'https://sample.ru/about',
             'contactsLink': 'https://sample.ru/contacts',
             'offertaContractLink': ''
@@ -65,8 +66,75 @@
             'aboutLink': 'http://www.ulixes.ru/o_kompanii/',
             'contactsLink': 'http://www.ulixes.ru/contacti/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ulixes.pdf'
+        },
+        {
+            'name': 'skycassa',
+            'src': '/skycassa/skycassa.base.css',
+            'type': self.WLType.full,
+            'title': 'SKYcassa',
+            'phone': '+7&nbsp;(495) 287 46 26',
+            'email': 'info@skycassa.com',
+            'skype': '',
+            'aboutLink': 'http://www.skycassa.com/about/',
+            'contactsLink': 'http://www.skycassa.com/contacts/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_skycassa.pdf'
+        },
+        {
+            'name': 'atlantravel',
+            'src': '/atlantravel/atlantravel.base.css',
+            'type': self.WLType.full,
+            'title': 'Атлантис',
+            'phone': '+7&nbsp;(495) 730 21 44',
+            'email': 'info@atlantravel.ru',
+            'skype': 'Atlantis2073',
+            'aboutLink': 'http://www.atlantravel.ru/o-kompanii/',
+            'contactsLink': 'http://www.atlantravel.ru/kontakty.html',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_atlantis.pdf'
+        },
+        {
+            'name': 'ekaterinatours',
+            'src': '/ekaterinatours/ekaterinatours.base.css',
+            'type': self.WLType.lite,
+            'title': 'Екатерина Турс',
+            'phone': '+7&nbsp;(963) 778 61 40',
+            'email': 'support@ekaterinatours.ru',
+            'skype': 'katerina4753',
+            'aboutLink': 'http://ekaterinatours.ru/kontakty/',
+            'contactsLink': 'http://ekaterinatours.ru/kontakty/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ekaterinatours.pdf'
+        },
+        {
+            'name': 'yourway',
+            'src': '/yourway/yourway.base.css',
+            'type': self.WLType.full,
+            'title': 'Travel company  YOUR WAY',
+            'phone': '+7&nbsp;(812) 441 33 65',
+            'email': 'zakaz@yourway.spb.ru',
+            'skype': 'vashput',
+            'aboutLink': 'http://www.yourway.spb.ru/pages/533/',
+            'contactsLink': 'http://www.yourway.spb.ru/pages/533/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_yourway.pdf'
         }
     ];
+
+    var maxClientHeight = 730;
+
+    //скролим страницу обратно вверх, при нажатии на кнопку поиска
+    self.scrollToTop = function () {
+        self.parentScrollTop = 0;
+        //скроллим родителя фрейма до выбора кол-ва детей
+        self.setScrollPage(0, false, maxClientHeight);
+    };
+
+    self.scrollToChildSelector = function () {
+        //скроллим родителя фрейма до выбора кол-ва детей
+        self.setScrollPage(120, true, maxClientHeight);
+    };
+
+    self.scrollToChildSelectorItem = function () {
+        //скроллим родителя фрейма до выбора кол-ва детей
+        self.setScrollPage(200, true, maxClientHeight);
+    };
 
     self.resetParentScrollTop = function () {
         self.parentScrollTop = 0;
@@ -80,12 +148,18 @@
 
     self.getParentLocationWithUrl = function (url) {
         //убирает // в урлах типа biletixsite//#/packages
-        var suffix = '\/';
+        //var suffix = '\/';
+        //var parent = document.referrer;
+        //if (url != null && url.length > 0 && url.indexOf(suffix) == 0) {//начинается с '/'
+        //    if (parent != null && parent.length > 0 && parent.indexOf(suffix, parent.length - suffix.length) !== -1) {//заканчивается на '/'
+        //        parent = parent.substring(0, parent.length - 1);
+        //    }
+        //}
+
+        var suffix = '\/#\/';
         var parent = document.referrer;
-        if (url != null && url.length > 0 && url.indexOf(suffix) == 0) {//начинается с '/'
-            if (parent != null && parent.length > 0 && parent.indexOf(suffix, parent.length - suffix.length) !== -1) {//заканчивается на '/'
-                parent = parent.substring(0, parent.length - 1);
-            }
+        if (url != null && url.length > 0 && url.indexOf(suffix) == 0) {//начинается с '/#/'
+            url = url.replace('/#/', '#/');
         }
         return parent + url;
     }
@@ -121,6 +195,13 @@
         var partner = self.getPartner();
         return partner != null && partner.realType == self.WLType.full;
     }
+    self.isLiteWL = function () {
+        var partner = self.getPartner();
+        return partner != null && partner.realType == self.WLType.lite;
+    }
+    self.isWL = function () {
+        return (self.isFullWL() || self.isLiteWL());
+    }
     self.getPartner = function () {
 //        return self.partnersMap[0];
 
@@ -141,9 +222,9 @@
         }
     }
 
-    self.setScrollPage = function (data) {
-        if (data) {
-            sendCommandToParent(self.commands.setScrollPage, { 'scrollPage': data });
+    self.setScrollPage = function (data, smooth, maxHeight) {
+        if (data != null) {
+            sendCommandToParent(self.commands.setScrollPage, { 'scrollPage': data, 'smooth': smooth, 'maxHeight': maxHeight });
         }
     }
 
@@ -252,7 +333,7 @@
 
         var html = document.getElementsByTagName('html')[0];
         //навешиваем стиль партнера
-        html.className = html.className + " partner-" + partner.name;
+        html.className = html.className + " partner-wl partner-" + partner.name;
     };
 
     function insertAfter(newNode, referenceNode) {

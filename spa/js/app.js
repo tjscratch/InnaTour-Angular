@@ -107,7 +107,7 @@ app.config([
     function ($routeProvider, $locationProvider, $httpProvider, url, $sceProvider, $filter) {
 
         function dynamic() {
-            var partner = window.partners.getPartner();
+            var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.realType == window.partners.WLType.full) {
                 return {
                     templateUrl: 'pages/partners/page.html',

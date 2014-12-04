@@ -140,4 +140,5 @@ innaAppServices.factory('ModelTicket', [
 
         return Avia.Ticket;
     }
+
 ]);

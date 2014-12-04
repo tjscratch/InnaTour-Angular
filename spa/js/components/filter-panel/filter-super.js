@@ -94,7 +94,7 @@ angular.module('innaApp.components').
 
                             this.findAllComponents().forEach(function (child) {
                                 child.fire('resetFilter', {silent: true});
-                            })
+                            });
                         }
                     });
 
@@ -298,10 +298,12 @@ angular.module('innaApp.components').
                     }
 
                     for (var key in this.filtersCollectionTempl) {
-                        tempArr.push(angular.copy(this.filtersCollectionTempl[key]));
+                        //tempArr.push(angular.copy(this.filtersCollectionTempl[key]));
+                        tempArr.push(this.filtersCollectionTempl[key]);
                     }
 
-                    this.set('filtersCollection', [].concat(tempArr));
+                    //this.set('filtersCollection', [].concat(tempArr));
+                    this.set('filtersCollection', tempArr);
                 },
 
                 bodyClickHide: function (evt) {

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:ng="https://angularjs.org" id="ng-app" ng-app="innaApp" ng-controller="RootCtrl">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -132,7 +132,35 @@
 
     <!-- Подключение стилей партнеров -->
     <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
-
+    
+    
+    <!--Start of Zopim Live Chat Script-->
+    <script type="text/javascript">
+        if (window.partners && !window.partners.isWL()) {
+            window.$zopim || (function (d, s) {
+                var z = $zopim = function (c) {
+                    z._.push(c)
+                }, $ = z.s =
+                        d.createElement(s), e = d.getElementsByTagName(s)[0];
+                z.set = function (o) {
+                    z.set.
+                            _.push(o)
+                };
+                z._ = [];
+                z.set._ = [];
+                $.async = !0;
+                $.setAttribute('charset', 'utf-8');
+                $.src = '//v2.zopim.com/?2aZ00ADGa92tSwVaDs8vM1JiY6wPNdZN';
+                z.t = +new Date;
+                $.
+                        type = 'text/javascript';
+                e.parentNode.insertBefore($, e)
+            })(document, 'script');
+        }
+    </script>
+    <!--End of Zopim Live Chat Script-->
+    
+    
 </head>
 <body class="light-theme" ng-class="{'body-bg':isBodyBg(), 'search-form-expanded': FormExpand}"
       ng-click="bodyClick()" popup-form>
@@ -228,7 +256,8 @@
              && !isActive('/avia/')
              && !isActive('/avia/search/')
              && !isActive('/')
-             && !isActive('/display-order/')"
+             && !isActive('/display-order/')
+             && !isActive('/help/')"
          title="Отправить заявку"></div>
 
     <!-- PAGE CONTENT -->
@@ -328,10 +357,20 @@
     }
 </script>
 
-<script src="//cdn.ravenjs.com/1.1.16/angular,jquery,native/raven.min.js"></script>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=true"></script>
+<script type="text/javascript"
+        src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.13/src/infobox_packed.js"></script>
+<script src="https://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU"
+        type="text/javascript"></script>
+
+<!-- build:bower_components -->
+<script src="/bower_components/bower-components.js"></script>
+<!-- endbuild -->
+
 <script>
     Raven.config('https://5423ebfb08194592901a70946621e5b4@sentry.inna.ru:9000/2', {
-        whitelistUrls: [/\.inna\.ru/],
+        whitelistUrls: [/\www\.inna\.ru/],
         logger: 'javascript'
         /*, dataCallback: function(data) {
          console.info(data, "raven data");
@@ -340,25 +379,11 @@
     }).install();
 </script>
 
-<script src="https://yandex.st/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-route.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-sanitize.min.js"></script>
-
-<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL_wrALCtkwgVOrNOecRiB5a6XMEeXYi0&sensor=true"></script>
-<script type="text/javascript"
-        src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-
 <!--[if lt IE 10]>
 <script src="/spa/lib/ie.placeholder.js"></script>
 <![endif]-->
-<!--<script src="/spa/js/search_form.js"></script>-->
 
 
-<!--contacts-->
-<script src="https://api-maps.yandex.ru/2.0-stable/?load=package.standard,package.geoObjects&lang=ru-RU"
-        type="text/javascript"></script>
 
 <!-- build:app-config-js -->
 <script src="/build/js/config.js"></script>
@@ -369,7 +394,6 @@
 <!-- build:app-main-js -->
 
 <script src="/build/js/app-lib.js"></script>
-<script src="/spa/js/debug.js"></script>
 <script src="/build/js/angular-parts.js"></script>
 <script src="/build/js/templates.js"></script>
 
@@ -471,7 +495,7 @@
     // if your site already has jQuery 1.4.2, replace vis_opt.js with vis_opt_no_jquery.js above
 </script>
 
-<script type='text/javascript'>
+<script type='text/javascript'> 
     if (typeof(_vis_opt_settings_loaded) == "boolean" && typeof(_vis_opt_top_initialize) == "function") {
         _vis_opt_top_initialize();
         vwo_$(document).ready(function () {
@@ -481,6 +505,21 @@
 </script>
 <!-- End Visual Website Optimizer Synchronous Code -->
 
-
+<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.6/zenbox.js"></script>
+<style type="text/css" media="screen, projection">
+  @import url(//assets.zendesk.com/external/zenbox/v2.6/zenbox.css);
+</style>
+<!--<script type="text/javascript">
+  if (typeof(Zenbox) !== "undefined") {
+    Zenbox.init({
+      dropboxID:   "20176365",
+      url:         "https://innatour.zendesk.com",
+      tabTooltip:  "Поддержка",
+      tabImageURL: "https://p4.zdassets.com/external/zenbox/images/tab_ru_support_right.png",
+      tabColor:    "#89c13a",
+      tabPosition: "Right"
+    });
+  }
+</script>-->
 </body>
 </html>

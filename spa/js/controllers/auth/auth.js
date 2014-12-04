@@ -6,11 +6,11 @@ angular.module('innaApp.controllers')
         'innaApp.API.events',
         'AuthDataProvider',
         'innaApp.Urls',
-
         'modelAuth',
-        function($scope, $location, aviaHelper, Events, AuthDataProvider, app, modelAuth){
+        '$route',
+        function($scope, $location, aviaHelper, Events, AuthDataProvider, app, modelAuth, $route){
             /*Private*/
-            var setUserInfo = function(data){
+            var setUserInfo = function (data, needInitLastUserAfterLoginCheck) {
                 if(data && data["Email"]) {
                     Raven.setUserContext({
                         email: data["Email"],
@@ -25,6 +25,14 @@ angular.module('innaApp.controllers')
                     if($scope.$root.user.isAgency() && !$scope.user.raw.AgencyActive) {
                         $scope.logout();
                     }
+
+                    //проверяем, нужно ли перезагрузить страницу
+                    if ($scope.reloadChecker) {
+                        if (needInitLastUserAfterLoginCheck) {//флаг, говорит, что нужно проинициализировать последнего пользователя
+                            $scope.reloadChecker.saveLastUser();
+                        }
+                        $scope.reloadChecker.checkReloadPage();
+                    }
                 });
             }
 
@@ -35,15 +43,17 @@ angular.module('innaApp.controllers')
                 $scope.display = $scope.DISPLAY_SIGNIN;
             };
 
-            $scope.logout = function () {
+            $scope.logout = function (silent) {
                 var wasLoggedUser = $scope.$root.user;
 
                 $scope.$root.user = null;
 
-                AuthDataProvider.logout(onLogoutCompleteOrError, onLogoutCompleteOrError);
+                if (!silent) {
+                    AuthDataProvider.logout(onLogoutCompleteOrError, onLogoutCompleteOrError);
 
-                function onLogoutCompleteOrError() {
-                    $scope.$emit(Events.AUTH_SIGN_OUT, wasLoggedUser);
+                    function onLogoutCompleteOrError() {
+                        $scope.$emit(Events.AUTH_SIGN_OUT, wasLoggedUser);
+                    }
                 }
             };
 
@@ -87,8 +97,6 @@ angular.module('innaApp.controllers')
 
                 socialBrokerListener.on('inna.Auth.SocialBroker.Result', login);
 
-
-
                 return false;
             };
 
@@ -127,8 +135,21 @@ angular.module('innaApp.controllers')
                 $scope.open();
             }
 
-            $scope.recognize = function(){
-                AuthDataProvider.recognize(setUserInfo);
+            $scope.recognize = function(needInitLastUserAfterLoginCheck){
+                AuthDataProvider.recognize(function (data) {
+                    setUserInfo(data, needInitLastUserAfterLoginCheck);
+                },
+                    function (err) {
+                        $scope.safeApply(function () {
+                            //выходим "по-тихому", без запросов на сервер и генерации события логаута
+                            $scope.logout(true);
+
+                            //проверяем, нужно ли перезагрузить страницу
+                            if ($scope.reloadChecker) {
+                                $scope.reloadChecker.checkReloadPage();
+                            }
+                        });
+                    });
             }
 
             $scope.B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
@@ -138,6 +159,8 @@ angular.module('innaApp.controllers')
                 $scope.safeApply(function(){
                     setUserInfo(data);
                     $scope.close();
+
+                    $scope.reloadChecker.saveLastUser();
 
                     if($scope.$root.user && $scope.$root.user.isAgency()) {
                         window.location = $scope.B2B_HOST;
@@ -159,6 +182,57 @@ angular.module('innaApp.controllers')
             });
 
             /*Initial*/
-            $scope.recognize();
+            $scope.recognize(true);
+
+            //поддержка залогиненности из нескольких вкладок
+            function reloadChecker() {
+                var self = this;
+
+                self.lastLoginUser = null;
+
+                //events
+                self.init = function () {
+                    $(window).on('focus', function () {
+                        //тут проверяем авторизацию
+                        //и если она изменилась - то перезагружаем страницу
+                        $scope.recognize();
+                    });
+                };
+
+                self.getCurrentUser = function () {
+                    return ($scope.$root.user && $scope.$root.user.raw) ? $scope.$root.user.raw.Email : null;
+                }
+
+                self.saveLastUser = function (curUser) {
+                    if (curUser == null) {
+                        curUser = self.getCurrentUser();
+                    }
+                    self.lastLoginUser = curUser;
+                };
+
+                self.destroy = function () {
+                    $(window).off('focus');
+                }
+
+                self.checkReloadPage = function () {
+                    var curUser = self.getCurrentUser();
+                    //console.log('checkReloadPage, curUser: ' + curUser + ' lastLoginUser: ' + self.lastLoginUser);
+                    //состояние залогиненности изменилось - тригерим событие
+                    if (self.lastLoginUser != curUser) {
+                        //решрешим страницу
+                        $route.reload();
+                    }
+                    self.saveLastUser(curUser);
+                };
+
+                self.init();
+            }
+
+            $scope.reloadChecker = new reloadChecker();
+            
+
+            $scope.$on('$destroy', function () {
+                reloadChecker.destroy();
+            });
         }
     ]);

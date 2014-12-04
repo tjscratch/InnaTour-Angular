@@ -14,9 +14,9 @@
 
         <h3 class="hotel-info-name">{{hotel.HotelName}}</h3>
 
-        <a href="javascript:void(0);" class="hotel-info-place" on-click="goToMap">
+        <span class="hotel-info-place like-link" on-click="goToMap">
 	        {{hotel.HotelCityName}} {{hotel.Address}}
-        </a>
+        </span>
 
 	    {{#if hotel.RoomCount <= 3}}
             <div class="warning">

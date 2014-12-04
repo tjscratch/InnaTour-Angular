@@ -21,6 +21,14 @@ body {
   &.disable-hover * {
     pointer-events: none !important;
   }
+
+
+  &.blur_content {
+    filter: grayscale(0.2) blur(5px);
+    filter: url("blur.svg#gaussian_blur");
+    -webkit-filter: grayscale(0.2) blur(5px);
+    -o-filter: grayscale(0.1) blur(5px);
+  }
 }
 
 .main {

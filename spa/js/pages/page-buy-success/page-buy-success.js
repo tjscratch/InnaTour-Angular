@@ -197,7 +197,7 @@ innaAppControllers.
                     data.partialInfoHotel = true;
                     data.orderNum = $routeParams.OrderNum;
 
-                    if (window.partners && window.partners.isFullWL()) {
+                    if (window.partners && window.partners.isWL()) {
                         var partner = window.partners.getPartner();
                         data.phone = partner.phone;
                         data.email = partner.email;
@@ -207,7 +207,7 @@ innaAppControllers.
                         data.email = 'sale@inna.ru';
                     }
 
-                    if (window.partners && window.partners.isFullWL()) {
+                    if (window.partners && window.partners.isWL()) {
                         var partner = window.partners.getPartner();
                         data.phone = partner.phone;
                         data.email = partner.email;

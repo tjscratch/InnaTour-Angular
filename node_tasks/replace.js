@@ -3,7 +3,8 @@ var gulp = require('gulp'),
     htmlreplace = require('gulp-html-replace'),
     replace = require('gulp-replace-task'),
     uglify = require('gulp-uglifyjs'),
-    conf = require('./config');
+    conf = require('./config'),
+    manifest = require('./manifest');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -29,6 +30,7 @@ function getConfReplace() {
 
         'app-config-js': '/' + conf.version + '/js/config.js',
         'app-main-js': '/' + conf.version + '/js/app-main.js',
+        'bower_components': '/bower_components' + manifest["/bower-components.js"],
         'app-stylus': '/' + conf.version + '/css/common.min.css'
     }
 }
