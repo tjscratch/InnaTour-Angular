@@ -1,8 +1,8 @@
 var innaModule = {
     frameId: 'innaFrame1',
-    init: function (partner) {
+    init: function (partner, options) {
         setTimeout(function () {
-            innaModule.init_internal(partner);
+            innaModule.init_internal(partner, options);
         }, 0);
             
     },
@@ -10,10 +10,13 @@ var innaModule = {
         processScrollTop: 'processScrollTop',
         clientSizeChange: 'clientSizeChange',
         frameSaveLocationUrl: 'frameSaveLocationUrl',
-        frameSetLocationUrl: 'frameSetLocationUrl'
+        frameSetLocationUrl: 'frameSetLocationUrl',
+        setParentLocationHref: 'setParentLocationHref',
+        setOptions: 'setOptions',
+        loaded: 'loaded'
     },
     containerTopPosition: null,
-    init_internal: function (partner) {
+    init_internal: function (partner, options) {
         var self = innaModule;
 
         var frameCont = document.getElementById('inna-frame');
@@ -32,12 +35,10 @@ var innaModule = {
         //self.frameManager.repositionFrame();
 
         self.cmdManager.init(self.frameManager, self.urlManager);
+        self.cmdManager.options = options;
 
         //слушаем скролл
         self.cmdManager.addCommonEventListener(window, 'scroll', trackScroll);
-
-        //save location
-        self.cmdManager.sendCommandToInnaFrame(self.commands.frameSaveLocationUrl, { 'href': location.href });
 
         //слушаем hashchange
         //self.urlManager.listenLocationChangeEvents(function () {
@@ -366,6 +367,17 @@ function CommandManager() {
 
         if (data) {
             switch (data.cmd) {
+                case 'loaded': {
+                    //save location
+                    self.sendCommandToInnaFrame(innaModule.commands.frameSaveLocationUrl, { 'href': location.href });
+
+                    //console.log('options', self.options);
+                    if (self.options) {
+                        //set custom partner css
+                        self.sendCommandToInnaFrame(innaModule.commands.setOptions, { 'options': self.options });
+                    }
+                    break;
+                }
                 case 'setHeight': self.frameManager.setHeightCmd(data); break;
                 case 'setVisible':
                     {
@@ -376,6 +388,7 @@ function CommandManager() {
                             'doc': self.frameManager.getDocumentSize(),
                             'top': self.frameManager.getElementPosition(frameCont).y
                         });
+
                         break;
                     }
                 case 'setFrameScrollTo': self.frameManager.setFrameScrollToCmd(data); break;
@@ -383,9 +396,26 @@ function CommandManager() {
                 case 'setScrollTop': self.frameManager.setScrollTopCmd(data); break;
 
                 case 'saveUrlToParent': self.urlManager.saveUrlCmd(data); break;
+
+                case 'setParentLocationHref': self.processSetParentLocationHref(data); break;
             }
         }
     };
+
+    self.processSetParentLocationHref = function (data) {
+        if (data.url && data.url.length > 0) {
+            var url = data.url;
+            var host = location.host;
+            location.href = url;
+
+            console.log('location.host: ' + host + ' data.url: ' + data.url);
+            //если урл, по которому нужно перейти на том же домене - рефрешим, чтобы ангулар перезагрузил страницу
+            if (host && host.length > 0 && url.indexOf(host) > -1 || (url.indexOf('file://') == 0)) {
+                console.log('reload');
+                window.location.reload();
+            }
+        }
+    }
 
     self.addCommonEventListener = function (el, event, fn) {
         if (el.addEventListener) {
