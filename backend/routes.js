@@ -1,9 +1,9 @@
-var _         = require('underscore')
-    , url     = require('url')
-    , path    = require('path')
-    , fs      = require('fs')
-    , getUserInfo    = require('./module/auth')
-    , request = require('request');
+var _             = require('underscore')
+    , url         = require('url')
+    , path        = require('path')
+    , fs          = require('fs')
+    , getUserInfo = require('./module/auth')
+    , request     = require('request');
 
 
 var baseRequest = request.defaults({
@@ -33,11 +33,12 @@ module.exports = function (app) {
                     });
                 };
 
-                getUserInfo(req, res, next).then(function (data) {
-                    renderIndexPage(data)
-                }).fail(function () {
-                    renderIndexPage(null)
-                })
+                getUserInfo(req, res, next)
+                    .getAuthInfo().then(function (data) {
+                        renderIndexPage(data)
+                    }).fail(function () {
+                        renderIndexPage(null)
+                    })
             }
         })
 }

@@ -32,6 +32,7 @@ innaAppControllers
 
             Raven.setExtraContext({key: "__SEARCH_DP_CONTEXT__"})
 
+            console.log(userData);
             /**
              * Преобразуем даты и собираем данные для запроса
              * StartVoyageDate и EndVoyageDate
