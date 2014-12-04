@@ -1,40 +1,34 @@
 var request = require('request');
 var jar = request.jar();
-
+var Q = require('q');
 
 module.exports = function (req, res, next) {
 
+    var def = Q.defer();
+
     var objCookie = Object.keys(req.cookies);
-    var cookieString = "";
 
-    if (objCookie.length) {
-        for (var val in req.cookies) {
-            var cook = request.cookie(val + '=' + req.cookies[val]);
-        }
+    if (objCookie.length && req.cookies['.ASPXAUTH']) {
+
+        request({
+                method: 'POST',
+                url: 'https://inna.ru/api/v1/Account/Info/Post',
+                json: true,
+                headers: {
+                    'Cookie': '.ASPXAUTH=' + req.cookies['.ASPXAUTH']
+                }
+            },
+            function (error, response, body) {
+                if (!error) {
+                    def.resolve(body);
+                } else {
+                    def.reject();
+                }
+            });
+
+    } else {
+        def.reject();
     }
 
-    request({
-            method: 'POST',
-            url: 'https://inna.ru/api/v1/Account/Info/Post',
-            json: true
-        },
-        function (error, response, body) {
-            if (!error) {
-                console.log(body)
-            }
-        });
-
-    return {
-        AgencyActive: true,
-        AgencyId: 2,
-        AgencyName: "Тестим Агенства",
-        Email: "admin@testinna.ru",
-        FirstName: "Администратор",
-        IsSocial: false,
-        LastName: "Агенства",
-        MessagesCount: 0,
-        Phone: "+79253050336",
-        SupportPhone: "+7-495-742-17-17",
-        Type: 2
-    }
+    return def.promise;
 }

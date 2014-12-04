@@ -40,7 +40,7 @@
     "handlebars": "^2.0.0",
     "nib": "1.0.4",
     "node-sprite": "0.1.2",
-    "q": "1.0.1",
+    "q": "1.1.2",
     "require-dir": "0.1.0",
     "run-sequence": "1.0.1",
     "underscore": "1.6.0"

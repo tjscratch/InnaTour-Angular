@@ -1,8 +1,8 @@
-var _      = require('underscore')
-    , url  = require('url')
-    , path = require('path')
-    , fs   = require('fs')
-    , auth   = require('./module/auth')
+var _         = require('underscore')
+    , url     = require('url')
+    , path    = require('path')
+    , fs      = require('fs')
+    , getUserInfo    = require('./module/auth')
     , request = require('request');
 
 
@@ -27,11 +27,17 @@ module.exports = function (app) {
             }
             else {
 
-                var userData = auth(req, res, next);
+                function renderIndexPage(data) {
+                    res.render('index', {
+                        userData: data
+                    });
+                };
 
-                res.render('index', {
-                    userData : userData
-                });
+                getUserInfo(req, res, next).then(function (data) {
+                    renderIndexPage(data)
+                }).fail(function () {
+                    renderIndexPage(null)
+                })
             }
         })
 }
