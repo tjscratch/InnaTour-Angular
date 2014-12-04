@@ -34,7 +34,7 @@ bin/*
 *.crunchproject.local.xml
 *.crunchsolution.*
 *.dbmdl
-*.log
+log/*
 *.idea
 *.*(!)
 *.DS_Store
