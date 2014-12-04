@@ -17,6 +17,9 @@
     self.autoHeightTimerId = null;
     self.parentLocation = null;
 
+    //если задан - то при клике на поиск - должен переходить на этот урл + результаты поиска
+    self.jumptoUrl = null;
+
     self.partnersMap = [
         {
             'name': 'biletix',
@@ -188,7 +191,10 @@
         setFrameScrollTo: 'setFrameScrollTo',
         setScrollTop: 'setScrollTop',
         setScrollPage: 'setScrollPage',
-        saveUrlToParent: 'saveUrlToParent'
+        saveUrlToParent: 'saveUrlToParent',
+        setParentLocationHref: 'setParentLocationHref',
+        setOptions: 'setOptions',
+        loaded: 'loaded'
     };
 
     self.isFullWL = function () {
@@ -277,6 +283,12 @@
         setAutoHeightUpdateTimer();
 
         updateHeight();
+    }
+
+    self.setParentLocationHref = function (url) {
+        if (url && url.length > 0) {
+            sendCommandToParent(self.commands.setParentLocationHref, { 'url': url });
+        }
     }
 
     function addCssToBody() {
@@ -389,29 +401,56 @@
     }
 
     function getContentHeight() {
-        var height = document.getElementById('main-content-div').offsetHeight;
-        return height;
+        var el = document.getElementById('main-content-div');
+        if (el) {
+            var height = el.offsetHeight;
+            return height;
+        }
     }
 
     function receiveMessage(event) {
+        //console.log('receiveMessage, event:', event);
         var data = {};
         try {
             data = JSON.parse(event.data);
         }
         catch (e) {
         }
-
+        //console.log('receiveMessage, data:', data);
         if (data) {
             switch (data.cmd) {
                 case 'processScrollTop': processScrollTop(data); break;
                 case 'clientSizeChange': processClientSizeChange(data); break;
                 case 'frameSetLocationUrl': processFrameSetLocationUrl(data); break;
                 case 'frameSaveLocationUrl': processFrameSaveLocationUrl(data); break;
+                case 'setOptions': processSetOptions(data); break;
+            }
+        }
+    }
+
+    function processSetOptions(data) {
+        //console.log('processSetCustomCss, data:', data);
+        if (data.options) {
+            //пришло событие, что поменялся location.href в родительском окне
+            if (data.options.css != null && data.options.css.length > 0) {
+                var link = d.createElement("link");
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.href = data.options.css;
+                //var uniqKey = Math.random(1000).toString(16);
+                insertAfter(link, d.getElementById("partners-css-inject"))
+                console.log('custom partner css loaded', link.href);
+            }
+
+            if (data.options.jumpto != null && data.options.jumpto.length > 0) {
+                self.jumptoUrl = data.options.jumpto;
+                console.log('jumptoUrl set:', self.jumptoUrl);
             }
         }
     }
 
     function processFrameSaveLocationUrl(data) {
+        //console.log('processFrameSaveLocationUrl, data:', data);
         //пришло событие, что поменялся location.href в родительском окне
         if (data.href != null && data.href.length > 0) {
             self.parentLocation = data.href;
@@ -519,6 +558,9 @@
 
         //слушаем события из window.parent
         addCommonEventListener(window, 'message', receiveMessage);
+
+        //отправляем событие, что фрейм загрузился, и можно ему что-то слать
+        sendCommandToParent(self.commands.loaded, { });
     }
 
 }(document, window));
