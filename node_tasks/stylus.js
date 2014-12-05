@@ -102,7 +102,7 @@ gulp.task('styl-widget-search', function () {
             compress: (_ENV_ === 'production' || _ENV_ === 'beta') ? true : false,
             define: {'math-random': 123}
         }))
-        .pipe(gulp.dest(conf.build + '/widgets'))
+        .pipe(gulp.dest(conf.src + '/widgets/search/build'))
         .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 
