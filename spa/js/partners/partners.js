@@ -34,6 +34,20 @@
             'offertaContractLink': ''
         },
         {
+            'name': 'demo',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'sample',
+            'phone': '+7&nbsp;800 000-1111',
+            'email': 'demo@demo.ru',
+            'skype': 'demo',
+            'aboutLink': 'https://demo.ru/about',
+            'contactsLink': 'https://demo.ru/contacts',
+            'offertaContractLink': '',
+            'showOffers': true,
+            'horizontalForm': true
+        },
+        {
             'name': 'biletix',
             'src': '/biletix/biletix.base.css',
             'type': self.WLType.full,
