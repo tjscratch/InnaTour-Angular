@@ -22,6 +22,18 @@
 
     self.partnersMap = [
         {
+            'name': 'sample',
+            'src': '',
+            'type': self.WLType.lite,
+            'title': 'sample',
+            'phone': '+7&nbsp;800 000-1111',
+            'email': 'sample@sample.ru',
+            'skype': 'sample',
+            'aboutLink': 'https://sample.ru/about',
+            'contactsLink': 'https://sample.ru/contacts',
+            'offertaContractLink': ''
+        },
+        {
             'name': 'biletix',
             'src': '/biletix/biletix.base.css',
             'type': self.WLType.full,
@@ -33,30 +45,6 @@
             'contactsLink': 'https://biletix.ru/contacts/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf',
             'showOffers' : true
-        },
-        {
-            'name': 'agenda',
-            'src': '/agenda/agenda.base.css',
-            'type': self.WLType.lite,
-            'title': 'agenda',
-            'phone': '+7&nbsp;888 742-1212',
-            'email': '',
-            'skype': '',
-            'aboutLink': 'https://www.agenda.travel/Other/About#tab=Agenda',
-            'contactsLink': 'http://blog.agenda.travel/',
-            'offertaContractLink': ''
-        },
-        {
-            'name': 'sample',
-            'src': '/sample/sample.base.css',
-            'type': self.WLType.lite,
-            'title': 'sample',
-            'phone': '+7&nbsp;800 000-1111',
-            'email': 'sample@sample.ru',
-            'skype': 'sample',
-            'aboutLink': 'https://sample.ru/about',
-            'contactsLink': 'https://sample.ru/contacts',
-            'offertaContractLink': ''
         },
         {
             'name': 'ulixes',
@@ -72,7 +60,7 @@
         },
         {
             'name': 'skycassa',
-            'src': '/skycassa/skycassa.base.css',
+            'src': '',
             'type': self.WLType.full,
             'title': 'SKYcassa',
             'phone': '+7&nbsp;(495) 287 46 26',
@@ -84,7 +72,7 @@
         },
         {
             'name': 'atlantravel',
-            'src': '/atlantravel/atlantravel.base.css',
+            'src': '',
             'type': self.WLType.full,
             'title': 'Атлантис',
             'phone': '+7&nbsp;(495) 730 21 44',
@@ -96,7 +84,7 @@
         },
         {
             'name': 'ekaterinatours',
-            'src': '/ekaterinatours/ekaterinatours.base.css',
+            'src': '',
             'type': self.WLType.lite,
             'title': 'Екатерина Турс',
             'phone': '+7&nbsp;(985) 427 70 42',
@@ -108,7 +96,7 @@
         },
         {
             'name': 'yourway',
-            'src': '/yourway/yourway.base.css',
+            'src': '',
             'type': self.WLType.full,
             'title': 'Travel company  YOUR WAY',
             'phone': '+7&nbsp;(812) 441 33 65',
@@ -117,6 +105,30 @@
             'aboutLink': 'http://www.yourway.spb.ru/pages/533/',
             'contactsLink': 'http://www.yourway.spb.ru/pages/533/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_yourway.pdf'
+        },
+        {
+            'name': 'kru-god',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'Турагентство «Отдых круглый год»',
+            'phone': '+7&nbsp;(3822) 909303',
+            'email': 'info@kru-god.ru',
+            'skype': '',
+            'aboutLink': 'http://kru-god.ru/about/',
+            'contactsLink': 'http://kru-god.ru/about/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_kru-god.pdf'
+        },
+        {
+            'name': 'e-good',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'ООО "Эконом"',
+            'phone': '+7&nbsp;(495) 989 44 21',
+            'email': 'inna@e-good.ru',
+            'skype': '',
+            'aboutLink': 'http://e-good.ru/',
+            'contactsLink': 'http://e-good.ru/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_e-good.pdf'
         }
     ];
 
@@ -328,6 +340,7 @@
 
     function insertCssAndAddParnterClass(partner) {
         var src = partner.src;
+
         var link = d.createElement("link");
         link.type = "text/css";
         link.rel = "stylesheet";
@@ -335,7 +348,14 @@
         var uniqKey = Math.random(1000).toString(16);
 
         if (partner.realType == window.partners.WLType.full) {
-            link.href = "/spa/styl/partners" + src + '?' + uniqKey;
+            //если не задан css партнера - грузим FullWL - по умолчанию
+            if (src && src.length > 0)
+            {
+                link.href = "/spa/styl/partners" + src + '?' + uniqKey;
+            }
+            else {
+                link.href = "/spa/styl/partners/full_wl/full_wl.base.css?" + uniqKey;
+            }
         }
         else if (partner.realType == window.partners.WLType.lite) {
             link.href = "/spa/styl/partners/lite_wl/lite_wl.base.css" + '?' + uniqKey;
