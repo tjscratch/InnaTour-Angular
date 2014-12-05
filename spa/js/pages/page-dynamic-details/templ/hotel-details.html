@@ -35,11 +35,11 @@
 
 				<div ng-repeat="menu in Menu"
 				     ng-click="goToScroll(menu, $event)"
-				     class="btn hotel-details__section_menu__item"
-				     ng-class="{'btn-active btn-green' : menu.active }">
+				     class="btn hotel-details__section_menu__item">
+					<!--ng-class="{'btn-active btn-green' : menu.active }"-->
 
 					<i class="{{menu.klass}} hotel-details__section_menu__icon" ng-if="!menu.active"></i>
-					<i class="{{menu.klass}}-active hotel-details__section_menu__icon" ng-if="menu.active"></i>
+					<!--<i class="{{menu.klass}}-active hotel-details__section_menu__icon" ng-if="menu.active"></i>-->
 					<span>{{menu.name}}</span>
 				</div>
 			</div>
