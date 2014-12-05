@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<title>Search Widget</title>
+
+	<!--widget app-->
+	<link rel="stylesheet" href="/spa/js/widgets/search/build/inna-search-widget.css"/>
+	<script src="/bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+	<script src="/bower_components/angular/angular.min.js" charset="utf-8"></script>
+	<script src="/spa/js/widgets/search/build/inna-search-widget.js" charset="utf-8"></script>
+
+	<!--libs-->
+	<script src="/spa/lib/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+
+	<script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+	<link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
+
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" href="/spa/js/widgets/search/build/inna-search-widget-bootstrap.css"/>
+</head>
+<body ng-controller="FormBootstrapCtrl">
+
+<div class="container">
+
+	<div class="btn-group">
+		<button type="button" class="btn btn-primary" ng-model="radioModel" btn-radio="'b-inna-search-widget-row-1'">В одну строку</button>
+		<button type="button" class="btn btn-primary" ng-model="radioModel" btn-radio="'b-inna-search-widget-row-2'">В две строки</button>
+		<button type="button" class="btn btn-primary" ng-model="radioModel" btn-radio="'b-inna-search-widget-row-3'">В четыре строки</button>
+	</div>
+
+	<div class="row">
+		<div ng-class="{
+				'col-md-12': radioModel == 'b-inna-search-widget-row-1', 
+				'col-md-6': radioModel == 'b-inna-search-widget-row-2',
+				'col-md-4': radioModel == 'b-inna-search-widget-row-3'
+				}"
+				>
+			<div class="b-inna-search-widget" ng-class="radioModel">
+				<inna-form
+						partner-site="https://inna.ru"
+						partner-name="biletix"
+						>
+				</inna-form>
+			</div>
+			<style>
+				.b-inna-search__nav li,
+				.b-inna-search-form{
+					background-color: {{formBg}};
+				}
+			</style>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<h5>Цвет фона формы</h5>
+			<input colorpicker type="text" ng-model="formBg"/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<h3>код для вставки на сайт:</h3>
+			<div style="margin: 20px 0;">
+	<pre>&lt;div class=&quot;b-inna-search-widget {{ radioModel }}&quot;&gt;
+	&lt;inna-form
+		partner-site=&quot;https://inna.ru&quot;
+		partner-name=&quot;biletix&quot;
+		&gt;
+	&lt;/inna-form&gt;
+&lt;/div&gt;
+&lt;script src=&quot;http://inna.ru/spa/js/widgets/search/inna-search.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+	.b-inna-search__nav li,
+	.b-inna-search-form {background-color: {{formBg}};}
+&lt;/style&gt;</pre>
+			</div>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>
