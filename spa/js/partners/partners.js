@@ -44,7 +44,8 @@
             'aboutLink': 'https://biletix.ru/about_biletix/',
             'contactsLink': 'https://biletix.ru/contacts/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf',
-            'showOffers' : true
+            'showOffers': true,
+            'horizontalForm': false
         },
         {
             'name': 'ulixes',
@@ -141,14 +142,29 @@
         self.setScrollPage(0, false, maxClientHeight);
     };
 
+    self.checkNotHorizForm = function () {
+        var horizForm = false;
+        var par = self.getPartner();
+        if (par && par.horizontalForm) {
+            horizForm = true;
+        }
+        return !horizForm;
+    }
+
     self.scrollToChildSelector = function () {
-        //скроллим родителя фрейма до выбора кол-ва детей
-        self.setScrollPage(120, true, maxClientHeight);
+        //при горизонтальной форме не скролим
+        if (self.checkNotHorizForm()) {
+            //скроллим родителя фрейма до выбора кол-ва детей
+            self.setScrollPage(120, true, maxClientHeight);
+        }
     };
 
     self.scrollToChildSelectorItem = function () {
-        //скроллим родителя фрейма до выбора кол-ва детей
-        self.setScrollPage(200, true, maxClientHeight);
+        //при горизонтальной форме не скролим
+        if (self.checkNotHorizForm()) {
+            //скроллим родителя фрейма до выбора кол-ва детей
+            self.setScrollPage(200, true, maxClientHeight);
+        }
     };
 
     self.resetParentScrollTop = function () {
