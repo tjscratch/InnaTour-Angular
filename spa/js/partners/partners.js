@@ -17,7 +17,22 @@
     self.autoHeightTimerId = null;
     self.parentLocation = null;
 
+    //если задан - то при клике на поиск - должен переходить на этот урл + результаты поиска
+    self.jumptoUrl = null;
+
     self.partnersMap = [
+        {
+            'name': 'sample',
+            'src': '',
+            'type': self.WLType.lite,
+            'title': 'sample',
+            'phone': '+7&nbsp;800 000-1111',
+            'email': 'sample@sample.ru',
+            'skype': 'sample',
+            'aboutLink': 'https://sample.ru/about',
+            'contactsLink': 'https://sample.ru/contacts',
+            'offertaContractLink': ''
+        },
         {
             'name': 'biletix',
             'src': '/biletix/biletix.base.css',
@@ -30,30 +45,6 @@
             'contactsLink': 'https://biletix.ru/contacts/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf',
             'showOffers' : true
-        },
-        {
-            'name': 'agenda',
-            'src': '/agenda/agenda.base.css',
-            'type': self.WLType.lite,
-            'title': 'agenda',
-            'phone': '+7&nbsp;888 742-1212',
-            'email': '',
-            'skype': '',
-            'aboutLink': 'https://www.agenda.travel/Other/About#tab=Agenda',
-            'contactsLink': 'http://blog.agenda.travel/',
-            'offertaContractLink': ''
-        },
-        {
-            'name': 'sample',
-            'src': '/sample/sample.base.css',
-            'type': self.WLType.lite,
-            'title': 'sample',
-            'phone': '+7&nbsp;800 000-1111',
-            'email': 'sample@sample.ru',
-            'skype': 'sample',
-            'aboutLink': 'https://sample.ru/about',
-            'contactsLink': 'https://sample.ru/contacts',
-            'offertaContractLink': ''
         },
         {
             'name': 'ulixes',
@@ -69,7 +60,7 @@
         },
         {
             'name': 'skycassa',
-            'src': '/skycassa/skycassa.base.css',
+            'src': '',
             'type': self.WLType.full,
             'title': 'SKYcassa',
             'phone': '+7&nbsp;(495) 287 46 26',
@@ -81,7 +72,7 @@
         },
         {
             'name': 'atlantravel',
-            'src': '/atlantravel/atlantravel.base.css',
+            'src': '',
             'type': self.WLType.full,
             'title': 'Атлантис',
             'phone': '+7&nbsp;(495) 730 21 44',
@@ -93,10 +84,10 @@
         },
         {
             'name': 'ekaterinatours',
-            'src': '/ekaterinatours/ekaterinatours.base.css',
+            'src': '',
             'type': self.WLType.lite,
             'title': 'Екатерина Турс',
-            'phone': '+7&nbsp;(963) 778 61 40',
+            'phone': '+7&nbsp;(985) 427 70 42',
             'email': 'support@ekaterinatours.ru',
             'skype': 'katerina4753',
             'aboutLink': 'http://ekaterinatours.ru/kontakty/',
@@ -105,7 +96,7 @@
         },
         {
             'name': 'yourway',
-            'src': '/yourway/yourway.base.css',
+            'src': '',
             'type': self.WLType.full,
             'title': 'Travel company  YOUR WAY',
             'phone': '+7&nbsp;(812) 441 33 65',
@@ -114,10 +105,42 @@
             'aboutLink': 'http://www.yourway.spb.ru/pages/533/',
             'contactsLink': 'http://www.yourway.spb.ru/pages/533/',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_yourway.pdf'
+        },
+        {
+            'name': 'kru-god',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'Турагентство «Отдых круглый год»',
+            'phone': '+7&nbsp;(3822) 909303',
+            'email': 'info@kru-god.ru',
+            'skype': '',
+            'aboutLink': 'http://kru-god.ru/about/',
+            'contactsLink': 'http://kru-god.ru/about/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_kru-god.pdf'
+        },
+        {
+            'name': 'e-good',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'ООО "Эконом"',
+            'phone': '+7&nbsp;(495) 989 44 21',
+            'email': 'inna@e-good.ru',
+            'skype': '',
+            'aboutLink': 'http://e-good.ru/',
+            'contactsLink': 'http://e-good.ru/',
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_e-good.pdf'
         }
     ];
 
     var maxClientHeight = 730;
+
+    //скролим страницу обратно вверх, при нажатии на кнопку поиска
+    self.scrollToTop = function () {
+        self.parentScrollTop = 0;
+        //скроллим родителя фрейма до выбора кол-ва детей
+        self.setScrollPage(0, false, maxClientHeight);
+    };
+
     self.scrollToChildSelector = function () {
         //скроллим родителя фрейма до выбора кол-ва детей
         self.setScrollPage(120, true, maxClientHeight);
@@ -180,7 +203,10 @@
         setFrameScrollTo: 'setFrameScrollTo',
         setScrollTop: 'setScrollTop',
         setScrollPage: 'setScrollPage',
-        saveUrlToParent: 'saveUrlToParent'
+        saveUrlToParent: 'saveUrlToParent',
+        setParentLocationHref: 'setParentLocationHref',
+        setOptions: 'setOptions',
+        loaded: 'loaded'
     };
 
     self.isFullWL = function () {
@@ -215,7 +241,7 @@
     }
 
     self.setScrollPage = function (data, smooth, maxHeight) {
-        if (data) {
+        if (data != null) {
             sendCommandToParent(self.commands.setScrollPage, { 'scrollPage': data, 'smooth': smooth, 'maxHeight': maxHeight });
         }
     }
@@ -271,6 +297,12 @@
         updateHeight();
     }
 
+    self.setParentLocationHref = function (url) {
+        if (url && url.length > 0) {
+            sendCommandToParent(self.commands.setParentLocationHref, { 'url': url });
+        }
+    }
+
     function addCssToBody() {
         var cn = document.body.className;
         cn += ' partner-body-noscroll';
@@ -308,6 +340,7 @@
 
     function insertCssAndAddParnterClass(partner) {
         var src = partner.src;
+
         var link = d.createElement("link");
         link.type = "text/css";
         link.rel = "stylesheet";
@@ -315,7 +348,14 @@
         var uniqKey = Math.random(1000).toString(16);
 
         if (partner.realType == window.partners.WLType.full) {
-            link.href = "/spa/styl/partners" + src + '?' + uniqKey;
+            //если не задан css партнера - грузим FullWL - по умолчанию
+            if (src && src.length > 0)
+            {
+                link.href = "/spa/styl/partners" + src + '?' + uniqKey;
+            }
+            else {
+                link.href = "/spa/styl/partners/full_wl/full_wl.base.css?" + uniqKey;
+            }
         }
         else if (partner.realType == window.partners.WLType.lite) {
             link.href = "/spa/styl/partners/lite_wl/lite_wl.base.css" + '?' + uniqKey;
@@ -381,29 +421,56 @@
     }
 
     function getContentHeight() {
-        var height = document.getElementById('main-content-div').offsetHeight;
-        return height;
+        var el = document.getElementById('main-content-div');
+        if (el) {
+            var height = el.offsetHeight;
+            return height;
+        }
     }
 
     function receiveMessage(event) {
+        //console.log('receiveMessage, event:', event);
         var data = {};
         try {
             data = JSON.parse(event.data);
         }
         catch (e) {
         }
-
+        //console.log('receiveMessage, data:', data);
         if (data) {
             switch (data.cmd) {
                 case 'processScrollTop': processScrollTop(data); break;
                 case 'clientSizeChange': processClientSizeChange(data); break;
                 case 'frameSetLocationUrl': processFrameSetLocationUrl(data); break;
                 case 'frameSaveLocationUrl': processFrameSaveLocationUrl(data); break;
+                case 'setOptions': processSetOptions(data); break;
+            }
+        }
+    }
+
+    function processSetOptions(data) {
+        //console.log('processSetCustomCss, data:', data);
+        if (data.options) {
+            //пришло событие, что поменялся location.href в родительском окне
+            if (data.options.css != null && data.options.css.length > 0) {
+                var link = d.createElement("link");
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.href = data.options.css;
+                //var uniqKey = Math.random(1000).toString(16);
+                insertAfter(link, d.getElementById("partners-css-inject"))
+                console.log('custom partner css loaded', link.href);
+            }
+
+            if (data.options.jumpto != null && data.options.jumpto.length > 0) {
+                self.jumptoUrl = data.options.jumpto;
+                console.log('jumptoUrl set:', self.jumptoUrl);
             }
         }
     }
 
     function processFrameSaveLocationUrl(data) {
+        //console.log('processFrameSaveLocationUrl, data:', data);
         //пришло событие, что поменялся location.href в родительском окне
         if (data.href != null && data.href.length > 0) {
             self.parentLocation = data.href;
@@ -511,6 +578,9 @@
 
         //слушаем события из window.parent
         addCommonEventListener(window, 'message', receiveMessage);
+
+        //отправляем событие, что фрейм загрузился, и можно ему что-то слать
+        sendCommandToParent(self.commands.loaded, { });
     }
 
 }(document, window));

@@ -2,7 +2,6 @@
     "use strict"
 
     angular.module("innaSearchForm", [
-        "ngResource",
         "ui.bootstrap",
         "searchForm",
         "innaDirectives",
@@ -47,3 +46,11 @@
     var innaTemplates = angular.module('innaTemplates', []);
     
 }());
+
+$(document).ready(function () {
+
+    var appContainer = $(".b-inna-search-widget");
+    
+    angular.bootstrap(appContainer, ['innaSearchForm']);
+    
+});

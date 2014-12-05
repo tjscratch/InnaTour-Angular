@@ -7,7 +7,7 @@
 	<div class="b-inna-row">
 		<form name="innaSearchForm">
 
-			<div class="b-inna-col-xs-3">
+			<div class="b-inna-col-xs-3 b-inna-col-lg-6 b-inna-col-sm-12">
 				<div class="b-inna-search-form-field __typeahead">
 					<input
 							class="b-inna-search-form-field-input"
@@ -19,11 +19,12 @@
 							typeahead-wait-ms="300"
 							ng-change="fromIdError = null"
 							>
+
 					<div error-tooltip error="{{fromIdError}}"></div>
 				</div>
 			</div>
 
-			<div class="b-inna-col-xs-3">
+			<div class="b-inna-col-xs-3 b-inna-col-lg-6 b-inna-col-sm-12">
 				<div class="b-inna-search-form-field __typeahead">
 					<input
 							class="b-inna-search-form-field-input"
@@ -33,13 +34,14 @@
 							typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
 							typeahead-template-url="typeaheadTemplateCustom.html"
 							typeahead-wait-ms="300"
-					        ng-change="toIdError = null"
+							ng-change="toIdError = null"
 							>
+
 					<div error-tooltip error="{{toIdError}}"></div>
 				</div>
 			</div>
 
-			<div class="b-inna-col-xs-3">
+			<div class="b-inna-col-xs-3  b-inna-col-lg-6  b-inna-col-sm-12">
 				<div class="b-inna-search-form-field b-inna-row input-daterange">
 					<div class="b-inna-col-xs-6">
 						<input
@@ -48,7 +50,7 @@
 								name="startDate"
 								ng-model="startDate"
 								placeholder="Туда"
-						        ng-focus="startDateError = null"
+								ng-focus="startDateError = null"
 								/>
 
 						<div error-tooltip error="{{startDateError}}"></div>
@@ -60,7 +62,7 @@
 								name="endDate"
 								ng-model="endDate"
 								placeholder="Обратно"
-						        ng-focus="endDateError = null"
+								ng-focus="endDateError = null"
 								/>
 
 						<div error-tooltip error="{{endDateError}}"></div>
@@ -68,7 +70,7 @@
 				</div>
 			</div>
 
-			<div class="b-inna-col-xs-3">
+			<div class="b-inna-col-xs-3  b-inna-col-lg-6  b-inna-col-sm-12">
 				<div class="b-inna-row">
 					<div class="b-inna-col-xs-6">
 						<div counter-people

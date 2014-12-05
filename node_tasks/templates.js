@@ -41,5 +41,5 @@ gulp.task('build-templates-widgets-search', function () {
                 beautify: true
             }
         }))
-        .pipe(gulp.dest(conf.build+'/widgets/'))
+        .pipe(gulp.dest(conf.src+'/widgets/search/build'))
 });
