@@ -8,6 +8,13 @@ innaAppControllers
         'innaApp.Urls',
         function ($scope, $rootScope, serviceCache, Validators, $location, URLs) {
 
+            if (window.partners) {
+                var part = window.partners.getPartner();
+                if (part) {
+                    $scope.useHorizontalForm = part.horizontalForm;
+                }
+            }
+
             function wlDataControl() {
                 var self = this;
 
