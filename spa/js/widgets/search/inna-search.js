@@ -1,6 +1,6 @@
 (function (d) {
 
-    var host = 'http://inna.ru';
+    var host = 'http://test.inna.ru';
     var widget = d.querySelector(".b-inna-search-widget");
 
     var sources = {
