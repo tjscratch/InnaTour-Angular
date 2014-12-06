@@ -20,7 +20,8 @@
 					ng-if="room.Photos"></div>
 
 				<div class="hotel-details-rooms__room_pic"
-				     ng-if="!room.Photos"></div>
+				     ng-if="!room.Photos && !RoomsPhotosIsEmpty"
+					 style="background-image: url('spa/img/hotels/no_photo70x70.png')"></div>
 
 				<h3 class="hotel-details-rooms__room-title">
 					<span class="like-link">{{room.RoomName}}</span>
