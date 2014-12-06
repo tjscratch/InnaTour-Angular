@@ -67,6 +67,7 @@
 					</div>
 					<div class="hotel-details__section-text-viewport"
 					     ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
+
 						<div ng-repeat="section in hotel.Description track by $index">
 							<div ng-bind-html="section.Content"></div>
 						</div>
@@ -86,8 +87,9 @@
 				</div>
 				<ul class="hotel-details-extra" ng-if="hotel.Extra">
 					<li ng-repeat="(key, val) in hotel.Extra track by $index"
-					    class="hotel-details-extra__item hotel-details-extra__item_description hotel-details-extra__item_type_{{key | lowercase}}">
-						<i class="icon-type-extra icon-type-extra-{{key | lowercase}}"></i>
+					    class="hotel-details-extra__item hotel-details-extra__item_description">
+						<!--hotel-details-extra__item_type_{{key | lowercase}}-->
+						<!--<i class="icon-type-extra icon-type-extra-{{key | lowercase}}"></i>-->
 						{{val}}
 					</li>
 				</ul>
