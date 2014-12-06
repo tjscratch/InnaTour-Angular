@@ -137,20 +137,19 @@ gulp.task('build-ang.helpers', function () {
 
 gulp.task('build-widget-search', ['build-templates-widgets-search'], function () {
     return gulp.src([
-        //conf.dest + '/lib/ui-bootstrap/ui-bootstrap-tpls-0.11.2.min.js',
         conf.dest + '/lib/ui-bootstrap/ui-bootstrap-custom-0.12.0.js',
         conf.dest + '/lib/ui-bootstrap/ui-bootstrap-custom-tpls-0.12.0.js',
         conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.min.js',
         conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.ru.min.js',
         conf.src + '/widgets/search/js/*.js',
-        conf.build + '/widgets/templates.js'
+        conf.src + '/widgets/search/build/templates.js'
     ])
         .pipe(concat('inna-search-widget.js'))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
             mangle: false,
             outSourceMap: true
         })))
-        .pipe(gulp.dest(conf.build + '/widgets'));
+        .pipe(gulp.dest(conf.src + '/widgets/search/build'));
 });
 
 

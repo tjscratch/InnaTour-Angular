@@ -2,20 +2,47 @@ $offset = 3px;
 $offset-row = -3px;
 
 .b-inna-row{
-	position relative
-	margin-right $offset-row;
-	margin-left $offset-row;
+    position relative
+    margin-right $offset-row;
+    margin-left $offset-row;
 }
-
 for key in (1..12){
-	$cols = 12 / key
-	.b-inna-col-xs-{key}{
-		position: relative;
-		float: left;
-		width: (100 / $cols) %;
-		min-height: 1px;
-		box-sizing: border-box;
-		padding-left: $offset;
-		padding-right: $offset;
-	}
+    $cols = 12 / key
+    .b-inna-col-xs-{key}{
+        position: relative;
+        float: left;
+        width: (100 / $cols) %;
+        min-height: 1px;
+        box-sizing: border-box;
+        padding-left: $offset;
+        padding-right: $offset;
+    }
+}
+.b-inna-search-widget-row-2{
+    .b-inna-search-form{
+        padding-top 4px
+        padding-bottom 4px
+    }
+
+    for key in (1..12){
+        $cols = 12 / key
+        .b-inna-col-lg-{key}{
+            width: (100 / $cols) %;
+            padding: $offset;
+        }
+    }
+}
+.b-inna-search-widget-row-3{
+    .b-inna-search-form{
+        padding-top 4px
+        padding-bottom 4px
+    }
+
+    for key in (1..12){
+        $cols = 12 / key
+        .b-inna-col-sm-{key}{
+            width: (100 / $cols) %;
+            padding: $offset;
+        }
+    }
 }
