@@ -343,7 +343,7 @@ innaAppControllers
                             $scope.OldPrice = $scope.recommendedPair.getFullPackagePrice();
 
                             // для теста новой цены
-                            data.NewPrice = 70000;
+                            //data.NewPrice = 70000;
 
                             if(data.NewPrice) {
                                 $scope.NewPrice = data.NewPrice;
