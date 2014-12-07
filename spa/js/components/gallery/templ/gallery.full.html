@@ -15,7 +15,7 @@
 						ng-style="pics.setHeight(true)">
 
 						<li ng-repeat="pic in pics.list"
-						    ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"
+						    ng-class="{'gallery__list-item_state_current_full': pics.isCurrent($index)}"
 						    class="gallery__list-item"
 						    style="background-image:url({{pic.src}});"
 						    ng-click="pics.setCurrent($index,$event)"></li>
