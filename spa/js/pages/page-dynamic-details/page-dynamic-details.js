@@ -408,7 +408,7 @@ innaAppControllers
                             } else {
                                 $scope.goToScroll('SectionRoom');
                             }
-                        }, 0);
+                        }, 200);
                     }
 
                     getHotelDetailsRooms();
