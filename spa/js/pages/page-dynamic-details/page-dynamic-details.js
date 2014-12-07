@@ -427,7 +427,7 @@ innaAppControllers
                 var Adult = searchParams.Adult || 0;
                 var Children = searchParams.Children || '';
 
-                var urlDetails = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                var urlDetails = '/#' + Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
                     DepartureId,
                     ArrivalId,
                     StartVoyageDate,
@@ -546,6 +546,7 @@ innaAppControllers
 
                 if(menu_item.id){
                     ID = menu_item.id;
+                    $scope.menu_item = menu_item;
                 } else {
                     ID = menu_item;
                 }

@@ -4,6 +4,20 @@
 
 	<div class="hotel-details__wrap main__center">
 
+		<div class="hotel-details__section hotel-details__section__crumbs">
+			<ul class="section__crumbs__list">
+				<li class="section__crumbs__list__item">
+					<a href="/#/" class="section__crumbs__list__item__link">Главная</a>
+				</li>
+				<li class="section__crumbs__list__item">
+					<a href="{{goToSearchDynamic()}}" class="section__crumbs__list__item__link">Результаты поиска</a>
+				</li>
+				<li class="section__crumbs__list__item" ng-if="menu_item">
+					{{menu_item.name}}
+				</li>
+			</ul>
+		</div>
+
 		<div class="hotel-details__section hotel-details__section_layout_context">
 
 			<div class="hotel-details__ta hotel-details-ta-info"

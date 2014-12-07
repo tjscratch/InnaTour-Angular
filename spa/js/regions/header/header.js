@@ -22,17 +22,17 @@ innaAppControllers
             $scope.isHeaderVisible = true;
 
 
+            if ($location.path().indexOf(appUrls.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
+                $scope.shadow = true;
+            }
+
+
             EventManager.on(Events.HEADER_VISIBLE, function () {
                 $scope.safeApply(function () {
                     $scope.isHeaderVisible = true;
                 });
             });
 
-            /*EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
-             $scope.safeApply(function () {
-             $scope.isHeaderVisible = true;
-             });
-             });*/
 
             EventManager.on(Events.HEAD_HIDDEN, function () {
                 $scope.safeApply(function () {
