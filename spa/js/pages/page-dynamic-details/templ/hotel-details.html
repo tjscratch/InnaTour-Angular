@@ -78,13 +78,14 @@
 							<div ng-if="!showFullDescription" ng-bind-html="section.Content | limitFilter:300"></div>
 							<div ng-if="showFullDescription" ng-bind-html="section.Content"></div>
 						</div>
-						<p>
+						<p ng-if="showFullDescription">
 							<b>Подробные сведения</b><br/><br/>
 							<b>Время прибытия:</b>&nbsp;{{hotel.CheckInTime}}
 							&nbsp;&nbsp;&nbsp;&nbsp;
 							<b>Выезд:</b>&nbsp;{{hotel.CheckOutTime}}
 						</p>
 					</div>
+
 					<p>
 						<span class="hotel-details__section-text-more"
 						      ng-if="showFullDescription"
