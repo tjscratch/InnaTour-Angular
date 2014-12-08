@@ -71,19 +71,12 @@
 				<h2 class="hotel-details__section-title">Описание отеля</h2>
 
 				<div class="hotel-details__section-text">
-					<div class="spinner" ng-if="!hotelLoaded">
-						<div class="rect rect1"></div>
-						<div class="rect rect2"></div>
-						<div class="rect rect3"></div>
-						<div class="rect rect4"></div>
-						<div class="rect rect5"></div>
-						<img class="gif" src="/spa/img/spinner.gif">
-					</div>
 					<div class="hotel-details__section-text-viewport"
 					     ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
 
 						<div ng-repeat="section in hotel.Description track by $index">
-							<div ng-bind-html="section.Content"></div>
+							<div ng-if="!showFullDescription" ng-bind-html="section.Content | limitFilter:300"></div>
+							<div ng-if="showFullDescription" ng-bind-html="section.Content"></div>
 						</div>
 						<p>
 							<b>Подробные сведения</b><br/><br/>
@@ -93,9 +86,12 @@
 						</p>
 					</div>
 					<p>
-						<span class="hotel-details__section-text-more" ng-if="showFullDescription"
+						<span class="hotel-details__section-text-more"
+						      ng-if="showFullDescription"
 						      ng-click="toggleDescription()">Свернуть</span>
-						<span class="hotel-details__section-text-more" ng-if="!showFullDescription"
+
+						<span class="hotel-details__section-text-more"
+						      ng-if="!showFullDescription"
 						      ng-click="toggleDescription()">Развернуть</span>
 					</p>
 				</div>
