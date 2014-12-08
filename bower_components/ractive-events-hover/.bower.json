@@ -29,7 +29,6 @@
     "commit": "59df329731ab0e067960f51d58c3da41e161679b"
   },
   "_source": "git://github.com/ractivejs/ractive-events-hover.git",
-  "_target": "~0.1.1",
-  "_originalSource": "ractive-events-hover",
-  "_direct": true
+  "_target": "0.1.1",
+  "_originalSource": "ractive-events-hover"
 }

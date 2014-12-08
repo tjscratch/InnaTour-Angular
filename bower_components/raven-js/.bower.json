@@ -11,7 +11,6 @@
     "commit": "2cf8531e8150d37fc36a7b4488d4ca39d77234e2"
   },
   "_source": "git://github.com/getsentry/raven-js.git",
-  "_target": "~1.1.16",
-  "_originalSource": "raven-js",
-  "_direct": true
+  "_target": "1.1.16",
+  "_originalSource": "raven-js"
 }

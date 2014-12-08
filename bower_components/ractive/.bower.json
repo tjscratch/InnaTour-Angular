@@ -29,7 +29,6 @@
     "commit": "7d4a2306e3e02c0a7dc6818294fc83b17ed61e88"
   },
   "_source": "git://github.com/ractivejs/ractive.git",
-  "_target": "~0.6.1",
-  "_originalSource": "ractive",
-  "_direct": true
+  "_target": "0.6.1",
+  "_originalSource": "ractive"
 }
