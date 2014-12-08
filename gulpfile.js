@@ -27,7 +27,7 @@ console.info('----------------------------');
 
 gulp.task('build-project', function (callback) {
     runSequence(
-        ['remove-publish', 'remove-manifest'],
+        ['remove-publish', 'remove-manifest', 'remove-bower'],
         'create-manifest',
 
         'sprite',

@@ -17,6 +17,13 @@ gulp.task('remove-manifest', function (cb) {
     },cb);
 });
 
+gulp.task('remove-bower', function (cb) {
+    return del([
+        conf.bower + '/bower-components.js',
+        conf.bower + '/bower-components.*.js',
+    ], { force : true },cb);
+});
+
 gulp.task('create-manifest', function (cb) {
     return file('manifest.json', '{}', { src: true })
         .pipe(gulp.dest(conf.node_path));
