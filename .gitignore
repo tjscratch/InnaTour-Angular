@@ -83,6 +83,10 @@ spa/js/**/*.css
 bower_components/**/node_modules
 bower_components/bower-components.js
 bower_components/bower-components.*.js
+!bower_components/**/build
+!bower_components/**/src
+!bower_components/**/dist
+!bower_components/**/min
 
 
 
