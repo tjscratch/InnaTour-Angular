@@ -10,17 +10,12 @@
 	<link rel="stylesheet" href="/spa/js/widgets/search/build/inna-search-widget.css"/>
 	<script src="/bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
 	<script src="/bower_components/angular/angular.min.js" charset="utf-8"></script>
+	<script src="/bower_components/angular-sanitize/angular-sanitize.min.js" charset="utf-8"></script>
 	<script src="/spa/js/widgets/search/build/inna-search-widget.js" charset="utf-8"></script>
 
 	<!--libs-->
 	<script src="/spa/lib/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
 
-	<script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-	<link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
-
-	<script src="/bower_components/angularjs-slider/dist/rzslider.min.js"></script>
-	<link rel="stylesheet" href="/bower_components/angularjs-slider/dist/rzslider.min.css"/>
-	
 	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
 	<link rel="stylesheet" href="/spa/js/widgets/search/build/inna-search-widget-bootstrap.css"/>
@@ -50,70 +45,101 @@
 				</inna-form>
 			</div>
 			<style>
-				.b-inna-search__nav li,
-				.b-inna-search-form{
+				.b-inna-search__nav li, .b-inna-search-form{
 					background-color: {{formBg}};
-					color: {{formColorText}};
+					color:{{formColorText}};
 				}
+				.datepicker .table-condensed > tbody > tr > td:hover, 
+				.datepicker table > tbody > tr > td:hover,
+				.datepicker .table-condensed > tbody > tr > td.selected, 
+				.datepicker table > tbody > tr > td.selected,
 				.b-inna-btn{
 					background-color:{{btnBg}};
 					color:{{btnColor}};
 				}
+				.datepicker .table-condensed > tbody > tr > td.range, 
+				.datepicker table > tbody > tr > td.range{
+					background-color: {{btnBg}};
+					opacity: .6;
+				}
+				.b-inna-search-form-field-input:focus{
+					box-shadow: inset 0 0 4px {{btnBg}}; 
+					border-color: {{btnBg}};
+				}
 				.b-inna-search-form-field .dropdown-menu li:first-child,
 				.b-inna-search__nav li{
-					border-radius: {{borderRadius}}px {{borderRadius}}px 0 0;
+					border-radius:{{borderRadius}}px {{borderRadius}}px 0 0;
 				}
-				.b-inna-search-form-field .dropdown-menu li:last-child
-				{
+				.b-inna-search-form-field .dropdown-menu li:last-child{
 					border-radius: 0 0 {{borderRadius}}px {{borderRadius}}px;
 				}
 				.b-inna-search-form{
-					border-radius: 0 {{borderRadius}}px {{borderRadius}}px;
+					border-radius:0 {{borderRadius}}px {{borderRadius}}px;
 				}
 				.inna-dropdown,
 				.b-inna-btn,
 				.b-inna-search-form-field .dropdown-menu,
 				.b-inna-search-form-field-input{
-					border-radius: {{borderRadius}}px;
+					border-radius:{{borderRadius}}px;
 				}
 			</style>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-10 col-md-offset-1">
 			<h4>Настрока внешнего вида виджета:</h4>
 			<br/>
 
 			<div class="form-horizontal" role="form">
 				<div class="form-group">
 					<label for="formBg" class="col-sm-3 control-label">Цвет фона формы:</label>
-					<div class="col-sm-8">
+
+					<div class="col-sm-7">
 						<input class="form-control" id="formBg" type="color" ng-model="formBg">
+					</div>
+					<div class="col-sm-2">
+						<input class="form-control" type="text" ng-model="formBg">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="formColorText" class="col-sm-3 control-label">Цвет текста формы:</label>
-					<div class="col-sm-8">
+
+					<div class="col-sm-7">
 						<input class="form-control" id="formColorText" type="color" ng-model="formColorText">
+					</div>
+					<div class="col-sm-2">
+						<input class="form-control" type="text" ng-model="formColorText">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="btnBg" class="col-sm-3 control-label">Цвет фона кнопки:</label>
-					<div class="col-sm-8">
+
+					<div class="col-sm-7">
 						<input class="form-control" id="btnBg" type="color" ng-model="btnBg">
+					</div>
+					<div class="col-sm-2">
+						<input class="form-control" type="text" ng-model="btnBg">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="btnColor" class="col-sm-3 control-label">Цвет текста кнопки:</label>
-					<div class="col-sm-8">
+
+					<div class="col-sm-7">
 						<input class="form-control" id="btnColor" type="color" ng-model="btnColor">
+					</div>
+					<div class="col-sm-2">
+						<input class="form-control" type="text" ng-model="btnColor">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="borderRadius" class="col-sm-3 control-label">Радиус углов ({{ borderRadius }}px)</label>
-					<div class="col-sm-8" style="padding-top: 8px">
-						<input id="borderRadius" type="range" max="15" min="1" step="1" ng-model="borderRadius">
+					<label for="borderRadius" class="col-sm-3 control-label">Радиус углов (px)</label>
+
+					<div class="col-sm-7" style="padding-top: 8px">
+						<input id="borderRadius" type="range" max="15" min="0" step="1" ng-model="borderRadius">
+					</div>
+					<div class="col-sm-2">
+						<input class="form-control" type="text" ng-model="borderRadius">
 					</div>
 				</div>
 			</div>
@@ -123,7 +149,7 @@
 
 	<div class="row">
 		<div class="col-md-12">
-			<h3>код для вставки на сайт:</h3>
+			<h4>Код для вставки на сайт:</h4>
 			<div style="margin: 20px 0;">
 	<pre>&lt;div class=&quot;b-inna-search-widget {{ radioModel }}&quot;&gt;
 	&lt;inna-form
@@ -134,14 +160,42 @@
 &lt;/div&gt;
 &lt;script src=&quot;http://inna.ru/spa/js/widgets/search/inna-search.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
 &lt;style&gt;
-	.b-inna-search__nav li,
-	.b-inna-search-form {
+	.b-inna-search__nav li, .b-inna-search-form{
 		background-color: {{formBg}};
-		color: {{formColorText}};
+		color:{{formColorText}};
 	}
+	.datepicker .table-condensed > tbody > tr > td:hover, 
+	.datepicker table > tbody > tr > td:hover,
+	.datepicker .table-condensed > tbody > tr > td.selected, 
+	.datepicker table > tbody > tr > td.selected,
 	.b-inna-btn{
 		background-color:{{btnBg}};
 		color:{{btnColor}};
+	}
+	.datepicker .table-condensed > tbody > tr > td.range, 
+	.datepicker table > tbody > tr > td.range{
+		background-color: {{btnBg}};
+		opacity: .6;
+	}
+	.b-inna-search-form-field-input:focus{
+		box-shadow: inset 0 0 4px {{btnBg}}; 
+		border-color: {{btnBg}};
+	}
+	.b-inna-search-form-field .dropdown-menu li:first-child,
+	.b-inna-search__nav li{
+		border-radius:{{borderRadius}}px {{borderRadius}}px 0 0;
+	}
+	.b-inna-search-form-field .dropdown-menu li:last-child{
+		border-radius: 0 0 {{borderRadius}}px {{borderRadius}}px;
+	}
+	.b-inna-search-form{
+		border-radius:0 {{borderRadius}}px {{borderRadius}}px;
+	}
+	.inna-dropdown,
+	.b-inna-btn,
+	.b-inna-search-form-field .dropdown-menu,
+	.b-inna-search-form-field-input{
+		border-radius:{{borderRadius}}px;
 	}
 &lt;/style&gt;</pre>
 			</div>

@@ -2,6 +2,7 @@
     "use strict"
 
     var app = angular.module("innaSearchForm", [
+        "ngSanitize",
         "ui.bootstrap",
         "searchForm",
         "innaDirectives",
@@ -51,7 +52,8 @@
      */
     app.controller('FormBootstrapCtrl', [
         '$scope',
-        function ($scope) {
+        '$templateCache',
+        function ($scope, $templateCache) {
 
             $scope.radioModel = 'b-inna-search-widget-row-1';
 
@@ -59,11 +61,9 @@
             $scope.formColorText = '#ffffff';
             $scope.btnBg = '#89c13a';
             $scope.btnColor = '#ffffff';
-            $scope.borderRadius = 10;
-
+            $scope.borderRadius = 2;
         }
     ]);
-
     /**
      * END Bootstrap form
      */
