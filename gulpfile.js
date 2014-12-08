@@ -1,11 +1,7 @@
-﻿var requireDir = require('require-dir');
-var dir = requireDir('./node_tasks');
-
-var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    gulpif = require('gulp-if'),
-    runSequence = require('run-sequence'),
-    conf = require('./node_tasks/config');
+﻿var dir         = require('require-dir')('./node_tasks'),
+    gulp        = require('gulp'),
+    gutil       = require('gulp-util'),
+    runSequence = require('run-sequence');
 
 
 var _ENV_ = process.env.NODE_ENV || '';
@@ -31,7 +27,9 @@ console.info('----------------------------');
 
 gulp.task('build-project', function (callback) {
     runSequence(
-        'remove-publish',
+        ['remove-publish', 'remove-manifest'],
+        'create-manifest',
+
         'sprite',
         'styles-app',
         'replace-config',

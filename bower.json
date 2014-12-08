@@ -1,7 +1,6 @@
 {
   "author": "inna.ru",
   "name": "inna",
-  "version": "0.1.0",
   "dependencies": {
     "angular": "1.3.5",
     "angular-cookies": "1.3.5",

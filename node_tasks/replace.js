@@ -4,8 +4,16 @@ var gulp        = require('gulp'),
     replace     = require('gulp-replace-task'),
     uglify      = require('gulp-uglifyjs'),
     conf        = require('./config'),
-    manifest    = require('./manifest'),
     Q           = require('q');
+
+
+var manifest = null;
+
+try{
+    manifest = require('./manifest');
+} catch (e){
+
+}
 
 var _ENV_ = process.env.NODE_ENV || '';
 
