@@ -75,6 +75,7 @@ build
 build_and_publish
 npm-debug.log
 publish
+node_tasks/manifest.json
 
 
 # игнорируем собранный файл спрайтов
