@@ -31,11 +31,6 @@ function getConfReplace() {
     try{
         manifest = require('./manifest');
     } catch (e){
-<<<<<<< HEAD
-        manifest = require('./manifest');
-=======
-
->>>>>>> a7e9c9d... изменил сборку
     }
 
     return {
@@ -93,7 +88,6 @@ gulp.task('replace-index', function () {
         .pipe(htmlreplace(getConfReplace()))
         .pipe(gulp.dest(conf.publish));
 });
-console.log(process.cwd());
 
 // зависимость - сначала копируем папку backend
 // делаем задержку, так как почемуто не происходит замены в файле

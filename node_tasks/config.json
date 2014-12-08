@@ -43,9 +43,5 @@
     }
   },
   "tripadvisor": "www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=",
-<<<<<<< HEAD
   "version": "build-0.41d73469-0.mrqc4jo"
-=======
-  "version": "build-0.83ef032-0.i5jtmr"
->>>>>>> a7e9c9d... изменил сборку
 }
