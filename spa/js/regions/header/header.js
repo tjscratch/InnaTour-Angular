@@ -22,11 +22,6 @@ innaAppControllers
             $scope.isHeaderVisible = true;
 
 
-            if ($location.path().indexOf(appUrls.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
-                $scope.shadow = true;
-            }
-
-
             EventManager.on(Events.HEADER_VISIBLE, function () {
                 $scope.safeApply(function () {
                     $scope.isHeaderVisible = true;
@@ -121,12 +116,22 @@ innaAppControllers
             };
 
             setTitle();
+
             function setTitle() {
                 $scope.title = "Инна-Тур - " + $scope.getTitle();
             };
 
+            function setShadow (){
+                if ($location.path().indexOf(appUrls.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
+                    $scope.shadow = true;
+                } else {
+                    $scope.shadow = false;
+                }
+            }
+
             $scope.$on('$routeChangeSuccess', function () {
                 setTitle();
+                setShadow();
             });
 
             $scope.$root.isLoginPopupOpened = false;
