@@ -1,0 +1,50 @@
+<div class="hotel-details-rooms__room__details">
+
+	<div class="balloon-close" ng-click="toggleRoom(room)" title="Закрыть">
+		<i class="icon-sprite-remove-blue"></i>
+	</div>
+
+	<!--<ul class="mini-gallery" ng-if="room.Photos && (room.Photos.LargePhotos && room.Photos.LargePhotos.length)">
+			<li ng-repeat="pic in room.Photos.LargePhotos"
+				class="mini-gallery__mini"
+				style="background-image:url({{room.Photos.BaseUrl + pic}});">
+				<div class="mini-gallery__big">
+					<img class="mini-gallery__big-img" ng-src="{{room.Photos.BaseUrl + pic}}" alt=""/>
+				</div>
+				</li>
+		</ul>-->
+
+	<div class="hotel-details-rooms__room__details__text">
+		<p ng-bind-html="room.Description | stripTags"></p>
+
+		<h3 ng-if="room.Extra">Включено в стоимость</h3>
+
+		<p ng-if="room.Extra">
+                <span ng-repeat="(name, list) in room.Extra" ng-init="isLastExtra = $last">
+                    <span ng-repeat-start="item in list.List" ng-init="isLastItem = $last">{{item}}</span>
+                    <span ng-if="!isLastExtra || !isLastItem">, </span>
+                    <span ng-if="isLastExtra && isLastItem" ng-repeat-end>.</span>
+                </span>
+		</p>
+
+		<h3 ng-if="room.RoomAmenities">Услуги</h3>
+
+		<p ng-if="room.RoomAmenities">
+                <span ng-repeat="am in room.RoomAmenities">
+                    {{am.Name}}
+	                <span ng-if="!$last">,&nbsp;</span>
+                    <span ng-if="$last">.</span>
+                </span>
+		</p>
+
+		<div ng-if="room.CancellationRule">
+			<h3>Правила отмены</h3>
+
+			<p ng-bind-html="room.CancellationRule"></p>
+
+			<div ng-bind-html="room.PolicyDescription"></div>
+		</div>
+	</div>
+</div>
+
+
