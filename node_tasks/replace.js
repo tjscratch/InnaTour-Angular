@@ -6,15 +6,6 @@ var gulp        = require('gulp'),
     conf        = require('./config'),
     Q           = require('q');
 
-
-var manifest = null;
-
-try{
-    manifest = require('./manifest');
-} catch (e){
-
-}
-
 var _ENV_ = process.env.NODE_ENV || '';
 
 
@@ -34,6 +25,15 @@ var partnersHost = (_ENV_ === 'production') ? conf.hosts.partners.prod : ((_ENV_
 var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protocol.http;
 
 function getConfReplace() {
+
+    var manifest = null;
+
+    try{
+        manifest = require('./manifest');
+    } catch (e){
+        manifest = require('./manifest');
+    }
+
     return {
         'app-config-debug': '<script>window.FrontedDebug = false;</script>',
         'app-config-js': '/' + conf.version + '/js/config.js',
