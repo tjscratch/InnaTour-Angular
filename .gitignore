@@ -1,12 +1,6 @@
 syntax: glob
 
-node_modules/*
-!node_modules/bower/
-!node_modules/gulp/
-!node_modules/express/
-
-
-
+node_modules
 
 Compiled
 _ReSharper.*
@@ -86,6 +80,7 @@ spa/styl/temp/*.styl
 spa/styl/partners/**/*.css
 spa/js/**/*.css
 
+bower_components/node_modules
 bower_components/bower-components.js
 bower_components/bower-components.*.js
 
