@@ -24,7 +24,7 @@
 					 style="background-image: url('spa/img/hotels/no_photo70x70.png')"></div>
 
 				<h3 class="hotel-details-rooms__room-title">
-					<span class="like-link">{{room.RoomName}}</span>
+					<span class="like-link">{{room.RoomName | limitFilter:60 }}</span>
 
 
                     <span tooltip-directive-base
