@@ -50,6 +50,8 @@ gulp.task('build-project', function (callback) {
  */
 gulp.task('default', function (callback) {
     runSequence(
+        ['remove-manifest', 'remove-bower'],
+        'create-manifest',
         'sprite',
         'styles-app',
         'replace-config',
