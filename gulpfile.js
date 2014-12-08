@@ -52,8 +52,8 @@ gulp.task('default', function (callback) {
     runSequence(
         'sprite',
         'styles-app',
-        'replace-config',
         ['styles', 'build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
+        'replace-config',
         'build-angular-parts',
         'watch',
         callback);

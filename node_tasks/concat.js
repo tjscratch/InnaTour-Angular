@@ -37,7 +37,8 @@ gulp.task('build-concat', [
 });
 
 
-gulp.task('concat-bower-components', function () {
+// удаляем и создаем файл манифест
+gulp.task('concat-bower-components', ['remove-manifest', 'create-manifest'], function () {
     return gulp.src([
         conf.bower + '/underscore/underscore-min.js',
         conf.bower + '/raven-js/dist/raven.min.js',

@@ -31,7 +31,11 @@ function getConfReplace() {
     try{
         manifest = require('./manifest');
     } catch (e){
+<<<<<<< HEAD
         manifest = require('./manifest');
+=======
+
+>>>>>>> a7e9c9d... изменил сборку
     }
 
     return {
