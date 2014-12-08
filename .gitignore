@@ -80,7 +80,7 @@ spa/styl/temp/*.styl
 spa/styl/partners/**/*.css
 spa/js/**/*.css
 
-bower_components/node_modules
+bower_components/**/node_modules
 bower_components/bower-components.js
 bower_components/bower-components.*.js
 
