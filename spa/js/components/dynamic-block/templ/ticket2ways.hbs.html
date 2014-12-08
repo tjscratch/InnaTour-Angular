@@ -1,81 +1,94 @@
-<span class="icon-sprite-airplane"></span>
+<div class="row" style="height: {{settings.height}}px;">
+    <span class="icon-sprite-airplane"></span>
 
-<!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
-<DatePartialsCollection
-		partialName="logoAvia"
-		ticketModel="{{recommendedPair.ticket}}" />
+    <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
+    <DatePartialsCollection
+            partialName="logoAvia"
+            ticketModel="{{recommendedPair.ticket}}"/>
 
 
-<div class="b-ticket_2ways buy__tickets">
+    <div class="b-ticket_2ways buy__tickets">
 
-    <!-- to -->
-    <div class="rlf-fly">
-        <div class="row-fluid">
-            <div class="col-xs-5 col-no-padding row-fluid__cell">
-                <div class="rlf__flight-block">
-                    <DatePartialsCollection
-                            partialName="weekDateTime"
-                            date="{{AviaInfo.DepartureDate}}" />
 
-                    <br>
-                    <b>{{AviaInfo.AirportFrom}}</b> {{AviaInfo.OutCode}}
+        <!-- to -->
+        <div class="rlf-fly">
+            <div class="row-fluid">
+                <div class="col-xs-5 col-no-padding row-fluid__cell">
+                    <div class="rlf__flight-block">
+                        <DatePartialsCollection
+                                partialName="weekDateTime"
+                                date="{{AviaInfo.DepartureDate}}"/>
+
+                        <br>
+                        <b>{{AviaInfo.AirportFrom}}</b> {{AviaInfo.OutCode}}
+                    </div>
+                </div>
+                <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
+                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                </div>
+                <div class="col-xs-5 col-no-padding row-fluid__cell">
+                    <div class="rlf__flight-block">
+                        <DatePartialsCollection
+                                partialName="weekDateTime"
+                                date="{{AviaInfo.ArrivalDate}}"/>
+                        <br>
+                        <b>{{AviaInfo.AirportTo}}</b> {{AviaInfo.InCode}}
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
-                <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-            </div>
-            <div class="col-xs-5 col-no-padding row-fluid__cell">
-                <div class="rlf__flight-block">
-	                <DatePartialsCollection
-			                partialName="weekDateTime"
-			                date="{{AviaInfo.ArrivalDate}}" />
-                    <br>
-                    <b>{{AviaInfo.AirportTo}}</b> {{AviaInfo.InCode}}
-                </div>
+
+            <div class="rlf-full-travel-time-info">
+                <DatePartialsCollection
+                        partialName="flightTime"
+                        direction="To"
+                        AviaInfo="{{AviaInfo}}"/>
             </div>
         </div>
 
-        <div class="rlf-full-travel-time-info">
-	        <DatePartialsCollection
-			        partialName="flightTime"
-			        direction="To"
-			        AviaInfo="{{AviaInfo}}" />
+        <!-- back -->
+        <div class="rlf-fly rlf-fly_back">
+
+            <div class="row-fluid">
+                <div class="col-xs-5 col-no-padding row-fluid__cell">
+                    <div class="rlf__flight-block">
+                        <DatePartialsCollection
+                                partialName="weekDateTime"
+                                date="{{AviaInfo.BackDepartureDate}}"/>
+                        <br>
+                        <b>{{AviaInfo.AirportTo}}</b> {{AviaInfo.InCode}}
+                    </div>
+                </div>
+                <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
+                    <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
+                </div>
+                <div class="col-xs-5 col-no-padding row-fluid__cell">
+                    <div class="rlf__flight-block">
+                        <DatePartialsCollection
+                                partialName="weekDateTime"
+                                date="{{AviaInfo.BackArrivalDate}}"/>
+                        <br>
+                        <b>{{AviaInfo.AirportFrom}}</b> {{AviaInfo.OutCode}}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="rlf-full-travel-time-info">
+                <DatePartialsCollection
+                        partialName="flightTime"
+                        direction="Back"
+                        AviaInfo="{{AviaInfo}}"/>
+            </div>
         </div>
     </div>
 
-    <!-- back -->
-    <div class="rlf-fly rlf-fly_back">
-
-        <div class="row-fluid">
-            <div class="col-xs-5 col-no-padding row-fluid__cell">
-                <div class="rlf__flight-block">
-	                <DatePartialsCollection
-			                partialName="weekDateTime"
-			                date="{{AviaInfo.BackDepartureDate}}" />
-                    <br>
-                    <b>{{AviaInfo.AirportTo}}</b> {{AviaInfo.InCode}}
-                </div>
-            </div>
-            <div class="col-xs-2 col-no-padding row-fluid__cell row-fluid__cell-v-middle">
-                <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-            </div>
-            <div class="col-xs-5 col-no-padding row-fluid__cell">
-                <div class="rlf__flight-block">
-	                <DatePartialsCollection
-			                partialName="weekDateTime"
-			                date="{{AviaInfo.BackArrivalDate}}" />
-                    <br>
-                    <b>{{AviaInfo.AirportFrom}}</b> {{AviaInfo.OutCode}}
-                </div>
-            </div>
+    {{#if moreInfo}}
+        <div class="bottom-actions">
+                <span class="like-link bottom-actions__button bottom-actions__button_action_details"
+                      on-click="bundleTicketDetails">
+                    Подробнее
+                </span>
         </div>
+    {{/if}}
 
-
-        <div class="rlf-full-travel-time-info">
-	        <DatePartialsCollection
-			        partialName="flightTime"
-			        direction="Back"
-			        AviaInfo="{{AviaInfo}}" />
-        </div>
-    </div>
 </div>

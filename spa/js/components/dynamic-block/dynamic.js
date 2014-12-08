@@ -34,16 +34,18 @@
 
 innaAppConponents.
     factory('DynamicBlock', [
+        'EventManager',
         'innaApp.API.events',
         '$templateCache',
         '$filter',
+        '$location',
 
         // components
         'Stars',
         'Tripadvisor',
         'PriceGeneric',
         'DatePartialsCollection',
-        function (Events, $templateCache, $filter, Stars, Tripadvisor, PriceGeneric, DatePartialsCollection) {
+        function (EventManager, Events, $templateCache, $filter, $location, Stars, Tripadvisor, PriceGeneric, DatePartialsCollection) {
 
             /**
              * Компонент DynamicBlock
@@ -88,6 +90,13 @@ innaAppConponents.
                     this._super(options);
 
                     this.on({
+                        bundleTicketDetails : function(evt){
+                            var ticket = this.get('recommendedPair.ticket');
+                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED,
+                                evt.original,
+                                {ticket: ticket, noChoose: $location.search().displayHotel}
+                            );
+                        },
                         teardown: function (evt) {
                             this.reset();
                         }
@@ -111,6 +120,7 @@ innaAppConponents.
                 scope: {
                     settings: "=",
                     recommendedPair: "=",
+                    moreInfo : '@',
                     tripadvisor : "="
                 },
                 link: function ($scope, $element, $attr) {
@@ -119,7 +129,8 @@ innaAppConponents.
                         el: $element[0],
                         data: {
                             settings: $scope.settings,
-                            tripadvisor : $scope.tripadvisor
+                            tripadvisor : $scope.tripadvisor,
+                            moreInfo : $scope.moreInfo
                         },
                         partials: {
                             collOneContent: $templateCache.get('components/dynamic-block/templ/ticket2ways.hbs.html'),

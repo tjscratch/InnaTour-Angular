@@ -65,14 +65,6 @@
                     Отмена бронирования со штрафом
                 </span>
 				<span ng-if="!room.IsRefundable">Без возможности возврата</span>
-
-				<div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 1">Остался последний
-					номер!
-				</div>
-				<div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 2">Осталось два номера!
-				</div>
-				<div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 3">Осталось три номера!
-				</div>
 			</div>
 
 			<div class="col-xs-3 hotel-details-rooms__room-price">
@@ -112,6 +104,20 @@
                 <span class="btn btn-large btn-green btn-hotel-room-actions"
                       ng-click="goReservation(room)"
                       ng-if="!hotelOnly">Купить</span>
+			</div>
+		</div>
+		<div class="row hotel-details-rooms__room__item-info_bottom">
+			<div class="col-xs-6 col-no-padding"></div>
+			<div class="col-xs-6 align-right col-no-padding">
+				<div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 1">
+					Остался последний номер!
+				</div>
+				<div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 2">
+					Осталось два номера!
+				</div>
+				<div class="hotel-details-rooms__room-warning" ng-if="room.RoomCount == 3">
+					Осталось три номера!
+				</div>
 			</div>
 		</div>
 	</div>
