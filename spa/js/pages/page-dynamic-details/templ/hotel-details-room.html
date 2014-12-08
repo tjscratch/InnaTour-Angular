@@ -26,9 +26,9 @@
 				<h3 class="hotel-details-rooms__room-title">
 					<span class="like-link">{{room.RoomName}}</span>
 
-					<!--ng-if="userIsAgency && (AgencyId == 20005)"-->
-                    <span tooltip-directive-base
 
+                    <span tooltip-directive-base
+                          ng-if="userIsAgency && (AgencyId == 20005)"
                           templ="empty.hbs.html"
                           el="true"
                           tooltip-klass="agency-inna"
@@ -50,7 +50,7 @@
 	                бронирование возможно после оплаты
                 </span>
 
-				<ul class="hotel-details-extra">
+				<ul class="hotel-details-extra hotel-details-extra_room">
 					<li ng-repeat="(name, caption) in room.Extra"
 					    class="hotel-details-extra__item hotel-details-extra__item_type_{{name | lowercase}}">
 						<!--<i class="icon-type-extra icon-type-extra-{{name | lowercase}}"></i>-->
@@ -87,6 +87,7 @@
 					     position-style="absolute"
 					     width="300" ,
 					     close="true"
+					     el="true"
 					     property-watch="NewPricePackage"
 					     templ="popover.change-price.hbs.html">
 					</div>
