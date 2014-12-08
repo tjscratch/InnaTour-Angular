@@ -11,7 +11,8 @@ var app = angular.module('innaApp', [
     'innaApp.components',
     'innaApp.Url',
     'innaApp.API',
-    'ngSanitize'
+    'ngSanitize',
+    'cfp.hotkeys'
 ]);
 
 /* локализация дат moment */

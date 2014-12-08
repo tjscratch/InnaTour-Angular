@@ -3,9 +3,10 @@ angular.module('innaApp.directives')
         '$templateCache',
         '$timeout',
         'innaApp.API.events',
-        function ($templateCache, $timeout, Events) {
+        'hotkeys',
+        function ($templateCache, $timeout, Events, hotkeys) {
             return {
-                template: function(el, attr){
+                template: function (el, attr) {
                     if (attr.templ) {
                         return $templateCache.get('components/gallery/templ/' + attr.templ);
                     }
@@ -13,7 +14,7 @@ angular.module('innaApp.directives')
                 },
                 scope: {
                     urls: '=photos',
-                    templ : '='
+                    templ: '='
                 },
                 controller: [
                     '$scope',
@@ -32,6 +33,37 @@ angular.module('innaApp.directives')
                             hoverImageShow: false,
                             hoverImageStyle: {}
                         };
+
+                        hotkeys.bindTo($scope)
+                            .add({
+                                combo: 'left',
+                                description: '',
+                                callback: function () {
+                                    $scope.pics.prev();
+                                }
+                            })
+                            .add({
+                                combo: 'right',
+                                description: '',
+                                callback: function () {
+                                    $scope.pics.next();
+                                }
+                            })
+                            .add({
+                                combo: 'space',
+                                description: '',
+                                callback: function () {
+                                    $scope.showFullGallery()
+                                }
+                            })
+                            .add({
+                                combo: 'esc',
+                                description: '',
+                                callback: function () {
+                                    $scope.closeGallery();
+                                }
+                            })
+
 
 
                         /*Models*/
@@ -58,7 +90,9 @@ angular.module('innaApp.directives')
                         };
 
                         PicList.prototype.next = function ($event) {
-                            $event.stopPropagation();
+                            if($event) {
+                                $event.stopPropagation();
+                            }
 
                             var index = this.list.indexOf(this.current) + 1;
                             if (index >= this.list.length) index = 0;
@@ -66,7 +100,9 @@ angular.module('innaApp.directives')
                         };
 
                         PicList.prototype.prev = function ($event) {
-                            $event.stopPropagation();
+                            if($event) {
+                                $event.stopPropagation();
+                            }
 
                             var index = this.list.indexOf(this.current) - 1;
                             if (index < 0) index = this.list.length - 1;
@@ -108,7 +144,9 @@ angular.module('innaApp.directives')
                         };
 
                         $scope.showFullGallery = function ($event, $index) {
-                            $scope.pics.setCurrent($index);
+                            if($index) {
+                                $scope.pics.setCurrent($index);
+                            }
                             $scope.showGallery = true;
                             document.body.classList.add('overflow_hidden')
                         }
@@ -215,7 +253,7 @@ angular.module('innaApp.directives')
                         });
 
 
-                        $scope.$on('$destroy', function(){
+                        $scope.$on('$destroy', function () {
                             console.log('$destroy gallery');
                         })
                     }

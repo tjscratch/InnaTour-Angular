@@ -63,7 +63,7 @@ angular.module('innaApp.components')
                                 scrollBarElement.find(".ui-slider-handle").css({
                                     width: handleSize,
                                     "margin-left": -handleSize / 2
-                                });
+                                }).off('keydown');
 
                                 handleHelper.width("").width(scrollBarElement.width() - handleSize);
                             }
