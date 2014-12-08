@@ -206,7 +206,10 @@
 
 .hotel-details-extra {
   font-size 0
-  margin-top 10px
+  margin-top 5px
+  position : absolute;
+  bottom:0;
+  left : 90px;
 
   &__item {
     /*background-position 7px center
@@ -214,12 +217,10 @@
     border-radius 2px
     border: 1px solid #bdbdbd;
     display inline-block
-    margin-right 7px
-    margin-bottom 4px
+    margin-right: 7px;
     color #4c4c4c
     font-size 12px
-    padding : 5px;
-    /*padding 8px 10px 7px 30px*/
+    padding : 4px;
     position relative
 
     /*.icon-type-extra {
@@ -310,11 +311,23 @@
   &__room {
     border-bottom: 1px solid #dedede;
 
+    .b-agency {
+      margin-top: 3px;
+      position: relative;
+      z-index: 2;
+    }
+
     &__item {
       position: relative;
       min-height : 80px;
       padding: 10px 0;
       font-size : 15px;
+    }
+
+
+    &__item row {
+      height : 80px;
+      position: relative;
     }
 
     &-warning {
@@ -347,9 +360,10 @@
     &-title {
       font-size 14px
       font-weight normal
-      margin-bottom : 5px;
+      margin-bottom : 2px;
       cursor pointer
-      position relative
+      line-height: 1.1em;
+      /*position relative*/
 
       .like-link {
         border-bottom : 1px solid;
@@ -381,6 +395,7 @@
       position : relative;
       box-sizing : border-box;
       float : left;
+      height: 80px;
     }
 
     &_bed-type-list {
@@ -391,6 +406,7 @@
     &-desc {
       width 42%
       padding-left: 90px;
+      position : relative;
     }
 
     &-desc_empty {
