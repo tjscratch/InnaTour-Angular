@@ -28,11 +28,6 @@ innaAppControllers
                 });
             });
 
-            /*EventManager.on(Events.DYNAMIC_SERP_MAP_DESTROY, function () {
-             $scope.safeApply(function () {
-             $scope.isHeaderVisible = true;
-             });
-             });*/
 
             EventManager.on(Events.HEAD_HIDDEN, function () {
                 $scope.safeApply(function () {
@@ -121,12 +116,22 @@ innaAppControllers
             };
 
             setTitle();
+
             function setTitle() {
                 $scope.title = "Инна-Тур - " + $scope.getTitle();
             };
 
+            function setShadow (){
+                if ($location.path().indexOf(appUrls.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
+                    $scope.shadow = true;
+                } else {
+                    $scope.shadow = false;
+                }
+            }
+
             $scope.$on('$routeChangeSuccess', function () {
                 setTitle();
+                setShadow();
             });
 
             $scope.$root.isLoginPopupOpened = false;

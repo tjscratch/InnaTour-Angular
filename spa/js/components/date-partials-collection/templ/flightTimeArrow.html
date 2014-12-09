@@ -1,0 +1,15 @@
+<p class="arrow">
+	в пути:
+	{{moment(AviaInfo['Time' + direction + 'Time']).format('H')}}&nbsp;ч
+	{{moment(AviaInfo['Time' + direction + 'Time']).format('mm')}}&nbsp;мин
+	<br>
+
+	{{#if AviaInfo['Etaps' + direction].length - 1}}
+		{{AviaInfo['Etaps' + direction].length - 1}}
+		{{pluralize(AviaInfo['Etaps' + direction].length - 1, ["пересадка","пересадки","пересадок"])}}
+	{{/if}}
+
+	{{#if !(AviaInfo['Etaps' + direction].length - 1)}}
+		без пересадок
+	{{/if}}
+</p>

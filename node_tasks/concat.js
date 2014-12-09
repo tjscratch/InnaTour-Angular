@@ -37,6 +37,7 @@ gulp.task('build-concat', [
 });
 
 
+// удаляем и создаем файл манифест
 gulp.task('concat-bower-components', function () {
     return gulp.src([
         conf.bower + '/underscore/underscore-min.js',
@@ -49,6 +50,7 @@ gulp.task('concat-bower-components', function () {
         conf.bower + '/angular-locale-ru/angular-locale_ru.js',
         conf.bower + '/angular-sanitize/angular-sanitize.min.js',
         conf.bower + '/angular-route/angular-route.min.js',
+        conf.bower + '/angular-hotkeys/build/hotkeys.min.js',
         conf.bower + '/moment/min/moment.min.js',
         conf.bower + '/moment/locale/ru.js'
     ], {base: 'bower_components'})

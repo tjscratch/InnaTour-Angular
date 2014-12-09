@@ -1,10 +1,10 @@
-var gulp = require('gulp'),
-    gulpif = require('gulp-if'),
+var gulp        = require('gulp'),
+    gulpif      = require('gulp-if'),
     htmlreplace = require('gulp-html-replace'),
-    replace = require('gulp-replace-task'),
-    uglify = require('gulp-uglifyjs'),
-    conf = require('./config'),
-    manifest = require('./manifest');
+    replace     = require('gulp-replace-task'),
+    uglify      = require('gulp-uglifyjs'),
+    conf        = require('./config'),
+    Q           = require('q');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -17,17 +17,24 @@ var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : ((_ENV_ ===
 var partnersHost = (_ENV_ === 'production') ? conf.hosts.partners.prod : ((_ENV_ === 'beta') ? conf.hosts.partners.beta : conf.hosts.partners.test);
 
 /*console.info(apiHost);
-console.info(b2bHost);
-console.info(frontHost);
-console.info(staticHost);
-console.info(partnersHost);*/
+ console.info(b2bHost);
+ console.info(frontHost);
+ console.info(staticHost);
+ console.info(partnersHost);*/
 
 var __PROTOCOL__ = (_ENV_ === 'production') ? conf.protocol.https : conf.protocol.http;
 
 function getConfReplace() {
+
+    var manifest = null;
+
+    try{
+        manifest = require('./manifest');
+    } catch (e){
+    }
+
     return {
         'app-config-debug': '<script>window.FrontedDebug = false;</script>',
-
         'app-config-js': '/' + conf.version + '/js/config.js',
         'app-main-js': '/' + conf.version + '/js/app-main.js',
         'bower_components': '/bower_components' + manifest["/bower-components.js"],
@@ -82,6 +89,23 @@ gulp.task('replace-index', function () {
         .pipe(gulp.dest(conf.publish));
 });
 
+// зависимость - сначала копируем папку backend
+// делаем задержку, так как почемуто не происходит замены в файле
+gulp.task('replace-backend', function (cb) {
+
+    setTimeout(function () {
+        gulp.src([
+            conf.backendTempl + '/base_js.hbs',
+            conf.backendTempl + '/head.hbs'
+        ])
+            .pipe(htmlreplace(getConfReplace()))
+            .pipe(gulp.dest(conf.publish + '/backend/templates/partials'));
+
+
+        cb();
+    }, 1000);
+});
+
 gulp.task('replace-browser', function () {
     return gulp.src('./spa/browser.html')
         .pipe(htmlreplace(getConfReplace()))
@@ -91,8 +115,8 @@ gulp.task('replace-browser', function () {
 
 gulp.task('replace-HTML', function () {
     return gulp.src([
-            conf.dest + '/html/**/*.html',
-            conf.dest + '/html2/**/*.html'
+        conf.dest + '/html/**/*.html',
+        conf.dest + '/html2/**/*.html'
     ])
         .pipe(htmlreplace(getConfReplace()))
         .pipe(gulp.dest(conf.publish + '/spa/html'));
@@ -107,4 +131,9 @@ gulp.task('release-tours', function () {
 });
 
 
-gulp.task('html-replace', ['replace-index', 'release-tours', 'replace-browser', 'replace-HTML']);
+gulp.task('html-replace', [
+    'replace-index',
+    'release-tours',
+    'replace-browser',
+    'replace-HTML'
+]);

@@ -6,7 +6,12 @@ angular.module('innaApp.directives')
         '$templateCache',
         function ($templateCache) {
             return {
-                template: $templateCache.get('components/recommended-pair/templ/recommended-big.html'),
+                template: function (el, attr) {
+                    if (attr.templ) {
+                        return $templateCache.get('components/recommended-pair/templ/' + attr.templ);
+                    }
+                    return $templateCache.get('components/recommended-pair/templ/recommended-big.html');
+                },
                 scope: {
                     recommendedPair: '=recommendedPair',
                     recommendedPairStatus: '=',

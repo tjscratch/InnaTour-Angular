@@ -201,7 +201,7 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
                 }
 
                 var coords = utils.getCoords(el);
-
+                
                 var _tooltipBase = new TooltipBase({
                     el: ($scope.el) ? $element[0] : document.body,
                     data: {

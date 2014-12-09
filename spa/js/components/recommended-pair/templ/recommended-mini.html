@@ -14,6 +14,7 @@
         <p class="flight">
             <img class="flight__image"
                  ng-src="{{airLogo( recommendedPair.ticket.getEtaps('Back')[0].data.TransporterCode )}}" height=28 alt="">
+
             <span class="white">{{recommendedPair.ticket.data.OutCodeBack}} – {{recommendedPair.ticket.data.InCodeBack}}, {{recommendedPair.ticket.data.BackDepartureDate | date: 'd MMM'}},</span>
             в пути: {{recommendedPair.ticket.getDuration('Back')}}, {{recommendedPair.ticket.getEtaps('Back').length - 1 |
             asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}

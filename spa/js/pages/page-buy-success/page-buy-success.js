@@ -22,10 +22,14 @@ innaAppControllers.
         'DynamicBlock',
         'Balloon',
         'NeedVisa',
-        function ($scope, $rootScope, $templateCache, $routeParams, $filter, $timeout, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon, NeedVisa) {
+        'ModelTicket',
+        'ModelRecommendedPair',
+        function ($scope, $rootScope, $templateCache, $routeParams, $filter, $timeout, paymentService, urlHelper, aviaHelper, innaAppUrls, $locale, DynamicBlock, Balloon, NeedVisa,
+                ModelTicket, ModelRecommendedPair) {
             //document.body.classList.add('lighten-theme');
 
             $scope.hotelToShowDetails = null;
+            $scope.recommendedPair = new ModelRecommendedPair();
 
 
             var DynamicBlockAviaHotel = DynamicBlock.extend({
@@ -146,7 +150,9 @@ innaAppControllers.
                             }
 
                             $timeout(function () {
-                                that._balloon.hide();
+                                if(that._balloon) {
+                                    that._balloon.hide();
+                                }
                             }, 1000);
                         },
                         function () {
@@ -170,6 +176,9 @@ innaAppControllers.
                  */
                 parse: function (data) {
                     var avia = data.AviaInfo;
+                    $scope.recommendedPair.setTicket(new ModelTicket(data.AviaInfo));
+                    data.recommendedPair = $scope.recommendedPair;
+
                     var passengers = data.Passengers;
 
                     data.PassengersData = {
@@ -179,8 +188,10 @@ innaAppControllers.
                         child: ''
                     };
 
-                    // добавляем новые поля
-                    aviaHelper.addCustomFields(avia);
+                    avia.AirportFrom = avia.AirportFromBack;
+                    avia.AirportTo = avia.AirportToBack;
+                    avia.InCode = avia.InCodeBack;
+                    avia.OutCode = avia.OutCodeBack;
 
                     data.price = $filter('price')(data.Price);
 
@@ -206,16 +217,7 @@ innaAppControllers.
                         data.phone = '+7 (495) 742-12-12';
                         data.email = 'sale@inna.ru';
                     }
-
-                    if (window.partners && window.partners.isWL()) {
-                        var partner = window.partners.getPartner();
-                        data.phone = partner.phone;
-                        data.email = partner.email;
-                    }
-                    else {
-                        data.phone = '+7 (495) 742-12-12';
-                        data.email = 'sale@inna.ru';
-                    }
+                    
 
                     return data;
                 }
@@ -226,8 +228,6 @@ innaAppControllers.
             pageBuy.getDataBuy();
 
             $scope.$on('$destroy', function () {
-                console.log('$destroy buy success');
-
                 document.body.classList.remove('lighten-theme');
                 pageBuy.teardown();
                 pageBuy = null;

@@ -6,7 +6,7 @@ $short-count-list = 5;
 $separatorBlock = 10px;
 
 $full_padding = 475px;
-$short_padding = 166px;
+$short_padding = 162px;
 
 $padding_over_search = 148px;
 $padding_over_head = 48px;
@@ -30,7 +30,7 @@ $black = #333;
 $warning = #f8d8d0;
 $blue = #1f609f;
 $gray = #a8abba;
-$gray-l = #d3d6d8;
+$gray-l = #878787;
 $white = #fff;
 $orange = #ffaa00;
 $color-separator = #d6d7d9;
@@ -64,23 +64,23 @@ color-button(name, color1, color2) {
 	&-{name} {
 
 		color: $white;
-		text-shadow: 0 -1px 1px rgba($black, .40);
+		//text-shadow: 0 -1px 1px rgba($black, .40);
 
 		background: bg;
 		background: rgba(bg, .9);
-		border-color: t (t/2 + b/2) b;
+		//border-color: t (t/2 + b/2) b;
 		gradient(top, rgba(color1, .9), rgba(color2, .9));
 
 		&:hover {
-			background-color: color1 + 10%;
+			/*background-color: color1 + 10%;
 			border-color: t (t/2 + b/2) b;
-			gradient(top, (color1 + 10%), (color2 + 10%));
+			gradient(top, (color1 + 10%), (color2 + 10%));*/
 		}
 
 		&:active{
-			background-color: color1 - 5%;
+			/*background-color: color1 - 5%;
 			gradient(top, (color1 - 5%), color2);
-			box-shadow: inset 0px 2px 1px rgba(77, 53, 3, 0.15);
+			box-shadow: inset 0px 2px 1px rgba(77, 53, 3, 0.15);*/
 		}
 
 
@@ -96,8 +96,8 @@ color-button(name, color1, color2) {
 		}
 
 		&.pressed {
-			background: bg;
-			box-shadow: inset 0 -.5em .5em .1em (color2 + 23%)
+			//background: bg;
+			//box-shadow: inset 0 -.5em .5em .1em (color2 + 23%)
 
 			.btn__text {
 				color: $black;
@@ -106,13 +106,6 @@ color-button(name, color1, color2) {
 
 		.btn__text {
 			color: $white;
-		}
-
-		&.btn-without_bg {
-			border-radius : 0;
-			background : none;
-			color:color1;
-			text-shadow : none;
 		}
 	}
 }

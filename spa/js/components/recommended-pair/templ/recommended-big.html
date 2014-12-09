@@ -1,4 +1,4 @@
-<div class="b-result b-result_col_three row b-result-content">
+<div class="b-result b-result_col_three row b-result-content b-recommended_big">
     <div class="b-result__cell" ng-click="toggleTab('ticket')" ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
 
         <div ng-if="!isClosed && recommendedPairStatus == 5"
@@ -17,57 +17,65 @@
             <div class="b-tooltip__body">
                 <span class="b-tooltip__body__text">
                     К сожалению, выбранный вариант перелета уже
-                недоступен, в пакет будет включен рекомендован-
-                ный перелет.
+                недоступен, в пакет будет включен рекомендованный перелет.
                 </span>
             </div>
         </div>
 
-        <span class="rl-airline" ng-repeat="tr in transportersList" ng-if="transportersList.length <= 2">
-            <img ng-src="{{airLogo(tr.code)}}" alt="">
-            <span class="rl-airline-text">{{tr.name}}</span>
-        </span>
+        <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
+        <ng:any date-partials-collection-directive
+                partial-name="logoAvia"
+                ticket-model="recommendedPair.ticket" />
 
-	    <span class="rl-airline" ng-if="transportersList.length > 2">
-	        <img src="/spa/img/group.png" alt="">
-	        <span class="rl-airline-text">Несколько авиакомпаний</span>
-		</span>
-
-
-        <div class="flight-info">
-            <span class="date">
-                <b>
-                    {{dateHelper.getTime(recommendedPair.ticket.data.DepartureDate)}} {{recommendedPair.ticket.data.OutCode}}
-                </b>
-                {{recommendedPair.ticket.data.DepartureDate | date: 'd MMM'}}, {{recommendedPair.ticket.data.DepartureDate | date: 'EEE'}}
-            </span>
-
-            <p class="arrow">
-                в пути: {{recommendedPair.ticket.getDuration('To')}}<br>
-                {{recommendedPair.ticket.getEtaps('To').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
-            </p>
-            <span class="date">
-                <b>{{dateHelper.getTime(recommendedPair.ticket.data.ArrivalDate)}} {{recommendedPair.ticket.data.InCode}}</b>
-                {{recommendedPair.ticket.data.ArrivalDate | date: 'd MMM'}}, {{recommendedPair.ticket.data.ArrivalDate | date: 'EEE'}}
-            </span>
-        </div>
-
-        <div class="flight-info">
-                <span class="date">
-                    <b>{{dateHelper.getTime(recommendedPair.ticket.data.BackDepartureDate)}} {{recommendedPair.ticket.data.OutCodeBack}}</b>
-                    {{recommendedPair.ticket.data.BackDepartureDate | date: 'd MMM'}}, {{recommendedPair.ticket.data.BackDepartureDate | date: 'EEE'}}
-                </span>
-
-            <p class="arrow">
-                в пути: {{recommendedPair.ticket.getDuration('Back')}}<br>
-                {{recommendedPair.ticket.getEtaps('Back').length - 1 | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
-            </p>
-                <span class="date">
-                    <b>{{dateHelper.getTime(recommendedPair.ticket.data.BackArrivalDate)}} {{recommendedPair.ticket.data.InCodeBack}}</b>
-                    {{recommendedPair.ticket.data.BackArrivalDate | date: 'd MMM'}}, {{recommendedPair.ticket.data.BackArrivalDate | date: 'EEE'}}
-                </span>
-        </div>
         <span class="icon-sprite-airplane"></span>
+
+        <div class="flight-info">
+            <span class="date">
+                <ng:any date-partials-collection-directive
+                        partial-name="weekDateTimeCode"
+                        direction="OutCode"
+                        date="recommendedPair.ticket.data.DepartureDate"
+                        avia-info="recommendedPair.ticket.data" />
+            </span>
+
+            <ng:any date-partials-collection-directive
+                    partial-name="flightTimeArrow"
+                    direction="To"
+                    avia-info="recommendedPair.ticket.data"/>
+
+            <span class="date">
+                <ng:any date-partials-collection-directive
+                        partial-name="weekDateTimeCode"
+                        direction="InCode"
+                        date="recommendedPair.ticket.data.ArrivalDate"
+                        avia-info="recommendedPair.ticket.data" />
+            </span>
+        </div>
+
+        <div class="flight-info">
+
+            <span class="date">
+                <ng:any date-partials-collection-directive
+                        partial-name="weekDateTimeCode"
+                        direction="OutCodeBack"
+                        date="recommendedPair.ticket.data.BackDepartureDate"
+                        avia-info="recommendedPair.ticket.data" />
+            </span>
+
+            <ng:any date-partials-collection-directive
+                    partial-name="flightTimeArrow"
+                    direction="Back"
+                    avia-info="recommendedPair.ticket.data"/>
+
+            <span class="date">
+                <ng:any date-partials-collection-directive
+                        partial-name="weekDateTimeCode"
+                        direction="InCodeBack"
+                        date="recommendedPair.ticket.data.BackArrivalDate"
+                        avia-info="recommendedPair.ticket.data" />
+            </span>
+
+        </div>
 
         <div class="bottom-actions">
             <a href="javascript:void(0);" class="bottom-actions__button bottom-actions__button_action_replace"
