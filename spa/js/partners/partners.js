@@ -151,8 +151,8 @@
             'type': self.WLType.full,
             'title': 'Туристическое агентство  «Париж-Тур»',
             'phone': '8&nbsp;(8793) 390-400',
-            'email': 'parizhtur@mail.ru',
-            'skype': '',
+            'email': 'parizhtour1@mail.ru',
+            'skype': 'daprus',
             'aboutLink': 'http://www.xn--80amf0agcni.xn--p1ai/kontakty/o-kompanii',
             'contactsLink': 'http://www.xn--80amf0agcni.xn--p1ai/kontakty',
             'offertaContractLink': 'http://s.inna.ru/files/doc/offer_paristour.pdf'
