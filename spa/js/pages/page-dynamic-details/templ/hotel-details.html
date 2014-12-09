@@ -75,7 +75,7 @@
 					     ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
 
 						<div ng-repeat="section in hotel.Description track by $index">
-							<div ng-if="!showFullDescription" ng-bind-html="section.Content | limitFilter:300"></div>
+							<div ng-if="!showFullDescription" ng-bind-html="section.Content | limitFilter:250"></div>
 							<div ng-if="showFullDescription" ng-bind-html="section.Content"></div>
 						</div>
 						<p ng-if="showFullDescription">
