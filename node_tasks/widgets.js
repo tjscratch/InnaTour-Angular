@@ -90,6 +90,5 @@ gulp.task('widget-search-watch', function () {
  */
 gulp.task('widget-search', [
     'widget-search-stylus',
-    'widget-search-js',
-    'widget-search-watch'
+    'widget-search-js'
 ]);
