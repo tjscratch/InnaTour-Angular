@@ -73,7 +73,7 @@ angular.module('innaApp.components')
 
                             var gap = scrollPane.width() - showing;
 
-                            if (gap > 0) {
+                            if (gap > 0 && $scope.hideBar) {
                                 scrollContent.css("left", parseInt(scrollContent.css("left"), 10) + gap);
                             }
                         }
