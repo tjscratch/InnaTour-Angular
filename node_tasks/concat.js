@@ -135,27 +135,6 @@ gulp.task('build-ang.helpers', function () {
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
-gulp.task('build-widget-search', ['build-templates-widgets-search'], function () {
-    return gulp.src([
-        conf.dest + '/lib/ui-bootstrap/ui-bootstrap-custom-0.12.0.js',
-        conf.dest + '/lib/ui-bootstrap/ui-bootstrap-custom-tpls-0.12.0.js',
-        conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.min.js',
-        conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.ru.min.js',
-        conf.src + '/widgets/search/js/app.js',
-        conf.src + '/widgets/search/js/directives.js',
-        conf.src + '/widgets/search/js/form.js',
-        conf.src + '/widgets/search/js/validation.js',
-        conf.src + '/widgets/search/build/templates.js'
-    ])
-        .pipe(concat('inna-search-widget.js'))
-        .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
-            mangle: false,
-            outSourceMap: true
-        })))
-        .pipe(gulp.dest(conf.src + '/widgets/search/build'));
-});
-
-
 /*  \\ PARTS */
 gulp.task('build-angular-parts', [
     'build-controllers',
@@ -164,7 +143,6 @@ gulp.task('build-angular-parts', [
     'build-models',
     'build-helpers',
     'build-ang.helpers',
-    'build-widget-search'
 ], function () {
     return gulp.src([
 
