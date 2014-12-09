@@ -22,7 +22,7 @@ gulp.task('watch', function () {
 
         });
 
-    gulp.watch(conf.src + '/widgets/**/*.styl', ['styl-widget-search', 'styl-widget-search-bootstrap'])
+    gulp.watch(conf.src + '/widgets/**/*.styl', ['styl-widget-search'])
         .on('change', function (file) {
 
         });

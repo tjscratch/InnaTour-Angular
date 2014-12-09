@@ -1,7 +1,7 @@
-(function (d) {
+(function () {
 
     var host = 'http://inna.ru';
-    var widget = d.querySelector(".b-inna-search-widget");
+    var widget = document.querySelector(".b-inna-search-widget");
 
     var sources = {
         'css': host + '/spa/js/widgets/search/build/inna-search-widget.css',
@@ -10,20 +10,19 @@
         'app': host + '/spa/js/widgets/search/build/inna-search-widget.js'
     };
 
-
     function insertAfter(newNode, referenceNode) {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
 
     function insertCss() {
-        var link = d.createElement("link");
+        var link = document.createElement("link");
         link.type = "text/css";
         link.rel = "stylesheet";
         link.href = sources.css;
         insertAfter(link, widget);
     };
 
-    var jquery = d.createElement("script");
+    var jquery = document.createElement("script");
 
     function insertJquery() {
         jquery.charset = "utf-8";
@@ -31,7 +30,7 @@
         insertAfter(jquery, widget);
     };
 
-    var angular = d.createElement("script");
+    var angular = document.createElement("script");
 
     function insertAngular() {
         angular.charset = "utf-8";
@@ -40,7 +39,7 @@
     };
 
     function insertApp() {
-        var app = d.createElement("script");
+        var app = document.createElement("script");
         app.charset = "utf-8";
         app.src = sources.app;
         insertAfter(app, widget);
@@ -58,4 +57,12 @@
 
     insertCss();
 
-}(document));
+
+    /**
+     * инициализиция приложения в продакшн режиме
+     * ангуляр приложение инициализируется только на разметке формы
+     * @type {string}
+     */
+    window.innaSearchWidget = "production";
+    
+}());

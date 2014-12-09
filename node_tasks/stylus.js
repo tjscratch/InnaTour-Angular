@@ -106,16 +106,6 @@ gulp.task('styl-widget-search', function () {
         .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 
-gulp.task('styl-widget-search-bootstrap', function () {
-    return gulp.src([conf.src + '/widgets/search/css/inna-search-widget-bootstrap.styl'])
-        .pipe(stylus({
-            compress: (_ENV_ === 'production' || _ENV_ === 'beta') ? true : false,
-            define: {'math-random': 123}
-        }))
-        .pipe(gulp.dest(conf.src + '/widgets/search/build'))
-        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
-});
-
 //gulp.task('styl-pages', function () {
 //    return gulp.src([conf.src + '/pages/**/*.styl'])
 /* LK */
@@ -142,6 +132,5 @@ gulp.task('styles', [
     'styl-partners',
     'styl-adv',
     'styl-widget-search',
-    'styl-widget-search-bootstrap',
     'styl-lk'
 ]);
