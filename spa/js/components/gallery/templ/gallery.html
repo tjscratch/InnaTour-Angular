@@ -1,5 +1,6 @@
 <div class="gallery_wrapper" ng-class="{'gallery_wrapper_empty': emptyPhoto}">
 	<div class="gallery gallery_len_{{pics.list.length}} gallery_plan_{{pics.plan}}" ng-if="pics.list.length != 0">
+
 		<div class="gallery__viewport-wrap">
 			<div class="gallery__viewport" ng-style="getViewportStyle()" ng-click="showFullGallery($event)"></div>
 		</div>
