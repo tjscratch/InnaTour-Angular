@@ -24,6 +24,8 @@
 
 <div class="container">
 
+	<h1>Поисковая форма</h1>
+	
 	<div class="btn-group">
 		<button type="button" class="btn btn-primary" ng-model="radioModel" btn-radio="'b-inna-search-widget-row-1'">В одну строку</button>
 		<button type="button" class="btn btn-primary" ng-model="radioModel" btn-radio="'b-inna-search-widget-row-2'">В две строки</button>
@@ -45,6 +47,9 @@
 				</inna-form>
 			</div>
 			<style>
+				.b-inna-search-widget{
+					width: {{widgetWidth}}px;
+				}
 				.b-inna-search__nav li, .b-inna-search-form{
 					background-color: {{formBg}};
 					color:{{formColorText}};
@@ -142,6 +147,16 @@
 						<input class="form-control" type="text" ng-model="borderRadius">
 					</div>
 				</div>
+				<div class="form-group">
+					<label for="widgetWidth" class="col-sm-3 control-label">Ширина (px)</label>
+
+					<div class="col-sm-7" style="padding-top: 8px">
+						<input id="widgetWidth" type="range" max="1140" min="0" step="1" ng-model="widgetWidth">
+					</div>
+					<div class="col-sm-2">
+						<input class="form-control" type="text" ng-model="widgetWidth">
+					</div>
+				</div>
 			</div>
 
 		</div>
@@ -201,7 +216,7 @@
 			</div>
 		</div>
 	</div>
-
+	
 </div>
 </body>
 </html>
