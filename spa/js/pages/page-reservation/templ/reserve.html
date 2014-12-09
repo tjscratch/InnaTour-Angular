@@ -277,7 +277,7 @@
 					<ul class="b__rules-flies">
 						<li ng-class="{current:item === tarifs.setected}" ng-repeat="item in tarifs.list"><a ng-href="#"
 						                                                                                     ng-click="tarifs.tarifClick($event, item)"><span><b>{{item.from}}
-							→ {{item.to}},</b> {{item.num}}, {{tarifs.class}} (K)</span></a></li>
+							→ {{item.to}},</b> {{item.num}}, {{tarifs.class}} ({{item.nameFirstLetter}})</span></a></li>
 					</ul>
 				</div>
 				<div class="b__rules-grey">

@@ -281,7 +281,7 @@
                             ng-repeat="item in tarifs.list">
                             <a ng-href="#" ng-click="tarifs.tarifClick($event, item)">
                                 <span><b>{{item.from}}
-                            → {{item.to}},</b> {{item.num}}, {{tarifs.class}} (K)</span>
+                            → {{item.to}},</b> {{item.num}}, {{tarifs.class}} ({{item.nameFirstLetter}})</span>
                             </a>
                         </li>
                     </ul>

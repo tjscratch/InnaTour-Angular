@@ -733,7 +733,8 @@
                             self.list.push({
                                 from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
                                 num: etap.TransporterCode + '-' + etap.Number,
-                                rule: etap.Rule
+                                rule: etap.Rule,
+                                nameFirstLetter: self.getFirstLetter(etap.TariffName)
                             });
                         });
 
@@ -742,7 +743,8 @@
                                 self.list.push({
                                     from: etap.OutPort, fromCode: etap.OutCode, to: etap.InPort, toCode: etap.InCode,
                                     num: etap.TransporterCode + '-' + etap.Number,
-                                    rule: etap.Rule
+                                    rule: etap.Rule,
+                                    nameFirstLetter: self.getFirstLetter(etap.TariffName)
                                 });
                             });
                         }
@@ -754,6 +756,13 @@
 
                     self.tarifsData = null;
                     self.tarifItem = null;
+
+                    self.getFirstLetter = function (name) {
+                        if (name && name.length > 1) {
+                            return name.substring(0, 1);
+                        }
+                        return '';
+                    }
 
                     self.tarifClick = function ($event, item) {
                         if ($event) eventsHelper.preventBubbling($event);
