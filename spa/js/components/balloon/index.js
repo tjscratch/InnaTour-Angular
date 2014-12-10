@@ -49,7 +49,11 @@ innaAppConponents.
                         },
                         hide: this.hide,
                         changeTarifs: this.changeTarifs,
-                        callback: function () {
+                        callback: function (event) {
+                            if (event && event.original) {
+                                event.original.stopPropagation();
+                                event.original.preventDefault();
+                            }
                             if (typeof this.get('callback') == 'function') {
                                 this.get('callback')();
                             }

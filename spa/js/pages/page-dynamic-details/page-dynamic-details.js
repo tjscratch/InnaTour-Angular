@@ -223,17 +223,19 @@ innaAppControllers
                             dataRequest: searchParams
                         });
 
+                        function onClose() {
+                            $scope.$apply(function ($scope) {
+                                delete $location.$$search.displayHotel;
+                                $location.$$compose();
+                                $location.path(goToSearchDynamic());
+                            });
+                        }
                         _balloonLoad.updateView({
-                            template: 'err.html',
-                            title: "Запрашиваемый отель не найден",
-                            content: "Вероятно, комнаты в нем уже распроданы.",
-                            callbackClose: function () {
-                                $scope.$apply(function ($scope) {
-                                    delete $location.$$search.displayHotel;
-                                    $location.$$compose();
-                                    $location.path(goToSearchDynamic());
-                                });
-                            }
+                            template: 'not-found.html',
+                            title: "Перелет + Отель недоступен",
+                            content: "К сожалению, выбранный пакет Перелет + Отель <br/>недоступен, выберите другой вариант.",
+                            callbackClose: onClose,
+                            callback: onClose
                         });
                         deferred.reject();
                     }
