@@ -4,7 +4,7 @@
 
 	<div class="hotel-details__wrap main__center">
 
-		<div class="hotel-details__section hotel-details__section__crumbs">
+		<div class="hotel-details__section hotel-details__section__crumbs" ng-if="!OrderId">
 			<ul class="section__crumbs__list">
 				<li class="section__crumbs__list__item">
 					<a href="/#/" class="section__crumbs__list__item__link">Главная</a>
@@ -75,10 +75,11 @@
 					     ng-class="{'hotel-details__section-text-viewport_state_open': showFullDescription}">
 
 						<div ng-repeat="section in hotel.Description track by $index">
-							<div ng-if="!showFullDescription" ng-bind-html="section.Content | limitFilter:250"></div>
-							<div ng-if="showFullDescription" ng-bind-html="section.Content"></div>
+							<div ng-if="!showFullDescription && !OrderId" ng-bind-html="section.Content |
+							limitFilter:250"></div>
+							<div ng-if="showFullDescription || OrderId" ng-bind-html="section.Content"></div>
 						</div>
-						<p ng-if="showFullDescription">
+						<p ng-if="showFullDescription || OrderId">
 							<b>Подробные сведения</b><br/><br/>
 							<b>Время прибытия:</b>&nbsp;{{hotel.CheckInTime}}
 							&nbsp;&nbsp;&nbsp;&nbsp;
@@ -88,11 +89,11 @@
 
 					<p>
 						<span class="hotel-details__section-text-more"
-						      ng-if="showFullDescription"
+						      ng-if="showFullDescription && !OrderId"
 						      ng-click="toggleDescription()">Свернуть</span>
 
 						<span class="hotel-details__section-text-more"
-						      ng-if="!showFullDescription"
+						      ng-if="!showFullDescription && !OrderId"
 						      ng-click="toggleDescription()">Развернуть</span>
 					</p>
 				</div>
