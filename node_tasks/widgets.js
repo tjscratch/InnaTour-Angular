@@ -53,7 +53,7 @@ gulp.task('widget-search-config', function () {
     ])
         .pipe(concat('inna-search.js'))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
-            mangle: true,
+            mangle: false,
             outSourceMap: false
         })))
         .pipe(gulp.dest(conf.widgets + '/search'));
@@ -73,7 +73,7 @@ gulp.task('widget-search-js', ['widget-search-template', 'widget-search-config']
     ])
         .pipe(concat('inna-search-widget.js'))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
-            mangle: true,
+            mangle: false,
             outSourceMap: true
         })))
         .pipe(gulp.dest(conf.widgets + '/search/build'));
