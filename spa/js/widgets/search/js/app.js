@@ -42,15 +42,17 @@
                 return f5;
             }
         });
-    
+
     var innaTemplates = angular.module('innaTemplates', []);
-    
+
 }());
 
-$(document).ready(function () {
-
-    var appContainer = $(".b-inna-search-widget");
-    
-    angular.bootstrap(appContainer, ['innaSearchForm']);
-    
-});
+//$(document).ready(function () {
+//    if (window.innaSearchWidget == "production") {
+//        var appContainer = $(".b-inna-search-widget");
+//        angular.bootstrap(appContainer, ['innaSearchForm']);
+//    } else {
+//        var appContainer = $("body");
+//        angular.bootstrap(appContainer, ['innaSearchForm']);
+//    }
+//});

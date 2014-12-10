@@ -35,7 +35,7 @@ gulp.task('build-project', function (callback) {
         'sprite',
         'styles-app',
         'replace-config',
-        ['styles', 'concat-bower-components', 'build-concat', 'build-widget-search'],
+        ['styles', 'concat-bower-components', 'build-concat', 'widget-search', 'build-lk'],
         'version-cache',
         'html-replace',
         'copy-project',
@@ -53,8 +53,12 @@ gulp.task('default', function (callback) {
         'sprite',
         'styles-app',
         'replace-config',
+        'widget-search',
+        'build-lk',
         ['styles', 'build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
         'build-angular-parts',
         'watch',
+        'widget-search-watch',
+        'build-lk-watch',
         callback);
 });

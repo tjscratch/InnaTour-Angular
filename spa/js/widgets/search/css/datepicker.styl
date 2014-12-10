@@ -17,118 +17,123 @@ $border-color-gray = #bdbdbd;
 $base-shadow-color = rgba(50, 50, 50, 0.25);
 
 .datepicker{
-  display none
-  position absolute
-  top 100%
-  left 0
-  z-index 1000
-  padding 4px
-  margin-top 8px
-  list-style none
-  background-color $base-bg
-  border-radius 2px
-  box-shadow 0 0 10px $base-shadow-color
-  font-family "Helvetica Neue", Helvetica, Arial, sans-serif
-  font-size 15px
-  line-height 1.428571429
-  color $color-base
-
-  &:before{
+    display none
     position absolute
-    z-index 1
-    content ''
-    left 24px
-    top -16px
-    border-style solid
-    border-width 8px
-    border-color transparent transparent #ececec transparent
-  }
-  &:after{
-    position absolute
-    z-index 2
-    content ''
-    left 25px
-    top -14px
-    border-style solid
-    border-width 7px
-    border-color transparent transparent #fff transparent
-  }
-
-}
-.datepicker table td{
-  width 30px
-  height 30px
-  line-height 30px
-  padding 0
-  text-align center
-  border-radius $border-radius
-
-  &.day{
-    cursor pointer
-    border 1px solid $border-color-base
-  }
-
-  &:nth-of-type(6),
-  &:nth-of-type(7){
-    color $color-red
-  }
-
-  &.today{
-    border 1px solid $border-color-gray
-    color $color-green
-    font-weight bold
-  }
-
-  &.range{
-    background-color $bg-green-light
-    color $color-white
-  }
-
-  &.active,
-  &.focused,
-  &:hover{
-    background-color $bg-green
-    color $color-white
-    border-color $border-color-base
-  }
-
-  &.selected{
-    line-height 16px
-    vertical-align top
-    color $color-white
-    border-color $border-color-base
-    background-color $bg-green
-    background-repeat no-repeat
-
-    &.from_date{
-      text-align left
-      background-image url("/spa/js/widgets/search/images/1.png")
-      background-position 15px 15px
-    }
-    &.to_date{
-      text-align right
-      background-image url("/spa/js/widgets/search/images/2.png")
-      background-position 2px 15px
-    }
-    &.one_date{
-      background-image url("/spa/js/widgets/search/images/3.png")
-      background-position 0 0
-    }
-  }
-
-  &.disabled{
-    opacity .5
-    background-color $bg-transparent !important
+    top 100%
+    left 0
+    z-index 1000
+    padding 4px !important
+    margin-top 8px
+    list-style none
+    background-color $base-bg
+    border-radius 2px
+    box-shadow 0 0 10px $base-shadow-color
+    font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+    font-size 15px
+    line-height 1.428571429
     color $color-base
-  }
 
-  &.new,
-  &.old{
-    height: 0
-    line-height 0
-    border none
-    visibility hidden
-  }
+    &:before{
+        position absolute
+        z-index 1
+        content ''
+        left 24px
+        top -16px
+        border-style solid
+        border-width 8px
+        border-color transparent transparent #ececec transparent
+    }
+    &:after{
+        position absolute
+        z-index 2
+        content ''
+        left 25px
+        top -14px
+        border-style solid
+        border-width 7px
+        border-color transparent transparent #fff transparent
+    }
+}
+.datepicker .table-condensed,
+.datepicker table{
+    border-collapse inherit
+    
+    > tbody > tr > td,
+    > tbody > tr > td{
+        width 30px
+        height 30px
+        line-height 30px
+        padding 0
+        text-align center
+        border-radius $border-radius
+
+        &.day{
+            cursor pointer
+            border 1px solid $border-color-base
+        }
+
+        &:nth-of-type(6),
+        &:nth-of-type(7){
+            color $color-red
+        }
+
+        &.today{
+            border 1px solid $border-color-gray
+            color $color-green
+            font-weight bold
+        }
+
+        &.range{
+            background-color $bg-green-light
+            color $color-white
+        }
+
+        &.active,
+        &.focused,
+        &:hover{
+            background-color $bg-green
+            color $color-white
+            border-color $border-color-base
+        }
+
+        &.selected{
+            line-height 16px
+            vertical-align top
+            color $color-white
+            border-color $border-color-base
+            background-color $bg-green
+            background-repeat no-repeat
+
+            &.from_date{
+                text-align left
+                background-image url("/spa/js/widgets/search/images/1.png")
+                background-position 15px 15px
+            }
+            &.to_date{
+                text-align right
+                background-image url("/spa/js/widgets/search/images/2.png")
+                background-position 2px 15px
+            }
+            &.one_date{
+                background-image url("/spa/js/widgets/search/images/3.png")
+                background-position 0 0
+            }
+        }
+
+        &.disabled{
+            opacity .5
+            background-color $bg-transparent !important
+            color $color-base
+        }
+
+        &.new,
+        &.old{
+            height: 0
+            line-height 0
+            border none
+            visibility hidden
+        }
+    }
 }
 $btn-hover = #e0e0e0;
 $btn-active = #77b237;
@@ -137,104 +142,104 @@ $arrow-bg = #fff;
 $arrow-top = 10px;
 $arrow-left = 12px;
 .datepicker table th{
-  padding 0
-  font-weight normal
+    padding 0
+    font-weight normal
 
-  &.prev,
-  &.next{
-    position relative
-    height 30px
-    width 30px
-    border 1px solid $border-color-gray
-    border-radius $border-radius
-    text-align center
-    cursor pointer
-    font-size 0
-    color transparent
+    &.prev,
+    &.next{
+        position relative
+        height 30px
+        width 30px
+        border 1px solid $border-color-gray
+        border-radius $border-radius
+        text-align center
+        cursor pointer
+        font-size 0
+        color transparent
 
-    &:before,
-    &:after{
-      position absolute
-      z-index 1
-      content ''
-      width 0px
-      height 0px
-      border-style solid
-      border-width 6px
-    }
-    &:before{
-      z-index 2
-      border-width 5px
+        &:before,
+        &:after{
+            position absolute
+            z-index 1
+            content ''
+            width 0px
+            height 0px
+            border-style solid
+            border-width 6px
+        }
+        &:before{
+            z-index 2
+            border-width 5px
+        }
+
+        &:hover{
+            border 1px solid $btn-hover
+            background $btn-hover
+        }
+        &:active{
+            border 1px solid $btn-active
+            background $btn-active
+        }
     }
 
-    &:hover{
-      border 1px solid $btn-hover
-      background $btn-hover
+    &.prev{
+        &:after{
+            right $arrow-left + 1
+            top $arrow-top - 1
+            border-color transparent $arrow-base transparent transparent
+        }
+        &:before{
+            right $arrow-left
+            top $arrow-top
+            border-color transparent $arrow-bg transparent transparent
+        }
+        &:hover{
+            &:before{
+                border-color transparent $btn-hover transparent transparent
+            }
+        }
+        &:active{
+            &:after{
+                border-color transparent #fff transparent transparent
+            }
+            &:before{
+                border-color transparent $btn-active transparent transparent
+            }
+        }
     }
-    &:active{
-      border 1px solid $btn-active
-      background $btn-active
-    }
-  }
 
-  &.prev{
-    &:after{
-      right $arrow-left + 1
-      top $arrow-top - 1
-      border-color transparent $arrow-base transparent transparent
+    &.next{
+        &:after{
+            left $arrow-left + 1
+            top $arrow-top - 1
+            border-color transparent transparent transparent $arrow-base
+        }
+        &:before{
+            left $arrow-left
+            top $arrow-top
+            border-color transparent transparent transparent $arrow-bg
+        }
+        &:hover{
+            &:before{
+                border-color transparent transparent transparent $btn-hover
+            }
+        }
+        &:active{
+            &:after{
+                border-color transparent transparent transparent #fff
+            }
+            &:before{
+                border-color transparent transparent transparent $btn-active
+            }
+        }
     }
-    &:before{
-      right $arrow-left
-      top $arrow-top
-      border-color transparent $arrow-bg transparent transparent
-    }
-    &:hover{
-      &:before{
-        border-color transparent $btn-hover transparent transparent
-      }
-    }
-    &:active{
-      &:after{
-        border-color transparent #fff transparent transparent
-      }
-      &:before{
-        border-color transparent $btn-active transparent transparent
-      }
-    }
-  }
 
-  &.next{
-    &:after{
-      left $arrow-left + 1
-      top $arrow-top - 1
-      border-color transparent transparent transparent $arrow-base
+    &.dow{
+        padding 5px 0 2px
+        font-size 12px
+        color $color-gray
     }
-    &:before{
-      left $arrow-left
-      top $arrow-top
-      border-color transparent transparent transparent $arrow-bg
-    }
-    &:hover{
-      &:before{
-        border-color transparent transparent transparent $btn-hover
-      }
-    }
-    &:active{
-      &:after{
-        border-color transparent transparent transparent #fff
-      }
-      &:before{
-        border-color transparent transparent transparent $btn-active
-      }
-    }
-  }
-
-  &.dow{
-    padding 5px 0 2px
-    font-size 12px
-    color $color-gray
-  }
 }
 .datepicker table tfoot{
-  display none
+    display none
 }

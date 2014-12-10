@@ -26,20 +26,3 @@ gulp.task('build-templates', function () {
         .pipe(gulp.dest(conf.build+'/js'))
         .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
-
-gulp.task('build-templates-widgets-search', function () {
-    return gulp.src([
-        conf.src + '/widgets/search/templ/*.html'
-    ])
-        .pipe(cleanhtml())
-        .pipe(templateCache({
-            module: 'innaTemplates'
-        }))
-        .pipe(uglify({
-            mangle: false,
-            output: {
-                beautify: true
-            }
-        }))
-        .pipe(gulp.dest(conf.src+'/widgets/search/build'))
-});
