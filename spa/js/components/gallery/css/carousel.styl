@@ -17,28 +17,33 @@
         z-index: 2;
 
         &__arrow {
-            position : absolute;
-            left : 50%;
+            position: absolute;
+            left: 50%;
             top: 50%;
         }
 
         &:hover {
-            background: rgba(77,77,77, 1) !important;
+            background: rgba(77, 77, 77, 1) !important;
         }
     }
 
     &__prev {
         left: 0;
         &__arrow {
-            transform : translate(-50%, -50%) rotate(90deg);
+            transform: translate(-50%, -50%) rotate(90deg);
         }
     }
 
     &__next {
         right: 0;
         &__arrow {
-            transform : translate(-50%, -50%) rotate(-90deg);
+            transform: translate(-50%, -50%) rotate(-90deg);
         }
+    }
+
+    &_arrow_mini {
+        transform: scale(0.7);
+        display: none;
     }
 
     &__holder {
@@ -81,5 +86,11 @@
 
     &.b-carousel_map {
 
+    }
+
+    &:hover {
+        .b-carousel_arrow_mini {
+            display: block;
+        }
     }
 }
