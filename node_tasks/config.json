@@ -10,6 +10,7 @@
   "publish": "./publish",
   "config_path": "./node_tasks/config.json",
   "node_path": "./node_tasks",
+  "widgets": "./spa/js/widgets",
   "protocol": {
     "http": "http://",
     "https": "https://"
