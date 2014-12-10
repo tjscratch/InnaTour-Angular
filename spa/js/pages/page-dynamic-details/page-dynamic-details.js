@@ -564,7 +564,7 @@ innaAppControllers
 
                     if (window.partners) {
                         if (window.partners.isFullWL() === true) {
-                            window.partners.setScrollTo((coords.top - headerHeight) - 30);
+                            window.partners.setScrollTo((coords.top) + 100);
                         }
                     }
                 }
