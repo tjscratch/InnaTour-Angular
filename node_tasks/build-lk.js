@@ -38,6 +38,10 @@ gulp.task('build-lk-watch', function () {
  */
 gulp.task('build-lk', [
     'build-lk-stylus',
-    'build-lk-watch',
     'widget-search'
+]);
+
+gulp.task('build-lk-watch', [
+    'build-lk-watch',
+    'widget-search-watch'
 ]);
