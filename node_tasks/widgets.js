@@ -47,11 +47,23 @@ gulp.task('widget-search-template', function () {
 /**
  * JS CONCAT
  */
-gulp.task('widget-search-js', ['widget-search-template'], function () {
+gulp.task('widget-search-config', function () {
     return gulp.src([
+        conf.widgets + '/search/js/inna-search.js'
+    ])
+        .pipe(concat('inna-search.js'))
+        .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
+            mangle: true,
+            outSourceMap: false
+        })))
+        .pipe(gulp.dest(conf.widgets + '/search'));
+});
+gulp.task('widget-search-js', ['widget-search-template', 'widget-search-config'], function () {
+    return gulp.src([
+        conf.bower + '/angular/angular.min.js',
         conf.dest + '/lib/ui-bootstrap/ui-bootstrap-custom-0.12.0.js',
         conf.dest + '/lib/ui-bootstrap/ui-bootstrap-custom-tpls-0.12.0.js',
-        conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.min.js',
+        conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.js',
         conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.ru.min.js',
         conf.widgets + '/search/js/app.js',
         conf.widgets + '/search/js/directives.js',
@@ -61,7 +73,7 @@ gulp.task('widget-search-js', ['widget-search-template'], function () {
     ])
         .pipe(concat('inna-search-widget.js'))
         .pipe(gulpif(_ENV_ === 'production' || _ENV_ === 'beta', uglify({
-            mangle: false,
+            mangle: true,
             outSourceMap: true
         })))
         .pipe(gulp.dest(conf.widgets + '/search/build'));
@@ -81,7 +93,6 @@ gulp.task('widget-search-watch', function () {
         conf.widgets + '/search/js/*.js',
         conf.widgets + '/search/templ/*.html'
     ], ['widget-search-js']);
-
 })
 
 
