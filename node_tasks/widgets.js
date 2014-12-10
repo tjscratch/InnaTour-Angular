@@ -21,16 +21,6 @@ gulp.task('widget-search-stylus', function () {
         }))
         .pipe(gulp.dest(conf.widgets + '/search/build'))
 });
-/**
- * STYLUS
- * gulp build-lk-stylus
- */
-gulp.task('build-lk-stylus', function () {
-    return gulp.src([conf.dest + '/html/LK/css/lk.styl'])
-        .pipe(stylus())
-        .pipe(concat('lk.css'))
-        .pipe(gulp.dest(conf.dest + '/html/LK/css'))
-});
 
 
 /**
@@ -76,15 +66,6 @@ gulp.task('widget-search-js', ['widget-search-template'], function () {
         })))
         .pipe(gulp.dest(conf.widgets + '/search/build'));
 });
-/**
- * WATCHERS
- * gulp build-lk-watch
- */
-gulp.task('build-lk-watch', function () {
-    gulp.watch(conf.dest + '/html/LK/css/*.styl', ['build-lk-stylus'])
-        .on('change', function (file) {
-        });
-})
 
 
 /**
@@ -109,6 +90,5 @@ gulp.task('widget-search-watch', function () {
  */
 gulp.task('widget-search', [
     'widget-search-stylus',
-    'build-lk-stylus',
     'widget-search-js',
 ]);

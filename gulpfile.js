@@ -58,6 +58,7 @@ gulp.task('default', function (callback) {
         ['styles', 'build-templates', 'concat-bower-components', 'concat-lib', 'concat-comp-page-regions'],
         'build-angular-parts',
         'watch',
+        'widget-search-watch',
         'build-lk-watch',
         callback);
 });
