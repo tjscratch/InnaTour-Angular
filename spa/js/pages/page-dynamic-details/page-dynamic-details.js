@@ -560,6 +560,13 @@ innaAppControllers
                     var headerHeight = angular.element('.Header').height();
                     var body = angular.element('html, body');
                     body.animate({scrollTop:(coords.top - headerHeight) - 30}, 300);
+
+
+                    if (window.partners) {
+                        if (window.partners.isFullWL() === true) {
+                            window.partners.setScrollTo((coords.top - headerHeight) - 30);
+                        }
+                    }
                 }
 
 
