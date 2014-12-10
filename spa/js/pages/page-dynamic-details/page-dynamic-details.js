@@ -223,7 +223,13 @@ innaAppControllers
                             dataRequest: searchParams
                         });
 
+                        var timeoutId = setTimeout(function () {
+                            onClose();
+                        }, 3000);
                         function onClose() {
+                            if (timeoutId) {
+                                clearTimeout(timeoutId);
+                            }
                             $scope.$apply(function ($scope) {
                                 delete $location.$$search.displayHotel;
                                 $location.$$compose();
