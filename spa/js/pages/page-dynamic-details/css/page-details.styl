@@ -218,7 +218,7 @@
     margin-bottom : 5px;
     color #4c4c4c
     font-size 12px
-    padding : 4px;
+    padding : 3px;
     position relative
 
     /*.icon-type-extra {
@@ -362,7 +362,9 @@
       font-size 14px
       font-weight normal
       margin-bottom : 2px;
-      cursor pointer
+      cursor: pointer;
+      word-wrap: break-word;
+      width : 290px;
       /*position relative*/
 
       .like-link {
@@ -409,7 +411,7 @@
     }
 
     &-desc_wrap {
-      min-height : 51px;
+      min-height : 53px;
     }
 
     &-desc_empty {
@@ -417,11 +419,8 @@
     }
 
     &-cancel-rules {
-      padding-right 5px
-
-      &-ok {
-        color : $green;
-      }
+      padding-right: 5px;
+      font-size : 15px;
     }
 
     &-price {
