@@ -33,6 +33,7 @@ innaAppControllers
             Raven.setExtraContext({key: "__DETAILS_DP_CONTEXT__"})
 
             var routParam = angular.copy($routeParams);
+            $scope.OrderId = routParam.OrderId;
             $scope.userIsAgency = null;
 
             document.body.classList.add('bg_white');
@@ -150,54 +151,6 @@ innaAppControllers
                 balloonContent: 'Это может занять какое-то время'
             });
 
-
-            function getDisplayOrder() {
-
-                $scope.isDisplayOrder = true;
-
-                DynamicPackagesDataProvider.displayOrder({
-                    orderId: routParam.OrderId,
-                    success: function (resp) {
-                        _balloonLoad.fire('hide');
-
-                        $scope.recommendedPair.setTicket(new ModelTicket(resp.AviaInfo))
-
-
-                        if (resp.Hotel) {
-                            $scope.recommendedPair.setHotel(new ModelHotel(resp.Hotel));
-                            $scope.hotel = resp.Hotel;
-                            $scope.hotelRooms = [$scope.hotel.Room];
-                            $scope.hotelRooms[0].isOpen = true;
-                            $scope.hotelOnly = true;
-                            $scope.hotelLoaded = true;
-                            $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
-                            EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
-                            loadMap();
-                            onload();
-                        }
-
-                        if (('displayTicket' in $location.search())) {
-                           $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, {noClose: true, noChoose: true, ticket : $scope.recommendedPair.ticket})
-                        }
-                    },
-                    error: function () {
-                        _balloonLoad.dispose();
-                        _balloonLoad.updateView({
-                            template: "err.html",
-                            title: 'Oops...',
-                            content: 'Указанного заказа не существует',
-                            callbackClose: function () {
-                                $scope.$apply(function ($scope) {
-                                    delete $location.$$search.displayHotel
-                                    $location.$$compose();
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-
-
             function parseAmenities (hotel){
                 hotel.AmenitiesArray = [];
 
@@ -226,8 +179,6 @@ innaAppControllers
              */
             function parseRooms(rooms){
 
-                $templateRequest('components/stars/templ/index.hbs.html');
-
                 rooms.find(function(room){
                     if(room.Photos) {
                         $scope.RoomsPhotosIsEmpty = false;
@@ -242,6 +193,57 @@ innaAppControllers
                     }
                 })
             }
+
+
+            function getDisplayOrder() {
+
+                $scope.isDisplayOrder = true;
+
+                DynamicPackagesDataProvider.displayOrder({
+                    orderId: routParam.OrderId,
+                    success: function (resp) {
+                        _balloonLoad.fire('hide');
+
+                        $scope.recommendedPair.setTicket(new ModelTicket(resp.AviaInfo))
+
+
+                        if (resp.Hotel) {
+                            $scope.recommendedPair.setHotel(new ModelHotel(resp.Hotel));
+                            $scope.hotel = resp.Hotel;
+                            $scope.hotelRooms = [$scope.hotel.Room];
+                            $scope.hotelRooms[0].isOpen = true;
+                            $scope.hotelOnly = true;
+                            $scope.hotelLoaded = true;
+                            $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
+                            EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+
+                            parseAmenities(resp.Hotel);
+                            parseRooms($scope.hotelRooms);
+                            loadMap();
+                            onload();
+                        }
+
+                        if (('displayTicket' in $location.search())) {
+                           $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, {noClose: true, noChoose: true, ticket : $scope.recommendedPair.ticket})
+                        }
+                    },
+                    error: function () {
+                        _balloonLoad.dispose();
+                        _balloonLoad.updateView({
+                            template: "err.html",
+                            title: 'Oops...',
+                            content: 'Указанного заказа не существует',
+                            callbackClose: function () {
+                                $scope.$apply(function ($scope) {
+                                    delete $location.$$search.displayHotel
+                                    $location.$$compose();
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+
 
             /** Получаем данные по отелю */
             function getHotelDetails() {
