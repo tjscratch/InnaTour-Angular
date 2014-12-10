@@ -21,6 +21,11 @@
       "prod": "https://b2b.inna.ru",
       "beta": "http://b2b.beta.inna.ru"
     },
+    "b2bPartner": {
+      "test": "http://partner.test.inna.ru",
+      "prod": "https://partner.inna.ru",
+      "beta": "http://partner.beta.inna.ru"
+    },
     "api": {
       "test": "http://api.test.inna.ru",
       "prod": "https://api.inna.ru",
