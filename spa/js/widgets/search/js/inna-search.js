@@ -51,6 +51,7 @@
 
         function m(n, r) {
             var i = e.createElement("script"), u;
+            i.charset = "utf-8";
             i.onload = i.onerror = i[o] = function () {
                 if (i[s] && !/^c|loade/.test(i[s]) || u)return;
                 i.onload = i[o] = null, u = 1, l[n] = 2, r()
@@ -85,12 +86,12 @@
      * @type {string}
      */
 
-    var host = 'https://inna.ru';
+    var host = 'http://lh.inna.ru';
     var widget = document.querySelector(".b-inna-search-widget");
     var sources = {
         'css': host + '/spa/js/widgets/search/build/inna-search-widget.css',
         'jquery': host + '/bower_components/jquery/dist/jquery.min.js',
-        'app': host + 'http://inna.ru/spa/js/widgets/search/build/inna-search-widget.js'
+        'app': host + '/spa/js/widgets/search/build/inna-search-widget.js'
     };
 
     function insertAfter(newNode, referenceNode) {
@@ -112,7 +113,7 @@
         .ready('jquery', function () {
         })
         .ready('app', function () {
-            setTimeout(bootstrap(), 100);
+            setTimeout(bootstrap(), 200);
         })
     
     if(!window.$ || !window.jQuery){
