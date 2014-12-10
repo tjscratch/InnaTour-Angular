@@ -112,10 +112,8 @@
         .ready('jquery', function () {
         })
         .ready('app', function () {
-            setTimeout(bootstrap(), 200)
+            bootstrap();
         })
-
-    console.log(window.$)
     
     if(!window.$ || !window.jQuery){
         $script(sources.jquery, 'jquery');
@@ -126,7 +124,7 @@
     function bootstrap() {
         if (window.$ && angular.bootstrap) {
             $(function () {
-                angular.bootstrap(widget, ['innaSearchForm']);
+                angular.bootstrap($(".b-inna-search-widget"), ['innaSearchForm']);
             });
         }
     }
