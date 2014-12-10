@@ -10,7 +10,8 @@
                 template: $templateCache.get('form.html'),
                 scope: {
                     partnerSite: "@",
-                    partnerName: "@"
+                    partnerName: "@",
+                    partnerDefaultCity: "@"
                 },
                 controller: ['$element', '$scope', '$http', 'Validators', function ($element, $scope, $http, Validators) {
 
@@ -18,7 +19,7 @@
                      * установка текущей локали
                      */
                     $http.get('https://inna.ru/api/v1/Dictionary/GetCurrentLocation').success(function (response) {
-                        var fullName = response.Name + ", " + response.CountryName
+                        var fullName = response.Name + ", " + response.CountryName;
                         $scope.locationFrom = {id: response.Id, name: fullName, iata: response.CodeIata};
                     });
 
