@@ -100,10 +100,22 @@ angular.module('innaApp.controllers')
                 return false;
             };
 
-            $scope.showProfile = function(){
-            	if($scope.$root.user.isAgency()) {
-            		window.location = $scope.B2B_HOST;
-            		return;
+            $scope.showProfile = function ($event) {
+            	if ($scope.$root.user) {
+            	    //console.log('user.Type:', $scope.$root.user.getType());
+            	    switch ($scope.$root.user.getType()) {
+            	        case 2: {//B2B = 2, b2b.inna.ru
+            	            window.location = $scope.B2B_HOST;
+            	            $event.preventDefault();
+            	            return;
+            	        }
+            	        case 4: {//Partner = 4, partner.inna.ru
+            	            window.location = $scope.b2bPartnerHost;
+            	            $event.preventDefault();
+            	            return;
+            	        }
+            	    }
+
             	}
 
                 $scope.open();
