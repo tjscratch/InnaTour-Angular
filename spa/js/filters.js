@@ -180,6 +180,14 @@ innaAppFilters.filter('console', function () {
 });
 
 
+innaAppFilters.filter('trim', function () {
+    return  function (text) {
+        return text.trim();
+    };
+});
+
+
+
 innaAppFilters.filter('partition', function ($cacheFactory) {
     var arrayCache = $cacheFactory('partition')
     return function(arr, size) {

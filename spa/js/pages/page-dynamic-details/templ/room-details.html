@@ -12,9 +12,9 @@
 		<p ng-if="room.Extra">
 			<span ng-repeat="(name, list) in room.Extra" ng-init="isLastExtra = $last">
 				<span ng-repeat="item in list.List"
-				      ng-if="!isLastExtra || !$last">{{item}}, </span>
+				      ng-if="!isLastExtra || !$last">{{item | trim}}, </span>
 				<span ng-repeat="item in list.List"
-				      ng-if="isLastExtra && $last">{{item}}.</span>
+				      ng-if="isLastExtra && $last">{{item | trim}}.</span>
             </span>
 		</p>
 
@@ -22,7 +22,7 @@
 
 		<p ng-if="room.RoomAmenities">
             <span ng-repeat="am in room.RoomAmenities">
-                {{am.Name}}<span ng-if="!$last">,&nbsp;</span><span ng-if="$last">.</span>
+                {{am.Name | trim}}<span ng-if="!$last">,&nbsp;</span><span ng-if="$last">.</span>
             </span>
 		</p>
 

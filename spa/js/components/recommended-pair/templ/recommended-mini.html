@@ -1,6 +1,6 @@
 <div class="row result-small" ng-click="display.fullDisplay()" style="cursor:pointer;">
 
-	<div class="result-small__cell col-xs-5 col-no-padding">
+	<div class="result-small__cell col-xs-6 col-no-padding">
 		<p class="flight">
 			<img class="flight__image"
 			     ng-src="{{airLogo( recommendedPair.ticket.getEtaps('To')[0].data.TransporterCode )}}"
@@ -68,7 +68,7 @@
 			</ng-pluralize>
 		</div>
 	</div>
-	<div class="result-small__cell col-xs-3 col-no-padding">
+	<div class="result-small__cell col-xs-2 col-no-padding">
 
 		<div class="corner-price">
 			{{recommendedPair.getFullPackagePrice() | price}}<!--
