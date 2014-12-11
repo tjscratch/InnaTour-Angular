@@ -14,13 +14,13 @@
 			в пути: {{recommendedPair.ticket.getDuration('To')}},&nbsp;
 			<ng-pluralize
 
-					ng-init="count = recommendedPair.ticket.getEtaps('To').length - 1"
-					count="count"
+					ng-init="countTo = recommendedPair.ticket.getEtaps('To').length - 1"
+					count="countTo"
 					when="{
 						   '0': 'без пересадок',
-                           'one': '{{count}} пересадка',
-                           'few': '{{count}} пересадки',
-                           'many': '{{count}} пересадок'}">
+                           'one': '{{countTo}} пересадка',
+                           'few': '{{countTo}} пересадки',
+                           'many': '{{countTo}} пересадок'}">
 			</ng-pluralize>
 		</p>
 
@@ -35,13 +35,13 @@
             </span>
 			в пути: {{recommendedPair.ticket.getDuration('Back')}},&nbsp;
 			<ng-pluralize
-					ng-init="count = recommendedPair.ticket.getEtaps('Back').length - 1"
-					count="count"
+					ng-init="countBack = recommendedPair.ticket.getEtaps('Back').length - 1"
+					count="countBack"
 					when="{
 						   '0': 'без пересадок',
-                           'one': '{{count}} пересадка',
-                           'few': '{{count}} пересадки',
-                           'many': '{{count}} пересадок'}">
+                           'one': '{{countBack}} пересадка',
+                           'few': '{{countBack}} пересадки',
+                           'many': '{{countBack}} пересадок'}">
 			</ng-pluralize>
 		</p>
 	</div>
@@ -59,12 +59,12 @@
 			с {{recommendedPair.hotel.data.CheckIn | date: 'd MMM'}}
 			по {{recommendedPair.hotel.data.CheckOut | date: 'd MMM'}},
 			<ng-pluralize
-					ng-init="count = recommendedPair.hotel.data.NightCount"
-					count="count"
+					ng-init="countRoom = recommendedPair.hotel.data.NightCount"
+					count="countRoom"
 			              when="{
-                               'one': '{{count}} ночь',
-                               'few': '{{count}} ночи',
-                               'many': '{{count}} ночей'}">
+                               'one': '{{countRoom}} ночь',
+                               'few': '{{countRoom}} ночи',
+                               'many': '{{countRoom}} ночей'}">
 			</ng-pluralize>
 		</div>
 	</div>
