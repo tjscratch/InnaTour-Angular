@@ -58,11 +58,13 @@
 		<div class="hotel-info-date">
 			с {{recommendedPair.hotel.data.CheckIn | date: 'd MMM'}}
 			по {{recommendedPair.hotel.data.CheckOut | date: 'd MMM'}},
-			<ng-pluralize count="recommendedPair.hotel.data.NightCount"
+			<ng-pluralize
+					ng-init="count = recommendedPair.hotel.data.NightCount"
+					count="count"
 			              when="{
-                               'one': 'ночь',
-                               'few': 'ночи',
-                               'many': 'ночей'}">
+                               'one': '{{count}} ночь',
+                               'few': '{{count}} ночи',
+                               'many': '{{count}} ночей'}">
 			</ng-pluralize>
 		</div>
 	</div>
