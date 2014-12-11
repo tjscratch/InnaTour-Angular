@@ -18,22 +18,21 @@
                     /**
                      * установка текущей локали
                      */
-                    $http.get('https://inna.ru/api/v1/Dictionary/GetCurrentLocation').success(function (response) {
-                        var fullName = response.Name + ", " + response.CountryName;
-                        if ($scope.partnerDefaultCity) {
-                            $http.get('https://inna.ru/api/v1/Dictionary/Directory', {
-                                params: {
-                                    term: $scope.partnerDefaultCity.trim()
-                                }
-                            }).then(function (response) {
-                                var currentCityName = response.data[0].Name + ", " + response.data[0].CountryName;
-                                $scope.locationFrom = {id: response.data[0].Id, name: currentCityName};
-                            });
-                        } else {
+                    if ($scope.partnerDefaultCity) {
+                        $http.get('https://inna.ru/api/v1/Dictionary/Directory', {
+                            params: {
+                                term: $scope.partnerDefaultCity.trim()
+                            }
+                        }).then(function (response) {
+                            var fullName = response.data[0].Name + ", " + response.data[0].CountryName;
+                            $scope.locationFrom = {id: response.data[0].Id, name: fullName, iata: response.data[0].CodeIata};
+                        });
+                    } else {
+                        $http.get('https://inna.ru/api/v1/Dictionary/GetCurrentLocation').success(function (response) {
+                            var fullName = response.Name + ", " + response.CountryName;
                             $scope.locationFrom = {id: response.Id, name: fullName, iata: response.CodeIata};
-                        }
-
-                    });
+                        });
+                    }
 
                     /**
                      * https://inna.ru/api/v1/Dictionary/Directory
