@@ -18,7 +18,7 @@ gulp.task('build-templates', function () {
             module: 'innaApp.templates'
         }))
         .pipe(uglify({
-            mangle: false,
+            mangle: true,
             output: {
                 beautify: true
             }
