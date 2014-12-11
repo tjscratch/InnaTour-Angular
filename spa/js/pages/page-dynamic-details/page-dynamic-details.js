@@ -389,8 +389,7 @@ innaAppControllers
             };
 
             function showErrNotFound(msg) {
-                $scope.baloon.showNotFound(msg, "Пожалуйста, выполните новый поиск.", function () {
-                    var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
                         $routeParams.DepartureId,
                         $routeParams.ArrivalId,
                         $routeParams.StartVoyageDate,
@@ -398,8 +397,21 @@ innaAppControllers
                         $routeParams.TicketClass,
                         $routeParams.Adult,
                         $routeParams.Children
-                    ].join('-');
-                    $location.url(url);
+                ].join('-');
+
+                var tmId = setTimeout(function(){
+                    $scope.safeApply(function(){
+                        $scope.baloon.hide();
+                        $location.url(url);
+                    });
+                }, 3000);
+                $scope.baloon.showNotFound(msg, "Пожалуйста, выполните новый поиск.", function () {
+                    if (tmId){
+                        clearTimeout(tmId);
+                    }
+                    $scope.safeApply(function(){
+                        $location.url(url);
+                    });
                 });
             }
 
