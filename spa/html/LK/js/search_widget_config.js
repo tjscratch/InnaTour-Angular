@@ -3,13 +3,19 @@
 
     var app = angular.module("innaSearchForm");
 
+    if (window.$ && angular.bootstrap) {
+        $(function () {
+            angular.bootstrap($("html"), ['innaSearchForm']);
+        });
+    }
+
+
     /**
      * BEGIN Bootstrap form
      */
     app.controller('FormBootstrapCtrl', [
         '$scope',
-        '$templateCache',
-        function ($scope, $templateCache) {
+        function ($scope) {
 
             $scope.radioModel = 'b-inna-search-widget-row-1';
 
