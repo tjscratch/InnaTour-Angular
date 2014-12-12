@@ -1,57 +1,136 @@
 /* font-family: "ProximaNovaRegular"; */
 @font-face{
-  font-family: "ProximaNovaRegular";
-  src: url("../fonts/ProximaNovaRegular/ProximaNovaRegular.eot");
-  src: url("../fonts/ProximaNovaRegular/ProximaNovaRegular.eot?#iefix") format("embedded-opentype"),
-  url("../fonts/ProximaNovaRegular/ProximaNovaRegular.woff") format("woff"),
-  url("../fonts/ProximaNovaRegular/ProximaNovaRegular.ttf") format("truetype");
-  font-style: normal;
-  font-weight: normal;
-}
-/* font-family: "ProximaNovaBold"; */
-@font-face{
-  font-family: "ProximaNovaBold";
-  src: url("../fonts/ProximaNovaBold/ProximaNovaBold.eot");
-  src: url("../fonts/ProximaNovaBold/ProximaNovaBold.eot?#iefix") format("embedded-opentype"),
-  url("../fonts/ProximaNovaBold/ProximaNovaBold.woff") format("woff"),
-  url("../fonts/ProximaNovaBold/ProximaNovaBold.ttf") format("truetype");
-  font-style: normal;
-  font-weight: normal;
+    font-family: "ProximaNovaRegular";
+    src: url("../fonts/ProximaNovaRegular/ProximaNovaRegular.eot");
+    src: url("../fonts/ProximaNovaRegular/ProximaNovaRegular.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/ProximaNovaRegular/ProximaNovaRegular.woff") format("woff"),
+    url("../fonts/ProximaNovaRegular/ProximaNovaRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
 }
 body{
-  -webkit-font-smoothing: subpixel-antialiased !important;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -ms-backface-visibility: hidden;
-  font-smoothing: subpixel-antialiased !important;
-  font-family: ProximaNovaRegular, Arial, sans-serif;
-  font-size 13px
-  line-height 130%
-  color $color-black
+    -webkit-font-smoothing: subpixel-antialiased !important;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    font-smoothing: subpixel-antialiased !important;
+    font-family: ProximaNovaRegular, Arial, sans-serif;
+    font-size 13px
+    line-height 130%
+    color $color-black
 }
 *{
-  box-sizing border-box
+    box-sizing border-box
 }
 a{
-  color $link-color
-  text-decoration underline
+    color $link-color
+    text-decoration underline
+}
+h1{
+    margin 30px 0 10px
+    font-size 20px
+}
+h2{
+    margin 20px 0
+    font-size 18px
+}
+h3{
+    margin 15px 0
+    font-size 16px
+}
+h4{
+    margin 10px 0
+    font-size 15px
 }
 .breadcrumbs{
-  @extend .clearFix;
-  display block
-  margin 12px 0
-  font-size 15px
+    @extend .clearFix;
+    display block
+    margin 12px 0
+    font-size 15px
 
-  li{
-    float left
-    margin-left 20px
-    list-style-position outside
-    list-style-type disc
-    white-space nowrap
+    li{
+        float left
+        margin-left 20px
+        list-style-position outside
+        list-style-type disc
+        white-space nowrap
 
-    &:first-child{
-      margin-left 0
-      list-style none
+        &:first-child{
+            margin-left 0
+            list-style none
+        }
     }
-  }
+}
+.color-gray{
+    color $color-gray
+}
+.body{
+    padding-top $header-height
+}
+.body-data{
+    min-height 100%
+    padding 190px 0 20px
+    background-color $color-gray-light2
+}
+.field-validation-error,
+.tooltip{
+    position absolute
+    z-index 10
+    width 330px
+    background #fff
+    border 1px solid $color-gray-light
+    border-radius $border-radius
+    box-shadow 0 3px 8px rgba(0, 0, 0, .4)
+
+    &:after,
+    &:before{
+        content ''
+        position absolute
+        border-style solid
+        border-width 10px
+    }
+    &:before{
+        left 30px
+        top -20px
+        border-color transparent transparent $color-gray-light transparent
+    }
+    &:after{
+        left 30px
+        top -19px
+        border-color transparent transparent #fff transparent
+    }
+
+    .tooltip-close{
+        position absolute
+        top 6px
+        right: 10px
+        font-size 20px
+        cursor pointer
+
+        &:hover{
+            color $color-green
+        }
+    }
+
+    > span,
+    .tooltip-body{
+        display block
+        padding 10px
+        color #666
+
+        h2{
+            margin 0 0 10px
+            padding-right 20px
+            font-size 20px
+            color $color-black
+        }
+    }
+}
+.field-validation-error,
+.tooltip-danger{
+    background-color #fff8eb
+
+    &:after{
+        border-color transparent transparent #fff8eb transparent
+    }
 }

@@ -15,7 +15,6 @@ innaAppControllers
         'DynamicFormSubmitListener',
         '$q',
         '$anchorScroll',
-        '$templateRequest',
 
         'Balloon',
         '$filter',
@@ -25,7 +24,7 @@ innaAppControllers
         'ModelTicketsCollection',
         'ModelTicket',
         'ModelHotel',
-        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, $templateRequest, Balloon, $filter,
+        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Balloon, $filter,
                   ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
             DynamicFormSubmitListener.listen();
@@ -299,17 +298,25 @@ innaAppControllers
                             dataRequest: searchParams
                         });
 
-                        _balloonLoad.updateView({
-                            template: 'err.html',
-                            title: "Запрашиваемый отель не найден",
-                            content: "Вероятно, комнаты в нем уже распроданы.",
-                            callbackClose: function () {
-                                $scope.$apply(function ($scope) {
-                                    delete $location.$$search.displayHotel;
-                                    $location.$$compose();
-                                    $location.path(goToSearchDynamic());
-                                });
+                        var timeoutId = setTimeout(function () {
+                            onClose();
+                        }, 3000);
+                        function onClose() {
+                            if (timeoutId) {
+                                clearTimeout(timeoutId);
                             }
+                            $scope.$apply(function ($scope) {
+                                delete $location.$$search.displayHotel;
+                                $location.$$compose();
+                                $location.path(goToSearchDynamic());
+                            });
+                        }
+                        _balloonLoad.updateView({
+                            template: 'not-found.html',
+                            title: "Перелет + Отель недоступен",
+                            content: "К сожалению, выбранный пакет Перелет + Отель <br/>недоступен, выберите другой вариант.",
+                            callbackClose: onClose,
+                            callback: onClose
                         });
                         deferred.reject();
                     }
@@ -384,8 +391,7 @@ innaAppControllers
             };
 
             function showErrNotFound(msg) {
-                $scope.baloon.showNotFound(msg, "Пожалуйста, выполните новый поиск.", function () {
-                    var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
                         $routeParams.DepartureId,
                         $routeParams.ArrivalId,
                         $routeParams.StartVoyageDate,
@@ -393,8 +399,21 @@ innaAppControllers
                         $routeParams.TicketClass,
                         $routeParams.Adult,
                         $routeParams.Children
-                    ].join('-');
-                    $location.url(url);
+                ].join('-');
+
+                var tmId = setTimeout(function(){
+                    $scope.safeApply(function(){
+                        $scope.baloon.hide();
+                        $location.url(url);
+                    });
+                }, 3000);
+                $scope.baloon.showNotFound(msg, "Пожалуйста, выполните новый поиск.", function () {
+                    if (tmId){
+                        clearTimeout(tmId);
+                    }
+                    $scope.safeApply(function(){
+                        $location.url(url);
+                    });
                 });
             }
 

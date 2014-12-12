@@ -520,6 +520,8 @@ innaAppControllers
 
                     this._balloonLoad.updateView({
                         template: 'not-found.html',
+                        title: 'Мы ничего не нашли',
+                        content: 'Попробуйте изменить условия поиска',
                         callbackClose: function () {
                             that.balloonCloser();
                         }

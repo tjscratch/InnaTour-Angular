@@ -75,7 +75,7 @@ node_tasks/manifest.json
 # игнорируем собранный файл спрайтов
 spa/img/sprites/*.json
 spa/img/sprites/icon-*.png
-spa/styl/*.styl
+spa/styl/sprite.styl
 spa/styl/temp/*.styl
 spa/styl/partners/**/*.css
 spa/js/**/*.css
@@ -99,3 +99,7 @@ Solution.v12.suo
 Inna.Frontend.csproj
 Inna.Frontend.SPA.sln
 start_on_node_server.cmd
+
+logs
+start_on_node_server.cmd
+spa/js/widgets/search/inna-search.js

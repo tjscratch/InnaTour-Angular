@@ -10,6 +10,7 @@
   "publish": "./publish",
   "config_path": "./node_tasks/config.json",
   "node_path": "./node_tasks",
+  "widgets": "./spa/js/widgets",
   "protocol": {
     "http": "http://",
     "https": "https://"
@@ -20,6 +21,11 @@
       "test": "http://b2b.test.inna.ru",
       "prod": "https://b2b.inna.ru",
       "beta": "http://b2b.beta.inna.ru"
+    },
+    "b2bPartner": {
+      "test": "http://partner.test.inna.ru",
+      "prod": "https://partner.inna.ru",
+      "beta": "http://partner.beta.inna.ru"
     },
     "api": {
       "test": "http://api.test.inna.ru",

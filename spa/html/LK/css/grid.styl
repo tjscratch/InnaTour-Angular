@@ -1,34 +1,119 @@
 .row{
-  @extend .clearFix;
-  position relative
-  margin-right - $col-padding;
-  margin-left - $col-padding;
+    @extend .clearFix;
+    position relative
+    margin-right - $col-padding;
+    margin-left - $col-padding;
 }
 for key in (1..12){
-  $cols = 12 / key
-  .col-xs-{key}{
-    position: relative;
-    float: left;
-    width: (100 / $cols) %;
-    min-height: 1px;
-    box-sizing: border-box;
-    padding-left: $col-padding;
-    padding-right: $col-padding;
-  }
+    $cols = 12 / key
+    .col-xs-{key}{
+        position: relative;
+        float: left;
+        width: (100 / $cols) %;
+        min-height: 1px;
+        box-sizing: border-box;
+        padding-left: $col-padding;
+        padding-right: $col-padding;
+    }
 }
 .container{
-  width $container
-  margin 0 auto
+    width $container
+    margin 0 auto
 }
 .pull-left{
-  float left
+    float left
 }
 .pull-right{
-  float right
+    float right
 }
 .text-left{
-  text-align left
+    text-align left
 }
 .text-right{
-  text-align right
+    text-align right
+}
+.text-center{
+    text-align center
+}
+.data-row{
+    @extend .clearFix;
+}
+.data-item{
+    float left
+    border-style dotted
+    border-color #bdbdbd
+    border-width 1px 0 0 1px
+
+    &:first-child{
+        border-width 1px 0 0 0
+    }
+}
+.data-col-1{
+    width 120px
+}
+.data-col-2{
+    width 205px
+}
+.data-col-3{
+    width 210px
+}
+.data-col-4{
+    width 115px
+}
+.data-col-5{
+    width 38px
+}
+.data-col-6{
+    width 80px
+}
+.data-col-7{
+    width 90px
+}
+.data-col-8{
+    width 100px
+}
+.data-title{
+    .data-item{
+        padding 2px 6px
+        height 38px
+    }
+}
+.data-body{
+    margin 5px 0
+    background-color #fff
+    border-radius $border-radius
+    font-size 12px
+
+    .data-item{
+        height 50px
+        padding 9px 6px
+        border-width 0 0 0 1px
+        white-space nowrap
+
+        div{
+            overflow hidden
+            text-overflow ellipsis
+        }
+
+        &:first-child{
+            border-width 0
+        }
+        .icon{
+            margin-top 7px
+        }
+    }
+
+    &.disabled{
+        background-color $color-gray-light3
+        color $color-gray
+    }
+}
+.offset-left-1{
+    margin-left 15px !important
+}
+.offset-bottom-1{
+    margin-bottom 15px !important
+}
+.offset-bottom-2{
+    margin-bottom 25px !important
 }

@@ -36,6 +36,19 @@ innaAppServices.factory('modelAuth', [
             return this.raw.AgencyName.length > 0;
         };
 
+        Auth.User.prototype.getType = function () {
+            if (this.raw)
+            {
+                var res = null;
+                try {
+                    res = parseInt(this.raw.Type);
+                }
+                catch (e) { }
+                return res;
+            }
+            return null;
+        };
+
         Auth.User.prototype.getName = function () {
             return this.raw.AgencyName;
         };
