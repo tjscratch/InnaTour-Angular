@@ -105,8 +105,8 @@ angular.module('innaApp.components')
 
                     $scope.$watch('recommendedPair', function (value) {
                         if (value) {
-                            $scope.AviaInfo = value.ticket.data;
-                            $scope.hotel = value.hotel.data;
+                            $scope.AviaInfo = value.ticket ? value.ticket.data : null;
+                            $scope.hotel = value.hotel ? value.hotel.data : null;
                         }
                     }, true);
 

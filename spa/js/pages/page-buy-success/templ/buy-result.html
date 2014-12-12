@@ -1,117 +1,128 @@
 <div class="buy__result">
 
-    <div class="buy__blocks">
+	<div class="buy__blocks">
 
-        <div class="row buy__result__title">
-            <p class="buy__price-descr">Внимание! К компонентам пакета применяются разные условия отмены бронирования.<br />Пожалуйста, ознакомьтесь с <a href="" on-click="showBalloonTicket">правилами применения тарифа авиабилета</a> и <a href="" on-click="showBalloonHotel">условиями бронирования отеля</a>.</p><br />
-        </div>
+		<div class="row buy__result__title">
+			<p class="buy__price-descr">Внимание! К компонентам пакета применяются разные условия отмены
+				бронирования.<br/>Пожалуйста, ознакомьтесь с <a href="" ng-click="showBalloonTicket($event)">правилами
+					применения тарифа авиабилета</a> и <a href="" ng-click="showBalloonHotel($event)">условиями бронирования
+					отеля</a>.</p><br/>
+		</div>
 
-        <div class="row">
-            <div class="col-xs-8 col-no-padding">
+		<div class="row">
+			<div class="col-xs-8 col-no-padding">
 
-                <!-- форматирование дат moment  -->
-                <ul class="buy__result-date-container">
-                    <li class="buy__result-list-item">
-                        Заезд {{moment(Hotel.CheckIn).format('ll')}}
-                        (до {{moment(Hotel.CheckIn).format('HH:mm')}}),
-                        {{moment(Hotel.CheckIn).format('ddd')}}
+				<!-- форматирование дат moment  -->
+				<ul class="buy__result-date-container">
+					<li class="buy__result-list-item">
+						Заезд {{Hotel.CheckIn | date:"d MMM yyyy 'г.'"}}
+						(до {{Hotel.CheckIn | date: 'HH:mm'}}),
+						{{Hotel.CheckIn | date: 'ddd'}}
 
-                        <div class="buy__result-translation">
-                            Check-In {{moment(Hotel.CheckIn).lang("en").format('ll')}}
-                            ({{moment(Hotel.CheckIn).lang("en").format('HH:mm')}}),
-                            {{moment(Hotel.CheckIn).lang("en").format('ddd')}}
-                        </div>
-                    </li>
-                    <li class="buy__result-list-item">
-                        Отъезд {{moment(Hotel.CheckOut).format('ll')}} (до {{moment(Hotel.CheckOut).format('HH:mm')}}),
-                        {{moment(Hotel.CheckOut).format('ddd')}}
+						<!-- en -->
+						<div class="buy__result-translation">
+							Check-In {{Hotel.CheckIn | date :"d MMM yyyy 'г.'"}}
+							({{Hotel.CheckIn | date: 'HH:mm'}}),
+							{{Hotel.CheckIn | date: 'ddd'}}
+						</div>
+					</li>
+					<li class="buy__result-list-item">
+						Отъезд {{Hotel.CheckOut | date: "d MMM yyyy 'г.'"}} (до {{Hotel.CheckOut | date: 'HH:mm'}}),
+						{{Hotel.CheckOut | date: 'ddd'}}
 
-                        <div class="buy__result-translation">
-                            Check-Out {{moment(Hotel.CheckOut).lang("en").format('ll')}}
-                            ({{moment(Hotel.CheckOut).lang("en").format('HH:mm')}}),
-                            {{moment(Hotel.CheckOut).lang("en").format('ddd')}}
-                        </div>
-                    </li>
-                    <li class="buy__result-list-item">
-                        Продолжительность: {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["ночь", "ночи", "ночей"])}}
-                        <div class="buy__result-translation">Duration: {{Hotel.NightCount}} {{pluralize(Hotel.NightCount, ["night", "nights", "nights"])}}</div>
-                    </li>
-                </ul>
-            </div>
+						<!-- en -->
+						<div class="buy__result-translation">
+							Check-Out {{Hotel.CheckOut | date : "d MMM yyyy 'г.'"}}
+							({{Hotel.CheckOut | date: 'HH:mm'}}),
+							{{Hotel.CheckOut | date: 'ddd'}}
+						</div>
+					</li>
+					<li class="buy__result-list-item">
+						Продолжительность:
+						{{Hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+						<div class="buy__result-translation">Duration: {{Hotel.NightCount}}
+							{{Hotel.NightCount | asQuantity:"night":"nights":"nights"}}
+						</div>
+					</li>
+				</ul>
+			</div>
 
-            <div class="col-xs-4 col-no-padding">
+			<div class="col-xs-4 col-no-padding">
 
-                <ul class="buy__result-order-container">
-                    <li class="buy__result-list-item">
-                        Номер заказа: <b>{{orderNum}}</b>
-                        <div class="buy__result-translation">Order number</div>
-                    </li>
-                    <li class="buy__result-list-item">
-                        Номер бронирования: <b>{{Hotel.Room.BookingData.Vendor}}</b>
-                        <div class="buy__result-translation">Itenenary number</div>
-                    </li>
-                    <li class="buy__result-list-item">
-                        Номер подтверждения: <b>{{Hotel.Room.BookingData.PinCode}}</b>
-                        <div class="buy__result-translation">Room Confirmation number</div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+				<ul class="buy__result-order-container">
+					<li class="buy__result-list-item">
+						Номер заказа: <b>{{orderNum}}</b>
 
+						<div class="buy__result-translation">Order number</div>
+					</li>
+					<li class="buy__result-list-item">
+						Номер бронирования: <b>{{Hotel.Room.BookingData.Vendor}}</b>
 
-        <div class="buy__result-order-terms">
-            {{{Hotel.Room.PolicyDescription}}}
-        </div>
-    </div>
+						<div class="buy__result-translation">Itenenary number</div>
+					</li>
+					<li class="buy__result-list-item">
+						Номер подтверждения: <b>{{Hotel.Room.BookingData.PinCode}}</b>
 
-    <div>
-        <h2 class="buy__result-header">{{Hotel.Room.RoomName}}</h2>
-        <div class="buy__result-translation">
-            {{#each Hotel.Room.BedTypeList:i}}
-                <span>
+						<div class="buy__result-translation">Room Confirmation number</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="buy__result-order-terms" ng-bind-html="Hotel.Room.PolicyDescription"></div>
+	</div>
+
+	<div>
+		<h2 class="buy__result-header">{{Hotel.Room.RoomName}}</h2>
+
+		<div class="buy__result-translation">
+
+                <span ng-repeat="list in Hotel.Room.BedTypeList track by $index">
                     <!-- вывод точки или запятой -->
-                    {{#if Hotel.Room.BedTypeList.length != (i+1)}}
+                    <span ng-if="!$last">
                        {{Name}}<span>,&nbsp;</span>
-                    {{else}}
-                      {{Name}}.
-                    {{/if}}
+                    </span>
+                    <span ng-if="$last">
+                       {{Name}}.
+                    </span>
                 </span>
-            {{/each}}
-        </div>
+		</div>
 
-        <div class="buy__result-guests">
-            {{#PassengersData.adultCount}}
-                Гости: {{PassengersData.adultCount}} {{pluralize(PassengersData.adultCount, ["взрослый", "взрослых", "взрослых"])}}
-                    {{#PassengersData.childCount}}
-                    и {{PassengersData.childCount}} {{pluralize(PassengersData.childCount, ["ребенок", "детей", "детей"])}}
-                {{/}}
+		<div class="buy__result-guests" ng-if="model.PassengersData.adultCount">
 
-                <div class="buy__result-translation">
-                    Guests: {{PassengersData.adultCount}} {{pluralize(PassengersData.adultCount, ["adult", "adults", "adults"])}}
-                    {{#PassengersData.childCount}}
-                        and {{PassengersData.childCount}} {{pluralize(PassengersData.childCount, ["child", "children", "children"])}}
-                    {{/}}
-                </div>
-            {{/}}
-        </div>
+			Гости: {{model.PassengersData.adultCount | asQuantity:"взрослый":"взрослых":"взрослых"}}
+                <span ng-if="model.PassengersData.childCount">
+                    и {{model.PassengersData.childCount | asQuantity:"ребенок":"детей":"детей"}}
+                </span>
 
-        <div class="buy__result-sum">
-            <h2 class="buy__result-sum-title">Ваш заказ на сумму {{price}}
-                {{pluralize(Price, ["рубль", "рубля","рублей"])}} оплачен.</h2>
+			<div class="buy__result-translation">
+				Guests: {{model.PassengersData.adultCount | asQuantity:"adult":"adults":"adults"}}
+                    <span ng-if="model.PassengersData.childCount">
+                        and {{model.PassengersData.childCount | asQuantity:"child":"children":"children"}}
+                    </span>
+			</div>
 
-            <div class="buy__result-sum-description">Маршрутная квитанция (авиабилет) и подтверждение бронирования
-                отеля, направлены на ваш адрес электронной почты.</div>
-        </div>
-    </div>
+		</div>
 
-    <div class="row">
-        <div class="col-xs-8 col-no-padding">
-            По любым вопросам, Вы можете связаться с нами по телефону<br/>
-            {{{phone}}} или по электронной почте {{email}}
-        </div>
-        <div class="col-xs-4">
-            <h2>Желаем приятного путешествия! <br/>
-                Have a nice trip!</h2>
-        </div>
-    </div>
+		<div class="buy__result-sum">
+			<h2 class="buy__result-sum-title">
+				Ваш заказ на сумму
+				{{model.Price | asQuantity:"рубль":"рубля":"рублей"}} оплачен.</h2>
+
+			<div class="buy__result-sum-description">Маршрутная квитанция (авиабилет) и подтверждение бронирования
+				отеля, направлены на ваш адрес электронной почты.
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-8 col-no-padding">
+			По любым вопросам, Вы можете связаться с нами по телефону<br/>
+			<span ng-bind-html="phone"></span> или по электронной почте {{email}}
+		</div>
+		<div class="col-xs-4">
+			<h2>Желаем приятного путешествия! <br/>
+				Have a nice trip!</h2>
+		</div>
+	</div>
 </div>

@@ -1,0 +1,45 @@
+<div class="page-root js-page-root">
+	<div class="page-buy-success">
+		<div class="page-buy-success__title" ng-if="loadData">
+			<h2>Подтверждение бронирования и оплаты</h2>
+
+			<p class="page-buy-success__title__info buy__price-descr">
+				В цену включен ПЕРЕЛЕТ
+				<span>{{AviaInfo.AirportFrom}} – {{AviaInfo.AirportTo}} – {{AviaInfo.AirportFrom}}</span>
+				и ОТЕЛЬ
+				<b>{{Hotel.HotelName}}</b>
+
+				<ng:any partials-collection
+				        partial-name="rangeShort"
+				        hotel="Hotel"/>
+				<br/>
+				Цена окончательная со всеми налогами и сборами.</p>
+
+			<h2 class="page-buy-success__title__info">
+				Информация по бронированию
+				<div class="page-buy-success__title__info_en">Reservation details</div>
+			</h2>
+
+		</div>
+
+
+		<div class="js-dynamic-block" ng-if="loadData">
+			<!-- Динамический блок -->
+			<div dynamic-block
+			     recommended-pair="recommendedPair"
+			     recommended-pair-status="recommendedPairStatus"
+			     more-info="false"
+			     settings="settings"
+			     partials="partials"
+			     tripadvisor="false"></div>
+			<!--<DynamicBlockAviaHotel AviaInfo="{{AviaInfo}}" hotel="{{Hotel}}"/>
+			<NeedVisa AviaInfo="{{AviaInfo}}" Passengers="{{Passengers}}"/>-->
+		</div>
+
+		<!-- данные результата покупки -->
+		<div ng-if="loadData">
+			<div ng-include="partials.buyResult"></div>
+		</div>
+
+	</div>
+</div>

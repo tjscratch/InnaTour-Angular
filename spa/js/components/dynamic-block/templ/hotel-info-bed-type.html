@@ -10,8 +10,9 @@
 			<h3 class="hotel-info-name">{{hotel.HotelName}}</h3>
 
 			<div class="hotel-info-date">
-				с {{hotel.CheckIn | date:"d MMM yyyy 'г.'"}} по {{hotel.CheckOut | date:"d MMM yyyy 'г.'"}},&nbsp;
-				{{hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+				<ng:any partials-collection
+				        partial-name="range"
+				        hotel="hotel"/>
 			</div>
 		</div>
 	</div>
@@ -25,7 +26,7 @@
 		<div class="hotel-info__room_name">{{hotel.Room.RoomName}}</div>
 
 		<div class="hotel-info-date r__hotel-info">
-	        <span ng-repeat="list in hotel.Room.BedTypeList">
+	        <span ng-repeat="list in hotel.Room.BedTypeList track by $index">
 	            {{list.Name}}<stan ng-if="!$last">,&nbsp;</stan><stan ng-if=""></stan>
 	        </span>
 		</div>

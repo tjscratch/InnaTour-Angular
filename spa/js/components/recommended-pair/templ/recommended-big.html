@@ -140,11 +140,9 @@
                     </h3>
 
                     <div class="hotel-info-date">
-                        с {{recommendedPair.hotel.data.CheckIn | date: 'd MMM'}}
-                        по {{recommendedPair.hotel.data.CheckOut | date: 'd MMM'}},
-
-                        &nbsp;
-                        {{recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+                        <ng:any partials-collection
+                                partial-name="rangeShort"
+                                hotel="recommendedPair.hotel.data"/>
                     </div>
                 </div>
             </div>
