@@ -17,31 +17,31 @@
 					<li class="buy__result-list-item">
 						Заезд {{Hotel.CheckIn | date:"d MMM yyyy 'г.'"}}
 						(до {{Hotel.CheckIn | date: 'HH:mm'}}),
-						{{Hotel.CheckIn | date: 'ddd'}}
+						{{Hotel.CheckIn | date: 'EEE'}}
 
 						<!-- en -->
 						<div class="buy__result-translation">
 							Check-In {{Hotel.CheckIn | date :"d MMM yyyy 'г.'"}}
 							({{Hotel.CheckIn | date: 'HH:mm'}}),
-							{{Hotel.CheckIn | date: 'ddd'}}
+							{{Hotel.CheckIn | date: 'EEE'}}
 						</div>
 					</li>
 					<li class="buy__result-list-item">
 						Отъезд {{Hotel.CheckOut | date: "d MMM yyyy 'г.'"}} (до {{Hotel.CheckOut | date: 'HH:mm'}}),
-						{{Hotel.CheckOut | date: 'ddd'}}
+						{{Hotel.CheckOut | date: 'EEE'}}
 
 						<!-- en -->
 						<div class="buy__result-translation">
 							Check-Out {{Hotel.CheckOut | date : "d MMM yyyy 'г.'"}}
 							({{Hotel.CheckOut | date: 'HH:mm'}}),
-							{{Hotel.CheckOut | date: 'ddd'}}
+							{{Hotel.CheckOut | date: 'EEE'}}
 						</div>
 					</li>
 					<li class="buy__result-list-item">
 						Продолжительность:
 						{{Hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
-						<div class="buy__result-translation">Duration: {{Hotel.NightCount}}
-							{{Hotel.NightCount | asQuantity:"night":"nights":"nights"}}
+						<div class="buy__result-translation">
+							Duration: {{Hotel.NightCount | asQuantity:"night":"nights":"nights"}}
 						</div>
 					</li>
 				</ul>
