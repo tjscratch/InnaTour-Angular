@@ -1,11 +1,12 @@
-innaAppConponents.
-    factory('NeedVisa', [
+innaAppConponents
+    .factory('NeedVisa', [
         'innaApp.API.events',
         '$templateCache',
         'aviaHelper',
         function (Events, $templateCache, aviaHelper) {
+
             var NeedVisa = Ractive.extend({
-                template: $templateCache.get('components/need-visa/templ/index.html'),
+                template: $templateCache.get('components/need-visa/templ/index.nbs.html'),
                 append: true,
                 data: {
                     visaControl: new aviaHelper.visaControl()
@@ -44,4 +45,45 @@ innaAppConponents.
 
             return NeedVisa;
         }
-    ]);
+    ])
+    .directive('needVisa', [
+        'innaApp.API.events',
+        '$templateCache',
+        'aviaHelper',
+        function (Events, $templateCache, aviaHelper) {
+            return {
+                template: $templateCache.get('components/need-visa/templ/index.html'),
+                replace: true,
+                scope: {
+                    aviaInfo: "=",
+                    passengers: "="
+                },
+                controller: ['$scope', function ($scope, $element, $attr) {
+
+                    $scope.visaControl = new aviaHelper.visaControl();
+
+                    function visaCheck (aviaInfo) {
+                        var passengers = $scope.passengers;
+
+                        if (passengers != null) {
+                            var passengersCitizenshipIds = _.uniq(_.map(passengers, function (pas) {
+                                return pas.Citizen;
+                            }));
+
+                            $scope.visaControl.check(passengersCitizenshipIds, aviaInfo);
+                        }
+                    }
+
+                    $scope.$watch('aviaInfo', function (value) {
+                        if (value) {
+                            visaCheck(value);
+                        }
+                    })
+
+                    $scope.$on('$destroy', function () {
+
+                    })
+                }]
+            }
+        }])
+;

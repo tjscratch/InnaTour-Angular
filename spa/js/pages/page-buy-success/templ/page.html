@@ -24,7 +24,7 @@
 
 
 		<div class="js-dynamic-block" ng-if="loadData">
-			<!-- Динамический блок -->
+
 			<div dynamic-block
 			     recommended-pair="recommendedPair"
 			     recommended-pair-status="recommendedPairStatus"
@@ -32,8 +32,11 @@
 			     settings="settings"
 			     partials="partials"
 			     tripadvisor="false"></div>
-			<!--<DynamicBlockAviaHotel AviaInfo="{{AviaInfo}}" hotel="{{Hotel}}"/>
-			<NeedVisa AviaInfo="{{AviaInfo}}" Passengers="{{Passengers}}"/>-->
+
+			<div need-visa
+			     avia-info="AviaInfo"
+			     passengers="model.Passengers"></div>
+
 		</div>
 
 		<!-- данные результата покупки -->

@@ -1,22 +1,15 @@
-{{#if visaControl.visaNeeded || visaControl.visaRulesNeeded}}
-    <div class="buy__warning">
-        {{#if visaControl.visaNeeded}}
-            <div>Требуется виза.</div>
-        {{/if}}
-        {{#if visaControl.visaRulesNeeded}}
-            <div>Обратите внимание на визовые правила
-                {{#if visaControl.cautionCountries.length > 0}}
-                    <span>в странах: 
-                    {{#each visaControl.cautionCountries:i}}
-                        <span>{{.}}<!--line 
-                break-->{{#if i < (visaControl.cautionCountries.length - 1) }}<!--если не последний-->
-                            <span>,&nbsp;</span>
-                        {{/if}}
-                        </span>
-                    {{/each}}<!--line 
-                    break--></span>.
-                {{/if}}
-            </div>
-        {{/if}}
-    </div>
-{{/if}}
+<div class="buy__warning" ng-show="visaControl.visaNeeded || visaControl.visaRulesNeeded">
+
+	<div ng-show="visaControl.visaNeeded">Требуется виза.</div>
+	<div ng-show="visaControl.visaRulesNeeded">
+		Обратите внимание на визовые правила
+
+        <span ng-show="visaControl.cautionCountries.length > 0">
+            в странах:
+            <span ng-repeat="country in visaControl.cautionCountries track by $index">
+                {{country}}
+                <span ng-if="!$last">,&nbsp;</span>
+            </span>
+        </span>.
+	</div>
+</div>
