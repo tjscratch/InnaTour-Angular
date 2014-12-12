@@ -1,6 +1,5 @@
 в пути:
-{{moment(AviaInfo['Time' + direction + 'Time']).format('HH')}}&nbsp;ч
-{{moment(AviaInfo['Time' + direction + 'Time']).format('mm')}}&nbsp;мин,
+{{$filter('flightTimeFormatted')(aviaInfo['Time' + direction])}}&nbsp;,
 
 {{#if AviaInfo[direction + 'TransferCount'] > 0}}
 	<span>

@@ -201,7 +201,7 @@ app.config([
                 controller: 'AviaBuyTicketsCtrl'
             }).
             when(url.URL_DYNAMIC_PACKAGES_BUY_SUCCESS + ':OrderNum?', {
-                templateUrl: 'pages/page-root.html',
+                templateUrl: 'pages/page-buy-success/templ/page.html',
                 controller: 'PageBuySuccess'
             }).
             when(url.URL_DYNAMIC_PACKAGES_BUY + ':OrderNum', {

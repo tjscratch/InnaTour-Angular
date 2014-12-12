@@ -1,0 +1,36 @@
+<div class="price" ng-if="model.modelPrice.getProfit() > 1000">
+	    <span class="cross">
+		    {{item.Price | price}}
+		    <span ng-include="partials.ruble"></span>
+	    </span>
+
+	<div class="price-description">по отдельности</div>
+</div>
+
+
+<div class="price-description" ng-style="styleProfit">
+	Перелет + Отель
+</div>
+
+<div class="corner-price">
+	<div>
+		{{item.PackagePrice | price}}
+		<span ng-include="partials.ruble"></span>
+	</div>
+
+	<!-- Показываем только для авторизованного пользователя b2b -->
+	<!--<div price-generic
+	     ng-if="item.PriceObject"
+	     template="index.hbs.html"
+	     price-object="PriceObject"></div>-->
+
+
+	<div class="price-description" ng-if="model.modelPrice.getProfit() > 1000">
+		Скидка: {{model.modelPrice.getProfit() | price}}
+		<span ng-include="partials.ruble"></span>
+	</div>
+
+</div>
+
+
+<span class="button" ng-click="setCurrent">Выбрать</span>

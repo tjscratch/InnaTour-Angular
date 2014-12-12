@@ -127,14 +127,19 @@
 			</div>
 
 			<!-- Динамический блок -->
-			<div dynamic-block-directive
+			<div dynamic-block
 			     recommended-pair="recommendedPair"
-				 more-info="true"
+			     recommended-pair-status="recommendedPairStatus"
+			     more-info="true"
 			     settings='{
-					     "height": 220,
-					     "countColumn": 2,
-					     "classBlock": "buy__fly b-result_col_two b-result_middle"
-				 }'
+					"height": 220,
+					"countColumn": 2,
+					"classBlock": "buy__fly b-result_col_two b-result_middle"
+					}'
+			     partials='{
+			        "collOneContent" : "ticket2ways",
+			        "collTwoContent" : "hotel-info-bed-type",
+			     }'
 			     tripadvisor="false"></div>
 		</div>
 

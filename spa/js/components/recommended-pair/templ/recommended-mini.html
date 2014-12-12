@@ -12,16 +12,7 @@
             </span>
 
 			в пути: {{recommendedPair.ticket.getDuration('To')}},&nbsp;
-			<ng-pluralize
-
-					ng-init="countTo = recommendedPair.ticket.getEtaps('To').length - 1"
-					count="countTo"
-					when="{
-						   '0': 'без пересадок',
-                           'one': '{{countTo}} пересадка',
-                           'few': '{{countTo}} пересадки',
-                           'many': '{{countTo}} пересадок'}">
-			</ng-pluralize>
+			{{(recommendedPair.ticket.getEtaps('To').length - 1) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
 		</p>
 
 		<p class="flight">
@@ -34,15 +25,7 @@
                 {{recommendedPair.ticket.data.BackDepartureDate | date: 'd MMM'}},
             </span>
 			в пути: {{recommendedPair.ticket.getDuration('Back')}},&nbsp;
-			<ng-pluralize
-					ng-init="countBack = recommendedPair.ticket.getEtaps('Back').length - 1"
-					count="countBack"
-					when="{
-						   '0': 'без пересадок',
-                           'one': '{{countBack}} пересадка',
-                           'few': '{{countBack}} пересадки',
-                           'many': '{{countBack}} пересадок'}">
-			</ng-pluralize>
+			{{(recommendedPair.ticket.getEtaps('Back').length - 1) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
 		</p>
 	</div>
 	<div class="result-small__cell col-xs-4">
@@ -58,14 +41,7 @@
 		<div class="hotel-info-date">
 			с {{recommendedPair.hotel.data.CheckIn | date: 'd MMM'}}
 			по {{recommendedPair.hotel.data.CheckOut | date: 'd MMM'}},
-			<ng-pluralize
-					ng-init="countRoom = recommendedPair.hotel.data.NightCount"
-					count="countRoom"
-			              when="{
-                               'one': '{{countRoom}} ночь',
-                               'few': '{{countRoom}} ночи',
-                               'many': '{{countRoom}} ночей'}">
-			</ng-pluralize>
+			{{recommendedPair.hotel.data.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
 		</div>
 	</div>
 	<div class="result-small__cell col-xs-2 col-no-padding">

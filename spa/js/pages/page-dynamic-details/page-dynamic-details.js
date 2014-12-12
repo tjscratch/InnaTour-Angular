@@ -92,6 +92,7 @@ innaAppControllers
             $scope.NewPrice = null;
             $scope.OldPrice = null;
             $scope.NewPricePackage = null;
+            $scope.recommendedPairStatus = 0;
             var _balloonLoad = new Balloon();
             $scope.hoverImageObject = {
                 timeOutHover : null,
@@ -269,6 +270,7 @@ innaAppControllers
                         //ticket.modelTicket = ticket;
                         $scope.recommendedPair.setTicket(ticket);
                         $scope.recommendedPair.setHotel(hotel);
+                        $scope.recommendedPairStatus = data.Status;
 
                         $location.search('displayHotel', hotel.data.HotelId);
 
@@ -611,7 +613,7 @@ innaAppControllers
                 }
             });
 
-            
+
 
             $scope.$on('$destroy', function () {
 

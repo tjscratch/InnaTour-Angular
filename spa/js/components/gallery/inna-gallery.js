@@ -254,7 +254,7 @@ angular.module('innaApp.directives')
 
 
                         $scope.$on('$destroy', function () {
-                            console.log('$destroy gallery');
+                            //console.log('$destroy gallery');
                         })
                     }
                 ]
