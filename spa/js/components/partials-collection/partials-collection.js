@@ -23,6 +23,7 @@ angular.module('innaApp.components')
                     $scope.$log = $log;
 
 
+
                     //время в пути
                     function getFlightTimeFormatted(avia){
                         avia.TimeToFormatted = aviaHelper.getFlightTimeFormatted(avia.TimeTo);
@@ -35,6 +36,7 @@ angular.module('innaApp.components')
                     $scope.$watch('ticketModel',function(value){
                         if(value){
                             $scope.collectionAirlines = value.collectAirlines();
+                            $scope.airLogo = value.airLogo;
                         }
                     });
 

@@ -1,7 +1,6 @@
 <p class="arrow">
 	в пути:
-	{{moment(AviaInfo['Time' + direction + 'Time']).format('H')}}&nbsp;ч
-	{{moment(AviaInfo['Time' + direction + 'Time']).format('mm')}}&nbsp;мин
+	{{$filter('flightTimeFormatted')(AviaInfo['Time' + direction])}}
 	<br>
 
 	{{#if AviaInfo['Etaps' + direction].length - 1}}

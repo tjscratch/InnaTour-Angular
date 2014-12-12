@@ -119,7 +119,8 @@ innaAppServices.factory('ModelTicket', [
         Avia.Ticket.prototype.airLogo = function(logo){
             var groupLogo = "/spa/img/group.png";
             var statickLogo = app_main.staticHost + "/Files/logo/" + logo + ".png";
-            return  (logo == 'many') ? groupLogo : statickLogo;
+            var imageUrl = (logo == 'many') ? groupLogo : statickLogo;
+            return  imageUrl;
         };
 
         Avia.Ticket.Etap = function (data) {

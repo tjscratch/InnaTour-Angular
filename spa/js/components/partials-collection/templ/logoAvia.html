@@ -3,7 +3,7 @@
     <span ng-if="collectionAirlines.size <= 3"
           ng-repeat="airlines in collectionAirlines.airlines"
           class="result-cell__airlines">
-        <img src="{{ticketModel.airLogo(airlines.code)}}" alt="" class="logo">
+        <img ng-src="{{airLogo(airlines.code)}}" alt="" class="logo">
         <span class="rl-airline-text">{{airlines.name}}</span>
     </span>
 
