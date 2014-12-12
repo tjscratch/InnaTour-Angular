@@ -306,7 +306,7 @@ innaAppControllers
                             $scope.$apply(function ($scope) {
                                 delete $location.$$search.displayHotel;
                                 $location.$$compose();
-                                $location.path(goToSearchDynamic());
+                                location.href = goToSearchDynamic();
                             });
                         }
                         _balloonLoad.updateView({
@@ -448,7 +448,7 @@ innaAppControllers
                 var Adult = searchParams.Adult || 0;
                 var Children = searchParams.Children || '';
 
-                var urlDetails = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                var urlDetails = '/#' + Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
                     DepartureId,
                     ArrivalId,
                     StartVoyageDate,
