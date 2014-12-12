@@ -111,10 +111,11 @@ innaAppControllers.
                     child: ''
                 };
 
-                data.AviaInfo.AirportFrom = data.AviaInfo.AirportFromBack;
-                data.AviaInfo.AirportTo = data.AviaInfo.AirportToBack;
-                data.AviaInfo.InCode = data.AviaInfo.InCodeBack;
-                data.AviaInfo.OutCode = data.AviaInfo.OutCodeBack;
+                
+                data.AviaInfo.AirportFrom = data.AviaInfo.AirportToBack;
+                data.AviaInfo.AirportTo = data.AviaInfo.AirportFromBack;
+                data.AviaInfo.InCode = data.AviaInfo.OutCodeBack;
+                data.AviaInfo.OutCode = data.AviaInfo.InCodeBack;
 
                 // сколько взрослых и детей
                 passengers.forEach(function (pass) {
