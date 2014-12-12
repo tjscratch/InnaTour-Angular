@@ -60,6 +60,18 @@
   transform-style: preserve-3d;
   text-align : left !important;
 
+  &_relative {
+    position : relative !important;
+  }
+
+  &_fixed {
+    position: fixed !important;
+  }
+
+  &_absolute {
+    position: absolute !important;
+  }
+
   &_base {
     position: relative;
   }
@@ -105,9 +117,6 @@
   }
 
   &_nocorner {
-
-    position: fixed;
-
     .tooltip {
       box-shadow : 0 0 8px rgba(0,0,0, 0.5);
       border-radius :0;
@@ -121,6 +130,7 @@
       }
     }
   }
+
 
   &_tooltip-price {
     z-index : 200;

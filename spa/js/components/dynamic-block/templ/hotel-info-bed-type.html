@@ -10,15 +10,8 @@
 			<h3 class="hotel-info-name">{{hotel.HotelName}}</h3>
 
 			<div class="hotel-info-date">
-				с {{hotel.CheckIn | date:"ll"}} по {{hotel.CheckOut | date:"ll"}},&nbsp;
-				<ng-pluralize
-						ng-init="countNight = hotel.NightCount"
-						count="countNight"
-						when="{
-                               'one': '{{countNight}} ночь',
-                               'few': '{{countNight}} ночи',
-                               'many': '{{countNight}} ночей'}">
-				</ng-pluralize>
+				с {{hotel.CheckIn | date:"d MMM yyyy 'г.'"}} по {{hotel.CheckOut | date:"d MMM yyyy 'г.'"}},&nbsp;
+				{{hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
 			</div>
 		</div>
 	</div>
@@ -40,13 +33,3 @@
 
 </div>
 <span class="icon-sprite-hotel"></span>
-
-<div class="bottom-actions">
-
-	<a href="#"
-	   ng-if="state"
-	   ng-click="state.switchTo('hotel')"
-	   class="pull-left {{state.isActive(state.HOTELS_TAB) ? 'active' : ''}}">
-		Выбрать другой отель
-	</a>
-</div>

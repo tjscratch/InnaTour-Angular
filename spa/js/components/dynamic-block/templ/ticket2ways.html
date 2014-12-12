@@ -3,10 +3,12 @@
 
 	<div ng-if="recommendedPairStatus == 5"
 	     tooltip-directive-base
-	     tooltip-klass="nocorner"
+	     tooltip-klass="nocorner:absolute"
 	     close="true"
+	     el="true"
+	     coords="{}"
 	     position="top_right"
-	     is-visible="isVisible"
+	     is-visible="true"
 	     width="300"
 	     templ="popover.hbs.html">
 
@@ -26,7 +28,7 @@
 	<span class="icon-sprite-airplane"></span>
 
 	<!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
-	<ng:any date-partials-collection-directive
+	<ng:any partials-collection
 	        partial-name="logoAvia"
 	        ticket-model="recommendedPair.ticket"/>
 
@@ -39,7 +41,7 @@
 			<div class="row-fluid">
 				<div class="col-xs-5 col-no-padding row-fluid__cell">
 					<div class="rlf__flight-block">
-						<ng:any date-partials-collection-directive
+						<ng:any partials-collection
 						        partial-name="weekDateTime"
 						        date="AviaInfo.DepartureDate"/>
 						<br>
@@ -51,7 +53,7 @@
 				</div>
 				<div class="col-xs-5 col-no-padding row-fluid__cell">
 					<div class="rlf__flight-block">
-						<ng:any date-partials-collection-directive
+						<ng:any partials-collection
 						        partial-name="weekDateTime"
 						        date="AviaInfo.ArrivalDate"/>
 						<br>
@@ -61,10 +63,10 @@
 			</div>
 
 			<div class="rlf-full-travel-time-info">
-				<ng:any date-partials-collection-directive
+				<ng:any partials-collection
 				        partial-name="flightTime"
 				        direction="To"
-				        AviaInfo="AviaInfo"/>
+				        avia-info="AviaInfo"/>
 			</div>
 		</div>
 
@@ -74,7 +76,7 @@
 			<div class="row-fluid">
 				<div class="col-xs-5 col-no-padding row-fluid__cell">
 					<div class="rlf__flight-block">
-						<ng:any date-partials-collection-directive
+						<ng:any partials-collection
 						        partial-name="weekDateTime"
 						        date="AviaInfo.BackDepartureDate"/>
 						<br>
@@ -86,7 +88,7 @@
 				</div>
 				<div class="col-xs-5 col-no-padding row-fluid__cell">
 					<div class="rlf__flight-block">
-						<ng:any date-partials-collection-directive
+						<ng:any partials-collection
 						        partial-name="weekDateTime"
 						        date="AviaInfo.BackArrivalDate"/>
 						<br>
@@ -97,10 +99,10 @@
 
 
 			<div class="rlf-full-travel-time-info">
-				<ng:any date-partials-collection-directive
+				<ng:any partials-collection
 				        partial-name="flightTime"
 				        direction="Back"
-				        AviaInfo="AviaInfo"/>
+				        avia-info="AviaInfo"/>
 			</div>
 		</div>
 	</div>
@@ -108,7 +110,7 @@
 
 	<div class="bottom-actions" ng-if="moreInfo">
             <span class="like-link bottom-actions__button bottom-actions__button_action_details"
-                  ng-click="bundleTicketDetails()">
+                  ng-click="bundleTicketDetails($event)">
                 Подробнее
             </span>
 	</div>

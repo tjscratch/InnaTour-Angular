@@ -1,0 +1,14 @@
+<!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
+<span>
+    <span ng-if="collectionAirlines.size <= 3"
+          ng-repeat="airlines in collectionAirlines.airlines"
+          class="result-cell__airlines">
+        <img src="{{ticketModel.airLogo(airlines.code)}}" alt="" class="logo">
+        <span class="rl-airline-text">{{airlines.name}}</span>
+    </span>
+
+    <span class="rl-airline" ng-if="collectionAirlines.size > 3">
+        <img src="/spa/img/group.png" alt="">
+        <span class="rl-airline-text">Несколько авиакомпаний</span>
+    </span>
+</span>

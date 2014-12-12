@@ -97,7 +97,6 @@ innaAppServices.factory('ModelTicket', [
             return {
                 airlines : transportersListUniq,
                 size: transportersListUniq.length,
-
                 // TODO: deprecated
                 etap: collected
             }
