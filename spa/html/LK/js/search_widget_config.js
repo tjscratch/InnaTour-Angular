@@ -59,14 +59,14 @@
                     '.datepicker .table-condensed > tbody > tr > td.range,' +
                     '.datepicker table > tbody > tr > td.range{background-color:' + data.btnBg + ';opacity: .6;}' +
 
-                    '.b-inna-search-form-field-input:focus{box-shadow: inset 0 0 4px ' + data.btnBg + ';border-color:' + data.btnBg + '};' +
+                    '.b-inna-search-form-field-input:focus{box-shadow: inset 0 0 4px ' + data.btnBg + ';border-color:' + data.btnBg + '}' +
 
-                    '.b-inna-search-form-field .dropdown-menu li:first-child,' +
-                    '.b-inna-search__nav li{border-radius:' + data.borderRadius + 'px' + data.borderRadius + 'px 0 0;}' +
+                    '.b-inna-search-form-field .dropdown-menu li:first-child, ' +
+                    '.b-inna-search__nav li{border-radius:' + data.borderRadius + 'px ' + data.borderRadius + 'px 0 0;}' +
 
-                    '.b-inna-search-form-field .dropdown-menu li:last-child{border-radius: 0 0 ' + data.borderRadius + 'px' + data.borderRadius + 'px;}' +
+                    '.b-inna-search-form-field .dropdown-menu li:last-child{border-radius: 0 0 ' + data.borderRadius + 'px ' + data.borderRadius + 'px;}' +
 
-                    '.b-inna-search-form{border-radius:0 ' + data.borderRadius + 'px' + data.borderRadius + 'px;}' +
+                    '.b-inna-search-form{border-radius:0 ' + data.borderRadius + 'px ' + data.borderRadius + 'px;}' +
 
                     '.inna-dropdown, .b-inna-btn, .b-inna-search-form-field .dropdown-menu,' +
                     '.b-inna-search-form-field-input{border-radius:' + data.borderRadius + 'px;}' +
