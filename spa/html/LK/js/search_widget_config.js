@@ -22,7 +22,7 @@
             $scope.style.width = 960;
             $scope.style.widthMax = 960;
             $scope.style.widthMin = 235;
-            
+
             $scope.radioModel = 'b-inna-search-widget-row-1';
             $scope.style.formBg = '#212121';
             $scope.style.formColorText = '#ffffff';
@@ -33,16 +33,16 @@
 
             $scope.$watchCollection('style', function (data) {
 
-                if (data.width > 900){
+                if (data.width > 900) {
                     $scope.radioModel = 'b-inna-search-widget-row-1';
                 }
-                if (data.width <= 900 && data.width > 460){
+                if (data.width <= 900 && data.width > 460) {
                     $scope.radioModel = 'b-inna-search-widget-row-2';
                 }
-                if (data.width <= 460){
+                if (data.width <= 460) {
                     $scope.radioModel = 'b-inna-search-widget-row-3';
                 }
-                
+
                 $scope.formStyle =
                     '<style>' +
 
@@ -83,7 +83,7 @@
                 $scope.formTpl = [
                     '<textarea class="form-control">',
                     '<div class="b-inna-search-widget ' + $scope.radioModel + '">',
-                    '   <inna-form partner-site="https://inna.ru" partner-name="biletix"></inna-form>',
+                    '   <inna-form partner-site="https://' + $scope.style.partner + '.inna.ru" partner-name="'+ $scope.style.defaultCity +'"></inna-form>',
                     '</div>',
                     '<script src="http://inna.ru/spa/js/widgets/search/inna-search.js" async="true" charset="utf-8"></script>',
                     $scope.formStyle,
