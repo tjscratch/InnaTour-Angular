@@ -15,20 +15,89 @@
      */
     app.controller('FormBootstrapCtrl', [
         '$scope',
-        function ($scope) {
+        '$sce',
+        function ($scope, $sce) {
 
+            $scope.style = {};
+            $scope.style.width = 960;
+            $scope.style.widthMax = 960;
+            $scope.style.widthMin = 235;
+            
             $scope.radioModel = 'b-inna-search-widget-row-1';
+            $scope.style.formBg = '#212121';
+            $scope.style.formColorText = '#ffffff';
+            $scope.style.btnBg = '#89c13a';
+            $scope.style.btnColor = '#ffffff';
+            $scope.style.borderRadius = 2;
 
-            $scope.formBg = '#212121';
-            $scope.formColorText = '#ffffff';
-            $scope.btnBg = '#89c13a';
-            $scope.btnColor = '#ffffff';
-            $scope.borderRadius = 2;
+
+            $scope.$watchCollection('style', function (data) {
+
+                if (data.width > 900){
+                    $scope.radioModel = 'b-inna-search-widget-row-1';
+                }
+                if (data.width <= 900 && data.width > 460){
+                    $scope.radioModel = 'b-inna-search-widget-row-2';
+                }
+                if (data.width <= 460){
+                    $scope.radioModel = 'b-inna-search-widget-row-3';
+                }
+                
+                $scope.formStyle =
+                    '<style>' +
+
+                    '.b-inna-search-widget{width:' + data.width + 'px;}' +
+
+                    '.b-inna-search__nav li, .b-inna-search-form{background-color:' + data.formBg + ';color:' + data.formColorText + ';}' +
+
+                    '.datepicker .table-condensed > tbody > tr > td:hover,' +
+                    '.datepicker table > tbody > tr > td:hover,' +
+                    '.datepicker .table-condensed > tbody > tr > td.selected,' +
+                    '.datepicker table > tbody > tr > td.selected,' +
+                    '.b-inna-btn{background-color:' + data.btnBg + ';color:' + data.btnColor + ';}' +
+
+                    '.datepicker .table-condensed > tbody > tr > td.range,' +
+                    '.datepicker table > tbody > tr > td.range{background-color:' + data.btnBg + ';opacity: .6;}' +
+
+                    '.b-inna-search-form-field-input:focus{box-shadow: inset 0 0 4px ' + data.btnBg + ';border-color:' + data.btnBg + '};' +
+
+                    '.b-inna-search-form-field .dropdown-menu li:first-child,' +
+                    '.b-inna-search__nav li{border-radius:' + data.borderRadius + 'px' + data.borderRadius + 'px 0 0;}' +
+
+                    '.b-inna-search-form-field .dropdown-menu li:last-child{border-radius: 0 0 ' + data.borderRadius + 'px' + data.borderRadius + 'px;}' +
+
+                    '.b-inna-search-form{border-radius:0 ' + data.borderRadius + 'px' + data.borderRadius + 'px;}' +
+
+                    '.inna-dropdown, .b-inna-btn, .b-inna-search-form-field .dropdown-menu,' +
+                    '.b-inna-search-form-field-input{border-radius:' + data.borderRadius + 'px;}' +
+
+                    '</style>'
+            })
+
+
+            $scope.insertStyle = function () {
+                return $sce.trustAsHtml($scope.formStyle);
+            };
+
+            $scope.generateCode = function () {
+                $scope.formTpl = [
+                    '<textarea class="form-control">',
+                    '<div class="b-inna-search-widget ' + $scope.radioModel + '">',
+                    '   <inna-form partner-site="https://inna.ru" partner-name="biletix"></inna-form>',
+                    '</div>',
+                    '<script src="http://inna.ru/spa/js/widgets/search/inna-search.js" async="true" charset="utf-8"></script>',
+                    $scope.formStyle,
+                    '</textarea>'].join("\n");
+                ;
+                $scope.insertTpl = function () {
+                    return $sce.trustAsHtml($scope.formTpl);
+                };
+            }
+
         }
     ]);
     /**
      * END Bootstrap form
      */
-
 
 }());

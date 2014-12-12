@@ -66,11 +66,17 @@ select{
     text-overflow ''
     appearance none
 }
+textarea.form-control{
+    width 100%
+    height 250px
+}
 .form-control-range{
     width 100%
 }
 .btn{
+    display inline-block
     height $form-item-height
+    line-height $form-item-height
     padding 0 40px
     background-color $color-green
     border none
@@ -91,6 +97,11 @@ select{
     }
     &:active{
         background-color $color-green-active
+    }
+
+    &.btn-lg{
+        height 50px
+        line-height 50px
     }
 
 }
