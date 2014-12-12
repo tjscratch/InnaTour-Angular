@@ -45,7 +45,6 @@ angular.module('innaApp.directives')
 
 
                     EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetailsWrap);
-
                     $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetails);
 
                     function showDetailsWrap(evt, data) {
@@ -75,6 +74,7 @@ angular.module('innaApp.directives')
                         $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
                         $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $scope.criteria.CabinClass);
                         $scope.popupItemInfo.show(evt, ticketRaw, $scope.criteria, $scope.searchId);
+
 
 
                         $scope.ticket = data.ticket;

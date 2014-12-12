@@ -96,9 +96,9 @@ angular.module('innaApp.components')
 
 
                     $scope.bundleTicketDetails = function (evt) {
+                        evt.stopPropagation();
                         var ticket = $scope.recommendedPair.ticket;
-                        EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED,
-                            evt,
+                        $scope.$emit(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED,
                             {ticket: ticket, noChoose: $location.search().displayHotel}
                         );
                     };
