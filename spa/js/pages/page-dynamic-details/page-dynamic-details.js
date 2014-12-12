@@ -448,7 +448,7 @@ innaAppControllers
                 var Adult = searchParams.Adult || 0;
                 var Children = searchParams.Children || '';
 
-                var urlDetails = '/#' + Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                var urlDetails = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
                     DepartureId,
                     ArrivalId,
                     StartVoyageDate,
