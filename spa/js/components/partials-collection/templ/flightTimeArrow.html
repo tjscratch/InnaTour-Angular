@@ -7,8 +7,7 @@
 -->
 <p class="arrow">
 	в пути:
-	{{aviaInfo['Time' + direction + 'Time'] | date: 'H'}}&nbsp;ч
-	{{aviaInfo['Time' + direction + 'Time'] | date: 'mm'}}&nbsp;мин
+	{{aviaInfo['Time' + direction] | flightTimeFormatted}}
 	<br>
 
 	{{(aviaInfo['Etaps' + direction].length - 1) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}

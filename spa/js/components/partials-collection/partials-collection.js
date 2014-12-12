@@ -2,7 +2,8 @@ angular.module('innaApp.components')
     .directive('partialsCollection', [
         '$templateCache',
         '$log',
-        function ($templateCache, $log) {
+        'aviaHelper',
+        function ($templateCache, $log, aviaHelper) {
             return {
                 template: function (el, attr) {
                     if (attr.partialName) {
@@ -22,6 +23,15 @@ angular.module('innaApp.components')
                     $scope.$log = $log;
 
 
+                    //время в пути
+                    function getFlightTimeFormatted(avia){
+                        avia.TimeToFormatted = aviaHelper.getFlightTimeFormatted(avia.TimeTo);
+                        avia.TimeBackFormatted = aviaHelper.getFlightTimeFormatted(avia.TimeBack);
+
+                        console.log(avia.TimeBackFormatted);
+                        console.log(avia.TimeToFormatted);
+                    }
+
                     $scope.$watch('ticketModel',function(value){
                         if(value){
                             $scope.collectionAirlines = value.collectAirlines();
@@ -29,7 +39,7 @@ angular.module('innaApp.components')
                     });
 
                     $scope.$on('$destroy', function () {
-                        console.info('$destroy DatePartialsCollection');
+                        //console.info('$destroy DatePartialsCollection');
                     });
                 }
             }

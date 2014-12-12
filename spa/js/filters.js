@@ -187,6 +187,26 @@ innaAppFilters.filter('trim', function () {
 });
 
 
+innaAppFilters.filter('flightTimeFormatted', function () {
+    return  function (flightTime) {
+        if (flightTime != null) {
+            //вычисляем сколько полных часов
+            var h = Math.floor(flightTime / 60);
+            var addMins = flightTime - h * 60;
+            //return h + " ч " + addMins + " мин" + " (" + time + ")";//debug
+
+            if (addMins == 0)
+                return h + " ч";
+            else if (h == 0)
+                return addMins + " мин";
+            else
+                return h + " ч " + addMins + " мин";
+        }
+        return "";
+    };
+});
+
+
 
 innaAppFilters.filter('partition', function ($cacheFactory) {
     var arrayCache = $cacheFactory('partition')

@@ -2,9 +2,7 @@
 
 <span>
 	в пути:
-	{{aviaInfo['Time' + direction + 'Time'] | date: 'HH'}}&nbsp;ч
-	{{aviaInfo['Time' + direction + 'Time'] | date: 'mm'}}&nbsp;мин,
-
+	{{aviaInfo['Time' + direction] | flightTimeFormatted}}&nbsp;,
 	<span>
 		&nbsp;{{(aviaInfo[direction + 'TransferCount']) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
 	</span>
