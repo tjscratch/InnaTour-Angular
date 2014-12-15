@@ -83,7 +83,8 @@
             'skype': '',
             'aboutLink': 'http://www.skycassa.com/about/',
             'contactsLink': 'http://www.skycassa.com/contacts/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_skycassa.pdf'
+            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_skycassa.pdf',
+            'showOffers': true
         },
         {
             'name': 'atlantravel',
