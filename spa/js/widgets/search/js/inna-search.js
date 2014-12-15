@@ -86,7 +86,7 @@
      * @type {string}
      */
 
-    var host = '//lh.inna.ru';
+    var host = '//inna.ru';
     var widget = document.querySelector(".b-inna-search-widget");
     var sources = {
         'css': host + '/spa/js/widgets/search/build/inna-search-widget.css',
