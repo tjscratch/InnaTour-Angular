@@ -1,0 +1,14 @@
+<p class="arrow">
+	в пути:
+	{{$filter('flightTimeFormatted')(AviaInfo['Time' + direction])}}
+	<br>
+
+	{{#if AviaInfo['Etaps' + direction].length - 1}}
+		{{AviaInfo['Etaps' + direction].length - 1}}
+		{{pluralize(AviaInfo['Etaps' + direction].length - 1, ["пересадка","пересадки","пересадок"])}}
+	{{/if}}
+
+	{{#if !(AviaInfo['Etaps' + direction].length - 1)}}
+		без пересадок
+	{{/if}}
+</p>

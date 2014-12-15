@@ -1,10 +1,10 @@
-var gulp = require('gulp'),
-    stylus = require('gulp-stylus'),
-    concat = require('gulp-concat'),
-    gulpif = require('gulp-if'),
-    nib = require('nib'),
+var gulp       = require('gulp'),
+    stylus     = require('gulp-stylus'),
+    concat     = require('gulp-concat'),
+    gulpif     = require('gulp-if'),
+    nib        = require('nib'),
     livereload = require('gulp-livereload'),
-    conf = require('./config');
+    conf       = require('./config');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -20,8 +20,8 @@ var styleBase = '../../../spa/styl/base.styl';
 /* простой конкат  */
 gulp.task('styl-components', function () {
     return gulp.src([
-            '!'+ conf.src + '/components/adv/**/*.styl',
-            conf.src + '/components/**/*.styl'
+        '!' + conf.src + '/components/adv/**/*.styl',
+        conf.src + '/components/**/*.styl'
     ])
         .pipe(concat('components.styl'))
         .pipe(gulp.dest(conf.styl + '/temp'))
@@ -79,7 +79,7 @@ gulp.task('styl-print', function () {
 gulp.task('styl-partners', function () {
     optStyl.import = styleBase;
     return gulp.src([conf.styl + '/partners/**/*.base.styl'])
-		.pipe(stylus(optStyl))
+        .pipe(stylus(optStyl))
         .pipe(gulp.dest(conf.styl + '/partners'))
         .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });

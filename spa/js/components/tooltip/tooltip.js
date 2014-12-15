@@ -188,7 +188,8 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
                 isVisible: '=',
                 width: '@',
                 close: '@',
-                el: '@'
+                el: '@',
+                coords: "="
             },
             link: function ($scope, $element, $attr) {
 
@@ -199,9 +200,12 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
                 if(!$scope.propertyWatch) {
                     el.innerHTML = '';
                 }
-
                 var coords = utils.getCoords(el);
 
+                if($scope.coords){
+                    coords = $scope.coords;
+                };
+                
                 var _tooltipBase = new TooltipBase({
                     el: ($scope.el) ? $element[0] : document.body,
                     data: {

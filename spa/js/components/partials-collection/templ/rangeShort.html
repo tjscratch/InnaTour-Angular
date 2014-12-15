@@ -1,0 +1,7 @@
+<!-- с 6 янв по 16 янв,   10 ночей -->
+
+<span>
+	&nbsp;с {{hotel.CheckIn | date: 'd MMM'}}
+    по {{hotel.CheckOut | date: 'd MMM'}},&nbsp;
+    {{hotel.NightCount | asQuantity:"ночь":"ночи":"ночей"}}
+</span>

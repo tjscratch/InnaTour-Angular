@@ -1,0 +1,49 @@
+{{#if TaFactor > 0}}
+    <div class="b-tripadvisor b-tripadvisor_detail hotel-info-tripadvisor {{withOutTd ? 'b-tripadvisor_short' : ''}}"
+         title="Рейтинг TripAdvisor">
+
+        <div class="b-display-table">
+            <div class="b-tripadvisor__owl b-display-cell">
+                <div class="b-tripadvisor__owl_icon">
+                    <span class="icon-sprite-tripadvisor"></span>
+                </div>
+            </div>
+
+			{{#each TaFactorArr}}
+
+                {{#if active}}
+                    <div class="b-display-cell">
+                        <span class="icon-sprite-tripadvisor-like"></span>
+                    </div>
+				{{/if}}
+
+				{{#if isFloat}}
+                    <!-- Шаг 0.5 -->
+                    <div class="b-display-cell" ng-if="data.TaFactor | isFloat">
+                        <span class="icon-sprite-tripadvisor-half"></span>
+                    </div>
+				{{/if}}
+
+				{{#if !isFloat && !active}}
+                    <div class="b-display-cell">
+                        <span class="icon-sprite-tripadvisor-empty"></span>
+                    </div>
+				{{/if}}
+			{{/each}}
+        </div>
+
+        <div>
+            {{#if TaCommentCount}}
+            <div class="b-tripadvisor__reviews">
+                <b class="color-black">{{TaFactor}} из 5</b>
+                <span>
+                    на основании {{TaCommentCount}}
+                    {{pluralize(TaCommentCount , ["отзыв","отзыва","отзывов"])}}
+                </span>
+            </div>
+            {{else}}
+            нет отзывов
+            {{/if}}
+        </div>
+    </div>
+{{/if}}

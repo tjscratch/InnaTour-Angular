@@ -1,30 +1,70 @@
 angular.module('innaApp.directives')
     .directive('innaGallery', [
         '$templateCache',
-        function ($templateCache) {
+        '$timeout',
+        'innaApp.API.events',
+        'hotkeys',
+        function ($templateCache, $timeout, Events, hotkeys) {
             return {
-                template: $templateCache.get('components/gallery/templ/gallery.html'),
-                scope: {
-                    urls: '=innaGalleryPicList'
-                },
-                link : function($scope, $element, $attr){
-
-                    $scope.callBackSlider = function (data) {
-                        $element.find('.gallery__list').css({
-                            left : data + 'px'
-                        });
+                template: function (el, attr) {
+                    if (attr.templ) {
+                        return $templateCache.get('components/gallery/templ/' + attr.templ);
                     }
+                    return $templateCache.get('components/gallery/templ/gallery.html');
+                },
+                scope: {
+                    urls: '=photos',
+                    templ: '='
                 },
                 controller: [
                     '$scope',
                     function ($scope) {
                         var MAX_WIDTH = 960,
-                            MAX_HEIGHT = 480,
+                            MAX_HEIGHT = 680,
                             MIN_WIDTH = 800,
-                            MIN_LENGTH = 2;
+                            MIN_LENGTH = 2,
+                            previewHeight = 180;
 
                         $scope.picsListLoaded = false;
                         $scope.emptyPhoto = false;
+                        $scope.showGallery = false;
+                        $scope.hoverImageObject = {
+                            timeOutHover: null,
+                            hoverImageShow: false,
+                            hoverImageStyle: {}
+                        };
+
+                        hotkeys.bindTo($scope)
+                            .add({
+                                combo: 'left',
+                                description: '',
+                                callback: function () {
+                                    $scope.pics.prev();
+                                }
+                            })
+                            .add({
+                                combo: 'right',
+                                description: '',
+                                callback: function () {
+                                    $scope.pics.next();
+                                }
+                            })
+                            .add({
+                                combo: 'space',
+                                description: '',
+                                callback: function () {
+                                    $scope.showFullGallery()
+                                }
+                            })
+                            .add({
+                                combo: 'esc',
+                                description: '',
+                                callback: function () {
+                                    $scope.closeGallery();
+                                }
+                            })
+
+
 
                         /*Models*/
                         function PicList() {
@@ -38,11 +78,11 @@ angular.module('innaApp.directives')
 
                         PicList.prototype.setCurrent = function ($index, $event) {
 
-                            if($event) {
-                                $event.stopPropagation();
-                            }
+                            if ($event) $event.stopPropagation();
 
                             this.current = this.list[$index];
+
+                            $scope.$broadcast(Events.NotificationScrollBar, $index);
                         };
 
                         PicList.prototype.isCurrent = function ($index) {
@@ -50,7 +90,9 @@ angular.module('innaApp.directives')
                         };
 
                         PicList.prototype.next = function ($event) {
-                            $event.stopPropagation();
+                            if($event) {
+                                $event.stopPropagation();
+                            }
 
                             var index = this.list.indexOf(this.current) + 1;
                             if (index >= this.list.length) index = 0;
@@ -58,16 +100,24 @@ angular.module('innaApp.directives')
                         };
 
                         PicList.prototype.prev = function ($event) {
-                            $event.stopPropagation();
+                            if($event) {
+                                $event.stopPropagation();
+                            }
 
                             var index = this.list.indexOf(this.current) - 1;
                             if (index < 0) index = this.list.length - 1;
                             this.setCurrent(index, null);
                         };
 
+                        PicList.prototype.setHeight = function (is_full) {
+                            return {
+                                "height": is_full ? 70 : previewHeight
+                            }
+                        };
+
                         $scope.pics = new PicList();
 
-                    $scope.isWL = window.partners ? window.partners.isWL() : false;
+                        $scope.isWL = window.partners ? window.partners.isWL() : false;
 
                         /**
                          *
@@ -93,12 +143,16 @@ angular.module('innaApp.directives')
                             return style;
                         };
 
-                        $scope.showFullGallery = function(){
+                        $scope.showFullGallery = function ($event, $index) {
+                            if($index) {
+                                $scope.pics.setCurrent($index);
+                            }
                             $scope.showGallery = true;
                             document.body.classList.add('overflow_hidden')
                         }
 
-                        $scope.closeGallery = function($event){
+                        $scope.closeGallery = function ($event) {
+                            $scope.$broadcast(Events.NotificationGalleryClose);
                             $scope.showGallery = false;
                             document.body.classList.remove('overflow_hidden')
                         }
@@ -197,6 +251,11 @@ angular.module('innaApp.directives')
                             }, fail);
 
                         });
+
+
+                        $scope.$on('$destroy', function () {
+                            //console.log('$destroy gallery');
+                        })
                     }
                 ]
             }

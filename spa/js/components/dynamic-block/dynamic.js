@@ -34,15 +34,18 @@
 
 innaAppConponents.
     factory('DynamicBlock', [
+        'EventManager',
         'innaApp.API.events',
         '$templateCache',
         '$filter',
+        '$location',
 
         // components
         'Stars',
         'Tripadvisor',
         'PriceGeneric',
-        function (Events, $templateCache, $filter, Stars, Tripadvisor, PriceGeneric) {
+        'DatePartialsCollection',
+        function (EventManager, Events, $templateCache, $filter, $location, Stars, Tripadvisor, PriceGeneric, DatePartialsCollection) {
 
             /**
              * Компонент DynamicBlock
@@ -55,14 +58,14 @@ innaAppConponents.
                     settings: {
                         height: 220,
                         countColumn: 3,
-                        classBlock : '',
-                        classColl3 : ''
+                        classBlock: '',
+                        classColl3: ''
                     },
-                    setClass : function(){
-                        if(this.get('settings.classBlock')){
+                    setClass: function () {
+                        if (this.get('settings.classBlock')) {
                             return this.get('settings.classBlock');
                         } else {
-                            return (this.get('settings.countColumn') == 3)?'b-result_col_three':'b-result_col_two';
+                            return (this.get('settings.countColumn') == 3) ? 'b-result_col_three' : 'b-result_col_two';
                         }
                     },
                     priceFilter: function (text) {
@@ -79,13 +82,21 @@ innaAppConponents.
                 components: {
                     Stars: Stars,
                     Tripadvisor: Tripadvisor,
-                    PriceGeneric: PriceGeneric
+                    PriceGeneric: PriceGeneric,
+                    DatePartialsCollection : DatePartialsCollection
                 },
 
                 onrender: function (options) {
                     this._super(options);
 
                     this.on({
+                        bundleTicketDetails : function(evt){
+                            var ticket = this.get('recommendedPair.ticket');
+                            EventManager.fire(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED,
+                                evt.original,
+                                {ticket: ticket, noChoose: $location.search().displayHotel}
+                            );
+                        },
                         teardown: function (evt) {
                             this.reset();
                         }
@@ -95,4 +106,55 @@ innaAppConponents.
 
             return DynamicBlock;
         }
-    ]);
+    ])
+    .directive('dynamicBlockDirective', [
+        'EventManager',
+        '$templateCache',
+        '$filter',
+        'aviaHelper',
+        'DynamicBlock',
+        function (EventManager, $templateCache, $filter, aviaHelper, DynamicBlock) {
+            return {
+                replace: true,
+                template: '',
+                scope: {
+                    settings: "=",
+                    recommendedPair: "=",
+                    moreInfo : '@',
+                    tripadvisor : "="
+                },
+                link: function ($scope, $element, $attr) {
+
+                    var _newDynamicBlock = new DynamicBlock({
+                        el: $element[0],
+                        data: {
+                            settings: $scope.settings,
+                            tripadvisor : $scope.tripadvisor,
+                            moreInfo : $scope.moreInfo
+                        },
+                        partials: {
+                            collOneContent: $templateCache.get('components/dynamic-block/templ/ticket2ways.hbs.html'),
+                            collTwoContent: $templateCache.get('components/dynamic-block/templ/hotel-info-bed-type.hbs.html')
+                        }
+                    });
+
+                    $scope.$watch('recommendedPair', function (value) {
+                        if(value) {
+                            _newDynamicBlock.set({
+                                'AviaInfo' : value.ticket.data,
+                                'hotel' : value.hotel.data,
+                                'recommendedPair' : value
+                            });
+                        }
+                    }, true);
+
+
+                    $scope.$on('$destroy', function () {
+                        if(_newDynamicBlock) {
+                            _newDynamicBlock.teardown();
+                            _newDynamicBlock = null;
+                        }
+                    })
+                }
+            }
+        }])

@@ -9,6 +9,19 @@
 
     <base href="/" />
 
+    <!--[if lte IE 9]>
+    <script>
+		var loc = document.location;
+        //если нет #
+        if ((loc.href.indexOf(loc.hostname + '/#') === -1) && loc.pathname.length > 1) {
+            var host = loc.protocol + '//' + loc.hostname;
+            var indexStart = loc.href.indexOf(host) + host.length;
+            var path = loc.href.substring(indexStart);
+            loc.href = loc.protocol + '//' + loc.hostname + '/#' + path;
+        }
+    </script>
+	<![endif]-->
+
     <!--[if lt IE 9]>
     <script>
         document.createElement('ng-include');
@@ -28,6 +41,8 @@
 
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/spa/lib/jquery-ui/jquery-ui.1.11.2.min.css"/>
+
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css"/>
 
     <!-- build:app-stylus -->
     <link rel="stylesheet" href="/build/css/common.min.css"/>
@@ -132,8 +147,8 @@
 
     <!-- Подключение стилей партнеров -->
     <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
-    
-    
+
+
     <!--Start of Zopim Live Chat Script-->
     <script type="text/javascript">
         if (window.partners && !window.partners.isWL()) {
@@ -159,11 +174,14 @@
         }
     </script>
     <!--End of Zopim Live Chat Script-->
-    
-    
+
+
 </head>
-<body class="light-theme" ng-class="{'body-bg':isBodyBg(), 'search-form-expanded': FormExpand}"
-      ng-click="bodyClick()" popup-form>
+<body class="light-theme"
+      ng-class="{'body-bg':isBodyBg(), 'search-form-expanded': FormExpand}"
+      ng-click="bodyClick()"
+      popup-form
+      ng-style="BodyStyleGlobal">
 
 <!-- AB test -->
 <!--
@@ -178,13 +196,14 @@
 <div id="main-content-div" class="main scroll-fix">
     <!-- HEADER -->
 
-    <div class="header Header" ng-controller="RegionHeader"> <!--ng-if="isHeadVisible"-->
+    <div class="header Header" ng-controller="RegionHeader" ng-class="{'header_shadow' : shadow}">
+        <!--ng-if="isHeadVisible"-->
         <div class="header-info">
             <div class="scroll-fix">
                 <div class="header-info-container row">
 
                     <div class="col-xs-6 col-no-padding">
-                        <a href="/" class="header-info-logo">
+                        <a href="/#/" class="header-info-logo">
                             <i class="icon icon-logo js-company-logo" alt="ИННА ТУР" title="ИННА ТУР"></i>
                             <i class="icon icon-logo-inna name partners-hide" alt="ИННА ТУР" title="ИННА ТУР"></i>
                         </a>
@@ -263,8 +282,7 @@
     <!-- PAGE CONTENT -->
     <div class="wrpr"
          ng-class="{'reserve':isActive('/avia/reservation/') || isActive('/packages/reservation/')}"
-         ng-style="isFooterHiddenWrprStyle"
-		    >
+         ng-style="isFooterHiddenWrprStyle">
         <ng:view></ng:view>
     </div>
 
@@ -370,7 +388,7 @@
 
 <script>
     Raven.config('https://5423ebfb08194592901a70946621e5b4@sentry.inna.ru:9000/2', {
-        whitelistUrls: [/\www\.inna\.ru/],
+        whitelistUrls: [/\.inna\.ru/],
         logger: 'javascript'
         /*, dataCallback: function(data) {
          console.info(data, "raven data");

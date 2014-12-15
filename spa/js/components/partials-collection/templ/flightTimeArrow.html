@@ -1,0 +1,14 @@
+<!--
+
+    в пути: 6 ч 35 мин
+   ------------------
+     1 пересадка
+
+-->
+<p class="arrow">
+	в пути:
+	{{aviaInfo['Time' + direction] | flightTimeFormatted}}
+	<br>
+
+	{{(aviaInfo['Etaps' + direction].length - 1) | asQuantity:"пересадка":"пересадки":"пересадок":"без пересадок"}}
+</p>

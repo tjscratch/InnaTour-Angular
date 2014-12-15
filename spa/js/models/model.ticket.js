@@ -97,7 +97,6 @@ innaAppServices.factory('ModelTicket', [
             return {
                 airlines : transportersListUniq,
                 size: transportersListUniq.length,
-
                 // TODO: deprecated
                 etap: collected
             }
@@ -115,6 +114,13 @@ innaAppServices.factory('ModelTicket', [
             var lastEtap = etapsBack[etapsBack.length - 1];
 
             return lastEtap.data.InCode;
+        };
+
+        Avia.Ticket.prototype.airLogo = function(logo){
+            var groupLogo = "/spa/img/group.png";
+            var statickLogo = app_main.staticHost + "/Files/logo/" + logo + ".png";
+            var imageUrl = (logo == 'many') ? groupLogo : statickLogo;
+            return  imageUrl;
         };
 
         Avia.Ticket.Etap = function (data) {

@@ -32,7 +32,11 @@ innaAppControllers
             Raven.setExtraContext({key: "__DETAILS_DP_CONTEXT__"})
 
             var routParam = angular.copy($routeParams);
+            $scope.OrderId = routParam.OrderId;
             $scope.userIsAgency = null;
+
+            document.body.classList.add('bg_white');
+            document.body.classList.remove('light-theme');
 
             /**
              * Смотрим на условие - переход из B2B
@@ -52,7 +56,7 @@ innaAppControllers
 
                 var searchParams = angular.extend(routParam, {
                     StartVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.StartVoyageDate),
-                    EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate),
+                    EndVoyageDate: dateHelper.ddmmyyyy2yyyymmdd(routParam.EndVoyageDate)
                 });
 
                 if (routParam.Children) {
@@ -88,19 +92,107 @@ innaAppControllers
             $scope.NewPrice = null;
             $scope.OldPrice = null;
             $scope.NewPricePackage = null;
+            $scope.recommendedPairStatus = 0;
             var _balloonLoad = new Balloon();
+            $scope.hoverImageObject = {
+                timeOutHover : null,
+                hoverImageShow : false,
+                hoverImageStyle : {}
+            };
 
+            // есть ли хоть в одной из комнат фотографии
+            $scope.RoomsPhotosIsEmpty = true;
+
+
+            <!-- Меню с якорями -->
+            $scope.Menu = [
+                {
+                    id : 'SectionDetail',
+                    name : 'Описание отеля',
+                    active : false,
+                    klass: 'icon-sprite-description'
+                },
+                {
+                    id : 'SectionRoom',
+                    name : 'Выбор номера',
+                    active : false,
+                    klass: 'icon-sprite-room'
+                },
+                {
+                    id : 'SectionServices',
+                    name : 'Сервисы',
+                    active : false,
+                    klass: 'icon-sprite-services'
+                },
+                {
+                    id : 'SectionMap',
+                    name : 'Отель на карте',
+                    active : false,
+                    klass: 'icon-sprite-map'
+                },
+                {
+                    id : 'SectionReviews',
+                    name : 'Отзывы',
+                    active : false,
+                    klass: 'icon-sprite-reviews'
+                },
+            ];
+
+/*
             var backgrounds = [
                 '/spa/img/hotels/back-0.jpg',
                 '/spa/img/hotels/back-1.jpg',
                 '/spa/img/hotels/back-2.jpg'
-            ];
+            ];*/
 
             _balloonLoad.updateView({
                 loading: true,
                 title: 'Собираем данные',
                 balloonContent: 'Это может занять какое-то время'
             });
+
+            function parseAmenities (hotel){
+                hotel.AmenitiesArray = [];
+
+                if(hotel && Object.keys(hotel.Amenities).length) {
+
+                    for(var key in hotel.Amenities) {
+                        var countPart = Math.ceil(hotel.Amenities[key].List.length / 2);
+                        var ListOrigin = [].concat(hotel.Amenities[key].List);
+                        var ListPart1 = [].concat(ListOrigin.splice(countPart, ListOrigin.length));
+                        var ListPart2 = [].concat(ListOrigin);
+
+                        hotel.Amenities[key].part = {
+                            part1 : ListPart1,
+                            part2 : ListPart2
+                        }
+
+                        hotel.AmenitiesArray.push(hotel.Amenities[key]);
+                    }
+                }
+            }
+
+            /**
+             * Добавляем в отель комнату
+             * Нужно для отрисовки блока пары билет и отель
+             * @param rooms
+             */
+            function parseRooms(rooms){
+
+                rooms.find(function(room){
+                    if(room.Photos) {
+                        $scope.RoomsPhotosIsEmpty = false;
+                        return true;
+                    }
+                })
+
+                rooms.find(function(room){
+                    if(room.Default) {
+                        $scope.recommendedPair.setRoom(room);
+                        return true;
+                    }
+                })
+            }
 
 
             function getDisplayOrder() {
@@ -124,6 +216,9 @@ innaAppControllers
                             $scope.hotelLoaded = true;
                             $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
                             EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
+
+                            parseAmenities(resp.Hotel);
+                            parseRooms($scope.hotelRooms);
                             loadMap();
                             onload();
                         }
@@ -150,28 +245,6 @@ innaAppControllers
             }
 
 
-            function parseAmenities (hotel){
-                hotel.AmenitiesArray = [];
-
-                if(hotel && Object.keys(hotel.Amenities).length) {
-
-                    for(var key in hotel.Amenities) {
-                        var countPart = Math.ceil(hotel.Amenities[key].List.length / 2);
-                        var ListOrigin = [].concat(hotel.Amenities[key].List);
-                        var ListPart1 = [].concat(ListOrigin.splice(countPart, ListOrigin.length));
-                        var ListPart2 = [].concat(ListOrigin);
-
-                        hotel.Amenities[key].part = {
-                            part1 : ListPart1,
-                            part2 : ListPart2
-                        }
-
-                        hotel.AmenitiesArray.push(hotel.Amenities[key]);
-                    }
-                }
-            }
-
-
             /** Получаем данные по отелю */
             function getHotelDetails() {
                 var deferred = $q.defer();
@@ -194,8 +267,10 @@ innaAppControllers
 
                         var hotel = new ModelHotel(data.Hotel);
                         var ticket = new ModelTicket(data.AviaInfo);
+                        //ticket.modelTicket = ticket;
                         $scope.recommendedPair.setTicket(ticket);
                         $scope.recommendedPair.setHotel(hotel);
+                        $scope.recommendedPairStatus = data.Status;
 
                         $location.search('displayHotel', hotel.data.HotelId);
 
@@ -233,7 +308,7 @@ innaAppControllers
                             $scope.$apply(function ($scope) {
                                 delete $location.$$search.displayHotel;
                                 $location.$$compose();
-                                $location.path(goToSearchDynamic());
+                                location.href = goToSearchDynamic();
                             });
                         }
                         _balloonLoad.updateView({
@@ -263,7 +338,10 @@ innaAppControllers
                     },
                     success: function (data) {
                         if (data.Rooms.length) {
+
                             $scope.hotelRooms = data.Rooms;
+
+                            parseRooms(data.Rooms);
 
                             if ($scope.hotel.CheckInTime == '00:00' && data.Hotel.CheckInTime) {
                                 $scope.hotel.CheckInTime = data.Hotel.CheckInTime
@@ -273,8 +351,12 @@ innaAppControllers
                                 $scope.hotel.CheckOutTime = data.Hotel.CheckOutTime
                             }
 
+                            $scope.OldPrice = $scope.recommendedPair.getFullPackagePrice();
+
+                            // для теста новой цены
+                            //data.NewPrice = 70000;
+
                             if(data.NewPrice) {
-                                $scope.OldPrice = $scope.recommendedPair.getFullPackagePrice();
                                 $scope.NewPrice = data.NewPrice;
                                 $scope.NewPricePackage = ($scope.NewPrice - $scope.OldPrice);
                                 data.PackagePrice = data.NewPrice;
@@ -300,14 +382,16 @@ innaAppControllers
                             dataRequest: searchParams
                         });
 
-                        showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
+                        $scope.$apply(function(){
+                            showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
+                        })
+
                     }
                 });
             };
 
             function showErrNotFound(msg) {
-                $scope.baloon.showNotFound(msg, "Пожалуйста, выполните новый поиск.", function () {
-                    var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                var url = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
                         $routeParams.DepartureId,
                         $routeParams.ArrivalId,
                         $routeParams.StartVoyageDate,
@@ -315,30 +399,37 @@ innaAppControllers
                         $routeParams.TicketClass,
                         $routeParams.Adult,
                         $routeParams.Children
-                    ].join('-');
-                    $location.url(url);
+                ].join('-');
+
+                var tmId = setTimeout(function(){
+                    $scope.safeApply(function(){
+                        $scope.baloon.hide();
+                        $location.url(url);
+                    });
+                }, 3000);
+                $scope.baloon.showNotFound(msg, "Пожалуйста, выполните новый поиск.", function () {
+                    if (tmId){
+                        clearTimeout(tmId);
+                    }
+                    $scope.safeApply(function(){
+                        $location.url(url);
+                    });
                 });
             }
 
             if (!routParam.OrderId) {
                 getHotelDetails().then(function () {
-                    var scrollPosition = 0;
-                    if($scope.hotel && $scope.hotel.Photos) {
-                        scrollPosition = ($scope.hotel.Photos.LargePhotos.length || $scope.hotel.Photos.MediumPhotos.length) ? 1300 : 600;
-                    }
 
                     // если пришли с параметром покупки
                     // нажали в бандле - купить
                     if ($scope.buyAction) {
                         $timeout(function () {
-                            /*$location.hash('ScrollRooms');
-                            $anchorScroll();*/
-
-                            window.scrollTo(0, scrollPosition);
                             if (window.partners && window.partners.isFullWL()) {
                                 var elementHotelDetails = document.querySelector('.hotel-details-rooms');
                                 var positionTop = utils.getCoords(elementHotelDetails).top;
                                 window.partners.setScrollTo(positionTop);
+                            } else {
+                                $scope.goToScroll('SectionRoom');
                             }
                         }, 1000);
                     }
@@ -359,7 +450,7 @@ innaAppControllers
                 var Adult = searchParams.Adult || 0;
                 var Children = searchParams.Children || '';
 
-                var urlDetails = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                var urlDetails = '/#' + Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
                     DepartureId,
                     ArrivalId,
                     StartVoyageDate,
@@ -460,16 +551,6 @@ innaAppControllers
                 }
             }
 
-            /*Properties*/
-            $scope.background = 'url($)'.split('$').join(
-                backgrounds[parseInt(Math.random() * 100) % backgrounds.length]
-            );
-
-            if (!(window.partners && window.partners.isFullWL())) {
-                $('body').css({
-                    "background": "#000 " + $scope.background + "repeat fixed"
-                });
-            }
 
             /*Methods*/
             $scope.toggleDescription = function () {
@@ -482,14 +563,43 @@ innaAppControllers
             };
 
 
-            $scope.scrollToTripadvisor = function () {
-                var body = angular.element('html, body');
-                    var headerHeight = angular.element('.Header').height();
-                    var elToScroll = document.querySelector('.b-tripadvisor-widget-iframe');
-                    var positionTop = utils.getCoords(elToScroll).top
+            $scope.goToScroll = function(menu_item){
 
-                body.animate({ scrollTop: positionTop - headerHeight }, 500);
-                window.partners.setScrollPage(positionTop);
+                var ID = '';
+
+                if(menu_item.id){
+                    ID = menu_item.id;
+                    $scope.menu_item = menu_item;
+                } else {
+                    ID = menu_item;
+                }
+
+                var element = document.querySelector('#'+ ID);
+
+                if(element) {
+                    var coords = utils.getCoords(element);
+                    var headerHeight = angular.element('.Header').height();
+                    var body = angular.element('html, body');
+                    body.animate({scrollTop:(coords.top - headerHeight) - 30}, 300);
+
+
+                    if (window.partners) {
+                        if (window.partners.isFullWL() === true) {
+                            window.partners.setScrollTo((coords.top) + 100);
+                        }
+                    }
+                }
+
+
+                if(menu_item.id) {
+                    $scope.Menu.forEach(function (item) {
+                        if (item.id != menu_item.id) {
+                            item.active = false;
+                        }
+                    });
+                    menu_item.active = true;
+                }
+
             };
 
             $scope.$watch('user', function(User){
@@ -503,9 +613,12 @@ innaAppControllers
                 }
             });
 
-            
+
 
             $scope.$on('$destroy', function () {
+
+                document.body.classList.remove('bg_white');
+                document.body.classList.add('light-theme');
                 $('body').removeAttr('style');
 
                 if(_balloonLoad){

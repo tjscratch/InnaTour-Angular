@@ -32,9 +32,6 @@ angular.module('innaApp.components').
                     showWarning: function () {
                         return this.showWarning;
                     },
-                    airLogo: function (logo) {
-                        return this.airLogo(logo);
-                    },
 
                     TimeFormatted : aviaHelper.getFlightTimeFormatted
                 },
@@ -97,12 +94,6 @@ angular.module('innaApp.components').
                 setCurrent: function () {
                     this.set('hidden', true);
                     EventManager.fire(Events.DYNAMIC_SERP_CHOOSE_TICKET, this.get('modelTicket'), this.get('ticket.VariantId1'));
-                },
-
-                airLogo: function (logo) {
-                    var groupLogo = "/spa/img/group.png";
-                    var statickLogo = app_main.staticHost + "/Files/logo/" + logo + ".png";
-                    return  (logo == 'many') ? groupLogo : statickLogo;
                 },
 
                 CHOOSE_TICKET : function(modelTicket, ticketId){

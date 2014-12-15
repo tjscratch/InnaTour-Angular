@@ -1,6 +1,7 @@
 {
   "build": "./build",
   "bower": "./bower_components",
+  "backendTempl": "./backend/templates/partials",
   "dest": "./spa",
   "src": "./spa/js",
   "styl": "./spa/styl",
@@ -20,6 +21,11 @@
       "test": "http://b2b.test.inna.ru",
       "prod": "https://b2b.inna.ru",
       "beta": "http://b2b.beta.inna.ru"
+    },
+    "b2bPartner": {
+      "test": "http://partner.test.inna.ru",
+      "prod": "https://partner.inna.ru",
+      "beta": "http://partner.beta.inna.ru"
     },
     "api": {
       "test": "http://api.test.inna.ru",
@@ -43,5 +49,5 @@
     }
   },
   "tripadvisor": "www.tripadvisor.ru/WidgetEmbed-cdspropertydetail?display=true&partnerId=32CB556934404C699237CD7F267CF5CE&lang=ru&locationId=",
-  "version": "build-0.d375539f-0.ku5ema"
+  "version": "build-0.41d73469-0.mrqc4jo"
 }

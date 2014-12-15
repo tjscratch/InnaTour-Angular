@@ -1,32 +1,57 @@
 <div class="gallery_wrapper" ng-class="{'gallery_wrapper_empty': emptyPhoto}">
-	<div class="gallery gallery_len_{{pics.list.length}} gallery_plan_{{pics.plan}}" ng-if="pics.list.length != 0">
+	<div class="gallery gallery_plan_{{pics.plan}}">
 
-		<div class="gallery__viewport-wrap">
-			<div class="gallery__viewport" ng-style="getViewportStyle()" ng-click="showFullGallery($event)"></div>
-		</div>
 
 		<!-- jQuery Slider scrollBar -->
 		<div scroll-bar
 		     ng-if="pics.list.length > 1"
 		     class="scroll-pane gallery__list__wrapper">
 
-			<div class="gallery__list__container">
-				<ul class="scroll-content gallery__list">
-					<li ng-repeat="pic in pics.list"
-					    ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"
+			<div class="gallery__list__container"
+			     ng-style="pics.setHeight()">
+
+				<div class="gallery__active gallery__active_type_prev"
+				     ng-if="pics.list.length > 5"
+				     ng-click="pics.prev($event)">
+					<div class="b-carousel__control b-carousel__prev">
+						<i class="icon-sprite-arrow-bottom b-carousel__prev__arrow"></i>
+					</div>
+				</div>
+
+				<div class="gallery__active gallery__active_type_next"
+				     ng-if="pics.list.length > 5"
+				     ng-click="pics.next($event)">
+					<div class="b-carousel__control b-carousel__next">
+						<i class="icon-sprite-arrow-bottom b-carousel__next__arrow"></i>
+					</div>
+				</div>
+
+
+
+				<ul class="scroll-content gallery__list" ng-style="pics.setHeight()">
+					<li gallery-preview
+						ng-repeat="pic in pics.list"
+					    ng-click="showFullGallery($event, $index)"
+					    photo="pic.src"
+					    width="180"
+					    height="180"
+					    width-preview="500"
+						height-preview="373"
+					    hover-image-object="hoverImageObject"
+					    full="true"
 					    class="gallery__list-item"
-					    style="background-image:url({{pic.src}});"
-					    ng-click="pics.setCurrent($index, $event)"></li>
+					    ng-class="{'gallery__list-item_state_current': pics.isCurrent($index)}"></li>
 				</ul>
+
 			</div>
 
-			<div ng-show="hideBar"
+			<div ng-show="hideBar.visible"
 			     class="ng-hide scroll-bar-wrap gallery__list__scroll b-slider">
 				<div class="scroll-bar"></div>
 			</div>
 		</div>
 
-		<div class="gallery__disclaimer">
+		<div class="gallery__disclaimer" ng-if="pics.list">
 			Фотографии предоставлены отелем.
 			<span ng-if="!isWL">
 				Компания ИННА ТУР не несет ответвенности за
@@ -36,4 +61,10 @@
 	</div>
 </div>
 
-<ng-include ng-if="showGallery" src="'components/gallery/templ/gallery.full.html'"></ng-include>
+<div class="gallery__list-item_hover"
+     ng-style="hoverImageObject.hoverImageStyle"
+     ng-if="hoverImageObject.hoverImageShow">
+</div>
+
+<ng-include ng-if="showGallery"
+            src="'components/gallery/templ/gallery.full.html'"></ng-include>

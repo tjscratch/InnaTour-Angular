@@ -1,11 +1,7 @@
-﻿var requireDir = require('require-dir');
-var dir = requireDir('./node_tasks');
-
-var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    gulpif = require('gulp-if'),
-    runSequence = require('run-sequence'),
-    conf = require('./node_tasks/config');
+﻿var dir         = require('require-dir')('./node_tasks'),
+    gulp        = require('gulp'),
+    gutil       = require('gulp-util'),
+    runSequence = require('run-sequence');
 
 
 var _ENV_ = process.env.NODE_ENV || '';
@@ -31,15 +27,19 @@ console.info('----------------------------');
 
 gulp.task('build-project', function (callback) {
     runSequence(
-        'remove-publish',
+        ['remove-publish', 'remove-manifest', 'remove-bower'],
+        'create-manifest',
+
         'sprite',
         'styles-app',
         'replace-config',
         ['styles', 'concat-bower-components', 'build-concat', 'widget-search', 'build-lk'],
         'version-cache',
         'html-replace',
-        'copy-project',
+        ['copy-project', 'copy-backend'],
         'replace-partners',
+
+        'replace-backend',
         callback);
 });
 
@@ -50,6 +50,8 @@ gulp.task('build-project', function (callback) {
  */
 gulp.task('default', function (callback) {
     runSequence(
+        ['remove-manifest', 'remove-bower'],
+        'create-manifest',
         'sprite',
         'styles-app',
         'replace-config',

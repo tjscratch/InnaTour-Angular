@@ -4,49 +4,47 @@
 
     &__prev,
     &__next {
-        background: rgba(255, 255, 255, .6);
-        cursor: pointer;
+        transform-style: preserve-3d;
+        border-radius: 1px;
+        border: 1px solid #fff;
+        background: rgba(0, 0, 0, .5);
         height: 30px;
+        width: 30px;
         margin-top: -15px;
         position: absolute;
         top: 50%;
-        width: 20px;
+        cursor: pointer;
         z-index: 2;
 
-        &:before {
-            content: '';
-            border-style: solid;
-            display: block;
-            height: 0;
+        &__arrow {
             position: absolute;
-            margin-top: -5px;
+            left: 50%;
             top: 50%;
-            width: 0;
+        }
+
+        &:hover {
+            background: rgba(77, 77, 77, 1) !important;
         }
     }
 
     &__prev {
-        border-radius: 0 2px 2px 0;
         left: 0;
-
-        &:before {
-            border-width: 5px 6px 5px 0;
-            border-color: transparent #000 transparent transparent;
-            left: 6px;
+        &__arrow {
+            transform: translate(-50%, -50%) rotate(90deg);
         }
     }
 
     &__next {
-        border-radius: 2px 0 0 2px;
         right: 0;
-
-        &:before {
-            border-width: 5px 0 5px 6px;
-            border-color: transparent transparent transparent #000;
-            right: 6px;
+        &__arrow {
+            transform: translate(-50%, -50%) rotate(-90deg);
         }
     }
 
+    &_arrow_mini {
+        transform: scale(0.7);
+        display: none;
+    }
 
     &__holder {
         overflow: hidden;
@@ -57,26 +55,24 @@
         }
     }
 
-
     &__slider {
         position: relative;
-        overflow : hidden;
+        overflow: hidden;
         transform-style: preserve-3d;
         //transition: transform .1s linear 0s
         transition: left .1s linear 0s
 
         &:after {
             content: '';
-            display : block;
-            clear : both;
+            display: block;
+            clear: both;
         }
     }
 
-
     &_item {
         float: left;
-        text-align : center;
-        position : relative;
+        text-align: center;
+        position: relative;
 
         &_image {
             background-size: cover;
@@ -90,5 +86,11 @@
 
     &.b-carousel_map {
 
+    }
+
+    &:hover {
+        .b-carousel_arrow_mini {
+            display: block;
+        }
     }
 }

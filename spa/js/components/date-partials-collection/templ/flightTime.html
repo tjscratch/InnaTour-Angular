@@ -1,0 +1,13 @@
+в пути:
+{{$filter('flightTimeFormatted')(aviaInfo['Time' + direction])}}&nbsp;,
+
+{{#if AviaInfo[direction + 'TransferCount'] > 0}}
+	<span>
+	    {{AviaInfo[direction + 'TransferCount']}}
+	    {{pluralize(AviaInfo[direction + 'TransferCount'], ['пересадка', 'пересадки', 'пересадок'])}}
+	</span>
+{{/if}}
+
+{{#if AviaInfo[direction + 'TransferCount'] == 0}}
+	<span>без пересадок</span>
+{{/if}}

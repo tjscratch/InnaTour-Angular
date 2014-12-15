@@ -1,5 +1,7 @@
 syntax: glob
+
 node_modules
+
 Compiled
 _ReSharper.*
 obj/*
@@ -34,7 +36,7 @@ bin/*
 *.crunchproject.local.xml
 *.crunchsolution.*
 *.dbmdl
-*.log
+log/*
 *.idea
 *.*(!)
 *.DS_Store
@@ -67,6 +69,7 @@ build
 build_and_publish
 npm-debug.log
 publish
+node_tasks/manifest.json
 
 
 # игнорируем собранный файл спрайтов
@@ -77,8 +80,13 @@ spa/styl/temp/*.styl
 spa/styl/partners/**/*.css
 spa/js/**/*.css
 
+bower_components/**/node_modules
 bower_components/bower-components.js
 bower_components/bower-components.*.js
+!bower_components/**/build
+!bower_components/**/src
+!bower_components/**/dist
+!bower_components/**/min
 
 
 
@@ -90,5 +98,8 @@ website.publishproj
 Solution.v12.suo
 Inna.Frontend.csproj
 Inna.Frontend.SPA.sln
+start_on_node_server.cmd
+
+logs
 start_on_node_server.cmd
 spa/js/widgets/search/inna-search.js

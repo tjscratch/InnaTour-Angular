@@ -4,17 +4,25 @@
  */
 angular.module('innaApp.components')
     .directive('scrollBar', [
-        function () {
+        '$timeout',
+        'innaApp.API.events',
+        function ($timeout, Events) {
             return {
                 replace: true,
                 link: function ($scope, $element, $attr) {
-                    $scope.hideBar = true;
+
+                    $scope.hideBar = {
+                        visible : false
+                    };
+
+
                     function initialize() {
 
 
                         var scrollPane = $element,
                             scrollContent = $element.find(".scroll-content"),
-                            scrollBarElement = $element.find(".scroll-bar");
+                            scrollBarElement = $element.find(".scroll-bar"),
+                            scrollBarWidget = null;
 
                         // init scrollBar
                         scrollBar();
@@ -37,22 +45,28 @@ angular.module('innaApp.components')
 
 
                         function sizeScrollbar() {
+
                             if (scrollContent.width() < $element.width()) {
-                                $scope.$apply(function($scope){
-                                    $scope.hideBar = false;
+                                $scope.$apply(function(){
+                                    $scope.hideBar.visible = false;
                                 })
+                            } else {
+
+                                $scope.$apply(function(){
+                                    $scope.hideBar.visible = true;
+                                })
+
+                                var remainder = scrollContent.width() - scrollPane.width();
+                                var proportion = remainder / scrollContent.width();
+                                var handleSize = scrollPane.width() - ( proportion * scrollPane.width() );
+
+                                scrollBarElement.find(".ui-slider-handle").css({
+                                    width: handleSize,
+                                    "margin-left": -handleSize / 2
+                                }).off('keydown');
+
+                                handleHelper.width("").width(scrollBarElement.width() - handleSize);
                             }
-
-                            var remainder = scrollContent.width() - scrollPane.width();
-                            var proportion = remainder / scrollContent.width();
-                            var handleSize = scrollPane.width() - ( proportion * scrollPane.width() );
-
-                            scrollBarElement.find(".ui-slider-handle").css({
-                                width: handleSize,
-                                "margin-left": -handleSize / 2
-                            });
-
-                            handleHelper.width("").width(scrollBarElement.width() - handleSize);
                         }
 
                         //reset slider value based on scroll content position
@@ -73,30 +87,40 @@ angular.module('innaApp.components')
 
                             var gap = scrollPane.width() - showing;
 
-                            if (gap > 0 && $scope.hideBar) {
+                            if (gap > 0) {
                                 scrollContent.css("left", parseInt(scrollContent.css("left"), 10) + gap);
                             }
                         }
 
+                        function scrollContentPosition(value) {
+                            if (scrollContent.width() > scrollPane.width()) {
+                                scrollContent.css("left", Math.round(
+                                    value / 100 * ( scrollPane.width() - scrollContent.width() )
+                                ) + "px");
+                            } else {
+                                scrollContent.css("left", 0);
+                            }
+                        }
+
+
+                        function setPosition(position) {
+                            scrollBarWidget.slider("value", position);
+                            scrollContentPosition(position);
+                        }
+
+
                         function scrollBar() {
-                            scrollBarElement.slider({
+                            scrollBarWidget = scrollBarElement.slider({
                                 step: 0.1,
                                 slide: function (event, ui) {
                                     event.stopPropagation();
-
-                                    if (scrollContent.width() > scrollPane.width()) {
-                                        scrollContent.css("left", Math.round(
-                                            ui.value / 100 * ( scrollPane.width() - scrollContent.width() )
-                                        ) + "px");
-                                    } else {
-                                        scrollContent.css("left", 0);
-                                    }
+                                    scrollContentPosition(ui.value);
                                 }
                             });
                         }
 
-                        $scope.slideBar = function($event){
-                            if($event) $event.stopPropagation();
+                        $scope.slideBar = function ($event) {
+                            if ($event) $event.stopPropagation();
                         }
 
                         function onResize() {
@@ -104,6 +128,18 @@ angular.module('innaApp.components')
                             sizeScrollbar();
                             reflowContent();
                         }
+
+
+                        $scope.$on(Events.NotificationScrollBar, function (evt, $index) {
+                            if($scope.hideBar.visible) {
+                                var per = ($index * 100) / ($scope.pics.list.length - 1);
+                                setPosition(parseFloat(per));
+                            }
+                        });
+
+                        $scope.$on(Events.NotificationGalleryClose, function () {
+                            //sizeScrollbar();
+                        });
 
 
                         $(window).on('resize', onResize);

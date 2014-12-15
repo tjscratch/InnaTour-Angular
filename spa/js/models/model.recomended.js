@@ -39,6 +39,10 @@ innaAppServices.factory('ModelRecommendedPair', [
             this.FullPackagePrice = data.PackagePrice;
         }
 
+        Combination.prototype.setRoom = function(data){
+            this.hotel.data.Room = data;
+        }
+
         Combination.prototype.getFullPackagePrice = function(){
             return this.FullPackagePrice;
         }

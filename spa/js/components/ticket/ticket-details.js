@@ -43,9 +43,9 @@ angular.module('innaApp.directives')
                     });
 
 
-                    // TODO: deprecated^ use instead $emit or $broadcast
+
                     EventManager.on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetailsWrap);
-                    $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetails)
+                    $scope.$on(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, showDetails);
 
                     function showDetailsWrap(evt, data) {
                         $scope.$apply(function () {
@@ -54,7 +54,6 @@ angular.module('innaApp.directives')
                     }
 
                     function showDetails(evt, data) {
-
                         $scope.closeFooter = data.noChoose;
 
                         var ticketRaw = data.ticket;
@@ -75,6 +74,7 @@ angular.module('innaApp.directives')
                         $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
                         $scope.popupItemInfo = new aviaHelper.popupItemInfo($scope.ticketsCount, $scope.criteria.CabinClass);
                         $scope.popupItemInfo.show(evt, ticketRaw, $scope.criteria, $scope.searchId);
+
 
 
                         $scope.ticket = data.ticket;
