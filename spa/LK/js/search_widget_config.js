@@ -87,7 +87,7 @@
                     $scope.formTpl = [
                         '<textarea class="form-control">',
                         '<div class="b-inna-search-widget ' + $scope.radioModel + '">',
-                        '   <inna-form partner-site="https://' + $scope.style.partner + '.inna.ru" partner-name="' + $scope.style.defaultCity + '"></inna-form>',
+                        '   <inna-form partner-site="' + $scope.style.url + '" partner-name="' + $scope.style.defaultCity + '"></inna-form>',
                         '</div>',
                         '<script src="http://inna.ru/spa/js/widgets/search/inna-search.js" async="true" charset="utf-8"></script>',
                         $scope.formStyle,

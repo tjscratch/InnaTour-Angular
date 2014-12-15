@@ -75,7 +75,7 @@
 
 			<div class="widget-preview">
 				<div class="b-inna-search-widget" ng-class="radioModel">
-					<inna-form partner-site="https://inna.ru" partner-name="biletix"></inna-form>
+					<inna-form partner-site="{{ style.url }}" partner-name="{{ style.partner }}"></inna-form>
 				</div>
 			</div>
 
@@ -103,6 +103,10 @@
 				<div class="col-xs-2 form-item" ng-class="{'form-item-error': error.partner}">
 					<h4>ID партнера:</h4>
 					<input class="form-control" type="text" ng-model="style.partner" placeholder="Например biletix">
+				</div>
+				<div class="col-xs-3 form-item" ng-class="{'form-item-error': error.partner}">
+					<h4>URL редиректа:</h4>
+					<input class="form-control" type="text" ng-model="style.url" placeholder="Например http://biletix.inna.ru">
 				</div>
 				<div class="col-xs-3 form-item">
 					<h4>Город вылета по умолчанию:</h4>
