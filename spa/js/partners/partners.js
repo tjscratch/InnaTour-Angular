@@ -57,7 +57,7 @@
             'skype': '',
             'aboutLink': 'https://biletix.ru/about_biletix/',
             'contactsLink': 'https://biletix.ru/contacts/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_biletix.pdf',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_biletix.pdf',
             'showOffers': true,
             'horizontalForm': false
         },
@@ -71,7 +71,7 @@
             'skype': '',
             'aboutLink': 'http://www.ulixes.ru/o_kompanii/',
             'contactsLink': 'http://www.ulixes.ru/contacti/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ulixes.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_ulixes.pdf'
         },
         {
             'name': 'skycassa',
@@ -83,7 +83,7 @@
             'skype': '',
             'aboutLink': 'http://www.skycassa.com/about/',
             'contactsLink': 'http://www.skycassa.com/contacts/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_skycassa.pdf',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_skycassa.pdf',
             'showOffers': true
         },
         {
@@ -96,7 +96,7 @@
             'skype': 'Atlantis2073',
             'aboutLink': 'http://www.atlantravel.ru/o-kompanii/',
             'contactsLink': 'http://www.atlantravel.ru/kontakty.html',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_atlantis.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_atlantis.pdf'
         },
         {
             'name': 'ekaterinatours',
@@ -108,7 +108,7 @@
             'skype': 'katerina4753',
             'aboutLink': 'http://ekaterinatours.ru/kontakty/',
             'contactsLink': 'http://ekaterinatours.ru/kontakty/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_ekaterinatours.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_ekaterinatours.pdf'
         },
         {
             'name': 'yourway',
@@ -120,7 +120,7 @@
             'skype': 'vashput',
             'aboutLink': 'http://www.yourway.spb.ru/pages/533/',
             'contactsLink': 'http://www.yourway.spb.ru/pages/533/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_yourway.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_yourway.pdf'
         },
         {
             'name': 'kru-god',
@@ -132,7 +132,7 @@
             'skype': '',
             'aboutLink': 'http://kru-god.ru/about/',
             'contactsLink': 'http://kru-god.ru/about/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_kru-god.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_kru-god.pdf'
         },
         {
             'name': 'e-good',
@@ -144,7 +144,7 @@
             'skype': '',
             'aboutLink': 'http://e-good.ru/',
             'contactsLink': 'http://e-good.ru/',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_e-good.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_e-good.pdf'
         },
         {
             'name': 'paristour',
@@ -156,7 +156,67 @@
             'skype': 'daprus',
             'aboutLink': 'http://www.xn--80amf0agcni.xn--p1ai/kontakty/o-kompanii',
             'contactsLink': 'http://www.xn--80amf0agcni.xn--p1ai/kontakty',
-            'offertaContractLink': 'http://s.inna.ru/files/doc/offer_paristour.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_paristour.pdf'
+        },
+        {
+            'name': 'delfin33',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'ООО «Турагентство Дельфин»',
+            'phone': '+74922451478',
+            'email': '33delfin@list.ru',
+            'skype': '',
+            'aboutLink': 'http://www.delfin33.ru/',
+            'contactsLink': 'http://www.delfin33.ru/',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_delfin.pdf'
+        },
+        {
+            'name': 'valeryclub',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'Туристическая компания «VALERY CLUB»',
+            'phone': '+74957640722',
+            'email': 'valeryclub@list.ru',
+            'skype': '',
+            'aboutLink': 'http://valeryclub.msk.ru/',
+            'contactsLink': 'http://valeryclub.msk.ru/contacts.html',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_valery_club.pdf'
+        },
+        {
+            'name': 'vip-cipservice',
+            'src': '',
+            'type': self.WLType.lite,
+            'title': 'ООО «ХИЛЕН»',
+            'phone': '+7(495) 971 78 65',
+            'email': 'info@vip-cipservice.ru',
+            'skype': '',
+            'aboutLink': 'http://www.vip-cipservice.ru/',
+            'contactsLink': 'http://www.vip-cipservice.ru/',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_hilentravel.pdf'
+        },
+        {
+            'name': 'allseasons-tour',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'ООО «Все сезоны»',
+            'phone': '+7(495)755 80 30',
+            'email': 'booking@freesboo.ru',
+            'skype': '',
+            'aboutLink': 'http://www.freesboo.ru',
+            'contactsLink': 'http://www.freesboo.ru/kontakty.html',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_allseasons.pdf'
+        },
+        {
+            'name': '24trip',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'ООО «АЛЬФА»',
+            'phone': '+7(495)724-7210',
+            'email': 'booking@24trip.ru',
+            'skype': '',
+            'aboutLink': 'http://www.24trip.ru/index.php?option=com_content&view=category&layout=blog&id=218&Itemid=523',
+            'contactsLink': 'http://www.24trip.ru/index.php?option=com_contact&view=category&id=227&Itemid=616',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_24trip.pdf'
         }
     ];
 
