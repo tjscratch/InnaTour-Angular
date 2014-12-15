@@ -2,6 +2,7 @@
     "use strict"
 
     angular.module("innaSearchForm", [
+        "ngSanitize",
         "ui.bootstrap",
         "searchForm",
         "innaDirectives",
