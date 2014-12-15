@@ -170,6 +170,9 @@
                 $.
                         type = 'text/javascript';
                 e.parentNode.insertBefore($, e)
+                $.onload = function(){
+                    document.querySelector(".zopim").style.width = "145px"
+                }
             })(document, 'script');
         }
     </script>
