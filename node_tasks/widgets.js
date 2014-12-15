@@ -61,6 +61,7 @@ gulp.task('widget-search-config', function () {
 gulp.task('widget-search-js', ['widget-search-template', 'widget-search-config'], function () {
     return gulp.src([
         conf.bower + '/angular/angular.js',
+        conf.bower + '/angular-sanitize/angular-sanitize.js',
         conf.dest + '/lib/ui-bootstrap/ui-bootstrap-custom-0.12.0.js',
         conf.dest + '/lib/ui-bootstrap/ui-bootstrap-custom-tpls-0.12.0.js',
         conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.js',
