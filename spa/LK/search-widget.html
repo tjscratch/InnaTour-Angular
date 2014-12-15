@@ -100,7 +100,7 @@
 
 
 			<div class="row offset-bottom-2">
-				<div class="col-xs-2 form-item">
+				<div class="col-xs-2 form-item" ng-class="{'form-item-error': error.partner}">
 					<h4>ID партнера:</h4>
 					<input class="form-control" type="text" ng-model="style.partner" placeholder="Например biletix">
 				</div>
@@ -188,6 +188,9 @@
 
 			<div class="offset-bottom-2 text-center" ng-click="generateCode()">
 				<span class="btn btn-lg">Сгенерировать код</span>
+			</div>
+			<div class="alert alert-danger" ng-if="error.partner">
+				<div>Укажите ID партнера</div>
 			</div>
 			<div ng-bind-html="insertStyle()"></div>
 			<div class="head" ng-if="formTpl">

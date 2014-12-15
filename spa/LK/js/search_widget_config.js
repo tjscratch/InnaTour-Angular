@@ -80,18 +80,23 @@
             };
 
             $scope.generateCode = function () {
-                $scope.formTpl = [
-                    '<textarea class="form-control">',
-                    '<div class="b-inna-search-widget ' + $scope.radioModel + '">',
-                    '   <inna-form partner-site="https://' + $scope.style.partner + '.inna.ru" partner-name="'+ $scope.style.defaultCity +'"></inna-form>',
-                    '</div>',
-                    '<script src="http://inna.ru/spa/js/widgets/search/inna-search.js" async="true" charset="utf-8"></script>',
-                    $scope.formStyle,
-                    '</textarea>'].join("\n");
-                ;
-                $scope.insertTpl = function () {
-                    return $sce.trustAsHtml($scope.formTpl);
-                };
+                $scope.error = {}
+                if (!$scope.style.partner) {
+                    $scope.error.partner = true;
+                } else {
+                    $scope.formTpl = [
+                        '<textarea class="form-control">',
+                        '<div class="b-inna-search-widget ' + $scope.radioModel + '">',
+                        '   <inna-form partner-site="https://' + $scope.style.partner + '.inna.ru" partner-name="' + $scope.style.defaultCity + '"></inna-form>',
+                        '</div>',
+                        '<script src="http://inna.ru/spa/js/widgets/search/inna-search.js" async="true" charset="utf-8"></script>',
+                        $scope.formStyle,
+                        '</textarea>'].join("\n");
+                    ;
+                    $scope.insertTpl = function () {
+                        return $sce.trustAsHtml($scope.formTpl);
+                    };
+                }
             }
 
         }
