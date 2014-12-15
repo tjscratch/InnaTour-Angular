@@ -15,10 +15,10 @@ var _ENV_ = process.env.NODE_ENV || '';
  * gulp build-lk-stylus
  */
 gulp.task('build-lk-stylus', function () {
-    return gulp.src([conf.dest + '/html/LK/css/lk.styl'])
+    return gulp.src([conf.dest + '/LK/css/lk.styl'])
         .pipe(stylus())
         .pipe(concat('lk.css'))
-        .pipe(gulp.dest(conf.dest + '/html/LK/css'))
+        .pipe(gulp.dest(conf.dest + '/LK/css'))
 });
 
 
@@ -27,7 +27,7 @@ gulp.task('build-lk-stylus', function () {
  * gulp build-lk-watch
  */
 gulp.task('build-lk-watch', function () {
-    gulp.watch(conf.dest + '/html/LK/css/*.styl', ['build-lk-stylus'])
+    gulp.watch(conf.dest + '/LK/css/*.styl', ['build-lk-stylus'])
         .on('change', function (file) {
         });
 })
