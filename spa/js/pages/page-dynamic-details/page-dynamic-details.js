@@ -429,9 +429,11 @@ innaAppControllers
                                 var positionTop = utils.getCoords(elementHotelDetails).top;
                                 window.partners.setScrollTo(positionTop);
                             } else {
-                                $scope.goToScroll('SectionRoom');
+                                $location.hash('SectionRoom');
+                                $anchorScroll();
+                                //$scope.goToScroll('SectionRoom');
                             }
-                        }, 1000);
+                        }, 0);
                     }
 
                     getHotelDetailsRooms();
