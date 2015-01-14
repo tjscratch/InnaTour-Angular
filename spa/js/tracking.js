@@ -122,6 +122,18 @@
     dpSearchInterrupted: function () {//Нажатие на ссылку "Прервать поиск" во время поиска
         track.writeAnalitics('/virtual/packages/search_interrupted', 'packages_search_interrupted');
     },
+    dpAirticketNotAvialable: function () {//NEW Страница отеля. Авиабилет в пакете недоступен
+        track.writeAnalitics('/virtual/packages/airticket_not_avialable', 'packages_airticket_not_avialable');
+    },
+    dpHotelNotAvialable: function () {//NEW Страница отеля. Отель недоступен
+        track.writeAnalitics('/virtual/packages/hotel_not_avialable', 'packages_hotel_not_avialable');
+    },
+    dpSuiteChanged: function () {//NEW Страница отеля. Номер не доступен. Замена номера.
+        track.writeAnalitics('/virtual/packages/suite_changed', 'packages_suite_changed');
+    },
+    dpSuiteNotAvailableError: function () {//NEW Страница отеля. Номер не доступен.
+        track.writeAnalitics('/virtual/packages/suite_not_avialable', 'packages_suite_not_avialable');
+    },
     successResultsDp: function () { //коды для фиксации успешной выдачи результатов поиска ДП
         track.writeAnalitics('/virtual/packages/search_success', 'packages_search_success');
     },
@@ -130,6 +142,12 @@
     },
     dpBuyPackage: function () {//нажатие кнопки "купить" на форме поиска пакета
         track.writeAnalitics('/virtual/packages/buy_variant', 'packages_buy_variant');
+    },
+    dpApiTicketChanged: function () {//NEW Cтраница результатов поиска. Переход от партнера (Слетать, Руспо...). Нет авиабилета. Замена авиабилета на рекомендованный.
+        track.writeAnalitics('/virtual/packages/api_ticket_changed', 'packages_api_ticket_changed');
+    },
+    dpApiHotelChanged: function () {//NEW Cтраница результатов поиска. Переход от партнера (Слетать, Руспо...). Нет отеля. Замена отеля на рекомендованный.
+        track.writeAnalitics('/virtual/packages/api_hotel_changed', 'packages_api_hotel_changed');
     },
     dpGoReserve: function () {//нажатие кнопки "купить" на форме выбора категории номера на странице отеля
         track.writeAnalitics('/virtual/packages/buy_suite', 'packages_buy_suite');
@@ -146,11 +164,11 @@
     dpPayBtnSubmitContinueErr: function (err_code) {//Факт получения ответа от сервера о начале оплаты
         track.writeAnalitics('/virtual/packages/payment_continue_' + err_code, 'packages_payment_continue_' + err_code);
     },
-    dpSuiteNotAvailableError: function () {//Ошибка номер недоступен
-        track.writeAnalitics('/virtual/packages/suite_not_avialable', 'packages_suite_not_avialable');
-    },
     dpFlightNotAvailableError: function () {//Ошибка проверки доступности авиабилета
         track.writeAnalitics('/virtual/packages/flight_not_avialable', 'packages_flight_not_avialable');
+    },
+    dpPackageNotAvialable: function () {//Страница оплаты. Ошибка проверки доступности пакета
+        track.writeAnalitics('/virtual/packages/package_not_avialable', 'packages_package_not_avialable');
     },
     dpReservationError: function () {//Ошибка бронирования пакета
         track.writeAnalitics('/virtual/packages/reservation_error', 'packages_reservation_error');
@@ -166,6 +184,19 @@
     dpIssueError: function () {//Ошибка выписки
         track.writeAnalitics('/virtual/packages/issue_error', 'packages_issue_error');
     },
+    dpHotelDetails: function () {//Нажатие Подробнее на карточке отеля
+        track.writeAnalitics('/virtual/packages/hotel_details', 'packages_hotel_details');
+    },
+    dpHotelsOnMap: function () {//Нажатие Посмотреть на карте
+        track.writeAnalitics('/virtual/packages/hotels_on_map', 'packages_hotels_on_map');
+    },
+    dpHotelAddress: function () {//Нажатие на ссылку адреса на карточке отеля в результатах
+        track.writeAnalitics('/virtual/packages/hotel_address', 'packages_hotel_address');
+    },
+    dpRoomDetails: function () {//Нажатие на названия номера, детализация по номеру
+        track.writeAnalitics('/virtual/packages/room_details', 'packages_room_details');
+    },
+
     dpPayBtnSubmit: function () {
         track.writeAnalitics('/virtual/packages/order_success', 'packages_order_success');
     },
@@ -304,7 +335,35 @@
     },
     programmSend: function () { //Нажатие кнопки «Отправить» (Отправка заявки на программу)
         track.writeAnalitics('/virtual/prog_request', 'prog_request');
-    }
+    },
+    registrationOpen: function () {//Нажатие на ссылку Регистрация/Вход
+        track.writeAnalitics('/virtual/registration_open');
+    },
+    loginFbSuccess: function () {//Авторизация через соцсеть
+        track.writeAnalitics('/virtual/login_fb_success');
+    },
+    loginGmailSuccess: function () {//Авторизация через соцсеть
+        track.writeAnalitics('/virtual/login_gmail_success');
+    },
+    loginVkSuccess: function () {//Авторизация через соцсеть
+        track.writeAnalitics('/virtual/login_vk_success');
+    },
+    loginOkSuccess: function () {//Авторизация через соцсеть
+        track.writeAnalitics('/virtual/login_ok_success');
+    },
+    loginTwSuccess: function () {//Авторизация через соцсеть
+        track.writeAnalitics('/virtual/login_tw_success');
+    },
+    loginSuccess: function () {//Успешная авторизация через логин/пароль
+        track.writeAnalitics('/virtual/login_success');
+    },
+    newUser: function () {//Регистрация нового пользователя
+        track.writeAnalitics('/virtual/new_user');
+    },
+    requestPassword: function () {//Запрос восстановление пароля
+        track.writeAnalitics('/virtual/request_password');
+    },
+    eof:null
 };
 
 //$("#gotoBooking").click(function (e) {

@@ -217,6 +217,11 @@
                                 dataRequest: getCheckParamsRaven
                             });
 
+                            //================analytics========================
+                            //Страница оплаты. Ошибка проверки доступности пакета
+                            track.dpPackageNotAvialable();
+                            //================analytics========================
+
                             errorSearch();
                         }
                     },
@@ -226,6 +231,11 @@
                             dataResponse: data.responseJSON,
                             dataRequest: getCheckParamsRaven
                         });
+
+                        //================analytics========================
+                        //Страница оплаты. Ошибка проверки доступности пакета
+                        track.dpPackageNotAvialable();
+                        //================analytics========================
 
                         $scope.safeApply(function () {
                             $scope.showReserveError();
