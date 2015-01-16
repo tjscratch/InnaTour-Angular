@@ -7,6 +7,8 @@ var express = require('express')
     , methodOverride = require('method-override')
     , exphbs  = require('express-handlebars');
 
+console.log('node app starting...');
+
 /**
  *  Модуль nconf - для удобного доступа к настройкам
  *  file settings - config/config.json
