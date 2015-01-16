@@ -100,11 +100,18 @@ innaAppControllers
                 hoverImageStyle : {}
             };
 
+            //================analytics========================
+            //Нажатие Подробнее на карточке отеля
+            if (!$scope.buyAction) {
+                track.dpHotelDetails();
+            }
+            //================analytics========================
+
             // есть ли хоть в одной из комнат фотографии
             $scope.RoomsPhotosIsEmpty = true;
 
 
-            <!-- Меню с якорями -->
+            //<!-- Меню с якорями -->
             $scope.Menu = [
                 {
                     id : 'SectionDetail',
@@ -298,6 +305,11 @@ innaAppControllers
                             dataRequest: searchParams
                         });
 
+                        //================analytics========================
+                        //NEW Страница отеля. Номер не доступен.
+                        track.dpSuiteNotAvailableError();
+                        //================analytics========================
+
                         var timeoutId = setTimeout(function () {
                             onClose();
                         }, 3000);
@@ -362,6 +374,27 @@ innaAppControllers
                                 data.PackagePrice = data.NewPrice;
                                 $scope.recommendedPair.setFullPackagePrice(data);
                             }
+
+
+                            //================analytics========================
+                            //flags
+                            var RecommendedFindStatus = {
+                                Found: 1,
+                                HotelNotFound: 2,
+                                AviaNotFound: 4
+                            }
+
+                            if (data.Status & RecommendedFindStatus.HotelNotFound) {//NEW Страница отеля. Отель недоступен
+                                track.dpHotelNotAvialable();
+                            }
+                            if (data.Status & RecommendedFindStatus.AviaNotFound) {//NEW Страница отеля. Авиабилет в пакете недоступен
+                                track.dpAirticketNotAvialable();
+                            }
+                            if (data.NewPrice) {
+                                //NEW Страница отеля. Замена номера.
+                                track.dpSuiteChanged();
+                            }
+                            //================analytics========================
 
                             onload();
 
@@ -560,6 +593,11 @@ innaAppControllers
             $scope.toggleRoom = function (room) {
                 //converts undefined into boolean on the fly
                 room.isOpen = !!!room.isOpen;
+
+                //================analytics========================
+                //Нажатие на названия номера, детализация по номеру
+                track.dpRoomDetails();
+                //================analytics========================
             };
 
 

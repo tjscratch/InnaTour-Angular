@@ -11,7 +11,10 @@ angular.module('innaApp.controllers')
             function sendToken() {
                 AuthDataProvider.sendToken({
                     Email: $scope.email
-                }, function(){ //success
+                }, function () { //success
+                    //analytics
+                    track.requestPassword();
+
                     $scope.$apply(function($scope){
                         $scope.showLanding = true;
                     });

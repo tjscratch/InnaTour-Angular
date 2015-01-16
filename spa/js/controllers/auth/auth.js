@@ -57,6 +57,14 @@ angular.module('innaApp.controllers')
                 }
             };
 
+            $scope.regOpenClick = function () {
+                //================analytics========================
+                //Нажатие на ссылку Регистрация/Вход
+                track.registrationOpen();
+                //================analytics========================
+                $scope.open();
+            }
+
             $scope.open = function(){
                 utils.scrollFix()
                 $scope.isLoginPopupOpened = true;
@@ -83,17 +91,32 @@ angular.module('innaApp.controllers')
                 }, 100);
 
                 var login = function(){
-                    AuthDataProvider.recognize(function(data){
-                        $scope.$apply(function($scope){
-                            setUserInfo(data);
-                            $scope.close();
-                        });
+                    AuthDataProvider.recognize(function (data) {
+                        console.log('auth success:', method);
+
+                        //analytics
+                        trackLogin(method);
+
+                        setUserInfo(data);
+                        $scope.close();
+                    }, function (err, data) {
+                        console.log('auth err:', err, data);
                     });
 
                     clearInterval(interval);
 
                     socialBrokerListener.off('inna.Auth.SocialBroker.Result', login);
                 };
+
+                function trackLogin(method) {
+                    switch (method) {
+                        case 'facebook': track.loginFbSuccess(); break;
+                        case 'google': track.loginGmailSuccess(); break;
+                        case 'vkontakte': track.loginVkSuccess(); break;
+                        case 'twitter': track.loginOkSuccess(); break;
+                        case 'odnoklassniki': track.loginTwSuccess(); break;
+                    }
+                }
 
                 socialBrokerListener.on('inna.Auth.SocialBroker.Result', login);
 

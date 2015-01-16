@@ -16,7 +16,10 @@ angular.module('innaApp.controllers')
                     Email: $scope.email,
                     Password: $scope.password,
                     ConfirmPassword: $scope.password2
-                }, function (data){ //successfully signed up
+                }, function (data) { //successfully signed up
+                    //analytics
+                    track.newUser();
+
                     $scope.safeApply(function(){
                         $scope.showLanding = true;
                     });

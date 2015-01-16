@@ -36,10 +36,9 @@ gulp.task('build-project', function (callback) {
         ['styles', 'concat-bower-components', 'build-concat', 'widget-search', 'build-lk'],
         'version-cache',
         'html-replace',
-        ['copy-project', 'copy-backend'],
+        ['copy-project', 'copy-node-app'],
         'replace-partners',
-
-        'replace-backend',
+        'replace-node-app',
         callback);
 });
 

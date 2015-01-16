@@ -1120,9 +1120,8 @@ innaAppControllers.
                                             $scope.buyFrame.hide();
                                         }
 
+                                        var pageType = getActionType();
                                         if (data.Result == 1) {
-                                            var pageType = getActionType();
-
                                                 //аналитика - авиа - заказ выполнен
                                                 if (pageType == actionTypeEnum.avia) {
                                                     track.aivaPaymentSubmit($scope.orderNum, $scope.price, $scope.ports.codeFrom, $scope.ports.codeTo);
@@ -1199,7 +1198,15 @@ innaAppControllers.
                                         }
                                         else if (data.Result == 4) {//заказ оплачен, но не прошла выписка
                                             //аналитика
-                                            writeAnalyticsError(4);
+                                            //writeAnalyticsError(4);
+
+                                            //аналитика
+                                            if (pageType == actionTypeEnum.avia) {
+                                                track.aviaIssueError();
+                                            }
+                                            else if (pageType == actionTypeEnum.dp) {
+                                                track.dpIssueError();
+                                            }
 
                                             $scope.baloon.show('Оформляем заказ', 'Пожалуйста, не закрывайте браузер');
                                         }

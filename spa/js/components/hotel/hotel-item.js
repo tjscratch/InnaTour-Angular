@@ -132,6 +132,10 @@ angular.module('innaApp.components').
                 },
 
                 goToMap: function () {
+                    //================analytics========================
+                    //Нажатие Посмотреть на карте
+                    track.dpHotelAddress();
+                    //================analytics========================
                     EventManager.fire(Events.DYNAMIC_SERP_GO_TO_MAP, this.get('modelHotel'));
                 },
 

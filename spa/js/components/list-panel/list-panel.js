@@ -92,6 +92,10 @@ angular.module('innaApp.components').
 
                         },
                         goToMap: function (data) {
+                            //================analytics========================
+                            //Нажатие Посмотреть на карте
+                            track.dpHotelsOnMap();
+                            //================analytics========================
                             EventManager.fire(Events.DYNAMIC_SERP_TOGGLE_MAP, this.get('AllFilteredData'), data);
                         },
                         goToMore: function (){
