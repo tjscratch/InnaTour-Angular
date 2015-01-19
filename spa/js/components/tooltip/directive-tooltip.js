@@ -13,7 +13,7 @@ innaAppDirectives.directive('errorTooltip', [
                 useHorizontalForm: '='
             },
             link: function ($scope, element, attrs) {
-                console.log('$scope.useHorizontalForm', $scope.useHorizontalForm);
+                //console.log('$scope.useHorizontalForm', $scope.useHorizontalForm);
                 if (!$scope.useHorizontalForm) {
                     element.css({
                         top: $scope.positionTop
