@@ -164,8 +164,9 @@
                     }
 
                     var jsDate = dateHelper.dateToJsDate(date);
-
-                    return $filter('date')(jsDate, 'd MMMM');
+                    var formattedDate = moment(jsDate).format("d MMMM");
+                    return formattedDate;
+                    //return $filter('date')(jsDate, 'd MMMM');
                 };
 
                 $scope.headClicked = false;
