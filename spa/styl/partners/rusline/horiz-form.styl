@@ -222,7 +222,7 @@
   margin-left: -1px;
 }
 
-.b-tour-form{
+.horizontal-form{
   .b-search-field__long{
     &.b-search-field__from{
       z-index: 31;
@@ -233,9 +233,9 @@
 
     .ui-tooltip{
       position: absolute;
-      left: 410px !important;
-      top: 5px !important;
-      margin-left: 0 !important;
+      left initial!important;
+      top initial!important;
+      bottom -45px
 
       &:before{
         display none
@@ -248,20 +248,22 @@
   }
 }
 
-.datepicker-field{
-  position: relative;
+.horizontal-form {
+  .datepicker-field {
+    position: relative;
 
-  .ui-tooltip{
-    position absolute;
-    left 410px
-    bottom 10px
+    .ui-tooltip {
+      position absolute;
+      left 0px
+      bottom -40px
 
-    &:before{
-      display none
-    }
+      &:before {
+        display none
+      }
 
-    .ui-tooltip-content{
-      white-space nowrap;
+      .ui-tooltip-content {
+        white-space nowrap;
+      }
     }
   }
 }
