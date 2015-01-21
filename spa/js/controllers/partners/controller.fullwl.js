@@ -3,7 +3,7 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('BiletixMainCtrl', [
+    controller('FullWLMainCtrl', [
         'EventManager', '$scope', '$rootScope', '$location', 'innaApp.Urls', '$routeParams', 'innaApp.API.events', 'DynamicFormSubmitListener', 'innaApp.services.PageContentLoader', 'innaApp.API.pageContent.DYNAMIC',
         function (EventManager, $scope, $rootScope, $location, URLs, $routeParams, Events, DynamicFormSubmitListener, PageContentLoader, sectionID) {
             //EventManager.fire(Events.HEAD_HIDDEN);
