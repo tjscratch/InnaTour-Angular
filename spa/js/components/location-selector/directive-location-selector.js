@@ -23,7 +23,8 @@ innaAppDirectives.directive('locationSelector', [
                 theme: '@',
                 placeholder: '@',
                 selectedValue: '=selectedValue',
-                typeSearch: '@'
+                typeSearch: '@',
+                useHorizontalForm: '='
             },
             controller: function ($rootScope, $scope, $timeout, $routeParams, eventsHelper, serviceCache, dataService, DynamicPackagesDataProvider) {
 
