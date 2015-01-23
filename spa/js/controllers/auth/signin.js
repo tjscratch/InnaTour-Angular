@@ -25,6 +25,10 @@ angular.module('innaApp.controllers')
                             dataResponse: data,
                             dataRequest: dataSingIn
                         });
+
+                        //analytics
+                        track.loginSuccess();
+
                         $scope.$emit(Events.AUTH_SIGN_IN, data);
                     }, function () { //error
                         RavenWrapper.raven({

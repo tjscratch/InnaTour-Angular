@@ -38,7 +38,9 @@ angular.module('innaApp.services')
                     }).
                     error(function (data, status) {
                         //console.log('prov recognize err');
-                        err(data, status);
+                        if (err) {
+                            err(data, status);
+                        }
                     });
                 },
                 changePassword: function (data) {

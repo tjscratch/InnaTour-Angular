@@ -495,7 +495,7 @@ innaAppControllers
 
                     $scope.recommendedPairStatus = (RecommendedPair.Status) ? RecommendedPair.Status : 1;
                     //аналитика
-                    this.trackAnalyst();
+                    this.trackAnalyst($scope.recommendedPairStatus);
 
                     $scope.airports = data.Airports || [];
 
@@ -650,12 +650,26 @@ innaAppControllers
                 },
 
                 /*--------TICKET DETAILS---------*/
-                trackAnalyst: function () {
+                trackAnalyst: function (recommendedPairStatus) {
                     var trackKey = $location.url();
                     if (track.isTrackSuccessResultAllowed(track.dpKey, trackKey)) {
                         track.successResultsDp(track.dpKey);
                         //console.log('analitics: dp success result');
                         track.denyTrackSuccessResult(track.dpKey, trackKey);
+                    }
+
+                    //flags
+                    var RecommendedFindStatus = {
+                        Found: 1,
+                        HotelNotFound: 2,
+                        AviaNotFound: 4
+                    }
+
+                    if (recommendedPairStatus & RecommendedFindStatus.HotelNotFound) {//Нет отеля. Замена отеля на рекомендованный.
+                        track.dpApiHotelChanged();
+                    }
+                    if (recommendedPairStatus & RecommendedFindStatus.AviaNotFound) {//Нет авиабилета. Замена авиабилета на рекомендованный.
+                        track.dpApiTicketChanged();
                     }
                 },
 
