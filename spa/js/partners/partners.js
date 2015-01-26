@@ -217,6 +217,19 @@
             'aboutLink': 'http://www.24trip.ru/index.php?option=com_content&view=category&layout=blog&id=218&Itemid=523',
             'contactsLink': 'http://www.24trip.ru/index.php?option=com_contact&view=category&id=227&Itemid=616',
             'offertaContractLink': 'https://s.inna.ru/files/doc/offer_24trip.pdf'
+        },
+        {
+            'name': 'svyaznoy',
+            'src': '/svyaznoy/svyaznoy.base.css',
+            'type': self.WLType.full,
+            'title': 'svyaznoy',
+            'phone': '+7&nbsp;(495) 287 46 26',
+            'email': 'info@svyaznoy.com',
+            'skype': '',
+            'aboutLink': 'http://www.svyaznoy.ru/about/',
+            'contactsLink': 'http://www.svyaznoy.ru/contacts/',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_skycassa.pdf',
+            'showOffers': true
         }
     ];
 
