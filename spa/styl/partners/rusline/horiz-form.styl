@@ -66,11 +66,12 @@
         width 188px
 
       &__half {
-        width 100px
+        width 120px
 
         &.b_people {
           border-right: 0px;
           background-color: #fff;
+          padding-left: 5px;
         }
       }
 
@@ -108,7 +109,7 @@
           margin-top -3px
 
       &__calendar
-        width 99px
+        width 106px
         &:after
           background-position -39px -1830px
           width 17px
@@ -167,13 +168,16 @@
       border-radius: 6px;
 
       &:after
-        @extend .icon-sprite-search;
-        content: '';
+        content: 'Найти';
         display: block;
         position: absolute;
-        right: 13px;
-        margin-top: 11px;
+        left: 36px;
+        top: 6px;
         z-index: 1;
+        color: #fff;
+        /*font-family: ProximaNova;*/
+        font-size: 16px;
+        font-weight: normal;
       
 
 .dtpk-checkbox {
@@ -224,6 +228,10 @@
 
   .b-search-field__calendar .search-date-block__date {
     margin-left: 0;
+  }
+
+  .b-search-field__calendar.pull-right {
+    margin-left: 5px;
   }
 }
 
