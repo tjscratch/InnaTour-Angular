@@ -154,6 +154,8 @@
             };
 
             var helper = {
+                moment: moment,
+
                 sexType: { man: 1, woman: 2 },
 
                 directionType: { departure: 'departure', arrival: 'arrival', backDeparture: 'backDeparture', backArrival: 'backArrival' },
