@@ -19,7 +19,7 @@
     &-wrapper
       background transparent
       padding 0 0 21px!important
-      width 960px
+      width 930px
 
     .main-label
       color-bg-lbl-wl()
@@ -32,6 +32,8 @@
 
     .b-search-field
       border 1px solid #eef1f3
+      border-left none
+      border-right none
       background-color #fff
       display inline-block
       height 30px
@@ -51,9 +53,13 @@
         color-bg-btn-wl();
       }
 
-      &__from,
-      &__to {
+      &__from {
+        border-left 1px solid #eef1f3
+      }
+
+      &__from {
         border-right: 0px;
+        padding-right 0px;
       }
 
       &__long
@@ -69,6 +75,7 @@
       }
 
       &__class
+        display none
         width 99px
         /*margin-left 20px
         margin-right 10px*/
@@ -96,7 +103,7 @@
       &__list
         &:after
           background-position -45px -194px
-          width 11px
+          width 16px
           height 6px
           margin-top -3px
 
@@ -114,6 +121,8 @@
         display: inline-block;
         text-align justify
         font-size 0
+        background: #fff;
+        height: 52px;
 
         &:after
           width 100%
@@ -131,6 +140,10 @@
         padding 0 10px
         font-size 16px
 
+        &:focus {
+          background-color #fff;
+        }
+
       &-value
         line-height 49px
 
@@ -146,10 +159,12 @@
       position: relative;
       color-bg-btn-wl()
       display inline-block
-      height 51px
-      width 58px
-      margin-top 0px
       cursor: pointer;
+      width: 115px;
+      height: 31px;
+      margin: 10px 10px 0 0;
+      border-right: 1px solid #eef1f3;
+      border-radius: 6px;
 
       &:after
         @extend .icon-sprite-search;
@@ -181,6 +196,35 @@
 
 .search-date-block__date{
   font-size: 16px;
+}
+
+.horizontal-form {
+  .b-search-field__calendar .search-date-block__date,
+  .search-people,
+  .search-form-item-current {
+    background-color: #eee;
+    height: 28px;
+    line-height: 28px;
+    border: 1px #bdbdbd solid;
+    margin: 10px 5px;
+
+    &:focused {
+      background-color: #fff;
+    }
+  }
+
+  .search-people {
+    margin: 0;
+  }
+
+  .search-form-item-current{
+    margin: 0;
+    padding-left: 10px;
+  }
+
+  .b-search-field__calendar .search-date-block__date {
+    margin-left: 0;
+  }
 }
 
 .search-date-block__date,
