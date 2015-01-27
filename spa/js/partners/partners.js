@@ -229,6 +229,7 @@
             'aboutLink': 'http://www.svyaznoy.ru/about/',
             'contactsLink': 'http://www.svyaznoy.ru/contacts/',
             'offertaContractLink': 'https://s.inna.ru/files/doc/offer_skycassa.pdf',
+            'horizontalForm': true,
             'showOffers': true
         }
     ];

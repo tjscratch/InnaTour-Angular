@@ -1,29 +1,52 @@
-@import "../full_wl/colors.styl"
-@import "../full_wl/index.styl"
+//VARS
+$bg-color = #f5f8fa
+$white = #fff
+$light-blue = #eef1f3
+$gray = #757575
+$light-gray = #f7f7f7
+$light-blue2 = #afc0cd
+$dark-blue = #777893
+$orange = #ffb42f
+$light-orange = #fff0d5
+
+$border-radius ?= 10px
+
+@import "../svyaznoy/colors.styl"
+@import "../svyaznoy/index.styl"
 @import "../full_wl/controls.styl"
 @import "../full_wl/buttons.styl"
-@import "../full_wl/form.styl"
-@import "../full_wl/horiz-form.styl"
+@import "../svyaznoy/form.styl"
+@import "../svyaznoy/horiz-form.styl"
 @import "../full_wl/avia.styl"
 @import "../full_wl/dp.search.result.styl"
 @import "../full_wl/dp.hotel.details.styl"
 @import "../full_wl/dp.buy.styl"
 @import "../full_wl/map.styl"
 
-.partner-svyaznoy {
-    .layout.partner {
-        top: 390px; 
-        margin-bottom: 390px;
-        padding: 48px 0 0;
-    }
-
-    .b-tour-form {
-        padding-left: 0px;
-    }
-
-    .pic-cont {
+.partner-svyaznoy{
+    .pic-cont{
         height: 0px;
         width: 0px;
         background: transparent;
+    }
+    .search-autocomplete{
+        width 300px
+        margin-top 0
+        padding 0
+        border 1px solid $dark-blue
+        
+        .search-autocomplete-block{
+            &:hover,
+            &.selected{
+                background-color: $light-orange;
+            }
+        }
+    }
+    .offers-container{
+        padding-top 13px
+        
+        .landing-title{
+            display none
+        }
     }
 }
