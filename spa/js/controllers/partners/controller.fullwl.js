@@ -3,7 +3,7 @@
 /* Controllers */
 
 innaAppControllers.
-    controller('BiletixMainCtrl', [
+    controller('FullWLMainCtrl', [
         'EventManager', '$scope', '$rootScope', '$location', 'innaApp.Urls', '$routeParams', 'innaApp.API.events', 'DynamicFormSubmitListener', 'innaApp.services.PageContentLoader', 'innaApp.API.pageContent.DYNAMIC',
         function (EventManager, $scope, $rootScope, $location, URLs, $routeParams, Events, DynamicFormSubmitListener, PageContentLoader, sectionID) {
             //EventManager.fire(Events.HEAD_HIDDEN);
@@ -13,20 +13,20 @@ innaAppControllers.
             //чтобы влезали все формы
             $('#main-content-div').css("min-height", "730px");
 
-            if (window.partners && window.partners.isFullWL() && window.partners.getPartner().showOffers) {
-                $scope.showOffers = true;
-
-                function getSectionId(path) {
-                    if (path.indexOf(URLs.URL_PACKAGES_LANDING) > -1) { //ЛП
-                        var bits = QueryString.getBits(path);
-                        if (bits.length == 1 || bits.length == 2) {
-                            return bits[0];
-                        }
-                        else {
-                            return null;
-                        }
+            function getSectionId(path) {
+                if (path.indexOf(URLs.URL_PACKAGES_LANDING) > -1) { //ЛП
+                    var bits = QueryString.getBits(path);
+                    if (bits.length == 1 || bits.length == 2) {
+                        return bits[0];
+                    }
+                    else {
+                        return null;
                     }
                 }
+            }
+
+            if (window.partners && window.partners.isFullWL() && window.partners.getPartner().showOffers) {
+                $scope.showOffers = true;
 
                 var routeSectionID = getSectionId($location.path());//IN-2501 Лэндинги стран
                 if (routeSectionID != null) {

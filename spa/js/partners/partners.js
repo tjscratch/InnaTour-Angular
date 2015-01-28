@@ -62,6 +62,20 @@
             'horizontalForm': false
         },
         {
+            'name': 'rusline',
+            'src': '/rusline/rusline.base.css',
+            'type': self.WLType.full,
+            'title': 'Руслайн',
+            'phone': '+7&nbsp;495 933 23 33',
+            'email': '',
+            'skype': '',
+            'aboutLink': 'http://www.rusline.aero/contact_information/',
+            'contactsLink': 'http://www.rusline.aero/contact_information/',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_rusline.pdf',
+            'showOffers': true,
+            'horizontalForm': true
+        },
+        {
             'name': 'ulixes',
             'src': '/ulixes/ulixes.base.css',
             'type': self.WLType.full,

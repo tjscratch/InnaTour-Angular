@@ -112,7 +112,7 @@ app.config([
             if (partner != null && partner.realType == window.partners.WLType.full) {
                 return {
                     templateUrl: 'pages/partners/page.html',
-                    controller: 'BiletixMainCtrl'
+                    controller: 'FullWLMainCtrl'
                 }
             }
             else {
