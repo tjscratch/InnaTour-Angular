@@ -156,6 +156,19 @@
           color #868685
           right 30px
 
+
+    .b-search-field__to {
+      &.error, .error:focus {
+        border-color: transparent!important;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+    }
+
+    .b-search-field__to.error input {
+      border: 1px #cb3d15 solid;
+    }
+
     .b-search-button
       position: relative;
       color-bg-btn-wl()
@@ -196,6 +209,9 @@
 
 .search-form-human-dialog{
   width: 189px;
+  border: 1px $color-border-wl solid;
+  left: 5px;
+  margin-top: -10px;
 }
 
 .search-date-block__date{
@@ -242,12 +258,57 @@
   line-height: 49px;
 }
 
-.datepickerSelected-start a
-.datepickerSelected-end a {
-  color-datepicker-background-wl()
+.datepicker-body {
+  margin-top: 2px;
+  border: 1px $color-border-wl solid;
+
+  .dp-head-cont {
+    border-top: none;
+  }
+}
+
+.datepickerSelected{
+  &.datepickerSelected-start, &.datepickerSelected-end {
+    a {
+      color-datepicker-background-wl()
+    }
+  }
+}
+
+.datepickerSelected.datepickerSelected-start a {
+  &:before {
+    right: 3px;
+    bottom: 3px;
+    left: inherit;
+  }
+
+  span {
+    left: 4px;
+    top: 3px;
+    right: inherit;
+  }
+}
+
+.datepickerSelected.datepickerSelected-end a {
+  &:before {
+    left: 3px;
+    bottom: 3px;
+  }
+
+  span {
+    right: 3px;
+    top: 3px;
+  }
+}
+
+.datepickerSelected.datepickerSelected-start.datepickerSelected.datepickerSelected-end a {
+  span {
+    right: inherit;
+  }
 }
 
 .datepickerSelected a{
+  color: #fff!important;
   color-datepicker-bg();
 }
 
@@ -256,6 +317,10 @@
 }
 
 .datepickerDays a {
+  border: 0;
+  padding: 5px 4px 2px 4px;
+  margin: 1px 0px;
+
   &:hover {
     color-datepicker-background-wl()
   }
@@ -263,18 +328,23 @@
 
 .datepickerGoPrev a
 .datepickerGoNext a {
+  background: transparent;
+  border: 1px #e6e7e9 solid;
+
   &:hover {
     color-datepicker-background-wl()
   }
 }  
 
-.search-autocomplete{
-  width: 401px;
-  padding: 0;
-  margin-left: -1px;
-}
 
 .horizontal-form{
+  .search-autocomplete{
+    width: 300px;
+    padding: 0;
+    margin: 0;
+    border: 1px $color-border-wl solid;
+  }
+
   .b-search-field__long{
     &.b-search-field__from{
       z-index: 31;
@@ -285,9 +355,12 @@
 
     .ui-tooltip{
       position: absolute;
-      left initial!important;
-      top initial!important;
-      bottom -45px
+      top: 40px!important;
+      left: 50%!important;
+      margin-left: -94px!important;
+      border: 1px $color-border-wl solid;
+      height: 32px;
+      padding: 0px 5px;
 
       &:before{
         display none
