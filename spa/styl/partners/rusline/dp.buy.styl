@@ -1,6 +1,6 @@
 .partner-wl {
     .reserve-form {
-        padding-top:0px;
+        padding-top:10px;
     }
 
     .buy-form {
@@ -18,12 +18,12 @@
     }
 
     .b__rules-flies .current {
-        background: #e78d73;
+        background: #777893;
     }
 
     .b-agreement {
         .b-checkbox {
-            btx-checkbox-border()
+          border: 2px solid #afc0cd;
         }
 
         input:checked + .b-checkbox {
@@ -35,6 +35,24 @@
         .radio-list input:checked + .radio {
             color-bg-lbl-wl();
         }
+
+        .radio{
+          background: #fff;
+        }
+    }
+
+    .radio {
+      /*width: 29px;*/
+      /*height: 29px;*/
+      /*line-height: 29px;*/
+    }
+
+    .radio-list li {
+      /*border: 1px solid #afc0cd;*/
+
+      &:first-child {
+        /*border-right: 0;*/
+      }
     }
 
     .b-sum-container {
