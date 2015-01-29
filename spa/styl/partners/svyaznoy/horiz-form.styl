@@ -228,12 +228,56 @@
     color-datepicker-bg();
 }
 .datePicker-today a{
-    color-border-wl()
+    background #ecf9fe
+    border-color #ecf9fe
+    span{
+        color #65a7c0
+    }
 }
 .datepickerDays a{
     &:hover{
         color-datepicker-background-wl()
+        span{
+            color #fff
+        }
     }
+}
+.datePicker-unavailable,
+.datepickerDisabled{
+    a{
+        color: #bdbdbd !important;
+
+        &:hover{
+            border-color transparent
+            background none
+            span{
+                color: #bdbdbd
+            }
+        }
+    }
+}
+.datepickerSaturday,
+.datepickerSunday{
+    a{
+        color #ff4b01 !important
+    }
+    &.datepickerDisabled{
+        a{
+            color #ffa059 !important
+            &:hover{
+                span{
+                    color #ffa059 !important
+                }
+            }
+        }
+    }
+}
+.datepickerDoW span{
+    color #757575
+}
+.datepickerDoW th:nth-child(6) span,
+.datepickerDoW th:nth-child(7) span{
+    color #ff4b01 !important
 }
 .datepickerGoPrev a
 .datepickerGoNext a{

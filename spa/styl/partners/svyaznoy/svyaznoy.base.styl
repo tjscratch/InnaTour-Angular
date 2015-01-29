@@ -5,11 +5,14 @@ $light-blue = #eef1f3
 $gray = #757575
 $light-gray = #f7f7f7
 $light-blue2 = #afc0cd
+$light-blue3 = #c8dee8
 $dark-blue = #777893
 $orange = #ffb42f
 $light-orange = #fff0d5
 
 $border-radius ?= 10px
+
+$dp-title-color = #65a7c0
 
 @import "../svyaznoy/colors.styl"
 @import "../svyaznoy/index.styl"
@@ -34,7 +37,7 @@ $border-radius ?= 10px
         margin-top 0
         padding 0
         border 1px solid $dark-blue
-        
+
         .search-autocomplete-block{
             &:hover,
             &.selected{
@@ -44,9 +47,44 @@ $border-radius ?= 10px
     }
     .offers-container{
         padding-top 13px
-        
+
         .landing-title{
             display none
+        }
+    }
+
+    .datepicker-body{
+        z-index 1001
+        margin-top 5px
+        border 2px solid $light-blue3
+        border-radius 6px
+
+        .dp-head-cont{
+            border none
+            box-shadow none
+            border-radius 6px 6px 0 0
+
+            .dtpk-head{
+                /*border none*/
+            }
+
+            .dtpk-caption{
+                font-size 14px
+                text-transform none
+            }
+        }
+        .datepickerContainer{
+            box-shadow none
+            border-radius 0 0 6px 6px
+        }
+        .datepickerMonth span{
+            font-size 18px
+            color $dp-title-color
+            text-transform uppercase
+            font-weight bold
+        }
+        .datepickerGoPrev a, .datepickerGoNext a{
+            border-radius: 17px;
         }
     }
 }
