@@ -16,10 +16,10 @@
                    style="visibility: hidden;" />
             <div class="search-date-block__date" ng-class="{'search-date-block__date_display_placeholder': !date2}">{{date2 ? long(date2) : 'Обратно'}}</div>
         </div>
-	    <div class="ui-tooltip" ng-show="Error1">
+	    <div class="ui-tooltip ui-tooltip-date-to" ng-show="Error1">
 		    <div class="ui-tooltip-content">{{ Error1 }}</div>
 	    </div>
-	    <div class="ui-tooltip" ng-show="Error2">
+	    <div class="ui-tooltip ui-tooltip-date-back" ng-show="Error2">
 		    <div class="ui-tooltip-content">{{ Error2 }}</div>
 	    </div>
     </div>

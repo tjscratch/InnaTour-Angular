@@ -114,14 +114,14 @@
                 /**
                  * кусок говнокода для валидаторов на билетиксе
                  */
-                if (window.partners && window.partners.getPartner()) {
+                if (window.partners && window.partners.isFullWL()) {
                     var partner = window.partners.getPartner().name;
                 }
                 /*Watchers*/
                 $scope.$watch('date1', function (newValue, oldValue) {
                     if (newValue instanceof Error) {
                         $scope.date1 = oldValue;
-                        if (partner === 'biletix') {
+                        if (partner) {
                             $scope.Error1 = "Выберите дату отправления туда";
                         }else{
                             $scope.input1.tooltip(getPopupOptions($scope.input1)).tooltip('open');
@@ -137,7 +137,7 @@
                 $scope.$watch('date2', function (newValue, oldValue) {
                     if (newValue instanceof Error) {
                         $scope.date2 = oldValue;
-                        if (partner === 'biletix') {
+                        if (partner) {
                             $scope.Error2 = "Выберите дату отправления обратно";
                         } else {
                             $scope.input2.tooltip(getPopupOptions($scope.input2)).tooltip('open');
