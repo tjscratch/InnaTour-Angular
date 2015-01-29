@@ -1,6 +1,7 @@
 <div class="hotel-info">
 	<div class="hotel-info__wrapper">
-		<img src="{{hotel.HotelPhoto70}}" alt="{{hotel.HotelName}}">
+		<img src="/spa/img/hotels/no_photo70x70.png" alt="{{hotel.HotelName}}" ng-hide="hotel.HotelPhoto70"/>
+		<img src="{{hotel.HotelPhoto70}}" alt="{{hotel.HotelName}}" ng-show="hotel.HotelPhoto70">
 
 		<div class="hotel-info-content">
 			<div>

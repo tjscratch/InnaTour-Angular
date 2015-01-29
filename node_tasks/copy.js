@@ -35,7 +35,13 @@ gulp.task('copy-project', function () {
 
 
 // Копируем в папаку publish
-gulp.task('copy-backend', function () {
-    gulp.src('./backend/**').pipe(gulp.dest(conf.publish + '/backend'));
+//gulp.task('copy-backend', function () {
+//    gulp.src('./backend/**').pipe(gulp.dest(conf.publish + '/backend'));
+//    gulp.src('./package.json').pipe(gulp.dest(conf.publish));
+//});
+
+// Копируем в папаку publish
+gulp.task('copy-node-app', function () {
+    gulp.src('./node-app/**').pipe(gulp.dest(conf.publish + '/node-app'));
     gulp.src('./package.json').pipe(gulp.dest(conf.publish));
 });

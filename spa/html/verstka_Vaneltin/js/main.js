@@ -135,16 +135,6 @@ $(function () {
             scroll(currentI, next);
         }, this), 7000);
     })();
-
-
-
-    $('.Mouse-scroll').on('click', function () {
-        var $body = $('html, body'),
-            headerHeight = $('.Header').height(),
-            position = $('.Offers-anchor').position();
-
-        $body.animate({scrollTop: position.top - headerHeight}, 500)
-    });
-
+    
 
 });

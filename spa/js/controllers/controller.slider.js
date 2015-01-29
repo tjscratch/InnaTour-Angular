@@ -74,23 +74,12 @@ innaAppControllers.
             //    //событие - после которого отрабатывают jq скрипты для слайдера
             //    $scope.$broadcast('sliderDataLoaded');
             //});
-
-            $('.Mouse-scroll').on('click', function () {
-                var $body = $('html, body'),
-                    headerHeight = $('.Header').height(),
-                    position = $('.Offers-anchor').position();
-
-                $body.animate({ scrollTop: position.top - headerHeight }, 500)
-            });
-
+            
             $scope.$on('slider.set.content', function (event, data) {
                 //console.log('slider.set.content:');
                 //console.log(data);
                 $scope.slides = data;
                 $scope.$broadcast('sliderDataLoaded');
             });
-
-            $scope.$on('$destroy', function () {
-                $('.Mouse-scroll').off();
-            });
+            
         }]);

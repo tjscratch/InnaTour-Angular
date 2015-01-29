@@ -93,17 +93,31 @@ gulp.task('replace-index', function () {
 
 // зависимость - сначала копируем папку backend
 // делаем задержку, так как почемуто не происходит замены в файле
-gulp.task('replace-backend', function (cb) {
+//gulp.task('replace-backend', function (cb) {
+
+//    setTimeout(function () {
+//        gulp.src([
+//            conf.backendTempl + '/base_js.hbs',
+//            conf.backendTempl + '/head.hbs'
+//        ])
+//            .pipe(htmlreplace(getConfReplace()))
+//            .pipe(gulp.dest(conf.publish + '/backend/templates/partials'));
+
+
+//        cb();
+//    }, 1000);
+//});
+
+// зависимость - сначала копируем папку backend
+// делаем задержку, так как почемуто не происходит замены в файле
+gulp.task('replace-node-app', function (cb) {
 
     setTimeout(function () {
         gulp.src([
-            conf.backendTempl + '/base_js.hbs',
-            conf.backendTempl + '/head.hbs'
+            conf.nodeAppLayouts + '/index.hbs'
         ])
             .pipe(htmlreplace(getConfReplace()))
-            .pipe(gulp.dest(conf.publish + '/backend/templates/partials'));
-
-
+            .pipe(gulp.dest(conf.publish + '/node-app/templates/layouts'));
         cb();
     }, 1000);
 });

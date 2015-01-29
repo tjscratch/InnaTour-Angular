@@ -41,8 +41,13 @@ angular.module('innaApp.directives')
                     $scope.hover.hoverImageStyle["height"] = heightPreview;
 
                     $scope.setStylePreview = function () {
+                        if ($scope.photo) {
+                            var photo = $scope.photo;
+                        } else {
+                            var photo = '/spa/img/hotels/no_photo70x70.png';
+                        }
                         return {
-                            "background-image": "url(" + $scope.photo + ")",
+                            "background-image": "url(" + photo + ")",
                             "width": $scope.width,
                             "height": $scope.height
                         }

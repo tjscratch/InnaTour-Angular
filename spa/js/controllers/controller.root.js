@@ -101,7 +101,9 @@ innaAppControllers.
                 delete $location.$$search.id_partner
                 delete $location.$$search.data
                 $location.$$compose();
-                dataService.getPartnershipCookie(advParams);
+                if(advParams.from || advParams.PartnerMarker){
+                    dataService.getPartnershipCookie(advParams);
+                }
             })();
 
 
