@@ -32,12 +32,18 @@
     }
 
     .buy__blocks {
-        .radio-list input:checked + .radio {
+        .radio-list {
+          margin-top: 2px;
+
+          input:checked + .radio {
             color-bg-lbl-wl();
+          }
         }
 
         .radio{
+          height: 29px;
           background: #fff;
+          border: 1px #afc0cd solid;
         }
     }
 
@@ -48,10 +54,10 @@
     }
 
     .radio-list li {
-      /*border: 1px solid #afc0cd;*/
+      border: none;
 
-      &:first-child {
-        /*border-right: 0;*/
+      &:first-child .radio {
+        border-right: 0;
       }
     }
 
@@ -61,7 +67,7 @@
     }
 
     .b-tickets-info-container {
-        border-top: 4px solid #61a8e1;
+        border-top: 4px solid #99cf00;
         border-bottom: 1px solid #fff;
         background: #fff;
 
@@ -77,4 +83,8 @@
     .buy__result-sum {
         border-bottom: 5px solid #61a8e1;
     }
+}
+
+.b-field-group-passport .b-field-block {
+  margin: 0 0 0 15px;
 }
