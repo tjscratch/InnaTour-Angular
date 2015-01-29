@@ -1,0 +1,47 @@
+btx-button-color1() {
+    border-top: 1px solid #f9797c;
+    border-bottom: 1px solid #d16262;
+    background: linear-gradient(top, #fe5257, #de0304);
+    border-radius: 4px;
+    
+    &:hover {
+        background: linear-gradient(top, #fe6d71, #e32828);
+        text-decoration: none;
+    }
+}
+
+btx-button-color2() {
+    border: none;
+    border-top: 1px solid #f9797c;
+    border-bottom: 1px solid #d16262;
+    background: linear-gradient(top, #fe5257, #de0304);
+    border-radius: 4px;
+    
+    &:hover {
+        background: linear-gradient(top, #fe6d71, #e32828);
+        text-decoration: none;
+    }
+}
+
+btx-button1() {
+    padding: 7px 16px;
+    btx-button-color1()
+}
+
+btx-button2() {
+    padding: 7px 16px;
+    btx-button-color2()
+}
+
+btx-checkbox-bg() {
+    background: url("/spa/img/i.png") no-repeat 2px -590px #d74116;
+    border: 2px solid #d74116;
+}
+
+btx-checkbox-border() {
+    border: 2px solid #cecece;
+}
+
+.balloon-button {
+    btx-button-color1()
+}
