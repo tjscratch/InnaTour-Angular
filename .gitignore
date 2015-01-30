@@ -61,6 +61,7 @@ spa/*.sh
 
 brunch-config.js
 .nginx_conf
+.nginx.conf
 nginx.nginx_conf
 .hgignore
 .hgflow
