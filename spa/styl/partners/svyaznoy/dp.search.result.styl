@@ -10,7 +10,7 @@
         top: 0px;
         left: 0px;
         width: 100%;
-        height: 40px;
+        height: 48px;
         background-color: rgba(0, 0, 0, 0.4);
 
         .wl-center-cont{
@@ -21,6 +21,13 @@
 
         .wl-container{
             color: white;
+        }
+
+        .wl-text{
+            position: absolute;
+            display: block;
+            left: 15px;
+            top: 15px;
         }
     }
 
@@ -99,17 +106,13 @@
     }
 
     .ra-fly-type-list input:checked + .ra-checkbox{
-        btx-checkbox-bg()
+        background-color #777893
     }
 
     .ra-checkbox{
-        btx-checkbox-border()
+        border-color #777893
+        border-radius 0
     }
-
-    .ui-slider-range{
-        background: #61a8e1 !important;
-    }
-
     .b-tickets__footer > .b-tickets__icons{
         display: none;
     }
@@ -130,13 +133,18 @@
         arrow-color-wl();
     }
 
-    .btn.btn-green{
-        background: #3fa9f5;
-        border-color: #61a8e1;
-
-        &:hover{
-            background-color: #3fa9f5;
-            border-color: #61a8e1;
+    .result-small{
+        .corner-price{
+            padding-right 20px
         }
     }
+
+    .ui-slider{
+        background-color #777893 !important
+    }
+        
+    .ui-slider-range{
+        background: #fc6421 !important;
+    }
+
 }

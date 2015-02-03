@@ -7,6 +7,22 @@ btn-orange(){
     font-family "Open Sans", Arial, sans-serif
 }
 .partner-wl{
+
+    .b-search-button{
+        position: relative;
+        overflow hidden
+        display inline-block
+        height 36px
+        width 105px
+        margin-top 0px
+        cursor: pointer;
+        background url("/spa/img/partners/svyaznoy/btn.png") no-repeat 0 0
+
+        &:hover{
+            background-position 0 -41px
+        }
+    }
+
     .balloon-button{
         btx-button-color1();
     }
@@ -18,8 +34,13 @@ btn-orange(){
         line-height 36px
         padding 0
         box-sizing border-box
-        background url("/spa/img/partners/svyaznoy/btn-buy-1.png") no-repeat 0 0
-        btn-orange()
+        background url("/spa/img/partners/svyaznoy/btn.png") no-repeat 0 -82px
+        text-indent 300px
+        overflow hidden
+
+        &:hover{
+            background-position 0 -123px
+        }
     }
 
     .b-list-panel__hotels_list .button{
@@ -28,10 +49,36 @@ btn-orange(){
         line-height 36px
         padding 0
         box-sizing border-box
-        background url("/spa/img/partners/svyaznoy/btn-buy-1.png") no-repeat 0 0
-        btn-orange()
+        background url("/spa/img/partners/svyaznoy/btn.png") no-repeat 0 -376px
+        text-indent 300px
+        overflow hidden
+
+        &:hover{
+            background-position 0 -417px
+        }
     }
 
+    .btn.btn-green{
+        width 161px
+        height 36px
+        padding 0
+        text-indent -300px
+        overflow hidden
+        box-shadow none
+        background url("/spa/img/partners/svyaznoy/btn.png") no-repeat 0 -82px
+
+        &:hover{
+            background url("/spa/img/partners/svyaznoy/btn.png") no-repeat 0 -123px
+        }
+    }
+
+    .hotel-details-rooms__room-price{
+        padding-right 25px !important
+    }
+    .hotel-details-rooms__room-actions{
+        width 161px
+    }
+        
     .rl-buy-button{
         btx-button2();
     }
@@ -45,11 +92,35 @@ btn-orange(){
     }
 
     .b-sum-button{
-        btx-button-color1();
+        width 224px
+        height 48px
+        padding 0
+        border none 
+        background url("/spa/img/partners/svyaznoy/btn.png") no-repeat 0 -270px
+        text-indent -400px
+        font-size 0
+        overflow hidden
+        border-radius 0
+        
+        &:hover{
+            background url("/spa/img/partners/svyaznoy/btn.png") no-repeat 0 -323px
+        }
     }
 
     .b-pay-button{
-        btx-button-color1();
+        width 188px
+        height 48px
+        padding 0
+        border none
+        background url("/spa/img/partners/svyaznoy/btn.png") no-repeat 0 -164px
+        text-indent -400px
+        font-size 0
+        overflow hidden
+        border-radius 0
+
+        &:hover{
+            background url("/spa/img/partners/svyaznoy/btn.png") no-repeat 0 -217px
+        }
     }
 
     .wl-container{
@@ -60,19 +131,25 @@ btn-orange(){
             btx-button-color1();
 
             &.wl-search{
+                display inline-block
+                height 36px
+                width 161px
                 margin: 6px 10px 0px 0px;
+                padding 0
                 text-transform: uppercase;
                 position: absolute;
                 right: 0px;
                 font-size: 14px;
-            }
-        }
+                border none
+                background url("/spa/img/partners/svyaznoy/btn.png") no-repeat 0 -458px
+                text-indent -400px
+                font-size 0
+                overflow hidden
 
-        .wl-text{
-            position: absolute;
-            display: block;
-            left: 15px;
-            top: 9px;
+                &:hover{
+                    background-position 0 -499px
+                }
+            }
         }
     }
 
