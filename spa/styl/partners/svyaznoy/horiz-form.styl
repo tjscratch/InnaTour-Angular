@@ -1,0 +1,300 @@
+.layout.partner.horizontal-form{
+    margin-bottom: 150px;
+    padding: 0;
+}
+.partner-form-wrap.horizontal-form{
+    position relative
+    z-index: 1000;
+    height 330px
+    width 960px
+    margin: 0 auto;
+    max-width: 960px;
+    background: url("/spa/img/partners/svyaznoy/head.jpg") no-repeat 0 0
+}
+.horizontal-form
+    .b-tour-form
+        position absolute
+        bottom 20px
+        padding-left 20px
+
+        &-wrapper
+            background transparent
+            padding 10px 10px 5px !important
+            width 900px
+            background $white
+            border 1px solid $light-blue
+            border-radius $border-radius
+
+        .main-label
+            color-bg-lbl-wl()
+            font-size 27px
+            font-weight normal
+            color #fff
+            display inline-block
+            line-height 44px
+            padding 0 12px
+
+        .b-search-field
+            border none
+            display inline-block
+            height 36px
+            margin 0 10px 0 0
+            vertical-align top
+
+            .search-people{
+                background-image: none;
+            }
+
+            .search__list{
+                margin-top: 1px;
+            }
+
+            .search-form-dialog-row .button-group .button.active{
+                color-bg-btn-wl();
+            }
+
+            &.error{
+                border none !important
+                box-shadow none !important
+
+                input{
+                    border-color $orange
+                    background $light-orange
+                }
+            }
+
+            &__from,
+            &__to{
+                border-right: 0px;
+            }
+
+            &__long
+                width 200px
+
+            &__half{
+                width 115px
+
+                &.b_people{
+                    border-right: 0px;
+                    background-color: #fff;
+                }
+            }
+
+            &__class
+                width 115px
+            /*margin-left 20px
+            margin-right 10px*/
+
+            &__calendar{
+                border-right: 0px;
+
+                &.pull-right{
+                    float: none;
+                }
+            }
+
+            &__calendar,
+            &__list
+                position relative
+
+                &:after
+                    background url("/spa/img/i.png") no-repeat
+                    content ''
+                    display block
+                    position absolute
+                    top 50%;
+                    right 9px
+
+            &__list
+                &:after
+                    background-position -45px -194px
+                    width 11px
+                    height 6px
+                    margin-top -3px
+
+            &__calendar
+                width 115px
+                &:after
+                    background-position -39px -1830px
+                    width 17px
+                    height 16px
+                    margin-top -8px
+
+                background-position 0 -171px
+
+            &-hor
+                display: inline-block;
+                text-align justify
+                font-size 0
+
+                &:after
+                    width 100%
+                    content: ''
+                    display inline-block
+                    height 0
+
+                .b-search-field__class
+                    display none
+
+                .search-form-item-current
+                    margin 0
+                    padding-left 10px
+
+            &-value,
+            input
+                box-sizing border-box
+                height 100%
+                width 100%
+                padding 0 10px
+                font-size 15px
+                border 1px solid $light-blue2
+
+                &:active,
+                &:focus
+                    border 1px solid $orange
+
+            &-value
+                line-height 49px
+
+                .description
+                    color #868685
+
+                .iata
+                    position absolute
+                    color #868685
+                    right 30px
+
+        
+.dtpk-checkbox{
+    border-color #3fa9f5
+    border-radius 0
+}
+.dtpk-checkbox-label input:checked + .dtpk-checkbox{
+    background-color #3fa9f5
+}
+.ui-datepicker td a.ui-state-active,
+.ui-datepicker td a.ui-state-hover{
+    background-color #3fa9f5
+}
+.search-form-human-dialog{
+    width: 189px;
+}
+.search-date-block__date{
+    font-size: 15px;
+}
+.search-date-block__date,
+.search-people,
+.search-form-item-current{
+    height: 34px;
+    line-height: 34px;
+    border 1px solid $light-blue2
+
+    &:focus{
+        border 1px solid $orange
+    }
+}
+.datepickerSelected-start a
+.datepickerSelected-end a{
+    color-datepicker-background-wl()
+}
+.datepickerSelected a{
+    color-datepicker-bg();
+}
+.datePicker-today a{
+    background #ecf9fe
+    border-color #ecf9fe
+    span{
+        color #65a7c0
+    }
+}
+.datepickerDays a{
+    &:hover{
+        color-datepicker-background-wl()
+        span{
+            color #fff
+        }
+    }
+}
+.datePicker-unavailable,
+.datepickerDisabled{
+    a{
+        color: #bdbdbd !important;
+
+        &:hover{
+            border-color transparent
+            background none
+            span{
+                color: #bdbdbd
+            }
+        }
+    }
+}
+.datepickerSaturday,
+.datepickerSunday{
+    a{
+        color #ff4b01 !important
+    }
+    &.datepickerDisabled{
+        a{
+            color #ffa059 !important
+            &:hover{
+                span{
+                    color #ffa059 !important
+                }
+            }
+        }
+    }
+}
+.datepickerDoW span{
+    color #757575
+}
+.datepickerDoW th:nth-child(6) span,
+.datepickerDoW th:nth-child(7) span{
+    color #ff4b01 !important
+}
+.datepickerGoPrev a
+.datepickerGoNext a{
+    &:hover{
+        color-datepicker-background-wl()
+    }
+}
+.b-tour-form{
+    .b-search-field__long{
+        &.b-search-field__from{
+            z-index: 31;
+        }
+        &.b-search-field__to{
+            z-index: 30;
+        }
+    }
+
+    .ui-tooltip{
+        position: absolute;
+        top: 37px !important;
+        left 0 !important
+        margin-left 0 !important
+        padding 0 5px
+        border 1px solid $dark-blue
+        line-height 28px
+
+        &:before{
+            display none
+        }
+
+        .ui-tooltip-content{
+            white-space nowrap;
+
+            &:before{
+                top 4px
+                margin-right 2px
+            }
+        }
+
+        &.ui-tooltip-date-back{
+            left 125px !important
+        }
+    }
+}
+.datepicker-field{
+    position: relative;
+}

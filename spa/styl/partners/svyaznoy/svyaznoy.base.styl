@@ -1,0 +1,91 @@
+//VARS
+$bg-color = #f5f8fa
+$white = #fff
+$light-blue = #eef1f3
+$gray = #757575
+$light-gray = #f7f7f7
+$light-blue2 = #afc0cd
+$light-blue3 = #c8dee8
+$dark-blue = #777893
+$orange = #ffb42f
+$light-orange = #fff0d5
+
+$border-radius ?= 10px
+
+$dp-title-color = #65a7c0
+
+@import "../svyaznoy/colors.styl"
+@import "../svyaznoy/index.styl"
+@import "../full_wl/controls.styl"
+@import "../svyaznoy/buttons.styl"
+@import "../svyaznoy/form.styl"
+@import "../svyaznoy/horiz-form.styl"
+@import "../full_wl/avia.styl"
+@import "../svyaznoy/dp.search.result.styl"
+@import "../full_wl/dp.hotel.details.styl"
+@import "../svyaznoy/dp.buy.styl"
+@import "../full_wl/map.styl"
+@import "../svyaznoy/gallery.styl"
+
+.partner-svyaznoy{
+    .pic-cont{
+        height: 0px;
+        width: 0px;
+        background: transparent;
+    }
+    .search-autocomplete{
+        width 300px
+        margin-top 0
+        padding 0
+        border 1px solid $dark-blue
+
+        .search-autocomplete-block{
+            &:hover,
+            &.selected{
+                background-color: $light-orange;
+            }
+        }
+    }
+    .offers-container{
+        padding-top 13px
+
+        .landing-title{
+            display none
+        }
+    }
+
+    .datepicker-body{
+        z-index 1001
+        margin-top 5px
+        border 2px solid $light-blue3
+        border-radius 6px
+
+        .dp-head-cont{
+            border none
+            box-shadow none
+            border-radius 6px 6px 0 0
+
+            .dtpk-head{
+                /*border none*/
+            }
+
+            .dtpk-caption{
+                font-size 14px
+                text-transform none
+            }
+        }
+        .datepickerContainer{
+            box-shadow none
+            border-radius 0 0 6px 6px
+        }
+        .datepickerMonth span{
+            font-size 18px
+            color $dp-title-color
+            text-transform uppercase
+            font-weight bold
+        }
+        .datepickerGoPrev a, .datepickerGoNext a{
+            border-radius: 17px;
+        }
+    }
+}
