@@ -85,7 +85,8 @@
             'skype': '',
             'aboutLink': 'http://www.ulixes.ru/o_kompanii/',
             'contactsLink': 'http://www.ulixes.ru/contacti/',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_ulixes.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_ulixes.pdf',
+            'showOffers': true
         },
         {
             'name': 'skycassa',
