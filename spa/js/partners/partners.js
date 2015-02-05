@@ -85,7 +85,8 @@
             'skype': '',
             'aboutLink': 'http://www.ulixes.ru/o_kompanii/',
             'contactsLink': 'http://www.ulixes.ru/contacti/',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_ulixes.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_ulixes.pdf',
+            'showOffers': true
         },
         {
             'name': 'skycassa',
@@ -110,7 +111,8 @@
             'skype': 'Atlantis2073',
             'aboutLink': 'http://www.atlantravel.ru/o-kompanii/',
             'contactsLink': 'http://www.atlantravel.ru/kontakty.html',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_atlantis.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_atlantis.pdf',
+            'showOffers': true
         },
         {
             'name': 'ekaterinatours',
@@ -134,7 +136,8 @@
             'skype': 'vashput',
             'aboutLink': 'http://www.yourway.spb.ru/pages/533/',
             'contactsLink': 'http://www.yourway.spb.ru/pages/533/',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_yourway.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_yourway.pdf',
+            'showOffers': true
         },
         {
             'name': 'kru-god',
@@ -146,7 +149,8 @@
             'skype': '',
             'aboutLink': 'http://kru-god.ru/about/',
             'contactsLink': 'http://kru-god.ru/about/',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_kru-god.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_kru-god.pdf',
+            'showOffers': true
         },
         {
             'name': 'e-good',
@@ -158,7 +162,8 @@
             'skype': '',
             'aboutLink': 'http://e-good.ru/',
             'contactsLink': 'http://e-good.ru/',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_e-good.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_e-good.pdf',
+            'showOffers': true
         },
         {
             'name': 'paristour',
@@ -170,7 +175,8 @@
             'skype': 'daprus',
             'aboutLink': 'http://www.xn--80amf0agcni.xn--p1ai/kontakty/o-kompanii',
             'contactsLink': 'http://www.xn--80amf0agcni.xn--p1ai/kontakty',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_paristour.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_paristour.pdf',
+            'showOffers': true
         },
         {
             'name': 'delfin33',
@@ -182,7 +188,8 @@
             'skype': '',
             'aboutLink': 'http://www.delfin33.ru/',
             'contactsLink': 'http://www.delfin33.ru/',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_delfin.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_delfin.pdf',
+            'showOffers': true
         },
         {
             'name': 'valeryclub',
@@ -194,7 +201,8 @@
             'skype': '',
             'aboutLink': 'http://valeryclub.msk.ru/',
             'contactsLink': 'http://valeryclub.msk.ru/contacts.html',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_valery_club.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_valery_club.pdf',
+            'showOffers': true
         },
         {
             'name': 'vip-cipservice',
@@ -218,7 +226,8 @@
             'skype': '',
             'aboutLink': 'http://www.freesboo.ru',
             'contactsLink': 'http://www.freesboo.ru/kontakty.html',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_allseasons.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_allseasons.pdf',
+            'showOffers': true
         },
         {
             'name': '24trip',
@@ -230,7 +239,8 @@
             'skype': '',
             'aboutLink': 'http://www.24trip.ru/index.php?option=com_content&view=category&layout=blog&id=218&Itemid=523',
             'contactsLink': 'http://www.24trip.ru/index.php?option=com_contact&view=category&id=227&Itemid=616',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_24trip.pdf'
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_24trip.pdf',
+            'showOffers': true
         },
         {
             'name': 'svyaznoy',
@@ -244,7 +254,7 @@
             'contactsLink': 'http://www.svyaznoy.ru/contacts/',
             'offertaContractLink': 'https://s.inna.ru/files/doc/offer_skycassa.pdf',
             'horizontalForm': true,
-            'showOffers': false
+            'showOffers': true
         }
     ];
 
