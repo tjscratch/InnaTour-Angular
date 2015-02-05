@@ -1,15 +1,13 @@
-.layout.partner.horizontal-form {
-    top: 155px;
-    margin-bottom: 150px;
-    padding: 0;
+.layout.partner.horizontal-form{
+  top: 155px;
+  margin-bottom: 150px;
+  padding: 0;
 }
-
-.partner-form-wrap.horizontal-form {
+.partner-form-wrap.horizontal-form{
   z-index: 1000;
   margin: 0 auto;
   max-width: 974px;
 }
-
 .horizontal-form
   .b-tour-form
     position absolute
@@ -18,7 +16,7 @@
 
     &-wrapper
       background transparent
-      padding 0 0 21px!important
+      padding 0 0 21px !important
       width 930px
 
     .main-label
@@ -53,11 +51,11 @@
         color-bg-btn-wl();
       }
 
-      &__from {
+      &__from{
         border-left 1px solid #eef1f3
       }
 
-      &__from {
+      &__from{
         border-right: 0px;
         padding-right 0px;
       }
@@ -65,10 +63,10 @@
       &__long
         width 188px
 
-      &__half {
+      &__half{
         width 120px
 
-        &.b_people {
+        &.b_people{
           border-right: 0px;
           background-color: #fff;
           padding-left: 5px;
@@ -78,13 +76,13 @@
       &__class
         display none
         width 99px
-        /*margin-left 20px
-        margin-right 10px*/
+      /*margin-left 20px
+      margin-right 10px*/
 
-      &__calendar {
+      &__calendar{
         border-right: 0px;
 
-        &.pull-right {
+        &.pull-right{
           float: none;
         }
       }
@@ -133,7 +131,7 @@
 
       &-value,
       input
-        background-color #eeeeee;
+        background-color #eee;
         box-sizing border-box
         border 1px #bdbdbd solid
         height 100%
@@ -141,7 +139,7 @@
         padding 0 10px
         font-size 16px
 
-        &:focus {
+        &:focus{
           background-color #fff;
         }
 
@@ -156,18 +154,17 @@
           color #868685
           right 30px
 
-
-    .b-search-field__to {
-      &.error, .error:focus {
-        border-color: transparent!important;
+    .b-search-field__to{
+      &.error, .error:focus{
+        border-color: transparent !important;
         -webkit-box-shadow: none;
         box-shadow: none;
       }
     }
 
-    .b-search-field__to.error input {
+    .b-search-field__to.error input{
       border: 1px #d74116 solid;
-      background-color: #f7d9d0;
+      background-color rgba(255, 77, 25, 0.25)
     }
 
     .b-search-button
@@ -192,49 +189,42 @@
         /*font-family: ProximaNova;*/
         font-size: 16px;
         font-weight: normal;
-      
-
-.dtpk-checkbox {
+.dtpk-checkbox{
   border-color #3fa9f5
   border-radius 0
 }
-
-.dtpk-checkbox-label input:checked + .dtpk-checkbox {
+.dtpk-checkbox-label input:checked + .dtpk-checkbox{
   background-color #3fa9f5
 }
-
 .ui-datepicker td a.ui-state-active,
-.ui-datepicker td a.ui-state-hover {
+.ui-datepicker td a.ui-state-hover{
   background-color #3fa9f5
 }
-
 .search-form-human-dialog{
   width: 189px;
   border: 1px $color-border-wl solid;
   left: 5px;
   margin-top: -10px;
 }
-
 .search-date-block__date{
   font-size: 16px;
 }
-
-.horizontal-form {
+.horizontal-form{
   .b-search-field__calendar .search-date-block__date,
   .search-people,
-  .search-form-item-current {
+  .search-form-item-current{
     background-color: #eee;
     height: 28px;
     line-height: 28px;
     border: 1px #bdbdbd solid;
     margin: 10px 5px;
 
-    &:focused {
+    &:focused{
       background-color: #fff;
     }
   }
 
-  .search-people {
+  .search-people{
     margin: 0;
   }
 
@@ -243,101 +233,101 @@
     padding-left: 10px;
   }
 
-  .b-search-field__calendar .search-date-block__date {
-    margin-left: 0;
+  .b-search-field__calendar{
+    &.error{
+      border-color transparent !important
+      box-shadow none
+
+      .search-date-block__date{
+        border: 1px #cb3d15 solid;
+        background-color rgba(255, 77, 25, 0.25)
+      }
+    }
+
+    .search-date-block__date{
+      margin-left: 0;
+    }
   }
 
-  .b-search-field__calendar.pull-right {
+  .b-search-field__calendar.pull-right{
     margin-left: 5px;
   }
 }
-
 .search-date-block__date,
 .search-people,
 .search-form-item-current{
   height: 49px;
   line-height: 49px;
 }
-
-.datepicker-body {
+.datepicker-body{
   margin-top: 2px;
   border: 1px $color-border-wl solid;
 
-  .dp-head-cont {
+  .dp-head-cont{
     border-top: none;
   }
 }
-
 .datepickerSelected{
-  &.datepickerSelected-start, &.datepickerSelected-end {
-    a {
+  &.datepickerSelected-start, &.datepickerSelected-end{
+    a{
       color-datepicker-background-wl()
     }
   }
 }
-
-.datepickerSelected.datepickerSelected-start a {
-  &:before {
+.datepickerSelected.datepickerSelected-start a{
+  &:before{
     right: 3px;
     bottom: 3px;
     left: inherit;
   }
 
-  span {
+  span{
     left: 4px;
     top: 3px;
     right: inherit;
   }
 }
-
-.datepickerSelected.datepickerSelected-end a {
-  &:before {
+.datepickerSelected.datepickerSelected-end a{
+  &:before{
     left: 3px;
     bottom: 3px;
   }
 
-  span {
+  span{
     right: 3px;
     top: 3px;
   }
 }
-
-.datepickerSelected.datepickerSelected-start.datepickerSelected.datepickerSelected-end a {
-  span {
+.datepickerSelected.datepickerSelected-start.datepickerSelected.datepickerSelected-end a{
+  span{
     right: inherit;
   }
 }
-
 .datepickerSelected a{
-  color: #fff!important;
+  color: #fff !important;
   color-datepicker-bg();
 }
-
 .datePicker-today a{
   color-border-wl()
 }
-
-.datepickerDays a {
+.datepickerDays a{
   border: 0;
   padding: 5px 4px 2px 4px;
   margin: 1px 0px;
 
-  &:hover {
+  &:hover{
     color-datepicker-background-wl()
   }
 }
-
 .datepickerGoPrev a
-.datepickerGoNext a {
+.datepickerGoNext a{
   background: transparent;
   border: 1px #e6e7e9 solid;
 
-  &:hover {
+  &:hover{
     color-datepicker-background-wl()
   }
-}  
-
-
+}
 .horizontal-form{
   .search-autocomplete{
     width: 300px;
@@ -356,9 +346,9 @@
 
     .ui-tooltip{
       position: absolute;
-      top: 40px!important;
-      left: 50%!important;
-      margin-left: -94px!important;
+      top: 40px !important;
+      left: 50% !important;
+      margin-left: -94px !important;
       border: 1px $color-border-wl solid;
       height: 32px;
       padding: 0px 5px;
@@ -373,22 +363,28 @@
     }
   }
 }
-
-.horizontal-form {
-  .datepicker-field {
+.horizontal-form{
+  .datepicker-field{
     position: relative;
 
-    .ui-tooltip {
-      position absolute;
-      left 0px
-      bottom -40px
+    .ui-tooltip{
+      position: absolute;
+      top: 41px !important;
+      left: 0 !important;
+      border: 1px $color-border-wl solid;
+      height: 32px;
+      padding: 0px 5px;
 
-      &:before {
+      &:before{
         display none
       }
 
-      .ui-tooltip-content {
+      .ui-tooltip-content{
         white-space nowrap;
+      }
+
+      &.ui-tooltip-date-back{
+        left 131px !important
       }
     }
   }
