@@ -524,6 +524,9 @@ innaAppControllers
                         content: 'Попробуйте изменить условия поиска',
                         callbackClose: function () {
                             that.balloonCloser();
+                        },
+                        callback: function () {
+                            that.balloonCloser();
                         }
                     });
                 },
@@ -585,8 +588,10 @@ innaAppControllers
                 },
 
                 balloonCloser: function () {
-                    $location.search({});
-                    $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                    $scope.safeApply(function () {
+                        $location.search({});
+                        $location.path(Urls.URL_DYNAMIC_PACKAGES);
+                    });
                 },
 
                 balloonSearch: function () {
