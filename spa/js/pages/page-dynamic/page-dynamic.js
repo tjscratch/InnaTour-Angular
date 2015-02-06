@@ -596,6 +596,18 @@ innaAppControllers
 
                 balloonSearch: function () {
                     var that = this;
+                    //console.log('searching');
+
+                    //if (window.partners) {
+                    //    //if (window.partners.isFullWL()) {
+                    //    //    window.partners.setScrollTo(0);
+                    //    //}
+                    //}
+
+                    if (window.partners && window.partners.isFullWL()) {
+                        window.partners.resetParentScrollTop();
+                        window.partners.setScrollPage(20);
+                    }
 
                     this._balloonLoad.updateView({
                         template: 'search.html',
