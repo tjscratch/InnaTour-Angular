@@ -85,10 +85,47 @@ $dp-title-color = #65a7c0
             font-weight bold
         }
         .datepickerGoPrev a, .datepickerGoNext a{
-            border-radius: 17px;
+            display inline-block
+            top 0
+            width 24px
+            height 24px
+            vertical-align top
+
+            &:before{
+                display none
+            }
+        }
+        .datepickerGoPrev{
+            vertical-align top
+            text-align center
+
+            a{
+                background url("/spa/img/partners/svyaznoy/calendar-left.png") no-repeat 0 0
+            }
+            &.datepickerGoPrev__disabled{
+                a{
+                    background url("/spa/img/partners/svyaznoy/calendar-left-disabled.png") no-repeat 0 0
+                }
+            }
+        }
+        .datepickerGoNext{
+            vertical-align top
+            text-align center
+
+            a{
+                background url("/spa/img/partners/svyaznoy/calendar-right.png") no-repeat 0 0
+            }
+            &.datepickerGoNext__disabled{
+                a{
+                    background url("/spa/img/partners/svyaznoy/calendar-right-disabled.png") no-repeat 0 0
+                }
+            }
+        }
+        .calendar-0 .datepickerGoNext *, .calendar-1 .datepickerGoPrev *{
+            display: none;
         }
     }
-        
+
     .search-form-dialog-row{
         .button-group{
             .button{
@@ -96,7 +133,7 @@ $dp-title-color = #65a7c0
                 width 28px
                 border 1px solid #afc0cd
                 background-color #fff
-                
+
                 &.active{
                     background #FC6421
                     border-color #FC6421
@@ -106,5 +143,10 @@ $dp-title-color = #65a7c0
     }
     .search-form-list-item:hover{
         background-color $light-orange
+    }
+    .spinner{
+        .rect{
+            background #FC6421
+        }
     }
 }
