@@ -1,0 +1,185 @@
+<div class="layout-light">
+
+	<h2>Заявка на подключение</h2>
+	<div class="partner-reg-form">
+		<form novalidate name="partner" ng-submit="partnerSubmit()">
+			<div class="b-field-group">
+				<div class="b-field-block no-float">
+					<label class="b-field-label" for="fo">Форма и название организации</label>
+					<input id="fo" class="b-field-text" type="text"
+					       name="Name"
+					       ng-model="partnerReg.Name"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.Name.$invalid || partner.Name.$touched && partner.Name.$invalid}"
+							>
+
+					<!--<div class="b-field-error"-->
+					<!--ng-show="partner.$submitted && partner.Name.$invalid || partner.Name.$touched && partner.Name.$invalid"-->
+					<!-->-->
+					<!--<span class="fa fa-exclamation-circle"></span>-->
+					<!--Поле необходимо заполнить-->
+					<!--</div>-->
+				</div>
+			</div>
+			<div class="b-field-group">
+				<div class="b-field-block" style="width: 200px">
+					<label class="b-field-label" for="inn">ИНН</label>
+					<input id="inn" class="b-field-text" type="text"
+					       name="INN"
+					       ng-model="partnerReg.INN"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.INN.$invalid || partner.INN.$touched && partner.INN.$invalid}"
+							>
+
+					<!--<div class="b-field-error"-->
+					<!--ng-show="partner.$submitted && partner.INN.$invalid || partner.INN.$touched && partner.INN.$invalid"-->
+					<!-->-->
+					<!--<span class="fa fa-exclamation-circle"></span>-->
+					<!--Поле необходимо заполнить-->
+					<!--</div>-->
+				</div>
+				<div class="b-field-block" style="width: 200px">
+					<label class="b-field-label" for="kpp">КПП</label>
+					<input id="kpp" class="b-field-text" type="text" ng-model="partnerReg.KPP">
+				</div>
+			</div>
+			<div class="b-field-group">
+				<div class="b-field-block" style="width: 300px">
+					<label class="b-field-label" for="BossName">ФИО руководителя</label>
+					<input id="BossName" class="b-field-text" type="text"
+					       name="BossName"
+					       ng-model="partnerReg.BossName"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.BossName.$invalid || partner.BossName.$touched && partner.BossName.$invalid}"
+							>
+
+					<!--<div class="b-field-error"-->
+					<!--ng-show="partner.$submitted && partner.BossName.$invalid || partner.BossName.$touched && partner.BossName.$invalid"-->
+					<!-->-->
+					<!--<span class="fa fa-exclamation-circle"></span>-->
+					<!--Поле необходимо заполнить-->
+					<!--</div>-->
+				</div>
+				<div class="b-field-block" style="width: 260px">
+					<label class="b-field-label" for="Boss">Должность</label>
+					<input id="Boss" class="b-field-text" type="text"
+					       name="Boss"
+					       ng-model="partnerReg.Boss"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.Boss.$invalid || partner.Boss.$touched && partner.Boss.$invalid}"
+							>
+
+					<!--<div class="b-field-error"-->
+					<!--ng-show="partner.$submitted && partner.Boss.$invalid || partner.Boss.$touched && partner.Boss.$invalid"-->
+					<!-->-->
+					<!--<span class="fa fa-exclamation-circle"></span>-->
+					<!--Поле необходимо заполнить-->
+					<!--</div>-->
+				</div>
+			</div>
+			<div class="b-field-group">
+				<div class="b-field-block" style="width: 450px">
+					<label class="b-field-label" for="RegistredAddress">Юридический адрес</label>
+					<input id="RegistredAddress" class="b-field-text" type="text"
+					       name="RegistredAddress"
+					       ng-model="partnerReg.RegistredAddress"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.RegistredAddress.$invalid || partner.RegistredAddress.$touched && partner.RegistredAddress.$invalid}"
+							>
+
+					<!--<div class="b-field-error"-->
+					<!--ng-show="partner.$submitted && partner.RegistredAddress.$invalid || partner.RegistredAddress.$touched && partner.RegistredAddress.$invalid"-->
+					<!-->-->
+					<!--<span class="fa fa-exclamation-circle"></span>-->
+					<!--Поле необходимо заполнить-->
+					<!--</div>-->
+				</div>
+				<div class="b-field-block" style="width: 110px">
+					<label class="b-field-label" for="RegistredAddressIndex">Индекс</label>
+					<input id="RegistredAddressIndex" class="b-field-text" type="text"
+					       name="RegistredAddressIndex"
+					       ng-model="partnerReg.RegistredAddressIndex"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.RegistredAddressIndex.$invalid || partner.RegistredAddressIndex.$touched && partner.RegistredAddressIndex.$invalid}"
+							>
+
+					<!--<div class="b-field-error"-->
+					<!--ng-show="partner.$submitted && partner.RegistredAddressIndex.$invalid || partner.RegistredAddressIndex.$touched && partner.RegistredAddressIndex.$invalid"-->
+					<!-->-->
+					<!--<span class="fa fa-exclamation-circle"></span>-->
+					<!--Поле необходимо заполнить-->
+					<!--</div>-->
+				</div>
+			</div>
+			<div class="b-field-group">
+				<div class="b-field-block" style="width: 450px">
+					<label class="b-field-label" for="Address">Фактический адрес</label>
+					<input id="Address" class="b-field-text" type="text"
+					       name="Address"
+					       ng-model="partnerReg.Address"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.Address.$invalid || partner.Address.$touched && partner.Address.$invalid}"
+							>
+				</div>
+				<div class="b-field-block" style="width: 110px">
+					<label class="b-field-label" for="PostIndex">Индекс</label>
+					<input id="PostIndex" class="b-field-text" type="text"
+					       name="PostIndex"
+					       ng-model="partnerReg.PostIndex"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.PostIndex.$invalid || partner.PostIndex.$touched && partner.PostIndex.$invalid}"
+							>
+				</div>
+			</div>
+			<div class="b-field-group">
+				<label class="b-agreement">
+					<input type="checkbox">
+					<ins class="b-checkbox"></ins>
+					совпадает с юридическим адресом
+				</label>
+			</div>
+			<div class="b-field-group">
+				<div class="b-field-block" style="width: 290px">
+					<label class="b-field-label" for="Phones">Телефон</label>
+					<input id="Phones" class="b-field-text" type="text"
+					       name="Phones"
+					       ng-model="partnerReg.Phones"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.Phones.$invalid || partner.Phones.$touched && partner.Phones.$invalid}"
+							>
+				</div>
+				<div class="b-field-block" style="width: 270px">
+					<label class="b-field-label" for="Site">Сайт</label>
+					<input id="Site" class="b-field-text" type="text"
+					       name="Site"
+					       ng-model="partnerReg.Site"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.Site.$invalid || partner.Site.$touched && partner.Site.$invalid}"
+							>
+				</div>
+			</div>
+			<div class="b-field-group">
+				<div class="b-field-block no-float">
+					<label class="b-field-label" for="Email">Электронная почта, на которую мы пришлем логин/пароль</label>
+					<input id="Email" class="b-field-text" type="text"
+					       name="Email"
+					       ng-model="partnerReg.Email"
+					       required=""
+					       ng-class="{'error': partner.$submitted && partner.Email.$invalid || partner.Email.$touched && partner.Email.$invalid}"
+							>
+
+					<div class="b-field-error"
+					     ng-show="partner.$submitted && partner.Email.$invalid || partner.Email.$touched && partner.Email.$invalid"
+							>
+						<span class="fa fa-exclamation-circle"></span>
+						Поле необходимо заполнить
+					</div>
+				</div>
+			</div>
+			<div class="b-field-group action">
+				<button type="submit" class="button b-sum-button">Отправить</button>
+			</div>
+		</form>
+	</div>
+
+</div>

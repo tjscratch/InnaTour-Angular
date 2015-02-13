@@ -44,6 +44,8 @@ app.constant('innaApp.Urls', {
 
     URL_PACKAGES_LANDING: '/packages/ppc/',
 
+    URL_PARTNER_REG_FORM: '/partner-reg/',
+    
     URL_HELP: '/help/',
 
     eof: null
@@ -246,6 +248,10 @@ app.config([
                 templateUrl: 'pages/page-help/templ/base.hbs.html',
                 controller: 'HelpPageController',
                 reloadOnSearch: false
+            }).
+            when(url.URL_PARTNER_REG_FORM, {
+                templateUrl: 'components/page-partner-reg-form/templ/index.html',
+                controller: 'PartnerRegFormCtrl'
             }).
             otherwise({
                 redirectTo: url.URL_ROOT

@@ -303,8 +303,15 @@
                         data: {id: id},
                         success: callback
                     });
-                }
-                    
+                },
+
+
+                /**
+                 * Registration Partner
+                 */
+                partnerCreate: function (data) {
+                    return $http.post('http://test.inna.ru/api/v1/Agency/Add', data);
+                } 
 
             };
         }]);
