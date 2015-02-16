@@ -117,9 +117,9 @@
             }, 200);
         })
 
-    if (!window.$ || !window.jQuery) {
-        $script(sources.jquery, 'jquery');
-    }
+    //if (!window.$ || !window.jQuery) {
+    $script(sources.jquery, 'jquery');
+    //}
 
     $script(sources.app, 'app');
 
