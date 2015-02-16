@@ -114,7 +114,7 @@
         .ready('app', function () {
             setTimeout(function () {
                 bootstrap()
-            }, 200);
+            }, 350);
         })
 
     //if (!window.$ || !window.jQuery) {
