@@ -1,10 +1,11 @@
-innaAppConponents.controller("PartnerRegFormCtrl", function ($scope, dataService) {
+innaAppConponents.controller("AgencyRegFormCtrl", function ($scope, dataService) {
 
     $scope.partnerReg = {};
 
 
     $scope.partnerSubmit = function () {
-        dataService.partnerCreate($scope.partnerReg)
+        console.log($scope.partnerReg)
+        dataService.agencyCreate($scope.partnerReg)
             .success(function (data) {
                 console.log(data)
             })

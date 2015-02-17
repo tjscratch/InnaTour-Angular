@@ -307,11 +307,11 @@
 
 
                 /**
-                 * Registration Partner
+                 * Registration Agency
                  */
-                partnerCreate: function (data) {
+                agencyCreate: function (data) {
                     return $http.post('http://test.inna.ru/api/v1/Agency/Add', data);
-                } 
+                }
 
             };
         }]);
