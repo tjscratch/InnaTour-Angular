@@ -1,20 +1,20 @@
 <div class="layout-light">
 
 	<h2>Заявка на подключение</h2>
-	<div class="partner-reg-form">
-		<form novalidate name="partner" ng-submit="partnerSubmit()">
+	<div class="agency-reg-form">
+		<form novalidate name="agency" ng-submit="agencySubmit(agency)">
 			<div class="b-field-group">
 				<div class="b-field-block no-float">
 					<label class="b-field-label" for="fo">Форма и название организации</label>
 					<input id="fo" class="b-field-text" type="text"
 					       name="Name"
-					       ng-model="partnerReg.Name"
+					       ng-model="agencyReg.Name"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.Name.$invalid || partner.Name.$touched && partner.Name.$invalid}"
+					       ng-class="{'error': agency.$submitted && agency.Name.$invalid || agency.Name.$touched && agency.Name.$invalid}"
 							>
 
 					<!--<div class="b-field-error"-->
-					<!--ng-show="partner.$submitted && partner.Name.$invalid || partner.Name.$touched && partner.Name.$invalid"-->
+					<!--ng-show="agency.$submitted && agency.Name.$invalid || agency.Name.$touched && agency.Name.$invalid"-->
 					<!-->-->
 					<!--<span class="fa fa-exclamation-circle"></span>-->
 					<!--Поле необходимо заполнить-->
@@ -26,13 +26,13 @@
 					<label class="b-field-label" for="inn">ИНН</label>
 					<input id="inn" class="b-field-text" type="text"
 					       name="INN"
-					       ng-model="partnerReg.INN"
+					       ng-model="agencyReg.INN"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.INN.$invalid || partner.INN.$touched && partner.INN.$invalid}"
+					       ng-class="{'error': agency.$submitted && agency.INN.$invalid || agency.INN.$touched && agency.INN.$invalid}"
 							>
 
 					<!--<div class="b-field-error"-->
-					<!--ng-show="partner.$submitted && partner.INN.$invalid || partner.INN.$touched && partner.INN.$invalid"-->
+					<!--ng-show="agency.$submitted && agency.INN.$invalid || agency.INN.$touched && agency.INN.$invalid"-->
 					<!-->-->
 					<!--<span class="fa fa-exclamation-circle"></span>-->
 					<!--Поле необходимо заполнить-->
@@ -40,7 +40,7 @@
 				</div>
 				<div class="b-field-block" style="width: 200px">
 					<label class="b-field-label" for="kpp">КПП</label>
-					<input id="kpp" class="b-field-text" type="text" ng-model="partnerReg.KPP">
+					<input id="kpp" class="b-field-text" type="text" ng-model="agencyReg.KPP">
 				</div>
 			</div>
 			<div class="b-field-group">
@@ -48,13 +48,13 @@
 					<label class="b-field-label" for="BossName">ФИО руководителя</label>
 					<input id="BossName" class="b-field-text" type="text"
 					       name="BossName"
-					       ng-model="partnerReg.BossName"
+					       ng-model="agencyReg.BossName"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.BossName.$invalid || partner.BossName.$touched && partner.BossName.$invalid}"
+					       ng-class="{'error': agency.$submitted && agency.BossName.$invalid || agency.BossName.$touched && agency.BossName.$invalid}"
 							>
 
 					<!--<div class="b-field-error"-->
-					<!--ng-show="partner.$submitted && partner.BossName.$invalid || partner.BossName.$touched && partner.BossName.$invalid"-->
+					<!--ng-show="agency.$submitted && agency.BossName.$invalid || agency.BossName.$touched && agency.BossName.$invalid"-->
 					<!-->-->
 					<!--<span class="fa fa-exclamation-circle"></span>-->
 					<!--Поле необходимо заполнить-->
@@ -64,13 +64,13 @@
 					<label class="b-field-label" for="Boss">Должность</label>
 					<input id="Boss" class="b-field-text" type="text"
 					       name="Boss"
-					       ng-model="partnerReg.Boss"
+					       ng-model="agencyReg.Boss"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.Boss.$invalid || partner.Boss.$touched && partner.Boss.$invalid}"
+					       ng-class="{'error': agency.$submitted && agency.Boss.$invalid || agency.Boss.$touched && agency.Boss.$invalid}"
 							>
 
 					<!--<div class="b-field-error"-->
-					<!--ng-show="partner.$submitted && partner.Boss.$invalid || partner.Boss.$touched && partner.Boss.$invalid"-->
+					<!--ng-show="agency.$submitted && agency.Boss.$invalid || agency.Boss.$touched && agency.Boss.$invalid"-->
 					<!-->-->
 					<!--<span class="fa fa-exclamation-circle"></span>-->
 					<!--Поле необходимо заполнить-->
@@ -82,13 +82,13 @@
 					<label class="b-field-label" for="RegistredAddress">Юридический адрес</label>
 					<input id="RegistredAddress" class="b-field-text" type="text"
 					       name="RegistredAddress"
-					       ng-model="partnerReg.RegistredAddress"
+					       ng-model="agencyReg.RegistredAddress"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.RegistredAddress.$invalid || partner.RegistredAddress.$touched && partner.RegistredAddress.$invalid}"
+					       ng-class="{'error': agency.$submitted && agency.RegistredAddress.$invalid || agency.RegistredAddress.$touched && agency.RegistredAddress.$invalid}"
 							>
 
 					<!--<div class="b-field-error"-->
-					<!--ng-show="partner.$submitted && partner.RegistredAddress.$invalid || partner.RegistredAddress.$touched && partner.RegistredAddress.$invalid"-->
+					<!--ng-show="agency.$submitted && agency.RegistredAddress.$invalid || agency.RegistredAddress.$touched && agency.RegistredAddress.$invalid"-->
 					<!-->-->
 					<!--<span class="fa fa-exclamation-circle"></span>-->
 					<!--Поле необходимо заполнить-->
@@ -98,13 +98,13 @@
 					<label class="b-field-label" for="RegistredAddressIndex">Индекс</label>
 					<input id="RegistredAddressIndex" class="b-field-text" type="text"
 					       name="RegistredAddressIndex"
-					       ng-model="partnerReg.RegistredAddressIndex"
+					       ng-model="agencyReg.RegistredAddressIndex"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.RegistredAddressIndex.$invalid || partner.RegistredAddressIndex.$touched && partner.RegistredAddressIndex.$invalid}"
+					       ng-class="{'error': agency.$submitted && agency.RegistredAddressIndex.$invalid || agency.RegistredAddressIndex.$touched && agency.RegistredAddressIndex.$invalid}"
 							>
 
 					<!--<div class="b-field-error"-->
-					<!--ng-show="partner.$submitted && partner.RegistredAddressIndex.$invalid || partner.RegistredAddressIndex.$touched && partner.RegistredAddressIndex.$invalid"-->
+					<!--ng-show="agency.$submitted && agency.RegistredAddressIndex.$invalid || agency.RegistredAddressIndex.$touched && agency.RegistredAddressIndex.$invalid"-->
 					<!-->-->
 					<!--<span class="fa fa-exclamation-circle"></span>-->
 					<!--Поле необходимо заполнить-->
@@ -116,18 +116,18 @@
 					<label class="b-field-label" for="Address">Фактический адрес</label>
 					<input id="Address" class="b-field-text" type="text"
 					       name="Address"
-					       ng-model="partnerReg.Address"
+					       ng-model="agencyReg.Address"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.Address.$invalid || partner.Address.$touched && partner.Address.$invalid}"
+					       ng-class="{'error': agency.$submitted && agency.Address.$invalid || agency.Address.$touched && agency.Address.$invalid}"
 							>
 				</div>
 				<div class="b-field-block" style="width: 110px">
 					<label class="b-field-label" for="PostIndex">Индекс</label>
 					<input id="PostIndex" class="b-field-text" type="text"
 					       name="PostIndex"
-					       ng-model="partnerReg.PostIndex"
+					       ng-model="agencyReg.PostIndex"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.PostIndex.$invalid || partner.PostIndex.$touched && partner.PostIndex.$invalid}"
+					       ng-class="{'error': agency.$submitted && agency.PostIndex.$invalid || agency.PostIndex.$touched && agency.PostIndex.$invalid}"
 							>
 				</div>
 			</div>
@@ -143,36 +143,44 @@
 					<label class="b-field-label" for="Phones">Телефон</label>
 					<input id="Phones" class="b-field-text" type="text"
 					       name="Phones"
-					       ng-model="partnerReg.Phones"
+					       ng-model="agencyReg.Phones"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.Phones.$invalid || partner.Phones.$touched && partner.Phones.$invalid}"
+					       ng-class="{'error': agency.$submitted && agency.Phones.$invalid || agency.Phones.$touched && agency.Phones.$invalid}"
 							>
 				</div>
 				<div class="b-field-block" style="width: 270px">
 					<label class="b-field-label" for="Site">Сайт</label>
 					<input id="Site" class="b-field-text" type="text"
 					       name="Site"
-					       ng-model="partnerReg.Site"
+					       ng-model="agencyReg.Site"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.Site.$invalid || partner.Site.$touched && partner.Site.$invalid}"
+					       ng-class="{'error': agency.$submitted && agency.Site.$invalid || agency.Site.$touched && agency.Site.$invalid}"
 							>
 				</div>
 			</div>
 			<div class="b-field-group">
 				<div class="b-field-block no-float">
 					<label class="b-field-label" for="Email">Электронная почта, на которую мы пришлем логин/пароль</label>
-					<input id="Email" class="b-field-text" type="text"
+					<input id="Email" class="b-field-text" type="email"
 					       name="Email"
-					       ng-model="partnerReg.Email"
+					       ng-model="agencyReg.Email"
 					       required=""
-					       ng-class="{'error': partner.$submitted && partner.Email.$invalid || partner.Email.$touched && partner.Email.$invalid}"
+					       check-email-format
+					       ng-class="{'error': agency.$submitted && agency.Email.$invalid || agency.Email.$touched && agency.Email.$invalid}"
 							>
-
 					<div class="b-field-error"
-					     ng-show="partner.$submitted && partner.Email.$invalid || partner.Email.$touched && partner.Email.$invalid"
+					     ng-show="agency.$submitted && agency.Email.$invalid || agency.Email.$touched && agency.Email.$invalid"
 							>
 						<span class="fa fa-exclamation-circle"></span>
-						Поле необходимо заполнить
+						<span ng-show="agency.Email.$error.email">
+							Нерпавильный формат email
+						</span>
+						<span ng-show="agency.Email.$error.required">
+							Поле необходимо заполнить
+						</span>
+						<span ng-show="emailDouble">
+							Адрес уже зарегистрирован. Укажите другой адрес электронной почты. 
+						</span>
 					</div>
 				</div>
 			</div>
