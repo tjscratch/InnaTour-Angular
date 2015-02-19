@@ -1,0 +1,162 @@
+//VARS
+$bg-color = #f5f8fa
+$white = #fff
+$light-blue = #eef1f3
+$gray = #757575
+$light-gray = #f7f7f7
+$light-blue2 = #afc0cd
+$light-blue3 = #c8dee8
+$dark-blue = #777893
+$orange = #ffb42f
+$light-orange = #fff0d5
+
+$border-radius ?= 10px
+
+$dp-title-color = #65a7c0
+
+@import "../full_wl/colors.styl"
+@import "../full_wl/index.styl"
+@import "../full_wl/controls.styl"
+@import "../full_wl/buttons.styl"
+@import "../full_wl/form.styl"
+@import "../full_wl/horiz-form.styl"
+@import "../full_wl/avia.styl"
+@import "../full_wl/dp.search.result.styl"
+@import "../full_wl/dp.hotel.details.styl"
+@import "../full_wl/dp.buy.styl"
+@import "../full_wl/map.styl"
+@import "../full_wl/gallery.styl"
+
+.partner-wl{
+    .pic-cont{
+        height: 0px;
+        width: 0px;
+        background: transparent;
+    }
+    .search-autocomplete{
+        width 300px
+        margin-top 0
+        padding 0
+        border 1px solid $dark-blue
+
+        .search-autocomplete-block{
+            &:hover,
+            &.selected{
+                background-color: $light-orange;
+            }
+        }
+    }
+    .offers-container{
+        padding-top 13px
+
+        .landing-title{
+            display none
+        }
+    }
+
+    .datepicker-body{
+        z-index 1001
+        margin-top 5px
+        border 2px solid $light-blue3
+        border-radius 6px
+
+        .dp-head-cont{
+            border none
+            box-shadow none
+            border-radius 6px 6px 0 0
+
+            .dtpk-head{
+                /*border none*/
+            }
+
+            .dtpk-caption{
+                font-size 14px
+                text-transform none
+            }
+        }
+        .datepickerContainer{
+            box-shadow none
+            border-radius 0 0 6px 6px
+        }
+        .datepickerMonth span{
+            font-size 18px
+            color $dp-title-color
+            text-transform uppercase
+            font-weight bold
+        }
+        .datepickerGoPrev a, .datepickerGoNext a{
+            display inline-block
+            top 0
+            width 24px
+            height 24px
+            vertical-align top
+
+            &:before{
+                display none
+            }
+        }
+        .datepickerGoPrev{
+            vertical-align top
+            text-align center
+
+            a{
+                background url("/spa/img/partners/euroset/calendar-left.png") no-repeat 0 0
+            }
+            &.datepickerGoPrev__disabled{
+                a{
+                    background url("/spa/img/partners/euroset/calendar-left-disabled.png") no-repeat 0 0
+                }
+            }
+        }
+        .datepickerGoNext{
+            vertical-align top
+            text-align center
+
+            a{
+                background url("/spa/img/partners/euroset/calendar-right.png") no-repeat 0 0
+            }
+            &.datepickerGoNext__disabled{
+                a{
+                    background url("/spa/img/partners/euroset/calendar-right-disabled.png") no-repeat 0 0
+                }
+            }
+        }
+        .calendar-0 .datepickerGoNext *, .calendar-1 .datepickerGoPrev *{
+            display: none;
+        }
+    }
+
+    .search-form-dialog-row{
+        .button-group{
+            .button{
+                height 28px
+                width 28px
+                border 1px solid #afc0cd
+                background-color #fff
+
+                &.active{
+                    background #FC6421
+                    border-color #FC6421
+                }
+            }
+        }
+    }
+    .search-form-list-item:hover{
+        background-color $light-orange
+    }
+    .spinner{
+        .rect{
+            background #FC6421
+        }
+    }
+    .search__list{
+        .current{
+            .fa-check{
+                color #777893
+            }
+        }
+    }
+    .gallery__list{
+        
+    }
+}
