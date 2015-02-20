@@ -74,6 +74,14 @@
                     var today = new Date();
                     var yyyy = today.getFullYear();
 
+                    //если дата рождения больше текущей даты
+                    var valDate = new Date(y, (month-1), day);
+                    //console.log('valDate:', +valDate);
+                    //console.log('today  :', +today);
+                    if (+valDate > +today){
+                        throw error;
+                    }
+
                     if (!(day >= 1 && day <= 31)) {
                         throw error;
                     } else {
