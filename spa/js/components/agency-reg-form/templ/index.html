@@ -166,15 +166,15 @@
 						     ng-show="agency.$submitted && agency.Email.$invalid || agency.Email.$touched && agency.Email.$invalid"
 								>
 							<span class="fa fa-exclamation-circle"></span>
-						<span ng-show="agency.Email.$error.email">
-							Нерпавильный формат email
-						</span>
-						<span ng-show="agency.Email.$error.required">
-							Поле необходимо заполнить
-						</span>
-						<span ng-show="emailDouble">
-							Адрес уже зарегистрирован. Укажите другой адрес электронной почты. 
-						</span>
+							<span ng-show="agency.Email.$error.email">
+								Нерпавильный формат email
+							</span>
+							<span ng-show="agency.Email.$error.required">
+								Поле необходимо заполнить
+							</span>
+						</div>
+						<div class="b-field-error" ng-show="emailDouble">
+							Адрес уже зарегистрирован. Укажите другой адрес электронной почты.
 						</div>
 					</div>
 				</div>
