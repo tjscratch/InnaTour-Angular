@@ -415,7 +415,9 @@ innaAppControllers.
 
 
                                         if (!result.length || childAgeFind().length) {
-                                            throw new Error('err');
+                                            //ToDo: разобраться что тут за херня
+                                            //а именно в childAgeFind
+                                            //throw new Error('err');
                                         } else {
                                             item.isChildAgeFind = parseInt(result[0]);
                                         }
