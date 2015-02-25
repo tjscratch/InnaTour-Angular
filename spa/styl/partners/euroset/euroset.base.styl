@@ -14,12 +14,41 @@ $border-radius ?= 10px
 
 $dp-title-color = #65a7c0
 
+
+// colors
+$blue = #00b8ee;
+$gray = #eeeeee;
+$btn-bg = $blue;
+$autocomplete-border-color = $blue;
+$autocomplete-selected-bg = $gray;
+
+$btn-color = #fff;
+$light-blue = #a3b4c0;
+$border-radius = 10px;
+$border-radius-2 = 5px;
+$error-tooltip-bg-1 = #fd5055;
+$error-tooltip-bg-2 = #e00708;
+$error-tooltip-bg-3 = #e71b1d;
+$error-tooltip-color = #fff;
+$form-input-error-border-color = #fb8d8c;
+$form-input-error-bg = #fee8e8;
+
+
+// form size
+$form-width = 320px;
+$form-input-offset = 10px;
+$form-input-height = 30px;
+$form-input-border-radius = $border-radius-2;
+
+
+
+
 @import "../full_wl/colors.styl"
 @import "../full_wl/index.styl"
 @import "../full_wl/controls.styl"
 @import "../full_wl/buttons.styl"
-@import "../full_wl/form.styl"
-@import "../full_wl/horiz-form.styl"
+@import "../euroset/form.styl"
+@import "../euroset/font.styl"
 @import "../full_wl/avia.styl"
 @import "../full_wl/dp.search.result.styl"
 @import "../full_wl/dp.hotel.details.styl"
@@ -28,24 +57,16 @@ $dp-title-color = #65a7c0
 @import "../full_wl/gallery.styl"
 
 .partner-wl{
+    body{
+        font-family: 'HouschkaRoundedAlt-Medium';
+    }
+    
     .pic-cont{
         height: 0px;
         width: 0px;
         background: transparent;
     }
-    .search-autocomplete{
-        width 300px
-        margin-top 0
-        padding 0
-        border 1px solid $dark-blue
 
-        .search-autocomplete-block{
-            &:hover,
-            &.selected{
-                background-color: $light-orange;
-            }
-        }
-    }
     .offers-container{
         padding-top 13px
 

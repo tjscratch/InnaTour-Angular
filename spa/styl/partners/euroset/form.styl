@@ -1,97 +1,214 @@
-
-.b-tour-form
-    &-wrapper
+.search-field{
+    height $form-input-height - 2
+    line-height $form-input-height - 2
+    border-radius $form-input-border-radius
+    font-size 14px
+    font-family: 'HouschkaRoundedAlt-Medium', ProximaNova, Arial, sans-serif;
+}
+.partner-wl{
+    .layout.partner{
+        top: 0;
+        margin-bottom: 390px;
+    }
+    .partner-form-wrap{
+        margin 0 auto
+        height 330px
+        width 960px
+        background url("/spa/img/partners/euroset/head.jpg") no-repeat 0 0
+    }
+    .b-tour-form-wrapper{
         background #fff
-
-    .b-search-field
-        border 1px solid #bfbfc1
+        padding 0 $form-input-offset $form-input-offset
+        width $form-width
+        border-radius $border-radius
+    }
+    .b-tour-form{
+        position absolute
+        top 60px
+        padding-left 60px
+        
+        .main-label{
+            display none
+        }
+    }
+    .b-search-field{
+        position relative
         display inline-block
-        height 49px
-        margin 14px 0 4px
+        box-sizing border-box
+        height $form-input-height
+        margin $form-input-offset 0 0
         vertical-align top
-
-        .search-people{
-            background-image: none;
+        border 1px solid $light-blue
+        border-radius $form-input-border-radius
+    }
+    .search-field{
+        @extend .search-field
+    }
+    
+    // begin b-location_selector
+    .b-location_selector{
+        width $form-width
+        &.b-search-field__from{
+            z-index: 31;
         }
-
-        .search__list{
-            margin-top: 2px;
+        &.b-search-field__to{
+            z-index: 30;
+            
+            &.error{
+                z-index 32
+            }
         }
-
-        .search-form-dialog-row .button-group .button.active{
-            color-bg-btn-wl();
+    }
+    .search-autocomplete{
+        width $form-width
+        box-sizing border-box
+        margin-top 0
+        padding 0
+        border 1px solid $autocomplete-border-color
+        border-radius $border-radius-2
+        
+        li{
+            li{
+                .search-autocomplete-block{
+                    padding-left 30px
+                }
+            }
         }
-
-        &__long
-            width 399px
-
-        &__half
-            width 189px
-
-        &__class
-            width 119px
-            margin-left 20px
-            margin-right 10px
-
-        &__calendar,
-        &__list
-            position relative
-
-            &:after
-                background url("/spa/img/i.png") no-repeat
-                content ''
-                display block
-                position absolute
-                top 50%;
-                right 9px
-
-        &__list
-            &:after
-                background-position -45px -194px
-                width 11px
-                height 6px
-                margin-top -3px
-
-        &__calendar
-            &:after
-                background-position -39px -1830px
-                width 17px
-                height 16px
-                margin-top -8px
-
-            background-position 0 -171px
-
-        &-hor
-            text-align justify
-            font-size 0
-
-            &:after
-                width 100%
-                content: ''
-                display inline-block
-                height 0
-
-        &-value,
-        input
-            box-sizing border-box
-            border 0
-            height 100%
-            width 100%
-            padding 0 10px
-            font-size 16px
-
-        &-value
-            line-height 49px
-
-            .description
-                color #868685
-
-            .iata
-                position absolute
-                color #868685
-                right 30px
-
-
+        .search-autocomplete-block{
+            
+            &:hover,
+            &.selected{
+                background-color: $autocomplete-selected-bg;
+            }
+        }
+    }
+    // end b-location_selector
+    
+    // begin field date
+    .datepicker-field{
+        clearfix()
+        position: relative;
+        
+        .ui-tooltip{
+            top auto !important
+            bottom $form-input-height
+        }
+    }
+    .b-search-field__calendar{
+        width ($form-width / 2 - $form-input-offset / 2)
+    }
+    .search-date,
+    .search-date-block__date{
+        @extend .search-field
+    }
+    .search-date-block__date{
+        &:before{
+            content ''
+            @extend .icon-sprite-euroset-calendar
+            position absolute
+            right 9px
+            top 50%
+            margin-top -7.5px
+        }
+    }
+    // end field date
+    
+    // begin people selector
+    .search-form-item-current{
+        @extend .search-field
+    }
+    .b-search-field__list{
+        width ($form-width / 2 - $form-input-offset / 2)
+        cursor pointer
+        
+        &:before{
+            content ''
+            @extend .icon-sprite-euroset-arrow
+            position absolute
+            right 12px
+            top 50%
+            margin-top -1px
+        }
+    }
+    // end people selector
+    
+    // begin class
+    .b-search-field__class{
+        margin-left $form-input-offset
+    }
+    .search-people{
+        @extend .search-field
+        background none
+    }
+    // end class
+    
+    // begin search btn
+    .b-search-button{
+        width $form-width
+        height $form-input-height
+        margin-top $form-input-offset
+        background-color $btn-bg
+        border-radius $form-input-border-radius
+        font-family: 'HouschkaRoundedAlt-Bold';
+        cursor pointer
+        
+        &:before{
+            content 'НАЙТИ'
+            display block
+            width $form-width
+            height $form-input-height
+            line-height $form-input-height
+            text-align center
+            font-size 18px
+            color $btn-color
+        }
+    }
+    // end search btn
+    
+    // begin error
+    .error,
+    .error:focus{
+        box-shadow none
+        border-color $form-input-error-border-color !important
+        background-color $form-input-error-bg
+        
+        input{
+            background-color $form-input-error-bg
+        }
+    }
+    .ui-tooltip{
+        position: absolute;
+        z-index 1000;
+        left: 0 !important;
+        top: - $form-input-height - 3 !important;
+        margin-left: 0 !important;
+        height $form-input-height
+        line-height $form-input-height
+        background: linear-gradient(bottom, $error-tooltip-bg-3, 60% $error-tooltip-bg-2, $error-tooltip-bg-1) !important
+        border-radius $border-radius-2
+        box-shadow none
+        
+        &:before{
+            left 20px
+            top $form-input-height + 2
+            margin-left 0
+            border-width 7px 7px 0
+            border-color: $error-tooltip-bg-3 transparent transparent !important;
+        }
+        
+        .ui-tooltip-content{
+            white-space nowrap;
+            color $error-tooltip-color
+            font-size 14px
+            font-weight normal
+            
+            &:before{
+                display none
+            }
+        }
+    }
+    // end error
+}
 .dtpk-checkbox
     border-color #3fa9f5
     border-radius 0
@@ -100,9 +217,19 @@
 .ui-datepicker td a.ui-state-active,
 .ui-datepicker td a.ui-state-hover
     background-color #3fa9f5
-.search-form-human-dialog{
-    width: 100%;
+.datepickerSelected-start a
+.datepickerSelected-end a
+    color-datepicker-background-wl()
+.datepickerSelected a{
+    color-datepicker-bg();
 }
-.search-date-block__date{
-    font-size: 16px;
+.datePicker-today a{
+    color-border-wl()
 }
+.datepickerDays a
+    &:hover
+        color-datepicker-background-wl()
+.datepickerGoPrev a
+.datepickerGoNext a
+    &:hover
+        color-datepicker-background-wl()
