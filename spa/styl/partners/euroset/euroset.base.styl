@@ -1,6 +1,4 @@
 //VARS
-$bg-color = #f5f8fa
-$white = #fff
 $light-blue = #eef1f3
 $gray = #757575
 $light-gray = #f7f7f7
@@ -12,19 +10,19 @@ $light-orange = #fff0d5
 
 $border-radius ?= 10px
 
-$dp-title-color = #65a7c0
-
-
 // colors
+$white = #fff
 $orange = #ffe906
 $blue = #00b8ee;
 $gray = #eeeeee;
+$dark = #212121;
 $btn-bg = $blue;
+$bg-color = $white;
 $autocomplete-border-color = $blue;
 $autocomplete-selected-bg = #e4e4dd;
-$people-selector-btn-bg = #fff;
+$people-selector-btn-bg = $white;
 $people-selector-btn-bg-selected = $orange;
-$people-selector-btn-color-selected = #212121;
+$people-selector-btn-color-selected = $dark;
 $class-selector = $orange;
 
 $btn-color = #fff;
@@ -38,7 +36,6 @@ $error-tooltip-color = #fff;
 $form-input-error-border-color = #fb8d8c;
 $form-input-error-bg = #fee8e8;
 
-
 // form size
 $form-width = 320px;
 $form-input-offset = 10px;
@@ -46,13 +43,30 @@ $form-input-height = 30px;
 $form-input-border-radius = $border-radius-2;
 
 
+// datepicker
+$dp-cell-size = 35px;
+$dp-cell-padding = 1px;
+$dp-cell-border-radius = 1px;
+$dp-cell-text-size = 16px;
+$dp-title-color = $dark;
+$dp-cell-text-color = $dark;
+$dp-cell-text-color-red = #d74116;
+$dp-cell-text-color-disabled = #bdbdbd;
+$dp-cell-text-color-red-disabled = #efb3a2;
+$dp-cell-active-bg = $blue;
+$dp-current-day-border-color = $light-blue;
+$dp-head-border-color = $light-blue;
+$dp-gray = #e0e0e0;
+$dp-prev-next-bg = transparent;
 
 
-@import "../full_wl/colors.styl"
-@import "../full_wl/index.styl"
+
+@import "../euroset/colors.styl"
+@import "../euroset/index.styl"
 @import "../full_wl/controls.styl"
 @import "../full_wl/buttons.styl"
 @import "../euroset/form.styl"
+@import "../euroset/datepicker.styl"
 @import "../euroset/font.styl"
 @import "../full_wl/avia.styl"
 @import "../full_wl/dp.search.result.styl"
@@ -65,90 +79,16 @@ $form-input-border-radius = $border-radius-2;
     body{
         font-family: 'HouschkaRoundedAlt-Medium', ProximaNova, Arial, sans-serif;
     }
-    
     .pic-cont{
         height: 0px;
         width: 0px;
         background: transparent;
     }
-
     .offers-container{
-        padding-top 13px
-
+        padding-top 0
+        
         .landing-title{
             display none
-        }
-    }
-
-    .datepicker-body{
-        z-index 1001
-        margin-top 5px
-        border 2px solid $light-blue3
-        border-radius 6px
-
-        .dp-head-cont{
-            border none
-            box-shadow none
-            border-radius 6px 6px 0 0
-
-            .dtpk-head{
-                /*border none*/
-            }
-
-            .dtpk-caption{
-                font-size 14px
-                text-transform none
-            }
-        }
-        .datepickerContainer{
-            box-shadow none
-            border-radius 0 0 6px 6px
-        }
-        .datepickerMonth span{
-            font-size 18px
-            color $dp-title-color
-            text-transform uppercase
-            font-weight bold
-        }
-        .datepickerGoPrev a, .datepickerGoNext a{
-            display inline-block
-            top 0
-            width 24px
-            height 24px
-            vertical-align top
-
-            &:before{
-                display none
-            }
-        }
-        .datepickerGoPrev{
-            vertical-align top
-            text-align center
-
-            a{
-                background url("/spa/img/partners/euroset/calendar-left.png") no-repeat 0 0
-            }
-            &.datepickerGoPrev__disabled{
-                a{
-                    background url("/spa/img/partners/euroset/calendar-left-disabled.png") no-repeat 0 0
-                }
-            }
-        }
-        .datepickerGoNext{
-            vertical-align top
-            text-align center
-
-            a{
-                background url("/spa/img/partners/euroset/calendar-right.png") no-repeat 0 0
-            }
-            &.datepickerGoNext__disabled{
-                a{
-                    background url("/spa/img/partners/euroset/calendar-right-disabled.png") no-repeat 0 0
-                }
-            }
-        }
-        .calendar-0 .datepickerGoNext *, .calendar-1 .datepickerGoPrev *{
-            display: none;
         }
     }
     .spinner{
@@ -162,8 +102,5 @@ $form-input-border-radius = $border-radius-2;
                 color #777893
             }
         }
-    }
-    .gallery__list{
-        
     }
 }

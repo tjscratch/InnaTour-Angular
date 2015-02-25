@@ -1,0 +1,204 @@
+color-datepicker-background-wl(){
+    background-color: $dp-cell-active-bg !important;
+    border-color $dp-cell-active-bg !important
+    span{
+        color #fff !important
+    }
+}
+color-datepicker-bg(){
+    background: $orange;
+}
+.partner-wl{
+    .datepicker-body{
+        z-index 1001
+        margin-top 0
+        margin-left 161px
+        border 1px solid $autocomplete-border-color
+        border-radius $border-radius-2
+        
+        *{
+            font-family: 'HouschkaRoundedAlt-Medium', ProximaNova, Arial, sans-serif;
+        }
+        
+        .dp-head-cont{
+            border none
+            box-shadow none
+            border-radius $border-radius-2 $border-radius-2 0 0
+            
+            .dtpk-caption{
+                font-size 14px
+                text-transform none
+            }
+        }
+        .datepickerMonth span{
+            font-size 16px
+            color $dp-title-color
+            text-transform none
+            font-family: 'HouschkaRoundedAlt-Bold';
+        }
+    }
+    
+    //begin prev-next
+    .datepickerGoPrev,
+    .datepickerGoNext{
+        vertical-align top
+        text-align center
+        border-radius $dp-cell-border-radius
+        
+        a{
+            position relative
+            display block
+            top 0
+            width $dp-cell-size
+            height $dp-cell-size
+            box-sizing border-box
+            margin 0
+            vertical-align top
+            border 1px solid $dp-gray
+            background-color $dp-prev-next-bg
+            
+            &:before{
+                display none
+            }
+            
+            &:hover{
+                background-color $dp-cell-active-bg
+                border-color $dp-cell-active-bg
+            }
+            
+            span{
+                position absolute
+                left 0
+                right 0
+                top 0
+                bottom 0
+                margin auto
+            }
+        }
+    }
+    .datepickerGoPrev{
+        a{
+            span{
+                @extend .icon-sprite-euroset-calendar-left-disabled;
+            }
+            &:hover{
+                span{
+                    @extend .icon-sprite-euroset-calendar-left;
+                }
+            }
+        }
+    }
+    .datepickerGoNext{
+        a{
+            span{
+                @extend .icon-sprite-euroset-calendar-right-disabled;
+            }
+            &:hover{
+                span{
+                    @extend .icon-sprite-euroset-calendar-right;
+                }
+            }
+        }
+    }
+    .calendar-0 .datepickerGoNext *, .calendar-1 .datepickerGoPrev *{
+        display: none;
+    }
+    //end prev-next
+    
+    .datepickerContainer{
+        position relative
+        padding 6px
+        height 276px
+        box-shadow none
+        border-radius 0 0 $border-radius-2 $border-radius-2
+    }
+    
+    .datepickerSpace{
+        padding-right 1px
+        div{
+            position absolute
+            top 0
+            height 288px
+            width 1px
+            background-color $dp-gray
+        }
+    }
+    
+    .dtpk-head{
+        border-bottom 1px solid $dp-head-border-color
+    }
+    
+    .datepickerViewDays{
+        td{
+            width $dp-cell-size
+            padding $dp-cell-padding
+        }
+    }
+    .datepickerDays{
+        a{
+            width $dp-cell-size
+            height $dp-cell-size
+            margin 0
+            box-sizing border-box
+            border 1px solid transparent
+            font-size $dp-cell-text-size
+            color $dp-cell-text-color !important
+            border-radius $dp-cell-border-radius
+            
+            span{
+                line-height $dp-cell-size
+            }
+            
+            &:hover{
+                color-datepicker-background-wl()
+            }
+        }
+    }
+    .datepickerSaturday,
+    .datepickerSunday{
+        a{
+            color $dp-cell-text-color-red !important
+        }
+        
+        &.datePicker-unavailable,
+        &.datepickerDisabled{
+            a{
+                color $dp-cell-text-color-red-disabled !important
+            }
+        }
+    }
+    
+    .datePicker-unavailable,
+    .datepickerDisabled{
+        a{
+            color $dp-cell-text-color-disabled !important
+        }
+    }
+    
+    .dtpk-checkbox{
+        border-color #3fa9f5
+        border-radius 0
+    }
+    .dtpk-checkbox-label input:checked + .dtpk-checkbox{
+        background-color #3fa9f5
+    }
+    .ui-datepicker td a.ui-state-active,
+    .ui-datepicker td a.ui-state-hover{
+        background-color #3fa9f5
+    }
+    .datepickerSelected-start a,
+    .datepickerSelected-end a{
+        color-datepicker-background-wl()
+        span{
+            line-height 16px
+            display inline-block
+            padding-right 2px
+        }
+    }
+    .datepickerSelected a{
+        color-datepicker-bg();
+    }
+    .datePicker-today a{
+        border-color: $dp-current-day-border-color;
+    }
+}
