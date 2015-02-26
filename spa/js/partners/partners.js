@@ -369,7 +369,22 @@
             'offertaContractLink': 'https://s.inna.ru/files/doc/offer_tourberi.pdf',
             'showOffers': true,
             'horizontalForm': false
-        }
+        },
+        {
+            'name': 'euroset',
+            'src': '/euroset/euroset.base.css',
+            'type': self.WLType.full,
+            'title': 'euroset',
+            'phone': '',
+            'email': '',
+            'skype': '',
+            'aboutLink': '',
+            'contactsLink': '',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_skycassa.pdf',
+            'horizontalForm': false,
+            'showOffers': false
+        },
+
     ];
 
     var maxClientHeight = 730;
