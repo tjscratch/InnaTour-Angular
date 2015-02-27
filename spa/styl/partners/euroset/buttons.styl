@@ -7,188 +7,168 @@ btn-orange(){
     font-family "Open Sans", Arial, sans-serif
 }
 .partner-wl{
-
-    .b-search-button{
-        position: relative;
-        overflow hidden
-        display inline-block
-        height 36px
-        width 105px
-        margin-top 0px
-        cursor: pointer;
-        background url("/spa/img/partners/euroset/btn.png") no-repeat 0 0
-
-        &:hover{
-            background-position 0 -41px
-        }
-    }
-
+    
     .balloon-button{
-        width 162px
         height 36px
+        width 160px
         line-height 36px
-        padding 0
         box-sizing border-box
-        background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -458px
-        text-indent 300px
-        overflow hidden
+        padding 0 10px
+        text-transform: uppercase;
+        font-size: 18px;
         border none
-
-        &:hover{
-            background-position 0 -499px
-        }
+        background-color $btn-bg-orange
+        font-family: 'HouschkaRoundedAlt-Bold';
+        color #333
+        box-shadow none
     }
-
+    
     .result-buy .button{
         left 10px
-        width 162px
+        bottom 15px
         height 36px
+        width 160px
         line-height 36px
-        padding 0
         box-sizing border-box
-        background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -82px
-        text-indent 300px
-        overflow hidden
-
-        &:hover{
-            background-position 0 -123px
-        }
+        padding 0 10px
+        text-transform: uppercase;
+        font-size: 18px;
+        border none
+        background-color $btn-bg
+        font-family: 'HouschkaRoundedAlt-Bold';
     }
-
-    .b-list-panel__hotels_list .button{
-        width 162px
-        height 36px
-        line-height 36px
-        padding 0
-        box-sizing border-box
-        background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -376px
-        text-indent 300px
-        overflow hidden
-
-        &:hover{
-            background-position 0 -417px
-        }
-    }
-
-    .btn.btn-green{
-        width 161px
-        height 36px
-        padding 0
-        text-indent -300px
-        overflow hidden
+    
+    .button-scroll-to-more{
+        background-color $btn-bg-orange
+        font-family: 'HouschkaRoundedAlt-Bold';
+        color #333
         box-shadow none
-        background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -82px
-
-        &:hover{
-            background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -123px
+    
+        .icon-arrow-bottom{
+            border-color: #333 transparent transparent;
+    
+            &:after{
+                border-color: $btn-bg-orange transparent transparent;
+            }
         }
     }
-
+    
+    .b-list-panel__hotels_list .button{
+        height 36px
+        width 160px
+        line-height 36px
+        box-sizing border-box
+        padding 0 10px
+        text-transform: uppercase;
+        font-size: 18px;
+        border none
+        background-color $btn-bg-orange
+        font-family: 'HouschkaRoundedAlt-Bold';
+        color #333
+    }
+    
+    .btn.btn-green{
+        height 36px
+        width 160px
+        line-height 36px
+        box-sizing border-box
+        padding 0 10px
+        text-transform: uppercase;
+        font-size: 18px;
+        border none
+        background-color $btn-bg-orange
+        font-family: 'HouschkaRoundedAlt-Bold';
+        color #333
+        box-shadow none
+    }
+    
     .hotel-details-rooms__room-price{
         padding-right 25px !important
     }
     .hotel-details-rooms__room-actions{
         width 161px
     }
-        
+    
     .rl-buy-button{
-        width 162px
         height 36px
+        width 160px
         line-height 36px
-        padding 0
         box-sizing border-box
-        background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -376px
-        text-indent 300px
-        overflow hidden
-
-        &:hover{
-            background-position 0 -417px
-        }
+        padding 0 10px
+        text-transform: uppercase;
+        font-size: 18px;
+        border none
+        background-color $btn-bg-orange
+        font-family: 'HouschkaRoundedAlt-Bold';
+        color #333
+        box-shadow none
     }
-
+    
     .hotel-details-rooms__room-actions .button{
         btx-button1();
     }
-
+    
     .b-tooltip-share__button.active{
         color-bg-share-wl();
     }
-
-    .b-sum-button{
+    
+    .b-sum-button{    
+        height 48px
         width 224px
-        height 48px
-        padding 0
-        border none 
-        background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -270px
-        text-indent -400px
-        font-size 0
-        overflow hidden
-        border-radius 0
-        
-        &:hover{
-            background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -323px
-        }
-    }
-
-    .b-pay-button{
-        width 188px
-        height 48px
-        padding 0
+        line-height 48px
+        box-sizing border-box
+        padding 0 10px
+        text-transform: uppercase;
+        font-size: 18px;
         border none
-        background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -164px
-        text-indent -400px
-        font-size 0
-        overflow hidden
-        border-radius 0
-
-        &:hover{
-            background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -217px
-        }
+        background-color $btn-bg-orange
+        font-family: 'HouschkaRoundedAlt-Bold';
+        color #333
+        box-shadow none
     }
-
-    .wl-container{
-        .button{
-            padding: 4px 16px;
-            width: 140px;
-            text-align: center;
-            btx-button-color1();
-
-            &.wl-search{
-                display inline-block
-                height 36px
-                width 161px
-                margin: 6px 10px 0px 0px;
-                padding 0
-                text-transform: uppercase;
-                position: absolute;
-                right: 0px;
-                font-size: 14px;
-                border none
-                background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -458px
-                text-indent -400px
-                font-size 0
-                overflow hidden
-
-                &:hover{
-                    background-position 0 -499px
-                }
-            }
-        }
+    
+    .b-pay-button{
+        height 48px
+        width 188px
+        line-height 48px
+        box-sizing border-box
+        padding 0 10px
+        text-transform: uppercase;
+        font-size: 18px;
+        border none
+        background-color $btn-bg-orange
+        font-family: 'HouschkaRoundedAlt-Bold';
+        color #333
+        box-shadow none
     }
-
-    .pin .pin-balloon .button{
-        width 161px
+    
+    .wl-search{
+        display inline-block
         height 36px
         line-height 36px
-        padding 0
         box-sizing border-box
-        background url("/spa/img/partners/euroset/btn.png") no-repeat 0 -376px
-        text-indent 300px
-        overflow hidden
-
-        &:hover{
-            background-position 0 -417px
-        }
+        margin: 6px 10px 0px 0px;
+        padding 0 10px
+        text-transform: uppercase;
+        position: absolute;
+        right: 0px;
+        font-size: 18px;
+        border none
+        background-color $btn-bg
+        font-family: 'HouschkaRoundedAlt-Bold';
     }
-
+}
+.pin .pin-balloon .button{
+    height 36px
+    width 160px
+    line-height 36px
+    box-sizing border-box
+    padding 0 10px
+    text-transform: uppercase;
+    font-size: 18px;
+    border none
+    background-color $btn-bg-orange
+    font-family: 'HouschkaRoundedAlt-Bold';
+    color #333
+    box-shadow none
 }
