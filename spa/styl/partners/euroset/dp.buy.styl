@@ -2,56 +2,71 @@
     .reserve-form{
         padding-top: 20px;
     }
-
+    
     .buy-form{
         padding-top: 20px;
     }
-
+    
     .buy__header .buy__title{
     }
-
+    
     .b__rules-flies .current{
-        background: #61a8e1;
+        background: $blue;
     }
-
+    
     .b-agreement{
         .b-checkbox{
-            border-color #777893
-            border-radius 0
+            background-color $checkbox-bg
+            border-color $checkbox-border
+            border-radius $border-radius-3
         }
-
+        
         input:checked + .b-checkbox{
-            background-color #777893
+            background-color $checkbox-bg-checked
+            border-color $checkbox-border-checked
+            background-image none
+            
+            &:before{
+                content ''
+                position absolute
+                @extend .icon-sprite-euroset-checkbox
+                left 0
+                right 0
+                top 0
+                bottom 0
+                margin auto
+            }
         }
     }
-
+    
     .buy__blocks{
         .radio-list input:checked + .radio{
-            background-color #fc6421
-            color #fff
+            background-color $orange
+            color $dark
+            font-weight bold
         }
     }
-
+    
     .b-sum-container{
         background: transparent;
         border-bottom: 1px solid transparent;
     }
-
+    
     .b-tickets-info-container{
-        border-top: 4px solid #61a8e1;
+        border-top: 4px solid $blue
         border-bottom: 1px solid #fff;
         background: #fff;
-
+        
         &:before{
             border-top: 1px solid #fff;
         }
     }
-
+    
     .page-root{
         padding-top: 5px;
     }
-
+    
     .buy__result-sum{
-        border-bottom: 5px solid #61a8e1;
+        border-bottom: 5px solid $blue;
     }
 }

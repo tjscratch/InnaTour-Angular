@@ -17,6 +17,7 @@ $blue = #00b8ee;
 $gray = #eeeeee;
 $dark = #212121;
 $btn-bg = $blue;
+$btn-bg-orange = $orange
 $bg-color = $white;
 $autocomplete-border-color = $blue;
 $autocomplete-selected-bg = #e4e4dd;
@@ -25,16 +26,27 @@ $people-selector-btn-bg-selected = $orange;
 $people-selector-btn-color-selected = $dark;
 $class-selector = $orange;
 
+$border-color = $blue
 $btn-color = #fff;
 $light-blue = #a3b4c0;
 $border-radius = 10px;
 $border-radius-2 = 5px;
+$border-radius-3 = 3px;
 $error-tooltip-bg-1 = #fd5055;
 $error-tooltip-bg-2 = #e00708;
 $error-tooltip-bg-3 = #e71b1d;
 $error-tooltip-color = #fff;
 $form-input-error-border-color = #fb8d8c;
 $form-input-error-bg = #fee8e8;
+
+// filters
+$checkbox-border = #a3b4c0;
+$checkbox-bg = #fff;
+$checkbox-border-checked = $orange;
+$checkbox-bg-checked = $orange;
+$checkbox-color-checked = $dark;
+$slider-color = $orange;
+$slider-color-2 = #a3b4c0;
 
 // form size
 $form-width = 320px;
@@ -64,14 +76,14 @@ $dp-prev-next-bg = transparent;
 @import "../euroset/colors.styl"
 @import "../euroset/index.styl"
 @import "../full_wl/controls.styl"
-@import "../full_wl/buttons.styl"
+@import "../euroset/buttons.styl"
 @import "../euroset/form.styl"
 @import "../euroset/datepicker.styl"
 @import "../euroset/font.styl"
 @import "../full_wl/avia.styl"
-@import "../full_wl/dp.search.result.styl"
+@import "../euroset/dp.search.result.styl"
 @import "../full_wl/dp.hotel.details.styl"
-@import "../full_wl/dp.buy.styl"
+@import "../euroset/dp.buy.styl"
 @import "../full_wl/map.styl"
 @import "../full_wl/gallery.styl"
 
@@ -93,14 +105,7 @@ $dp-prev-next-bg = transparent;
     }
     .spinner{
         .rect{
-            background #FC6421
-        }
-    }
-    .search__list{
-        .current{
-            .fa-check{
-                color #777893
-            }
+            background $blue
         }
     }
 }
