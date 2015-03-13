@@ -124,8 +124,7 @@ var innaModule = {
 
 innaModule.host = '@@partnersHost';
 
-
-//innaModule.host = 'http://192.168.105.46';
+//innaModule.host = 'http://lh.euroset.inna.ru';
 
 function FrameManager() {
     var self = this;
