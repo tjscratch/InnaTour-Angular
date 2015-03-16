@@ -1,0 +1,492 @@
+.new-icon,
+.icon-sprite-airplane,
+.icon-sprite-arrow-bottom,
+.icon-sprite-arrow-top,
+.icon-sprite-b2b-error-hotel,
+.icon-sprite-baloon-time,
+.icon-sprite-calendar-active,
+.icon-sprite-calendar,
+.icon-sprite-chain-black,
+.icon-sprite-chain-white,
+.icon-sprite-close_big_white,
+.icon-sprite-corner-bot-hover,
+.icon-sprite-corner-bot,
+.icon-sprite-corner-top-hover,
+.icon-sprite-corner-top,
+.icon-sprite-crown,
+.icon-sprite-extra-bus,
+.icon-sprite-extra-fitness,
+.icon-sprite-extra-food,
+.icon-sprite-extra-insured,
+.icon-sprite-extra-internet,
+.icon-sprite-extra-kids,
+.icon-sprite-extra-kitchen,
+.icon-sprite-extra-lobby,
+.icon-sprite-extra-parking,
+.icon-sprite-extra-pool,
+.icon-sprite-extra-ski,
+.icon-sprite-extra-spa,
+.icon-sprite-header-help-hover,
+.icon-sprite-header-help,
+.icon-sprite-header-user,
+.icon-sprite-hotel,
+.icon-sprite-key-icon,
+.icon-sprite-letter,
+.icon-sprite-price-info-white,
+.icon-sprite-price-info,
+.icon-sprite-remove-big,
+.icon-sprite-remove-blue,
+.icon-sprite-remove,
+.icon-sprite-search,
+.icon-sprite-star,
+.icon-sprite-switch-list2,
+.icon-sprite-switch-map-left-gray,
+.icon-sprite-switch-map-left,
+.icon-sprite-switch-map-right-white,
+.icon-sprite-switch-map-right,
+.icon-sprite-switch-map2,
+.icon-sprite-tripadvisor-empty,
+.icon-sprite-tripadvisor-half,
+.icon-sprite-tripadvisor-like,
+.icon-sprite-tripadvisor-white,
+.icon-sprite-tripadvisor {
+  background-image: url("/spa/img/sprites/icon-d0668.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.icon-sprite-airplane {
+  width: 21px;
+  height: 18px;
+  background-position: 0px 0px;
+}
+.icon-sprite-arrow-bottom {
+  width: 14px;
+  height: 9px;
+  background-position: 0px -20px;
+}
+.icon-sprite-arrow-top {
+  width: 14px;
+  height: 9px;
+  background-position: 0px -31px;
+}
+.icon-sprite-b2b-error-hotel {
+  width: 18px;
+  height: 17px;
+  background-position: 0px -42px;
+}
+.icon-sprite-baloon-time {
+  width: 42px;
+  height: 42px;
+  background-position: 0px -61px;
+}
+.icon-sprite-calendar-active {
+  width: 17px;
+  height: 16px;
+  background-position: 0px -105px;
+}
+.icon-sprite-calendar {
+  width: 17px;
+  height: 16px;
+  background-position: 0px -123px;
+}
+.icon-sprite-chain-black {
+  width: 17px;
+  height: 17px;
+  background-position: 0px -141px;
+}
+.icon-sprite-chain-white {
+  width: 17px;
+  height: 17px;
+  background-position: 0px -160px;
+}
+.icon-sprite-close_big_white {
+  width: 31px;
+  height: 31px;
+  background-position: 0px -179px;
+}
+.icon-sprite-corner-bot-hover {
+  width: 10px;
+  height: 11px;
+  background-position: 0px -212px;
+}
+.icon-sprite-corner-bot {
+  width: 10px;
+  height: 11px;
+  background-position: 0px -225px;
+}
+.icon-sprite-corner-top-hover {
+  width: 10px;
+  height: 5px;
+  background-position: 0px -238px;
+}
+.icon-sprite-corner-top {
+  width: 10px;
+  height: 5px;
+  background-position: 0px -245px;
+}
+.icon-sprite-crown {
+  width: 21px;
+  height: 14px;
+  background-position: 0px -252px;
+}
+.icon-sprite-extra-bus {
+  width: 24px;
+  height: 13px;
+  background-position: 0px -268px;
+}
+.icon-sprite-extra-fitness {
+  width: 18px;
+  height: 11px;
+  background-position: 0px -283px;
+}
+.icon-sprite-extra-food {
+  width: 13px;
+  height: 16px;
+  background-position: 0px -296px;
+}
+.icon-sprite-extra-insured {
+  width: 16px;
+  height: 19px;
+  background-position: 0px -314px;
+}
+.icon-sprite-extra-internet {
+  width: 16px;
+  height: 13px;
+  background-position: 0px -335px;
+}
+.icon-sprite-extra-kids {
+  width: 19px;
+  height: 15px;
+  background-position: 0px -350px;
+}
+.icon-sprite-extra-kitchen {
+  width: 23px;
+  height: 15px;
+  background-position: 0px -367px;
+}
+.icon-sprite-extra-lobby {
+  width: 12px;
+  height: 17px;
+  background-position: 0px -384px;
+}
+.icon-sprite-extra-parking {
+  width: 18px;
+  height: 16px;
+  background-position: 0px -403px;
+}
+.icon-sprite-extra-pool {
+  width: 18px;
+  height: 15px;
+  background-position: 0px -421px;
+}
+.icon-sprite-extra-ski {
+  width: 20px;
+  height: 16px;
+  background-position: 0px -438px;
+}
+.icon-sprite-extra-spa {
+  width: 18px;
+  height: 15px;
+  background-position: 0px -456px;
+}
+.icon-sprite-header-help-hover {
+  width: 7px;
+  height: 14px;
+  background-position: 0px -473px;
+}
+.icon-sprite-header-help {
+  width: 7px;
+  height: 14px;
+  background-position: 0px -489px;
+}
+.icon-sprite-header-user {
+  width: 15px;
+  height: 14px;
+  background-position: 0px -505px;
+}
+.icon-sprite-hotel {
+  width: 16px;
+  height: 16px;
+  background-position: 0px -521px;
+}
+.icon-sprite-key-icon {
+  width: 22px;
+  height: 10px;
+  background-position: 0px -539px;
+}
+.icon-sprite-letter {
+  width: 16px;
+  height: 10px;
+  background-position: 0px -551px;
+}
+.icon-sprite-price-info-white {
+  width: 17px;
+  height: 18px;
+  background-position: 0px -563px;
+}
+.icon-sprite-price-info {
+  width: 17px;
+  height: 18px;
+  background-position: 0px -583px;
+}
+.icon-sprite-remove-big {
+  width: 10px;
+  height: 10px;
+  background-position: 0px -603px;
+}
+.icon-sprite-remove-blue {
+  width: 10px;
+  height: 10px;
+  background-position: 0px -615px;
+}
+.icon-sprite-remove {
+  width: 9px;
+  height: 10px;
+  background-position: 0px -627px;
+}
+.icon-sprite-search {
+  width: 31px;
+  height: 30px;
+  background-position: 0px -639px;
+}
+.icon-sprite-star {
+  width: 11px;
+  height: 10px;
+  background-position: 0px -671px;
+}
+.icon-sprite-switch-list2 {
+  width: 16px;
+  height: 13px;
+  background-position: 0px -683px;
+}
+.icon-sprite-switch-map-left-gray {
+  width: 16px;
+  height: 13px;
+  background-position: 0px -698px;
+}
+.icon-sprite-switch-map-left {
+  width: 16px;
+  height: 13px;
+  background-position: 0px -713px;
+}
+.icon-sprite-switch-map-right-white {
+  width: 14px;
+  height: 17px;
+  background-position: 0px -728px;
+}
+.icon-sprite-switch-map-right {
+  width: 14px;
+  height: 17px;
+  background-position: 0px -747px;
+}
+.icon-sprite-switch-map2 {
+  width: 13px;
+  height: 17px;
+  background-position: 0px -766px;
+}
+.icon-sprite-tripadvisor-empty {
+  width: 14px;
+  height: 14px;
+  background-position: 0px -785px;
+}
+.icon-sprite-tripadvisor-half {
+  width: 14px;
+  height: 14px;
+  background-position: 0px -801px;
+}
+.icon-sprite-tripadvisor-like {
+  width: 14px;
+  height: 14px;
+  background-position: 0px -817px;
+}
+.icon-sprite-tripadvisor-white {
+  width: 110px;
+  height: 19px;
+  background-position: 0px -833px;
+}
+.icon-sprite-tripadvisor {
+  width: 27px;
+  height: 16px;
+  background-position: 0px -854px;
+}
+.new-icon-euroset,
+.icon-sprite-euroset-arrow,
+.icon-sprite-euroset-calendar-left-disabled,
+.icon-sprite-euroset-calendar-left,
+.icon-sprite-euroset-calendar-right-disabled,
+.icon-sprite-euroset-calendar-right,
+.icon-sprite-euroset-calendar,
+.icon-sprite-euroset-checkbox {
+  background-image: url("/spa/img/sprites/icon-euroset-a04dd.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.icon-sprite-euroset-arrow {
+  width: 8px;
+  height: 4px;
+  background-position: 0px 0px;
+}
+.icon-sprite-euroset-calendar-left-disabled {
+  width: 6px;
+  height: 12px;
+  background-position: 0px -6px;
+}
+.icon-sprite-euroset-calendar-left {
+  width: 6px;
+  height: 12px;
+  background-position: 0px -20px;
+}
+.icon-sprite-euroset-calendar-right-disabled {
+  width: 6px;
+  height: 12px;
+  background-position: 0px -34px;
+}
+.icon-sprite-euroset-calendar-right {
+  width: 6px;
+  height: 12px;
+  background-position: 0px -48px;
+}
+.icon-sprite-euroset-calendar {
+  width: 17px;
+  height: 15px;
+  background-position: 0px -62px;
+}
+.icon-sprite-euroset-checkbox {
+  width: 13px;
+  height: 11px;
+  background-position: 0px -79px;
+}
+.new-icon-menu,
+.icon-sprite-description-active,
+.icon-sprite-description,
+.icon-sprite-map-active,
+.icon-sprite-map,
+.icon-sprite-reviews-active,
+.icon-sprite-reviews,
+.icon-sprite-room-active,
+.icon-sprite-room,
+.icon-sprite-services-active,
+.icon-sprite-services {
+  background-image: url("/spa/img/sprites/icon-menu-2e5ae.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.icon-sprite-description-active {
+  width: 20px;
+  height: 21px;
+  background-position: 0px 0px;
+}
+.icon-sprite-description {
+  width: 20px;
+  height: 21px;
+  background-position: 0px -23px;
+}
+.icon-sprite-map-active {
+  width: 19px;
+  height: 21px;
+  background-position: 0px -46px;
+}
+.icon-sprite-map {
+  width: 19px;
+  height: 20px;
+  background-position: 0px -69px;
+}
+.icon-sprite-reviews-active {
+  width: 22px;
+  height: 21px;
+  background-position: 0px -91px;
+}
+.icon-sprite-reviews {
+  width: 22px;
+  height: 21px;
+  background-position: 0px -114px;
+}
+.icon-sprite-room-active {
+  width: 20px;
+  height: 21px;
+  background-position: 0px -137px;
+}
+.icon-sprite-room {
+  width: 20px;
+  height: 21px;
+  background-position: 0px -160px;
+}
+.icon-sprite-services-active {
+  width: 21px;
+  height: 21px;
+  background-position: 0px -183px;
+}
+.icon-sprite-services {
+  width: 21px;
+  height: 21px;
+  background-position: 0px -206px;
+}
+.font-small {
+  font-size: 0.75em;
+}
+.font-medium {
+  font-size: 0.9em;
+}
+.font-large {
+  font-size: 1.1em;
+}
+.font-big {
+  font-size: 1.5em;
+}
+@font-face {
+  font-family: ProximaNova;
+  font-weight: normal;
+  font-style: normal;
+  src: url("/spa/fonts/proximanova-reg-webfont.eot?") format('eot'), url("/spa/fonts/proximanova-reg-webfont.woff") format('woff'), url("/spa/fonts/proximanova-reg-webfont.ttf") format('truetype'), url("/spa/fonts/proximanova-reg-webfont.svg#svgFontName") format('svg');
+}
+@font-face {
+  font-family: ProximaNova;
+  font-weight: bold;
+  font-style: normal;
+  src: url("/spa/fonts/proximanova-bold-webfont.eot?") format('eot'), url("/spa/fonts/proximanova-bold-webfont.woff") format('woff'), url("/spa/fonts/proximanova-bold-webfont.ttf") format('truetype'), url("/spa/fonts/proximanova-bold-webfont.svg#svgFontName") format('svg');
+}
+@font-face {
+  font-family: 'ALSRubl-Arial';
+  font-weight: normal;
+  font-style: normal;
+  src: url("/spa/fonts/alsrubl-arial-regular.eot");
+  src: url("/spa/fonts/alsrubl-arial-regular.eot?#iefix") format('embedded-opentype'), url("/spa/fonts/alsrubl-arial-regular.woff") format('woff'), url("/spa/fonts/alsrubl-arial-regular.ttf") format('truetype'), url("/spa/fonts/alsrubl-arial-regular.svg#ALSRublArialRegular") format('svg');
+}
+@font-face {
+  font-family: 'ALSRubl-Arial';
+  font-weight: bold;
+  font-style: normal;
+  src: url("/spa/fonts/alsrubl-arial-bold.eot");
+  src: url("/spa/fonts/alsrubl-arial-bold.eot?#iefix") format('embedded-opentype'), url("/spa/fonts/alsrubl-arial-bold.woff") format('woff'), url("/spa/fonts/alsrubl-arial-bold.ttf") format('truetype'), url("/spa/fonts/alsrubl-arial-bold.svg#ALSRublArialRegular") format('svg');
+}
+@font-face {
+  font-family: Rouble;
+  src: url("/spa/fonts/rouble.eot?") format('eot'), url("/spa/fonts/rouble.woff") format('woff'), url("/spa/fonts/rouble.ttf") format('truetype'), url("/spa/fonts/rouble.svg#ALSRubl") format('svg');
+}
+@font-face {
+  font-family: 'ProximaNovaLight';
+  font-weight: normal;
+  font-style: normal;
+  src: url("/spa/fonts/proximanova-light-webfont.eot?") format('eot'), url("/spa/fonts/proximanova-light-webfont.woff") format('woff'), url("/spa/fonts/proximanova-light-webfont.ttf") format('truetype'), url("/spa/fonts/proximanova-light-webfont.svg#svgFontName") format('svg');
+}
+@font-face {
+  font-family: 'HouschkaRoundedAlt-Medium';
+  src: url("/spa/img/partners/euroset/HouschkaRoundedAlt-Medium.eot?#iefix") format('embedded-opentype'), url("/spa/img/partners/euroset/HouschkaRoundedAlt-Medium.otf") format('opentype'), url("/spa/img/partners/euroset/HouschkaRoundedAlt-Medium.woff") format('woff'), url("/spa/img/partners/euroset/HouschkaRoundedAlt-Medium.ttf") format('truetype'), url("/spa/img/partners/euroset/HouschkaRoundedAlt-Medium.svg#HouschkaRoundedAlt-Medium") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'HouschkaRoundedAlt-Bold';
+  src: url("/spa/img/partners/euroset/HouschkaRoundedAlt-Bold.eot?#iefix") format('embedded-opentype'), url("/spa/img/partners/euroset/HouschkaRoundedAlt-Bold.otf") format('opentype'), url("/spa/img/partners/euroset/HouschkaRoundedAlt-Bold.woff") format('woff'), url("/spa/img/partners/euroset/HouschkaRoundedAlt-Bold.ttf") format('truetype'), url("/spa/img/partners/euroset/HouschkaRoundedAlt-Bold.svg#HouschkaRoundedAlt-Bold") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: 'HouschkaRoundedAlt-Medium', ProximaNova, Arial, sans-serif;
+}
+.logo_text {
+  font-family: 'HouschkaRoundedAlt-Medium', ProximaNova, Arial, sans-serif;
+}
+.info-bar .navbar .nav > li > a {
+  font: 16px/48px "HouschkaRoundedAlt-Bold";
+}

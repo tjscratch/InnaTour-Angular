@@ -84,6 +84,14 @@ gulp.task('styl-partners', function () {
         .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 
+gulp.task('styl-partners-euroset', function () {
+    optStyl.import = styleBase;
+    return gulp.src([conf.styl + '/partners/euroset/page.styl'])
+        .pipe(stylus(optStyl))
+        .pipe(gulp.dest('./spa/html/euroset/'))
+        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
+});
+
 
 /* ADV */
 gulp.task('styl-adv', function () {
@@ -102,5 +110,6 @@ gulp.task('styles', [
     'styl-ie',
     'styl-print',
     'styl-partners',
+    'styl-partners-euroset',
     'styl-adv'
 ]);
