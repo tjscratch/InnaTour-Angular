@@ -69,18 +69,18 @@ var innaModule = {
             })();
         }
         else if (partner == 'ulixes') {
-            (function documentWidthFixForUlixes() {
-                var el = document.querySelector(".page");
-                if (el) {
-                    el.style.width = '955px';
-                }
-
-                el = document.querySelector(".h-card");
-                if (el) {
-                    el.style.paddingLeft = '0px';
-                    el.style.paddingRight = '0px';
-                }
-            })();
+            //(function documentWidthFixForUlixes() {
+            //    var el = document.querySelector(".page");
+            //    if (el) {
+            //        el.style.width = '955px';
+            //    }
+            //
+            //    el = document.querySelector(".h-card");
+            //    if (el) {
+            //        el.style.paddingLeft = '0px';
+            //        el.style.paddingRight = '0px';
+            //    }
+            //})();
         }
 
         function processHashParams(url) {
@@ -124,8 +124,7 @@ var innaModule = {
 
 innaModule.host = '@@partnersHost';
 
-
-//innaModule.host = 'http://192.168.105.46';
+//innaModule.host = 'http://lh.euroset.inna.ru';
 
 function FrameManager() {
     var self = this;

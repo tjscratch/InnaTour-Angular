@@ -80,10 +80,10 @@
                 <span ng-repeat="list in Hotel.Room.BedTypeList track by $index">
                     <!-- вывод точки или запятой -->
                     <span ng-if="!$last">
-                       {{Name}}<span>,&nbsp;</span>
+                       {{list.Name}}<span>,&nbsp;</span>
                     </span>
                     <span ng-if="$last">
-                       {{Name}}.
+                       {{list.Name}}.
                     </span>
                 </span>
 		</div>

@@ -24,7 +24,7 @@ $dp-title-color = #65a7c0
 @import "../svyaznoy/dp.search.result.styl"
 @import "../full_wl/dp.hotel.details.styl"
 @import "../svyaznoy/dp.buy.styl"
-@import "../full_wl/map.styl"
+@import "../svyaznoy/map.styl"
 @import "../full_wl/gallery.styl"
 
 .partner-wl{
@@ -38,7 +38,7 @@ $dp-title-color = #65a7c0
         margin-top 0
         padding 0
         border 1px solid $dark-blue
-
+        
         .search-autocomplete-block{
             &:hover,
             &.selected{
@@ -48,27 +48,27 @@ $dp-title-color = #65a7c0
     }
     .offers-container{
         padding-top 13px
-
+        
         .landing-title{
             display none
         }
     }
-
+    
     .datepicker-body{
         z-index 1001
         margin-top 5px
         border 2px solid $light-blue3
         border-radius 6px
-
+        
         .dp-head-cont{
             border none
             box-shadow none
             border-radius 6px 6px 0 0
-
+            
             .dtpk-head{
                 /*border none*/
             }
-
+            
             .dtpk-caption{
                 font-size 14px
                 text-transform none
@@ -90,7 +90,7 @@ $dp-title-color = #65a7c0
             width 24px
             height 24px
             vertical-align top
-
+            
             &:before{
                 display none
             }
@@ -98,7 +98,7 @@ $dp-title-color = #65a7c0
         .datepickerGoPrev{
             vertical-align top
             text-align center
-
+            
             a{
                 background url("/spa/img/partners/svyaznoy/calendar-left.png") no-repeat 0 0
             }
@@ -111,7 +111,7 @@ $dp-title-color = #65a7c0
         .datepickerGoNext{
             vertical-align top
             text-align center
-
+            
             a{
                 background url("/spa/img/partners/svyaznoy/calendar-right.png") no-repeat 0 0
             }
@@ -125,7 +125,7 @@ $dp-title-color = #65a7c0
             display: none;
         }
     }
-
+    
     .search-form-dialog-row{
         .button-group{
             .button{
@@ -133,7 +133,7 @@ $dp-title-color = #65a7c0
                 width 28px
                 border 1px solid #afc0cd
                 background-color #fff
-
+                
                 &.active{
                     background #FC6421
                     border-color #FC6421
@@ -145,8 +145,12 @@ $dp-title-color = #65a7c0
         background-color $light-orange
     }
     .spinner{
+        height 85px
+        background url("/spa/img/partners/svyaznoy/ball_85x85-cikl.gif") no-repeat center center
+        
         .rect{
-            background #FC6421
+            display none
+            /*background #FC6421*/
         }
     }
     .search__list{
@@ -158,5 +162,8 @@ $dp-title-color = #65a7c0
     }
     .gallery__list{
         
+    }
+    .filters__body.filters__body_dp{
+        bottom -39px
     }
 }

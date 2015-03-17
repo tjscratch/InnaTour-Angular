@@ -1,0 +1,72 @@
+.partner-wl{
+    .reserve-form{
+        padding-top: 20px;
+    }
+    
+    .buy-form{
+        padding-top: 20px;
+    }
+    
+    .buy__header .buy__title{
+    }
+    
+    .b__rules-flies .current{
+        background: $blue;
+    }
+    
+    .b-agreement{
+        .b-checkbox{
+            background-color $checkbox-bg
+            border-color $checkbox-border
+            border-radius $border-radius-3
+        }
+        
+        input:checked + .b-checkbox{
+            background-color $checkbox-bg-checked
+            border-color $checkbox-border-checked
+            background-image none
+            
+            &:before{
+                content ''
+                position absolute
+                @extend .icon-sprite-euroset-checkbox
+                left 0
+                right 0
+                top 0
+                bottom 0
+                margin auto
+            }
+        }
+    }
+    
+    .buy__blocks{
+        .radio-list input:checked + .radio{
+            background-color $orange
+            color $dark
+            font-weight bold
+        }
+    }
+    
+    .b-sum-container{
+        background: transparent;
+        border-bottom: 1px solid transparent;
+    }
+    
+    .b-tickets-info-container{
+        border-top: 4px solid $blue
+        border-bottom: 1px solid #fff;
+        background: #fff;
+        
+        &:before{
+            border-top: 1px solid #fff;
+        }
+    }
+    
+    .page-root{
+        padding-top: 5px;
+    }
+    
+    .buy__result-sum{
+        border-bottom: 5px solid $blue;
+    }
+}

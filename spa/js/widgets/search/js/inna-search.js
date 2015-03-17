@@ -10,8 +10,7 @@
      */
     (function (e, t) {
         typeof module != "undefined" && module.exports ? module.exports = t() : typeof define == "function" && define.amd ? define(t) : this[e] = t()
-    })("$script", function () 
-    {
+    })("$script", function () {
         function p(e, t) {
             for (var n = 0, i = e.length; n < i; ++n)if (!t(e[n]))return r;
             return 1
@@ -86,7 +85,7 @@
      * @type {string}
      */
 
-    var host = '//inna.ru';
+    var host = 'https://inna.ru';
     var widget = document.querySelector(".b-inna-search-widget");
     var sources = {
         'css': host + '/spa/js/widgets/search/build/inna-search-widget.css',
@@ -113,13 +112,15 @@
         .ready('jquery', function () {
         })
         .ready('app', function () {
-            setTimeout(bootstrap(), 200);
+            setTimeout(function () {
+                bootstrap()
+            }, 350);
         })
-    
-    if(!window.$ || !window.jQuery){
-        $script(sources.jquery, 'jquery');
-    }
-    
+
+    //if (!window.$ || !window.jQuery) {
+    $script(sources.jquery, 'jquery');
+    //}
+
     $script(sources.app, 'app');
 
     function bootstrap() {

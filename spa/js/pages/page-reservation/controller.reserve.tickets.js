@@ -162,6 +162,7 @@ innaAppControllers.
                         item.isInvalid = !item.isValid;
                     }
 
+                    var firstErrorPass = null;
                     for (var i = 0; i < $scope.validationModel.passengers.length; i++) {
                         var pas = $scope.validationModel.passengers[i];
 
@@ -214,11 +215,20 @@ innaAppControllers.
                                 }
                             }
                         }
+
+                        //запоминаем первого неправильного пассажира
+                        if (availableAdultCount < 0 || availableChildCount < 0 || availableInfantsCount < 0) {
+                            if (!firstErrorPass){
+                                firstErrorPass = pas;
+                            }
+                        }
                     }
 
                     //console.log('a: %d, c: %d, i: %d', availableAdultCount, availableChildCount, availableInfantsCount);
                     if (availableAdultCount < 0 || availableChildCount < 0 || availableInfantsCount < 0) {
-                        setNotValid(pas.birthday);
+                        if (firstErrorPass) {
+                            setNotValid(firstErrorPass.birthday);
+                        }
                         updateBirthTooltip({
                             adultsCount: availableAdultCount,
                             childsCount: availableChildCount,
@@ -388,39 +398,42 @@ innaAppControllers.
 
                                     Validators.birthdate(item.value, 'err');
 
-                                    item.isChildAgeFind = false;
+                                    //item.isChildAgeFind = false;
 
 
                                     var peopleType = getPeopleType(item.value);
                                     var fromDate = dateHelper.dateToJsDate($scope.fromDate);
                                     var bdate = dateHelper.dateToJsDate(item.value);
                                     var age = parseInt(dateHelper.calculateAge(bdate, fromDate));
+                                    //console.log('bdate:', bdate, 'age:', age);
 
-
-                                    function childAgeFind(){
-                                        var result = $scope.validationModel.passengers.filter(function(passenger, i){
-                                            if(i != item.$index) {
-                                                return passenger['birthday'] && (passenger['birthday'].isChildAgeFind == age);
-                                            }
-                                        })
-                                        return result;
-                                    }
-
-
-                                    if (peopleType == 'child' && ($scope.Child && $scope.Child.length)) {
-
-                                        var result = $scope.Child.filter(function (child) {
-                                            return (parseInt(child) == age);
-                                        });
-
-
-                                        if (!result.length || childAgeFind().length) {
-                                            throw new Error('err');
-                                        } else {
-                                            item.isChildAgeFind = parseInt(result[0]);
-                                        }
-
-                                    }
+                                    //этот кал больше не нужен
+                                    //function childAgeFind(){
+                                    //    var result = $scope.validationModel.passengers.filter(function(passenger, i){
+                                    //        if(i != item.$index) {
+                                    //            return passenger['birthday'] && (passenger['birthday'].isChildAgeFind == age);
+                                    //        }
+                                    //    })
+                                    //    return result;
+                                    //}
+                                    //
+                                    //
+                                    //if (peopleType == 'child' && ($scope.Child && $scope.Child.length)) {
+                                    //
+                                    //    var result = $scope.Child.filter(function (child) {
+                                    //        return (parseInt(child) == age);
+                                    //    });
+                                    //
+                                    //
+                                    //    if (!result.length || childAgeFind().length) {
+                                    //        //ToDo: разобраться что тут за херня
+                                    //        //а именно в childAgeFind
+                                    //        throw new Error('err');
+                                    //    } else {
+                                    //        item.isChildAgeFind = parseInt(result[0]);
+                                    //    }
+                                    //
+                                    //}
                                 });
                                 break;
                             }

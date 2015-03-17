@@ -1,0 +1,111 @@
+//VARS
+$light-blue = #eef1f3
+$gray = #757575
+$light-gray = #f7f7f7
+$light-blue2 = #afc0cd
+$light-blue3 = #c8dee8
+$dark-blue = #777893
+
+$light-orange = #fff0d5
+
+$border-radius ?= 10px
+
+// colors
+$white = #fff
+$orange = #ffe906
+$blue = #00b8ee;
+$gray = #eeeeee;
+$dark = #212121;
+$btn-bg = $blue;
+$btn-bg-orange = $orange
+$bg-color = $white;
+$autocomplete-border-color = $blue;
+$autocomplete-selected-bg = #e4e4dd;
+$people-selector-btn-bg = $white;
+$people-selector-btn-bg-selected = $orange;
+$people-selector-btn-color-selected = $dark;
+$class-selector = $orange;
+
+$border-color = $blue
+$btn-color = #fff;
+$light-blue = #a3b4c0;
+$border-radius = 10px;
+$border-radius-2 = 5px;
+$border-radius-3 = 3px;
+$error-tooltip-bg-1 = #fd5055;
+$error-tooltip-bg-2 = #e00708;
+$error-tooltip-bg-3 = #e71b1d;
+$error-tooltip-color = #fff;
+$form-input-error-border-color = #fb8d8c;
+$form-input-error-bg = #fee8e8;
+
+// filters
+$checkbox-border = #a3b4c0;
+$checkbox-bg = #fff;
+$checkbox-border-checked = $orange;
+$checkbox-bg-checked = $orange;
+$checkbox-color-checked = $dark;
+$slider-color = $orange;
+$slider-color-2 = #a3b4c0;
+
+// form size
+$form-width = 320px;
+$form-input-offset = 10px;
+$form-input-height = 30px;
+$form-input-border-radius = $border-radius-2;
+
+// datepicker
+$dp-cell-size = 35px;
+$dp-cell-padding = 1px;
+$dp-cell-border-radius = 1px;
+$dp-cell-text-size = 16px;
+$dp-title-color = $dark;
+$dp-cell-text-color = $dark;
+$dp-cell-text-color-red = #d74116;
+$dp-cell-text-color-disabled = #bdbdbd;
+$dp-cell-text-color-red-disabled = #efb3a2;
+$dp-cell-active-bg = $blue;
+$dp-current-day-border-color = $light-blue;
+$dp-head-border-color = $light-blue;
+$dp-gray = #e0e0e0;
+$dp-prev-next-bg = transparent;
+
+@import "../euroset/colors.styl"
+@import "../euroset/index.styl"
+@import "../full_wl/controls.styl"
+@import "../euroset/buttons.styl"
+@import "../euroset/form.styl"
+@import "../euroset/datepicker.styl"
+@import "../euroset/font.styl"
+@import "../full_wl/avia.styl"
+@import "../euroset/dp.search.result.styl"
+@import "../full_wl/dp.hotel.details.styl"
+@import "../euroset/dp.buy.styl"
+@import "../full_wl/map.styl"
+@import "../full_wl/gallery.styl"
+
+.partner-wl{
+    body{
+        font-family: 'HouschkaRoundedAlt-Medium', ProximaNova, Arial, sans-serif;
+    }
+    .recommend-bundle-container .scroll-fix{
+        max-width 960px !important
+    }
+    .pic-cont{
+        height: 0px;
+        width: 0px;
+        background: transparent;
+    }
+    .offers-container{
+        padding-top 0
+        
+        .landing-title{
+            display none
+        }
+    }
+    .spinner{
+        .rect{
+            background $blue
+        }
+    }
+}

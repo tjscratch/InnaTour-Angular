@@ -369,7 +369,49 @@
             'offertaContractLink': 'https://s.inna.ru/files/doc/offer_tourberi.pdf',
             'showOffers': true,
             'horizontalForm': false
-        }
+        },
+        {
+            'name': 'euroset',
+            'src': '/euroset/euroset.base.css',
+            'type': self.WLType.full,
+            'title': 'euroset',
+            'phone': '',
+            'email': '',
+            'skype': '',
+            'aboutLink': '',
+            'contactsLink': '',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_skycassa.pdf',
+            'horizontalForm': false,
+            'showOffers': false
+        },
+        {
+            'name': 'your-time',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'your-time',
+            'phone': '',
+            'email': '',
+            'skype': '',
+            'aboutLink': '',
+            'contactsLink': '',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_your-time.pdf',
+            'showOffers': true,
+            'horizontalForm': false
+        },
+        {
+            'name': 'balt-west-tur',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'balt-west-tur',
+            'phone': '',
+            'email': '',
+            'skype': '',
+            'aboutLink': '',
+            'contactsLink': '',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_balt-west-tur.pdf',
+            'showOffers': true,
+            'horizontalForm': false
+        },
     ];
 
     var maxClientHeight = 730;

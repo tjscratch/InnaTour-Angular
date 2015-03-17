@@ -1,0 +1,210 @@
+.partner-wl{
+    .b-switch-filters{
+        top: 87px;
+    }
+    
+    .wl-new-search-container{
+        z-index: 100;
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        margin-left -480px
+        width: 960px;
+        height: 49px;
+        background-image url("/spa/img/partners/euroset/head.jpg")
+        
+        .wl-center-cont{
+            margin: 0 auto;
+            width: 960px;
+            height 49px
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .wl-container{
+            color: white;
+        }
+        
+        .wl-text{
+            position: absolute;
+            display: block;
+            left: 15px;
+            top: 13px;
+        }
+    }
+    
+    .overlay{
+        background: rgba(235, 238, 242, 0.8);
+    }
+    
+    .recommend-bundle-container{
+        position: absolute;
+        top: 0px;
+        left 50%
+        width 960px
+        margin-left -480px
+    }
+    
+    .recommend-bundle-background{
+        background: url("/spa/img/partners/euroset/head.jpg") no-repeat 0 0;
+        
+        /*&:after {
+            background: none;
+        }*/
+    }
+    
+    .recommend-bundle-container.recommend-bundle-container_short{
+        top: 0px;
+    }
+    
+    .results-container{
+        padding: 362px 0 0;
+        
+        &.results-container__short{
+            padding-top: 165px;
+        }
+    }
+    
+    .recommend-bundle{
+        background-color transparent
+    }
+    .recommend-bundle-background{
+        height 105px
+    }
+    
+    .recommend-bundle-title{
+        background-color: transparent;
+        line-height 23px
+        padding: 10px 25px;
+        margin-bottom: 0px;
+        font-weight: normal;
+        font-size 23px
+    }
+    
+    .recommend-bundle-wrap{
+        padding: 80px 0 0 0;
+        
+        &.recommend-bundle-wrap_small{
+            padding: 50px 0 10px;
+        }
+    }
+    
+    .recommend-bundle-wrap .w-expand-collapse-link.w-expand-collapse-link_up{
+        right 20px
+        top: 73px;
+        background-color: #fff;
+        padding: 5px 14px 7px;
+        text-decoration: none;
+        border-radius 10px 10px 0 0
+    }
+
+    .search__list_sort{
+        position relative
+        box-shadow none
+        
+        label{
+            padding 7px 15px 5px
+        }
+        
+        .current{
+            background-color $orange
+            font-weight bold
+            
+            .fa-check{
+                display none
+            }
+        }
+    }
+        
+    .recommend-bundle-wrap .w-expand-collapse-link_up.w-expand-collapse-link .expand-collapse-link{
+        color: #4d4d4d;
+    }
+    
+    .icon-expand /*, .icon-collapse*/
+    {
+        background-image: url("/spa/img/expand-collapse-gray.png");
+    }
+    
+    .ra-fly-type-list input:checked + .ra-checkbox{
+        background-color $checkbox-bg-checked
+        border-color $checkbox-border-checked
+        background-image none
+        
+        &:before{
+            content ''
+            position absolute
+            @extend .icon-sprite-euroset-checkbox
+            left 0
+            right 0
+            top 0
+            bottom 0
+            margin auto
+        }
+    }
+    
+    .ra-checkbox{
+        position relative
+        background-color $checkbox-bg
+        border-color $checkbox-border
+        border-radius $border-radius-3
+    }
+    .b-tickets__footer > .b-tickets__icons{
+        display: none;
+    }
+    
+    .filter__range{
+        input{
+            &:focus{
+                border-color #ffb42f
+            }
+        }
+    }
+    
+    .filters__body .filters__link_selected{
+        color: #61a8e1;
+    }
+    
+    .filters__baloon-radio{
+        .btn-group{
+            .btn{
+                width 50%
+                height 25px
+                background transparent
+                border-color #777893
+                
+                &.btn-green{
+                    background-color #fc6421
+                    text-indent 0
+                }
+            }
+        }
+    }
+    
+    .search__list .current:before{
+        arrow-color-wl();
+    }
+    
+    .result-small{
+        .corner-price{
+            padding-right 20px
+        }
+    }
+    
+    .ui-slider{
+        background-color $slider-color-2 !important
+    }
+    
+    .ui-slider-range{
+        background: $slider-color !important;
+    }
+    
+    .filters__body{
+        .filters__baloon{
+            border 1px solid $border-color
+            border-radius $border-radius-2
+            box-shadow none
+        }
+    }
+    
+}

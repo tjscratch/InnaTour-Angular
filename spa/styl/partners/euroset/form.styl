@@ -1,0 +1,337 @@
+.search-field{
+    height $form-input-height - 2
+    line-height $form-input-height - 2
+    border-radius $form-input-border-radius
+    font-size 14px
+    font-family: 'HouschkaRoundedAlt-Medium', ProximaNova, Arial, sans-serif;
+}
+.partner-wl{
+    .partner-form-wrap{
+        margin 0 auto
+        height 330px
+        width 960px
+        background url("/spa/img/partners/euroset/head.jpg") no-repeat 0 0
+    }
+    .b-tour-form-wrapper{
+        background #fff
+        padding 0 $form-input-offset $form-input-offset
+        width $form-width
+        border-radius $border-radius
+    }
+    .b-tour-form{
+        position absolute
+        top 60px
+        padding-left 60px
+        
+        .main-label{
+            display none
+        }
+    }
+    .b-search-field{
+        position relative
+        display inline-block
+        box-sizing border-box
+        height $form-input-height
+        margin $form-input-offset 0 0
+        vertical-align top
+        border 1px solid $light-blue
+        border-radius $form-input-border-radius
+    }
+    .search-field{
+        @extend .search-field
+    }
+    
+    // begin b-location_selector
+    .b-location_selector{
+        width $form-width
+        &.b-search-field__from{
+            z-index: 31;
+        }
+        &.b-search-field__to{
+            z-index: 30;
+            
+            &.error{
+                z-index 32
+            }
+        }
+    }
+    .search-autocomplete{
+        width $form-width
+        box-sizing border-box
+        margin-top 0
+        padding 0
+        border 1px solid $autocomplete-border-color
+        border-radius $border-radius-2
+        
+        li{
+            li{
+                .search-autocomplete-block{
+                    padding-left 30px
+                }
+            }
+        }
+        .search-autocomplete-block{
+            
+            &:hover,
+            &.selected{
+                background-color: $autocomplete-selected-bg;
+            }
+        }
+    }
+    // end b-location_selector
+    
+    // begin field date
+    .datepicker-field{
+        clearfix()
+        position: relative;
+        
+        .ui-tooltip{
+            top auto !important
+            bottom $form-input-height
+        }
+    }
+    .b-search-field__calendar{
+        width ($form-width / 2 - $form-input-offset / 2)
+    }
+    .search-date,
+    .search-date-block__date{
+        @extend .search-field
+    }
+    .search-date-block__date{
+        &:before{
+            content ''
+            @extend .icon-sprite-euroset-calendar
+            position absolute
+            right 9px
+            top 50%
+            margin-top -7.5px
+        }
+    }
+    // end field date
+    
+    // begin people selector
+    .search-form-item-current{
+        @extend .search-field
+    }
+    .b-search-field__list{
+        width ($form-width / 2 - $form-input-offset / 2)
+        cursor pointer
+        
+        &:before{
+            content ''
+            @extend .icon-sprite-euroset-arrow
+            position absolute
+            right 12px
+            top 50%
+            margin-top -1px
+        }
+    }
+    .search-form-human-dialog{
+        width 100%
+        box-sizing border-box
+        box-shadow none
+        border 1px solid $blue
+        border-radius $border-radius-2
+        
+        h3{
+            display none
+        }
+    }
+    .search-form-dialog-row{
+        margin 0 11px 10px
+        
+        .button-group{
+            .button{
+                width 31px
+                margin-left 0
+                vertical-align top
+                border-color $light-blue
+                border-style solid
+                border-width 1px 1px 1px 0
+                background-color $people-selector-btn-bg
+                font-size 14px
+                font-family: 'HouschkaRoundedAlt-Medium', ProximaNova, Arial, sans-serif;
+                
+                &:first-child{
+                    border-width 1px
+                    border-radius $border-radius-2 0 0 $border-radius-2
+                }
+                &:last-child{
+                    border-radius 0 $border-radius-2 $border-radius-2 0
+                }
+                
+                &.active{
+                    background-color $people-selector-btn-bg-selected
+                    color $people-selector-btn-color-selected
+                    font-family: 'HouschkaRoundedAlt-Bold';
+                }
+            }
+        }
+        
+        .child-years-select-container{
+            border 1px solid $light-blue
+            border-radius $border-radius-2
+            vertical-align top
+            box-sizing border-box
+            
+            &:after{
+                display none
+            }
+            
+            .icon-triangle{
+                @extend .icon-sprite-euroset-arrow;
+                right 4px
+                top 50%
+                margin-top -1px
+                border none
+            }
+            
+            .search-form-list{
+                box-shadow none
+                border 1px solid $blue
+                border-radius $border-radius-2
+                
+                .search-form-list-item{
+                    &:hover{
+                        background-color $autocomplete-selected-bg
+                    }
+                }
+            }
+        }
+        &.search-form-dialog-row-1{
+            &:after{
+                display none
+            }
+            
+            .child-years-select-container{
+                display block
+                width 129px
+                margin-right 0
+            }
+        }
+        &.search-form-dialog-row-2{
+            clearfix()
+            
+            .child-years-select-container{
+                float left
+                width 60px
+                margin-right 9px
+                
+                &:last-child{
+                    margin-right 0
+                }
+            }
+        }
+        &.search-form-dialog-row-3{
+            clearfix()
+            
+            .child-years-select-container{
+                float left
+                width 40px
+                margin-right 4px
+                
+                &:last-child{
+                    width 41px
+                    margin-right 0
+                }
+            }
+        }
+    }
+    // end people selector
+    
+    // begin class
+    .b-search-field__class{
+        margin-left $form-input-offset
+        
+        .search__list{
+            padding 0
+            box-shadow none
+            border 1px solid $blue
+            border-radius $border-radius-2
+            
+            li{
+                padding 10px
+                
+                &.current{
+                    font-family: 'HouschkaRoundedAlt-Bold';
+                    background-color $class-selector
+                }
+            }
+        }
+    }
+    .search-people{
+        @extend .search-field
+        background none
+    }
+    // end class
+    
+    // begin search btn
+    .b-search-button{
+        width $form-width
+        height $form-input-height
+        margin-top $form-input-offset
+        background-color $btn-bg
+        border-radius $form-input-border-radius
+        font-family: 'HouschkaRoundedAlt-Bold';
+        cursor pointer
+        
+        &:before{
+            content 'НАЙТИ'
+            display block
+            width $form-width
+            height $form-input-height
+            line-height $form-input-height
+            text-align center
+            font-size 18px
+            color $btn-color
+        }
+    }
+    // end search btn
+    
+    // begin error
+    .error,
+    .error:focus{
+        box-shadow none
+        border-color $form-input-error-border-color !important
+        background-color $form-input-error-bg
+        
+        input{
+            background-color $form-input-error-bg
+        }
+    }
+    
+    .partner-form-wrap{
+        .ui-tooltip{
+            position: absolute;
+            z-index 1000;
+            left: 0 !important;
+            top: - $form-input-height - 3 !important;
+            margin-left: 0 !important;
+            height $form-input-height
+            line-height $form-input-height
+            background: linear-gradient(bottom, $error-tooltip-bg-3, 60% $error-tooltip-bg-2, $error-tooltip-bg-1) !important
+            border-radius $border-radius-2
+            box-shadow none
+            
+            &:before{
+                left 20px
+                top $form-input-height + 2
+                margin-left 0
+                border-width 7px 7px 0
+                border-color: $error-tooltip-bg-3 transparent transparent !important;
+            }
+            
+            .ui-tooltip-content{
+                white-space nowrap;
+                color $error-tooltip-color
+                font-size 14px
+                font-weight normal
+                
+                &:before{
+                    display none
+                }
+            }
+        }
+    }
+    // end error
+}
