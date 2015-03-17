@@ -412,6 +412,20 @@
             'showOffers': true,
             'horizontalForm': false
         },
+        {
+            'name': 'tur-orange',
+            'src': '',
+            'type': self.WLType.full,
+            'title': 'tur-orange',
+            'phone': '',
+            'email': '',
+            'skype': '',
+            'aboutLink': '',
+            'contactsLink': '',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_tur-orange.pdf',
+            'showOffers': true,
+            'horizontalForm': false
+        },
     ];
 
     var maxClientHeight = 730;
