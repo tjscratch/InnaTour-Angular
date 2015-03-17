@@ -4,6 +4,7 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
         'background-color': '#fff'
     }
 
+    $scope.agencyReg = {};
     //$scope.agencyReg = {
     //    Name: "Name",
     //    INN: "INN",
@@ -31,9 +32,6 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
     })
 
     $scope.agencySubmit = function (form) {
-
-        console.log(form.$valid)
-
         if (form.$valid) {
             dataService.agencyCreate($scope.agencyReg)
                 .success(function (data) {
