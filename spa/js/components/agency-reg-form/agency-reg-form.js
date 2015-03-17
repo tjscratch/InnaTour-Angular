@@ -1,8 +1,8 @@
 innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, dataService) {
 
-    $rootScope.BodyStyleGlobal = {
-        'background-color': '#fff'
-    }
+	$rootScope.BodyStyleGlobal = {
+		'background-color': '#fff'
+	}
 
     $scope.agencyReg = {};
     //$scope.agencyReg = {
@@ -20,28 +20,34 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
     //    Email: "email@google.com"
     //};
 
-    $scope.adressChecked = true;
-    $scope.$watch('adressChecked', function (data) {
-        if (data) {
-            $scope.agencyReg.PostIndex = $scope.agencyReg.RegistredAddressIndex;
-            $scope.agencyReg.Address = $scope.agencyReg.RegistredAddress;
-        } else {
-            $scope.agencyReg.PostIndex = '';
-            $scope.agencyReg.Address = '';
-        }
-    })
+	$scope.adressChecked = true;
+	$scope.$watch('adressChecked', function (data) {
+		if (data) {
+			$scope.agencyReg.PostIndex = $scope.agencyReg.RegistredAddressIndex;
+			$scope.agencyReg.Address = $scope.agencyReg.RegistredAddress;
+		}
+		else {
+			$scope.agencyReg.PostIndex = '';
+			$scope.agencyReg.Address = '';
+		}
+	});
 
-    $scope.agencySubmit = function (form) {
-        if (form.$valid) {
-            dataService.agencyCreate($scope.agencyReg)
-                .success(function (data) {
-                    console.log('dataService-' + data)
-                })
-                .error(function (data) {
-                    console.log('dataService-' + data)
-                })
-        }
-    }
+	$scope.agencySubmit = function (form) {
+		if (form.$valid) {
+			//$scope.baloon.show('Обрабатываем данные');
+			dataService.agencyCreate($scope.agencyReg).success(function (data) {
+				//$scope.baloon.hide();
+				switch (data.Status){
+					case 1:
+						$scope.baloon.showAgencyRegSuccess('Вы успешно зарегистрировались', 'Мы отправили письмо с доступом к личному кабинету на электронную почту');
+					case 3:
+						$scope.emailDouble = data.Message;
+				}
+			}).error(function (data) {
+				console.log(data)
+			})
+		}
+	};
 
 
 })

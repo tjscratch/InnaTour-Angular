@@ -150,7 +150,8 @@
                 expireCheck: 'expireCheck',
                 payExpires: 'payExpires',
                 notFound: 'notFound',
-                priceChanged: 'priceChanged'
+                priceChanged: 'priceChanged',
+	            agencyRegSuccess: 'agencyRegSuccess'
             };
 
             var helper = {
@@ -456,6 +457,9 @@
                     },
                     showPriceChanged: function (caption, text, closeFn) {
                         helper.baloon.show(caption, text, baloonType.priceChanged, closeFn);
+                    }, 
+	                showAgencyRegSuccess: function (caption, text, closeFn) {
+                        helper.baloon.show(caption, text, baloonType.agencyRegSuccess, closeFn);
                     },
                     show: function (caption, text, type, closeFn, data) {
                         //console.log('show', caption, text, type);
