@@ -24,7 +24,8 @@ btn-orange(){
     }
     
     .b-tooltip-share__button{
-        &:hover{
+        &.active,
+        &:active{
             background: $btn-bg;
         }
     }
@@ -112,10 +113,6 @@ btn-orange(){
     
     .hotel-details-rooms__room-actions .button{
         btx-button1();
-    }
-    
-    .b-tooltip-share__button.active{
-        color-bg-share-wl();
     }
     
     .b-sum-button{    
