@@ -17,12 +17,18 @@ btn-orange(){
         text-transform: uppercase;
         font-size: 18px;
         border none
-        background-color $btn-bg-orange
+        background $btn-bg !important
         font-family: 'HouschkaRoundedAlt-Bold';
-        color #333
+        color $white
         box-shadow none
     }
     
+    .b-tooltip-share__button{
+        &:hover{
+            background: $btn-bg;
+        }
+    }
+        
     .result-buy .button{
         left 10px
         bottom 15px
