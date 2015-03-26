@@ -15,7 +15,7 @@ angular.module('innaApp.directives')
                     'aviaHelper',
                     '$location',
                     '$element',
-                    'innaApp.API.events',
+                    'innaAppApiEvents',
                     function (EventManager, $scope, aviaHelper, $location, $element, Events) {
 
                         $scope.isChooseHotel = null;

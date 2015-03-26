@@ -79,7 +79,7 @@ angular.module('innaApp.API', [])
             eof: null
         }
     })
-    .factory('innaApp.API.events', function(){
+    .factory('innaAppApiEvents', function(){
         return {
             build: function(eventName, subs){
                 return eventName.split('*').join(subs);

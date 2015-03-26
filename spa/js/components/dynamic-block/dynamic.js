@@ -35,7 +35,7 @@
 innaAppConponents.
     factory('DynamicBlock', [
         'EventManager',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$templateCache',
         '$filter',
         '$location',

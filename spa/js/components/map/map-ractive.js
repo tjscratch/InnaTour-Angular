@@ -10,7 +10,7 @@ angular.module('innaApp.directives')
     .directive('DynamicMap', [
         'EventManager',
         '$templateCache',
-        'innaApp.API.events',
+        'innaAppApiEvents',
 
         // components
         'MapInfoBox',

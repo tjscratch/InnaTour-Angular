@@ -19,7 +19,7 @@ angular.module('innaApp.components').
         '$templateCache',
         '$routeParams',
         '$location',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         'DynamicPackagesDataProvider',
         'IndicatorFilters',
         'HotelItem',

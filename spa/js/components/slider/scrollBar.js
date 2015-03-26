@@ -5,7 +5,7 @@
 angular.module('innaApp.components')
     .directive('scrollBar', [
         '$timeout',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         function ($timeout, Events) {
             return {
                 replace: true,

@@ -8,7 +8,7 @@ innaAppControllers
         '$timeout',
         'aviaHelper',
         'innaApp.Urls',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$location',
         'DynamicPackagesDataProvider',
         '$routeParams',

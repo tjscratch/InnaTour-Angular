@@ -5,7 +5,7 @@ innaAppControllers
         'EventManager',
         '$rootScope',
         '$scope',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         function (EventManager, $rootScope, $scope, Events) {
             $scope.isFooterVisible = true;
             $rootScope.isFooterHiddenWrprStyle = {'padding-bottom': '300px'};

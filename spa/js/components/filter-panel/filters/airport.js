@@ -4,7 +4,7 @@ angular.module('innaApp.components').
         '$filter',
         '$templateCache',
         '$routeParams',
-        'innaApp.API.events',
+        'innaAppApiEvents',
 
         'ClassFilter',
         function (EventManager, $filter, $templateCache, $routeParams, Events, ClassFilter) {

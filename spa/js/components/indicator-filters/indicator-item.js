@@ -1,7 +1,7 @@
 innaAppConponents.
     factory('IndicatorFiltersItem', [
         'EventManager',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$templateCache',
 
         // components

@@ -13,7 +13,7 @@ angular.module('innaApp.directives')
                 'aviaHelper',
                 '$timeout',
                 'urlHelper',
-                'innaApp.API.events',
+                'innaAppApiEvents',
                 function (EventManager, $scope, $element, $routeParams, $location, aviaHelper, $timeout, urlHelper, Events) {
 
                     $('body').append($element);

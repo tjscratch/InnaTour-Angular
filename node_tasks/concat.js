@@ -5,6 +5,7 @@ var gulpif = require('gulp-if');
 var conf = require('./config');
 var livereload = require('gulp-livereload');
 var revall = require('gulp-rev-all');
+var ngAnnotate = require('gulp-ng-annotate');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -94,6 +95,7 @@ gulp.task('concat-regions', function () {
 gulp.task('concat-pages', function () {
     return gulp.src(conf.src + '/pages/**/*.js')
         .pipe(concat('pages.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(ngAnnotate())
         .pipe(gulp.dest(conf.build + '/js'));
 });
 

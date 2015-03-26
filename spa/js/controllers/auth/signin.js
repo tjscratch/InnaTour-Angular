@@ -5,7 +5,7 @@ angular.module('innaApp.controllers')
         'Validators',
         'AuthDataProvider',
         '$rootScope',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         function (RavenWrapper, $scope, Validators, AuthDataProvider, $rootScope, Events) {
             function validate() {
                 Validators.defined($scope.username, 'username');

@@ -9,7 +9,7 @@ innaAppControllers
         'DynamicPackagesDataProvider',
         '$routeParams',
         '$anchorScroll',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$location',
         'innaApp.Urls',
         'aviaHelper',
