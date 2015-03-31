@@ -153,7 +153,9 @@
 				       data-title="Неправильный номер документа"
 				       type="text" class="b-field-text">
 			</div>
-			<div class="b-field-block" style="width: 110px;">
+			<div class="b-field-block" style="width: 110px;"
+			     ng-hide="passenger.doc_expirationDate.dependsOnField.isRuPassportOrBirthAndInsideRF"
+					>
 				<label class="b-field-label b-field-label-docs">Действителен до</label>
 				<input validate-events-dir ng-model="passenger.doc_expirationDate.value"
 				       depends-on="passenger.doc_series_and_number"
