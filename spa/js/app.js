@@ -110,9 +110,17 @@ app.config([
         function dynamic() {
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.realType == window.partners.WLType.full) {
-                return {
-                    templateUrl: 'pages/partners/page.html',
-                    controller: 'FullWLMainCtrl'
+                if (partner.name == 'biletix'){
+                    return {
+                        templateUrl: 'pages/partners/biletixPage.html',
+                        controller: 'FullWLMainCtrl'
+                    }
+                }
+                else {
+                    return {
+                        templateUrl: 'pages/partners/page.html',
+                        controller: 'FullWLMainCtrl'
+                    }
                 }
             }
             else {
