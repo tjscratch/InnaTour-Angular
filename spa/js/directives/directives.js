@@ -783,7 +783,12 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
             function doValidate(){
                 if (passenger.citizenship.value.id == 189)//Россия
                 {
+                    //поездка по России
                     var tripInsideRF = $scope.isTripInsideRF($scope.item);
+
+                    //если поездка в Украину
+                    var tripInsideUkraine = $scope.isInside($scope.item, [226], true);
+
                     if (tripInsideRF) {
                         var doc_num = $elem.val();
                         //console.log('doc_num', doc_num);
@@ -802,6 +807,27 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
                             //console.log(passenger.doc_expirationDate.id);
                             var $to = $("#" + passenger.doc_expirationDate.id);
                             $scope.tooltipControl.close($to);
+
+                            return;
+                        }
+                    }
+                    else if (tripInsideUkraine){ //если в Украине
+                        var doc_num = $elem.val();
+                        doc_num = doc_num.replace(/\s+/g, '');
+
+                        //проставляем флаг, что это российский паспорт
+                        //флаг понадобится при валидации Действителен до
+                        if ($scope.isCaseValid(function () {
+                                Validators.ruPassport(doc_num, 'err');
+                            })
+                        ) {
+                            setTimeout(function () {
+                                var $to = $("#" + passenger.doc_series_and_number.id);
+                                $scope.tooltipControl.close($to);
+                                $scope.tooltipControl.init($to, 'Вы указали внутренний паспорт РФ. С 01 марта 2015 въезд в Украину граждан РФ возможен только по заграничному паспорту.');
+                                $scope.tooltipControl.open($to);
+                            }, 100);
+                            
 
                             return;
                         }
