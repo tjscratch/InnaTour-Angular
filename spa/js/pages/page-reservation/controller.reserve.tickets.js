@@ -335,6 +335,53 @@
                 }
             }
 
+            //нужно определить
+            //для граждан РФ, летящих внутри стран РФ, Абхазия, Белоруссия, Казахстан, Нагорный Карабах,
+            //Приднестровье, Таджикистан, Украина, Южная Осетия
+            $scope.isTripInsideRF = function(item) {
+                    //Нагорный Карабах, Приднестровье
+                    //var insideRFcase = [189, 69829, 35, 124, 0, 0, 215, 226, 0];
+                    //Южная Осетия
+                    // хохолов 226 удаляем из этого списка
+                    var insideRFcase = [189, 69829, 35, 124, 215];
+
+                    var etapCountries = [];
+                    if (item.EtapsTo != null) {
+                        for (var i = 0; i < item.EtapsTo.length; i++) {
+                            var etap = item.EtapsTo[i];
+                            etapCountries.push(etap.InCountryId);
+                            etapCountries.push(etap.OutCountryId);
+                        }
+                        //_.each(item.EtapsTo, function (etap) {
+                        //    etapCountries.push(etap.InCountryId);
+                        //    etapCountries.push(etap.OutCountryId);
+                        //});
+                    }
+                    if (item.EtapsBack != null) {
+                        for (var i = 0; i < item.EtapsBack.length; i++) {
+                            var etap = item.EtapsBack[i];
+                            etapCountries.push(etap.InCountryId);
+                            etapCountries.push(etap.OutCountryId);
+                        }
+                        //_.each(item.EtapsBack, function (etap) {
+                        //    etapCountries.push(etap.InCountryId);
+                        //    etapCountries.push(etap.OutCountryId);
+                        //});
+                    }
+                    etapCountries = _.uniq(etapCountries);
+                    //проверяем все страны в этапах
+                    for (var i = 0; i < etapCountries.length; i++) {
+                        var etapCountry = etapCountries[i];
+                        if (_.indexOf(insideRFcase, etapCountry) < 0) //на каком-то этапе мы не попали в этот кейс
+                        {
+                            return false;
+                        }
+                    }
+
+                    //прошлись по всем этапам, везде мы в нужном списке стран
+                    return true;
+                };
+
             $scope.validate = function (item, type, $index) {
 
                 if (item != null) {
@@ -477,71 +524,14 @@
 
                                 if (citizenship.value.id == 189)//Россия
                                 {
-                                    //нужно определить
-                                    //для граждан РФ, летящих внутри стран РФ, Абхазия, Белоруссия, Казахстан, Нагорный Карабах,
-                                    //Приднестровье, Таджикистан, Украина, Южная Осетия
-                                    function isTripInsideRF(item) {
-                                        //Нагорный Карабах, Приднестровье
-                                        //var insideRFcase = [189, 69829, 35, 124, 0, 0, 215, 226, 0];
-                                        //Южная Осетия
-                                        // хохолов 226 удаляем из этого списка
-                                        var insideRFcase = [189, 69829, 35, 124, 215];
-
-                                        var etapCountries = [];
-                                        if (item.EtapsTo != null) {
-                                            for (var i = 0; i < item.EtapsTo.length; i++) {
-                                                var etap = item.EtapsTo[i];
-                                                etapCountries.push(etap.InCountryId);
-                                                etapCountries.push(etap.OutCountryId);
-                                            }
-                                            //_.each(item.EtapsTo, function (etap) {
-                                            //    etapCountries.push(etap.InCountryId);
-                                            //    etapCountries.push(etap.OutCountryId);
-                                            //});
-                                        }
-                                        if (item.EtapsBack != null) {
-                                            for (var i = 0; i < item.EtapsBack.length; i++) {
-                                                var etap = item.EtapsBack[i];
-                                                etapCountries.push(etap.InCountryId);
-                                                etapCountries.push(etap.OutCountryId);
-                                            }
-                                            //_.each(item.EtapsBack, function (etap) {
-                                            //    etapCountries.push(etap.InCountryId);
-                                            //    etapCountries.push(etap.OutCountryId);
-                                            //});
-                                        }
-                                        etapCountries = _.uniq(etapCountries);
-                                        //проверяем все страны в этапах
-                                        for (var i = 0; i < etapCountries.length; i++) {
-                                            var etapCountry = etapCountries[i];
-                                            if (_.indexOf(insideRFcase, etapCountry) < 0) //на каком-то этапе мы не попали в этот кейс
-                                            {
-                                                return false;
-                                            }
-                                        }
-
-                                        //прошлись по всем этапам, везде мы в нужном списке стран
-                                        return true;
-                                    }
-
-                                    function isCaseValid(fn) {
-                                        try {
-                                            fn();
-                                            return true;
-                                        }
-                                        catch (err) {
-                                            return false;
-                                        }
-                                    }
-
-                                    var tripInsideRF = isTripInsideRF($scope.item);
+                                    var tripInsideRF = $scope.isTripInsideRF($scope.item);
                                     if (tripInsideRF) {
                                         //проставляем флаг, что это российский паспорт
                                         //флаг понадобится при валидации Действителен до
-                                        if (isCaseValid(function () {
+                                        if ($scope.isCaseValid(function () {
                                                 Validators.ruPassport(doc_num, 'err');
                                             }) ||
-                                            isCaseValid(function () {
+                                            $scope.isCaseValid(function () {
                                                 Validators.birthPassport(doc_num, 'err');
                                             })) {
                                             item.isRuPassportOrBirthAndInsideRF = true;
@@ -551,13 +541,13 @@
                                         }
 
                                         //проверяем паспорт, загран, св. о рождении
-                                        if (isCaseValid(function () {
+                                        if ($scope.isCaseValid(function () {
                                                 Validators.ruPassport(doc_num, 'err');
                                             }) ||
-                                            isCaseValid(function () {
+                                            $scope.isCaseValid(function () {
                                                 Validators.enPassport(doc_num, 'err');
                                             }) ||
-                                            isCaseValid(function () {
+                                            $scope.isCaseValid(function () {
                                                 Validators.birthPassport(doc_num, 'err');
                                             })) {
                                             //все норм - не выкидываем исключение
@@ -1087,7 +1077,7 @@
             catch (err) {
                 return false;
             }
-        }
+        };
 
         $scope.getDocType = function (citizenshipId, doc_num) {
             //var doc_num = number.replace(/\s+/g, '');
@@ -1121,7 +1111,7 @@
             }
 
             return null;
-        }
+        };
 
         $scope.getPassenger = function (data) {
             var doc_num = data.doc_series_and_number.replace(/\s+/g, '');

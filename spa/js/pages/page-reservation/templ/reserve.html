@@ -149,12 +149,15 @@
 				       depends-on="passenger.citizenship"
 				       ng-validation-model="passenger.doc_series_and_number" validate="validate(item, type)"
 				       validate-type="validateType.document"
+                       key-press-on-document="passenger"
+                       key-press-hide-field="doc_expirationDate"
+                       key-press-hide-field-name="needToHide"
 				       ng-class="{error:isFieldInvalid(passenger.doc_series_and_number)}"
 				       data-title="Неправильный номер документа"
 				       type="text" class="b-field-text">
 			</div>
 			<!--ng-hide="passenger.doc_expirationDate.dependsOnField.isRuPassportOrBirthAndInsideRF"-->
-			<div class="b-field-block" style="width: 110px;">
+			<div ng-hide="passenger.doc_expirationDate.needToHide" class="b-field-block" style="width: 110px;">
 				<label class="b-field-label b-field-label-docs">Действителен до</label>
 				<input validate-events-dir ng-model="passenger.doc_expirationDate.value"
 				       depends-on="passenger.doc_series_and_number"

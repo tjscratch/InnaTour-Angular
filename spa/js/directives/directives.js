@@ -673,17 +673,22 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
 
             $elem.on('blur', function () {
                 $scope.$apply(function () {
+                    //console.log('validateEventsDir blur');
                     validate(true);
                 });
                 //}).on('change', function () {
                 //    console.log('change');
                 //    validate();
             }).on('keypress', function (event) {
+
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
                 //console.log('key:', key);
+
+                //для Серии и Номера документа - валидация - мгновенная
                 if (key == 13) {//enter
                     $scope.$apply(function () {
+                        //console.log('validateEventsDir keypress 13');
                         validate(true);
                     });
                 }
@@ -763,6 +768,57 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
         }
     };
 }]);
+
+innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validators) {
+    return {
+        require: 'ngModel',
+        link: function ($scope, element, attrs, ctrl) {
+            var $elem = $(element);
+
+            var hideField = attrs.keyPressHideField;
+            var passenger = $scope[attrs.keyPressOnDocument];
+            var hideFieldName = attrs.keyPressHideFieldName;
+            //console.log('keyPressOnDocument value', attrs.keyPressOnDocument, passenger, hideField);
+
+            function doValidate(){
+                if (passenger.citizenship.value.id == 189)//Россия
+                {
+                    var tripInsideRF = $scope.isTripInsideRF($scope.item);
+                    if (tripInsideRF) {
+                        var doc_num = $elem.val();
+                        //console.log('doc_num', doc_num);
+                        doc_num = doc_num.replace(/\s+/g, '');
+
+                        //проставляем флаг, что это российский паспорт
+                        //флаг понадобится при валидации Действителен до
+                        if ($scope.isCaseValid(function () {
+                                Validators.ruPassport(doc_num, 'err');
+                            }) ||
+                            $scope.isCaseValid(function () {
+                                Validators.birthPassport(doc_num, 'err');
+                            })) {
+                            passenger[hideField][hideFieldName] = true;
+
+                            //console.log(passenger.doc_expirationDate.id);
+                            var $to = $("#" + passenger.doc_expirationDate.id);
+                            $scope.tooltipControl.close($to);
+
+                            return;
+                        }
+                    }
+                }
+
+                passenger[hideField][hideFieldName] = false;
+                return;
+            }
+
+            $scope.$watch('passenger.doc_series_and_number.value', function (newVal, oldVal) {
+                //console.log('doc_series_and_number.value', newVal);
+                doValidate();
+            });
+        }
+    };
+});
 
 //innaAppDirectives.directive('onTouch', function () {
 //    return {
