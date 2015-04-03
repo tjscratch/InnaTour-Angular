@@ -11,7 +11,8 @@ var _ENV_ = process.env.NODE_ENV;
 gulp.task('build-templates', function () {
     return gulp.src([
         conf.templ + '/**/*.html',
-        conf.src + '/**/*.html'
+        conf.src + '/**/*.html',
+        conf.widgets + '/search/templ/*.html'
     ])
         .pipe(cleanhtml())
         .pipe(templateCache({

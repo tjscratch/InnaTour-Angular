@@ -1,149 +1,18 @@
+<!--<script src="/spa/js/widgets/search/build/inna-search-component.js" charset="utf-8"></script>-->
+<link rel="stylesheet" href="/spa/js/widgets/search/build/inna-search-widget.css"/>
+
 <div class="pic-cont">
 </div>
 
 <div ng-controller="DynamicFormCtrl">
-    <div class="partner-form-wrap" ng-class="{'horizontal-form':useHorizontalForm}">
-        <form class="b-tour-form">
-            <span class="main-label">Авиа + Отель (Biletix)</span>
 
-            <div class="b-tour-form-wrapper">
-
-                <div location-selector
-                     theme="b-search-field b-search-field__long b-search-field__from"
-                     placeholder="Откуда"
-                     selected-value="fromCity"
-                     type-search="DP_from"></div>
-
-                <div location-selector
-                     theme="b-search-field b-search-field__long b-search-field__to"
-                     placeholder="Куда"
-                     selected-value="toCity"
-                     type-search="DP_to"></div>
-
-
-                <div date-picker-widget
-                     interval="false"
-                     date1="dateBegin"
-                     date2="dateEnd"
-                     max-date="maxDateEnd"
-                     templ="components/partners/biletix/date_picker_widget_biletix.html"
-                     class=""></div>
-
-                <div class="b-search-field-hor">
-                    <div counter-people
-                         adult-count="adultCount"
-                         children-count="childrenCount"
-                         childrens-age="childrensAge"
-                         class="b-wrapp_type_inline"
-                         templ="components/partners/biletix/counter_people_biletix.html"></div>
-
-                    <div trip-preferences
-                         show-back-trip-options="false"
-                         klass-model="klass"
-                         templ="components/partners/biletix/trip_preferences_biletix.html"></div>
-
-                    <div class="b-search-button" ng-click="searchStart()"></div>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <!-- Полная копипста из tour_grid_page -->
-    <div class="layout partner" ng-class="{'horizontal-form':useHorizontalForm}">
-        <div class="offers-list offers-list_new-landing offers-black">
-            <div class="offers-container">
-                <h2 class="landing-title" ng-if="!landing.canDisplayDataForLandingPages">
-                    <!--{{::section.Name}}-->
-                    Перелет + Отель - новая альтернатива классическим турам
-                </h2>
-                <div>
-                    <div class="row">
-                        <div class="offers-list_new-landing__item col-xs-6">
-                            <i class="offers-list_new-landing__img">
-                                <img ng-src="spa/img/index-landing/1.png" alt="img" />
-                            </i>
-                            <b>Cвобода выбора</b>. 200 стран, 500+ авиакомпаний,
-                            200 тыс. отелей с моментальным подтверждением.
-
-                        </div>
-                        <div class="offers-list_new-landing__item col-xs-6">
-                            <i class="offers-list_new-landing__img">
-                                <img ng-src="spa/img/index-landing/4.png" alt="img" />
-                            </i>
-                            <b>Экономия до 20%</b>. Путешествуйте по специальным пакетным тарифам от лучших мировых
-                            поставщиков.
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offers-list_new-landing__item col-xs-6">
-                            <i class="offers-list_new-landing__img">
-                                <img ng-src="spa/img/index-landing/2.png" alt="img" />
-                            </i>
-                            <b>Только регулярные рейсы</b>. Вылет в любой день недели, поездки на уикенды и праздники.
-
-                        </div>
-                        <div class="offers-list_new-landing__item col-xs-6">
-                            <i class="offers-list_new-landing__img">
-                                <img ng-src="spa/img/index-landing/5.png" alt="img" />
-                            </i>
-                            <b>Это надежно</b>. Пакет динамически формируется в момент запроса. Моментальная оплата поставщикам при бронировании.
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offers-list_new-landing__item col-xs-6">
-                            <i class="offers-list_new-landing__img">
-                                <img ng-src="spa/img/index-landing/3.png" alt="img" />
-                            </i>
-                            <b>Онлайн оплата банковской картой</b>. После оплаты мы пришлем ваш билет и ваучер на
-                            электронную почту.
-                        </div>
-                        <div class="offers-list_new-landing__item col-xs-6">
-                            <i class="offers-list_new-landing__img">
-                                <img ng-src="spa/img/index-landing/6.png" alt="img" />
-                            </i>
-                            <b>Поддержка 24x7</b>. Поможем оформить визы, страховки, закажем трансфер или экскурсию.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div ng-if="showOffers" ng-class="{'Offers-anchor':($index == 0), 'offers-black':$even, 'offers-dark-grey':$odd}"
-             ng-repeat="section in sections">
-            <div class="offers-container">
-                <div ng-if="landing.canDisplayDataForLandingPages && $index == 0">
-                    <h2 class="landing-title" ng-if="!isNullOrEmpty(landing.SectionTitle)">
-                        {{::landing.SectionTitle}}
-                    </h2>
-                    <p class="landing-title-sub" ng-if="!isNullOrEmpty(landing.SubSectionTitle)">
-                        {{::landing.SubSectionTitle}}
-                    </p>
-                    <div class="landing-area">
-                        <p class="offers-description"
-                           ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 1"
-                           ng-bind-html="landing.TextIntro"></p>
-                        <div class="landing-cont">
-                            <div class="landing-col left offers-description"
-                                 ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2"
-                                 ng-bind-html="landing.columsTextIntro[0]">
-                            </div>
-                            <div class="landing-col right offers-description"
-                                 ng-if="!isNullOrEmpty(landing.TextIntro) && landing.RenderTextType == 2"
-                                 ng-bind-html="landing.columsTextIntro[1]">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--<p class="offers-description" ng-if="!landing.canDisplayDataForLandingPages">
-                    {{::section.Description}}
-                </p>-->
-                <div class="offers-list" ng-controller="OffersListCtrl">
-                    <ng:any ng-repeat="block in section.OfferLayouts track by $index">
-                        <ng:include src="getTemplateUrlByBlockType(block.OfferLayoutType)">
-                        </ng:include>
-                    </ng:any>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="b-inna-search-widget">
+		<inna-form
+				partner-site="https://biletix.bookinna.ru"
+				partner-name="biletix"
+				partner-default-city="Санкт-Петербург"
+				>
+		</inna-form>
+	</div>
+	
 </div>

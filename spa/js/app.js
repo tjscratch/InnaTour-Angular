@@ -12,7 +12,9 @@ var app = angular.module('innaApp', [
     'innaApp.Url',
     'innaApp.API',
     'ngSanitize',
-    'cfp.hotkeys'
+    'cfp.hotkeys',
+    "ui.bootstrap",
+    "widgetsInnaValidation"
 ]);
 
 /* локализация дат moment */
@@ -312,6 +314,7 @@ var innaAppConponents = angular.module('innaApp.components', []);
 var innaAppTemlates = angular.module('innaApp.templates', []);
 
 var innaAppDirectives = angular.module('innaApp.directives', []);
+var innaWidgetValidation = angular.module('widgetsInnaValidation', []);
 
 innaAppDirectives.config(['$sceProvider', function ($sceProvider) {
     $sceProvider.enabled(false);
