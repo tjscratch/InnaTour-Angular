@@ -1,7 +1,7 @@
 innaAppConponents.
     factory('MapInfoBox', [
         'EventManager',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$templateCache',
 
         // components

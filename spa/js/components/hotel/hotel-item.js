@@ -1,7 +1,7 @@
 angular.module('innaApp.components').
     factory('HotelItem', [
         'EventManager',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         'innaApp.Urls',
         '$filter',
         '$routeParams',

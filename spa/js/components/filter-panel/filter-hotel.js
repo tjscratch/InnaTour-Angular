@@ -14,7 +14,7 @@ angular.module('innaApp.directives')
         '$filter',
         '$templateCache',
         '$routeParams',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$timeout',
 
         'FilterPanel',

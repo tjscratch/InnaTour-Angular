@@ -17,12 +17,19 @@ btn-orange(){
         text-transform: uppercase;
         font-size: 18px;
         border none
-        background-color $btn-bg-orange
+        background $btn-bg !important
         font-family: 'HouschkaRoundedAlt-Bold';
-        color #333
+        color $white
         box-shadow none
     }
     
+    .b-tooltip-share__button{
+        &.active,
+        &:active{
+            background: $btn-bg;
+        }
+    }
+        
     .result-buy .button{
         left 10px
         bottom 15px
@@ -39,16 +46,16 @@ btn-orange(){
     }
     
     .button-scroll-to-more{
-        background-color $btn-bg-orange
+        background-color $btn-bg
         font-family: 'HouschkaRoundedAlt-Bold';
-        color #333
+        color $white
         box-shadow none
     
         .icon-arrow-bottom{
-            border-color: #333 transparent transparent;
+            border-color: $white transparent transparent;
     
             &:after{
-                border-color: $btn-bg-orange transparent transparent;
+                border-color: $btn-bg transparent transparent;
             }
         }
     }
@@ -62,9 +69,9 @@ btn-orange(){
         text-transform: uppercase;
         font-size: 18px;
         border none
-        background-color $btn-bg-orange
+        background-color $btn-bg
+        color $white
         font-family: 'HouschkaRoundedAlt-Bold';
-        color #333
     }
     
     .btn.btn-green{
@@ -76,9 +83,9 @@ btn-orange(){
         text-transform: uppercase;
         font-size: 18px;
         border none
-        background-color $btn-bg-orange
+        background-color $btn-bg
         font-family: 'HouschkaRoundedAlt-Bold';
-        color #333
+        color $white
         box-shadow none
     }
     
@@ -98,18 +105,14 @@ btn-orange(){
         text-transform: uppercase;
         font-size: 18px;
         border none
-        background-color $btn-bg-orange
+        background-color $btn-bg
         font-family: 'HouschkaRoundedAlt-Bold';
-        color #333
+        color $white
         box-shadow none
     }
     
     .hotel-details-rooms__room-actions .button{
         btx-button1();
-    }
-    
-    .b-tooltip-share__button.active{
-        color-bg-share-wl();
     }
     
     .b-sum-button{    
@@ -136,10 +139,11 @@ btn-orange(){
         text-transform: uppercase;
         font-size: 18px;
         border none
-        background-color $btn-bg-orange
+        background-color $btn-bg
         font-family: 'HouschkaRoundedAlt-Bold';
-        color #333
+        color $white
         box-shadow none
+        text-align center
     }
     
     .wl-search{

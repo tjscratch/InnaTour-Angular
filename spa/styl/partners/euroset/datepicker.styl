@@ -108,7 +108,7 @@ color-datepicker-bg(){
     .datepickerContainer{
         position relative
         padding 6px
-        height 276px
+        /*height 288px*/
         box-shadow none
         border-radius 0 0 $border-radius-2 $border-radius-2
     }
@@ -118,7 +118,8 @@ color-datepicker-bg(){
         div{
             position absolute
             top 0
-            height 288px
+            bottom 0
+            /*height 288px*/
             width 1px
             background-color $dp-gray
         }
@@ -164,6 +165,11 @@ color-datepicker-bg(){
         &.datepickerDisabled{
             a{
                 color $dp-cell-text-color-red-disabled !important
+                &:hover{
+                    span{
+                        color $dp-cell-text-color-red-disabled !important
+                    }
+                }
             }
         }
     }
@@ -172,6 +178,14 @@ color-datepicker-bg(){
     .datepickerDisabled{
         a{
             color $dp-cell-text-color-disabled !important
+            
+            &:hover{
+                background-color transparent !important
+                border-color transparent !important
+                span{
+                    color $dp-cell-text-color-disabled !important
+                }
+            }
         }
     }
     

@@ -3,7 +3,7 @@
 angular.module('innaApp.components').
     factory('TicketItem', [
         'EventManager',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$filter',
         '$routeParams',
         'aviaHelper',

@@ -16,7 +16,7 @@
         position absolute
         bottom 20px
         padding-left 20px
-
+        
         &-wrapper
             background transparent
             padding 10px 10px 5px !important
@@ -24,75 +24,84 @@
             background $white
             border 1px solid $light-blue
             border-radius $border-radius
-
-        .main-label
+        
+        .main-label{
             color-bg-lbl-wl()
-            font-size 27px
+            font-size 0
             font-weight normal
             color #fff
             display inline-block
             line-height 44px
             padding 0 12px
-
+            
+            &:before{
+                content 'Перелет + отель'
+                font-size 27px
+                line-height 44px
+                display inline-block
+                vertical-align bottom
+            }
+        }
+        
         .b-search-field
             border none
             display inline-block
             height 36px
             margin 0 10px 0 0
             vertical-align top
-
+            
             .search-people{
                 background-image: none;
             }
-
+            
             .search__list{
                 margin-top: 1px;
             }
-
+            
             &.error{
                 border none !important
                 box-shadow none !important
-
+                
                 input{
                     border-color $orange
                     background $light-orange
                 }
             }
-
+            
             &__from,
             &__to{
                 border-right: 0px;
             }
-
+            
             &__long
                 width 195px
-
+            
             &__half{
                 width 105px
-
+                
                 &.b_people{
                     border-right: 0px;
                     background-color: #fff;
                 }
             }
-
+            
             &__class
                 width 115px
             /*margin-left 20px
             margin-right 10px*/
-
+            
             &__calendar{
                 border-right: 0px;
-
+                
                 &.pull-right{
                     float: none;
                 }
             }
-
+            
             &__calendar,
             &__list
                 position relative
-
+                
                 &:after
                     background url("/spa/img/i.png") no-repeat
                     content ''
@@ -100,14 +109,14 @@
                     position absolute
                     top 50%;
                     right 9px
-
+            
             &__list
                 &:after
                     background-position -45px -194px
                     width 11px
                     height 6px
                     margin-top -3px
-
+            
             &__calendar
                 width 125px
                 &:after
@@ -115,27 +124,27 @@
                     width 17px
                     height 16px
                     margin-top -8px
-
+                
                 background-position 0 -171px
-
+            
             &-hor
                 display: inline-block;
                 text-align justify
                 font-size 0
-
+                
                 &:after
                     width 100%
                     content: ''
                     display inline-block
                     height 0
-
+                
                 .b-search-field__class
                     display none
-
+                
                 .search-form-item-current
                     margin 0
                     padding-left 10px
-
+            
             &-value,
             input
                 box-sizing border-box
@@ -144,23 +153,21 @@
                 padding 0 10px
                 font-size 15px
                 border 1px solid $light-blue2
-
+                
                 &:active,
                 &:focus
                     border 1px solid $orange
-
+            
             &-value
                 line-height 49px
-
+                
                 .description
                     color #868685
-
+                
                 .iata
                     position absolute
                     color #868685
                     right 30px
-
-        
 .dtpk-checkbox{
     border-color #3fa9f5
     border-radius 0
@@ -184,7 +191,7 @@
     height: 34px;
     line-height: 34px;
     border 1px solid $light-blue2
-
+    
     &:focus{
         border 1px solid $orange
     }
@@ -215,12 +222,13 @@
 .datepickerDisabled{
     a{
         color: #bdbdbd !important;
-
+        
         &:hover{
-            border-color transparent
-            background none
+            border-color transparent !important
+            background none !important
+            cursor inherit !important
             span{
-                color: #bdbdbd
+                color: #bdbdbd !important
             }
         }
     }
@@ -257,7 +265,7 @@
             z-index: 30;
         }
     }
-
+    
     .ui-tooltip{
         position: absolute;
         top: 37px !important;
@@ -266,21 +274,21 @@
         padding 0 5px
         border 1px solid $dark-blue
         line-height 28px
-
+        
         &:before{
             display none
         }
-
+        
         .ui-tooltip-content{
             white-space nowrap;
-
+            
             &:before{
                 content url("/spa/img/partners/svyaznoy/validation-error.png")
                 top 4px
                 margin-right 2px
             }
         }
-
+        
         &.ui-tooltip-date-back{
             left 125px !important
         }

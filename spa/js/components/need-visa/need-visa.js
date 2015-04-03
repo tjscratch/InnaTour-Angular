@@ -1,6 +1,6 @@
 innaAppConponents
     .factory('NeedVisa', [
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$templateCache',
         'aviaHelper',
         function (Events, $templateCache, aviaHelper) {
@@ -47,7 +47,7 @@ innaAppConponents
         }
     ])
     .directive('needVisa', [
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$templateCache',
         'aviaHelper',
         function (Events, $templateCache, aviaHelper) {

@@ -2,7 +2,7 @@
 angular.module('innaApp.directives')
     .directive('advComponent', [
         'EventManager',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$templateCache',
         '$routeParams',
         '$location',

@@ -2,7 +2,7 @@ angular.module('innaApp.directives')
     .directive('innaGallery', [
         '$templateCache',
         '$timeout',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         'hotkeys',
         function ($templateCache, $timeout, Events, hotkeys) {
             return {

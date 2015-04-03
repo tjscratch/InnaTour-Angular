@@ -16,7 +16,7 @@ innaAppControllers.
         'aviaHelper',
         'urlHelper',
         'innaApp.Urls',
-        'innaApp.API.events',
+        'innaAppApiEvents',
 
         // components
         'PriceGeneric',

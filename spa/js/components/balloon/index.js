@@ -2,7 +2,7 @@
 
 innaAppConponents.
     factory('Balloon', [
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$templateCache',
         function (Events, $templateCache) {
 

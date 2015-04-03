@@ -4,7 +4,7 @@
 
 innaAppControllers.
     controller('FullWLMainCtrl', [
-        'EventManager', '$scope', '$rootScope', '$location', 'innaApp.Urls', '$routeParams', 'innaApp.API.events', 'DynamicFormSubmitListener', 'innaApp.services.PageContentLoader', 'innaApp.API.pageContent.DYNAMIC',
+        'EventManager', '$scope', '$rootScope', '$location', 'innaApp.Urls', '$routeParams', 'innaAppApiEvents', 'DynamicFormSubmitListener', 'innaApp.services.PageContentLoader', 'innaApp.API.pageContent.DYNAMIC',
         function (EventManager, $scope, $rootScope, $location, URLs, $routeParams, Events, DynamicFormSubmitListener, PageContentLoader, sectionID) {
             //EventManager.fire(Events.HEAD_HIDDEN);
             //EventManager.fire(Events.FOOTER_HIDDEN);

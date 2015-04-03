@@ -10,7 +10,7 @@ angular.module('innaApp.directives')
     .directive('hotelsMap', [
         'EventManager',
         '$templateCache',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$routeParams',
         '$location',
         'innaApp.Urls',
@@ -29,7 +29,7 @@ angular.module('innaApp.directives')
                     'EventManager',
                     '$scope',
                     '$element',
-                    'innaApp.API.events',
+                    'innaAppApiEvents',
 
                     function (EventManager, $scope, $element, Events) {
                         if (window.partners) {

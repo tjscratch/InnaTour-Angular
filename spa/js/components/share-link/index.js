@@ -1,6 +1,6 @@
 innaAppConponents.
     factory('ShareLink', [
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$templateCache',
         'TooltipBase',
         function (Events, $templateCache, TooltipBase) {
