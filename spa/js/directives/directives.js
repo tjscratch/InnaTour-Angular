@@ -673,17 +673,22 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
 
             $elem.on('blur', function () {
                 $scope.$apply(function () {
+                    //console.log('validateEventsDir blur');
                     validate(true);
                 });
                 //}).on('change', function () {
                 //    console.log('change');
                 //    validate();
             }).on('keypress', function (event) {
+
                 var theEvent = event || window.event;
                 var key = theEvent.keyCode || theEvent.which;
                 //console.log('key:', key);
+
+                //для Серии и Номера документа - валидация - мгновенная
                 if (key == 13) {//enter
                     $scope.$apply(function () {
+                        //console.log('validateEventsDir keypress 13');
                         validate(true);
                     });
                 }
@@ -763,6 +768,81 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
         }
     };
 }]);
+
+innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validators) {
+    return {
+        require: 'ngModel',
+        link: function ($scope, element, attrs, ctrl) {
+            var $elem = $(element);
+
+            var hideField = attrs.keyPressHideField;
+            var passenger = $scope[attrs.keyPressOnDocument];
+            var hideFieldName = attrs.keyPressHideFieldName;
+            //console.log('keyPressOnDocument value', attrs.keyPressOnDocument, passenger, hideField);
+
+            function doValidate(){
+                if (passenger.citizenship.value.id == 189)//Россия
+                {
+                    //поездка по России
+                    var tripInsideRF = $scope.isTripInsideRF($scope.item);
+
+                    //если поездка в Украину
+                    var tripInsideUkraine = $scope.isInside($scope.item, [226], true);
+
+                    var doc_num = $elem.val();
+                    //console.log('doc_num', doc_num);
+                    doc_num = doc_num.replace(/\s+/g, '');
+
+                    var isRuPassp = $scope.isCaseValid(function () {
+                        Validators.ruPassport(doc_num, 'err');
+                    });
+
+                    var isBirthDoc = $scope.isCaseValid(function () {
+                        Validators.birthPassport(doc_num, 'err');
+                    });
+
+                    console.log('tripInsideRF', tripInsideRF, 'tripInsideUkraine', tripInsideUkraine, 'isRuPassp', isRuPassp, 'isBirthDoc', isBirthDoc);
+
+                    if (tripInsideRF) {
+                        if (isRuPassp || isBirthDoc) {
+                            passenger[hideField][hideFieldName] = true;
+
+                            //console.log(passenger.doc_expirationDate.id);
+                            var $to = $("#" + passenger.doc_expirationDate.id);
+                            $scope.tooltipControl.close($to);
+
+                            return;
+                        }
+                    }
+                    else if (tripInsideUkraine){ //если в Украине
+                        if (isRuPassp || isBirthDoc) {
+                            setTimeout(function () {
+                                var $to = $("#" + passenger.doc_series_and_number.id);
+                                $scope.tooltipControl.close($to);
+                                $scope.tooltipControl.init($to, 'С 1 марта 2015 года граждане РФ могут въезжать<br/>на территорию Украины только по заграничному паспорту.');
+                                $scope.tooltipControl.open($to);
+                            }, 100);
+                            
+                            return;
+                        }
+                        else {
+                            var $to = $("#" + passenger.doc_series_and_number.id);
+                            $scope.tooltipControl.close($to);
+                        }
+                    }
+                }
+
+                passenger[hideField][hideFieldName] = false;
+                return;
+            }
+
+            $scope.$watch('passenger.doc_series_and_number.value', function (newVal, oldVal) {
+                //console.log('doc_series_and_number.value', newVal);
+                doValidate();
+            });
+        }
+    };
+});
 
 //innaAppDirectives.directive('onTouch', function () {
 //    return {
