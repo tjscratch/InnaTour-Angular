@@ -180,13 +180,13 @@ innaAppDirectives.directive('innaForm', [
                         validate();
 
                         var params = [];
-                        params.push($scope.fromId)
-                        params.push($scope.toId)
-                        params.push($scope.startDate)
-                        params.push($scope.endDate)
-                        params.push(0)
-                        params.push($scope.adultCount)
-                        params[6] = ''
+                        params.push($scope.fromId);
+                        params.push($scope.toId);
+                        params.push($scope.startDate);
+                        params.push($scope.endDate);
+                        params.push(0);
+                        params.push($scope.adultCount);
+                        params[6] = '';
 
                         if ($scope.childrensAge) {
                             var childs = [];
@@ -197,9 +197,9 @@ innaAppDirectives.directive('innaForm', [
                         }
 
                         if ($scope.partnerName) {
-                            var partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId
+                            var partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId;
                         } else {
-                            var partner = ''
+                            var partner = '';
                         }
 
 
@@ -212,7 +212,7 @@ innaAppDirectives.directive('innaForm', [
                             $scope[e.message] = e;
                         }
                     }
-                }
+                };
 
 
                 /**
@@ -226,7 +226,7 @@ innaAppDirectives.directive('innaForm', [
                     widgetValidators.required($scope.startDate, Error('startDateError'), "Выберите дату отправления туда");
                     widgetValidators.required($scope.endDate, Error('endDateError'), "Выберите дату отправления обратно");
 
-                };
+                }
                 $scope.$watch('fromId', function (value) {
                     if (value instanceof Error) {
                         $scope.fromIdError = value.text;
