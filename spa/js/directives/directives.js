@@ -788,6 +788,7 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
 
                     //если поездка в Украину
                     var tripInsideUkraine = $scope.isInside($scope.item, [226], true);
+                    console.log('tripInsideRF', tripInsideRF, 'tripInsideUkraine', tripInsideUkraine);
 
                     if (tripInsideRF) {
                         var doc_num = $elem.val();
@@ -824,7 +825,7 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
                             setTimeout(function () {
                                 var $to = $("#" + passenger.doc_series_and_number.id);
                                 $scope.tooltipControl.close($to);
-                                $scope.tooltipControl.init($to, 'Вы указали внутренний паспорт РФ. С 01 марта 2015 въезд в Украину граждан РФ возможен только по заграничному паспорту.');
+                                $scope.tooltipControl.init($to, 'Вы указали внутренний паспорт РФ.<br/>С 01 марта 2015 въезд в Украину граждан РФ<br/>возможен только по заграничному паспорту.');
                                 $scope.tooltipControl.open($to);
                             }, 100);
                             

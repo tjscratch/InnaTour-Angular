@@ -365,9 +365,14 @@
                     var etapCountry = etapCountries[i];
 
                     if (useAnyIn){
-                        if (_.indexOf(arrayCountryIds, etapCountry) > -1) //нашли хоть одну в массиве (для Украины)
+                        if (_.any(arrayCountryIds, function (countryId) {
+                                return countryId == etapCountry;
+                            })) //нашли хоть одну в массиве (для Украины)
                         {
                             return true;
+                        }
+                        else {
+                            return false;
                         }
                     }
                     else {
