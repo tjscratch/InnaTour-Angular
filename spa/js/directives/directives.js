@@ -825,6 +825,10 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
                             
                             return;
                         }
+                        else {
+                            var $to = $("#" + passenger.doc_series_and_number.id);
+                            $scope.tooltipControl.close($to);
+                        }
                     }
                 }
 
