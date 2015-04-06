@@ -788,21 +788,23 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
 
                     //если поездка в Украину
                     var tripInsideUkraine = $scope.isInside($scope.item, [226], true);
-                    console.log('tripInsideRF', tripInsideRF, 'tripInsideUkraine', tripInsideUkraine);
+
+                    var doc_num = $elem.val();
+                    //console.log('doc_num', doc_num);
+                    doc_num = doc_num.replace(/\s+/g, '');
+
+                    var isRuPassp = $scope.isCaseValid(function () {
+                        Validators.ruPassport(doc_num, 'err');
+                    });
+
+                    var isBirthDoc = $scope.isCaseValid(function () {
+                        Validators.birthPassport(doc_num, 'err');
+                    });
+
+                    console.log('tripInsideRF', tripInsideRF, 'tripInsideUkraine', tripInsideUkraine, 'isRuPassp', isRuPassp, 'isBirthDoc', isBirthDoc);
 
                     if (tripInsideRF) {
-                        var doc_num = $elem.val();
-                        //console.log('doc_num', doc_num);
-                        doc_num = doc_num.replace(/\s+/g, '');
-
-                        //проставляем флаг, что это российский паспорт
-                        //флаг понадобится при валидации Действителен до
-                        if ($scope.isCaseValid(function () {
-                                Validators.ruPassport(doc_num, 'err');
-                            }) ||
-                            $scope.isCaseValid(function () {
-                                Validators.birthPassport(doc_num, 'err');
-                            })) {
+                        if (isRuPassp || isBirthDoc) {
                             passenger[hideField][hideFieldName] = true;
 
                             //console.log(passenger.doc_expirationDate.id);
@@ -813,23 +815,14 @@ innaAppDirectives.directive('keyPressOnDocument', function ($rootScope, Validato
                         }
                     }
                     else if (tripInsideUkraine){ //если в Украине
-                        var doc_num = $elem.val();
-                        doc_num = doc_num.replace(/\s+/g, '');
-
-                        //проставляем флаг, что это российский паспорт
-                        //флаг понадобится при валидации Действителен до
-                        if ($scope.isCaseValid(function () {
-                                Validators.ruPassport(doc_num, 'err');
-                            })
-                        ) {
+                        if (isRuPassp || isBirthDoc) {
                             setTimeout(function () {
                                 var $to = $("#" + passenger.doc_series_and_number.id);
                                 $scope.tooltipControl.close($to);
-                                $scope.tooltipControl.init($to, 'Вы указали внутренний паспорт РФ.<br/>С 01 марта 2015 въезд в Украину граждан РФ<br/>возможен только по заграничному паспорту.');
+                                $scope.tooltipControl.init($to, 'С 1 марта 2015 года граждане РФ могут въезжать<br/>на территорию Украины только по заграничному паспорту.');
                                 $scope.tooltipControl.open($to);
                             }, 100);
                             
-
                             return;
                         }
                     }
