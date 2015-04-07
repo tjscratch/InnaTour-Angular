@@ -111,25 +111,50 @@
     .button,
     .bottom-actions,
     .icon-sprite-hotel,
-    .hotel-info{
+    .hotel-info,
+    .recommendedPairTicket,
+    .icon-sprite-airplane,
+    .flight-info{
         display block
         opacity 1
         -webkit-transition: opacity linear .2s;
         transition: opacity linear .2s;
     }
     
-    &.loading{
+    &.hotel-loading{
         .price,
         .button,
-        .bottom-actions,
+        .b-result__cell_even .bottom-actions,
         .icon-sprite-hotel,
         .hotel-info{
             display none
             opacity 0
         }
-            
         .spinner{
             display block
+            
+            &.spinner-ticket{
+                display none
+            }
+        }
+    }
+    &.ticket-loading{
+        .price,
+        .button,
+        .b-result__cell_ticket .bottom-actions,
+        .recommendedPairTicket,
+        .icon-sprite-airplane,
+        .flight-info{
+            display none
+            opacity 0
+        }
+       
+        .spinner{
+            display block
+            
+            &.spinner-hotel{
+                display none
+            }
         }
     }
 }

@@ -157,9 +157,9 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
 
                 EventManager.on(Events.DYNAMIC_SERP_CHOOSE_HOTEL, function (data) {
                     $scope.safeApply(function () {
-                        $animate.addClass('.recommended-pair', 'loading');
+                        $animate.addClass('.recommended-pair', 'hotel-loading');
                         $timeout(function () {
-                            $animate.removeClass('.recommended-pair', 'loading')
+                            $animate.removeClass('.recommended-pair', 'hotel-loading')
                         }, 500);
                         $scope.isChooseHotel = true;
                         $scope.display.fullDisplay();
@@ -169,6 +169,11 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                 EventManager.on(Events.DYNAMIC_SERP_CHOOSE_TICKET, function (data) {
                     $scope.safeApply(function () {
 
+                        $animate.addClass('.recommended-pair', 'ticket-loading');
+                        $timeout(function () {
+                            $animate.removeClass('.recommended-pair', 'ticket-loading')
+                        }, 500);
+                        
                         // TODO : заменяем дату заезда  в отель
                         // так как при выборе другого авиа билета может измениться дата прилета
                         $scope.recommendedPair.hotel.data.CheckIn = $scope.recommendedPair.ticket.data.ArrivalDate;
