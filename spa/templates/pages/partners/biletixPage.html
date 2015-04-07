@@ -9,8 +9,8 @@
     <div class="b-form-container">
         <div class="b-inna-search-widget">
             <div class="b-form-direction">
-                <div>В одну сторону</div>
-                <div>Туда-обратно</div>
+                <div class="active b-form-direction__selector b-form-direction__one-way">В одну сторону</div>
+                <div class="b-form-direction__selector b-form-direction__two-way">Туда-обратно</div>
             </div>
             <inna-form
                     partner-site="http://biletix.lh.inna.ru"
@@ -19,40 +19,33 @@
                     >
             </inna-form>
             <div class="b-form-passengers">
-                <div class="adults">
-                    <span>Взрослые<br>от 12 лет</span>
-                    <span>
+                <div class="b-form-passengers__select-block adults">
+                    <div class="b-form-passengers__label">Взрослые<br>от 18 лет</div>
+                    <div class="b-form-passengers__nums">
                         <span>1</span>
-                        <span>2</span>
+                        <span class="active">2</span>
                         <span>3</span>
                         <span>4</span>
-                        <span>5</span>
-                        <span>6</span>
-                        <span>7</span>
-                        <span>8</span>
-                        <span>9</span>
-                        <span>+</span>
-                    </span>
+                    </div>
                 </div>
-                <div class="childs">
-                    <span>Дети<br>до 12 лет</span>
-                    <span>
+                <div class="b-form-passengers__select-block childs">
+                    <div class="b-form-passengers__label">Дети<br>до 18 лет</div>
+                    <div class="b-form-passengers__nums">
                         <span>0</span>
-                        <span>1</span>
+                        <span class="active">1</span>
                         <span>2</span>
                         <span>3</span>
-                        <span>4</span>
-                        <span>5</span>
-                        <span>6</span>
-                        <span>+</span>
-                    </span>
+                    </div>
                 </div>
-                <div class="infants">
-                    <span>Младенцы<br>до 2 лет</span>
-                    <span>
-                        <span>0</span>
+                <div class="b-form-passengers__select-block infants">
+                    <div class="b-form-passengers__label">
+                        Возраст<br>детей
+                        <span class="i"></span>
+                    </div>
+                    <div class="b-form-passengers__nums">
+                        <span class="active">0</span>
                         <span>1</span>
-                    </span>
+                    </div>
                 </div>
             </div>
         </div>
