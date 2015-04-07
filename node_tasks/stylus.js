@@ -78,9 +78,12 @@ gulp.task('styl-print', function () {
 
 gulp.task('styl-partners', function () {
     optStyl.import = styleBase;
-    return gulp.src([conf.styl + '/partners/**/*.base.styl'])
+    //ToDo: для отладки билетикса
+    //return gulp.src([conf.styl + '/partners/**/*.base.styl'])
+    return gulp.src([conf.styl + '/partners/biletix/*.base.styl'])
         .pipe(stylus(optStyl))
-        .pipe(gulp.dest(conf.styl + '/partners'))
+        //.pipe(gulp.dest(conf.styl + '/partners'))
+        .pipe(gulp.dest(conf.styl + '/partners/biletix'))
         .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 

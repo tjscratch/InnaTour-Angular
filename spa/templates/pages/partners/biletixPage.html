@@ -8,9 +8,15 @@
 
     <div class="b-form-container">
         <div class="b-inna-search-widget">
-            <div class="b-form-direction">
-                <div class="active b-form-direction__selector b-form-direction__one-way">В одну сторону</div>
-                <div class="b-form-direction__selector b-form-direction__two-way">Туда-обратно</div>
+            <!--<div class="b-form-direction">-->
+                <!--<div class="active b-form-direction__selector b-form-direction__one-way">В одну сторону</div>-->
+                <!--<div class="b-form-direction__selector b-form-direction__two-way">Туда-обратно</div>-->
+            <!--</div>-->
+            <div class="b-form-labels">
+                <span>Вылет</span>
+                <span>Прилет</span>
+                <span>Дата вылета</span>
+                <span>Дата обратного вылета</span>
             </div>
             <inna-form
                     partner-site="http://biletix.lh.inna.ru"
@@ -40,13 +46,54 @@
                 <div class="b-form-passengers__select-block infants">
                     <div class="b-form-passengers__label">
                         Возраст<br>детей
-                        <span class="i"></span>
+                        <!--<span class="i"></span>-->
                     </div>
-                    <div class="b-form-passengers__nums">
-                        <span class="active">0</span>
-                        <span>1</span>
+                    <!--<div class="b-form-passengers__nums">-->
+                        <!--<span class="active">0</span>-->
+                        <!--<span>1</span>-->
+                    <!--</div>-->
+                    <div class="b-form-passengers__child-ages">
+                        <div class="b-form-passengers__age">
+                            18
+                            <span class="arrow-down"></span>
+                            <ul class="b-form-passengers__age-dropdown" style="display: none;">
+                                <li>0 лет</li>
+                                <li>1 год</li>
+                                <li>2 года</li>
+                                <li>3 года</li>
+                                <li>4 года</li>
+                                <li>5 лет</li>
+                                <li>6 лет</li>
+                                <li>7 лет</li>
+                                <li>8 лет</li>
+                                <li>9 лет</li>
+                                <li>10 лет</li>
+                                <li>11 лет</li>
+                                <li>12 лет</li>
+                                <li>13 лет</li>
+                                <li>14 лет</li>
+                                <li>15 лет</li>
+                                <li>16 лет</li>
+                                <li>17 лет</li>
+                            </ul>
+                        </div>
+                        <div class="disabled b-form-passengers__age">
+                            0
+                            <span class="arrow-down"></span>
+                        </div>
+                        <div class="disabled b-form-passengers__age">
+                            0
+                            <span class="arrow-down"></span>
+                        </div>
                     </div>
                 </div>
+                <div class="b-form-passengers__b-tarif">
+                    <span class="economy active ">Эконом</span>
+                    <span class="business">Бизнес</span>
+                </div>
+            </div>
+            <div class="b-form-submit">
+                <input type="submit" class="button">
             </div>
         </div>
     </div>
