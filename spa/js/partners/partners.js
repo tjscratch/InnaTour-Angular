@@ -240,7 +240,7 @@
             'skype': '',
             'aboutLink': 'http://www.svyaznoy.ru/about/',
             'contactsLink': 'http://www.svyaznoy.ru/contacts/',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_skycassa.pdf',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_svyaznoy.pdf',
             'horizontalForm': true,
             'showOffers': true
         },
@@ -380,7 +380,7 @@
             'skype': '',
             'aboutLink': '',
             'contactsLink': '',
-            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_skycassa.pdf',
+            'offertaContractLink': 'https://s.inna.ru/files/doc/offer_euroset.pdf',
             'horizontalForm': false,
             'showOffers': false
         },
