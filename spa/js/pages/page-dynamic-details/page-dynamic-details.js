@@ -278,6 +278,10 @@ innaAppControllers
                         $scope.recommendedPair.setTicket(ticket);
                         $scope.recommendedPair.setHotel(hotel);
                         $scope.recommendedPairStatus = data.Status;
+                        
+                        $routeParams.TicketId = ticket.data.VariantId1;
+                        $routeParams.TicketBackId = ticket.data.VariantId2;
+                        
 
                         $location.search('displayHotel', hotel.data.HotelId);
 
