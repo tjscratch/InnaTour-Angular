@@ -95,7 +95,7 @@ gulp.task('widget-search-watch', function () {
         conf.widgets + '/search/js/*.js',
         conf.widgets + '/search/templ/*.html'
     ], ['widget-search-js']);
-})
+});
 
 
 

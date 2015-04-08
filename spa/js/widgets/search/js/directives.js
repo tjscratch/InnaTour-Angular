@@ -25,12 +25,12 @@ innaAppDirectives
                                 $scope.childrensAge.push({value: 0});
                             }
                         }
-                    }
+                    };
 
                     $scope.onAgeSelectorClick = function (num) {
                         var selector = $scope.childrensAge[num];
                         selector.isOpen = !selector.isOpen;
-                    }
+                    };
 
                     $scope.sum = function (a, b) {
                         return +a + +b;

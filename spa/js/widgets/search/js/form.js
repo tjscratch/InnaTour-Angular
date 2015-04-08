@@ -9,12 +9,41 @@ innaAppDirectives.directive('innaForm', [
             scope: {
                 partnerSite: "@",
                 partnerName: "@",
-                partnerDefaultCity: "@"
+                partnerDefaultCity: "@",
+                exportFieldsCallback: "&",
+                exportFields: "=",
+                updateFromOutside: "="
             },
             controller: ['$element', '$scope', '$http', 'widgetValidators', function ($element, $scope, $http, widgetValidators) {
 
                 $scope.typeaheadTemplateCustom = $templateCache.get('typeaheadTemplateCustom.html') ? $templateCache.get('typeaheadTemplateCustom.html') : $templateCache.get('widgets/search/templ/typeaheadTemplateCustom.html');
-                
+
+
+                //debug
+                if ($scope.exportFieldsCallback && $scope.exportFields && $scope.exportFields.length > 0) {
+                    //console.log('$watchGroup', $scope.exportFields);
+                    $scope.$watch(function(){
+                        return $scope.exportFields.map(angular.bind($scope, $scope.$eval));
+                    }, function(newValues){
+                        $scope.exportFieldsCallback({ values: newValues });
+                    }, true);
+                }
+
+                if ($scope.updateFromOutside){
+                    $scope.$watch('updateFromOutside', function (data) {
+                        if (data.attr == 'submit'){
+                            $scope.innaStartSearch($scope.forms.innaSearchForm);
+                        }
+                        else {
+                            $scope[data.attr] = data.value;
+                        }
+                    });
+                }
+
+                //debug
+
+                //forms
+                $scope.forms = {};
                 
                 /**
                  * установка текущей локали
@@ -138,6 +167,15 @@ innaAppDirectives.directive('innaForm', [
 
 
                 /**
+                 * BEGIN TicketClass
+                 */
+                $scope.ticketClass = 0;//эконом
+                /**
+                 * END TicketClass
+                 */
+
+
+                /**
                  * BEGIN PEOPLE_COUNTER
                  */
                 $scope.adultCount = 2;
@@ -184,7 +222,7 @@ innaAppDirectives.directive('innaForm', [
                         params.push($scope.toId);
                         params.push($scope.startDate);
                         params.push($scope.endDate);
-                        params.push(0);
+                        params.push($scope.ticketClass);
                         params.push($scope.adultCount);
                         params[6] = '';
 
