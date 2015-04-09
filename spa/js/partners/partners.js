@@ -8,7 +8,7 @@
     self.WLType = {
         full: 'full',
         lite: 'lite'
-    }
+    };
 
     self.lastHeight = null;
     self.frameShowed = false;

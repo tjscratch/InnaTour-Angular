@@ -9,10 +9,17 @@
         <span>Дата вылета</span>
         <span>Дата обратного вылета</span>
     </div>
+    <div class="b-form-date-nav">
+        <div class="dateNav prev"></div>
+        <div class="dateNav next"></div>
+        <div class="dateNav prev"></div>
+        <div class="dateNav next"></div>
+    </div>
     <inna-form
             partner-site="http://biletix.beta.inna.ru"
             partner-name="biletix"
             partner-default-city="Москва"
+            is-wl-partner-mode="true"
             export-fields-callback="exportFieldsChange(values)"
             export-fields="exportFieldsArray"
             update-from-outside="setFormModel"

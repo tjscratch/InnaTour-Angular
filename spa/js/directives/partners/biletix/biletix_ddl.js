@@ -14,7 +14,9 @@ innaAppDirectives.directive('biletixDdl',
                 $scope.isShow = false;
 
                 $scope.toggle = function () {
-                    $scope.isShow = !$scope.isShow;
+                    if (!$scope.disabled) {
+                        $scope.isShow = !$scope.isShow;
+                    }
                 };
 
                 $scope.select = function (val) {
