@@ -113,12 +113,29 @@
             .dateNav {
                 display inline-block;
 
+                &.disabled {
+                    cursor default;
+                    background-position: left 0px;
+
+                    &:hover {
+                        background-position: left 0px;
+                    }
+                }
+
                 &:hover {
                     background-position: left bottom;
                 }
 
                 &.next {
                     background-position: right -26px;
+
+                    &.disabled {
+                        background-position: right 0px;
+
+                        &:hover {
+                            background-position: right 0px;
+                        }
+                    }
 
                     &:hover {
                         background-position: right bottom;
@@ -486,7 +503,7 @@
             top: 67px;
             left: 8px;
             width: 232px;
-            border-bottom 1px solid #C2D3DB;
+            border-bottom 1px solid #c2d3db;
         }
     }
 

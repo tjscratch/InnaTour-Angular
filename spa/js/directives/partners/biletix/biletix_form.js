@@ -18,6 +18,34 @@ innaAppDirectives.directive('biletixForm',
                 $scope.childAge2 = 0;
                 $scope.childAge3 = 0;
 
+                //даты
+                $scope.startDate;
+                $scope.endDate;
+
+                $scope.startDateNextDisabled = true;
+                $scope.startDatePrevDisabled = true;
+                $scope.endDateNextDisabled = true;
+                $scope.endDatePrevDisabled = true;
+
+                $scope.updateDateNextPrev = function () {
+                    $scope.startDateNextDisabled = !$scope.startDate;
+                    $scope.startDatePrevDisabled = !$scope.startDate;
+                    $scope.endDateNextDisabled = !$scope.endDate;
+                    $scope.endDatePrevDisabled = !$scope.endDate;
+                };
+
+                $scope.$watchGroup(['startDate', 'endDate'], function (data) {
+                    console.log('watch data', data);
+                    $scope.updateDateNextPrev();
+                });
+
+                $scope.addSubscractDay = function (fromOrToDate, addOrSubstract) {
+                    if (fromOrToDate == 'from'){
+
+                    }
+                };
+                //даты
+
                 $scope.$watchGroup(['childAge1', 'childAge2', 'childAge3'], function (data) {
                     $scope.childrensAges = data;
 
@@ -25,7 +53,7 @@ innaAppDirectives.directive('biletixForm',
                     $scope.updateFormModel('childrensAge', [
                         {value: $scope.childAge1},
                         {value: $scope.childAge2},
-                        {value: $scope.childAge3},
+                        {value: $scope.childAge3}
                     ]);
                 });
 
@@ -81,6 +109,9 @@ innaAppDirectives.directive('biletixForm',
 
                 $scope.exportFieldsChange = function (values) {
                     //console.log('from innaForm', values);
+                    for(var i=0; i< values.length; i++){
+                        $scope[$scope.exportFieldsArray[i]] = values[i];
+                    }
                 };
                 //communicate
             }

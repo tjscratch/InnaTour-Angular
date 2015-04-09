@@ -10,13 +10,12 @@
         <span>Дата обратного вылета</span>
     </div>
     <div class="b-form-date-nav">
-        <div class="dateNav prev"></div>
-        <div class="dateNav next"></div>
-        <div class="dateNav prev"></div>
-        <div class="dateNav next"></div>
+        <div class="dateNav prev" ng-class="{disabled:startDatePrevDisabled}"></div>
+        <div class="dateNav next" ng-class="{disabled:startDateNextDisabled}"></div>
+        <div class="dateNav prev" ng-class="{disabled:endDatePrevDisabled}"></div>
+        <div class="dateNav next" ng-class="{disabled:endDateNextDisabled}"></div>
     </div>
     <inna-form
-            partner-site="http://biletix.beta.inna.ru"
             partner-name="biletix"
             partner-default-city="Москва"
             is-wl-partner-mode="true"
