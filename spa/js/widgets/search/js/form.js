@@ -73,10 +73,10 @@ innaAppDirectives.directive('innaForm', [
                             term: val.split(', ')[0].trim()
                         }
                     }).then(function (response) {
-                        var data = []
+                        var data = [];
                         angular.forEach(response.data, function (item) {
                             var fullName = item.Name + ", " + item.CountryName;
-                            var allArport = item.Airport ? " (все аэропорты)" : ""
+                            var allArport = item.Airport ? " (все аэропорты)" : "";
                             var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + allArport + "</span>";
                             data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
                             if (item.Airport) {
@@ -103,10 +103,10 @@ innaAppDirectives.directive('innaForm', [
                             term: val.split(', ')[0].trim()
                         }
                     }).then(function (response) {
-                        var data = []
+                        var data = [];
                         angular.forEach(response.data, function (item) {
-                            var fullName = item.Name + ", " + item.CountryName
-                            var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + "</span>"
+                            var fullName = item.Name + ", " + item.CountryName;
+                            var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + "</span>";
                             data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
                         });
                         return data;
@@ -121,7 +121,7 @@ innaAppDirectives.directive('innaForm', [
 
                 var highlightDates = function (date) {
                     var month = date.getMonth() + 1;
-                    var dates = date.getDate() + "." + month + "." + date.getFullYear()
+                    var dates = date.getDate() + "." + month + "." + date.getFullYear();
                     var oneDay;
                     if ($scope.startDate == $scope.endDate) {
                         oneDay = $scope.startDate;
@@ -229,17 +229,15 @@ innaAppDirectives.directive('innaForm', [
                         if ($scope.childrensAge) {
                             var childs = [];
                             for (var i = 0; i < $scope.childrensAge.length; i++) {
-                                childs.push($scope.childrensAge[i].value)
+                                childs.push($scope.childrensAge[i].value);
                             }
-                            params[6] = childs.join('_')
+                            params[6] = childs.join('_');
                         }
 
+                        var partner = '';
                         if ($scope.partnerName) {
-                            var partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId;
-                        } else {
-                            var partner = '';
+                            partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId;
                         }
-
 
                         if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
                             //?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
