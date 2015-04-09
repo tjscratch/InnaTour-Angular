@@ -12,14 +12,15 @@ innaAppDirectives.directive('innaForm', [
                 partnerDefaultCity: "@",
                 exportFieldsCallback: "&",
                 exportFields: "=",
-                updateFromOutside: "="
+                updateFromOutside: "=",
+                isWlPartnerMode: "="
             },
             controller: ['$element', '$scope', '$http', 'widgetValidators', function ($element, $scope, $http, widgetValidators) {
 
                 $scope.typeaheadTemplateCustom = $templateCache.get('typeaheadTemplateCustom.html') ? $templateCache.get('typeaheadTemplateCustom.html') : $templateCache.get('widgets/search/templ/typeaheadTemplateCustom.html');
 
 
-                //debug
+                //passing parameters in and out
                 if ($scope.exportFieldsCallback && $scope.exportFields && $scope.exportFields.length > 0) {
                     //console.log('$watchGroup', $scope.exportFields);
                     $scope.$watch(function(){
@@ -241,7 +242,15 @@ innaAppDirectives.directive('innaForm', [
 
                         if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
                             //?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
-                            window.open($scope.partnerSite + "/#/packages/search/" + params.join('-') + partner, '_blank')
+
+                            if ($scope.isWlPartnerMode){
+                                var openUrl = "/#/packages/search/" + params.join('-');
+                                openUrl = window.partners.getParentLocationWithUrl(openUrl);
+                                window.open(openUrl, '_blank');
+                            }
+                            else {
+                                window.open($scope.partnerSite + "/#/packages/search/" + params.join('-') + partner, '_blank');
+                            }
                         }
                     } catch (e) {
                         if ($scope.hasOwnProperty(e.message)) {

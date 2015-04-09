@@ -454,17 +454,13 @@
         }
     }
 
-    .datepicker .table-condensed > tbody > tr > td.selected.from_date, .datepicker table > tbody > tr > td.selected.from_date {
-        background-color: $dpSelectedBgColor;
-        color: $dpSelectedColor;
-
-        &:hover {
-            background-color $dpHoverBgColor;
-            color $dpHoverColor;
-        }
+    .datepicker .table-condensed > tbody > tr > td.selected, .datepicker table > tbody > tr > td.selected {
+        vertical-align inherit;
     }
 
+    .datepicker .table-condensed > tbody > tr > td.selected.from_date, .datepicker table > tbody > tr > td.selected.from_date,
     .datepicker .table-condensed > tbody > tr > td.selected.to_date, .datepicker table > tbody > tr > td.selected.to_date {
+        vertical-align top;
         background-color: $dpSelectedBgColor;
         color: $dpSelectedColor;
 
