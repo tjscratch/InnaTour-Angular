@@ -46,15 +46,20 @@ innaAppDirectives.directive('biletixForm',
                 };
                 //даты
 
+                function sendChildsUpdate(){
+                    //обновляем данные в innForm
+                    $scope.updateFormModel('childrensAge', [
+                        {value: $scope.childAge1Enabled ? $scope.childAge1 : 0},
+                        {value: $scope.childAge2Enabled ? $scope.childAge2 : 0},
+                        {value: $scope.childAge3Enabled ? $scope.childAge3 : 0}
+                    ]);
+                }
+
                 $scope.$watchGroup(['childAge1', 'childAge2', 'childAge3'], function (data) {
                     $scope.childrensAges = data;
 
                     //обновляем данные в innForm
-                    $scope.updateFormModel('childrensAge', [
-                        {value: $scope.childAge1},
-                        {value: $scope.childAge2},
-                        {value: $scope.childAge3}
-                    ]);
+                    sendChildsUpdate();
                 });
 
                 $scope.$watch('ticketClass', function (data) {
@@ -74,6 +79,7 @@ innaAppDirectives.directive('biletixForm',
 
                     //обновляем данные в innForm
                     $scope.updateFormModel('childrenCount', data);
+                    sendChildsUpdate();
                 });
 
                 //ui
