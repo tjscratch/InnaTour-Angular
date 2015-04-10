@@ -1,6 +1,6 @@
 innaAppDirectives.directive('innaForm', [
-    '$templateCache', '$timeout',
-    function ($templateCache, $timeout) {
+    '$templateCache', '$timeout', '$location',
+    function ($templateCache, $timeout, $location) {
         return {
             restrict: 'E',
             template: function () {
@@ -262,9 +262,11 @@ innaAppDirectives.directive('innaForm', [
                             //?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
 
                             if ($scope.isWlPartnerMode){
-                                var openUrl = "/#/packages/search/" + params.join('-');
-                                openUrl = window.partners.getParentLocationWithUrl(openUrl);
-                                window.open(openUrl, '_blank');
+                                //var openUrl = "/#/packages/search/" + params.join('-');
+                                //openUrl = window.partners.getParentLocationWithUrl(openUrl);
+                                //window.open(openUrl, '_blank');
+                                var openUrl = "/packages/search/" + params.join('-');
+                                $location.url(openUrl);
                             }
                             else {
                                 window.open($scope.partnerSite + "/#/packages/search/" + params.join('-') + partner, '_blank');
