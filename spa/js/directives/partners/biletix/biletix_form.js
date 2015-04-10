@@ -12,7 +12,7 @@ innaAppDirectives.directive('biletixForm',
                 //форма спрятана - тут показываем с задержкой, чтобы отработали стили и js
                 setTimeout(function () {
                     document.getElementsByClassName('b-form-container')[0].style.visibility = 'visible';
-                }, 500);
+                }, 1000);
 
                 //model
                 $scope.ticketClass = 0;
@@ -39,17 +39,58 @@ innaAppDirectives.directive('biletixForm',
                     $scope.startDatePrevDisabled = !$scope.startDate;
                     $scope.endDateNextDisabled = !$scope.endDate;
                     $scope.endDatePrevDisabled = !$scope.endDate;
+
+                    var today = dateHelper.jsDateToDate(new Date(), true);
+                    if ($scope.startDate == today){
+                        $scope.startDatePrevDisabled = true;
+                    }
+
+                    var maxDate = new Date();
+                    maxDate.setDate(maxDate.getDate() + 28);
+                    maxDate = dateHelper.jsDateToDate(maxDate, true);
+                    if ($scope.endDate == maxDate){
+                        $scope.endDateNextDisabled = true;
+                    }
+
+                    if ($scope.startDate == $scope.endDate){
+                        $scope.endDatePrevDisabled = true;
+                    }
                 };
 
                 $scope.$watchGroup(['startDate', 'endDate'], function (data) {
-                    console.log('watch data', data);
+                    //console.log('watch data', data);
                     $scope.updateDateNextPrev();
                 });
 
-                $scope.addSubscractDay = function (fromOrToDate, addOrSubstract) {
-                    if (fromOrToDate == 'from'){
+                $scope.addSubscractDay = function (fromOrToDate, addOrSubstract, isDisabled) {
+                    if (isDisabled){
+                        return;
+                    }
+
+                    if (fromOrToDate == 'from' && $scope.startDate){
+                        var jsDate = dateHelper.dateToJsDate($scope.startDate);
+                        if (addOrSubstract == 'add'){
+                            jsDate.setDate(jsDate.getDate() + 1);
+                        }
+                        else if (addOrSubstract == 'sub'){
+                            jsDate.setDate(jsDate.getDate() - 1);
+                        }
+                        $scope.startDate = dateHelper.jsDateToDate(jsDate, true);
+                        $scope.updateFormModel('setDateFrom', $scope.startDate);
+                    }
+                    else if (fromOrToDate == 'to' && $scope.endDate){
+                        var jsDate = dateHelper.dateToJsDate($scope.endDate);
+                        if (addOrSubstract == 'add'){
+                            jsDate.setDate(jsDate.getDate() + 1);
+                        }
+                        else if (addOrSubstract == 'sub'){
+                            jsDate.setDate(jsDate.getDate() - 1);
+                        }
+                        $scope.endDate = dateHelper.jsDateToDate(jsDate, true);
+                        $scope.updateFormModel('setDateTo', $scope.endDate);
 
                     }
+                    $scope.updateDateNextPrev();
                 };
                 //даты
 

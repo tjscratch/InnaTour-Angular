@@ -1,6 +1,6 @@
 innaAppDirectives.directive('innaForm', [
-    '$templateCache',
-    function ($templateCache) {
+    '$templateCache', '$timeout',
+    function ($templateCache, $timeout) {
         return {
             restrict: 'E',
             template: function () {
@@ -35,11 +35,21 @@ innaAppDirectives.directive('innaForm', [
                         if (data.attr == 'submit'){
                             $scope.innaStartSearch($scope.forms.innaSearchForm);
                         }
+                        else if (data.attr == 'setDateFrom') {
+                            $scope.dontFocusToDate = true;
+                            var dFrom = dateHelper.dateToJsDate(data.value);
+                            $element.find('.from_date').datepicker('setDate', dFrom);
+                        }
+                        else if (data.attr == 'setDateTo') {
+                            var dTo = dateHelper.dateToJsDate(data.value);
+                            $element.find('.to_date').datepicker('setDate', dTo);
+                        }
                         else {
                             $scope[data.attr] = data.value;
                         }
                     });
                 }
+                $scope.dontFocusToDate = false;
 
                 //debug
 
@@ -147,10 +157,18 @@ innaAppDirectives.directive('innaForm', [
                 };
 
                 $element.find('.from_date').on('changeDate', function (selected) {
+                    //console.log('changeDate', selected, $scope.dontFocusToDate);
                     $scope.setStartDate = selected.date;
                     $element.find('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
                     $element.find('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28));
-                    $element.find('.to_date').focus();
+
+                    //fix открытия при програмном обновлении дат
+                    if (!$scope.dontFocusToDate){
+                        $element.find('.to_date').focus();
+                    }
+                    $timeout(function () {
+                        $scope.dontFocusToDate = false;
+                    }, 100);
                 });
 
                 $element.find('.input-daterange').datepicker({
@@ -201,12 +219,12 @@ innaAppDirectives.directive('innaForm', [
                 });
                 $scope.startDateError = null;
                 $scope.endDateError = null;
-                $scope.$watch('startDate', function (data) {
-                    $scope.startDate = data;
-                });
-                $scope.$watch('endDate', function (data) {
-                    $scope.endDate = data;
-                });
+                //$scope.$watch('startDate', function (data) {
+                //    $scope.startDate = data;
+                //});
+                //$scope.$watch('endDate', function (data) {
+                //    $scope.endDate = data;
+                //});
 
                 /**
                  * Старт поиска
