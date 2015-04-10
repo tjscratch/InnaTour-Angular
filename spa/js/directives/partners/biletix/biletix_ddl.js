@@ -13,12 +13,6 @@ innaAppDirectives.directive('biletixDdl',
             controller: function ($element, $scope) {
                 $scope.isShow = false;
 
-                $scope.toggle = function () {
-                    if (!$scope.disabled) {
-                        $scope.isShow = !$scope.isShow;
-                    }
-                };
-
                 $scope.select = function (val) {
                     $scope.value = val;
                 };
@@ -33,6 +27,23 @@ innaAppDirectives.directive('biletixDdl',
                     }
                     return list;
                 }
+            },
+            link: function(scope, element, attrs){
+                $(document).click(function(event){
+                    var isInsideComponent = !!$(event.target).closest(element).length;
+
+                    if(isInsideComponent) {
+                        scope.$apply(function($scope){
+                            if (!$scope.disabled) {
+                                $scope.isShow = !$scope.isShow;
+                            }
+                        });
+                    } else {
+                        scope.$apply(function($scope){
+                            $scope.isShow = false;
+                        });
+                    }
+                });
             }
         }
     });
