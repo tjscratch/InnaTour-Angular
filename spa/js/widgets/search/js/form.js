@@ -16,7 +16,7 @@ innaAppDirectives.directive('innaForm', [
                 isWlPartnerMode: "="
             },
             controller: ['$element', '$scope', '$http', 'widgetValidators', function ($element, $scope, $http, widgetValidators) {
-
+                //console.log('inna form init');
                 $scope.typeaheadTemplateCustom = $templateCache.get('typeaheadTemplateCustom.html') ? $templateCache.get('typeaheadTemplateCustom.html') : $templateCache.get('widgets/search/templ/typeaheadTemplateCustom.html');
 
 

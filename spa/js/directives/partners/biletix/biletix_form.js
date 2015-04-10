@@ -7,6 +7,13 @@ innaAppDirectives.directive('biletixForm',
                 return $templateCache.get('components/partners/biletix/biletix_form.html')
             },
             controller: function ($element, $scope, $http, widgetValidators) {
+                //console.log('biletix form init');
+
+                //форма спрятана - тут показываем с задержкой, чтобы отработали стили и js
+                setTimeout(function () {
+                    document.getElementsByClassName('b-form-container')[0].style.visibility = 'visible';
+                }, 500);
+
                 //model
                 $scope.ticketClass = 0;
 
