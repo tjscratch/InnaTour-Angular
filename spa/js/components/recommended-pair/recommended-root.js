@@ -172,7 +172,9 @@ angular.module('innaApp.directives')
 
 
                                 // пересчитываем количество ночей
-                                var start = moment($scope.recommendedPair.hotel.data.CheckIn);
+                                // ToDo: дату заезда берем из поля CheckIn  билета, хз насколько это клево 
+                                //var start = moment($scope.recommendedPair.hotel.data.CheckIn);
+                                var start = moment(data.data.CheckIn);
                                 var end   = moment($scope.recommendedPair.hotel.data.CheckOut);
                                 $scope.recommendedPair.hotel.data.NightCount = Math.ceil(end.diff(start,  'days', true));
 
