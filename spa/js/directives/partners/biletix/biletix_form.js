@@ -96,11 +96,19 @@ innaAppDirectives.directive('biletixForm',
 
                 function sendChildsUpdate(){
                     //обновляем данные в innForm
-                    $scope.updateFormModel('childrensAge', [
-                        {value: $scope.childAge1Enabled ? $scope.childAge1 : 0},
-                        {value: $scope.childAge2Enabled ? $scope.childAge2 : 0},
-                        {value: $scope.childAge3Enabled ? $scope.childAge3 : 0}
-                    ]);
+                    var childs = [];
+
+                    if ($scope.childAge1Enabled){
+                        childs.push({value: $scope.childAge1});
+                    }
+                    if ($scope.childAge2Enabled){
+                        childs.push({value: $scope.childAge2});
+                    }
+                    if ($scope.childAge3Enabled){
+                        childs.push({value: $scope.childAge3});
+                    }
+
+                    $scope.updateFormModel('childrensAge', childs);
                 }
 
                 $scope.$watchGroup(['childAge1', 'childAge2', 'childAge3'], function (data) {
