@@ -1,0 +1,77 @@
+<div class="b-inna-search-widget">
+    <!--<div class="b-form-direction">-->
+        <!--<div class="active b-form-direction__selector b-form-direction__one-way">В одну сторону</div>-->
+        <!--<div class="b-form-direction__selector b-form-direction__two-way">Туда-обратно</div>-->
+    <!--</div>-->
+    <div class="b-form-labels">
+        <span>Вылет</span>
+        <span>Прилет</span>
+        <span>Дата вылета</span>
+        <span>Дата обратного вылета</span>
+    </div>
+    <div class="b-form-date-nav">
+        <div class="dateNav prev" ng-click="addSubscractDay('from', 'sub', startDatePrevDisabled)" ng-class="{disabled:startDatePrevDisabled}"></div>
+        <div class="dateNav next" ng-click="addSubscractDay('from', 'add', startDateNextDisabled)" ng-class="{disabled:startDateNextDisabled}"></div>
+        <div class="dateNav prev" ng-click="addSubscractDay('to', 'sub', endDatePrevDisabled)" ng-class="{disabled:endDatePrevDisabled}"></div>
+        <div class="dateNav next" ng-click="addSubscractDay('to', 'add', endDateNextDisabled)" ng-class="{disabled:endDateNextDisabled}"></div>
+    </div>
+    <inna-form
+            partner-name="biletix"
+            partner-default-city="Москва"
+            is-wl-partner-mode="true"
+            export-fields-callback="exportFieldsChange(values)"
+            export-fields="exportFieldsArray"
+            update-from-outside="setFormModel"
+            >
+    </inna-form>
+    <div class="b-form-passengers">
+        <div class="b-form-passengers__select-block adults">
+            <div class="b-form-passengers__label">Взрослые<br>от 18 лет</div>
+            <div class="b-form-passengers__nums">
+                <span ng-repeat="count in [1,2,3,4]"
+                      ng-class="{active:count == adultCount}"
+                      ng-click="adultClick(count)"
+                        >{{::count}}</span>
+                <!--<span>1</span>-->
+                <!--<span class="active">2</span>-->
+                <!--<span>3</span>-->
+                <!--<span>4</span>-->
+            </div>
+        </div>
+        <div class="b-form-passengers__select-block childs">
+            <div class="b-form-passengers__label">Дети<br>до 18 лет</div>
+            <div class="b-form-passengers__nums">
+                <span ng-repeat="count in [0,1,2,3]"
+                      ng-class="{active:count == childCount}"
+                      ng-click="childClick(count)"
+                        >{{::count}}</span>
+                <!--<span>0</span>-->
+                <!--<span class="active">1</span>-->
+                <!--<span>2</span>-->
+                <!--<span>3</span>-->
+            </div>
+        </div>
+        <div class="b-form-passengers__select-block infants">
+            <div class="b-form-passengers__label">
+                Возраст<br>детей
+                <!--<span class="i"></span>-->
+            </div>
+            <!--<div class="b-form-passengers__nums">-->
+            <!--<span class="active">0</span>-->
+            <!--<span>1</span>-->
+            <!--</div>-->
+            <div class="b-form-passengers__child-ages">
+                <biletix-ddl value="childAge1" disabled="!childAge1Enabled"></biletix-ddl>
+                <biletix-ddl value="childAge2" disabled="!childAge2Enabled"></biletix-ddl>
+                <biletix-ddl value="childAge3" disabled="!childAge3Enabled"></biletix-ddl>
+            </div>
+        </div>
+        <div class="b-form-passengers__b-tarif">
+            <span class="economy" ng-class="{active:ticketClass == 0}" ng-click="ticketClass = 0;">Эконом</span>
+            <span class="business" ng-class="{active:ticketClass == 1}" ng-click="ticketClass = 1;">Бизнес</span>
+        </div>
+    </div>
+    <div class="b-form-submit">
+        <input type="submit" class="button" ng-click="submit()">
+    </div>
+</div>

@@ -69,12 +69,16 @@ var dateHelper = {
             return null;
     },
 
-    jsDateToDate: function (date) {
+    jsDateToDate: function (date, noLeadingZero) {
         function addZero(val) {
+            if (noLeadingZero){
+                return '' + val;
+            }
+
             if (val < 10)
                 return '0' + val;
             return '' + val;
-        };
+        }
         var curr_date = date.getDate();
         var curr_month = date.getMonth() + 1; //Months are zero based
         var curr_year = date.getFullYear();

@@ -5,7 +5,7 @@
 </ul>
 <div class="b-inna-search-form">
 	<div class="b-inna-row">
-		<form name="innaSearchForm">
+		<form name="forms.innaSearchForm">
 
 			<div class="b-inna-col-xs-3 b-inna-col-lg-6 b-inna-col-sm-12">
 				<div class="b-inna-search-form-field __typeahead">
@@ -20,7 +20,7 @@
 							ng-change="fromIdError = null"
 							>
 
-					<div error-tooltip error="{{fromIdError}}"></div>
+					<div widget-error-tooltip error="{{fromIdError}}"></div>
 				</div>
 			</div>
 
@@ -37,7 +37,7 @@
 							ng-change="toIdError = null"
 							>
 
-					<div error-tooltip error="{{toIdError}}"></div>
+					<div widget-error-tooltip error="{{toIdError}}"></div>
 				</div>
 			</div>
 
@@ -53,7 +53,7 @@
 								ng-focus="startDateError = null"
 								/>
 
-						<div error-tooltip error="{{startDateError}}"></div>
+						<div widget-error-tooltip error="{{startDateError}}"></div>
 					</div>
 					<div class="b-inna-col-xs-6">
 						<input
@@ -65,7 +65,7 @@
 								ng-focus="endDateError = null"
 								/>
 
-						<div error-tooltip error="{{endDateError}}"></div>
+						<div widget-error-tooltip error="{{endDateError}}"></div>
 					</div>
 				</div>
 			</div>
@@ -73,16 +73,16 @@
 			<div class="b-inna-col-xs-3  b-inna-col-lg-6  b-inna-col-sm-12">
 				<div class="b-inna-row">
 					<div class="b-inna-col-xs-6">
-						<div counter-people
+						<div widget-counter-people
 						     adult-count="adultCount"
 						     children-count="childrenCount"
 						     childrens-age="childrensAge"
-						     class="b-wrapp_type_inline"></div>
+								></div>
 					</div>
 
 					<div class="b-inna-col-xs-6">
 						<div class="b-inna-search-form-field __action">
-							<button class="b-inna-btn" ng-click="innaStartSearch(innaSearchForm)">Найти</button>
+							<button class="b-inna-btn" ng-click="innaStartSearch(forms.innaSearchForm)">Найти</button>
 						</div>
 					</div>
 				</div>

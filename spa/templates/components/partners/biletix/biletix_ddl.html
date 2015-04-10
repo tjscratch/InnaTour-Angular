@@ -1,0 +1,10 @@
+<div class="b-form-passengers__age" ng-class="{disabled:disabled}">
+    {{value}}
+    <span class="arrow-down"></span>
+    <ul class="b-form-passengers__age-dropdown" ng-show="isShow">
+        <li ng-repeat="val in range(0, 17)"
+                ng-click="select(val)">
+            {{val | asQuantity:"год":"года":"лет":"0 лет"}}
+        </li>
+    </ul>
+</div>
