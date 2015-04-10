@@ -59,7 +59,8 @@
             'contactsLink': 'https://biletix.ru/contacts/',
             'offertaContractLink': 'https://s.inna.ru/files/doc/offer_biletix.pdf',
             'showOffers': true,
-            'horizontalForm': false
+            'horizontalForm': false,
+            'dontScrollAfterSearch': true
         },
         {
             'name': 'rusline',
