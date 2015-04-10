@@ -456,6 +456,13 @@
             background-color $dpHoverBgColor;
             color $dpHoverColor;
         }
+
+        &:nth-of-type(6),
+        &:nth-of-type(7){
+            &:hover {
+                color #ec008c;
+            }
+        }
     }
 
     .datepicker .table-condensed > tbody > tr > td.disabled, .datepicker table > tbody > tr > td.disabled {
@@ -520,6 +527,23 @@
     .datepicker table th.prev, .datepicker table th.next {
         &:hover {
             background-color #f2f6f7;
+        }
+    }
+
+    //сб вс
+    .datepicker .datepicker-days > table > thead > tr:nth-child(2) > th:nth-child(6),
+    .datepicker .datepicker-days > table > thead > tr:nth-child(2) > th:nth-child(7) {
+        color #ff85cd;
+    }
+
+    .datepicker .table-condensed > tbody > tr > td:nth-of-type(6),
+    .datepicker table > tbody > tr > td:nth-of-type(6),
+    .datepicker .table-condensed > tbody > tr > td:nth-of-type(7),
+    .datepicker table > tbody > tr > td:nth-of-type(7) {
+        color #ec008c;
+
+        &.disabled {
+            color #ec008c;
         }
     }
 
