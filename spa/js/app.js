@@ -83,7 +83,7 @@ app.run(['$rootScope', '$location', '$window', '$filter', function ($rootScope, 
 
         if (window.partners) {
             //WL показываем фрейм, когда приложение заинитилось
-            window.partners.showFrame();
+            //window.partners.showFrame();
         }
 
         //console.log('$routeChangeSuccess');

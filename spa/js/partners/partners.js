@@ -876,7 +876,7 @@
         setTimeout(function () {
             //console.log('self.showFrame timeout');
             self.showFrame();
-        }, 500);
+        }, 1500);
 
         //отслеживание изменения высоты контента
         setAutoHeightUpdateTimer();

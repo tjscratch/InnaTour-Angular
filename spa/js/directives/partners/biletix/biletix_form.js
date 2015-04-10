@@ -10,9 +10,9 @@ innaAppDirectives.directive('biletixForm',
                 //console.log('biletix form init');
 
                 //форма спрятана - тут показываем с задержкой, чтобы отработали стили и js
-                setTimeout(function () {
-                    document.getElementsByClassName('b-form-container')[0].style.visibility = 'visible';
-                }, 1000);
+                //setTimeout(function () {
+                //    document.getElementsByClassName('b-form-container')[0].style.visibility = 'visible';
+                //}, 1000);
 
                 //model
                 $scope.ticketClass = 0;
