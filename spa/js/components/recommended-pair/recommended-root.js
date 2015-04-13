@@ -175,14 +175,15 @@ angular.module('innaApp.directives').directive('recommendedPairComponent', funct
                         }, 500);
                         
                         // TODO : заменяем дату заезда  в отель
-                        // так как при выборе другого авиа билета может измениться дата прилета
-                        $scope.recommendedPair.hotel.data.CheckIn = $scope.recommendedPair.ticket.data.ArrivalDate;
+                                // ToDo: дату заезда берем из поля CheckIn  билета, хз насколько это клево
+                                // так как при выборе другого авиа билета может измениться дата прилета
+                                $scope.recommendedPair.hotel.data.CheckIn = $scope.recommendedPair.ticket.data.CheckIn;
 
 
-                        // пересчитываем количество ночей
-                        var start = moment($scope.recommendedPair.hotel.data.CheckIn);
-                        var end = moment($scope.recommendedPair.hotel.data.CheckOut);
-                        $scope.recommendedPair.hotel.data.NightCount = Math.ceil(end.diff(start, 'days', true));
+                                // пересчитываем количество ночей 
+                                var start = moment($scope.recommendedPair.hotel.data.CheckIn);
+                                var end   = moment($scope.recommendedPair.hotel.data.CheckOut);
+                                $scope.recommendedPair.hotel.data.NightCount = Math.ceil(end.diff(start,  'days', true));
 
                         //console.info(Math.ceil(end.diff(start,  'days', true)));
 
