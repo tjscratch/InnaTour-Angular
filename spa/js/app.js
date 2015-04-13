@@ -12,7 +12,6 @@ var app = angular.module('innaApp', [
     'innaApp.Url',
     'innaApp.API',
     'ngSanitize',
-    'ngAnimate',
     'cfp.hotkeys',
     "ui.bootstrap",
     "widgetsInnaValidation"
