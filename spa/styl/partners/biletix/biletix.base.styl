@@ -10,25 +10,39 @@
 
 /*@import "../full_wl/horiz-form.styl"*/
 @import "../full_wl/avia.styl"
+
 @import "../full_wl/dp.search.result.styl"
+@import "../biletix/dp.search.result.styl"
+
 @import "../full_wl/dp.hotel.details.styl"
 @import "../full_wl/dp.buy.styl"
 @import "../full_wl/map.styl"
 @import "../full_wl/gallery.styl"
 
-/*.light-theme {*/
-    /*background-color transparent!important;*/
-/*}*/
-
 .partner-biletix {
     $landPadding = 50px;
+
+    .light-theme, .lighten-theme {
+        background none;
+    }
+
+    .wrpr.reserve {
+        background #eaeff3;
+    }
+
+    .overlay.overlay-baloon {
+        background none;
+    }
+
+    .overlay {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
     .layout.partner {
         top: $landPadding;
         margin-bottom: $landPadding;
         padding: 48px 0 0;
     }
-
-
 
     .offers-container {
         padding-top 0;

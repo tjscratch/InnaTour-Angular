@@ -35,19 +35,31 @@
         }
 
         //автокомплит
-        .b-inna-search-form-field .dropdown-menu li {
-            color $backColor;
+        .b-inna-search-form-field .dropdown-menu {
+            width 257px;
+            margin-top: 1px;
+            border: none;
+            border-radius 0px;
+            -webkit-box-shadow: 4px 4px 0 0 #005376;
+            -mox-box-shadow: 4px 4px 0 0 #005376;
+            box-shadow: 4px 4px 0 0 #005376;
 
-            &.active {
-                background: $hoverBackColor;
-                color #fff;
+            li {
+                border-radius 0px;
+                color $backColor;
 
-                .i-country, .b-location-item-iata {
+                &.active {
+                    background: $hoverBackColor;
                     color #fff;
-                }
-            }
 
+                    .i-country, .b-location-item-iata {
+                        color #fff;
+                    }
+                }
+
+            }
         }
+
 
         .b-inna-search-widget {
             position: relative;
@@ -267,6 +279,7 @@
             z-index: 5;
             padding: 8px 0 0 14px;
             background-color: #fff;
+            color #005376;
             cursor: pointer;
 
             &.disabled {
@@ -459,7 +472,7 @@
         }
 
         &:nth-of-type(6),
-        &:nth-of-type(7){
+        &:nth-of-type(7) {
             &:hover {
                 color #ec008c;
             }
