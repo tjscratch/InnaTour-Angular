@@ -1,14 +1,12 @@
-(function () {
-    "use strict"
+innaAppDirectives
 
-
-    var directives = angular.module('innaDirectives', []);
-
-    directives.directive('counterPeople', [
+    .directive('widgetCounterPeople', [
         '$templateCache',
         function ($templateCache) {
             return {
-                template: $templateCache.get('counter_people.html'),
+                template: function () {
+                    return $templateCache.get('counter_people.html') ? $templateCache.get('counter_people.html') : $templateCache.get('widgets/search/templ/counter_people.html')
+                },
                 scope: {
                     adultCount: '=',
                     childrenCount: '=',
@@ -27,12 +25,12 @@
                                 $scope.childrensAge.push({value: 0});
                             }
                         }
-                    }
+                    };
 
                     $scope.onAgeSelectorClick = function (num) {
                         var selector = $scope.childrensAge[num];
                         selector.isOpen = !selector.isOpen;
-                    }
+                    };
 
                     $scope.sum = function (a, b) {
                         return +a + +b;
@@ -55,13 +53,15 @@
                     });
                 }
             }
-        }]);
+        }])
 
-    directives.directive('counterPeopleChildAgeSelector', [
+    .directive('widgetCounterPeopleChildAgeSelector', [
         '$templateCache',
         function ($templateCache) {
             return {
-                template: $templateCache.get('counter_people.subcomponent.html'),
+                template: function () {
+                    return $templateCache.get('counter_people.subcomponent.html') ? $templateCache.get('counter_people.subcomponent.html') : $templateCache.get('widgets/search/templ/counter_people.subcomponent.html')
+                },
                 replace: true,
                 scope: {
                     'selector': '='
@@ -73,32 +73,32 @@
                 }],
                 requires: '^counterPeople'
             }
-        }]);
+        }])
 
-    directives.directive('errorTooltip', [
+    .directive('widgetErrorTooltip', [
         '$templateCache',
         '$timeout',
         function ($templateCache, $timeout) {
             return {
                 replace: true,
-                template: $templateCache.get("error-tooltip.html"),
+                template: function () {
+                    return $templateCache.get('error-tooltip.html') ? $templateCache.get('error-tooltip.html') : $templateCache.get('widgets/search/templ/error-tooltip.html')
+                },
                 scope: {
                     error: '@'
                 },
                 link: function ($scope, element) {
-
+    
                     $scope.$watch('error', function (newValue) {
                         if (newValue != '') {
                             $timeout(function () {
                                 var width = element.width();
                                 element.css({
-                                    marginLeft: -width / 2 -10
+                                    marginLeft: -width / 2 - 10
                                 });
                             }, 0)
                         }
                     });
                 }
             }
-        }])
-
-}());
+        }]);

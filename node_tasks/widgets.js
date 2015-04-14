@@ -32,7 +32,7 @@ gulp.task('widget-search-template', function () {
     ])
         .pipe(cleanhtml())
         .pipe(templateCache({
-            module: 'innaTemplates'
+            module: 'innaApp.templates'
         }))
         .pipe(uglify({
             mangle: false,
@@ -58,18 +58,20 @@ gulp.task('widget-search-config', function () {
         })))
         .pipe(gulp.dest(conf.widgets + '/search'));
 });
+
+
 gulp.task('widget-search-js', ['widget-search-template', 'widget-search-config'], function () {
     return gulp.src([
         conf.bower + '/angular/angular.js',
         conf.bower + '/angular-sanitize/angular-sanitize.js',
-        conf.dest + '/lib/ui-bootstrap/ui-bootstrap-custom-0.12.0.js',
-        conf.dest + '/lib/ui-bootstrap/ui-bootstrap-custom-tpls-0.12.0.js',
+        conf.dest + '/lib/ui-bootstrap-typeahead-custom/typeahead.js',
         conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.js',
         conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.ru.min.js',
         conf.widgets + '/search/js/app.js',
         conf.widgets + '/search/js/directives.js',
         conf.widgets + '/search/js/form.js',
         conf.widgets + '/search/js/validation.js',
+        conf.widgets + '/search/js/filters.js',
         conf.widgets + '/search/build/templates.js'
     ])
         .pipe(concat('inna-search-widget.js'))
@@ -79,7 +81,6 @@ gulp.task('widget-search-js', ['widget-search-template', 'widget-search-config']
         })))
         .pipe(gulp.dest(conf.widgets + '/search/build'));
 });
-
 
 /**
  * WATCHERS
@@ -94,7 +95,8 @@ gulp.task('widget-search-watch', function () {
         conf.widgets + '/search/js/*.js',
         conf.widgets + '/search/templ/*.html'
     ], ['widget-search-js']);
-})
+});
+
 
 
 /**
@@ -102,5 +104,5 @@ gulp.task('widget-search-watch', function () {
  */
 gulp.task('widget-search', [
     'widget-search-stylus',
-    'widget-search-js',
+    'widget-search-js'
 ]);

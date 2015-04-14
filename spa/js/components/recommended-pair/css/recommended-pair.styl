@@ -1,122 +1,186 @@
-.b-recommended_big {
-  transform-style: preserve-3d;
+.b-recommended_big{
+    transform-style: preserve-3d;
 }
+.recommend-bundle-container{
+    position fixed
+    top $padding_over_search
+    width 100%
+    z-index 5
 
-.recommend-bundle-container {
-  position fixed
-  top $padding_over_search
-  width 100%
-  z-index 5
-
-  &.recommend-bundle-container_short {
-    top $padding_over_head
-  }
-
-  &__small {
-    .result-small__cell {
-      padding-top 10px !important
-
-      &:first-child {
-        padding-top 6px !important
-      }
+    &.recommend-bundle-container_short{
+        top $padding_over_head
     }
-  }
 
-  .price-generic-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 100;
-  }
+    &__small{
+        .result-small__cell{
+            padding-top 10px !important
+
+            &:first-child{
+                padding-top 6px !important
+            }
+        }
+    }
+
+    .price-generic-container{
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 100;
+    }
 }
-
-.recommend-bundle {
-  background #000
-  position relative
-  width 100%
+.recommend-bundle{
+    background #000
+    position relative
+    width 100%
 }
+.recommend-bundle-title{
+    color: #fff;
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 10px;
+    margin-top: -18px;
 
-.recommend-bundle-title {
-  color: #fff;
-  font-size: 18px;
-  font-weight: normal;
-  margin-bottom: 10px;
-  margin-top: -18px;
-
-  .icon-crown {
-    position: relative;
-    top: 1px;
-    left: 10px;
-  }
+    .icon-crown{
+        position: relative;
+        top: 1px;
+        left: 10px;
+    }
 }
-
-.recommend-bundle-background {
-  background: url(/spa/img/dp-background.jpg) no-repeat 0 0;
-  background-size cover
-  height: 100%
-  position: absolute
-  width 100%
-  z-index: 1
-
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, .5);
-  }
-}
-
-.recommend-bundle-wrap {
-  padding 30px 0 24px
-  position: relative;
-  z-index: 2
-
-  .w-expand-collapse-link {
+.recommend-bundle-background{
+    background: url(/spa/img/dp-background.jpg) no-repeat 0 0;
+    background-size cover
+    height: 100%
     position: absolute
-    right 0
+    width 100%
+    z-index: 1
 
-    &.w-expand-collapse-link_up {
-      top: 12px;
+    &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, .5);
     }
+}
+.recommend-bundle-wrap{
+    padding 30px 0 24px
+    position: relative;
+    z-index: 2
 
-    &.w-expand-collapse-link_down {
-      position: relative;
-      top: auto;
-      bottom: 0;
-      padding-right: 24px;
-    }
+    .w-expand-collapse-link{
+        position: absolute
+        right 0
 
-    .expand-collapse-link {
-      font-size 14px
-      color #fff
+        &.w-expand-collapse-link_up{
+            top: 12px;
+        }
+
+        &.w-expand-collapse-link_down{
+            position: relative;
+            top: auto;
+            bottom: 0;
+            padding-right: 24px;
+        }
+
+        .expand-collapse-link{
+            font-size 14px
+            color #fff
+        }
     }
-  }
 
 }
+.recommend-bundle-wrap_small{
+    padding 10px 0
 
-.recommend-bundle-wrap_small {
-  padding 10px 0
-
-  .expand-collapse-link {
-    top 45px
-    z-index 10
-  }
+    .expand-collapse-link{
+        top 45px
+        z-index 10
+    }
 }
-
-@media screen {
-  .sidebar {
-    width: 300px;
-  }
-
-  // mobile
-  @media (orientation: landscape) {
-    /*.recommend-bundle-container {
-      display : none;
-    }*/
-  }
+.recommended-pair{
+    .spinner{
+        display none
+        width auto
+        padding 35px 0 0 0;
+    }
+        
+        
+    .price,  
+    .button,
+    .bottom-actions,
+    .icon-sprite-hotel,
+    .hotel-info,
+    .recommendedPairTicket,
+    .icon-sprite-airplane,
+    .flight-info{
+        display block
+        opacity 1
+        -webkit-transition: opacity linear .2s;
+        transition: opacity linear .2s;
+    }
+    
+    &.hotel-loading{
+        .price,
+        .button,
+        .b-result__cell_even .bottom-actions,
+        .icon-sprite-hotel,
+        .hotel-info{
+            display none
+            opacity 0
+        }
+        .spinner{
+            display block
+            
+            &.spinner-ticket{
+                display none
+            }
+        }
+    }
+    &.ticket-loading{
+        .price,
+        .button,
+        .b-result__cell_ticket .bottom-actions,
+        .recommendedPairTicket,
+        .icon-sprite-airplane,
+        .flight-info{
+            display none
+            opacity 0
+        }
+       
+        .spinner{
+            display block
+            
+            &.spinner-hotel{
+                display none
+            }
+        }
+    }
+}
+/*.recommended-pair{*/
+    /*opacity: 1;*/
+/*}*/
+/*.recommended-pair.ng-hide-add.ng-hide-add-active,*/
+/*.recommended-pair.ng-hide-remove.ng-hide-remove-active{*/
+    /*-webkit-transition: all linear 0.5s;*/
+    /*transition: all linear 0.5s;*/
+/*}*/
+/*.recommended-pair.ng-hide{*/
+    /*line-height: 0;*/
+    /*opacity: 0;*/
+    /*padding: 0 10px;*/
+/*}*/
+@media screen{
+    .sidebar{
+        width: 300px;
+    }
+    // mobile
+    @media (orientation: landscape){
+        /*.recommend-bundle-container {
+          display : none;
+        }*/
+    }
 }
 
 

@@ -1,9 +1,14 @@
+@import "../biletix/reset.styl"
+@import "../biletix/scroll_reset.styl"
+
 @import "../full_wl/colors.styl"
 @import "../full_wl/index.styl"
 @import "../full_wl/controls.styl"
 @import "../full_wl/buttons.styl"
-@import "../full_wl/form.styl"
-@import "../full_wl/horiz-form.styl"
+
+@import "../biletix/form.styl"
+
+/*@import "../full_wl/horiz-form.styl"*/
 @import "../full_wl/avia.styl"
 @import "../full_wl/dp.search.result.styl"
 @import "../full_wl/dp.hotel.details.styl"
@@ -11,11 +16,33 @@
 @import "../full_wl/map.styl"
 @import "../full_wl/gallery.styl"
 
+/*.light-theme {*/
+    /*background-color transparent!important;*/
+/*}*/
+
 .partner-biletix {
+    $landPadding = 50px;
     .layout.partner {
-        top: 390px; 
-        margin-bottom: 390px;
+        top: $landPadding;
+        margin-bottom: $landPadding;
         padding: 48px 0 0;
+    }
+
+
+
+    .offers-container {
+        padding-top 0;
+    }
+
+    .offers-list_new-landing .landing-title {
+        padding-bottom 130px;
+    }
+
+    .landing-title {
+        text-align: center;
+        color: #ffffff;
+        font-size: 36px;
+        line-height: 42px;
     }
 
     .b-tour-form {

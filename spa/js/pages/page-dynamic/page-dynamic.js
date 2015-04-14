@@ -606,7 +606,13 @@ innaAppControllers
 
                     if (window.partners && window.partners.isFullWL()) {
                         window.partners.resetParentScrollTop();
-                        window.partners.setScrollPage(20);
+                        var parner = window.partners.getPartner();
+                        if (parner && parner.dontScrollAfterSearch){
+                            //у кого шапка мелкая - не скролим
+                        }
+                        else {
+                            window.partners.setScrollPage(20);
+                        }
                     }
 
                     this._balloonLoad.updateView({

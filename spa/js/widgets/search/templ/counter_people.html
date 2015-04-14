@@ -1,6 +1,6 @@
 <div class="inna-dropdown">
 	<div class="inna-dropdown-action">
-		{{ adultCount + childrenCount| asQuantity:"человек":"человека":"человек"}}
+		{{ adultCount + childrenCount| WidgetAsQuantity:"человек":"человека":"человек"}}
 		<i class="inna-arrow-bottom"></i>
 	</div>
 	<div class="inna-dropdown-dialog" ng-show="isOpen">
@@ -11,7 +11,7 @@
 		<ul class="inna-dropdown-dialog-btns">
 			<li
 					class="inna-dropdown-dialog-btns_btn"
-					ng-repeat="count in [] | range:5"
+					ng-repeat="count in [] | widgetRange:5"
 					ng-if="count > 0"
 					ng-class="{selected:adultCount == count}"
 					ng-click="onCounterClick('adultCount', count)"
@@ -24,7 +24,7 @@
 		<ul class="inna-dropdown-dialog-btns">
 			<li
 					class="inna-dropdown-dialog-btns_btn"
-					ng-repeat="count in [] | range:4"
+					ng-repeat="count in [] | widgetRange:4"
 					ng-class="{selected:childrenCount == count}"
 					ng-click="onCounterClick('childrenCount', count)"
 					>
@@ -38,7 +38,7 @@
 		</div>
 
 		<div class="inna-dropdown-age-row">
-			<div counter-people-child-age-selector
+			<div widget-counter-people-child-age-selector
 			     ng-repeat="selector in childrensAge"
 			     selector="selector"
 			     ng-class="{'inna-dropdown-age-col-2': childrensAge.length == 2, 'inna-dropdown-age-col-1': childrensAge.length == 1}"

@@ -8,7 +8,7 @@
     self.WLType = {
         full: 'full',
         lite: 'lite'
-    }
+    };
 
     self.lastHeight = null;
     self.frameShowed = false;
@@ -59,7 +59,8 @@
             'contactsLink': 'https://biletix.ru/contacts/',
             'offertaContractLink': 'https://s.inna.ru/files/doc/offer_biletix.pdf',
             'showOffers': true,
-            'horizontalForm': false
+            'horizontalForm': false,
+            'dontScrollAfterSearch': true
         },
         {
             'name': 'rusline',
@@ -444,7 +445,7 @@
             horizForm = true;
         }
         return !horizForm;
-    }
+    };
 
     self.scrollToChildSelector = function () {
         //при горизонтальной форме не скролим
@@ -464,13 +465,13 @@
 
     self.resetParentScrollTop = function () {
         self.parentScrollTop = 0;
-    }
+    };
 
     self.getParentLocationWithHash = function () {
         var url = document.referrer + location.hash;
         //console.log('getParentLocationWithHash', url);
         return url;
-    }
+    };
 
     self.getParentLocationWithUrl = function (url) {
         //убирает // в урлах типа biletixsite//#/packages
@@ -488,7 +489,7 @@
             url = url.replace('/#/', '#/');
         }
         return parent + url;
-    }
+    };
 
     self.isBookinnaDomain = function () {
         return (location.hostname.indexOf('bookinna') > -1);
@@ -505,7 +506,7 @@
             var par = self.partnersMap[i];
             par.realType = self.getPartnerType(par);
         }
-    }
+    };
     self.extendProp();
 
     self.commands = {
@@ -523,14 +524,14 @@
     self.isFullWL = function () {
         var partner = self.getPartner();
         return partner != null && partner.realType == self.WLType.full;
-    }
+    };
     self.isLiteWL = function () {
         var partner = self.getPartner();
         return partner != null && partner.realType == self.WLType.lite;
-    }
+    };
     self.isWL = function () {
         return (self.isFullWL() || self.isLiteWL());
-    }
+    };
     self.getPartner = function () {
 //        return self.partnersMap[0];
 
@@ -549,13 +550,13 @@
         if (scrollTo) {
             sendCommandToParent(self.commands.setFrameScrollTo, { 'scrollTo': scrollTo });
         }
-    }
+    };
 
     self.setScrollPage = function (data, smooth, maxHeight) {
         if (data != null) {
             sendCommandToParent(self.commands.setScrollPage, { 'scrollPage': data, 'smooth': smooth, 'maxHeight': maxHeight });
         }
-    }
+    };
 
     self.showFrame = function () {
         if (!self.frameShowed) {
@@ -564,7 +565,7 @@
             sendCommandToParent(self.commands.setHeight, { 'height': getContentHeight() });
             self.frameShowed = true;
         }
-    }
+    };
 
     self.afterBodyLoad = function () {
         if (self.isFullWL()) {
@@ -578,7 +579,7 @@
         //self.contentSizeWatcher.init(function (height) {
         //    sendCommandToParent(self.commands.setHeight, { 'height': height });
         //});
-    }
+    };
 
     self.saveUrlToParent = function () {
         var url = location.href;
@@ -590,7 +591,7 @@
                 sendCommandToParent(self.commands.saveUrlToParent, { 'url': url });
             }
         }
-    }
+    };
 
     self.setFixedContentHeight = function () {
         if (self.clientSize) {
@@ -600,19 +601,19 @@
             //console.log('setFixedContentHeight', height);
             updateHeight(height);
         }
-    }
+    };
 
     self.setAutoContentHeight = function () {
         setAutoHeightUpdateTimer();
 
         updateHeight();
-    }
+    };
 
     self.setParentLocationHref = function (url) {
         if (url && url.length > 0) {
             sendCommandToParent(self.commands.setParentLocationHref, { 'url': url });
         }
-    }
+    };
 
     function addCssToBody() {
         var cn = document.body.className;
@@ -677,7 +678,7 @@
         var html = document.getElementsByTagName('html')[0];
         //навешиваем стиль партнера
         html.className = html.className + " partner-wl partner-" + partner.name;
-    };
+    }
 
     function insertAfter(newNode, referenceNode) {
         referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -689,7 +690,7 @@
         } else {
             el.attachEvent('on' + event, fn);
         }
-    };
+    }
 
     function trackScroll(e) {
         var doc = document.documentElement, body = document.body;
@@ -876,7 +877,7 @@
         setTimeout(function () {
             //console.log('self.showFrame timeout');
             self.showFrame();
-        }, 500);
+        }, 1500);
 
         //отслеживание изменения высоты контента
         setAutoHeightUpdateTimer();
