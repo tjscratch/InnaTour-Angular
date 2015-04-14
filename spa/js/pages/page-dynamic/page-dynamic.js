@@ -137,6 +137,7 @@ innaAppControllers
                         this.set('defaultTab', 'hotel');
 
                     this.balloonSearch();
+                    //return;
                     this.loadTab();
 
                     $scope.passengerCount = parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0);
