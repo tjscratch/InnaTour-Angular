@@ -652,6 +652,7 @@
 
     function insertCssAndAddParnterClass(partner) {
         var src = partner.src;
+        //var src = '/svyaznoy/svyaznoy.base.css';
 
         var link = d.createElement("link");
         link.type = "text/css";
