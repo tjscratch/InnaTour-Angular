@@ -1,0 +1,60 @@
+.partner-wl {
+    $titleBgColor = #005376;
+
+    .reserve-form {
+        padding-top:20px;
+    }
+
+    .buy-form {
+        padding-top:20px;
+    }
+
+    .buy__header .buy__title {
+        background-color: $titleBgColor;
+        padding: 10px 15px;
+        color: #fff;
+    }
+
+    .b__rules-flies .current {
+        background: $titleBgColor;
+    }
+
+    .b-agreement {
+        .b-checkbox {
+            btx-checkbox-border()
+        }
+
+        input:checked + .b-checkbox {
+            btx-checkbox-bg()
+        }
+    }
+
+    .buy__blocks {
+        .radio-list input:checked + .radio {
+            color-bg-lbl-wl();
+        }
+    }
+
+    .b-sum-container {
+        background: #fff;
+        border-bottom: 1px solid #fff;
+    }
+
+    .b-tickets-info-container {
+        border-top: 4px solid $titleBgColor;
+        border-bottom: 1px solid #fff;
+        background: #fff;
+
+        &:before {
+            border-top: 1px solid #fff;
+        }
+    }
+
+    .page-root {
+        padding-top: 5px;
+    }
+
+    .buy__result-sum {
+        border-bottom: 5px solid $titleBgColor;
+    }
+}
