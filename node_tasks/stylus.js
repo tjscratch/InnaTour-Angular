@@ -94,7 +94,7 @@ gulp.task('styl-partners-euroset', function () {
                 compress: true
             }
         ))
-        .pipe(gulp.dest(conf.dest + '/html/partners/assets'));
+        .pipe(gulp.dest(conf.dest + '/partners/euroset/assets'));
 });
 
 
