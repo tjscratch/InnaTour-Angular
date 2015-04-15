@@ -12,23 +12,41 @@
         background none;
     }
 
-    .recommend-bundle-container_short {
-        .recommend-bundle-background {
-            background none;
+    /*.recommend-bundle-container_short {*/
+    /*.recommend-bundle-background {*/
+    /*background none;*/
 
-            &:after {
-                background: rgba(0,0,0,0.5);
-            }
+    /*&:after {*/
+    /*background: rgba(0,0,0,0.5);*/
+    /*}*/
+    /*}*/
+    /*}*/
+
+    $headColor = #333;
+    smallHead() {
+        color $headColor;
+        font-weight bold;
+    }
+
+    .recommend-bundle-wrap {
+        .flight {
+            color $headColor;
+        }
+
+        .hotel-info-date {
+            color $headColor;
         }
     }
 
-    /*.recommend-bundle-wrap {*/
-        /*.flight {*/
-            /*color #fff;*/
-        /*}*/
+    .result-small .flight .white {
+        smallHead();
+    }
 
-        /*.hotel-info-date {*/
-            /*color #fff;*/
-        /*}*/
-    /*}*/
+    .result-small .hotel-info-name {
+        smallHead();
+    }
+
+    .result-small .corner-price {
+        smallHead();
+    }
 }
