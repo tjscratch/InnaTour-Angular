@@ -104,4 +104,4 @@ start_on_node_server.cmd
 logs
 start_on_node_server.cmd
 spa/js/widgets/search/inna-search.js
-spa/html/euroset/assets/page.base.css
+spa/partners/**/assets/*.css

@@ -88,13 +88,13 @@ gulp.task('styl-partners', function () {
 });
 
 gulp.task('styl-partners-euroset', function () {
-    return gulp.src([conf.dest + '/html/euroset/assets/page.base.styl'])
+    return gulp.src([conf.dest + '/partners/euroset/assets/page.base.styl'])
         .pipe(stylus(
             {
                 compress: true
             }
         ))
-        .pipe(gulp.dest(conf.dest + '/html/euroset/assets'));
+        .pipe(gulp.dest(conf.dest + '/html/partners/assets'));
 });
 
 
