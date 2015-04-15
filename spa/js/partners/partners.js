@@ -654,6 +654,7 @@
         var src = partner.src;
         //var src = '/svyaznoy/svyaznoy.base.css';
         //var src = '/full_wl/full_wl.base.css';
+        //var src = '/biletix/biletix.base.css';
 
         var link = d.createElement("link");
         link.type = "text/css";
