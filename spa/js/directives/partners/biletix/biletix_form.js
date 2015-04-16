@@ -76,7 +76,6 @@ innaAppDirectives.directive('biletixForm',
                             jsDate.setDate(jsDate.getDate() - 1);
                         }
                         $scope.startDate = dateHelper.jsDateToDate(jsDate, true);
-                        $scope.updateFormModel('setDateFrom', $scope.startDate);
                     }
                     else if (fromOrToDate == 'to' && $scope.endDate){
                         var jsDate = dateHelper.dateToJsDate($scope.endDate);
@@ -87,9 +86,9 @@ innaAppDirectives.directive('biletixForm',
                             jsDate.setDate(jsDate.getDate() - 1);
                         }
                         $scope.endDate = dateHelper.jsDateToDate(jsDate, true);
-                        $scope.updateFormModel('setDateTo', $scope.endDate);
 
                     }
+                    $scope.updateFormModel('setDates', [$scope.startDate, $scope.endDate]);
                     $scope.updateDateNextPrev();
                 };
                 //даты
