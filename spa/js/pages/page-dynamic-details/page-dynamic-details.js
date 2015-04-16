@@ -221,7 +221,11 @@ innaAppControllers
                             $scope.hotelRooms[0].isOpen = true;
                             $scope.hotelOnly = true;
                             $scope.hotelLoaded = true;
-                            $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
+	                        if ($scope.hotel.ProviderId == 4) {
+		                        $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
+	                        } else if ($scope.hotel.ProviderId == 2) {
+		                        $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
+	                        }
                             EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
 
                             parseAmenities(resp.Hotel);
@@ -292,7 +296,11 @@ innaAppControllers
                         EventManager.fire(Events.DYNAMIC_SERP_HOTEL_DETAILS_LOADED);
 
                         $scope.dataFullyLoaded = false;
-                        $scope.TAWidget = app_main.tripadvisor + $scope.hotel.HotelId;
+	                    if ($scope.hotel.ProviderId == 4){
+		                    $scope.TAWidget = app_main.tripadvisorEx + $scope.hotel.HotelId;
+	                    }else if ($scope.hotel.ProviderId == 2){
+		                    $scope.TAWidget = app_main.tripadvisorOk + $scope.hotel.HotelId;
+	                    }
 
                         $scope.$digest();
 
