@@ -35,13 +35,11 @@ innaAppDirectives.directive('innaForm', [
                         if (data.attr == 'submit'){
                             $scope.innaStartSearch($scope.forms.innaSearchForm);
                         }
-                        else if (data.attr == 'setDateFrom') {
+                        else if (data.attr == 'setDates') {
                             $scope.dontFocusToDate = true;
-                            var dFrom = dateHelper.dateToJsDate(data.value);
+                            var dFrom = dateHelper.dateToJsDate(data.value[0]);
+                            var dTo = dateHelper.dateToJsDate(data.value[1]);
                             $element.find('.from_date').datepicker('setDate', dFrom);
-                        }
-                        else if (data.attr == 'setDateTo') {
-                            var dTo = dateHelper.dateToJsDate(data.value);
                             $element.find('.to_date').datepicker('setDate', dTo);
                         }
                         else {
@@ -172,7 +170,8 @@ innaAppDirectives.directive('innaForm', [
                 });
 
                 $element.find('.input-daterange').datepicker({
-                    format: "d.m.yyyy",
+                    //format: "d.m.yyyy",
+                    format: "d MM yyyy",
                     startDate: $scope.setStartDate,
                     endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
                     language: "ru",
