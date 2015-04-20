@@ -6,7 +6,20 @@
 </head>
 <body>
     <script>
-        window.parent.$('#buy-listener').trigger('inna.buy.close');
+        var result = getParameterByName('ok');
+        if (result) {
+            result = parseInt(result, 10);
+        }
+//        console.log('buy closer ok:', result);
+
+        window.parent.$('#buy-listener').trigger('inna.buy.close', {result: result});
+
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
     </script>
 </body>
 </html>
