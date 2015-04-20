@@ -132,14 +132,12 @@
     left: 50%
     min-width 200px
     padding 5px 10px
-    background-color $bg-white
-    box-shadow 0 0 5px red
+    background-color $bg-red
     text-align center
     border-radius $border-radius
     white-space nowrap
 
-    &:before,
-    &:after{
+    &:before{
         position absolute
         z-index 1
         content ''
@@ -150,17 +148,7 @@
         margin-left -6px
         border-style solid
         border-width 6px
-        border-color transparent transparent red transparent
-    }
-    &:after{
-        opacity .4
-    }
-    &:before{
-        z-index 2
-        top -10px
-        margin-left -5px
-        border-width 5px
-        border-color transparent transparent #fff transparent
+        border-color transparent transparent $bg-red transparent
     }
 }
 //BEGIN datepicker

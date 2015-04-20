@@ -39,7 +39,7 @@
                 if (data.width <= 900 && data.width > 460) {
                     $scope.radioModel = 'b-inna-search-widget-row-2';
                 }
-                if (data.width <= 460) {
+                if (data.width <= 580) {
                     $scope.radioModel = 'b-inna-search-widget-row-3';
                 }
 
