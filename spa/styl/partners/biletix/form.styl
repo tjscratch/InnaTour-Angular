@@ -76,6 +76,20 @@
         .inna-tooltip {
             top: 115%;
             z-index: 10;
+            background-color: #ec008c;
+            color: #fff;
+            font-size: 12px;
+            box-shadow: none;
+            border-radius: 0;
+
+
+            &:before {
+                border-color: transparent transparent #ec008c transparent;
+            }
+
+            &:after {
+                border-color: transparent transparent #ec008c transparent;
+            }
         }
 
         .b-inna-search-form-field-input {
@@ -567,12 +581,4 @@
             color #ec008c;
         }
     }
-
-    /*.datepicker .table-condensed > tbody > tr > td.today, .datepicker table > tbody > tr > td.today {*/
-    /*border 2px solid $dpBorderColor;*/
-
-    /*&:hover {*/
-    /*border 2px solid $dpHoverBgColor;*/
-    /*}*/
-    /*}*/
 }
