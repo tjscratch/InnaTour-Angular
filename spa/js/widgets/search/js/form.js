@@ -38,9 +38,11 @@ innaAppDirectives.directive('innaForm', [
                         else if (data.attr == 'setDates') {
                             $scope.dontFocusToDate = true;
                             var dFrom = dateHelper.dateToJsDate(data.value[0]);
-                            var dTo = dateHelper.dateToJsDate(data.value[1]);
                             $element.find('.from_date').datepicker('setDate', dFrom);
-                            $element.find('.to_date').datepicker('setDate', dTo);
+                            if (data.value[1]){
+                                var dTo = dateHelper.dateToJsDate(data.value[1]);
+                                $element.find('.to_date').datepicker('setDate', dTo);
+                            }
                         }
                         else {
                             $scope[data.attr] = data.value;
