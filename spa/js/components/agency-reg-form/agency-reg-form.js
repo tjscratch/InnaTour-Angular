@@ -20,7 +20,7 @@ innaAppConponents.controller("AgencyRegFormCtrl", function ($rootScope, $scope, 
     //    Email: "email@google.com"
     //};
 
-    $scope.adressChecked = true;
+    $scope.adressChecked = false;
     $scope.$watch('adressChecked', function (data) {
         if (data) {
             $scope.agencyReg.PostIndex = $scope.agencyReg.RegistredAddressIndex;

@@ -45,6 +45,7 @@
 						       name="Name"
 						       ng-model="agencyReg.Name"
 						       required=""
+						       placeholder="ЗАО ИННА ТУР"
 						       ng-class="{'error': agency.$submitted && agency.Name.$invalid || agency.Name.$touched && agency.Name.$invalid}"
 								>
 					</div>
@@ -71,6 +72,7 @@
 						       name="BossName"
 						       ng-model="agencyReg.BossName"
 						       required=""
+						       placeholder="Чернов Сергей Олегович"
 						       ng-class="{'error': agency.$submitted && agency.BossName.$invalid || agency.BossName.$touched && agency.BossName.$invalid}"
 								>
 					</div>
@@ -80,6 +82,7 @@
 						       name="Boss"
 						       ng-model="agencyReg.Boss"
 						       required=""
+						       placeholder="Генеральный директор"
 						       ng-class="{'error': agency.$submitted && agency.Boss.$invalid || agency.Boss.$touched && agency.Boss.$invalid}"
 								>
 					</div>
@@ -91,6 +94,7 @@
 						       name="RegistredAddress"
 						       ng-model="agencyReg.RegistredAddress"
 						       required=""
+						       placeholder="Москва, ул. Маленковская д 14, к.1"
 						       ng-class="{'error': agency.$submitted && agency.RegistredAddress.$invalid || agency.RegistredAddress.$touched && agency.RegistredAddress.$invalid}"
 								>
 					</div>
@@ -100,6 +104,7 @@
 						       name="RegistredAddressIndex"
 						       ng-model="agencyReg.RegistredAddressIndex"
 						       required=""
+						       placeholder="107113"
 						       ng-class="{'error': agency.$submitted && agency.RegistredAddressIndex.$invalid || agency.RegistredAddressIndex.$touched && agency.RegistredAddressIndex.$invalid}"
 								>
 					</div>
@@ -111,6 +116,7 @@
 						       name="Address"
 						       ng-model="agencyReg.Address"
 						       required=""
+						       placeholder="Москва, ул. Маленковская д 14, к.1"
 						       ng-class="{'error': agency.$submitted && agency.Address.$invalid || agency.Address.$touched && agency.Address.$invalid}"
 								>
 					</div>
@@ -120,6 +126,7 @@
 						       name="PostIndex"
 						       ng-model="agencyReg.PostIndex"
 						       required=""
+						       placeholder="107113"
 						       ng-class="{'error': agency.$submitted && agency.PostIndex.$invalid || agency.PostIndex.$touched && agency.PostIndex.$invalid}"
 								>
 					</div>
@@ -138,6 +145,7 @@
 						       name="Phones"
 						       ng-model="agencyReg.Phones"
 						       required=""
+						       placeholder="+ 7 (495) 742-12-12"
 						       ng-class="{'error': agency.$submitted && agency.Phones.$invalid || agency.Phones.$touched && agency.Phones.$invalid}"
 								>
 					</div>
@@ -145,9 +153,8 @@
 						<label class="b-field-label" for="Site">Сайт</label>
 						<input id="Site" class="b-field-text" type="text"
 						       name="Site"
+						       placeholder="www.inna.ru"
 						       ng-model="agencyReg.Site"
-						       required=""
-						       ng-class="{'error': agency.$submitted && agency.Site.$invalid || agency.Site.$touched && agency.Site.$invalid}"
 								>
 					</div>
 				</div>
@@ -158,6 +165,7 @@
 						       name="Email"
 						       ng-model="agencyReg.Email"
 						       required=""
+						       placeholder="book@inna.ru"
 						       check-email-format
 						       ng-class="{'error': agency.$submitted && agency.Email.$invalid || agency.Email.$touched && agency.Email.$invalid}"
 								>
