@@ -24,7 +24,8 @@ gulp.task('copy-project', function () {
         '!' + conf.dest + '/browser.html',
         '!' + conf.dest + '/html/**',
         '!' + conf.dest + '/html2/**',
-        conf.dest + '/**'])
+        conf.dest + '/**'
+    ])
         .pipe(gulp.dest(conf.publish + '/spa'));
 
     //gulp.src([conf.publish + '/browser.html']).pipe(gulp.dest(conf.publish + '/spa'));

@@ -12,7 +12,7 @@ innaAppControllers.
         'eventsHelper',
         'urlHelper',
         'innaApp.Urls',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         'aviaHelper',
         function (EventManager, $log, $scope, $location, dataService, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
 

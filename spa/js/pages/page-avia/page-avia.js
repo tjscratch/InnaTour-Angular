@@ -16,7 +16,7 @@ innaAppControllers.
         'aviaHelper',
         'urlHelper',
         'innaApp.Urls',
-        'innaApp.API.events',
+        'innaAppApiEvents',
 
         // components
         'PriceGeneric',
@@ -179,8 +179,9 @@ innaAppControllers.
                     ];
 
                     if ($scope.isAgency()) {
-                        self.list.unshift({ name: "По доходности", sort: avia.sortType.byAgencyProfit });
-                        self.sortType = avia.sortType.byAgencyProfit;
+                        self.list.push({ name: "По доходности", sort: avia.sortType.byAgencyProfit });
+                        //self.sortType = avia.sortType.byAgencyProfit;
+                        self.sortType = avia.sortType.byPrice;
                     }
                     else {
                         self.sortType = avia.sortType.byPrice;

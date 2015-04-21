@@ -1,182 +1,176 @@
 /* ----------- now ---------- */
 
-
-.button {
-  transition : background-color  .3s ease;
-  border-radius 3px
-  background: #89c13a;
-  text-shadow 0 0 transparent
-  color: #fff;
-  cursor: pointer;
-  font-family : ProximaNova, Arial, sans-serif;
-  font-weight : normal;
-  padding 6px 16px
-  display inline-block
-  margin: 0;
-  outline: none;
-  position relative;
-  overflow hidden;
-
-
-  // TODO : defrecated
-  input {
-    position absolute
-    display block
-    left 0
-    top 0
-    width 300px
-    height 300px
-    cursor pointer
-    border 0
-    opacity 0
-  }
-
-
-
-  &:hover {
-    text-decoration none
-    background: #95cd47;
-  }
-
-  &.disabled {
-    background: #e4e4e4;
-    cursor: auto;
-  }
-
-
-  &_inline {
+.button{
+    transition: background-color .3s ease;
+    border-radius 3px
+    background: #89c13a;
+    text-shadow 0 0 transparent
+    color: #fff;
+    cursor: pointer;
+    font-family: ProximaNova, Arial, sans-serif;
+    font-weight: normal;
+    padding 6px 16px
     display inline-block
-    padding 8px 38px
-    line-height 1
-    font-size 18px
-    font-weight bold
-  }
-
-  &_small {
-    padding 7px 30px
-    font-size 14px
-    font-weight bold
-    border-top 1px solid #bddd90
-    display inline-block
-    margin 0 2px 0 0
-    line-height 1
-  }
-
-
-  &__red {
-    background #a82e00
-
-    &:hover {
-      background #c33500
+    margin: 0;
+    outline: none;
+    position relative;
+    overflow hidden;
+    
+    // TODO : defrecated
+    input{
+        position absolute
+        display block
+        left 0
+        top 0
+        width 300px
+        height 300px
+        cursor pointer
+        border 0
+        opacity 0
     }
-  }
-
-
-  &_size_l {
-    font-size 18px
-    font-weight normal
-    height 30px
-    width 170px
-  }
-  &_size_xl {
-    font-size 18px
-    font-weight normal
-    height 40px
-    width 170px
-  }
-
+    
+    &:hover{
+        text-decoration none
+        background: #95cd47;
+    }
+    
+    &.disabled{
+        background: #e4e4e4;
+        cursor: auto;
+    }
+    
+    &_inline{
+        display inline-block
+        padding 8px 38px
+        line-height 1
+        font-size 18px
+        font-weight bold
+    }
+    
+    &_small{
+        padding 7px 30px
+        font-size 14px
+        font-weight bold
+        border-top 1px solid #bddd90
+        display inline-block
+        margin 0 2px 0 0
+        line-height 1
+    }
+    
+    &__red{
+        background #a82e00
+        
+        &:hover{
+            background #c33500
+        }
+    }
+    
+    &_size_l{
+        font-size 18px
+        font-weight normal
+        height 30px
+        width 170px
+    }
+    &_size_xl{
+        font-size 18px
+        font-weight normal
+        height 40px
+        width 170px
+    }
+    
 }
-
-
-
-
-
 /* ------- new --------- */
 
-.btn {
-  border-radius : 2px;
-  box-sizing : border-box;
-  display: inline-block;
-  font-size: 15px;
-  padding: 4px 18px;
-  font-weight: normal;
-  color: #212121;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-
-  border: 1px solid;
-  border-color: #bdbdbd #bdbdbd #bdbdbd #bdbdbd;
-
-  &:focus,
-  &:active,
-  &:hover {
-    text-decoration: none;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-    tap-highlight-color: rgba(255, 255, 255, 0);
-  }
-
-  &:hover {
-
-  }
-
-	color-button('default', #f5f6f7, #f5f6f7);
-	color-button('orange', #fbc33d, #ff8500);
-	color-button('purple', #a9a5cf, #a9a5cf);
-	color-button('blue', #5a86b4, #185591);
-	color-button('red', #f72c6b, #e51052);
-	color-button('green', #77b237, #77b237);
-
-  &-active {
-    /*background-color : #77b237;
-    border-color: #77b237 #77b237 #77b237 #77b237;*/
-    color:#fff;
-  }
-
-
-  &.disabled,
-  &[disabled] {
-    box-shadow: none;
-    background-color: #f5f7f8;
-    background: linear-gradient(top, #f9f9fa 0, #f2f4f6 100%);
-    color: #b1b2b2;
-    text-shadow : none;
-    border: 1px solid #e6e6e6;
-
-    cursor: default;
-    background-image: none;
-    opacity: 0.75;
-
-    &:hover,
-    &:active {
-      background: linear-gradient(top, #f9f9fa 0, #f2f4f6 100%);
-      background-color: #f5f7f8;
-      color: #b0b2b2;
+.btn{
+    border-radius: 2px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 15px;
+    padding: 4px 18px;
+    font-weight: normal;
+    color: #212121;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    
+    border: 1px solid;
+    border-color: #bdbdbd #bdbdbd #bdbdbd #bdbdbd;
+    
+    &:focus,
+    &:active,
+    &:hover{
+        text-decoration: none;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        tap-highlight-color: rgba(255, 255, 255, 0);
     }
-  }
-
-	&.btn-no-corner {
-		border-radius : 0;
-	}
-
-  &__text {
-    color:#333;
-  }
-
-  &-large {
-    padding: 7px 40px;
-    font-size: 17.5px;
-  }
-
-  &-middle {
-    padding: 4px 9px;
-    font-size: 10.5px;
-  }
-
-  &-mini {
-    padding: 0 6px;
-    font-size: 10.5px;
-  }
+    
+    &:hover{
+        
+    }
+    
+    color-button('default', #f5f6f7, #f5f6f7);
+    color-button('orange', #fbc33d, #ff8500);
+    color-button('purple', #a9a5cf, #a9a5cf);
+    color-button('blue', #5a86b4, #185591);
+    color-button('red', #f72c6b, #e51052);
+    color-button('green', #77b237, #77b237);
+    
+    &.btn-green{
+        transition: background-color .3s ease;
+        &:hover{
+            background-color: #95cd47;
+        }
+    }
+    
+    &-active{
+        /*background-color : #77b237;
+        border-color: #77b237 #77b237 #77b237 #77b237;*/
+        color: #fff;
+    }
+    
+    &.disabled,
+    &[disabled]{
+        box-shadow: none;
+        background-color: #f5f7f8;
+        background: linear-gradient(top, #f9f9fa 0, #f2f4f6 100%);
+        color: #b1b2b2;
+        text-shadow: none;
+        border: 1px solid #e6e6e6;
+        
+        cursor: default;
+        background-image: none;
+        opacity: 0.75;
+        
+        &:hover,
+        &:active{
+            background: linear-gradient(top, #f9f9fa 0, #f2f4f6 100%);
+            background-color: #f5f7f8;
+            color: #b0b2b2;
+        }
+    }
+    
+    &.btn-no-corner{
+        border-radius: 0;
+    }
+    
+    &__text{
+        color: #333;
+    }
+    
+    &-large{
+        padding: 7px 40px;
+        font-size: 17.5px;
+    }
+    
+    &-middle{
+        padding: 4px 9px;
+        font-size: 10.5px;
+    }
+    
+    &-mini{
+        padding: 0 6px;
+        font-size: 10.5px;
+    }
 }
 
 

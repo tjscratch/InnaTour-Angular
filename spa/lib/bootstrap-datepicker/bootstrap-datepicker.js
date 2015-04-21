@@ -19,7 +19,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================= */
-
+/* =========================================================
+ *
+ * Добавлены месяцы в родительном падеже (января, февраля и т.д.)
+ * для формата дат 18 апреля 2015  (line 1595)
+ *
+ * ========================================================= */
 (function($, undefined){
 
 	var $window = $(window);
@@ -1585,6 +1590,12 @@
 				yy: date.getUTCFullYear().toString().substring(2),
 				yyyy: date.getUTCFullYear()
 			};
+
+            //поддержка дат в родительном падеже
+            if (dates[language].monthsGen){
+                val.MM = dates[language].monthsGen[date.getUTCMonth()];
+            }
+
 			val.dd = (val.d < 10 ? '0' : '') + val.d;
 			val.mm = (val.m < 10 ? '0' : '') + val.m;
 			date = [];

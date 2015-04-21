@@ -79,10 +79,23 @@ gulp.task('styl-print', function () {
 
 gulp.task('styl-partners', function () {
     optStyl.import = styleBase;
+    //ToDo: для отладки билетикса
     return gulp.src([conf.styl + '/partners/**/*.base.styl'])
+    //return gulp.src([conf.styl + '/partners/biletix/*.base.styl'])
         .pipe(stylus(optStyl))
         .pipe(gulp.dest(conf.styl + '/partners'))
+        //.pipe(gulp.dest(conf.styl + '/partners/biletix'))
         .pipe(gulpif(_ENV_ == 'DEV', livereload()))
+});
+
+gulp.task('styl-partners-euroset', function () {
+    return gulp.src([conf.dest + '/partners/euroset/assets/page.base.styl'])
+        .pipe(stylus(
+            {
+                compress: true
+            }
+        ))
+        .pipe(gulp.dest(conf.dest + '/partners/euroset/assets'));
 });
 
 
@@ -103,5 +116,6 @@ gulp.task('styles', [
     'styl-ie',
     'styl-print',
     'styl-partners',
+    'styl-partners-euroset',
     'styl-adv'
 ]);

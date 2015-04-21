@@ -1,0 +1,68 @@
+.partner-wl {
+    .wl-new-search-container {
+        background-color #005376;
+    }
+
+    .recommend-bundle-title {
+        background-color #005376;
+    }
+
+    .recommend-bundle-background {
+        background none;
+
+        &:after {
+            background none;
+        }
+    }
+
+    .recommend-bundle {
+        background #eaeff3;
+    }
+
+    $headColor = #333;
+    smallHead() {
+        color $headColor;
+        font-weight bold;
+    }
+
+    .recommend-bundle-wrap {
+        .flight {
+            color $headColor;
+        }
+
+        .hotel-info-date {
+            color $headColor;
+        }
+    }
+
+    .result-small .flight .white {
+        smallHead();
+    }
+
+    .result-small .hotel-info-name {
+        smallHead();
+    }
+
+    .result-small .corner-price {
+        smallHead();
+    }
+
+    .recommend-bundle-wrap .expand-collapse-link {
+        color: #4d4d4d;
+
+        a {
+            color: #4d4d4d;
+        }
+
+        &.w-expand-collapse-link_down {
+            color #4d4d4d;
+            a {
+                color #4d4d4d;
+            }
+        }
+    }
+
+    .btn.btn-green {
+        btx-button-color1();
+    }
+}

@@ -14,7 +14,7 @@ angular.module('innaApp.components').
         '$filter',
         '$templateCache',
         '$routeParams',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$timeout',
         'FilterService',
         'FilterSettings',

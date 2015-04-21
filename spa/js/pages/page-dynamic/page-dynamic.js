@@ -9,7 +9,7 @@ innaAppControllers
         'DynamicPackagesDataProvider',
         '$routeParams',
         '$anchorScroll',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$location',
         'innaApp.Urls',
         'aviaHelper',
@@ -137,6 +137,7 @@ innaAppControllers
                         this.set('defaultTab', 'hotel');
 
                     this.balloonSearch();
+                    //return;
                     this.loadTab();
 
                     $scope.passengerCount = parseInt(searchParams.Adult) + (searchParams.ChildrenAges ? searchParams.ChildrenAges.length : 0);
@@ -606,7 +607,13 @@ innaAppControllers
 
                     if (window.partners && window.partners.isFullWL()) {
                         window.partners.resetParentScrollTop();
-                        window.partners.setScrollPage(20);
+                        var parner = window.partners.getPartner();
+                        if (parner && parner.dontScrollAfterSearch){
+                            //у кого шапка мелкая - не скролим
+                        }
+                        else {
+                            window.partners.setScrollPage(20);
+                        }
                     }
 
                     this._balloonLoad.updateView({

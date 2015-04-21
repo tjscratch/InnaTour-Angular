@@ -9,7 +9,7 @@ innaAppControllers
         'eventsHelper',
         'urlHelper',
         'innaApp.Urls',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         'aviaHelper',
         function (EventManager, $scope, $element, $location, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
             $scope.$on('$routeChangeStart', function (next, current) {

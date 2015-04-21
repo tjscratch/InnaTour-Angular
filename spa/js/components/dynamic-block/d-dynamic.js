@@ -35,7 +35,7 @@
 angular.module('innaApp.components')
     .directive('dynamicBlock', [
         'EventManager',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$templateCache',
         '$filter',
         '$location',

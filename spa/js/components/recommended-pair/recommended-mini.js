@@ -13,7 +13,7 @@ angular.module('innaApp.directives')
                     'aviaHelper',
                     '$location',
                     '$element',
-                    'innaApp.API.events',
+                    'innaAppApiEvents',
                     '$routeParams',
                     function (EventManager, $scope, aviaHelper, $location, $element, Events, $routeParams) {
 

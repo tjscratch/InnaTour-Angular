@@ -5,10 +5,10 @@
 	</div>
 	<ul class="inna-dropdown-age-dialog" role="menu">
 		<li
-				ng-repeat="age  in [] | range:18"
+				ng-repeat="age  in [] | widgetRange:18"
 				ng-click="onChoose(age)"
 				>
-			{{ age | asQuantity:"год":"года":"лет"}}
+			{{ age | WidgetAsQuantity:"год":"года":"лет"}}
 		</li>
 	</ul>
 </div>

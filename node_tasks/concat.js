@@ -5,6 +5,7 @@ var gulpif = require('gulp-if');
 var conf = require('./config');
 var livereload = require('gulp-livereload');
 var revall = require('gulp-rev-all');
+var ngAnnotate = require('gulp-ng-annotate');
 
 var _ENV_ = process.env.NODE_ENV || '';
 
@@ -70,7 +71,10 @@ gulp.task('concat-lib', function () {
         conf.dest + '/lib/jquery.maskedinput.js',
         conf.dest + '/lib/jquery.ui.datepicker-ru.js',
         conf.dest + '/lib/datepicker/datepicker.js',
-        conf.dest + '/lib/jquery-ui/jquery-ui.1.11.2.min.js'
+        conf.dest + '/lib/jquery-ui/jquery-ui.1.11.2.min.js',
+        conf.dest + '/lib/ui-bootstrap-typeahead-custom/typeahead.js',
+        conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.js',
+        conf.dest + '/lib/bootstrap-datepicker/bootstrap-datepicker.ru.min.js'
     ])
 
         .pipe(concat('app-lib.js', {insertSourceName: {open: '/*', close: '*/'}}))
@@ -80,7 +84,9 @@ gulp.task('concat-lib', function () {
 
 /* PARTS */
 gulp.task('concat-components', function () {
-    return gulp.src(conf.src + '/components/**/*.js')
+    return gulp.src([
+        conf.src + '/components/**/*.js'
+    ])
         .pipe(concat('components.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });
@@ -94,6 +100,7 @@ gulp.task('concat-regions', function () {
 gulp.task('concat-pages', function () {
     return gulp.src(conf.src + '/pages/**/*.js')
         .pipe(concat('pages.js', {insertSourceName: {open: '/*', close: '*/'}}))
+        .pipe(ngAnnotate())
         .pipe(gulp.dest(conf.build + '/js'));
 });
 
@@ -111,7 +118,12 @@ gulp.task('build-services', function () {
 });
 
 gulp.task('build-directives', function () {
-    return gulp.src([conf.src + '/directives/**/*.js'])
+    return gulp.src([
+        conf.src + '/directives/**/*.js',
+        conf.widgets + '/search/js/directives.js',
+        conf.widgets + '/search/js/form.js',
+        conf.widgets + '/search/js/validation.js'
+    ])
         .pipe(concat('angular-directives.js', {insertSourceName: {open: '/*', close: '*/'}}))
         .pipe(gulp.dest(conf.build + '/js'));
 });

@@ -1,5 +1,5 @@
 <div class="b-result b-result_col_three row b-result-content b-recommended_big">
-    <div class="b-result__cell" ng-click="toggleTab('ticket')" ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
+    <div class="b-result__cell b-result__cell_ticket" ng-click="toggleTab('ticket')" ng-style="{cursor: (stateTicket|defined) && !stateTicket ? 'pointer' : 'default'}">
 
         <div ng-if="!isClosed && recommendedPairStatus == 5"
              tooltip-directive-base
@@ -22,9 +22,20 @@
             </div>
         </div>
 
-        <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
+
+	    <div class="spinner spinner-ticket">
+		    <div class="rect rect1"></div>
+		    <div class="rect rect2"></div>
+		    <div class="rect rect3"></div>
+		    <div class="rect rect4"></div>
+		    <div class="rect rect5"></div>
+	    </div>
+
+
+	    <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
         <ng:any partials-collection
                 partial-name="logoAvia"
+                class="recommendedPairTicket"
                 ticket-model="recommendedPair.ticket" />
 
         <span class="icon-sprite-airplane"></span>
@@ -93,7 +104,20 @@
         </div>
     </div>
 
-    <div class="b-result__cell b-result__cell_even" ng-click="toggleTab('hotel')" ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}">
+    <div class="b-result__cell b-result__cell_even" 
+         ng-click="toggleTab('hotel')" 
+         ng-style="{cursor: (stateHotel|defined) && (!stateHotel || asMap) ? 'pointer' : 'default'}"
+		    >
+
+	    <div class="spinner spinner-hotel">
+		    <div class="rect rect1"></div>
+		    <div class="rect rect2"></div>
+		    <div class="rect rect3"></div>
+		    <div class="rect rect4"></div>
+		    <div class="rect rect5"></div>
+	    </div>
+	    
+	    
         <div class="hotel-info__special-mark" ng-if="recommendedPair.getProfit() > 1000">
 
         <div ng-if="!isClosed && recommendedPairStatus == 3"
@@ -183,8 +207,15 @@
 
     <div class="b-result__cell result-buy">
 
+	    <div class="spinner">
+		    <div class="rect rect1"></div>
+		    <div class="rect rect2"></div>
+		    <div class="rect rect3"></div>
+		    <div class="rect rect4"></div>
+		    <div class="rect rect5"></div>
+	    </div>
 
-        <div share-link-directive
+	    <div share-link-directive
              location="{{location}}"
              position="left"></div>
 

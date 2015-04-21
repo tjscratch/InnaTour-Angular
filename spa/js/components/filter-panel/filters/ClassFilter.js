@@ -4,7 +4,7 @@ angular.module('innaApp.components').
         '$filter',
         '$templateCache',
         '$routeParams',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         function (EventManager, $filter, $templateCache, $routeParams, Events) {
 
             var ClassFilter = Ractive.extend({

@@ -34,7 +34,7 @@ angular.module('innaApp.directives')
                     '$location',
                     '$element',
                     '$timeout',
-                    'innaApp.API.events',
+                    'innaAppApiEvents',
                     '$routeParams',
                     function (EventManager, $scope, $rootScope, aviaHelper, Urls, $location, $element, $timeout, Events, $routeParams) {
 

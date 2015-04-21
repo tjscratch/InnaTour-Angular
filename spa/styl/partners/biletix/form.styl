@@ -1,0 +1,584 @@
+.partner-wl {
+    $backColor = #005376;
+    $hoverBackColor = #f7941e;
+    $disabledBackColor = #84a7bb;
+
+    $dateNavImg = url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAABLCAYAAAAMN7v2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABJ1JREFUeNrsm01y3CAQhYHiFql4l6R8njiXyCXGvoQPkZ/zuFJexancYkqdaaDFA0kOUyMnyGo2GjOSDB+P193Ese+//Lx11pqjIePIGP480OlDas6a08/yuf7Ohiv2DbHr9vHmyvTarr898Zxu634eu6PyM1+9ifOW+df38feG+Y1g5Mv0UAaFUGkyMF4EBOvhXT23AMZmIAivEgbMm0ZWMt/wDAPmvrETXs6AZAXwpeVgTIJnC6jH/jmGMQbR1FBEhQlsLYq/zc0Jdb56UCn/EnzxAKs2pK0v0PMzGe6WmkCLV5oVzgjY2mdg2gRlcg+Nq/fj09UBfaL2lLGP5q2gV3i4haO1RfWJIELf6euHm6sD90lsQTsseIyqouyP6JUM8sPXp7t6MOMvpOw5w/ZEGQBiPHBkCmApYN093Lw9GAjSxTNiFb6OZgCkBonfh+ifApUsBoLtuck8otKicGKkBjCgOr7nXQAad2i0N4wnCTL+Ei/mbCNIfgFGuiK6g7/I4JaMu8dtLp4vXi/iwO0vwok7MQJ9DFu+DFxGdulQyDZuX36Ape2Tf4zSnvFIHJwMbGuBZ6AyNfRV9B6Sl/I910mhc+mhR28IigzeEE23ZUBiA3GlKA7A9u+TxthJsHxIc29pfC/PPcybAKZk9kh+EnTSAHgVvMlRzdsyiruN5Jm+qnhEGFjx5HQop4aS3QgfsYNjnjtBuchAf91JOoQylyQ9boWUhxJGRTsJYv02mtiSs7miMQuVnIAc/VQCV6yAouKw7ubrdTJbjNa4LaIyc0QXddYpVs8BKDZbnEHMJ+Wxj3lwEMI+tEh3hOhVpzQ5vypXFAcU61Iqa1y7jSgkaQ0G05lDmyAcyW78c4tUK05ASP7FkuYX1au0dOKyVJL1rtByu9uxnOZ+UaTY2hhj4DxD0qfy5YZmjdnMKLj2FKzjt6BKR9Mxh7lV4uIYUjwrDDh2sPgs1Oa4MvVZXa1YLD9ztZBXZgtbXFQ3qdNnzhsMHOYU/gi2IAc+zpvy3BKP47Dgl9WofVWCT37HFrY4zR7I4GlZFpOdPTGqRRN4yd6X0koMF4/SBKQ3tccQ5lejpzrbO1A7u+i4xZ3cYhMLm0+KhupZ4eYdFupsvKmIxwckyx9MddwmgPFUGhal36SdApx6nDnvTMXJKDIq/omGxXO08YqJvSXaRuTdRHagCBSmwlSY2hTm/2jefv+9ejinj2+6L4NeYt6qTIWpMBVm8sBdQ2qdv2t50cmsdw2T598C1CnI9YA6BbkeUKcg1wPql8y21XRfE/RzAu2c4PwS+T0qs3XOS3zcJdFrr2nSEnR3aTqgIBtTIwV6XlB2LT6iFVBbDGkqJ7UCapu/HnT864MObQpTYW7aW/UvOlSZClNhalOYClNhalOYCrPv5s39C/w1/2fq//+vvMC8VZkKU2EqzOSB+6bUOH/X9KJ7u2+YPP8GoE5BrgfUKcj1gDoFuR5Qv2i2rUHnNUE/J9DOCM4vkt+jMlvnvMDHXRK9dpsmLUB3l6YDCrI1NVKgZwVl1+QjWgE1+WlbOakV0Iq1uTaFqTAVpjZufwQYAHcA/iuGUcikAAAAAElFTkSuQmCC");
+    .dateNav {
+        position: absolute;
+        width: 21px;
+        height: 20px;
+        cursor: pointer;
+        top: 7px;
+        background-image: $dateNavImg;
+        background-position: left -26px;
+        background-repeat: no-repeat;
+    }
+
+    $backIconLocationUrl = url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAATCAYAAACk9eypAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAATlJREFUeNp8k7FKA1EQRd8uISDYWAUbCzuLbUwhAfMJ6hdEMI2dfoBglyD+Qggm2KQIWFhbBtJELUStLFRQezVBgniv3gfDMvHCSebN3AnzdjbJxWAYpCKogxrIlLsBp6ANvphI1LAIzkE5+BqBDfCS4qMAzox5CoZiqlxZngIbdsCaCtcapyIy5YI8dTZsKzEBW+DejMJ4UzWqxoZVHQbg0Zn/STUqS03hM8zWh75/73CpwzqYd8zMVRVfsaGvwwJoaR92Ny3VqD73UNLs0fignQQ9+2XFXNwSd/AGTsCuCjTsO6N16Y2XPjZL8sTaEYPUjNH7p6EnT7CPtQG+HTNzzXhIc1vtOg0dcOc1UIe5Bb6DA2vINzzHy0mMX60hMX+gqDlwq3jFvHh/74Yz8xjs8cfyZupHgAEAGQhHCt+0i1cAAAAASUVORK5CYII=");
+    inputIconLocation() {
+        background: 12px 8px no-repeat #fff;
+        background-image: $backIconLocationUrl;
+
+    }
+
+    .b-form-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: $backColor;
+
+        ::-webkit-scrollbar-track {
+            background: #576778;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #173c56;
+        }
+
+        //автокомплит
+        .b-inna-search-form-field .dropdown-menu {
+            width 257px;
+            margin-top: 1px;
+            border: none;
+            border-radius 0px;
+            -webkit-box-shadow: 4px 4px 0 0 #005376;
+            -mox-box-shadow: 4px 4px 0 0 #005376;
+            box-shadow: 4px 4px 0 0 #005376;
+
+            li {
+                border-radius 0px;
+                color $backColor;
+
+                &.active {
+                    background: $hoverBackColor;
+                    color #fff;
+
+                    .i-country, .b-location-item-iata {
+                        color #fff;
+                    }
+                }
+
+            }
+        }
+
+        .b-inna-search-widget {
+            position: relative;
+        }
+
+        .b-inna-search__nav {
+            display: none;
+        }
+
+        .b-inna-search-form {
+            padding: 12px 0 12px 12px;
+            background-color: transparent;
+        }
+
+        .inna-tooltip {
+            top: 115%;
+            z-index: 10;
+            background-color: #ec008c;
+            color: #fff;
+            font-size: 12px;
+            box-shadow: none;
+            border-radius: 0;
+
+
+            &:before {
+                border-color: transparent transparent #ec008c transparent;
+            }
+
+            &:after {
+                border-color: transparent transparent #ec008c transparent;
+            }
+        }
+
+        .b-inna-search-form-field-input {
+            border-radius: 0;
+            height: 34px;
+
+            &:focus {
+                box-shadow: none;
+                border-color: transparent;
+            }
+        }
+
+        .b-form-direction {
+            position: relative;
+            display: inline-block;
+            margin: 13px 0 1px 12px;
+            line-height: normal;
+
+            &__selector {
+                display: inline-block;
+                margin-right: 9px;
+                border-bottom: 1px dotted #fff;
+                color: #fff;
+                cursor: pointer;
+                font-size: 10px;
+                vertical-align: middle;
+                text-transform: uppercase;
+
+                &.active {
+                    padding: 3px 8px 4px 7px;
+                    border-bottom: none;
+                    background: $hoverBackColor;
+                    line-height: 14px;
+                }
+            }
+
+        }
+
+        .b-form-date-nav {
+            position absolute;
+            top: 32px;
+            /*top: 47px;*/
+            left: 550px;
+            z-index: 1;
+
+            .dateNav {
+                display inline-block;
+
+                &.disabled {
+                    cursor default;
+                    background-position: left 0px;
+
+                    &:hover {
+                        background-position: left 0px;
+                    }
+                }
+
+                &:hover {
+                    background-position: left bottom;
+                }
+
+                &.next {
+                    background-position: right -26px;
+
+                    &.disabled {
+                        background-position: right 0px;
+
+                        &:hover {
+                            background-position: right 0px;
+                        }
+                    }
+
+                    &:hover {
+                        background-position: right bottom;
+                    }
+                }
+
+                &:nth-child(1) {
+                    margin-left: 3px;
+                }
+                &:nth-child(2) {
+                    margin-left: 183px;
+                }
+                &:nth-child(3) {
+                    margin-left: 228px;
+                }
+                &:nth-child(4) {
+                    margin-left: 408px;
+                }
+            }
+        }
+        .b-form-labels {
+            position: relative;
+            display: inline-block;
+            height: 15px;
+            top: 6px;
+            left: 12px;
+            color: #fff;
+            font-size: 10px;
+            text-transform: uppercase;
+            line-height: 12px;
+
+            span {
+                display: inline-block;
+
+                &:nth-child(2) {
+                    margin-left: 231px;
+                }
+                &:nth-child(3) {
+                    margin-left: 228px;
+                }
+                &:nth-child(4) {
+                    margin-left: 155px;
+                }
+            }
+        }
+        .b-form-passengers {
+            position: relative;
+            display: inline-block;
+            margin: 3px 0 10px 11px;
+        }
+
+        .b-form-passengers__select-block {
+            display: inline-block;
+            position: relative;
+            float: left;
+            margin: 0 0 0 0;
+
+            &.childs {
+                margin: 0 15px 0 78px;
+            }
+        }
+
+        .b-form-passengers__label {
+            display: inline-block;
+            float: left;
+            margin: 0 9px 0 0;
+            color: #fff;
+            font-size: 10px;
+            text-transform: uppercase;
+            line-height: 12px;
+        }
+
+        .infants .b-form-passengers__nums {
+            margin-left: 22px;
+        }
+
+        .b-form-passengers__nums {
+            position: relative;
+            display: inline-block;
+            margin: 2px 0 0 0;
+            padding: 0;
+
+            span {
+                display: inline-block;
+                position: relative;
+                float: left;
+                width: 21px;
+                height: 21px;
+                line-height: 21px;
+                font-weight: bold;
+                font-size: 12px;
+                color: #456f9a;
+                text-align: center;
+                cursor: pointer;
+                vertical-align: top;
+
+                &:hover {
+                    color: #fff;
+                    background: $hoverBackColor;
+                }
+
+                &.active {
+                    color: #fff;
+                    background: $hoverBackColor;
+                }
+            }
+
+            .plus {
+                position: absolute;
+                top: 0;
+                right: 1px;
+            }
+        }
+
+        .b-form-passengers__child-ages {
+            position: relative;
+            display: inline-block;
+            margin: -5px 0 0 0;
+            padding: 0;
+        }
+
+        .b-form-passengers__age {
+            position: relative;
+            display: inline-block;
+            float: left;
+            margin: 0 5px;
+            width: 64px;
+            height: 36px;
+            z-index: 5;
+            padding: 8px 0 0 14px;
+            background-color: #fff;
+            color #005376;
+            cursor: pointer;
+
+            &.disabled {
+                background-color: $disabledBackColor;
+                cursor default;
+            }
+        }
+
+        .b-form-passengers__age-dropdown-wrap {
+
+        }
+        .b-form-passengers__age-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            /*width: 100%;*/
+            //скролбар - внутри
+            width: 68px; //скроллбар - наружу
+            height: 182px;
+            overflow-y: scroll;
+            background-color: #fff;
+            text-align: center;
+
+            li {
+                display: block;
+                padding: 3px;
+
+                &:hover {
+                    background-color: $hoverBackColor;
+                }
+            }
+        }
+
+        .b-form-passengers__b-tarif {
+            display: inline-block;
+            position: relative;
+            margin: 1px 0 0 20px;
+
+            span {
+                display: inline-block;
+                margin-right: 5px;
+                border-bottom: 1px dotted #fff;
+                color: #fff;
+                cursor: pointer;
+                font-size: 10px;
+                vertical-align: middle;
+                text-transform: uppercase;
+                line-height: normal;
+
+                &.active {
+                    padding: 3px 8px 4px 8px;
+                    border-bottom: none;
+                    background: #f7941e;
+                    line-height: 14px;
+                }
+            }
+        }
+
+        .b-form-submit {
+            display: inline-block;
+            position: absolute;
+            right: 12px;
+            bottom: 14px;
+            margin: 0;
+
+            .button {
+                background: url('/spa/img/partners/biletix/btns_find.png') left top no-repeat;
+                width: 109px;
+                height: 36px;
+                position: relative;
+                right: 0;
+                top: 0;
+                padding: 0;
+                border: none;
+
+                display: inline-block;
+                vertical-align: middle;
+                zoom: 1;
+                cursor: pointer;
+                font-size: 0;
+
+                &.disabled {
+                    background-position-x: -437px;
+                }
+
+                &:hover {
+                    background-position: -148px top;
+                }
+
+                &:active {
+                    background-position: -291px top;
+                }
+            }
+        }
+
+        //наша форма
+        .b-inna-col-xs-3 {
+            &.disabled {
+                opacity: 0.6;
+            }
+        }
+
+        //куда откуда
+        .b-inna-search-form-field.__typeahead {
+            margin: 0 10px 0 0;
+
+            .b-inna-search-form-field-input {
+                width: 257px;
+                padding: 5px 0 8px 29px;
+                inputIconLocation();
+                color: #084e76
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 17px;
+            }
+        }
+
+        //даты
+        .b-inna-search-form-field-input.b-inna-datapicker {
+            width: 215px;
+            padding: 0px 0px 2px 32px;
+            background: #fff;
+            color: #084e76
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 17px;
+            /*font-size: 11px;*/
+            /*line-height: 14px;*/
+            /*text-transform: uppercase;*/
+
+            &.from_date {
+                margin: 0 10px 0 0;
+            }
+
+        }
+
+        .inna-dropdown, .b-inna-search-form-field.__action {
+            display: none;
+        }
+
+        .i {
+            width: 14px;
+            height: 16px;
+            display: inline-block;
+            position: absolute;
+            cursor: pointer;
+            margin-top: -19px;
+            margin-left: 20px;
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQpJREFUeNpi3Hv0BAMOwAzEjED8B5skCxpfCIgtgFgViAWhYh+B+DYQnwTi19g0GgKxNxbD+IHYBCq/A4hPgwSZoJIGQOyPRdM+IN6D5HSQwcYwG/mgAtjAHag/kYEnSJwF6idWHBpTcISLJYhQwyK5DhogbEAcAcSSaPIqTEihhwxA/jWDhuhNLPKCTHjiEBb0CtgUgDS+wyL+GYhvALEoDo3vQRpvYZF4CcT/gFgch4tugTSC0txvNAkJqG33gfgcmhwoCZ5kgTprMxAHIUnyAHE2Dtu2ggINllIuQSPaB0+c/oVqOo+eVi9CnWYJxOrQBA8CH6DhcBQaPVhzxycg3gnFeLMVQIABAM7oMyQto0XYAAAAAElFTkSuQmCC") left top no-repeat;
+        }
+
+        .arrow-down {
+            display: inline-block;
+            position: absolute;
+            top: 38%;
+            right: 8px;
+            width: 12px;
+            height: 8px;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAYAAADN5B7xAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA35pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpEQjdFMDUzRDY4OUVFMTExQThEM0E0MUQ4MDc3NzVFRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1NzdCMDg3MEQ1NDgxMUU0OTdGN0ExMzg1MTAzNDQ3MCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1NzdCMDg2RkQ1NDgxMUU0OTdGN0ExMzg1MTAzNDQ3MCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MmNlZmQxYmUtY2ZmNy02MjRhLWJkMjYtMjcxM2MzMTQ5YmM1IiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6OTkwNzg2ZTUtYTc3Yy0xMWU0LWJhMmQtY2NjOTM3ZDg1YjA4Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+KoUiAQAAAH1JREFUeNpiZAguYyAFMAHxcSC+CMSSeNTJAvE1IN4H0sALxHpAvB+HJpDiA0CsCcQ8IA3uQHwbiNWxaIIpVoLa4AvS8BSIHdE0SQGxHJpiJyB+yQI1CaZpP1TTPiBmRVcMUsiCZD26JgZ0xegakDVtB+I/QOyJrBgEAAIMACsPHbW6EFx2AAAAAElFTkSuQmCC");
+        }
+
+        /*.i-location {*/
+        /*background-image: $backIconLocationUrl;*/
+        /*}*/
+
+    }
+
+    $dpBgColor = #dae5e9;
+    $dpColor = #2f5474;
+
+    $dpSelectedBgColor = #8dc63f;
+    $dpSelectedColor = #fff;
+
+    $dpHoverBgColor = #00ace4;
+    $dpHoverColor = #fff;
+
+    $dpBorderColor = #e9ecee;
+
+    $dpHeadColor = #a9b3c0;
+
+    //date picker
+    .datepicker .table-condensed > tbody > tr > td.range, .datepicker table > tbody > tr > td.range {
+        background-color: $dpBgColor;
+        color: $dpColor;
+
+        &:hover {
+            background-color $dpHoverBgColor;
+            color $dpHoverColor;
+        }
+    }
+
+    .datepicker .table-condensed > tbody > tr > td.day, .datepicker table > tbody > tr > td.day {
+        color: $dpColor;
+
+        &:hover {
+            background-color $dpHoverBgColor;
+            color $dpHoverColor;
+        }
+
+        &:nth-of-type(6),
+        &:nth-of-type(7) {
+            &:hover {
+                color #ec008c;
+            }
+        }
+    }
+
+    .datepicker .table-condensed > tbody > tr > td.disabled, .datepicker table > tbody > tr > td.disabled {
+        opacity: 0.5;
+        background-color: transparent !important;
+        color: $dpColor;
+        cursor default;
+
+        &:hover {
+            background-color transparent !important;
+            color $dpColor;
+            cursor default;
+        }
+    }
+
+    .datepicker .table-condensed > tbody > tr > td.selected, .datepicker table > tbody > tr > td.selected {
+        vertical-align inherit;
+    }
+
+    .datepicker .table-condensed > tbody > tr > td.selected.from_date, .datepicker table > tbody > tr > td.selected.from_date {
+        vertical-align top;
+        background-color: $dpSelectedBgColor;
+        color: $dpSelectedColor;
+
+        &:hover {
+            background-color $dpHoverBgColor;
+            color $dpHoverColor;
+        }
+    }
+
+    .datepicker .table-condensed > tbody > tr > td.selected.to_date, .datepicker table > tbody > tr > td.selected.to_date {
+        vertical-align top;
+        background-color: $hoverBackColor;
+        color: $dpSelectedColor;
+
+        &:hover {
+            background-color $dpHoverBgColor;
+            color $dpHoverColor;
+        }
+    }
+
+    .datepicker .datepicker-switch {
+        color #06538c;
+        font-weight bold;
+    }
+
+    .datepicker table th.dow {
+        color #a9b3c0;
+    }
+
+    .datepicker-days .table-condensed {
+        &:before {
+            content '';
+            position absolute;
+            top: 67px;
+            left: 8px;
+            width: 232px;
+            border-bottom 1px solid #c2d3db;
+        }
+    }
+
+    .datepicker table th.prev, .datepicker table th.next {
+        &:hover {
+            background-color #f2f6f7;
+        }
+    }
+
+    //сб вс
+    .datepicker .datepicker-days > table > thead > tr:nth-child(2) > th:nth-child(6),
+    .datepicker .datepicker-days > table > thead > tr:nth-child(2) > th:nth-child(7) {
+        color #ff85cd;
+    }
+
+    .datepicker .table-condensed > tbody > tr > td:nth-of-type(6),
+    .datepicker table > tbody > tr > td:nth-of-type(6),
+    .datepicker .table-condensed > tbody > tr > td:nth-of-type(7),
+    .datepicker table > tbody > tr > td:nth-of-type(7) {
+        color #ec008c;
+
+        &.disabled {
+            color #ec008c;
+        }
+    }
+}

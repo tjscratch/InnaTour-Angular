@@ -176,7 +176,7 @@ function FrameManager() {
         frame.style.verticalAlign = "top";
         frame.border = 0;
         frame.frameBorder = 0;
-    }
+    };
 
     self.repositionFrame = function (top) {
         //var el = document.getElementById("inna-frame-wrapper");
@@ -224,21 +224,21 @@ function FrameManager() {
         //el.style.top = newTop + 'px';
 
         //self.frame.lastTop = newTop;
-    }
+    };
 
     self.setVisibleCmd = function (data) {
         if (data.visible == true) {
             var frameCont = document.getElementById('inna-frame');
             frameCont.style.visibility = '';
         }
-    }
+    };
 
     self.setFrameScrollToCmd = function (data) {
         //скролит сайт внутри фрейма
         if (data.scrollTo != null) {
             window.scrollTo(0, data.scrollTo);
         }
-    }
+    };
 
     self.smoothScroll = function (from, to) {
         var smooth = 2;
@@ -258,7 +258,7 @@ function FrameManager() {
                 })(scroll, time),
                 time);
         }
-    }
+    };
 
     self.setFrameScrollPage = function (data) {
         var headerHeight = document.querySelector("#inna-frame")
@@ -283,7 +283,7 @@ function FrameManager() {
                 window.scrollTo(0, scrollTop);
             }
         }
-    }
+    };
 
     self.setScrollTopCmd = function (data) {
         //задает позицию фрейма, чтобы занимал весь экран
@@ -291,7 +291,7 @@ function FrameManager() {
             //console.log('setScrollTopCmd, top:', data.top);
             //self.repositionFrame(data.top);
         }
-    }
+    };
 
     self.setHeightCmd = function (data) {
         //console.log('setHeightCmd, height:', data.height);
@@ -300,7 +300,7 @@ function FrameManager() {
             var frame = document.getElementById(innaModule.frameId);
             frame.style.height = data.height + "px";
         }
-    }
+    };
 
     self.getElementPosition = function (el) {
         return getPos(el);
@@ -308,7 +308,7 @@ function FrameManager() {
 
     self.getDocumentSize = function () {
         return getDocumentSize();
-    }
+    };
 
     function getPos(el) {
         for (var lx = 0, ly = 0;
@@ -346,7 +346,7 @@ function CommandManager() {
         self.frameManager = frameManager;
         self.urlManager = urlManager;
         self.initEventListeners();
-    }
+    };
 
     self.initEventListeners = function () {
         self.addCommonEventListener(window, 'message', self.receiveMessage);
@@ -414,7 +414,7 @@ function CommandManager() {
             //    window.location.reload();
             //}
         }
-    }
+    };
 
     self.addCommonEventListener = function (el, event, fn) {
         if (el.addEventListener) {
@@ -479,7 +479,7 @@ function UrlManager() {
                 }
             }
         }, 100);
-    }
+    };
 
     self.saveUrlCmd = function (data) {
         if (data && data.url) {
@@ -491,7 +491,7 @@ function UrlManager() {
                 location.href = newUrl;
             }
         }
-    }
+    };
 
     function getNewHashUrl(url) {
         //console.log('self.saveUrlCmd', url);
@@ -538,4 +538,4 @@ var utils = {
             bottom: Math.round(bottom)
         };
     }
-}
+};

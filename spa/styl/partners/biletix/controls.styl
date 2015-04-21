@@ -1,0 +1,66 @@
+$borderTopHeight = 2px;
+$borderBottomHeight = 3px;
+$borderRadius = 3px;
+
+btx-button-color1() {
+    border-top: $borderTopHeight solid #ec008c;
+    border-bottom: $borderBottomHeight solid #8a1058;
+    background: #ec008c;
+    border-radius: $borderRadius;
+
+    &:hover {
+        background: #f132a3;
+        border-top-color: #f132a3;
+        border-bottom-color: #af1e74;
+        text-decoration: none;
+    }
+    &:active {
+        background: #cc0079;
+        border-top: $borderBottomHeight solid #8a1058;
+        border-bottom: $borderTopHeight solid #cc0079;
+        text-decoration: none;
+    }
+}
+
+btx-button-color2() {
+    border: none;
+    border-top: $borderTopHeight solid #f7941e;
+    border-bottom: $borderBottomHeight solid #b66818;
+    background: #f7941e;
+    border-radius: $borderRadius;
+
+    &:hover {
+        background: #fead4d;
+        border-top-color: #fead4d;
+        border-bottom-color: #cb7c2d;
+        text-decoration: none;
+    }
+    &:active {
+        background: #d77d12;
+        border-top: $borderBottomHeight solid #b66818;
+        border-bottom: $borderTopHeight solid #d77d12;
+        text-decoration: none;
+    }
+}
+
+btx-button1() {
+    padding: 5px 16px;
+    btx-button-color1()
+}
+
+btx-button2() {
+    padding: 5px 16px;
+    btx-button-color2()
+}
+
+btx-checkbox-bg() {
+    background: url("/spa/img/i.png") no-repeat 2px -590px #61a8e1;
+}
+
+btx-checkbox-border() {
+    border: 2px solid #3fa9f5;
+}
+
+.balloon-button {
+    btx-button-color1()
+}

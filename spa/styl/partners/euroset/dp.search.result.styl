@@ -117,8 +117,18 @@
         }
     }
         
-    .recommend-bundle-wrap .w-expand-collapse-link_up.w-expand-collapse-link .expand-collapse-link{
+    .recommend-bundle-wrap .expand-collapse-link{
         color: #4d4d4d;
+        a {
+            color: #4d4d4d;
+        }
+
+        &.w-expand-collapse-link_down {
+            color #fff;
+            a {
+                color #fff;
+            }
+        }
     }
     
     .icon-expand /*, .icon-collapse*/
@@ -156,7 +166,7 @@
     .filter__range{
         input{
             &:focus{
-                border-color #ffb42f
+                border-color $blue
             }
         }
     }
@@ -174,13 +184,16 @@
                 border-color #777893
                 
                 &.btn-green{
-                    background-color #fc6421
+                    color $btn-color
+                    background-color $btn-bg
                     text-indent 0
+                    font-size 13px
+                    text-transform inherit
                 }
             }
         }
     }
-    
+        
     .search__list .current:before{
         arrow-color-wl();
     }

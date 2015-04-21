@@ -5,31 +5,63 @@ $offset-row = -3px;
     position relative
     margin-right $offset-row;
     margin-left $offset-row;
-}
-for key in (1..12){
-    $cols = 12 / key
-    .b-inna-col-xs-{key}{
-        position: relative;
-        float: left;
-        width: (100 / $cols) %;
-        min-height: 1px;
-        box-sizing: border-box;
-        padding-left: $offset;
-        padding-right: $offset;
+
+    &:after,
+    &:before{
+        content ''
+        display table
+        clear both
     }
+}
+.b-inna-col{
+    position: relative;
+    float: left;
+    min-height: 1px;
+    box-sizing: border-box;
+    padding-left: $offset;
+    padding-right: $offset;
+}
+.b-inna-col__typeahead{
+    @extend .b-inna-col;
+    width 23%
+}
+.b-inna-col__daterange{
+    @extend .b-inna-col;
+    width 32%
+}
+.b-inna-col__daterange__data{
+    @extend .b-inna-col;
+    width 50%
+}
+.b-inna-col__peoples{
+    @extend .b-inna-col;
+    width 12%
+    white-space nowrap
+}
+.b-inna-col__action{
+    @extend .b-inna-col;
+    width 10%
 }
 .b-inna-search-widget-row-2{
     .b-inna-search-form{
         padding-top 4px
         padding-bottom 4px
     }
-
-    for key in (1..12){
-        $cols = 12 / key
-        .b-inna-col-lg-{key}{
-            width: (100 / $cols) %;
-            padding: $offset;
-        }
+    .b-inna-col__typeahead{
+        width 50%
+        padding $offset
+    }
+    .b-inna-col__daterange{
+        width 50%
+        padding $offset
+    }
+    .b-inna-col__peoples{
+        width 25%
+        padding $offset
+    }
+    .b-inna-col__action{
+        width 25%
+        padding $offset
     }
 }
 .b-inna-search-widget-row-3{
@@ -37,12 +69,20 @@ for key in (1..12){
         padding-top 4px
         padding-bottom 4px
     }
-
-    for key in (1..12){
-        $cols = 12 / key
-        .b-inna-col-sm-{key}{
-            width: (100 / $cols) %;
-            padding: $offset;
-        }
+    .b-inna-col__typeahead{
+        width 100%
+        padding $offset
+    }
+    .b-inna-col__daterange{
+        width 100%
+        padding $offset
+    }
+    .b-inna-col__peoples{
+        width 50%
+        padding $offset
+    }
+    .b-inna-col__action{
+        width 50%
+        padding $offset
     }
 }

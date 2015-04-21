@@ -9,6 +9,7 @@ gulp.task('watch', function () {
 
     gulp.watch([
         conf.styl + '/**/*.styl',
+        '!' + conf.styl + '/partners/**/*.styl',
         '!' + conf.styl + '/**/ticket.styl',
         '!' + conf.styl + '/**/ie.styl',
         '!' + conf.styl + '/**/print.styl'

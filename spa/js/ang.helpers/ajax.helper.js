@@ -3,7 +3,7 @@ angular.module('innaApp.services')
         'EventManager',
         '$templateCache',
         'ErrorManager',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         function (EventManager, $templateCache, ErrorManager, Events) {
             var that = this;
             var ajax = {};

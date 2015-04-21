@@ -3,7 +3,7 @@ angular.module('innaApp.controllers')
         '$scope',
         '$location',
         'aviaHelper',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         'AuthDataProvider',
         'innaApp.Urls',
         'modelAuth',

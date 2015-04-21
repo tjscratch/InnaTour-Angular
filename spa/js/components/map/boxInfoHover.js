@@ -1,7 +1,7 @@
 innaAppConponents.
     factory('MapInfoBoxHover', [
         'EventManager',
-        'innaApp.API.events',
+        'innaAppApiEvents',
         '$templateCache',
 
         // components

@@ -5,9 +5,9 @@
 </ul>
 <div class="b-inna-search-form">
 	<div class="b-inna-row">
-		<form name="innaSearchForm">
+		<form name="forms.innaSearchForm">
 
-			<div class="b-inna-col-xs-3 b-inna-col-lg-6 b-inna-col-sm-12">
+			<div class="b-inna-col__typeahead">
 				<div class="b-inna-search-form-field __typeahead">
 					<input
 							class="b-inna-search-form-field-input"
@@ -20,11 +20,11 @@
 							ng-change="fromIdError = null"
 							>
 
-					<div error-tooltip error="{{fromIdError}}"></div>
+					<div widget-error-tooltip error="{{fromIdError}}"></div>
 				</div>
 			</div>
 
-			<div class="b-inna-col-xs-3 b-inna-col-lg-6 b-inna-col-sm-12">
+			<div class="b-inna-col__typeahead">
 				<div class="b-inna-search-form-field __typeahead">
 					<input
 							class="b-inna-search-form-field-input"
@@ -37,14 +37,14 @@
 							ng-change="toIdError = null"
 							>
 
-					<div error-tooltip error="{{toIdError}}"></div>
+					<div widget-error-tooltip error="{{toIdError}}"></div>
 				</div>
 			</div>
 
-			<div class="b-inna-col-xs-3  b-inna-col-lg-6  b-inna-col-sm-12">
+			<div class="b-inna-col__daterange">
 				<div class="b-inna-search-form-field b-inna-row input-daterange">
-					<div class="b-inna-col-xs-6">
-						<input
+					<div class="b-inna-col__daterange__data">
+						<input date-picker-date-format
 								class="b-inna-search-form-field-input b-inna-datapicker from_date"
 								type="text"
 								name="startDate"
@@ -53,10 +53,10 @@
 								ng-focus="startDateError = null"
 								/>
 
-						<div error-tooltip error="{{startDateError}}"></div>
+						<div widget-error-tooltip error="{{startDateError}}"></div>
 					</div>
-					<div class="b-inna-col-xs-6">
-						<input
+					<div class="b-inna-col__daterange__data">
+						<input date-picker-date-format
 								class="b-inna-search-form-field-input  b-inna-datapicker to_date"
 								type="text"
 								name="endDate"
@@ -65,26 +65,22 @@
 								ng-focus="endDateError = null"
 								/>
 
-						<div error-tooltip error="{{endDateError}}"></div>
+						<div widget-error-tooltip error="{{endDateError}}"></div>
 					</div>
 				</div>
 			</div>
 
-			<div class="b-inna-col-xs-3  b-inna-col-lg-6  b-inna-col-sm-12">
-				<div class="b-inna-row">
-					<div class="b-inna-col-xs-6">
-						<div counter-people
-						     adult-count="adultCount"
-						     children-count="childrenCount"
-						     childrens-age="childrensAge"
-						     class="b-wrapp_type_inline"></div>
-					</div>
+			<div class="b-inna-col__peoples">
+				<div widget-counter-people
+				     adult-count="adultCount"
+				     children-count="childrenCount"
+				     childrens-age="childrensAge"
+						></div>
+			</div>
 
-					<div class="b-inna-col-xs-6">
-						<div class="b-inna-search-form-field __action">
-							<button class="b-inna-btn" ng-click="innaStartSearch(innaSearchForm)">Найти</button>
-						</div>
-					</div>
+			<div class="b-inna-col__action">
+				<div class="b-inna-search-form-field __action">
+					<button class="b-inna-btn" ng-click="innaStartSearch(forms.innaSearchForm)">Найти</button>
 				</div>
 			</div>
 
