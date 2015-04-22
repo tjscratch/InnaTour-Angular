@@ -1,12 +1,12 @@
 {{#if airplaneIcon}}
-    <span class="icon-sprite-airplane"></span>
+<span class="icon-sprite-airplane"></span>
 {{/if}}
 
 
 <!-- ЛОГОТИПЫ АВИАКОМПАНИЙ -->
 <DatePartialsCollection
 		partialName="logoAvia"
-		ticketModel="{{modelTicket}}" />
+		ticketModel="{{modelTicket}}"/>
 
 
 <!-- To -->
@@ -14,8 +14,8 @@
 	<span class="date date_w_120">
         <span>
             <DatePartialsCollection
-                partialName="weekDateTime"
-                date="{{ticket.DepartureDate}}" />
+		            partialName="weekDateTime"
+		            date="{{ticket.DepartureDate}}"/>
             <br>
             <span>{{ticket.CityFrom}} {{ticket.OutCode}}</span>
         </span>
@@ -24,13 +24,13 @@
 	<DatePartialsCollection
 			partialName="flightTimeArrow"
 			direction="To"
-			AviaInfo="{{ticket}}" />
+			AviaInfo="{{ticket}}"/>
 
     <span class="date date_w_120">
        <span>
            <DatePartialsCollection
 		           partialName="weekDateTime"
-		           date="{{ticket.ArrivalDate}}" />
+		           date="{{ticket.ArrivalDate}}"/>
 	       <br>
 	        <span>{{ticket.CityTo}} {{ticket.InCode}}</span>
        </span>
@@ -42,8 +42,8 @@
     <span class="date date_w_120">
         <span>
             <DatePartialsCollection
-                partialName="weekDateTime"
-                date="{{ticket.BackDepartureDate}}" />
+		            partialName="weekDateTime"
+		            date="{{ticket.BackDepartureDate}}"/>
 	       <br>
 	        <span>{{ticket.CityTo}} {{ticket.OutCodeBack}}</span>
 	    </span>
@@ -52,13 +52,13 @@
 	<DatePartialsCollection
 			partialName="flightTimeArrow"
 			direction="Back"
-			AviaInfo="{{ticket}}" />
+			AviaInfo="{{ticket}}"/>
 
     <span class="date date_w_120">
        <span>
            <DatePartialsCollection
-               partialName="weekDateTime"
-               date="{{ticket.BackArrivalDate}}" />
+		           partialName="weekDateTime"
+		           date="{{ticket.BackArrivalDate}}"/>
 			<br>
             <span>{{ticket.CityFrom}} <span>{{ticket.InCodeBack}}</span></span>
         </span>
@@ -68,17 +68,79 @@
 <div class="bottom-actions">
 	{{#if showWarning() }}
         <span class="pull-left warning">
-		    {{pluralize(ticket.NumSeats, ["Последнее","Последние","Последние"])}}
-			{{ticket.NumSeats}}
-			{{pluralize(ticket.NumSeats, ["место","места","мест"])}}<!--
+	        
+	        {{#if passengerCount == 1}}
+	            {{#if ticket.NumSeats == 1}}
+	                Остался последний билет
+	            {{else}}
+		            {{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
+						{{ticket.NumSeats}}
+					{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
+	            {{/if}}
+	        {{/if}}<!--
+	        
+	        -->{{#if passengerCount == 2}}
+	            {{#if ticket.NumSeats <= 3}}
+	                Остались последние билеты
+	            {{else}}
+		            {{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
+						{{ticket.NumSeats}}
+					{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
+	            {{/if}}
+	        {{/if}}<!--
+	        
+	        -->{{#if passengerCount == 3}}
+	            {{#if ticket.NumSeats <= 5}}
+	                Остались последние билеты
+	            {{else}}
+		            {{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
+						{{ticket.NumSeats}}
+					{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
+	            {{/if}}
+	        {{/if}}<!--
+	        
+	        -->{{#if passengerCount == 4}}
+	            {{#if ticket.NumSeats <= 7}}
+	                Остались последние билеты
+	            {{else}}
+		            {{pluralize(ticket.NumSeats, ["Последний","Последние","Последние"])}}
+						{{ticket.NumSeats}}
+					{{pluralize(ticket.NumSeats, ["билет","билета","билетов"])}}
+	            {{/if}}
+	        {{/if}}<!--
+	        
+	        -->{{#if passengerCount == 5 || passengerCount == 6}}
+	            {{#if ticket.NumSeats <= 9}}
+	                Остались последние билеты
+	            {{/if}}
+	        {{/if}}<!--
+	        
+	        
+	        
+	        
             -->{{#if ticket.IsCharter}}<span>, чартер</span><!--
-            -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные а/п отлета и прилета</span>{{/if}}
+                -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные а/п отлета и прилета</span>{{/if}}
             {{/if}}<!--
             -->{{#if !ticket.IsCharter}}<!--
-                -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}
+	            -->{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}
             {{/if}}
 	    </span>
 	{{/if}}
+
+
+	<!--{{#if showWarning() }}-->
+	<!--<span class="pull-left warning">-->
+	<!--{{pluralize(ticket.NumSeats, ["Последнее","Последние","Последние"])}}-->
+	<!--{{ticket.NumSeats}}-->
+	<!--{{pluralize(ticket.NumSeats, ["место","места","мест"])}}&lt;!&ndash;-->
+	<!--&ndash;&gt;{{#if ticket.IsCharter}}<span>, чартер</span>&lt;!&ndash;-->
+	<!--&ndash;&gt;{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные а/п отлета и прилета</span>{{/if}}-->
+	<!--{{/if}}&lt;!&ndash;-->
+	<!--&ndash;&gt;{{#if !ticket.IsCharter}}&lt;!&ndash;-->
+	<!--&ndash;&gt;{{#if ticket.OutCode != ticket.InCodeBack}}<span>, разные аэропорты отлета и прилета</span>{{/if}}-->
+	<!--{{/if}}-->
+	<!--</span>-->
+	<!--{{/if}}-->
 
 	{{#if !showWarning() }}
         <span class="pull-left warning">
