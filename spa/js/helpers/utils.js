@@ -140,7 +140,7 @@ var utils = {
 
             document.querySelectorAll('.scroll-fix').forEach(function (item) {
                 item.style.width = (fullWidth + 'px');
-            })
+            });
             
             document.body.classList.add('overflow_hidden');
         }
@@ -148,7 +148,7 @@ var utils = {
         function resetWidth() {
             document.querySelectorAll('.scroll-fix').forEach(function (item) {
                 item.style.width = "auto";
-            })
+            });
 
             document.body.classList.remove('overflow_hidden');
         }
@@ -158,7 +158,7 @@ var utils = {
             $(window).on('resize', setWidth);
         }
         else {
-            resetWidth()
+            resetWidth();
             $(window).off('resize');
         }
     },

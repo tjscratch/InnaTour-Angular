@@ -24,7 +24,7 @@ innaAppControllers.
         'Balloon',
         function AviaBuyTicketsCtrl(RavenWrapper, $log, $timeout, $interval, $scope, $rootScope, $routeParams, $filter, $location, dataService, paymentService, storageService, aviaHelper, eventsHelper, urlHelper, Urls, $templateCache, Balloon) {
 
-            Raven.setExtraContext({key: "__BUY_TICKETS_CONTEXT__"})
+            Raven.setExtraContext({key: "__BUY_TICKETS_CONTEXT__"});
 
             var self = this;
 
@@ -996,12 +996,37 @@ innaAppControllers.
 
                 //если агентство - отправляем обратно в b2b интерфейс
                 if ($scope.isAgency) {
-                    var b2bOrder = $scope.B2B_HOST_Order + $scope.orderId;
-                    console.log('redirecting to: ' + b2bOrder);
-                    window.location = b2bOrder;
+                    var tmId;
+
+                    function redirectToCabinet(){
+                        if (tmId){
+                            $timeout.cancel(tmId);
+                        }
+
+                        var b2bOrder = $scope.B2B_HOST_Order + $scope.orderId;
+                        console.log('redirecting to: ' + b2bOrder);
+                        window.location = b2bOrder;
+                    }
+
+                    tmId = $timeout(function () {
+                        $scope.baloon.hide();
+                        redirectToCabinet();
+                    }, 5000);
+
+                    $scope.baloon.show('Спасибо за покупку!', 'В ближайшие 10 минут ожидайте в личном кабинете изменение статуса заказа на Выполнен и </br>появления документов (билетов/ваучеров)',
+                        aviaHelper.baloonType.email,
+                        function () {
+                            redirectToCabinet();
+                        },
+                        {
+                            buttonCaption: 'Ok', successFn: function () {
+                            $scope.baloon.hide();
+                            redirectToCabinet();
+                        }
+                        });
                 }
                 else {
-                    $scope.baloon.show('Оплата успешна', 'В ближайшие 10 минут ожидайте на <b>' + $scope.reservationModel.Email + '</b> письмо с подтверждением выполнения заказа и документами (билеты/ваучеры)',
+                    $scope.baloon.show('Спасибо за покупку!', 'В ближайшие 10 минут ожидайте на <b>' + $scope.reservationModel.Email + '</b> письмо с подтверждением выполнения заказа и документами (билеты/ваучеры)',
                         aviaHelper.baloonType.email,
                         function () {
                             $location.path(Urls.URL_ROOT);
