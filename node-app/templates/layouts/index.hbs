@@ -82,6 +82,9 @@
         }
     </script>
 
+    <!-- Подключение стилей партнеров -->
+    <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
+
     <!--a/b тесты-->
     <script src="//cdn.optimizely.com/js/2018230704.js"></script>
     <script type="text/javascript">
@@ -171,9 +174,6 @@
     mixpanel.init("532dac45f83fefdc36219557a5583d85");</script>
     <!-- end Mixpanel -->
 
-    <!-- Подключение стилей партнеров -->
-    <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
-
 </head>
 <body class="light-theme"
       ng-class="{'body-bg':isBodyBg(), 'search-form-expanded': FormExpand}"
@@ -187,6 +187,8 @@
 	<link ng-if="abTestCssSrc" rel="stylesheet" ng-href="{{ abTestCssSrc }}"/>
 </div>
 -->
+
+<h1 style="z-index: 1000; position: absolute; color: #212121;">Node app</h1>
 
 <!-- Компонент рекламы -->
 <div adv-component></div>
