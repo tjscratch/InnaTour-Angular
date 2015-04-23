@@ -7,9 +7,8 @@
 
     <div class="filters__baloon filters__baloon_240 {{isOpen ? 'filters__baloon_show' : ''}}">
         <div class="filter__range-container">
-
 	        <span class="filter__range">до
-		        <input type="text" class="js-range-val" value="{{$filter('price')(FilterData.Value)}}"/>
+		        <input type="text" class="js-range-val" value="{{FilterData.Value}}" on-keyup="setFilterPrice"/>
 		        {{>ruble}}
 		    </span>
             <a href="javascript:void(0);" class="ra-header-link" on-click="resetFilter">Сбросить</a>
