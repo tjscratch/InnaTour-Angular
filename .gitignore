@@ -1,7 +1,6 @@
 syntax: glob
 
 node_modules
-!node-app/node_modules
 
 Compiled
 _ReSharper.*
