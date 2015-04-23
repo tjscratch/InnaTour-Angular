@@ -25,13 +25,10 @@ angular.module('innaApp.components').
 				onrender  : function (options) {
 					this._super(options);
 					var that = this;
-					//this.FilterData.Value = $filter('price')(this.FilterData.Max);
 					this.SaveData = [];
 					this._timeOut = null;
 					this._slider = null;
-
 					this.set({'FilterData.Value': $filter('price')(this.get('FilterData.Max'))});
-					
 					this.on({
 						change        : function (data) {
 							if (data['FilterData.Value'] && data['setValue']) {
@@ -62,6 +59,8 @@ angular.module('innaApp.components').
 							}
 						},
 						setFilterPrice: function (data) {
+							
+							//this.set({'FilterData.Value': $filter('price')(this.get('FilterData.Max'))});
 							var val = data.context.FilterData.Value.replace(/\s+/g, '');
 							var minPrice = this.get('FilterData.Min');
 							val = parseInt(val, 10);
@@ -146,13 +145,12 @@ angular.module('innaApp.components').
 				oncomplete: function (data) {
 					var that = this;
 					var slider = this.find('.js-range');
-
 					this._slider = $(slider).slider({
 						range  : "min",
 						animate: true,
 						min    : that.get('FilterData.Min'),
 						max    : that.get('FilterData.Max'),
-						value  : that.get('FilterData.Value'),
+						value  : parseInt(that.get('FilterData.Value').replace(/\s+/g, ''), 10),
 						slide  : function (event, ui) {
 							that.slide(ui.value)
 						}
