@@ -82,8 +82,8 @@
         }
     </script>
 
-    <!-- Подключение стилей партнеров -->
-    <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
+    <!-- Подключение партнеров -->
+    {{> partners/data}}
 
     <!--a/b тесты-->
     <script src="//cdn.optimizely.com/js/2018230704.js"></script>
@@ -188,7 +188,7 @@
 </div>
 -->
 
-<h1 style="z-index: 1000; position: absolute; color: #212121;">Node app</h1>
+<h1 style="z-index: 1000; position: absolute; color: #212121;">Node app {{partnerName}}</h1>
 
 <!-- Компонент рекламы -->
 <div adv-component></div>
