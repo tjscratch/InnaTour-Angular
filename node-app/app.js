@@ -47,10 +47,8 @@ app.use(methodOverride());
 
 //app.use(cookieParser(nconf.get('cookie:secret')));
 
-var partners = require('./partners/data');
 var routes = require('./routes/index');
 
-app.use('/', partners);
 app.use('/', routes);
 
 

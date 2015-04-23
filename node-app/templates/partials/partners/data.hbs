@@ -1,22 +1,8 @@
-{{#if partnerName }}
+{{#if partner }}
 
     <script type="text/javascript">
         window.partners = window.partners || {};
-        window.partners.partner = {
-            "name":"biletix",
-            "src":"/biletix/biletix.base.css",
-            "type":"full",
-            "title":"Билетикс",
-            "phone":"+7&nbsp;495 741-4672",
-            "email":"support@biletix.ru",
-            "skype":"",
-            "aboutLink":"https://biletix.ru/about_biletix/",
-            "contactsLink":"https://biletix.ru/contacts/",
-            "offertaContractLink":"https://s.inna.ru/files/doc/offer_biletix.pdf",
-            "showOffers":true,
-            "horizontalForm":false,
-            "dontScrollAfterSearch":true
-        };
+        window.partners.partner = {{{partner.jsonData}}};
     </script>
 
     <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
