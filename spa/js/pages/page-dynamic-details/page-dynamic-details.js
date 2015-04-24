@@ -626,10 +626,12 @@ innaAppControllers
                     var body = angular.element('html, body');
                     body.animate({scrollTop:(coords.top - headerHeight) - 30}, 300);
 
-
                     if (window.partners) {
                         if (window.partners.isFullWL() === true) {
-                            window.partners.setScrollTo((coords.top) + 100);
+                            console.log(headerHeight);
+                            console.log(coords.top);
+                            console.log(window.partners.clientSize.top);
+                            window.partners.setScrollTo(coords.top + window.partners.clientSize.top - 5);
                         }
                     }
                 }
