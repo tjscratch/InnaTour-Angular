@@ -12,6 +12,7 @@ innaAppControllers
         'innaAppApiEvents',
         'aviaHelper',
         function (EventManager, $scope, $element, $location, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
+
             $scope.$on('$routeChangeStart', function (next, current) {
                 $scope.safeApply(function () {
                     $scope.isHeaderVisible = true;
@@ -119,7 +120,7 @@ innaAppControllers
 
             function setTitle() {
                 $scope.title = "Инна-Тур - " + $scope.getTitle();
-            };
+            }
 
             function setShadow (){
                 if ($location.path().indexOf(appUrls.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
