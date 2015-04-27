@@ -125,6 +125,12 @@ app.config([
                     }
                 }
             }
+            else if (partner != null && partner.realType == window.partners.WLType.b2b){
+                return {
+                    templateUrl: 'pages/page-index/templ/page.html',
+                    controller: 'DynamicPackageMordaCtrl'
+                }
+            }
             else {
                 return {
                     templateUrl: 'pages/page-index/templ/page.html',
