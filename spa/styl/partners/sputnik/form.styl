@@ -1,0 +1,72 @@
+.partner-wl {
+    $backColor = #0f6aac;
+    $backColorAlfa = rgba(0, 105, 170, 0.8);
+
+    .light-theme {
+        background-color #fff;
+    }
+
+    /*развернутая шапка*/
+    .search-form-expanded {
+        .header-menu {
+            padding-top 150px;
+            background-color transparent;
+        }
+
+        .header__nav li a {
+            background-color $backColorAlfa;
+
+            &.active {
+                background-color $backColor;
+            }
+        }
+
+        .b-search-form, .search-form-expanded .search-form {
+            background-color $backColor;
+        }
+
+        .header__user {
+            background-color $backColorAlfa;
+        }
+    }
+
+    /*свернутая шапка*/
+    .header__container {
+        padding 0;
+    }
+
+    .header__user {
+        background-color $backColorAlfa;
+
+        .header__user-nav {
+            padding: 8px 6px 6px 0px;
+        }
+    }
+
+    .header-menu {
+        padding 0;
+        background-color #fff;
+    }
+
+    .header__nav li a {
+        background-color $backColorAlfa;
+
+        &.active {
+            background-color $backColor;
+        }
+    }
+
+    .b-search-form {
+        background-color $backColor;
+    }
+
+    /*header*/
+    .header-info {
+        background-color #fff;
+    }
+
+    /*footer*/
+    .footer {
+        background-color #eeeeee;
+    }
+}
