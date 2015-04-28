@@ -46,8 +46,67 @@
         }
 
         .b-office {
+            position relative;
             margin-left 40px;
             border-bottom: 1px dotted #0069aa;
+            cursor pointer;
+
+            &.open {
+                color: #f7941c;
+                border-bottom: 1px dotted #f7941c;
+
+                .b-office__dropdown {
+                    display block;
+                }
+            }
+
+            &:hover {
+                color: #f7941c;
+                border-bottom: 1px dotted #f7941c;
+            }
+
+            &__dropdown {
+                display none;
+                position: absolute;
+                z-index: 9999;
+                width: 294px;
+                padding: 20px 13px 0;
+                left: -15px;
+                top: 125%;
+                height: 190px;
+                border-left: 1px solid rgba(242, 242, 242, 0.8);
+                border-right: 1px solid rgba(242, 242, 242, 0.8);
+                background: #fff;
+                overflow-x: hidden;
+                overflow-y: auto;
+                box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
+            }
+
+            &__dropdown-item {
+                font-size: 16px;
+                font-weight: 300;
+                color: #333;
+                line-height: 24px;
+                border-top: 1px solid #ebebeb;
+                padding: 15px 0;
+                width: 94%;
+
+                &:first-child {
+                    border-top: 0;
+                    padding-top: 0;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: #0069aa;
+                    font-weight: 400;
+                    display: block;
+
+                    &:hover {
+                        color: #f7941c;
+                    }
+                }
+            }
         }
 
         .b-phone {
@@ -92,6 +151,10 @@
                     color: #0069aa;
                     text-decoration: none;
                     text-transform: uppercase;
+
+                    &:hover {
+                        color: #f7941c;
+                    }
                 }
             }
         }

@@ -6,9 +6,21 @@
                 <a href="/#/" class="header-info-logo">
                     <i class="icon icon-logo js-company-logo" alt="Спутник" title="Спутник"></i>
                 </a>
-                <div class="b-head-text-container">
+                <div class="b-head-text-container" ng-init="officeOpen = false;">
                     <div class="b-select-city">Москва<i class="arrow"></i></div>
-                    <div class="b-office">3 офиса</div>
+                    <div class="b-office" ng-class="{open:officeOpen}" ng-click="officeOpen = !officeOpen">3 офиса
+                        <div class="b-office__dropdown">
+                            <div class="b-office__dropdown-item">
+                                <a href="#">Москва - Новый арбат 1</a>
+                                Москва, ул. Новый Арбат, д. 2 +7 (495) 232-4444</div>
+                            <div class="b-office__dropdown-item">
+                                <a href="#">Москва - Новый арбат 2</a>
+                                Москва, ул. Новый Арбат, д. 2 +7 (495) 232-4444</div>
+                            <div class="b-office__dropdown-item">
+                                <a href="#">Москва - Новый арбат 3</a>
+                                Москва, ул. Новый Арбат, д. 2 +7 (495) 232-4444</div>
+                        </div>
+                    </div>
 
                     <div class="b-phone">
                         <div class="txt">
