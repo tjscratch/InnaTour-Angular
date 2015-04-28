@@ -433,7 +433,7 @@
 				var options = $(el).data('datepicker');
 				var cal = $('#' + options.id);
 				var tbl = cal.find('table:first').get(0);
-				var width = tbl.offsetWidth;
+				var width = tbl.offsetWidth;//570;
 				var height = tbl.offsetHeight;
 				//cal.css({
 				//	width: width + options.extraWidth + 'px',
