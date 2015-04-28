@@ -7,6 +7,10 @@ innaAppControllers
         '$scope',
         'innaAppApiEvents',
         function (EventManager, $rootScope, $scope, Events) {
+
+            $scope.footerTemplateSrc = 'regions/footer/templ/footer.html';
+
+
             $scope.isFooterVisible = true;
             $rootScope.isFooterHiddenWrprStyle = {'padding-bottom': '300px'};
 

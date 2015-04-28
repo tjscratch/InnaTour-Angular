@@ -1,11 +1,4 @@
 .partner-wl {
-    $backColor = #0f6aac;
-    $backColorAlfa = rgba(0, 105, 170, 0.8);
-
-    .light-theme {
-        background-color #fff;
-    }
-
     /*развернутая шапка*/
     .search-form-expanded {
         .header-menu {
@@ -48,25 +41,25 @@
         background-color #fff;
     }
 
-    .header__nav li a {
-        background-color $backColorAlfa;
+    .header__nav {
+        li {
+            margin 0 3px;
 
-        &.active {
-            background-color $backColor;
+            &:first-child {
+                margin-left 0;
+            }
+
+            a {
+                background-color $backColorAlfa;
+
+                &.active {
+                    background-color $backColor;
+                }
+            }
         }
     }
 
     .b-search-form {
         background-color $backColor;
-    }
-
-    /*header*/
-    .header-info {
-        background-color #fff;
-    }
-
-    /*footer*/
-    .footer {
-        background-color #eeeeee;
     }
 }

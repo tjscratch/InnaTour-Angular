@@ -1,0 +1,58 @@
+<div class="header-info">
+    <div class="scroll-fix">
+        <div class="header-info-container row">
+
+            <div class="col-xs-12 col-no-padding">
+                <a href="/#/" class="header-info-logo">
+                    <i class="icon icon-logo js-company-logo" alt="Спутник" title="Спутник"></i>
+                </a>
+                <div class="b-head-text-container">
+                    <div class="b-select-city">Москва<i class="arrow"></i></div>
+                    <div class="b-office">3 офиса</div>
+
+                    <div class="b-phone">
+                        <div class="txt">
+                            <span>Для России</span>
+                            <span class="i">бесплатно</span></div>
+                        <div class="num">8 (800) 700 000 6</div>
+                    </div>
+
+                    <div class="b-nav-menu">
+                        <ul>
+                            <li><a href="#">О компании</a></li>
+                            <li><a href="#">Агентствам</a></li>
+                            <li><a href="#">Где купить</a></li>
+                            <li><a href="#">Акции</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="header-menu hide-while-loading">
+    <div class="scroll-fix">
+        <div class="main__center">
+            <div class="header__container">
+                <ul class="header__nav">
+                    <li>
+                        <a href="/#/"
+                           ng-class="{active:isActive(urls.URL_ROOT) || isActive(urls.URL_DYNAMIC_PACKAGES)}">Перелет&nbsp;+&nbsp;Отель</a>
+                    </li>
+                    <li class="partners-hide"><a href="/#/avia/" ng-class="{active:isActive('/avia/')}">Авиабилеты</a></li>
+                    <li class="partners-hide">
+                        <a href="//inna.ru/catalog/visa/">Визы</a>
+                    </li>
+                    <li class="partners-hide"><a href="/#/individualtours/"
+                                                 ng-class="{active:isActive('/individualtours/')}">Программы</a>
+                    </li>
+                </ul>
+
+                <ng:include src="'auth/header.html'"></ng:include>
+            </div>
+
+            <ng:include src="getHeadForm()"></ng:include>
+        </div>
+    </div>
+</div>
