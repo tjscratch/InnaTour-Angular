@@ -126,16 +126,18 @@ app.config([
                 }
             }
             else if (partner != null && partner.realType == window.partners.WLType.b2b){
-                return {
-                    templateUrl: 'pages/page-index/templ/page.html',
-                    controller: 'DynamicPackageMordaCtrl'
+                if (partner.name == 'sputnik'){
+                    return {
+                        templateUrl: 'pages/page-index/templ/page_sputnik.html',
+                        controller: 'DynamicPackageMordaCtrl'
+                    }
                 }
             }
-            else {
-                return {
-                    templateUrl: 'pages/page-index/templ/page.html',
-                    controller: 'DynamicPackageMordaCtrl'
-                }
+
+            //default page
+            return {
+                templateUrl: 'pages/page-index/templ/page.html',
+                controller: 'DynamicPackageMordaCtrl'
             }
         }
 
