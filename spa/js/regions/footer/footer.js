@@ -8,8 +8,13 @@ innaAppControllers
         'innaAppApiEvents',
         function (EventManager, $rootScope, $scope, Events) {
 
-            $scope.footerTemplateSrc = 'regions/footer/templ/footer.html';
-
+            var partner = window.partners ? window.partners.getPartner() : null;
+            if (partner != null && partner.name == 'sputnik') {
+                $scope.footerTemplateSrc = 'regions/footer/templ/footer_sputnik.html';
+            }
+            else{
+                $scope.footerTemplateSrc = 'regions/footer/templ/footer.html';
+            }
 
             $scope.isFooterVisible = true;
             $rootScope.isFooterHiddenWrprStyle = {'padding-bottom': '300px'};
@@ -28,4 +33,4 @@ innaAppControllers
                 });
             });
 
-        }])
+        }]);
