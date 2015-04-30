@@ -150,4 +150,4 @@ innaAppControllers
                 $scope.$root.isLoginPopupOpened = true;
             };
 
-        }])
+        }]);
