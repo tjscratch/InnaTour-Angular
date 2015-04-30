@@ -70,41 +70,45 @@
     }
 
     /*datepicker*/
-    .datepickerSelected-start a
-    .datepickerSelected-end a {
-        color-datepicker-background-wl()
-    }
+    .datepickerSelected {
+        a {
+            color: #fff !important;
+            background: $colorBg1;
+        }
 
-    .datepickerSelected a {
-        color: #fff!important;
-        color-datepicker-bg();
+        &.datepickerSelected-start,
+        &.datepickerSelected-end {
+            a {
+                background: $color1;
+            }
+        }
     }
 
     .datePicker-today a {
-        color-border-wl()
+        border-color: $color1;
     }
 
     .datepickerDays a {
 
         &:hover {
-            color-datepicker-background-wl()
+            background: $color1;
         }
     }
 
     .datepickerGoPrev a
     .datepickerGoNext a {
         &:hover {
-            color-datepicker-background-wl()
+            background: $color1;
         }
     }
 
     /*выбор людей*/
     .search-form-dialog-row .button-group .button.active {
-        color-datepicker-bg();
+        background: $color1;
     }
 
     /*кнопка найти*/
     .search-form__submit {
-        color-bg-btn-wl()
+        background: $color2;
     }
 }
