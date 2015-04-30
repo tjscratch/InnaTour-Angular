@@ -7,9 +7,15 @@
         }
 
         .header__nav li a {
+            color: #87bfe1;
             background-color $backColorAlfa;
 
+            &:hover {
+                color: #fff;
+            }
+
             &.active {
+                color: #fff;
                 background-color $backColor;
             }
         }
@@ -61,5 +67,44 @@
 
     .b-search-form {
         background-color $backColor;
+    }
+
+    /*datepicker*/
+    .datepickerSelected-start a
+    .datepickerSelected-end a {
+        color-datepicker-background-wl()
+    }
+
+    .datepickerSelected a {
+        color: #fff!important;
+        color-datepicker-bg();
+    }
+
+    .datePicker-today a {
+        color-border-wl()
+    }
+
+    .datepickerDays a {
+
+        &:hover {
+            color-datepicker-background-wl()
+        }
+    }
+
+    .datepickerGoPrev a
+    .datepickerGoNext a {
+        &:hover {
+            color-datepicker-background-wl()
+        }
+    }
+
+    /*выбор людей*/
+    .search-form-dialog-row .button-group .button.active {
+        color-datepicker-bg();
+    }
+
+    /*кнопка найти*/
+    .search-form__submit {
+        color-bg-btn-wl()
     }
 }

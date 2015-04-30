@@ -1,0 +1,45 @@
+btx-button-color1() {
+    border-top: 1px solid #f199dc;
+    border-bottom: 1px solid #a60070;
+    background: linear-gradient(top, #dc00a4, #cf0071);
+    border-radius: 0px;
+    
+    &:hover {
+        background: linear-gradient(top, rgba(220,0,164,0.8), rgba(207,0,113,0.8));
+        text-decoration: none;
+    }
+}
+
+btx-button-color2() {
+    border: none;
+    border-top: 1px solid #f7dc7f;
+    border-bottom: 1px solid #f3ca3f;
+    background: linear-gradient(top, #f1c300, #eba200);
+    
+    &:hover {
+        background: linear-gradient(top, rgba(241,195,0,0.8), rgba(235,162,0,0.8));
+        text-decoration: none;
+    }
+}
+
+btx-button1() {
+    padding: 5px 16px;
+    btx-button-color1()
+}
+
+btx-button2() {
+    padding: 5px 16px;
+    btx-button-color2()
+}
+
+btx-checkbox-bg() {
+    background: url("/spa/img/i.png") no-repeat 2px -590px #61a8e1;
+}
+
+btx-checkbox-border() {
+    border: 2px solid #3fa9f5;
+}
+
+.balloon-button {
+    btx-button-color1()
+}
