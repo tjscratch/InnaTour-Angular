@@ -69,6 +69,70 @@
         background-color $backColor;
     }
 
+    //скругление, размеры элементов
+    .b-wrapp_type_inline .search-date,
+    .b-wrapp_type_inline .search-field,
+    .search-date-block__date,
+    .search-form-humans,
+    .search-people {
+        border-radius 3px;
+        font-size: 15px;
+    }
+
+    .search-form-humans .search-form-item-current {
+        font-size: 15px;
+    }
+
+    .search-autocomplete {
+        width 334px;
+    }
+
+    .search-people {
+        background: #fff url("/spa/img/i.png") no-repeat 48px -1879px;
+    }
+
+    .search-field-block, .search-date-block, .search-button-block,
+    .search-people-block,
+    .search-form-humans, .search-people {
+        margin-right 8px;
+    }
+
+    .search__city {
+        width 163px;
+    }
+
+    .b-wrapp_type_inline.date-picker-widget {
+        width 252px;
+    }
+
+    .search__list {
+        width 93%;
+    }
+
+    .search-form__submit {
+        width 105px !important;
+
+        &:after {
+            content: 'Найти';
+            position absolute;
+            left 27%;
+
+            color #fff;
+            font-family: ProximaNova, Arial, sans-serif;
+            font-size: 16px;
+            font-stretch: normal;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            letter-spacing: normal;
+            line-height: 36px;
+        }
+
+        .search-button__icon {
+            display none;
+        }
+    }
+
     /*datepicker*/
     .datepickerSelected {
         a {
