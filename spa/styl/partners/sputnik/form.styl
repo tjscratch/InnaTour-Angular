@@ -109,30 +109,6 @@
         width 93%;
     }
 
-    .search-form__submit {
-        width 105px !important;
-
-        &:after {
-            content: 'Найти';
-            position absolute;
-            left 27%;
-
-            color #fff;
-            font-family: ProximaNova, Arial, sans-serif;
-            font-size: 16px;
-            font-stretch: normal;
-            font-style: normal;
-            font-variant: normal;
-            font-weight: bold;
-            letter-spacing: normal;
-            line-height: 36px;
-        }
-
-        .search-button__icon {
-            display none;
-        }
-    }
-
     /*datepicker*/
     .datepickerSelected {
         a {
@@ -173,6 +149,27 @@
 
     /*кнопка найти*/
     .search-form__submit {
+        width 105px !important;
         background: $color2;
+
+        &:after {
+            content: 'Найти';
+            position absolute;
+            left 27%;
+
+            color #fff;
+            font-family: ProximaNova, Arial, sans-serif;
+            font-size: 16px;
+            font-stretch: normal;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            letter-spacing: normal;
+            line-height: 36px;
+        }
+
+        .search-button__icon {
+            display none;
+        }
     }
 }

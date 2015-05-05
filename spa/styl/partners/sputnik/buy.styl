@@ -1,0 +1,93 @@
+.partner-wl {
+    /*чекбоксы*/
+    .b-checkbox {
+        border: 2px solid #5287be;
+    }
+
+    .b-agreement input:checked + .b-checkbox {
+        background: url("/spa/img/i.png") no-repeat 2px -590px #5287be;
+    }
+
+    .b-agreement input:disabled + .b-checkbox {
+        border-color: #5287be;
+    }
+
+    .radio-list {
+        margin-top 2px;
+
+        li {
+            border none;
+
+            &:first-child {
+                .radio {
+                    border-right: none;
+                    border-top-left-radius: 3px;
+                    border-bottom-left-radius: 3px;
+                }
+            }
+
+            &:last-child {
+                .radio {
+                    border-top-right-radius: 3px;
+                    border-bottom-right-radius: 3px;
+                }
+            }
+        }
+    }
+
+    .radio {
+        height 29px;
+        border: 1px solid #c0c0c2;
+        background: #fff;
+    }
+
+    .radio-list input:checked + .radio {
+        background: #5287be;
+        border-top: 1px solid #5287be;
+        border-bottom: 1px solid #5287be;
+    }
+
+    /*блоки*/
+    .buy-passanger__block {
+        padding 10px 10px 0;
+        margin 0 0 10px 0;
+        background: #f5f5f6;
+    }
+
+    .buy__blocks {
+        padding 10px 10px 0;
+        border none;
+        background: #f5f5f6;
+    }
+
+    .b-field-second-name {
+        width 158px;
+    }
+
+    .b-field-birth {
+        width 100px;
+    }
+
+    .b-field-expires {
+        width 100px;
+    }
+
+    .buy__comments-field {
+        background: #f5f5f6;
+    }
+
+    /*инпуты*/
+    .b-field-text {
+        border-radius 3px;
+    }
+
+    .b-field-second-name input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .b-field-block-surname input {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

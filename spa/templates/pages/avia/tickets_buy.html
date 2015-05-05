@@ -36,16 +36,16 @@
     <header class="buy__header" ng-if="!(hotel != null)">
         <h2 class="buy__title">Информация о покупателе</h2>
     </header>
-    <div>
+    <div class="buy-passanger__block">
         <div class="b-field-group">
             <!--<div class="b-field-block b-field-block-auth" style="width: 388px;">-->
-            <div class="b-field-block" style="width: 388px;">
+            <div class="b-field-block b-field-email">
                 <label class="b-field-label">E-mail</label>
                 <input disabled="disabled" ng-model="reservationModel.Email"
                        data-title="Неправильно введен email" type="text"
                        placeholder="ivan.ivanov@gmail.com" class="b-field-text">
             </div>
-            <div class="b-field-block" style="width: 180px;">
+            <div class="b-field-block b-field-phone">
                 <label class="b-field-label">Мобильный телефон</label>
                 <input disabled="disabled" ng-model="reservationModel.Phone"
                        data-title="Неправильно введен мобильный телефон" name="phone" type="text"
@@ -78,32 +78,32 @@
                     </label></li>
                 </ul>
             </div>
-            <div class="b-field-block" style="width: 160px;">
+            <div class="b-field-block b-field-second-name">
                 <label class="b-field-label">Фамилия</label>
                 <input disabled type="text" ng-model="passenger.secondName" placeholder="IVANOV"
                        class="b-field-text">
             </div>
-            <div class="b-field-block b-field-block-surname" style="width: 150px;">
+            <div class="b-field-block b-field-name b-field-block-surname">
                 <label class="b-field-label">Имя</label>
                 <input disabled type="text" ng-model="passenger.name" placeholder="IVAN" class="b-field-text">
             </div>
-            <div class="b-field-block" style="width: 110px;">
+            <div class="b-field-block b-field-birth">
                 <label class="b-field-label">Дата рождения</label>
                 <input disabled type="text" ng-model="passenger.birthday" placeholder="дд.мм.гггг"
                        class="b-field-text">
             </div>
-            <div class="b-field-block" style="width: 180px;">
+            <div class="b-field-block b-field-sitizenship">
                 <label class="b-field-label">Гражданство</label>
                 <input disabled ng-click="passenger.showCitListClick($event)" type="text"
                        value="{{passenger.citizenship.name}}" placeholder="Выберите"
                        class="b-field-text b-field-select">
 
             </div>
-            <div class="b-field-block" style="width: 110px;">
+            <div class="b-field-block b-field-document">
                 <label class="b-field-label b-field-label-docs">Серия и номер док-та</label>
                 <input disabled type="text" ng-model="passenger.doc_series_and_number" class="b-field-text">
             </div>
-            <div class="b-field-block" style="width: 110px;">
+            <div class="b-field-block b-field-expires">
                 <label class="b-field-label b-field-label-docs">Действителен до</label>
                 <input disabled type="text" ng-model="passenger.doc_expirationDate" placeholder="дд.мм.гггг"
                        class="b-field-text">
@@ -111,20 +111,20 @@
         </div>
         <div class="b-field-group b-field-group-passport">
             <div class="b-field-group b-field-group-passport">
-                <div class="b-field-block" style="width: 220px;">
+                <div class="b-field-block b-field-bonus-card">
                     <label class="b-agreement"><input disabled type="checkbox"
                                                       ng-model="passenger.bonuscard.haveBonusCard">
                         <ins class="b-checkbox"></ins>
                         Есть бонусная карта авиакомпании</label>
                 </div>
-                <div class="b-field-block" style="width: 150px;"
+                <div class="b-field-block b-field-bonus-aircompany"
                      ng-show="passenger.bonuscard.haveBonusCard == true">
                     <label class="b-field-label">Авиакомпания</label>
                     <input disabled ng-click="passenger.showCardListClick($event)" type="text"
                            value="{{passenger.bonuscard.airCompany.name}}" class="b-field-text b-field-select"
                            placeholder="Выберите">
                 </div>
-                <div class="b-field-block" style="width: 150px;"
+                <div class="b-field-block b-field-bonus-card-num"
                      ng-show="passenger.bonuscard.haveBonusCard == true">
                     <label class="b-field-label">Номер карты</label>
                     <input disabled type="text" ng-model="passenger.bonuscard.number" class="b-field-text"
