@@ -93,8 +93,20 @@
 
     .search-field-block, .search-date-block, .search-button-block,
     .search-people-block,
-    .search-form-humans, .search-people {
+    .search-form-humans {
         margin-right 8px;
+    }
+
+    .search-people-block[klass-model='klass']{
+        width 112px;
+    }
+
+    .search-people-block.search-people-choose {
+        width 119px;
+
+        .search-people {
+            background: #fff url("/spa/img/i.png") no-repeat 54px -1879px;
+        }
     }
 
     .search__city {
@@ -103,10 +115,6 @@
 
     .b-wrapp_type_inline.date-picker-widget {
         width 252px;
-    }
-
-    .search__list {
-        width 93%;
     }
 
     /*datepicker*/
