@@ -97,7 +97,7 @@
         margin-right 8px;
     }
 
-    .search-people-block[klass-model='klass']{
+    .search-people-block[klass-model='klass'] {
         width 112px;
     }
 
@@ -178,6 +178,23 @@
 
         .search-button__icon {
             display none;
+        }
+    }
+
+    /*форма авиа*/
+    .dtpk-checkbox {
+        border: 2px solid $color1;
+    }
+
+    .dtpk-checkbox-label input:checked + .dtpk-checkbox, .dtpk-checked {
+        background: url("/spa/img/i.png") no-repeat 2px -589px $color1;
+    }
+
+    .search-people-baloon-plus,
+    .search-people-baloon-minus {
+
+        &.hover {
+            background: $color1;
         }
     }
 }
