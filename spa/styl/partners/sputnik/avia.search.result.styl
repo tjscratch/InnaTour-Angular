@@ -1,0 +1,63 @@
+.partner-wl {
+    /*форма на главной авиа*/
+    #about {
+        text-align: center;
+        border-bottom: 1px solid #ebebeb;
+        padding: 30px 0;
+    }
+
+    #about li {
+        display: inline-block;
+        width: 254px;
+        margin: 0 40px 0 0;
+        padding: 10px 0 0 86px;
+        font: 300 16px/24px 'Roboto';
+        color: #333;
+        background: url(/spa/img/partners/sputnik/ic.png) no-repeat 0 0;
+        height: 60px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    #about li + li {
+        background-position: 0 -120px;
+    }
+
+    #about li + li + li {
+        background-position: 0 bottom;
+    }
+
+    /*результаты контент*/
+    .results__body_mod_avia {
+        padding-top: 162px;
+    }
+
+    .results-container.results-container_top {
+        padding: 10px 0 0;
+    }
+
+    .filters__body_position_fixed {
+        top: 178px;
+
+        .results-container.results-container_top {
+            padding: 140px 0 0;
+        }
+    }
+
+    /*кнопка купить*/
+    .b-result .button {
+        btx-button1();
+    }
+
+    /*фильтры*/
+    .filters__body .filters__baloon-radio input:checked + .ra-radio {
+        background: $color2;
+    }
+
+    /*мы рекомундуем*/
+    .rl-rec:before {
+        background: url("/spa/img/partners/sputnik/logo.png") no-repeat;
+        width: 49px;
+        height: 20px;
+    }
+}

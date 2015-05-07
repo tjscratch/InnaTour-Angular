@@ -7,7 +7,8 @@
 
     self.WLType = {
         full: 'full',
-        lite: 'lite'
+        lite: 'lite',
+        b2b: 'b2b'
     };
 
     self.lastHeight = null;
@@ -257,7 +258,8 @@
 
         var uniqKey = Math.random(1000).toString(16);
 
-        if (partner.realType == window.partners.WLType.full) {
+        if (partner.realType == window.partners.WLType.full
+            || partner.realType == window.partners.WLType.b2b) {
             //если не задан css партнера - грузим FullWL - по умолчанию
             if (src && src.length > 0)
             {

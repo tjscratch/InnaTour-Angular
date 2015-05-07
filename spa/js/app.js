@@ -125,11 +125,36 @@ app.config([
                     }
                 }
             }
-            else {
-                return {
-                    templateUrl: 'pages/page-index/templ/page.html',
-                    controller: 'DynamicPackageMordaCtrl'
+            else if (partner != null && partner.realType == window.partners.WLType.b2b){
+                if (partner.name == 'sputnik'){
+                    return {
+                        templateUrl: 'pages/page-index/templ/page_sputnik.html',
+                        controller: 'DynamicPackageMordaCtrl'
+                    }
                 }
+            }
+
+            //default page
+            return {
+                templateUrl: 'pages/page-index/templ/page.html',
+                controller: 'DynamicPackageMordaCtrl'
+            }
+        }
+
+        function avia() {
+            var partner = window.partners ? window.partners.getPartner() : null;
+            if (partner != null && partner.realType == window.partners.WLType.b2b){
+                if (partner.name == 'sputnik'){
+                    return {
+                        templateUrl: 'pages/page-tours/templ/page-tours-ctrl_sputnik.html',
+                        controller: 'AviaSearchMainCtrl'
+                    }
+                }
+            }
+            //default page
+            return {
+                templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
+                controller: 'AviaSearchMainCtrl'
             }
         }
 
@@ -180,10 +205,7 @@ app.config([
                 templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
                 controller: 'AviaSearchMainCtrl'
             }).
-            when(url.URL_AVIA, {
-                templateUrl: 'pages/page-tours/templ/page-tours-ctrl.html',
-                controller: 'AviaSearchMainCtrl'
-            }).
+            when(url.URL_AVIA, avia()).
             when(url.URL_AVIA_SEARCH + ':FromUrl-:ToUrl-:BeginDate-:EndDate?-:AdultCount-:ChildCount-:InfantsCount-:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType-:VariantId1-:VariantId2?', {
                 templateUrl: 'pages/page-avia/templ/search_results.html',
                 controller: 'AviaSearchResultsCtrl'

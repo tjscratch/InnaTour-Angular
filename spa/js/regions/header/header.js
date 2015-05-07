@@ -12,6 +12,16 @@ innaAppControllers
         'innaAppApiEvents',
         'aviaHelper',
         function (EventManager, $scope, $element, $location, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
+
+            var partner = window.partners ? window.partners.getPartner() : null;
+            if (partner != null && partner.name == 'sputnik') {
+                $scope.headerTemplateSrc = 'regions/header/templ/header_sputnik.html';
+            }
+            else{
+                $scope.headerTemplateSrc = 'regions/header/templ/header.html';
+            }
+
+
             $scope.$on('$routeChangeStart', function (next, current) {
                 $scope.safeApply(function () {
                     $scope.isHeaderVisible = true;
@@ -119,7 +129,7 @@ innaAppControllers
 
             function setTitle() {
                 $scope.title = "Инна-Тур - " + $scope.getTitle();
-            };
+            }
 
             function setShadow (){
                 if ($location.path().indexOf(appUrls.URL_DYNAMIC_HOTEL_DETAILS) > -1) {
@@ -140,4 +150,4 @@ innaAppControllers
                 $scope.$root.isLoginPopupOpened = true;
             };
 
-        }])
+        }]);

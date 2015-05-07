@@ -38,7 +38,8 @@ function getPartnerFromHostName(text) {
 var self = {
     WLType: {
         full: 'full',
-        lite: 'lite'
+        lite: 'lite',
+        b2b: 'b2b'
     }
 };
 
@@ -68,6 +69,21 @@ var partnersMap = [
         'offertaContractLink': '',
         'showOffers': true,
         'horizontalForm': true
+    },
+    {
+        'name': 'sputnik',
+        'src': '/sputnik/sputnik.base.css',
+        'type': self.WLType.b2b,
+        'title': 'Спутник',
+        'phone': '8 (800) 700 000 6',
+        'email': '',
+        'skype': '',
+        'aboutLink': 'http://sputnik.idemstudio.ru/company/',
+        'contactsLink': 'http://sputnik.idemstudio.ru/info/contacts/',
+        'offertaContractLink': 'https://s.inna.ru/files/doc/offer_sputnik.pdf',
+        'showOffers': true,
+        'horizontalForm': true,
+        'dontScrollAfterSearch': false
     },
     {
         'name': 'biletix',
