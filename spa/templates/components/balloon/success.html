@@ -1,0 +1,8 @@
+<div class="balloon popup" ng-if="(type == baloonType.success)" ng-style="popupStyles">
+    <div class="balloon-close" title="Закрыть" ng-click="close($event)">
+        <i class="icon-sprite-remove-big"></i>
+    </div>
+    <div class="balloon-mail"></div>
+    <div class="balloon-title" ng-bind-html="caption | breakFilter"></div>
+    <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
+</div>

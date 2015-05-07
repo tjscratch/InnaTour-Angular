@@ -1,0 +1,13 @@
+<div class="balloon popup" ng-if="(type == baloonType.payExpires)" ng-style="popupStyles">
+    <div class="balloon-close" title="Закрыть" ng-click="close($event)">
+        <i class="icon-sprite-remove-big"></i>
+    </div>
+    <div class="balloon-canceled"></div>
+    <div class="balloon-title balloon-error" ng-bind-html="caption | breakFilter" ng-if="(caption != null && caption.length > 0)"></div>
+    <div class="balloon-title balloon-error" ng-if="!(caption != null && caption.length > 0)">Бронь аннулирована</div>
+    <p class="balloon-info">Заказ не был оплачен в отведенное время</p>
+    <div class="balloon-actions">
+        <a href="#" class="button balloon-button" ng-click="clickFn($event)" ng-if="(buttonCaption != null && buttonCaption.length > 0)">{{buttonCaption}}</a>
+        <a href="#" class="button balloon-button" ng-click="clickFn($event)" ng-if="!(buttonCaption != null && buttonCaption.length > 0)">Новый поиск</a>
+    </div>
+</div>
