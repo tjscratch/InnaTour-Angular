@@ -199,6 +199,10 @@ angular.module('innaApp.controllers')
 				$scope.display = $scope.DISPLAY_FORGOTTEN;
 			};
 
+			$scope.goToSignIn = function () {
+				$scope.display = $scope.DISPLAY_SIGNIN;
+			};
+
 			/*Properties*/
 			$scope.restoreToken = ($location.path() == app.URL_AUTH_RESTORE) && $location.search().token;
 			$scope.signUpToken = ($location.path() == app.URL_AUTH_SIGNUP) && $location.search().token;

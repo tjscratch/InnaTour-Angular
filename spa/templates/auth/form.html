@@ -2,7 +2,7 @@
      ng-if="isLoginPopupOpened">
 
 	<div class="scroll-fix" ng-style="style">
-		<div class="b-balloon balloon b-balloon-auth">
+		<div class="b-balloon balloon b-balloon-auth" ng-class="{'sputnik-auth' : partnerSputnik}">
 			<div class="balloon-close" ng-click="close()" title="Закрыть" ng-show="partnerSputnik == false">
 				<i class="icon-sprite-remove-big"></i>
 			</div>
