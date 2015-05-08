@@ -529,8 +529,12 @@
         var partner = self.getPartner();
         return partner != null && partner.realType == self.WLType.lite;
     };
+    self.isB2BWL = function () {
+        var partner = self.getPartner();
+        return partner != null && partner.realType == self.WLType.b2b;
+    };
     self.isWL = function () {
-        return (self.isFullWL() || self.isLiteWL());
+        return (self.isFullWL() || self.isLiteWL() || self.isB2BWL());
     };
     self.getPartner = function () {
 //        return self.partnersMap[0];
