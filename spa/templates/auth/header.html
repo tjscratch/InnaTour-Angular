@@ -20,11 +20,10 @@
     </ul>
     <!--<div ng-if="user.raw.AgencyName" class="header__user-company"><a href="{{B2B_HOST}}/">{{user.raw.AgencyName}}</a></div>-->
 
-    <ul class="header__user-nav" ng-if="!user">
+    <ul class="header__user-nav" ng-if="!user && !partnerSputnik">
         <li>
 	        <i class="icon-sprite-key-icon"></i>
-	        <a href="javascript:void(0)" ng-click="regOpenClick()" class="header__user-nav-reg" ng-hide="partnerSputnik">Регистрация и вход</a>
-	        <a href="javascript:void(0)" ng-click="regOpenClick()" class="header__user-nav-reg" ng-show="partnerSputnik">Вход</a>
+	        <a href="javascript:void(0)" ng-click="regOpenClick()" class="header__user-nav-reg">Регистрация и вход</a>
         </li>
     </ul>
 </div>
