@@ -11,7 +11,7 @@
         width: 254px;
         margin: 0 40px 0 0;
         padding: 10px 0 0 86px;
-        font: 300 16px/24px 'Roboto';
+        font: 300 16px / 24px 'Roboto';
         color: #333;
         background: url(/spa/img/partners/sputnik/ic.png) no-repeat 0 0;
         height: 60px;
@@ -56,8 +56,30 @@
 
     /*мы рекомундуем*/
     .rl-rec:before {
-        background: url("/spa/img/partners/sputnik/logo.png") no-repeat;
-        width: 49px;
-        height: 20px;
+        background: url("/spa/img/partners/sputnik/mini-logo.png") no-repeat;
+        /*width: 49px;*/
+        /*height: 20px;*/
+        width: 44px;
+        height: 37px;
+    }
+
+    /*бордер на карточке*/
+    .b-result__cell {
+        &:before {
+            content: '';
+            height: 100%;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            z-index: -1;
+            box-shadow: none;
+            outline: 1px #d7d7d5 solid;
+        }
+
+        &:after {
+            box-shadow: none;
+            outline: 1px #d7d7d5 solid;
+        }
     }
 }
