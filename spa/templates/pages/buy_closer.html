@@ -10,9 +10,14 @@
         if (result) {
             result = parseInt(result, 10);
         }
+
+        var resultType = getParameterByName('type');
+        if (resultType) {
+            resultType = parseInt(resultType, 10);
+        }
 //        console.log('buy closer ok:', result);
 
-        window.parent.$('#buy-listener').trigger('inna.buy.close', {result: result});
+        window.parent.$('#buy-listener').trigger('inna.buy.close', {result: result, type: resultType});
 
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

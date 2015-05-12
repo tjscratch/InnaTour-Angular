@@ -403,16 +403,16 @@ innaAppControllers.
                 self.navCurrent = null;
 
                 self.cardNumCont = $('.js-cardnum-block');
-                self.num1 = { item: $('input:eq(0)', self.cardNumCont), key: 'num1' };
-                self.num2 = { item: $('input:eq(1)', self.cardNumCont), key: 'num2' };
-                self.num3 = { item: $('input:eq(2)', self.cardNumCont), key: 'num3' };
-                self.num4 = { item: $('input:eq(3)', self.cardNumCont), key: 'num4' };
+                self.num1 = {item: $('input:eq(0)', self.cardNumCont), key: 'num1'};
+                self.num2 = {item: $('input:eq(1)', self.cardNumCont), key: 'num2'};
+                self.num3 = {item: $('input:eq(2)', self.cardNumCont), key: 'num3'};
+                self.num4 = {item: $('input:eq(3)', self.cardNumCont), key: 'num4'};
 
                 self.validCont = $('.js-card-valid');
-                self.month = { item: $('input:eq(0)', self.validCont), key: 'cardMonth' };
-                self.year = { item: $('input:eq(1)', self.validCont), key: 'cardYear' };
+                self.month = {item: $('input:eq(0)', self.validCont), key: 'cardMonth'};
+                self.year = {item: $('input:eq(1)', self.validCont), key: 'cardYear'};
 
-                self.holder = { item: $('input.js-card-holder:eq(0)'), key: 'cardHolder' };
+                self.holder = {item: $('input.js-card-holder:eq(0)'), key: 'cardHolder'};
 
                 self.navList.push(self.num1);
                 self.navList.push(self.num2);
@@ -445,13 +445,13 @@ innaAppControllers.
                         self.navCurrent = self.navList[index];
                         if (self.navCurrent != null) {
                             setTimeout(function () {
-                            self.navCurrent.item.select();
-                            self.navCurrent.item.focus();
+                                self.navCurrent.item.select();
+                                self.navCurrent.item.focus();
                             }, 0);
                         }
                     }
                     //console.log('goNext, end');
-                }                
+                }
             }
 
             $scope.focusControl = new focusControl();
@@ -491,65 +491,65 @@ innaAppControllers.
                         else {//Авиа
                             $scope.newSearchUrl = Urls.URL_AVIA_SEARCH;
                         }
-                        
+
                         //запрос в api
                         paymentService.getPaymentData({
-                            orderNum: $scope.orderNum
-                        },
-                        function (data) {
-                            //console.log('order data:', data);
-                            if (data != null) {
-                                try{
-                                    var filter = angular.fromJson(data.Filter);
-                                    //console.log('order data.filter:', filter);
+                                orderNum: $scope.orderNum
+                            },
+                            function (data) {
+                                //console.log('order data:', data);
+                                if (data != null) {
+                                    try {
+                                        var filter = angular.fromJson(data.Filter);
+                                        //console.log('order data.filter:', filter);
 
-                                    if (data.Hotel) {
-                                        $scope.newSearchUrl = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
-                                            filter.DepartureId,
-                                            filter.ArrivalId,
-                                            filter.StartVoyageDateString,
-                                            filter.EndVoyageDateString,
-                                            filter.TicketClass,
-                                            filter.Adult,
-                                            filter.Children
-                                        ].join('-');
+                                        if (data.Hotel) {
+                                            $scope.newSearchUrl = Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
+                                                filter.DepartureId,
+                                                filter.ArrivalId,
+                                                filter.StartVoyageDateString,
+                                                filter.EndVoyageDateString,
+                                                filter.TicketClass,
+                                                filter.Adult,
+                                                filter.Children
+                                            ].join('-');
+                                        }
+                                        else {
+                                            $scope.newSearchUrl = Urls.URL_AVIA_SEARCH + [
+                                                filter.FromUrl,
+                                                filter.ToUrl,
+                                                filter.BeginDate,
+                                                filter.EndDate,
+                                                filter.AdultCount,
+                                                filter.ChildCount,
+                                                filter.InfantsCount,
+                                                filter.CabinClass,
+                                                filter.IsToFlexible,
+                                                filter.IsBackFlexible,
+                                                filter.PathType
+                                            ].join('-');
+                                        }
                                     }
-                                    else {
-                                        $scope.newSearchUrl = Urls.URL_AVIA_SEARCH + [
-                                            filter.FromUrl,
-                                            filter.ToUrl,
-                                            filter.BeginDate,
-                                            filter.EndDate,
-                                            filter.AdultCount,
-                                            filter.ChildCount,
-                                            filter.InfantsCount,
-                                            filter.CabinClass,
-                                            filter.IsToFlexible,
-                                            filter.IsBackFlexible,
-                                            filter.PathType
-                                        ].join('-');
+                                    catch (e) {
+                                        console.error('order data parse filter error', e);
                                     }
                                 }
-                                catch (e) {
-                                    console.error('order data parse filter error', e);
-                                }
-                            }
-                        },
-                        function (data, status) {
-                            log('paymentService.getPaymentData error');
-                        });
+                            },
+                            function (data, status) {
+                                log('paymentService.getPaymentData error');
+                            });
                     }
 
                     paymentService.getRepricing($scope.orderNum, function (data) {
-                        //console.log(data);
-                        switch (data.Type) {
-                            case 1:
+                            //console.log(data);
+                            switch (data.Type) {
+                                case 1:
                                 {
                                     //все норм - получаем данные и продолжаем заполнять
                                     getPaymenyData();
                                     break;
                                 }
-                            case 2:
+                                case 2:
                                 {
                                     //цена изменилась
                                     var oldPrice = data.OldPrice;
@@ -569,7 +569,7 @@ innaAppControllers.
                                     });
                                     break;
                                 }
-                            case 3:
+                                case 3:
                                 {
                                     //данные для нового поиска
                                     getOrderDataForUrls();
@@ -581,7 +581,7 @@ innaAppControllers.
                                         });
                                     break;
                                 }
-                            case 4:
+                                case 4:
                                 {
                                     //данные для нового поиска
                                     getOrderDataForUrls();
@@ -593,20 +593,20 @@ innaAppControllers.
                                         });
                                     break;
                                 }
-                        }
-                    },
-                    function (data, status) {
-                        log('paymentService.getRepricing error');
-                        $scope.baloon.showGlobalAviaErr();
-                    });
+                            }
+                        },
+                        function (data, status) {
+                            log('paymentService.getRepricing error');
+                            $scope.baloon.showGlobalAviaErr();
+                        });
                 }
             }
 
             function getPaymenyData() {
                 //запрос в api
                 paymentService.getPaymentData({
-                    orderNum: $scope.orderNum
-                },
+                        orderNum: $scope.orderNum
+                    },
                     function (data) {
                         if (data != null) {
 
@@ -736,7 +736,7 @@ innaAppControllers.
                                     $scope.ticketsCount = aviaHelper.getTicketsCount(data.AviaInfo.AdultCount, data.AviaInfo.ChildCount, data.AviaInfo.InfantsCount);
 
                                     function getIATACodes(info) {
-                                        var res = { codeFrom: '', codeTo: '' };
+                                        var res = {codeFrom: '', codeTo: ''};
                                         if (info.EtapsTo != null && info.EtapsTo.length > 0) {
                                             res.codeFrom = info.EtapsTo[0].OutCode;//первый
                                             res.codeTo = info.EtapsTo[info.EtapsTo.length - 1].InCode;//последний
@@ -868,30 +868,30 @@ innaAppControllers.
                         }
                         switch (pageType) {
                             case actionTypeEnum.dp:
-                                {
-                                    track.dpPayBtnSubmitContinueErr(err_code);
-                                    break;
-                                }
+                            {
+                                track.dpPayBtnSubmitContinueErr(err_code);
+                                break;
+                            }
                             case actionTypeEnum.avia:
-                                {
-                                    track.aviaPayBtnSubmitContinueErr(err_code);
-                                    break;
-                                }
+                            {
+                                track.aviaPayBtnSubmitContinueErr(err_code);
+                                break;
+                            }
                         }
                     }
 
                     function trackContinueSuccess(pageType) {
                         switch (pageType) {
                             case actionTypeEnum.dp:
-                                {
-                                    track.dpPayBtnSubmitContinue();
-                                    break;
-                                }
+                            {
+                                track.dpPayBtnSubmitContinue();
+                                break;
+                            }
                             case actionTypeEnum.avia:
-                                {
-                                    track.aviaPayBtnSubmitContinue();
-                                    break;
-                                }
+                            {
+                                track.aviaPayBtnSubmitContinue();
+                                break;
+                            }
                         }
                     }
 
@@ -902,17 +902,17 @@ innaAppControllers.
                                 log('\npaymentService.pay, data: ' + angular.toJson(data));
 
                                 /*
-                                [Description("Завершено успешно")]
-                                Success = 1,
-                                    [Description("Завершено не успешно")]
-                                Failed = 2,
-                                    [Description("Произошла ошибка")]
-                                Error = 3,
-                                    [Description("Истекло время")]
-                                TimeOut = 4,
-                                    [Description("Изменилась цена")]
-                                PriceChanged = 5
-                                */
+                                 [Description("Завершено успешно")]
+                                 Success = 1,
+                                 [Description("Завершено не успешно")]
+                                 Failed = 2,
+                                 [Description("Произошла ошибка")]
+                                 Error = 3,
+                                 [Description("Истекло время")]
+                                 TimeOut = 4,
+                                 [Description("Изменилась цена")]
+                                 PriceChanged = 5
+                                 */
                                 if (data != null && data.Status == 1) {//теперь успешно - статус 1
 
                                     //ToDo: для теста
@@ -936,7 +936,7 @@ innaAppControllers.
                                         $scope.is3dscheck = false;
                                         //без 3dSecure
                                         //checkPayment();
-                                        setSuccessBuyResult();
+                                        setSuccessBuyResult(data.Type);
                                         //testPayComplete();
                                     }
                                     else {
@@ -962,14 +962,14 @@ innaAppControllers.
                                 $scope.baloon.showGlobalAviaErr();
                             });
                     }
-                    catch(e){
+                    catch (e) {
                         trackError(pageType, 'js_err');
                         throw e;
                     }
                 }
             };
 
-            function setSuccessBuyResult(){
+            function setSuccessBuyResult(resultType) {
                 console.log('setSuccessBuyResult');
                 //пришел ответ - или оплачено или ошибка
                 $scope.isOrderPaid = true;
@@ -994,49 +994,69 @@ innaAppControllers.
                     track.dpPayBtnSubmit();
                 }
 
-                //если агентство - отправляем обратно в b2b интерфейс
-                if ($scope.isAgency) {
-                    var tmId;
-
-                    function redirectToCabinet(){
-                        if (tmId){
-                            $timeout.cancel(tmId);
-                        }
-
-                        var b2bOrder = $scope.B2B_HOST_Order + $scope.orderId;
-                        console.log('redirecting to: ' + b2bOrder);
-                        window.location = b2bOrder;
+                switch (resultType) {
+                    case 0://b2c
+                    {
+                        $scope.baloon.show('Спасибо за покупку!', 'В ближайшие 10 минут ожидайте на <b>' + $scope.reservationModel.Email + '</b> письмо с подтверждением выполнения заказа и документами (билеты/ваучеры)',
+                            aviaHelper.baloonType.email,
+                            function () {
+                                $location.path(Urls.URL_ROOT);
+                            },
+                            {
+                                buttonCaption: 'Ok', successFn: function () {
+                                $scope.baloon.hide();
+                                $location.path(Urls.URL_ROOT);
+                            }
+                            });
+                        break;
                     }
+                    case 1://b2b
+                    {
+                        var tmId;
 
-                    tmId = $timeout(function () {
-                        $scope.baloon.hide();
-                        redirectToCabinet();
-                    }, 5000);
+                        function redirectToCabinet() {
+                            if (tmId) {
+                                $timeout.cancel(tmId);
+                            }
 
-                    $scope.baloon.show('Спасибо за покупку!', 'В ближайшие 10 минут ожидайте в личном кабинете изменение статуса заказа на Выполнен и </br>появления документов (билетов/ваучеров)',
-                        aviaHelper.baloonType.email,
-                        function () {
-                            redirectToCabinet();
-                        },
-                        {
-                            buttonCaption: 'Ok', successFn: function () {
+                            var b2bOrder = $scope.B2B_HOST_Order + $scope.orderId;
+                            console.log('redirecting to: ' + b2bOrder);
+                            window.location = b2bOrder;
+                        }
+
+                        tmId = $timeout(function () {
                             $scope.baloon.hide();
                             redirectToCabinet();
-                        }
-                        });
-                }
-                else {
-                    $scope.baloon.show('Спасибо за покупку!', 'В ближайшие 10 минут ожидайте на <b>' + $scope.reservationModel.Email + '</b> письмо с подтверждением выполнения заказа и документами (билеты/ваучеры)',
-                        aviaHelper.baloonType.email,
-                        function () {
-                            $location.path(Urls.URL_ROOT);
-                        },
-                        {
-                            buttonCaption: 'Ok', successFn: function () {
-                            $scope.baloon.hide();
-                            $location.path(Urls.URL_ROOT);
-                        }
-                        });
+                        }, 5000);
+
+                        $scope.baloon.show('Спасибо за покупку!', 'В ближайшие 10 минут ожидайте в личном кабинете изменение статуса заказа на Выполнен и </br>появления документов (билетов/ваучеров)',
+                            aviaHelper.baloonType.email,
+                            function () {
+                                redirectToCabinet();
+                            },
+                            {
+                                buttonCaption: 'Ok', successFn: function () {
+                                $scope.baloon.hide();
+                                redirectToCabinet();
+                            }
+                            });
+                        break;
+                    }
+                    case 2://сервисный сбор
+                    {
+                        $scope.baloon.show('Спасибо за покупку!', 'Оплата счета успешна',
+                            aviaHelper.baloonType.email,
+                            function () {
+                                $location.path(Urls.URL_ROOT);
+                            },
+                            {
+                                buttonCaption: 'Ok', successFn: function () {
+                                $scope.baloon.hide();
+                                $location.path(Urls.URL_ROOT);
+                            }
+                            });
+                        break;
+                    }
                 }
             }
 
@@ -1055,8 +1075,8 @@ innaAppControllers.
                     $('#buy-listener').on('inna.buy.close', function (event, data) {
                         console.log('triggered inna.buy.close, isOrderPaid:', $scope.isOrderPaid, data);
                         $scope.safeApply(function () {
-                            if (data && data.result == 0){//все ок
-                                setSuccessBuyResult();
+                            if (data && data.result == 0) {//все ок
+                                setSuccessBuyResult(data.type);
                             }
                             else {
                                 //error
@@ -1349,7 +1369,7 @@ innaAppControllers.
             //    }
             //}
 
-            var actionTypeEnum = { avia: 'avia', dp: 'dp', service: 'service' };
+            var actionTypeEnum = {avia: 'avia', dp: 'dp', service: 'service'};
 
             function getActionType() {
                 //сервисный сбор
