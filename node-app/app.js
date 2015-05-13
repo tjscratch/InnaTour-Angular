@@ -18,7 +18,8 @@ nconf.argv().env().file({ file: __dirname + '/config/config.json' });
 global.__templDir__ = __dirname + "/templates";
 
 var app = express();
-app.set('port', process.env.PORT || nconf.get('port'));
+var port = normalizePort(process.env.PORT || nconf.get('port'));
+app.set('port', port);
 app.set('views', __templDir__);
 
 app.engine('hbs', exphbs({
@@ -66,6 +67,21 @@ server.listen(app.get('port'));
 server.on('error', onError);
 server.on('listening', onListening);
 
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
 
 /**
  * Event listener for HTTP server "error" event.
