@@ -91,6 +91,7 @@ angular.module('innaApp.controllers')
 			 */
 			if (partner != null && partner.name == 'sputnik') {
 				$scope.$root.$watch('user', function (data) {
+					console.log('user auth', data);
 					if (!data) {
 						$scope.open();
 					}
@@ -244,6 +245,14 @@ angular.module('innaApp.controllers')
 			$scope.B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
 			$scope.b2bPartnerHost = app_main.b2bPartnerHost;
 
+			/**
+			 * говнокод, для правильного редиректа на b2b спутника
+			 */
+			if (partner != null && partner.name == 'sputnik') {
+				$scope.B2B_HOST = $scope.B2B_HOST.replace("b2b", "b2b.sputnik");
+			}
+
+			
 			/*EventListeners*/
 			$scope.$on(Events.AUTH_SIGN_IN, function (event, data) {
 				$scope.safeApply(function () {
