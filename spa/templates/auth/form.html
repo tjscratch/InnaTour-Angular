@@ -3,11 +3,11 @@
 
 	<div class="scroll-fix" ng-style="style">
 		<div class="b-balloon balloon b-balloon-auth">
-			<div class="balloon-close" ng-click="close()" title="Закрыть">
+			<div class="balloon-close" ng-click="close()" title="Закрыть" ng-show="partnerSputnik == false">
 				<i class="icon-sprite-remove-big"></i>
 			</div>
 			<ng:include src="'auth/signin.html'" ng-show="display == DISPLAY_SIGNIN"></ng:include>
-			<ng:include src="'auth/registration.html'" ng-show="display == DISPLAY_SIGNIN"></ng:include>
+			<ng:include src="'auth/registration.html'" ng-show="display == DISPLAY_SIGNIN && partnerSputnik == false"></ng:include>
 			<ng:include src="'auth/restore.html'" ng-show="display == DISPLAY_FORGOTTEN"></ng:include>
 			<ng:include src="'auth/signup.html'" ng-if="display == DISPLAY_SIGNUP"></ng:include>
 			<ng:include src="'auth/profile.html'" ng-if="display == DISPLAY_PROFILE"></ng:include>

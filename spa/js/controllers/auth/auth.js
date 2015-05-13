@@ -1,6 +1,7 @@
 angular.module('innaApp.controllers')
     .controller('AuthCtrl', [
         '$scope',
+        '$timeout',
         '$location',
         'aviaHelper',
         'innaAppApiEvents',
@@ -8,21 +9,28 @@ angular.module('innaApp.controllers')
         'innaApp.Urls',
         'modelAuth',
         '$route',
-        function($scope, $location, aviaHelper, Events, AuthDataProvider, app, modelAuth, $route){
+        function ($scope, $timeout, $location, aviaHelper, Events, AuthDataProvider, app, modelAuth, $route) {
+
+            /**
+             * партнерка WL
+             */
+            var partner = window.partners ? window.partners.getPartner() : null;
+
+
             /*Private*/
             var setUserInfo = function (data, needInitLastUserAfterLoginCheck) {
-                if(data && data["Email"]) {
+                if (data && data["Email"]) {
                     Raven.setUserContext({
                         email: data["Email"],
                         id: data["Email"],
-                        data : data
+                        data: data
                     });
                 }
 
-                $scope.safeApply(function(){
+                $scope.safeApply(function () {
                     $scope.$root.user = new modelAuth(data);
 
-                    if($scope.$root.user.isAgency() && !$scope.user.raw.AgencyActive) {
+                    if ($scope.$root.user.isAgency() && !$scope.user.raw.AgencyActive) {
                         $scope.logout();
                     }
 
@@ -37,7 +45,7 @@ angular.module('innaApp.controllers')
             }
 
             /*Methods*/
-            $scope.close = function(){
+            $scope.close = function () {
                 utils.scrollFix(true)
                 $scope.isLoginPopupOpened = false;
                 $scope.display = $scope.DISPLAY_SIGNIN;
@@ -49,11 +57,10 @@ angular.module('innaApp.controllers')
                 $scope.$root.user = null;
 
                 if (!silent) {
-                    AuthDataProvider.logout(onLogoutCompleteOrError, onLogoutCompleteOrError);
-
                     function onLogoutCompleteOrError() {
                         $scope.$emit(Events.AUTH_SIGN_OUT, wasLoggedUser);
                     }
+                    AuthDataProvider.logout(onLogoutCompleteOrError, onLogoutCompleteOrError);
                 }
             };
 
@@ -65,12 +72,40 @@ angular.module('innaApp.controllers')
                 $scope.open();
             }
 
-            $scope.open = function(){
+            $scope.open = function () {
                 utils.scrollFix()
                 $scope.isLoginPopupOpened = true;
             };
 
-            $scope.signInWith = function(method){
+
+            /**
+             * задача IN-4485
+             * Костыль для спутника, если пользователь не залогинен, показываем ему форму логина всегда и везде
+             */
+            $timeout(function () {
+                if (partner != null && partner.name == 'sputnik') {
+                    $scope.$root.$watch('user', function (data) {
+                        if (!data) {
+                            $scope.open();
+                        } else {
+                            $scope.close();
+                        }
+                    });
+                }
+            }, 300);
+            /**
+             * задача - IN-4485
+             * Если у нас партнер спутник, скрываем форму регистрации
+             */
+            if (partner != null && partner.name == 'sputnik') {
+                $scope.partnerSputnik = true;
+            }
+            else {
+                $scope.partnerSputnik = false;
+            }
+
+
+            $scope.signInWith = function (method) {
 
                 var brokerWindow = window.open(AuthDataProvider.socialBrockerURL(method), "SocialBroker", "width=500,height=500,resizable=yes,scrollbars=no,status=no");
 
@@ -78,19 +113,19 @@ angular.module('innaApp.controllers')
 
                 var socialBrokerListener = $('#social-broker-listener');
 
-                var interval = setInterval(function(){
+                var interval = setInterval(function () {
                     var cookieCloser = localStorage.getItem('closeSocialBroker');
 
                     //console.log('cookieCloser', cookieCloser);
 
-                    if(cookieCloser) {
+                    if (cookieCloser) {
                         localStorage.setItem('closeSocialBroker', 0);
 
                         login();
                     }
                 }, 100);
 
-                var login = function(){
+                var login = function () {
                     AuthDataProvider.recognize(function (data) {
                         console.log('auth success:', method);
 
@@ -110,11 +145,21 @@ angular.module('innaApp.controllers')
 
                 function trackLogin(method) {
                     switch (method) {
-                        case 'facebook': track.loginFbSuccess(); break;
-                        case 'google': track.loginGmailSuccess(); break;
-                        case 'vkontakte': track.loginVkSuccess(); break;
-                        case 'twitter': track.loginOkSuccess(); break;
-                        case 'odnoklassniki': track.loginTwSuccess(); break;
+                        case 'facebook':
+                            track.loginFbSuccess();
+                            break;
+                        case 'google':
+                            track.loginGmailSuccess();
+                            break;
+                        case 'vkontakte':
+                            track.loginVkSuccess();
+                            break;
+                        case 'twitter':
+                            track.loginOkSuccess();
+                            break;
+                        case 'odnoklassniki':
+                            track.loginTwSuccess();
+                            break;
                     }
                 }
 
@@ -124,29 +169,35 @@ angular.module('innaApp.controllers')
             };
 
             $scope.showProfile = function ($event) {
-            	if ($scope.$root.user) {
-            	    //console.log('user.Type:', $scope.$root.user.getType());
-            	    switch ($scope.$root.user.getType()) {
-            	        case 2: {//B2B = 2, b2b.inna.ru
-            	            window.location = $scope.B2B_HOST;
-            	            $event.preventDefault();
-            	            return;
-            	        }
-            	        case 4: {//Partner = 4, partner.inna.ru
-            	            window.location = $scope.b2bPartnerHost;
-            	            $event.preventDefault();
-            	            return;
-            	        }
-            	    }
+                if ($scope.$root.user) {
+                    //console.log('user.Type:', $scope.$root.user.getType());
+                    switch ($scope.$root.user.getType()) {
+                        case 2:
+                        {//B2B = 2, b2b.inna.ru
+                            window.location = $scope.B2B_HOST;
+                            $event.preventDefault();
+                            return;
+                        }
+                        case 4:
+                        {//Partner = 4, partner.inna.ru
+                            window.location = $scope.b2bPartnerHost;
+                            $event.preventDefault();
+                            return;
+                        }
+                    }
 
-            	}
+                }
 
                 $scope.open();
                 $scope.display = $scope.DISPLAY_PROFILE;
             };
 
-            $scope.forgotten = function(){
+            $scope.forgotten = function () {
                 $scope.display = $scope.DISPLAY_FORGOTTEN;
+            };
+
+            $scope.goToSignIn = function () {
+                $scope.display = $scope.DISPLAY_SIGNIN;
             };
 
             /*Properties*/
@@ -162,18 +213,18 @@ angular.module('innaApp.controllers')
 
             $scope.display = $scope.DISPLAY_SIGNIN;
 
-            if($scope.restoreToken) {
+            if ($scope.restoreToken) {
                 $scope.display = $scope.DISPLAY_FORGOTTEN;
                 $scope.open();
-            } else if($scope.signUpToken) {
+            } else if ($scope.signUpToken) {
                 $scope.display = $scope.DISPLAY_SIGNUP;
                 $scope.open();
             }
 
-            $scope.recognize = function(needInitLastUserAfterLoginCheck){
+            $scope.recognize = function (needInitLastUserAfterLoginCheck) {
                 AuthDataProvider.recognize(function (data) {
-                    setUserInfo(data, needInitLastUserAfterLoginCheck);
-                },
+                        setUserInfo(data, needInitLastUserAfterLoginCheck);
+                    },
                     function (err) {
                         $scope.safeApply(function () {
                             //выходим "по-тихому", без запросов на сервер и генерации события логаута
@@ -190,9 +241,17 @@ angular.module('innaApp.controllers')
             $scope.B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
             $scope.b2bPartnerHost = app_main.b2bPartnerHost;
 
+            /**
+             * говнокод, для правильного редиректа на b2b спутника
+             */
+            if (partner != null && partner.name == 'sputnik') {
+                $scope.B2B_HOST = $scope.B2B_HOST.replace("b2b", "b2b.sputnik");
+            }
+
+
             /*EventListeners*/
             $scope.$on(Events.AUTH_SIGN_IN, function (event, data) {
-                $scope.safeApply(function(){
+                $scope.safeApply(function () {
                     setUserInfo(data);
                     $scope.close();
 
@@ -201,28 +260,30 @@ angular.module('innaApp.controllers')
                     if ($scope.$root.user) {
                         //console.log('user.Type:', $scope.$root.user.getType());
                         switch ($scope.$root.user.getType()) {
-                            case 2: {//B2B = 2, b2b.inna.ru
+                            case 2:
+                            {//B2B = 2, b2b.inna.ru
                                 window.location = $scope.B2B_HOST;
                                 break;
                             }
-                            case 4: {//Partner = 4, partner.inna.ru
+                            case 4:
+                            {//Partner = 4, partner.inna.ru
                                 window.location = $scope.b2bPartnerHost;
                                 break;
                             }
                         }
-                        
+
                     }
                 });
             });
 
-            $scope.$on(Events.AUTH_SIGN_OUT, function(event, userRaw){
+            $scope.$on(Events.AUTH_SIGN_OUT, function (event, userRaw) {
                 var user = new modelAuth(userRaw.raw);
 
-                if(user.isAgency() && !user.raw.AgencyActive) {
-                    $scope.baloon.showErr('Агентство неактивно', 'Вход не возможен', function(){
+                if (user.isAgency() && !user.raw.AgencyActive) {
+                    $scope.baloon.showErr('Агентство неактивно', 'Вход не возможен', function () {
                         window.location = '/';
                     });
-                } else if(user.isAgency()) {
+                } else if (user.isAgency()) {
 
                     window.location = '/';
                 }
@@ -276,7 +337,7 @@ angular.module('innaApp.controllers')
             }
 
             $scope.reloadChecker = new reloadChecker();
-            
+
 
             $scope.$on('$destroy', function () {
                 reloadChecker.destroy();
