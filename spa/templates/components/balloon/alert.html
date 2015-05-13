@@ -1,0 +1,13 @@
+<div class="balloon popup" ng-if="(type == baloonType.alert)" ng-style="popupStyles">
+    <div class="balloon-close" title="Закрыть" ng-click="close($event)">
+        <i class="icon-sprite-remove-big"></i>
+    </div>
+    <div class="balloon-problem"></div>
+    <div class="balloon-title" ng-bind-html="caption | breakFilter"></div>
+    <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
+    <div class="balloon-actions">
+        <address class="balloon-contacts partners-hide">
+            <ng-include src="'components/balloon/balloon_company_info_partial.html'"></ng-include>
+        </address>
+    </div>
+</div>

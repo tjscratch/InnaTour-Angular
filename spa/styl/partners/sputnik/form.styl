@@ -1,0 +1,200 @@
+.partner-wl {
+    /*развернутая шапка*/
+    .search-form-expanded {
+        .header-menu {
+            padding-top 150px;
+            background-color transparent;
+        }
+
+        .header__nav li a {
+            color: #87bfe1;
+            background-color $backColorAlfa;
+
+            &:hover {
+                color: #fff;
+            }
+
+            &.active {
+                color: #fff;
+                background-color $backColor;
+            }
+        }
+
+        .b-search-form, .search-form-expanded .search-form {
+            background-color $backColor;
+        }
+
+        .header__user {
+            background-color $backColorAlfa;
+        }
+    }
+
+    /*свернутая шапка*/
+    .header__container {
+        padding 0;
+    }
+
+    .header__user {
+        background-color $backColorAlfa;
+
+        .header__user-nav {
+            padding: 8px 6px 6px 0px;
+        }
+    }
+
+    .header-menu {
+        padding 0;
+        background-color #fff;
+    }
+
+    .header__nav {
+        li {
+            margin 0 3px;
+
+            &:first-child {
+                margin-left 0;
+            }
+
+            a {
+                background-color $backColorAlfa;
+
+                &.active {
+                    background-color $backColor;
+                }
+            }
+        }
+    }
+
+    .b-search-form {
+        background-color $backColor;
+    }
+
+    //скругление, размеры элементов
+    .b-wrapp_type_inline .search-date,
+    .b-wrapp_type_inline .search-field,
+    .search-date-block__date,
+    .search-form-humans,
+    .search-people {
+        border-radius 3px;
+        font-size: 15px;
+    }
+
+    .search-form-humans .search-form-item-current {
+        font-size: 15px;
+    }
+
+    .search-autocomplete {
+        width 334px;
+    }
+
+    .search-people {
+        background: #fff url("/spa/img/i.png") no-repeat 48px -1879px;
+    }
+
+    .search-field-block, .search-date-block, .search-button-block,
+    .search-people-block,
+    .search-form-humans {
+        margin-right 8px;
+    }
+
+    .search-people-block[klass-model='klass'] {
+        width 112px;
+    }
+
+    .search-people-block.search-people-choose {
+        width 119px;
+
+        .search-people {
+            background: #fff url("/spa/img/i.png") no-repeat 54px -1879px;
+        }
+    }
+
+    .search__city {
+        width 163px;
+    }
+
+    .b-wrapp_type_inline.date-picker-widget {
+        width 252px;
+    }
+
+    /*datepicker*/
+    .datepickerSelected {
+        a {
+            color: #fff !important;
+            background: $colorBg1;
+        }
+
+        &.datepickerSelected-start,
+        &.datepickerSelected-end {
+            a {
+                background: $color1;
+            }
+        }
+    }
+
+    .datePicker-today a {
+        border-color: $color1;
+    }
+
+    .datepickerDays a {
+
+        &:hover {
+            background: $color1;
+        }
+    }
+
+    .datepickerGoPrev a
+    .datepickerGoNext a {
+        &:hover {
+            background: $color1;
+        }
+    }
+
+    /*выбор людей*/
+    .search-form-dialog-row .button-group .button.active {
+        background: $color1;
+    }
+
+    /*кнопка найти*/
+    .search-form__submit {
+        width 105px !important;
+        background: $color2;
+
+        &:after {
+            content: 'Найти';
+            position absolute;
+            left 27%;
+
+            color #fff;
+            font-family: ProximaNova, Arial, sans-serif;
+            font-size: 16px;
+            font-stretch: normal;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: bold;
+            letter-spacing: normal;
+            line-height: 36px;
+        }
+
+        .search-button__icon {
+            display none;
+        }
+    }
+
+    /*форма авиа*/
+    .dtpk-checkbox {
+        border: 2px solid $color1;
+    }
+
+    .dtpk-checkbox-label input:checked + .dtpk-checkbox, .dtpk-checked {
+        background: url("/spa/img/i.png") no-repeat 2px -589px $color1;
+    }
+
+    .search-people-baloon-plus,
+    .search-people-baloon-minus {
+
+        &.hover {
+            background: $color1;
+        }
+    }
+}

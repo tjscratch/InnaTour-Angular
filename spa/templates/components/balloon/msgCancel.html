@@ -1,0 +1,19 @@
+<div class="balloon popup" ng-if="(type == baloonType.msgCancel)" ng-style="popupStyles">
+    <div class="balloon-loading">
+        <div class="balloon-loading">
+            <div class="spinner in-balloon">
+                <div class="rect rect1"></div>
+                <div class="rect rect2"></div>
+                <div class="rect rect3"></div>
+                <div class="rect rect4"></div>
+                <div class="rect rect5"></div>
+                <img class="gif" src="/spa/img/spinner.gif">
+            </div>
+        </div>
+    </div>
+    <div class="balloon-title" ng-bind-html="caption | breakFilter"></div>
+    <p class="balloon-info" ng-bind-html="text | breakFilter"></p>
+    <div class="balloon-actions">
+        <a href="#" class="link" ng-click="close($event)">Прервать поиск</a>
+    </div>
+</div>

@@ -7,7 +7,8 @@
 
     self.WLType = {
         full: 'full',
-        lite: 'lite'
+        lite: 'lite',
+        b2b: 'b2b'
     };
 
     self.lastHeight = null;
@@ -124,8 +125,12 @@
         var partner = self.getPartner();
         return partner != null && partner.realType == self.WLType.lite;
     };
+    self.isB2BWL = function () {
+        var partner = self.getPartner();
+        return partner != null && partner.realType == self.WLType.b2b;
+    };
     self.isWL = function () {
-        return (self.isFullWL() || self.isLiteWL());
+        return (self.isFullWL() || self.isLiteWL() || self.isB2BWL());
     };
     self.getPartner = function () {
         return self.partner;
@@ -257,7 +262,8 @@
 
         var uniqKey = Math.random(1000).toString(16);
 
-        if (partner.realType == window.partners.WLType.full) {
+        if (partner.realType == window.partners.WLType.full
+            || partner.realType == window.partners.WLType.b2b) {
             //если не задан css партнера - грузим FullWL - по умолчанию
             if (src && src.length > 0)
             {

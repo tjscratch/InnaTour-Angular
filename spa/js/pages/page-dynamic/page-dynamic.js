@@ -124,7 +124,7 @@ innaAppControllers
                             if (ListPanelComponent) ListPanelComponent.teardown();
                             ListPanelComponent = null;
                         }
-                    })
+                    });
 
                     /** Слушаем событие изменения формы поиска */
                     DynamicFormSubmitListener.listen();
@@ -208,12 +208,12 @@ innaAppControllers
                         $scope.safeApply(function () {
                             that.loadTab(data_tab);
                         });
-                    })
+                    });
 
                     EventManager.on(Events.MAP_CLOSE, function (data_tab) {
                         that.setAsMap(0);
                         that.locatioAsMap();
-                    })
+                    });
 
 
                     $scope.loadHotelDetails = function (ticket) {
