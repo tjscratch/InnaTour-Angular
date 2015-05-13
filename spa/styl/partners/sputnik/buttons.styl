@@ -61,5 +61,15 @@
     padding: 0;
     btx-button-color2();
   }
+    
+  .btn{
+    &.btn-green{
+      background-color $backColor;
+      
+      &:hover{
+        background-color lighten($backColor, 10%);
+      }
+    }
+  }
 
 }
