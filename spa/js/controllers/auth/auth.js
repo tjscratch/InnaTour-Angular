@@ -94,6 +94,8 @@ angular.module('innaApp.controllers')
 					console.log('user auth', data);
 					if (!data) {
 						$scope.open();
+					}else{
+						$scope.close();
 					}
 				});
 			}
