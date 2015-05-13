@@ -12,6 +12,7 @@ innaAppControllers
         '$location',
         'DynamicPackagesDataProvider',
         '$routeParams',
+        '$route',
         'DynamicFormSubmitListener',
         '$q',
         '$anchorScroll',
@@ -24,7 +25,7 @@ innaAppControllers
         'ModelTicketsCollection',
         'ModelTicket',
         'ModelHotel',
-        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, DynamicFormSubmitListener, $q, $anchorScroll, Balloon, $filter,
+        function (RavenWrapper, EventManager, $window, $scope, $rootScope, $timeout, aviaHelper, Urls, Events, $location, DynamicPackagesDataProvider, $routeParams, $route, DynamicFormSubmitListener, $q, $anchorScroll, Balloon, $filter,
                   ModelRecommendedPair, ModelHotelsCollection, ModelTicketsCollection, ModelTicket, ModelHotel) {
 
             DynamicFormSubmitListener.listen();
@@ -95,9 +96,9 @@ innaAppControllers
             $scope.recommendedPairStatus = 0;
             var _balloonLoad = new Balloon();
             $scope.hoverImageObject = {
-                timeOutHover : null,
-                hoverImageShow : false,
-                hoverImageStyle : {}
+                timeOutHover: null,
+                hoverImageShow: false,
+                hoverImageStyle: {}
             };
 
             //================analytics========================
@@ -114,43 +115,43 @@ innaAppControllers
             //<!-- Меню с якорями -->
             $scope.Menu = [
                 {
-                    id : 'SectionDetail',
-                    name : 'Описание отеля',
-                    active : false,
+                    id: 'SectionDetail',
+                    name: 'Описание отеля',
+                    active: false,
                     klass: 'icon-sprite-description'
                 },
                 {
-                    id : 'SectionRoom',
-                    name : 'Выбор номера',
-                    active : false,
+                    id: 'SectionRoom',
+                    name: 'Выбор номера',
+                    active: false,
                     klass: 'icon-sprite-room'
                 },
                 {
-                    id : 'SectionServices',
-                    name : 'Сервисы',
-                    active : false,
+                    id: 'SectionServices',
+                    name: 'Сервисы',
+                    active: false,
                     klass: 'icon-sprite-services'
                 },
                 {
-                    id : 'SectionMap',
-                    name : 'Отель на карте',
-                    active : false,
+                    id: 'SectionMap',
+                    name: 'Отель на карте',
+                    active: false,
                     klass: 'icon-sprite-map'
                 },
                 {
-                    id : 'SectionReviews',
-                    name : 'Отзывы',
-                    active : false,
+                    id: 'SectionReviews',
+                    name: 'Отзывы',
+                    active: false,
                     klass: 'icon-sprite-reviews'
                 },
             ];
 
-/*
-            var backgrounds = [
-                '/spa/img/hotels/back-0.jpg',
-                '/spa/img/hotels/back-1.jpg',
-                '/spa/img/hotels/back-2.jpg'
-            ];*/
+            /*
+             var backgrounds = [
+             '/spa/img/hotels/back-0.jpg',
+             '/spa/img/hotels/back-1.jpg',
+             '/spa/img/hotels/back-2.jpg'
+             ];*/
 
             _balloonLoad.updateView({
                 loading: true,
@@ -158,20 +159,20 @@ innaAppControllers
                 balloonContent: 'Это может занять какое-то время'
             });
 
-            function parseAmenities (hotel){
+            function parseAmenities(hotel) {
                 hotel.AmenitiesArray = [];
 
-                if(hotel && Object.keys(hotel.Amenities).length) {
+                if (hotel && Object.keys(hotel.Amenities).length) {
 
-                    for(var key in hotel.Amenities) {
+                    for (var key in hotel.Amenities) {
                         var countPart = Math.ceil(hotel.Amenities[key].List.length / 2);
                         var ListOrigin = [].concat(hotel.Amenities[key].List);
                         var ListPart1 = [].concat(ListOrigin.splice(countPart, ListOrigin.length));
                         var ListPart2 = [].concat(ListOrigin);
 
                         hotel.Amenities[key].part = {
-                            part1 : ListPart1,
-                            part2 : ListPart2
+                            part1: ListPart1,
+                            part2: ListPart2
                         }
 
                         hotel.AmenitiesArray.push(hotel.Amenities[key]);
@@ -184,17 +185,17 @@ innaAppControllers
              * Нужно для отрисовки блока пары билет и отель
              * @param rooms
              */
-            function parseRooms(rooms){
+            function parseRooms(rooms) {
 
-                rooms.find(function(room){
-                    if(room.Photos) {
+                rooms.find(function (room) {
+                    if (room.Photos) {
                         $scope.RoomsPhotosIsEmpty = false;
                         return true;
                     }
                 })
 
-                rooms.find(function(room){
-                    if(room.Default) {
+                rooms.find(function (room) {
+                    if (room.Default) {
                         $scope.recommendedPair.setRoom(room);
                         return true;
                     }
@@ -235,7 +236,7 @@ innaAppControllers
                         }
 
                         if (('displayTicket' in $location.search())) {
-                           $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, {noClose: true, noChoose: true, ticket : $scope.recommendedPair.ticket})
+                            $scope.$broadcast(Events.DYNAMIC_SERP_TICKET_DETAILED_REQUESTED, {noClose: true, noChoose: true, ticket: $scope.recommendedPair.ticket})
                         }
                     },
                     error: function () {
@@ -262,7 +263,7 @@ innaAppControllers
                 track.dpBuyPackage();
 
                 DynamicPackagesDataProvider.hotelDetails({
-                    data : {
+                    data: {
                         HotelId: searchParams.HotelId,
                         HotelProviderId: searchParams.ProviderId,
                         TicketToId: searchParams.TicketId,
@@ -270,7 +271,7 @@ innaAppControllers
                         Filter: searchParams
                     },
                     success: function (data) {
-                       _balloonLoad.fire('hide');
+                        _balloonLoad.fire('hide');
 
                         setWlModel(data);
 
@@ -282,10 +283,7 @@ innaAppControllers
                         $scope.recommendedPair.setTicket(ticket);
                         $scope.recommendedPair.setHotel(hotel);
                         $scope.recommendedPairStatus = data.Status;
-                        
-                        $routeParams.TicketId = ticket.data.VariantId1;
-                        $routeParams.TicketBackId = ticket.data.VariantId2;
-                        
+
 
                         $location.search('displayHotel', hotel.data.HotelId);
 
@@ -312,7 +310,7 @@ innaAppControllers
                     },
                     error: function (data) {
                         RavenWrapper.raven({
-                            captureMessage : 'PACKAGE DETAILS: SERVER ERROR',
+                            captureMessage: 'PACKAGE DETAILS: SERVER ERROR',
                             dataResponse: data.responseJSON,
                             dataRequest: searchParams
                         });
@@ -325,6 +323,7 @@ innaAppControllers
                         var timeoutId = setTimeout(function () {
                             onClose();
                         }, 3000);
+
                         function onClose() {
                             if (timeoutId) {
                                 clearTimeout(timeoutId);
@@ -335,6 +334,7 @@ innaAppControllers
                                 location.href = goToSearchDynamic();
                             });
                         }
+
                         _balloonLoad.updateView({
                             template: 'not-found.html',
                             title: "Перелет + Отель недоступен",
@@ -348,6 +348,7 @@ innaAppControllers
 
                 return deferred.promise;
             };
+
 
             function getHotelDetailsRooms() {
 
@@ -380,7 +381,7 @@ innaAppControllers
                             // для теста новой цены
                             //data.NewPrice = 70000;
 
-                            if(data.NewPrice) {
+                            if (data.NewPrice) {
                                 $scope.NewPrice = data.NewPrice;
                                 $scope.NewPricePackage = ($scope.NewPrice - $scope.OldPrice);
                                 data.PackagePrice = data.NewPrice;
@@ -412,7 +413,7 @@ innaAppControllers
 
                         } else {
                             RavenWrapper.raven({
-                                captureMessage : 'PACKAGE DETAILS ROOMS NOT FOUND',
+                                captureMessage: 'PACKAGE DETAILS ROOMS NOT FOUND',
                                 dataResponse: data,
                                 dataRequest: searchParams
                             });
@@ -422,12 +423,12 @@ innaAppControllers
                     },
                     error: function (data) {
                         RavenWrapper.raven({
-                            captureMessage : 'PACKAGE DETAILS ROOMS NOT FOUND: SERVER ERROR',
+                            captureMessage: 'PACKAGE DETAILS ROOMS NOT FOUND: SERVER ERROR',
                             dataResponse: data.responseJSON,
                             dataRequest: searchParams
                         });
 
-                        $scope.$apply(function(){
+                        $scope.$apply(function () {
                             showErrNotFound("К сожалению, выбранный вариант перелета или проживания больше не доступен.");
                         })
 
@@ -444,19 +445,19 @@ innaAppControllers
                         $routeParams.TicketClass,
                         $routeParams.Adult,
                         $routeParams.Children
-                ].join('-');
+                    ].join('-');
 
-                var tmId = setTimeout(function(){
-                    $scope.safeApply(function(){
+                var tmId = setTimeout(function () {
+                    $scope.safeApply(function () {
                         $scope.baloon.hide();
                         $location.url(url);
                     });
                 }, 3000);
                 $scope.baloon.showNotFound(msg, "Пожалуйста, выполните новый поиск.", function () {
-                    if (tmId){
+                    if (tmId) {
                         clearTimeout(tmId);
                     }
-                    $scope.safeApply(function(){
+                    $scope.safeApply(function () {
                         $location.url(url);
                     });
                 });
@@ -498,14 +499,14 @@ innaAppControllers
                 var Children = searchParams.Children || '';
 
                 var urlDetails = '/#' + Urls.URL_DYNAMIC_PACKAGES_SEARCH + [
-                    DepartureId,
-                    ArrivalId,
-                    StartVoyageDate,
-                    EndVoyageDate,
-                    TicketClass,
-                    Adult,
-                    Children
-                ].join('-');
+                        DepartureId,
+                        ArrivalId,
+                        StartVoyageDate,
+                        EndVoyageDate,
+                        TicketClass,
+                        Adult,
+                        Children
+                    ].join('-');
 
                 return urlDetails;
             };
@@ -514,19 +515,22 @@ innaAppControllers
 
             $scope.goReservation = function (room) {
 
+                $routeParams.TicketId = $scope.recommendedPair.ticket.data.VariantId1;
+                $routeParams.TicketBackId = $scope.recommendedPair.ticket.data.VariantId2;
+
                 var url = Urls.URL_DYNAMIC_PACKAGES_RESERVATION + [
-                    $routeParams.DepartureId,
-                    $routeParams.ArrivalId,
-                    $routeParams.StartVoyageDate,
-                    $routeParams.EndVoyageDate,
-                    $routeParams.TicketClass,
-                    $routeParams.Adult,
-                    $routeParams.Children,
-                    $routeParams.HotelId,
-                    $routeParams.TicketId,
-                    $routeParams.TicketBackId,
-                    $routeParams.ProviderId
-                ].join('-');
+                        $routeParams.DepartureId,
+                        $routeParams.ArrivalId,
+                        $routeParams.StartVoyageDate,
+                        $routeParams.EndVoyageDate,
+                        $routeParams.TicketClass,
+                        $routeParams.Adult,
+                        $routeParams.Children,
+                        $routeParams.HotelId,
+                        $routeParams.TicketId,
+                        $routeParams.TicketBackId,
+                        $routeParams.ProviderId
+                    ].join('-');
 
 
                 $location.search({
@@ -615,24 +619,24 @@ innaAppControllers
             };
 
 
-            $scope.goToScroll = function(menu_item){
+            $scope.goToScroll = function (menu_item) {
 
                 var ID = '';
 
-                if(menu_item.id){
+                if (menu_item.id) {
                     ID = menu_item.id;
                     $scope.menu_item = menu_item;
                 } else {
                     ID = menu_item;
                 }
 
-                var element = document.querySelector('#'+ ID);
+                var element = document.querySelector('#' + ID);
 
-                if(element) {
+                if (element) {
                     var coords = utils.getCoords(element);
                     var headerHeight = angular.element('.Header').height();
                     var body = angular.element('html, body');
-                    body.animate({scrollTop:(coords.top - headerHeight) - 30}, 300);
+                    body.animate({scrollTop: (coords.top - headerHeight) - 30}, 300);
 
                     if (window.partners) {
                         if (window.partners.isFullWL() === true) {
@@ -645,7 +649,7 @@ innaAppControllers
                 }
 
 
-                if(menu_item.id) {
+                if (menu_item.id) {
                     $scope.Menu.forEach(function (item) {
                         if (item.id != menu_item.id) {
                             item.active = false;
@@ -656,8 +660,8 @@ innaAppControllers
 
             };
 
-            $scope.$watch('user', function(User){
-                if(User){
+            $scope.$watch('user', function (User) {
+                if (User) {
 
                     $scope.userIsAgency = User.isAgency();
                     $scope.AgencyId = parseInt(User.getAgencyId());
@@ -668,14 +672,13 @@ innaAppControllers
             });
 
 
-
             $scope.$on('$destroy', function () {
 
                 document.body.classList.remove('bg_white');
                 document.body.classList.add('light-theme');
                 $('body').removeAttr('style');
 
-                if(_balloonLoad){
+                if (_balloonLoad) {
                     _balloonLoad.teardown();
                     _balloonLoad = null;
                 }
