@@ -1,0 +1,46 @@
+btx-button-color1() {
+    border-top: 1px solid $color2;
+    border-bottom: 1px solid $color2;
+    background: $color2;
+
+    &:hover {
+        background: rgba(224,147,47,0.8);
+        text-decoration: none;
+    }
+}
+
+btx-button-color2() {
+    border: none;
+    border-top: 1px solid $color2;
+    border-bottom: 1px solid $color2;
+    background: $color2;
+    
+    &:hover {
+        background: rgba(224,147,47,0.8);
+        text-decoration: none;
+    }
+}
+
+btx-button1() {
+    padding: 5px 16px;
+    border-radius: 3px;
+    btx-button-color1()
+}
+
+btx-button2() {
+    padding: 5px 16px;
+    border-radius: 3px;
+    btx-button-color2()
+}
+
+btx-checkbox-bg() {
+    background: url("/spa/img/i.png") no-repeat 2px -590px $color1;
+}
+
+btx-checkbox-border() {
+    border: 2px solid $color1;
+}
+
+.balloon-button {
+    btx-button-color1()
+}

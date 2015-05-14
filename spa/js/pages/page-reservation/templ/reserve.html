@@ -30,10 +30,10 @@
 		<h2 class="buy__title">Информация о покупателе</h2>
 	</header>
 
-	<div>
+	<div class="buy-passanger__block">
 		<div class="b-field-group">
 		<!--<div class="b-field-block b-field-block-auth" style="width: 388px;">-->
-		<div class="b-field-block" style="width: 388px;">
+		<div class="b-field-block b-field-email">
 			<label class="b-field-label">E-mail</label>
 			<input autocomplete="off" validate-events-dir ng-model="validationModel.email.value"
 			       ng-validation-model="validationModel.email" validate="validate(item, type)"
@@ -47,7 +47,7 @@
 			   <a href="#" class="button b-auth-button">Войти</a>
 		   </div>-->
 		</div>
-		<div class="b-field-block" style="width: 180px;">
+		<div class="b-field-block b-field-phone">
 			<label class="b-field-label">Мобильный телефон</label>
 			<input autocomplete="off" validate-events-dir ng-model="validationModel.phone.value"
 			       ng-validation-model="validationModel.phone" validate="validate(item, type)"
@@ -97,7 +97,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="b-field-block" style="width: 160px;">
+			<div class="b-field-block b-field-second-name">
 				<label class="b-field-label">Фамилия</label>
 				<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.secondName.value"
 				       ng-validation-model="passenger.secondName" validate="validate(item, type)"
@@ -106,7 +106,7 @@
 				       ng-class="{error:isFieldInvalid(passenger.secondName)}"
 				       type="text" placeholder="IVANOV" class="b-field-text">
 			</div>
-			<div class="b-field-block b-field-block-surname" style="width: 150px;">
+			<div class="b-field-block b-field-name b-field-block-surname">
 				<label class="b-field-label">Имя</label>
 				<input autocomplete="off" upper-latin validate-events-dir ng-model="passenger.name.value"
 				       data-title="Укажите имя пассажира"
@@ -115,7 +115,7 @@
 				       ng-class="{error:isFieldInvalid(passenger.name)}"
 				       type="text" placeholder="IVAN" class="b-field-text">
 			</div>
-			<div class="b-field-block" style="width: 110px;">
+			<div class="b-field-block b-field-birth">
 				<label class="b-field-label">Дата рождения</label>
 
 				<input autocomplete="off"
@@ -132,7 +132,7 @@
 				       placeholder="дд.мм.гггг"
 				       class="b-field-text">
 			</div>
-			<div class="b-field-block" style="width: 180px;">
+			<div class="b-field-block b-field-sitizenship">
 				<label class="b-field-label">Гражданство</label>
 
                 <div citizenship-select
@@ -143,7 +143,7 @@
                         list="citizenshipList" result-set="passenger.citizenship.setValue(item)"
                      ></div>
 			</div>
-			<div class="b-field-block" style="width: 110px;">
+			<div class="b-field-block b-field-document">
 				<label class="b-field-label b-field-label-docs">Серия и ном. док-та</label>
 				<input autocomplete="off" validate-events-dir ng-model="passenger.doc_series_and_number.value"
 				       depends-on="passenger.citizenship"
@@ -157,7 +157,7 @@
 				       type="text" class="b-field-text">
 			</div>
 			<!--ng-hide="passenger.doc_expirationDate.dependsOnField.isRuPassportOrBirthAndInsideRF"-->
-			<div ng-hide="passenger.doc_expirationDate.needToHide" class="b-field-block" style="width: 110px;">
+			<div ng-hide="passenger.doc_expirationDate.needToHide" class="b-field-block b-field-expires">
 				<label class="b-field-label b-field-label-docs">Действителен до</label>
 				<input validate-events-dir ng-model="passenger.doc_expirationDate.value"
 				       depends-on="passenger.doc_series_and_number"
@@ -170,13 +170,13 @@
 		</div>
 		<div class="b-field-group b-field-group-passport">
 		<div class="b-field-group b-field-group-passport">
-			<div class="b-field-block" style="width: 220px;">
+			<div class="b-field-block b-field-bonus-card">
 				<label class="b-agreement"><input type="checkbox"
 				                                  ng-model="passenger.bonuscard.value.haveBonusCard">
 					<ins class="b-checkbox"></ins>
 					Есть бонусная карта авиакомпании</label>
 			</div>
-			<div class="b-field-block" style="width: 150px;"
+			<div class="b-field-block b-field-bonus-aircompany"
 			     ng-show="passenger.bonuscard.value.haveBonusCard == true">
 				<label class="b-field-label">Авиакомпания</label>
 
@@ -190,7 +190,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="b-field-block" style="width: 150px;"
+			<div class="b-field-block b-field-bonus-card-num"
 			     ng-show="passenger.bonuscard.value.haveBonusCard == true">
 				<label class="b-field-label">Номер карты</label>
 				<input autocomplete="off" digits-input type="text" maxlength="16"
@@ -220,9 +220,9 @@
 				менеджер свяжется c Вами и предложит разные варианты.
 			</div>
 			<ul class="buy__more-options">
-				<!--<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededVisa">
+				<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededVisa">
 					<ins class="b-checkbox"></ins>
-					Виза</label></li>-->
+					Виза</label></li>
 				<li><label class="b-agreement"><input type="checkbox" ng-model="addition.isNeededMedicalInsurance">
 					<ins class="b-checkbox"></ins>
 					Страховки</label></li>

@@ -6,6 +6,21 @@ innaAppConponents.
         '$templateCache',
         function (Events, $templateCache) {
 
+            function setPartnerData(data){
+                var partner = window.partners ? window.partners.getPartner() : null;
+                if (partner != null && partner.realType == window.partners.WLType.b2b) {
+                    if (partner.name == 'sputnik') {
+                        data.partnerData = {
+                            title: partner.title,
+                            phone: partner.phone,
+                            skype: partner.skype,
+                            email: partner.email
+                        }
+
+                    }
+                }
+            }
+
             var Balloon = Ractive.extend({
                 el: 'body',
                 template: $templateCache.get('components/balloon/templ/index.html'),
@@ -70,7 +85,7 @@ innaAppConponents.
                     this.observe('partialUpdate', function () {
                         this.set('reset', false);
                         this.set('reset', true);
-                    })
+                    });
 
                     this.observe('isVisible', function (value) {
                         if(value){
@@ -103,6 +118,7 @@ innaAppConponents.
 
                         return templ;
                     },
+                    infoContent: $templateCache.get('components/balloon/templ/company-info-partial.html'),
                     loading: $templateCache.get('components/balloon/templ/loading.html')
                 },
 
@@ -132,6 +148,8 @@ innaAppConponents.
                             this.partials.partialUpdate = partial;
                         }
 
+                        setPartnerData(data);
+
                         this.set({
                             partialUpdate: partial,
                             template: data.template,
@@ -140,6 +158,7 @@ innaAppConponents.
                             balloonContent: data.balloonContent,
                             title: data.title,
                             content: data.content,
+                            partnerData: data.partnerData,
                             callbackClose: data.callbackClose || null,
                             callback: data.callback || null
                         });

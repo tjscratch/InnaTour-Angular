@@ -56,6 +56,7 @@ angular.module('innaApp.components').
                             this.set('FilterData.List.*.isChecked',  false);
                         },
                         teardown: function (evt) {
+                            this.set('value.val', []);
                             this.set({value : {}})
                         }
                     });
