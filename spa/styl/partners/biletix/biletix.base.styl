@@ -41,6 +41,13 @@
         background: rgba(0, 0, 0, 0.4);
     }
 
+    /*отключаем фон на главной*/
+    .b-main-page {
+        &.wrpr {
+            background transparent;
+        }
+    }
+
     .layout.partner {
         top: $landPadding;
         margin-bottom: $landPadding;
@@ -57,7 +64,7 @@
 
     .landing-title {
         text-align: center;
-        /*color: #ffffff;*/
+        color: #fff;
         font-size: 36px;
         line-height: 42px;
     }

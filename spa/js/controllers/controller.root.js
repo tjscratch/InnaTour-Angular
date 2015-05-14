@@ -16,6 +16,12 @@ innaAppControllers.
         'aviaHelper',
         function (EventManager, $log, $scope, $location, dataService, eventsHelper, urlHelper, appUrls, Events, aviaHelper) {
 
+            //js загрузился - показываем все спрятанные элементы
+            setTimeout(function () {
+                $('.hide-while-loading').removeClass('hide-while-loading');
+            }, 0);
+
+
             $scope.$on('$routeChangeStart', function (next, current) {
                 EventManager.fire(Events.AJAX__RESET);
             });
@@ -57,12 +63,12 @@ innaAppControllers.
                     case '/tours/':
                     case '/packages/':
                         $scope.FormExpand = true;
-                        $scope.SearchFormExpandPadding = {'padding-top': 150}
+                        $scope.SearchFormExpandPadding = {'padding-top': 150};
                         document.addEventListener('scroll', onScroll, false);
                         break;
                     default:
                         $scope.FormExpand = false;
-                        $scope.SearchFormExpandPadding = {'padding-top': 0}
+                        $scope.SearchFormExpandPadding = {'padding-top': 0};
                         document.removeEventListener('scroll', onScroll, false);
                         break;
                 }
@@ -94,12 +100,12 @@ innaAppControllers.
                     data: $location.search().data || ''
                 };
 
-                delete $location.$$search.from
-                delete $location.search().tourist
-                delete $location.$$search.from_param
-                delete $location.$$search.PartnerMarker
-                delete $location.$$search.id_partner
-                delete $location.$$search.data
+                delete $location.$$search.from;
+                delete $location.search().tourist;
+                delete $location.$$search.from_param;
+                delete $location.$$search.PartnerMarker;
+                delete $location.$$search.id_partner;
+                delete $location.$$search.data;
                 $location.$$compose();
                 if(advParams.from || advParams.PartnerMarker){
                     dataService.getPartnershipCookie(advParams);

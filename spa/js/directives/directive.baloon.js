@@ -10,7 +10,7 @@ innaAppDirectives.
         function ($templateCache, aviaHelper, eventsHelper) {
             return {
                 replace: true,
-                template: $templateCache.get('components/baloon.html'),
+                template: $templateCache.get('components/balloon/balloon.html'),
                 scope: {
                     isShow: '=',
                     caption: '=',
@@ -22,6 +22,23 @@ innaAppDirectives.
                 controller: function ($scope) {
                     //$scope.isShow = false;
                     //updateDisplay();
+
+                    setPartnerData($scope);
+
+                    function setPartnerData(data){
+                        var partner = window.partners ? window.partners.getPartner() : null;
+                        if (partner != null && partner.realType == window.partners.WLType.b2b) {
+                            if (partner.name == 'sputnik') {
+                                data.partnerData = {
+                                    title: partner.title,
+                                    phone: partner.phone,
+                                    skype: partner.skype,
+                                    email: partner.email
+                                }
+
+                            }
+                        }
+                    }
 
                     function updateDisplay() {
                         //console.log('updateDisplay, $scope.isShow: ' + $scope.isShow);
