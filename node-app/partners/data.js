@@ -11,7 +11,7 @@ module.exports = {
         if (partnerName){
             //ToDo: тут будет запрос в api, а не просто поиск в массиве
             var data = _.find(partnersMap, function (item) {
-                return item.name == partnerName;
+                return item.name == partnerName || item.domain == hostName;
             });
 
             if (data){
@@ -76,6 +76,7 @@ var partnersMap = [
     },
     {
         'name': 'sputnik',
+        'domain': 'tours.sputnik.travel',
         'src': '/sputnik/sputnik.base.css',
         'type': self.WLType.b2b,
         'title': 'Спутник',
