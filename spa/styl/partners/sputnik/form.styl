@@ -7,18 +7,9 @@
         }
 
         .header__nav li a {
-            text-transform: uppercase;
+            border-radius 0;
             color: #87bfe1;
             background-color $backColorAlfa;
-
-            &:hover {
-                color: #fff;
-            }
-
-            &.active {
-                color: #fff;
-                background-color $backColor;
-            }
         }
 
         .b-search-form, .search-form-expanded .search-form {
@@ -46,21 +37,34 @@
 
     .header-menu {
         padding 0;
+        font: 300 16px / 40px 'Roboto';
         background-color #fff;
     }
 
     .header__nav {
+        height: 36px;
+        font-size inherit;
+
         li {
-            margin 0 3px;
+            margin: 0 5px 0 0;
 
             &:first-child {
                 margin-left 0;
             }
 
             a {
+                padding: 0 12px;
+                border-radius 0;
+                text-transform: uppercase;
+                color: #87bfe1;
                 background-color $backColorAlfa;
 
+                &:hover {
+                    color: #fff;
+                }
+
                 &.active {
+                    color: #fff;
                     background-color $backColor;
                 }
             }
@@ -173,7 +177,7 @@
             font-stretch: normal;
             font-style: normal;
             font-variant: normal;
-            font-weight: bold;
+            font-weight: normal;
             letter-spacing: normal;
             line-height: 36px;
         }
