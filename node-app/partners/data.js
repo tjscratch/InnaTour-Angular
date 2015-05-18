@@ -19,6 +19,10 @@ module.exports = {
             }
         }
 
+        if (partner && partnerName == 'sputnik'){
+            partner.isSputnik = true;
+        }
+
         return partner;
     }
 };
