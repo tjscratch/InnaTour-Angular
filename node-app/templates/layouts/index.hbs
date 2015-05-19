@@ -5,7 +5,9 @@
     <meta name='yandex-verification' content='40fd92efcc007a47'/>
     <!--<meta name="viewport" content="initial-scale=1, user-scalable=yes">-->
     <meta name="viewport" content="width=980">
-    <title ng-bind="title">Инна-Тур - Главная</title>
+
+    <!-- Данные партнеров -->
+    {{> partners/title_fav}}
 
     <base href="/"/>
 
@@ -38,8 +40,6 @@
     </script>
     <![endif]-->
 
-
-    <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/spa/lib/jquery-ui/jquery-ui.1.11.2.min.css"/>
 
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css"/>
@@ -84,7 +84,7 @@
 
     <!-- Подключение партнеров -->
     {{> partners/data}}
-    <script id="partners-css-inject" src="spa/js/partners/partners_new.js"></script>
+    <script id="partners-css-inject" src="spa/js/partners/partners.js"></script>
 
     <!--a/b тесты-->
     <script src="//cdn.optimizely.com/js/2018230704.js"></script>
