@@ -14,7 +14,8 @@ router.get('/', function (req, res, next) {
     else {
         var partner = partners.get(req);
         res.render('layouts/index', {
-            partner: partner
+            partner: partner,
+            isSputnik: partner != null ? partner.isSputnik : null
         });
     }
 });
