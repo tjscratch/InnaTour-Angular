@@ -21,6 +21,85 @@ innaAppControllers.
                 $('.hide-while-loading').removeClass('hide-while-loading');
             }, 0);
 
+            /*
+                Title
+             */
+
+            $scope.getTitle = function () {
+
+                var loc = $location.path();
+                var abs = $location.absUrl();
+
+                if (loc == '/') {
+                    return "Главная";
+                } else if (loc.indexOf(appUrls.URL_DYNAMIC_PACKAGES) > -1) {
+                    return "Динамические пакеты";
+                }
+                else if (loc.indexOf(appUrls.URL_AVIA) > -1) {
+                    return "Авиабилеты";
+                }
+                else if (loc.indexOf(appUrls.URL_PROGRAMMS) > -1) {
+                    return "Программы";
+                }
+                else if (loc.indexOf(appUrls.URL_ABOUT) > -1) {
+                    return "О компании";
+                }
+                else if (loc.indexOf(appUrls.URL_CONTACTS) > -1) {
+                    return "Контакты";
+                }
+                else {
+                    return "Главная";
+                }
+            };
+
+            $scope.getPartnersTitle = function () {
+
+                var loc = $location.path();
+                var abs = $location.absUrl();
+
+                if (loc == '/') {
+                    return "Перелет + Отлель";
+                } else if (loc.indexOf(appUrls.URL_DYNAMIC_PACKAGES) > -1) {
+                    return "Перелет + Отлель";
+                }
+                else if (loc.indexOf(appUrls.URL_AVIA) > -1) {
+                    return "Авиабилеты";
+                }
+                else if (loc.indexOf(appUrls.URL_PROGRAMMS) > -1) {
+                    return "Программы";
+                }
+                else if (loc.indexOf(appUrls.URL_ABOUT) > -1) {
+                    return "О компании";
+                }
+                else if (loc.indexOf(appUrls.URL_CONTACTS) > -1) {
+                    return "Контакты";
+                }
+                else {
+                    return "Перелет + Отлель";
+                }
+            };
+
+            setTitle();
+
+            function setTitle() {
+                var partner = window.partners ? window.partners.getPartner() : null;
+                if (partner && partner.realType == window.partners.WLType.b2b){
+                    $scope.title = partner.title + " - " + $scope.getPartnersTitle();
+                }
+                else {
+                    $scope.title = "Инна-Тур - " + $scope.getTitle();
+                }
+            }
+
+
+            $scope.$on('$routeChangeSuccess', function () {
+                setTitle();
+            });
+
+            /*
+             Title
+             */
+
 
             $scope.$on('$routeChangeStart', function (next, current) {
                 EventManager.fire(Events.AJAX__RESET);
