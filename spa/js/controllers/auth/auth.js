@@ -82,17 +82,17 @@ angular.module('innaApp.controllers')
              * задача IN-4485
              * Костыль для спутника, если пользователь не залогинен, показываем ему форму логина всегда и везде
              */
-            $timeout(function () {
-                if (partner != null && partner.name == 'sputnik') {
-                    $scope.$root.$watch('user', function (data) {
-                        if (!data) {
-                            $scope.open();
-                        } else {
-                            $scope.close();
-                        }
-                    });
-                }
-            }, 300);
+            //$timeout(function () {
+            //    if (partner != null && partner.name == 'sputnik') {
+            //        $scope.$root.$watch('user', function (data) {
+            //            if (!data) {
+            //                $scope.open();
+            //            } else {
+            //                $scope.close();
+            //            }
+            //        });
+            //    }
+            //}, 300);
             /**
              * задача - IN-4485
              * Если у нас партнер спутник, скрываем форму регистрации
@@ -102,6 +102,13 @@ angular.module('innaApp.controllers')
             }
             else {
                 $scope.partnerSputnik = false;
+            }
+
+            if (partner != null && partner.name == 'sputnik') {
+                $scope.authLinkTitile = 'Вход для агентств';
+            }
+            else {
+                $scope.authLinkTitile = 'Регистрация и вход';
             }
 
 
