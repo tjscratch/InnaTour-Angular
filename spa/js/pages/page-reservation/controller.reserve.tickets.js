@@ -1083,12 +1083,21 @@
 
 
         $scope.goToB2bCabinet = function () {
-            location.href = app_main.b2bHost;
-        }
+            var locationHref = app_main.b2bHost;
+
+            var partner = window.partners ? window.partners.getPartner() : null;
+            if (partner != null && partner.realType == window.partners.WLType.b2b){
+                if (partner.name == 'sputnik'){
+                    locationHref = 'https://lk.sputnik.travel';
+                }
+            }
+
+            location.href = locationHref;
+        };
 
         $scope.isAgency = function () {
             return ($scope.$root.user != null && $scope.$root.user.isAgency());
-        }
+        };
 
         $scope.isCaseValid = function (fn) {
             try {
