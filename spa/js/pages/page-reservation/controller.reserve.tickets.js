@@ -1088,7 +1088,7 @@
             var partner = window.partners ? window.partners.getPartner() : null;
             if (partner != null && partner.realType == window.partners.WLType.b2b){
                 if (partner.name == 'sputnik'){
-                    locationHref = 'https://lk.sputnik.travel';
+                    locationHref = window.partners.getB2b_LK(partner);
                 }
             }
 

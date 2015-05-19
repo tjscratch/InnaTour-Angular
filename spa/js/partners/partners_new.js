@@ -23,6 +23,28 @@
 
     var maxClientHeight = 730;
 
+    self.isTestDomain = function () {
+        return (location.href.indexOf('test.inna.ru') > -1);
+    };
+
+    self.isBetaDomain = function () {
+        return (location.href.indexOf('beta.inna.ru') > -1);
+    };
+
+    self.getB2b_LK = function (partner) {
+        if (partner){
+            if (self.isTestDomain()) {
+                return partner.test_b2b_lk;
+            }
+            else if (self.isBetaDomain()) {
+                return partner.beta_b2b_lk;
+            }
+            else {
+                return partner.b2b_lk;
+            }
+        }
+    };
+
     //скролим страницу обратно вверх, при нажатии на кнопку поиска
     self.scrollToTop = function () {
         self.parentScrollTop = 0;
