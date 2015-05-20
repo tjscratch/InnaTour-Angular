@@ -151,6 +151,10 @@
         var partner = self.getPartner();
         return partner != null && partner.realType == self.WLType.b2b;
     };
+    self.isFullWLOrB2bWl = function () {
+        var partner = self.getPartner();
+        return partner != null && (partner.realType == self.WLType.b2b || partner.realType == self.WLType.full);
+    };
     self.isWL = function () {
         return (self.isFullWL() || self.isLiteWL() || self.isB2BWL());
     };
