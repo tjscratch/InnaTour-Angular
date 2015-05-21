@@ -3,11 +3,13 @@
 /* Directives */
 
 innaAppDirectives.
-    directive('linkInNewWindowIfCan', ['$timeout', function ($timeout) {
+    directive('linkInNewWindowIfCan', ['$timeout', '$interval', function ($timeout, $interval) {
         return {
             restrict: 'A',
             link: function ($scope, element, attrs, ngModelCtrl) {
                 //console.log('linkInNewWindowIfCan', element);
+
+                var intervId = null;
 
                 function getHashFromUrl(url) {
                     //console.log('url:', url);
@@ -60,14 +62,40 @@ innaAppDirectives.
                                     //console.log('completeLinkData found', completeLinkData);
                                     localStorage.removeItem(PREFIX + key);
                                     location.href = link;
+
+                                    //if (window.partners && window.partners.isFullWL()) {
+                                    //    console.log('setParentLocationHref', link);
+                                    //    window.partners.setParentLocationHref(link);
+                                    //}
+                                    //else {
+                                    //    location.href = link;
+                                    //}
                                 }
                                 else{
                                     //console.log('completeLinkData empty, yyy!!!');
                                 }
                             }, 2000);
                         });
+
+                        intervId = $interval(function () {
+                            var href = element.attr('href');
+                            if (href.indexOf('javascript:void(0)') > -1){
+                            }
+                            else {
+                                //ссылка изменилась - нужно обновить
+                                link = element.attr('href');
+                                element.attr('href', 'javascript:void(0);');
+                                //console.log('link updated', link);
+                            }
+                        }, 300);
                     }, 0);
                 }
+
+                $scope.$on('$destroy', function () {
+                    if (intervId){
+                        $interval.cancel(intervId);
+                    }
+                });
             }
         };
     }]);
