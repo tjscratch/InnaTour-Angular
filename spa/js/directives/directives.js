@@ -61,15 +61,15 @@ innaAppDirectives.
                                 if (completeLinkData) {
                                     //console.log('completeLinkData found', completeLinkData);
                                     localStorage.removeItem(PREFIX + key);
-                                    location.href = link;
+                                    //location.href = link;
 
-                                    //if (window.partners && window.partners.isFullWL()) {
-                                    //    console.log('setParentLocationHref', link);
-                                    //    window.partners.setParentLocationHref(link);
-                                    //}
-                                    //else {
-                                    //    location.href = link;
-                                    //}
+                                    if (window.partners && window.partners.isFullWL()) {
+                                        //т.к на партнере ссылка типа http://biletix.ru/packages/#/packages/details/...
+                                        location.href = key;
+                                    }
+                                    else {
+                                        location.href = link;
+                                    }
                                 }
                                 else{
                                     //console.log('completeLinkData empty, yyy!!!');
