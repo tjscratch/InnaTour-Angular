@@ -14,7 +14,8 @@ router.get('/', function (req, res, next) {
     else {
         var partner = partners.get(req);
         res.render('layouts/index', {
-            partner: partner
+            partner: partner,
+            isSputnik: partner != null ? partner.isSputnik : null
         });
     }
 });
@@ -24,7 +25,7 @@ router.get('/', function (req, res, next) {
 router.get('*', function (req, res, next) {
     res.render('layouts/404', {layout: false}, function (err, html) {
         //статистика
-        counters.print(req, res);
+        //counters.print(req, res);
         res.status(404).send(html);
     });
 });

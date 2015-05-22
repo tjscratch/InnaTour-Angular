@@ -60,6 +60,7 @@ angular.module('innaApp.controllers')
                     function onLogoutCompleteOrError() {
                         $scope.$emit(Events.AUTH_SIGN_OUT, wasLoggedUser);
                     }
+
                     AuthDataProvider.logout(onLogoutCompleteOrError, onLogoutCompleteOrError);
                 }
             };
@@ -265,20 +266,26 @@ angular.module('innaApp.controllers')
                     $scope.reloadChecker.saveLastUser();
 
                     if ($scope.$root.user) {
-                        //console.log('user.Type:', $scope.$root.user.getType());
-                        switch ($scope.$root.user.getType()) {
-                            case 2:
-                            {//B2B = 2, b2b.inna.ru
-                                window.location = $scope.B2B_HOST;
-                                break;
-                            }
-                            case 4:
-                            {//Partner = 4, partner.inna.ru
-                                window.location = $scope.b2bPartnerHost;
-                                break;
+
+                        var partner = window.partners ? window.partners.getPartner() : null;
+                        if (partner != null && partner.realType == window.partners.WLType.b2b && partner.name == 'sputnik') {
+                            window.location = window.partners.getB2b_LK(partner);
+                        }
+                        else {
+                            //console.log('user.Type:', $scope.$root.user.getType());
+                            switch ($scope.$root.user.getType()) {
+                                case 2:
+                                {//B2B = 2, b2b.inna.ru
+                                    window.location = $scope.B2B_HOST;
+                                    break;
+                                }
+                                case 4:
+                                {//Partner = 4, partner.inna.ru
+                                    window.location = $scope.b2bPartnerHost;
+                                    break;
+                                }
                             }
                         }
-
                     }
                 });
             });

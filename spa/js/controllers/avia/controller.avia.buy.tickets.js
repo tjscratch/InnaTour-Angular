@@ -270,7 +270,7 @@ innaAppControllers.
                 var url = app_main.staticHost + '/files/doc/offer.pdf';
 
                 if (isDp) {
-                    if (window.partners && window.partners.isFullWL()) {
+                    if (window.partners && window.partners.isFullWLOrB2bWl()) {
                         url = window.partners.getPartner().offertaContractLink;
                     }
                     else {
