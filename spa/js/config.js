@@ -1,6 +1,7 @@
 var app_main = {};
 app_main.apiHost = "@@api_host"; //http://test.inna.ru
 app_main.b2bHost = "@@b2b_host"; //'http://b2b.test.inna.ru';
+app_main.b2bHostSputnik = "@@b2b_host_sputnik"; //'http://b2b.test.inna.ru';
 app_main.b2bPartnerHost = "@@b2bPartnerHost"; //'http://partner.test.inna.ru';
 app_main.frontHost = "@@front_host"; //'https://inna.ru';
 app_main.staticHost = "@@static_host";  //'http://s.test.inna.ru';
