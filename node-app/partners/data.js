@@ -89,6 +89,7 @@ var partnersMap = [
         'aboutLink': 'http://sputnik.idemstudio.ru/company/',
         'contactsLink': 'http://sputnik.idemstudio.ru/info/contacts/',
         'offertaContractLink': 'https://tours.sputnik.travel/spa/partners/sputnik/offer_sputnik.pdf',
+        'TCHLink': 'https://tours.sputnik.travel/spa/partners/sputnik/TCH.pdf',
         'showOffers': true,
         'horizontalForm': true,
         'dontScrollAfterSearch': false
