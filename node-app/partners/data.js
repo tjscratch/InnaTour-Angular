@@ -88,7 +88,7 @@ var partnersMap = [
         'skype': '',
         'aboutLink': 'http://sputnik.idemstudio.ru/company/',
         'contactsLink': 'http://sputnik.idemstudio.ru/info/contacts/',
-        'offertaContractLink': 'https://s.inna.ru/files/doc/offer_sputnik.pdf',
+        'offertaContractLink': 'https://tours.sputnik.travel/spa/partners/sputnik/offer_sputnik.pdf',
         'showOffers': true,
         'horizontalForm': true,
         'dontScrollAfterSearch': false
