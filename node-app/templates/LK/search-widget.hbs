@@ -1,0 +1,151 @@
+<div class="body">
+	<div class="container">
+
+		<ul class="breadcrumbs">
+			<li><a href="#">Главная</a></li>
+			<li><a href="#">Личный кабинет</a></li>
+			<li>Настройка поисковой формы</li>
+		</ul>
+
+		<div class="config-search-form" ng-controller="FormBootstrapCtrl">
+			<h1>Настройка поисковой формы</h1>
+
+			<div class="head">
+				Предпросмотр формы
+			</div>
+
+			<div class="widget-preview">
+				<div class="b-inna-search-widget" ng-class="radioModel">
+					<inna-form partner-site="{{ style.url }}" partner-name="{{ style.partner }}"></inna-form>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<dl class="dl-horizontal">
+					<dt><strong>Ширина</strong></dt>
+					<dd class="offset-left-1">
+						<input class="form-control" type="text" style="width: 60px" ng-model="style.width">
+					</dd>
+					<dd>
+						px
+					</dd>
+				</dl>
+			</div>
+			<div class="form-group">
+				<input class="form-control-range" type="range" max="960" min="235" step="1" ng-model="style.width">
+			</div>
+
+			<div class="head">
+				Настройка дизайна
+			</div>
+
+
+			<div class="row offset-bottom-2">
+				<div class="col-xs-2 form-item" ng-class="{'form-item-error': error.partner}">
+					<h4>ID партнера:</h4>
+					<input class="form-control" type="text" ng-model="style.partner" placeholder="Например biletix">
+				</div>
+				<div class="col-xs-3 form-item" ng-class="{'form-item-error': error.partner}">
+					<h4>URL редиректа:</h4>
+					<input class="form-control" type="text" ng-model="style.url" placeholder="Например http://biletix.inna.ru">
+				</div>
+				<div class="col-xs-3 form-item">
+					<h4>Город вылета по умолчанию:</h4>
+					<input class="form-control" type="text" ng-model="style.defaultCity" placeholder="Например Москва">
+				</div>
+				<!--<div class="col-xs-2 form-item">
+					<h4>Вид модуля</h4>
+					<select ng-model="radioModel" ng-change="setWigetStyle()">
+						<option ng-value="'b-inna-search-widget-row-1'">В одну строку</option>
+						<option ng-value="'b-inna-search-widget-row-2'">В две строки</option>
+						<option ng-value="'b-inna-search-widget-row-3'">В четыре строки</option>
+					</select>
+				</div>-->
+				<div class="col-xs-1"></div>
+				<div class="col-xs-3">
+					<h4>Радиус углов (px):</h4>
+					<div class="row">
+						<div class="col-xs-9" style="padding-top: 5px">
+							<input class="form-control-range" type="range" max="15" min="0" step="1" ng-model="style.borderRadius">
+						</div>
+						<div class="col-xs-3">
+							<input class="form-control" type="text" ng-model="style.borderRadius">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="head">
+				Настрока цветовой схемы виджета:
+			</div>
+
+			<div class="row offset-bottom-2">
+				<div class="col-xs-5">
+					<h4>Цвет фона формы:</h4>
+					<div class="row">
+						<div class="col-xs-6">
+							<input class="form-control" id="formBg" type="color" ng-model="style.formBg">
+						</div>
+						<div class="col-xs-6">
+							<input class="form-control" type="text" ng-model="style.formBg">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-5">
+					<h4>Цвет текста формы:</h4>
+					<div class="row">
+						<div class="col-xs-6">
+							<input class="form-control" id="formColorText" type="color" ng-model="style.formColorText">
+						</div>
+						<div class="col-xs-6">
+							<input class="form-control" type="text" ng-model="style.formColorText">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row offset-bottom-3">
+				<div class="col-xs-5">
+					<h4>Цвет фона кнопки:</h4>
+					<div class="row">
+						<div class="col-xs-6">
+							<input class="form-control" id="btnBg" type="color" ng-model="style.btnBg">
+						</div>
+						<div class="col-xs-6">
+							<input class="form-control" type="text" ng-model="style.btnBg">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-5">
+					<h4>Цвет текста кнопки:</h4>
+					<div class="row">
+						<div class="col-xs-6">
+							<input class="form-control" id="btnColor" type="color" ng-model="style.btnColor">
+						</div>
+						<div class="col-xs-6">
+							<input class="form-control" type="text" ng-model="style.btnColor">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="offset-bottom-2 text-center" ng-click="generateCode()">
+				<span class="btn btn-lg">Сгенерировать код</span>
+			</div>
+			<div class="alert alert-danger" ng-if="error.partner">
+				<div>Укажите ID партнера</div>
+			</div>
+			<div ng-bind-html="insertStyle()"></div>
+			<div class="head" ng-if="formTpl">
+				Код для вставки на сайт:
+			</div>
+			<div ng-if="formTpl">
+				<div ng-bind-html="insertTpl()"></div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
