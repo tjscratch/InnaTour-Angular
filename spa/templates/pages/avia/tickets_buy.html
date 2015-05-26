@@ -137,12 +137,12 @@
 
 <div class="b-tickets-info-container">
     <div class="b-tickets-ok"
-         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">Билеты
-        забронированы
+         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">
+        <i class="fa fa-check"></i>Билеты забронированы
     </div>
     <div class="b-tickets-ok"
-         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">Билеты
-        забронированы, отель будет забронирован после оплаты
+         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">
+        <i class="fa fa-check"></i>Билеты забронированы, отель будет забронирован после оплаты
     </div>
     <div class="b-tickets-info-block" ng-if="reservationModel.experationMinute > 0">
         <div class="b-tickets-sum">Сумма к оплате: <b>{{price| price}}
