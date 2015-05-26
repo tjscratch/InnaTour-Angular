@@ -245,11 +245,11 @@
                                                                   ng-click="processToBuy($event)"></span>
         <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree">
             <ins class="b-checkbox" id="agree" data-title="Нужно согласиться с условиями"></ins>
-            Я принимаю условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a>,
+            Я принимаю условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a><span ng-if="!reservationModel.IsService">,
             <a href="http://www.iatatravelcentre.com/e-ticket-notice/Russian_Federation/Russian/"
                target="_blank">договора IATA</a>,
             <a ng-href="{{TKP.url()}}" target="_blank">ТКП</a>,
-            <a ng-href="#" ng-click="tarifs.show($event)">тарифов</a>, и не возражаю против обработки моих
+            <a ng-href="#" ng-click="tarifs.show($event)">тарифов</a></span>, и не возражаю против обработки моих
             персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
         <img src="/spa/img/logos.png" class="b-logos" alt="">
     </div>
