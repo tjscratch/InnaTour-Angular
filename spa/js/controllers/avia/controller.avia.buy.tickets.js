@@ -724,7 +724,8 @@ innaAppControllers.
                             else {
                                 $scope.reservationModel = bindApiModelToModel(data);
                                 if ($scope.reservationModel.IsService) {//сервисный сбор
-
+                                    var isDp = (data.Hotel != null);
+                                    $scope.setOferta(isDp);
                                 }
                                 else {
                                     if (data.Hotel != null) {
