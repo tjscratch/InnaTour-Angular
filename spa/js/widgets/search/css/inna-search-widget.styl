@@ -170,13 +170,39 @@
     line-height 0
 
     li{
+        position relative
         display inline-block
         height $control-height
         line-height $control-height
+        margin-right 3px
         padding 0 15px
-        background $bg-black
         color $color-white
         font-size 17px
         border-radius $border-radius $border-radius 0 0
+        cursor pointer
+        overflow hidden
+
+        &:before{
+            content ''
+            position absolute
+            left 0
+            top 0
+            right 0
+            bottom 0
+            background-color $bg-black
+            opacity .6
+        }
+
+        &.active{
+            &:before{
+                opacity 1
+            }
+        }
+
+        > span{
+            position relative
+            z-index 2
+        }
+
     }
 }

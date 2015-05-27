@@ -16,7 +16,16 @@
 
 			<div class="widget-preview">
 				<div class="b-inna-search-widget" ng-class="radioModel">
-					<inna-form partner-site="{{ style.url }}" partner-name="{{ style.partner }}"></inna-form>
+
+
+					<inna-form
+							partner-site="{{ style.url }}"
+							partner-name="{{ style.partner }}"
+							partner-default-city="Санкт-Петербург"
+							>
+					</inna-form>
+
+
 				</div>
 			</div>
 
@@ -53,14 +62,6 @@
 					<h4>Город вылета по умолчанию:</h4>
 					<input class="form-control" type="text" ng-model="style.defaultCity" placeholder="Например Москва">
 				</div>
-				<!--<div class="col-xs-2 form-item">
-					<h4>Вид модуля</h4>
-					<select ng-model="radioModel" ng-change="setWigetStyle()">
-						<option ng-value="'b-inna-search-widget-row-1'">В одну строку</option>
-						<option ng-value="'b-inna-search-widget-row-2'">В две строки</option>
-						<option ng-value="'b-inna-search-widget-row-3'">В четыре строки</option>
-					</select>
-				</div>-->
 				<div class="col-xs-1"></div>
 				<div class="col-xs-3">
 					<h4>Радиус углов (px):</h4>

@@ -16,9 +16,22 @@ innaAppDirectives.directive('innaForm', [
                 isWlPartnerMode: "="
             },
             controller: ['$element', '$scope', '$http', 'widgetValidators', function ($element, $scope, $http, widgetValidators) {
-                //console.log('inna form init');
-                $scope.typeaheadTemplateCustom = $templateCache.get('typeaheadTemplateCustom.html') ? $templateCache.get('typeaheadTemplateCustom.html') : $templateCache.get('widgets/search/templ/typeaheadTemplateCustom.html');
+                
 
+                /**
+                 * templates url
+                 */
+                $scope.formDpTplUrl = $templateCache.get('formDpTplUrl.html') ? 'formDpTplUrl.html' : 'widgets/search/templ/formDpTplUrl.html';
+                $scope.formAviaTplUrl = $templateCache.get('formAviaTplUrl.html') ? 'formAviaTplUrl.html' : 'widgets/search/templ/formAviaTplUrl.html';
+                $scope.typeaheadTemplateCustom = $templateCache.get('typeaheadTemplateCustom.html') ? 'typeaheadTemplateCustom.html' : 'widgets/search/templ/typeaheadTemplateCustom.html';
+
+
+                /**
+                 * инициализация формы, если включены и ДП и авиа то по умолчанию активна форма ДП
+                 */
+                $scope.formType = 1;
+                
+                
 
                 //passing parameters in and out
                 if ($scope.exportFieldsCallback && $scope.exportFields && $scope.exportFields.length > 0) {
@@ -220,12 +233,6 @@ innaAppDirectives.directive('innaForm', [
                 });
                 $scope.startDateError = null;
                 $scope.endDateError = null;
-                //$scope.$watch('startDate', function (data) {
-                //    $scope.startDate = data;
-                //});
-                //$scope.$watch('endDate', function (data) {
-                //    $scope.endDate = data;
-                //});
 
                 /**
                  * Старт поиска

@@ -1,95 +1,20 @@
 <ul class="b-inna-search__nav">
-	<li>
-		Перелет + Отель
+	<li 
+			ng-click="formType = 1"
+			ng-class="{'active' : formType == 1}"
+			>
+		<span>
+			Перелет + Отель
+		</span>
+	</li>
+	<li 
+			ng-click="formType = 2"
+			ng-class="{'active' : formType == 2}"
+			>
+		<span>
+			Авиабилеты
+		</span>
 	</li>
 </ul>
-<div class="b-inna-search-form">
-	<div class="b-inna-row">
-		<form name="forms.innaSearchForm">
-
-			<div class="b-inna-col__typeahead">
-				<div class="b-inna-search-form-field __typeahead">
-					<input
-							class="b-inna-search-form-field-input"
-							type="text"
-							placeholder="Откуда"
-							ng-model="locationFrom"
-							typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
-							typeahead-template-url="typeaheadTemplateCustom.html"
-							typeahead-wait-ms="300"
-							ng-change="fromIdError = null"
-							>
-
-					<div widget-error-tooltip error="{{fromIdError}}"></div>
-				</div>
-			</div>
-
-			<div class="b-inna-col__typeahead">
-				<div class="b-inna-search-form-field __typeahead">
-					<input
-							class="b-inna-search-form-field-input"
-							type="text"
-							placeholder="Куда"
-							ng-model="locationTo"
-							typeahead="state as state.name for state in getLocation($viewValue) | filter:$viewValue"
-							typeahead-template-url="typeaheadTemplateCustom.html"
-							typeahead-wait-ms="300"
-							ng-change="toIdError = null"
-							>
-
-					<div widget-error-tooltip error="{{toIdError}}"></div>
-				</div>
-			</div>
-
-			<div class="b-inna-col__daterange">
-				<div class="b-inna-search-form-field b-inna-row input-daterange">
-					<div class="b-inna-col__daterange__data">
-						<input date-picker-date-format
-								class="b-inna-search-form-field-input b-inna-datapicker from_date"
-								type="text"
-								name="startDate"
-								ng-model="startDate"
-								placeholder="Туда"
-								ng-focus="startDateError = null"
-								/>
-
-						<div widget-error-tooltip error="{{startDateError}}"></div>
-					</div>
-					<div class="b-inna-col__daterange__data">
-						<input date-picker-date-format
-								class="b-inna-search-form-field-input  b-inna-datapicker to_date"
-								type="text"
-								name="endDate"
-								ng-model="endDate"
-								placeholder="Обратно"
-								ng-focus="endDateError = null"
-								/>
-
-						<div widget-error-tooltip error="{{endDateError}}"></div>
-					</div>
-				</div>
-			</div>
-
-			<div class="b-inna-col__peoples">
-				<div widget-counter-people
-				     adult-count="adultCount"
-				     children-count="childrenCount"
-				     childrens-age="childrensAge"
-						></div>
-			</div>
-
-			<div class="b-inna-col__action">
-				<div class="b-inna-search-form-field __action">
-					<button class="b-inna-btn" ng-click="innaStartSearch(forms.innaSearchForm)">Найти</button>
-				</div>
-			</div>
-
-		</form>
-	</div>
-</div>
-<script type="text/ng-template" id="typeaheadTemplateCustom.html">
-	<div class="b-location-item">
-		<span class="b-location-item-name" bind-html-unsafe="match.model.nameHtml"></span>
-		<span class="b-location-item-iata" bind-html-unsafe="match.model.iata"></span>
-	</div>
-</script>
+<ng-include ng-if="formType == 1" src="formDpTplUrl"></ng-include>
+<ng-include ng-if="formType == 2" src="formAviaTplUrl"></ng-include>

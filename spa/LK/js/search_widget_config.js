@@ -24,12 +24,15 @@
             $scope.style.widthMin = 235;
 
             $scope.radioModel = 'b-inna-search-widget-row-1';
-            $scope.style.formBg = '#212121';
-            $scope.style.formColorText = '#ffffff';
-            $scope.style.btnBg = '#89c13a';
-            $scope.style.btnColor = '#ffffff';
-            $scope.style.borderRadius = 2;
+            //$scope.style.formBg = '#212121';
+            //$scope.style.formColorText = '#ffffff';
+            //$scope.style.btnBg = '#89c13a';
+            //$scope.style.btnColor = '#ffffff';
+            //$scope.style.borderRadius = 2;
 
+
+            $scope.style.partner = 'biletix';
+            $scope.style.url = 'http://biletix.inna.ru';
 
             $scope.$watchCollection('style', function (data) {
 
