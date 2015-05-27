@@ -364,7 +364,7 @@
                 for (var i = 0; i < etapCountries.length; i++) {
                     var etapCountry = etapCountries[i];
 
-                    if (useAnyIn){
+                    if (useAnyIn) {
                         if (_.any(arrayCountryIds, function (countryId) {
                                 return countryId == etapCountry;
                             })) //нашли хоть одну в массиве (для Украины)
@@ -390,14 +390,14 @@
             //нужно определить
             //для граждан РФ, летящих внутри стран РФ, Абхазия, Белоруссия, Казахстан, Нагорный Карабах,
             //Приднестровье, Таджикистан, Украина, Южная Осетия
-            $scope.isTripInsideRF = function(item) {
+            $scope.isTripInsideRF = function (item) {
                 //Нагорный Карабах, Приднестровье
                 //var arrayCountryIds = [189, 69829, 35, 124, 0, 0, 215, 226, 0];
                 //Южная Осетия
                 // хохолов 226 удаляем из этого списка
                 var arrayCountryIds = [189, 69829, 35, 124, 215];
-                    return $scope.isInside(item, arrayCountryIds);
-                };
+                return $scope.isInside(item, arrayCountryIds);
+            };
 
             $scope.validate = function (item, type, $index) {
 
@@ -659,7 +659,7 @@
 
                     validationModel[key] = newItem;
                 });
-            };
+            }
 
             function getValidationModel() {
                 //основная модель для валидации
@@ -706,7 +706,8 @@
                                 }
                             });
                             return firstItem;
-                        };
+                        }
+
                         var firstItem = findInModel(this);
 
                         //если не нашли в полях, смотрим во вложенных
@@ -746,6 +747,7 @@
                         }
                     },
                     validateAll: function () {
+                        console.log('here');
                         validationModel.enumAllKeys($scope.validate);
 
                         this.formPure = false;
@@ -996,7 +998,7 @@
                     },
                     items: "[data-title]",
                     content: function () {
-                        if (customText){
+                        if (customText) {
                             return customText;
                         }
                         else {
@@ -1086,8 +1088,8 @@
             var locationHref = app_main.b2bHost;
 
             var partner = window.partners ? window.partners.getPartner() : null;
-            if (partner != null && partner.realType == window.partners.WLType.b2b){
-                if (partner.name == 'sputnik'){
+            if (partner != null && partner.realType == window.partners.WLType.b2b) {
+                if (partner.name == 'sputnik') {
                     locationHref = window.partners.getB2b_LK(partner);
                 }
             }
@@ -1212,13 +1214,37 @@
             log('');
             log('apiModel: ' + angular.toJson(apiModel));
             return {apiModel: apiModel, model: model};
-        }
+        };
 
         var debugPassengersList = [
-            {name: 'IVAN', secondName: 'IVANOV', sex: $scope.sexType.man, birthday: '18.07.1976', series_and_number: '4507 04820'},
-            {name: 'TATIANA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '25.09.1978', series_and_number: '4507 04823'},
-            {name: 'SERGEY', secondName: 'IVANOV', sex: $scope.sexType.man, birthday: '12.07.2006', series_and_number: '4507 02853'},
-            {name: 'ELENA', secondName: 'IVANOVA', sex: $scope.sexType.woman, birthday: '12.11.2013', series_and_number: '4507 01853'},
+            {
+                name: 'IVAN',
+                secondName: 'IVANOV',
+                sex: $scope.sexType.man,
+                birthday: '18.07.1976',
+                series_and_number: '4507 04820'
+            },
+            {
+                name: 'TATIANA',
+                secondName: 'IVANOVA',
+                sex: $scope.sexType.woman,
+                birthday: '25.09.1978',
+                series_and_number: '4507 04823'
+            },
+            {
+                name: 'SERGEY',
+                secondName: 'IVANOV',
+                sex: $scope.sexType.man,
+                birthday: '12.07.2006',
+                series_and_number: '4507 02853'
+            },
+            {
+                name: 'ELENA',
+                secondName: 'IVANOVA',
+                sex: $scope.sexType.woman,
+                birthday: '12.11.2013',
+                series_and_number: '4507 01853'
+            },
         ];
 
         function isDebug() {
@@ -1335,6 +1361,50 @@
                 });
             }
         }
+
+        //заявка на ДП
+        $scope.sendRequest = function ($event) {
+            $event.preventDefault();
+            //console.log('sendRequest click');
+
+            function showAlert(invalidItem) {
+                $("body, html").animate({"scrollTop": 400}, function () {
+                    var $to = $("#" + invalidItem.id);
+                    $scope.tooltipControl.init($to);
+                    $scope.tooltipControl.open($to);
+                });
+            }
+
+            $scope.validate($scope.validationModel.email);
+            if (!$scope.validationModel.email.isValid) {
+                showAlert($scope.validationModel.email);
+            }
+            else {
+                $scope.validate($scope.validationModel.phone);
+                if (!$scope.validationModel.phone.isValid) {
+                    showAlert($scope.validationModel.phone);
+                }
+                else {
+                    //все норм - отправляем заявку
+                    console.log('sendRequest send', $scope.validationModel.email.value, $scope.validationModel.phone.value);
+
+                    var m = $scope.getApiModelForReserve();
+                    var apiModel = angular.copy(m.apiModel);
+
+                    paymentService.createDPRequest(apiModel,
+                        function (data, status) {
+                            console.log('sendRequest success', data, status);
+
+                            //показываем попап
+                            $scope.baloon.show("Заявка отправлена", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
+                        }, function (status) {
+                            console.log('sendRequest error', status);
+
+                            $scope.baloon.showGlobalErr();
+                        });
+                }
+            }
+        };
 
         $scope.$on('$destroy', function () {
             closeAllTooltips();

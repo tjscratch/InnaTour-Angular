@@ -22,10 +22,15 @@
             $scope.baloon.showExpireCheck();
 
             $scope.isAviaPage = false;
-            Raven.setExtraContext({key: "__RESERVATION_CONTEXT__"})
+            Raven.setExtraContext({key: "__RESERVATION_CONTEXT__"});
 
             // TODO : наследование контроллера
             $controller('ReserveTicketsCtrl', {$scope: $scope});
+
+            $scope.isRequestEnabled = true;
+            if (window.partners.isWL()){
+                $scope.isRequestEnabled = false;
+            }
 
 
             /*----------------- INIT -------------------*/

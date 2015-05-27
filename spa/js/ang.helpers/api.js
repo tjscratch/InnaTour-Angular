@@ -69,6 +69,7 @@ angular.module('innaApp.API', [])
             AVIA_CHECK_AVAILABILITY: url('/avia/IsActual'),
             PACKAGE_CHECK_AVAILABILITY: url('/Packages/IsPackageAvailable'),
             PACKAGE_RESERVATION: url('/PackagesOrder/Reservation'),
+            RESERVATION_DP_REQUEST: url('/PackagesOrder/CreateDpRequest'),
 
             "*_PAGE_CONTENT": url('/Section/Get/'),
 
