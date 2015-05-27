@@ -13,14 +13,12 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
             updateFromOutside: "=",
             isWlPartnerMode: "="
         },
-        controller: function ($element, $scope, $http, widgetValidators, Packages, Avia) {
+        controller: function ($element, $scope, $http, widgetValidators, WidgetPackages, WidgetAvia) {
 
 
             /**
              * templates url
              */
-            $scope.formDpTplUrl = $templateCache.get('formDpTplUrl.html') ? 'formDpTplUrl.html' : 'widgets/search/templ/formDpTplUrl.html';
-            $scope.formAviaTplUrl = $templateCache.get('formAviaTplUrl.html') ? 'formAviaTplUrl.html' : 'widgets/search/templ/formAviaTplUrl.html';
             $scope.typeaheadTemplateCustom = $templateCache.get('typeaheadTemplateCustom.html') ? 'typeaheadTemplateCustom.html' : 'widgets/search/templ/typeaheadTemplateCustom.html';
 
 
@@ -66,7 +64,7 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
             /**
              * установка текущей локали
              */
-            Packages.currentLocale($scope.partnerDefaultCity)
+            WidgetPackages.currentLocale($scope.partnerDefaultCity)
                 .then(function (data) {
                     $scope.locationFrom = data;
                 });
@@ -75,7 +73,7 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
              * поиск локили откуда для авиа и ДП одно и то же
              */
             $scope.getLocationFrom = function (text) {
-                return Avia.getLocation(text)
+                return WidgetAvia.getLocation(text)
                     .then(function (data) {
                         return data;
                     });
@@ -87,13 +85,13 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
              */
             $scope.getLocation = function (text) {
                 if ($scope.formType == 1) {
-                    return Packages.getLocation(text)
+                    return WidgetPackages.getLocation(text)
                         .then(function (data) {
                             return data;
                         });
                 }
                 if ($scope.formType == 2) {
-                    return Avia.getLocation(text)
+                    return WidgetAvia.getLocation(text)
                         .then(function (data) {
                             return data;
                         });
