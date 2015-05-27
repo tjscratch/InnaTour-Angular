@@ -7,7 +7,7 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
         scope: {
             partnerSite: "@",
             partnerName: "@",
-            partnerDefaultCity: "=",
+            partnerDefaultCity: "@",
             exportFieldsCallback: "&",
             exportFields: "=",
             updateFromOutside: "=",
