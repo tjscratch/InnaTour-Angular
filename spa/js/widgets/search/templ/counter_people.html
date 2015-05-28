@@ -1,6 +1,7 @@
 <div class="inna-dropdown">
 	<div class="inna-dropdown-action">
 		{{ adultCount + childrenCount| WidgetAsQuantity:"человек":"человека":"человек"}}
+		<span class="avia-tickets_class">{{ticketsClassHumanize}}</span>
 		<i class="inna-arrow-bottom"></i>
 	</div>
 	<div class="inna-dropdown-dialog" ng-show="isOpen">
@@ -44,5 +45,15 @@
 			     ng-class="{'inna-dropdown-age-col-2': childrensAge.length == 2, 'inna-dropdown-age-col-1': childrensAge.length == 1}"
 					></div>
 		</div>
+
+
+		<div class="inna-dropdown-dialog__checkboxes">
+			<label class="widget-checkboxes-label">
+				<input type="checkbox" name="roaming" ng-model="ticketsClassBussiness"/><i></i>
+				Бизнес-класс
+			</label>
+		</div>
+
+
 	</div>
 </div>

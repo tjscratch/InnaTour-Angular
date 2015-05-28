@@ -8,7 +8,8 @@ innaAppDirectives
             scope: {
                 adultCount: '=',
                 childrenCount: '=',
-                childrensAge: '='
+                childrensAge: '=',
+                ticketsClass: '='
             },
             controller: ['$scope', function ($scope) {
                 /*Properties*/
@@ -33,6 +34,19 @@ innaAppDirectives
                 $scope.sum = function (a, b) {
                     return +a + +b;
                 }
+                
+                
+                $scope.$watch('ticketsClassBussiness', function(data){
+                    if (data){
+                        $scope.ticketsClassHumanize = 'бизнес';
+                        $scope.ticketsClass = 1;
+                    }else{
+                        $scope.ticketsClassHumanize = 'эконом';
+                        $scope.ticketsClass = 0;
+                    }
+                })
+                
+                
             }],
             link: function (scope, element, attrs) {
                 scope.rootElement = $('.search-form-item-current', element);

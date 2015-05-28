@@ -25,7 +25,7 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
             /**
              * инициализация формы, если включены и ДП и авиа то по умолчанию активна форма ДП
              */
-            $scope.formType = 2;
+            $scope.formType = 1;
             $scope.forms = {};
 
 
@@ -147,7 +147,7 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
 
             $element.find('.input-daterange').datepicker({
                 //format: "d.m.yyyy",
-                format: "d MM yyyy",
+                format: "d M yyyy",
                 startDate: $scope.setStartDate,
                 endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
                 language: "ru",
@@ -178,10 +178,10 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 if ($('.datepicker').find('.datepicker-checkboxes').length == 0) {
                     $(
                         '<div class="datepicker-checkboxes">' +
-                        '<label class="datepicker-checkboxes-label js-datepicker-checkboxes-label_oneWay">' +
+                        '<label class="widget-checkboxes-label js-datepicker-checkboxes-label_oneWay">' +
                         '<input type="checkbox" name="oneWay"/><i></i> в одну сторону' +
                         '</label>' +
-                        '<label class="datepicker-checkboxes-label js-datepicker-checkboxes-label_roaming">' +
+                        '<label class="widget-checkboxes-label js-datepicker-checkboxes-label_roaming">' +
                         '<input type="checkbox" name="roaming"/><i></i> +/- 3 дня' +
                         '</label>' +
                         '</div>'
