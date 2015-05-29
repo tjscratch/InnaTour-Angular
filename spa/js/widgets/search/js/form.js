@@ -143,7 +143,7 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 //console.log('changeDate', selected, $scope.dontFocusToDate);
                 $scope.setStartDate = selected.date;
                 $element.find('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
-                $element.find('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28));
+                $element.find('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28))
 
                 //fix открытия при програмном обновлении дат
                 if (!$scope.dontFocusToDate) {
@@ -163,11 +163,14 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 autoclose: true,
                 todayHighlight: true,
                 beforeShowDay: highlightDates
-            }).on('show', function () {
-                if ($scope.formType == 2) {
-                    setCheckboxesAviaCalendar();
-                }
-            });
+            })
+                .on('show', function () {
+                    $timeout(function () {
+                        if ($scope.formType == 2) {
+                            setCheckboxesAviaCalendar();
+                        }
+                    }, 0);
+                });
 
             /**
              * установка чекбоксов для авиа в календарь
@@ -184,6 +187,12 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                         '</label>' +
                         '</div>'
                     ).insertBefore(".datepicker-days");
+                    if ($scope.aviaCalendarOneWay) {
+                        $(".datepicker .js-datepicker-checkboxes-label_oneWay input").attr("checked", true);
+                    }
+                    if ($scope.aviaCalendarRoaming) {
+                        $(".datepicker .js-datepicker-checkboxes-label_roaming input").attr("checked", true);
+                    }
                 } else {
                     $('.datepicker').find('.datepicker-checkboxes').show();
                 }
@@ -191,6 +200,9 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                     e.stopPropagation();
                     $timeout(function () {
                         $scope.aviaCalendarOneWay = e.target.checked;
+                        if ($scope.aviaCalendarOneWay) {
+                            $element.find('.to_date').attr("disabled", true);
+                        }
                     }, 0);
                 })
                 $(".datepicker .js-datepicker-checkboxes-label_roaming").on('click', function (e) {
@@ -334,9 +346,10 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
              * IsBackFlexible - плюс минус 3 дня
              * PathType - перелет в одну сторону
              */
-            $scope.aviaAdultCount = 3;
+            $scope.aviaAdultCount = 1;
             $scope.aviaChildCount = 0;
             $scope.aviaInfantsCount = 0;
+            $scope.PathType = 0;
 
             $scope.$watch('aviaCalendarOneWay', function (data) {
                 if (data) {
