@@ -83,17 +83,17 @@
                 },
 
                 createDPRequest: function (params, successCallback, errCallback) {
-                    //queryData, successCallback, errCallback
-                    //var qData = angular.toParam(params.data);
-                    //AjaxHelper.post({
-                    //    url: apiUrls.RESERVATION_DP_REQUEST,
-                    //    data: qData,
-                    //    success: params.success,
-                    //    error: params.error
-                    //});
+                    $http.post(apiUrls.RESERVATION_DP_REQUEST, params)
+                        .success(function (data, status) {
+                            successCallback(data);
+                        })
+                        .error(function (data, status) {
+                            errCallback(data, status);
+                        });
+                },
 
-                    var qData = params;
-                    $http.post(apiUrls.RESERVATION_DP_REQUEST, qData)
+                createBuyComment: function (params, successCallback, errCallback) {
+                    $http.post(apiUrls.BUY_COMMENT, params)
                         .success(function (data, status) {
                             successCallback(data);
                         })

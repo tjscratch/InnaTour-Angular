@@ -1517,6 +1517,45 @@ innaAppControllers.
                 $location.path('packages/buy/success/' + $scope.orderNum);
             }
 
+            //отправка сообщения к заказу
+
+
+            $scope.buyCommentsForm = new buyCommentsForm();
+            function buyCommentsForm(){
+                var self = this;
+
+                self.isOpened = false;
+                self.comments = '';
+                self.close = function ($event) {
+                    $event.preventDefault();
+                    self.isOpened = false;
+                };
+
+                self.openPopup = function ($event) {
+                    $event.preventDefault();
+                    self.comment = '';
+                    self.isOpened = true;
+                };
+
+                self.send = function ($event) {
+                    $event.preventDefault();
+                    self.isOpened = false;
+                    paymentService.createBuyComment({orderNum:$scope.orderNum, orderMessage: self.comments},
+                        function (data, status) {
+                            console.log('send buy comment success', data, status);
+
+                            //показываем попап
+                            $scope.baloon.show("Сообщение отправлено", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
+                        }, function (status) {
+                            console.log('send buy comment error', status);
+
+                            $scope.baloon.show(null, null,
+                                aviaHelper.baloonType.err, function () {
+                                });
+                        });
+                }
+            }
+
             $scope.$on('$destroy', function () {
                 $scope.baloon.hide();
                 if ($scope._baloon) {

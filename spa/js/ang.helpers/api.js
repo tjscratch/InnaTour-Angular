@@ -70,6 +70,7 @@ angular.module('innaApp.API', [])
             PACKAGE_CHECK_AVAILABILITY: url('/Packages/IsPackageAvailable'),
             PACKAGE_RESERVATION: url('/PackagesOrder/Reservation'),
             RESERVATION_DP_REQUEST: url('/PackagesOrder/CreateDpRequest'),
+            BUY_COMMENT: url('/PackagesOrder/CreateOrderMessage'),
 
             "*_PAGE_CONTENT": url('/Section/Get/'),
 

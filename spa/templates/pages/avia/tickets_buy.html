@@ -253,6 +253,11 @@
             персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
         <img src="/spa/img/logos.png" class="b-logos" alt="">
     </div>
+    <div class="buy-message-block">
+        Если Вы не успеваете оплатить до тайм-лимита или Вы хотите оплатить другим способом,
+        <a href="#" ng-click="buyCommentsForm.openPopup($event)">просто отправьте нам сообщение.</a>
+        </br>Менеджер свяжется с Вами и поможет оформить путешествие.
+    </div>
 </div>
 </form>
 </div>
@@ -359,3 +364,25 @@
     </div>
 </div>
 <!-- /Baloon -->
+
+
+<!--popup form-->
+<div class="overlay js-overlay" ng-if="buyCommentsForm.isOpened">
+    <div class="scroll-fix">
+        <div class="balloon balloon_ticket">
+            <div title="Закрыть" class="balloon-close" ng-click="buyCommentsForm.close($event)">
+                <i class="icon-sprite-remove-big"></i>
+            </div>
+                <div class="buy-comment-title">Комментарий к заказу</div>
+
+                <div class="but-comment-text-block">
+                    <div class="buy-comment-text-lbl">Текст сообщения</div>
+                    <textarea name="" class="buy-comment-text" ng-model="buyCommentsForm.comments">
+                    {{buyCommentsForm.comments | breakFilter}}
+                    </textarea>
+
+                    <button type="submit" class="button buy-comment-submit" ng-click="buyCommentsForm.send($event)">Отправить</button>
+                </div>
+        </div>
+    </div>
+</div>
