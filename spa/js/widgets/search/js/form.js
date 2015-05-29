@@ -34,6 +34,8 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 $scope.formType = 1;
             }
             $scope.forms = {};
+            $scope.aviaCalendarOneWay = false;
+            $scope.aviaCalendarRoaming = false;
 
 
             //passing parameters in and out
@@ -167,17 +169,6 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 }
             });
 
-
-            $scope.$watch('formType', function (data) {
-                if (data == 2) {
-                    $scope.aviaCalendar = {};
-                    $scope.aviaCalendar.oneWay = false;
-                    $scope.aviaCalendar.roaming = false;
-                } else {
-                    $scope.aviaCalendar = null;
-                }
-            });
-
             /**
              * установка чекбоксов для авиа в календарь
              */
@@ -199,13 +190,13 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 $(".datepicker .js-datepicker-checkboxes-label_oneWay").on('click', function (e) {
                     e.stopPropagation();
                     $timeout(function () {
-                        $scope.aviaCalendar.oneWay = e.target.checked;
+                        $scope.aviaCalendarOneWay = e.target.checked;
                     }, 0);
                 })
                 $(".datepicker .js-datepicker-checkboxes-label_roaming").on('click', function (e) {
                     e.stopPropagation();
                     $timeout(function () {
-                        $scope.aviaCalendar.roaming = e.target.checked;
+                        $scope.aviaCalendarRoaming = e.target.checked;
                     }, 0);
                 })
             }
@@ -339,26 +330,44 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
              * ChildCount - кол-во детей 2-11 лет
              * InfantsCount - кол-во младенцев 0-2 года
              * CabinClass - класс перелета
-             * IsToFlexible -
-             * IsBackFlexible -
-             * PathType -
+             * IsToFlexible - плюс минус 3 дня
+             * IsBackFlexible - плюс минус 3 дня
+             * PathType - перелет в одну сторону
              */
+            $scope.aviaAdultCount = 3;
+            $scope.aviaChildCount = 0;
+            $scope.aviaInfantsCount = 0;
+
+            $scope.$watch('aviaCalendarOneWay', function (data) {
+                if (data) {
+                    $scope.PathType = 1;
+                    $scope.endDate = '';
+                }
+            });
+
+
             var searchAvia = function () {
+
+
+                $scope.IsToFlexible = $scope.aviaCalendarRoaming ? 1 : 0;
+                $scope.IsBackFlexible = $scope.aviaCalendarRoaming ? 1 : 0;
+
+
                 var params = [
                     $scope.fromId,
                     $scope.toId,
                     $scope.startDate,
                     $scope.endDate,
-                    $scope.adultCount,
-                    0,
-                    0,
+                    $scope.aviaAdultCount,
+                    $scope.aviaChildCount,
+                    $scope.aviaInfantsCount,
                     $scope.ticketClass,
-                    0,
-                    0,
-                    0
+                    $scope.IsToFlexible,
+                    $scope.IsBackFlexible,
+                    $scope.PathType
                 ];
                 console.log(params);
-                
+
                 if ($scope.isWlPartnerMode) {
                     var openUrl = "/avia/search/" + params.join('-');
                     $location.url(openUrl);
@@ -377,7 +386,6 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
              * @param innaSearchForm
              */
             $scope.innaStartSearch = function (innaSearchForm) {
-
                 try {
                     validate();
 

@@ -116,21 +116,71 @@ innaAppDirectives
                 return $templateCache.get('avia_counter_people.html') ? $templateCache.get('avia_counter_people.html') : $templateCache.get('widgets/search/templ/avia_counter_people.html')
             },
             scope: {
-                adultCount: "=",
-                childCount: "=",
-                infantsCount: "=",
+                adultCount: "=adultCount",
+                childCount: "=childCount",
+                infantCount: "=",
                 ticketClass: "="
             },
             controller: function ($scope) {
 
 
+                /**
+                 * max people count - 6
+                 */
+                $scope.maxPeopleCount = 6;
+                //$scope.adultCount = 1;
+                //$scope.childCount = 0;
+                //$scope.infantCount = 0;
+                
+                $scope.minAdultCount = 1;
+                $scope.minChildCount = 0;
+                $scope.minInfantCount = 0;
+                
+                var maxAdultCount = function(){
+                    return $scope.maxPeopleCount - $scope.childCount;
+                }
+                
+                var maxChildCount = function(){
+                    return $scope.maxPeopleCount - $scope.adultCount;
+                }
+                
+                var maxInfantCount = function(){
+                    return $scope.adultCount;
+                }
+                
+                /**
+                 * adultCount
+                 */
+                $scope.adultCountInc = function (count, inc) {
+                    $scope.adultCount = counter(count, maxAdultCount(), $scope.minAdultCount, inc)
+                    if($scope.infantCount > $scope.adultCount){
+                        $scope.infantCountInc($scope.adultCount);
+                    }
+                    
+                };
+
+                /**
+                 * childCount
+                 */
+                $scope.childCountInc = function (count, inc) {
+                    $scope.childCount = counter(count, maxChildCount(), $scope.minChildCount, inc)
+                };
+
+                /**
+                 * infantsCount
+                 */
+                $scope.infantCountInc = function (count, inc) {
+                    $scope.infantCount = counter(count, maxInfantCount(), $scope.minInfantCount, inc)
+                };
+
+
                 $scope.$watch('ticketsClassBussiness', function (data) {
                     if (data) {
                         $scope.ticketsClassHumanize = 'бизнес';
-                        $scope.ticketsClass = 1;
+                        $scope.ticketClass = 1;
                     } else {
                         $scope.ticketsClassHumanize = 'эконом';
-                        $scope.ticketsClass = 0;
+                        $scope.ticketClass = 0;
                     }
                 });
 
@@ -158,56 +208,6 @@ innaAppDirectives
                     }
                     return value;
                 }
-
-                /**
-                 * max people count - 6
-                 */
-                $scope.maxPeopleCount = 6;
-                $scope.adultCount = 1;
-                $scope.childCount = 0;
-                $scope.infantsCount = 0;
-
-
-                $scope.minAdultCount = 1;
-                $scope.minChildCount = 0;
-                $scope.minInfantsCount = 0;
-                
-                var maxAdultCount = function(){
-                    return $scope.maxPeopleCount - $scope.childCount;
-                }
-                
-                var maxChildCount = function(){
-                    return $scope.maxPeopleCount - $scope.adultCount;
-                }
-                
-                var maxInfantsCount = function(){
-                    return $scope.adultCount;
-                }
-                
-                /**
-                 * adultCount
-                 */
-                $scope.adultCountInc = function (count, inc) {
-                    $scope.adultCount = counter(count, maxAdultCount(), $scope.minAdultCount, inc)
-                    if($scope.infantsCount > $scope.adultCount){
-                        $scope.infantsCountInc($scope.adultCount);
-                    }
-                    
-                };
-
-                /**
-                 * childCount
-                 */
-                $scope.childCountInc = function (count, inc) {
-                    $scope.childCount = counter(count, maxChildCount(), $scope.minChildCount, inc)
-                };
-
-                /**
-                 * infantsCount
-                 */
-                $scope.infantsCountInc = function (count, inc) {
-                    $scope.infantsCount = counter(count, maxInfantsCount(), $scope.minInfantsCount, inc)
-                };
 
 
             },

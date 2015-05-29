@@ -1,6 +1,6 @@
 <div class="inna-dropdown">
 	<div class="inna-dropdown-action">
-		{{ adultCount + childCount + infantsCount | WidgetAsQuantity:"человек":"человека":"человек"}}
+		{{ adultCount + childCount + infantCount | WidgetAsQuantity:"человек":"человека":"человек"}}
 		<span class="avia-tickets_class">{{ticketsClassHumanize}}</span>
 		<i class="inna-arrow-bottom"></i>
 	</div>
@@ -44,9 +44,9 @@
 			</div>
 			<div class="inna-dropdown-counter__action">
 				<div class="b-inna-counter">
-					<span class="b-inna-counter__minus" ng-click="infantsCountInc(infantsCount, -1)">-</span>
-					<input class="b-inna-counter__input" type="text" ng-model="infantsCount" ng-blur="infantsCountInc(infantsCount)"/>
-					<span class="b-inna-counter__plus" ng-click="infantsCountInc(infantsCount, +1)">+</span>
+					<span class="b-inna-counter__minus" ng-click="infantCountInc(infantCount, -1)">-</span>
+					<input class="b-inna-counter__input" type="text" ng-model="infantCount" ng-blur="infantCountInc(infantCount)"/>
+					<span class="b-inna-counter__plus" ng-click="infantCountInc(infantCount, +1)">+</span>
 				</div>
 			</div>
 		</div>

@@ -1,20 +1,25 @@
 <hr/>
-aviaCalendar - {{ aviaCalendar }}
+aviaCalendarRoaming - {{ aviaCalendarRoaming }}
+<hr/>
+aviaCalendarOneWay - {{ aviaCalendarOneWay }}
+<hr/>
 startDate - {{ startDate }}
-{{ adultCount }}
+<hr/>
+endDate - {{ endDate }}
+<hr/>
 {{ ticketsClass }}
 <hr/>
 fromId - {{ fromId }}
 <hr/>
 toId - {{ toId }}
 <hr/>
-adultCount - {{ adultCount }}
-<hr/>
-ChildCount - {{ ChildCount }}
-<hr/>
-InfantsCount - {{ InfantsCount }}
-<hr/>
 ticketClass - {{ ticketClass }}
+<hr/>
+aviaAdultCount - {{ aviaAdultCount }}
+<hr/>
+aviaChildCount - {{ aviaChildCount }}
+<hr/>
+aviaInfantsCount - {{ aviaInfantsCount }}
 <hr/>
 <ul class="b-inna-search__nav">
 	<li
@@ -103,7 +108,7 @@ ticketClass - {{ ticketClass }}
 
 			<div class="b-inna-col__peoples">
 				<div
-						ng-if="formType == 1"
+						ng-show="formType == 1"
 						widget-counter-people
 						adult-count="adultCount"
 						children-count="childrenCount"
@@ -112,12 +117,12 @@ ticketClass - {{ ticketClass }}
 						></div>
 				<div
 						class="b-inna-col__peoples-avia"
-						ng-if="formType == 2"
+						ng-show="formType == 2"
 						widget-avia-counter-people
-						adult-count="adultCount"
-						child-count="ChildCount"
-						infants-count="InfantsCount"
-						tickets-class="ticketClass"
+						adult-count="aviaAdultCount"
+						child-count="aviaChildCount"
+						infant-count="aviaInfantsCount"
+						ticket-class="ticketClass"
 						>
 					
 				</div>
