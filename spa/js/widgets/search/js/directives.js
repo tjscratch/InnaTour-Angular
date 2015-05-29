@@ -109,19 +109,24 @@ innaAppDirectives
             }
         }
     })
-    
+
     .directive('widgetAviaCounterPeople', function ($templateCache) {
-        return{
+        return {
             template: function () {
                 return $templateCache.get('avia_counter_people.html') ? $templateCache.get('avia_counter_people.html') : $templateCache.get('widgets/search/templ/avia_counter_people.html')
             },
             scope: {
                 adultCount: "=",
-                ChildCount: "=",
-                InfantsCount: "=",
+                childCount: "=",
+                infantsCount: "=",
                 ticketClass: "="
             },
-            controller: function($scope){
+            controller: function ($scope) {
+
+                $scope.adultCount = 1;
+                $scope.childCount = 0;
+                $scope.infantsCount = 0;
+
                 $scope.$watch('ticketsClassBussiness', function (data) {
                     if (data) {
                         $scope.ticketsClassHumanize = 'бизнес';
@@ -131,20 +136,67 @@ innaAppDirectives
                         $scope.ticketsClass = 0;
                     }
                 });
+
+
+                /**
+                 * counter
+                 */
+                var counter = function(count, max, min, inc){
+                    var value = count;
+                    if (inc) {
+                        if (count < max && inc == 1) {
+                            value += 1;
+                        }
+                        if (count > min && inc == -1) {
+                            value -= 1;
+                        }
+                    } else {
+                        if (count < min) {
+                            value = min;
+                        } else if (count >= max) {
+                            value = max;
+                        } else {
+                            value = count;
+                        }
+                    }
+                    return value;
+                }
+
+                /**
+                 * adultCount
+                 */
+                var maxAdultCount = 4;
+                var minAdultCount = 1;
+                $scope.adultCountInc = function (count, inc) {
+                    $scope.adultCount = counter(count, maxAdultCount, minAdultCount, inc)
+                };
+
+                /**
+                 * childCount
+                 */
+                var maxChildCount = 4;
+                var minChildCount = 0;
+                $scope.childCountInc = function (count, inc) {
+                    $scope.childCount = counter(count, maxChildCount, minChildCount, inc)
+                };
+
+                /**
+                 * infantsCount
+                 */
+                var maxInfantsCount = 4;
+                var minInfantsCount = 0;
+                $scope.infantsCountInc = function (count, inc) {
+                    $scope.infantsCount = counter(count, maxInfantsCount, minInfantsCount, inc)
+                };
+
+
             },
-            link: function (scope, element, attrs) {
-                scope.rootElement = $('.search-form-item-current', element);
-
-                $(document).click(function bodyClick(event) {
+            link: function (scope, element) {
+                $(document).click(function (event) {
                     var isInsideComponent = !!$(event.target).closest(element).length;
-                    var isOnComponentTitle = event.target == element || event.target == scope.rootElement[0];
-
-                    console.log(event.target);
-                    console.log(element);
-                    
+                    var isOnComponentTitle = !event.target.closest('.inna-dropdown-action');
                     scope.$apply(function ($scope) {
-                        if (isOnComponentTitle) {
-                            console.log(3333)
+                        if (!isOnComponentTitle) {
                             $scope.isOpen = !$scope.isOpen;
                         } else {
                             $scope.isOpen = isInsideComponent;

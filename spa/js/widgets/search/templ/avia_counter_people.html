@@ -8,44 +8,48 @@
 
 		<div class="inna-dropdown-dialog_title">Пассажиры</div>
 
-		<div class="inna-dropdown-dialog_label">Взрослые</div>
-		<ul class="inna-dropdown-dialog-btns">
-			<li
-					class="inna-dropdown-dialog-btns_btn"
-					ng-repeat="count in [] | widgetRange:5"
-					ng-if="count > 0"
-					ng-class="{selected:adultCount == count}"
-					ng-click="onCounterClick('adultCount', count)"
-					>
-				{{ count }}
-			</li>
-		</ul>
-
-		<div class="inna-dropdown-dialog_label">Дети</div>
-		<ul class="inna-dropdown-dialog-btns">
-			<li
-					class="inna-dropdown-dialog-btns_btn"
-					ng-repeat="count in [] | widgetRange:4"
-					ng-class="{selected:childrenCount == count}"
-					ng-click="onCounterClick('childrenCount', count)"
-					>
-				{{ count }}
-			</li>
-		</ul>
-
-		<div class="inna-dropdown-dialog_label" ng-show="childrenCount > 0">
-			<ng-pluralize count="childrenCount" when="{'0': '','one': 'Возраст ребенка','other': 'Возраст детей'}"></ng-pluralize>
-			<!--{{ childrenCount | asQuantity:"человек":"человека":"человек"}}-->
+		
+		<div class="inna-dropdown-counter">
+			<div class="inna-dropdown-counter__label">
+				<div class="inna-dropdown-counter__label-title">Взрослые</div>
+				<div class="inna-dropdown-counter__label-capt">12 лет и старше</div>
+			</div>
+			<div class="inna-dropdown-counter__action">
+				<div class="b-inna-counter">
+					<span class="b-inna-counter__minus" ng-click="adultCountInc(adultCount, -1)">-</span>
+					<input class="b-inna-counter__input" type="text" ng-model="adultCount" ng-blur="adultCountInc(adultCount)"/>
+					<span class="b-inna-counter__plus" ng-click="adultCountInc(adultCount, +1)">+</span>
+				</div>
+			</div>
 		</div>
 
-		<div class="inna-dropdown-age-row">
-			<div widget-counter-people-child-age-selector
-			     ng-repeat="selector in childrensAge"
-			     selector="selector"
-			     ng-class="{'inna-dropdown-age-col-2': childrensAge.length == 2, 'inna-dropdown-age-col-1': childrensAge.length == 1}"
-					></div>
+		<div class="inna-dropdown-counter">
+			<div class="inna-dropdown-counter__label">
+				<div class="inna-dropdown-counter__label-title">Дети</div>
+				<div class="inna-dropdown-counter__label-capt">2 - 11 лет</div>
+			</div>
+			<div class="inna-dropdown-counter__action">
+				<div class="b-inna-counter">
+					<span class="b-inna-counter__minus" ng-click="childCountInc(childCount, -1)">-</span>
+					<input class="b-inna-counter__input" type="text" ng-model="childCount" ng-blur="childCountInc(childCount)"/>
+					<span class="b-inna-counter__plus" ng-click="childCountInc(childCount, +1)">+</span>
+				</div>
+			</div>
 		</div>
 
+		<div class="inna-dropdown-counter">
+			<div class="inna-dropdown-counter__label">
+				<div class="inna-dropdown-counter__label-title">Младенцы</div>
+				<div class="inna-dropdown-counter__label-capt">0 - 2 года</div>
+			</div>
+			<div class="inna-dropdown-counter__action">
+				<div class="b-inna-counter">
+					<span class="b-inna-counter__minus" ng-click="infantsCountInc(infantsCount, -1)">-</span>
+					<input class="b-inna-counter__input" type="text" ng-model="infantsCount" ng-blur="infantsCountInc(infantsCount)"/>
+					<span class="b-inna-counter__plus" ng-click="infantsCountInc(infantsCount, +1)">+</span>
+				</div>
+			</div>
+		</div>
 
 		<div class="inna-dropdown-dialog__checkboxes">
 			<label class="widget-checkboxes-label">

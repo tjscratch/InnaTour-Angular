@@ -178,13 +178,11 @@ $dropdown-width = 140px;
         border-color #fff transparent transparent transparent
     }
 }
-
 .avia-tickets_class{
     margin 0 0 0 2px
     opacity .55
     font-size 13px
 }
-    
 .inna-dropdown-dialog__checkboxes{
     position relative
     margin 6px -15px 0
@@ -195,5 +193,65 @@ $dropdown-width = 140px;
         i{
             margin-top -3px
         }
+    }
+}
+// avia
+.b-inna-col__peoples-avia{
+    .inna-dropdown-dialog{
+        width 250px
+        font-size 13px
+    }
+}
+.inna-dropdown-counter{
+    margin 0 0 15px
+    
+    &:after,
+    &:before{
+        content ''
+        display table
+        clear both
+    }
+}
+.inna-dropdown-counter__label{
+    float left
+}
+.inna-dropdown-counter__label-capt{
+    opacity .55
+}
+.inna-dropdown-counter__action{
+    float right
+}
+//b-inna-counter
+.b-inna-counter{
+    font-size 0
+}
+.b-inna-counter__input{
+    width 28px
+    height 28px
+    border 1px solid
+    margin 0 3px
+    padding 0 5px
+    vertical-align top
+    color $base-color
+    font-size 14px
+    border 1px solid $border-color-gray
+    border-radius $border-radius
+    background-color #fff
+    text-align center
+}
+.b-inna-counter__minus,
+.b-inna-counter__plus{
+    display inline-block
+    line-height 28px
+    width 28px
+    background-color lighten($bg-black, 93%)
+    text-align center
+    color lighten($bg-black, 40%)
+    font-size 20px
+    border-radius $border-radius
+    cursor pointer
+    
+    &:hover{
+        background-color lighten($bg-black, 85%)
     }
 }
