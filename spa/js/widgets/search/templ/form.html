@@ -1,5 +1,23 @@
+<hr/>
+aviaCalendar - {{ aviaCalendar }}
+startDate - {{ startDate }}
+{{ adultCount }}
+{{ ticketsClass }}
+<hr/>
+fromId - {{ fromId }}
+<hr/>
+toId - {{ toId }}
+<hr/>
+adultCount - {{ adultCount }}
+<hr/>
+ChildCount - {{ ChildCount }}
+<hr/>
+InfantsCount - {{ InfantsCount }}
+<hr/>
+ticketClass - {{ ticketClass }}
+<hr/>
 <ul class="b-inna-search__nav">
-	<li 
+	<li
 			ng-click="formType = 1"
 			ng-class="{'active' : formType == 1}"
 			>
@@ -7,7 +25,7 @@
 			Перелет + Отель
 		</span>
 	</li>
-	<li 
+	<li
 			ng-click="formType = 2"
 			ng-class="{'active' : formType == 2}"
 			>
@@ -16,12 +34,6 @@
 		</span>
 	</li>
 </ul>
-<hr/>
-aviaCalendar - {{ aviaCalendar }}
-startDate - {{ startDate }}
-{{ adultCount }}
-{{ ticketsClass }}
-<hr/>
 <div class="b-inna-search-form">
 	<div class="b-inna-row">
 		<form name="forms.innaSearchForm">
@@ -90,12 +102,24 @@ startDate - {{ startDate }}
 			</div>
 
 			<div class="b-inna-col__peoples">
-				<div widget-counter-people
-				     adult-count="adultCount"
-				     children-count="childrenCount"
-				     childrens-age="childrensAge"
-				     tickets-class="ticketClass"
+				<div
+						ng-if="formType == 1"
+						widget-counter-people
+						adult-count="adultCount"
+						children-count="childrenCount"
+						childrens-age="childrensAge"
+						tickets-class="ticketClass"
 						></div>
+				<div
+						ng-if="formType == 2"
+						widget-avia-counter-people
+						adult-count="adultCount"
+						child-count="ChildCount"
+						infants-count="InfantsCount"
+						tickets-class="ticketClass"
+						>
+					
+				</div>
 			</div>
 
 			<div class="b-inna-col__action">

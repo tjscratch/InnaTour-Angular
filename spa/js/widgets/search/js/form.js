@@ -11,7 +11,10 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
             exportFieldsCallback: "&",
             exportFields: "=",
             updateFromOutside: "=",
-            isWlPartnerMode: "="
+            isWlPartnerMode: "=",
+            enabledDpForm: "=",
+            enabledAviaForm: "=",
+            formTypeActive: "=" // активная по умолчанию форма, 1 - ДП, 2 - авиа
         },
         controller: function ($element, $scope, $http, widgetValidators, WidgetPackages, WidgetAvia) {
 
@@ -25,7 +28,11 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
             /**
              * инициализация формы, если включены и ДП и авиа то по умолчанию активна форма ДП
              */
-            $scope.formType = 1;
+            if ($scope.formTypeActive) {
+                $scope.formType = $scope.formTypeActive;
+            } else {
+                $scope.formType = 1;
+            }
             $scope.forms = {};
 
 
@@ -70,7 +77,7 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 });
 
             /**
-             * поиск локили откуда для авиа и ДП одно и то же
+             * поиск локали откуда для авиа и ДП одно и то же
              */
             $scope.getLocationFrom = function (text) {
                 return WidgetAvia.getLocation(text)
@@ -160,15 +167,15 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 }
             });
 
-            
-            $scope.$watch('formType', function(data){
+
+            $scope.$watch('formType', function (data) {
                 if (data == 2) {
                     $scope.aviaCalendar = {};
                     $scope.aviaCalendar.oneWay = false;
                     $scope.aviaCalendar.roaming = false;
                 } else {
                     $scope.aviaCalendar = null;
-                } 
+                }
             });
 
             /**
@@ -225,26 +232,148 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
              */
 
 
+            /**
+             * установка fromId toId, если поиск в ДП то подставлем ID локации, если авиа поиск подставляем код iata
+             */
+            $scope.$watch('formType', function (val) {
+                if (val == 1) {
+                    $scope.fromId = $scope.locationFrom ? $scope.locationFrom.id : null;
+                    $scope.toId = $scope.locationTo ? $scope.locationTo.id : null;
+                } else {
+                    $scope.fromId = $scope.locationFrom ? $scope.locationFrom.iata : null;
+                    $scope.toId = $scope.locationTo ? $scope.locationTo.iata : null;
+                }
+            });
             $scope.$watch('locationFrom', function (data) {
                 if (data && data.id) {
-                    $scope.fromId = data.id;
+                    if ($scope.formType == 1) {
+                        $scope.fromId = data.id;
+                    } else {
+                        $scope.fromId = data.iata;
+                    }
                 } else {
                     $scope.fromId = null;
                 }
             });
             $scope.$watch('locationTo', function (data) {
                 if (data && data.id) {
-                    $scope.toId = data.id;
+                    if ($scope.formType == 1) {
+                        $scope.toId = data.id;
+                    } else {
+                        $scope.toId = data.iata;
+                    }
                 } else {
                     $scope.toId = null;
                 }
             });
+
+
+            /**
+             * если есть аттрибуты партнера присваиваем их $scope.partner
+             * ?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
+             */
+            $scope.partner = ''
+            if ($scope.partnerName) {
+                $scope.partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId;
+            }
+
+
             $scope.startDateError = null;
             $scope.endDateError = null;
 
+
+            /**
+             * BEGIN поиск ДП
+             * "6733-6623-13.11.2014-19.11.2014-1-2-5_0_11"
+             */
+            var searchDP = function () {
+
+
+                var params = [];
+                params.push($scope.fromId);
+                params.push($scope.toId);
+                params.push($scope.startDate);
+                params.push($scope.endDate);
+                params.push($scope.ticketClass);
+                params.push($scope.adultCount);
+                params[6] = '';
+
+
+                if ($scope.childrensAge) {
+                    var childs = [];
+                    for (var i = 0; i < $scope.childrensAge.length; i++) {
+                        childs.push($scope.childrensAge[i].value);
+                    }
+                    params[6] = childs.join('_');
+                }
+
+
+                if ($scope.isWlPartnerMode) {
+                    //var openUrl = "/#/packages/search/" + params.join('-');
+                    //openUrl = window.partners.getParentLocationWithUrl(openUrl);
+                    //window.open(openUrl, '_blank');
+                    var openUrl = "/packages/search/" + params.join('-');
+                    $location.url(openUrl);
+                }
+                else {
+                    window.open($scope.partnerSite + "/#/packages/search/" + params.join('-') + $scope.partner, '_blank');
+                }
+
+
+            };
+            /**
+             * END поиск ДП
+             */
+
+
+            /**
+             * BEGIN поиск авиа
+             * Авиа - /#/avia/search/:FromUrl-:ToUrl-:BeginDate-:EndDate
+             *          -:AdultCount-:ChildCount-:InfantsCount
+             *          -:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType
+             * FromUrl - iata места отправления
+             * ToUrl - iata места назначения
+             * BeginDate - дата вылета
+             * EndDate - дата обратного вылета
+             * AdultCount - кол-во взрослых пассажиров 12 и старше
+             * ChildCount - кол-во детей 2-11 лет
+             * InfantsCount - кол-во младенцев 0-2 года
+             * CabinClass - класс перелета
+             * IsToFlexible -
+             * IsBackFlexible -
+             * PathType -
+             */
+            var searchAvia = function () {
+                var params = [
+                    $scope.fromId,
+                    $scope.toId,
+                    $scope.startDate,
+                    $scope.endDate,
+                    $scope.adultCount,
+                    0,
+                    0,
+                    $scope.ticketClass,
+                    0,
+                    0,
+                    0
+                ];
+                console.log(params);
+                
+                if ($scope.isWlPartnerMode) {
+                    var openUrl = "/avia/search/" + params.join('-');
+                    $location.url(openUrl);
+                }
+                else {
+                    window.open($scope.partnerSite + "/#/avia/search/" + params.join('-') + $scope.partner, '_blank');
+                }
+
+            }
+            /**
+             * END поиск авиа
+             */
+
             /**
              * Старт поиска
-             * "6733-6623-13.11.2014-19.11.2014-1-2-5_0_11"
              * @param innaSearchForm
              */
             $scope.innaStartSearch = function (innaSearchForm) {
@@ -252,42 +381,14 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 try {
                     validate();
 
-                    var params = [];
-                    params.push($scope.fromId);
-                    params.push($scope.toId);
-                    params.push($scope.startDate);
-                    params.push($scope.endDate);
-                    params.push($scope.ticketClass);
-                    params.push($scope.adultCount);
-                    params[6] = '';
-
-                    if ($scope.childrensAge) {
-                        var childs = [];
-                        for (var i = 0; i < $scope.childrensAge.length; i++) {
-                            childs.push($scope.childrensAge[i].value);
-                        }
-                        params[6] = childs.join('_');
-                    }
-
-                    var partner = '';
-                    if ($scope.partnerName) {
-                        partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId;
-                    }
-
                     if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
-                        //?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
-
-                        if ($scope.isWlPartnerMode) {
-                            //var openUrl = "/#/packages/search/" + params.join('-');
-                            //openUrl = window.partners.getParentLocationWithUrl(openUrl);
-                            //window.open(openUrl, '_blank');
-                            var openUrl = "/packages/search/" + params.join('-');
-                            $location.url(openUrl);
-                        }
-                        else {
-                            window.open($scope.partnerSite + "/#/packages/search/" + params.join('-') + partner, '_blank');
+                        if ($scope.formType == 1) {
+                            searchDP();
+                        } else {
+                            searchAvia();
                         }
                     }
+
                 } catch (e) {
                     if ($scope.hasOwnProperty(e.message)) {
                         $scope[e.message] = e;

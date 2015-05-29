@@ -34,19 +34,19 @@ innaAppDirectives
                 $scope.sum = function (a, b) {
                     return +a + +b;
                 }
-                
-                
-                $scope.$watch('ticketsClassBussiness', function(data){
-                    if (data){
+
+
+                $scope.$watch('ticketsClassBussiness', function (data) {
+                    if (data) {
                         $scope.ticketsClassHumanize = 'бизнес';
                         $scope.ticketsClass = 1;
-                    }else{
+                    } else {
                         $scope.ticketsClassHumanize = 'эконом';
                         $scope.ticketsClass = 0;
                     }
-                })
-                
-                
+                });
+
+
             }],
             link: function (scope, element, attrs) {
                 scope.rootElement = $('.search-form-item-current', element);
@@ -105,6 +105,51 @@ innaAppDirectives
                             });
                         }, 0)
                     }
+                });
+            }
+        }
+    })
+    
+    .directive('widgetAviaCounterPeople', function ($templateCache) {
+        return{
+            template: function () {
+                return $templateCache.get('avia_counter_people.html') ? $templateCache.get('avia_counter_people.html') : $templateCache.get('widgets/search/templ/avia_counter_people.html')
+            },
+            scope: {
+                adultCount: "=",
+                ChildCount: "=",
+                InfantsCount: "=",
+                ticketClass: "="
+            },
+            controller: function($scope){
+                $scope.$watch('ticketsClassBussiness', function (data) {
+                    if (data) {
+                        $scope.ticketsClassHumanize = 'бизнес';
+                        $scope.ticketsClass = 1;
+                    } else {
+                        $scope.ticketsClassHumanize = 'эконом';
+                        $scope.ticketsClass = 0;
+                    }
+                });
+            },
+            link: function (scope, element, attrs) {
+                scope.rootElement = $('.search-form-item-current', element);
+
+                $(document).click(function bodyClick(event) {
+                    var isInsideComponent = !!$(event.target).closest(element).length;
+                    var isOnComponentTitle = event.target == element || event.target == scope.rootElement[0];
+
+                    console.log(event.target);
+                    console.log(element);
+                    
+                    scope.$apply(function ($scope) {
+                        if (isOnComponentTitle) {
+                            console.log(3333)
+                            $scope.isOpen = !$scope.isOpen;
+                        } else {
+                            $scope.isOpen = isInsideComponent;
+                        }
+                    });
                 });
             }
         }
