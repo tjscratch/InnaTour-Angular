@@ -131,46 +131,51 @@ innaAppDirectives
                 //$scope.adultCount = 1;
                 //$scope.childCount = 0;
                 //$scope.infantCount = 0;
-                
+
                 $scope.minAdultCount = 1;
                 $scope.minChildCount = 0;
                 $scope.minInfantCount = 0;
+
+                $scope.passegesCount = $scope.adultCount + $scope.childCount + $scope.infantCount;
                 
-                var maxAdultCount = function(){
+
+                var maxAdultCount = function () {
                     return $scope.maxPeopleCount - $scope.childCount;
                 }
-                
-                var maxChildCount = function(){
+
+                var maxChildCount = function () {
                     return $scope.maxPeopleCount - $scope.adultCount;
                 }
-                
-                var maxInfantCount = function(){
+
+                var maxInfantCount = function () {
                     return $scope.adultCount;
                 }
-                
+
                 /**
                  * adultCount
                  */
                 $scope.adultCountInc = function (count, inc) {
-                    $scope.adultCount = counter(count, maxAdultCount(), $scope.minAdultCount, inc)
-                    if($scope.infantCount > $scope.adultCount){
+                    $scope.adultCount = counter(count, maxAdultCount(), $scope.minAdultCount, inc);
+                    if ($scope.infantCount > $scope.adultCount) {
                         $scope.infantCountInc($scope.adultCount);
                     }
-                    
+                    $scope.passegesCount = $scope.adultCount + $scope.childCount + $scope.infantCount;
                 };
 
                 /**
                  * childCount
                  */
                 $scope.childCountInc = function (count, inc) {
-                    $scope.childCount = counter(count, maxChildCount(), $scope.minChildCount, inc)
+                    $scope.childCount = counter(count, maxChildCount(), $scope.minChildCount, inc);
+                    $scope.passegesCount = $scope.adultCount + $scope.childCount + $scope.infantCount;
                 };
 
                 /**
                  * infantsCount
                  */
                 $scope.infantCountInc = function (count, inc) {
-                    $scope.infantCount = counter(count, maxInfantCount(), $scope.minInfantCount, inc)
+                    $scope.infantCount = counter(count, maxInfantCount(), $scope.minInfantCount, inc);
+                    $scope.passegesCount = $scope.adultCount + $scope.childCount + $scope.infantCount;
                 };
 
 
