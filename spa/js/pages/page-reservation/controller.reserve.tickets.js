@@ -1393,10 +1393,14 @@
 
                     paymentService.createDPRequest(apiModel,
                         function (data, status) {
-                            console.log('sendRequest success', data, status);
-
-                            //показываем попап
-                            $scope.baloon.show("Заявка отправлена", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
+                            if (data && data.Status == 1){
+                                console.log('sendRequest success', data, status);
+                                //показываем попап
+                                $scope.baloon.show("Заявка отправлена", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
+                            }
+                            else {
+                                $scope.baloon.showGlobalErr();
+                            }
                         }, function (status) {
                             console.log('sendRequest error', status);
 

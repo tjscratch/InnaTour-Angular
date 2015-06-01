@@ -1540,18 +1540,27 @@ innaAppControllers.
                 self.send = function ($event) {
                     $event.preventDefault();
                     self.isOpened = false;
+
+                    function showError(){
+                        console.log('send buy comment error', status);
+
+                        $scope.baloon.show(null, null,
+                            aviaHelper.baloonType.err, function () {
+                            });
+                    }
+
                     paymentService.createBuyComment({orderNum:$scope.orderNum, orderMessage: self.comments},
                         function (data, status) {
-                            console.log('send buy comment success', data, status);
-
-                            //показываем попап
-                            $scope.baloon.show("Сообщение отправлено", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
+                            if (data && data.Status == 1){
+                                console.log('send buy comment success', data, status);
+                                //показываем попап
+                                $scope.baloon.show("Сообщение отправлено", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
+                            }
+                            else {
+                                showError();
+                            }
                         }, function (status) {
-                            console.log('send buy comment error', status);
-
-                            $scope.baloon.show(null, null,
-                                aviaHelper.baloonType.err, function () {
-                                });
+                            showError();
                         });
                 }
             }
