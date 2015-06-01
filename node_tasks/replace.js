@@ -12,6 +12,7 @@ var _ENV_ = process.env.NODE_ENV || '';
 // смотрим на окружение и подставляем нужные хосты
 var apiHost = (_ENV_ === 'production') ? conf.hosts.api.prod : ((_ENV_ === 'beta') ? conf.hosts.api.beta : conf.hosts.api.test);
 var b2bHost = (_ENV_ === 'production') ? conf.hosts.b2b.prod : ((_ENV_ === 'beta') ? conf.hosts.b2b.beta : conf.hosts.b2b.test);
+var b2bHostSputnik = (_ENV_ === 'production') ? conf.hosts.b2bSputnik.prod : ((_ENV_ === 'beta') ? conf.hosts.b2bSputnik.beta : conf.hosts.b2bSputnik.test);
 var b2bPartnerHost = (_ENV_ === 'production') ? conf.hosts.b2bPartner.prod : ((_ENV_ === 'beta') ? conf.hosts.b2bPartner.beta : conf.hosts.b2bPartner.test);
 var frontHost = (_ENV_ === 'production') ? conf.hosts.front.prod : ((_ENV_ === 'beta') ? conf.hosts.front.beta : conf.hosts.front.test);
 var staticHost = (_ENV_ === 'production') ? conf.hosts.static.prod : ((_ENV_ === 'beta') ? conf.hosts.static.beta : conf.hosts.static.test);
@@ -68,6 +69,7 @@ gulp.task('replace-config', function () {
                 json: {
                     'api_host': apiHost,
                     'b2b_host': b2bHost,
+                    'b2b_host_sputnik': b2bHostSputnik,
                     'b2bPartnerHost': b2bPartnerHost,
                     'front_host': frontHost,
                     'static_host': staticHost,
