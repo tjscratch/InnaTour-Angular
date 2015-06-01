@@ -460,8 +460,11 @@ innaAppControllers.
 
                         function addTooltipData(item) {
                             item.PriceDetailsTooltipData = [];
-
-                            if (item.PriceObject != null && item.PriceDetails != null) {
+                            //console.log(item.PriceDetails);
+                            // объект PriceObject не приходит, пока обрал его из условия
+                            //if (item.PriceObject != null && item.PriceDetails != null) {
+                            if (item.PriceDetails != null) {
+                                
                                 //item.PriceDetailsTooltipData.push({ name: 'Сбор Инна-Тур', price: item.PriceObject.TotalInnaProfit });
                                 //item.PriceDetailsTooltipData.push({ name: 'Сбор агента', price: item.PriceObject.TotalAgentReward });
                                 //item.PriceDetailsTooltipData.push({ name: 'Агентское вознаграждение', price: item.PriceObject.TotalAgentRate });

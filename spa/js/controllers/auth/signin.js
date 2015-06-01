@@ -17,7 +17,8 @@ angular.module('innaApp.controllers')
                     Email: $scope.username,
                     Password: $scope.password,
                     RememberMe: $scope.rememberMe.toString()
-                }
+                };
+
                 AuthDataProvider.signIn(dataSingIn,
                     function (data) { //success
                         RavenWrapper.raven({

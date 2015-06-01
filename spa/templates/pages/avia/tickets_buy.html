@@ -137,12 +137,12 @@
 
 <div class="b-tickets-info-container">
     <div class="b-tickets-ok"
-         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">Билеты
-        забронированы
+         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">
+        <i class="fa fa-check"></i>Билеты забронированы
     </div>
     <div class="b-tickets-ok"
-         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">Билеты
-        забронированы, отель будет забронирован после оплаты
+         ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">
+        <i class="fa fa-check"></i>Билеты забронированы, отель будет забронирован после оплаты
     </div>
     <div class="b-tickets-info-block" ng-if="reservationModel.experationMinute > 0">
         <div class="b-tickets-sum">Сумма к оплате: <b>{{price| price}}
@@ -245,11 +245,11 @@
                                                                   ng-click="processToBuy($event)"></span>
         <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree">
             <ins class="b-checkbox" id="agree" data-title="Нужно согласиться с условиями"></ins>
-            Я принимаю условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a>,
+            Я принимаю условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a><span ng-if="!reservationModel.IsService">,
             <a href="http://www.iatatravelcentre.com/e-ticket-notice/Russian_Federation/Russian/"
                target="_blank">договора IATA</a>,
             <a ng-href="{{TKP.url()}}" target="_blank">ТКП</a>,
-            <a ng-href="#" ng-click="tarifs.show($event)">тарифов</a>, и не возражаю против обработки моих
+            <a ng-href="#" ng-click="tarifs.show($event)">тарифов</a></span>, и не возражаю против обработки моих
             персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
         <img src="/spa/img/logos.png" class="b-logos" alt="">
     </div>

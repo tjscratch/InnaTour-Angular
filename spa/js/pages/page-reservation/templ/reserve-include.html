@@ -133,7 +133,7 @@
 
             <div class="bottom-actions">
                 <!--<a ng-href="{{goBackUrl()}}" class="pull-left">Заменить</a>-->
-                <a ng-if="!isBuyPage" ng-href="{{getHotelInfoLink(item.VariantId1, item.VariantId2, hotel.HotelId, hotel.ProviderId)}}" target="_blank" class="pull-right">Подробнее</a>
+                <a link-in-new-window-if-can ng-if="!isBuyPage" ng-href="{{getHotelInfoLink(item.VariantId1, item.VariantId2, hotel.HotelId, hotel.ProviderId)}}" target="_blank" class="pull-right">Подробнее</a>
             </div>
         </div>
     </div>
