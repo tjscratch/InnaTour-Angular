@@ -19,13 +19,13 @@ innaAppDirectives.
                     closeFn: '=',
                     data: '='
                 },
-                controller: function ($scope) {
+                controller: function ($scope, $rootScope) {
                     //$scope.isShow = false;
                     //updateDisplay();
 
                     setPartnerData($scope);
 
-                    function setPartnerData(data){
+                    function setPartnerData(data) {
                         var partner = window.partners ? window.partners.getPartner() : null;
                         if (partner != null && partner.realType == window.partners.WLType.b2b) {
                             if (partner.name == 'sputnik') {
@@ -45,7 +45,7 @@ innaAppDirectives.
 
                         //позиционирование во фрейме
                         if (window.partners && window.partners.parentScrollTop > 0) {
-                            $scope.popupStyles = { 'top': window.partners.parentScrollTop + 100 + 'px' };//100px сверху
+                            $scope.popupStyles = {'top': window.partners.parentScrollTop + 100 + 'px'};//100px сверху
                         }
                         else {
                             $scope.popupStyles = null;
@@ -118,6 +118,16 @@ innaAppDirectives.
                             $scope.closeFn();
                         }
 
+                        $scope.isShow = false;
+                        updateDisplay();
+                    };
+
+                    $scope.agencyRegSuccessRedirectHome = function ($event) {
+                        $rootScope.$broadcast('open-auth-form');
+                        eventsHelper.preventBubbling($event);
+                        if ($scope.closeFn != null) {
+                            $scope.closeFn();
+                        }
                         $scope.isShow = false;
                         updateDisplay();
                     };
