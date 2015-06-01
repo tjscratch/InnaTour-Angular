@@ -27,11 +27,10 @@
             // TODO : наследование контроллера
             $controller('ReserveTicketsCtrl', {$scope: $scope});
 
-            $scope.isRequestEnabled = true;
-            if (window.partners.isWL()){
-                $scope.isRequestEnabled = false;
+            if (!$scope.isAgency()) {
+                //тоолько для B2C
+                $scope.isRequestEnabled = true;
             }
-
 
             /*----------------- INIT -------------------*/
 
