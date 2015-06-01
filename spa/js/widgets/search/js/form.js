@@ -202,6 +202,8 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                         $scope.aviaCalendarOneWay = e.target.checked;
                         if ($scope.aviaCalendarOneWay) {
                             $element.find('.to_date').attr("disabled", true);
+                        } else {
+                            $element.find('.to_date').attr("disabled", false);
                         }
                     }, 0);
                 })
@@ -379,7 +381,7 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                     $scope.IsBackFlexible,
                     $scope.PathType
                 ];
-                console.log(params);
+
 
                 if ($scope.isWlPartnerMode) {
                     var openUrl = "/avia/search/" + params.join('-');
@@ -427,8 +429,12 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                 widgetValidators.noEqual($scope.fromId, $scope.toId, Error('toId'), "Города отправления и назначения должны отличаться");
 
                 widgetValidators.required($scope.startDate, Error('startDateError'), "Выберите дату отправления туда");
-                widgetValidators.required($scope.endDate, Error('endDateError'), "Выберите дату отправления обратно");
 
+                $scope.$watch('aviaCalendarOneWay', function (data) {
+                    if (!data) {
+                        widgetValidators.required($scope.endDate, Error('endDateError'), "Выберите дату отправления обратно");
+                    }
+                });
             }
 
             $scope.$watch('fromId', function (value) {
