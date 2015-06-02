@@ -10,12 +10,13 @@ innaAppDirectives.directive('datePickerDateFormat', function () {
             //});
 
             ngModel.$parsers.push(function (value) {
-                //console.log('parser', value);
-
-                var date = moment(value, 'DD MMM YYYY');
-                //console.log('moment', date.format('D.M.YYYY'));
-
-                return date.format('D.M.YYYY');
+                
+                if(value){
+                    var date = moment(value, 'DD MMM YYYY');
+                    return date.format('D.M.YYYY');
+                }else{
+                    return null
+                }
             });
 
         }
