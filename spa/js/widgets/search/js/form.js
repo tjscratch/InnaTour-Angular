@@ -170,8 +170,16 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                             setCheckboxesAviaCalendar();
                         }
                     }, 0);
+                    /**
+                     * fix
+                     * https://innatec.atlassian.net/browse/IN-4644
+                     */
+                    $(".datepicker .datepicker-switch").on('click', function (e) {
+                        e.stopPropagation();
+                    })
                 });
 
+            
             /**
              * установка чекбоксов для авиа в календарь
              */
