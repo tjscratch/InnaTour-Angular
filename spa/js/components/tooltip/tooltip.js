@@ -60,7 +60,7 @@ angular.module('innaApp.components').
                                 that.hide();
                             }
                         }
-                    };
+                    }
 
                     this.on({
                         toggleShow: this.toggleShow,
@@ -204,7 +204,7 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
 
                 if($scope.coords){
                     coords = $scope.coords;
-                };
+                }
                 
                 var _tooltipBase = new TooltipBase({
                     el: ($scope.el) ? $element[0] : document.body,
@@ -227,11 +227,11 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
                     if(value) {
                         _tooltipBase.set('NewPricePackage', value);
                     }
-                })
+                });
 
                 $scope.$watch('isVisible', function (value) {
                     _tooltipBase.set('isVisible', value);
-                })
+                });
 
 
                 $scope.$on('$destroy', function () {
@@ -240,5 +240,5 @@ innaAppDirectives.directive('tooltipDirectiveBase', [
                 })
             }
         }
-    }])
+    }]);
 
