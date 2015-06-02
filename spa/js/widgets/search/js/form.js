@@ -33,6 +33,11 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
 			} else {
 				$scope.formType = 1;
 			}
+			$scope.$watch('formTypeActive', function (data) {
+				if(data){
+					$scope.formType = data;
+				}
+			})
 			$scope.forms = {};
 			$scope.aviaCalendarOneWay = false;
 			$scope.aviaCalendarRoaming = false;

@@ -22,6 +22,10 @@
             $scope.style.width = 960;
             $scope.style.widthMax = 960;
             $scope.style.widthMin = 235;
+            
+            $scope.formTypeActive = 2;
+            $scope.enabledDpForm = true;
+            $scope.enabledAviaForm = true;
 
             $scope.radioModel = 'b-inna-search-widget-row-1';
             //$scope.style.formBg = '#212121';
