@@ -16,7 +16,6 @@ var authController = angular.module('innaApp.controllers')
              */
             var partner = window.partners ? window.partners.getPartner() : null;
 
-
             /*Private*/
             var setUserInfo = function (data, needInitLastUserAfterLoginCheck) {
                 if (data && data["Email"]) {
@@ -146,6 +145,9 @@ var authController = angular.module('innaApp.controllers')
                         $scope.close();
                     }, function (err, data) {
                         console.log('auth err:', err, data);
+                        $scope.safeApply(function () {
+                            $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
+                        });
                     });
 
                     clearInterval(interval);
@@ -232,8 +234,13 @@ var authController = angular.module('innaApp.controllers')
             }
 
             $scope.recognize = function (needInitLastUserAfterLoginCheck) {
+                //console.log('recognize', needInitLastUserAfterLoginCheck);
                 AuthDataProvider.recognize(function (data) {
                         setUserInfo(data, needInitLastUserAfterLoginCheck);
+
+                        $scope.safeApply(function () {
+                            $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
+                        });
                     },
                     function (err) {
                         $scope.safeApply(function () {
@@ -244,6 +251,8 @@ var authController = angular.module('innaApp.controllers')
                             if ($scope.reloadChecker) {
                                 $scope.reloadChecker.checkReloadPage();
                             }
+
+                            $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
                         });
                     });
             };
