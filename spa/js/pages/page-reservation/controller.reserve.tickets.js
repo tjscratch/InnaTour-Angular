@@ -870,7 +870,7 @@
         $scope.initPayModel = function () {
             //log('$scope.initPayModel');
             loadHelpersDataAndInitModel();
-        }
+        };
 
         function initPayModel() {
             //log('initPayModel');
@@ -979,7 +979,7 @@
 
             if ($scope.afterPayModelInit != null)
                 $scope.afterPayModelInit();
-        };
+        }
 
         $scope.moreClick = function ($event) {
             eventsHelper.preventBubbling($event);
