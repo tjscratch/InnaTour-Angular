@@ -376,12 +376,15 @@
                 <div class="buy-comment-title">Комментарий к заказу</div>
 
                 <div class="but-comment-text-block">
-                    <div class="buy-comment-text-lbl">Текст сообщения</div>
-                    <textarea name="" class="buy-comment-text" ng-model="buyCommentsForm.comments">
-                    {{buyCommentsForm.comments | breakFilter}}
-                    </textarea>
+                    <form name="buyCommentsForm.form" ng-submit="buyCommentsForm.send($event)">
+                        <div class="buy-comment-text-lbl">Текст сообщения</div>
+                        <textarea data-required name="reqComments" ng-class="{'error':buyCommentsForm.form.$dirty && buyCommentsForm.form.reqComments.$invalid}" class="buy-comment-text" ng-model="buyCommentsForm.comments">
+                        {{buyCommentsForm.comments | breakFilter}}
+                        </textarea>
+                        <div ng-show="buyCommentsForm.form.$dirty && buyCommentsForm.form.reqComments.$invalid" class="buy-comment-text__error">Нужно ввести текст сообщения</div>
 
-                    <button type="submit" class="button buy-comment-submit" ng-click="buyCommentsForm.send($event)">Отправить</button>
+                        <button type="submit" class="button buy-comment-submit">Отправить</button>
+                    </form>
                 </div>
         </div>
     </div>

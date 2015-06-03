@@ -291,7 +291,7 @@ innaAppControllers.
                     TCH_url = window.partners.getPartner().TCHLink;
                 }
                 else {
-                    TCH_url =  app_main.staticHost + '/files/doc/TCH.pdf';
+                    TCH_url = app_main.staticHost + '/files/doc/TCH.pdf';
                 }
 
                 $scope.TKP = {
@@ -1521,11 +1521,13 @@ innaAppControllers.
 
 
             $scope.buyCommentsForm = new buyCommentsForm();
-            function buyCommentsForm(){
+            function buyCommentsForm() {
                 var self = this;
 
+                self.form = {};
                 self.isOpened = false;
                 self.comments = '';
+
                 self.close = function ($event) {
                     $event.preventDefault();
                     self.isOpened = false;
@@ -1533,15 +1535,15 @@ innaAppControllers.
 
                 self.openPopup = function ($event) {
                     $event.preventDefault();
-                    self.comment = '';
+                    self.comments = '';
                     self.isOpened = true;
                 };
 
                 self.send = function ($event) {
                     $event.preventDefault();
-                    self.isOpened = false;
+                    self.form.$dirty = true;
 
-                    function showError(){
+                    function showError() {
                         console.log('send buy comment error', status);
 
                         $scope.baloon.show(null, null,
@@ -1549,19 +1551,33 @@ innaAppControllers.
                             });
                     }
 
-                    paymentService.createBuyComment({orderNum:$scope.orderNum, orderMessage: self.comments},
-                        function (data, status) {
-                            if (data && data.Status == 1){
-                                console.log('send buy comment success', data, status);
-                                //показываем попап
-                                $scope.baloon.show("Сообщение отправлено", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
-                            }
-                            else {
+                    if (!self.comments || self.comments.length == 0){
+                        self.form.reqComments.$setValidity('required', false);
+                    }
+                    else {
+                        self.form.reqComments.$setValidity('required', true);
+                        self.isOpened = false;
+                    }
+
+                    if (self.form.$valid){
+                        console.log('form valid');
+                        paymentService.createBuyComment({orderNum:$scope.orderNum, orderMessage: self.comments},
+                            function (data, status) {
+                                if (data && data.Status == 1){
+                                    console.log('send buy comment success', data, status);
+                                    //показываем попап
+                                    $scope.baloon.show("Сообщение отправлено", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
+                                }
+                                else {
+                                    showError();
+                                }
+                            }, function (status) {
                                 showError();
-                            }
-                        }, function (status) {
-                            showError();
-                        });
+                            });
+                    }
+                    else {
+                        console.log('form not valid');
+                    }
                 }
             }
 
