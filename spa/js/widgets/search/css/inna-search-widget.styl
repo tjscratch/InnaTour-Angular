@@ -53,6 +53,8 @@
         left 0
         top $control-height
         z-index 1000
+        max-height 320px
+        overflow auto
         margin 0
         padding 0
         background #fff
@@ -104,6 +106,10 @@
             text-transform: uppercase;
             font-size 12px
         }
+
+        &.newLine{
+            border-bottom 1px solid #a1a1a1
+        }
     }
     //END typeahead
 }
@@ -124,6 +130,9 @@
     &:focus{
         box-shadow inset 0 0 4px $bg-green-2
         border-color $bg-green-2
+    }
+    &:disabled{
+        background-color #e0e0e0
     }
 }
 .inna-tooltip{

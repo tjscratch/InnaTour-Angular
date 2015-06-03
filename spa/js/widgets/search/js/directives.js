@@ -49,20 +49,18 @@ innaAppDirectives
 
             }],
             link: function (scope, element, attrs) {
-                scope.rootElement = $('.search-form-item-current', element);
-
-                $(document).click(function bodyClick(event) {
+                $(document).click(function (event) {
                     var isInsideComponent = !!$(event.target).closest(element).length;
-                    var isOnComponentTitle = event.target == element || event.target == scope.rootElement[0];
-
+                    var isOnComponentTitle = !event.target.closest('.inna-dropdown-action');
                     scope.$apply(function ($scope) {
-                        if (isOnComponentTitle) {
+                        if (!isOnComponentTitle) {
                             $scope.isOpen = !$scope.isOpen;
                         } else {
                             $scope.isOpen = isInsideComponent;
                         }
                     });
                 });
+                
             }
         }
     })

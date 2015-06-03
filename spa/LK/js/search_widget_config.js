@@ -28,11 +28,11 @@
             $scope.enabledAviaForm = true;
 
             $scope.radioModel = 'b-inna-search-widget-row-1';
-            //$scope.style.formBg = '#212121';
-            //$scope.style.formColorText = '#ffffff';
-            //$scope.style.btnBg = '#89c13a';
-            //$scope.style.btnColor = '#ffffff';
-            //$scope.style.borderRadius = 2;
+            $scope.style.formBg = '#212121';
+            $scope.style.formColorText = '#ffffff';
+            $scope.style.btnBg = '#89c13a';
+            $scope.style.btnColor = '#ffffff';
+            $scope.style.borderRadius = 2;
 
 
             $scope.style.partner = 'biletix';
@@ -77,7 +77,7 @@
                     '.b-inna-btn:hover{background-color:' + data.btnBg + ';color:' + data.btnColor + ';}' +
                     '.datepicker-checkbox:before{border-color:' + data.btnBg + '}'+
                     '.datepicker-checkbox.checked:before{background-color:' + data.btnBg + '}'+
-                    '.widget-checkboxes-label input + i{background-color:' + data.btnBg + '}' +
+                    '.widget-checkboxes-label input + i{border-color:' + data.btnBg + '}' +
                     '.widget-checkboxes-label input:checked + i{background-color:' + data.btnBg + '}' +
                     '.inna-dropdown-dialog-btns_btn.selected{background-color:' + data.btnBg + ';border-color:' + data.btnBg + '}' +
 

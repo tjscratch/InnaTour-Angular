@@ -13,9 +13,22 @@ $dropdown-width = 140px;
 .inna-dropdown-action{
     position relative
     height $control-height
-    line-height $control-height
+    line-height $control-height - 1px
     padding 0 10px
     cursor pointer
+    border-radius inherit
+    border 1px solid transparent
+    @extend .noselect
+    
+    &.open{
+        box-shadow inset 0 0 4px $bg-green-2
+        border-color $bg-green-2
+        
+        .inna-arrow-bottom{
+            top 30%
+            transform rotate(180deg)
+        }
+    }
 }
 .inna-dropdown-dialog{
     position absolute
@@ -241,6 +254,7 @@ $dropdown-width = 140px;
 }
 .b-inna-counter__minus,
 .b-inna-counter__plus{
+    @extend .noselect
     display inline-block
     line-height 28px
     width 28px

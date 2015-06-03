@@ -87,10 +87,15 @@ innaWidgetServices
                         var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + allArport + "</span>";
                         data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
                         if (item.Airport) {
-                            angular.forEach(item.Airport, function (item) {
+                            var lengthAirport = item.Airport.length;
+                            angular.forEach(item.Airport, function (item, key) {
                                 var fullName = item.Name + ", " + item.CountryName;
                                 var fullNameHtml = "<span class='i-name i-name-airport'>" + item.Name + "</span>";
-                                data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
+                                var newLine = null;
+                                if (lengthAirport == key + 1){
+                                    newLine = 'newLine';
+                                }
+                                data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata, newLine: newLine });
                             });
                         }
                     });
