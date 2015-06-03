@@ -71,6 +71,8 @@
 
                     '.datepicker table th.prev:active{background-color:' + data.btnBg + '}' +
                     '.datepicker table th.next:active{background-color:' + data.btnBg + '}' +
+                    '.datepicker table th.prev:active:before{border-color: transparent '+ data.btnBg +' transparent transparent}' +
+                    '.datepicker table th.next:active:before{border-color: transparent transparent transparent' + data.btnBg + '}' +
 
                     '.b-inna-btn:hover{background-color:' + data.btnBg + ';color:' + data.btnColor + ';}' +
                     '.datepicker-checkbox:before{border-color:' + data.btnBg + '}'+
