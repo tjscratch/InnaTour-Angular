@@ -22,7 +22,7 @@
             $scope.style.width = 960;
             $scope.style.widthMax = 960;
             $scope.style.widthMin = 235;
-            
+
             $scope.formTypeActive = 2;
             $scope.enabledDpForm = true;
             $scope.enabledAviaForm = true;
@@ -54,9 +54,9 @@
                     '<style>' +
 
                     '.b-inna-search-widget{width:' + data.width + 'px;}' +
-                        
+
                     '.b-inna-search__nav li::before,' +
-                    '.b-inna-search-form{background-color:' + data.formBg + '}' +    
+                    '.b-inna-search-form{background-color:' + data.formBg + '}' +
                     '.b-inna-search__nav li, ' +
                     '.b-inna-search-form{color:' + data.formColorText + ';}' +
 
@@ -65,14 +65,17 @@
                     '.datepicker .table-condensed > tbody > tr > td.selected,' +
                     '.datepicker table > tbody > tr > td.selected,' +
                     '.b-inna-btn{background-color:' + data.btnBg + ';color:' + data.btnColor + ';}' +
-                        
+
                     '.datepicker .table-condensed > tbody > tr > td.today, ' +
-                    '.datepicker table > tbody > tr > td.today{color: ' + data.btnBg + '}'+
-                    
+                    '.datepicker table > tbody > tr > td.today{color: ' + data.btnBg + '}' +
+
+                    '.datepicker table th.prev:active{background-color:' + data.btnBg + '}' +
+                    '.datepicker table th.next:active{background-color:' + data.btnBg + '}' +
+
                     '.b-inna-btn:hover{background-color:' + data.btnBg + ';color:' + data.btnColor + ';}' +
-                    '.widget-checkboxes-label input + i{border-color:' + data.btnBg +'}'+
-                    '.widget-checkboxes-label input:checked + i{background-color:' + data.btnBg +'}'+
-                    '.inna-dropdown-dialog-btns_btn.selected{background-color:' + data.btnBg + ';border-color:' + data.btnBg + '}'+
+                    '.widget-checkboxes-label input + i{border-color:' + data.btnBg + '}' +
+                    '.widget-checkboxes-label input:checked + i{background-color:' + data.btnBg + '}' +
+                    '.inna-dropdown-dialog-btns_btn.selected{background-color:' + data.btnBg + ';border-color:' + data.btnBg + '}' +
 
                     '.datepicker .table-condensed > tbody > tr > td.range,' +
                     '.datepicker table > tbody > tr > td.range{background-color:' + data.btnBg + ';opacity: .6;}' +
