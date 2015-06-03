@@ -30,7 +30,7 @@
 							placeholder="Откуда"
 							ng-model="locationFrom"
 							typeahead="state as state.name for state in getLocationFrom($viewValue) | filter:$viewValue"
-							typeahead-template-url="typeaheadTemplateCustom.html"
+							typeahead-template-url="{{typeaheadTemplateCustom}}"
 							typeahead-wait-ms="300"
 							ng-change="fromIdError = null"
 							>
