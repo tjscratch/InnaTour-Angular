@@ -73,7 +73,9 @@
                     '.datepicker table th.next:active{background-color:' + data.btnBg + '}' +
 
                     '.b-inna-btn:hover{background-color:' + data.btnBg + ';color:' + data.btnColor + ';}' +
-                    '.widget-checkboxes-label input + i{border-color:' + data.btnBg + '}' +
+                    '.datepicker-checkbox:before{border-color:' + data.btnBg + '}'+
+                    '.datepicker-checkbox.checked:before{background-color:' + data.btnBg + '}'+
+                    '.widget-checkboxes-label input + i{background-color:' + data.btnBg + '}' +
                     '.widget-checkboxes-label input:checked + i{background-color:' + data.btnBg + '}' +
                     '.inna-dropdown-dialog-btns_btn.selected{background-color:' + data.btnBg + ';border-color:' + data.btnBg + '}' +
 
