@@ -40,9 +40,9 @@
             margin-top: 1px;
             border: none;
             border-radius 0px;
-            -webkit-box-shadow: 4px 4px 0 0 #005376;
-            -mox-box-shadow: 4px 4px 0 0 #005376;
-            box-shadow: 4px 4px 0 0 #005376;
+            -webkit-box-shadow: 0 2px 4px 0 #005376;
+            -mox-box-shadow: 0 2px 4px 0 #005376;
+            box-shadow: 0 2px 4px 0 #005376;
 
             li {
                 border-radius 0px;
@@ -513,8 +513,21 @@
         }
     }
 
-    .datepicker .table-condensed > tbody > tr > td.selected, .datepicker table > tbody > tr > td.selected {
+    .datepicker .table-condensed > tbody > tr > td.selected, 
+    .datepicker table > tbody > tr > td.selected {
         vertical-align inherit;
+    }
+
+    .datepicker .table-condensed > tbody > tr > td.selected.one_date, 
+    .datepicker table > tbody > tr > td.selected.one_date {
+        vertical-align top;
+        background-color: $hoverBackColor;
+        color: $dpSelectedColor;
+
+        &:hover{
+            background-color $dpHoverBgColor;
+            color $dpHoverColor;
+        }
     }
 
     .datepicker .table-condensed > tbody > tr > td.selected.from_date, 
@@ -561,11 +574,81 @@
         }
     }
 
-    .datepicker table th.prev, .datepicker table th.next {
+    .datepicker table th.prev, 
+    .datepicker table th.next {
         &:hover {
             background-color #f2f6f7;
         }
     }
+        
+    .datepicker table th{
+        &.prev,
+        &.next{
+            background-color #f2f6f7;
+
+            &:hover{
+                border 1px solid $dpHoverBgColor
+                background-color $dpHoverBgColor
+            }
+            &:active{
+                border 1px solid $btn-active
+                background $btn-active
+            }
+        }
+
+        &.prev{
+            &:after{
+                border-color transparent $arrow-base transparent transparent
+            }
+            &:before{
+                border-color transparent $arrow-bg transparent transparent
+            }
+            &:hover{
+                &:before{
+                    border-color transparent $dpHoverBgColor transparent transparent
+                }
+            }
+            &:active{
+                &:after{
+                    border-color transparent #fff transparent transparent
+                }
+                &:before{
+                    border-color transparent $btn-active transparent transparent
+                }
+            }
+        }
+
+        &.next{
+            &:after{
+                border-color transparent transparent transparent $arrow-base
+            }
+            &:before{
+                border-color transparent transparent transparent $arrow-bg
+            }
+            &:hover{
+                &:before{
+                    border-color transparent transparent transparent $dpHoverBgColor
+                }
+            }
+            &:active{
+                &:after{
+                    border-color transparent transparent transparent #fff
+                }
+                &:before{
+                    border-color transparent transparent transparent $btn-active
+                }
+            }
+        }
+
+        &.dow{
+            padding 5px 0 2px
+            font-size 12px
+            color $color-gray
+        }
+    }
+        
+        
+        
 
     //сб вс
     .datepicker .datepicker-days > table > thead > tr:nth-child(2) > th:nth-child(6),
