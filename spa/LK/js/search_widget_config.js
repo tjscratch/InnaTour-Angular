@@ -86,7 +86,7 @@
                     '.datepicker table > tbody > tr > td.range{background-color:' + data.btnBg + ';opacity: .6;}' +
 
                     '.b-inna-search-form-field-input:focus{box-shadow: inset 0 0 4px ' + data.btnBg + ';border-color:' + data.btnBg + '}' +
-                    '.inna-dropdown-action.open{box-shadow: inset 0 0 4px ' + data.btnBg + ';border-color:' + data.btnBg + '}' +
+                    '.inna-dropdown.open .inna-dropdown-action{box-shadow: inset 0 0 4px ' + data.btnBg + ';border-color:' + data.btnBg + '}' +
 
                     '.b-inna-search-form-field .dropdown-menu li:first-child, ' +
                     '.b-inna-search__nav li{border-radius:' + data.borderRadius + 'px ' + data.borderRadius + 'px 0 0;}' +

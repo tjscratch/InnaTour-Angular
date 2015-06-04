@@ -1,10 +1,10 @@
-<div class="inna-dropdown">
-	<div class="inna-dropdown-action" ng-class="{'open': isOpen}">
+<div class="inna-dropdown" dropdown>
+	<div class="inna-dropdown-action" dropdown-toggle>
 		{{ passegesCount | WidgetAsQuantity:"человек":"человека":"человек"}}
 		<span class="avia-tickets_class">{{ticketsClassHumanize}}</span>
 		<i class="inna-arrow-bottom"></i>
 	</div>
-	<div class="inna-dropdown-dialog" ng-show="isOpen">
+	<div class="inna-dropdown-dialog" role="menu">
 		
 		<div class="inna-dropdown-counter">
 			<div class="inna-dropdown-counter__label">

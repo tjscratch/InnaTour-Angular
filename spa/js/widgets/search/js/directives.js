@@ -49,18 +49,6 @@ innaAppDirectives
 
             }],
             link: function (scope, element, attrs) {
-                $(document).click(function (event) {
-                    var isInsideComponent = !!$(event.target).closest(element).length;
-                    var isOnComponentTitle = !event.target.closest('.inna-dropdown-action');
-                    scope.$apply(function ($scope) {
-                        if (!isOnComponentTitle) {
-                            $scope.isOpen = !$scope.isOpen;
-                        } else {
-                            $scope.isOpen = isInsideComponent;
-                        }
-                    });
-                });
-                
             }
         }
     })
@@ -135,7 +123,7 @@ innaAppDirectives
                 $scope.minInfantCount = 0;
 
                 $scope.passegesCount = $scope.adultCount + $scope.childCount + $scope.infantCount;
-                
+
 
                 var maxAdultCount = function () {
                     return $scope.maxPeopleCount - $scope.childCount;
@@ -215,17 +203,6 @@ innaAppDirectives
 
             },
             link: function (scope, element) {
-                $(document).click(function (event) {
-                    var isInsideComponent = !!$(event.target).closest(element).length;
-                    var isOnComponentTitle = !event.target.closest('.inna-dropdown-action');
-                    scope.$apply(function ($scope) {
-                        if (!isOnComponentTitle) {
-                            $scope.isOpen = !$scope.isOpen;
-                        } else {
-                            $scope.isOpen = isInsideComponent;
-                        }
-                    });
-                });
             }
         }
     });
