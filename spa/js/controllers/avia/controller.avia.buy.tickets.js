@@ -608,6 +608,7 @@ innaAppControllers.
                         function (data, status) {
                             log('paymentService.getRepricing error');
                             $scope.baloon.showGlobalAviaErr();
+                            //$scope.baloon.hide();
                         });
                 }
             }
