@@ -9,7 +9,7 @@ angular.module('innaApp.services')
              * Можно слушать событие change изменение модели
              * FilterSettings.on('change', function(){})
              */
-            var isFullWL = window.partners ? window.partners.isFullWL() : false;
+            var isFullWL = window.partners ? window.partners.isFullWLOrB2bWl() : false;
 
             var Model = Ractive.extend({
                 data: {

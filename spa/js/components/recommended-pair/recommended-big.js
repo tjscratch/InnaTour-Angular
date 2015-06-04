@@ -81,7 +81,7 @@ angular.module('innaApp.directives')
                             }
 
                             return (opt_param) ? urlDetails + '?action=buy' : urlDetails;
-                        }
+                        };
 
                         $scope.location = angular.copy(document.location.href);
 

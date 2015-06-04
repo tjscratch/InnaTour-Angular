@@ -60,6 +60,7 @@ angular.module('innaApp.controllers')
                     function onLogoutCompleteOrError() {
                         $scope.$emit(Events.AUTH_SIGN_OUT, wasLoggedUser);
                     }
+
                     AuthDataProvider.logout(onLogoutCompleteOrError, onLogoutCompleteOrError);
                 }
             };
@@ -82,17 +83,17 @@ angular.module('innaApp.controllers')
              * задача IN-4485
              * Костыль для спутника, если пользователь не залогинен, показываем ему форму логина всегда и везде
              */
-            $timeout(function () {
-                if (partner != null && partner.name == 'sputnik') {
-                    $scope.$root.$watch('user', function (data) {
-                        if (!data) {
-                            $scope.open();
-                        } else {
-                            $scope.close();
-                        }
-                    });
-                }
-            }, 300);
+            //$timeout(function () {
+            //    if (partner != null && partner.name == 'sputnik') {
+            //        $scope.$root.$watch('user', function (data) {
+            //            if (!data) {
+            //                $scope.open();
+            //            } else {
+            //                $scope.close();
+            //            }
+            //        });
+            //    }
+            //}, 300);
             /**
              * задача - IN-4485
              * Если у нас партнер спутник, скрываем форму регистрации
@@ -102,6 +103,13 @@ angular.module('innaApp.controllers')
             }
             else {
                 $scope.partnerSputnik = false;
+            }
+
+            if (partner != null && partner.name == 'sputnik') {
+                $scope.authLinkTitile = 'Вход для агентств';
+            }
+            else {
+                $scope.authLinkTitile = 'Регистрация и вход';
             }
 
 
@@ -238,6 +246,7 @@ angular.module('innaApp.controllers')
                     });
             }
 
+            
             $scope.B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
             $scope.b2bPartnerHost = app_main.b2bPartnerHost;
 
@@ -245,7 +254,7 @@ angular.module('innaApp.controllers')
              * говнокод, для правильного редиректа на b2b спутника
              */
             if (partner != null && partner.name == 'sputnik') {
-                $scope.B2B_HOST = $scope.B2B_HOST.replace("b2b", "b2b.sputnik");
+                $scope.B2B_HOST = app_main.b2bHostSputnik;
             }
 
 
@@ -258,20 +267,26 @@ angular.module('innaApp.controllers')
                     $scope.reloadChecker.saveLastUser();
 
                     if ($scope.$root.user) {
-                        //console.log('user.Type:', $scope.$root.user.getType());
-                        switch ($scope.$root.user.getType()) {
-                            case 2:
-                            {//B2B = 2, b2b.inna.ru
-                                window.location = $scope.B2B_HOST;
-                                break;
-                            }
-                            case 4:
-                            {//Partner = 4, partner.inna.ru
-                                window.location = $scope.b2bPartnerHost;
-                                break;
+
+                        var partner = window.partners ? window.partners.getPartner() : null;
+                        if (partner != null && partner.realType == window.partners.WLType.b2b && partner.name == 'sputnik') {
+                            window.location = window.partners.getB2b_LK(partner);
+                        }
+                        else {
+                            //console.log('user.Type:', $scope.$root.user.getType());
+                            switch ($scope.$root.user.getType()) {
+                                case 2:
+                                {//B2B = 2, b2b.inna.ru
+                                    window.location = $scope.B2B_HOST;
+                                    break;
+                                }
+                                case 4:
+                                {//Partner = 4, partner.inna.ru
+                                    window.location = $scope.b2bPartnerHost;
+                                    break;
+                                }
                             }
                         }
-
                     }
                 });
             });

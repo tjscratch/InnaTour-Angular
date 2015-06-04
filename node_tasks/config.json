@@ -24,6 +24,11 @@
       "prod": "https://b2b.inna.ru",
       "beta": "http://b2b.beta.inna.ru"
     },
+    "b2bSputnik": {
+      "test": "http://b2b.sputnik.test.inna.ru",
+      "prod": "https://lk.sputnik.travel",
+      "beta": "http://b2b.sputnik.beta.inna.ru"
+    },
     "b2bPartner": {
       "test": "http://partner.test.inna.ru",
       "prod": "https://partner.inna.ru",
