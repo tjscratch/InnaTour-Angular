@@ -381,7 +381,7 @@ authController.resolve = {
             var deferred = $q.defer();
 
             //если юзер есть - значит все ок
-            if ($rootScope.user){
+            if ('user' in $rootScope){
                 //console.log('resolve user exists', $rootScope.user);
                 deferred.resolve();
             }
