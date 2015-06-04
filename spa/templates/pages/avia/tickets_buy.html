@@ -253,7 +253,7 @@
             персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
         <img src="/spa/img/logos.png" class="b-logos" alt="">
     </div>
-    <div class="buy-message-block">
+    <div class="buy-message-block" ng-if="buyCommentsForm.isEnabled">
         Если Вы не успеваете оплатить до тайм-лимита или Вы хотите оплатить другим способом,
         <a href="#" ng-click="buyCommentsForm.openPopup($event)">просто отправьте нам сообщение.</a>
         </br>Менеджер свяжется с Вами и поможет оформить путешествие.

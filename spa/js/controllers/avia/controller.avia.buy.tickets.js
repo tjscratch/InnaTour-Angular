@@ -1528,6 +1528,8 @@ innaAppControllers.
                 self.isOpened = false;
                 self.comments = '';
 
+                self.isEnabled = !($scope.$root.user != null && $scope.$root.user.isAgency());
+
                 self.close = function ($event) {
                     $event.preventDefault();
                     self.isOpened = false;
