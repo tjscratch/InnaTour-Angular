@@ -49,6 +49,19 @@ innaAppDirectives
 
             }],
             link: function (scope, element, attrs) {
+
+                $(".js-inna-dropdown-action").on('click', function (e) {
+                    e.stopPropagation();
+                    $(this).closest(".js-inna-dropdown").toggleClass('open');
+                });
+
+                $(document).on('click', function (event) {
+                    var target = $(event.target).closest('.js-inna-dropdown-dialog').length
+                    if (!target) {
+                        $(".js-inna-dropdown").removeClass('open');
+                    }
+                });
+
             }
         }
     })
