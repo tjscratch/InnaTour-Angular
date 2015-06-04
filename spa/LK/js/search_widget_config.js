@@ -66,21 +66,27 @@
                     '.datepicker table > tbody > tr > td.selected,' +
                     '.b-inna-btn{background-color:' + data.btnBg + ';color:' + data.btnColor + ';}' +
 
+
+                    '.b-inna-counter__plus:hover,' +
+                    '.b-inna-counter__plus:active,' +
+                    '.b-inna-counter__minus:hover,' +
+                    '.b-inna-counter__minus:active{background-color:' + data.btnBg + ';color:' + data.btnColor + ';}' +
+
                     '.datepicker .table-condensed > tbody > tr > td.today, ' +
                     '.datepicker table > tbody > tr > td.today{color: ' + data.btnBg + '}' +
 
                     '.datepicker table th.prev:active{background-color:' + data.btnBg + '}' +
                     '.datepicker table th.next:active{background-color:' + data.btnBg + '}' +
-                    '.datepicker table th.prev:active:before{border-color: transparent '+ data.btnBg +' transparent transparent}' +
+                    '.datepicker table th.prev:active:before{border-color: transparent ' + data.btnBg + ' transparent transparent}' +
                     '.datepicker table th.next:active:before{border-color: transparent transparent transparent' + data.btnBg + '}' +
 
                     '.b-inna-btn:hover{background-color:' + data.btnBg + ';color:' + data.btnColor + ';}' +
-                    '.datepicker-checkbox:before{border-color:' + data.btnBg + '}'+
-                    '.datepicker-checkbox.checked:before{background-color:' + data.btnBg + '}'+
+                    '.datepicker-checkbox:before{border-color:' + data.btnBg + '}' +
+                    '.datepicker-checkbox.checked:before{background-color:' + data.btnBg + '}' +
                     '.widget-checkboxes-label input + i{border-color:' + data.btnBg + '}' +
                     '.widget-checkboxes-label input:checked + i{background-color:' + data.btnBg + '}' +
                     '.inna-dropdown-dialog-btns_btn.selected{background-color:' + data.btnBg + ';border-color:' + data.btnBg + '}' +
-                    '.inna-dropdown-dialog-btns_btn.selected + .inna-dropdown-dialog-btns_btn{border-left-color:' + data.btnBg + '}'+
+                    '.inna-dropdown-dialog-btns_btn.selected + .inna-dropdown-dialog-btns_btn{border-left-color:' + data.btnBg + '}' +
 
                     '.datepicker .table-condensed > tbody > tr > td.range,' +
                     '.datepicker table > tbody > tr > td.range{background-color:' + data.btnBg + ';opacity: .6;}' +
