@@ -64,6 +64,14 @@
 			Я хочу получать рассылку спецпредложений</label>
 	</div>
 
+    <div class="buy__request-block" ng-if="isRequestEnabled">
+        <div class="buy__request-block__text">Если по какой то причине Вы сейчас не готовы сделать бронирование или оплатить путешествие банковской картой,
+            или Вам нужна консультация нашего специалиста, просто сделайте заявку и наш менеджер свяжется с Вами.</div>
+        <div class="buy__request-block__button">
+            <button ng-click="sendRequest($event)" class="button b-sum-button">Отправить заявку</button>
+        </div>
+    </div>
+
 	<header class="buy__header">
 		<h2 class="buy__title">Пассажиры</h2>
 	</header>

@@ -1,4 +1,4 @@
-angular.module('innaApp.controllers')
+var authController = angular.module('innaApp.controllers')
     .controller('AuthCtrl', [
         '$scope',
         '$timeout',
@@ -16,7 +16,6 @@ angular.module('innaApp.controllers')
              */
             var partner = window.partners ? window.partners.getPartner() : null;
 
-
             /*Private*/
             var setUserInfo = function (data, needInitLastUserAfterLoginCheck) {
                 if (data && data["Email"]) {
@@ -29,6 +28,8 @@ angular.module('innaApp.controllers')
 
                 $scope.safeApply(function () {
                     $scope.$root.user = new modelAuth(data);
+                    //console.log('set user', $scope.$root.user);
+                    $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
 
                     if ($scope.$root.user.isAgency() && !$scope.user.raw.AgencyActive) {
                         $scope.logout();
@@ -42,7 +43,7 @@ angular.module('innaApp.controllers')
                         $scope.reloadChecker.checkReloadPage();
                     }
                 });
-            }
+            };
 
             /*Methods*/
             $scope.close = function () {
@@ -144,6 +145,9 @@ angular.module('innaApp.controllers')
                         $scope.close();
                     }, function (err, data) {
                         console.log('auth err:', err, data);
+                        $scope.safeApply(function () {
+                            $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
+                        });
                     });
 
                     clearInterval(interval);
@@ -230,8 +234,13 @@ angular.module('innaApp.controllers')
             }
 
             $scope.recognize = function (needInitLastUserAfterLoginCheck) {
+                //console.log('recognize', needInitLastUserAfterLoginCheck);
                 AuthDataProvider.recognize(function (data) {
                         setUserInfo(data, needInitLastUserAfterLoginCheck);
+
+                        $scope.safeApply(function () {
+                            $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
+                        });
                     },
                     function (err) {
                         $scope.safeApply(function () {
@@ -242,11 +251,13 @@ angular.module('innaApp.controllers')
                             if ($scope.reloadChecker) {
                                 $scope.reloadChecker.checkReloadPage();
                             }
+
+                            $scope.$emit(Events.AUTH_USER_SET, $scope.$root.user);
                         });
                     });
-            }
+            };
 
-            
+
             $scope.B2B_HOST = window.DEV && window.DEV_B2B_HOST || app_main.b2bHost;
             $scope.b2bPartnerHost = app_main.b2bPartnerHost;
 
@@ -324,7 +335,7 @@ angular.module('innaApp.controllers')
 
                 self.getCurrentUser = function () {
                     return ($scope.$root.user && $scope.$root.user.raw) ? $scope.$root.user.raw.Email : null;
-                }
+                };
 
                 self.saveLastUser = function (curUser) {
                     if (curUser == null) {
@@ -359,3 +370,30 @@ angular.module('innaApp.controllers')
             });
         }
     ]);
+
+//дожидается, пока отработает авторизация
+authController.resolve = {
+    waitForAuth: [
+        '$q',
+        '$rootScope',
+        'innaAppApiEvents',
+        function ($q, $rootScope, Events) {
+            var deferred = $q.defer();
+
+            //если юзер есть - значит все ок
+            if ('user' in $rootScope){
+                //console.log('resolve user exists', $rootScope.user);
+                deferred.resolve();
+            }
+            else {
+                //ждем, пока отработает авторизация и появится пользак
+                var unsubscribe = $rootScope.$on(Events.AUTH_USER_SET, function (user) {
+                    //console.log('resolve, user', $rootScope.user, user);
+                    unsubscribe();
+                    deferred.resolve();
+                });
+            }
+
+            return deferred.promise;
+        }]
+};

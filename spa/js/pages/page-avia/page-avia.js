@@ -26,7 +26,7 @@ innaAppControllers.
             var header = document.querySelector('.header');
             var headerHeight = header.clientHeight;
             var filters__body = document.querySelector('.js-filter-scroll');
-            $scope.location = document.location.href
+            $scope.location = document.location.href;
 
 
             function log(msg) {
@@ -35,7 +35,7 @@ innaAppControllers.
 
             $scope.isAgency = function () {
                 return ($scope.$root.user != null && $scope.$root.user.isAgency());
-            }
+            };
 
 
             $scope.$on('avia.form.loaded', function (event) {
@@ -81,21 +81,21 @@ innaAppControllers.
 
             $scope.recommendedClick = function () {
                 $location.url(Urls.URL_DYNAMIC_PACKAGES);
-            }
+            };
 
             $scope.getLength = function () {
                 var len = $scope.ticketsList != null ? $scope.ticketsList.length : 0;
                 //if ($scope.recomendedItem != null)
                 //    len++;
                 return len;
-            }
+            };
 
             $scope.getFilteredLength = function () {
                 var len = $scope.filteredTicketsList != null ? $scope.filteredTicketsList.length : 0;
                 //if ($scope.recomendedItem != null)
                 //    len++;
                 return len;
-            }
+            };
 
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {
@@ -196,7 +196,7 @@ innaAppControllers.
 
                 //флаг, когда нужно придержать обновление фильтра
                 $scope.isSuspendFilterWatch = false;
-            };
+            }
 
             //изменение модели фильтра
             $scope.$watch('filter', function (newValue, oldValue) {
@@ -385,7 +385,7 @@ innaAppControllers.
                             });
                         });
                 };
-            };
+            }
 
             function setFromFieldsFromUrl() {
                 var self = this;
@@ -407,7 +407,7 @@ innaAppControllers.
                         log('getDirectoryByUrl error: ' + $scope.criteria.FromUrl + ' status:' + status);
                     });
                 }
-            };
+            }
 
             function setToFieldsFromUrl() {
                 var self = this;
@@ -429,7 +429,7 @@ innaAppControllers.
                         log('getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
                     });
                 }
-            };
+            }
 
             function updateModel(data) {
                 //log('updateModel');
@@ -564,7 +564,7 @@ innaAppControllers.
                     });
                     $scope.isDataLoading = false;
                 }
-            };
+            }
 
             function processSelectedVariant(items) {
                 //Debug
@@ -1056,7 +1056,7 @@ innaAppControllers.
 
                 $scope.isDataLoading = false;
                 $scope.baloon.hide();
-            };
+            }
 
             function applySort() {
                 $scope.filteredTicketsList = $filter('orderBy')($scope.filteredTicketsList, $scope.SortFilter.sortType, $scope.SortFilter.reverse);
@@ -1076,7 +1076,7 @@ innaAppControllers.
                 //console.log('item', item.VariantId1, item.VariantId2);
                 
                 updateShareLink(item);
-            }
+            };
 
             function updateShareLink(item) {
                 $scope.location = getPopupItemUrl(item);
@@ -1145,11 +1145,11 @@ innaAppControllers.
 
                 self.update = function () {
                     self.ractive.set('items', $scope.visibleFilteredTicketsList);
-                }
+                };
 
                 self.reset = function () {
                     self.ractive.reset('items', $scope.visibleFilteredTicketsList);
-                }
+                };
 
                 //console.log('ractiveControl initted');
             }
@@ -1195,7 +1195,7 @@ innaAppControllers.
 
                     $scope.ractiveControl.update();
                     //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));
-                }
+                };
 
                 self.loadMore = function () {
                     $scope.$apply(function ($scope) {
@@ -1216,7 +1216,7 @@ innaAppControllers.
                     });
 
                     //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));
-                }
+                };
 
                 $(window).on('scroll', onWindowScroll);
             }

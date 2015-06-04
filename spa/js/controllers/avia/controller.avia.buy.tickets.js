@@ -291,7 +291,7 @@ innaAppControllers.
                     TCH_url = window.partners.getPartner().TCHLink;
                 }
                 else {
-                    TCH_url =  app_main.staticHost + '/files/doc/TCH.pdf';
+                    TCH_url = app_main.staticHost + '/files/doc/TCH.pdf';
                 }
 
                 $scope.TKP = {
@@ -1515,6 +1515,70 @@ innaAppControllers.
             function redirectSuccessBuyPackage() {
                 $location.search({});
                 $location.path('packages/buy/success/' + $scope.orderNum);
+            }
+
+            //отправка сообщения к заказу
+
+
+            $scope.buyCommentsForm = new buyCommentsForm();
+            function buyCommentsForm() {
+                var self = this;
+
+                self.form = {};
+                self.isOpened = false;
+                self.comments = '';
+
+                self.close = function ($event) {
+                    $event.preventDefault();
+                    self.isOpened = false;
+                };
+
+                self.openPopup = function ($event) {
+                    $event.preventDefault();
+                    self.comments = '';
+                    self.isOpened = true;
+                };
+
+                self.send = function ($event) {
+                    $event.preventDefault();
+                    self.form.$dirty = true;
+
+                    function showError() {
+                        console.log('send buy comment error', status);
+
+                        $scope.baloon.show(null, null,
+                            aviaHelper.baloonType.err, function () {
+                            });
+                    }
+
+                    if (!self.comments || self.comments.length == 0){
+                        self.form.reqComments.$setValidity('required', false);
+                    }
+                    else {
+                        self.form.reqComments.$setValidity('required', true);
+                        self.isOpened = false;
+                    }
+
+                    if (self.form.$valid){
+                        console.log('form valid');
+                        paymentService.createBuyComment({orderNum:$scope.orderNum, orderMessage: self.comments},
+                            function (data, status) {
+                                if (data && data.Status == 1){
+                                    console.log('send buy comment success', data, status);
+                                    //показываем попап
+                                    $scope.baloon.show("Сообщение отправлено", "В ближайшее время наш менеджер свяжется с Вами", aviaHelper.baloonType.success);
+                                }
+                                else {
+                                    showError();
+                                }
+                            }, function (status) {
+                                showError();
+                            });
+                    }
+                    else {
+                        console.log('form not valid');
+                    }
+                }
             }
 
             $scope.$on('$destroy', function () {
