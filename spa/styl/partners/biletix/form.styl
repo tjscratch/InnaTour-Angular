@@ -517,9 +517,10 @@
         vertical-align inherit;
     }
 
-    .datepicker .table-condensed > tbody > tr > td.selected.from_date, .datepicker table > tbody > tr > td.selected.from_date {
+    .datepicker .table-condensed > tbody > tr > td.selected.from_date, 
+    .datepicker table > tbody > tr > td.selected.from_date {
         vertical-align top;
-        background-color: $dpSelectedBgColor;
+        background-color: $hoverBackColor;
         color: $dpSelectedColor;
 
         &:hover {
@@ -528,7 +529,8 @@
         }
     }
 
-    .datepicker .table-condensed > tbody > tr > td.selected.to_date, .datepicker table > tbody > tr > td.selected.to_date {
+    .datepicker .table-condensed > tbody > tr > td.selected.to_date, 
+    .datepicker table > tbody > tr > td.selected.to_date {
         vertical-align top;
         background-color: $hoverBackColor;
         color: $dpSelectedColor;
