@@ -76,7 +76,7 @@ innaAppConponents.
 
                     $scope.$watch('location', function (value) {
                         _shareLink.set('location', value);
-                    })
+                    });
 
 
                     $scope.$on('$destroy', function () {
@@ -84,6 +84,6 @@ innaAppConponents.
                     })
                 }
             }
-        }])
+        }]);
 
 
