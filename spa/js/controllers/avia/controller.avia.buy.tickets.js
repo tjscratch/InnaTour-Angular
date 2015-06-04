@@ -608,6 +608,7 @@ innaAppControllers.
                         function (data, status) {
                             log('paymentService.getRepricing error');
                             $scope.baloon.showGlobalAviaErr();
+                            //$scope.baloon.hide();
                         });
                 }
             }
@@ -1527,6 +1528,8 @@ innaAppControllers.
                 self.form = {};
                 self.isOpened = false;
                 self.comments = '';
+
+                self.isEnabled = !($scope.$root.user != null && $scope.$root.user.isAgency());
 
                 self.close = function ($event) {
                     $event.preventDefault();
