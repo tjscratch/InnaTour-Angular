@@ -1,6 +1,6 @@
 <ul class="b-inna-search__nav">
 	<li
-			ng-click="formType = 1"
+			ng-click="setFormType(1)"
 			ng-class="{'active' : formType == 1}"
 	        ng-show="enabledDpForm"
 			>
@@ -9,7 +9,7 @@
 		</span>
 	</li>
 	<li
-			ng-click="formType = 2"
+			ng-click="setFormType(2)"
 			ng-class="{'active' : formType == 2}"
 	        ng-show="enabledAviaForm"
 			>

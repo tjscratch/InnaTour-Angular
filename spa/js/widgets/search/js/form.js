@@ -38,6 +38,11 @@ innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $loc
                     $scope.formType = data;
                 }
             })
+            $scope.setFormType = function(type){
+                $scope.formType = type;
+                $scope.aviaCalendarOneWay = false;
+                $scope.aviaCalendarRoaming = false;
+            }
             $scope.forms = {};
             $scope.aviaCalendarOneWay = false;
             $scope.aviaCalendarRoaming = false;
