@@ -32,8 +32,6 @@ innaAppControllers.
 
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
-            $scope.isAviaPage = true;
-
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);

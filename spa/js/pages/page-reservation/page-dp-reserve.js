@@ -21,7 +21,6 @@
 
             $scope.baloon.showExpireCheck();
 
-            $scope.isAviaPage = false;
             Raven.setExtraContext({key: "__RESERVATION_CONTEXT__"});
 
             // TODO : наследование контроллера
