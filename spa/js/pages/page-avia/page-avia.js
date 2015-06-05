@@ -81,21 +81,21 @@ innaAppControllers.
 
             $scope.recommendedClick = function () {
                 $location.url(Urls.URL_DYNAMIC_PACKAGES);
-            }
+            };
 
             $scope.getLength = function () {
                 var len = $scope.ticketsList != null ? $scope.ticketsList.length : 0;
                 //if ($scope.recomendedItem != null)
                 //    len++;
                 return len;
-            }
+            };
 
             $scope.getFilteredLength = function () {
                 var len = $scope.filteredTicketsList != null ? $scope.filteredTicketsList.length : 0;
                 //if ($scope.recomendedItem != null)
                 //    len++;
                 return len;
-            }
+            };
 
             //начинаем поиск, после того, как подтянули все данные
             function ifDataLoadedStartSearch() {
@@ -196,7 +196,7 @@ innaAppControllers.
 
                 //флаг, когда нужно придержать обновление фильтра
                 $scope.isSuspendFilterWatch = false;
-            };
+            }
 
             //изменение модели фильтра
             $scope.$watch('filter', function (newValue, oldValue) {
@@ -290,7 +290,7 @@ innaAppControllers.
                     _.each($scope.filter.time.list, function (item) {
                         item.checked = false
                     });
-                }
+                };
                 //$scope.resetDepartureTime = function ($event) {
                 //    eventsHelper.preventBubbling($event);
                 //    $scope.filter.minDepartureDate = $scope.filter.minDepartureDateInitial;
@@ -320,13 +320,13 @@ innaAppControllers.
                     _.each($scope.filter.AirportFilter.toPorts, function (item) {
                         item.checked = false
                     });
-                }
+                };
 
                 $scope.anyChecked = function (list) {
                     return _.any(list, function (item) {
                         return item.checked;
                     });
-                }
+                };
 
                 $scope.goToPaymentClick = function ($event, item) {
                     eventsHelper.preventBubbling($event);
@@ -385,7 +385,7 @@ innaAppControllers.
                             });
                         });
                 };
-            };
+            }
 
             function setFromFieldsFromUrl() {
                 var self = this;
@@ -407,7 +407,7 @@ innaAppControllers.
                         log('getDirectoryByUrl error: ' + $scope.criteria.FromUrl + ' status:' + status);
                     });
                 }
-            };
+            }
 
             function setToFieldsFromUrl() {
                 var self = this;
@@ -429,7 +429,7 @@ innaAppControllers.
                         log('getDirectoryByUrl error: ' + $scope.criteria.ToUrl + ' status:' + status);
                     });
                 }
-            };
+            }
 
             function updateModel(data) {
                 //log('updateModel');
@@ -489,6 +489,12 @@ innaAppControllers.
                         }
 
                         addTooltipData(item);
+
+                        //нормализуем пересадки
+                        if (item.ToTransferCount < 0)
+                            item.ToTransferCount = 0;
+                        if (item.BackTransferCount < 0)
+                            item.BackTransferCount = 0;
 
                         if (item.IsRecomendation) {
                             //recomendedItem = item;
@@ -564,7 +570,7 @@ innaAppControllers.
                     });
                     $scope.isDataLoading = false;
                 }
-            };
+            }
 
             function processSelectedVariant(items) {
                 //Debug
@@ -607,6 +613,8 @@ innaAppControllers.
                     item.InTransferCount1 = false;
                     item.InTransferCount2 = false;
 
+                    //console.log('item.ToTransferCount', item.ToTransferCount, 'item.BackTransferCount', item.BackTransferCount);
+
                     if (item.ToTransferCount == 0 && item.BackTransferCount == 0) {
                         //есть без пересадок
                         item.InTransferCount0 = true;
@@ -641,6 +649,8 @@ innaAppControllers.
                 filter.TransferCountListAgg = _.sortBy(transferCountListAgg, function (item) {
                     return item.value;
                 });
+
+                console.log('here');
 
                 function calcPrices(tcAgg, fnInTransferCount) {
                     //находим элементы с нужным кол-вом пересадок
@@ -876,7 +886,7 @@ innaAppControllers.
                 //log('updateFilter');
 
                 applyFilter($scope);
-            };
+            }
 
             function applyFilter($scope) {
                 var filteredList = [];
@@ -1056,7 +1066,7 @@ innaAppControllers.
 
                 $scope.isDataLoading = false;
                 $scope.baloon.hide();
-            };
+            }
 
             function applySort() {
                 $scope.filteredTicketsList = $filter('orderBy')($scope.filteredTicketsList, $scope.SortFilter.sortType, $scope.SortFilter.reverse);
@@ -1076,7 +1086,7 @@ innaAppControllers.
                 //console.log('item', item.VariantId1, item.VariantId2);
                 
                 updateShareLink(item);
-            }
+            };
 
             function updateShareLink(item) {
                 $scope.location = getPopupItemUrl(item);
@@ -1145,11 +1155,11 @@ innaAppControllers.
 
                 self.update = function () {
                     self.ractive.set('items', $scope.visibleFilteredTicketsList);
-                }
+                };
 
                 self.reset = function () {
                     self.ractive.reset('items', $scope.visibleFilteredTicketsList);
-                }
+                };
 
                 //console.log('ractiveControl initted');
             }
@@ -1195,7 +1205,7 @@ innaAppControllers.
 
                     $scope.ractiveControl.update();
                     //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));
-                }
+                };
 
                 self.loadMore = function () {
                     $scope.$apply(function ($scope) {
@@ -1216,7 +1226,7 @@ innaAppControllers.
                     });
 
                     //console.log('visible: ' + ($scope.visibleFilteredTicketsList != null ? $scope.visibleFilteredTicketsList.length : 'null'));
-                }
+                };
 
                 $(window).on('scroll', onWindowScroll);
             }
