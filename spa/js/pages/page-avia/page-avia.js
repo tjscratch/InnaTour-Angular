@@ -35,8 +35,9 @@ innaAppControllers.
 
             $scope.isAgency = function () {
                 return ($scope.$root.user != null && $scope.$root.user.isAgency());
-            }
+            };
 
+            $scope.isShowShare = true;
 
             $scope.$on('avia.form.loaded', function (event) {
                 //console.log('avia.form.loaded');
