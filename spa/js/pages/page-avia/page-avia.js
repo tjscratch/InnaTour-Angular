@@ -291,7 +291,7 @@ innaAppControllers.
                     _.each($scope.filter.time.list, function (item) {
                         item.checked = false
                     });
-                }
+                };
                 //$scope.resetDepartureTime = function ($event) {
                 //    eventsHelper.preventBubbling($event);
                 //    $scope.filter.minDepartureDate = $scope.filter.minDepartureDateInitial;
@@ -321,13 +321,13 @@ innaAppControllers.
                     _.each($scope.filter.AirportFilter.toPorts, function (item) {
                         item.checked = false
                     });
-                }
+                };
 
                 $scope.anyChecked = function (list) {
                     return _.any(list, function (item) {
                         return item.checked;
                     });
-                }
+                };
 
                 $scope.goToPaymentClick = function ($event, item) {
                     eventsHelper.preventBubbling($event);
@@ -491,6 +491,12 @@ innaAppControllers.
 
                         addTooltipData(item);
 
+                        //нормализуем пересадки
+                        if (item.ToTransferCount < 0)
+                            item.ToTransferCount = 0;
+                        if (item.BackTransferCount < 0)
+                            item.BackTransferCount = 0;
+
                         if (item.IsRecomendation) {
                             //recomendedItem = item;
                             recommendedList.push(item);
@@ -608,6 +614,8 @@ innaAppControllers.
                     item.InTransferCount1 = false;
                     item.InTransferCount2 = false;
 
+                    //console.log('item.ToTransferCount', item.ToTransferCount, 'item.BackTransferCount', item.BackTransferCount);
+
                     if (item.ToTransferCount == 0 && item.BackTransferCount == 0) {
                         //есть без пересадок
                         item.InTransferCount0 = true;
@@ -642,6 +650,8 @@ innaAppControllers.
                 filter.TransferCountListAgg = _.sortBy(transferCountListAgg, function (item) {
                     return item.value;
                 });
+
+                console.log('here');
 
                 function calcPrices(tcAgg, fnInTransferCount) {
                     //находим элементы с нужным кол-вом пересадок
@@ -877,7 +887,7 @@ innaAppControllers.
                 //log('updateFilter');
 
                 applyFilter($scope);
-            };
+            }
 
             function applyFilter($scope) {
                 var filteredList = [];

@@ -29,7 +29,7 @@ function aviaCriteria(data) {
     self.toJson = function () {
         return angular.toJson(self);
     };
-};
+}
 
 //параметры для клиентской фильтрации
 function aviaFilter(data) {
@@ -90,7 +90,7 @@ function aviaFilter(data) {
     self.maxBackArrivalDateInitial = self.maxBackArrivalDate;
 
     return self;
-};
+}
 
 //ававкомпания для фильтра
 function transporter(name, code, logo) {
@@ -99,7 +99,7 @@ function transporter(name, code, logo) {
     self.TransporterCode = code;
     self.TransporterLogo = logo;
     self.checked = false;//выбрано по-умлочанию
-};
+}
 
 //namespace
 var avia = {
