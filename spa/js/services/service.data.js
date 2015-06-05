@@ -16,7 +16,7 @@
 
             return {
                 getAllCountries: function (successCallback, errCallback) {
-                    $http.get(apiUrls.DICTIONARY_ALL_COUNTRIES, { cache: true }).success(function (data, status) {
+                    $http.get(apiUrls.DICTIONARY_ALL_COUNTRIES, {cache: true}).success(function (data, status) {
                         successCallback(data);
                     }).
                         error(function (data, status) {
@@ -26,7 +26,7 @@
                 getDirectoryByUrl: function (term, successCallback, errCallback) {
                     AjaxHelper.get({
                         url: apiUrls.AVIA_FROM_SUGGEST,
-                        data: { term: term },
+                        data: {term: term},
                         success: function (data) {
                             if (data != null && data.length > 0) {
                                 //ищем запись с кодом IATA
@@ -59,7 +59,7 @@
                     //принудительно энкодим
                     term = encodeURIComponent(term);
                     //запрос по критериям поиска
-                    $http.get(apiUrls.GET_SLETAT + '?term=' + term, { cache: true }).success(function (data, status) {
+                    $http.get(apiUrls.GET_SLETAT + '?term=' + term, {cache: true}).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -71,7 +71,7 @@
                 getSletatCity: function (successCallback, errCallback) {
                     //log('getSletatCity: ' + term);
                     //запрос по критериям поиска
-                    $http.get(apiUrls.GET_SLETAT_CITY, { cache: true }).success(function (data, status) {
+                    $http.get(apiUrls.GET_SLETAT_CITY, {cache: true}).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -83,7 +83,7 @@
                 getSletatById: function (id, successCallback, errCallback) {
                     //log('getSletatById: ' + term);
                     //запрос по критериям поиска
-                    $http.get(apiUrls.GET_SLETAT_BY_ID + '?id=' + id, { cache: true }).success(function (data, status) {
+                    $http.get(apiUrls.GET_SLETAT_BY_ID + '?id=' + id, {cache: true}).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -208,7 +208,7 @@
                         });
                 },
                 getSectionIndividualTours: function (params, successCallback, errCallback) {
-                    $http({ method: 'GET', url: apiUrls.GET_SECTION_INDIVIDUAL_TOURS, params: params, cache: true }).success(function (data, status) {
+                    $http({method: 'GET', url: apiUrls.GET_SECTION_INDIVIDUAL_TOURS, params: params, cache: true}).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -218,7 +218,7 @@
                         });
                 },
                 getIndividualToursCategory: function (id, successCallback, errCallback) {
-                    $http({ method: 'GET', url: apiUrls.GET_INDIVIDUAL_TOURS_CATEGORY + '/' + id, cache: true }).success(function (data, status) {
+                    $http({method: 'GET', url: apiUrls.GET_INDIVIDUAL_TOURS_CATEGORY + '/' + id, cache: true}).success(function (data, status) {
                         //присваиваем значение через функцию коллбэк
                         successCallback(data);
                     }).
@@ -227,7 +227,7 @@
                             errCallback(data, status);
                         });
                 },
-                sendITCategoryRequest     : function (queryData, successCallback, errCallback) {
+                sendITCategoryRequest: function (queryData, successCallback, errCallback) {
                     var apiData = new sendRequestData(queryData);
                     $http.post(apiUrls.SEND_IT_CATEGORY_REQUEST, apiData).success(function (data) {
                         successCallback(data);
@@ -259,10 +259,10 @@
                  */
                 getCurrentLocation: function (callbackSuccess, callbackError) {
                     return AjaxHelper.get({
-                        url    : apiUrls.GET_CURRENT_LOCATION_BY_IP,
-                        data   : null,
+                        url: apiUrls.GET_CURRENT_LOCATION_BY_IP,
+                        data: null,
                         success: callbackSuccess,
-                        error  : callbackError
+                        error: callbackError
                     });
                 },
 
@@ -303,8 +303,15 @@
                         data: {id: id},
                         success: callback
                     });
+                },
+
+
+                /**
+                 * Registration Agency
+                 */
+                agencyCreate: function (data) {
+                    return $http.post(apiUrls.PARTNER_CREATE, data);
                 }
-                    
 
             };
         }]);

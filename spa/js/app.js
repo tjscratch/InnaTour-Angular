@@ -46,6 +46,8 @@ app.constant('innaApp.Urls', {
 
     URL_PACKAGES_LANDING: '/packages/ppc/',
 
+    URL_AGENCY_REG_FORM: '/agency-create/',
+    
     URL_HELP: '/help/',
 
     eof: null
@@ -327,6 +329,10 @@ app.config([
                 controller: 'HelpPageController',
                 resolve: authController.resolve,
                 reloadOnSearch: false
+            }).
+            when(url.URL_AGENCY_REG_FORM, {
+                templateUrl: 'components/agency-reg-form/templ/index.html',
+                controller: 'AgencyRegFormCtrl'
             }).
             otherwise({
                 redirectTo: url.URL_ROOT

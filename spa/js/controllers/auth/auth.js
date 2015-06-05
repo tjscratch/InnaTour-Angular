@@ -81,6 +81,16 @@ var authController = angular.module('innaApp.controllers')
 
 
             /**
+             * регистрация агенства редирект на главную и открытие формы авторизации при успешной регистрации
+             * https://innatec.atlassian.net/browse/IN-4652
+             */
+            $scope.$on('open-auth-form', function () {
+                $location.url('/');
+                $scope.open();
+            })
+
+
+            /**
              * задача IN-4485
              * Костыль для спутника, если пользователь не залогинен, показываем ему форму логина всегда и везде
              */
@@ -95,6 +105,8 @@ var authController = angular.module('innaApp.controllers')
             //        });
             //    }
             //}, 300);
+                        
+            
             /**
              * задача - IN-4485
              * Если у нас партнер спутник, скрываем форму регистрации

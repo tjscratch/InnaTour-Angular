@@ -77,6 +77,8 @@ angular.module('innaApp.API', [])
             HELP_TOPICS: url('/faq/get'),
 
             PARTNERSHIP_GET_COOKIE: url('/Prt/GetPrtId'),
+            
+            PARTNER_CREATE: url('/Agency/Add'),
 
             eof: null
         }

@@ -1,0 +1,196 @@
+<div class="layout-light">
+	<div class="agency-reg-form-promo">
+		<div class="agency-reg-form-promo__title">Три простых шага для начала сотрудничества</div>
+		<div class="agency-reg-form-promo__row">
+			<div class="agency-reg-form-promo__col">
+				<span class="icon-sprite-agency-reg-form-promo-1"></span>
+
+				<div class="agency-reg-form-promo__col-txt">
+					Заполняете<br>
+					заявку на подключение
+				</div>
+			</div>
+			<div class="agency-reg-form-promo__col">
+				<span class="icon-sprite-agency-reg-form-promo-2"></span>
+
+				<div class="agency-reg-form-promo__col-txt">
+					Мы пришлем доступ<br>
+					к вашему личному кабинету<br>
+					на электронную почту
+				</div>
+			</div>
+			<div class="agency-reg-form-promo__col">
+				<span class="icon-sprite-agency-reg-form-promo-3"></span>
+
+				<div class="agency-reg-form-promo__col-txt">
+					Подписываете<br>
+					агентский договор
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="agency-reg-form-cont">
+		<div class="agency-reg-form-cont-bg"></div>
+
+		<div class="agency-reg-form-head">
+			<h2>Заявка на подключение</h2>
+			<div class="brand-bookinna"></div>
+		</div>
+		<div class="agency-reg-form">
+			<form novalidate name="agency" ng-submit="agencySubmit(agency)">
+				<div class="b-field-group">
+					<div class="b-field-block no-float">
+						<label class="b-field-label" for="fo">Форма и название организации</label>
+						<input id="fo" class="b-field-text" type="text"
+						       name="Name"
+						       ng-model="agencyReg.Name"
+						       required=""
+						       placeholder="ЗАО ИННА ТУР"
+						       ng-class="{'error': agency.$submitted && agency.Name.$invalid || agency.Name.$touched && agency.Name.$invalid}"
+								>
+					</div>
+				</div>
+				<div class="b-field-group">
+					<div class="b-field-block" style="width: 200px">
+						<label class="b-field-label" for="inn">ИНН</label>
+						<input id="inn" class="b-field-text" type="text"
+						       name="INN"
+						       ng-model="agencyReg.INN"
+						       required=""
+						       ng-class="{'error': agency.$submitted && agency.INN.$invalid || agency.INN.$touched && agency.INN.$invalid}"
+								>
+					</div>
+					<div class="b-field-block" style="width: 200px">
+						<label class="b-field-label" for="kpp">КПП</label>
+						<input id="kpp" class="b-field-text" type="text" ng-model="agencyReg.KPP">
+					</div>
+				</div>
+				<div class="b-field-group">
+					<div class="b-field-block" style="width: 300px">
+						<label class="b-field-label" for="BossName">ФИО руководителя</label>
+						<input id="BossName" class="b-field-text" type="text"
+						       name="BossName"
+						       ng-model="agencyReg.BossName"
+						       required=""
+						       placeholder="Чернов Сергей Олегович"
+						       ng-class="{'error': agency.$submitted && agency.BossName.$invalid || agency.BossName.$touched && agency.BossName.$invalid}"
+								>
+					</div>
+					<div class="b-field-block" style="width: 260px">
+						<label class="b-field-label" for="Boss">Должность</label>
+						<input id="Boss" class="b-field-text" type="text"
+						       name="Boss"
+						       ng-model="agencyReg.Boss"
+						       required=""
+						       placeholder="Генеральный директор"
+						       ng-class="{'error': agency.$submitted && agency.Boss.$invalid || agency.Boss.$touched && agency.Boss.$invalid}"
+								>
+					</div>
+				</div>
+				<div class="b-field-group">
+					<div class="b-field-block" style="width: 450px">
+						<label class="b-field-label" for="RegistredAddress">Юридический адрес</label>
+						<input id="RegistredAddress" class="b-field-text" type="text"
+						       name="RegistredAddress"
+						       ng-model="agencyReg.RegistredAddress"
+						       required=""
+						       placeholder="Москва, ул. Маленковская д 14, к.1"
+						       ng-class="{'error': agency.$submitted && agency.RegistredAddress.$invalid || agency.RegistredAddress.$touched && agency.RegistredAddress.$invalid}"
+								>
+					</div>
+					<div class="b-field-block" style="width: 110px">
+						<label class="b-field-label" for="RegistredAddressIndex">Индекс</label>
+						<input id="RegistredAddressIndex" class="b-field-text" type="text"
+						       name="RegistredAddressIndex"
+						       ng-model="agencyReg.RegistredAddressIndex"
+						       required=""
+						       placeholder="107113"
+						       ng-class="{'error': agency.$submitted && agency.RegistredAddressIndex.$invalid || agency.RegistredAddressIndex.$touched && agency.RegistredAddressIndex.$invalid}"
+								>
+					</div>
+				</div>
+				<div class="b-field-group">
+					<div class="b-field-block" style="width: 450px">
+						<label class="b-field-label" for="Address">Фактический адрес</label>
+						<input id="Address" class="b-field-text" type="text"
+						       name="Address"
+						       ng-model="agencyReg.Address"
+						       required=""
+						       placeholder="Москва, ул. Маленковская д 14, к.1"
+						       ng-class="{'error': agency.$submitted && agency.Address.$invalid || agency.Address.$touched && agency.Address.$invalid}"
+								>
+					</div>
+					<div class="b-field-block" style="width: 110px">
+						<label class="b-field-label" for="PostIndex">Индекс</label>
+						<input id="PostIndex" class="b-field-text" type="text"
+						       name="PostIndex"
+						       ng-model="agencyReg.PostIndex"
+						       required=""
+						       placeholder="107113"
+						       ng-class="{'error': agency.$submitted && agency.PostIndex.$invalid || agency.PostIndex.$touched && agency.PostIndex.$invalid}"
+								>
+					</div>
+				</div>
+				<div class="b-field-group">
+					<label class="b-agreement">
+						<input type="checkbox" ng-model="adressChecked">
+						<ins class="b-checkbox"></ins>
+						совпадает с юридическим адресом
+					</label>
+				</div>
+				<div class="b-field-group">
+					<div class="b-field-block" style="width: 290px">
+						<label class="b-field-label" for="Phones">Телефон</label>
+						<input id="Phones" class="b-field-text" type="text"
+						       name="Phones"
+						       ng-model="agencyReg.Phones"
+						       required=""
+						       placeholder="+ 7 (495) 742-12-12"
+						       ng-class="{'error': agency.$submitted && agency.Phones.$invalid || agency.Phones.$touched && agency.Phones.$invalid}"
+								>
+					</div>
+					<div class="b-field-block" style="width: 270px">
+						<label class="b-field-label" for="Site">Сайт</label>
+						<input id="Site" class="b-field-text" type="text"
+						       name="Site"
+						       placeholder="www.inna.ru"
+						       ng-model="agencyReg.Site"
+								>
+					</div>
+				</div>
+				<div class="b-field-group">
+					<div class="b-field-block no-float">
+						<label class="b-field-label" for="Email">Электронная почта, на которую мы пришлем логин/пароль</label>
+						<input id="Email" class="b-field-text" type="email"
+						       name="Email"
+						       ng-model="agencyReg.Email"
+						       required=""
+						       placeholder="book@inna.ru"
+						       check-email-format
+						       ng-class="{'error': agency.$submitted && agency.Email.$invalid || agency.Email.$touched && agency.Email.$invalid}"
+								>
+
+						<div class="b-field-error"
+						     ng-show="agency.$submitted && agency.Email.$invalid || agency.Email.$touched && agency.Email.$invalid"
+								>
+							<span class="fa fa-exclamation-circle"></span>
+							<span ng-show="agency.Email.$error.email">
+								Нерпавильный формат email
+							</span>
+							<span ng-show="agency.Email.$error.required">
+								Поле необходимо заполнить
+							</span>
+						</div>
+						<div class="b-field-error" ng-show="emailDouble">
+							Адрес уже зарегистрирован. Укажите другой адрес электронной почты.
+						</div>
+					</div>
+				</div>
+				<div class="b-field-group action">
+					<button type="submit" class="button b-sum-button">Отправить</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</div>

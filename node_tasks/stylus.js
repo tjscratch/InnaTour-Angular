@@ -25,6 +25,7 @@ gulp.task('styl-components', function () {
     ])
         .pipe(concat('components.styl'))
         .pipe(gulp.dest(conf.styl + '/temp'))
+        .pipe(gulpif(_ENV_ == 'DEV', livereload()))
 });
 
 gulp.task('styl-pages', function () {
