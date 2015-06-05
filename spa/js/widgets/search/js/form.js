@@ -1,169 +1,170 @@
-innaAppDirectives.directive('innaForm', [
-    '$templateCache', '$timeout', '$location',
-    function ($templateCache, $timeout, $location) {
-        return {
-            restrict: 'E',
-            template: function () {
-                return $templateCache.get('form.html') ? $templateCache.get('form.html') : $templateCache.get('widgets/search/templ/form.html')
-            },
-            scope: {
-                partnerSite: "@",
-                partnerName: "@",
-                partnerDefaultCity: "@",
-                exportFieldsCallback: "&",
-                exportFields: "=",
-                updateFromOutside: "=",
-                isWlPartnerMode: "="
-            },
-            controller: ['$element', '$scope', '$http', 'widgetValidators', function ($element, $scope, $http, widgetValidators) {
-                //console.log('inna form init');
-                $scope.typeaheadTemplateCustom = $templateCache.get('typeaheadTemplateCustom.html') ? $templateCache.get('typeaheadTemplateCustom.html') : $templateCache.get('widgets/search/templ/typeaheadTemplateCustom.html');
+innaAppDirectives.directive('innaForm', function ($templateCache, $timeout, $location) {
+    return {
+        restrict: 'E',
+        template: function () {
+            return $templateCache.get('form.html') ? $templateCache.get('form.html') : $templateCache.get('widgets/search/templ/form.html')
+        },
+        scope: {
+            partnerSite: "@",
+            partnerName: "@",
+            partnerDefaultCity: "@",
+            exportFieldsCallback: "&",
+            exportFields: "=",
+            updateFromOutside: "=",
+            isWlPartnerMode: "=",
+            enabledDpForm: "=",
+            enabledAviaForm: "=",
+            formTypeActive: "=" // активная по умолчанию форма, 1 - ДП, 2 - авиа
+        },
+        controller: function ($element, $scope, $http, widgetValidators, WidgetPackages, WidgetAvia) {
 
 
-                //passing parameters in and out
-                if ($scope.exportFieldsCallback && $scope.exportFields && $scope.exportFields.length > 0) {
-                    //console.log('$watchGroup', $scope.exportFields);
-                    $scope.$watch(function(){
-                        return $scope.exportFields.map(angular.bind($scope, $scope.$eval));
-                    }, function(newValues){
-                        $scope.exportFieldsCallback({ values: newValues });
-                    }, true);
+            /**
+             * templates url
+             */
+            $scope.typeaheadTemplateCustom = $templateCache.get('typeaheadTemplateCustom.html') ? 'typeaheadTemplateCustom.html' : 'widgets/search/templ/typeaheadTemplateCustom.html';
+
+
+            /**
+             * инициализация формы, если включены и ДП и авиа то по умолчанию активна форма ДП
+             */
+            if ($scope.formTypeActive) {
+                $scope.formType = $scope.formTypeActive;
+            } else {
+                $scope.formType = 1;
+            }
+            $scope.$watch('formTypeActive', function (data) {
+                if (data) {
+                    $scope.formType = data;
+                }
+            })
+            $scope.setFormType = function(type){
+                $scope.formType = type;
+                $scope.aviaCalendarOneWay = false;
+                $scope.aviaCalendarRoaming = false;
+            }
+            $scope.forms = {};
+            $scope.aviaCalendarOneWay = false;
+            $scope.aviaCalendarRoaming = false;
+
+
+            //passing parameters in and out
+            if ($scope.exportFieldsCallback && $scope.exportFields && $scope.exportFields.length > 0) {
+                //console.log('$watchGroup', $scope.exportFields);
+                $scope.$watch(function () {
+                    return $scope.exportFields.map(angular.bind($scope, $scope.$eval));
+                }, function (newValues) {
+                    $scope.exportFieldsCallback({values: newValues});
+                }, true);
+            }
+
+            if ($scope.updateFromOutside) {
+                $scope.$watch('updateFromOutside', function (data) {
+                    if (data.attr == 'submit') {
+                        $scope.innaStartSearch($scope.forms.innaSearchForm);
+                    }
+                    else if (data.attr == 'setDates') {
+                        $scope.dontFocusToDate = true;
+                        var dFrom = dateHelper.dateToJsDate(data.value[0]);
+                        $element.find('.from_date').datepicker('setDate', dFrom);
+                        if (data.value[1]) {
+                            var dTo = dateHelper.dateToJsDate(data.value[1]);
+                            $element.find('.to_date').datepicker('setDate', dTo);
+                        }
+                    }
+                    else {
+                        $scope[data.attr] = data.value;
+                    }
+                });
+            }
+            $scope.dontFocusToDate = false;
+
+
+            /**
+             * установка текущей локали
+             */
+            WidgetPackages.currentLocale($scope.partnerDefaultCity)
+                .then(function (data) {
+                    $scope.locationFrom = data;
+                });
+
+            /**
+             * поиск локали откуда для авиа и ДП одно и то же
+             */
+            $scope.getLocationFrom = function (text) {
+                return WidgetAvia.getLocation(text)
+                    .then(function (data) {
+                        return data;
+                    });
+            };
+
+
+            /**
+             * автокомплит выбора локации
+             */
+            $scope.getLocation = function (text) {
+                if ($scope.formType == 1) {
+                    return WidgetPackages.getLocation(text)
+                        .then(function (data) {
+                            return data;
+                        });
+                }
+                if ($scope.formType == 2) {
+                    return WidgetAvia.getLocation(text)
+                        .then(function (data) {
+                            return data;
+                        });
+                }
+            };
+
+
+            /**
+             * BEGIN datapicker
+             */
+            $scope.setStartDate = new Date();
+
+            var highlightDates = function (date) {
+                var month = date.getMonth() + 1;
+                var dates = date.getDate() + "." + month + "." + date.getFullYear();
+                var oneDay;
+                if ($scope.startDate == $scope.endDate) {
+                    oneDay = $scope.startDate;
                 }
 
-                if ($scope.updateFromOutside){
-                    $scope.$watch('updateFromOutside', function (data) {
-                        if (data.attr == 'submit'){
-                            $scope.innaStartSearch($scope.forms.innaSearchForm);
-                        }
-                        else if (data.attr == 'setDates') {
-                            $scope.dontFocusToDate = true;
-                            var dFrom = dateHelper.dateToJsDate(data.value[0]);
-                            $element.find('.from_date').datepicker('setDate', dFrom);
-                            if (data.value[1]){
-                                var dTo = dateHelper.dateToJsDate(data.value[1]);
-                                $element.find('.to_date').datepicker('setDate', dTo);
-                            }
-                        }
-                        else {
-                            $scope[data.attr] = data.value;
-                        }
-                    });
-                }
-                $scope.dontFocusToDate = false;
-
-                //debug
-
-                //forms
-                $scope.forms = {};
-                
-                /**
-                 * установка текущей локали
-                 */
-                if ($scope.partnerDefaultCity) {
-                    $http.get('https://inna.ru/api/v1/Dictionary/Directory', {
-                        params: {
-                            term: $scope.partnerDefaultCity.trim()
-                        }
-                    }).then(function (response) {
-                        var fullName = response.data[0].Name + ", " + response.data[0].CountryName;
-                        $scope.locationFrom = {id: response.data[0].Id, name: fullName, iata: response.data[0].CodeIata};
-                    });
+                if (dates == oneDay) {
+                    return {
+                        classes: 'one_date'
+                    };
                 } else {
-                    $http.get('https://inna.ru/api/v1/Dictionary/GetCurrentLocation').success(function (response) {
-                        var fullName = response.Name + ", " + response.CountryName;
-                        $scope.locationFrom = {id: response.Id, name: fullName, iata: response.CodeIata};
-                    });
-                }
-
-                /**
-                 * https://inna.ru/api/v1/Dictionary/Directory
-                 */
-                $scope.getLocationFrom = function (val) {
-                    return $http.get('https://inna.ru/api/v1/Dictionary/Directory', {
-                        params: {
-                            term: val.split(', ')[0].trim()
-                        }
-                    }).then(function (response) {
-                        var data = [];
-                        angular.forEach(response.data, function (item) {
-                            var fullName = item.Name + ", " + item.CountryName;
-                            var allArport = item.Airport ? " (все аэропорты)" : "";
-                            var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + allArport + "</span>";
-                            data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
-                            if (item.Airport) {
-                                angular.forEach(item.Airport, function (item) {
-                                    var fullName = item.Name + ", " + item.CountryName;
-                                    var fullNameHtml = "<span class='i-name i-name-airport'>" + item.Name + "</span>";
-                                    data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
-                                });
-                            }
-                        });
-                        return data;
-                    });
-                };
-
-
-                /**
-                 * автокомплит выбора локации
-                 * @param val
-                 * @returns {*}
-                 */
-                $scope.getLocation = function (val) {
-                    return $http.get('https://inna.ru/api/v1/Dictionary/Hotel', {
-                        params: {
-                            term: val.split(', ')[0].trim()
-                        }
-                    }).then(function (response) {
-                        var data = [];
-                        angular.forEach(response.data, function (item) {
-                            var fullName = item.Name + ", " + item.CountryName;
-                            var fullNameHtml = "<span class='i-name'>" + item.Name + "</span>," + "<span class='i-country'>" + item.CountryName + "</span>";
-                            data.push({id: item.Id, nameHtml: fullNameHtml, name: fullName, iata: item.CodeIata});
-                        });
-                        return data;
-                    });
-                };
-
-
-                /**
-                 * BEGIN datapicker
-                 */
-                $scope.setStartDate = new Date();
-
-                var highlightDates = function (date) {
-                    var month = date.getMonth() + 1;
-                    var dates = date.getDate() + "." + month + "." + date.getFullYear();
-                    var oneDay;
-                    if ($scope.startDate == $scope.endDate) {
-                        oneDay = $scope.startDate;
-                    }
-
-                    if (dates == oneDay) {
+                    if (dates == $scope.startDate) {
                         return {
-                            classes: 'one_date'
+                            classes: 'from_date'
                         };
-                    } else {
-                        if (dates == $scope.startDate) {
-                            return {
-                                classes: 'from_date'
-                            };
-                        }
-                        if (dates == $scope.endDate) {
-                            return {
-                                classes: 'to_date'
-                            };
-                        }
                     }
-                };
+                    if (dates == $scope.endDate) {
+                        return {
+                            classes: 'to_date'
+                        };
+                    }
+                }
+            };
 
-                $element.find('.from_date').on('changeDate', function (selected) {
+            $element.find('.from_date')
+                .on('changeDate', function (selected) {
                     //console.log('changeDate', selected, $scope.dontFocusToDate);
-                    $scope.setStartDate = selected.date;
+                    if (selected.date) {
+                        $scope.setStartDate = selected.date;
+                    } else {
+                        $scope.setStartDate = $scope.setStartDate;
+                        $element.find('.from_date').datepicker('setStartDate', new Date());
+                        $element.find('.from_date').datepicker('setEndDate', new Date($scope.setStartDate.valueOf() + 86400000 * 28))
+                    }
+
                     $element.find('.to_date').datepicker('setStartDate', new Date(selected.date.valueOf()));
-                    $element.find('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28));
+                    $element.find('.to_date').datepicker('setEndDate', new Date(selected.date.valueOf() + 86400000 * 28))
 
                     //fix открытия при програмном обновлении дат
-                    if (!$scope.dontFocusToDate){
+                    if (!$scope.dontFocusToDate) {
                         $element.find('.to_date').focus();
                     }
                     $timeout(function () {
@@ -171,154 +172,350 @@ innaAppDirectives.directive('innaForm', [
                     }, 100);
                 });
 
-                $element.find('.input-daterange').datepicker({
-                    //format: "d.m.yyyy",
-                    format: "d MM yyyy",
-                    startDate: $scope.setStartDate,
-                    endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
-                    language: "ru",
-                    autoclose: true,
-                    todayHighlight: true,
-                    beforeShowDay: highlightDates
+
+            $element.find('.input-daterange').datepicker({
+                //format: "d.m.yyyy",
+                format: "d M yyyy",
+                startDate: $scope.setStartDate,
+                endDate: new Date($scope.setStartDate.valueOf() + 86400000 * 365),
+                language: "ru",
+                autoclose: true,
+                todayHighlight: true,
+                toggleActive: true,
+                beforeShowDay: highlightDates
+            })
+                .on('show', function () {
+                    $timeout(function () {
+                        if ($scope.formType == 2) {
+                            setCheckboxesAviaCalendar();
+                        }
+                    }, 0);
+                    /**
+                     * fix
+                     * https://innatec.atlassian.net/browse/IN-4644
+                     */
+                    $(".datepicker .datepicker-switch").on('click', function (e) {
+                        e.stopPropagation();
+                    })
+                })
+                .on('hide', function () {
+                    $('.datepicker').find('.datepicker-checkboxes').remove();
+                })
+
+
+            /**
+             * установка чекбоксов для авиа в календарь
+             */
+            var setCheckboxesAviaCalendar = function () {
+                $('.datepicker').find('.datepicker-checkboxes').remove();
+                $(
+                    '<div class="datepicker-checkboxes">' +
+                    '<div class="datepicker-checkbox js-datepicker-checkboxes-label_oneWay">в одну сторону</div>' +
+                    '<div class="datepicker-checkbox js-datepicker-checkboxes-label_roaming">+/- 3 дня</div>' +
+                    '</div>'
+                ).insertBefore(".datepicker-days");
+                datepickerCheckboxesLogickOnewWay();
+                datepickerCheckboxesLogickRoaming();
+            };
+
+            /**
+             * логика работы чекбоксов в датапикере
+             */
+            var datepickerCheckboxesLogickOnewWay = function () {
+                $(".datepicker .js-datepicker-checkboxes-label_oneWay").on('click', function (e) {
+                    e.stopPropagation();
+                    $timeout(function () {
+                        $scope.aviaCalendarOneWay = !$scope.aviaCalendarOneWay;
+                        if ($scope.aviaCalendarOneWay) {
+                            $(".datepicker .js-datepicker-checkboxes-label_oneWay").addClass('checked');
+                        } else {
+                            $(".datepicker .js-datepicker-checkboxes-label_oneWay").removeClass('checked');
+                        }
+                    }, 0);
                 });
-                /**
-                 * END datapicker
-                 */
+                $scope.$watch('aviaCalendarOneWay', function (data) {
+                    if (data) {
+                        $(".datepicker .js-datepicker-checkboxes-label_oneWay").addClass('checked');
+                        $element.find('.to_date').attr("disabled", true);
+                        $element.find('.to_date').datepicker('setDate', null);
+                        $element.find('.to_date').datepicker('hide');
+                    } else {
+                        $(".datepicker .js-datepicker-checkboxes-label_oneWay").removeClass('checked');
+                        $element.find('.to_date').attr("disabled", false);
+                    }
+                });
+            };
+
+            var datepickerCheckboxesLogickRoaming = function () {
+                $(".datepicker .js-datepicker-checkboxes-label_roaming").on('click', function (e) {
+                    e.stopPropagation();
+                    $timeout(function () {
+                        $scope.aviaCalendarRoaming = !$scope.aviaCalendarRoaming;
+                        if ($scope.aviaCalendarOneWay) {
+                            $(".datepicker .js-datepicker-checkboxes-label_roaming").addClass('checked');
+                        } else {
+                            $(".datepicker .js-datepicker-checkboxes-label_roaming").removeClass('checked');
+                        }
+                    }, 0);
+                });
+                $scope.$watch('aviaCalendarRoaming', function (data) {
+                    if (data) {
+                        $(".datepicker .js-datepicker-checkboxes-label_roaming").addClass('checked');
+                    } else {
+                        $(".datepicker .js-datepicker-checkboxes-label_roaming").removeClass('checked');
+                    }
+                });
+            };
+            /**
+             * END datapicker
+             */
 
 
-                /**
-                 * BEGIN TicketClass
-                 */
-                $scope.ticketClass = 0;//эконом
-                /**
-                 * END TicketClass
-                 */
+            /**
+             * BEGIN TicketClass
+             */
+            $scope.ticketClass = 0;//эконом
+            /**
+             * END TicketClass
+             */
 
 
-                /**
-                 * BEGIN PEOPLE_COUNTER
-                 */
-                $scope.adultCount = 2;
-                /**
-                 * END PEOPLE_COUNTER
-                 */
+            /**
+             * BEGIN PEOPLE_COUNTER
+             */
+            $scope.adultCount = 2;
+            /**
+             * END PEOPLE_COUNTER
+             */
 
 
-                $scope.$watch('locationFrom', function (data) {
-                    if (data && data.id) {
+            /**
+             * установка fromId toId, если поиск в ДП то подставлем ID локации, если авиа поиск подставляем код iata
+             */
+            $scope.$watch('formType', function (val) {
+                if (val == 1) {
+                    $scope.fromId = $scope.locationFrom ? $scope.locationFrom.id : null;
+                    $scope.toId = $scope.locationTo ? $scope.locationTo.id : null;
+                } else {
+                    $scope.fromId = $scope.locationFrom ? $scope.locationFrom.iata : null;
+                    $scope.toId = $scope.locationTo ? $scope.locationTo.iata : null;
+                }
+            });
+            $scope.$watch('locationFrom', function (data) {
+                if (data && data.id) {
+                    if ($scope.formType == 1) {
                         $scope.fromId = data.id;
                     } else {
-                        $scope.fromId = null;
+                        $scope.fromId = data.iata;
                     }
-                });
-                $scope.$watch('locationTo', function (data) {
-                    if (data && data.id) {
+                } else {
+                    $scope.fromId = null;
+                }
+            });
+            $scope.$watch('locationTo', function (data) {
+                if (data && data.id) {
+                    if ($scope.formType == 1) {
                         $scope.toId = data.id;
                     } else {
-                        $scope.toId = null;
+                        $scope.toId = data.iata;
                     }
-                });
-                $scope.startDateError = null;
-                $scope.endDateError = null;
-                //$scope.$watch('startDate', function (data) {
-                //    $scope.startDate = data;
-                //});
-                //$scope.$watch('endDate', function (data) {
-                //    $scope.endDate = data;
-                //});
+                } else {
+                    $scope.toId = null;
+                }
+            });
 
-                /**
-                 * Старт поиска
-                 * "6733-6623-13.11.2014-19.11.2014-1-2-5_0_11"
-                 * @param innaSearchForm
-                 */
-                $scope.innaStartSearch = function (innaSearchForm) {
 
-                    try {
-                        validate();
+            /**
+             * если есть аттрибуты партнера присваиваем их $scope.partner
+             * ?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
+             */
+            $scope.partner = ''
+            if ($scope.partnerName) {
+                $scope.partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId;
+            }
 
-                        var params = [];
-                        params.push($scope.fromId);
-                        params.push($scope.toId);
-                        params.push($scope.startDate);
-                        params.push($scope.endDate);
-                        params.push($scope.ticketClass);
-                        params.push($scope.adultCount);
-                        params[6] = '';
 
-                        if ($scope.childrensAge) {
-                            var childs = [];
-                            for (var i = 0; i < $scope.childrensAge.length; i++) {
-                                childs.push($scope.childrensAge[i].value);
-                            }
-                            params[6] = childs.join('_');
-                        }
+            $scope.startDateError = null;
+            $scope.endDateError = null;
 
-                        var partner = '';
-                        if ($scope.partnerName) {
-                            partner = "?&from=" + $scope.partnerName + "&utm_source=" + $scope.partnerName + "&utm_medium=affiliate&utm_campaign=" + $scope.toId;
-                        }
 
-                        if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
-                            //?&from=[идентификатор партнера]&utm_source=[идентификатор партнера]&utm_medium=affiliate&utm_campaign=[страна направления куда]"
+            /**
+             * BEGIN поиск ДП
+             * "6733-6623-13.11.2014-19.11.2014-1-2-5_0_11"
+             */
+            var searchDP = function () {
 
-                            if ($scope.isWlPartnerMode){
-                                //var openUrl = "/#/packages/search/" + params.join('-');
-                                //openUrl = window.partners.getParentLocationWithUrl(openUrl);
-                                //window.open(openUrl, '_blank');
-                                var openUrl = "/packages/search/" + params.join('-');
-                                $location.url(openUrl);
-                            }
-                            else {
-                                window.open($scope.partnerSite + "/#/packages/search/" + params.join('-') + partner, '_blank');
-                            }
-                        }
-                    } catch (e) {
-                        if ($scope.hasOwnProperty(e.message)) {
-                            $scope[e.message] = e;
+
+                var params = [];
+                params.push($scope.fromId);
+                params.push($scope.toId);
+                params.push($scope.startDate);
+                params.push($scope.endDate);
+                params.push($scope.ticketClass);
+                params.push($scope.adultCount);
+                params[6] = '';
+
+
+                if ($scope.childrensAge) {
+                    var childs = [];
+                    for (var i = 0; i < $scope.childrensAge.length; i++) {
+                        childs.push($scope.childrensAge[i].value);
+                    }
+                    params[6] = childs.join('_');
+                }
+
+
+                if ($scope.isWlPartnerMode) {
+                    //var openUrl = "/#/packages/search/" + params.join('-');
+                    //openUrl = window.partners.getParentLocationWithUrl(openUrl);
+                    //window.open(openUrl, '_blank');
+                    var openUrl = "/packages/search/" + params.join('-');
+                    $location.url(openUrl);
+                }
+                else {
+                    window.open($scope.partnerSite + "/#/packages/search/" + params.join('-') + $scope.partner, '_blank');
+                }
+
+
+            };
+            /**
+             * END поиск ДП
+             */
+
+
+            /**
+             * BEGIN поиск авиа
+             * Авиа - /#/avia/search/:FromUrl-:ToUrl-:BeginDate-:EndDate
+             *          -:AdultCount-:ChildCount-:InfantsCount
+             *          -:CabinClass-:IsToFlexible-:IsBackFlexible-:PathType
+             * FromUrl - iata места отправления
+             * ToUrl - iata места назначения
+             * BeginDate - дата вылета
+             * EndDate - дата обратного вылета
+             * AdultCount - кол-во взрослых пассажиров 12 и старше
+             * ChildCount - кол-во детей 2-11 лет
+             * InfantsCount - кол-во младенцев 0-2 года
+             * CabinClass - класс перелета
+             * IsToFlexible - плюс минус 3 дня
+             * IsBackFlexible - плюс минус 3 дня
+             * PathType - перелет в одну сторону
+             */
+            $scope.aviaAdultCount = 1;
+            $scope.aviaChildCount = 0;
+            $scope.aviaInfantsCount = 0;
+            $scope.PathType = 0;
+
+            $scope.$watch('aviaCalendarOneWay', function (data) {
+                if (data) {
+                    $scope.PathType = 1;
+                    $scope.endDate = '';
+                }
+            });
+
+
+            var searchAvia = function () {
+
+
+                $scope.IsToFlexible = $scope.aviaCalendarRoaming ? 1 : 0;
+                $scope.IsBackFlexible = $scope.aviaCalendarRoaming ? 1 : 0;
+
+
+                var params = [
+                    $scope.fromId,
+                    $scope.toId,
+                    $scope.startDate,
+                    $scope.endDate,
+                    $scope.aviaAdultCount,
+                    $scope.aviaChildCount,
+                    $scope.aviaInfantsCount,
+                    $scope.ticketClass,
+                    $scope.IsToFlexible,
+                    $scope.IsBackFlexible,
+                    $scope.PathType
+                ];
+
+
+                if ($scope.isWlPartnerMode) {
+                    var openUrl = "/avia/search/" + params.join('-');
+                    $location.url(openUrl);
+                }
+                else {
+                    window.open($scope.partnerSite + "/#/avia/search/" + params.join('-') + $scope.partner, '_blank');
+                }
+
+            }
+            /**
+             * END поиск авиа
+             */
+
+            /**
+             * Старт поиска
+             * @param innaSearchForm
+             */
+            $scope.innaStartSearch = function (innaSearchForm) {
+                try {
+                    validate();
+
+                    if (!$scope.fromToEqual && innaSearchForm.$valid == true) {
+                        if ($scope.formType == 1) {
+                            searchDP();
+                        } else {
+                            searchAvia();
                         }
                     }
-                };
-
-
-                /**
-                 * BEGIN validates
-                 */
-                function validate() {
-                    widgetValidators.required($scope.fromId, Error('fromId'), "Введите город отправления");
-                    widgetValidators.required($scope.toId, Error('toId'), "Введите город или страну, куда планируете поехать");
-                    widgetValidators.noEqual($scope.fromId, $scope.toId, Error('toId'), "Города отправления и назначения должны отличаться");
-
-                    widgetValidators.required($scope.startDate, Error('startDateError'), "Выберите дату отправления туда");
-                    widgetValidators.required($scope.endDate, Error('endDateError'), "Выберите дату отправления обратно");
 
                 }
-                $scope.$watch('fromId', function (value) {
-                    if (value instanceof Error) {
-                        $scope.fromIdError = value.text;
+                catch (e) {
+                    if ($scope.hasOwnProperty(e.message)) {
+                        $scope[e.message] = e;
                     }
-                });
-                $scope.$watch('toId', function (value) {
-                    if (value instanceof Error) {
-                        $scope.toIdError = value.text;
-                    }
-                });
-                $scope.$watch('startDateError', function (value) {
-                    if (value instanceof Error) {
-                        $scope.startDateError = value.text;
-                    }
-                });
-                $scope.$watch('endDateError', function (value) {
-                    if (value instanceof Error) {
-                        $scope.endDateError = value.text;
-                    }
-                });
+                }
+            };
 
 
-                /**
-                 * END validates
-                 */
+            /**
+             * BEGIN validates
+             */
+            function validate() {
+                widgetValidators.required($scope.fromId, Error('fromId'), "Введите город отправления");
+                widgetValidators.required($scope.toId, Error('toId'), "Введите город или страну, куда планируете поехать");
+                widgetValidators.noEqual($scope.fromId, $scope.toId, Error('toId'), "Города отправления и назначения должны отличаться");
 
-            }]
+                widgetValidators.required($scope.startDate, Error('startDateError'), "Выберите дату отправления туда");
+
+                $scope.$watch('aviaCalendarOneWay', function (data) {
+                    if (!data) {
+                        widgetValidators.required($scope.endDate, Error('endDateError'), "Выберите дату отправления обратно");
+                    }
+                });
+            }
+
+            $scope.$watch('fromId', function (value) {
+                if (value instanceof Error) {
+                    $scope.fromIdError = value.text;
+                }
+            });
+            $scope.$watch('toId', function (value) {
+                if (value instanceof Error) {
+                    $scope.toIdError = value.text;
+                }
+            });
+            $scope.$watch('startDateError', function (value) {
+                if (value instanceof Error) {
+                    $scope.startDateError = value.text;
+                }
+            });
+            $scope.$watch('endDateError', function (value) {
+                if (value instanceof Error) {
+                    $scope.endDateError = value.text;
+                }
+            });
+
+
+            /**
+             * END validates
+             */
+
         }
-    }]);
+    }
+});

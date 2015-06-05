@@ -1,7 +1,7 @@
-var express     = require('express'),
-    router      = express.Router(),
+var express  = require('express'),
+    router   = express.Router(),
     //counters    = require('./../counters'),
-    partners    = require('./../partners/data');
+    partners = require('./../partners/data');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -21,6 +21,26 @@ router.get('/', function (req, res, next) {
 });
 
 
+/**
+ * дичный кабинет разработка
+ */
+router.get('/dev/lk', function (req, res, next) {
+    res.render('lk/index', {
+        layout: 'lk'
+    });
+});
+router.get('/dev/lk/settings', function (req, res, next) {
+    res.render('lk/settings', {
+        layout: 'lk'
+    });
+});
+router.get('/dev/lk/search-widget', function (req, res, next) {
+    res.render('lk/search-widget', {
+        layout: 'lk'
+    });
+});
+
+
 //все остальные запросы, если попадут в обход nginx - ведут на 404
 router.get('*', function (req, res, next) {
     res.render('layouts/404', {layout: false}, function (err, html) {
@@ -29,11 +49,6 @@ router.get('*', function (req, res, next) {
         res.status(404).send(html);
     });
 });
-
-
-
-
-
 
 
 //ToDo: test pages
