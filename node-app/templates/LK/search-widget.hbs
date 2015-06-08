@@ -16,31 +16,19 @@
 
 			<div class="widget-preview">
 				<div class="b-inna-search-widget" ng-class="radioModel">
-
-					<!--
-					<inna-form
-							partner-site="{{ style.url }}"
-							partner-name="{{ style.partner }}"
-							partner-default-city="'Санкт-Петербург'"
-							>
-					</inna-form>
-					-->
-
 					<inna-form
 							partner-name="biletix"
 							partner-site="https://inna.ru"
-							partner-default-city="Москва"
+							partner-default-city="{{style.defaultCity}}"
 							is-wl-partner-mode="false"
 							export-fields-callback="exportFieldsChange(values)"
 							export-fields="exportFieldsArray"
 							update-from-outside="setFormModel"
-							enabled-dp-form="enabledDpForm"
-							enabled-avia-form="enabledAviaForm"
-							form-type-active="formTypeActive"
+							enabled-dp-form="style.enabledDpForm"
+							enabled-avia-form="style.enabledAviaForm"
+							form-type-active="style.formTypeActive"
 							>
 					</inna-form>
-
-
 				</div>
 			</div>
 
@@ -66,24 +54,25 @@
 				<div class="col-xs-4">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" ng-model="enabledDpForm"> Включить форму "перелет+отель"
+							<input type="checkbox" ng-model="style.enabledDpForm"> Включить форму "перелет+отель"
 						</label>
 					</div>
+
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" ng-model="enabledAviaForm"> Включить форму "авиа"
+							<input type="checkbox" ng-model="style.enabledAviaForm"> Включить форму "авиа"
 						</label>
 					</div>
 				</div>
 				<div class="col-xs-6">
 					<div class="radio">
 						<label>
-							<input type="radio" ng-model="formTypeActive" value="1"> Активная форма по умолчанию "перелет+отель"
+							<input type="radio" ng-model="style.formTypeActive" value="1"> Активная форма по умолчанию "перелет+отель"
 						</label>
 					</div>
 					<div class="radio">
 						<label>
-							<input type="radio" ng-model="formTypeActive" value="2"> Активная форма по умолчанию "авиа"
+							<input type="radio" ng-model="style.formTypeActive" ng-disabled="style.enabledAviaFormDisabled" value="2"> Активная форма по умолчанию "авиа"
 						</label>
 					</div>
 				</div>

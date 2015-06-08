@@ -23,9 +23,9 @@
             $scope.style.widthMax = 960;
             $scope.style.widthMin = 235;
 
-            $scope.formTypeActive = 2;
-            $scope.enabledDpForm = true;
-            $scope.enabledAviaForm = true;
+            $scope.style.formTypeActive = 1;
+            $scope.style.enabledDpForm = true;
+            $scope.style.enabledAviaForm = true;
 
             $scope.radioModel = 'b-inna-search-widget-row-1';
             $scope.style.formBg = '#212121';
@@ -37,6 +37,16 @@
 
             $scope.style.partner = 'biletix';
             $scope.style.url = 'http://biletix.inna.ru';
+            $scope.style.defaultCity = 'Москва';
+
+            $scope.$watch('style.enabledAviaForm', function (data) {
+                if (!data) {
+                    $scope.style.formTypeActive = 1;
+                    $scope.style.enabledAviaFormDisabled = true;
+                } else {
+                    $scope.style.enabledAviaFormDisabled = false;
+                }
+            })
 
             $scope.$watchCollection('style', function (data) {
 
@@ -120,12 +130,19 @@
                     $scope.formTpl = [
                         '<textarea class="form-control">',
                         '<div class="b-inna-search-widget ' + $scope.radioModel + '">',
-                        '   <inna-form partner-site="' + $scope.style.url + '" partner-name="' + $scope.style.defaultCity + '"></inna-form>',
+                        '<inna-form ',
+                        'partner-site="' + $scope.style.url + '" ',
+                        'partner-name="' + $scope.style.partner + '" ',
+                        'partner-default-city="' + $scope.style.defaultCity + '" ',
+                        'enabled-dp-form="' + $scope.style.enabledDpForm + '" ',
+                        'enabled-avia-form="' + $scope.style.enabledAviaForm + '" ',
+                        'form-type-active="' + $scope.style.formTypeActive + '" ',
+                        '></inna-form>',
                         '</div>',
                         '<script src="http://inna.ru/spa/js/widgets/search/inna-search.js" async="true" charset="utf-8"></script>',
                         $scope.formStyle,
-                        '</textarea>'].join("\n");
-                    ;
+                        '</textarea>']
+                        .join("\n");
                     $scope.insertTpl = function () {
                         return $sce.trustAsHtml($scope.formTpl);
                     };
