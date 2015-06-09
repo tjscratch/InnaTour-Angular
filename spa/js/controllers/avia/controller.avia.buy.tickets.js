@@ -1531,6 +1531,9 @@ innaAppControllers.
 
                 self.isEnabled = !($scope.$root.user != null && $scope.$root.user.isAgency());
 
+                //задаем top - если попап открывается внутри фрейма
+                self.style = {};
+
                 self.close = function ($event) {
                     $event.preventDefault();
                     self.isOpened = false;
@@ -1539,6 +1542,12 @@ innaAppControllers.
                 self.openPopup = function ($event) {
                     $event.preventDefault();
                     self.comments = '';
+
+                    //поддержка работы внутри фрейма
+                    if (window.partners && window.partners.parentScrollTop > 0) {
+                        self.style = {'top': window.partners.parentScrollTop + 50};
+                    }
+
                     self.isOpened = true;
                 };
 
