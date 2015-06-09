@@ -38,7 +38,7 @@
 
             var children = $routeParams.Children ?
                 _.partition($routeParams.Children.split('_'), function (age) {
-                    return age > 2;
+                    return age >= 2;//до 2 лет - инфант, с двух - уже child
                 }) :
                 [
                     [],
