@@ -55,6 +55,15 @@
             if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
             if ($location.search().room) searchParams['RoomId'] = $location.search().room;
 
+            //дата до - для проверки доков
+            $scope.expireDateTo = null;
+            if (searchParams.EndVoyageDate){
+                $scope.expireDateTo = dateHelper.apiDateToJsDate(searchParams.EndVoyageDate);
+            }
+            else {
+                $scope.expireDateTo = dateHelper.apiDateToJsDate(searchParams.StartVoyageDate);
+            }
+
             $scope.searchParams = searchParams;
             $scope.combination = {};
             $scope.fromDate = $routeParams.StartVoyageDate;
@@ -89,7 +98,7 @@
                 }
 
                 return url;
-            }
+            };
 
             function addition() {
                 var self = this;

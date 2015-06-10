@@ -52,7 +52,7 @@
                 function (data, status) {
                     log('paymentService.getTarifs error');
                 });
-        }
+        };
 
         $scope.login = {
             isOpened: false,
@@ -295,7 +295,7 @@
                     validationType: null,
                     alwaysValid: false//поле не участвует в валидации
                 }
-            };
+            }
 
             function tryValidate(model, fn) {
                 try {
@@ -306,7 +306,7 @@
                     $scope.setValid(model, false);
                 }
                 //log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid);
-            };
+            }
 
             $scope.setValid = function (model, isValid) {
                 if (model == null) return;
@@ -499,13 +499,15 @@
                         }
                         case validateType.expire:
                         {
+                            //console.log('expireDateTo', $scope.expireDateTo);
                             var documentField = item.dependsOnField;
                             if (documentField.isRuPassportOrBirthAndInsideRF == true) {
                                 //если что-то ввели - то проверяем даты
                                 if (item.value != null && item.value.length > 0) {
                                     $scope.setAlwaysValid(item, false);
                                     tryValidate(item, function () {
-                                        Validators.expire(item.value, 'err');
+                                        //проверяем expire на дату вылета
+                                        Validators.expire(item.value, $scope.expireDateTo, 'err');
                                     });
                                 }
                                 else {
@@ -518,7 +520,8 @@
                             else {
                                 $scope.setAlwaysValid(item, false);
                                 tryValidate(item, function () {
-                                    Validators.expire(item.value, 'err');
+                                    //проверяем expire на дату вылета
+                                    Validators.expire(item.value, $scope.expireDateTo, 'err');
                                 });
                             }
 
@@ -747,7 +750,7 @@
                         }
                     },
                     validateAll: function () {
-                        console.log('here');
+                        //console.log('here');
                         validationModel.enumAllKeys($scope.validate);
 
                         this.formPure = false;
