@@ -430,7 +430,7 @@ var partnersMap = [
         'contactsLink': '',
         'offertaContractLink': 'https://s.inna.ru/files/doc/offer_euroset.pdf',
         'horizontalForm': false,
-        'showOffers': false
+        'showOffers': true
     },
     {
         'name': 'your-time',
