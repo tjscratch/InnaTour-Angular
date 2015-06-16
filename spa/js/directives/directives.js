@@ -643,7 +643,7 @@ innaAppDirectives.directive('upperLatin', ['$filter', function ($filter) {
                     ngModel.$render();
                 }
                 return capitalized;
-            }
+            };
 
             ngModel.$parsers.push(capitalize);
             capitalize($scope[attrs.ngModel]);// capitalize initial value
@@ -767,9 +767,13 @@ innaAppDirectives.directive('validateEventsDir', ['$rootScope', '$parse', '$inte
                 //console.log('validate; ngValidationModel.value: %s', $scope.ngValidationModel.value);
 
                 $scope.validate({ item: $scope.ngValidationModel, type: type });
-            };
+            }
 
             $elem.on('blur', function () {
+                //убираем пробелы в начале и конце
+                var trimVal = $elem.val().trim();
+                $elem.val(trimVal);
+
                 $scope.$apply(function () {
                     //console.log('validateEventsDir blur');
                     validate(true);
