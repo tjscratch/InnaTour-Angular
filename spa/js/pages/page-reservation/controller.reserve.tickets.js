@@ -295,7 +295,7 @@
                     validationType: null,
                     alwaysValid: false//поле не участвует в валидации
                 }
-            };
+            }
 
             function tryValidate(model, fn) {
                 try {
@@ -306,7 +306,7 @@
                     $scope.setValid(model, false);
                 }
                 //log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid);
-            };
+            }
 
             $scope.setValid = function (model, isValid) {
                 if (model == null) return;
@@ -333,7 +333,7 @@
                 else {
                     model.alwaysValid = false;
                 }
-            }
+            };
 
             $scope.isInside = function (item, arrayCountryIds, useAnyIn) {
                 var etapCountries = [];
