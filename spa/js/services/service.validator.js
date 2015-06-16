@@ -107,7 +107,7 @@
                     }
                 }
             },
-            expire: function (s, error) {
+            expire: function (s, expireDateTo, error) {
                 if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
 
                 //Дата должна быть в диапазоне от текущей даты + 100 лет
@@ -122,10 +122,32 @@
                     if (!(month >= 1 && month <= 12))
                         throw error;
 
-                    var today = new Date();
-                    var yyyy = today.getFullYear();
-                    if (!(y >= yyyy && y <= (yyyy + 100)))
-                        throw error;
+                    var yyyy;
+                    if (expireDateTo){
+                        yyyy = expireDateTo.getFullYear();
+                        if (!(y >= yyyy && y <= (yyyy + 100)))
+                            throw error;
+
+                        //если дата вообще меньше текущей
+                        var testDate = new Date(y,month - 1,day);
+                        //console.log('expire', s, testDate, expireDateTo);
+                        if (+testDate < +expireDateTo){
+                            throw error;
+                        }
+                    }
+                    else {
+                        var today = new Date();
+                        yyyy = today.getFullYear();
+                        if (!(y >= yyyy && y <= (yyyy + 100)))
+                            throw error;
+
+                        //если дата вообще меньше текущей
+                        var testDate = new Date(y,month - 1,day);
+                        //console.log('expire', s, testDate, today);
+                        if (+testDate < +today){
+                            throw error;
+                        }
+                    }
                 }
             },
             ruPassport: function (s, error) {
@@ -139,6 +161,6 @@
             birthPassport: function (s, error) {
                 //буквы (хотя бы одна) + 6 последних цифр - св-во о рождении (II-ЛО 599785)
                 if (!/^.*([а-яА-ЯёЁa-zA-Z]).*(\d{6})+$/.test(s)) throw error;
-            },
+            }
         }
-    }])
+    }]);

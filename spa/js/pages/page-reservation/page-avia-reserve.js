@@ -31,12 +31,20 @@ innaAppControllers.
                 $log.log(msg);
             }
 
-
             $rootScope.$broadcast("avia.page.loaded", $routeParams);
 
             //критерии из урла
             $scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             $scope.ticketsCount = aviaHelper.getTicketsCount($scope.criteria.AdultCount, $scope.criteria.ChildCount, $scope.criteria.InfantsCount);
+
+            //дата до - для проверки доков
+            $scope.expireDateTo = null;
+            if ($scope.criteria.EndDate){
+                $scope.expireDateTo = dateHelper.dateToJsDate($scope.criteria.EndDate);
+            }
+            else {
+                $scope.expireDateTo = dateHelper.dateToJsDate($scope.criteria.BeginDate);
+            }
 
             //====================================================
             //нужны в родителе

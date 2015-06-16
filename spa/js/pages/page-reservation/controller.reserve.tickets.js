@@ -105,7 +105,7 @@
 
             /**
              * TODO : на странице бронирования ДП
-             * в отеле дети считаются до 17 лет
+             * в отеле дели считаются до 16 лет
              * в авиа до 11
              * @type {number}
              */
@@ -113,19 +113,19 @@
 
             var infant = 2;
             var child = (!$scope.isAviaPage) ? 17 : 11;
-            var adult = (!$scope.isAviaPage) ? 18 : 12;
+            var adult = (!$scope.isAviaPage) ? 17 : 12;
 
 
             if (age < infant) {
                 return peopleType.infant;
             }
-            else if (age >= infant && age <= child) {
+            else if (age >= 2 && age <= child) {
                 return peopleType.child;
             }
             else if (age >= adult) {
                 return peopleType.adult;
             }
-        }
+        };
 
         $scope.validatePeopleCount = function () {
             closeAllTooltips();
@@ -333,7 +333,7 @@
                 else {
                     model.alwaysValid = false;
                 }
-            };
+            }
 
             $scope.isInside = function (item, arrayCountryIds, useAnyIn) {
                 var etapCountries = [];
@@ -499,13 +499,15 @@
                         }
                         case validateType.expire:
                         {
+                            //console.log('expireDateTo', $scope.expireDateTo);
                             var documentField = item.dependsOnField;
                             if (documentField.isRuPassportOrBirthAndInsideRF == true) {
                                 //если что-то ввели - то проверяем даты
                                 if (item.value != null && item.value.length > 0) {
                                     $scope.setAlwaysValid(item, false);
                                     tryValidate(item, function () {
-                                        Validators.expire(item.value, 'err');
+                                        //проверяем expire на дату вылета
+                                        Validators.expire(item.value, $scope.expireDateTo, 'err');
                                     });
                                 }
                                 else {
@@ -518,7 +520,8 @@
                             else {
                                 $scope.setAlwaysValid(item, false);
                                 tryValidate(item, function () {
-                                    Validators.expire(item.value, 'err');
+                                    //проверяем expire на дату вылета
+                                    Validators.expire(item.value, $scope.expireDateTo, 'err');
                                 });
                             }
 
@@ -747,6 +750,7 @@
                         }
                     },
                     validateAll: function () {
+                        //console.log('here');
                         validationModel.enumAllKeys($scope.validate);
 
                         this.formPure = false;
