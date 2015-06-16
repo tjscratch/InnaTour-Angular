@@ -962,7 +962,8 @@
                 phone: '+7'
             };
 
-            if ($rootScope.user != null && $rootScope.user.raw != null) {
+            if ($rootScope.user != null && $rootScope.user.raw != null && !$rootScope.user.isAgency()) {
+                //console.log('fillFromUserProfile', $rootScope.user.raw);
                 fillFromUserProfile(userInfo, $rootScope.user.raw);
             }
 
