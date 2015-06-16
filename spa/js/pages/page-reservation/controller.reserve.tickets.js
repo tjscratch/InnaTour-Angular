@@ -52,7 +52,7 @@
                 function (data, status) {
                     log('paymentService.getTarifs error');
                 });
-        }
+        };
 
         $scope.login = {
             isOpened: false,
@@ -105,7 +105,7 @@
 
             /**
              * TODO : на странице бронирования ДП
-             * в отеле дели считаются до 16 лет
+             * в отеле дети считаются до 17 лет
              * в авиа до 11
              * @type {number}
              */
@@ -113,19 +113,19 @@
 
             var infant = 2;
             var child = (!$scope.isAviaPage) ? 17 : 11;
-            var adult = (!$scope.isAviaPage) ? 17 : 12;
+            var adult = (!$scope.isAviaPage) ? 18 : 12;
 
 
             if (age < infant) {
                 return peopleType.infant;
             }
-            else if (age >= 2 && age <= child) {
+            else if (age >= infant && age <= child) {
                 return peopleType.child;
             }
             else if (age >= adult) {
                 return peopleType.adult;
             }
-        };
+        }
 
         $scope.validatePeopleCount = function () {
             closeAllTooltips();
@@ -747,7 +747,6 @@
                         }
                     },
                     validateAll: function () {
-                        console.log('here');
                         validationModel.enumAllKeys($scope.validate);
 
                         this.formPure = false;

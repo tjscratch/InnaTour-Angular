@@ -23,6 +23,8 @@ innaAppControllers.
             // TODO : наследование контроллера
             $controller('ReserveTicketsCtrl', { $scope: $scope });
 
+            $scope.isAviaPage = true;
+
             var self = this;
 
             function log(msg) {
@@ -56,7 +58,7 @@ innaAppControllers.
                 eventsHelper.preventBubbling($event);
                 //просто закрываем
                 $scope.popupItemInfo.isShow = false;
-            }
+            };
 
             $scope.searchId = $scope.criteria.QueryId;
 
