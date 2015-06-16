@@ -107,7 +107,7 @@
                     }
                 }
             },
-            expire: function (s, expireDateTo, error) {
+            expire: function (s, expireDateTo, error, errExpire) {
                 if (!/^(\d{2})+\.(\d{2})+\.(\d{4})+$/.test(s)) throw error;//18.07.1976
 
                 //Дата должна быть в диапазоне от текущей даты + 100 лет
@@ -124,29 +124,30 @@
 
                     var yyyy;
                     if (expireDateTo){
-                        yyyy = expireDateTo.getFullYear();
-                        if (!(y >= yyyy && y <= (yyyy + 100)))
-                            throw error;
-
                         //если дата вообще меньше текущей
                         var testDate = new Date(y,month - 1,day);
                         //console.log('expire', s, testDate, expireDateTo);
                         if (+testDate < +expireDateTo){
-                            throw error;
+                            throw errExpire;
                         }
+
+                        yyyy = expireDateTo.getFullYear();
+                        if (!(y >= yyyy && y <= (yyyy + 100)))
+                            throw error;
                     }
                     else {
                         var today = new Date();
-                        yyyy = today.getFullYear();
-                        if (!(y >= yyyy && y <= (yyyy + 100)))
-                            throw error;
 
                         //если дата вообще меньше текущей
                         var testDate = new Date(y,month - 1,day);
                         //console.log('expire', s, testDate, today);
                         if (+testDate < +today){
-                            throw error;
+                            throw errExpire;
                         }
+
+                        yyyy = today.getFullYear();
+                        if (!(y >= yyyy && y <= (yyyy + 100)))
+                            throw error;
                     }
                 }
             },
