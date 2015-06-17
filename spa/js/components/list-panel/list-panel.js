@@ -13,6 +13,7 @@
 
 angular.module('innaApp.components').
     factory('ListPanel', [
+        '$rootScope',
         'EventManager',
         '$filter',
         '$timeout',
@@ -28,7 +29,7 @@ angular.module('innaApp.components').
         'ModelPrice',
         'ModelTicket',
         'ModelHotel',
-        function (EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem, ModelPrice, ModelTicket, ModelHotel) {
+        function ($rootScope, EventManager, $filter, $timeout, $templateCache, $routeParams, $location, Events, DynamicPackagesDataProvider, IndicatorFilters, HotelItem, TicketItem, ModelPrice, ModelTicket, ModelHotel) {
 
             var ListPanel = Ractive.extend({
                 template: $templateCache.get('components/list-panel/templ/list.hbs.html'),
@@ -187,6 +188,7 @@ angular.module('innaApp.components').
                     // исключаем вариант
                     var newResult = this.excludeRecommended(this.get('AllFilteredData'));
                     this.set('EnumerableCount', newResult.length);
+                    $rootScope.$broadcast('update-recomented-pair');
                     if (window.partners) {
                         if (window.partners.isFullWL() === true) {
                             window.partners.setScrollTo(90);

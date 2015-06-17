@@ -52,6 +52,37 @@ innaAppControllers
             }
 
 
+            //$rootScope.$on('$routeUpdate', function (currentRoute, previousRoute) {
+
+            //    PackagesService.getCombinationHotels(searchParams);
+            //    PackagesService.getCombinationTickets(searchParams);
+            //});
+
+            $scope.$on('update-recomented-pair', function () {
+                var routeParams = angular.copy(searchParams);
+                var HotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.HotelId : null;
+                var TicketId = ($scope.recommendedPair.ticket) ? $scope.recommendedPair.ticket.data.VariantId1 : null;
+                var params = {};
+
+                if (!HotelId) HotelId = routeParams.hotel;
+                if (!TicketId) TicketId = routeParams.ticket;
+
+
+                if (HotelId) HotelId = HotelId.toString();
+                if (TicketId) TicketId = TicketId.toString();
+
+
+                params = {
+                    HotelId: HotelId || null,
+                    TicketId: TicketId || null,
+                    AddFilter: true
+                };
+                params = angular.extend(routeParams, params);
+                PackagesService.getCombinationHotels(params);
+                PackagesService.getCombinationTickets(params);
+            })
+
+
             $scope.hotelsRaw = null;
             $scope.hotelsForMap = null;
             $scope.padding = true;
@@ -342,8 +373,6 @@ innaAppControllers
                 },
 
                 getIdCombination: function () {
-
-
                     var routeParams = angular.copy(searchParams);
                     var HotelId = ($scope.recommendedPair.hotel) ? $scope.recommendedPair.hotel.data.HotelId : null;
                     var TicketId = ($scope.recommendedPair.ticket) ? $scope.recommendedPair.ticket.data.VariantId1 : null;
@@ -489,6 +518,7 @@ innaAppControllers
                  * @returns {*}
                  */
                 getCombination: function (data) {
+
                     var RecommendedPair = data.RecommendedPair;
 
                     if (!data || !RecommendedPair)
