@@ -38,7 +38,7 @@
 
             var children = $routeParams.Children ?
                 _.partition($routeParams.Children.split('_'), function (age) {
-                    return age > 2;
+                    return age >= 2;//до 2 лет - инфант, с двух - уже child
                 }) :
                 [
                     [],
@@ -54,6 +54,15 @@
             if ($location.search().hotel) searchParams['HotelId'] = $location.search().hotel;
             if ($location.search().ticket) searchParams['TicketId'] = $location.search().ticket;
             if ($location.search().room) searchParams['RoomId'] = $location.search().room;
+
+            //дата до - для проверки доков
+            $scope.expireDateTo = null;
+            if (searchParams.EndVoyageDate){
+                $scope.expireDateTo = dateHelper.apiDateToJsDate(searchParams.EndVoyageDate);
+            }
+            else {
+                $scope.expireDateTo = dateHelper.apiDateToJsDate(searchParams.StartVoyageDate);
+            }
 
             $scope.searchParams = searchParams;
             $scope.combination = {};
@@ -89,7 +98,7 @@
                 }
 
                 return url;
-            }
+            };
 
             function addition() {
                 var self = this;

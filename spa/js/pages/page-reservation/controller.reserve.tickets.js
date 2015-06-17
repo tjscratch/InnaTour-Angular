@@ -21,6 +21,9 @@
             $log.log(msg);
         }
 
+        //кастомный текст в валидаторах
+        $scope.birthTitle;
+
         $scope.peopleCount = 0;
         $scope.AdultCount = 0;
         $scope.ChildCount = 0;
@@ -52,7 +55,7 @@
                 function (data, status) {
                     log('paymentService.getTarifs error');
                 });
-        }
+        };
 
         $scope.login = {
             isOpened: false,
@@ -295,18 +298,20 @@
                     validationType: null,
                     alwaysValid: false//поле не участвует в валидации
                 }
-            };
+            }
 
             function tryValidate(model, fn) {
                 try {
                     fn();
                     $scope.setValid(model, true);
+                    return null;
                 }
                 catch (err) {
                     $scope.setValid(model, false);
+                    return err;
                 }
                 //log('tryValidate, ' + model.key + ' = \'' + model.value + '\', isValid: ' + model.isValid);
-            };
+            }
 
             $scope.setValid = function (model, isValid) {
                 if (model == null) return;
@@ -500,13 +505,26 @@
                         case validateType.expire:
                         {
                             var documentField = item.dependsOnField;
+
+                            function customErrHandle(item){
+                                $scope.setAlwaysValid(item, false);
+                                var err = tryValidate(item, function () {
+                                    //проверяем expire на дату вылета
+                                    Validators.expire(item.value, $scope.expireDateTo, 'err', 'err_expire');
+                                });
+                                if (err == 'err_expire'){
+                                    item.validationErrTitle = 'Срок действия документа истек';
+                                }
+                                else {
+                                    item.validationErrTitle = 'Неправильно введена дата';
+                                }
+                                //console.log('err', err);
+                            }
+
                             if (documentField.isRuPassportOrBirthAndInsideRF == true) {
                                 //если что-то ввели - то проверяем даты
                                 if (item.value != null && item.value.length > 0) {
-                                    $scope.setAlwaysValid(item, false);
-                                    tryValidate(item, function () {
-                                        Validators.expire(item.value, 'err');
-                                    });
+                                    customErrHandle(item);
                                 }
                                 else {
                                     //не проводим валидацию
@@ -516,10 +534,7 @@
                                 }
                             }
                             else {
-                                $scope.setAlwaysValid(item, false);
-                                tryValidate(item, function () {
-                                    Validators.expire(item.value, 'err');
-                                });
+                                customErrHandle(item);
                             }
 
                             break;
@@ -747,7 +762,7 @@
                         }
                     },
                     validateAll: function () {
-                        console.log('here');
+                        //console.log('here');
                         validationModel.enumAllKeys($scope.validate);
 
                         this.formPure = false;
@@ -832,7 +847,7 @@
                 }, function (data, status) {
                     log('getAllCountries error: status:' + status);
                 });
-            };
+            }
 
             function loadTransporters(onCompleteFnRun) {
                 var self = this;
@@ -862,7 +877,7 @@
                 }, function (data, status) {
                     log('getTransportersInAlliances error: ' + transportersNames + ' status:' + status);
                 });
-            };
+            }
 
             loader.init([loadAllCountries, loadTransporters], initPayModel).run();
         }
@@ -959,7 +974,8 @@
                 phone: '+7'
             };
 
-            if ($rootScope.user != null && $rootScope.user.raw != null) {
+            if ($rootScope.user != null && $rootScope.user.raw != null && !$rootScope.user.isAgency()) {
+                //console.log('fillFromUserProfile', $rootScope.user.raw);
                 fillFromUserProfile(userInfo, $rootScope.user.raw);
             }
 
@@ -1167,7 +1183,7 @@
             //console.log('getPassenger:');
             //console.log(m);
             return m;
-        }
+        };
 
         $scope.getModelFromValidationModel = function (validationModel) {
             var keys = _.keys(validationModel);
@@ -1200,7 +1216,7 @@
                 }
             });
             return model;
-        }
+        };
 
         $scope.getApiModelForReserve = function () {
             //function call() { if (afterCompleteCallback) afterCompleteCallback(); };
@@ -1244,7 +1260,7 @@
                 sex: $scope.sexType.woman,
                 birthday: '12.11.2013',
                 series_and_number: '4507 01853'
-            },
+            }
         ];
 
         function isDebug() {
@@ -1264,14 +1280,14 @@
                     $scope.model = model;
                 }
             }
-        }
+        };
 
         $scope.saveFilledModel = function () {
             if (isDebug()) {
                 var model = $scope.getModelFromValidationModel($scope.validationModel);
                 localStorage.setItem(reserve_debug_key, JSON.stringify(model));
             }
-        }
+        };
 
         //$scope.fillDefaultModel = function ($event) {
         //    if ($event) {

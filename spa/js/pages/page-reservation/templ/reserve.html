@@ -172,7 +172,7 @@
 				       ng-validation-model="passenger.doc_expirationDate" validate="validate(item, type)"
 				       validate-type="validateType.expire"
 				       ng-class="{error:isFieldInvalid(passenger.doc_expirationDate)}"
-				       data-title="Неправильно введена дата"
+                       ng-attr-data-title="{{passenger.doc_expirationDate.validationErrTitle }}"
 				       masked-input mask="99.99.9999" type="text" placeholder="дд.мм.гггг" class="b-field-text">
 			</div>
 		</div>
