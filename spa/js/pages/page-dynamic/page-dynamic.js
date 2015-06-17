@@ -353,15 +353,16 @@ innaAppControllers
                     if (!TicketId) TicketId = routeParams.ticket;
 
                     params = {
-                        HotelId: HotelId.toString() || null,
-                        TicketId: TicketId.toString() || null,
+                        HotelId: HotelId || null,
+                        //HotelId: HotelId.toString() || null,
+                        TicketId: TicketId || null,
                         AddFilter: true
                     };
                     params = angular.extend(routeParams, params);
 
                     return {
-                        HotelId: HotelId.toString() || null,
-                        TicketId: TicketId.toString() || null,
+                        HotelId: HotelId || null,
+                        TicketId: TicketId || null,
                         params: params
                     }
                 },
