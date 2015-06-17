@@ -352,9 +352,14 @@ innaAppControllers
                     if (!HotelId) HotelId = routeParams.hotel;
                     if (!TicketId) TicketId = routeParams.ticket;
 
+
+                    if (HotelId) HotelId = HotelId.toString();
+                    if (TicketId) TicketId = TicketId.toString();
+
+                    
+                    
                     params = {
                         HotelId: HotelId || null,
-                        //HotelId: HotelId.toString() || null,
                         TicketId: TicketId || null,
                         AddFilter: true
                     };
@@ -379,13 +384,11 @@ innaAppControllers
 
                     if (ListPanelComponent) ListPanelComponent.wait();
 
-                    var searchParams = this.getIdCombination().params;
-                    
-                    PackagesService.getCombinationHotels(searchParams)
+                    PackagesService.getCombinationHotels(this.getIdCombination().params)
                         .success(function (data) {
                             that.set('loadHotelsData', data);
 
-                            PackagesService.getCombinationTickets(searchParams);
+                            PackagesService.getCombinationTickets(that.getIdCombination().params);
 
                             if (data && !angular.isUndefined(data.Hotels)) {
 
@@ -442,12 +445,12 @@ innaAppControllers
                     // позже будет прелоадер
                     if (ListPanelComponent) ListPanelComponent.wait();
 
-                    var searchParams = this.getIdCombination().params;
                     
-                    PackagesService.getCombinationTickets(searchParams)
+                    //console.log(searchParams);
+                    PackagesService.getCombinationTickets(this.getIdCombination().params)
                         .success(function (data) {
 
-                            PackagesService.getCombinationHotels(searchParams);
+                            PackagesService.getCombinationHotels(that.getIdCombination().params);
                             
                             if (!data || angular.isUndefined(data.AviaInfos) || !data.AviaInfos.length) {
                                 RavenWrapper.raven({
