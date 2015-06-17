@@ -320,14 +320,22 @@
     vertical-align top
     border-bottom 1px solid #7bad34
 
-.b-tickets-info-container
+.b-tickets-info-container {
     border-top 4px solid #82b739
     border-bottom 1px solid #cdcdcd
-    background #e4e4e4
+    /*background #e4e4e4*/
+    background #fff
     margin 0 0 22px
     padding 21px 0 8px
     text-align center
     position relative
+}
+
+.b-tickets-info-container__inner-wrap {
+    margin 0 auto;
+    width 960px;
+    text-align left;
+}
 
 .b-tickets-info-container:before
     content ''
@@ -371,12 +379,67 @@
         letter-spacing -.025em
         color #000
 
+.pay-type-select {
+    margin-bottom 20px;
+
+    li {
+        margin: 10px 0;
+    }
+
+    .icon-img {
+        display inline-block;
+        margin: 0px 15px -5px 0;
+    }
+}
+
+.b-tickets-info-svyaznoy {
+    margin-bottom 10px;
+
+    .br {
+        display: inline-block;
+        margin-left: 100px;
+    }
+}
+
+.main__center {
+    &.b-svyaznoy {
+        padding-bottom 20px;
+
+        p {
+            margin-bottom 10px;
+        }
+
+        a {
+            color #53a1cc;
+        }
+    }
+}
+
+.b-order-num {
+    font-size 22px;
+    margin 15px 0 0 0;
+
+    p {
+        margin-bottom 15px
+    }
+}
+
+.b-print-btn {
+    cursor pointer;
+    margin 20px 0;
+}
+
 .b-tickets-ok {
     font-size 20px
     font-weight bold
     padding 0 0 5px 29px
     /*background url(/spa/img/arrow3.png) no-repeat 0 3px*/
     display inline-block
+
+    &.b-svyaznoy {
+        padding: 0 0 10px 0px;
+        margin: 0 0 0 -3px;
+    }
 
     .fa {
         color #89C13A;
@@ -606,7 +669,7 @@
     clearfix()
 
 .b-logos
-    margin 0 30px
+    margin 0 5px
 
 .form-listing
     margin 0 0 40px

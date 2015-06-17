@@ -42,6 +42,36 @@ innaAppControllers.
             //$scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             //$scope.searchId = $scope.criteria.QueryId;
 
+
+            //логика для оплаты у связного
+            function svyaznoyPayControl(){
+                var self = this;
+
+                self.isSvyaznoyPay = false;
+                //if (window.partners && )
+
+                self.payType = 0;
+                self.orderNum;
+
+                self.setOrderNum = function (num) {
+                    self.orderNum = '468-' + num;
+                };
+
+                self.print = function ($event) {
+                    $event.preventDefault();
+                };
+
+                self.openAdress = function ($event) {
+                    $event.preventDefault();
+                };
+
+                $scope.$watch('orderNum', function (num) {
+                    self.setOrderNum(num);
+                })
+            }
+
+            $scope.svyaznoyPayControl = new svyaznoyPayControl();
+
             $scope.isCkeckProcessing = false;
             $scope.orderNum = $routeParams.OrderNum;
             $scope.helper = aviaHelper;
