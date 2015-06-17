@@ -48,13 +48,30 @@ innaAppControllers.
                 var self = this;
 
                 self.isSvyaznoyPay = false;
-                //if (window.partners && )
+                var partner = window.partners ? window.partners.getPartner() : null;
+                if (partner!= null && partner.name == 'svyaznoy'){
+                    self.isSvyaznoyPay = true;
+                }
 
                 self.payType = 0;
                 self.orderNum;
+                self.orderNumPrefix = '468';
+
+                self.init = function () {
+                    var parentLocation = window.partners ? window.partners.getParentLocation() : null;
+                    if (window.partners && window.partners.isSvyaznoyOperator()){
+                        self.orderNumPrefix = '466';
+                    }
+
+                    $scope.$watch('orderNum', function (num) {
+                        self.setOrderNum(num);
+                    });
+
+                    self.setOrderNum($scope.orderNum);
+                };
 
                 self.setOrderNum = function (num) {
-                    self.orderNum = '468-' + num;
+                    self.orderNum = self.orderNumPrefix + '-' + num;
                 };
 
                 self.print = function ($event) {
@@ -64,10 +81,6 @@ innaAppControllers.
                 self.openAdress = function ($event) {
                     $event.preventDefault();
                 };
-
-                $scope.$watch('orderNum', function (num) {
-                    self.setOrderNum(num);
-                })
             }
 
             $scope.svyaznoyPayControl = new svyaznoyPayControl();
@@ -650,6 +663,7 @@ innaAppControllers.
                     },
                     function (data) {
                         if (data != null) {
+                            $scope.svyaznoyPayControl.init();
 
                             //log('\ngetPaymentData data: ' + angular.toJson(data));
                             //console.log('getPaymentData:');
