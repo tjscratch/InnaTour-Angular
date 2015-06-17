@@ -46,7 +46,7 @@ innaAppControllers
                 HotelId: $location.search().hotel,
                 TicketId: $location.search().ticket
             });
-
+            
             if (routParam.Children) {
                 searchParams.ChildrenAges = routParam.Children.split('_');
             }
@@ -352,17 +352,16 @@ innaAppControllers
                     if (!HotelId) HotelId = routeParams.hotel;
                     if (!TicketId) TicketId = routeParams.ticket;
 
-
                     params = {
-                        HotelId: HotelId || null,
-                        TicketId: TicketId || null,
+                        HotelId: HotelId.toString() || null,
+                        TicketId: TicketId.toString() || null,
                         AddFilter: true
                     };
                     params = angular.extend(routeParams, params);
 
                     return {
-                        HotelId: HotelId || null,
-                        TicketId: TicketId || null,
+                        HotelId: HotelId.toString() || null,
+                        TicketId: TicketId.toString() || null,
                         params: params
                     }
                 },
@@ -443,7 +442,7 @@ innaAppControllers
                     if (ListPanelComponent) ListPanelComponent.wait();
 
                     var searchParams = this.getIdCombination().params;
-
+                    
                     PackagesService.getCombinationTickets(searchParams)
                         .success(function (data) {
 
