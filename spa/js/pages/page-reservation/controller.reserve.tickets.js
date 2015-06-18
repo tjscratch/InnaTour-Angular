@@ -400,7 +400,8 @@
                 //var arrayCountryIds = [189, 69829, 35, 124, 0, 0, 215, 226, 0];
                 //Южная Осетия
                 // хохолов 226 удаляем из этого списка
-                var arrayCountryIds = [189, 69829, 35, 124, 215];
+                //115 - Киргизия
+                var arrayCountryIds = [189, 69829, 35, 124, 215, 115];
                 return $scope.isInside(item, arrayCountryIds);
             };
 
