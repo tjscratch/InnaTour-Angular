@@ -515,7 +515,7 @@ innaAppControllers.
                 self.scrollToCards = function () {
                     console.log('scroll to cards');
                     $('html, body').animate({
-                        scrollTop: $(".b-tickets-info-container").offset().top + 350
+                        scrollTop: $(".b-tickets-info-container").offset().top + 300
                     }, 200);
                 }
             }
