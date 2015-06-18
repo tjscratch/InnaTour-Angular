@@ -304,7 +304,7 @@ function FrameManager() {
 
     self.getElementPosition = function (el) {
         return getPos(el);
-    }
+    };
 
     self.getDocumentSize = function () {
         return getDocumentSize();

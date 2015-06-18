@@ -3,6 +3,7 @@
     var self = window.partners;
 
     //нужно, чтобы правильно позиционаровать попапы во фрейме
+    //позиция скрола у родителя нашего фрейма
     self.parentScrollTop = null;
 
     self.WLType = {

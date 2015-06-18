@@ -8,9 +8,8 @@ var dateHelper = {
         if (dParam != null) {
             //разделяем дату и время
             var parts = dParam.split('T');
-            if (parts.length == 2) {
+            if (parts.length >=1) {
                 var sDate = parts[0];
-                var sTime = parts[1];
 
                 //дата
                 var dParts = sDate.split('-');
@@ -22,15 +21,25 @@ var dateHelper = {
                     //год
                     var y = parseInt(dParts[0], 10);
 
-                    //время
-                    var tParts = sTime.split(':');
-                    if (tParts.length == 3) {
-                        var h = parseInt(tParts[0], 10);
-                        var mm = parseInt(tParts[1], 10);
-                        var ss = parseInt(tParts[2], 10);
+                    if (parts.length == 2) {
+                        var sTime = parts[1];
 
-                        var res = new Date(y, m, d, h, mm, ss);
-                        return res;
+                        //время
+                        var tParts = sTime.split(':');
+                        if (tParts.length == 3) {
+                            var h = parseInt(tParts[0], 10);
+                            var mm = parseInt(tParts[1], 10);
+                            var ss = parseInt(tParts[2], 10);
+
+                            var res = new Date(y, m, d, h, mm, ss);
+                            return res;
+                        }
+                        else {
+                            return new Date(y, m, d);
+                        }
+                    }
+                    else {
+                        return new Date(y, m, d);
                     }
                 }
             }

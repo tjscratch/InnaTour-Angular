@@ -369,7 +369,7 @@
 <!--popup form-->
 <div class="overlay js-overlay" ng-if="buyCommentsForm.isOpened">
     <div class="scroll-fix">
-        <div class="balloon balloon_ticket">
+        <div class="balloon balloon_ticket" ng-style="buyCommentsForm.style">
             <div title="Закрыть" class="balloon-close" ng-click="buyCommentsForm.close($event)">
                 <i class="icon-sprite-remove-big"></i>
             </div>
