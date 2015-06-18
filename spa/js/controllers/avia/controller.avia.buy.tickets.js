@@ -47,10 +47,10 @@ innaAppControllers.
             function svyaznoyPayControl(){
                 var self = this;
 
-                self.isSvyaznoyPay = false;
+                self.isSvyaznoyPay = true;
                 var partner = window.partners ? window.partners.getPartner() : null;
-                if (partner!= null && partner.name == 'svyaznoy'){
-                    self.isSvyaznoyPay = true;
+                if (partner!= null && partner.name == 'euroset'){
+                    self.isSvyaznoyPay = false;
                 }
 
                 self.payType = 0;
@@ -76,6 +76,7 @@ innaAppControllers.
 
                 self.print = function ($event) {
                     $event.preventDefault();
+                    //svyaznoy_print_block
                 };
 
                 self.openAdress = function ($event) {
