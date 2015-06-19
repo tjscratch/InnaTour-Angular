@@ -47,7 +47,9 @@ innaAppControllers.
             function svyaznoyPayControl(){
                 var self = this;
 
-                self.isSvyaznoyPay = true;
+                //ToDo: пока отключено, включить по команде
+                self.isSvyaznoyPay = false;
+                //self.isSvyaznoyPay = true;
                 var partner = window.partners ? window.partners.getPartner() : null;
                 if (partner!= null && partner.name == 'euroset'){
                     self.isSvyaznoyPay = false;
