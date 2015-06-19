@@ -16,7 +16,9 @@ angular.module('innaApp.components').
                     value : {
                         name : 'MealCode',
                         val : [],
+                        label: [],
                         fn : function(data, component_val){
+                            //console.log(data, component_val)
                             var result = component_val.val.filter(function(item){
                                 if (data == item) return true;
                             });
@@ -34,10 +36,12 @@ angular.module('innaApp.components').
 
                     this.on({
                         onChecked: function (data) {
+                            console.log(data)
                             if (data && data.context) {
                                 if (data.context.isChecked) {
                                     this.SaveData.push(data.context);
                                     this.push('value.val', data.context.Value) // data.context.value
+                                    this.push('value.label', data.context.Name) // data.context.name
                                 } else if (!data.context.isChecked) {
                                     this.spliceValItem(data.context.Value, 'Value');
                                     this.spliceSaveData(data.context);
@@ -69,6 +73,7 @@ angular.module('innaApp.components').
                     var that = this;
 
                     this.splice('value.val', this.get('value.val').indexOf(data), 1);
+                    this.splice('value.label', this.get('value.val').indexOf(data), 1);
 
                     this.get('FilterData.List').forEach(function(item, i){
                         if(item.Value == data){
@@ -92,6 +97,7 @@ angular.module('innaApp.components').
                         val.forEach(function (item, i) {
                             if (data == item)
                                 that.splice('value.val', i, 1);
+                                that.splice('value.label', i, 1);
                         })
                     }
                 }
