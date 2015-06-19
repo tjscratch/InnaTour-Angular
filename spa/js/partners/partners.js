@@ -24,6 +24,20 @@
 
     var maxClientHeight = 730;
 
+    self.getParentLocation = function () {
+        return self.parentLocation = null;
+    };
+
+    //если фрейм с особой операторской страницы связного
+    self.isSvyaznoyOperator = function () {
+        if (self.partner!= null && self.partner.name == 'svyaznoy'
+            && self.parentLocation
+            && self.parentLocation.indexOf('svyaznoy.travel/tours/operator') > -1){
+            return true;
+        }
+        return false;
+    };
+
     self.isTestDomain = function () {
         return (location.href.indexOf('test.inna.ru') > -1);
     };

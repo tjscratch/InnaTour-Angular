@@ -135,7 +135,7 @@
     </fieldset>
 </div>
 
-<div class="b-tickets-info-container">
+<div class="b-tickets-info-container" ng-if="!svyaznoyPayControl.isSvyaznoyPay">
     <div class="b-tickets-ok"
          ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">
         <i class="fa fa-check"></i>Билеты забронированы
@@ -159,10 +159,45 @@
     </div>
 </div>
 
-<div class="main__center">
-    <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде,
-        используя платежный шлюз Промсвязьбанка
+<div class="b-tickets-info-container" ng-if="svyaznoyPayControl.isSvyaznoyPay">
+    <div class="b-tickets-info-container__inner-wrap">
+        <div class="b-tickets-ok b-svyaznoy"
+             ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && !(hotel != null)">
+            <i class="fa fa-check"></i>Билеты забронированы
+        </div>
+        <div class="b-tickets-ok b-svyaznoy"
+             ng-if="reservationModel.experationMinute > 0 && !reservationModel.IsService && (hotel != null)">
+            <i class="fa fa-check"></i>Билеты забронированы, отель будет забронирован после оплаты
+        </div>
+        <div class="b-tickets-info-block b-svyaznoy" ng-if="reservationModel.experationMinute > 0">
+            <ul class="pay-type-select">
+                <li>
+                    <span class="icon-img icon-sprite-pay_type_1"></span>
+                    <input ng-model="svyaznoyPayControl.payType" value="0" id="pay_type_card" type="radio" name="card-pay">
+                    <label for="pay_type_card">
+                        <b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
+                        <span>банковской картой</span></label>
+                </li>
+                <li>
+                    <span class="icon-img icon-sprite-pay_type_2"></span>
+                    <input ng-model="svyaznoyPayControl.payType" value="1" id="pay_type_cache" type="radio" name="card-pay">
+                    <label for="pay_type_cache"><b>&nbsp;{{price| price}} <ng-include src="'components/ruble.html'"/></b>
+                        <span>наличными в Связном</span></label>
+                </li>
+            </ul>
+
+
+            <div class="b-tickets-info-svyaznoy">
+                Срок оплаты: <b>{{reservationModel.expirationDateFormatted}}, {{reservationModel.expirationDate | date:'HH:mm'}} (MSK)</b>
+
+                <div class="br"></div>
+                Осталось: <b>{{reservationModel.experationSecondsFormatted}}</b>
+            </div>
+        </div>
     </div>
+</div>
+
+<div class="main__center" ng-if="svyaznoyPayControl.payType == 0">
     <div class="b-cc-container">
         <div class="b-cc-front">
             <img ng-if="visaOrMastercard == null" src="spa/img/cc.png" class="b-cc-type" alt="">
@@ -239,10 +274,8 @@
             </div>
         </div>
     </div>
-    <div class="b-agreement-container">
-        <!--<a ng-href="#" ng-click="fillTestData($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
-                <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить"
-                                                                  ng-click="processToBuy($event)"></span>
+
+    <div>
         <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree">
             <ins class="b-checkbox" id="agree" data-title="Нужно согласиться с условиями"></ins>
             Я принимаю условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a><span ng-if="!reservationModel.IsService">,
@@ -251,6 +284,17 @@
             <a ng-href="{{TKP.url()}}" target="_blank">ТКП</a>,
             <a ng-href="#" ng-click="tarifs.show($event)">тарифов</a></span>, и не возражаю против обработки моих
             персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
+    </div>
+
+    <div class="b-agreement-container">
+        <!--<a ng-href="#" ng-click="fillTestData($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
+                <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить"
+                                                                  ng-click="processToBuy($event)"></span>
+
+        <div class="b-security">Мы не храним ваши данные у себя, а сразу перенаправляем их в зашифрованном виде,</br>
+            используя платежный шлюз Промсвязьбанка
+        </div>
+
         <img src="/spa/img/logos.png" class="b-logos" alt="">
     </div>
     <div class="buy-message-block" ng-if="buyCommentsForm.isEnabled">
@@ -259,6 +303,23 @@
         </br>Менеджер свяжется с Вами и поможет оформить путешествие.
     </div>
 </div>
+
+<div id="svyaznoy_print_block" class="main__center b-svyaznoy" ng-if="svyaznoyPayControl.payType == 1">
+    <div class="icon-sprite-svyaznoy_logo"></div>
+
+    <p class="b-order-num"><b>Номер заказа {{svyaznoyPayControl.orderNum}}</b></p>
+
+    <p>Вы можете оплатить этот заказ наличными в любом офисе Связного.
+        (<a href="https://www.svyaznoy.ru/address_shops/" target="_blank">адреса офисов</a>)
+    <br/>Обратитесь к менеджеру и назовите номер заказа.</p>
+
+    <p>Рекомендуем оплачивать заказ в салоне в ближайшее время после бронирования, поскольку авиакомпании
+    <br/>оставляют за собой право изменять время на оплату.</p>
+
+    <a href="/spa/print/?order={{svyaznoyPayControl.orderNum}}" target="_blank"><div class="b-print-btn icon-sprite-btn-print">
+    </div></a>
+</div>
+
 </form>
 </div>
 <!-- Search Results -->
