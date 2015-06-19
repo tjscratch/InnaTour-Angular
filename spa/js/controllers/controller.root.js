@@ -58,9 +58,9 @@ innaAppControllers.
                 var abs = $location.absUrl();
 
                 if (loc == '/') {
-                    return "Перелет + Отлель";
+                    return "Перелет + Отель";
                 } else if (loc.indexOf(appUrls.URL_DYNAMIC_PACKAGES) > -1) {
-                    return "Перелет + Отлель";
+                    return "Перелет + Отель";
                 }
                 else if (loc.indexOf(appUrls.URL_AVIA) > -1) {
                     return "Авиабилеты";
@@ -75,7 +75,7 @@ innaAppControllers.
                     return "Контакты";
                 }
                 else {
-                    return "Перелет + Отлель";
+                    return "Перелет + Отель";
                 }
             };
 
