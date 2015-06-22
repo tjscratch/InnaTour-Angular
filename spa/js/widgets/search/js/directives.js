@@ -16,6 +16,7 @@ innaAppDirectives
                 $scope.isOpen = false;
 
                 /*Events*/
+                $scope.childrenCount = 0;
                 $scope.onCounterClick = function (model, count) {
                     $scope[model] = count;
                     if (model == 'childrenCount') {

@@ -42,6 +42,52 @@ innaAppControllers.
             //$scope.criteria = new aviaCriteria(urlHelper.restoreAnyToNulls(angular.copy($routeParams)));
             //$scope.searchId = $scope.criteria.QueryId;
 
+
+            //логика для оплаты у связного
+            function svyaznoyPayControl(){
+                var self = this;
+
+                //ToDo: пока отключено, включить по команде
+                self.isSvyaznoyPay = false;
+                //self.isSvyaznoyPay = true;
+                var partner = window.partners ? window.partners.getPartner() : null;
+                if (partner!= null && partner.name == 'euroset'){
+                    self.isSvyaznoyPay = false;
+                }
+
+                self.payType = 0;
+                self.orderNum;
+                self.orderNumPrefix = '468';
+
+                self.init = function () {
+                    var parentLocation = window.partners ? window.partners.getParentLocation() : null;
+                    if (window.partners && window.partners.isSvyaznoyOperator()){
+                        self.orderNumPrefix = '466';
+                    }
+
+                    $scope.$watch('orderNum', function (num) {
+                        self.setOrderNum(num);
+                    });
+
+                    self.setOrderNum($scope.orderNum);
+                };
+
+                self.setOrderNum = function (num) {
+                    self.orderNum = self.orderNumPrefix + '-' + num;
+                };
+
+                self.print = function ($event) {
+                    $event.preventDefault();
+                    //svyaznoy_print_block
+                };
+
+                self.openAdress = function ($event) {
+                    $event.preventDefault();
+                };
+            }
+
+            $scope.svyaznoyPayControl = new svyaznoyPayControl();
+
             $scope.isCkeckProcessing = false;
             $scope.orderNum = $routeParams.OrderNum;
             $scope.helper = aviaHelper;
@@ -469,8 +515,9 @@ innaAppControllers.
             function scrollControl() {
                 var self = this;
                 self.scrollToCards = function () {
+                    console.log('scroll to cards');
                     $('html, body').animate({
-                        scrollTop: $(".b-tickets-info-container").offset().top + 400
+                        scrollTop: $(".b-tickets-info-container").offset().top + 300
                     }, 200);
                 }
             }
@@ -620,6 +667,7 @@ innaAppControllers.
                     },
                     function (data) {
                         if (data != null) {
+                            $scope.svyaznoyPayControl.init();
 
                             //log('\ngetPaymentData data: ' + angular.toJson(data));
                             //console.log('getPaymentData:');
