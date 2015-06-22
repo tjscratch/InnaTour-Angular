@@ -18,7 +18,6 @@ angular.module('innaApp.components').
                         val : [],
                         label: [],
                         fn : function(data, component_val){
-                            //console.log(data, component_val)
                             var result = component_val.val.filter(function(item){
                                 if (data == item) return true;
                             });
@@ -36,7 +35,6 @@ angular.module('innaApp.components').
 
                     this.on({
                         onChecked: function (data) {
-                            console.log(data)
                             if (data && data.context) {
                                 if (data.context.isChecked) {
                                     this.SaveData.push(data.context);
@@ -53,7 +51,6 @@ angular.module('innaApp.components').
                                 });
                                 this.hasSelected();
                             }
-
                         },
                         resetFilter: function (data) {
                             this.set('FilterData.List.*.isChecked', false);
@@ -72,16 +69,15 @@ angular.module('innaApp.components').
                     this._super(data);
                     var that = this;
 
-                    this.splice('value.val', this.get('value.val').indexOf(data), 1);
-                    this.splice('value.label', this.get('value.val').indexOf(data), 1);
+                    this.splice('value.val', this.get('value.label').indexOf(data), 1);
+                    this.splice('value.label', this.get('value.label').indexOf(data), 1);
 
                     this.get('FilterData.List').forEach(function(item, i){
-                        if(item.Value == data){
+                        if(item.Name == data){
                             that.set('FilterData.List.'+ i +'.isChecked',  false);
                             that.SaveData.splice(i, 1);
                         }
                     });
-
                     this.fire('onCheckedFilter', {
                         name : this.get('value.name'),
                         value : this.get('value')
@@ -95,9 +91,10 @@ angular.module('innaApp.components').
 
                     if(val.length) {
                         val.forEach(function (item, i) {
-                            if (data == item)
+                            if (data == item){
                                 that.splice('value.val', i, 1);
-                                that.splice('value.label', i, 1);
+                                that.splice('value.label', i, 1);   
+                            }
                         })
                     }
                 }
