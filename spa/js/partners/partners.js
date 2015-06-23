@@ -30,7 +30,8 @@
 
     //если фрейм с особой операторской страницы связного
     self.isSvyaznoyOperator = function () {
-        if (self.partner!= null && self.partner.name == 'svyaznoy' && location.href.indexOf('full-wl.beta.inna.ru/svyaznoy') > -1){
+        //if (self.partner!= null && self.partner.name == 'svyaznoy' && self.getParentLocationWithHash().indexOf('svyaznoy.travel/tours/operator') > -1){
+        if (self.partner!= null && self.partner.name == 'svyaznoy' && self.getParentLocationWithHash().indexOf('full-wl.beta.inna.ru/svyaznoy') > -1){
             return true;
         }
         return false;
