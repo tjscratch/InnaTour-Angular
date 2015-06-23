@@ -101,7 +101,7 @@
     color #999
     font-weight normal
 
-.b-agreement
+.b-agreement{
     display inline-block
     clear both
     padding 0 0 0 30px
@@ -110,6 +110,16 @@
     letter-spacing -.025em
     margin 0 0 15px
 
+    .ui-tooltip{
+        top 29px
+        left -15px
+        white-space nowrap
+        
+        &:before{
+            left 23px
+        }
+    }
+}
 .b-agreement input
     display none
 
@@ -285,7 +295,7 @@
     padding 7px
     background url(/spa/img/i.png) no-repeat 7px -1369px
 
-.b-sum-container
+.b-sum-container{
     border-bottom 1px solid #cdcdcd
     background #e4e4e4
     text-align center
@@ -294,6 +304,7 @@
     padding 15px 20px 12px
     margin 0 0 20px
     letter-spacing -0.025em
+}
 
 .b-sum-container b, .b-sum-container .b-rub
     font-size 36px
@@ -552,14 +563,21 @@
 .b-cc-block-label-date
     padding 29px 0 0
 
-.b-agreement-cc
-    margin: 15px 0 30px 6px;
-    /*float left*/
-    width 720px
+.b-agreement-cc{
+    width 960px
+    margin: 30px auto;
     clear none
+    text-align left
 
-    a
+    .b-agreement{
+        width 720px
+    }
+    
+    
+    a{
         color #1e88c1
+    }
+}
 
 .b-pay-button-block
     clearfix()

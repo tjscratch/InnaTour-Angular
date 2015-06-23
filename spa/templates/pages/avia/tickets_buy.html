@@ -198,6 +198,7 @@
 </div>
 
 <div class="main__center" ng-if="svyaznoyPayControl.payType == 0">
+    
     <div class="b-cc-container">
         <div class="b-cc-front">
             <img ng-if="visaOrMastercard == null" src="spa/img/cc.png" class="b-cc-type" alt="">
@@ -275,17 +276,19 @@
         </div>
     </div>
 
+    <!--
     <div>
         <label class="b-agreement b-agreement-cc"><input type="checkbox" ng-model="payModel.agree">
             <ins class="b-checkbox" id="agree" data-title="Нужно согласиться с условиями"></ins>
-            Я принимаю условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a><span ng-if="!reservationModel.IsService">,
+            Я принимаю dsfrc условия <a ng-href="{{oferta.url()}}" target="_blank">договора-оферты</a><span ng-if="!reservationModel.IsService">,
             <a href="http://www.iatatravelcentre.com/e-ticket-notice/Russian_Federation/Russian/"
                target="_blank">договора IATA</a>,
             <a ng-href="{{TKP.url()}}" target="_blank">ТКП</a>,
             <a ng-href="#" ng-click="tarifs.show($event)">тарифов</a></span>, и не возражаю против обработки моих
             персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).</label>
     </div>
-
+    -->
+    
     <div class="b-agreement-container">
         <!--<a ng-href="#" ng-click="fillTestData($event)" style="position: absolute; right: 0px;">Заполнить тестовыми данными</a>-->
                 <span class="button b-pay-button">Оплатить <input type="submit" value="Оплатить"

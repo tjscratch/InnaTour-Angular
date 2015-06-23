@@ -1041,11 +1041,19 @@
                 }
             }
         };
-
+        
+        
+        $scope.$watch('agree', function(data){
+            if (data && $scope.agreeError == true){
+                $scope.agreeError = false;
+            }
+        });
+        
+        
         //оплата
         $scope.processToPayment = function ($event) {
             eventsHelper.preventBubbling($event);
-
+            
             //для отладки, если есть параметр debug
             $scope.saveFilledModel();
 
@@ -1073,9 +1081,10 @@
                     }
                 }
             });
-
+            
+            
             if (invalidItem != null) {
-
+            
                 // скроллим страницу вверх
                 // показываем тултип
                 $("body, html").animate({"scrollTop": 400}, function () {
@@ -1083,12 +1092,19 @@
                     $scope.tooltipControl.init($to);
                     $scope.tooltipControl.open($to);
                 });
-
+            
                 return;
             }
+            
+
+            if (!$scope.agree){
+                $scope.agreeError = true;
+            }
+            
+            
 
             //если модель валидна - бронируем
-            if ($scope.validationModel.isModelValid()) {
+            if ($scope.validationModel.isModelValid() && $scope.agree) {
 
                 $scope.baloon.show("Бронирование авиабилетов", "Это займет не более 30 секунд");
 

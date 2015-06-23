@@ -112,8 +112,8 @@ innaAppControllers.
                 cardMonth: '',
                 cardYear: '',
                 cardHolder: '',
-                cvc2: '',
-                agree: false
+                cvc2: ''
+                //agree: false
             };
 
             $scope.visaOrMastercard = null;
@@ -134,8 +134,8 @@ innaAppControllers.
                     cvc2: '',
                     cardHolder: '',
                     cardMonth: '',
-                    cardYear: '',
-                    agree: true
+                    cardYear: ''
+                    //agree: true
                 };
             };
 
@@ -150,8 +150,8 @@ innaAppControllers.
                 cardMonth: false,
                 cardYear: false,
                 cardHolder: false,
-                cvc2: false,
-                agree: false
+                cvc2: false
+                //agree: false
             };
 
             //признаки, что поле валидно
@@ -163,8 +163,8 @@ innaAppControllers.
                 cardMonth: true,
                 cardYear: true,
                 cardHolder: true,
-                cvc2: true,
-                agree: true
+                cvc2: true
+                //agree: true
             };
 
             $scope.indicatorValidate = function () {
@@ -297,11 +297,11 @@ innaAppControllers.
                         }
                         $scope.isValid.cvc2 = false;
                         return false;
-                    },
-                    agree: function () {
-                        $scope.isValid.agree = $scope.payModel.agree;
-                        return $scope.isValid.agree;
                     }
+                    //agree: function () {
+                    //    $scope.isValid.agree = $scope.payModel.agree;
+                    //    return $scope.isValid.agree;
+                    //}
                 };
             }
 
