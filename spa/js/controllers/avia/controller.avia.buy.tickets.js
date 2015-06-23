@@ -48,6 +48,8 @@ innaAppControllers.
                 var self = this;
 
                 self.isSvyaznoyPay = true;
+                //self.isSvyaznoyPay = false;
+                
                 var partner = window.partners ? window.partners.getPartner() : null;
                 if (partner!= null && partner.name == 'euroset'){
                     self.isSvyaznoyPay = false;
