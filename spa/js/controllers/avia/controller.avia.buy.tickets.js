@@ -60,7 +60,6 @@ innaAppControllers.
                 self.orderNumPrefix = '468';
 
                 self.init = function () {
-                    var parentLocation = window.partners ? window.partners.getParentLocation() : null;
                     if (window.partners && window.partners.isSvyaznoyOperator()){
                         self.orderNumPrefix = '466';
                     }
