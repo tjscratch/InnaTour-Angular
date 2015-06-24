@@ -1048,8 +1048,44 @@
                 $scope.agreeError = false;
             }
         });
-        
-        
+
+        $scope.setOferta = function (isDp) {
+            var url = app_main.staticHost + '/files/doc/offer.pdf';
+
+            if (window.partners && window.partners.isFullWLOrB2bWl()) {
+                url = window.partners.getPartner().offertaContractLink;
+            }
+            else {
+                url = app_main.staticHost + '/files/doc/Oferta_packages.pdf';
+            }
+
+            $scope.oferta = {
+                url: function () {
+                    return url;
+                }
+            };
+
+
+            //TCH
+            var TCH_url = app_main.staticHost + '/files/doc/TCH.pdf';
+            if (window.partners && window.partners.isFullWLOrB2bWl()
+                && window.partners.getPartner().TCHLink != null
+                && window.partners.getPartner().TCHLink.length > 0) {
+                TCH_url = window.partners.getPartner().TCHLink;
+            }
+            else {
+                TCH_url = app_main.staticHost + '/files/doc/TCH.pdf';
+            }
+
+            $scope.TKP = {
+                url: function () {
+                    return TCH_url;
+                }
+            };
+        };
+        $scope.setOferta();
+
+
         //оплата
         $scope.processToPayment = function ($event) {
             eventsHelper.preventBubbling($event);
