@@ -490,7 +490,6 @@ innaAppControllers.
                     }, 300)
                 };
                 self.next = function (key) {
-                    //console.log('goNext, key: %s', key);
                     self.navCurrent = _.find(self.navList, function (item) {
                         return item.key == key;
                     });
@@ -500,12 +499,11 @@ innaAppControllers.
                         self.navCurrent = self.navList[index];
                         if (self.navCurrent != null) {
                             setTimeout(function () {
-                                self.navCurrent.item.select();
-                                self.navCurrent.item.focus();
+                                $(self.navCurrent.item.selector).select();
+                                $(self.navCurrent.item.selector).focus();
                             }, 0);
                         }
                     }
-                    //console.log('goNext, end');
                 }
             }
 
