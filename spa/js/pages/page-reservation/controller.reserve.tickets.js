@@ -973,12 +973,17 @@
                 email: '',
                 phone: '+7'
             };
+            
+            //console.log($rootScope.user);
+            //console.log($rootScope.user.raw);
+            //console.log(!$rootScope.user.isAgency());
 
-            if ($rootScope.user != null && $rootScope.user.raw != null && !$rootScope.user.isAgency()) {
+            //if ($rootScope.user != null && $rootScope.user.raw != null && !$rootScope.user.isAgency()) {
                 //console.log('fillFromUserProfile', $rootScope.user.raw);
-                fillFromUserProfile(userInfo, $rootScope.user.raw);
-            }
+                //fillFromUserProfile(userInfo, $rootScope.user.raw);
+            //}
 
+            //console.log(fillFromUserProfile(userInfo, $rootScope.user.raw));
             $scope.model = {
                 price: $scope.item.Price,
                 name: userInfo.name,
@@ -989,7 +994,8 @@
                 passengers: passengers
 
             };
-
+            
+           
             //$scope.fillDefaultModel();
             $scope.fillStoredModel();
 
@@ -1390,7 +1396,7 @@
         //заполнение из профиля при логине
         $rootScope.$on(innaAppApiEvents.AUTH_SIGN_IN, function (event, data) {
             $scope.safeApply(function () {
-                fillFromUserProfile($scope.model, data);
+                //fillFromUserProfile($scope.model, data);
             });
         });
 
