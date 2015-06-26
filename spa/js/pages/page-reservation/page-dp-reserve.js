@@ -57,7 +57,7 @@
 
             //дата до - для проверки доков
             $scope.expireDateTo = null;
-            if (searchParams.EndVoyageDate){
+            if (searchParams.EndVoyageDate) {
                 $scope.expireDateTo = dateHelper.apiDateToJsDate(searchParams.EndVoyageDate);
             }
             else {
@@ -204,6 +204,39 @@
             }
 
 
+            function noAvailability(data) {
+
+                
+                function showBaloon(text1, text2) {
+                    $scope.safeApply(function () {
+                        $scope.baloon.showNotFound(text1, text2,
+                            function () {
+                                $timeout.cancel($scope.tmId);
+                                goToSearch();
+                            });
+                    });
+                }
+
+
+                if (data != null) {
+                    if (data.IsTicketAvailable == false) {
+                        showBaloon("К сожалению, билеты на выбранный вариант уже недоступны.", "Пожалуйста, выберите новый вариант перелета")
+                    }
+                    if (data.Rooms != null && data.Rooms.length && data.Rooms[0].IsAvailable == false) {
+                        showBaloon("К сожалению, выбранный номер уже недоступен.", "Пожалуйста, выберите другой тип номера или отель")
+                    }
+                }
+
+                $scope.tmId = $timeout(function () {
+                    //очищаем хранилище для нового поиска
+                    storageService.clearAviaSearchResults();
+                    $scope.baloon.hide();
+                    //билеты не доступны - отправляем на поиск
+                    goToSearch();
+                }, 3000);
+            }
+
+
             /**
              * проверяем, что остались билеты для покупки
              */
@@ -237,7 +270,8 @@
                             track.dpPackageNotAvialable();
                             //================analytics========================
 
-                            errorSearch();
+                            //errorSearch();
+                            noAvailability(data);
                         }
                     },
                     error: function (data) {
@@ -276,10 +310,9 @@
                 success: successSearch,
                 error: errorSearch
             }).done(function (data) {
-                if(data && !$scope.hotel){
+                if (data && !$scope.hotel) {
                     $scope.hotel = data.Hotel;
                 }
-                //console.log('done');
                 packageCheckAvailability()
             });
 
