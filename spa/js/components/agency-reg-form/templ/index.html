@@ -61,12 +61,17 @@
 						       name="INN"
 						       ng-model="agencyReg.INN"
 						       required=""
+						       placeholder="7717694926"
 						       ng-class="{'error': agency.$submitted && agency.INN.$invalid || agency.INN.$touched && agency.INN.$invalid}"
 								>
 					</div>
 					<div class="b-field-block" style="width: 200px">
 						<label class="b-field-label" for="kpp">КПП</label>
-						<input id="kpp" class="b-field-text" type="text" ng-model="agencyReg.KPP">
+						<input id="kpp" 
+						       class="b-field-text" 
+						       type="text" 
+						       ng-model="agencyReg.KPP"
+						       placeholder="771701001">
 					</div>
 				</div>
 				<div class="b-field-group">
