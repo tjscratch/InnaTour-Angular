@@ -47,7 +47,7 @@ app.constant('innaApp.Urls', {
 
     URL_PACKAGES_LANDING: '/packages/ppc/',
 
-    URL_AGENCY_REG_FORM: '/agency-create/',
+    URL_AGENCY_REG_FORM: '/registration/',
     
     URL_HELP: '/help/',
 
