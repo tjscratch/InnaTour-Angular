@@ -220,6 +220,10 @@ var authController = angular.module('innaApp.controllers')
                 $scope.display = $scope.DISPLAY_FORGOTTEN;
             };
 
+            $scope.signUp = function () {
+                $scope.close();
+            };
+
             $scope.goToSignIn = function () {
                 $scope.display = $scope.DISPLAY_SIGNIN;
             };

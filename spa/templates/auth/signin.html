@@ -1,28 +1,38 @@
 <form class="popup-form auth-form" ng-submit="signIn()" ng-controller="AuthSignInCtrl">
-    <h3 class="popup-form-title">Войти</h3>
+    <h3 class="popup-form-title">Личный кабинет агента</h3>
     <div class="popup-form-row">
-        <label for="" class="popup-form-label">Email</label>
-        <input type="text" class="popup-form-field" ng-class="{'error': errors.username}" ng-model="username" tabindex="1"/>
+        <input type="text" class="popup-form-field" ng-class="{'error': errors.username}" ng-model="username" tabindex="1"
+               placeholder="адрес электронной почты"
+                />
         <span class="message" ng-show="errors.username">Поле должно быть заполнено</span>
     </div>
     <div class="popup-form-row">
-        <label for="" class="popup-form-label">
-            Пароль
-            <a href="javascript:void(0);" class="forgot-password" ng-click="forgotten()">Забыли пароль?</a>
-        </label>
-        <input type="password" class="popup-form-field"  ng-class="{'error': errors.password}" ng-model="password" tabindex="2"/>
+        <input type="password" class="popup-form-field"  ng-class="{'error': errors.password}" ng-model="password" tabindex="2"
+                placeholder="Пароль"
+                />
         <span class="message" ng-show="errors.password">Поле должно быть заполнено</span>
     </div>
-    <div class="popup-form-row popup-form-row-submit">
+    <div class="popup-form-row">
         <div class="remember-me">
             <span class="checkbox {{({'true': 'checked', 'false': ''})[rememberMe]}}" ng-click="switchRememberMe()"></span>
             <label class="checkbox-label" ng-click="switchRememberMe()">Запомнить меня</label>
         </div>
-        <button type="submit" class="button" tabindex="3">Войти</button>
-        <!--ng-click="signIn()"-->
     </div>
     <div ng-show="requestFailure">
         <span class="message">Неверное имя пользователя или пароль</span>
     </div>
-    <ng:include src="'auth/social.inc.html'" ng-show="partnerSputnik == false"></ng:include>
+    <div class="popup-form-row popup-form-row-submit">
+        <button type="submit" class="button" tabindex="3">Войти</button>
+    </div>
+    <div class="popup-form-help">
+        Помощь: 
+        <a href="javascript:void(0);" ng-click="forgotten()">Не могу зайти, я забыл свой логин/пароль</a>
+    </div>
+    <div class="popup-form-help" ng-show="partnerSputnik == false">
+        Ещё не зарегистрированы? 
+        <a href="/#/registration" ng-click="signUp()">Регистрация агентства</a>
+    </div>
+    <!-- закоментировал в рамках задачи https://innatec.atlassian.net/browse/IN-4811
+	<ng:include src="'auth/social.inc.html'" ng-show="partnerSputnik == false"></ng:include>
+	-->
 </form>
