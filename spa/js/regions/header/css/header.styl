@@ -212,9 +212,11 @@
                 border-radius: 50%;
                 position relative;
                 display: block;
-                width: 24px;
-                height: 24px;
-                border: 1px solid #fff;
+                width: 26px;
+                height: 26px;
+                background-color: #89c13a;
+                -webkit-transition all .15s
+                transition all .15s
 
                 &_icon {
                     @extend .icon-sprite-header-help;
@@ -225,11 +227,10 @@
                 }
 
                 &:hover {
-                    .header-info-menu-item__help_block_icon {
-                        @extend .icon-sprite-header-help-hover;
-                    }
-                    border: 1px solid #fff;
-                    background: gray;
+                    //.header-info-menu-item__help_block_icon {
+                    //    @extend .icon-sprite-header-help-hover;
+                    //}
+                    background-color: lighten(#89c13a, 20%);
                     cursor: pointer;
                 }
             }

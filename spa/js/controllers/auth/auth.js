@@ -118,12 +118,8 @@ var authController = angular.module('innaApp.controllers')
                 $scope.partnerSputnik = false;
             }
 
-            if (partner != null && partner.name == 'sputnik') {
-                $scope.authLinkTitile = 'Вход для агентств';
-            }
-            else {
-                $scope.authLinkTitile = 'Регистрация и вход';
-            }
+            
+            $scope.authLinkTitile = 'Вход для агентств';
 
 
             $scope.signInWith = function (method) {
@@ -218,6 +214,10 @@ var authController = angular.module('innaApp.controllers')
 
             $scope.forgotten = function () {
                 $scope.display = $scope.DISPLAY_FORGOTTEN;
+            };
+
+            $scope.signUp = function () {
+                $scope.close();
             };
 
             $scope.goToSignIn = function () {
